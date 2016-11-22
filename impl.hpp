@@ -54,6 +54,10 @@ class Impl
         Store run();
 
     private:
+        /** @brief Checks if the VHDR record is present in the VPD
+         */
+        void checkHeader() const;
+
         /** @brief OpenPOWER VPD in binary format */
         Binary vpd;
 
