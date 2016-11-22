@@ -13,6 +13,31 @@ enum class Record
     OSYS  /**< Information specific to a system board */
 };
 
+/** @brief Convert VPD Record name from enum to string
+ *  @tparam R - VPD Record
+ *  @returns string representation of Record name
+ */
+template<Record R>
+constexpr const char* getRecord();
+
+template<>
+constexpr const char* getRecord<Record::VINI>()
+{
+    return "VINI";
+}
+
+template<>
+constexpr const char* getRecord<Record::OPFR>()
+{
+    return "OPFR";
+}
+
+template<>
+constexpr const char* getRecord<Record::OSYS>()
+{
+    return "OSYS";
+}
+
 namespace record
 {
 
@@ -29,6 +54,67 @@ enum class Keyword
     MB,  /**< FRU manufacture date */
     MM   /**< FRU model */
 };
+
+/** @brief Convert VPD Keyword name from enum to string
+ *  @tparam K - VPD Keyword
+ *  @returns string representation of Keyword name
+ */
+template<Keyword K>
+constexpr const char* getKeyword();
+
+template<>
+constexpr const char* getKeyword<Keyword::DR>()
+{
+    return "DR";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::PN>()
+{
+    return "PN";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::SN>()
+{
+    return "SN";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::CC>()
+{
+    return "CC";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::HW>()
+{
+    return "HW";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::B1>()
+{
+    return "B1";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::VN>()
+{
+    return "VN";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::MB>()
+{
+    return "MB";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::MM>()
+{
+    return "MM";
+}
 
 } // namespace record
 } // namespace vpd
