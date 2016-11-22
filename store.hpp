@@ -53,5 +53,23 @@ class Store final
         Parsed vpd;
 };
 
+template<Record R, record::Keyword K>
+inline const std::string& Store::get() const
+{
+    static const std::string record = getRecord<R>();
+    static const std::string keyword = record::getKeyword<K>();
+    static const std::string empty = "";
+    auto kw = vpd.find(record);
+    if (vpd.end() != kw)
+    {
+        auto value = (kw->second).find(keyword);
+        if ((kw->second).end() != value)
+        {
+            return value->second;
+        }
+    }
+    return empty;
+}
+
 } // namespace vpd
 } // namespace openpower
