@@ -57,5 +57,68 @@ class Store final
         internal::Parsed _vpd;
 };
 
+/** @brief Specialization of VINI::DR */
+template<>
+inline decltype(auto) Store::get<Record::VINI, record::Keyword::DR>() const
+{
+    return _vpd.at("VINI").at("DR");
+}
+
+/** @brief Specialization of VINI::PN */
+template<>
+inline decltype(auto) Store::get<Record::VINI, record::Keyword::PN>() const
+{
+    return _vpd.at("VINI").at("PN");
+}
+
+/** @brief Specialization of VINI::SN */
+template<>
+inline decltype(auto) Store::get<Record::VINI, record::Keyword::SN>() const
+{
+    return _vpd.at("VINI").at("SN");
+}
+
+/** @brief Specialization of VINI::HW */
+template<>
+inline decltype(auto) Store::get<Record::VINI, record::Keyword::HW>() const
+{
+    return _vpd.at("VINI").at("HW");
+}
+
+/** @brief Specialization of VINI::CC */
+template<>
+inline decltype(auto) Store::get<Record::VINI, record::Keyword::CC>() const
+{
+    return _vpd.at("VINI").at("CC");
+}
+
+/** @brief Specialization of VINI::B1 */
+template<>
+inline decltype(auto) Store::get<Record::VINI, record::Keyword::B1>() const
+{
+    return _vpd.at("VINI").at("B1");
+}
+
+/** @brief Specialization of OPFR::VN */
+template<>
+inline decltype(auto) Store::get<Record::OPFR, record::Keyword::VN>() const
+{
+    return _vpd.at("OPFR").at("VN");
+}
+
+/** @brief Specialization of OPFR::MB */
+template<>
+inline decltype(auto) Store::get<Record::OPFR, record::Keyword::MB>() const
+{
+    return _vpd.at("OPFR").at("MB");
+}
+
+/** @brief Specialization of OSYS::MM */
+template<>
+inline decltype(auto) Store::get<Record::OSYS, record::Keyword::MM>() const
+{
+    return _vpd.at("OSYS").at("MM");
+}
+
 } // namespace vpd
 } // namespace openpower
