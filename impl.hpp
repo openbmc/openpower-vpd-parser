@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include "store.hpp"
 
 namespace openpower
@@ -8,6 +9,13 @@ namespace vpd
 {
 namespace parser
 {
+
+namespace
+{
+
+using OffsetList = std::vector<uint32_t>;
+
+}
 
 /** @class Impl
  *  @brief Implements parser for OpenPOWER VPD
@@ -54,6 +62,23 @@ class Impl
         Store run();
 
     private:
+        /** @brief Process the table of contents record, VHDR
+         *
+         *  @returns List of offsets to records in VPD
+         */
+        OffsetList readTOC() const;
+
+        /** @brief Read the PT keyword contained in the VHDR record,
+         *         to obtain offsets to other records in the VPD.
+         *
+         *  @param[in] iterator - iterator to buffer containing VPD
+         *  @param[in] ptLength - Length of PT keyword data
+         *
+         *  @returns List of offsets to records in VPD
+         */
+        OffsetList readPT(Binary::const_iterator iterator,
+                          std::size_t ptLen) const;
+
         /** @brief Checks if the VHDR record is present in the VPD
          */
         void checkHeader() const;
