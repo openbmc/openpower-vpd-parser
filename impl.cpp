@@ -1,5 +1,7 @@
+#include <defines.hpp>
 #include <exception>
 #include <iostream>
+#include <unordered_map>
 #include "impl.hpp"
 
 namespace openpower
@@ -8,6 +10,13 @@ namespace vpd
 {
 namespace parser
 {
+
+static const std::unordered_map<std::string, Record> supportedRecords =
+{
+    {"VINI", Record::VINI},
+    {"OPFR", Record::OPFR},
+    {"OSYS", Record::OSYS}
+};
 
 using RecordId = uint8_t;
 using RecordOffset = uint16_t;
@@ -142,6 +151,31 @@ OffsetList Impl::readPT(const Byte* vpdBuffer, std::size_t ptLength) const
     }
 
     return offsets;
+}
+
+void Impl::processRecord(std::size_t recordOffset)
+{
+    // Jump to record name
+    auto nameOffset = recordOffset +
+                      sizeof(RecordId) +
+                      sizeof(RecordSize) +
+                      // Skip past the RT keyword, which contains
+                      // the record name.
+                      lengths::KW_NAME +
+                      sizeof(KwSize);
+    // Get record name
+    auto vpdBufferPtr = _vpd.data() + nameOffset;
+
+    std::string name(vpdBufferPtr, lengths::RECORD_NAME);
+    if (supportedRecords.end() != supportedRecords.find(name))
+    {
+        // If it's a record we're interested in, proceed to find
+        // contained keywords and their values.
+        auto kwMap = readKeywords(nameOffset + lengths::RECORD_NAME);
+        // Add entry for this record (and contained keyword:value pairs)
+        // to the parsed vpd output.
+        _out.emplace(std::make_pair(name, kwMap));
+    }
 }
 
 } // namespace parser
