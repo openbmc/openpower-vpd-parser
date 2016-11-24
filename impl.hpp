@@ -9,7 +9,26 @@ namespace vpd
 {
 namespace parser
 {
+namespace keyword
+{
 
+/** @brief Encoding scheme of a VPD keyword's data
+ *
+ *  ASCII  data encoded in asci
+ *  HEX    data encoded in hexadecimal
+ *  B1     The keyword B1 needs to be decoded specially
+ */
+enum class Encoding
+{
+    ASCII,
+    HEX,
+    // Keywords needing custom decoding
+    B1
+};
+
+} // namespace keyword
+
+using KeywordInfo = std::pair<record::Keyword,keyword::Encoding>;
 using OffsetList = std::vector<uint32_t>;
 using KeywordMap = std::unordered_map<std::string,
                        std::string>;
@@ -91,6 +110,18 @@ class Impl
          *  @returns map of keyword:data
          */
         KeywordMap readKeywords(std::size_t kwOft);
+
+        /** @brief Read keyword data
+         *
+         *  @param[in] keyword - OpenPOWER VPD keyword
+         *  @param[in] dataLength - Length of data to be read
+         *  @param[in] dataOffset - Offset to keyword data in the VPD
+         *
+         *  @returns keyword data as a string
+         */
+        std::string readKwData(const KeywordInfo& keyword,
+                               std::size_t dataLength,
+                               std::size_t dataOffset);
 
         /** @brief Checks if the VHDR record is present in the VPD
          */
