@@ -91,6 +91,18 @@ class Impl
          */
         KeywordMap readKeywords(auto kwOft);
 
+        /** @brief Read keyword data
+         *
+         *  @param[in] keyword - OpenPOWER VPD keyword
+         *  @param[in] dataLength - Length of data to be read
+         *  @param[in] dataOffset - Offset to keyword data in the VPD
+         *
+         *  @returns keyword data as a string
+         */
+        std::string readKwData(record::Keyword keyword,
+                               auto dataLength,
+                               auto dataOffset);
+
         /** @brief Checks if the VHDR record is present in the VPD
          */
         void hasHeader() const;

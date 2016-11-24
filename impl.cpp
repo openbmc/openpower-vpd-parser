@@ -1,6 +1,8 @@
+#include <sstream>
 #include <exception>
 #include <iostream>
 #include <unordered_map>
+#include <iomanip>
 #include <defines.hpp>
 #include "impl.hpp"
 
@@ -226,6 +228,53 @@ KeywordMap Impl::readKeywords(auto kwOft)
      }
 
      return std::move(map);
+}
+
+std::string Impl::readKwData(record::Keyword keyword,
+                             auto dataLength,
+                             auto dataOffset)
+{
+    std::string data {};
+
+    switch(keyword)
+    {
+        // The data for these are in ascii
+        case record::Keyword::DR:
+        case record::Keyword::PN:
+        case record::Keyword::SN:
+        case record::Keyword::CC:
+        case record::Keyword::VN:
+        case record::Keyword::MM:
+        {
+            data = std::move(
+                        std::string(_vpd.data() + dataOffset,
+                            dataLength));
+            break;
+        }
+
+        // The data for these are in hexadecimal
+        case record::Keyword::HW:
+        case record::Keyword::B1:
+        case record::Keyword::MB:
+        {
+            auto start = _vpd.data() + dataOffset;
+            auto stop = start + dataLength;
+            std::stringstream ss;
+            while(start < stop)
+            {
+                uint16_t digit = *start;
+                ss << std::hex << std::setw(2) << std::setfill('0') << digit;
+                ++start;
+            }
+            data = ss.str();
+            break;
+        }
+
+        default:
+            break;
+    }
+
+    return std::move(data);
 }
 
 } // namespace parser
