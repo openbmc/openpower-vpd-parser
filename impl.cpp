@@ -1,6 +1,10 @@
+#include <sstream>
 #include <exception>
 #include <iostream>
 #include <iterator>
+#include <iomanip>
+#include <tuple>
+#include "defines.hpp"
 #include "impl.hpp"
 #include "endian.hpp"
 
@@ -10,6 +14,22 @@ namespace vpd
 {
 namespace parser
 {
+
+static constexpr auto MAC_ADDRESS_LEN_BYTES = 6;
+
+static const std::unordered_map<std::string,
+       KeywordInfo> supportedKeywords =
+{
+    {"DR", std::make_tuple(record::Keyword::DR, keyword::Encoding::ASCII)},
+    {"PN", std::make_tuple(record::Keyword::PN, keyword::Encoding::ASCII)},
+    {"SN", std::make_tuple(record::Keyword::SN, keyword::Encoding::ASCII)},
+    {"CC", std::make_tuple(record::Keyword::CC, keyword::Encoding::ASCII)},
+    {"HW", std::make_tuple(record::Keyword::HW, keyword::Encoding::RAW)},
+    {"B1", std::make_tuple(record::Keyword::B1, keyword::Encoding::B1)},
+    {"VN", std::make_tuple(record::Keyword::VN, keyword::Encoding::ASCII)},
+    {"MB", std::make_tuple(record::Keyword::MB, keyword::Encoding::RAW)},
+    {"MM", std::make_tuple(record::Keyword::MM, keyword::Encoding::ASCII)}
+};
 
 namespace
 {
@@ -138,6 +158,57 @@ OffsetList Impl::readPT(Binary::const_iterator iterator,
     }
 
     return offsets;
+}
+
+std::string Impl::readKwData(const KeywordInfo& keyword,
+                             std::size_t dataLength,
+                             Binary::const_iterator iterator)
+{
+    switch (std::get<keyword::Encoding>(keyword))
+    {
+        case keyword::Encoding::ASCII:
+        {
+            return std::string(iterator, iterator + dataLength);
+        }
+
+        case keyword::Encoding::RAW:
+        {
+            std::stringstream ss {};
+            auto stop = iterator;
+            std::advance(stop, dataLength);
+            while (iterator < stop)
+            {
+                uint16_t digit = *iterator;
+                ss << std::hex << std::setw(2) << std::setfill('0') << digit;
+                std::advance(iterator, 1);
+            }
+            return ss.str();
+        }
+
+        case keyword::Encoding::B1:
+        {
+            std::stringstream ss {};
+            //B1 is MAC address, represent as AA:BB:CC:DD:EE:FF
+            auto stop = iterator;
+            std::advance(stop, MAC_ADDRESS_LEN_BYTES);
+            uint16_t digit = *iterator;
+            ss << std::hex << std::setw(2) << std::setfill('0') << digit;
+            std::advance(iterator, 1);
+            while (iterator < stop)
+            {
+                uint16_t digit = *iterator;
+                ss << ":" << std::hex << std::setw(2) << std::setfill('0')
+                   << digit;
+                std::advance(iterator, 1);
+            }
+            return ss.str();
+        }
+
+        default:
+            break;
+    }
+
+    return {};
 }
 
 } // namespace parser
