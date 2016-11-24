@@ -79,6 +79,14 @@ class Impl
         internal::OffsetList readPT(Binary::const_iterator iterator,
                                     std::size_t ptLen) const;
 
+        /** @brief Read VPD information contained within a record
+         *
+         *  @param[in] recordOffset - offset to a record location
+         *      within the binary OpenPOWER VPD
+         */
+        void processRecord(std::size_t recordOffset);
+
+
         /** @brief Checks if the VHDR record is present in the VPD */
         void checkHeader() const;
 
