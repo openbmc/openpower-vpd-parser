@@ -10,6 +10,8 @@ namespace parser
 {
 
 using OffsetList = std::vector<uint32_t>;
+using KeywordMap = std::unordered_map<std::string,
+                       std::string>;
 
 /** @class Impl
  *  @brief Implements parser for OpenPOWER VPD
@@ -71,6 +73,13 @@ class Impl
          *  @returns List of offsets to records in VPD
          */
         OffsetList readPT(auto vpdBuffer, auto ptLen) const;
+
+        /** @brief Read VPD information contained within a record
+         *
+         *  @param[in] recordOffset - offset to a record location
+         *                 within the binary OpenPOWER VPD
+         */
+        void processRecord(auto recordOffset);
 
         /** @brief Checks if the VHDR record is present in the VPD
          */
