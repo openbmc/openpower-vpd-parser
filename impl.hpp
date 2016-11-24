@@ -14,6 +14,8 @@ namespace
 {
 
 using OffsetList = std::vector<uint32_t>;
+using KeywordMap = std::unordered_map<std::string,
+      std::string>;
 
 }
 
@@ -78,6 +80,13 @@ class Impl
          */
         OffsetList readPT(Binary::const_iterator iterator,
                           std::size_t ptLen) const;
+
+        /** @brief Read VPD information contained within a record
+         *
+         *  @param[in] recordOffset - offset to a record location
+         *      within the binary OpenPOWER VPD
+         */
+        void processRecord(std::size_t recordOffset);
 
         /** @brief Checks if the VHDR record is present in the VPD
          */
