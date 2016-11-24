@@ -28,6 +28,7 @@ namespace internal
 
 using KeywordInfo = std::tuple<record::Keyword, keyword::Encoding>;
 using OffsetList = std::vector<uint32_t>;
+using KeywordMap = Parsed::mapped_type;
 
 }
 
@@ -112,6 +113,16 @@ class Impl
         std::string readKwData(const internal::KeywordInfo& keyword,
                                std::size_t dataLength,
                                Binary::const_iterator iterator);
+
+        /** @brief While we're pointing at the keyword section of
+         *     a record in the VPD, this will read all contained
+         *     keywords and their values.
+         *
+         *  @param[in] iterator - iterator pointing to a Keyword in the VPD
+         *
+         *  @returns map of keyword:data
+         */
+        internal::KeywordMap readKeywords(Binary::const_iterator iterator);
 
         /** @brief Checks if the VHDR record is present in the VPD */
         void checkHeader() const;
