@@ -33,6 +33,13 @@ static const std::unordered_map<std::string,
     {"MM", std::make_tuple(record::Keyword::MM, keyword::Encoding::ASCII)}
 };
 
+static const std::unordered_map<std::string, Record> supportedRecords =
+{
+    {"VINI", Record::VINI},
+    {"OPFR", Record::OPFR},
+    {"OSYS", Record::OSYS}
+};
+
 namespace
 {
 
@@ -257,6 +264,33 @@ KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
     }
 
     return map;
+}
+
+void Impl::processRecord(std::size_t recordOffset)
+{
+    // Jump to record name
+    auto nameOffset = recordOffset +
+                      sizeof(RecordId) +
+                      sizeof(RecordSize) +
+                      // Skip past the RT keyword, which contains
+                      // the record name.
+                      lengths::KW_NAME +
+                      sizeof(KwSize);
+    // Get record name
+    auto iterator = vpd.cbegin();
+    std::advance(iterator, nameOffset);
+
+    std::string name(iterator, iterator + lengths::RECORD_NAME);
+    if (supportedRecords.end() != supportedRecords.find(name))
+    {
+        // If it's a record we're interested in, proceed to find
+        // contained keywords and their values.
+        std::advance(iterator, lengths::RECORD_NAME);
+        auto kwMap = readKeywords(iterator);
+        // Add entry for this record (and contained keyword:value pairs)
+        // to the parsed vpd output.
+        out.emplace(std::move(name), std::move(kwMap));
+    }
 }
 
 } // namespace parser
