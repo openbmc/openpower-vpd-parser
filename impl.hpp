@@ -9,10 +9,24 @@ namespace vpd
 {
 namespace parser
 {
+namespace keyword
+{
+
+/** @brief Encoding scheme of a VPD keyword's data */
+enum class Encoding
+{
+    ASCII, /**< data encoded in ascii */
+    RAW,   /**< raw data */
+    // Keywords needing custom decoding
+    B1     /**< The keyword B1 needs to be decoded specially */
+};
+
+} // namespace keyword
 
 namespace internal
 {
 
+using KeywordInfo = std::tuple<record::Keyword, keyword::Encoding>;
 using OffsetList = std::vector<uint32_t>;
 
 }
@@ -78,6 +92,19 @@ class Impl
          */
         internal::OffsetList readPT(Binary::const_iterator iterator,
                                     std::size_t ptLen) const;
+
+        /** @brief Read keyword data
+         *
+         *  @param[in] keyword - OpenPOWER VPD keyword
+         *  @param[in] dataLength - Length of data to be read
+         *  @param[in] iterator - iterator pointing to a Keyword's data in
+         *      the VPD
+         *
+         *  @returns keyword data as a string
+         */
+        std::string readKwData(const internal::KeywordInfo& keyword,
+                               std::size_t dataLength,
+                               Binary::const_iterator iterator);
 
         /** @brief Checks if the VHDR record is present in the VPD */
         void checkHeader() const;
