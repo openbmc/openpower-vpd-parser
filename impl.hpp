@@ -81,6 +81,16 @@ class Impl
          */
         void processRecord(auto recordOffset);
 
+        /** @brief While we're pointing at the keyword section of
+         *     a record in the VPD, this will read all contained
+         *     keywords and their values.
+         *
+         *  @param[in] kwOft - offset to a keyword section
+         *
+         *  @returns map of keyword:data
+         */
+        KeywordMap readKeywords(auto kwOft);
+
         /** @brief Checks if the VHDR record is present in the VPD
          */
         void hasHeader() const;
