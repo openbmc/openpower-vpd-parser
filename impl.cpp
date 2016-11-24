@@ -11,10 +11,25 @@ namespace vpd
 namespace parser
 {
 
+static constexpr auto LAST_KW = "PF";
+
 static const std::unordered_map<std::string, Record> supportedRecords = {
     {"VINI", Record::VINI},
     {"OPFR", Record::OPFR},
     {"OSYS", Record::OSYS}
+};
+
+static const std::unordered_map<std::string,
+                 record::Keyword> supportedKeywords = {
+    {"DR", record::Keyword::DR},
+    {"PN", record::Keyword::PN},
+    {"SN", record::Keyword::SN},
+    {"CC", record::Keyword::CC},
+    {"HW", record::Keyword::HW},
+    {"B1", record::Keyword::B1},
+    {"VN", record::Keyword::VN},
+    {"MB", record::Keyword::MB},
+    {"MM", record::Keyword::MM}
 };
 
 using RecordId = uint8_t;
@@ -178,6 +193,47 @@ void Impl::processRecord(auto recordOffset)
         // to the parsed vpd output.
         _out.emplace(std::make_pair(name, kwMap));
     }
+}
+
+KeywordMap Impl::readKeywords(auto kwOft)
+{
+     auto vpdBufferPtr = _vpd.data() +
+                         kwOft;
+
+     // Now we are the keyword entries for
+     // a record
+     KeywordMap map {};
+     while(true)
+     {
+         // Note keyword name
+         std::string kw(vpdBufferPtr, lengths::KW_NAME);
+         if(LAST_KW == kw)
+         {
+             // We're done
+             break;
+         }
+         // Jump past keyword name
+         vpdBufferPtr += lengths::KW_NAME;
+         // Note keyword data length
+         KwLength length = *vpdBufferPtr;
+         // Jump past keyword length
+         vpdBufferPtr += sizeof(KwSize);
+         // Pointing to keyword data now
+         if(supportedKeywords.end() != supportedKeywords.find(kw))
+         {
+             // Keyword is of interest to us
+             auto kwDataOffset = vpdBufferPtr - _vpd.data();
+             std::string data = readKwData(
+                                     (supportedKeywords.find(kw))->second,
+                                     length,
+                                     kwDataOffset);
+             map.emplace(std::make_pair(kw, data));
+         }
+         // Jump past keyword data length
+         vpdBufferPtr += length;
+     }
+
+     return map;
 }
 
 } // namespace parser
