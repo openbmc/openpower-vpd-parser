@@ -2,8 +2,10 @@
 #include <exception>
 #include <iostream>
 #include <iterator>
+#include <unordered_map>
 #include <iomanip>
 #include <tuple>
+#include "defines.hpp"
 #include "impl.hpp"
 #include "endian.hpp"
 
@@ -15,6 +17,7 @@ namespace parser
 {
 
 static constexpr auto MAC_ADDRESS_LEN_BYTES = 6;
+static constexpr auto LAST_KW = "PF";
 
 static const std::unordered_map<std::string,
        KeywordInfo> supportedKeywords =
@@ -208,6 +211,41 @@ std::string Impl::readKwData(const KeywordInfo& keyword,
     }
 
     return {};
+}
+
+KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
+{
+    KeywordMap map {};
+    while (true)
+    {
+        // Note keyword name
+        std::string kw(iterator, iterator + lengths::KW_NAME);
+        if (LAST_KW == kw)
+        {
+            // We're done
+            break;
+        }
+        // Jump past keyword name
+        std::advance(iterator, lengths::KW_NAME);
+        // Note keyword data length
+        std::size_t length = *iterator;
+        // Jump past keyword length
+        std::advance(iterator, sizeof(KwSize));
+        // Pointing to keyword data now
+        if (supportedKeywords.end() != supportedKeywords.find(kw))
+        {
+            // Keyword is of interest to us
+            std::string data = readKwData(
+                                   (supportedKeywords.find(kw))->second,
+                                   length,
+                                   iterator);
+            map.emplace(std::move(kw), std::move(data));
+        }
+        // Jump past keyword data length
+        std::advance(iterator, length);
+    }
+
+    return map;
 }
 
 } // namespace parser
