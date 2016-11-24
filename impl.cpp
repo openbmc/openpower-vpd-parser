@@ -1,6 +1,8 @@
+#include <sstream>
 #include <exception>
 #include <iostream>
 #include <unordered_map>
+#include <iomanip>
 #include <defines.hpp>
 #include "impl.hpp"
 
@@ -12,6 +14,7 @@ namespace parser
 {
 
 static constexpr auto LAST_KW = "PF";
+static constexpr auto MAC_ADDRESS_LEN_BYTES = 6;
 
 static const std::unordered_map<std::string, Record> supportedRecords = {
     {"VINI", Record::VINI},
@@ -20,16 +23,16 @@ static const std::unordered_map<std::string, Record> supportedRecords = {
 };
 
 static const std::unordered_map<std::string,
-                 record::Keyword> supportedKeywords = {
-    {"DR", record::Keyword::DR},
-    {"PN", record::Keyword::PN},
-    {"SN", record::Keyword::SN},
-    {"CC", record::Keyword::CC},
-    {"HW", record::Keyword::HW},
-    {"B1", record::Keyword::B1},
-    {"VN", record::Keyword::VN},
-    {"MB", record::Keyword::MB},
-    {"MM", record::Keyword::MM}
+                 KeywordInfo> supportedKeywords = {
+    {"DR", {record::Keyword::DR, keyword::Encoding::ASCII}},
+    {"PN", {record::Keyword::PN, keyword::Encoding::ASCII}},
+    {"SN", {record::Keyword::SN, keyword::Encoding::ASCII}},
+    {"CC", {record::Keyword::CC, keyword::Encoding::ASCII}},
+    {"HW", {record::Keyword::HW, keyword::Encoding::HEX}},
+    {"B1", {record::Keyword::B1, keyword::Encoding::B1}},
+    {"VN", {record::Keyword::VN, keyword::Encoding::ASCII}},
+    {"MB", {record::Keyword::MB, keyword::Encoding::HEX}},
+    {"MM", {record::Keyword::MM, keyword::Encoding::ASCII}}
 };
 
 using RecordId = uint8_t;
@@ -226,6 +229,63 @@ KeywordMap Impl::readKeywords(auto kwOft)
      }
 
      return map;
+}
+
+std::string Impl::readKwData(const KeywordInfo& keyword,
+                             auto dataLength,
+                             auto dataOffset)
+{
+    std::string data {};
+    std::stringstream ss {};
+
+    switch(keyword.second)
+    {
+        case keyword::Encoding::ASCII:
+        {
+            data = std::move(
+                        std::string(_vpd.data() + dataOffset,
+                            dataLength));
+            break;
+        }
+
+        case keyword::Encoding::HEX:
+        {
+            auto start = _vpd.data() + dataOffset;
+            auto stop = start + dataLength;
+            while(start < stop)
+            {
+                uint16_t digit = *start;
+                ss << std::hex << std::setw(2) << std::setfill('0') << digit;
+                ++start;
+            }
+            data = ss.str();
+            break;
+        }
+
+        case keyword::Encoding::B1:
+        {
+            //B1 is MAC address, represent as AA::BB::CC::DD::EE::FF
+            auto start = _vpd.data() + dataOffset;
+            auto stop = start + MAC_ADDRESS_LEN_BYTES;
+            while(start < stop)
+            {
+                uint16_t digit = *start;
+                ss << std::hex << std::setw(2) << std::setfill('0') << digit;
+                ++start;
+                if(start < stop)
+                {
+                    ss << ":";
+                }
+            }
+            data = ss.str();
+            break;
+        }
+
+        default:
+            break;
+    }
+
+    return data;
 }
 
 } // namespace parser
