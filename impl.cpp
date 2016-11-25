@@ -288,6 +288,31 @@ std::string Impl::readKwData(const KeywordInfo& keyword,
     return data;
 }
 
+Store Impl::run()
+{
+    try
+    {
+        // Check if the VHDR record is present
+        hasHeader();
+        // Read the table of contents record, to get offsets
+        // to other records.
+        auto offsets = readTOC();
+        for(auto& offset : offsets)
+        {
+            processRecord(offset);
+        }
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+
+    // Return a Store object, which has interfaces to
+    // access parsed VPD by record:keyword
+    Store s(std::move(_out));
+    return s;
+}
+
 } // namespace parser
 } // namespace vpd
 } // namespace openpower
