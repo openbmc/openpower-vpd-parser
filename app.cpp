@@ -1,0 +1,53 @@
+#include <defines.hpp>
+#include <write.hpp>
+#include "args.hpp"
+#include <parser.hpp>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iterator>
+#include <exception>
+
+int main(int argc, char** argv)
+{
+    int rc = 0;
+
+    try
+    {
+        using namespace openpower::vpd;
+
+        args::Args arguments =  args::parse(argc, argv);
+
+        // We need vpd file, FRU type and object path
+        if ((arguments.end() != arguments.find("vpd")) &&
+            (arguments.end() != arguments.find("fru")) &&
+            (arguments.end() != arguments.find("object")))
+        {
+            // Read binary VPD file
+            auto file = arguments.at("vpd");
+            std::ifstream vpdFile(file, std::ios::binary);
+            Binary vpd((std::istreambuf_iterator<char>(vpdFile)),
+                       std::istreambuf_iterator<char>());
+
+            // Parse vpd
+            auto vpdStore = parse(std::move(vpd));
+
+            // Write VPD to FRU inventory
+            inventory::write(
+                arguments.at("fru"),
+                std::move(vpdStore),
+                arguments.at("object"));
+        }
+        else
+        {
+            std::cerr << "Need VPD file, FRU type and object path" << std::endl;
+            rc = -1;
+        }
+    }
+    catch (std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+
+    return rc;
+}
