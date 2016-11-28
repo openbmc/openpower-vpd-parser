@@ -47,5 +47,15 @@ enum class Keyword
 };
 
 } // namespeace record
+
+/** @brief FRUs whose VPD we're interested in
+ *
+ *  BMC    The VPD on the BMC planar, for eg
+ */
+enum Fru
+{
+    BMC
+};
+
 } // namespace vpd
 } // namespace openpower
