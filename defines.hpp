@@ -47,5 +47,17 @@ enum class Keyword
 };
 
 } // namespeace record
+
+/** @brief FRUs whose VPD we're interested in
+ *
+ *  BMC       The VPD on the BMC planar, for eg
+ *  ETHERNET  The ethernet card on the BMC
+ */
+enum Fru
+{
+    BMC,
+    ETHERNET
+};
+
 } // namespace vpd
 } // namespace openpower
