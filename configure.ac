@@ -45,5 +45,5 @@ AS_IF([test "x$enable_oe_sdk" == "xyes"],
 )
 
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile test/Makefile])
 AC_OUTPUT
