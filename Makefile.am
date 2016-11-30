@@ -32,3 +32,5 @@ libopvpdparser_la_SOURCES = \
 	parser.cpp \
 	write.cpp
 libopvpdparser_la_LDFLAGS = -version-info 1:0:0 -shared
+
+SUBDIRS = test
