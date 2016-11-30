@@ -27,3 +27,5 @@ openpower_read_vpd_SOURCES = \
 	impl.cpp \
 	parser.cpp \
 	write.cpp
+
+SUBDIRS = test
