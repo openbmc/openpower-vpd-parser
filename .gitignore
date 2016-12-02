@@ -19,3 +19,8 @@ openpower-read-vpd
 *.lo
 *.la
 test-driver
+*.dirstamp
+parser_test
+store_test
+*.log
+*.trs
