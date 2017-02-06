@@ -13,6 +13,9 @@ AM_PATH_PYTHON([2.7],
     [AC_SUBST([PYTHON], [echo "$PYTHON"])],
     [AC_MSG_ERROR([Could not find python-2.7 installed...python-2.7 is required])])
 
+PKG_CHECK_MODULES([SDBUSPLUS], [sdbusplus],,
+    AC_MSG_ERROR(["Requires sdbusplus package."]))
+
 # Surpress the --with-libtool-sysroot error
 LT_INIT
 
