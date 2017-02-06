@@ -28,5 +28,7 @@ openpower_read_vpd_SOURCES = \
 	impl.cpp \
 	parser.cpp \
 	write.cpp
+openpower_read_vpd_LDFLAGS = $(SYSTEMD_LIBS)
+openpower_read_vpd_CXXFLAGS = $(SYSTEMD_CFLAGS)
 
 SUBDIRS = test
