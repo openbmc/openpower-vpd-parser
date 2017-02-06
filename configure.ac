@@ -41,6 +41,10 @@ AS_IF([test "x$enable_oe_sdk" == "xyes"],
     AC_SUBST([OESDK_TESTCASE_FLAGS], [$testcase_flags])
 )
 
+AS_IF([test "x$FRU_YAML" == "x"], [FRU_YAML="writefru.yaml"])
+FRUGEN="$PYTHON $srcdir/writefru.py -i $FRU_YAML"
+AC_SUBST(FRUGEN)
+
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile test/Makefile])
 AC_OUTPUT
