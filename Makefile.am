@@ -19,7 +19,7 @@ EXTRA_DIST = \
 	$(REQ_SCRIPT) \
 	$(REQ_SCRIPT_FILES)
 writefru.hpp: ${REQ_SCRIPT} ${REQ_SCRIPT_FILES}
-	$(AM_V_GEN)$(PYTHON) ${REQ_SCRIPT}
+	$(AM_V_GEN)@FRUGEN@
 
 sbin_PROGRAMS = openpower-read-vpd
 openpower_read_vpd_SOURCES = \
