@@ -7,6 +7,7 @@
 
 #include <map>
 #include <iostream>
+#include <sdbusplus/server.hpp>
 #include "defines.hpp"
 #include "store.hpp"
 
@@ -17,25 +18,82 @@ namespace vpd
 namespace inventory
 {
 
-using Inner = Parsed::mapped_type;
-using Outer = std::map<std::string, Inner>;
+using Property = std::string;
+using Value = sdbusplus::message::variant<bool, int64_t, std::string>;
+using PropertyMap = std::map<Property, Value>;
 
-// TODO: Remove once the call to inventory manager is added
-auto print = [](Outer&& object, const std::string& path)
+using Interface = std::string;
+using InterfaceMap = std::map<Interface, PropertyMap>;
+
+using Object = sdbusplus::message::object_path;
+using ObjectMap = std::map<Object, InterfaceMap>;
+
+static constexpr auto pimPath = "/xyz/openbmc_project/Inventory";
+static constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
+
+/** @brief Get inventory-manager's d-bus service
+ */
+auto getPIMService()
 {
-    std::cout << "\n";
-    std::cout << path << "\n";
-    std::cout << "\n";
-    for(const auto& o : object)
+    auto bus = sdbusplus::bus::new_default();
+    auto mapper =
+        bus.new_method_call(
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/ObjectMapper",
+            "xyz.openbmc_project.ObjectMapper",
+            "GetObject");
+
+    mapper.append(std::string(pimPath));
+    mapper.append(std::vector<std::string>({std::string(pimIntf)}));
+
+    auto result = bus.call(mapper);
+    if(result.is_method_error())
     {
-        std::cout << o.first << "\n";
-        for(const auto& i : o.second)
-        {
-            std::cout << i.first << " : " << i.second << "\n";
-        }
-        std::cout << "\n";
+        throw std::runtime_error("ObjectMapper GetObject failed");
     }
-};
+
+    std::map<std::string, std::vector<std::string>> response;
+    result.read(response);
+    if(response.empty())
+    {
+        throw std::runtime_error("ObjectMapper GetObject bad response");
+    }
+
+    return response.begin()->first;
+}
+
+auto callPIM(ObjectMap&& objects)
+{
+    auto notify = [&](const char* pimService)
+    {
+        auto bus = sdbusplus::bus::new_default();
+        return
+            bus.new_method_call(
+                pimService,
+                pimPath,
+                pimIntf,
+                "Notify");
+    };
+
+    std::string service;
+    try
+    {
+        service = getPIMService();
+    }
+    catch (const std::runtime_error& e)
+    {
+        std::cerr << e.what() << "\n";
+        return;
+    }
+    auto bus = sdbusplus::bus::new_default();
+    auto pim = notify(service.c_str());
+    pim.append(objects);
+    auto result = bus.call(pim);
+    if(result.is_method_error())
+    {
+        std::cerr << "PIM Notify() failed\n";
+    }
+}
 
 /** @brief API to write parsed VPD to inventory,
  *      for a specifc FRU
@@ -56,7 +114,8 @@ template<>
 void writeFru<Fru::${key}>(const Store& vpdStore,
                            const std::string& path)
 {
-    Outer object;
+    ObjectMap objects;
+    InterfaceMap interfaces;
 
     // Inventory manager needs object path, list of interface names to be
     // implemented, and property:value pairs contained in said interfaces
@@ -66,23 +125,24 @@ void writeFru<Fru::${key}>(const Store& vpdStore,
         interface = interfaces.split(".")
         intfName = interface[0] + interface[-1]
 %>\
-    Inner ${intfName};
+    PropertyMap ${intfName}Props;
         % for name, value in properties.iteritems():
             % if fru and interfaces and name and value:
 <%
                 record, keyword = value.split(",")
 %>\
-    ${intfName}["${name}"] =
+    ${intfName}Props["${name}"] =
         vpdStore.get<Record::${record}, record::Keyword::${keyword}>();
             % endif
         % endfor
-    object.emplace("${interfaces}",
-                   std::move(${intfName}));
+    interfaces.emplace("${interfaces}",
+                       std::move(${intfName}Props));
     % endfor
 
-    // TODO: Need integration with inventory manager, print serialized dbus
-    // object for now.
-    print(std::move(object), path);
+    sdbusplus::message::object_path object(path);
+    objects.emplace(object, interfaces);
+
+    callPIM(std::move(objects));
 }
 
 % endfor
