@@ -28,7 +28,7 @@ openpower_read_vpd_SOURCES = \
 	impl.cpp \
 	parser.cpp \
 	write.cpp
-openpower_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS)
-openpower_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS)
+openpower_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
+openpower_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
 
 SUBDIRS = test
