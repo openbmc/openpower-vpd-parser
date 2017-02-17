@@ -6,7 +6,9 @@ noinst_HEADERS = \
 	types.hpp \
 	write.hpp \
 	impl.hpp \
-	args.hpp
+	args.hpp \
+	types.hpp \
+	utils.hpp
 
 # Be sure to build writefru.hpp before compiling
 BUILT_SOURCES = writefru.hpp
@@ -27,7 +29,8 @@ openpower_read_vpd_SOURCES = \
 	args.cpp \
 	impl.cpp \
 	parser.cpp \
-	write.cpp
+	write.cpp \
+	utils.cpp
 openpower_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
 openpower_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
 
