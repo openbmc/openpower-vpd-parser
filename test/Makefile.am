@@ -12,6 +12,7 @@ parser_test_SOURCES = \
 	parser/parser.cpp \
 	../impl.cpp \
 	../parser.cpp \
-	../write.cpp
+	../write.cpp \
+        ../utils.cpp
 parser_test_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
 parser_test_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
