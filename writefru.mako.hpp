@@ -11,6 +11,7 @@
 #include "store.hpp"
 #include "types.hpp"
 #include "utils.hpp"
+#include "extra-properties-gen.hpp"
 
 namespace openpower
 {
@@ -64,6 +65,14 @@ void writeFru<Fru::${key}>(const Store& vpdStore,
     % endfor
 
     sdbusplus::message::object_path object(path);
+    // Check and update extra properties
+    if(extra::objects.end() != extra::objects.find(path))
+    {
+        for(const auto& entry : extra::objects.at(path))
+        {
+            interfaces.emplace(entry.first, entry.second);
+        }
+    }
     objects.emplace(std::move(object), std::move(interfaces));
 
     callPIM(std::move(objects));
