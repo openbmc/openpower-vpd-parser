@@ -10,18 +10,36 @@ noinst_HEADERS = \
 	types.hpp \
 	utils.hpp
 
-# Be sure to build writefru.hpp before compiling
-BUILT_SOURCES = writefru.hpp
-CLEANFILES = writefru.hpp
-REQ_SCRIPT ?= ${abs_srcdir}/writefru.py
-REQ_SCRIPT_FILES ?= \
+# Be sure to build these before compiling
+BUILT_SOURCES = \
+	writefru.hpp \
+	extra-properties-gen.hpp
+CLEANFILES = \
+	writefru.hpp \
+	extra-properties-gen.hpp
+
+FRU_GEN_SCRIPT ?= \
+	${abs_srcdir}/writefru.py
+FRU_GEN_SCRIPT_FILES ?= \
 	${abs_srcdir}/writefru.yaml \
 	${abs_srcdir}/writefru.mako.hpp
+
+PROP_GEN_SCRIPT ?= \
+	${abs_srcdir}/extra-properties.py
+PROP_GEN_SCRIPT_FILES ?= \
+	${abs_srcdir}/extra-properties-example.yaml \
+	${abs_srcdir}/extra-properties.mako.hpp
+
 EXTRA_DIST = \
-	$(REQ_SCRIPT) \
-	$(REQ_SCRIPT_FILES)
-writefru.hpp: ${REQ_SCRIPT} ${REQ_SCRIPT_FILES}
+	$(FRU_GEN_SCRIPT) \
+	$(FRU_GEN_SCRIPT_FILES) \
+	$(PROP_GEN_SCRIPT) \
+	$(PROP_GEN_SCRIPT_FILES)
+
+writefru.hpp: ${FRU_GEN_SCRIPT} ${FRU_GEN_SCRIPT_FILES}
 	$(AM_V_GEN)@FRUGEN@
+extra-properties-gen.hpp: ${PROP_GEN_SCRIPT} ${PROP_GEN_SCRIPT_FILES}
+	$(AM_V_GEN)@PROPGEN@
 
 sbin_PROGRAMS = openpower-read-vpd
 openpower_read_vpd_SOURCES = \
