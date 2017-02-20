@@ -1,6 +1,6 @@
 #include "utils.hpp"
 #include <sdbusplus/server.hpp>
-#include <log.hpp>
+#include <phosphor-logging/log.hpp>
 #include <iostream>
 
 namespace openpower
