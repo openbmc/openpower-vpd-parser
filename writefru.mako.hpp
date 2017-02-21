@@ -41,6 +41,7 @@ void writeFru<Fru::${key}>(const Store& vpdStore,
 {
     ObjectMap objects;
     InterfaceMap interfaces;
+    const auto& iter = extra::objects.find(path);
 
     // Inventory manager needs object path, list of interface names to be
     // implemented, and property:value pairs contained in said interfaces
@@ -60,6 +61,17 @@ void writeFru<Fru::${key}>(const Store& vpdStore,
         vpdStore.get<Record::${record}, record::Keyword::${keyword}>();
             % endif
         % endfor
+    // Check and update extra properties
+    if((extra::objects.end() != iter) &&
+       ((iter->second).end() !=
+            (iter->second).find("${interface}")))
+    {
+        for(const auto& map :
+                extra::objects.at(path).at("${interface}"))
+        {
+            ${intfName}Props[map.first] = map.second;
+        }
+    }
     interfaces.emplace("${interface}",
                        std::move(${intfName}Props));
     % endfor
@@ -70,7 +82,10 @@ void writeFru<Fru::${key}>(const Store& vpdStore,
     {
         for(const auto& entry : extra::objects.at(path))
         {
-            interfaces.emplace(entry.first, entry.second);
+            if(interfaces.end() == interfaces.find(entry.first))
+            {
+                interfaces.emplace(entry.first, entry.second);
+            }
         }
     }
     objects.emplace(std::move(object), std::move(interfaces));
