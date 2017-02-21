@@ -60,6 +60,17 @@ void writeFru<Fru::${key}>(const Store& vpdStore,
         vpdStore.get<Record::${record}, record::Keyword::${keyword}>();
             % endif
         % endfor
+    // Check and update extra properties
+    if((extra::objects.end() != extra::objects.find(path)) &&
+       (extra::objects.at(path).end() !=
+            extra::objects.at(path).find("${interface}")))
+    {
+        for(const auto& map :
+                extra::objects.at(path).at("${interface}"))
+        {
+            ${intfName}Props[map.first] = map.second;
+        }
+    }
     interfaces.emplace("${interface}",
                        std::move(${intfName}Props));
     % endfor
@@ -70,7 +81,10 @@ void writeFru<Fru::${key}>(const Store& vpdStore,
     {
         for(const auto& entry : extra::objects.at(path))
         {
-            interfaces.emplace(entry.first, entry.second);
+            if(interfaces.end() == interfaces.find(entry.first))
+            {
+                interfaces.emplace(entry.first, entry.second);
+            }
         }
     }
     objects.emplace(std::move(object), std::move(interfaces));
