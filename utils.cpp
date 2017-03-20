@@ -16,9 +16,9 @@ auto getPIMService()
     auto bus = sdbusplus::bus::new_default();
     auto mapper =
         bus.new_method_call(
-            "xyz.openbmc_project.object_mapper",
+            "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.object_mapper",
+            "xyz.openbmc_project.ObjectMapper",
             "GetObject");
 
     mapper.append(pimPath);
