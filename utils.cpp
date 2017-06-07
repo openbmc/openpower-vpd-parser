@@ -50,8 +50,8 @@ void callPIM(ObjectMap&& objects)
         auto bus = sdbusplus::bus::new_default();
         auto pimMsg = bus.new_method_call(
                               service.c_str(),
-                              pimPath.c_str(),
-                              pimIntf.c_str(),
+                              pimPath,
+                              pimIntf,
                               "Notify");
         pimMsg.append(std::move(objects));
         auto result = bus.call(pimMsg);

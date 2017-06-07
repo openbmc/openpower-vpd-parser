@@ -32,8 +32,8 @@ using Object = sdbusplus::message::object_path;
 using ObjectMap = std::map<Object, InterfaceMap>;
 
 using namespace std::string_literals;
-static const auto pimPath = "/xyz/openbmc_project/inventory"s;
-static const auto pimIntf = "xyz.openbmc_project.Inventory.Manager"s;
+constexpr auto pimPath = "/xyz/openbmc_project/inventory";
+constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
 
 } // namespace inventory
 
