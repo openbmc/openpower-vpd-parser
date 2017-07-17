@@ -18,7 +18,8 @@ enum class Encoding
     ASCII, /**< data encoded in ascii */
     RAW,   /**< raw data */
     // Keywords needing custom decoding
-    B1     /**< The keyword B1 needs to be decoded specially */
+    B1,     /**< The keyword B1 needs to be decoded specially */
+    UD      /**< Special decoding of UD meant for UUID */
 };
 
 } // namespace keyword
