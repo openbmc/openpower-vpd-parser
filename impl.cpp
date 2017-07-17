@@ -25,6 +25,11 @@ static const std::unordered_map<std::string, Record> supportedRecords =
 
 static constexpr auto MAC_ADDRESS_LEN_BYTES = 6;
 static constexpr auto LAST_KW = "PF";
+static constexpr auto UUID_LEN_BYTES = 16;
+static constexpr auto UUID_TIME_LOW_END = 8;
+static constexpr auto UUID_TIME_MID_END = 13;
+static constexpr auto UUID_TIME_HIGH_END = 18;
+static constexpr auto UUID_CLK_SEQ_END = 23;
 
 static const std::unordered_map<std::string,
        internal::KeywordInfo> supportedKeywords =
@@ -37,7 +42,8 @@ static const std::unordered_map<std::string,
     {"B1", std::make_tuple(record::Keyword::B1, keyword::Encoding::B1)},
     {"VN", std::make_tuple(record::Keyword::VN, keyword::Encoding::ASCII)},
     {"MB", std::make_tuple(record::Keyword::MB, keyword::Encoding::RAW)},
-    {"MM", std::make_tuple(record::Keyword::MM, keyword::Encoding::ASCII)}
+    {"MM", std::make_tuple(record::Keyword::MM, keyword::Encoding::ASCII)},
+    {"UD", std::make_tuple(record::Keyword::UD, keyword::Encoding::UD)}
 };
 
 namespace
@@ -251,6 +257,28 @@ std::string Impl::readKwData(const internal::KeywordInfo& keyword,
             return result;
         }
 
+        case keyword::Encoding::UD:
+        {
+            //UD, the UUID info, represented as
+            //123e4567-e89b-12d3-a456-426655440000
+            //<time_low>-<time_mid>-<time hi and version>
+            //-<clock_seq_hi_and_res clock_seq_low>-<48 bits node id>
+            auto stop = std::next(iterator, UUID_LEN_BYTES);
+            std::string data(iterator, stop);
+            std::string result{};
+            std::for_each(data.cbegin(), data.cend(),
+                [&result](size_t c)
+                {
+                    result += toHex(c >> 4);
+                    result += toHex(c & 0x0F);
+                });
+            result.insert(UUID_TIME_LOW_END, 1, '-');
+            result.insert(UUID_TIME_MID_END, 1, '-');
+            result.insert(UUID_TIME_HIGH_END, 1, '-');
+            result.insert(UUID_CLK_SEQ_END, 1, '-');
+
+            return result;
+        }
         default:
             break;
     }

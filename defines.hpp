@@ -52,7 +52,8 @@ enum class Keyword
     B1,  /**< MAC Address */
     VN,  /**< FRU manufacturer name */
     MB,  /**< FRU manufacture date */
-    MM   /**< FRU model */
+    MM,  /**< FRU model */
+    UD   /**< System UUID */
 };
 
 /** @brief Convert VPD Keyword name from enum to string
@@ -114,6 +115,12 @@ template<>
 constexpr const char* getKeyword<Keyword::MM>()
 {
     return "MM";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::UD>()
+{
+    return "UD";
 }
 
 } // namespace record
