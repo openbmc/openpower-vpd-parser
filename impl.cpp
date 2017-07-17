@@ -25,6 +25,7 @@ static const std::unordered_map<std::string, Record> supportedRecords =
 
 static constexpr auto MAC_ADDRESS_LEN_BYTES = 6;
 static constexpr auto LAST_KW = "PF";
+static constexpr auto UUID_LEN_BYTES = 16;
 
 static const std::unordered_map<std::string,
        internal::KeywordInfo> supportedKeywords =
@@ -37,7 +38,8 @@ static const std::unordered_map<std::string,
     {"B1", std::make_tuple(record::Keyword::B1, keyword::Encoding::B1)},
     {"VN", std::make_tuple(record::Keyword::VN, keyword::Encoding::ASCII)},
     {"MB", std::make_tuple(record::Keyword::MB, keyword::Encoding::RAW)},
-    {"MM", std::make_tuple(record::Keyword::MM, keyword::Encoding::ASCII)}
+    {"MM", std::make_tuple(record::Keyword::MM, keyword::Encoding::ASCII)},
+    {"UD", std::make_tuple(record::Keyword::UD, keyword::Encoding::UD)}
 };
 
 namespace
@@ -251,6 +253,27 @@ std::string Impl::readKwData(const internal::KeywordInfo& keyword,
             return result;
         }
 
+        case keyword::Encoding::UD:
+        {
+            //UD, the UUID info, represented as 
+            //123e4567-e89b-12d3-a456-426655440000 
+            int count =0 ;
+            auto stop = std::next(iterator, UUID_LEN_BYTES);
+            std::string data(iterator, stop);
+            std::string result {};
+            std::for_each(data.cbegin(), data.cend(),
+                    [&count, &result](size_t c)
+                 {
+                      if((count == 8)||(count == 12)
+                             ||(count == 16)||(count == 20))
+                          result+= "-"; 
+                      result += toHex(c >> 4);
+                      result += toHex(c & 0x0F);
+                      count++; 
+                 });
+             return result;
+            
+        }
         default:
             break;
     }
