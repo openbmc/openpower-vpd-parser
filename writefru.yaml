@@ -11,7 +11,9 @@ BMC:
         Version: VINI,HW
     xyz.openbmc_project.Common.UUID:
         UUID: OPFR,UD
-
+        UUID: OSYS,UD
+    xyz.openbmc_project.Inventory.Item.Bmc:
 ETHERNET:
     xyz.openbmc_project.Inventory.Item.NetworkInterface:
         MACAddress: VINI,B1
+    xyz.openbmc_project.Inventory.Item.Ethernet:
