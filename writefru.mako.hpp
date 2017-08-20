@@ -52,15 +52,17 @@ void writeFru<Fru::${key}>(const Store& vpdStore,
         intfName = names[0] + names[-1]
 %>\
     PropertyMap ${intfName}Props;
-        % for name, value in properties.iteritems():
-            % if fru and interface and name and value:
+        % if type(properties) is list:
+            % for name, value in properties.iteritems():
+                % if fru and interface and name and value:
 <%
                 record, keyword = value.split(",")
 %>\
     ${intfName}Props["${name}"] =
         vpdStore.get<Record::${record}, record::Keyword::${keyword}>();
-            % endif
-        % endfor
+                % endif
+            % endfor
+        % endif
     // Check and update extra properties
     if(extra::objects.end() != iter)
     {
