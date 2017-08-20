@@ -9,7 +9,7 @@ BMC:
         PrettyName: VINI,DR
     xyz.openbmc_project.Inventory.Decorator.Revision:
         Version: VINI,HW
-
+    xyz.openbmc_project.Inventory.Item.Bmc:
 ETHERNET:
     xyz.openbmc_project.Inventory.Item.NetworkInterface:
         MACAddress: VINI,B1
