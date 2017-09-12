@@ -55,10 +55,13 @@ void writeFru<Fru::${key}>(const Store& vpdStore,
         % for name, value in properties.iteritems():
             % if fru and interface and name and value:
 <%
-                record, keyword = value.split(",")
+                record, keyword = name.split(",")
 %>\
-    ${intfName}Props["${name}"] =
-        vpdStore.get<Record::${record}, record::Keyword::${keyword}>();
+    if (vpdStore.exists<Record::${record}, record::Keyword::${keyword}>())
+    {
+        ${intfName}Props["${value}"] =
+            vpdStore.get<Record::${record}, record::Keyword::${keyword}>();
+    }
             % endif
         % endfor
     // Check and update extra properties
