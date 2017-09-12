@@ -48,6 +48,20 @@ class Store final
         template<Record R, record::Keyword K>
         inline const std::string& get() const;
 
+        /** @brief Checks if VPD exists in store
+         *
+         *  @tparam R - VPD record
+         *  @tparam K - VPD keyword
+         *  @returns true if {R,K} exists
+         */
+        template<Record R, record::Keyword K>
+        bool exists() const
+        {
+            static const std::string record = getRecord<R>();
+            static const std::string keyword = record::getKeyword<K>();
+            return vpd.count(record) && vpd.at(record).count(keyword);
+        }
+
     private:
         /** @brief The store for parsed VPD */
         Parsed vpd;
