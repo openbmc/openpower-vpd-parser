@@ -18,7 +18,7 @@ PKG_CHECK_MODULES([SDBUSPLUS], [sdbusplus],,\
 PKG_CHECK_MODULES([PHOSPHOR_LOGGING], [phosphor-logging],,\
     AC_MSG_ERROR(["Requires phosphor-logging package."]))
 
-# Surpress the --with-libtool-sysroot error
+# Suppress the --with-libtool-sysroot error
 LT_INIT
 
 # Checks for typedefs, structures, and compiler characteristics.

@@ -21,7 +21,7 @@ namespace inventory
 {
 
 /** @brief API to write parsed VPD to inventory,
- *      for a specifc FRU
+ *      for a specific FRU
  *
  *  @param [in] vpdStore - Store object containing
  *      parsed VPD
