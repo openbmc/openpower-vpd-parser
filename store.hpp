@@ -39,7 +39,7 @@ class Store final
          */
         explicit Store(Parsed&& vpdBuffer): vpd(std::move(vpdBuffer)) {}
 
-        /** @brief Retrives VPD from Store
+        /** @brief Retrieves VPD from Store
          *
          *  @tparam R - VPD record
          *  @tparam K - VPD keyword
