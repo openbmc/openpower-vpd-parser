@@ -53,7 +53,9 @@ enum class Keyword
     VN,  /**< FRU manufacturer name */
     MB,  /**< FRU manufacture date */
     MM,  /**< FRU model */
-    UD   /**< System UUID */
+    UD,  /**< System UUID */
+    VS,  /**< OpenPower serial number */
+    VP   /**< OpenPower part number */
 };
 
 /** @brief Convert VPD Keyword name from enum to string
@@ -121,6 +123,18 @@ template<>
 constexpr const char* getKeyword<Keyword::UD>()
 {
     return "UD";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::VS>()
+{
+    return "VS";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::VP>()
+{
+    return "VP";
 }
 
 } // namespace record

@@ -43,7 +43,9 @@ static const std::unordered_map<std::string,
     {"VN", std::make_tuple(record::Keyword::VN, keyword::Encoding::ASCII)},
     {"MB", std::make_tuple(record::Keyword::MB, keyword::Encoding::RAW)},
     {"MM", std::make_tuple(record::Keyword::MM, keyword::Encoding::ASCII)},
-    {"UD", std::make_tuple(record::Keyword::UD, keyword::Encoding::UD)}
+    {"UD", std::make_tuple(record::Keyword::UD, keyword::Encoding::UD)},
+    {"VP", std::make_tuple(record::Keyword::VP, keyword::Encoding::ASCII)},
+    {"VS", std::make_tuple(record::Keyword::VS, keyword::Encoding::ASCII)},
 };
 
 namespace
