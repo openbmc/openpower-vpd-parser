@@ -1,0 +1,8 @@
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+2: Deepak Kodihalli <dkodihal@in.ibm.com>
+Submitted-by: Deepak Kodihalli <dkodihal@in.ibm.com>
+Submitted-at: Thu, 10 May 2018 18:45:48 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/10558
+Project: openbmc/openpower-vpd-parser
+Branch: refs/heads/master
