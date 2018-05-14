@@ -19,7 +19,8 @@ namespace parser
 {
 
 static const std::unordered_map<std::string, Record> supportedRecords = {
-    {"VINI", Record::VINI}, {"OPFR", Record::OPFR}, {"OSYS", Record::OSYS}};
+    {"VINI", Record::VINI}, {"OPFR", Record::OPFR}, {"OSYS", Record::OSYS},
+    {"VNDR", Record::VNDR}, {"VMSC", Record::VMSC}, {"VRTN", Record::VMSC}};
 
 static constexpr auto MAC_ADDRESS_LEN_BYTES = 6;
 static constexpr auto LAST_KW = "PF";
@@ -49,8 +50,21 @@ static const std::unordered_map<std::string, internal::KeywordInfo>
         {"MB", std::make_tuple(record::Keyword::MB, keyword::Encoding::MB)},
         {"MM", std::make_tuple(record::Keyword::MM, keyword::Encoding::ASCII)},
         {"UD", std::make_tuple(record::Keyword::UD, keyword::Encoding::UD)},
+        {"RT", std::make_tuple(record::Keyword::DR, keyword::Encoding::ASCII)},
+        {"CE", std::make_tuple(record::Keyword::CE, keyword::Encoding::ASCII)},
+        {"VZ", std::make_tuple(record::Keyword::VZ, keyword::Encoding::ASCII)},
+        {"FN", std::make_tuple(record::Keyword::FN, keyword::Encoding::ASCII)},
+        {"HE", std::make_tuple(record::Keyword::HE, keyword::Encoding::ASCII)},
+        {"CT", std::make_tuple(record::Keyword::CT, keyword::Encoding::RAW)},
+        {"B3", std::make_tuple(record::Keyword::B3, keyword::Encoding::RAW)},
+        {"B4", std::make_tuple(record::Keyword::B4, keyword::Encoding::RAW)},
+        {"B7", std::make_tuple(record::Keyword::B7, keyword::Encoding::RAW)},
+        {"VD", std::make_tuple(record::Keyword::VD, keyword::Encoding::ASCII)},
         {"VP", std::make_tuple(record::Keyword::VP, keyword::Encoding::ASCII)},
         {"VS", std::make_tuple(record::Keyword::VS, keyword::Encoding::ASCII)},
+        {"IN", std::make_tuple(record::Keyword::IN, keyword::Encoding::RAW)},
+        {"S0", std::make_tuple(record::Keyword::S0, keyword::Encoding::RAW)},
+        {"I2", std::make_tuple(record::Keyword::I2, keyword::Encoding::RAW)},
 };
 
 namespace

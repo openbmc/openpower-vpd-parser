@@ -10,7 +10,10 @@ enum class Record
 {
     VINI, /**< Initial information, common to all OpenPOWER FRUs */
     OPFR, /**< OpenPOWER FRU information, common to all OpenPOWER FRUs */
-    OSYS  /**< Information specific to a system board */
+    OSYS, /**< Information specific to a system board */
+    VNDR, /**< The Vendor Data Record keyword */
+    VMSC, /**< The miscellaneous VPD data */
+    VRTN  /**< The return data */
 };
 
 /** @brief Convert VPD Record name from enum to string
@@ -38,6 +41,24 @@ constexpr const char* getRecord<Record::OSYS>()
     return "OSYS";
 }
 
+template<>
+constexpr const char* getRecord<Record::VNDR>()
+{
+    return "VNDR";
+}
+
+template<>
+constexpr const char* getRecord<Record::VMSC>()
+{
+    return "VMSC";
+}
+
+template<>
+constexpr const char* getRecord<Record::VRTN>()
+{
+    return "VRTN";
+}
+
 namespace record
 {
 
@@ -55,7 +76,20 @@ enum class Keyword
     MM, /**< FRU model */
     UD, /**< System UUID */
     VS, /**< OpenPower serial number */
-    VP  /**< OpenPower part number */
+    VP, /**< OpenPower part number */
+    RT, /**< The Record Type keyword */
+    CE, /**< Card identification number (CCIN) extension */
+    VZ, /**< Overall VPD version; VPD change history */
+    FN, /**< Card FRU number */
+    HE, /**< Hardware EC version */
+    CT, /**< Card type */
+    B3, /**< Customer card identification number (CCIN)*/
+    B4, /**< The manufacturing FRU control (MFC)*/
+    B7, /**< Test-specific card information*/
+    VD, /**< Record version*/
+    IN, /**< Vendor specific data*/
+    S0, /**< The S0 keyword */
+    I2  /**< Additional vendor specific data*/
 };
 
 /** @brief Convert VPD Keyword name from enum to string
@@ -135,6 +169,84 @@ template <>
 constexpr const char* getKeyword<Keyword::VP>()
 {
     return "VP";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::RT>()
+{
+    return "RT";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::CE>()
+{
+    return "CE";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::VZ>()
+{
+    return "VZ";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::FN>()
+{
+    return "FN";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::HE>()
+{
+    return "HE";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::CT>()
+{
+    return "CT";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::B3>()
+{
+    return "B3";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::B4>()
+{
+    return "B4";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::B7>()
+{
+    return "B7";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::VD>()
+{
+    return "VD";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::IN>()
+{
+    return "IN";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::S0>()
+{
+    return "S0";
+}
+
+template<>
+constexpr const char* getKeyword<Keyword::I2>()
+{
+    return "I2";
 }
 
 } // namespace record
