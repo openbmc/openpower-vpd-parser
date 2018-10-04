@@ -22,7 +22,7 @@ PKG_CHECK_MODULES([PHOSPHOR_LOGGING], [phosphor-logging],,\
 LT_INIT
 
 # Checks for typedefs, structures, and compiler characteristics.
-AX_CXX_COMPILE_STDCXX_14([noext])
+AX_CXX_COMPILE_STDCXX_17([noext])
 AX_APPEND_COMPILE_FLAGS([-Wall -Werror], [CXXFLAGS])
 
 # Test cases require SDK so only build if we're told to (and SDK is available)
