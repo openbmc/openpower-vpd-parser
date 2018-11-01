@@ -1,13 +1,15 @@
-#include <sstream>
+#include "impl.hpp"
+
+#include "defines.hpp"
+
+#include <algorithm>
 #include <exception>
+#include <iomanip>
 #include <iostream>
 #include <iterator>
-#include <unordered_map>
-#include <iomanip>
+#include <sstream>
 #include <tuple>
-#include <algorithm>
-#include "defines.hpp"
-#include "impl.hpp"
+#include <unordered_map>
 
 namespace openpower
 {
@@ -16,12 +18,8 @@ namespace vpd
 namespace parser
 {
 
-static const std::unordered_map<std::string, Record> supportedRecords =
-{
-    {"VINI", Record::VINI},
-    {"OPFR", Record::OPFR},
-    {"OSYS", Record::OSYS}
-};
+static const std::unordered_map<std::string, Record> supportedRecords = {
+    {"VINI", Record::VINI}, {"OPFR", Record::OPFR}, {"OSYS", Record::OSYS}};
 
 static constexpr auto MAC_ADDRESS_LEN_BYTES = 6;
 static constexpr auto LAST_KW = "PF";
@@ -31,21 +29,20 @@ static constexpr auto UUID_TIME_MID_END = 13;
 static constexpr auto UUID_TIME_HIGH_END = 18;
 static constexpr auto UUID_CLK_SEQ_END = 23;
 
-static const std::unordered_map<std::string,
-       internal::KeywordInfo> supportedKeywords =
-{
-    {"DR", std::make_tuple(record::Keyword::DR, keyword::Encoding::ASCII)},
-    {"PN", std::make_tuple(record::Keyword::PN, keyword::Encoding::ASCII)},
-    {"SN", std::make_tuple(record::Keyword::SN, keyword::Encoding::ASCII)},
-    {"CC", std::make_tuple(record::Keyword::CC, keyword::Encoding::ASCII)},
-    {"HW", std::make_tuple(record::Keyword::HW, keyword::Encoding::RAW)},
-    {"B1", std::make_tuple(record::Keyword::B1, keyword::Encoding::B1)},
-    {"VN", std::make_tuple(record::Keyword::VN, keyword::Encoding::ASCII)},
-    {"MB", std::make_tuple(record::Keyword::MB, keyword::Encoding::RAW)},
-    {"MM", std::make_tuple(record::Keyword::MM, keyword::Encoding::ASCII)},
-    {"UD", std::make_tuple(record::Keyword::UD, keyword::Encoding::UD)},
-    {"VP", std::make_tuple(record::Keyword::VP, keyword::Encoding::ASCII)},
-    {"VS", std::make_tuple(record::Keyword::VS, keyword::Encoding::ASCII)},
+static const std::unordered_map<std::string, internal::KeywordInfo>
+    supportedKeywords = {
+        {"DR", std::make_tuple(record::Keyword::DR, keyword::Encoding::ASCII)},
+        {"PN", std::make_tuple(record::Keyword::PN, keyword::Encoding::ASCII)},
+        {"SN", std::make_tuple(record::Keyword::SN, keyword::Encoding::ASCII)},
+        {"CC", std::make_tuple(record::Keyword::CC, keyword::Encoding::ASCII)},
+        {"HW", std::make_tuple(record::Keyword::HW, keyword::Encoding::RAW)},
+        {"B1", std::make_tuple(record::Keyword::B1, keyword::Encoding::B1)},
+        {"VN", std::make_tuple(record::Keyword::VN, keyword::Encoding::ASCII)},
+        {"MB", std::make_tuple(record::Keyword::MB, keyword::Encoding::RAW)},
+        {"MM", std::make_tuple(record::Keyword::MM, keyword::Encoding::ASCII)},
+        {"UD", std::make_tuple(record::Keyword::UD, keyword::Encoding::UD)},
+        {"VP", std::make_tuple(record::Keyword::VP, keyword::Encoding::ASCII)},
+        {"VS", std::make_tuple(record::Keyword::VS, keyword::Encoding::ASCII)},
 };
 
 namespace
@@ -66,7 +63,7 @@ constexpr auto toHex(size_t c)
     return map[c];
 }
 
-}
+} // namespace
 
 namespace offsets
 {
@@ -77,7 +74,6 @@ enum Offsets
     VHDR_TOC_ENTRY = 29,
     VTOC_PTR = 35,
 };
-
 }
 
 namespace lengths
@@ -89,7 +85,6 @@ enum Lengths
     KW_NAME = 2,
     RECORD_MIN = 44,
 };
-
 }
 
 void Impl::checkHeader() const
@@ -113,7 +108,7 @@ void Impl::checkHeader() const
 
 internal::OffsetList Impl::readTOC() const
 {
-    internal::OffsetList offsets {};
+    internal::OffsetList offsets{};
 
     // The offset to VTOC could be 1 or 2 bytes long
     RecordOffset vtocOffset = vpd.at(offsets::VTOC_PTR);
@@ -123,14 +118,10 @@ internal::OffsetList Impl::readTOC() const
     // Got the offset to VTOC, skip past record header and keyword header
     // to get to the record name.
     auto iterator = vpd.cbegin();
-    std::advance(iterator,
-                 vtocOffset +
-                 sizeof(RecordId) +
-                 sizeof(RecordSize) +
-                 // Skip past the RT keyword, which contains
-                 // the record name.
-                 lengths::KW_NAME +
-                 sizeof(KwSize));
+    std::advance(iterator, vtocOffset + sizeof(RecordId) + sizeof(RecordSize) +
+                               // Skip past the RT keyword, which contains
+                               // the record name.
+                               lengths::KW_NAME + sizeof(KwSize));
 
     auto stop = std::next(iterator, lengths::RECORD_NAME);
     std::string record(iterator, stop);
@@ -175,11 +166,8 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
         offsets.push_back(offset);
 
         // Jump record size, record length, ECC offset and ECC length
-        std::advance(iterator,
-                     sizeof(RecordSize) +
-                     sizeof(RecordLength) +
-                     sizeof(ECCOffset) +
-                     sizeof(ECCLength));
+        std::advance(iterator, sizeof(RecordSize) + sizeof(RecordLength) +
+                                   sizeof(ECCOffset) + sizeof(ECCLength));
     }
 
     return offsets;
@@ -188,13 +176,10 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
 void Impl::processRecord(std::size_t recordOffset)
 {
     // Jump to record name
-    auto nameOffset = recordOffset +
-                      sizeof(RecordId) +
-                      sizeof(RecordSize) +
+    auto nameOffset = recordOffset + sizeof(RecordId) + sizeof(RecordSize) +
                       // Skip past the RT keyword, which contains
                       // the record name.
-                      lengths::KW_NAME +
-                      sizeof(KwSize);
+                      lengths::KW_NAME + sizeof(KwSize);
     // Get record name
     auto iterator = vpd.cbegin();
     std::advance(iterator, nameOffset);
@@ -228,52 +213,46 @@ std::string Impl::readKwData(const internal::KeywordInfo& keyword,
         {
             auto stop = std::next(iterator, dataLength);
             std::string data(iterator, stop);
-            std::string result {};
-            std::for_each(data.cbegin(), data.cend(),
-                          [&result](size_t c)
-                          {
-                              result += toHex(c >> 4);
-                              result += toHex(c & 0x0F);
-                          });
+            std::string result{};
+            std::for_each(data.cbegin(), data.cend(), [&result](size_t c) {
+                result += toHex(c >> 4);
+                result += toHex(c & 0x0F);
+            });
             return result;
         }
 
         case keyword::Encoding::B1:
         {
-            //B1 is MAC address, represent as AA:BB:CC:DD:EE:FF
+            // B1 is MAC address, represent as AA:BB:CC:DD:EE:FF
             auto stop = std::next(iterator, MAC_ADDRESS_LEN_BYTES);
             std::string data(iterator, stop);
-            std::string result {};
+            std::string result{};
             auto strItr = data.cbegin();
             size_t firstDigit = *strItr;
             result += toHex(firstDigit >> 4);
             result += toHex(firstDigit & 0x0F);
             std::advance(strItr, 1);
-            std::for_each(strItr, data.cend(),
-                          [&result](size_t c)
-                          {
-                              result += ":";
-                              result += toHex(c >> 4);
-                              result += toHex(c & 0x0F);
-                          });
+            std::for_each(strItr, data.cend(), [&result](size_t c) {
+                result += ":";
+                result += toHex(c >> 4);
+                result += toHex(c & 0x0F);
+            });
             return result;
         }
 
         case keyword::Encoding::UD:
         {
-            //UD, the UUID info, represented as
-            //123e4567-e89b-12d3-a456-426655440000
+            // UD, the UUID info, represented as
+            // 123e4567-e89b-12d3-a456-426655440000
             //<time_low>-<time_mid>-<time hi and version>
             //-<clock_seq_hi_and_res clock_seq_low>-<48 bits node id>
             auto stop = std::next(iterator, UUID_LEN_BYTES);
             std::string data(iterator, stop);
             std::string result{};
-            std::for_each(data.cbegin(), data.cend(),
-                [&result](size_t c)
-                {
-                    result += toHex(c >> 4);
-                    result += toHex(c & 0x0F);
-                });
+            std::for_each(data.cbegin(), data.cend(), [&result](size_t c) {
+                result += toHex(c >> 4);
+                result += toHex(c & 0x0F);
+            });
             result.insert(UUID_TIME_LOW_END, 1, '-');
             result.insert(UUID_TIME_MID_END, 1, '-');
             result.insert(UUID_TIME_HIGH_END, 1, '-');
@@ -290,7 +269,7 @@ std::string Impl::readKwData(const internal::KeywordInfo& keyword,
 
 internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
 {
-    internal::KeywordMap map {};
+    internal::KeywordMap map{};
     while (true)
     {
         // Note keyword name
@@ -310,10 +289,8 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
         if (supportedKeywords.end() != supportedKeywords.find(kw))
         {
             // Keyword is of interest to us
-            std::string data = readKwData(
-                                   (supportedKeywords.find(kw))->second,
-                                   length,
-                                   iterator);
+            std::string data = readKwData((supportedKeywords.find(kw))->second,
+                                          length, iterator);
             map.emplace(std::move(kw), std::move(data));
         }
         // Jump past keyword data length

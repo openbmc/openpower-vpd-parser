@@ -2,6 +2,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 namespace openpower
 {
@@ -10,8 +11,7 @@ namespace vpd
 namespace args
 {
 
-using Args = std::unordered_map<std::string,
-      std::vector<std::string>>;
+using Args = std::unordered_map<std::string, std::vector<std::string>>;
 
 /** @brief Command-line argument parser for openpower-read-vpd
  *

@@ -1,7 +1,8 @@
 #pragma once
 
-#include <vector>
 #include "store.hpp"
+
+#include <vector>
 
 namespace openpower
 {

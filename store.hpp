@@ -1,9 +1,10 @@
 #pragma once
 
-#include <string>
-#include <unordered_map>
 #include "defines.hpp"
 #include "types.hpp"
+
+#include <string>
+#include <unordered_map>
 
 namespace openpower
 {
@@ -12,9 +13,8 @@ namespace vpd
 
 /** @brief Parsed VPD is represented as a dictionary of records, where
  *         each record in itself is a dictionary of keywords */
-using Parsed =
-    std::unordered_map<std::string,
-        std::unordered_map<std::string, std::string>>;
+using Parsed = std::unordered_map<std::string,
+                                  std::unordered_map<std::string, std::string>>;
 
 /** @class Store
  *  @brief Store for parsed OpenPOWER VPD
@@ -25,49 +25,51 @@ using Parsed =
  */
 class Store final
 {
-    public:
-        Store() = delete;
-        Store(const Store&) = delete;
-        Store& operator=(const Store&) = delete;
-        Store(Store&&) = default;
-        Store& operator=(Store&&) = default;
-        ~Store() = default;
+  public:
+    Store() = delete;
+    Store(const Store&) = delete;
+    Store& operator=(const Store&) = delete;
+    Store(Store&&) = default;
+    Store& operator=(Store&&) = default;
+    ~Store() = default;
 
-        /** @brief Construct a Store
-         *
-         *  @param[in] vpdBuffer - A parsed VPD object
-         */
-        explicit Store(Parsed&& vpdBuffer): vpd(std::move(vpdBuffer)) {}
+    /** @brief Construct a Store
+     *
+     *  @param[in] vpdBuffer - A parsed VPD object
+     */
+    explicit Store(Parsed&& vpdBuffer) : vpd(std::move(vpdBuffer))
+    {
+    }
 
-        /** @brief Retrieves VPD from Store
-         *
-         *  @tparam R - VPD record
-         *  @tparam K - VPD keyword
-         *  @returns VPD stored in input record:keyword
-         */
-        template<Record R, record::Keyword K>
-        inline const std::string& get() const;
+    /** @brief Retrieves VPD from Store
+     *
+     *  @tparam R - VPD record
+     *  @tparam K - VPD keyword
+     *  @returns VPD stored in input record:keyword
+     */
+    template <Record R, record::Keyword K>
+    inline const std::string& get() const;
 
-        /** @brief Checks if VPD exists in store
-         *
-         *  @tparam R - VPD record
-         *  @tparam K - VPD keyword
-         *  @returns true if {R,K} exists
-         */
-        template<Record R, record::Keyword K>
-        bool exists() const
-        {
-            static const std::string record = getRecord<R>();
-            static const std::string keyword = record::getKeyword<K>();
-            return vpd.count(record) && vpd.at(record).count(keyword);
-        }
+    /** @brief Checks if VPD exists in store
+     *
+     *  @tparam R - VPD record
+     *  @tparam K - VPD keyword
+     *  @returns true if {R,K} exists
+     */
+    template <Record R, record::Keyword K>
+    bool exists() const
+    {
+        static const std::string record = getRecord<R>();
+        static const std::string keyword = record::getKeyword<K>();
+        return vpd.count(record) && vpd.at(record).count(keyword);
+    }
 
-    private:
-        /** @brief The store for parsed VPD */
-        Parsed vpd;
+  private:
+    /** @brief The store for parsed VPD */
+    Parsed vpd;
 };
 
-template<Record R, record::Keyword K>
+template <Record R, record::Keyword K>
 inline const std::string& Store::get() const
 {
     static const std::string record = getRecord<R>();

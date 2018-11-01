@@ -1,8 +1,10 @@
-#include <exception>
-#include <algorithm>
-#include "defines.hpp"
 #include "write.hpp"
+
+#include "defines.hpp"
 #include "writefru.hpp"
+
+#include <algorithm>
+#include <exception>
 
 namespace openpower
 {
@@ -11,14 +13,10 @@ namespace vpd
 namespace inventory
 {
 
-static const std::unordered_map<std::string, Fru> supportedFrus =
-{
-    {"BMC", Fru::BMC},
-    {"ETHERNET", Fru::ETHERNET}
-};
+static const std::unordered_map<std::string, Fru> supportedFrus = {
+    {"BMC", Fru::BMC}, {"ETHERNET", Fru::ETHERNET}};
 
-void write(const std::string& type,
-           const Store& vpdStore,
+void write(const std::string& type, const Store& vpdStore,
            const std::string& path)
 {
     // Get the enum corresponding to type, and call
@@ -54,6 +52,6 @@ void write(const std::string& type,
     }
 }
 
-} // inventory
+} // namespace inventory
 } // namespace vpd
 } // namespace openpower

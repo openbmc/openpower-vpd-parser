@@ -17,22 +17,22 @@ enum class Record
  *  @tparam R - VPD Record
  *  @returns string representation of Record name
  */
-template<Record R>
+template <Record R>
 constexpr const char* getRecord() = delete;
 
-template<>
+template <>
 constexpr const char* getRecord<Record::VINI>()
 {
     return "VINI";
 }
 
-template<>
+template <>
 constexpr const char* getRecord<Record::OPFR>()
 {
     return "OPFR";
 }
 
-template<>
+template <>
 constexpr const char* getRecord<Record::OSYS>()
 {
     return "OSYS";
@@ -44,94 +44,94 @@ namespace record
 /** @brief OpenPOWER VPD keywords we're interested in */
 enum class Keyword
 {
-    DR,  /**< FRU name/description */
-    PN,  /**< FRU part number */
-    SN,  /**< FRU serial number */
-    CC,  /**< Customer Card Identification Number (CCIN) */
-    HW,  /**< FRU version */
-    B1,  /**< MAC Address */
-    VN,  /**< FRU manufacturer name */
-    MB,  /**< FRU manufacture date */
-    MM,  /**< FRU model */
-    UD,  /**< System UUID */
-    VS,  /**< OpenPower serial number */
-    VP   /**< OpenPower part number */
+    DR, /**< FRU name/description */
+    PN, /**< FRU part number */
+    SN, /**< FRU serial number */
+    CC, /**< Customer Card Identification Number (CCIN) */
+    HW, /**< FRU version */
+    B1, /**< MAC Address */
+    VN, /**< FRU manufacturer name */
+    MB, /**< FRU manufacture date */
+    MM, /**< FRU model */
+    UD, /**< System UUID */
+    VS, /**< OpenPower serial number */
+    VP  /**< OpenPower part number */
 };
 
 /** @brief Convert VPD Keyword name from enum to string
  *  @tparam K - VPD Keyword
  *  @returns string representation of Keyword name
  */
-template<Keyword K>
+template <Keyword K>
 constexpr const char* getKeyword() = delete;
 
-template<>
+template <>
 constexpr const char* getKeyword<Keyword::DR>()
 {
     return "DR";
 }
 
-template<>
+template <>
 constexpr const char* getKeyword<Keyword::PN>()
 {
     return "PN";
 }
 
-template<>
+template <>
 constexpr const char* getKeyword<Keyword::SN>()
 {
     return "SN";
 }
 
-template<>
+template <>
 constexpr const char* getKeyword<Keyword::CC>()
 {
     return "CC";
 }
 
-template<>
+template <>
 constexpr const char* getKeyword<Keyword::HW>()
 {
     return "HW";
 }
 
-template<>
+template <>
 constexpr const char* getKeyword<Keyword::B1>()
 {
     return "B1";
 }
 
-template<>
+template <>
 constexpr const char* getKeyword<Keyword::VN>()
 {
     return "VN";
 }
 
-template<>
+template <>
 constexpr const char* getKeyword<Keyword::MB>()
 {
     return "MB";
 }
 
-template<>
+template <>
 constexpr const char* getKeyword<Keyword::MM>()
 {
     return "MM";
 }
 
-template<>
+template <>
 constexpr const char* getKeyword<Keyword::UD>()
 {
     return "UD";
 }
 
-template<>
+template <>
 constexpr const char* getKeyword<Keyword::VS>()
 {
     return "VS";
 }
 
-template<>
+template <>
 constexpr const char* getKeyword<Keyword::VP>()
 {
     return "VP";

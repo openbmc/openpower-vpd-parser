@@ -1,9 +1,9 @@
-#include <defines.hpp>
-#include <store.hpp>
-#include <parser.hpp>
 #include <cassert>
+#include <defines.hpp>
 #include <fstream>
 #include <iterator>
+#include <parser.hpp>
+#include <store.hpp>
 
 void runTests()
 {
@@ -17,8 +17,7 @@ void runTests()
 
         auto vpdStore = parse(std::move(vpd));
 
-        assert(("P012" ==
-               vpdStore.get<Record::VINI, record::Keyword::CC>()));
+        assert(("P012" == vpdStore.get<Record::VINI, record::Keyword::CC>()));
     }
 }
 
