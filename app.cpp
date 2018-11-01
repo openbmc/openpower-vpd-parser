@@ -1,12 +1,14 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <iterator>
-#include <exception>
-#include "defines.hpp"
-#include "write.hpp"
 #include "args.hpp"
+#include "defines.hpp"
 #include "parser.hpp"
+#include "write.hpp"
+
+#include <exception>
+#include <fstream>
+#include <iostream>
+#include <iterator>
+#include <string>
+#include <vector>
 
 int main(int argc, char** argv)
 {
@@ -16,7 +18,7 @@ int main(int argc, char** argv)
     {
         using namespace openpower::vpd;
 
-        args::Args arguments =  args::parse(argc, argv);
+        args::Args arguments = args::parse(argc, argv);
 
         // We need vpd file, FRU type and object path
         if ((arguments.end() != arguments.find("vpd")) &&
@@ -39,7 +41,7 @@ int main(int argc, char** argv)
             if (frus.size() != objects.size())
             {
                 std::cerr << "Unequal number of FRU types and object paths "
-                          "specified\n";
+                             "specified\n";
                 rc = -1;
             }
             else
@@ -47,10 +49,7 @@ int main(int argc, char** argv)
                 // Write VPD to FRU inventory
                 for (std::size_t index = 0; index < frus.size(); ++index)
                 {
-                    inventory::write(
-                        frus[index],
-                        vpdStore,
-                        objects[index]);
+                    inventory::write(frus[index], vpdStore, objects[index]);
                 }
             }
         }

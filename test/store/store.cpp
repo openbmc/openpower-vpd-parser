@@ -1,9 +1,11 @@
+#include "store.hpp"
+
+#include "defines.hpp"
+
 #include <cassert>
 #include <string>
 #include <unordered_map>
 #include <utility>
-#include "defines.hpp"
-#include "store.hpp"
 
 void runTests()
 {

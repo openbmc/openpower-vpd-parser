@@ -1,7 +1,8 @@
 #include "utils.hpp"
-#include <sdbusplus/server.hpp>
-#include <phosphor-logging/log.hpp>
+
 #include <iostream>
+#include <phosphor-logging/log.hpp>
+#include <sdbusplus/server.hpp>
 
 namespace openpower
 {
@@ -15,24 +16,22 @@ auto getPIMService()
 {
     auto bus = sdbusplus::bus::new_default();
     auto mapper =
-        bus.new_method_call(
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper",
-            "GetObject");
+        bus.new_method_call("xyz.openbmc_project.ObjectMapper",
+                            "/xyz/openbmc_project/object_mapper",
+                            "xyz.openbmc_project.ObjectMapper", "GetObject");
 
     mapper.append(pimPath);
     mapper.append(std::vector<std::string>({pimIntf}));
 
     auto result = bus.call(mapper);
-    if(result.is_method_error())
+    if (result.is_method_error())
     {
         throw std::runtime_error("ObjectMapper GetObject failed");
     }
 
     std::map<std::string, std::vector<std::string>> response;
     result.read(response);
-    if(response.empty())
+    if (response.empty())
     {
         throw std::runtime_error("ObjectMapper GetObject bad response");
     }
@@ -48,14 +47,11 @@ void callPIM(ObjectMap&& objects)
     {
         service = getPIMService();
         auto bus = sdbusplus::bus::new_default();
-        auto pimMsg = bus.new_method_call(
-                              service.c_str(),
-                              pimPath,
-                              pimIntf,
-                              "Notify");
+        auto pimMsg =
+            bus.new_method_call(service.c_str(), pimPath, pimIntf, "Notify");
         pimMsg.append(std::move(objects));
         auto result = bus.call(pimMsg);
-        if(result.is_method_error())
+        if (result.is_method_error())
         {
             std::cerr << "PIM Notify() failed\n";
         }
@@ -69,5 +65,5 @@ void callPIM(ObjectMap&& objects)
 
 } // namespace inventory
 
-} //namespace vpd
-} //namespace openpower
+} // namespace vpd
+} // namespace openpower

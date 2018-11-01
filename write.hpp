@@ -1,7 +1,7 @@
 #pragma once
 
-#include <string>
 #include <store.hpp>
+#include <string>
 
 namespace openpower
 {
@@ -16,10 +16,9 @@ namespace inventory
  *  @param [in] vpdStore - Store object containing parsed VPD
  *  @param [in] path - FRU object path
  */
-void write(const std::string& type,
-           const Store& vpdStore,
+void write(const std::string& type, const Store& vpdStore,
            const std::string& path);
 
-} // inventory
+} // namespace inventory
 } // namespace vpd
 } // namespace openpower

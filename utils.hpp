@@ -22,5 +22,5 @@ void callPIM(ObjectMap&& objects);
 
 } // namespace inventory
 
-} //namespace vpd
-} //namespace openpower
+} // namespace vpd
+} // namespace openpower

@@ -1,10 +1,12 @@
+#include "args.hpp"
+
 #include <getopt.h>
-#include <string>
-#include <vector>
-#include <utility>
+
 #include <iostream>
 #include <sstream>
-#include "args.hpp"
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace openpower
 {
@@ -14,13 +16,12 @@ namespace args
 {
 
 static constexpr auto shortForm = "v:f:o:h";
-static const option longForm[] =
-{
-    { "vpd",     required_argument,  nullptr,  'v' },
-    { "fru",     required_argument,  nullptr,  'f' },
-    { "object",  required_argument,  nullptr,  'o' },
-    { "help",    no_argument,        nullptr,  'h' },
-    { 0, 0, 0, 0},
+static const option longForm[] = {
+    {"vpd", required_argument, nullptr, 'v'},
+    {"fru", required_argument, nullptr, 'f'},
+    {"object", required_argument, nullptr, 'o'},
+    {"help", no_argument, nullptr, 'h'},
+    {0, 0, 0, 0},
 };
 
 void usage(char** argv)
@@ -30,13 +31,15 @@ void usage(char** argv)
     std::cerr << "--vpd=<vpd file> pathname of file containing vpd,";
     std::cerr << " for eg an eeprom file\n";
     std::cerr << "--fru=<FRU type>, supported types:\n";
-    std::cerr << "\t" << "bmc\n";
-    std::cerr << "\t" << "ethernet\n";
+    std::cerr << "\t"
+              << "bmc\n";
+    std::cerr << "\t"
+              << "ethernet\n";
     std::cerr << "Specify multiple FRU types via comma-separated list\n";
     std::cerr << "--object=<FRU object path> for eg,";
     std::cerr << " chassis/bmc0/planar\n";
     std::cerr << "Specify multiple object paths via comma-separated list, "
-              "ordered as the FRU types\n";
+                 "ordered as the FRU types\n";
     std::cerr << "--help display usage\n";
 }
 
@@ -71,7 +74,7 @@ Args parse(int argc, char** argv)
                 // There could be a comma-separated list
                 std::string opts(optarg);
                 std::istringstream stream(std::move(opts));
-                std::string input {};
+                std::string input{};
                 while (std::getline(stream, input, ','))
                 {
                     values.push_back(std::move(input));

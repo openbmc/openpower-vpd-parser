@@ -1,10 +1,10 @@
 #pragma once
 
 #include <climits>
-#include <vector>
-#include <string>
 #include <map>
 #include <sdbusplus/server.hpp>
+#include <string>
+#include <vector>
 
 namespace openpower
 {
