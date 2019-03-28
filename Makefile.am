@@ -41,7 +41,7 @@ writefru.hpp: ${FRU_GEN_SCRIPT} ${FRU_GEN_SCRIPT_FILES}
 extra-properties-gen.hpp: ${PROP_GEN_SCRIPT} ${PROP_GEN_SCRIPT_FILES}
 	$(AM_V_GEN)@PROPGEN@
 
-sbin_PROGRAMS = openpower-read-vpd
+bin_PROGRAMS = openpower-read-vpd
 openpower_read_vpd_SOURCES = \
 	app.cpp \
 	args.cpp \
