@@ -29,6 +29,13 @@ static constexpr auto UUID_TIME_MID_END = 13;
 static constexpr auto UUID_TIME_HIGH_END = 18;
 static constexpr auto UUID_CLK_SEQ_END = 23;
 
+static constexpr auto MB_LEN_BYTES = 8;
+static constexpr auto MB_YEAR_END = 4;
+static constexpr auto MB_MONTH_END = 7;
+static constexpr auto MB_DAY_END = 10;
+static constexpr auto MB_HOUR_END = 13;
+static constexpr auto MB_MIN_END = 16;
+
 static const std::unordered_map<std::string, internal::KeywordInfo>
     supportedKeywords = {
         {"DR", std::make_tuple(record::Keyword::DR, keyword::Encoding::ASCII)},
@@ -38,7 +45,7 @@ static const std::unordered_map<std::string, internal::KeywordInfo>
         {"HW", std::make_tuple(record::Keyword::HW, keyword::Encoding::RAW)},
         {"B1", std::make_tuple(record::Keyword::B1, keyword::Encoding::B1)},
         {"VN", std::make_tuple(record::Keyword::VN, keyword::Encoding::ASCII)},
-        {"MB", std::make_tuple(record::Keyword::MB, keyword::Encoding::RAW)},
+        {"MB", std::make_tuple(record::Keyword::MB, keyword::Encoding::MB)},
         {"MM", std::make_tuple(record::Keyword::MM, keyword::Encoding::ASCII)},
         {"UD", std::make_tuple(record::Keyword::UD, keyword::Encoding::UD)},
         {"VP", std::make_tuple(record::Keyword::VP, keyword::Encoding::ASCII)},
@@ -209,15 +216,27 @@ std::string Impl::readKwData(const internal::KeywordInfo& keyword,
             return std::string(iterator, stop);
         }
 
-        case keyword::Encoding::RAW:
+        case keyword::Encoding::MB:
         {
-            auto stop = std::next(iterator, dataLength);
+            // MB is BuildDate, represent as
+            // 1997-01-01-08:30
+            //<year>-<month>-<day>-<hour>:<min>
+            auto stop = std::next(iterator, MB_LEN_BYTES);
             std::string data(iterator, stop);
             std::string result{};
-            std::for_each(data.cbegin(), data.cend(), [&result](size_t c) {
+            auto strItr = data.cbegin();
+            std::advance(strItr, 1);
+            std::for_each(strItr, data.cend(), [&result](size_t c) {
                 result += toHex(c >> 4);
                 result += toHex(c & 0x0F);
             });
+
+            result.insert(MB_YEAR_END, 1, '-');
+            result.insert(MB_MONTH_END, 1, '-');
+            result.insert(MB_DAY_END, 1, '-');
+            result.insert(MB_HOUR_END, 1, ':');
+            result.insert(MB_MIN_END, 1, ':');
+
             return result;
         }
 
