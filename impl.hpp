@@ -20,6 +20,7 @@ enum class Encoding
     RAW,   /**< raw data */
     // Keywords needing custom decoding
     B1, /**< The keyword B1 needs to be decoded specially */
+    MB, /**< Special decoding of MB meant for Build Date */
     UD  /**< Special decoding of UD meant for UUID */
 };
 
