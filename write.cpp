@@ -13,8 +13,11 @@ namespace vpd
 namespace inventory
 {
 
+// Some systems have two MAC addresses
 static const std::unordered_map<std::string, Fru> supportedFrus = {
-    {"BMC", Fru::BMC}, {"ETHERNET", Fru::ETHERNET}};
+    {"BMC", Fru::BMC},
+    {"ETHERNET", Fru::ETHERNET},
+    {"ETHERNET1", Fru::ETHERNET1}};
 
 void write(const std::string& type, const Store& vpdStore,
            const std::string& path)
@@ -43,6 +46,12 @@ void write(const std::string& type, const Store& vpdStore,
             case Fru::ETHERNET:
             {
                 writeFru<Fru::ETHERNET>(vpdStore, path);
+                break;
+            }
+
+            case Fru::ETHERNET1:
+            {
+                writeFru<Fru::ETHERNET1>(vpdStore, path);
                 break;
             }
 
