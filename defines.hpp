@@ -143,11 +143,13 @@ constexpr const char* getKeyword<Keyword::VP>()
  *
  *  BMC       The VPD on the BMC planar, for eg
  *  ETHERNET  The ethernet card on the BMC
+ *  ETHERNET1 The 2nd ethernet card on the BMC
  */
 enum Fru
 {
     BMC,
-    ETHERNET
+    ETHERNET,
+    ETHERNET1
 };
 
 } // namespace vpd
