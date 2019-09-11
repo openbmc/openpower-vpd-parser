@@ -32,18 +32,21 @@ namespace internal
 using KeywordInfo = std::tuple<record::Keyword, keyword::Encoding>;
 using OffsetList = std::vector<uint32_t>;
 using KeywordMap = Parsed::mapped_type;
+using IpzKeywordMap = ParsedBinData::mapped_type;
+
+using KeywordMaps = std::tuple<KeywordMap, IpzKeywordMap>;
 
 } // namespace internal
 
 /** @class Impl
- *  @brief Implements parser for OpenPOWER VPD
+ *  @brief Implements parser for  VPD
  *
- *  An Impl object must be constructed by passing in OpenPOWER VPD in
+ *  An Impl object must be constructed by passing in  VPD in
  *  binary format. To parse the VPD, call the run() method. The run()
  *  method returns an openpower::vpd::Store object, which contains
  *  parsed VPD, and provides access methods for the VPD.
  *
- *  Following is the algorithm used to parse OpenPOWER VPD:
+ *  Following is the algorithm used to parse  VPD:
  *  1) Validate that the first record is VHDR, the header record.
  *  2) From the VHDR record, get the offset of the VTOC record,
  *     which is the table of contents record.
@@ -66,17 +69,18 @@ class Impl
 
     /** @brief Construct an Impl
      *
-     *  @param[in] vpdBuffer - Binary OpenPOWER VPD
+     *  @param[in] vpdBuffer - Binary  VPD
      */
     explicit Impl(Binary&& vpdBuffer) : vpd(std::move(vpdBuffer)), out{}
     {
     }
 
-    /** @brief Run the parser on binary OpenPOWER VPD
+    /** @brief Run the parser on binary  VPD
      *
-     *  @returns openpower::vpd::Store object
+     *  @returns collection of openpower::vpd::Store and
+     *  openpower::vpd::StoreBinData object
      */
-    Store run();
+    Stores run();
 
   private:
     /** @brief Process the table of contents record, VHDR
@@ -99,13 +103,13 @@ class Impl
     /** @brief Read VPD information contained within a record
      *
      *  @param[in] recordOffset - offset to a record location
-     *      within the binary OpenPOWER VPD
+     *      within the binary  VPD
      */
     void processRecord(std::size_t recordOffset);
 
     /** @brief Read keyword data
      *
-     *  @param[in] keyword - OpenPOWER VPD keyword
+     *  @param[in] keyword - VPD keyword
      *  @param[in] dataLength - Length of data to be read
      *  @param[in] iterator - iterator pointing to a Keyword's data in
      *      the VPD
@@ -122,18 +126,20 @@ class Impl
      *
      *  @param[in] iterator - iterator pointing to a Keyword in the VPD
      *
-     *  @returns map of keyword:data
+     *  @returns Collection of maps of keyword:data
      */
-    internal::KeywordMap readKeywords(Binary::const_iterator iterator);
+    internal::KeywordMaps readKeywords(Binary::const_iterator iterator);
 
     /** @brief Checks if the VHDR record is present in the VPD */
     void checkHeader() const;
 
-    /** @brief OpenPOWER VPD in binary format */
+    /** @brief VPD in binary format */
     Binary vpd;
 
     /** @brief parser output */
     Parsed out;
+    /** @brief parser output */
+    ParsedBinData binOut;
 };
 
 } // namespace parser

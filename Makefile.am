@@ -8,7 +8,8 @@ noinst_HEADERS = \
 	impl.hpp \
 	args.hpp \
 	types.hpp \
-	utils.hpp
+	utils.hpp \
+	ipz_args.hpp
 
 # Be sure to build these before compiling
 BUILT_SOURCES = \
@@ -51,5 +52,20 @@ openpower_read_vpd_SOURCES = \
 	utils.cpp
 openpower_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
 openpower_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
+
+if IPZ_PARSER_IBM
+bin_PROGRAMS += ipz-read-vpd
+ipz_read_vpd_SOURCES = \
+	ipz_app.cpp \
+	ipz_args.cpp \
+	parser.cpp \
+	impl.cpp \
+	write.cpp \
+	utils.cpp
+
+ipz_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
+ipz_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
+
+endif
 
 SUBDIRS = test
