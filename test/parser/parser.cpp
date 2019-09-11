@@ -17,9 +17,12 @@ void runTests()
 
         auto vpdStore = parse(std::move(vpd));
 
-        assert(("P012" == vpdStore.get<Record::VINI, record::Keyword::CC>()));
-        assert(("2019-01-01-08:30:00" ==
-                vpdStore.get<Record::VINI, record::Keyword::MB>()));
+        assert(
+            ("P012" ==
+             (std::get<0>(vpdStore)).get<Record::VINI, record::Keyword::CC>()));
+        assert(
+            ("2019-01-01-08:30:00" ==
+             (std::get<0>(vpdStore)).get<Record::VINI, record::Keyword::MB>()));
     }
 }
 

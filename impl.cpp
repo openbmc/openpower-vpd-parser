@@ -201,8 +201,15 @@ void Impl::processRecord(std::size_t recordOffset)
         auto kwMap = readKeywords(iterator);
         // Add entry for this record (and contained keyword:value pairs)
         // to the parsed vpd output.
-        out.emplace(std::move(name), std::move(kwMap));
+        out.emplace(std::move(name), std::move(std::get<0>(kwMap)));
     }
+
+#ifdef IPZ_PARSER_IBM
+    // IPZ parser supports all Records
+    std::advance(iterator, lengths::RECORD_NAME);
+    auto ipzKwMap = readKeywords(iterator);
+    binary_out.emplace(std::move(name), std::move(std::get<1>(ipzKwMap)));
+#endif
 }
 
 std::string Impl::readKwData(const internal::KeywordInfo& keyword,
@@ -300,9 +307,10 @@ std::string Impl::readKwData(const internal::KeywordInfo& keyword,
     return {};
 }
 
-internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
+internal::maps Impl::readKeywords(Binary::const_iterator iterator)
 {
     internal::KeywordMap map{};
+    internal::IpzKeywordMap ipz_map{};
     while (true)
     {
         // Note keyword name
@@ -326,14 +334,26 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
                                           length, iterator);
             map.emplace(std::move(kw), std::move(data));
         }
+
+#ifdef IPZ_PARSER_IBM
+        // support all the Keywords
+        auto stop = std::next(iterator, length);
+        std::string kwdata(iterator, stop);
+        Binary result;
+
+        std::for_each(kwdata.cbegin(), kwdata.cend(),
+                      [&result](size_t c) { result.push_back(c); });
+        ipz_map.emplace(std::move(kw), std::move(result));
+#endif
+
         // Jump past keyword data length
         std::advance(iterator, length);
     }
 
-    return map;
+    return internal::maps(std::move(map), std::move(ipz_map));
 }
 
-Store Impl::run()
+Stores Impl::run()
 {
     // Check if the VHDR record is present
     checkHeader();
@@ -346,9 +366,10 @@ Store Impl::run()
         processRecord(offset);
     }
 
-    // Return a Store object, which has interfaces to
+    // Return a tuple of Store object and raw_store, which has interfaces to
     // access parsed VPD by record:keyword
-    return Store(std::move(out));
+
+    return Stores(Store(std::move(out)), Store_rawData(std::move(binary_out)));
 }
 
 } // namespace parser

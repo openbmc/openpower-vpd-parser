@@ -16,6 +16,9 @@ namespace vpd
 using Parsed = std::unordered_map<std::string,
                                   std::unordered_map<std::string, std::string>>;
 
+using Parsed_rawData =
+    std::unordered_map<std::string, std::unordered_map<std::string, Binary>>;
+
 /** @class Store
  *  @brief Store for parsed OpenPOWER VPD
  *
@@ -28,7 +31,6 @@ class Store final
   public:
     Store() = delete;
     Store(const Store&) = delete;
-    Store& operator=(const Store&) = delete;
     Store(Store&&) = default;
     Store& operator=(Store&&) = default;
     ~Store() = default;
@@ -87,5 +89,37 @@ inline const std::string& Store::get() const
     return empty;
 }
 
+/** @class Store_rawData
+ *  @brief Store for parsed IPZ VPD
+ *
+ *  A Store_rawData object stores parsed IPZ VPD, and provides access
+ *  to the VPD, specified by record and keyword. Parsed VPD is typically
+ *  provided by the Parser class.
+ */
+class Store_rawData final
+{
+  public:
+    Store_rawData() = delete;
+    Store_rawData(const Store_rawData&) = delete;
+    Store_rawData& operator=(const Store_rawData&) = delete;
+    Store_rawData(Store_rawData&&) = default;
+    Store_rawData& operator=(Store_rawData&&) = default;
+    ~Store_rawData() = default;
+
+    /** @brief Construct a Store_rawData
+     *
+     *  @param[in] vpdBuffer - A parsed VPD object
+     */
+    explicit Store_rawData(Parsed_rawData&& vpdBuffer) :
+        ipz_vpd(std::move(vpdBuffer))
+    {
+    }
+
+  private:
+    /** @brief The store for parsed VPD */
+    Parsed_rawData ipz_vpd;
+};
+
+using Stores = std::tuple<Store, Store_rawData>;
 } // namespace vpd
 } // namespace openpower
