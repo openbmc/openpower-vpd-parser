@@ -22,7 +22,7 @@ namespace inventory
 
 using Path = std::string;
 using Property = std::string;
-using Value = sdbusplus::message::variant<bool, int64_t, std::string>;
+using Value = sdbusplus::message::variant<bool, int64_t, std::string, Binary>;
 using PropertyMap = std::map<Property, Value>;
 
 using Interface = std::string;

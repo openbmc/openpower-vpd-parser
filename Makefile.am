@@ -10,6 +10,18 @@ noinst_HEADERS = \
 	types.hpp \
 	utils.hpp
 
+if IBM_PARSER
+bin_PROGRAMS = ibm-read-vpd
+ibm_read_vpd_SOURCES = \
+	ipz_app.cpp \
+	parser.cpp \
+	impl.cpp \
+	utils.cpp
+
+ibm_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
+ibm_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
+
+else
 # Be sure to build these before compiling
 BUILT_SOURCES = \
 	writefru.hpp \
@@ -51,5 +63,6 @@ openpower_read_vpd_SOURCES = \
 	utils.cpp
 openpower_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
 openpower_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
+endif
 
 SUBDIRS = test
