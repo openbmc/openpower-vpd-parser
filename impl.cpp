@@ -23,6 +23,7 @@ static const std::unordered_map<std::string, Record> supportedRecords = {
 
 static constexpr auto MAC_ADDRESS_LEN_BYTES = 6;
 static constexpr auto LAST_KW = "PF";
+static constexpr auto POUND_KW = '#';
 static constexpr auto UUID_LEN_BYTES = 16;
 static constexpr auto UUID_TIME_LOW_END = 8;
 static constexpr auto UUID_TIME_MID_END = 13;
@@ -62,6 +63,7 @@ using RecordSize = uint16_t;
 using RecordType = uint16_t;
 using RecordLength = uint16_t;
 using KwSize = uint8_t;
+using PoundKwSize = uint16_t;
 using ECCOffset = uint16_t;
 using ECCLength = uint16_t;
 
@@ -193,16 +195,26 @@ void Impl::processRecord(std::size_t recordOffset)
     std::advance(iterator, nameOffset);
 
     std::string name(iterator, iterator + lengths::RECORD_NAME);
+#ifndef IPZ_PARSER
     if (supportedRecords.end() != supportedRecords.find(name))
     {
+#endif
         // If it's a record we're interested in, proceed to find
         // contained keywords and their values.
         std::advance(iterator, lengths::RECORD_NAME);
+
+#ifdef IPZ_PARSER
+        // Reverse back to RT Kw, in ipz vpd, to Read RT KW & value
+        std::advance(iterator, -(lengths::KW_NAME + sizeof(KwSize) +
+                                 lengths::RECORD_NAME));
+#endif
         auto kwMap = readKeywords(iterator);
         // Add entry for this record (and contained keyword:value pairs)
         // to the parsed vpd output.
         out.emplace(std::move(name), std::move(kwMap));
+#ifndef IPZ_PARSER
     }
+#endif
 }
 
 std::string Impl::readKwData(const internal::KeywordInfo& keyword,
@@ -312,13 +324,35 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
             // We're done
             break;
         }
+        // Check if the Keyword is '#kw'
+        char kwNameStart = *iterator;
+
         // Jump past keyword name
         std::advance(iterator, lengths::KW_NAME);
-        // Note keyword data length
-        std::size_t length = *iterator;
-        // Jump past keyword length
-        std::advance(iterator, sizeof(KwSize));
+
+        std::size_t length;
+        std::size_t lengthHighByte;
+        if (POUND_KW == kwNameStart)
+        {
+            // Note keyword data length
+            length = *iterator;
+            lengthHighByte = *(iterator + 1);
+            length |= (lengthHighByte << 8);
+
+            // Jump past 2Byte keyword length
+            std::advance(iterator, sizeof(PoundKwSize));
+        }
+        else
+        {
+            // Note keyword data length
+            length = *iterator;
+
+            // Jump past keyword length
+            std::advance(iterator, sizeof(KwSize));
+        }
+
         // Pointing to keyword data now
+#ifndef IPZ_PARSER
         if (supportedKeywords.end() != supportedKeywords.find(kw))
         {
             // Keyword is of interest to us
@@ -326,6 +360,14 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
                                           length, iterator);
             map.emplace(std::move(kw), std::move(data));
         }
+
+#else
+        // support all the Keywords
+        auto stop = std::next(iterator, length);
+        std::string kwdata(iterator, stop);
+        map.emplace(std::move(kw), std::move(kwdata));
+
+#endif
         // Jump past keyword data length
         std::advance(iterator, length);
     }
