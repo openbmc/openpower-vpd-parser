@@ -49,7 +49,8 @@ int main(int argc, char** argv)
                 // Write VPD to FRU inventory
                 for (std::size_t index = 0; index < frus.size(); ++index)
                 {
-                    inventory::write(frus[index], vpdStore, objects[index]);
+                    inventory::write(frus[index], std::get<0>(vpdStore),
+                                     objects[index]);
                 }
             }
         }

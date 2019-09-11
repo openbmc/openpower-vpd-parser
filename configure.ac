@@ -50,6 +50,18 @@ AS_IF([test "x$PROP_YAML" == "x"], [PROP_YAML="extra-properties-example.yaml"])
 PROPGEN="$PYTHON $srcdir/extra-properties.py -e $PROP_YAML"
 AC_SUBST(PROPGEN)
 
+# Setup IBM OEM commands support for IPZ_read_vpd
+AC_ARG_ENABLE([ipz-parser-ibm],
+              AS_HELP_STRING([--enable-ipz-parser-ibm ],
+                             [Enable IPZ_read_vpd command support For IBM.
+            ]))
+
+AM_CONDITIONAL([IPZ_PARSER_IBM], [test "x$enable_ipz_parser_ibm" = "xyes"])
+AS_IF([test "x$enable_ipz_parser_ibm" == "xyes"], [
+    AX_APPEND_COMPILE_FLAGS([-DIPZ_PARSER_IBM], [CXXFLAGS])
+        AX_APPEND_COMPILE_FLAGS([-DIPZ_PARSER_IBM], [CFLAGS])
+            ])
+
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile test/Makefile])
 AC_OUTPUT
