@@ -1,5 +1,5 @@
-#include "args.hpp"
 #include "defines.hpp"
+#include "ipz_args.hpp"
 #include "parser.hpp"
 #include "write.hpp"
 
@@ -17,8 +17,9 @@ int main(int argc, char** argv)
     try
     {
         using namespace openpower::vpd;
+        using namespace ipz::vpd;
 
-        args::Args arguments = args::parse(argc, argv);
+        ipz::vpd::args::Args arguments = ipz::vpd::args::parse(argc, argv);
 
         // We need vpd file, FRU type and object path
         if ((arguments.end() != arguments.find("vpd")) &&
@@ -31,28 +32,8 @@ int main(int argc, char** argv)
             Binary vpd((std::istreambuf_iterator<char>(vpdFile)),
                        std::istreambuf_iterator<char>());
 
-            // Parse vpd
+            // Use ipz vpd Parser
             auto vpdStore = parse(std::move(vpd));
-
-            using argList = std::vector<std::string>;
-            argList frus = std::move(arguments.at("fru"));
-            argList objects = std::move(arguments.at("object"));
-
-            if (frus.size() != objects.size())
-            {
-                std::cerr << "Unequal number of FRU types and object paths "
-                             "specified\n";
-                rc = -1;
-            }
-            else
-            {
-                // Write VPD to FRU inventory
-                for (std::size_t index = 0; index < frus.size(); ++index)
-                {
-                    inventory::write(frus[index], std::get<0>(vpdStore),
-                                     objects[index]);
-                }
-            }
         }
         else
         {
