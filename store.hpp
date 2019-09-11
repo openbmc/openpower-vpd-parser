@@ -16,6 +16,11 @@ namespace vpd
 using Parsed = std::unordered_map<std::string,
                                   std::unordered_map<std::string, std::string>>;
 
+/** @brief ParsedBinData VPD is represented as a dictionary of records, where
+ *         each record in itself is a dictionary of keywords */
+using ParsedBinData =
+    std::unordered_map<std::string, std::unordered_map<std::string, Binary>>;
+
 /** @class Store
  *  @brief Store for parsed OpenPOWER VPD
  *
@@ -87,5 +92,37 @@ inline const std::string& Store::get() const
     return empty;
 }
 
+/** @class StoreBinData
+ *  @brief Store for parsed IPZ VPD
+ *
+ *  A StoreBinData object stores parsed IPZ VPD which has data in binary form,
+ *  and provides access to the VPD, specified by record and keyword.
+ *  Parsed VPD is typically provided by the Parser class.
+ */
+class StoreBinData final
+{
+  public:
+    StoreBinData() = delete;
+    StoreBinData(const StoreBinData&) = delete;
+    StoreBinData& operator=(const StoreBinData&) = delete;
+    StoreBinData(StoreBinData&&) = default;
+    StoreBinData& operator=(StoreBinData&&) = default;
+    ~StoreBinData() = default;
+
+    /** @brief Construct a StoreBinData
+     *
+     *  @param[in] vpdBuffer - A parsed VPD object
+     */
+    explicit StoreBinData(ParsedBinData&& vpdBuffer) :
+        ipz_vpd(std::move(vpdBuffer))
+    {
+    }
+
+  private:
+    /** @brief The store for parsed VPD */
+    ParsedBinData ipz_vpd;
+};
+
+using Stores = std::tuple<Store, StoreBinData>;
 } // namespace vpd
 } // namespace openpower

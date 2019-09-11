@@ -111,6 +111,8 @@ void Impl::checkHeader() const
         {
             throw std::runtime_error("VHDR record not found");
         }
+    //TODO: Remove cout later. Adding to debug
+    std::cout<< record <<"\n";
     }
 }
 
@@ -137,6 +139,8 @@ internal::OffsetList Impl::readTOC() const
     {
         throw std::runtime_error("VTOC record not found");
     }
+    //TODO: Remove cout later. Adding to debug
+    std::cout<< record <<"\n";
 
     // VTOC record name is good, now read through the TOC, stored in the PT
     // PT keyword; vpdBuffer is now pointing at the first character of the
@@ -193,6 +197,8 @@ void Impl::processRecord(std::size_t recordOffset)
     std::advance(iterator, nameOffset);
 
     std::string name(iterator, iterator + lengths::RECORD_NAME);
+    //TODO: Remove cout later. Adding to debug
+    std::cout<< name <<"\n";
     if (supportedRecords.end() != supportedRecords.find(name))
     {
         // If it's a record we're interested in, proceed to find
@@ -201,8 +207,15 @@ void Impl::processRecord(std::size_t recordOffset)
         auto kwMap = readKeywords(iterator);
         // Add entry for this record (and contained keyword:value pairs)
         // to the parsed vpd output.
-        out.emplace(std::move(name), std::move(kwMap));
+        out.emplace(name, std::move(std::get<0>(kwMap)));
     }
+
+#ifdef IPZ_PARSER_IBM
+    // IPZ parser supports all Records
+    std::advance(iterator, lengths::RECORD_NAME);
+    auto ipzKwMap = readKeywords(iterator);
+    binOut.emplace(std::move(name), std::move(std::get<1>(ipzKwMap)));
+#endif
 }
 
 std::string Impl::readKwData(const internal::KeywordInfo& keyword,
@@ -300,9 +313,10 @@ std::string Impl::readKwData(const internal::KeywordInfo& keyword,
     return {};
 }
 
-internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
+internal::KeywordMaps Impl::readKeywords(Binary::const_iterator iterator)
 {
     internal::KeywordMap map{};
+    internal::IpzKeywordMap ipz_map{};
     while (true)
     {
         // Note keyword name
@@ -324,16 +338,33 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
             // Keyword is of interest to us
             std::string data = readKwData((supportedKeywords.find(kw))->second,
                                           length, iterator);
-            map.emplace(std::move(kw), std::move(data));
+            map.emplace(kw, std::move(data));
         }
+
+#ifdef IPZ_PARSER_IBM
+std::cout<< "\t"<< kw<< " : ";        
+        // support all the Keywords
+        auto stop = std::next(iterator, length);
+        std::string kwdata(iterator, stop);
+        Binary result;
+
+        std::for_each(kwdata.cbegin(), kwdata.cend(),
+                      [&result](size_t c) {
+                          std::cout<<std::hex << c;
+                           result.push_back(c); });
+        ipz_map.emplace(std::move(kw), std::move(result));
+
+        //TODO: Remove cout later. Adding to debug
+        std::cout<< "\n";
+#endif
         // Jump past keyword data length
         std::advance(iterator, length);
     }
 
-    return map;
+    return internal::KeywordMaps(std::move(map), std::move(ipz_map));
 }
 
-Store Impl::run()
+Stores Impl::run()
 {
     // Check if the VHDR record is present
     checkHeader();
@@ -346,9 +377,10 @@ Store Impl::run()
         processRecord(offset);
     }
 
-    // Return a Store object, which has interfaces to
+    // Return a tuple of Store object and raw_store, which has interfaces to
     // access parsed VPD by record:keyword
-    return Store(std::move(out));
+
+    return Stores(Store(std::move(out)), StoreBinData(std::move(binOut)));
 }
 
 } // namespace parser

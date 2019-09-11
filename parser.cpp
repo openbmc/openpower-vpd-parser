@@ -7,10 +7,10 @@ namespace openpower
 namespace vpd
 {
 
-Store parse(Binary&& vpd)
+Stores parse(Binary&& vpd)
 {
     parser::Impl p(std::move(vpd));
-    Store s = p.run();
+    Stores s = p.run();
     return s;
 }
 

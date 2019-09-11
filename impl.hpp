@@ -32,6 +32,9 @@ namespace internal
 using KeywordInfo = std::tuple<record::Keyword, keyword::Encoding>;
 using OffsetList = std::vector<uint32_t>;
 using KeywordMap = Parsed::mapped_type;
+using IpzKeywordMap = ParsedBinData::mapped_type;
+
+using KeywordMaps = std::tuple<KeywordMap, IpzKeywordMap>;
 
 } // namespace internal
 
@@ -74,9 +77,9 @@ class Impl
 
     /** @brief Run the parser on binary OpenPOWER VPD
      *
-     *  @returns openpower::vpd::Store object
+     *  @returns collection of openpower::vpd::Store and StoreBinData object
      */
-    Store run();
+    Stores run();
 
   private:
     /** @brief Process the table of contents record, VHDR
@@ -122,9 +125,9 @@ class Impl
      *
      *  @param[in] iterator - iterator pointing to a Keyword in the VPD
      *
-     *  @returns map of keyword:data
+     *  @returns Collection of maps of keyword:data
      */
-    internal::KeywordMap readKeywords(Binary::const_iterator iterator);
+    internal::KeywordMaps readKeywords(Binary::const_iterator iterator);
 
     /** @brief Checks if the VHDR record is present in the VPD */
     void checkHeader() const;
@@ -134,6 +137,8 @@ class Impl
 
     /** @brief parser output */
     Parsed out;
+    /** @brief parser output */
+    ParsedBinData binOut;
 };
 
 } // namespace parser
