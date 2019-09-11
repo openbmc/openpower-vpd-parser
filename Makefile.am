@@ -52,4 +52,16 @@ openpower_read_vpd_SOURCES = \
 openpower_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
 openpower_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
 
+if IPZ_PARSER
+bin_PROGRAMS += ipz-read-vpd
+ipz_read_vpd_SOURCES = \
+	ipz_app.cpp \
+	parser.cpp \
+	impl.cpp \
+	write.cpp \
+	utils.cpp
+ipz_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
+ipz_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
+endif
+
 SUBDIRS = test
