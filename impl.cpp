@@ -193,8 +193,10 @@ void Impl::processRecord(std::size_t recordOffset)
     std::advance(iterator, nameOffset);
 
     std::string name(iterator, iterator + lengths::RECORD_NAME);
+#ifndef IPZ_PARSER
     if (supportedRecords.end() != supportedRecords.find(name))
     {
+#endif
         // If it's a record we're interested in, proceed to find
         // contained keywords and their values.
         std::advance(iterator, lengths::RECORD_NAME);
@@ -202,7 +204,9 @@ void Impl::processRecord(std::size_t recordOffset)
         // Add entry for this record (and contained keyword:value pairs)
         // to the parsed vpd output.
         out.emplace(std::move(name), std::move(kwMap));
+#ifndef IPZ_PARSER
     }
+#endif
 }
 
 std::string Impl::readKwData(const internal::KeywordInfo& keyword,
@@ -324,8 +328,16 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
             // Keyword is of interest to us
             std::string data = readKwData((supportedKeywords.find(kw))->second,
                                           length, iterator);
-            map.emplace(std::move(kw), std::move(data));
+            map.emplace(kw, std::move(data));
         }
+
+#ifdef IPZ_PARSER
+        // support all the Keywords
+        auto stop = std::next(iterator, length);
+        std::string kwdata(iterator, stop);
+        map.emplace(std::move(kw), std::move(kwdata));
+
+#endif
         // Jump past keyword data length
         std::advance(iterator, length);
     }
