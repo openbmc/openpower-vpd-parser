@@ -36,14 +36,14 @@ using KeywordMap = Parsed::mapped_type;
 } // namespace internal
 
 /** @class Impl
- *  @brief Implements parser for OpenPOWER VPD
+ *  @brief Implements parser for VPD
  *
- *  An Impl object must be constructed by passing in OpenPOWER VPD in
+ *  An Impl object must be constructed by passing in VPD in
  *  binary format. To parse the VPD, call the run() method. The run()
  *  method returns an openpower::vpd::Store object, which contains
  *  parsed VPD, and provides access methods for the VPD.
  *
- *  Following is the algorithm used to parse OpenPOWER VPD:
+ *  Following is the algorithm used to parse IPZ/OpenPower VPD:
  *  1) Validate that the first record is VHDR, the header record.
  *  2) From the VHDR record, get the offset of the VTOC record,
  *     which is the table of contents record.
@@ -66,13 +66,13 @@ class Impl
 
     /** @brief Construct an Impl
      *
-     *  @param[in] vpdBuffer - Binary OpenPOWER VPD
+     *  @param[in] vpdBuffer - Binary VPD
      */
     explicit Impl(Binary&& vpdBuffer) : vpd(std::move(vpdBuffer)), out{}
     {
     }
 
-    /** @brief Run the parser on binary OpenPOWER VPD
+    /** @brief Run the parser on binary VPD
      *
      *  @returns openpower::vpd::Store object
      */
@@ -99,13 +99,13 @@ class Impl
     /** @brief Read VPD information contained within a record
      *
      *  @param[in] recordOffset - offset to a record location
-     *      within the binary OpenPOWER VPD
+     *      within the binary VPD
      */
     void processRecord(std::size_t recordOffset);
 
     /** @brief Read keyword data
      *
-     *  @param[in] keyword - OpenPOWER VPD keyword
+     *  @param[in] keyword - VPD keyword
      *  @param[in] dataLength - Length of data to be read
      *  @param[in] iterator - iterator pointing to a Keyword's data in
      *      the VPD
@@ -129,7 +129,7 @@ class Impl
     /** @brief Checks if the VHDR record is present in the VPD */
     void checkHeader() const;
 
-    /** @brief OpenPOWER VPD in binary format */
+    /** @brief VPD in binary format */
     Binary vpd;
 
     /** @brief parser output */
