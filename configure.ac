@@ -17,6 +17,13 @@ AM_PATH_PYTHON([2.7],
 PKG_CHECK_MODULES([SDBUSPLUS], [sdbusplus])
 PKG_CHECK_MODULES([PHOSPHOR_LOGGING], [phosphor-logging])
 
+# We need the header from CLI library
+AC_CHECK_HEADERS(
+    [CLI/CLI.hpp],
+    [],
+    [AC_MSG_ERROR([Could not find CLI11 CLI.hpp])]
+)
+
 # Suppress the --with-libtool-sysroot error
 LT_INIT
 
@@ -49,6 +56,14 @@ AC_SUBST(FRUGEN)
 AS_IF([test "x$PROP_YAML" == "x"], [PROP_YAML="extra-properties-example.yaml"])
 PROPGEN="$PYTHON $srcdir/extra-properties.py -e $PROP_YAML"
 AC_SUBST(PROPGEN)
+
+# Setup IBM OEM commands support for KW_read_vpd
+AC_ARG_ENABLE([kw-vpd-parser-ibm],
+              AS_HELP_STRING([--enable-kw-vpd-parser-ibm ],
+                             [Enable KW_read_vpd command support For IBM.
+            ]))
+
+AM_CONDITIONAL([KW_VPD_PARSER_IBM], [test "x$enable_kw_vpd_parser_ibm" = "xyes"])
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile test/Makefile])

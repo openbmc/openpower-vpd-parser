@@ -8,7 +8,9 @@ noinst_HEADERS = \
 	impl.hpp \
 	args.hpp \
 	types.hpp \
-	utils.hpp
+	utils.hpp \
+	keyword_vpd_main.hpp \
+	keyword_vpd_parser.hpp
 
 # Be sure to build these before compiling
 BUILT_SOURCES = \
@@ -51,5 +53,13 @@ openpower_read_vpd_SOURCES = \
 	utils.cpp
 openpower_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
 openpower_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
+
+if KW_VPD_PARSER_IBM
+bin_PROGRAMS += kw-read-vpd
+kw_read_vpd_SOURCES = \
+       keyword_vpd_main.cpp\
+       keyword_vpd_parser.cpp
+
+endif
 
 SUBDIRS = test
