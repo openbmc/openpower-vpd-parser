@@ -17,6 +17,13 @@ AM_PATH_PYTHON([2.7],
 PKG_CHECK_MODULES([SDBUSPLUS], [sdbusplus])
 PKG_CHECK_MODULES([PHOSPHOR_LOGGING], [phosphor-logging])
 
+# We need the header from CLI library
+AC_CHECK_HEADER(
+    [CLI/CLI.hpp],
+    [],
+    [AC_MSG_ERROR([Could not find CLI11 CLI.hpp])]
+)
+
 # Suppress the --with-libtool-sysroot error
 LT_INIT
 
@@ -49,6 +56,14 @@ AC_SUBST(FRUGEN)
 AS_IF([test "x$PROP_YAML" == "x"], [PROP_YAML="extra-properties-example.yaml"])
 PROPGEN="$PYTHON $srcdir/extra-properties.py -e $PROP_YAML"
 AC_SUBST(PROPGEN)
+
+# Configure option to enable keyword VPD parser
+AC_ARG_ENABLE([kw-vpd-parser],
+              AS_HELP_STRING([--enable-kw-vpd-parser ],
+                             [Enable KW_read_vpd command support.
+            ]))
+
+AM_CONDITIONAL([KW_VPD_PARSER], [test "x$enable_kw_vpd_parser" = "xyes"])
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile test/Makefile])
