@@ -118,6 +118,10 @@ class StoreBinData final
     {
     }
 
+    inline const ParsedBinData& get() const
+    {
+        return ipz_vpd;
+    }
   private:
     /** @brief The store for parsed VPD */
     ParsedBinData ipz_vpd;
