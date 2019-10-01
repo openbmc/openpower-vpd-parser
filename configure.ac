@@ -69,6 +69,10 @@ AS_IF([test "x$enable_ipz_parser" == "xyes"], [
     AX_APPEND_COMPILE_FLAGS([-DIPZ_PARSER], [CXXFLAGS])
             ])
 
+# Check/set gtest specific functions.
+AX_PTHREAD([GTEST_CPPFLAGS="-DGTEST_HAS_PTHREAD=1"],[GTEST_CPPFLAGS="-DGTEST_HAS_PTHREAD=0"])
+AC_SUBST(GTEST_CPPFLAGS)
+
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile test/Makefile])
 AC_OUTPUT
