@@ -40,6 +40,10 @@ class Store final
     explicit Store(Parsed&& vpdBuffer) : vpd(std::move(vpdBuffer))
     {
     }
+    inline const Parsed& get() const
+    {
+        return vpd;
+    }
 
     /** @brief Retrieves VPD from Store as a Parsed object
      *
