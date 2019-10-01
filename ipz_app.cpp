@@ -1,5 +1,5 @@
-#include "defines.hpp"
 #include "CLI/CLI.hpp"
+#include "defines.hpp"
 #include "parser.hpp"
 #include "write.hpp"
 
@@ -23,9 +23,9 @@ int main(int argc, char** argv)
         CLI::App app{"ipz-read-vpd"};
         std::string file{};
 
-        app.add_option("-f, --file", file) 
-              ->required()
-              ->check(CLI::ExistingFile);
+        app.add_option("-f, --file", file)
+            ->required()
+            ->check(CLI::ExistingFile);
 
         CLI11_PARSE(app, argc, argv);
 
@@ -36,7 +36,7 @@ int main(int argc, char** argv)
         // Use ipz vpd Parser
         auto vpdStore = parse(std::move(vpd));
 
-        //Write it to D-bus
+        // Write it to D-bus
     }
     catch (std::exception& e)
     {
