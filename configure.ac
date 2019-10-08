@@ -93,6 +93,9 @@ AS_IF([ test "$enable_debug_kw_vpd" = "yes"],
       ]
       )
 
+# Check/set gtest specific functions.
+AX_PTHREAD([GTEST_CPPFLAGS="-DGTEST_HAS_PTHREAD=1"],[GTEST_CPPFLAGS="-DGTEST_HAS_PTHREAD=0"])
+
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile test/Makefile])
 AC_OUTPUT
