@@ -1,5 +1,7 @@
 #include "CLI/CLI.hpp"
 #include "keyword_vpd_parser.hpp"
+#include "keyword_vpd_types.hpp"
+#include "utils.hpp"
 
 #include <exception>
 #include <fstream>
@@ -12,6 +14,7 @@ using namespace CLI;
 int main(int argc, char** argv)
 {
     using namespace vpd::keyword::parser;
+    using namespace openpower::vpd;
 
     // Get the input binary file using CLI
     App app{"Keyword VPD Parser"};
@@ -47,6 +50,24 @@ int main(int argc, char** argv)
                  ostream_iterator<int>(cout << hex, " "));
         }
 #endif
+	//Write keyword VPD object to Dbus
+        inventory::InterfaceMap interfaces;
+        inventory::ObjectMap objects;
+	inventory::PropertyMap propMap;
+	string objectPath{};
+        sdbusplus::message::object_path object(objectPath);
+	string interfStr = " ";
+
+	for(const auto &kw : kwValMap)
+	{
+		propMap.emplace(kw.first, kw.second);
+	}
+	interfaces.emplace(move(interfStr), move(propMap));	
+	objects.emplace(move(object), move(interfaces));
+
+	// Notify method call
+        inventory::callPIM(move(objects));
+
     }
     catch (exception& e)
     {
