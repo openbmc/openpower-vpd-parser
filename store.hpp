@@ -41,6 +41,11 @@ class Store final
     {
     }
 
+    inline const Parsed& get() const
+    {
+        return vpd;
+    }
+
     /** @brief Retrieves VPD from Store
      *
      *  @tparam R - VPD record
