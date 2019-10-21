@@ -1,9 +1,9 @@
 #include <cassert>
-#include <defines.hpp>
+#include <../defines.hpp>
 #include <fstream>
 #include <iterator>
-#include <parser.hpp>
-#include <store.hpp>
+#include <../parser.hpp>
+#include <../store.hpp>
 
 void runTests()
 {

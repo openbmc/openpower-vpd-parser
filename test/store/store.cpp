@@ -1,6 +1,6 @@
-#include "store.hpp"
+#include "../store.hpp"
 
-#include "defines.hpp"
+#include "../defines.hpp"
 
 #include <cassert>
 #include <string>
