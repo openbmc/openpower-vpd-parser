@@ -62,6 +62,7 @@ kw_read_vpd_SOURCES = \
        keyword_vpd_main.cpp\
        keyword_vpd_parser.cpp\
        utils.cpp
+
 kw_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
 kw_read_vpd_CXXFLAGS = $(KW_VPD_DEBUG_FLAGS) $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
 endif
