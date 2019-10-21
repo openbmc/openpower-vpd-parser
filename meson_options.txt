@@ -1,0 +1,4 @@
+#option('kw-vpd-parser', type: 'feature', description: 'ENABLE KEYWORD VPD PARSER')
+option('oe-sdk', type: 'feature', description: 'ENABLE OE SDK FOR OPENPOWER VPD PARSER')
+option('tests', type: 'feature', description: 'Build tests')
+#option('ipz-vpd-parser', type: 'feature', description: 'ENABLE IPZ VPD PARSER')
