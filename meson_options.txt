@@ -1,0 +1,7 @@
+option('kw-vpd-parser', type: 'feature', description: 'ENABLE KEYWORD VPD PARSER')
+option('oe-sdk', type: 'feature', description: 'ENABLE OE SDK FOR OPENPOWER VPD PARSER')
+option('tests', type: 'feature', description: 'Build tests')
+#option('ipz-vpd-parser', type: 'feature', description: 'ENABLE IPZ VPD PARSER')
+option('FRU_YAML',type: 'string', value: 'writefru.yaml',  description: 'YAML STRING')
+option('PROP_YAML',type: 'string', value: 'extra-properties-example.yaml',  description: 'YAML PROPERTY')
+option('store_test', type: 'feature', description: 'ENABLE STORE TEST')
