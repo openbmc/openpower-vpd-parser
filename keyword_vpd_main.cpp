@@ -50,24 +50,23 @@ int main(int argc, char** argv)
                  ostream_iterator<int>(cout << hex, " "));
         }
 #endif
-	//Write keyword VPD object to Dbus
+        // Write keyword VPD object to Dbus
         inventory::InterfaceMap interfaces;
         inventory::ObjectMap objects;
-	inventory::PropertyMap propMap;
-	string objectPath{};
+        inventory::PropertyMap propMap;
+        string objectPath{};
         sdbusplus::message::object_path object(objectPath);
-	string interfStr = " ";
+        string interfStr = " ";
 
-	for(const auto &kw : kwValMap)
-	{
-		propMap.emplace(kw.first, kw.second);
-	}
-	interfaces.emplace(move(interfStr), move(propMap));	
-	objects.emplace(move(object), move(interfaces));
+        for (const auto& kw : kwValMap)
+        {
+            propMap.emplace(kw.first, kw.second);
+        }
+        interfaces.emplace(move(interfStr), move(propMap));
+        objects.emplace(move(object), move(interfaces));
 
-	// Notify method call
+        // Notify method call
         inventory::callPIM(move(objects));
-
     }
     catch (exception& e)
     {
