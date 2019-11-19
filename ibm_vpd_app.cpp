@@ -1,22 +1,53 @@
 #include "config.h"
 
+#include "CLI/CLI.hpp"
 #include "defines.hpp"
+#include "ibm_vpd_type_check.hpp"
+#include "keyword_vpd_parser.hpp"
 #include "parser.hpp"
 #include "utils.hpp"
 
-#include <CLI/CLI.hpp>
 #include <exception>
 #include <fstream>
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
+#include <string>
 
 using namespace std;
 using namespace openpower::vpd;
+using namespace CLI;
+using namespace vpd::keyword::parser;
 
+template <typename T>
+static void call_func(const T& map, string preIntrStr,
+                      inventory::InterfaceMap& interfaces)
+{
+    inventory::PropertyMap prop;
+
+    for (const auto kwVal : map)
+    {
+        std::vector<uint8_t> vec(kwVal.second.begin(), kwVal.second.end());
+
+        std::string kw = kwVal.first;
+
+        if constexpr (std::is_same<T, Parsed>::value)
+        {
+            if (kw[0] == '#')
+            {
+                kw = std::string("PD_") + kw[1];
+            }
+        }
+        prop.emplace(move(kw), move(vec));
+    }
+
+    interfaces.emplace(preIntrStr, move(prop));
+}
+
+template <typename T>
 static void populateInterfaces(const nlohmann::json& js,
                                inventory::InterfaceMap& interfaces,
-                               const Parsed& vpdMap)
+                               const T& ibmVpdMap)
 {
     for (const auto& ifs : js.items())
     {
@@ -25,60 +56,71 @@ static void populateInterfaces(const nlohmann::json& js,
 
         for (const auto& itr : ifs.value().items())
         {
-            const string& rec = itr.value().value("recordName[0]", "");
             const string& kw = itr.value().value("keywordName", "");
+            string rec = itr.value().value("recordName[0]", "");
 
-            if (!rec.empty() && !kw.empty() && vpdMap.count(rec) &&
-                vpdMap.at(rec).count(kw))
+            if constexpr (std::is_same<T, Parsed>::value)
             {
-                props.emplace(itr.key(), string(vpdMap.at(rec).at(kw).begin(),
-                                                vpdMap.at(rec).at(kw).end()));
+                if (!rec.empty() && !kw.empty() &&
+                    ibmVpdMap.at(rec).count(kw) && ibmVpdMap.count(rec))
+                {
+                    props.emplace(itr.key(),
+                                  string(ibmVpdMap.at(rec).at(kw).begin(),
+                                         ibmVpdMap.at(rec).at(kw).end()));
+                }
+            }
+            else if constexpr (std::is_same<T, KeywordVpdMap>::value)
+            {
+                rec = itr.value().value("recordName[1]", "");
+
+                if (!rec.empty() && !kw.empty() && ibmVpdMap.count(kw))
+                {
+                    props.emplace(itr.key(), string(ibmVpdMap.at(kw).begin(),
+                                                    ibmVpdMap.at(kw).end()));
+                }
             }
         }
         interfaces.emplace(inf, move(props));
     }
 }
 
-static void populateDbus(Store& vpdStore, nlohmann::json& js,
-                         const string& objectPath, const string& filePath)
+template <typename T>
+static void populateDbus(const T& ibmVpdMap, nlohmann::json& js,
+                         const string& objectPath, const string& filePath,
+                         string preIntrStr)
 {
     inventory::InterfaceMap interfaces;
     inventory::ObjectMap objects;
     sdbusplus::message::object_path object(objectPath);
-    const auto& vpdMap = vpdStore.getVpdMap();
-    string preIntrStr = "com.ibm.ipzvpd.";
+    inventory::PropertyMap prop;
 
-    // Each record in the VPD becomes an interface and all keywords within the
-    // record are properties under that interface.
-    for (const auto& record : vpdMap)
+    if constexpr (std::is_same<T, Parsed>::value)
     {
-        inventory::PropertyMap prop;
-        for (auto kwVal : record.second)
+        // Each record in the VPD becomes an interface and all keyword
+        // within the record are properties under that interface.
+        for (const auto& record : ibmVpdMap)
         {
-            std::vector<uint8_t> vec(kwVal.second.begin(), kwVal.second.end());
-            std::string kw = kwVal.first;
-            if (kw[0] == '#')
-            {
-                kw = std::string("PD_") + kw[1];
-            }
-            prop.emplace(move(kw), move(vec));
+            call_func(record.second, preIntrStr + record.first, interfaces);
         }
-        interfaces.emplace(preIntrStr + record.first, move(prop));
+    }
+    else if constexpr (std::is_same<T, KeywordVpdMap>::value)
+    {
+        call_func(ibmVpdMap, preIntrStr, interfaces);
     }
 
     // Populate interfaces and properties that are common to every FRU
     // and additional interface that might be defined on a per-FRU basis.
+
     if (js.find("commonInterfaces") != js.end())
     {
-        populateInterfaces(js["commonInterfaces"], interfaces, vpdMap);
+        populateInterfaces(js["commonInterfaces"], interfaces, ibmVpdMap);
     }
     if (js["frus"][filePath].find("extraInterfaces") !=
         js["frus"][filePath].end())
     {
         populateInterfaces(js["frus"][filePath]["extraInterfaces"], interfaces,
-                           vpdMap);
+                           ibmVpdMap);
     }
-
     objects.emplace(move(object), move(interfaces));
 
     // Notify PIM
@@ -91,15 +133,14 @@ int main(int argc, char** argv)
 
     try
     {
-        using namespace CLI;
-        using namespace openpower::vpd;
         using json = nlohmann::json;
 
         App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
                 "in DBUS"};
         string file{};
 
-        app.add_option("-f, --file", file, "File containing VPD in IPZ format")
+        app.add_option("-f, --file", file,
+                       "File containing IBM VPD (IPZ/KEYWORD)")
             ->required()
             ->check(ExistingFile);
 
@@ -123,15 +164,40 @@ int main(int argc, char** argv)
                                      "inventory JSON");
         }
 
-        ifstream vpdFile(file, ios::binary);
-        Binary vpd((istreambuf_iterator<char>(vpdFile)),
-                   istreambuf_iterator<char>());
+        // Open the file in binary mode
+        ifstream ibmVpdFile(file, ios::binary);
+        // Read the content of the binary file into a vector
+        Binary ibmVpdVector((istreambuf_iterator<char>(ibmVpdFile)),
+                            istreambuf_iterator<char>());
 
-        // Use ipz vpd Parser
-        auto vpdStore = parse(move(vpd));
+        ibmVpdType type = ibmVpdTypeCheck(ibmVpdVector);
 
-        // Write it to the inventory
-        populateDbus(vpdStore, js, objectPath, file);
+        switch (type)
+        {
+            case IPZ_VPD:
+            {
+                // Invoking IPZ Vpd Parser
+                auto vpdStore = parse(move(ibmVpdVector));
+                const Parsed& vpdMap = vpdStore.getVpdMap();
+                string preIntrStr = "com.ibm.ipzvpd.";
+                // Write it to the inventory
+                populateDbus(vpdMap, js, objectPath, file, preIntrStr);
+            }
+            break;
+
+            case Keyword_VPD:
+            {
+                // Creating Keyword Vpd Parser Object
+                KeywordVpdParser parserObj(move(ibmVpdVector));
+                // Invoking KW Vpd Parser
+                const KeywordVpdMap kwValMap = parserObj.parseKwVpd();
+                string preIntrStr = "com.ibm.kwvpd.KWVPD";
+                populateDbus(kwValMap, js, objectPath, file, preIntrStr);
+            }
+            break;
+            default:
+                throw std::runtime_error("Invalid IBM VPD format");
+        }
     }
     catch (exception& e)
     {
