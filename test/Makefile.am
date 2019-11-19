@@ -32,6 +32,14 @@ test_ldflags = \
 ipz_parser_test_CPPFLAGS = $(test_cppflags) -DIPZ_PARSER
 ipz_parser_test_LDFLAGS = $(test_ldflags)
 
+check_PROGRAMS += kw_vpd_test
+kw_vpd_test_SOURCES = \
+        keyword_vpd_parser_test/kw_vpd_test.cpp \
+        ../keyword_vpd_parser.cpp
+
+kw_vpd_test_CPPFLAGS = $(test_cppflags)
+kw_vpd_test_LDFLAGS = $(test_ldflags)
+
 if !IBM_PARSER
 noinst_PROGRAMS = parser_test
 parser_test_SOURCES = \
@@ -43,4 +51,5 @@ parser_test_SOURCES = \
 
 parser_test_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
 parser_test_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
+
 endif
