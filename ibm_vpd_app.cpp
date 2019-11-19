@@ -1,18 +1,23 @@
 #include "config.h"
 
+#include "CLI/CLI.hpp"
 #include "defines.hpp"
+#include "ibm_vpd_type_check.hpp"
+#include "keyword_vpd_parser.hpp"
 #include "parser.hpp"
 #include "utils.hpp"
 
-#include <CLI/CLI.hpp>
 #include <exception>
 #include <fstream>
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
+#include <string>
 
 using namespace std;
 using namespace openpower::vpd;
+using namespace CLI;
+using namespace vpd::keyword::parser;
 
 static void populateInterfaces(const nlohmann::json& js,
                                inventory::InterfaceMap& interfaces,
@@ -91,15 +96,14 @@ int main(int argc, char** argv)
 
     try
     {
-        using namespace CLI;
-        using namespace openpower::vpd;
         using json = nlohmann::json;
 
         App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
                 "in DBUS"};
         string file{};
 
-        app.add_option("-f, --file", file, "File containing VPD in IPZ format")
+        app.add_option("-f, --file", file,
+                       "File containing IBM VPD (IPZ/KEYWORD)")
             ->required()
             ->check(ExistingFile);
 
@@ -123,15 +127,35 @@ int main(int argc, char** argv)
                                      "inventory JSON");
         }
 
-        ifstream vpdFile(file, ios::binary);
-        Binary vpd((istreambuf_iterator<char>(vpdFile)),
-                   istreambuf_iterator<char>());
+        // Open the file in binary mode
+        ifstream ibmVpdFile(file, ios::binary);
+        // Read the content of the binary file into a vector
+        Binary ibmVpdVector((istreambuf_iterator<char>(ibmVpdFile)),
+                            istreambuf_iterator<char>());
 
-        // Use ipz vpd Parser
-        auto vpdStore = parse(move(vpd));
+        ibmVpdType type = ibmVpdTypeCheck(ibmVpdVector);
 
-        // Write it to the inventory
-        populateDbus(vpdStore, js, objectPath, file);
+        switch (type)
+        {
+            case IPZ_VPD:
+            {
+                // Invoking IPZ Vpd Parser
+                auto vpdStore = parse(move(ibmVpdVector));
+                // Write it to the inventory
+                populateDbus(vpdStore, js, objectPath, file);
+            }
+            break;
+            case Keyword_VPD:
+            {
+                // Creating Keyword Vpd Parser Object
+                KeywordVpdParser parserObj(move(ibmVpdVector));
+                // Invoking KW Vpd Parser
+                KeywordVpdMap kwValMap = parserObj.parseKwVpd();
+            }
+            break;
+            default:
+                throw std::runtime_error("Invalid IBM VPD format");
+        }
     }
     catch (exception& e)
     {
