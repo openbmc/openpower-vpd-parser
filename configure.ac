@@ -58,27 +58,19 @@ PROPGEN="$PYTHON $srcdir/extra-properties.py -e $PROP_YAML"
 AC_SUBST(PROPGEN)
 
 # Setup option for IBM VPD formats.
-AC_ARG_ENABLE([ibm-parser],
-              AS_HELP_STRING([--enable-ibm-parser ],
-                             [Enable IBM IPZ and Keyword format VPD parser support.
+AC_ARG_ENABLE([ibm-vpd],
+              AS_HELP_STRING([--enable-ibm-vpd ],
+                             [Enable IBM VPD parser support. Either IPZ or Keyword VPD.
             ]))
 
-AM_CONDITIONAL([IBM_PARSER], [test "x$enable_ibm_parser" = "xyes"])
-AS_IF([test "x$enable_ibm_parser" == "xyes"], [
+AM_CONDITIONAL([IBM_VPD], [test "x$enable_ibm_vpd" = "xyes"])
+AS_IF([test "x$enable_ibm_vpd" == "xyes"], [
     AX_APPEND_COMPILE_FLAGS([-DIPZ_PARSER], [CXXFLAGS])
             ])
 
 # Check/set gtest specific functions.
 AX_PTHREAD([GTEST_CPPFLAGS="-DGTEST_HAS_PTHREAD=1"],[GTEST_CPPFLAGS="-DGTEST_HAS_PTHREAD=0"])
 AC_SUBST(GTEST_CPPFLAGS)
-
-# Configure option to enable keyword VPD parser
-AC_ARG_ENABLE([kw-vpd-parser],
-              AS_HELP_STRING([--enable-kw-vpd-parser ],
-              [Enable Keyword format VPD parser support.
-            ]))
-
-AM_CONDITIONAL([KW_VPD_PARSER], [test "x$enable_kw_vpd_parser" = "xyes"])
 
 # Configure option to enable debug information for keyword VPD parser
 AC_ARG_ENABLE([debug-kw-vpd],
@@ -92,9 +84,6 @@ AS_IF([ test "$enable_debug_kw_vpd" = "yes"],
        AC_SUBST([KW_VPD_DEBUG_FLAGS], [$kw_vpd_debug_flags])
       ]
       )
-
-# Check/set gtest specific functions.
-AX_PTHREAD([GTEST_CPPFLAGS="-DGTEST_HAS_PTHREAD=1"],[GTEST_CPPFLAGS="-DGTEST_HAS_PTHREAD=0"])
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile test/Makefile])

@@ -8,18 +8,22 @@ noinst_HEADERS = \
 	impl.hpp \
 	args.hpp \
 	types.hpp \
-	utils.hpp
+	utils.hpp \
+        keyword_vpd_parser.hpp \
+	ibm_vpd_type_check.hpp
 
-if IBM_PARSER
-bin_PROGRAMS = ipz-read-vpd
-ipz_read_vpd_SOURCES = \
-	ipz_app.cpp \
+if IBM_VPD
+bin_PROGRAMS = ibm-vpd
+ibm_vpd_SOURCES = \
+	ibm_vpd_app.cpp \
+	ibm_vpd_type_check.cpp \
 	parser.cpp \
 	impl.cpp \
-	utils.cpp
+	utils.cpp \
+        keyword_vpd_parser.cpp
 
-ipz_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
-ipz_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
+ibm_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
+ibm_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS) $(KW_VPD_DEBUG_FLAGS)
 
 else
 # Be sure to build these before compiling
@@ -63,17 +67,6 @@ openpower_read_vpd_SOURCES = \
 	utils.cpp
 openpower_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
 openpower_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
-endif
-
-if KW_VPD_PARSER
-noinst_HEADERS += \
-        keyword_vpd_main.hpp \
-        keyword_vpd_parser.hpp
-bin_PROGRAMS += kw-read-vpd
-kw_read_vpd_SOURCES = \
-       keyword_vpd_main.cpp\
-       keyword_vpd_parser.cpp
-kw_read_vpd_CXXFLAGS = $(KW_VPD_DEBUG_FLAGS)
 endif
 
 SUBDIRS = test
