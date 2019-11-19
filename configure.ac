@@ -17,7 +17,6 @@ AM_PATH_PYTHON([2.7],
 PKG_CHECK_MODULES([SDBUSPLUS], [sdbusplus])
 PKG_CHECK_MODULES([PHOSPHOR_LOGGING], [phosphor-logging])
 
-
 # Suppress the --with-libtool-sysroot error
 LT_INIT
 
@@ -77,6 +76,19 @@ AS_IF([test "x$enable_ibm_parser" == "xyes"], [
 # Check/set gtest specific functions.
 AX_PTHREAD([GTEST_CPPFLAGS="-DGTEST_HAS_PTHREAD=1"],[GTEST_CPPFLAGS="-DGTEST_HAS_PTHREAD=0"])
 AC_SUBST(GTEST_CPPFLAGS)
+
+# Configure option to enable debug information for keyword VPD parser
+AC_ARG_ENABLE([debug-kw-vpd],
+              AS_HELP_STRING([--enable-debug-kw-vpd ],
+              [Debug statements for Keyword VPD Parser .
+            ]))
+AS_IF([ test "$enable_debug_kw_vpd" = "yes"],
+      [
+       AC_MSG_NOTICE([Enabling debug information for keyword vpd parser application])
+       kw_vpd_debug_flags=-DDEBUG_KW_VPD
+       AC_SUBST([KW_VPD_DEBUG_FLAGS], [$kw_vpd_debug_flags])
+      ]
+      )
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile test/Makefile])
