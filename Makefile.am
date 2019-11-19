@@ -7,16 +7,19 @@ noinst_HEADERS = \
 	write.hpp \
 	impl.hpp \
 	args.hpp \
-	types.hpp \
-	utils.hpp
+	utils.hpp \
+        keyword_vpd_parser.hpp \
+	ibm_vpd_type_check.hpp
 
 if IBM_PARSER
 bin_PROGRAMS = ibm-read-vpd
 ibm_read_vpd_SOURCES = \
-	ipz_app.cpp \
+	ibm_vpd_app.cpp \
+	ibm_vpd_type_check.cpp \
 	parser.cpp \
 	impl.cpp \
-	utils.cpp
+	utils.cpp \
+        keyword_vpd_parser.cpp
 
 ibm_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
 ibm_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
