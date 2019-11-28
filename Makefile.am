@@ -11,12 +11,17 @@ noinst_HEADERS = \
 	utils.hpp
 
 if IBM_PARSER
+noinst_HEADERS += \
+    vpdecc/vpdecc.h \
+
 bin_PROGRAMS = ipz-read-vpd
 ipz_read_vpd_SOURCES = \
 	ipz_app.cpp \
 	parser.cpp \
+	vpdecc/vpdecc.c   \
 	impl.cpp \
 	utils.cpp
+
 
 ipz_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
 ipz_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
