@@ -9,6 +9,7 @@ noinst_PROGRAMS = parser_test
 parser_test_SOURCES = \
 	parser/parser.cpp \
 	../impl.cpp \
+	../vpdecc/vpdecc.c  \
 	../parser.cpp \
 	../write.cpp \
 	../utils.cpp
