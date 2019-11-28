@@ -8,8 +8,12 @@ store_test_SOURCES = store/store.cpp
 
 check_PROGRAMS += ipz_parser_test
 
-ipz_parser_test_SOURCES = ipz_parser/parser.cpp \
-                          ../impl.cpp
+ipz_parser_test_SOURCES = \
+    ipz_parser/parser.cpp \
+    ../impl.cpp           \
+    ../vpdecc/vpdecc.c  \
+    ../vpdecc/vpdecc_support.c
+
 test_cppflags = \
 	-Igtest \
 	$(GTEST_CPPFLAGS) \
@@ -32,10 +36,11 @@ if !IBM_PARSER
 noinst_PROGRAMS = parser_test
 parser_test_SOURCES = \
 	parser/parser.cpp \
-	../impl.cpp \
-	../parser.cpp \
-	../write.cpp \
-	../utils.cpp
+    ../impl.cpp \
+    ../parser.cpp \
+    ../write.cpp \
+    ../utils.cpp
+
 parser_test_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
 parser_test_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
 endif
