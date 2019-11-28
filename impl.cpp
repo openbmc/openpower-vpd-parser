@@ -12,6 +12,8 @@
 #include <tuple>
 #include <unordered_map>
 
+#include "vpdecc/vpdecc.h"
+
 namespace openpower
 {
 namespace vpd
@@ -55,21 +57,6 @@ static const std::unordered_map<std::string, internal::KeywordInfo>
         {"VS", std::make_tuple(record::Keyword::VS, keyword::Encoding::ASCII)},
 };
 
-namespace
-{
-
-using RecordId = uint8_t;
-using RecordOffset = uint16_t;
-using RecordSize = uint16_t;
-using RecordType = uint16_t;
-using RecordLength = uint16_t;
-using KwSize = uint8_t;
-using PoundKwSize = uint16_t;
-using ECCOffset = uint16_t;
-using ECCLength = uint16_t;
-
-} // namespace
-
 namespace offsets
 {
 
@@ -78,6 +65,9 @@ enum Offsets
     VHDR = 17,
     VHDR_TOC_ENTRY = 29,
     VTOC_PTR = 35,
+    VTOC_DATA = 13,
+    VHDR_ECC = 0,
+    VHDR_RECORD = 11
 };
 }
 
@@ -89,8 +79,141 @@ enum Lengths
     RECORD_NAME = 4,
     KW_NAME = 2,
     RECORD_MIN = 44,
+    VTOC_RECORD_LENGTH = 14,
+    VHDR_ECC_LENGTH = 11,
+    VHDR_RECORD_LENGTH = 44,
 };
 }
+
+namespace eccStatus
+{
+enum Status
+{
+    SUCCESS = 0,
+    FAILED = -1,
+};
+}
+
+namespace
+{
+constexpr auto toHex(size_t c)
+{
+    constexpr auto map = "0123456789abcdef";
+    return map[c];
+}
+} // namespace
+
+/*readUInt16LE: Read 2 bytes LE data*/
+static LE2ByteData readUInt16LE(Binary::const_iterator iterator)
+{
+    LE2ByteData lowByte = *iterator;
+    LE2ByteData highByte = *(iterator + 1);
+    lowByte |= (highByte << 8);
+    return lowByte;
+}
+
+RecordOffset Impl::getVtocOffset() const
+{
+    auto vpdPtr = vpd.cbegin();
+    std::advance(vpdPtr, offsets::VTOC_PTR);
+    // Get VTOC Offset
+    auto vtocOffset = readUInt16LE(vpdPtr);
+
+    return vtocOffset;
+}
+
+#ifdef IPZ_PARSER
+
+int Impl::vhdrEccCheck() const
+{
+    int rc = eccStatus::SUCCESS;
+    auto vpdPtr = vpd.cbegin();
+
+    auto l_status =
+        vpdecc_check_data(const_cast<uint8_t*>(&vpdPtr[offsets::VHDR_RECORD]),
+                          lengths::VHDR_RECORD_LENGTH,
+                          const_cast<uint8_t*>(&vpdPtr[offsets::VHDR_ECC]),
+                          lengths::VHDR_ECC_LENGTH);
+    if (l_status != VPD_ECC_OK)
+    {
+        rc = eccStatus::FAILED;
+    }
+
+    return rc;
+}
+
+int Impl::vtocEccCheck() const
+{
+    int rc = eccStatus::SUCCESS;
+    // Use another pointer to get ECC information from VHDR,
+    // actual pointer is pointing to VTOC data
+
+    auto vpdPtr = vpd.cbegin();
+
+    // Get VTOC Offset
+    auto vtocOffset = getVtocOffset();
+
+    // Get the VTOC Length
+    std::advance(vpdPtr, offsets::VTOC_PTR + sizeof(RecordOffset));
+    auto vtocLength = readUInt16LE(vpdPtr);
+
+    // Get the ECC Offset
+    std::advance(vpdPtr, sizeof(RecordLength));
+    auto vtocECCOffset = readUInt16LE(vpdPtr);
+
+    // Get the ECC length
+    std::advance(vpdPtr, sizeof(ECCOffset));
+    auto vtocECCLength = readUInt16LE(vpdPtr);
+
+    // Reset pointer to start of the vpd,
+    // so that Offset will point to correct address
+    vpdPtr = vpd.cbegin();
+    auto l_status = vpdecc_check_data(
+        const_cast<uint8_t*>(&vpdPtr[vtocOffset]), vtocLength,
+        const_cast<uint8_t*>(&vpdPtr[vtocECCOffset]), vtocECCLength);
+    if (l_status != VPD_ECC_OK)
+    {
+        rc = eccStatus::FAILED;
+    }
+
+    return rc;
+}
+
+int Impl::recordEccCheck(Binary::const_iterator iterator) const
+{
+    int rc = eccStatus::SUCCESS;
+
+    auto recordOffset = readUInt16LE(iterator);
+
+    std::advance(iterator, sizeof(RecordOffset));
+    auto recordLength = readUInt16LE(iterator);
+
+    std::advance(iterator, sizeof(RecordLength));
+    auto eccOffset = readUInt16LE(iterator);
+
+    std::advance(iterator, sizeof(ECCOffset));
+    auto eccLength = readUInt16LE(iterator);
+
+    if (eccLength == 0 || eccOffset == 0 || recordOffset == 0 ||
+        recordLength == 0)
+    {
+        throw std::runtime_error("Something went wrong. Could't find Record's "
+                                 "OR its ECC's offset and Length");
+    }
+
+    auto vpdPtr = vpd.cbegin();
+
+    auto l_status = vpdecc_check_data(
+        const_cast<uint8_t*>(&vpdPtr[recordOffset]), recordLength,
+        const_cast<uint8_t*>(&vpdPtr[eccOffset]), eccLength);
+    if (l_status != VPD_ECC_OK)
+    {
+        rc = eccStatus::FAILED;
+    }
+
+    return rc;
+}
+#endif
 
 void Impl::checkHeader() const
 {
@@ -108,6 +231,16 @@ void Impl::checkHeader() const
         {
             throw std::runtime_error("VHDR record not found");
         }
+
+#ifdef IPZ_PARSER
+        // Check ECC
+        int rc = eccStatus::FAILED;
+        rc = vhdrEccCheck();
+        if (rc != eccStatus::SUCCESS)
+        {
+            throw std::runtime_error("ERROR: VHDR ECC check Failed");
+        }
+#endif
     }
 }
 
@@ -116,9 +249,7 @@ internal::OffsetList Impl::readTOC() const
     internal::OffsetList offsets{};
 
     // The offset to VTOC could be 1 or 2 bytes long
-    RecordOffset vtocOffset = vpd.at(offsets::VTOC_PTR);
-    RecordOffset highByte = vpd.at(offsets::VTOC_PTR + 1);
-    vtocOffset |= (highByte << 8);
+    RecordOffset vtocOffset = getVtocOffset();
 
     // Got the offset to VTOC, skip past record header and keyword header
     // to get to the record name.
@@ -135,6 +266,15 @@ internal::OffsetList Impl::readTOC() const
         throw std::runtime_error("VTOC record not found");
     }
 
+#ifdef IPZ_PARSER
+    // Check ECC
+    int rc = eccStatus::FAILED;
+    rc = vtocEccCheck();
+    if (rc != eccStatus::SUCCESS)
+    {
+        throw std::runtime_error("ERROR: VTOC ECC check Failed");
+    }
+#endif
     // VTOC record name is good, now read through the TOC, stored in the PT
     // PT keyword; vpdBuffer is now pointing at the first character of the
     // name 'VTOC', jump to PT data.
@@ -165,13 +305,22 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
         std::advance(iterator, lengths::RECORD_NAME + sizeof(RecordType));
 
         // Get record offset
-        RecordOffset offset = *iterator;
-        RecordOffset highByte = *(iterator + 1);
-        offset |= (highByte << 8);
+        auto offset = readUInt16LE(iterator);
         offsets.push_back(offset);
 
+#ifdef IPZ_PARSER
+        // Verify the ECC for this Record
+        int rc = recordEccCheck(iterator);
+
+        if (rc != eccStatus::SUCCESS)
+        {
+            throw std::runtime_error(
+                "ERROR: ECC check for one of the Record did not Pass.");
+        }
+#endif
+
         // Jump record size, record length, ECC offset and ECC length
-        std::advance(iterator, sizeof(RecordSize) + sizeof(RecordLength) +
+        std::advance(iterator, sizeof(RecordOffset) + sizeof(RecordLength) +
                                    sizeof(ECCOffset) + sizeof(ECCLength));
     }
 
@@ -190,6 +339,7 @@ void Impl::processRecord(std::size_t recordOffset)
     std::advance(iterator, nameOffset);
 
     std::string name(iterator, iterator + lengths::RECORD_NAME);
+
 #ifndef IPZ_PARSER
     if (supportedRecords.end() != supportedRecords.find(name))
     {
@@ -199,6 +349,7 @@ void Impl::processRecord(std::size_t recordOffset)
         std::advance(iterator, lengths::RECORD_NAME);
 
 #ifdef IPZ_PARSER
+
         // Reverse back to RT Kw, in ipz vpd, to Read RT KW & value
         std::advance(iterator, -(lengths::KW_NAME + sizeof(KwSize) +
                                  lengths::RECORD_NAME));
@@ -207,6 +358,7 @@ void Impl::processRecord(std::size_t recordOffset)
         // Add entry for this record (and contained keyword:value pairs)
         // to the parsed vpd output.
         out.emplace(std::move(name), std::move(kwMap));
+
 #ifndef IPZ_PARSER
     }
 #endif
@@ -383,7 +535,6 @@ Store Impl::run()
     {
         processRecord(offset);
     }
-
     // Return a Store object, which has interfaces to
     // access parsed VPD by record:keyword
     return Store(std::move(out));
