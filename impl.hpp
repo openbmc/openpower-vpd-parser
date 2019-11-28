@@ -35,6 +35,28 @@ using KeywordMap = Parsed::mapped_type;
 
 } // namespace internal
 
+namespace
+{
+
+using RecordId = uint8_t;
+using RecordOffset = uint16_t;
+using RecordSize = uint16_t;
+using RecordType = uint16_t;
+using RecordLength = uint16_t;
+using KwSize = uint8_t;
+using PoundKwSize = uint16_t;
+using ECCOffset = uint16_t;
+using ECCLength = uint16_t;
+using LE2ByteData = uint16_t;
+
+constexpr auto toHex(size_t c)
+{
+    constexpr auto map = "0123456789abcdef";
+    return map[c];
+}
+
+} // namespace
+
 /** @class Impl
  *  @brief Implements parser for VPD
  *
@@ -128,6 +150,28 @@ class Impl
 
     /** @brief Checks if the VHDR record is present in the VPD */
     void checkHeader() const;
+
+    /** @brief Checks for VHDR Record is correct OR corrupted, using ECC.
+     *  @returns Success(0) OR corruptedData(-1)
+     */
+    int vhdrEccCheck() const;
+
+    /** @brief Checks for VTOC Record is correct OR corrupted, using ECC.
+     *  @returns Success(0) OR corruptedData(-1)
+     */
+    int vtocEccCheck() const;
+
+    /** @brief Checks for given Record is correct OR corrupted, using ECC.
+     *
+     * @param[in] recordName - Record Name to verify.
+     * @returns Success(0) OR corruptedData(-1)
+     */
+    int recordEccCheck(Binary::const_iterator iterator) const;
+
+    /** @brief This interface collects Offset of VTOC
+     *  @returns VTOC Offset
+     */
+    RecordOffset getVtocOffset() const;
 
     /** @brief VPD in binary format */
     Binary vpd;
