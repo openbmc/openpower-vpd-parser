@@ -11,10 +11,16 @@ noinst_HEADERS = \
 	utils.hpp
 
 if IBM_PARSER
+noinst_HEADERS += \
+    vpdecc/vpdecc.h\
+    vpdecc/vpdecc_support.h
+
 bin_PROGRAMS = ibm-read-vpd
 ibm_read_vpd_SOURCES = \
 	ipz_app.cpp \
 	parser.cpp \
+	vpdecc/vpdecc.c   \
+	vpdecc/vpdecc_support.c\
 	impl.cpp \
 	utils.cpp
 
