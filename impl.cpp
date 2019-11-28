@@ -11,6 +11,8 @@
 #include <tuple>
 #include <unordered_map>
 
+#include "vpdecc/vpdecc.h"
+
 namespace openpower
 {
 namespace vpd
@@ -54,27 +56,6 @@ static const std::unordered_map<std::string, internal::KeywordInfo>
         {"VS", std::make_tuple(record::Keyword::VS, keyword::Encoding::ASCII)},
 };
 
-namespace
-{
-
-using RecordId = uint8_t;
-using RecordOffset = uint16_t;
-using RecordSize = uint16_t;
-using RecordType = uint16_t;
-using RecordLength = uint16_t;
-using KwSize = uint8_t;
-using PoundKwSize = uint16_t;
-using ECCOffset = uint16_t;
-using ECCLength = uint16_t;
-
-constexpr auto toHex(size_t c)
-{
-    constexpr auto map = "0123456789abcdef";
-    return map[c];
-}
-
-} // namespace
-
 namespace offsets
 {
 
@@ -83,6 +64,7 @@ enum Offsets
     VHDR = 17,
     VHDR_TOC_ENTRY = 29,
     VTOC_PTR = 35,
+    VTOC_DATA = 13,
 };
 }
 
@@ -94,8 +76,186 @@ enum Lengths
     RECORD_NAME = 4,
     KW_NAME = 2,
     RECORD_MIN = 44,
+    VTOC_RECORD_LENGTH = 14,
 };
 }
+
+RecordOffset Impl::getVtocOffset() const
+{
+    auto vpdPtr = vpd.cbegin();
+    std::advance(vpdPtr, offsets::VTOC_PTR);
+
+    // Get VTOC Offset
+    RecordOffset vtocOffset = *vpdPtr;
+    RecordOffset vtocOffsetHighByte = *(vpdPtr + 1);
+    vtocOffset |= (vtocOffsetHighByte << 8);
+
+    return vtocOffset;
+}
+
+#ifdef IPZ_PARSER
+int Impl::vhdrEccCheck() const
+{
+    int rc = 0;
+    size_t vEccOffset = 0;
+    size_t vEccLength = 11;
+    size_t vhdrOffset = 11;
+    size_t vhdrLength = 44;
+    auto vpdPtr = vpd.cbegin();
+
+    uint32_t l_status =
+        vpdecc_check_data((uint8_t*)&vpdPtr[vhdrOffset], vhdrLength,
+                          &vpdPtr[vEccOffset], vEccLength);
+    if (l_status != VPD_ECC_OK)
+    {
+        rc = -1;
+    }
+
+    return rc;
+}
+
+int Impl::vtocEccCheck() const
+{
+    int rc = 0;
+    // Use another pointer to get ECC information from VHDR,
+    // actual pointer is pointing to VTOC data
+
+    auto vpdPtr = vpd.cbegin();
+
+    // Get VTOC Offset
+    RecordOffset vtocOffset = getVtocOffset();
+
+    // Get the VTOC Length
+    std::advance(vpdPtr, offsets::VTOC_PTR + sizeof(RecordOffset));
+    RecordOffset vtocLength = *vpdPtr;
+    RecordOffset vtocLengthNextByte = *(vpdPtr + 1);
+    vtocLength |= (vtocLengthNextByte << 8);
+
+    // Get the ECC Offset
+    std::advance(vpdPtr, sizeof(RecordLength));
+    RecordOffset vtocECCOffset = *vpdPtr;
+    RecordOffset vtocECCOffsetNextByte = *(vpdPtr + 1);
+    vtocECCOffset |= (vtocECCOffsetNextByte << 8);
+
+    // Get the ECC length
+    std::advance(vpdPtr, sizeof(ECCOffset));
+    RecordOffset vtocECCLength = *vpdPtr;
+    RecordOffset vtocECCLengthNextByte = *(vpdPtr + 1);
+    vtocECCLength |= (vtocECCLengthNextByte << 8);
+
+    // Reset pointer to start of the vpd,
+    // so that Offset will point to correct address
+    vpdPtr = vpd.cbegin();
+
+    uint32_t l_status =
+        vpdecc_check_data((uint8_t*)&vpdPtr[vtocOffset], vtocLength,
+                          &vpdPtr[vtocECCOffset], vtocECCLength);
+    if (l_status != VPD_ECC_OK)
+    {
+        rc = -1;
+    }
+
+    return rc;
+}
+
+void Impl::getOffsetAndLengthForECCAndRecord(std::string recordName,
+                                             RecordOffset& recordOffset,
+                                             RecordLength& recordLength,
+                                             ECCOffset& EccOffset,
+                                             ECCLength& EccLength) const
+{
+    auto vpdPtr = vpd.cbegin();
+
+    // Get VTOC Offset
+    RecordOffset vtocOffset = getVtocOffset();
+
+    // move pointer to VTOC data
+    std::advance(vpdPtr, vtocOffset + offsets::VTOC_DATA);
+    while (true)
+    {
+        // pointer at Record Infos
+        auto namePtr = std::next(vpdPtr, lengths::RECORD_NAME);
+        std::string vpdRecord(vpdPtr, namePtr);
+        if (vpdRecord == LAST_KW)
+        {
+            // We're done
+            break;
+        }
+        // Otherwise go ahead
+        if (vpdRecord == recordName)
+        {
+            // Get Record Offset
+            std::advance(vpdPtr, lengths::RECORD_NAME + sizeof(RecordType));
+            recordOffset = *vpdPtr;
+            RecordOffset recordOffsetHighByte = *(vpdPtr + 1);
+            recordOffset |= (recordOffsetHighByte << 8);
+
+            // Get Record Length
+            std::advance(vpdPtr, sizeof(RecordOffset));
+            recordLength = *vpdPtr;
+            RecordLength recordLengthHighByte = *(vpdPtr + 1);
+            recordLength |= (recordLengthHighByte << 8);
+
+            // Get ECC Offset
+            std::advance(vpdPtr, sizeof(RecordLength));
+            EccOffset = *vpdPtr;
+            ECCOffset EccOffsetHighByte = *(vpdPtr + 1);
+            EccOffset |= (EccOffsetHighByte << 8);
+
+            // Get ECC Length
+            std::advance(vpdPtr, sizeof(ECCOffset));
+            EccLength = *vpdPtr;
+            ECCLength EccLengthHighByte = *(vpdPtr + 1);
+            EccLength |= (EccLengthHighByte << 8);
+            // We're done
+            break;
+        }
+        else
+        {
+            // Traverse to next Record
+            std::advance(vpdPtr, lengths::VTOC_RECORD_LENGTH);
+        }
+    }
+}
+
+int Impl::recordEccCheck(std::string recordName) const
+{
+    int rc = 0;
+    RecordOffset recordOffset = 0;
+    RecordLength recordLength = 0;
+    ECCOffset EccOffset = 0;
+    ECCLength EccLength = 0;
+
+    getOffsetAndLengthForECCAndRecord(recordName, recordOffset, recordLength,
+                                      EccOffset, EccLength);
+
+    if (EccLength == 0)
+    {
+        // then skip this check, ECC does not exist
+        // EXIT
+    }
+    else if (EccOffset == 0 || recordOffset == 0 || recordLength == 0)
+    {
+        // wrong value, something went wrong, can't proceed this check
+        // EXIT
+    }
+
+    // Got ECC and Record's offset & Length
+    // Reset pointer to start of the vpd,
+    // so that Offset will point to correct address
+    auto vpdPtr = vpd.cbegin();
+
+    uint32_t l_status =
+        vpdecc_check_data((uint8_t*)&vpdPtr[recordOffset], recordLength,
+                          &vpdPtr[EccOffset], EccLength);
+    if (l_status != VPD_ECC_OK)
+    {
+        rc = -1;
+    }
+
+    return rc;
+}
+#endif
 
 void Impl::checkHeader() const
 {
@@ -113,6 +273,16 @@ void Impl::checkHeader() const
         {
             throw std::runtime_error("VHDR record not found");
         }
+
+#ifdef IPZ_PARSER
+        // Check ECC
+        int rc = -1;
+        rc = vhdrEccCheck();
+        if (rc != 0)
+        {
+            throw std::runtime_error("VHDR ECC check Failed");
+        }
+#endif
     }
 }
 
@@ -121,9 +291,7 @@ internal::OffsetList Impl::readTOC() const
     internal::OffsetList offsets{};
 
     // The offset to VTOC could be 1 or 2 bytes long
-    RecordOffset vtocOffset = vpd.at(offsets::VTOC_PTR);
-    RecordOffset highByte = vpd.at(offsets::VTOC_PTR + 1);
-    vtocOffset |= (highByte << 8);
+    RecordOffset vtocOffset = getVtocOffset();
 
     // Got the offset to VTOC, skip past record header and keyword header
     // to get to the record name.
@@ -140,6 +308,15 @@ internal::OffsetList Impl::readTOC() const
         throw std::runtime_error("VTOC record not found");
     }
 
+#ifdef IPZ_PARSER
+    // Check ECC
+    int rc = -1;
+    rc = vtocEccCheck();
+    if (rc != 0)
+    {
+        throw std::runtime_error("VTOC ECC check Failed");
+    }
+#endif
     // VTOC record name is good, now read through the TOC, stored in the PT
     // PT keyword; vpdBuffer is now pointing at the first character of the
     // name 'VTOC', jump to PT data.
@@ -195,27 +372,39 @@ void Impl::processRecord(std::size_t recordOffset)
     std::advance(iterator, nameOffset);
 
     std::string name(iterator, iterator + lengths::RECORD_NAME);
-#ifndef IPZ_PARSER
+
+#ifdef IPZ_PARSER
+    // Check ECC for this Record
+    int rc = recordEccCheck(name);
+
+    if (rc != 0)
+    {
+        throw std::runtime_error("ECC check for Record did not Pass.");
+    }
+
+#else
     if (supportedRecords.end() != supportedRecords.find(name))
     {
 #endif
-        // If it's a record we're interested in, proceed to find
-        // contained keywords and their values.
-        std::advance(iterator, lengths::RECORD_NAME);
+    // If it's a record we're interested in, proceed to find
+    // contained keywords and their values.
+    std::advance(iterator, lengths::RECORD_NAME);
 
 #ifdef IPZ_PARSER
-        // Reverse back to RT Kw, in ipz vpd, to Read RT KW & value
-        std::advance(iterator, -(lengths::KW_NAME + sizeof(KwSize) +
-                                 lengths::RECORD_NAME));
+
+    // Reverse back to RT Kw, in ipz vpd, to Read RT KW & value
+    std::advance(iterator,
+                 -(lengths::KW_NAME + sizeof(KwSize) + lengths::RECORD_NAME));
 #endif
-        auto kwMap = readKeywords(iterator);
-        // Add entry for this record (and contained keyword:value pairs)
-        // to the parsed vpd output.
-        out.emplace(std::move(name), std::move(kwMap));
+    auto kwMap = readKeywords(iterator);
+    // Add entry for this record (and contained keyword:value pairs)
+    // to the parsed vpd output.
+    out.emplace(std::move(name), std::move(kwMap));
+
 #ifndef IPZ_PARSER
-    }
-#endif
 }
+#endif
+} // namespace parser
 
 std::string Impl::readKwData(const internal::KeywordInfo& keyword,
                              std::size_t dataLength,
@@ -362,10 +551,10 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
         }
 
 #else
-        // support all the Keywords
-        auto stop = std::next(iterator, length);
-        std::string kwdata(iterator, stop);
-        map.emplace(std::move(kw), std::move(kwdata));
+            // support all the Keywords
+            auto stop = std::next(iterator, length);
+            std::string kwdata(iterator, stop);
+            map.emplace(std::move(kw), std::move(kwdata));
 
 #endif
         // Jump past keyword data length
@@ -393,6 +582,6 @@ Store Impl::run()
     return Store(std::move(out));
 }
 
-} // namespace parser
 } // namespace vpd
 } // namespace openpower
+} // namespace vpd
