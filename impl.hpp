@@ -35,6 +35,28 @@ using KeywordMap = Parsed::mapped_type;
 
 } // namespace internal
 
+namespace
+{
+
+using RecordId = uint8_t;
+using RecordOffset = uint16_t;
+using RecordSize = uint16_t;
+using RecordType = uint16_t;
+using RecordLength = uint16_t;
+using KwSize = uint8_t;
+using PoundKwSize = uint16_t;
+using ECCOffset = uint16_t;
+using ECCLength = uint16_t;
+
+constexpr auto toHex(size_t c)
+{
+    constexpr auto map = "0123456789abcdef";
+    return map[c];
+}
+
+} // namespace
+
+
 /** @class Impl
  *  @brief Implements parser for VPD
  *
@@ -128,6 +150,26 @@ class Impl
 
     /** @brief Checks if the VHDR record is present in the VPD */
     void checkHeader() const;
+
+    /**TODO**/
+    int vhdrEccCheck() const;
+
+    /**TODO**/
+    int vtocEccCheck() const;
+
+    /**TODO**/
+    int recordEccCheck(std::string recordName) const;
+
+    /**TODO**/
+    void getOffsetAndLengthForECCAndRecord(
+                   std::string recordName,
+                   RecordOffset &recordOffset,
+                   RecordLength &recordLength,
+                   ECCOffset &EccOffset,
+                   ECCLength &EccLength) const;
+
+    /** TODO**/
+    RecordOffset getVtocOffset() const;
 
     /** @brief VPD in binary format */
     Binary vpd;
