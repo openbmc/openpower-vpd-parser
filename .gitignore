@@ -24,3 +24,4 @@ parser_test
 store_test
 *.log
 *.trs
+builddir
