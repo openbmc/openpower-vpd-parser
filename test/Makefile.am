@@ -38,7 +38,7 @@ kw_vpd_test_CPPFLAGS = $(test_cppflags)
 kw_vpd_test_LDFLAGS = $(test_ldflags)
 
 else
-noinst_PROGRAMS = parser_test
+check_PROGRAMS += parser_test
 parser_test_SOURCES = \
 	parser/parser.cpp \
 	../impl.cpp \
