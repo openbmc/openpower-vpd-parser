@@ -1,0 +1,6 @@
+option('oe-sdk', type: 'feature', description: 'ENABLE OE SDK FOR OPENPOWER VPD PARSER')
+option('tests', type: 'feature', value : 'enabled', description: 'Build tests')
+option('FRU_YAML',type: 'string', value: 'writefru.yaml',  description: 'YAML STRING')
+option('PROP_YAML',type: 'string', value: 'extra-properties-example.yaml',  description: 'YAML PROPERTY')
+option('ibm-parser', type: 'feature', description: 'ENABLE IBM PARSER')
+option('INVENTORY_JSON',type: 'string', value: '/usr/share/vpd/vpd_inventory.json',  description: 'JSON file that defines inventory blueprint')
