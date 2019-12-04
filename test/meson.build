@@ -29,23 +29,7 @@ if get_option('ibm-parser').enabled()
 	vpd_test += ['keyword_vpd_parser_test/kw_vpd_test.cpp',
 		]
 endif
-#else part is commented as parser.cpp needs to be fixed and then included as anoption		
-#else
 
-#application_src += [
-#		'../parser.cpp', 
-#		'../write.cpp', 
-#		'../utils.cpp',
-#		writefru_hpp,
-#		extra_properties_gen_hpp
-#		]
-#
-#vpd_test += [
-#                'parser/parser.cpp',
-#	]
-#
-#endif
-#
 foreach t : vpd_test
 	test(t, executable(t.underscorify(), 
 		[t, application_src],
