@@ -6,12 +6,13 @@ check_PROGRAMS = store_test
 
 store_test_SOURCES = store/store.cpp
 
+if IBM_PARSER
 check_PROGRAMS += ipz_parser_test
 
 ipz_parser_test_SOURCES = \
     ipz_parser/parser.cpp \
     ../impl.cpp           \
-    ../vpdecc/vpdecc.c  \
+    ../vpdecc/vpdecc.c    \
     ../vpdecc/vpdecc_support.c
 
 test_cppflags = \
@@ -32,7 +33,7 @@ test_ldflags = \
 ipz_parser_test_CPPFLAGS = $(test_cppflags) -DIPZ_PARSER
 ipz_parser_test_LDFLAGS = $(test_ldflags)
 
-if !IBM_PARSER
+else
 noinst_PROGRAMS = parser_test
 parser_test_SOURCES = \
 	parser/parser.cpp \
