@@ -11,7 +11,7 @@ check_PROGRAMS += ipz_parser_test
 ipz_parser_test_SOURCES = \
     ipz_parser/parser.cpp \
     ../impl.cpp           \
-    ../vpdecc/vpdecc.c  \
+    ../vpdecc/vpdecc.c    \
     ../vpdecc/vpdecc_support.c
 
 test_cppflags = \
