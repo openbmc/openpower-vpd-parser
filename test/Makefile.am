@@ -5,6 +5,34 @@ TESTS = $(check_PROGRAMS)
 check_PROGRAMS = store_test
 store_test_SOURCES = store/store.cpp
 
+if IBM_PARSER
+check_PROGRAMS += ipz_parser_test
+
+ipz_parser_test_SOURCES = \
+    ipz_parser/parser.cpp \
+    ../impl.cpp           \
+    ../vpdecc/vpdecc.c    \
+    ../vpdecc/vpdecc_support.c
+
+test_cppflags = \
+	-Igtest \
+	$(GTEST_CPPFLAGS) \
+	$(AM_CPPFLAGS)  \
+	-pthread  \
+	$(PTHREAD_CFLAGS) \
+	$(SDBUSPLUS_CFLAGS)
+
+test_ldflags = \
+	-lgtest_main \
+	-lgtest \
+	-pthread  \
+	$(PTHREAD_LIBS) \
+	$(SDBUSPLUS_LIBS)
+
+ipz_parser_test_CPPFLAGS = $(test_cppflags) -DIPZ_PARSER
+ipz_parser_test_LDFLAGS = $(test_ldflags)
+
+else
 noinst_PROGRAMS = parser_test
 parser_test_SOURCES = \
 	parser/parser.cpp \
