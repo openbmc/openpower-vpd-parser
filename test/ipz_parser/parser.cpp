@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 #include <cassert>
 #include <defines.hpp>
 #include <fstream>
 #include <impl.hpp>
 #include <iterator>
+=======
+#include <defines.hpp>
+#include <fstream>
+#include <impl.hpp>
+>>>>>>> a750868... IPZ VPD Parser TestCases
 #include <parser.hpp>
 #include <store.hpp>
 
@@ -12,6 +18,7 @@ using namespace openpower::vpd;
 
 TEST(IpzVpdParserApp, vpdGoodPath)
 {
+<<<<<<< HEAD
     // Create a vpd
     Binary vpd = {
         0x00, 0x0f, 0x17, 0xba, 0x42, 0xca, 0x82, 0xd7, 0x7b, 0x77, 0x1e, 0x84,
@@ -34,6 +41,13 @@ TEST(IpzVpdParserApp, vpdGoodPath)
         0x00, 0x42, 0x37, 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x00, 0x50, 0x46, 0x02, 0x00, 0x00, 0x78, 0x84, 0xdc,
         0x00, 0x52, 0x54, 0x04};
+=======
+    // Get the vpd
+    std::ifstream vpdFile("ipz.vpd", std::ios::binary);
+
+    Binary vpd((std::istreambuf_iterator<char>(vpdFile)),
+               std::istreambuf_iterator<char>());
+>>>>>>> a750868... IPZ VPD Parser TestCases
 
     // call app for this vpd
     parser::Impl p(std::move(vpd));
@@ -42,7 +56,10 @@ TEST(IpzVpdParserApp, vpdGoodPath)
     static const std::string record = "VINI";
     static const std::string keyword = "DR";
 
+<<<<<<< HEAD
     // TODO 2: Move this as an utility to store.hpp
+=======
+>>>>>>> a750868... IPZ VPD Parser TestCases
     std::string dataFound;
     Parsed st_bin = vpdStore.getVpdMap();
 
@@ -72,6 +89,7 @@ TEST(IpzVpdParserApp, vpdBadPathEmptyVPD)
 
 TEST(IpzVpdParserApp, vpdBadPathMissingHeader)
 {
+<<<<<<< HEAD
     Binary vpd = {
         0x00, 0x0f, 0x17, 0xba, 0x42, 0xca, 0x82, 0xd7, 0x7b, 0x77, 0x1e, 0x84,
         0x28, 0x00, 0x52, 0x54, 0x04, 0x56, 0x48, 0x44, 0x52, 0x56, 0x44, 0x02,
@@ -93,6 +111,13 @@ TEST(IpzVpdParserApp, vpdBadPathMissingHeader)
         0x00, 0x42, 0x37, 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x00, 0x50, 0x46, 0x02, 0x00, 0x00, 0x78, 0x84, 0xdc,
         0x00, 0x52, 0x54, 0x04};
+=======
+    // Get the vpd
+    std::ifstream vpdFile("ipz.vpd", std::ios::binary);
+
+    Binary vpd((std::istreambuf_iterator<char>(vpdFile)),
+               std::istreambuf_iterator<char>());
+>>>>>>> a750868... IPZ VPD Parser TestCases
 
     // corrupt the VHDR
     vpd[17] = 0x00;
@@ -105,6 +130,7 @@ TEST(IpzVpdParserApp, vpdBadPathMissingHeader)
 
 TEST(IpzVpdParserApp, vpdBadPathMissingVTOC)
 {
+<<<<<<< HEAD
     Binary vpd = {
         0x00, 0x0f, 0x17, 0xba, 0x42, 0xca, 0x82, 0xd7, 0x7b, 0x77, 0x1e, 0x84,
         0x28, 0x00, 0x52, 0x54, 0x04, 0x56, 0x48, 0x44, 0x52, 0x56, 0x44, 0x02,
@@ -126,6 +152,13 @@ TEST(IpzVpdParserApp, vpdBadPathMissingVTOC)
         0x00, 0x42, 0x37, 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x00, 0x50, 0x46, 0x02, 0x00, 0x00, 0x78, 0x84, 0xdc,
         0x00, 0x52, 0x54, 0x04};
+=======
+    // Get the vpd
+    std::ifstream vpdFile("./ipz.vpd", std::ios::binary);
+
+    Binary vpd((std::istreambuf_iterator<char>(vpdFile)),
+               std::istreambuf_iterator<char>());
+>>>>>>> a750868... IPZ VPD Parser TestCases
 
     // corrupt the VTOC
     vpd[61] = 0x00;
