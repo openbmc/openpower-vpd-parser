@@ -1,0 +1,4 @@
+option('BUSNAME',type: 'string', value: 'xyz.openbmc_project.Inventory.VPD.VPDKeywordEditor',  description: 'BUS NAME FOR THE SERVICE')
+option('OBJPATH',type: 'string', value: '/xyz/openbmc_project/Inventory/VPD',  description: 'OBJECT PATH FOT THE SERVICE')
+option('IFACE',type: 'string', value: 'xyz.openbmc_project.Inventory.VPD.VPDKeywordEditor',  description: 'INTERFACE NAME')
+option('oe-sdk', type: 'feature', description: 'ENABLE OE SDK FOR VPD KEYWORD EDITOR')
