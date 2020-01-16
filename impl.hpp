@@ -78,12 +78,20 @@ class Impl
      */
     Store run();
 
+    /** @brief process the VPD file to check for 
+     *  header and TC
+     *  @param[in] iterator - pointing to the start of VPD file
+     *  @returns size of PT record
+     */
+    std::size_t processVPD(Binary::const_iterator& iterator);
+
   private:
     /** @brief Process the table of contents record, VHDR
      *
-     *  @returns List of offsets to records in VPD
+     *  @param[in] iterator - iterator to buffer containing VPD
+     *  @returns Size of the PT record in VTOC
      */
-    internal::OffsetList readTOC() const;
+    std::size_t readTOC(Binary::const_iterator& iterator) const;
 
     /** @brief Read the PT keyword contained in the VHDR record,
      *         to obtain offsets to other records in the VPD.
@@ -128,6 +136,13 @@ class Impl
 
     /** @brief Checks if the VHDR record is present in the VPD */
     void checkHeader() const;
+
+    /** @brief Checks if the VTOC record is present in the VPD 
+     *  @param[in] iterator - iterator pointing to the beginning of VPD
+    */
+//    void checkTOC(Binary::const_iterator& iterator) const;
+
+    
 
     /** @brief VPD in binary format */
     Binary vpd;
