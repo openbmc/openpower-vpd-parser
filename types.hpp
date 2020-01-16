@@ -24,7 +24,7 @@ using Path = std::string;
 using Property = std::string;
 using Value = sdbusplus::message::variant<bool, int64_t, std::string, Binary>;
 using PropertyMap = std::map<Property, Value>;
-
+using vpdPath = std::string;
 using Interface = std::string;
 using InterfaceMap = std::map<Interface, PropertyMap>;
 
