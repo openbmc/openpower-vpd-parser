@@ -6,6 +6,16 @@ namespace openpower
 {
 namespace vpd
 {
+/** @brief Return the hex representation of the incoming byte
+ *
+ * @param [in] c - The input byte
+ * @returns The hex representation of the byte as a character.
+ */
+constexpr auto toHex(size_t c)
+{
+    constexpr auto map = "0123456789abcdef";
+    return map[c];
+}
 
 namespace inventory
 {
