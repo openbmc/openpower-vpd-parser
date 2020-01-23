@@ -1,6 +1,7 @@
 #include "impl.hpp"
 
 #include "defines.hpp"
+#include "utils.hpp"
 
 #include <algorithm>
 #include <exception>
@@ -66,12 +67,6 @@ using KwSize = uint8_t;
 using PoundKwSize = uint16_t;
 using ECCOffset = uint16_t;
 using ECCLength = uint16_t;
-
-constexpr auto toHex(size_t c)
-{
-    constexpr auto map = "0123456789abcdef";
-    return map[c];
-}
 
 } // namespace
 
@@ -221,6 +216,7 @@ std::string Impl::readKwData(const internal::KeywordInfo& keyword,
                              std::size_t dataLength,
                              Binary::const_iterator iterator)
 {
+    using namespace openpower::vpd;
     switch (std::get<keyword::Encoding>(keyword))
     {
         case keyword::Encoding::ASCII:
