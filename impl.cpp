@@ -206,7 +206,41 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
     {
         rc = eccStatus::FAILED;
     }
+    std::cout << "ECC verified for the Record...l_status: " << l_status << "\n";
+    return rc;
+}
 
+int Impl::recordCreateEcc(Binary::const_iterator iterator) const
+{
+    int rc = eccStatus::SUCCESS;
+
+    // Get the Record's offset
+    auto recordOffset = readUInt16LE(iterator);
+
+    // Get the Record's length
+    std::advance(iterator, sizeof(RecordOffset));
+    auto recordLength = readUInt16LE(iterator);
+
+    // Get the Record's ECC's offset
+    std::advance(iterator, sizeof(RecordLength));
+    auto eccOffset = readUInt16LE(iterator);
+
+    // Get the Record's ECC's length
+    std::advance(iterator, sizeof(ECCOffset));
+    auto eccLength = readUInt16LE(iterator);
+
+    auto vpdPtr = vpd.cbegin();
+
+    auto l_status = vpdecc_create_ecc(
+        const_cast<uint8_t*>(&vpdPtr[recordOffset]), recordLength,
+        const_cast<uint8_t*>(&vpdPtr[eccOffset]),
+        reinterpret_cast<size_t*>(&eccLength));
+    if (l_status != VPD_ECC_OK)
+    {
+        rc = eccStatus::FAILED;
+    }
+    std::cout << "Record's ECC created Successfuly! l_status: " << l_status
+              << "\n";
     return rc;
 }
 #endif
@@ -297,24 +331,31 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
     // we care only about the record offset information.
     while (iterator < end)
     {
+        // TODO: debugging remove
+        std::string name(iterator, iterator + lengths::RECORD_NAME);
+        std::cout << name << " Record Processing...\n";
         // Skip record name and record type
         std::advance(iterator, lengths::RECORD_NAME + sizeof(RecordType));
 
         // Get record offset
         auto offset = readUInt16LE(iterator);
         offsets.push_back(offset);
-
 #ifdef IPZ_PARSER
+        // Create ECC
+        int rc = recordCreateEcc(iterator);
+        if (rc != eccStatus::SUCCESS)
+        {
+            throw std::runtime_error(
+                "ERROR: ECC create failed for this record");
+        }
         // Check ECC for this Record
-        int rc = recordEccCheck(iterator);
-
+        rc = recordEccCheck(iterator);
         if (rc != eccStatus::SUCCESS)
         {
             throw std::runtime_error(
                 "ERROR: ECC check for one of the Record did not Pass.");
         }
 #endif
-
         // Jump record size, record length, ECC offset and ECC length
         std::advance(iterator, sizeof(RecordOffset) + sizeof(RecordLength) +
                                    sizeof(ECCOffset) + sizeof(ECCLength));
