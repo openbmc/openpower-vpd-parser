@@ -167,6 +167,13 @@ class Impl
      */
     RecordOffset getVtocOffset() const;
 
+    /** @brief This interface will create ECC for the given record
+     *
+     * @param[in] iterator - iterator pointing to a record in the VPD
+     * @returns Success(0) OR Failed(-1)
+     */
+    int recordCreateEcc(Binary::const_iterator iterator) const;
+
     /** @brief VPD in binary format */
     Binary vpd;
 
