@@ -51,6 +51,15 @@ using LE2ByteData = uint16_t;
 
 } // namespace
 
+namespace eccStatus
+{
+enum Status
+{
+    SUCCESS = 0,
+    FAILED = -1,
+};
+}
+
 /** @class Impl
  *  @brief Implements parser for VPD
  *
