@@ -84,15 +84,6 @@ enum Lengths
 };
 }
 
-namespace eccStatus
-{
-enum Status
-{
-    SUCCESS = 0,
-    FAILED = -1,
-};
-}
-
 namespace
 {
 constexpr auto toHex(size_t c)
@@ -103,7 +94,7 @@ constexpr auto toHex(size_t c)
 } // namespace
 
 /*readUInt16LE: Read 2 bytes LE data*/
-static LE2ByteData readUInt16LE(Binary::const_iterator iterator)
+LE2ByteData readUInt16LE(Binary::const_iterator iterator)
 {
     LE2ByteData lowByte = *iterator;
     LE2ByteData highByte = *(iterator + 1);
@@ -209,9 +200,9 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
     {
         rc = eccStatus::FAILED;
     }
-
     return rc;
 }
+
 #endif
 
 void Impl::checkHeader() const
@@ -306,18 +297,15 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
         // Get record offset
         auto offset = readUInt16LE(iterator);
         offsets.push_back(offset);
-
 #ifdef IPZ_PARSER
         // Verify the ECC for this Record
         int rc = recordEccCheck(iterator);
-
         if (rc != eccStatus::SUCCESS)
         {
             throw std::runtime_error(
                 "ERROR: ECC check for one of the Record did not Pass.");
         }
 #endif
-
         // Jump record size, record length, ECC offset and ECC length
         std::advance(iterator, sizeof(RecordOffset) + sizeof(RecordLength) +
                                    sizeof(ECCOffset) + sizeof(ECCLength));
