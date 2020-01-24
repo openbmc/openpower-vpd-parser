@@ -129,7 +129,36 @@ class Impl
     /** @brief Checks if the VHDR record is present in the VPD */
     void checkHeader() const;
 
-    /** @brief OpenPOWER VPD in binary format */
+    /** @brief Checks the ECC for VHDR Record.
+     *  @returns Success(0) OR corrupted data(-1)
+     */
+    int vhdrEccCheck() const;
+
+    /** @brief Checks the ECC for VTOC Record.
+     *  @returns Success(0) OR corrupted data(-1)
+     */
+    int vtocEccCheck() const;
+
+    /** @brief Checks the ECC for the given record.
+     *
+     * @param[in] iterator - iterator pointing to a record in the VPD
+     * @returns Success(0) OR corrupted data(-1)
+     */
+    int recordEccCheck(Binary::const_iterator iterator) const;
+
+    /** @brief This interface collects Offset of VTOC
+     *  @returns VTOC Offset
+     */
+    RecordOffset getVtocOffset() const;
+
+    /** @brief This interface will create ECC for the given record
+     *
+     * @param[in] iterator - iterator pointing to a record in the VPD
+     * @returns Success(0) OR Failed(-1)
+     */
+    int recordCreateEcc(Binary::const_iterator iterator) const;
+
+    /** @brief VPD in binary format */
     Binary vpd;
 
     /** @brief parser output */

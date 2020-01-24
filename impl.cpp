@@ -95,6 +95,167 @@ enum Lengths
 };
 }
 
+namespace eccStatus
+{
+enum Status
+{
+    SUCCESS = 0,
+    FAILED = -1,
+};
+}
+
+namespace
+{
+constexpr auto toHex(size_t c)
+{
+    constexpr auto map = "0123456789abcdef";
+    return map[c];
+}
+} // namespace
+
+/*readUInt16LE: Read 2 bytes LE data*/
+static LE2ByteData readUInt16LE(Binary::const_iterator iterator)
+{
+    LE2ByteData lowByte = *iterator;
+    LE2ByteData highByte = *(iterator + 1);
+    lowByte |= (highByte << 8);
+    return lowByte;
+}
+
+RecordOffset Impl::getVtocOffset() const
+{
+    auto vpdPtr = vpd.cbegin();
+    std::advance(vpdPtr, offsets::VTOC_PTR);
+    // Get VTOC Offset
+    auto vtocOffset = readUInt16LE(vpdPtr);
+
+    return vtocOffset;
+}
+
+#ifdef IPZ_PARSER
+
+int Impl::vhdrEccCheck() const
+{
+    int rc = eccStatus::SUCCESS;
+    auto vpdPtr = vpd.cbegin();
+
+    auto l_status =
+        vpdecc_check_data(const_cast<uint8_t*>(&vpdPtr[offsets::VHDR_RECORD]),
+                          lengths::VHDR_RECORD_LENGTH,
+                          const_cast<uint8_t*>(&vpdPtr[offsets::VHDR_ECC]),
+                          lengths::VHDR_ECC_LENGTH);
+    if (l_status != VPD_ECC_OK)
+    {
+        rc = eccStatus::FAILED;
+    }
+
+    return rc;
+}
+
+int Impl::vtocEccCheck() const
+{
+    int rc = eccStatus::SUCCESS;
+    // Use another pointer to get ECC information from VHDR,
+    // actual pointer is pointing to VTOC data
+
+    auto vpdPtr = vpd.cbegin();
+
+    // Get VTOC Offset
+    auto vtocOffset = getVtocOffset();
+
+    // Get the VTOC Length
+    std::advance(vpdPtr, offsets::VTOC_PTR + sizeof(RecordOffset));
+    auto vtocLength = readUInt16LE(vpdPtr);
+
+    // Get the ECC Offset
+    std::advance(vpdPtr, sizeof(RecordLength));
+    auto vtocECCOffset = readUInt16LE(vpdPtr);
+
+    // Get the ECC length
+    std::advance(vpdPtr, sizeof(ECCOffset));
+    auto vtocECCLength = readUInt16LE(vpdPtr);
+
+    // Reset pointer to start of the vpd,
+    // so that Offset will point to correct address
+    vpdPtr = vpd.cbegin();
+    auto l_status = vpdecc_check_data(
+        const_cast<uint8_t*>(&vpdPtr[vtocOffset]), vtocLength,
+        const_cast<uint8_t*>(&vpdPtr[vtocECCOffset]), vtocECCLength);
+    if (l_status != VPD_ECC_OK)
+    {
+        rc = eccStatus::FAILED;
+    }
+
+    return rc;
+}
+
+int Impl::recordEccCheck(Binary::const_iterator iterator) const
+{
+    int rc = eccStatus::SUCCESS;
+
+    auto recordOffset = readUInt16LE(iterator);
+
+    std::advance(iterator, sizeof(RecordOffset));
+    auto recordLength = readUInt16LE(iterator);
+
+    std::advance(iterator, sizeof(RecordLength));
+    auto eccOffset = readUInt16LE(iterator);
+
+    std::advance(iterator, sizeof(ECCOffset));
+    auto eccLength = readUInt16LE(iterator);
+
+    if (eccLength == 0 || eccOffset == 0 || recordOffset == 0 ||
+        recordLength == 0)
+    {
+        throw std::runtime_error("Something went wrong. Could't find Record's "
+                                 "OR its ECC's offset and Length");
+    }
+
+    auto vpdPtr = vpd.cbegin();
+
+    auto l_status = vpdecc_check_data(
+        const_cast<uint8_t*>(&vpdPtr[recordOffset]), recordLength,
+        const_cast<uint8_t*>(&vpdPtr[eccOffset]), eccLength);
+    if (l_status != VPD_ECC_OK)
+    {
+        rc = eccStatus::FAILED;
+    }
+    return rc;
+}
+
+int Impl::recordCreateEcc(Binary::const_iterator iterator) const
+{
+    int rc = eccStatus::SUCCESS;
+
+    // Get the Record's offset
+    auto recordOffset = readUInt16LE(iterator);
+
+    // Get the Record's length
+    std::advance(iterator, sizeof(RecordOffset));
+    auto recordLength = readUInt16LE(iterator);
+
+    // Get the Record's ECC's offset
+    std::advance(iterator, sizeof(RecordLength));
+    auto eccOffset = readUInt16LE(iterator);
+
+    // Get the Record's ECC's length
+    std::advance(iterator, sizeof(ECCOffset));
+    auto eccLength = readUInt16LE(iterator);
+
+    auto vpdPtr = vpd.cbegin();
+
+    auto l_status = vpdecc_create_ecc(
+        const_cast<uint8_t*>(&vpdPtr[recordOffset]), recordLength,
+        const_cast<uint8_t*>(&vpdPtr[eccOffset]),
+        reinterpret_cast<size_t*>(&eccLength));
+    if (l_status != VPD_ECC_OK)
+    {
+        rc = eccStatus::FAILED;
+    }
+    return rc;
+}
+#endif
+
 void Impl::checkHeader() const
 {
     if (vpd.empty() || (lengths::RECORD_MIN > vpd.size()))
@@ -172,7 +333,22 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
         RecordOffset highByte = *(iterator + 1);
         offset |= (highByte << 8);
         offsets.push_back(offset);
-
+#ifdef IPZ_PARSER
+        // Create ECC
+        int rc = recordCreateEcc(iterator);
+        if (rc != eccStatus::SUCCESS)
+        {
+            throw std::runtime_error(
+                "ERROR: ECC create failed for this record");
+        }
+        // Verify the ECC for this Record
+        rc = recordEccCheck(iterator);
+        if (rc != eccStatus::SUCCESS)
+        {
+            throw std::runtime_error(
+                "ERROR: ECC check for one of the Record did not Pass.");
+        }
+#endif
         // Jump record size, record length, ECC offset and ECC length
         std::advance(iterator, sizeof(RecordSize) + sizeof(RecordLength) +
                                    sizeof(ECCOffset) + sizeof(ECCLength));
