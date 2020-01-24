@@ -1,6 +1,7 @@
 #pragma once
 
 #include "store.hpp"
+#include "utils.hpp"
 
 #include <cstddef>
 
@@ -47,9 +48,17 @@ using KwSize = uint8_t;
 using PoundKwSize = uint16_t;
 using ECCOffset = uint16_t;
 using ECCLength = uint16_t;
-using LE2ByteData = uint16_t;
 
 } // namespace
+
+namespace eccStatus
+{
+enum Status
+{
+    SUCCESS = 0,
+    FAILED = -1,
+};
+}
 
 /** @class Impl
  *  @brief Implements parser for VPD
