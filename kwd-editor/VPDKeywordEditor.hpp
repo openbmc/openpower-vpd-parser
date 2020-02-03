@@ -4,6 +4,7 @@
 
 #include <sdbusplus/server.hpp>
 #include <xyz/openbmc_project/Inventory/VPD/VPDKeywordEditor/server.hpp>
+#include <map>
 
 namespace sdbusplus
 {
@@ -70,18 +71,24 @@ class VPDKeywordEditor : public ServerObject<kwdEditorIface>
     **  @param[in] keyword - keyword whose value needs to be updated
     **  @param[in] value - value that needs to be updated
     **/
-    void writeKeyword(std::string path, std::string recordName,
-                      std::string keyword, std::vector<uint8_t> value);
+    void writeKeyword(const inventory::Path path, const std::string recordName,
+                      const std::string keyword, std::vector<uint8_t> value);
 
     /** @brief Start processing DBus messages. */
     void run();
 
   private:
+    /** @brief process the given JSON file
+    **/
+    void processJSON();
+
     /** @brief Persistent sdbusplus DBus bus connection. */
     sdbusplus::bus::bus _bus;
 
     /** @brief sdbusplus org.freedesktop.DBus.ObjectManager reference. */
     sdbusplus::server::manager::manager _manager;
+
+    inventory::FrusMap frus;  
 };
 
 } // namespace editor
