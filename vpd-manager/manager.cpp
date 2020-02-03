@@ -5,7 +5,9 @@
 #include "parser.hpp"
 
 #include <exception>
+#include <fstream>
 #include <iostream>
+#include <nlohmann/json.hpp>
 #include <vector>
 
 namespace openpower
@@ -24,17 +26,50 @@ Manager::Manager(sdbusplus::bus::bus&& bus, const char* busName,
 
 void Manager::run()
 {
+    try
+    {
+        processJSON();
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << e.what() << "\n";
+    }
+
     while (true)
     {
-        try
+        _bus.process_discard();
+
+        // wait for event
+        _bus.wait();
+    }
+}
+
+void Manager::processJSON()
+{
+    std::ifstream json(INVENTORY_JSON, std::ios::binary);
+
+    if (!json)
+    {
+        throw std::runtime_error("json file not found");
+    }
+
+    jsonFile = nlohmann::json::parse(json);
+    if (jsonFile.find("frus") == jsonFile.end())
+    {
+        throw std::runtime_error("frus group not found in json");
+    }
+
+    const nlohmann::json& groupFRUS =
+        jsonFile["frus"].get_ref<const nlohmann::json::object_t&>();
+    for (const auto& itemFRUS : groupFRUS.items())
+    {
+        const std::vector<nlohmann::json>& groupEEPROM =
+            itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
+        for (const auto& itemEEPROM : groupEEPROM)
         {
-            _bus.process_discard();
-            // wait for event
-            _bus.wait();
-        }
-        catch (const std::exception& e)
-        {
-            std::cerr << e.what() << "\n";
+            frus.emplace(itemEEPROM["inventoryPath"]
+                             .get_ref<const nlohmann::json::string_t&>(),
+                         itemFRUS.key());
         }
     }
 }
@@ -64,6 +99,7 @@ std::string Manager::getExpandedLocationCode(const std::string locationCode,
 {
     // implement the interface
 }
+
 } // namespace manager
 } // namespace vpd
 } // namespace openpower
