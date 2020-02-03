@@ -1,7 +1,8 @@
-project('vpd-kwd-editor', 
+project('vpd-kwd-editor',
         'cpp',
         default_options : ['cpp_std=c++17'],
         version : '1.0')
+
 sdbusplus = dependency('sdbusplus')
 phosphor_logging = dependency('phosphor-logging')
 systemd = dependency('libsystemd', version : '>= 221')
@@ -26,6 +27,9 @@ vpd_kwd_editor_SOURCES =[
                         'VPD_KeywordEditor_main.cpp',
                         'VPDKeywordEditor.cpp',
                         'server.cpp',
+                        'editor.cpp',
+                        '../parser.cpp',
+                        '../impl.cpp'
                         ]
 
 vpd_kwd_editor_exe = executable('vpd-kwd-editor',

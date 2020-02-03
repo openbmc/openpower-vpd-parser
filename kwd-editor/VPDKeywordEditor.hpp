@@ -1,6 +1,8 @@
 #pragma once
 
+#include "editor.hpp"
 #include "types.hpp"
+
 #include <sdbusplus/server.hpp>
 #include <xyz/openbmc_project/Inventory/VPD/VPDKeywordEditor/server.hpp>
 
