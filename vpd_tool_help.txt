@@ -1,0 +1,43 @@
+VPD Tool Help Doc:
+
+./vpd-tool [OPTIONS] [Arguments]
+   
+     Note: <Every argument should be given in string format>
+           <Value argument can be given either in ascii or in hex>
+ 
+[OPTIONS] & [Arguments]
+
+1. To dump the inventory: 
+   
+OptionName : --dumpInventory (or) -i
+Arguments  : Nil
+Output     : Display the inventory objects.
+
+2. To dump an object:
+
+OptionName : --dumpObject (or) -o
+Arguments  :
+             --object/-O <Object Path>
+
+Output     : Display the contents of given object.
+
+3. To read a keyword:
+
+OptionName : --readKeyword (or) -r
+Arguments  :
+             --object/-O <ObjectPath> 
+             --record/-R <RecordName> 
+             --keyword/-K <Keyword>
+
+Output     : Display the value of given keyword.
+ 
+4. To write/update the value of a keyword:
+
+OptionName : --writeKeyword (or) -w (or) --updateKeyword (or) -u
+Arguments  : 
+             --object/-O <ObjectPath> 
+             --record/-R <RecordName> 
+             --keyword/-K <Keyword> 
+             --value/-V <ValueToBeUpdated>
+
+Output     : Update the value and return success.
