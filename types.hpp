@@ -31,6 +31,9 @@ using InterfaceMap = std::map<Interface, PropertyMap>;
 using Object = sdbusplus::message::object_path;
 using ObjectMap = std::map<Object, InterfaceMap>;
 
+using vpdFilePath = std::string;
+using FrusMap = std::map<Path, vpdFilePath>;
+
 using namespace std::string_literals;
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
 constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
