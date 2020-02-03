@@ -46,11 +46,55 @@ void VPDKeywordEditor::run()
     }
 }
 
-void VPDKeywordEditor::writeKeyword(std::string inventoryPath,
+inventory::Path VPDKeywordEditor::processJSON(const inventory::Path inventoryPath)
+{
+    // std::ifstream jsonFile(INVENTORY_JSON, std::ios::binary);
+    std::ifstream jsonFile("test.json", std::ios::binary);
+
+    if (!jsonFile)
+    {
+        throw std::runtime_error("json file not found");
+    }
+
+    nlohmann::json jfile = nlohmann::json::parse(jsonFile);
+    if (jfile.find("frus") == jfile.end())
+    {
+        throw std::runtime_error("frus group not found in json");
+    }
+
+    nlohmann::json groupFRUS = (jfile.find("frus")).value();
+    // nlohmann::json::iterator itemFRUS;
+
+    // for (itemFRUS = groupFRUS.begin(); itemFRUS != groupFRUS.end();
+    // ++itemFRUS)
+    //{
+    for (auto itemFRUS : groupFRUS.items())
+    {
+        std::vector<nlohmann::json> groupEEPROM = itemFRUS.value();
+        //   std::vector<nlohmann::json>::iterator itemEEPROM;
+
+        // for (itemEEPROM = groupEEPROM.begin(); itemEEPROM !=
+        // groupEEPROM.end();
+        //     ++itemEEPROM)
+        for (auto itemEEPROM : groupEEPROM)
+        {
+            nlohmann::json individualFRU = itemEEPROM;
+            if (individualFRU.find("inventoryPath").value() == inventoryPath)
+            {
+                return itemFRUS.key();
+            }
+        }
+    }
+
+    throw std::runtime_error("Inventory path is not found");
+}
+
+void VPDKeywordEditor::writeKeyword(inventory::Path inventoryPath,
                                     std::string recordName, std::string keyword,
                                     std::vector<uint8_t> value)
 {
-    // implements the interface to write keyword VPD data
+    // process the json to get path to VPD file
+    inventory::Path vpdFilePath = processJSON(inventoryPath);
 }
 
 } // namespace editor
