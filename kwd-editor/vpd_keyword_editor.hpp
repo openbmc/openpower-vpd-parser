@@ -3,6 +3,8 @@
 #include "types.hpp"
 
 #include <com/ibm/vpd/Editor/server.hpp>
+#include <map>
+#include <nlohmann/json.hpp>
 #include <sdbusplus/server.hpp>
 
 namespace sdbusplus
@@ -69,18 +71,29 @@ class VPDKeywordEditor : public ServerObject<EditorIface>
      *  @param[in] keyword - keyword whose value needs to be updated
      *  @param[in] value - value that needs to be updated
      */
-    void writeKeyword(const std::string path, const std::string recordName,
+    void writeKeyword(const inventory::Path path, const std::string recordName,
                       const std::string keyword, const Binary value);
 
     /** @brief Start processing DBus messages. */
     void run();
 
   private:
+    /** @brief process the given JSON file
+     **/
+    void processJSON();
+
     /** @brief Persistent sdbusplus DBus bus connection. */
     sdbusplus::bus::bus _bus;
 
     /** @brief sdbusplus org.freedesktop.DBus.ObjectManager reference. */
     sdbusplus::server::manager::manager _manager;
+
+    // file to store parsed json
+    nlohmann::json jsonFile;
+
+    // map to hold mapping to inventory path to vpd file path
+    // we need as map here as it is in reverse order to that of json
+    inventory::FrusMap frus;
 };
 
 } // namespace editor

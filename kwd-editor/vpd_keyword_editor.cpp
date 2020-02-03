@@ -2,10 +2,10 @@
 
 #include "vpd_keyword_editor.hpp"
 
-#include "parser.hpp"
-
 #include <exception>
+#include <fstream>
 #include <iostream>
+#include <nlohmann/json.hpp>
 #include <vector>
 
 namespace openpower
@@ -27,27 +27,60 @@ VPDKeywordEditor::VPDKeywordEditor(sdbusplus::bus::bus&& bus,
 
 void VPDKeywordEditor::run()
 {
+    try
+    {
+        processJSON();
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+
     while (true)
     {
-        try
+        _bus.process_discard();
+
+        // wait for event
+        _bus.wait();
+    }
+}
+
+void VPDKeywordEditor::processJSON()
+{
+    std::ifstream json(INVENTORY_JSON, std::ios::binary);
+
+    if (!json)
+    {
+        throw std::runtime_error("json file not found");
+    }
+
+    jsonFile = nlohmann::json::parse(json);
+    if (jsonFile.find("frus") == jsonFile.end())
+    {
+        throw std::runtime_error("frus group not found in json");
+    }
+
+    nlohmann::json groupFRUS =
+        jsonFile["frus"].get_ref<nlohmann::json::object_t&>();
+    for (const auto& itemFRUS : groupFRUS.items())
+    {
+        std::vector<nlohmann::json> groupEEPROM =
+            itemFRUS.value().get_ref<nlohmann::json::array_t&>();
+        for (const auto& itemEEPROM : groupEEPROM)
         {
-            _bus.process_discard();
-            // wait for event
-            _bus.wait();
-        }
-        catch (const std::exception& e)
-        {
-            std::cerr << e.what() << std::endl;
+            frus.emplace(itemEEPROM["inventoryPath"]
+                             .get_ref<const nlohmann::json::string_t&>(),
+                         itemFRUS.key());
         }
     }
 }
 
-void VPDKeywordEditor::writeKeyword(const std::string inventoryPath,
+void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
                                     const std::string recordName,
                                     const std::string keyword,
                                     const Binary value)
 {
-    // implements the interface to write keyword VPD data
+    // implement write functionality here
 }
 
 } // namespace editor
