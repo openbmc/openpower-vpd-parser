@@ -23,7 +23,7 @@ namespace server
 
 VPDKeywordEditor::VPDKeywordEditor(bus::bus& bus, const char* path) :
     _xyz_openbmc_project_Inventory_VPD_VPDKeywordEditor_interface(
-        bus, path, _interface, _vtable, this),
+        bus, path, interface, _vtable, this),
     _intf(bus.getInterface())
 {
 }

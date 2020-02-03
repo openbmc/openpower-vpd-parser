@@ -31,26 +31,62 @@ VPDKeywordEditor::VPDKeywordEditor(sdbusplus::bus::bus&& bus,
 
 void VPDKeywordEditor::run()
 {
+    try
+    {
+        processJSON();
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+
     while (true)
     {
-        try
+        _bus.process_discard();
+
+        // wait for event
+        _bus.wait();
+    }
+}
+
+void VPDKeywordEditor::processJSON()
+{
+    std::ifstream jsonFile(INVENTORY_JSON, std::ios::binary);
+
+    if (!jsonFile)
+    {
+        throw std::runtime_error("json file not found");
+    }
+
+    nlohmann::json jfile = nlohmann::json::parse(jsonFile);
+    if (jfile.find("frus") == jfile.end())
+    {
+        throw std::runtime_error("frus group not found in json");
+    }
+
+    nlohmann::json groupFRUS = (jfile.find("frus")).value();
+    for (auto itemFRUS : groupFRUS.items())
+    {
+        std::vector<nlohmann::json> groupEEPROM = itemFRUS.value();
+        for (auto itemEEPROM : groupEEPROM)
         {
-            _bus.process_discard();
-            // wait for event
-            _bus.wait();
-        }
-        catch (const std::exception& e)
-        {
-            std::cerr << e.what() << std::endl;
+            nlohmann::json individualFRU = itemEEPROM;
+            if (individualFRU.find("inventoryPath") != individualFRU.end())
+            {
+                inventory::Path path =
+                    individualFRU.find("inventoryPath").value();
+                frus.insert({path, itemFRUS.key()});
+            }
         }
     }
 }
 
-void VPDKeywordEditor::writeKeyword(std::string inventoryPath,
-                                    std::string recordName, std::string keyword,
+void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
+                                    const std::string recordName,
+                                    const std::string keyword,
                                     std::vector<uint8_t> value)
 {
-    // implements the interface to write keyword VPD data
+    // implement write functionality here
 }
 
 } // namespace editor
