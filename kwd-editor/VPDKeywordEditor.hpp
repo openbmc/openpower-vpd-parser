@@ -70,13 +70,22 @@ class VPDKeywordEditor : public ServerObject<kwdEditorIface>
     **  @param[in] keyword - keyword whose value needs to be updated
     **  @param[in] value - value that needs to be updated
     **/
-    void writeKeyword(std::string path, std::string recordName,
+    void writeKeyword(inventory::Path path, std::string recordName,
                       std::string keyword, std::vector<uint8_t> value);
 
     /** @brief Start processing DBus messages. */
     void run();
 
   private:
+    /** @brief process the given JSON file
+    **
+    **  @param[in] inventoryPath - object path of the inventory
+    **
+    **  @return[out] inventory::Path - path to the VPD file
+    **
+    **/
+    inventory::Path processJSON(const inventory::Path inventoryPath);
+
     /** @brief Persistent sdbusplus DBus bus connection. */
     sdbusplus::bus::bus _bus;
 
