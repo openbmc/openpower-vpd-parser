@@ -8,12 +8,14 @@ systemd = dependency('libsystemd', version : '>= 221')
 phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
 
 compiler = meson.get_compiler('cpp')
+compiler.has_header('nlohmann/json.hpp')
 
 configure_file( output: 'config.h',
                         configuration: {
                         'BUSNAME' : '"' + get_option('BUSNAME') + '"',
                         'OBJPATH' : '"' + get_option('OBJPATH') + '"',
                         'IFACE' : '"' + get_option('IFACE') + '"',
+                        'INVENTORY_JSON' : '"' + get_option('INVENTORY_JSON') + '"'
                         }
                 )
 
