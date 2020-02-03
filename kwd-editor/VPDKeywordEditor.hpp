@@ -77,6 +77,15 @@ class VPDKeywordEditor : public ServerObject<kwdEditorIface>
     void run();
 
   private:
+    /** @brief process the given JSON file
+    **
+    **  @param[in] inventoryPath - object path of the inventory
+    **
+    **  @return[out] inventory::vpdPath - path to the VPD file
+    **
+    **/
+    inventory::vpdPath processJSON(std::string inventoryPath);
+
     /** @brief Persistent sdbusplus DBus bus connection. */
     sdbusplus::bus::bus _bus;
 
