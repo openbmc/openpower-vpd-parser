@@ -48,7 +48,7 @@ void VPDKeywordEditor::run()
 
 inventory::vpdPath VPDKeywordEditor::processJSON(std::string inventoryPath)
 {
-    std::ifstream jsonFile(INVENTORY_JSON, std::ios::binary);
+     std::ifstream jsonFile(INVENTORY_JSON, std::ios::binary);
 
     if (!jsonFile)
     {
@@ -87,6 +87,28 @@ void VPDKeywordEditor::writeKeyword(std::string inventoryPath,
 {
     // process the json to get path to VPD file
     inventory::vpdPath vpdFilePath = processJSON(inventoryPath);
+
+    std::ifstream vpdFile(vpdFilePath, std::ios::binary);
+    if (!vpdFile)
+    {
+        throw std::runtime_error("file not found");
+    }
+
+    Binary vpd((std::istreambuf_iterator<char>(vpdFile)),
+               std::istreambuf_iterator<char>());
+
+    // get iterator to the beginning of file
+    auto iterator = vpd.cbegin();
+
+    // instantiate editor class to update the data
+    Editor edit(vpd);
+
+    // parse vpd to validate Header and check TOC for PT record
+    std::size_t ptLength =
+        openpower::vpd::keyword::editor::processHeaderAndTOC(vpd, iterator);
+
+    // update the keyword data
+    edit.updateKeyword(iterator, ptLength, recordName, keyword, value);
 }
 
 } // namespace editor
