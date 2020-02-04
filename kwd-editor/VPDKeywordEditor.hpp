@@ -1,5 +1,6 @@
 #pragma once
 
+#include "editor.hpp"
 #include "types.hpp"
 
 #include <map>
@@ -73,7 +74,7 @@ class VPDKeywordEditor : public ServerObject<kwdEditorIface>
     **  @param[in] value - value that needs to be updated
     **/
     void writeKeyword(const inventory::Path path, const std::string recordName,
-                      const std::string keyword, std::vector<uint8_t> value);
+                      const std::string keyword, Binary value);
 
     /** @brief Start processing DBus messages. */
     void run();
@@ -82,6 +83,25 @@ class VPDKeywordEditor : public ServerObject<kwdEditorIface>
     /** @brief process the given JSON file
      **/
     void processJSON();
+
+    /** @brief method to update cache once the data for kwd has been updated
+     *
+     *  @param[in] - vpdFile path - path to tvpd file that has been updated
+     *  @param[in] - recName - name of the record that has been updated
+     *  @param[in] - kwdName - name of the kwd that has been updated
+     *
+     **/
+    void updateCache(const inventory::Path vpdFilePath,
+                     const std::string recName, const std::string kwdName);
+
+    /** @brief method to process and update CI in case required
+     *
+     *  @param[in] - recName - name of the record that has been updated
+     *  @param[in] - kwdName - name of the kwd that has been updated
+     *
+     **/
+    void processAndUpdateCI(const std::string recName,
+                            const std::string kwdName);
 
     /** @brief Persistent sdbusplus DBus bus connection. */
     sdbusplus::bus::bus _bus;
