@@ -1,5 +1,6 @@
 #pragma once
 
+#include "editor.hpp"
 #include "types.hpp"
 
 #include <map>
@@ -72,7 +73,7 @@ class VPDKeywordEditor : public ServerObject<kwdEditorIface>
     **  @param[in] value - value that needs to be updated
     **/
     void writeKeyword(const inventory::Path path, const std::string recordName,
-                      const std::string keyword, std::vector<uint8_t> value);
+                      const std::string keyword, Binary value);
 
     /** @brief Start processing DBus messages. */
     void run();
