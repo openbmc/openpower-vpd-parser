@@ -1,5 +1,6 @@
 project('vpd-kwd-editor',
         'cpp',
+        'c',
         default_options : ['cpp_std=c++17'],
         version : '1.0')
 sdbusplus = dependency('sdbusplus')
@@ -25,7 +26,11 @@ vpd_kwd_editor_SOURCES =[
                         'manager_main.cpp',
                         'manager.cpp',
                         'server.cpp',
-                        '../impl.cpp'
+                        'editor_impl.cpp',
+                        '../impl.cpp',
+                        '../parser.cpp',
+                        '../utils.cpp',
+                        '../vpdecc/vpdecc.c'
                         ]
 
 vpd_kwd_editor_exe = executable('vpd-kwd-editor',
