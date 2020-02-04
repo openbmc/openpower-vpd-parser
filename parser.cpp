@@ -14,5 +14,19 @@ Store parse(Binary&& vpd)
     return s;
 }
 
+namespace keyword
+{
+namespace editor
+{
+
+std::tuple<RecordOffset, std::size_t> processHeaderAndTOC(Binary&& vpd)
+{
+    parser::Impl p(std::move(vpd));
+    return p.processVPD();
+}
+
+} // namespace editor
+} // namespace keyword
+
 } // namespace vpd
 } // namespace openpower

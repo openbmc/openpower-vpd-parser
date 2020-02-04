@@ -5,12 +5,7 @@
 #include "const.hpp"
 #include "parser.hpp"
 
-#include <chrono>
-#include <exception>
-#include <fstream>
-#include <iostream>
-#include <nlohmann/json.hpp>
-#include <vector>
+#include <tuple>
 
 using namespace std::literals::chrono_literals;
 using namespace openpower::vpd::constants;
@@ -22,6 +17,7 @@ namespace keyword
 {
 namespace editor
 {
+
 VPDKeywordEditor::VPDKeywordEditor(sdbusplus::bus::bus&& bus,
                                    const char* busName, const char* objPath,
                                    const char* iFace) :
@@ -80,12 +76,65 @@ void VPDKeywordEditor::processJSON()
 
 void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
                                     const std::string recordName,
-                                    const std::string keyword,
-                                    std::vector<uint8_t> value)
+                                    const std::string keyword, Binary value)
 {
-    // implement write functionality here
-}
+    try
+    {
 
+        if (frus.find(inventoryPath) == frus.end())
+        {
+            throw std::runtime_error("Inventory path not found");
+        }
+
+        inventory::Path vpdFilePath = frus.find(inventoryPath)->second;
+        std::ifstream vpdStream(vpdFilePath, std::ios::binary);
+        if (!vpdStream)
+        {
+            throw std::runtime_error("file not found");
+        }
+
+        Binary vpdHeader(lengths::VHDR_HEADER_LENGTH +
+                         lengths::VHDR_ECC_LENGTH);
+        vpdStream.read(reinterpret_cast<char*>(vpdHeader.data()),
+                       vpdHeader.capacity());
+
+        Binary vpdTOC;
+
+        Byte data;
+        while (vpdStream.get(*(reinterpret_cast<char*>(&data))))
+        {
+            vpdTOC.push_back(data);
+            if (data == RECORD_END_TAG)
+            {
+                // record has been fully read
+                break;
+            }
+        }
+
+        vpdHeader.insert(vpdHeader.end(), vpdTOC.begin(), vpdTOC.end());
+
+        vpdStream.seekg(IPZ_DATA_START, std::ios::beg);
+        vpdStream.get(*(reinterpret_cast<char*>(&data)));
+
+        // imples it is IPZ VPD
+        if (data == KW_VAL_PAIR_START_TAG)
+        {
+            // parse vpd to validate Header and check TOC for PT record
+            auto PTinfo = openpower::vpd::keyword::editor::processHeaderAndTOC(
+                std::move(vpdHeader));
+            // instantiate editor class to update the data
+            Editor edit(vpdFilePath, recordName, keyword);
+            edit.updateKeyword(PTinfo, value);
+
+            return;
+        }
+        throw std::runtime_error("Invalid VPD file type");
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+}
 } // namespace editor
 } // namespace keyword
 } // namespace vpd
