@@ -1,5 +1,6 @@
 #pragma once
 
+#include "editor_impl.hpp"
 #include "types.hpp"
 
 #include <com/ibm/vpd/Editor/server.hpp>
@@ -79,7 +80,7 @@ class VPDKeywordEditor : public ServerObject<EditorIface>
 
   private:
     /** @brief process the given JSON file
-     **/
+     */
     void processJSON();
 
     /** @brief Persistent sdbusplus DBus bus connection. */
