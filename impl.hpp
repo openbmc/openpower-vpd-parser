@@ -94,12 +94,20 @@ class Impl
      */
     Store run();
 
+    /** @brief process the VPD file to check for
+     *  header and TOC
+     *  @param[in] ptOffset - to hold the offset of ptRecord
+     *  @returns size of PT record
+     **/
+    std::size_t processVPD(RecordOffset& ptOffset);
+
   private:
     /** @brief Process the table of contents record, VHDR
      *
-     *  @returns List of offsets to records in VPD
+     *  @param[in] iterator - iterator to buffer containing VPD
+     *  @returns Size of the PT record in VTOC
      */
-    internal::OffsetList readTOC() const;
+    std::size_t readTOC(Binary::const_iterator& iterator) const;
 
     /** @brief Read the PT keyword contained in the VHDR record,
      *         to obtain offsets to other records in the VPD.

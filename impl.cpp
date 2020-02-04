@@ -244,16 +244,13 @@ void Impl::checkHeader() const
     }
 }
 
-internal::OffsetList Impl::readTOC() const
+std::size_t Impl::readTOC(Binary::const_iterator& iterator) const
 {
-    internal::OffsetList offsets{};
-
     // The offset to VTOC could be 1 or 2 bytes long
     RecordOffset vtocOffset = getVtocOffset();
 
     // Got the offset to VTOC, skip past record header and keyword header
     // to get to the record name.
-    auto iterator = vpd.cbegin();
     std::advance(iterator, vtocOffset + sizeof(RecordId) + sizeof(RecordSize) +
                                // Skip past the RT keyword, which contains
                                // the record name.
@@ -285,8 +282,8 @@ internal::OffsetList Impl::readTOC() const
     // Skip past PT size
     std::advance(iterator, sizeof(KwSize));
 
-    // vpdBuffer is now pointing to PT data
-    return readPT(iterator, ptLen);
+    // length of PT record
+    return ptLen;
 }
 
 internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
@@ -528,9 +525,14 @@ Store Impl::run()
     // Check if the VHDR record is present
     checkHeader();
 
+    auto iterator = vpd.cbegin();
+
+    // Read the table of contents record
+    std::size_t ptLen = readTOC(iterator);
+
     // Read the table of contents record, to get offsets
     // to other records.
-    auto offsets = readTOC();
+    auto offsets = readPT(iterator, ptLen);
     for (const auto& offset : offsets)
     {
         processRecord(offset);
@@ -538,6 +540,20 @@ Store Impl::run()
     // Return a Store object, which has interfaces to
     // access parsed VPD by record:keyword
     return Store(std::move(out));
+}
+
+std::size_t Impl::processVPD(RecordOffset& ptOffset)
+{
+    // Check if the VHDR record is present
+    checkHeader();
+
+    auto iterator = vpd.cbegin();
+
+    // Read VTOC record and get length pf PT record
+    std::size_t ptLen = readTOC(iterator);
+    ptOffset = std::distance(vpd.cbegin(), iterator);
+
+    return ptLen;
 }
 
 } // namespace parser
