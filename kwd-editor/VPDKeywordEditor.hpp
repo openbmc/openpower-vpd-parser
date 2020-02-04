@@ -1,5 +1,6 @@
 #pragma once
 
+#include "editor.hpp"
 #include "types.hpp"
 
 #include <sdbusplus/server.hpp>
@@ -21,6 +22,13 @@ namespace keyword
 {
 namespace editor
 {
+
+enum vpdType
+{
+    INVALID_VPD_FORMAT = 0,
+    IPZ_VPD = 1,
+    KWD_VPD = 2
+};
 
 template <typename T>
 using ServerObject = T;
@@ -70,8 +78,8 @@ class VPDKeywordEditor : public ServerObject<kwdEditorIface>
     **  @param[in] keyword - keyword whose value needs to be updated
     **  @param[in] value - value that needs to be updated
     **/
-    void writeKeyword(inventory::Path path, std::string recordName,
-                      std::string keyword, std::vector<uint8_t> value);
+    void writeKeyword(const inventory::Path path, const std::string recordName,
+                      const std::string keyword, Binary value);
 
     /** @brief Start processing DBus messages. */
     void run();
@@ -85,6 +93,14 @@ class VPDKeywordEditor : public ServerObject<kwdEditorIface>
     **
     **/
     inventory::Path processJSON(const inventory::Path inventoryPath);
+
+    /** @brief API to check if VPD is IPZ or keyword VPD
+    **
+    **  @param[in] VPD file
+    **
+    **  @return[out] type of VPD
+    **/
+    vpdType vpdTypeCheck(const Binary& vpd);
 
     /** @brief Persistent sdbusplus DBus bus connection. */
     sdbusplus::bus::bus _bus;

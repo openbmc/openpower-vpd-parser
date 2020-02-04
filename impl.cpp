@@ -224,16 +224,13 @@ void Impl::checkHeader() const
     }
 }
 
-internal::OffsetList Impl::readTOC() const
+std::size_t Impl::readTOC(Binary::const_iterator& iterator) const
 {
-    internal::OffsetList offsets{};
-
     // The offset to VTOC could be 1 or 2 bytes long
     RecordOffset vtocOffset = getVtocOffset();
 
     // Got the offset to VTOC, skip past record header and keyword header
     // to get to the record name.
-    auto iterator = vpd.cbegin();
     std::advance(iterator, vtocOffset + sizeof(RecordId) + sizeof(RecordSize) +
                                // Skip past the RT keyword, which contains
                                // the record name.
@@ -265,8 +262,8 @@ internal::OffsetList Impl::readTOC() const
     // Skip past PT size
     std::advance(iterator, sizeof(KwSize));
 
-    // vpdBuffer is now pointing to PT data
-    return readPT(iterator, ptLen);
+    // length of PT record
+    return ptLen;
 }
 
 internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
@@ -504,9 +501,14 @@ Store Impl::run()
     // Check if the VHDR record is present
     checkHeader();
 
+    auto iterator = vpd.cbegin();
+
+    // Read the table of contents record
+    std::size_t ptLen = readTOC(iterator);
+
     // Read the table of contents record, to get offsets
     // to other records.
-    auto offsets = readTOC();
+    auto offsets = readPT(iterator, ptLen);
     for (const auto& offset : offsets)
     {
         processRecord(offset);
@@ -514,6 +516,32 @@ Store Impl::run()
     // Return a Store object, which has interfaces to
     // access parsed VPD by record:keyword
     return Store(std::move(out));
+}
+
+std::size_t Impl::processVPD(Binary::const_iterator& iterator)
+{
+    // Check if the VHDR record is present
+    checkHeader();
+
+    // Read VTOC record and get length pf PT record
+    std::size_t ptLen = readTOC(iterator);
+
+    return ptLen;
+}
+
+Binary Impl::updateRecordECC(Binary::const_iterator& iterator)
+{
+    int rc = 0;
+#ifdef IPZ_PARSER
+    // update ECC for modified record
+    rc = recordCreateEcc(iterator);
+#endif
+    if (rc != eccStatus::SUCCESS)
+    {
+        throw std::runtime_error("ERROR: ECC create failed for this record");
+    }
+
+    return vpd;
 }
 
 } // namespace parser

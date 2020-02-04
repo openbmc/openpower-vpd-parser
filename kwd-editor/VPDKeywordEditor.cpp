@@ -20,6 +20,12 @@ namespace keyword
 {
 namespace editor
 {
+
+constexpr int IPZ_DATA_START = 11;
+constexpr int KW_VPD_DATA_START = 0;
+constexpr uint8_t KW_VPD_START_TAG = 0x82;
+constexpr uint8_t KW_VAL_PAIR_START_TAG = 0x84;
+
 VPDKeywordEditor::VPDKeywordEditor(sdbusplus::bus::bus&& bus,
                                    const char* busName, const char* objPath,
                                    const char* iFace) :
@@ -75,18 +81,63 @@ inventory::Path
             }
         }
     }
-
     throw std::runtime_error("Inventory path is not found");
 }
 
-void VPDKeywordEditor::writeKeyword(inventory::Path inventoryPath,
-                                    std::string recordName, std::string keyword,
-                                    std::vector<uint8_t> value)
+vpdType VPDKeywordEditor::vpdTypeCheck(const Binary& vpd)
+{
+    if (vpd[IPZ_DATA_START] == KW_VAL_PAIR_START_TAG)
+    {
+        // IPZ VPD FORMAT
+        return vpdType::IPZ_VPD;
+    }
+    else if (vpd[KW_VPD_DATA_START] == KW_VPD_START_TAG)
+    {
+        // KEYWORD VPD FORMAT
+        return vpdType::KWD_VPD;
+    }
+
+    return INVALID_VPD_FORMAT;
+}
+
+void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
+                                    const std::string recordName,
+                                    const std::string keyword, Binary value)
 {
     // process the json to get path to VPD file
     inventory::Path vpdFilePath = processJSON(inventoryPath);
-}
 
+    std::ifstream vpdFile(vpdFilePath, std::ios::binary);
+    if (!vpdFile)
+    {
+        throw std::runtime_error("file not found");
+    }
+
+    Binary vpd((std::istreambuf_iterator<char>(vpdFile)),
+               std::istreambuf_iterator<char>());
+
+    // get iterator to the beginning of file
+    auto iterator = vpd.cbegin();
+
+    // check for VPD type
+    vpdType type = vpdTypeCheck(vpd);
+    if (!type)
+    {
+        throw std::runtime_error("Invalid VPD file type");
+    }
+
+    // instantiate editor class to update the data
+    Editor edit(vpd);
+
+    if (type == IPZ_VPD)
+    {
+        // parse vpd to validate Header and check TOC for PT record
+        std::size_t ptLength =
+            openpower::vpd::keyword::editor::processHeaderAndTOC(std::move(vpd),
+                                                                 iterator);
+        edit.updateKeyword(iterator, ptLength, recordName, keyword, value);
+    }
+}
 } // namespace editor
 } // namespace keyword
 } // namespace vpd
