@@ -65,5 +65,14 @@ void callPIM(ObjectMap&& objects)
 
 } // namespace inventory
 
+using namespace openpower::vpd::constants;
+LE2ByteData readUInt16LE(Binary::const_iterator iterator)
+{
+    LE2ByteData lowByte = *iterator;
+    LE2ByteData highByte = *(iterator + 1);
+    lowByte |= (highByte << 8);
+    return lowByte;
+}
+
 } // namespace vpd
 } // namespace openpower

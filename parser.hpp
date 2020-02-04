@@ -1,5 +1,6 @@
 #pragma once
 
+#include "const.hpp"
 #include "store.hpp"
 
 #include <vector>
@@ -16,6 +17,19 @@ namespace vpd
  *           the parsed VPD.
  */
 Store parse(Binary&& vpd);
+
+namespace keyword
+{
+namespace editor
+{
+using namespace openpower::vpd::constants;
+/** @brief API to check vpd header
+ *  @param [in] vpd - VPDheader in binary format
+ */
+void processHeader(Binary&& vpd);
+
+} // namespace editor
+} // namespace keyword
 
 } // namespace vpd
 } // namespace openpower
