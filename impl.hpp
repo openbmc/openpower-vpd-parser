@@ -78,12 +78,17 @@ class Impl
      */
     Store run();
 
-  private:
-    /** @brief Process the table of contents record, VHDR
-     *
-     *  @returns List of offsets to records in VPD
+    /** @brief check if VPD header is valid
      */
-    internal::OffsetList readTOC() const;
+    void checkVPDHeader();
+
+  private:
+    /** @brief Process the table of contents record
+     *
+     *  @param[in] iterator - iterator to buffer containing VPD
+     *  @returns Size of the PT keyword in VTOC
+     */
+    std::size_t readTOC(Binary::const_iterator& iterator) const;
 
     /** @brief Read the PT keyword contained in the VHDR record,
      *         to obtain offsets to other records in the VPD.
