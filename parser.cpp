@@ -14,5 +14,19 @@ Store parse(Binary&& vpd)
     return s;
 }
 
+namespace keyword
+{
+namespace editor
+{
+
+void processHeader(Binary&& vpd)
+{
+    parser::Impl p(std::move(vpd));
+    p.checkVPDHeader();
+}
+
+} // namespace editor
+} // namespace keyword
+
 } // namespace vpd
 } // namespace openpower
