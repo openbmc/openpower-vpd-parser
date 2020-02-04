@@ -6,6 +6,21 @@ check_PROGRAMS = store_test
 
 store_test_SOURCES = store/store.cpp
 
+test_cppflags = \
+        -Igtest \
+        $(GTEST_CPPFLAGS) \
+        $(AM_CPPFLAGS)  \
+        -pthread  \
+        $(PTHREAD_CFLAGS) \
+        $(SDBUSPLUS_CFLAGS)
+
+test_ldflags = \
+        -lgtest_main \
+        -lgtest \
+        -pthread  \
+        $(PTHREAD_LIBS) \
+        $(SDBUSPLUS_LIBS)
+
 if IBM_PARSER
 check_PROGRAMS += ipz_parser_test
 
@@ -15,25 +30,17 @@ ipz_parser_test_SOURCES = \
     ../vpdecc/vpdecc.c    \
     ../vpdecc/vpdecc_support.c
 
-test_cppflags = \
-	-Igtest \
-	$(GTEST_CPPFLAGS) \
-	$(AM_CPPFLAGS)  \
-	-pthread  \
-	$(PTHREAD_CFLAGS) \
-	$(SDBUSPLUS_CFLAGS)
-
-test_ldflags = \
-	-lgtest_main \
-	-lgtest \
-	-pthread  \
-	$(PTHREAD_LIBS) \
-	$(SDBUSPLUS_LIBS)
-
 ipz_parser_test_CPPFLAGS = $(test_cppflags) -DIPZ_PARSER
 ipz_parser_test_LDFLAGS = $(test_ldflags)
 
 else
+check_PROGRAMS += json_test
+
+json_test_SOURCES = ipz_parser/json_test.cpp
+
+json_test_CPPFLAGS = $(test_cppflags)
+json_test_LDFLAGS = $(test_ldflags)
+
 noinst_PROGRAMS = parser_test
 parser_test_SOURCES = \
 	parser/parser.cpp \
