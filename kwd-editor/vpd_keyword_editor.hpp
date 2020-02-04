@@ -1,5 +1,6 @@
 #pragma once
 
+#include "editor_impl.hpp"
 #include "types.hpp"
 
 #include <com/ibm/vpd/Editor/server.hpp>

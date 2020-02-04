@@ -66,6 +66,9 @@ enum Offsets
     VHDR = 17,
     VHDR_TOC_ENTRY = 29,
     VTOC_PTR = 35,
+    VTOC_REC_LEN = 37,
+    VTOC_ECC_OFF = 39,
+    VTOC_ECC_LEN = 41,
     VTOC_DATA = 13,
     VHDR_ECC = 0,
     VHDR_RECORD = 11
