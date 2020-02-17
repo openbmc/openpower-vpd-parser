@@ -37,6 +37,24 @@ static string encodeKeyword(const string& kw, const string& encoding)
         }
         return res;
     }
+    else if (encoding == "DATE")
+    {
+        // Date, represent as
+        // <year>-<month>-<day> <hour>:<min>
+        string res{};
+        static constexpr uint8_t skipPrefix = 3;
+
+        auto strItr = kw.begin();
+        advance(strItr, skipPrefix);
+        for_each(strItr, kw.end(), [&res](size_t c) { res += c; });
+
+        res.insert(BD_YEAR_END, 1, '-');
+        res.insert(BD_MONTH_END, 1, '-');
+        res.insert(BD_DAY_END, 1, ' ');
+        res.insert(BD_HOUR_END, 1, ':');
+
+        return res;
+    }
     else // default to string encoding
     {
         return string(kw.begin(), kw.end());
@@ -96,28 +114,36 @@ static void populateInterfaces(const nlohmann::json& js,
 
         for (const auto& itr : ifs.value().items())
         {
-            const string& rec = itr.value().value("recordName", "");
-            const string& kw = itr.value().value("keywordName", "");
-            const string& encoding = itr.value().value("encoding", "");
-
-            if constexpr (std::is_same<T, Parsed>::value)
+            // check if the Value is boolean or object
+            if (itr.value().is_boolean())
             {
-                if (!rec.empty() && !kw.empty() && vpdMap.at(rec).count(kw) &&
-                    vpdMap.count(rec))
-                {
-                    auto encoded =
-                        encodeKeyword(vpdMap.at(rec).at(kw), encoding);
-                    props.emplace(itr.key(), encoded);
-                }
+                props.emplace(itr.key(), itr.value().get<bool>());
             }
-            else if constexpr (std::is_same<T, KeywordVpdMap>::value)
+            else if (itr.value().is_object())
             {
-                if (!kw.empty() && vpdMap.count(kw))
+                const string& rec = itr.value().value("recordName", "");
+                const string& kw = itr.value().value("keywordName", "");
+                const string& encoding = itr.value().value("encoding", "");
+
+                if constexpr (std::is_same<T, Parsed>::value)
                 {
-                    auto prop =
-                        string(vpdMap.at(kw).begin(), vpdMap.at(kw).end());
-                    auto encoded = encodeKeyword(prop, encoding);
-                    props.emplace(itr.key(), encoded);
+                    if (!rec.empty() && !kw.empty() &&
+                        vpdMap.at(rec).count(kw) && vpdMap.count(rec))
+                    {
+                        auto encoded =
+                            encodeKeyword(vpdMap.at(rec).at(kw), encoding);
+                        props.emplace(itr.key(), encoded);
+                    }
+                }
+                else if constexpr (std::is_same<T, KeywordVpdMap>::value)
+                {
+                    if (!kw.empty() && vpdMap.count(kw))
+                    {
+                        auto prop =
+                            string(vpdMap.at(kw).begin(), vpdMap.at(kw).end());
+                        auto encoded = encodeKeyword(prop, encoding);
+                        props.emplace(itr.key(), encoded);
+                    }
                 }
             }
         }
