@@ -34,6 +34,26 @@ static string encodeKeyword(const string& rec, const string& kw,
         }
         return res;
     }
+    else if (encoding == "DATE")
+    {
+        // Date, represent as
+        // <year>-<month>-<day> <hour>:<min>
+        string res{};
+        const uint8_t skipPrefix = 3;
+
+        const auto& val = vpdMap.at(rec).at(kw);
+
+        auto strItr = val.begin();
+        advance(strItr, skipPrefix);
+        for_each(strItr, val.end(), [&res](size_t c) { res += c; });
+
+        res.insert(BD_YEAR_END, 1, '-');
+        res.insert(BD_MONTH_END, 1, '-');
+        res.insert(BD_DAY_END, 1, ' ');
+        res.insert(BD_HOUR_END, 1, ':');
+
+        return res;
+    }
     else // default to string encoding
     {
         return string(vpdMap.at(rec).at(kw).begin(),
@@ -52,15 +72,30 @@ static void populateInterfaces(const nlohmann::json& js,
 
         for (const auto& itr : ifs.value().items())
         {
-            const string& rec = itr.value().value("recordName", "");
-            const string& kw = itr.value().value("keywordName", "");
-            const string& encoding = itr.value().value("encoding", "");
-
-            if (!rec.empty() && !kw.empty() && vpdMap.count(rec) &&
-                vpdMap.at(rec).count(kw))
+            // check if the Value is string OR map
+            if (!(itr.value().is_object()))
             {
-                auto encoded = encodeKeyword(rec, kw, encoding, vpdMap);
-                props.emplace(itr.key(), encoded);
+                const string val = itr.value();
+                cout << "value is NOT an object, for " << itr.key() << ": "
+                     << val << "\n";
+                // props.emplace(itr.key(), val);
+                props.emplace(itr.key(), itr.value());
+                // props.emplace(itr.key(),"true");
+                //                props.emplace(itr.key(),
+                //                ifs.value().value(itr.key(), ""));
+            }
+            else
+            {
+                const string& rec = itr.value().value("recordName", "");
+                const string& kw = itr.value().value("keywordName", "");
+                const string& encoding = itr.value().value("encoding", "");
+
+                if (!rec.empty() && !kw.empty() && vpdMap.count(rec) &&
+                    vpdMap.at(rec).count(kw))
+                {
+                    auto encoded = encodeKeyword(rec, kw, encoding, vpdMap);
+                    props.emplace(itr.key(), encoded);
+                }
             }
         }
         interfaces.emplace(inf, move(props));
