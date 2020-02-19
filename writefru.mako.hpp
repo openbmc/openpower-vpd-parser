@@ -28,7 +28,9 @@ namespace inventory
  *  @param [in] path - FRU object path
  */
 template<Fru F>
-void writeFru(const Store& vpdStore, const std::string& path);
+void writeFru(const Store& vpdStore, const std::string& path) {
+    throw std::runtime_error("Not implemented");
+}
 
 % for key in fruDict.iterkeys():
 <%
