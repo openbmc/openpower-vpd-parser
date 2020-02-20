@@ -10,6 +10,7 @@ noinst_HEADERS = \
 	utils.hpp \
         keyword_vpd_parser.hpp \
 	ibm_vpd_type_check.hpp
+	vpd_tool_impl.hpp
 
 if IBM_PARSER
 noinst_HEADERS += \
@@ -72,6 +73,16 @@ openpower_read_vpd_SOURCES = \
 	utils.cpp
 openpower_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
 openpower_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
+endif
+
+if VPD_TOOL
+bin_PROGRAMS += vpd-tool
+vpd_tool_SOURCES = \
+			     vpd_tool.cpp \
+			     vpd_tool_impl.cpp
+vpd_tool_LDFLAGS = $(SDBUSPLUS_LIBS)
+vpd_tool_CXXFLAGS = $(SDBUSPLUS_CFLAGS)
+
 endif
 
 SUBDIRS = test
