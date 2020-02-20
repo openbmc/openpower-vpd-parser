@@ -43,6 +43,19 @@ AS_IF([test "x$enable_oe_sdk" == "xyes"],
     AC_SUBST([OESDK_TESTCASE_FLAGS], [$testcase_flags])
 )
 
+# Setup option for IBM VPD formats.
+AC_ARG_ENABLE([vpd-tool],
+              AS_HELP_STRING([--enable-vpd-tool ],
+                             [Enable VPD inventory CLI tool support.
+            ]))
+
+AM_CONDITIONAL([VPD_TOOL], [test "x$enable_vpd_tool" = "xyes"])
+AS_IF([test "x$enable_vpd_tool" == "xyes"], [
+    AX_APPEND_COMPILE_FLAGS([-DIPZ_PARSER], [CXXFLAGS])
+    AC_DEFINE(INVENTORY_JSON, "/usr/share/vpd/vpd_inventory.json", [JSON file that defines inventory blueprint])
+    AC_DEFINE(INVENTORY_PATH, "/xyz/openbmc_project/inventory", [Hardcoded Path of the inventory])
+            ])
+
 AS_IF([test "x$FRU_YAML" == "x"], [FRU_YAML="writefru.yaml"])
 FRUGEN="$PYTHON $srcdir/writefru.py -i $FRU_YAML"
 AC_SUBST(FRUGEN)
@@ -63,7 +76,7 @@ AS_IF([test "x$enable_ibm_parser" == "xyes"], [
         [CLI/CLI.hpp],
         [],
         [AC_MSG_ERROR([Could not find CLI11 CLI.hpp])]
-    )
+)
     AC_CHECK_HEADER(
         [nlohmann/json.hpp],
         [],
@@ -72,6 +85,8 @@ AS_IF([test "x$enable_ibm_parser" == "xyes"], [
     AX_APPEND_COMPILE_FLAGS([-DIPZ_PARSER], [CXXFLAGS])
     AC_DEFINE(INVENTORY_JSON, "/usr/share/vpd/vpd_inventory.json", [JSON file that defines inventory blueprint])
             ])
+    AC_DEFINE(INVENTORY_PATH, "/xyz/openbmc_project/inventory", [Prefix for inventory D-Bus objects])
+    AC_DEFINE(INVENTORY_MANAGER_SERVICE, "xyz.openbmc_project.Inventory.Manager", [Inventory manager service])
 
 # Check/set gtest specific functions.
 AX_PTHREAD([GTEST_CPPFLAGS="-DGTEST_HAS_PTHREAD=1"],[GTEST_CPPFLAGS="-DGTEST_HAS_PTHREAD=0"])
