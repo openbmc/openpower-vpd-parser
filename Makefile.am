@@ -9,7 +9,8 @@ noinst_HEADERS = \
 	args.hpp \
 	utils.hpp \
         keyword_vpd_parser.hpp \
-	ibm_vpd_type_check.hpp
+	ibm_vpd_type_check.hpp \
+	vpd_tool_impl.hpp
 
 if IBM_PARSER
 noinst_HEADERS += \
@@ -29,6 +30,14 @@ ibm_read_vpd_SOURCES = \
 
 ibm_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
 ibm_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
+
+bin_PROGRAMS += vpd-tool
+vpd_tool_SOURCES = \
+        vpd_tool.cpp \
+        vpd_tool_impl.cpp
+
+vpd_tool_LDFLAGS = $(SDBUSPLUS_LIBS)
+vpd_tool_CXXFLAGS = $(SDBUSPLUS_CFLAGS)
 
 else
 # Be sure to build these before compiling
