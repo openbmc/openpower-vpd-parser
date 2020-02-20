@@ -3,7 +3,7 @@ project(
      'c',
      'cpp',
      default_options: [
-	'cpp_std=c++17'
+     'cpp_std=c++17'
      ],
      version: '1.0'
 )
@@ -22,8 +22,9 @@ compiler.has_header('nlohmann/json.hpp')
 configure_file(output: 'config.h',
                        configuration :{
                        'INVENTORY_JSON': '"'+get_option('INVENTORY_JSON')+'"',
+                       'INVENTORY_PATH': '"'+get_option('INVENTORY_PATH')+'"',
                        }
-	)
+  )
         ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',
                                 'ibm_vpd_type_check.cpp',
                                 'parser.cpp',
@@ -44,6 +45,19 @@ configure_file(output: 'config.h',
                                 install: true,
                                 cpp_args : '-DIPZ_PARSER'
                             )
+
+        vpd_tool_SOURCES = ['vpd_tool.cpp',
+                            'vpd_tool_impl.cpp'
+                           ]
+
+        vpd_tool_exe = executable(
+                                 'vpd-tool',
+                                 vpd_tool_SOURCES,
+                                 dependencies: [
+                                   sdbusplus
+                                   ],
+                                 install: true,
+                                 )
 else
         FRUGEN = '$srcdir/extra-properties.py -e' + get_option('FRU_YAML')
         PROPGEN = '$srcdir/extra-properties.py -e' + get_option('PROP_YAML')
