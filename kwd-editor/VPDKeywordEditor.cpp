@@ -10,8 +10,15 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <vector>
+#include <xyz/openbmc_project/Inventory/VPDKeywordEditor/error.hpp>
+#include <phosphor-logging/elog.hpp>
+#include <phosphor-logging/elog-errors.hpp>
 
 using namespace std::literals::chrono_literals;
+using namespace phosphor::logging;
+using namespace xyz::openbmc_project::Inventory::VPDKeywordEditor;
+using Failed =  sdbusplus::xyz::openbmc_project::Inventory::VPDKeywordEditor::Error::WriteError;
+
 namespace openpower
 {
 namespace vpd
@@ -39,16 +46,16 @@ void VPDKeywordEditor::run()
 {
     while (true)
     {
-        try
-        {
+        //try
+        //{
             _bus.process_discard();
             // wait for event
             _bus.wait();
-        }
-        catch (const std::exception& e)
+        //}
+        /*catch (const std::exception& e)
         {
-            std::cerr << e.what() << std::endl;
-        }
+            //std::cerr << e.what() << std::endl;
+        }*/
     }
 }
 
@@ -59,7 +66,9 @@ inventory::Path
 
     if (!jsonFile)
     {
-        throw std::runtime_error("json file not found");
+       // throw std::runtime_error("json file not found");
+        phosphor::logging::elog<Failed>();//WriteError::REASON("json Not Found"));
+       // phosphor::logging::report<Failed>();
     }
 
     nlohmann::json jfile = nlohmann::json::parse(jsonFile);
@@ -104,37 +113,48 @@ void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
                                     const std::string recordName,
                                     const std::string keyword, Binary value)
 {
-    // process the json to get path to VPD file
-    inventory::Path vpdFilePath = processJSON(inventoryPath);
-
-    std::ifstream vpdFile(vpdFilePath, std::ios::binary);
-    if (!vpdFile)
+    try
     {
-        throw std::runtime_error("file not found");
+        
+        // process the json to get path to VPD file
+        inventory::Path vpdFilePath = processJSON(inventoryPath);
+
+        //std::ifstream vpdFile(vpdFilePath, std::ios::binary);
+        std::ifstream vpdFile("test.txt", std::ios::binary);
+        if (!vpdFile)
+        {
+           // throw std::runtime_error("file not found");
+           //phosphor::logging::elog<Failed>(WriteError::REASON("File Not Found"));
+        }
+
+        Binary vpd((std::istreambuf_iterator<char>(vpdFile)),
+                std::istreambuf_iterator<char>());
+
+        // check for VPD type
+        vpdType type = vpdTypeCheck(vpd);
+        if (!type)
+        {
+            throw std::runtime_error("Invalid VPD file type");
+        }
+
+        // instantiate editor class to update the data
+        Editor edit(vpd);
+
+        if (type == IPZ_VPD)
+        {
+            RecordOffset ptOffset;
+
+            // parse vpd to validate Header and check TOC for PT record
+            std::size_t ptLength =
+                openpower::vpd::keyword::editor::processHeaderAndTOC(std::move(vpd),
+                                                                    ptOffset);
+            edit.updateKeyword(ptOffset, ptLength, recordName, keyword, value);
+        }
     }
-
-    Binary vpd((std::istreambuf_iterator<char>(vpdFile)),
-               std::istreambuf_iterator<char>());
-
-    // check for VPD type
-    vpdType type = vpdTypeCheck(vpd);
-    if (!type)
+    catch(Failed& e)
     {
-        throw std::runtime_error("Invalid VPD file type");
-    }
-
-    // instantiate editor class to update the data
-    Editor edit(vpd);
-
-    if (type == IPZ_VPD)
-    {
-        RecordOffset ptOffset;
-
-        // parse vpd to validate Header and check TOC for PT record
-        std::size_t ptLength =
-            openpower::vpd::keyword::editor::processHeaderAndTOC(std::move(vpd),
-                                                                 ptOffset);
-        edit.updateKeyword(ptOffset, ptLength, recordName, keyword, value);
+       using namespace xyz::openbmc_project::Inventory::VPDKeywordEditor;
+       phosphor::logging::commit<Failed>();//WriteError::REASON(e.what()));
     }
 }
 } // namespace editor

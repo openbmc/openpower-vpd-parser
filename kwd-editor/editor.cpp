@@ -169,7 +169,7 @@ void Editor::writeFile()
     std::ofstream updatedVPD("/tmp/newVPD", std::ios::binary);
     if (!updatedVPD)
     {
-        throw std::runtime_error("Unable to open the file");
+        throw std::runtime_error("Unable to write to the file");
     }
 
     auto iteratorStart = vpd.cbegin();

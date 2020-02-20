@@ -70,13 +70,13 @@ class VPDKeywordEditor : public ServerObject<kwdEditorIface>
                      const char* objPath, const char* iFace);
 
     /** @brief Implementation for WriteKeyword
-    **  Api to update the keyword value for a given inventory.
-    **
-    **  @param[in] path - Object path of the inventory
-    **  @param[in] recordName - name of the record for which the keyword value
+    *  Api to update the keyword value for a given inventory.
+    *
+    *  @param[in] path - Object path of the inventory
+    *  @param[in] recordName - name of the record for which the keyword value
     *has to be modified
-    **  @param[in] keyword - keyword whose value needs to be updated
-    **  @param[in] value - value that needs to be updated
+    *  @param[in] keyword - keyword whose value needs to be updated
+    *  @param[in] value - value that needs to be updated
     **/
     void writeKeyword(const inventory::Path path, const std::string recordName,
                       const std::string keyword, Binary value);
