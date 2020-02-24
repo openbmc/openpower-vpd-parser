@@ -2,6 +2,7 @@
 
 #define DUMP_INVENTORY
 #define DUMP_OBJECT
+#define READ_KW
 
 using sdbusplus::exception::SdBusError;
 
@@ -60,20 +61,42 @@ auto busctlCall(string objectName, string interface, string kw)
 }
 
 /**
- * @brief Fru type
+ * @brief Adds FRU type and Location Code
  *
- * Appends the type of the fru in the output.
+ * Appends the type of the FRU and location code to the output
  * @param[in] exIntf - extraInterfaces json from INVENTORY_JSON
- * @param[out] kwVal - Emplacing the type of the fru
+ * @param[in] object - The D-Bus object to read the location code from
+ * @param[out] kwVal - JSON object into which the FRU type and location code are
+ *                     placed
  */
-void fruType(json exIntf, json& kwVal)
+void addFruTypeAndLocation(json exIntf, const string& object, json& kwVal)
 {
     for (auto i : exIntf.items())
     {
         if ((i.key().find("Item") != string::npos) && (i.value().is_null()))
         {
             kwVal.emplace("type", i.key());
+            break;
         }
+    }
+
+    // Add location code.
+    constexpr auto LOCATION_CODE_IF = "com.ibm.ipzvpd.Location";
+    constexpr auto LOCATION_CODE_PROP = "LocationCode";
+
+    try
+    {
+        variant<string> response;
+        busctlCall(object, LOCATION_CODE_IF, LOCATION_CODE_PROP).read(response);
+
+        if (auto prop = get_if<string>(&response))
+        {
+            kwVal.emplace(LOCATION_CODE_PROP, *prop);
+        }
+    }
+    catch (const SdBusError& e)
+    {
+        kwVal.emplace(LOCATION_CODE_PROP, "");
     }
 }
 
@@ -113,7 +136,7 @@ json callVINI(string invPath, json exIntf)
         }
     }
 
-    fruType(exIntf, kwVal);
+    addFruTypeAndLocation(exIntf, objectName, kwVal);
     output.emplace(invPath, kwVal);
     return output;
 }
@@ -130,13 +153,10 @@ json callVINI(string invPath, json exIntf)
  * @return json output which gives the properties under invPath's
  * extraInterface.
  */
-json callExtraInterface(string invPath, string extraInterface, json prop,
-                        json exIntf)
+void callExtraInterface(string invPath, string extraInterface, json prop,
+                        json exIntf, json& output)
 {
     variant<string> response;
-    json output = json::object({});
-    json kwVal = json::object({});
-
     string objectName = INVENTORY_PATH + invPath;
 
     for (auto itProp : prop.items())
@@ -148,7 +168,7 @@ json callExtraInterface(string invPath, string extraInterface, json prop,
 
             if (auto str = get_if<string>(&response))
             {
-                kwVal.emplace(kw, *str);
+                output.emplace(kw, *str);
             }
         }
         catch (const SdBusError& e)
@@ -156,9 +176,7 @@ json callExtraInterface(string invPath, string extraInterface, json prop,
             output.emplace(invPath, json::object({}));
         }
     }
-    fruType(exIntf, kwVal);
-    output.emplace(invPath, kwVal);
-    return output;
+    addFruTypeAndLocation(exIntf, objectName, output);
 }
 
 /**
@@ -177,19 +195,7 @@ json interfaceDecider(json& itemEEPROM)
     bool exIntfCheck = false;
     json output = json::object({});
 
-    for (auto ex : itemEEPROM["extraInterfaces"].items())
-    {
-        if (!(ex.value().is_null()))
-        {
-            exIntfCheck = true;
-            json j =
-                callExtraInterface(itemEEPROM.at("inventoryPath"), ex.key(),
-                                   ex.value(), itemEEPROM["extraInterfaces"]);
-            output.insert(j.begin(), j.end());
-        }
-    }
-
-    if (!exIntfCheck)
+    if (itemEEPROM.value("inherit", true))
     {
         if (itemEEPROM.find("inventoryPath") != itemEEPROM.end())
         {
@@ -202,6 +208,21 @@ json interfaceDecider(json& itemEEPROM)
         {
             output.emplace(itemEEPROM.at("inventoryPath"), json::object({}));
         }
+    }
+    else
+    {
+        json j;
+        for (auto ex : itemEEPROM["extraInterfaces"].items())
+        {
+            if (!(ex.value().is_null()))
+            {
+                exIntfCheck = true;
+                callExtraInterface(itemEEPROM.at("inventoryPath"), ex.key(),
+                                   ex.value(), itemEEPROM["extraInterfaces"],
+                                   j);
+            }
+        }
+        output.emplace(itemEEPROM.at("inventoryPath"), j);
     }
     return output;
 }
@@ -235,7 +256,6 @@ json parseInvJson(json& jsObject, char flag, string fruPath)
         {
             for (auto itemEEPROM : itemFRUS.value())
             {
-                bool exIntfCheck = false;
                 try
                 {
                     if (flag == 'O')
@@ -250,15 +270,7 @@ json parseInvJson(json& jsObject, char flag, string fruPath)
                     }
                     else
                     {
-                        for (auto i : itemEEPROM["extraInterfaces"].items())
-                        {
-                            if (!(i.value().is_null()))
-                            {
-                                exIntfCheck = true;
-                            }
-                        }
-
-                        if (!exIntfCheck)
+                        if (itemEEPROM.value("inherit", true))
                         {
                             json j = callVINI(itemEEPROM.at("inventoryPath"),
                                               itemEEPROM["extraInterfaces"]);
@@ -297,6 +309,28 @@ void VpdTool::dumpObject(nlohmann::basic_json<>& jsObject)
     json output = parseInvJson(jsObject, flag, fruPath);
 
 #ifdef DUMP_OBJECT
+    debugger(output);
+#endif
+}
+
+void VpdTool::readKeyword()
+{
+    string interface = "com.ibm.ipzvpd.";
+    variant<Binary> response;
+    json output = json::object({});
+    json kwVal = json::object({});
+
+    busctlCall(INVENTORY_PATH + fruPath, interface + recordName, keyword)
+        .read(response);
+
+    if (auto vec = get_if<Binary>(&response))
+    {
+        kwVal.emplace(keyword, binaryToString(*vec));
+    }
+
+    output.emplace(fruPath, kwVal);
+
+#ifdef READ_KW
     debugger(output);
 #endif
 }
