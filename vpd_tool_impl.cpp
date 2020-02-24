@@ -2,6 +2,7 @@
 
 #define DUMP_INVENTORY
 #define DUMP_OBJECT
+#define READ_KW
 
 using sdbusplus::exception::SdBusError;
 
@@ -260,6 +261,28 @@ void VpdTool::dumpObject(nlohmann::basic_json<>& jsObject)
     json output = parseInvJson(jsObject, flag, fruPath);
 
 #ifdef DUMP_OBJECT
+    debugger(output);
+#endif
+}
+
+void VpdTool::readKeyword()
+{
+    string interface = "com.ibm.ipzvpd.";
+    variant<Binary> response;
+    json output = json::object({});
+    json kwVal = json::object({});
+
+    busctlCall(INVENTORY_PATH + fruPath, interface + recordName, keyword)
+        .read(response);
+
+    if (auto vec = get_if<Binary>(&response))
+    {
+        kwVal.emplace(keyword, binaryToString(*vec));
+    }
+
+    output.emplace(fruPath, kwVal);
+
+#ifdef READ_KW
     debugger(output);
 #endif
 }
