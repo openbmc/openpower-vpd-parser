@@ -11,6 +11,8 @@ class VpdTool
 {
   private:
     const string fruPath;
+    const std::string recordName;
+    const std::string keyword;
 
     /**
      * @brief Debugger
@@ -116,6 +118,14 @@ class VpdTool
     void dumpObject(const nlohmann::basic_json<>& jsObject);
 
     /**
+     * @brief Read keyword
+     * Read the given object path, record name and keyword
+     * from the inventory and display the value of the keyword
+     * in JSON format.
+     */
+    void readKeyword();
+
+    /**
      * @brief A Constructor
      * Constructor is called during the
      * object instantiation for dumpInventory option.
@@ -130,6 +140,18 @@ class VpdTool
      * object instantiation for dumpObject option.
      */
     VpdTool(const string&& fru) : fruPath(move(fru))
+    {
+    }
+
+    /**
+     * @brief Constructor
+     * Constructor is called during the
+     * object instantiation for readKeyword option.
+     */
+    VpdTool(const std::string&& fru, const std::string&& recName,
+            const std::string&& kw) :
+        fruPath(std::move(fru)),
+        recordName(std::move(recName)), keyword(std::move(kw))
     {
     }
 };

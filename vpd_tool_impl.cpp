@@ -231,3 +231,60 @@ void VpdTool::dumpObject(const nlohmann::basic_json<>& jsObject)
     json output = parseInvJson(jsObject, flag, fruPath);
     debugger(output);
 }
+
+void VpdTool::readKeyword()
+{
+    string interface = "com.ibm.ipzvpd.";
+    variant<Binary> response;
+
+    try
+    {
+        json output = json::object({});
+        json kwVal = json::object({});
+        makeDBusCall(INVENTORY_PATH + fruPath, interface + recordName, keyword)
+            .read(response);
+
+        if (auto vec = get_if<Binary>(&response))
+        {
+            kwVal.emplace(keyword, string(vec->begin(), vec->end()));
+        }
+
+        output.emplace(fruPath, kwVal);
+
+        debugger(output);
+    }
+    catch (json::exception& e)
+    {
+        json output = json::object({});
+        json kwVal = json::object({});
+
+        if (e.id == 316) // invalid UTF-8 byte exception
+        {
+            stringstream ss;
+            string hexByte;
+            string hexRep = "0x";
+            ss << hexRep;
+            hexByte = ss.str();
+
+            // convert Decimal to Hex
+            if (auto resp = get_if<Binary>(&response))
+            {
+                for (auto& vec : *resp)
+                {
+                    if ((int)vec == 0)
+                    {
+                        ss << hex << (int)vec;
+                        hexByte = ss.str();
+                    }
+                    ss << hex << (int)vec;
+                    hexByte = ss.str();
+                }
+            }
+
+            kwVal.emplace(keyword, hexByte);
+            output.emplace(fruPath, kwVal);
+
+            debugger(output);
+        }
+    }
+}
