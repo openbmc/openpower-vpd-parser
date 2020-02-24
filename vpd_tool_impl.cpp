@@ -148,7 +148,6 @@ void callExtraInterface(string invPath, string extraInterface, json prop,
                         json exIntf, json& output)
 {
     variant<string> response;
-
     string objectName = INVENTORY_PATH + invPath;
 
     for (auto itProp : prop.items())
@@ -292,5 +291,24 @@ void VpdTool::dumpObject(const nlohmann::basic_json<>& jsObject)
 {
     char flag = 'O';
     json output = parseInvJson(jsObject, flag, fruPath);
+    debugger(output);
+}
+
+void VpdTool::readKeyword()
+{
+    variant<Binary> response;
+    json output = json::object({});
+    json kwVal = json::object({});
+
+    makeDBusCall(INVENTORY_PATH + fruPath, IPZ_INTERFACE + recordName, keyword)
+        .read(response);
+
+    if (auto vec = get_if<Binary>(&response))
+    {
+        kwVal.emplace(keyword, string(vec->begin(), vec->end()));
+    }
+
+    output.emplace(fruPath, kwVal);
+
     debugger(output);
 }
