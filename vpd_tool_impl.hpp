@@ -16,6 +16,8 @@ class VpdTool
 {
   private:
     const string fruPath;
+    const string recordName;
+    const string keyword;
 
   public:
     /**
@@ -31,6 +33,15 @@ class VpdTool
      * @param[in] jsObject - Inventory JSON specified in configure file.
      */
     void dumpObject(nlohmann::basic_json<>& jsObject);
+
+    /**
+     * @brief Read keyword
+     *
+     * Read the given object path, record name and keyword
+     * from the inventory and display the value of the keyword
+     * in JSON format.
+     */
+    void readKeyword();
 
     /**
      * @brief A Constructor
@@ -49,6 +60,17 @@ class VpdTool
      * object instantiation for dumpObject option.
      */
     VpdTool(const string&& fru) : fruPath(move(fru))
+    {
+    }
+
+    /**
+     * @brief Move Constructor
+     *
+     * Move constructor is called during the
+     * object instantiation for readKeyword option.
+     */
+    VpdTool(const string&& fru, const string&& recName, const string&& kw) :
+        fruPath(move(fru)), recordName(move(recName)), keyword(move(kw))
     {
     }
 };
