@@ -10,9 +10,14 @@ int main(int argc, char** argv)
             "update the keywords"};
 
     string objectPath;
+    string recordName;
+    string keyword;
 
     auto object =
         app.add_option("--object, -O", objectPath, "Enter the Object Path");
+    auto record =
+        app.add_option("--record, -R", recordName, "Enter the Record Name");
+    auto kw = app.add_option("--keyword, -K", keyword, "Enter the Keyword");
 
     auto dumpObjFlag = app.add_flag("--dumpObject, -o",
                                     "Dump the given object from the inventory")
@@ -20,6 +25,12 @@ int main(int argc, char** argv)
 
     auto dumpInvFlag =
         app.add_flag("--dumpInventory, -i", "Dump all the inventory objects");
+
+    auto readFlag =
+        app.add_flag("--readKeyword, -r", "Read the data of the given keyword")
+            ->needs(object)
+            ->needs(record)
+            ->needs(kw);
 
     CLI11_PARSE(app, argc, argv);
 
@@ -38,6 +49,13 @@ int main(int argc, char** argv)
         {
             VpdTool vpdToolObj;
             vpdToolObj.dumpInventory(jsObject);
+        }
+
+        else if (*readFlag)
+        {
+            VpdTool vpdToolObj(move(objectPath), move(recordName),
+                               move(keyword));
+            vpdToolObj.readKeyword();
         }
 
         else
