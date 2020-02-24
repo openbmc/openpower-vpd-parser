@@ -8,6 +8,7 @@
 
 #define DUMP_INVENTORY
 #define DUMP_OBJECT
+#define READ_KW
 
 using namespace std;
 using json = nlohmann::json;
@@ -150,7 +151,6 @@ void callExtraInterface(string invPath, string extraInterface, json prop,
                         json exIntf, json& output)
 {
     variant<string> response;
-
     string objectName = INVENTORY_PATH + invPath;
 
     for (auto itProp : prop.items())
@@ -299,6 +299,28 @@ void VpdTool::dumpObject(const nlohmann::basic_json<>& jsObject)
     json output = parseInvJson(jsObject, flag, fruPath);
 
 #ifdef DUMP_OBJECT
+    debugger(output);
+#endif
+}
+
+void VpdTool::readKeyword()
+{
+    string interface = "com.ibm.ipzvpd.";
+    variant<Binary> response;
+    json output = json::object({});
+    json kwVal = json::object({});
+
+    makeDBusCall(INVENTORY_PATH + fruPath, interface + recordName, keyword)
+        .read(response);
+
+    if (auto vec = get_if<Binary>(&response))
+    {
+        kwVal.emplace(keyword, string(vec->begin(), vec->end()));
+    }
+
+    output.emplace(fruPath, kwVal);
+
+#ifdef READ_KW
     debugger(output);
 #endif
 }
