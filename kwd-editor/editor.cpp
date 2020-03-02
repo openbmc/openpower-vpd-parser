@@ -189,6 +189,71 @@ void Editor::updateRecordECC()
               std::ostreambuf_iterator<char>(vpdFileStream));
 }
 
+void Editor::processAndUpdateCI(const std::string objectPath)
+{
+    for (auto& commonInterface : jsonFile["commonInterfaces"].items())
+    {
+        for (auto& ci_propertyList : commonInterface.value().items())
+        {
+            if (((ci_propertyList.value().get<nlohmann::json>())["recordName"]
+                     .get<std::string>() == thisRecord.recName) &&
+                ((ci_propertyList.value().get<nlohmann::json>())["keywordName"]
+                     .get<std::string>() == thisRecord.recKWd))
+            {
+                // implement busctl call here
+            }
+        }
+    }
+}
+
+void Editor::updateCache(std::size_t dataLength)
+{
+    std::vector<nlohmann::json> groupEEPROM =
+        jsonFile["frus"][vpdFilePath].get<std::vector<nlohmann::json>>();
+
+    // iterate through all the inventories for this file path
+    for (auto& singleEEPROM : groupEEPROM)
+    {
+        // by default inherit property is true
+        bool isInherit = true;
+
+        if (singleEEPROM.find("inherit") != singleEEPROM.end())
+        {
+            isInherit = singleEEPROM["inherit"].get<bool>();
+        }
+
+        if (isInherit)
+        {
+            processAndUpdateCI(
+                singleEEPROM["inventoryPath"].get<std::string>());
+        }
+
+        // process extra interfaces
+        for (auto& extraInterface : singleEEPROM["extraInterfaces"].items())
+        {
+            // std::cout<<itemsEI.value()<<std::endl;
+            if (extraInterface.value() != NULL)
+            {
+                for (auto& ei_propertyList : extraInterface.value().items())
+                {
+                    // nlohmann::json property =
+                    // propertyList.value().get<nlohmann::json>();
+
+                    if (((ei_propertyList.value()
+                              .get<nlohmann::json>())["recordName"]
+                             .get<std::string>() == thisRecord.recName) &&
+                        ((ei_propertyList.value()
+                              .get<nlohmann::json>())["keywordName"]
+                             .get<std::string>() == thisRecord.recKWd))
+                    {
+                        // implement busctl call here
+                    }
+                }
+            }
+        }
+    }
+}
+
 void Editor::updateKeyword(RecordOffset ptOffset, std::size_t ptLength,
                            Binary kwdData)
 {
@@ -210,6 +275,9 @@ void Editor::updateKeyword(RecordOffset ptOffset, std::size_t ptLength,
 
     // update the ECC data for the record once data has been updated
     updateRecordECC();
+
+    // update the cache once data has been updated
+    updateCache(thisRecord.KwdDataLength);
 }
 
 } // namespace editor
