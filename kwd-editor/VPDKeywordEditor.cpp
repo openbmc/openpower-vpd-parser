@@ -86,76 +86,12 @@ void VPDKeywordEditor::processJSON()
     }
 }
 
-void VPDKeywordEditor::processAndUpdateCI(const std::string recName,
-                                          const std::string kwdName)
-{
-    for (auto& commonInterface : jsonFile["commonInterfaces"].items())
-    {
-        for (auto& ci_propertyList : commonInterface.value().items())
-        {
-            if (((ci_propertyList.value().get<nlohmann::json>())["recordName"]
-                     .get<std::string>() == recName) &&
-                ((ci_propertyList.value().get<nlohmann::json>())["keywordName"]
-                     .get<std::string>() == kwdName))
-            {
-                // implement call to dbus to update properties
-            }
-        }
-    }
-}
-
-void VPDKeywordEditor::updateCache(const inventory::Path vpdFilePath,
-                                   const std::string recName,
-                                   const std::string kwdName)
-{
-    std::vector<nlohmann::json> groupEEPROM =
-        jsonFile["frus"][vpdFilePath].get<std::vector<nlohmann::json>>();
-
-    // iterate through all the inventories for this file path
-    for (auto& singleEEPROM : groupEEPROM)
-    {
-        // by default inherit property is true
-        bool isInherit = true;
-
-        if (singleEEPROM.find("inherit") != singleEEPROM.end())
-        {
-            isInherit = singleEEPROM["inherit"].get<bool>();
-        }
-
-        if (isInherit)
-        {
-            processAndUpdateCI(recName, kwdName);
-        }
-
-        // process extra interfaces
-        for (auto& extraInterface : singleEEPROM["extraInterfaces"].items())
-        {
-            if (extraInterface.value() != NULL)
-            {
-                for (auto& ei_propertyList : extraInterface.value().items())
-                {
-                    if (((ei_propertyList.value()
-                              .get<nlohmann::json>())["recordName"]
-                             .get<std::string>() == recName) &&
-                        ((ei_propertyList.value()
-                              .get<nlohmann::json>())["keywordName"]
-                             .get<std::string>() == kwdName))
-                    {
-                        // implement dbus calls to update properties
-                    }
-                }
-            }
-        }
-    }
-}
-
 void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
                                     const std::string recordName,
                                     const std::string keyword, Binary value)
 {
     try
     {
-
         if (frus.find(inventoryPath) == frus.end())
         {
             throw std::runtime_error("Inventory path not found");
@@ -201,11 +137,9 @@ void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
                     std::move(vpdHeader), ptOffset);
 
             // instantiate editor class to update the data
-            Editor edit(vpdFilePath, recordName, keyword);
+            Editor edit(vpdFilePath, jsonFile, recordName, keyword);
             edit.updateKeyword(ptOffset, ptLength, value);
 
-            // update the cache once data has been updated
-            updateCache(vpdFilePath, recordName, keyword);
             return;
         }
         throw std::runtime_error("Invalid VPD file type");
