@@ -110,7 +110,7 @@ void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
                 std::move(vpdHeader));
 
             // instantiate editor class to update the data
-            EditorImpl edit(vpdFilePath, recordName, keyword);
+            EditorImpl edit(vpdFilePath, jsonFile, recordName, keyword);
             edit.updateKeyword(value);
 
             return;

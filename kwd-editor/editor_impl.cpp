@@ -252,6 +252,73 @@ void EditorImpl::readVTOC()
     checkPTForRecord(iterator, ptLen);
 }
 
+void EditorImpl::processAndUpdateCI(const std::string& objectPath)
+{
+    for (auto& commonInterface : jsonFile["commonInterfaces"].items())
+    {
+        for (auto& ci_propertyList : commonInterface.value().items())
+        {
+            if ((ci_propertyList.value().value("recordName", "") ==
+                 thisRecord.recName) &&
+                (ci_propertyList.value().value("keywordName", "") ==
+                 thisRecord.recKWd))
+            {
+                // implement busctl call here
+            }
+        }
+    }
+}
+
+void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
+                                    const inventory::Path& objPath)
+{
+    for (const auto& extraInterface : Inventory["extraInterfaces"].items())
+    {
+        if (extraInterface.value() != NULL)
+        {
+            for (const auto& ei_propertyList : extraInterface.value().items())
+            {
+                if ((ei_propertyList.value().value("recordName", "") ==
+                     thisRecord.recName) &&
+                    ((ei_propertyList.value().value("keywordName", "") ==
+                      thisRecord.recKWd)))
+                {
+                    // implement busctl call here
+                }
+            }
+        }
+    }
+}
+
+void EditorImpl::updateCache()
+{
+    const std::vector<nlohmann::json>& groupEEPROM =
+        jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
+
+    // iterate through all the inventories for this file path
+    for (const auto& singleInventory : groupEEPROM)
+    {
+        // by default inherit property is true
+        bool isInherit = true;
+
+        if (singleInventory.find("inherit") != singleInventory.end())
+        {
+            isInherit = singleInventory["inherit"].get<bool>();
+        }
+
+        if (isInherit)
+        {
+            processAndUpdateCI(singleInventory["inventoryPath"]
+                                   .get_ref<const nlohmann::json::string_t&>());
+        }
+
+        // process extra interfaces
+        processAndUpdateEI(singleInventory,
+                           singleInventory["inventoryPath"]
+                               .get_ref<const nlohmann::json::string_t&>());
+    }
+}
+
 void EditorImpl::updateKeyword(const Binary& kwdData)
 {
     vpdFileStream.open(vpdFilePath,
@@ -272,6 +339,9 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
 
     // update the ECC data for the record once data has been updated
     updateRecordECC();
+
+    // update the cache once data has been updated
+    updateCache();
 }
 
 } // namespace editor
