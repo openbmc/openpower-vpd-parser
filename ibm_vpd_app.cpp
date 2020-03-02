@@ -7,6 +7,7 @@
 #include "utils.hpp"
 
 #include <CLI/CLI.hpp>
+#include <algorithm>
 #include <exception>
 #include <fstream>
 #include <iostream>
@@ -61,6 +62,102 @@ static string encodeKeyword(const string& kw, const string& encoding)
     }
 }
 
+/** @brief Reads a property from the inventory manager given object path,
+ * intreface and property.
+ */
+static auto readBusProperty(const string& obj, const string& inf,
+                            const string& prop)
+{
+    string propVal{};
+    static constexpr auto OBJ_PREFIX = "/xyz/openbmc_project/inventory";
+    string object = OBJ_PREFIX + obj;
+    auto bus = sdbusplus::bus::new_default();
+    auto properties = bus.new_method_call(
+        "xyz.openbmc_project.Inventory.Manager", object.c_str(),
+        "org.freedesktop.DBus.Properties", "Get");
+    properties.append(inf);
+    properties.append(prop);
+    auto result = bus.call(properties);
+    if (!result.is_method_error())
+    {
+        variant<Binary> val;
+        result.read(val);
+
+        if (auto pVal = get_if<Binary>(&val))
+        {
+            propVal.assign(reinterpret_cast<const char*>(pVal->data()),
+                           pVal->size());
+        }
+    }
+    return propVal;
+}
+
+/**
+ * @brief Expands location codes
+ */
+static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
+                               bool isSystemVpd)
+{
+    auto expanded{unexpanded};
+    static constexpr auto SYSTEM_OBJECT = "/system/chassis/motherboard";
+    static constexpr auto VCEN_IF = "com.ibm.ipzvpd.VCEN";
+    static constexpr auto VSYS_IF = "com.ibm.ipzvpd.VSYS";
+    size_t idx = expanded.find("fcs");
+    try
+    {
+        if (idx != string::npos)
+        {
+            string fc{};
+            string se{};
+            if (isSystemVpd)
+            {
+                const auto& fcData = vpdMap.at("VCEN").at("FC");
+                const auto& seData = vpdMap.at("VCEN").at("SE");
+                fc = string(fcData.data(), fcData.size());
+                se = string(seData.data(), seData.size());
+            }
+            else
+            {
+                fc = readBusProperty(SYSTEM_OBJECT, VCEN_IF, "FC");
+                se = readBusProperty(SYSTEM_OBJECT, VCEN_IF, "SE");
+            }
+
+            // TODO: See if ND1 can be placed in the JSON
+            expanded.replace(idx, 3, fc.substr(0, 4) + ".ND1." + se);
+        }
+        else
+        {
+            idx = expanded.find("mts");
+            if (idx != string::npos)
+            {
+                string mt{};
+                string se{};
+                if (isSystemVpd)
+                {
+                    const auto& mtData = vpdMap.at("VSYS").at("TM");
+                    const auto& seData = vpdMap.at("VSYS").at("SE");
+                    mt = string(mtData.data(), mtData.size());
+                    se = string(seData.data(), seData.size());
+                }
+                else
+                {
+                    mt = readBusProperty(SYSTEM_OBJECT, VSYS_IF, "TM");
+                    se = readBusProperty(SYSTEM_OBJECT, VSYS_IF, "SE");
+                }
+
+                replace(mt.begin(), mt.end(), '-', '.');
+                expanded.replace(idx, 3, mt + "." + se);
+            }
+        }
+    }
+    catch (std::exception& e)
+    {
+        std::cerr << "Failed to expand location code with exception: "
+                  << e.what() << "\n";
+    }
+    return expanded;
+}
+
 /**
  * @brief Populate FRU specific interfaces.
  *
@@ -101,23 +198,46 @@ static void populateFruSpecificInterfaces(const T& map,
  * @param[in] js - json object
  * @param[out] interfaces - Reference to interface map
  * @param[in] vpdMap - Reference to the parsed vpd map.
+ * @param[in] isSystemVpd - Denotes whether we are collecting the system VPD.
  */
 template <typename T>
 static void populateInterfaces(const nlohmann::json& js,
                                inventory::InterfaceMap& interfaces,
-                               const T& vpdMap)
+                               const T& vpdMap, bool isSystemVpd)
 {
     for (const auto& ifs : js.items())
     {
-        const string& inf = ifs.key();
+        string inf = ifs.key();
         inventory::PropertyMap props;
 
         for (const auto& itr : ifs.value().items())
         {
-            // check if the Value is boolean or object
+            const string& busProp = itr.key();
+
             if (itr.value().is_boolean())
             {
-                props.emplace(itr.key(), itr.value().get<bool>());
+                props.emplace(busProp, itr.value().get<bool>());
+            }
+            else if (itr.value().is_string())
+            {
+                if constexpr (std::is_same<T, Parsed>::value)
+                {
+                    if (busProp == "LocationCode" &&
+                        inf == "com.ibm.ipzvpd.Location")
+                    {
+                        auto prop = expandLocationCode(
+                            itr.value().get<string>(), vpdMap, isSystemVpd);
+                        props.emplace(busProp, prop);
+                    }
+                    else
+                    {
+                        props.emplace(busProp, itr.value().get<string>());
+                    }
+                }
+                else
+                {
+                    props.emplace(busProp, itr.value().get<string>());
+                }
             }
             else if (itr.value().is_object())
             {
@@ -127,12 +247,12 @@ static void populateInterfaces(const nlohmann::json& js,
 
                 if constexpr (std::is_same<T, Parsed>::value)
                 {
-                    if (!rec.empty() && !kw.empty() &&
-                        vpdMap.at(rec).count(kw) && vpdMap.count(rec))
+                    if (!rec.empty() && !kw.empty() && vpdMap.count(rec) &&
+                        vpdMap.at(rec).count(kw))
                     {
                         auto encoded =
                             encodeKeyword(vpdMap.at(rec).at(kw), encoding);
-                        props.emplace(itr.key(), encoded);
+                        props.emplace(busProp, encoded);
                     }
                 }
                 else if constexpr (std::is_same<T, KeywordVpdMap>::value)
@@ -142,7 +262,7 @@ static void populateInterfaces(const nlohmann::json& js,
                         auto prop =
                             string(vpdMap.at(kw).begin(), vpdMap.at(kw).end());
                         auto encoded = encodeKeyword(prop, encoding);
-                        props.emplace(itr.key(), encoded);
+                        props.emplace(busProp, encoded);
                     }
                 }
             }
@@ -173,6 +293,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
     {
         const auto& objectPath = item["inventoryPath"];
         sdbusplus::message::object_path object(objectPath);
+        auto isSystemVpd = item.value("isSystemVpd", false);
         // Populate the VPD keywords and the common interfaces only if we
         // are asked to inherit that data from the VPD, else only add the
         // extraInterfaces.
@@ -192,18 +313,19 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
             {
                 populateFruSpecificInterfaces(vpdMap, preIntrStr, interfaces);
             }
+            if (js.find("commonInterfaces") != js.end())
+            {
+                populateInterfaces(js["commonInterfaces"], interfaces, vpdMap,
+                                   isSystemVpd);
+            }
         }
 
         // Populate interfaces and properties that are common to every FRU
         // and additional interface that might be defined on a per-FRU basis.
-
-        if (item.find("commonInterfaces") != item.end())
-        {
-            populateInterfaces(item["commonInterfaces"], interfaces, vpdMap);
-        }
         if (item.find("extraInterfaces") != item.end())
         {
-            populateInterfaces(item["extraInterfaces"], interfaces, vpdMap);
+            populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
+                               isSystemVpd);
         }
         objects.emplace(move(object), move(interfaces));
     }
@@ -237,7 +359,8 @@ int main(int argc, char** argv)
         if ((js.find("frus") == js.end()) ||
             (js["frus"].find(file) == js["frus"].end()))
         {
-            throw std::runtime_error("Device path missing in inventory JSON");
+            cout << "Device path not in JSON, ignoring" << std::endl;
+            return 0;
         }
 
         // Open the file in binary mode
