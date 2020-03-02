@@ -252,6 +252,70 @@ void EditorImpl::readVTOC()
     checkPTForRecord(iterator, ptLen);
 }
 
+void EditorImpl::processAndUpdateCI(const std::string& objectPath)
+{
+    for (auto& commonInterface : jsonFile["commonInterfaces"].items())
+    {
+        for (auto& ciPropertyList : commonInterface.value().items())
+        {
+            if ((ciPropertyList.value().value("recordName", "") ==
+                 thisRecord.recName) &&
+                (ciPropertyList.value().value("keywordName", "") ==
+                 thisRecord.recKWd))
+            {
+                // implement busctl call here
+            }
+        }
+    }
+}
+
+void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
+                                    const inventory::Path& objPath)
+{
+    for (const auto& extraInterface : Inventory["extraInterfaces"].items())
+    {
+        if (extraInterface.value() != NULL)
+        {
+            for (const auto& eiPropertyList : extraInterface.value().items())
+            {
+                if ((eiPropertyList.value().value("recordName", "") ==
+                     thisRecord.recName) &&
+                    ((eiPropertyList.value().value("keywordName", "") ==
+                      thisRecord.recKWd)))
+                {
+                    // implement busctl call here
+                }
+            }
+        }
+    }
+}
+
+void EditorImpl::updateCache()
+{
+    const std::vector<nlohmann::json>& groupEEPROM =
+        jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
+
+    // iterate through all the inventories for this file path
+    for (const auto& singleInventory : groupEEPROM)
+    {
+        // process and update CI
+        const std::string& LocationCode =
+            singleInventory["extraInterfaces"][LOCATION_CODE_INF]
+                           ["LocationCode"]
+                               .get_ref<const nlohmann::json::string_t&>();
+        if (LocationCode.substr(1, 3) != "mts")
+        {
+            processAndUpdateCI(singleInventory["inventoryPath"]
+                                   .get_ref<const nlohmann::json::string_t&>());
+        }
+
+        // process extra interfaces
+        processAndUpdateEI(singleInventory,
+                           singleInventory["inventoryPath"]
+                               .get_ref<const nlohmann::json::string_t&>());
+    }
+}
+
 void EditorImpl::updateKeyword(const Binary& kwdData)
 {
     vpdFileStream.open(vpdFilePath,
@@ -261,7 +325,7 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
         throw std::runtime_error("unable to open vpd file to edit");
     }
 
-    // process VTOC for PTT rkwd
+    // process VTOC for PT record
     readVTOC();
 
     // check record for keywrod
@@ -272,6 +336,9 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
 
     // update the ECC data for the record once data has been updated
     updateRecordECC();
+
+    // update the cache once data has been updated
+    updateCache();
 }
 
 } // namespace editor
