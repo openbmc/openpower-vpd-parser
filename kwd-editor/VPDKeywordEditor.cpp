@@ -93,7 +93,6 @@ void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
 {
     try
     {
-
         if (frus.find(inventoryPath) == frus.end())
         {
             throw std::runtime_error("Inventory path not found");
@@ -139,7 +138,7 @@ void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
                     std::move(vpdHeader), ptOffset);
 
             // instantiate editor class to update the data
-            Editor edit(vpdFilePath, recordName, keyword);
+            Editor edit(vpdFilePath, jsonFile, recordName, keyword);
             edit.updateKeyword(ptOffset, ptLength, value);
 
             return;
