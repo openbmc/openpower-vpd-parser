@@ -86,7 +86,7 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
         inventory::Path vpdFilePath = frus.find(path)->second;
 
         // instantiate editor class to update the data
-        EditorImpl edit(vpdFilePath, recordName, keyword);
+        EditorImpl edit(vpdFilePath, jsonFile, recordName, keyword);
         edit.updateKeyword(value);
 
         return;
