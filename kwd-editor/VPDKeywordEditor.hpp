@@ -4,6 +4,7 @@
 #include "types.hpp"
 
 #include <map>
+#include <nlohmann/json.hpp>
 #include <sdbusplus/server.hpp>
 #include <xyz/openbmc_project/Inventory/VPD/VPDKeywordEditor/server.hpp>
 
@@ -83,12 +84,36 @@ class VPDKeywordEditor : public ServerObject<kwdEditorIface>
      **/
     void processJSON();
 
+    /** @brief method to update cache once the data for kwd has been updated
+     *
+     *  @param[in] - vpdFile path - path to tvpd file that has been updated
+     *  @param[in] - recName - name of the record that has been updated
+     *  @param[in] - kwdName - name of the kwd that has been updated
+     *
+     **/
+    void updateCache(const inventory::Path vpdFilePath,
+                     const std::string recName, const std::string kwdName);
+
+    /** @brief method to process and update CI in case required
+     *
+     *  @param[in] - recName - name of the record that has been updated
+     *  @param[in] - kwdName - name of the kwd that has been updated
+     *
+     **/
+    void processAndUpdateCI(const std::string recName,
+                            const std::string kwdName);
+
     /** @brief Persistent sdbusplus DBus bus connection. */
     sdbusplus::bus::bus _bus;
 
     /** @brief sdbusplus org.freedesktop.DBus.ObjectManager reference. */
     sdbusplus::server::manager::manager _manager;
 
+    // file to store parsed json
+    nlohmann::json jsonFile;
+
+    // map to hold mapping to inventory path to vpd file path
+    // we need as map here as it is in reverse order to that of json
     inventory::FrusMap frus;
 };
 

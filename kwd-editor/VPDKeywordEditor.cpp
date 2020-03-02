@@ -8,7 +8,6 @@
 #include <exception>
 #include <fstream>
 #include <iostream>
-#include <nlohmann/json.hpp>
 #include <vector>
 
 using namespace std::literals::chrono_literals;
@@ -62,31 +61,89 @@ void VPDKeywordEditor::run()
 
 void VPDKeywordEditor::processJSON()
 {
-    std::ifstream jsonFile(INVENTORY_JSON, std::ios::binary);
+    std::ifstream json(INVENTORY_JSON, std::ios::binary);
 
-    if (!jsonFile)
+    if (!json)
     {
         throw std::runtime_error("json file not found");
     }
 
-    nlohmann::json jfile = nlohmann::json::parse(jsonFile);
-    if (jfile.find("frus") == jfile.end())
+    jsonFile = nlohmann::json::parse(json);
+    if (jsonFile.find("frus") == jsonFile.end())
     {
         throw std::runtime_error("frus group not found in json");
     }
 
-    nlohmann::json groupFRUS = (jfile.find("frus")).value();
+    nlohmann::json groupFRUS = (jsonFile.find("frus")).value();
     for (auto itemFRUS : groupFRUS.items())
     {
         std::vector<nlohmann::json> groupEEPROM = itemFRUS.value();
         for (auto itemEEPROM : groupEEPROM)
         {
-            nlohmann::json individualFRU = itemEEPROM;
-            if (individualFRU.find("inventoryPath") != individualFRU.end())
+            frus.insert({itemEEPROM["inventoryPath"].get<std::string>(),
+                         itemFRUS.key()});
+        }
+    }
+}
+
+void VPDKeywordEditor::processAndUpdateCI(const std::string recName,
+                                          const std::string kwdName)
+{
+    for (auto& commonInterface : jsonFile["commonInterfaces"].items())
+    {
+        for (auto& ci_propertyList : commonInterface.value().items())
+        {
+            if (((ci_propertyList.value().get<nlohmann::json>())["recordName"]
+                     .get<std::string>() == recName) &&
+                ((ci_propertyList.value().get<nlohmann::json>())["keywordName"]
+                     .get<std::string>() == kwdName))
             {
-                inventory::Path path =
-                    individualFRU.find("inventoryPath").value();
-                frus.insert({path, itemFRUS.key()});
+                // implement call to dbus to update properties
+            }
+        }
+    }
+}
+
+void VPDKeywordEditor::updateCache(const inventory::Path vpdFilePath,
+                                   const std::string recName,
+                                   const std::string kwdName)
+{
+    std::vector<nlohmann::json> groupEEPROM =
+        jsonFile["frus"][vpdFilePath].get<std::vector<nlohmann::json>>();
+
+    // iterate through all the inventories for this file path
+    for (auto& singleEEPROM : groupEEPROM)
+    {
+        // by default inherit property is true
+        bool isInherit = true;
+
+        if (singleEEPROM.find("inherit") != singleEEPROM.end())
+        {
+            isInherit = singleEEPROM["inherit"].get<bool>();
+        }
+
+        if (isInherit)
+        {
+            processAndUpdateCI(recName, kwdName);
+        }
+
+        // process extra interfaces
+        for (auto& extraInterface : singleEEPROM["extraInterfaces"].items())
+        {
+            if (extraInterface.value() != NULL)
+            {
+                for (auto& ei_propertyList : extraInterface.value().items())
+                {
+                    if (((ei_propertyList.value()
+                              .get<nlohmann::json>())["recordName"]
+                             .get<std::string>() == recName) &&
+                        ((ei_propertyList.value()
+                              .get<nlohmann::json>())["keywordName"]
+                             .get<std::string>() == kwdName))
+                    {
+                        // implement dbus calls to update properties
+                    }
+                }
             }
         }
     }
@@ -98,9 +155,12 @@ void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
 {
     try
     {
-        // process the json to get path to VPD file
-        inventory::Path vpdFilePath = processJSON(inventoryPath);
+        if (frus.find(inventoryPath) == frus.end())
+        {
+            throw std::runtime_error("Inventory path not found");
+        }
 
+        inventory::Path vpdFilePath = frus.find(inventoryPath)->second;
         std::ifstream vpdStream(vpdFilePath, std::ios::binary);
         if (!vpdStream)
         {
@@ -143,6 +203,8 @@ void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
             Editor edit(vpdFilePath, recordName, keyword);
             edit.updateKeyword(ptOffset, ptLength, value);
 
+            // update the cache once data has been updated
+            updateCache(vpdFilePath, recordName, keyword);
             return;
         }
         throw std::runtime_error("Invalid VPD file type");
