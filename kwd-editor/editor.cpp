@@ -190,6 +190,71 @@ void Editor::updateRecordECC()
               std::ostreambuf_iterator<char>(vpdFileStream));
 }
 
+void Editor::processAndUpdateCI(const std::string objectPath)
+{
+    for (auto& commonInterface : jsonFile["commonInterfaces"].items())
+    {
+        for (auto& ci_propertyList : commonInterface.value().items())
+        {
+            if ((ci_propertyList.value().value("recordName", "") ==
+                 thisRecord.recName) &&
+                (ci_propertyList.value().value("keywordName", "") ==
+                 thisRecord.recKWd))
+            {
+                // implement busctl call here
+            }
+        }
+    }
+}
+
+void Editor::processAndUpdateEI(nlohmann::json Inventory,
+                                inventory::Path objPath)
+{
+    for (auto& extraInterface : Inventory["extraInterfaces"].items())
+    {
+        if (extraInterface.value() != NULL)
+        {
+            for (auto& ei_propertyList : extraInterface.value().items())
+            {
+                if ((ei_propertyList.value().value("recordName", "") ==
+                     thisRecord.recName) &&
+                    ((ei_propertyList.value().value("keywordName", "") ==
+                      thisRecord.recKWd)))
+                {
+                    // implement busctl call here
+                }
+            }
+        }
+    }
+}
+void Editor::updateCache()
+{
+    std::vector<nlohmann::json> groupEEPROM =
+        jsonFile["frus"][vpdFilePath].get<std::vector<nlohmann::json>>();
+
+    // iterate through all the inventories for this file path
+    for (auto& singleInventory : groupEEPROM)
+    {
+        // by default inherit property is true
+        bool isInherit = true;
+
+        if (singleInventory.find("inherit") != singleInventory.end())
+        {
+            isInherit = singleInventory["inherit"].get<bool>();
+        }
+
+        if (isInherit)
+        {
+            processAndUpdateCI(
+                singleInventory["inventoryPath"].get<std::string>());
+        }
+
+        // process extra interfaces
+        processAndUpdateEI(singleInventory,
+                           singleInventory["inventoryPath"].get<std::string>());
+    }
+}
+
 void Editor::updateKeyword(RecordOffset ptOffset, std::size_t ptLength,
                            Binary kwdData)
 {
@@ -211,6 +276,9 @@ void Editor::updateKeyword(RecordOffset ptOffset, std::size_t ptLength,
 
     // update the ECC data for the record once data has been updated
     updateRecordECC();
+
+    // update the cache once data has been updated
+    updateCache();
 }
 
 } // namespace editor

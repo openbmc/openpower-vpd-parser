@@ -4,6 +4,7 @@
 
 #include <cstddef>
 #include <fstream>
+#include <nlohmann/json.hpp>
 
 namespace openpower
 {
@@ -63,8 +64,10 @@ class Editor
      *
      *  @param[in] path - Path to the vpd file
      */
-    explicit Editor(inventory::Path path, std::string record, std::string kwd) :
-        vpdFilePath(path)
+    explicit Editor(inventory::Path path, nlohmann::json json,
+                    std::string record, std::string kwd) :
+        vpdFilePath(path),
+        jsonFile(json)
     {
         thisRecord.recName = record;
         thisRecord.recKWd = kwd;
@@ -105,11 +108,31 @@ class Editor
      **/
     void updateRecordECC();
 
+    /** @brief method to update cache once the data for kwd has been updated
+     **/
+    void updateCache();
+
+    /** @brief method to process and update CI in case required
+     *
+     *  @param[in] - objectPath - path of the object to introspect
+     *
+     **/
+    void processAndUpdateCI(const std::string objectPath);
+
+    /** @brief method to process and update Extra Interface
+     *  @param[in] Inventory - single inventory json subpart
+     *  @param[in] objectPath - path of the object to introspect
+     */
+    void processAndUpdateEI(nlohmann::json Inventory, inventory::Path objPath);
+
     // path to the VPD file to edit
     inventory::Path vpdFilePath;
 
     // stream to perform operation on file
     std::fstream vpdFileStream;
+
+    // file to store parsed json
+    nlohmann::json jsonFile;
 
     // structure to hold info about record to edit
     struct RecInfo
