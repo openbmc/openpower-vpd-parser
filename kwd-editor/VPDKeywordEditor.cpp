@@ -80,7 +80,6 @@ void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
 {
     try
     {
-
         if (frus.find(inventoryPath) == frus.end())
         {
             throw std::runtime_error("Inventory path not found");
@@ -122,8 +121,9 @@ void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
             // parse vpd to validate Header and check TOC for PT record
             auto PTinfo = openpower::vpd::keyword::editor::processHeaderAndTOC(
                 std::move(vpdHeader));
+
             // instantiate editor class to update the data
-            Editor edit(vpdFilePath, recordName, keyword);
+            Editor edit(vpdFilePath, jsonFile, recordName, keyword);
             edit.updateKeyword(PTinfo, value);
 
             return;
