@@ -25,7 +25,8 @@ vpd_manager_SOURCES =[
                         'manager_main.cpp',
                         'manager.cpp',
                         'server.cpp',
-                        'error.cpp'
+                        'error.cpp',
+                        '../impl.cpp'
                         ]
 
 vpd_manager_exe = executable('vpd-manager',
