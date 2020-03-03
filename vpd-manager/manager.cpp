@@ -2,6 +2,7 @@
 
 #include "manager.hpp"
 
+#include "const.hpp"
 #include "parser.hpp"
 
 #include <exception>
