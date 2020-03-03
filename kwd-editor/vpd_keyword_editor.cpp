@@ -2,6 +2,10 @@
 
 #include "vpd_keyword_editor.hpp"
 
+#include "const.hpp"
+#include "parser.hpp"
+
+#include <chrono>
 #include <exception>
 #include <fstream>
 #include <iostream>
