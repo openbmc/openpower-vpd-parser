@@ -1,5 +1,6 @@
 #include "impl.hpp"
 
+#include "const.hpp"
 #include "defines.hpp"
 #include "utils.hpp"
 
@@ -20,26 +21,10 @@ namespace vpd
 {
 namespace parser
 {
+using namespace openpower::vpd::constants;
 
 static const std::unordered_map<std::string, Record> supportedRecords = {
     {"VINI", Record::VINI}, {"OPFR", Record::OPFR}, {"OSYS", Record::OSYS}};
-
-static constexpr auto MAC_ADDRESS_LEN_BYTES = 6;
-static constexpr auto LAST_KW = "PF";
-static constexpr auto POUND_KW = '#';
-static constexpr auto UUID_LEN_BYTES = 16;
-static constexpr auto UUID_TIME_LOW_END = 8;
-static constexpr auto UUID_TIME_MID_END = 13;
-static constexpr auto UUID_TIME_HIGH_END = 18;
-static constexpr auto UUID_CLK_SEQ_END = 23;
-
-static constexpr auto MB_RESULT_LEN = 19;
-static constexpr auto MB_LEN_BYTES = 8;
-static constexpr auto MB_YEAR_END = 4;
-static constexpr auto MB_MONTH_END = 7;
-static constexpr auto MB_DAY_END = 10;
-static constexpr auto MB_HOUR_END = 13;
-static constexpr auto MB_MIN_END = 16;
 
 static const std::unordered_map<std::string, internal::KeywordInfo>
     supportedKeywords = {
@@ -56,43 +41,6 @@ static const std::unordered_map<std::string, internal::KeywordInfo>
         {"VP", std::make_tuple(record::Keyword::VP, keyword::Encoding::ASCII)},
         {"VS", std::make_tuple(record::Keyword::VS, keyword::Encoding::ASCII)},
 };
-
-namespace offsets
-{
-
-enum Offsets
-{
-    VHDR = 17,
-    VHDR_TOC_ENTRY = 29,
-    VTOC_PTR = 35,
-    VTOC_DATA = 13,
-    VHDR_ECC = 0,
-    VHDR_RECORD = 11
-};
-}
-
-namespace lengths
-{
-
-enum Lengths
-{
-    RECORD_NAME = 4,
-    KW_NAME = 2,
-    RECORD_MIN = 44,
-    VTOC_RECORD_LENGTH = 14,
-    VHDR_ECC_LENGTH = 11,
-    VHDR_RECORD_LENGTH = 44,
-};
-}
-
-namespace eccStatus
-{
-enum Status
-{
-    SUCCESS = 0,
-    FAILED = -1,
-};
-}
 
 namespace
 {
