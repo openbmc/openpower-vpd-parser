@@ -26,6 +26,7 @@ vpd_kwd_editor_SOURCES =[
                         'VPD_KeywordEditor_main.cpp',
                         'VPDKeywordEditor.cpp',
                         'server.cpp',
+                        '../impl.cpp'
                         ]
 
 vpd_kwd_editor_exe = executable('vpd-kwd-editor',

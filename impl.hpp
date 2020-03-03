@@ -1,9 +1,11 @@
 #pragma once
 
+#include "const.hpp"
 #include "store.hpp"
 
 #include <cstddef>
 
+using namespace openpower::vpd::constants;
 namespace openpower
 {
 namespace vpd
@@ -12,7 +14,6 @@ namespace parser
 {
 namespace keyword
 {
-
 /** @brief Encoding scheme of a VPD keyword's data */
 enum class Encoding
 {
@@ -34,22 +35,6 @@ using OffsetList = std::vector<uint32_t>;
 using KeywordMap = Parsed::mapped_type;
 
 } // namespace internal
-
-namespace
-{
-
-using RecordId = uint8_t;
-using RecordOffset = uint16_t;
-using RecordSize = uint16_t;
-using RecordType = uint16_t;
-using RecordLength = uint16_t;
-using KwSize = uint8_t;
-using PoundKwSize = uint16_t;
-using ECCOffset = uint16_t;
-using ECCLength = uint16_t;
-using LE2ByteData = uint16_t;
-
-} // namespace
 
 /** @class Impl
  *  @brief Implements parser for VPD

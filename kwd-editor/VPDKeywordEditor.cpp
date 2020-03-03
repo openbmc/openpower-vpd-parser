@@ -2,6 +2,7 @@
 
 #include "VPDKeywordEditor.hpp"
 
+#include "const.hpp"
 #include "parser.hpp"
 
 #include <chrono>
@@ -12,6 +13,7 @@
 #include <vector>
 
 using namespace std::literals::chrono_literals;
+using namespace openpower::vpd::constants;
 namespace openpower
 {
 namespace vpd
