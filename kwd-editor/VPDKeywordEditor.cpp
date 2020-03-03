@@ -2,6 +2,7 @@
 
 #include "VPDKeywordEditor.hpp"
 
+#include "const.hpp"
 #include "parser.hpp"
 
 #include <chrono>
@@ -11,6 +12,7 @@
 #include <vector>
 
 using namespace std::literals::chrono_literals;
+using namespace openpower::vpd::constants;
 namespace openpower
 {
 namespace vpd
@@ -19,17 +21,6 @@ namespace keyword
 {
 namespace editor
 {
-
-constexpr int IPZ_DATA_START = 11;
-constexpr uint8_t KW_VAL_PAIR_START_TAG = 0x84;
-constexpr uint8_t RECORD_END_TAG = 0x78;
-
-enum length
-{
-    VHDR_HEADER_LENGTH = 44,
-    VHDR_ECC_LENGTH = 11,
-};
-
 VPDKeywordEditor::VPDKeywordEditor(sdbusplus::bus::bus&& bus,
                                    const char* busName, const char* objPath,
                                    const char* iFace) :
@@ -104,7 +95,8 @@ void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
             throw std::runtime_error("file not found");
         }
 
-        Binary vpdHeader(length::VHDR_HEADER_LENGTH + length::VHDR_ECC_LENGTH);
+        Binary vpdHeader(lengths::VHDR_HEADER_LENGTH +
+                         lengths::VHDR_ECC_LENGTH);
         vpdStream.read(reinterpret_cast<char*>(vpdHeader.data()),
                        vpdHeader.capacity());
 

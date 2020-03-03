@@ -1,5 +1,6 @@
 #pragma once
 
+#include "const.hpp"
 #include "types.hpp"
 
 #include <cstddef>
@@ -14,19 +15,7 @@ namespace keyword
 {
 namespace editor
 {
-
-namespace
-{
-using RecordId = uint8_t;
-using RecordOffset = uint16_t;
-using RecordSize = uint16_t;
-using RecordType = uint16_t;
-using RecordLength = uint16_t;
-using KwSize = uint8_t;
-using PoundKwSize = uint16_t;
-using ECCOffset = uint16_t;
-using ECCLength = uint16_t;
-} // namespace
+using namespace openpower::vpd::constants;
 
 /** @class Editor
  *  @brief Implements VPD editing related functinality, currently
