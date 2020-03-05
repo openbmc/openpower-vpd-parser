@@ -2,8 +2,9 @@
 
 #include "manager.hpp"
 
-#include "const.hpp"
 #include "parser.hpp"
+
+#include "editor_impl.hpp"
 
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::manager::editor;
