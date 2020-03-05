@@ -114,6 +114,18 @@ class Editor
      */
     void processAndUpdateEI(nlohmann::json Inventory, inventory::Path objPath);
 
+    /** @brief method to make busctl call
+     *
+     *  @param[in] object - bus object path
+     *  @param[in] interface - bus interface
+     *  @param[in] property - property to update on BUS
+     *  @param[in] data - data to be updayed on Bus
+     *
+     */
+    template <typename T>
+    void busctlCall(const std::string object, const std::string interface,
+                    const std::string property, const std::variant<T> data);
+
     // path to the VPD file to edit
     inventory::Path vpdFilePath;
 
@@ -128,6 +140,7 @@ class Editor
     {
         Binary recData;
         Binary recEccData;
+        Binary kwdupdatedData; // need access to it in case encoding is needed
         std::string recName;
         std::string recKWd;
         RecordOffset recOffset;
