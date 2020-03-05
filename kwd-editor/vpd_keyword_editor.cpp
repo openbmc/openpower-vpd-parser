@@ -2,7 +2,7 @@
 
 #include "vpd_keyword_editor.hpp"
 
-#include "const.hpp"
+#include "editor_impl.hpp"
 #include "parser.hpp"
 
 namespace openpower
