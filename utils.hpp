@@ -2,6 +2,9 @@
 
 #include "types.hpp"
 
+#include <iostream>
+
+using namespace std;
 namespace openpower
 {
 namespace vpd
@@ -30,6 +33,16 @@ using LE2ByteData = uint16_t;
  * @return returns 2 Byte data read at the given pointer
  */
 LE2ByteData readUInt16LE(Binary::const_iterator iterator);
+
+/** @brief - converts value to hex
+ */
+constexpr auto toHex(size_t c);
+
+/** @brief Encodes a keyword for D-Bus.
+ *  @param[in] kw - kwd data in string format
+ *  @param[in] encoding - required for kwd data
+ */
+string encodeKeyword(const string& kw, const string& encoding);
 
 } // namespace vpd
 } // namespace openpower
