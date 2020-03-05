@@ -3,10 +3,6 @@
 #include "parser.hpp"
 #include "utils.hpp"
 
-#include <fstream>
-#include <iostream>
-#include <iterator>
-
 #include "vpdecc/vpdecc.h"
 
 namespace openpower
@@ -250,18 +246,48 @@ void EditorImpl::readVTOC()
     checkPTForRecord(itrToRecord, ptLen);
 }
 
+template <typename T>
+void EditorImpl::makeDbusCall(const std::string& object,
+                              const std::string& interface,
+                              const std::string& property,
+                              const std::variant<T>& data)
+{
+    auto bus = sdbusplus::bus::new_default();
+    auto properties = bus.new_method_call(
+        service, object.c_str(), "org.freedesktop.DBus.Properties", "Set");
+    properties.append(interface);
+    properties.append(property);
+    properties.append(data);
+
+    auto result = bus.call(properties);
+
+    if (result.is_method_error())
+    {
+        throw std::runtime_error("bus call failed");
+    }
+}
+
 void EditorImpl::processAndUpdateCI(const std::string& objectPath)
 {
     for (auto& commonInterface : jsonFile["commonInterfaces"].items())
     {
         for (auto& ciPropertyList : commonInterface.value().items())
         {
-            if ((ciPropertyList.value().value("recordName", "") ==
-                 thisRecord.recName) &&
-                (ciPropertyList.value().value("keywordName", "") ==
-                 thisRecord.recKWd))
+            if (ciPropertyList.value().type() ==
+                nlohmann::json::value_t::object)
             {
-                // implement busctl call here
+                if ((ciPropertyList.value().value("recordName", "") ==
+                     thisRecord.recName) &&
+                    (ciPropertyList.value().value("keywordName", "") ==
+                     thisRecord.recKWd))
+                {
+                    std::string kwdData(thisRecord.kwdUpdatedData.begin(),
+                                        thisRecord.kwdUpdatedData.end());
+
+                    makeDbusCall<std::string>(
+                        (VPD_OBJ_PATH_PREFIX + objectPath),
+                        commonInterface.key(), ciPropertyList.key(), kwdData);
+                }
             }
         }
     }
@@ -276,12 +302,22 @@ void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
         {
             for (const auto& eiPropertyList : extraInterface.value().items())
             {
-                if ((eiPropertyList.value().value("recordName", "") ==
-                     thisRecord.recName) &&
-                    ((eiPropertyList.value().value("keywordName", "") ==
-                      thisRecord.recKWd)))
+                if (eiPropertyList.value().type() ==
+                    nlohmann::json::value_t::object)
                 {
-                    // implement busctl call here
+                    if ((eiPropertyList.value().value("recordName", "") ==
+                         thisRecord.recName) &&
+                        ((eiPropertyList.value().value("keywordName", "") ==
+                          thisRecord.recKWd)))
+                    {
+                        std::string kwdData(thisRecord.kwdUpdatedData.begin(),
+                                            thisRecord.kwdUpdatedData.end());
+                        makeDbusCall<std::string>(
+                            (VPD_OBJ_PATH_PREFIX + objPath),
+                            extraInterface.key(), eiPropertyList.key(),
+                            encodeKeyword(kwdData, eiPropertyList.value().value(
+                                                       "encoding", "")));
+                    }
                 }
             }
         }
@@ -296,13 +332,24 @@ void EditorImpl::updateCache()
     // iterate through all the inventories for this file path
     for (const auto& singleInventory : groupEEPROM)
     {
-        // process and update CI
-        const std::string& LocationCode =
-            singleInventory["extraInterfaces"][LOCATION_CODE_INF]
-                           ["LocationCode"]
-                               .get_ref<const nlohmann::json::string_t&>();
-        if (LocationCode.substr(1, 3) != "mts")
+        // by default inherit property is true
+        bool isInherit = true;
+
+        if (singleInventory.find("inherit") != singleInventory.end())
         {
+            isInherit = singleInventory["inherit"].get<bool>();
+        }
+
+        if (isInherit)
+        {
+            // update com interface
+            makeDbusCall<Binary>(
+                (VPD_OBJ_PATH_PREFIX +
+                 singleInventory["inventoryPath"].get<std::string>()),
+                (COM_INTERFACE_PREFIX + (std::string) "." + thisRecord.recName),
+                thisRecord.recKWd, thisRecord.kwdUpdatedData);
+
+            // process Common interface
             processAndUpdateCI(singleInventory["inventoryPath"]
                                    .get_ref<const nlohmann::json::string_t&>());
         }
