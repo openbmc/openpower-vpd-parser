@@ -1,6 +1,5 @@
 #include "utils.hpp"
 
-#include <iostream>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/server.hpp>
 
@@ -65,5 +64,43 @@ void callPIM(ObjectMap&& objects)
 
 } // namespace inventory
 
+/*readUInt16LE: Read 2 bytes LE data*/
+LE2ByteData readUInt16LE(Binary::const_iterator iterator)
+{
+    LE2ByteData lowByte = *iterator;
+    LE2ByteData highByte = *(iterator + 1);
+    lowByte |= (highByte << 8);
+    return lowByte;
+}
+
+constexpr auto toHex(size_t c)
+{
+    constexpr auto map = "0123456789abcdef";
+    return map[c];
+}
+
+/** @brief Encodes a keyword for D-Bus.
+ */
+string encodeKeyword(const string& kw, const string& encoding)
+{
+    if (encoding == "MAC")
+    {
+        string res{};
+        size_t first = kw[0];
+        res += toHex(first >> 4);
+        res += toHex(first & 0x0f);
+        for (size_t i = 1; i < kw.size(); ++i)
+        {
+            res += ":";
+            res += toHex(kw[i] >> 4);
+            res += toHex(kw[i] & 0x0f);
+        }
+        return res;
+    }
+    else // default to string encoding
+    {
+        return string(kw.begin(), kw.end());
+    }
+}
 } // namespace vpd
 } // namespace openpower
