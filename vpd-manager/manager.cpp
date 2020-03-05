@@ -2,7 +2,7 @@
 
 #include "manager.hpp"
 
-#include "const.hpp"
+#include "editor_impl.hpp"
 #include "parser.hpp"
 
 using namespace openpower::vpd::constants;
