@@ -3,6 +3,9 @@
 #include "const.hpp"
 #include "types.hpp"
 
+#include <iostream>
+
+using namespace std;
 namespace openpower
 {
 namespace vpd
@@ -40,5 +43,10 @@ void callPIM(ObjectMap&& objects);
 openpower::vpd::constants::LE2ByteData
     readUInt16LE(Binary::const_iterator iterator);
 
+/** @brief Encodes a keyword for D-Bus.
+ *  @param[in] kw - kwd data in string format
+ *  @param[in] encoding - required for kwd data
+ */
+string encodeKeyword(const string& kw, const string& encoding);
 } // namespace vpd
 } // namespace openpower
