@@ -122,6 +122,18 @@ class EditorImpl
     void processAndUpdateEI(const nlohmann::json& Inventory,
                             const inventory::Path& objPath);
 
+    /** @brief method to make busctl call
+     *
+     *  @param[in] object - bus object path
+     *  @param[in] interface - bus interface
+     *  @param[in] property - property to update on BUS
+     *  @param[in] data - data to be updayed on Bus
+     *
+     */
+    template <typename T>
+    void makeDbusCall(const std::string& object, const std::string& interface,
+                      const std::string& property, const std::variant<T>& data);
+
     // path to the VPD file to edit
     const inventory::Path& vpdFilePath;
 
