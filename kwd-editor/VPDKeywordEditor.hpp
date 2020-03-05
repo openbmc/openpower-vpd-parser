@@ -1,6 +1,5 @@
 #pragma once
 
-#include "editor.hpp"
 #include "types.hpp"
 
 #include <map>
