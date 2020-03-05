@@ -2,15 +2,8 @@
 
 #include "VPDKeywordEditor.hpp"
 
-#include "const.hpp"
+#include "editor.hpp"
 #include "parser.hpp"
-
-#include <chrono>
-#include <exception>
-#include <fstream>
-#include <iostream>
-#include <nlohmann/json.hpp>
-#include <vector>
 
 using namespace std::literals::chrono_literals;
 using namespace openpower::vpd::constants;

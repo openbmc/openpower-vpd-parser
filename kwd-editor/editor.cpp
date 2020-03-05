@@ -2,10 +2,6 @@
 
 #include "utils.hpp"
 
-#include <fstream>
-#include <iostream>
-#include <iterator>
-
 #include "vpdecc/vpdecc.h"
 
 namespace openpower
@@ -16,21 +12,6 @@ namespace keyword
 {
 namespace editor
 {
-static constexpr auto LAST_KW = "PF";
-static constexpr auto POUND_KW = '#';
-
-namespace lengths
-{
-enum Lengths
-{
-    RECORD_NAME = 4,
-    KW_NAME = 2,
-    RECORD_OFFSET = 2,
-    RECORD_LENGTH = 2,
-    RECORD_ECC_OFFSET = 2,
-};
-}
-
 void Editor::checkPTForRecord(RecordOffset ptOffset, std::size_t ptLength)
 {
     vpdFileStream.seekg(ptOffset);
@@ -94,8 +75,17 @@ void Editor::updateData(Binary kwdData)
     auto end = iteratorToNewdata;
     std::advance(end, lengthToUpdate);
 
+    std::size_t curPos = vpdFileStream.tellg();
+
     std::copy(iteratorToNewdata, end,
               std::ostreambuf_iterator<char>(vpdFileStream));
+
+    // get a hold to new data in case encoding is needed
+    vpdFileStream.seekg(curPos, std::ios::beg);
+    thisRecord.kwdupdatedData.resize(thisRecord.KwdDataLength);
+    vpdFileStream.read(
+        reinterpret_cast<char*>((thisRecord.kwdupdatedData).data()),
+        thisRecord.KwdDataLength);
 }
 
 void Editor::checkRecordForKwd()
@@ -153,7 +143,6 @@ void Editor::checkRecordForKwd()
             vpdFileStream.seekp(nameOffset + lengths::RECORD_NAME + kwdOffset,
                                 std::ios::beg);
             thisRecord.KwdDataLength = dataLength;
-
             return;
         }
 
@@ -190,6 +179,26 @@ void Editor::updateRecordECC()
               std::ostreambuf_iterator<char>(vpdFileStream));
 }
 
+template <typename T>
+void Editor::busctlCall(const std::string object, const std::string interface,
+                        const std::string property, const std::variant<T> data)
+{
+    auto bus = sdbusplus::bus::new_default();
+    auto properties =
+        bus.new_method_call(service.c_str(), object.c_str(),
+                            "org.freedesktop.DBus.Properties", "Set");
+    properties.append(interface);
+    properties.append(property);
+    properties.append(data);
+
+    auto result = bus.call(properties);
+
+    if (result.is_method_error())
+    {
+        throw std::runtime_error("bus call failed");
+    }
+}
+
 void Editor::processAndUpdateCI(const std::string objectPath)
 {
     for (auto& commonInterface : jsonFile["commonInterfaces"].items())
@@ -201,7 +210,12 @@ void Editor::processAndUpdateCI(const std::string objectPath)
                 (ci_propertyList.value().value("keywordName", "") ==
                  thisRecord.recKWd))
             {
-                // implement busctl call here
+                std::string kwdData(thisRecord.kwdupdatedData.begin(),
+                                    thisRecord.kwdupdatedData.end());
+
+                busctlCall<std::string>((VPD_OBJ_PATH_PREFIX + objectPath),
+                                        commonInterface.key(),
+                                        ci_propertyList.key(), kwdData);
             }
         }
     }
@@ -221,7 +235,13 @@ void Editor::processAndUpdateEI(nlohmann::json Inventory,
                     ((ei_propertyList.value().value("keywordName", "") ==
                       thisRecord.recKWd)))
                 {
-                    // implement busctl call here
+                    std::string kwdData(thisRecord.kwdupdatedData.begin(),
+                                        thisRecord.kwdupdatedData.end());
+                    busctlCall<std::string>(
+                        (VPD_OBJ_PATH_PREFIX + objPath), extraInterface.key(),
+                        ei_propertyList.key(),
+                        encodeKeyword(kwdData, ei_propertyList.value().value(
+                                                   "encoding", "")));
                 }
             }
         }
@@ -245,6 +265,14 @@ void Editor::updateCache()
 
         if (isInherit)
         {
+            // update com interface
+            busctlCall<Binary>(
+                (VPD_OBJ_PATH_PREFIX +
+                 singleInventory["inventoryPath"].get<std::string>()),
+                (COM_INTERFACE_PREFIX + "." + thisRecord.recName),
+                thisRecord.recKWd, thisRecord.kwdupdatedData);
+
+            // process Common interface
             processAndUpdateCI(
                 singleInventory["inventoryPath"].get<std::string>());
         }
