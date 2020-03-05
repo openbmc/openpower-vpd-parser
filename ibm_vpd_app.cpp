@@ -20,48 +20,6 @@ using namespace CLI;
 using namespace vpd::keyword::parser;
 using namespace vpdFormat;
 
-/** @brief Encodes a keyword for D-Bus.
- */
-static string encodeKeyword(const string& kw, const string& encoding)
-{
-    if (encoding == "MAC")
-    {
-        string res{};
-        size_t first = kw[0];
-        res += toHex(first >> 4);
-        res += toHex(first & 0x0f);
-        for (size_t i = 1; i < kw.size(); ++i)
-        {
-            res += ":";
-            res += toHex(kw[i] >> 4);
-            res += toHex(kw[i] & 0x0f);
-        }
-        return res;
-    }
-    else if (encoding == "DATE")
-    {
-        // Date, represent as
-        // <year>-<month>-<day> <hour>:<min>
-        string res{};
-        static constexpr uint8_t skipPrefix = 3;
-
-        auto strItr = kw.begin();
-        advance(strItr, skipPrefix);
-        for_each(strItr, kw.end(), [&res](size_t c) { res += c; });
-
-        res.insert(BD_YEAR_END, 1, '-');
-        res.insert(BD_MONTH_END, 1, '-');
-        res.insert(BD_DAY_END, 1, ' ');
-        res.insert(BD_HOUR_END, 1, ':');
-
-        return res;
-    }
-    else // default to string encoding
-    {
-        return string(kw.begin(), kw.end());
-    }
-}
-
 /** @brief Reads a property from the inventory manager given object path,
  * intreface and property.
  */
