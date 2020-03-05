@@ -2,7 +2,7 @@
 
 #include "VPDKeywordEditor.hpp"
 
-#include "const.hpp"
+#include "editor.hpp"
 #include "parser.hpp"
 
 #include <tuple>
