@@ -43,6 +43,7 @@ constexpr uint8_t RECORD_END_TAG = 0x78;
 
 const std::string service = "xyz.openbmc_project.Inventory.Manager";
 const std::string VPD_OBJ_PATH_PREFIX = "/xyz/openbmc_project/inventory";
+const std::string COM_INTERFACE_PREFIX = "com.ibm.ipzvpd";
 
 namespace lengths
 {
