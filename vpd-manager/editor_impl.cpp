@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "editor_impl.hpp"
 
 #include "utils.hpp"
@@ -84,28 +86,32 @@ void EditorImpl::updateData(Binary kwdData)
     vpdFileStream.read(
         reinterpret_cast<char*>((thisRecord.kwdUpdatedData).data()),
         thisRecord.kwdDataLength);
+
+    // Update the recData to reflect the newly updated keyword
+    auto recDataItr = thisRecord.recData.begin() + thisRecord.relKwOffset;
+    std::copy(iteratorToNewdata, end, recDataItr);
 }
 
 void EditorImpl::checkRecordForKwd()
 {
     RecordOffset recOffset = thisRecord.recOffset;
 
-    // Jump to record name
-    auto nameOffset = recOffset + sizeof(RecordId) + sizeof(RecordSize) +
-                      // Skip past the RT keyword, which contains
-                      // the record name.
-                      lengths::KW_NAME + sizeof(KwSize);
+    // Amount to skip for record ID, size, and the RT keyword
+    constexpr auto skipBeg = sizeof(RecordId) + sizeof(RecordSize) +
+                             lengths::KW_NAME + sizeof(KwSize);
+    auto nameOffset = recOffset + skipBeg;
 
-    vpdFileStream.seekg(nameOffset + lengths::RECORD_NAME, std::ios::beg);
+    vpdFileStream.seekg(recOffset, std::ios::beg);
 
     (thisRecord.recData).resize(thisRecord.recSize);
     vpdFileStream.read(reinterpret_cast<char*>((thisRecord.recData).data()),
                        thisRecord.recSize);
 
-    auto iterator = (thisRecord.recData).cbegin();
+    auto iterator =
+        (thisRecord.recData).cbegin() + skipBeg + lengths::RECORD_NAME;
     auto end = (thisRecord.recData).cend();
-
     std::size_t dataLength = 0;
+    auto start = iterator;
     while (iterator < end)
     {
         // Note keyword name
@@ -136,8 +142,9 @@ void EditorImpl::checkRecordForKwd()
         if (thisRecord.recKWd == kw)
         {
             // We're done
-            std::size_t kwdOffset =
-                std::distance((thisRecord.recData).cbegin(), iterator);
+            std::size_t kwdOffset = std::distance(start, iterator);
+            thisRecord.relKwOffset =
+                std::distance(thisRecord.recData.cbegin(), iterator);
             vpdFileStream.seekp(nameOffset + lengths::RECORD_NAME + kwdOffset,
                                 std::ios::beg);
             thisRecord.kwdDataLength = dataLength;
@@ -173,6 +180,7 @@ void EditorImpl::updateRecordECC()
     auto end = (thisRecord.recEccData).cbegin();
     std::advance(end, thisRecord.recECCLength);
 
+    vpdFileStream.seekp(thisRecord.recECCoffset, std::ios::beg);
     std::copy((thisRecord.recEccData).cbegin(), end,
               std::ostreambuf_iterator<char>(vpdFileStream));
 }
@@ -263,8 +271,9 @@ void EditorImpl::makeDbusCall(const std::string& object,
                               const std::variant<T>& data)
 {
     auto bus = sdbusplus::bus::new_default();
-    auto properties = bus.new_method_call(
-        service, object.c_str(), "org.freedesktop.DBus.Properties", "Set");
+    auto properties =
+        bus.new_method_call(INVENTORY_MANAGER_SERVICE, object.c_str(),
+                            "org.freedesktop.DBus.Properties", "Set");
     properties.append(interface);
     properties.append(property);
     properties.append(data);
@@ -294,9 +303,9 @@ void EditorImpl::processAndUpdateCI(const std::string& objectPath)
                     std::string kwdData(thisRecord.kwdUpdatedData.begin(),
                                         thisRecord.kwdUpdatedData.end());
 
-                    makeDbusCall<std::string>(
-                        (VPD_OBJ_PATH_PREFIX + objectPath),
-                        commonInterface.key(), ciPropertyList.key(), kwdData);
+                    makeDbusCall<std::string>((INVENTORY_PATH + objectPath),
+                                              commonInterface.key(),
+                                              ciPropertyList.key(), kwdData);
                 }
             }
         }
@@ -323,8 +332,8 @@ void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
                         std::string kwdData(thisRecord.kwdUpdatedData.begin(),
                                             thisRecord.kwdUpdatedData.end());
                         makeDbusCall<std::string>(
-                            (VPD_OBJ_PATH_PREFIX + objPath),
-                            extraInterface.key(), eiPropertyList.key(),
+                            (INVENTORY_PATH + objPath), extraInterface.key(),
+                            eiPropertyList.key(),
                             encodeKeyword(kwdData, eiPropertyList.value().value(
                                                        "encoding", "")));
                     }
@@ -351,9 +360,9 @@ void EditorImpl::updateCache()
         {
             // update com interface
             makeDbusCall<Binary>(
-                (VPD_OBJ_PATH_PREFIX +
+                (INVENTORY_PATH +
                  singleInventory["inventoryPath"].get<std::string>()),
-                (COM_INTERFACE_PREFIX + (std::string) "." + thisRecord.recName),
+                (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
                 thisRecord.recKWd, thisRecord.kwdUpdatedData);
 
             // process Common interface
