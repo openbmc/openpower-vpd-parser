@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "editor_impl.hpp"
 
 #include "utils.hpp"
@@ -263,8 +265,9 @@ void EditorImpl::makeDbusCall(const std::string& object,
                               const std::variant<T>& data)
 {
     auto bus = sdbusplus::bus::new_default();
-    auto properties = bus.new_method_call(
-        service, object.c_str(), "org.freedesktop.DBus.Properties", "Set");
+    auto properties =
+        bus.new_method_call(INVENTORY_MANAGER_SERVICE, object.c_str(),
+                            "org.freedesktop.DBus.Properties", "Set");
     properties.append(interface);
     properties.append(property);
     properties.append(data);
@@ -291,7 +294,7 @@ void EditorImpl::processAndUpdateCI(const std::string& objectPath)
                 std::string kwdData(thisRecord.kwdUpdatedData.begin(),
                                     thisRecord.kwdUpdatedData.end());
 
-                makeDbusCall<std::string>((VPD_OBJ_PATH_PREFIX + objectPath),
+                makeDbusCall<std::string>((INVENTORY_PATH + objectPath),
                                           commonInterface.key(),
                                           ci_propertyList.key(), kwdData);
             }
@@ -316,7 +319,7 @@ void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
                     std::string kwdData(thisRecord.kwdUpdatedData.begin(),
                                         thisRecord.kwdUpdatedData.end());
                     makeDbusCall<std::string>(
-                        (VPD_OBJ_PATH_PREFIX + objPath), extraInterface.key(),
+                        (INVENTORY_PATH + objPath), extraInterface.key(),
                         ei_PropertyList.key(),
                         encodeKeyword(kwdData, ei_PropertyList.value().value(
                                                    "encoding", "")));
@@ -346,9 +349,9 @@ void EditorImpl::updateCache()
         {
             // update com interface
             makeDbusCall<Binary>(
-                (VPD_OBJ_PATH_PREFIX +
+                (INVENTORY_PATH +
                  singleInventory["inventoryPath"].get<std::string>()),
-                (COM_INTERFACE_PREFIX + (std::string) "." + thisRecord.recName),
+                (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
                 thisRecord.recKWd, thisRecord.kwdUpdatedData);
 
             // process Common interface
