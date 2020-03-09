@@ -20,7 +20,7 @@ namespace server
 {
 
 Editor::Editor(bus::bus& bus, const char* path) :
-    _com_ibm_vpd_Editor_interface(bus, path, _interface, _vtable, this),
+    _com_ibm_vpd_Editor_interface(bus, path, interface, _vtable, this),
     _intf(bus.getInterface())
 {
 }
