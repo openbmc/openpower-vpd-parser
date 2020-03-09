@@ -41,10 +41,6 @@ constexpr int IPZ_DATA_START = 11;
 constexpr uint8_t KW_VAL_PAIR_START_TAG = 0x84;
 constexpr uint8_t RECORD_END_TAG = 0x78;
 
-static constexpr auto service = "xyz.openbmc_project.Inventory.Manager";
-static constexpr auto VPD_OBJ_PATH_PREFIX = "/xyz/openbmc_project/inventory";
-static constexpr auto COM_INTERFACE_PREFIX = "com.ibm.ipzvpd";
-
 namespace lengths
 {
 enum Lengths
