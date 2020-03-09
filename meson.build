@@ -118,3 +118,6 @@ else
         )
 endif
 subdir('test')
+if get_option('kwd-editor').enabled()
+    subdir('kwd-editor')
+endif
