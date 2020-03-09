@@ -1,14 +1,6 @@
-project('vpd-kwd-editor',
-        'cpp',
-        'c',
-        default_options : ['cpp_std=c++17'],
-        version : '1.0')
-sdbusplus = dependency('sdbusplus')
-phosphor_logging = dependency('phosphor-logging')
 systemd = dependency('libsystemd', version : '>= 221')
 phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
 
-compiler = meson.get_compiler('cpp')
 compiler.has_header('CLI/CLI.hpp')
 compiler.has_header('nlohmann/json.hpp')
 
