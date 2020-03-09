@@ -23,8 +23,11 @@ configure_file(output: 'config.h',
                        configuration :{
                        'INVENTORY_JSON': '"'+get_option('INVENTORY_JSON')+'"',
                        'INVENTORY_PATH': '"'+get_option('INVENTORY_PATH')+'"',
+		       'IPZ_INTERFACE': '"'+get_option('IPZ_INTERFACE')+'"',
 		       'INVENTORY_MANAGER_SERVICE': '"'+get_option('INVENTORY_MANAGER_SERVICE')+'"',
-		       'IPZ_INTERFACE': '"'+get_option('IPZ_INTERFACE')+'"'
+                       'BUSNAME' : '"' + get_option('BUSNAME') + '"',
+                       'OBJPATH' : '"' + get_option('OBJPATH') + '"',
+                       'IFACE' : '"' + get_option('IFACE') + '"',
                        }
   )
         ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',
@@ -60,6 +63,10 @@ configure_file(output: 'config.h',
                                    ],
                                  install: true,
                                  )
+if get_option('vpd-manager').enabled()
+    subdir('vpd-manager')
+endif
+
 else
         FRUGEN = '$srcdir/extra-properties.py -e' + get_option('FRU_YAML')
         PROPGEN = '$srcdir/extra-properties.py -e' + get_option('PROP_YAML')
