@@ -155,11 +155,12 @@ class EditorImpl
         std::size_t recECCLength;
         std::size_t kwdDataLength;
         openpower::vpd::constants::RecordSize recSize;
+        std::size_t relKwOffset; // Relative offset of the keyword wrt recData
 
         // constructor
         RecInfo(const std::string& rec, const std::string& kwd) :
             recName(rec), recKWd(kwd), recOffset(0), recECCoffset(0),
-            recECCLength(0), kwdDataLength(0), recSize(0)
+            recECCLength(0), kwdDataLength(0), recSize(0), relKwOffset(0)
         {
         }
     } thisRecord;
