@@ -23,8 +23,8 @@ configure_file(output: 'config.h',
                        configuration :{
                        'INVENTORY_JSON': '"'+get_option('INVENTORY_JSON')+'"',
                        'INVENTORY_PATH': '"'+get_option('INVENTORY_PATH')+'"',
-		       'IPZ_INTERFACE': '"'+get_option('IPZ_INTERFACE')+'"'
-		       'INVENTORY_MANAGER_SERVICE': '"'+get_option('INVENTORY_MANAGER_SERVICE')+'"'
+		       'IPZ_INTERFACE': '"'+get_option('IPZ_INTERFACE')+'"',
+		       'INVENTORY_MANAGER_SERVICE': '"'+get_option('INVENTORY_MANAGER_SERVICE')+'"',
                        'BUSNAME' : '"' + get_option('BUSNAME') + '"',
                        'OBJPATH' : '"' + get_option('OBJPATH') + '"',
                        'IFACE' : '"' + get_option('IFACE') + '"',
