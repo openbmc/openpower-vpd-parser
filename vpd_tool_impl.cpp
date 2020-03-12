@@ -1,5 +1,6 @@
 #include "vpd_tool_impl.hpp"
 
+#include <iomanip>
 #include <iostream>
 #include <sdbusplus/bus.hpp>
 #include <sstream>
@@ -311,4 +312,52 @@ void VpdTool::readKeyword()
     output.emplace(fruPath, kwVal);
 
     debugger(output);
+}
+
+int VpdTool::updateKeyword()
+{
+    Binary val;
+
+    if (value.find("0x") == string::npos)
+    {
+        val.assign(value.begin(), value.end());
+    }
+    else if (value.find("0x") != string::npos)
+    {
+        stringstream ss;
+        ss.str(value.substr(2));
+        string byteStr{};
+
+        while (!ss.eof())
+        {
+            ss >> setw(2) >> byteStr;
+            uint8_t byte = std::strtoul(byteStr.c_str(), nullptr, 16);
+
+            val.push_back(byte);
+        }
+    }
+
+    else
+    {
+        throw runtime_error("The value to be updated should be either in ascii "
+                            "or in hex. Refer --help option");
+    }
+
+    // writeKeyword(fruPath, recordName, keyword, val);
+
+    auto bus = sdbusplus::bus::new_default();
+    auto properties =
+        bus.new_method_call("com.ibm.vpd.Editor", "/com/ibm/vpd/Editor",
+                            "com.ibm.vpd.Editor", "WriteKeyword");
+    properties.append(fruPath);
+    properties.append(recordName);
+    properties.append(keyword);
+    properties.append(val);
+    auto result = bus.call(properties);
+
+    if (result.is_method_error())
+    {
+        throw runtime_error("Get api failed");
+    }
+    return 0;
 }
