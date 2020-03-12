@@ -1,7 +1,6 @@
 #include "config.h"
 
 #include "types.hpp"
-
 #include <nlohmann/json.hpp>
 
 class VpdTool
@@ -10,6 +9,7 @@ class VpdTool
     const std::string fruPath;
     const std::string recordName;
     const std::string keyword;
+    const std::string value;
 
   public:
     /**
@@ -36,10 +36,21 @@ class VpdTool
     void readKeyword();
 
     /**
+     * @brief Update Keyword
+     *
+     * Update the given keyword with the given value.
+     *
+     * @return return code (Success(0)/Failure(-1))
+     */
+    int updateKeyword();
+
+    /**
      * @brief A Constructor
      *
      * Constructor is called during the
      * object instantiation for dumpInventory option.
+     *
+     * @return return code (success/failure)
      */
     VpdTool()
     {
@@ -65,6 +76,20 @@ class VpdTool
             const std::string&& kw) :
         fruPath(std::move(fru)),
         recordName(std::move(recName)), keyword(std::move(kw))
+    {
+    }
+
+    /**
+     * @brief Move Constructor
+     *
+     * Move constructor is called during the
+     * object instantiation for updateKeyword option.
+     */
+
+    VpdTool(const string&& fru, const string&& recName, const string&& kw,
+            const string&& val) :
+        fruPath(move(fru)),
+        recordName(move(recName)), keyword(move(kw)), value(move(val))
     {
     }
 };
