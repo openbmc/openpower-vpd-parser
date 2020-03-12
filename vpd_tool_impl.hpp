@@ -10,6 +10,7 @@ class VpdTool
     const std::string fruPath;
     const std::string recordName;
     const std::string keyword;
+    const std::string value;
 
   public:
     /**
@@ -36,10 +37,21 @@ class VpdTool
     void readKeyword();
 
     /**
+     * @brief Update Keyword
+     *
+     * Update the given keyword with the given value.
+     *
+     * @return return code (Success(0)/Failure(-1))
+     */
+    int updateKeyword();
+
+    /**
      * @brief A Constructor
      *
      * Constructor is called during the
      * object instantiation for dumpInventory option.
+     *
+     * @return return code (success/failure)
      */
     VpdTool()
     {
@@ -65,6 +77,21 @@ class VpdTool
             const std::string&& kw) :
         fruPath(std::move(fru)),
         recordName(std::move(recName)), keyword(std::move(kw))
+    {
+    }
+
+    /**
+     * @brief Constructor
+     *
+     * Constructor is called during the
+     * object instantiation for updateKeyword option.
+     */
+
+    VpdTool(const std::string&& fru, const std::string&& recName,
+            const std::string&& kw, const std::string&& val) :
+        fruPath(std::move(fru)),
+        recordName(std::move(recName)), keyword(std::move(kw)),
+        value(std::move(val))
     {
     }
 };
