@@ -10,18 +10,24 @@ using json = nlohmann::json;
 
 int main(int argc, char** argv)
 {
+    int rc = 0;
     App app{"VPD Command line tool to dump the inventory and to read and "
             "update the keywords"};
 
     string objectPath{};
     string recordName{};
     string keyword{};
+    string val{};
 
     auto object =
         app.add_option("--object, -O", objectPath, "Enter the Object Path");
     auto record =
         app.add_option("--record, -R", recordName, "Enter the Record Name");
     auto kw = app.add_option("--keyword, -K", keyword, "Enter the Keyword");
+    auto valOption = app.add_option(
+        "--value, -V", val,
+        "Enter the value. The value to be updated should be either in ascii or "
+        "in hex. ascii eg: 01234; hex eg: 0x30313233");
 
     auto dumpObjFlag =
         app.add_flag("--dumpObject, -o",
@@ -43,6 +49,16 @@ int main(int argc, char** argv)
             ->needs(object)
             ->needs(record)
             ->needs(kw);
+    auto writeFlag =
+        app.add_flag(
+               "--writeKeyword, -w, --updateKeyword, -u",
+               "Update the value. { vpd-tool-exe --writeKeyword/-w/--updateKeyword/-u "
+               "--object/-O object-name --record/-R record-name --keyword/-K "
+               "keyword-name --value/-V value-to-be-updated }")
+            ->needs(object)
+            ->needs(record)
+            ->needs(kw)
+            ->needs(valOption);
 
     CLI11_PARSE(app, argc, argv);
 
@@ -70,6 +86,13 @@ int main(int argc, char** argv)
             vpdToolObj.readKeyword();
         }
 
+        else if (*writeFlag)
+        {
+            VpdTool vpdToolObj(move(objectPath), move(recordName),
+                               move(keyword), move(val));
+            rc = vpdToolObj.updateKeyword();
+        }
+
         else
         {
             throw runtime_error("One of the valid options is required. Refer "
@@ -82,5 +105,5 @@ int main(int argc, char** argv)
         cerr << e.what();
     }
 
-    return 0;
+    return rc;
 }
