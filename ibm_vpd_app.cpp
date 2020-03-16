@@ -277,6 +277,26 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                                    isSystemVpd);
             }
         }
+        else
+        {
+            // Check if we have been asked to inherit specific record(s)
+            if constexpr (std::is_same<T, Parsed>::value)
+            {
+                if(item.find("copyRecords") != item.end())
+                {
+                    for (const auto& record : item["copyRecords"])
+                    {
+                        const string& recordName = record;
+                        if(vpdMap.find(recordName) != vpdMap.end())
+                        {
+                            populateFruSpecificInterfaces(
+                                vpdMap.at(recordName), preIntrStr + recordName,
+                                interfaces);
+                        }
+                    }
+                }
+            }
+        }
 
         // Populate interfaces and properties that are common to every FRU
         // and additional interface that might be defined on a per-FRU basis.
