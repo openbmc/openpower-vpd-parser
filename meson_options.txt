@@ -10,3 +10,7 @@ option('BUSNAME', type : 'string', value : 'xyz.openbmc_project.Inventory.VPD.VP
 option('OBJPATH', type : 'string', value : '/xyz/openbmc_project/Inventory/VPD', description : 'OBJECT PATH FOT THE SERVICE')
 option('IFACE', type : 'string', value : 'xyz.openbmc_project.Inventory.VPD.VPDKeywordEditor', description : 'INTERFACE NAME')
 option('kwd-editor', type: 'feature', description: 'ENABLE KWD-EDITOR APPLICATION')
+option('OBJECT_MAPPER_SERVICE', type : 'string', value : 'xyz.openbmc_project.ObjectMapper', description : 'Object Mapper service')
+option('OBJECT_MAPPER_OBJECT', type : 'string', value : '/xyz/openbmc_project/object_mapper', description : 'One of the objects in Object Mapper service')
+option('POWER_SUPPLY_INTERFACE', type : 'string', value : 'xyz.openbmc_project.Inventory.Item.PowerSupply', description : 'Power Supply Interface')
+option('POWER_SUPPLY_TYPE', type : 'string', value : 'xyz.openbmc_project.Inventory.Item.PowerSupply', description : 'Indicates the fru is of type Power Supply')

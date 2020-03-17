@@ -15,6 +15,28 @@ using namespace std;
 using json = nlohmann::json;
 using sdbusplus::exception::SdBusError;
 using namespace openpower::vpd;
+
+void getPowerSupplyAndFanFruPath(vector<string>& powSuppFanFrus)
+{
+    auto bus = sdbusplus::bus::new_default();
+    auto properties = bus.new_method_call(
+        OBJECT_MAPPER_SERVICE, OBJECT_MAPPER_OBJECT,
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
+    properties.append(INVENTORY_PATH);
+    properties.append(0);
+    properties.append(1);
+    properties.append(POWER_SUPPLY_INTERFACE);
+
+    auto result = bus.call(properties);
+
+    if (result.is_method_error())
+    {
+        throw runtime_error("Get api failed");
+    }
+
+    result.read(powSuppFanFrus);
+}
+
 /**
  * @brief Debugger
  *
@@ -64,13 +86,23 @@ auto makeDBusCall(const string& objectName, const string& interface,
  */
 void addFruTypeAndLocation(json exIntf, const string& object, json& kwVal)
 {
-    for (auto intf : exIntf.items())
+    if (object.find("powersupply") != string::npos)
     {
-        if ((intf.key().find("Item") != string::npos) &&
-            (intf.value().is_null()))
+        kwVal.emplace("type", POWER_SUPPLY_TYPE);
+    }
+
+    // add else if statement for fan fru
+
+    else
+    {
+        for (auto intf : exIntf.items())
         {
-            kwVal.emplace("type", intf.key());
-            break;
+            if ((intf.key().find("Item") != string::npos) &&
+                (intf.value().is_null()))
+            {
+                kwVal.emplace("type", intf.key());
+                break;
+            }
         }
     }
 
@@ -289,6 +321,15 @@ void VpdTool::dumpInventory(const nlohmann::basic_json<>& jsObject)
     char flag = 'I';
     json output = parseInvJson(jsObject, flag, "");
 
+    vector<string> powSuppFanFrus;
+
+    getPowerSupplyAndFanFruPath(powSuppFanFrus);
+
+    for (auto& fru : powSuppFanFrus)
+    {
+        output.emplace_back(callVINI(fru, nlohmann::detail::value_t::null));
+    }
+
 #ifdef DUMP_INVENTORY
     debugger(output);
 #endif
@@ -297,7 +338,20 @@ void VpdTool::dumpInventory(const nlohmann::basic_json<>& jsObject)
 void VpdTool::dumpObject(const nlohmann::basic_json<>& jsObject)
 {
     char flag = 'O';
-    json output = parseInvJson(jsObject, flag, fruPath);
+    json output = json::object({});
+    vector<string> powSuppFanFrus;
+
+    getPowerSupplyAndFanFruPath(powSuppFanFrus);
+
+    if (find(powSuppFanFrus.begin(), powSuppFanFrus.end(), fruPath) !=
+        powSuppFanFrus.end())
+    {
+        output.emplace_back(callVINI(fruPath, nlohmann::detail::value_t::null));
+    }
+    else
+    {
+        output.emplace_back(parseInvJson(jsObject, flag, fruPath));
+    }
 
 #ifdef DUMP_OBJECT
     debugger(output);

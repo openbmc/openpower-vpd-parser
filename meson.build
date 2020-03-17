@@ -23,7 +23,11 @@ configure_file(output: 'config.h',
                        configuration :{
                        'INVENTORY_JSON': '"'+get_option('INVENTORY_JSON')+'"',
                        'INVENTORY_PATH': '"'+get_option('INVENTORY_PATH')+'"',
-		       'INVENTORY_MANAGER_SERVICE': '"'+get_option('INVENTORY_MANAGER_SERVICE')+'"'
+		       'INVENTORY_MANAGER_SERVICE': '"'+get_option('INVENTORY_MANAGER_SERVICE')+'"',
+		       'OBJECT_MAPPER_SERVICE' : '"'+get_option('OBJECT_MAPPER_SERVICE')+'"',
+		       'OBJECT_MAPPER_OBJECT' : '"'+get_option('OBJECT_MAPPER_OBJECT')+'"',
+		       'POWER_SUPPLY_INTERFACE' : '"'+get_option('POWER_SUPPLY_INTERFACE')+'"',
+		       'POWER_SUPPLY_TYPE' : '"'+get_option('POWER_SUPPLY_TYPE')+'"'
                        }
   )
         ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',

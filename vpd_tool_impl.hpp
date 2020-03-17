@@ -1,6 +1,7 @@
 #include "config.h"
 
 #include "types.hpp"
+
 #include <nlohmann/json.hpp>
 
 class VpdTool
@@ -86,10 +87,11 @@ class VpdTool
      * object instantiation for updateKeyword option.
      */
 
-    VpdTool(const string&& fru, const string&& recName, const string&& kw,
-            const string&& val) :
-        fruPath(move(fru)),
-        recordName(move(recName)), keyword(move(kw)), value(move(val))
+    VpdTool(const std::string&& fru, const std::string&& recName,
+            const std::string&& kw, const std::string&& val) :
+        fruPath(std::move(fru)),
+        recordName(std::move(recName)), keyword(std::move(kw)),
+        value(std::move(val))
     {
     }
 };
