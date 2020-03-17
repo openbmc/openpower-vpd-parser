@@ -102,6 +102,11 @@ class VpdTool
      */
     json parseInvJson(const json& jsObject, char flag, std::string fruPath);
 
+    /**
+     * @brief getPowerSupplyFruPath
+     */
+    void getPowerSupplyFruPath(vector<string>& powSuppFrus);
+
   public:
     /**
      * @brief Dump the complete inventory in JSON format
@@ -134,7 +139,7 @@ class VpdTool
     int updateKeyword();
 
     /**
-     * @brief A Constructor
+     * @brief Constructor
      * Constructor is called during the
      * object instantiation for dumpInventory option.
      */
