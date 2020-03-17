@@ -44,11 +44,9 @@ class VpdTool
     int updateKeyword();
 
     /**
-     * @brief A Constructor
+     * @brief Constructor
      * Constructor is called during the
      * object instantiation for dumpInventory option.
-     *
-     * @return return code (success/failure)
      */
     VpdTool()
     {
