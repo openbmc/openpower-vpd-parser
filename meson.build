@@ -28,6 +28,10 @@ configure_file(output: 'config.h',
                        'BUSNAME' : '"' + get_option('BUSNAME') + '"',
                        'OBJPATH' : '"' + get_option('OBJPATH') + '"',
                        'IFACE' : '"' + get_option('IFACE') + '"',
+		       'OBJECT_MAPPER_SERVICE' : '"'+get_option('OBJECT_MAPPER_SERVICE')+'"',
+		       'OBJECT_MAPPER_OBJECT' : '"'+get_option('OBJECT_MAPPER_OBJECT')+'"',
+		       'POWER_SUPPLY_INTERFACE' : '"'+get_option('POWER_SUPPLY_INTERFACE')+'"',
+		       'POWER_SUPPLY_TYPE' : '"'+get_option('POWER_SUPPLY_TYPE')+'"'
                        }
   )
         ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',
