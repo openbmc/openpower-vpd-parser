@@ -11,3 +11,6 @@ option('BUSNAME', type : 'string', value : 'com.ibm.VPD.Manager',description : '
 option('OBJPATH', type : 'string', value : '/com/ibm/VPD/Manager', description : 'OBJECT PATH FOT THE SERVICE')
 option('IFACE', type : 'string', value : 'com.ibm.VPD.Manager', description : 'INTERFACE NAME')
 option('vpd-manager', type: 'feature', description: 'ENABLE VPD-MANAGERR APPLICATION')
+option('OBJECT_MAPPER_SERVICE', type : 'string', value : 'xyz.openbmc_project.ObjectMapper', description : 'Object Mapper service')
+option('OBJECT_MAPPER_OBJECT', type : 'string', value : '/xyz/openbmc_project/object_mapper', description : 'One of the objects in Object Mapper service')
+option('POWER_SUPPLY_TYPE_INTERFACE', type : 'string', value : 'xyz.openbmc_project.Inventory.Item.PowerSupply', description : 'Power Supply Type Interface')
