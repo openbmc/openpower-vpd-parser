@@ -1,5 +1,7 @@
 #include "vpd_tool_impl.hpp"
 
+#include <cstdlib>
+#include <filesystem>
 #include <iomanip>
 #include <iostream>
 #include <sdbusplus/bus.hpp>
@@ -11,6 +13,30 @@ using namespace std;
 using json = nlohmann::json;
 using sdbusplus::exception::SdBusError;
 using namespace openpower::vpd;
+namespace fs = std::filesystem;
+
+/**
+ * @brief getPowerSupplyFruPath
+ */
+void getPowerSupplyFruPath(vector<string>& powSuppFrus)
+{
+    auto bus = sdbusplus::bus::new_default();
+    auto properties = bus.new_method_call(
+        OBJECT_MAPPER_SERVICE, OBJECT_MAPPER_OBJECT,
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
+    properties.append(INVENTORY_PATH);
+    properties.append(0);
+    properties.append(std::array<const char*, 1>{POWER_SUPPLY_TYPE_INTERFACE});
+
+    auto result = bus.call(properties);
+
+    if (result.is_method_error())
+    {
+        throw runtime_error("Get api failed");
+    }
+
+    result.read(powSuppFrus);
+}
 
 /**
  * @brief Debugger
@@ -61,13 +87,23 @@ auto makeDBusCall(const string& objectName, const string& interface,
  */
 void addFruTypeAndLocation(json exIntf, const string& object, json& kwVal)
 {
-    for (auto intf : exIntf.items())
+    if (object.find("powersupply") != string::npos)
     {
-        if ((intf.key().find("Item") != string::npos) &&
-            (intf.value().is_null()))
+        kwVal.emplace("type", POWER_SUPPLY_TYPE_INTERFACE);
+    }
+
+    // add else if statement for fan fru
+
+    else
+    {
+        for (auto intf : exIntf.items())
         {
-            kwVal.emplace("type", intf.key());
-            break;
+            if ((intf.key().find("Item") != string::npos) &&
+                (intf.value().is_null()))
+            {
+                kwVal.emplace("type", intf.key());
+                break;
+            }
         }
     }
 
@@ -293,14 +329,40 @@ json parseInvJson(const json& jsObject, char flag, string fruPath)
 void VpdTool::dumpInventory(const nlohmann::basic_json<>& jsObject)
 {
     char flag = 'I';
-    json output = parseInvJson(jsObject, flag, "");
+    json output = json::array({});
+    output.emplace_back(parseInvJson(jsObject, flag, ""));
+
+    vector<string> powSuppFrus;
+
+    getPowerSupplyFruPath(powSuppFrus);
+
+    for (const auto& fru : powSuppFrus)
+    {
+        output.emplace_back(
+            getVINIProperties(fru, nlohmann::detail::value_t::null));
+    }
+
     debugger(output);
 }
 
 void VpdTool::dumpObject(const nlohmann::basic_json<>& jsObject)
 {
     char flag = 'O';
-    json output = parseInvJson(jsObject, flag, fruPath);
+    json output = json::array({});
+    vector<string> powSuppFrus;
+
+    getPowerSupplyFruPath(powSuppFrus);
+
+    if (find(powSuppFrus.begin(), powSuppFrus.end(), fruPath) !=
+        powSuppFrus.end())
+    {
+        output.emplace_back(
+            getVINIProperties(fruPath, nlohmann::detail::value_t::null));
+    }
+    else
+    {
+        output.emplace_back(parseInvJson(jsObject, flag, fruPath));
+    }
     debugger(output);
 }
 
@@ -370,4 +432,39 @@ int VpdTool::updateKeyword()
         throw runtime_error("Get api failed");
     }
     return 0;
+}
+
+void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
+{
+    for (const auto& itemFRUS : jsObject["frus"].items())
+    {
+        for (const auto& itemEEPROM : itemFRUS.value().items())
+        {
+            string fru = itemEEPROM.value().at("inventoryPath");
+
+            fs::path fruCachePath = INVENTORY_MANAGER_CACHE;
+            fruCachePath += INVENTORY_PATH;
+            fruCachePath += fru;
+
+            for (const auto& it : fs::directory_iterator(fruCachePath))
+            {
+                if (fs::is_regular_file(it.status()))
+                {
+                    fs::remove(it);
+                }
+            }
+        }
+    }
+    string udevRemove = "udevadm trigger -c remove -s \"*nvmem*\" -v";
+    system(udevRemove.c_str());
+
+    string invManagerRestart =
+        "systemctl restart xyz.openbmc_project.Inventory.Manager.service";
+    system(invManagerRestart.c_str());
+
+    string sysVpdStop = "systemctl stop system-vpd.service";
+    system(sysVpdStop.c_str());
+
+    string udevAdd = "udevadm trigger -c add -s \"*nvmem*\" -v";
+    system(udevAdd.c_str());
 }
