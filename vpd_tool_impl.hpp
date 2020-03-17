@@ -104,6 +104,18 @@ class VpdTool
      */
     json parseInvJson(const json& jsObject, char flag, std::string fruPath);
 
+    /**
+     * @brief getPowerSupplyFruPath
+     */
+    void getPowerSupplyFruPath(std::vector<std::string>& powSuppFrus);
+
+    /**
+     * @brief eraseInventoryPath
+     * Remove the INVENTORY_PATH - "/xyz/openbmc_project/inventory"
+     * for code convenience.
+     */
+    void eraseInventoryPath(std::string& fru);
+
   public:
     /**
      * @brief Dump the complete inventory in JSON format
@@ -136,7 +148,7 @@ class VpdTool
     int updateKeyword();
 
     /**
-     * @brief A Constructor
+     * @brief Constructor
      * Constructor is called during the
      * object instantiation for dumpInventory option.
      */

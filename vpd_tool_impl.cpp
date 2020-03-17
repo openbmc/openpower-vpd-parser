@@ -1,5 +1,7 @@
 #include "vpd_tool_impl.hpp"
 
+#include <cstdlib>
+#include <filesystem>
 #include <iomanip>
 #include <iostream>
 #include <sdbusplus/bus.hpp>
@@ -10,6 +12,32 @@
 using namespace std;
 using sdbusplus::exception::SdBusError;
 using namespace openpower::vpd;
+namespace fs = std::filesystem;
+
+void VpdTool::eraseInventoryPath(string& fru)
+{
+	fru.erase(0,30);
+}
+
+void VpdTool::getPowerSupplyFruPath(vector<string>& powSuppFrus)
+{
+    auto bus = sdbusplus::bus::new_default();
+    auto properties = bus.new_method_call(
+        OBJECT_MAPPER_SERVICE, OBJECT_MAPPER_OBJECT,
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
+    properties.append(INVENTORY_PATH);
+    properties.append(0);
+    properties.append(std::array<const char*, 1>{POWER_SUPPLY_TYPE_INTERFACE});
+
+    auto result = bus.call(properties);
+
+    if (result.is_method_error())
+    {
+        throw runtime_error("Get api failed");
+    }
+
+    result.read(powSuppFrus);
+}
 
 void VpdTool::debugger(json output)
 {
@@ -37,13 +65,23 @@ auto VpdTool::makeDBusCall(const string& objectName, const string& interface,
 void VpdTool::addFruTypeAndLocation(json exIntf, const string& object,
                                     json& kwVal)
 {
-    for (const auto& intf : exIntf.items())
+    if (object.find("powersupply") != string::npos)
     {
-        if ((intf.key().find("Item") != string::npos) &&
-            (intf.value().is_null()))
+        kwVal.emplace("type", POWER_SUPPLY_TYPE_INTERFACE);
+    }
+
+    // add else if statement for fan fru
+
+    else
+    {
+        for (const auto& intf : exIntf.items())
         {
-            kwVal.emplace("type", intf.key());
-            break;
+            if ((intf.key().find("Item") != string::npos) &&
+                (intf.value().is_null()))
+            {
+                kwVal.emplace("type", intf.key());
+                break;
+            }
         }
     }
 
@@ -76,7 +114,19 @@ json VpdTool::getVINIProperties(string invPath, json exIntf)
 
     vector<string> keyword{"CC", "SN", "PN", "FN", "DR"};
     string interface = "com.ibm.ipzvpd.VINI";
-    string objectName = INVENTORY_PATH + invPath;
+    string objectName = {};
+    
+    if(invPath.find(INVENTORY_PATH) != string::npos)
+    {
+	    objectName = invPath;
+	    eraseInventoryPath(invPath);
+    }
+    else
+    {
+	    objectName = INVENTORY_PATH + invPath;
+    }
+cout<<"\n objectName : "<<objectName;
+            cout<<"\n invPath : "<< invPath;
 
     for (string kw : keyword)
     {
@@ -223,14 +273,40 @@ json VpdTool::parseInvJson(const json& jsObject, char flag, string fruPath)
 void VpdTool::dumpInventory(const nlohmann::basic_json<>& jsObject)
 {
     char flag = 'I';
-    json output = parseInvJson(jsObject, flag, "");
+    json output = json::array({});
+    output.emplace_back(parseInvJson(jsObject, flag, ""));
+
+    vector<string> powSuppFrus;
+
+    getPowerSupplyFruPath(powSuppFrus);
+
+    for (const auto& fru : powSuppFrus)
+    {
+        output.emplace_back(
+            getVINIProperties(fru, nlohmann::detail::value_t::null));
+    }
+
     debugger(output);
 }
 
 void VpdTool::dumpObject(const nlohmann::basic_json<>& jsObject)
 {
     char flag = 'O';
-    json output = parseInvJson(jsObject, flag, fruPath);
+    json output = json::array({});
+    vector<string> powSuppFrus;
+
+    getPowerSupplyFruPath(powSuppFrus);
+
+    if (find(powSuppFrus.begin(), powSuppFrus.end(), fruPath) !=
+        powSuppFrus.end())
+    {
+        output.emplace_back(
+            getVINIProperties(fruPath, nlohmann::detail::value_t::null));
+    }
+    else
+    {
+        output.emplace_back(parseInvJson(jsObject, flag, fruPath));
+    }
     debugger(output);
 }
 
