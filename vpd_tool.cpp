@@ -49,6 +49,7 @@ int main(int argc, char** argv)
             ->needs(object)
             ->needs(record)
             ->needs(kw);
+
     auto writeFlag =
         app.add_flag(
                "--writeKeyword, -w, --updateKeyword, -u",
