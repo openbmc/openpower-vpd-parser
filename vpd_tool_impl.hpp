@@ -155,9 +155,20 @@ class VpdTool
     int updateKeyword();
 
     /**
+     * @brief Force Reset
+     * Clearing the inventory cache data and restarting the
+     * phosphor inventory manager and also retriggering all the
+     * udev events.
+     *
+     * @param[in] jsObject - Inventory JSON specified in configure file.
+     */
+    void forceReset(const nlohmann::basic_json<>& jsObject);
+
+    /**
      * @brief Constructor
      * Constructor is called during the
-     * object instantiation for dumpInventory option.
+     * object instantiation for dumpInventory option and
+     * forceReset option.
      */
     VpdTool()
     {
