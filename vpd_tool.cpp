@@ -64,6 +64,11 @@ int main(int argc, char** argv)
             ->needs(kw)
             ->needs(valOption);
 
+    auto forceResetFlag = app.add_flag(
+        "--forceReset, -f, -F",
+        "Force Collect for Hardware. { vpd-tool_Executable "
+        "--forceReset/vpd-tool_Executable -f/vpd-tool_Executable -F }");
+
     CLI11_PARSE(app, argc, argv);
 
     ifstream inventoryJson(INVENTORY_JSON);
@@ -95,6 +100,12 @@ int main(int argc, char** argv)
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword), move(val));
             rc = vpdToolObj.updateKeyword();
+        }
+
+        else if (*forceResetFlag)
+        {
+            VpdTool vpdToolObj;
+            vpdToolObj.forceReset(jsObject);
         }
 
         else
