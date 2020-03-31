@@ -27,7 +27,7 @@ void VpdTool::getPowerSupplyFruPath(vector<string>& powSuppFrus)
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
     properties.append(INVENTORY_PATH);
     properties.append(0);
-    properties.append(std::array<const char*, 1>{POWER_SUPPLY_TYPE_INTERFACE});
+    properties.append(array<const char*, 1>{POWER_SUPPLY_TYPE_INTERFACE});
 
     auto result = bus.call(properties);
 
@@ -412,4 +412,46 @@ int VpdTool::updateKeyword()
         throw runtime_error("Get api failed");
     }
     return 0;
+}
+
+void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
+{
+    for (const auto& itemFRUS : jsObject["frus"].items())
+    {
+        for (const auto& itemEEPROM : itemFRUS.value().items())
+        {
+            string fru = itemEEPROM.value().at("inventoryPath");
+
+            fs::path fruCachePath = INVENTORY_MANAGER_CACHE;
+            fruCachePath += INVENTORY_PATH;
+            fruCachePath += fru;
+
+            try
+            {
+                for (const auto& it : fs::directory_iterator(fruCachePath))
+                {
+                    if (fs::is_regular_file(it.status()))
+                    {
+                        fs::remove(it);
+                    }
+                }
+            }
+            catch (const fs::filesystem_error& e)
+            {
+            }
+        }
+    }
+
+    string udevRemove = "udevadm trigger -c remove -s \"*nvmem*\" -v";
+    system(udevRemove.c_str());
+
+    string invManagerRestart =
+        "systemctl restart xyz.openbmc_project.Inventory.Manager.service";
+    system(invManagerRestart.c_str());
+
+    string sysVpdStop = "systemctl stop system-vpd.service";
+    system(sysVpdStop.c_str());
+
+    string udevAdd = "udevadm trigger -c add -s \"*nvmem*\" -v";
+    system(udevAdd.c_str());
 }
