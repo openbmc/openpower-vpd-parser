@@ -15,3 +15,7 @@ option('OBJECT_MAPPER_SERVICE', type : 'string', value : 'xyz.openbmc_project.Ob
 option('OBJECT_MAPPER_OBJECT', type : 'string', value : '/xyz/openbmc_project/object_mapper', description : 'One of the objects in Object Mapper service')
 option('POWER_SUPPLY_INTERFACE', type : 'string', value : 'xyz.openbmc_project.Inventory.Item.PowerSupply', description : 'Power Supply Interface')
 option('POWER_SUPPLY_TYPE', type : 'string', value : 'xyz.openbmc_project.Inventory.Item.PowerSupply', description : 'Indicates the fru is of type Power Supply')
+option('INVENTORY_MANAGER_CACHE', type : 'string', value : '/var/lib/phosphor-inventory-manager', description : 'Path to inventory manager cache')
+option('MOTHERBOARD_PATH', type : 'string', value : '/system/chassis/motherboard', description : 'Path to Motherboard')
+option('CHASSIS_PATH', type : 'string', value : '/system/chassis', description : 'Path to Chassis')
+option('SYSTEM_PATH', type : 'string', value : '/system', description : 'Path to System')
