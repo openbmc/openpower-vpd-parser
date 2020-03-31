@@ -1,5 +1,7 @@
 #include "vpd_tool_impl.hpp"
 
+#include <cstdlib>
+#include <filesystem>
 #include <iomanip>
 #include <iostream>
 #include <sdbusplus/bus.hpp>
@@ -11,6 +13,7 @@ using namespace std;
 using json = nlohmann::json;
 using sdbusplus::exception::SdBusError;
 using namespace openpower::vpd;
+namespace fs = std::filesystem;
 
 /**
  * @brief getPowerSupplyFruPath
@@ -418,4 +421,41 @@ int VpdTool::updateKeyword()
         throw runtime_error("Get api failed");
     }
     return 0;
+}
+
+void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
+{
+    for (auto itemFRUS : jsObject["frus"].items())
+    {
+        for (auto itemEEPROM = itemFRUS.value().rbegin();
+             itemEEPROM != itemFRUS.value().rend(); itemEEPROM++)
+        {
+            string fru = itemEEPROM.value().at("inventoryPath");
+
+            fs::path fruCachePath = INVENTORY_MANAGER_CACHE;
+            fruCachePath += INVENTORY_PATH;
+            fruCachePath += fru;
+            for (const auto& it :
+                 fs::recursive_directory_iterator(fruCachePath))
+            {
+                if (fs::is_regular_file(it.status()))
+                {
+                    fs::remove(it);
+                }
+            }
+        }
+    }
+
+    string udevRemove = "udevadm trigger -c remove -s \"*nvmem*\" -v";
+    system(udevRemove.c_str());
+
+    string invManagerRestart =
+        "systemctl restart xyz.openbmc_project.Inventory.Manager.service";
+    system(invManagerRestart.c_str());
+
+    string sysVpdStop = "systemctl stop system-vpd.service";
+    system(sysVpdStop.c_str());
+
+    string udevAdd = "udevadm trigger -c add -s \"*nvmem*\" -v";
+    system(udevAdd.c_str());
 }
