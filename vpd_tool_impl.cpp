@@ -1,5 +1,7 @@
 #include "vpd_tool_impl.hpp"
 
+#include <cstdlib>
+#include <filesystem>
 #include <iomanip>
 #include <iostream>
 #include <sdbusplus/bus.hpp>
@@ -11,6 +13,7 @@ using namespace std;
 using json = nlohmann::json;
 using sdbusplus::exception::SdBusError;
 using namespace openpower::vpd;
+namespace fs = std::filesystem;
 
 /**
  * @brief getPowerSupplyFruPath
@@ -419,4 +422,77 @@ int VpdTool::updateKeyword()
         throw runtime_error("Get api failed");
     }
     return 0;
+}
+
+void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
+{
+    for (auto itemFRUS : jsObject["frus"].items())
+    {
+        for (auto itemEEPROM = itemFRUS.value().rbegin();
+             itemEEPROM != itemFRUS.value().rend(); itemEEPROM++)
+        {
+            string fru = itemEEPROM.value().at("inventoryPath");
+
+            if ((fru != "/system/chassis/motherboard") && (fru != "/system") &&
+                (fru != "/system/chassis"))
+            {
+                fs::path fruCachePath = INVENTORY_MANAGER_CACHE;
+                fruCachePath += INVENTORY_PATH;
+                fruCachePath += fru;
+                for (auto& it : fs::recursive_directory_iterator(fruCachePath))
+                {
+                    fs::remove(it);
+                }
+
+                fs::remove_all(fruCachePath);
+            }
+        }
+    }
+
+    fs::path cachePrefix = INVENTORY_MANAGER_CACHE;
+    cachePrefix += INVENTORY_PATH;
+    fs::path motherBoard = cachePrefix;
+    motherBoard += MOTHERBOARD_PATH;
+    fs::path chassis = cachePrefix;
+    chassis += CHASSIS_PATH;
+    fs::path sys = cachePrefix;
+    sys += SYSTEM_PATH;
+
+    vector<fs::path> sysPathVec;
+    sysPathVec.push_back(motherBoard);
+    sysPathVec.push_back(chassis);
+    sysPathVec.push_back(sys);
+
+    for (auto& sysPath : sysPathVec)
+    {
+        for (auto it = fs::directory_iterator(sysPath);
+             it != fs::directory_iterator(); ++it)
+        {
+            fs::path file = *it;
+            fs::file_status fileType = it->status();
+
+            if (fs::is_regular_file(fileType))
+            {
+                string str = file.string();
+
+                if (str.find("com.ibm.ipzvpd.") != string::npos)
+                {
+                    fs::remove(file);
+                }
+            }
+        }
+    }
+
+    string udevRemove = "udevadm trigger -c remove -s \"*nvmem*\" -v";
+    system(udevRemove.c_str());
+
+    string invManagerRestart =
+        "systemctl restart xyz.openbmc_project.Inventory.Manager.service";
+    system(invManagerRestart.c_str());
+
+    string sysVpdStop = "systemctl stop system-vpd.service";
+    system(sysVpdStop.c_str());
+
+    string udevAdd = "udevadm trigger -c add -s \"*nvmem*\" -v";
+    system(udevAdd.c_str());
 }
