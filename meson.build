@@ -31,7 +31,8 @@ configure_file(output: 'config.h',
 		       'OBJECT_MAPPER_SERVICE' : '"'+get_option('OBJECT_MAPPER_SERVICE')+'"',
 		       'OBJECT_MAPPER_OBJECT' : '"'+get_option('OBJECT_MAPPER_OBJECT')+'"',
 		       'POWER_SUPPLY_INTERFACE' : '"'+get_option('POWER_SUPPLY_INTERFACE')+'"',
-		       'POWER_SUPPLY_TYPE' : '"'+get_option('POWER_SUPPLY_TYPE')+'"'
+		       'POWER_SUPPLY_TYPE' : '"'+get_option('POWER_SUPPLY_TYPE')+'"',
+		       'INVENTORY_MANAGER_CACHE' : '"'+get_option('INVENTORY_MANAGER_CACHE')+'"',
                        }
   )
         ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',
@@ -65,7 +66,7 @@ configure_file(output: 'config.h',
                                  dependencies: [
                                    sdbusplus
                                    ],
-                                 install: true,
+                                 install: true
                                  )
 else
         FRUGEN = '$srcdir/extra-properties.py -e' + get_option('FRU_YAML')
