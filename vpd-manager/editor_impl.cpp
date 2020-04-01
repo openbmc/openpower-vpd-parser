@@ -364,6 +364,73 @@ void EditorImpl::updateCache()
     }
 }
 
+void EditorImpl::expandLocationCode(const std::string& locationCodeType)
+{
+    std::string propertyFCorTM{};
+    std::string propertySE{};
+
+    if (locationCodeType == "fcs")
+    {
+        propertyFCorTM =
+            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "FC");
+        propertySE =
+            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "SE");
+    }
+    else if (locationCodeType == "mts")
+    {
+        propertyFCorTM =
+            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "TM");
+        propertySE =
+            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "SE");
+    }
+
+    const nlohmann::json& groupFRUS =
+        jsonFile["frus"].get_ref<const nlohmann::json::object_t&>();
+    for (const auto& itemFRUS : groupFRUS.items())
+    {
+        const std::vector<nlohmann::json>& groupEEPROM =
+            itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
+        for (const auto& itemEEPROM : groupEEPROM)
+        {
+            // check if the given item implements location code interface
+            if (itemEEPROM["extraInterfaces"].find(LOCATION_CODE_INF) !=
+                itemEEPROM["extraInterfaces"].end())
+            {
+                const std::string& unexpandedLocationCode =
+                    itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]
+                              ["LocationCode"]
+                                  .get_ref<const nlohmann::json::string_t&>();
+                std::size_t idx = unexpandedLocationCode.find(locationCodeType);
+                if (idx != std::string::npos)
+                {
+                    std::string expandedLoctionCode(unexpandedLocationCode);
+
+                    if (locationCodeType == "fcs")
+                    {
+                        expandedLoctionCode.replace(
+                            idx, 3,
+                            propertyFCorTM.substr(0, 4) + ".ND0." + propertySE);
+                    }
+                    else if (locationCodeType == "mts")
+                    {
+                        std::replace(propertyFCorTM.begin(),
+                                     propertyFCorTM.end(), '-', '.');
+                        expandedLoctionCode.replace(
+                            idx, 3, propertyFCorTM + "." + propertySE);
+                    }
+
+                    // update the DBUS interface
+                    makeDbusCall<std::string>(
+                        (INVENTORY_PATH +
+                         itemEEPROM["inventoryPath"]
+                             .get_ref<const nlohmann::json::string_t&>()),
+                        LOCATION_CODE_INF, "LocationCode", expandedLoctionCode);
+                }
+            }
+        }
+    }
+}
+
 void EditorImpl::updateKeyword(const Binary& kwdData)
 {
     vpdFileStream.open(vpdFilePath,
