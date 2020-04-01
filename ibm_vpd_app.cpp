@@ -20,36 +20,6 @@ using namespace CLI;
 using namespace vpd::keyword::parser;
 using namespace vpdFormat;
 
-/** @brief Reads a property from the inventory manager given object path,
- * intreface and property.
- */
-static auto readBusProperty(const string& obj, const string& inf,
-                            const string& prop)
-{
-    string propVal{};
-    static constexpr auto OBJ_PREFIX = "/xyz/openbmc_project/inventory";
-    string object = OBJ_PREFIX + obj;
-    auto bus = sdbusplus::bus::new_default();
-    auto properties = bus.new_method_call(
-        "xyz.openbmc_project.Inventory.Manager", object.c_str(),
-        "org.freedesktop.DBus.Properties", "Get");
-    properties.append(inf);
-    properties.append(prop);
-    auto result = bus.call(properties);
-    if (!result.is_method_error())
-    {
-        variant<Binary> val;
-        result.read(val);
-
-        if (auto pVal = get_if<Binary>(&val))
-        {
-            propVal.assign(reinterpret_cast<const char*>(pVal->data()),
-                           pVal->size());
-        }
-    }
-    return propVal;
-}
-
 /**
  * @brief Expands location codes
  */
