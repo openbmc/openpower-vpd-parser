@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "utils.hpp"
 
 #include <iostream>
@@ -65,5 +67,80 @@ void callPIM(ObjectMap&& objects)
 
 } // namespace inventory
 
+using namespace openpower::vpd::constants;
+LE2ByteData readUInt16LE(Binary::const_iterator iterator)
+{
+    LE2ByteData lowByte = *iterator;
+    LE2ByteData highByte = *(iterator + 1);
+    lowByte |= (highByte << 8);
+    return lowByte;
+}
+
+/** @brief Encodes a keyword for D-Bus.
+ */
+string encodeKeyword(const string& kw, const string& encoding)
+{
+    if (encoding == "MAC")
+    {
+        string res{};
+        size_t first = kw[0];
+        res += toHex(first >> 4);
+        res += toHex(first & 0x0f);
+        for (size_t i = 1; i < kw.size(); ++i)
+        {
+            res += ":";
+            res += toHex(kw[i] >> 4);
+            res += toHex(kw[i] & 0x0f);
+        }
+        return res;
+    }
+    else if (encoding == "DATE")
+    {
+        // Date, represent as
+        // <year>-<month>-<day> <hour>:<min>
+        string res{};
+        static constexpr uint8_t skipPrefix = 3;
+
+        auto strItr = kw.begin();
+        advance(strItr, skipPrefix);
+        for_each(strItr, kw.end(), [&res](size_t c) { res += c; });
+
+        res.insert(BD_YEAR_END, 1, '-');
+        res.insert(BD_MONTH_END, 1, '-');
+        res.insert(BD_DAY_END, 1, ' ');
+        res.insert(BD_HOUR_END, 1, ':');
+
+        return res;
+    }
+    else // default to string encoding
+    {
+        return string(kw.begin(), kw.end());
+    }
+}
+
+string readBusProperty(const string& obj, const string& inf, const string& prop)
+{
+    std::string propVal{};
+    std::string object = INVENTORY_PATH + obj;
+    auto bus = sdbusplus::bus::new_default();
+    auto properties = bus.new_method_call(
+        "xyz.openbmc_project.Inventory.Manager", object.c_str(),
+        "org.freedesktop.DBus.Properties", "Get");
+    properties.append(inf);
+    properties.append(prop);
+    auto result = bus.call(properties);
+    if (!result.is_method_error())
+    {
+        variant<Binary> val;
+        result.read(val);
+
+        if (auto pVal = get_if<Binary>(&val))
+        {
+            propVal.assign(reinterpret_cast<const char*>(pVal->data()),
+                           pVal->size());
+        }
+    }
+    return propVal;
+}
 } // namespace vpd
 } // namespace openpower

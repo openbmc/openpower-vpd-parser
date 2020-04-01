@@ -22,5 +22,27 @@ void callPIM(ObjectMap&& objects);
 
 } // namespace inventory
 
+/**@brief This API reads 2 Bytes of data and swap the read data
+ * @param[in] iterator- Pointer pointing to the data to be read
+ * @return returns 2 Byte data read at the given pointer
+ */
+openpower::vpd::constants::LE2ByteData
+    readUInt16LE(Binary::const_iterator iterator);
+
+/** @brief Encodes a keyword for D-Bus.
+ *  @param[in] kw - kwd data in string format
+ *  @param[in] encoding - required for kwd data
+ */
+string encodeKeyword(const string& kw, const string& encoding);
+
+/** @brief Reads a property from the inventory manager given object path,
+ *         intreface and property.
+ *  @param[in] obj - object path
+ *  @param[in] inf - interface
+ *  @param[in] prop - property whose value is fetched
+ *  @return [out] - value of the property
+ */
+string readBusProperty(const string& obj, const string& inf,
+                       const string& prop);
 } // namespace vpd
 } // namespace openpower
