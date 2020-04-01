@@ -16,24 +16,25 @@ phosphor_logging = dependency('phosphor-logging')
 compiler = meson.get_compiler('cpp')
 python = find_program('python3', required:true)
 
-if get_option('ibm-parser').enabled()
 compiler.has_header('CLI/CLI.hpp')
 compiler.has_header('nlohmann/json.hpp')
 configure_file(output: 'config.h',
                        configuration :{
                        'INVENTORY_JSON': '"'+get_option('INVENTORY_JSON')+'"',
                        'INVENTORY_PATH': '"'+get_option('INVENTORY_PATH')+'"',
-		       'IPZ_INTERFACE': '"'+get_option('IPZ_INTERFACE')+'"',
-		       'INVENTORY_MANAGER_SERVICE': '"'+get_option('INVENTORY_MANAGER_SERVICE')+'"',
+                       'IPZ_INTERFACE': '"'+get_option('IPZ_INTERFACE')+'"',
+                       'INVENTORY_MANAGER_SERVICE': '"'+get_option('INVENTORY_MANAGER_SERVICE')+'"',
                        'BUSNAME' : '"' + get_option('BUSNAME') + '"',
                        'OBJPATH' : '"' + get_option('OBJPATH') + '"',
                        'IFACE' : '"' + get_option('IFACE') + '"',
-		       'OBJECT_MAPPER_SERVICE' : '"'+get_option('OBJECT_MAPPER_SERVICE')+'"',
-		       'OBJECT_MAPPER_OBJECT' : '"'+get_option('OBJECT_MAPPER_OBJECT')+'"',
-		       'POWER_SUPPLY_TYPE_INTERFACE' : '"'+get_option('POWER_SUPPLY_TYPE_INTERFACE')+'"',
-		       'INVENTORY_MANAGER_CACHE' : '"'+get_option('INVENTORY_MANAGER_CACHE')+'"'
+                       'OBJECT_MAPPER_SERVICE' : '"'+get_option('OBJECT_MAPPER_SERVICE')+'"',
+                       'OBJECT_MAPPER_OBJECT' : '"'+get_option('OBJECT_MAPPER_OBJECT')+'"',
+                       'POWER_SUPPLY_TYPE_INTERFACE' : '"'+get_option('POWER_SUPPLY_TYPE_INTERFACE')+'"',
+                       'INVENTORY_MANAGER_CACHE' : '"'+get_option('INVENTORY_MANAGER_CACHE')+'"'
                        }
   )
+
+if get_option('ibm-parser').enabled()
         ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',
                                 'ibm_vpd_type_check.cpp',
                                 'parser.cpp',
