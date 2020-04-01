@@ -2,9 +2,8 @@
 
 #include "manager.hpp"
 
-#include "parser.hpp"
-
 #include "editor_impl.hpp"
+#include "parser.hpp"
 
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::manager::editor;
@@ -66,9 +65,16 @@ void Manager::processJSON()
             itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
         for (const auto& itemEEPROM : groupEEPROM)
         {
+            bool isMotherBoard = false;
+            if (itemEEPROM["extraInterfaces"].find(
+                    "xyz.openbmc_project.Inventory.Item.Board.Motherboard") !=
+                itemEEPROM["extraInterfaces"].end())
+            {
+                isMotherBoard = true;
+            }
             frus.emplace(itemEEPROM["inventoryPath"]
                              .get_ref<const nlohmann::json::string_t&>(),
-                         itemFRUS.key());
+                         std::make_pair(itemFRUS.key(), isMotherBoard));
         }
     }
 }
@@ -84,7 +90,7 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
             throw std::runtime_error("Inventory path not found");
         }
 
-        inventory::Path vpdFilePath = frus.find(path)->second;
+        inventory::Path vpdFilePath = frus.find(path)->second.first;
         std::ifstream vpdStream(vpdFilePath, std::ios::binary);
         if (!vpdStream)
         {
@@ -111,6 +117,21 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
             // instantiate editor class to update the data
             EditorImpl edit(vpdFilePath, jsonFile, recordName, keyword);
             edit.updateKeyword(value);
+
+            // if it is a motehrboard FRU need to check for location expansion
+            if (frus.find(path)->second.second)
+            {
+                if (recordName == "VCEN" &&
+                    (keyword == "FC" || keyword == "SE"))
+                {
+                    edit.expandLocationCode("fcs");
+                }
+                else if (recordName == "VSYS" &&
+                         (keyword == "TM" || keyword == "SE"))
+                {
+                    edit.expandLocationCode("mts");
+                }
+            }
 
             return;
         }
