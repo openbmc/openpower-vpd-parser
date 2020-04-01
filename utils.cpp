@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "utils.hpp"
 
 #include "defines.hpp"
@@ -115,6 +117,31 @@ string encodeKeyword(const string& kw, const string& encoding)
     {
         return string(kw.begin(), kw.end());
     }
+}
+
+string readBusProperty(const string& obj, const string& inf, const string& prop)
+{
+    std::string propVal{};
+    std::string object = INVENTORY_PATH + obj;
+    auto bus = sdbusplus::bus::new_default();
+    auto properties = bus.new_method_call(
+        "xyz.openbmc_project.Inventory.Manager", object.c_str(),
+        "org.freedesktop.DBus.Properties", "Get");
+    properties.append(inf);
+    properties.append(prop);
+    auto result = bus.call(properties);
+    if (!result.is_method_error())
+    {
+        variant<Binary> val;
+        result.read(val);
+
+        if (auto pVal = get_if<Binary>(&val))
+        {
+            propVal.assign(reinterpret_cast<const char*>(pVal->data()),
+                           pVal->size());
+        }
+    }
+    return propVal;
 }
 } // namespace vpd
 } // namespace openpower
