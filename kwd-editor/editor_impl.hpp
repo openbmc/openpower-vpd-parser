@@ -65,6 +65,11 @@ class EditorImpl
      */
     void updateKeyword(const Binary& kwdData);
 
+    /** @brief Expands location code on DBUS
+     *  @param[in] locationCodeType - "fcs" or "mts"
+     */
+    void expandLocationCode(const std::string& locationCodeType);
+
   private:
     /** @brief read VTOC record from the vpd file
      */
