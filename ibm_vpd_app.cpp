@@ -6,6 +6,8 @@
 #include "parser.hpp"
 #include "utils.hpp"
 
+#include <ctype.h>
+
 #include <CLI/CLI.hpp>
 #include <algorithm>
 #include <exception>
@@ -115,6 +117,10 @@ static void populateFruSpecificInterfaces(const T& map,
         if (kw[0] == '#')
         {
             kw = std::string("PD_") + kw[1];
+        }
+        else if (isdigit(kw[0]))
+        {
+            kw = std::string("N_") + kw;
         }
         prop.emplace(move(kw), move(vec));
     }
@@ -428,11 +434,29 @@ int main(int argc, char** argv)
             return 0;
         }
 
-        // Open the file in binary mode
-        ifstream vpdFile(file, ios::binary);
-        // Read the content of the binary file into a vector
-        Binary vpdVector((istreambuf_iterator<char>(vpdFile)),
+        uint32_t offset = 0;
+        // check if offset present?
+        for (const auto& item : js["frus"][file])
+        {
+            if (item.find("offset") != item.end())
+            {
+                offset = item["offset"];
+            }
+        }
+        char buf[2048];
+        ifstream vpdFile;
+        vpdFile.rdbuf()->pubsetbuf(buf, sizeof(buf));
+        vpdFile.open(file, ios::binary);
+        vpdFile.seekg(offset, std::ios_base::cur);
+
+        // Read 64KB data content of the binary file into a vector
+        Binary tmpVector((istreambuf_iterator<char>(vpdFile)),
                          istreambuf_iterator<char>());
+
+        vector<unsigned char>::const_iterator first = tmpVector.begin();
+        vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
+
+        Binary vpdVector(first, last);
 
         vpdType type = vpdTypeCheck(vpdVector);
 
