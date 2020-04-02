@@ -6,6 +6,8 @@
 #include "parser.hpp"
 #include "utils.hpp"
 
+#include <ctype.h>
+
 #include <CLI/CLI.hpp>
 #include <algorithm>
 #include <exception>
@@ -115,6 +117,10 @@ static void populateFruSpecificInterfaces(const T& map,
         if (kw[0] == '#')
         {
             kw = std::string("PD_") + kw[1];
+        }
+        else if (isdigit(kw[0]))
+        {
+            kw = std::string("N_") + kw;
         }
         prop.emplace(move(kw), move(vec));
     }
@@ -429,11 +435,25 @@ int main(int argc, char** argv)
             return 0;
         }
 
-        // Open the file in binary mode
-        ifstream vpdFile(file, ios::binary);
-        // Read the content of the binary file into a vector
-        Binary vpdVector((istreambuf_iterator<char>(vpdFile)),
-                         istreambuf_iterator<char>());
+        uint32_t offset = 0;
+        // check if offset present?
+        for (const auto& item : js["frus"][file])
+        {
+            if (item.find("offset") != item.end())
+            {
+                offset = item["offset"];
+            }
+        }
+
+        // TODO: Figure out a better way to get max possible VPD size.
+        Binary vpdVector;
+        vpdVector.resize(65504);
+        ifstream vpdFile;
+        vpdFile.open(file, ios::binary);
+
+        vpdFile.seekg(offset, ios_base::cur);
+        vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), 65504);
+        vpdVector.resize(vpdFile.gcount());
 
         vpdType type = vpdTypeCheck(vpdVector);
 
