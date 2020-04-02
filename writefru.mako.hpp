@@ -32,7 +32,7 @@ void writeFru(const Store& vpdStore, const std::string& path) {
     throw std::runtime_error("Not implemented");
 }
 
-% for key in fruDict.iterkeys():
+% for key in fruDict.keys():
 <%
     fru = fruDict[key]
 %>\
@@ -48,14 +48,14 @@ void writeFru<Fru::${key}>(const Store& vpdStore,
     // Inventory manager needs object path, list of interface names to be
     // implemented, and property:value pairs contained in said interfaces
 
-    % for interface, properties in fru.iteritems():
+    % for interface, properties in fru.items():
 <%
         names = interface.split(".")
         intfName = names[0] + names[-1]
 %>\
     PropertyMap ${intfName}Props;
         % if properties:
-            % for name, value in properties.iteritems():
+            % for name, value in properties.items():
                 % if fru and interface and name and value:
 <%
                 record, keyword = name.split(",")
