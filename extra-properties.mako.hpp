@@ -18,14 +18,14 @@ namespace extra
 {
 
 const std::map<Path, InterfaceMap> objects = {
-% for path in dict.iterkeys():
+% for path in dict.keys():
 <%
     interfaces = dict[path]
 %>\
     {"${path}",{
-    % for interface,properties in interfaces.iteritems():
+    % for interface,properties in interfaces.items():
         {"${interface}",{
-        % for property,value in properties.iteritems():
+        % for property,value in properties.items():
             {"${property}", ${value}},
         % endfor
         }},
