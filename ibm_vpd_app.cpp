@@ -341,11 +341,29 @@ int main(int argc, char** argv)
             return 0;
         }
 
-        // Open the file in binary mode
-        ifstream vpdFile(file, ios::binary);
-        // Read the content of the binary file into a vector
-        Binary vpdVector((istreambuf_iterator<char>(vpdFile)),
-                         istreambuf_iterator<char>());
+        uint32_t offset = 0x0;
+        // check if offset present?
+        for ( const auto& item : js["frus"][file])
+        {
+            if(item.find("offset") != item.end())
+            {
+                offset = atoi( (item["offset"].get<string>()).c_str() );
+            }
+        }
+        char buf[2048];
+        ifstream vpdFile;
+        vpdFile.rdbuf()->pubsetbuf(buf, sizeof(buf));
+        vpdFile.open(file, ios::binary);
+        vpdFile.seekg(offset, std::ios_base::cur);
+
+        // Read 64KB data content of the binary file into a vector
+        Binary tmpVector((istreambuf_iterator<char>(vpdFile)),
+                          istreambuf_iterator<char>());
+
+        vector<unsigned char>::const_iterator first = tmpVector.begin();
+        vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
+
+        Binary vpdVector(first, last);
 
         vpdType type = vpdTypeCheck(vpdVector);
 
