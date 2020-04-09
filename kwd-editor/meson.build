@@ -27,4 +27,5 @@ vpd_kwd_editor_exe = executable('vpd-kwd-editor',
                                  dependencies :[
                                                vpd_kwd_editor_dependencies,
                                              ],
+                                 cpp_args : '-DKwd_Editor'
                               )

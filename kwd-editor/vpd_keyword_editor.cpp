@@ -120,6 +120,10 @@ void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
             EditorImpl edit(vpdFilePath, jsonFile, recordName, keyword);
             edit.updateKeyword(value);
 
+            // update the cache, once data has been updated in file
+            edit.updateCache();
+
+#ifdef Kwd_Editor
             // if it is a motehrboard FRU need to check for location expansion
             if (frus.find(inventoryPath)->second.second)
             {
@@ -134,7 +138,7 @@ void VPDKeywordEditor::writeKeyword(const inventory::Path inventoryPath,
                     edit.expandLocationCode("mts");
                 }
             }
-
+#endif
             return;
         }
         throw std::runtime_error("Invalid VPD file type");

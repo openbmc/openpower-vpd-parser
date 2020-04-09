@@ -1,7 +1,8 @@
+#ifdef Kwd_Editor
 #include "config.h"
+#endif
 
 #include "editor_impl.hpp"
-
 #include "utils.hpp"
 
 #include "vpdecc/vpdecc.h"
@@ -258,6 +259,7 @@ void EditorImpl::readVTOC()
     checkPTForRecord(iterator, ptLen);
 }
 
+#ifdef Kwd_Editor
 template <typename T>
 void EditorImpl::makeDbusCall(const std::string& object,
                               const std::string& interface,
@@ -337,9 +339,11 @@ void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
         }
     }
 }
+#endif
 
 void EditorImpl::updateCache()
 {
+#ifdef Kwd_Editor
     const std::vector<nlohmann::json>& groupEEPROM =
         jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
 
@@ -373,8 +377,10 @@ void EditorImpl::updateCache()
                            singleInventory["inventoryPath"]
                                .get_ref<const nlohmann::json::string_t&>());
     }
+#endif
 }
 
+#ifdef Kwd_Editor
 void EditorImpl::expandLocationCode(const std::string& locationCodeType)
 {
     std::string property_FCorTM{};
@@ -442,6 +448,7 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
         }
     }
 }
+#endif
 
 void EditorImpl::updateKeyword(const Binary& kwdData)
 {
@@ -463,9 +470,6 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
 
     // update the ECC data for the record once data has been updated
     updateRecordECC();
-
-    // update the cache once data has been updated
-    updateCache();
 }
 
 } // namespace editor
