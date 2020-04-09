@@ -15,7 +15,8 @@ endif
 gmock = dependency('gmock', disabler: true, required: build_tests)
 gtest = dependency('gtest', main: true, disabler: true, required: build_tests)
 
-application_src = ['../impl.cpp']
+application_src = ['../impl.cpp'
+                  ]
 
 test('store_test', executable('store_test',
         ['store/store.cpp', application_src],
@@ -32,13 +33,36 @@ include_directories: '..'
 ),
 workdir: meson.current_source_dir())
 
+configuration_inc = include_directories('..', '../kwd-editor')
+application_src += ['../vpdecc/vpdecc.c',
+                   '../vpdecc/vpdecc_support.c',
+                   '../parser.cpp',
+                   '../utils.cpp',
+                   '../kwd-editor/editor_impl.cpp'
+                  ]
+
+test('vpd_editor_test', executable('vpd_editor_test',
+        ['vpd_editor_test/vpd_editor_test.cpp', application_src],
+build_rpath: get_option('oe-sdk').enabled() ? rpath : '',
+
+link_args: dynamic_linker,
+dependencies: [
+            gtest,
+            gmock,
+            sdbusplus,
+            phosphor_logging,
+    ],
+include_directories: configuration_inc,
+),
+workdir: meson.current_source_dir())
+
 vpd_test = ['ipz_parser/parser.cpp',
-                'keyword_vpd_parser_test/kw_vpd_test.cpp'
-    ]
+            'keyword_vpd_parser_test/kw_vpd_test.cpp',
+           ]
+
 application_src += ['../keyword_vpd_parser.cpp',
-  '../vpdecc/vpdecc.c',
-  '../vpdecc/vpdecc_support.c'
-    ]
+                   ]
+
 foreach t : vpd_test
     test(t, executable(t.underscorify(),
             [t, application_src],
@@ -54,7 +78,7 @@ foreach t : vpd_test
                 sdbusplus,
                 phosphor_logging,
         ],
-    include_directories: '..'
+    include_directories: '..',
     ),
     workdir: meson.current_source_dir())
 endforeach

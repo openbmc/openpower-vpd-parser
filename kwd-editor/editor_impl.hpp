@@ -65,10 +65,16 @@ class EditorImpl
      */
     void updateKeyword(const Binary& kwdData);
 
+#ifdef Kwd_Editor
     /** @brief Expands location code on DBUS
      *  @param[in] locationCodeType - "fcs" or "mts"
      */
     void expandLocationCode(const std::string& locationCodeType);
+#endif
+
+    /** @brief method to update cache once the data for kwd has been updated
+     */
+    void updateCache();
 
   private:
     /** @brief read VTOC record from the vpd file
@@ -110,10 +116,7 @@ class EditorImpl
      */
     void updateRecordECC();
 
-    /** @brief method to update cache once the data for kwd has been updated
-     */
-    void updateCache();
-
+#ifdef Kwd_Editor
     /** @brief method to process and update CI in case required
      *  @param[in] - objectPath - path of the object to introspect
      */
@@ -137,6 +140,7 @@ class EditorImpl
     template <typename T>
     void makeDbusCall(const std::string& object, const std::string& interface,
                       const std::string& property, const std::variant<T>& data);
+#endif
 
     // path to the VPD file to edit
     const inventory::Path& vpdFilePath;

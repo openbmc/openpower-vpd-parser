@@ -1,4 +1,4 @@
-#include "config.h"
+//#include "config.h"
 
 #include "utils.hpp"
 
@@ -122,7 +122,7 @@ string encodeKeyword(const string& kw, const string& encoding)
 string readBusProperty(const string& obj, const string& inf, const string& prop)
 {
     std::string propVal{};
-    std::string object = INVENTORY_PATH + obj;
+    std::string object = "/xyz/openbmc_project/inventory" + obj;
     auto bus = sdbusplus::bus::new_default();
     auto properties = bus.new_method_call(
         "xyz.openbmc_project.Inventory.Manager", object.c_str(),
