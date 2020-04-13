@@ -87,7 +87,6 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
     }
     return expanded;
 }
-
 /**
  * @brief Populate FRU specific interfaces.
  *
@@ -202,11 +201,68 @@ static void populateInterfaces(const nlohmann::json& js,
 }
 
 /**
- * @brief Populate Dbus.
+ * @brief Prime the Inventory
+ * Prime the inventory by populating only the location code,
+ * type interface and the inventory object for the frus
+ * which are not system vpd fru.
  *
+ * @param[in] jsObject - Reference to vpd inventory json object
+ * @param[in] vpdMap -  Reference to the parsed vpd map
+ *
+ * @returns Map of items in extraInterface.
+ */
+template <typename T>
+inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
+                                    const T& vpdMap)
+{
+    inventory::ObjectMap objects;
+
+    for (auto& itemFRUS : jsObject["frus"].items())
+    {
+        for (auto& itemEEPROM : itemFRUS.value())
+        {
+            inventory::InterfaceMap interfaces;
+            auto isSystemVpd = itemEEPROM.value("isSystemVpd", false);
+            inventory::Object object(itemEEPROM.at("inventoryPath"));
+
+            if (!isSystemVpd)
+            {
+                for (const auto& eI : itemEEPROM["extraInterfaces"].items())
+                {
+                    inventory::PropertyMap props;
+                    if (eI.key() == LOCATION_CODE_INF)
+                    {
+                        if constexpr (std::is_same<T, Parsed>::value)
+                        {
+                            for (auto& lC : eI.value().items())
+                            {
+                                auto propVal =
+                                    expandLocationCode(lC.value().get<string>(),
+                                                       vpdMap, isSystemVpd);
+
+                                props.emplace(move(lC.key()), move(propVal));
+                                interfaces.emplace(move(eI.key()), move(props));
+                            }
+                        }
+                    }
+                    else if (eI.key().find("Inventory.Item.") != string::npos)
+                    {
+                        interfaces.emplace(move(eI.key()), move(props));
+                    }
+                }
+                objects.emplace(move(object), move(interfaces));
+            }
+        }
+    }
+    return objects;
+}
+
+/**
+ * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
  * and notifies PIM about dbus object.
- * @param[in] vpdMap - Either IPZ vpd map or Keyword vpd map based on the input.
+ * @param[in] vpdMap - Either IPZ vpd map or Keyword vpd map based on the
+ * input.
  * @param[in] js - Inventory json object
  * @param[in] filePath - Path of the vpd file
  * @param[in] preIntrStr - Interface string
@@ -219,11 +275,12 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
     inventory::ObjectMap objects;
     inventory::PropertyMap prop;
 
+    bool isSystemVpd;
     for (const auto& item : js["frus"][filePath])
     {
         const auto& objectPath = item["inventoryPath"];
         sdbusplus::message::object_path object(objectPath);
-        auto isSystemVpd = item.value("isSystemVpd", false);
+        isSystemVpd = item.value("isSystemVpd", false);
         // Populate the VPD keywords and the common interfaces only if we
         // are asked to inherit that data from the VPD, else only add the
         // extraInterfaces.
@@ -231,8 +288,9 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         {
             if constexpr (std::is_same<T, Parsed>::value)
             {
-                // Each record in the VPD becomes an interface and all keyword
-                // within the record are properties under that interface.
+                // Each record in the VPD becomes an interface and all
+                // keyword within the record are properties under that
+                // interface.
                 for (const auto& record : vpdMap)
                 {
                     populateFruSpecificInterfaces(
@@ -266,7 +324,8 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         }
 
         // Populate interfaces and properties that are common to every FRU
-        // and additional interface that might be defined on a per-FRU basis.
+        // and additional interface that might be defined on a per-FRU
+        // basis.
         if (item.find("extraInterfaces") != item.end())
         {
             populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
@@ -288,6 +347,12 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         }
 
         objects.emplace(move(object), move(interfaces));
+    }
+
+    if (isSystemVpd)
+    {
+        inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
+        objects.insert(primeObject.begin(), primeObject.end());
     }
 
     // Notify PIM
