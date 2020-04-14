@@ -12,6 +12,7 @@ enum vpdType
 {
     IPZ_VPD,           /**< IPZ VPD type */
     KEYWORD_VPD,       /**< Keyword VPD type */
+    MEMORY_VPD,        /**< Memory VPD type */
     INVALID_VPD_FORMAT /**< Invalid VPD type */
 };
 
