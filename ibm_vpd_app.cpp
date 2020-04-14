@@ -3,8 +3,11 @@
 #include "defines.hpp"
 #include "ibm_vpd_type_check.hpp"
 #include "keyword_vpd_parser.hpp"
+#include "memory_vpd_parser.hpp"
 #include "parser.hpp"
 #include "utils.hpp"
+
+#include <ctype.h>
 
 #include <CLI/CLI.hpp>
 #include <algorithm>
@@ -13,13 +16,13 @@
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
-#include<ctype.h>
 
 using namespace std;
 using namespace openpower::vpd;
 using namespace CLI;
 using namespace vpd::keyword::parser;
 using namespace vpdFormat;
+using namespace vpd::memory::parser;
 
 /** @brief Reads a property from the inventory manager given object path,
  * intreface and property.
@@ -144,7 +147,7 @@ static void populateFruSpecificInterfaces(const T& map,
         {
             kw = std::string("PD_") + kw[1];
         }
-        else if(isdigit(kw[0]) )
+        else if (isdigit(kw[0]))
         {
             kw = std::string("N_") + kw;
         }
@@ -348,9 +351,9 @@ int main(int argc, char** argv)
 
         uint32_t offset = 0;
         // check if offset present?
-        for ( const auto& item : js["frus"][file])
+        for (const auto& item : js["frus"][file])
         {
-            if(item.find("offset") != item.end())
+            if (item.find("offset") != item.end())
             {
                 offset = item["offset"];
             }
@@ -363,7 +366,7 @@ int main(int argc, char** argv)
 
         // Read 64KB data content of the binary file into a vector
         Binary tmpVector((istreambuf_iterator<char>(vpdFile)),
-                          istreambuf_iterator<char>());
+                         istreambuf_iterator<char>());
 
         vector<unsigned char>::const_iterator first = tmpVector.begin();
         vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
@@ -395,6 +398,19 @@ int main(int argc, char** argv)
                 populateDbus(kwValMap, js, file, preIntrStr);
             }
             break;
+
+            case MEMORY_VPD:
+            {
+                // Get an object to call API & get the key-value map
+                memoryVpdParser vpdParser(move(vpdVector));
+                const auto& memKwValMap = vpdParser.parseMemVpd();
+
+                string preIntrStr = "com.ibm.kwvpd.KWVPD";
+                // js(define dimm sys path in js), ObjPath(define in JS)
+                populateDbus(memKwValMap, js, file, preIntrStr);
+            }
+            break;
+
             default:
                 throw std::runtime_error("Invalid VPD format");
         }
