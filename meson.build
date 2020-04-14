@@ -40,7 +40,8 @@ configure_file(output: 'config.h',
                                 'utils.cpp',
                                 'keyword_vpd_parser.cpp',
                                 'vpdecc/vpdecc.c',
-                                'vpdecc/vpdecc_support.c'
+                                'vpdecc/vpdecc_support.c',
+                                'memory_vpd_parser.cpp'
                                ]
 
         ibm_vpd_exe = executable(
