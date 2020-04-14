@@ -3,6 +3,7 @@
 #include "defines.hpp"
 #include "ibm_vpd_type_check.hpp"
 #include "keyword_vpd_parser.hpp"
+#include "memory_vpd_parser.hpp"
 #include "parser.hpp"
 #include "utils.hpp"
 
@@ -24,6 +25,37 @@ using namespace vpd::keyword::parser;
 using namespace vpdFormat;
 namespace fs = std::filesystem;
 using json = nlohmann::json;
+using namespace vpd::memory::parser;
+
+/** @brief Reads a property from the inventory manager given object path,
+ * intreface and property.
+ */
+static auto readBusProperty(const string& obj, const string& inf,
+                            const string& prop)
+{
+    string propVal{};
+    static constexpr auto OBJ_PREFIX = "/xyz/openbmc_project/inventory";
+    string object = OBJ_PREFIX + obj;
+    auto bus = sdbusplus::bus::new_default();
+    auto properties = bus.new_method_call(
+        "xyz.openbmc_project.Inventory.Manager", object.c_str(),
+        "org.freedesktop.DBus.Properties", "Get");
+    properties.append(inf);
+    properties.append(prop);
+    auto result = bus.call(properties);
+    if (!result.is_method_error())
+    {
+        variant<Binary> val;
+        result.read(val);
+
+        if (auto pVal = get_if<Binary>(&val))
+        {
+            propVal.assign(reinterpret_cast<const char*>(pVal->data()),
+                           pVal->size());
+        }
+    }
+    return propVal;
+}
 
 /**
  * @brief Expands location codes
@@ -484,6 +516,19 @@ int main(int argc, char** argv)
                 populateDbus(kwValMap, js, file, preIntrStr);
             }
             break;
+
+            case MEMORY_VPD:
+            {
+                // Get an object to call API & get the key-value map
+                memoryVpdParser vpdParser(move(vpdVector));
+                const auto& memKwValMap = vpdParser.parseMemVpd();
+
+                string preIntrStr = "com.ibm.kwvpd.KWVPD";
+                // js(define dimm sys path in js), ObjPath(define in JS)
+                populateDbus(memKwValMap, js, file, preIntrStr);
+            }
+            break;
+
             default:
                 throw std::runtime_error("Invalid VPD format");
         }
