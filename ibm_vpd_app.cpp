@@ -3,6 +3,7 @@
 #include "const.hpp"
 #include "defines.hpp"
 #include "keyword_vpd_parser.hpp"
+#include "memory_vpd_parser.hpp"
 #include "parser.hpp"
 #include "utils.hpp"
 
@@ -25,6 +26,7 @@ using namespace openpower::vpd::constants;
 namespace fs = filesystem;
 using json = nlohmann::json;
 using namespace openpower::vpd::inventory;
+using namespace openpower::vpd::memory::parser;
 
 /**
  * @brief Expands location codes
@@ -492,6 +494,19 @@ int main(int argc, char** argv)
                 populateDbus(kwValMap, js, file, preIntrStr);
             }
             break;
+
+            case MEMORY_VPD:
+            {
+                // Get an object to call API & get the key-value map
+                memoryVpdParser vpdParser(move(vpdVector));
+                const auto& memKwValMap = vpdParser.parseMemVpd();
+
+                string preIntrStr = "com.ibm.kwvpd.KWVPD";
+                // js(define dimm sys path in js), ObjPath(define in JS)
+                populateDbus(memKwValMap, js, file, preIntrStr);
+            }
+            break;
+
             default:
                 throw std::runtime_error("Invalid VPD format");
         }
