@@ -17,23 +17,37 @@ int main(int argc, char** argv)
     try
     {
         using namespace openpower::vpd;
-
         args::Args arguments = args::parse(argc, argv);
 
-        // We need vpd file, FRU type and object path
-        if ((arguments.end() != arguments.find("vpd")) &&
-            (arguments.end() != arguments.find("fru")) &&
-            (arguments.end() != arguments.find("object")))
+        bool have_vpd = arguments.count("vpd");
+        bool do_fru = arguments.count("fru") && arguments.count("object");
+
+        if (!have_vpd)
         {
-            // Read binary VPD file
-            auto file = arguments.at("vpd")[0];
-            std::ifstream vpdFile(file, std::ios::binary);
-            Binary vpd((std::istreambuf_iterator<char>(vpdFile)),
-                       std::istreambuf_iterator<char>());
+            std::cerr << "VPD file required (--vpd=<filename>)\n";
+            return -1;
+        }
 
-            // Parse vpd
-            auto vpdStore = parse(std::move(vpd));
+        if (!do_fru)
+        {
+            std::cerr << "No task to perform\n\n";
+            std::cerr << "  Update FRU: --fru <type> --object <path>\n";
+            std::cerr << "              --fru <t1>,<t2> --object <p1>,<p2>\n\n";
+            return -1;
+        }
 
+        // Read binary VPD file
+        auto file = arguments.at("vpd")[0];
+        std::ifstream vpdFile(file, std::ios::binary);
+        Binary vpd((std::istreambuf_iterator<char>(vpdFile)),
+                   std::istreambuf_iterator<char>());
+
+        // Parse VPD
+        auto vpdStore = parse(std::move(vpd));
+
+        // Set FRU based on FRU type and object path
+        if (do_fru)
+        {
             using argList = std::vector<std::string>;
             argList frus = std::move(arguments.at("fru"));
             argList objects = std::move(arguments.at("object"));
@@ -52,11 +66,6 @@ int main(int argc, char** argv)
                     inventory::write(frus[index], vpdStore, objects[index]);
                 }
             }
-        }
-        else
-        {
-            std::cerr << "Need VPD file, FRU type and object path\n";
-            rc = -1;
         }
     }
     catch (std::exception& e)
