@@ -15,11 +15,12 @@ namespace vpd
 namespace args
 {
 
-static constexpr auto shortForm = "v:f:o:h";
+static constexpr auto shortForm = "v:f:o:dh";
 static const option longForm[] = {
     {"vpd", required_argument, nullptr, 'v'},
     {"fru", required_argument, nullptr, 'f'},
     {"object", required_argument, nullptr, 'o'},
+    {"dump", no_argument, nullptr, 'd'},
     {"help", no_argument, nullptr, 'h'},
     {0, 0, 0, 0},
 };
@@ -30,6 +31,7 @@ void usage(char** argv)
     std::cerr << "args:\n";
     std::cerr << "--vpd=<vpd file> pathname of file containing vpd,";
     std::cerr << " for eg an eeprom file\n";
+    std::cerr << "--dump output contents of parsed VPD\n";
     std::cerr << "--fru=<FRU type>, supported types:\n";
     std::cerr << "\t"
               << "bmc\n";
@@ -80,6 +82,12 @@ Args parse(int argc, char** argv)
                     values.push_back(std::move(input));
                 }
                 args.emplace(which->name, std::move(values));
+            }
+            else
+            {
+                // Add options that do not have arguments to the arglist
+                std::vector<std::string> empty;
+                args.emplace(which->name, std::move(empty));
             }
         }
     }
