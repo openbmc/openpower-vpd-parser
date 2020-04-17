@@ -5,6 +5,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <iostream>
 
 namespace openpower
 {
@@ -62,6 +63,24 @@ class Store final
         static const std::string record = getRecord<R>();
         static const std::string keyword = record::getKeyword<K>();
         return vpd.count(record) && vpd.at(record).count(keyword);
+    }
+
+    /** @brief Displays all data in the store to stdout
+    */
+    void dump() const
+    {
+        for (auto const & [vpdname, avpd] : vpd ) {
+            std::cout << vpdname << ": " << std::endl;
+
+            for (auto const & [key, val] : avpd ) {
+
+                std::cout << "\t"
+                    << key
+                    << " : "
+                    << val
+                    << std::endl;
+            }
+        }
     }
 
   private:
