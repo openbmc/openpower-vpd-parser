@@ -20,6 +20,7 @@ int main(int argc, char** argv)
         args::Args arguments = args::parse(argc, argv);
 
         bool have_vpd = arguments.count("vpd");
+        bool do_dump = arguments.count("dump");
         bool do_fru = arguments.count("fru") && arguments.count("object");
 
         if (!have_vpd)
@@ -28,11 +29,12 @@ int main(int argc, char** argv)
             return -1;
         }
 
-        if (!do_fru)
+        if (!do_dump && !do_fru)
         {
             std::cerr << "No task to perform\n\n";
             std::cerr << "  Update FRU: --fru <type> --object <path>\n";
             std::cerr << "              --fru <t1>,<t2> --object <p1>,<p2>\n\n";
+            std::cerr << "  Dump VPD: --dump\n\n";
             return -1;
         }
 
@@ -44,6 +46,11 @@ int main(int argc, char** argv)
 
         // Parse VPD
         auto vpdStore = parse(std::move(vpd));
+
+        if (do_dump)
+        {
+            vpdStore.dump();
+        }
 
         // Set FRU based on FRU type and object path
         if (do_fru)
