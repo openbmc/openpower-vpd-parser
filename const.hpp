@@ -42,6 +42,7 @@ static constexpr auto LOCATION_CODE_INF = "com.ibm.ipzvpd.Location";
 constexpr int IPZ_DATA_START = 11;
 constexpr uint8_t KW_VAL_PAIR_START_TAG = 0x84;
 constexpr uint8_t RECORD_END_TAG = 0x78;
+constexpr int UNEXP_LOCATION_CODE_MIN_LENGTH = 4;
 
 namespace lengths
 {
