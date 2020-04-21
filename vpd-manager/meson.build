@@ -9,11 +9,12 @@ vpd_manager_SOURCES =[
                         'server.cpp',
                         'error.cpp',
                         'editor_impl.cpp',
+                        'reader_impl.cpp',
                         '../impl.cpp',
                         '../parser.cpp',
                         '../utils.cpp',
                         '../vpdecc/vpdecc.c',
-                        '../vpdecc/vpdecc_support.c'
+                        '../vpdecc/vpdecc_support.c',
                         ]
 
 vpd_manager_dependencies =[sdbusplus,
