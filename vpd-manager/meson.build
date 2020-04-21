@@ -9,6 +9,7 @@ vpd_manager_SOURCES =[
                         'server.cpp',
                         'error.cpp',
                         'editor_impl.cpp',
+                        'reader_impl.cpp',
                         '../impl.cpp',
                         '../parser.cpp',
                         '../utils.cpp',
