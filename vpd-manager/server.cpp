@@ -60,6 +60,14 @@ int Manager::_callback_WriteKeyword(sd_bus_message* msg, void* context,
     {
         return sd_bus_error_set(error, e.name(), e.description());
     }
+    catch (sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument& e)
+    {
+        return sd_bus_error_set(error, e.name(), e.description());
+    }
+    catch (sdbusplus::xyz::openbmc_project::Common::Error::NotFound& e)
+    {
+        return sd_bus_error_set(error, e.name(), e.description());
+    }
 
     return true;
 }
@@ -223,6 +231,10 @@ int Manager::_callback_GetExpandedLocationCode(sd_bus_message* msg,
         return sd_bus_error_set(error, e.name(), e.description());
     }
     catch (sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument& e)
+    {
+        return sd_bus_error_set(error, e.name(), e.description());
+    }
+    catch (sdbusplus::xyz::openbmc_project::Common::Error::NotFound& e)
     {
         return sd_bus_error_set(error, e.name(), e.description());
     }

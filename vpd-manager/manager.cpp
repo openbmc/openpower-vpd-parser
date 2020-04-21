@@ -4,9 +4,18 @@
 
 #include "editor_impl.hpp"
 #include "parser.hpp"
+#include "utils.hpp"
+
+#include <phosphor-logging/elog-errors.hpp>
+#include <xyz/openbmc_project/Common/error.hpp>
 
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::manager::editor;
+using namespace phosphor::logging;
+using InvalidArgument =
+    sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
+using NotFound = sdbusplus::xyz::openbmc_project::Common::Error::NotFound;
+using Argument = xyz::openbmc_project::Common::InvalidArgument;
 
 namespace openpower
 {
@@ -75,6 +84,12 @@ void Manager::processJSON()
             frus.emplace(itemEEPROM["inventoryPath"]
                              .get_ref<const nlohmann::json::string_t&>(),
                          std::make_pair(itemFRUS.key(), isMotherBoard));
+
+            fruLocationCode.emplace(
+                itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]["LocationCode"]
+                    .get_ref<const nlohmann::json::string_t&>(),
+                itemEEPROM["inventoryPath"]
+                    .get_ref<const nlohmann::json::string_t&>());
         }
     }
 }
@@ -159,7 +174,28 @@ std::vector<sdbusplus::message::object_path>
 std::string Manager::getExpandedLocationCode(const std::string locationCode,
                                              const uint16_t nodeNumber)
 {
-    // implement the interface
+    std::string expandedLocationCode{};
+
+    if ((locationCode.length() < UNEXP_LOCATION_CODE_MIN_LENGTH) ||
+        ((locationCode.find("fcs", 1, 3) == std::string::npos) &&
+         (locationCode.find("mts", 1, 3) == std::string::npos)))
+    {
+        // argument is not valid
+        elog<InvalidArgument>(Argument::ARGUMENT_NAME("LOCATIONCODE"),
+                              Argument::ARGUMENT_VALUE(locationCode.c_str()));
+    }
+
+    auto iterator = fruLocationCode.find(locationCode);
+    if (iterator == fruLocationCode.end())
+    {
+        // the location code was not found in the system
+        elog<NotFound>();
+    }
+
+    expandedLocationCode =
+        readBusProperty(iterator->second, LOCATION_CODE_INF, "LocationCode");
+
+    return expandedLocationCode;
 }
 
 } // namespace manager
