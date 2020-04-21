@@ -104,7 +104,7 @@ class Manager : public ServerObject<ManagerIface>
         getFRUsByExpandedLocationCode(const std::string locationCode);
 
     /** @brief Implementation for GetExpandedLocationCode
-     *  An api to get expanded location code corresponding to a given
+     *  An API to get expanded location code corresponding to a given
      *  un-expanded location code.
      *
      *  @param[in] locationCode - Location code in un-expaned format.
@@ -136,6 +136,9 @@ class Manager : public ServerObject<ManagerIface>
     // map to hold mapping to inventory path to vpd file path
     // we need as map here as it is in reverse order to that of json
     inventory::FrusMap frus;
+
+    // map to hold the mapping of location code and inventory path
+    inventory::LocationCodeMap fruLocationCode;
 };
 
 } // namespace manager
