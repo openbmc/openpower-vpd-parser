@@ -4,9 +4,11 @@
 
 #include "editor_impl.hpp"
 #include "parser.hpp"
+#include "reader_impl.hpp"
 
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::manager::editor;
+using namespace openpower::vpd::manager::reader;
 
 namespace openpower
 {
@@ -75,6 +77,12 @@ void Manager::processJSON()
             frus.emplace(itemEEPROM["inventoryPath"]
                              .get_ref<const nlohmann::json::string_t&>(),
                          std::make_pair(itemFRUS.key(), isMotherBoard));
+
+            fruLocationCode.emplace(
+                itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]["LocationCode"]
+                    .get_ref<const nlohmann::json::string_t&>(),
+                itemEEPROM["inventoryPath"]
+                    .get_ref<const nlohmann::json::string_t&>());
         }
     }
 }
@@ -134,7 +142,9 @@ std::vector<sdbusplus::message::object_path>
 std::string Manager::getExpandedLocationCode(const std::string locationCode,
                                              const uint16_t nodeNumber)
 {
-    // implement the interface
+    ReaderImpl read;
+    return read.getExpandedLocationCode(locationCode, nodeNumber,
+                                        fruLocationCode);
 }
 
 } // namespace manager
