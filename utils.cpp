@@ -132,13 +132,16 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
     auto result = bus.call(properties);
     if (!result.is_method_error())
     {
-        variant<Binary> val;
+        variant<Binary, string> val;
         result.read(val);
-
         if (auto pVal = get_if<Binary>(&val))
         {
             propVal.assign(reinterpret_cast<const char*>(pVal->data()),
                            pVal->size());
+        }
+        else if (auto pVal = get_if<string>(&val))
+        {
+            propVal.assign(pVal->data(), pVal->size());
         }
     }
     return propVal;
