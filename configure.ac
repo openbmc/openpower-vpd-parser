@@ -22,7 +22,7 @@ LT_INIT
 
 # Checks for typedefs, structures, and compiler characteristics.
 AX_CXX_COMPILE_STDCXX_17([noext])
-AX_APPEND_COMPILE_FLAGS([-Wall -Werror], [CXXFLAGS])
+AX_APPEND_COMPILE_FLAGS([-Wall -Werror -Wno-psabi], [CXXFLAGS])
 
 # Test cases require SDK so only build if we're told to (and SDK is available)
 AC_ARG_ENABLE([oe-sdk],
