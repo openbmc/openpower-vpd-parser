@@ -6,7 +6,6 @@
 #include <com/ibm/vpd/Manager/server.hpp>
 #include <map>
 #include <nlohmann/json.hpp>
-#include <sdbusplus/server.hpp>
 
 namespace sdbusplus
 {
@@ -86,7 +85,7 @@ class Manager : public ServerObject<ManagerIface>
      *  @return inventoryList[std::vector<sdbusplus::message::object_path>] -
      *  List of all the FRUs D-Bus object paths for the given location code.
      */
-    std::vector<sdbusplus::message::object_path>
+    inventory::ListOfPaths
         getFRUsByUnexpandedLocationCode(const std::string locationCode,
                                         const uint16_t nodeNumber);
 
@@ -100,7 +99,7 @@ class Manager : public ServerObject<ManagerIface>
      *  @return inventoryList[std::vector<sdbusplus::message::object_path>] -
      *  List of all the FRUs D-Bus object path for the given location code.
      */
-    std::vector<sdbusplus::message::object_path>
+    inventory::ListOfPaths
         getFRUsByExpandedLocationCode(const std::string locationCode);
 
     /** @brief Implementation for GetExpandedLocationCode
