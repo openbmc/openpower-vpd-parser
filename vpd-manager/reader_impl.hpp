@@ -32,26 +32,37 @@ class ReaderImpl
      * code.
      *  @return Expanded location code.
      */
-    std::string getExpandedLocationCode(
-        const std::string& locationCode, const uint16_t& nodeNumber,
+    inventory::LocationCode getExpandedLocationCode(
+        const inventory::LocationCode& locationCode,
+        const inventory::Node& nodeNumber,
         const inventory::LocationCodeMap& frusLocationCode) const;
 
-    /** @brief An api to get list of all the FRUs at the given location code
+    /** @brief An API to get list of all the FRUs at the given location code
      *  @param[in] - location code in unexpanded format
      *  @param[in] - node number
      *  @param[in] - mapping of location code and Inventory path
      *  @return list of Inventory paths at the given location
      */
     inventory::ListOfPaths getFrusAtLocation(
-        const std::string& locationCode, const uint16_t& nodeNumber,
+        const inventory::LocationCode& locationCode,
+        const inventory::Node& nodeNumber,
         const inventory::LocationCodeMap& frusLocationCode) const;
+
+    /** @brief An API to split expanded location code to its un-expanded
+     *  format as represented in VPD JSON and the node number.
+     *  @param[in] Location code in expanded format.
+     *  @return Location code in un-expanded format and its node number.
+     */
+    std::tuple<inventory::LocationCode, inventory::Node>
+        getCollapsedLocationCode(
+            const inventory::LocationCode& locationCode) const;
 
   private:
     /** @brief An api to check validity of location code
      *  @param[in] - location code
      *  @return true/false based on validity check
      */
-    bool isValidLocationCode(const std::string& locationCode) const;
+    bool isValidLocationCode(const inventory::LocationCode& locationCode) const;
 
 }; // class ReaderImpl
 
