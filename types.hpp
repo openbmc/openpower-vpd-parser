@@ -37,7 +37,7 @@ using FruIsMotherboard = bool;
 using FrusMap =
     std::unordered_map<Path, std::pair<VPDfilepath, FruIsMotherboard>>;
 using LocationCode = std::string;
-using LocationCodeMap = std::unordered_map<Path, LocationCode>;
+using LocationCodeMap = std::unordered_multimap<LocationCode, Path>;
 
 using namespace std::string_literals;
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";

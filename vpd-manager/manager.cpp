@@ -5,6 +5,7 @@
 #include "editor_impl.hpp"
 #include "parser.hpp"
 #include "reader_impl.hpp"
+#include "utils.hpp"
 
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::manager::editor;
@@ -155,7 +156,8 @@ std::vector<sdbusplus::message::object_path>
     Manager::getFRUsByUnexpandedLocationCode(const std::string locationCode,
                                              const uint16_t nodeNumber)
 {
-    // implement the interface
+    ReaderImpl read;
+    return read.getFrusAtLocation(locationCode, nodeNumber, fruLocationCode);
 }
 
 std::vector<sdbusplus::message::object_path>
