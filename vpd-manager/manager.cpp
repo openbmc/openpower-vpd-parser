@@ -129,21 +129,22 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
 }
 
 ListOfPaths
-    Manager::getFRUsByUnexpandedLocationCode(const std::string locationCode,
-                                             const uint16_t nodeNumber)
+    Manager::getFRUsByUnexpandedLocationCode(const LocationCode locationCode,
+                                             const NodeNumber nodeNumber)
 {
     ReaderImpl read;
     return read.getFrusAtLocation(locationCode, nodeNumber, fruLocationCode);
 }
 
 ListOfPaths
-    Manager::getFRUsByExpandedLocationCode(const std::string locationCode)
+    Manager::getFRUsByExpandedLocationCode(const LocationCode locationCode)
 {
-    // implement the interface
+    ReaderImpl read;
+    return read.getFRUsByExpandedLocationCode(locationCode, fruLocationCode);
 }
 
-std::string Manager::getExpandedLocationCode(const std::string locationCode,
-                                             const uint16_t nodeNumber)
+LocationCode Manager::getExpandedLocationCode(const LocationCode locationCode,
+                                              const NodeNumber nodeNumber)
 {
     ReaderImpl read;
     return read.getExpandedLocationCode(locationCode, nodeNumber,
