@@ -46,6 +46,8 @@ constexpr int UNEXP_LOCATION_CODE_MIN_LENGTH = 4;
 constexpr uint8_t EXP_LOCATIN_CODE_MIN_LENGTH = 17;
 static constexpr auto SE_KWD_LENGTH = 7;
 static constexpr auto INVALID_NODE_NUMBER = -1;
+static constexpr auto SYSTEM_2U = "50001001";
+static constexpr auto SYSTEM_4U = "50001000";
 
 namespace lengths
 {
