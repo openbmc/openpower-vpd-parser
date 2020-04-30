@@ -10,6 +10,7 @@
 #include <CLI/CLI.hpp>
 #include <algorithm>
 #include <exception>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <iterator>
@@ -21,6 +22,8 @@ using namespace CLI;
 using namespace vpd::keyword::parser;
 using namespace vpdFormat;
 using namespace openpower::vpd::constants;
+namespace fs = filesystem;
+using json = nlohmann::json;
 
 /**
  * @brief Expands location codes
@@ -351,6 +354,56 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
     if (isSystemVpd)
     {
+        vector<uint8_t> imVal;
+        if constexpr (is_same<T, Parsed>::value)
+        {
+            auto property = vpdMap.find("VSBP");
+            if (property != vpdMap.end())
+            {
+                auto value = (property->second).find("IM");
+                if (value != (property->second).end())
+                {
+                    //                          imVal = value->second;
+                    copy(value->second.begin(), value->second.end(),
+                         back_inserter(imVal));
+                }
+            }
+        }
+
+        fs::path target;
+        fs::path link = INVENTORY_JSON_SYM_LINK;
+
+        ostringstream oss;
+        for (auto& i : imVal)
+        {
+            if ((int)i / 10 == 0) // one digit number
+            {
+                oss << hex << 0;
+            }
+            oss << hex << static_cast<int>(i);
+        }
+        string imValStr = oss.str();
+
+        if (imValStr == SYSTEM_4U) // 4U
+        {
+            target = INVENTORY_JSON_4U;
+        }
+
+        else if (imValStr == SYSTEM_2U) // 2U
+        {
+            target = INVENTORY_JSON_2U;
+        }
+
+        // unlink the symlink which is created at build time
+        remove(INVENTORY_JSON_SYM_LINK);
+        // create a new symlink based on the system
+        fs::create_symlink(target, link);
+
+        // Reloading the json
+        ifstream inventoryJson(link);
+        auto js = json::parse(inventoryJson);
+        inventoryJson.close();
+
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
     }
@@ -365,8 +418,6 @@ int main(int argc, char** argv)
 
     try
     {
-        using json = nlohmann::json;
-
         App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
                 "in DBUS"};
         string file{};
