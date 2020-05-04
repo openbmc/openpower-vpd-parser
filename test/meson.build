@@ -32,12 +32,33 @@ include_directories: '..'
 ),
 workdir: meson.current_source_dir())
 
+configuration_inc = include_directories('..', '../vpd-manager')
+application_src += ['../vpdecc/vpdecc.c',
+                   '../vpdecc/vpdecc_support.c',
+                   '../parser.cpp',
+                   '../utils.cpp',
+                   '../vpd-manager/editor_impl.cpp',
+                   '../vpd-manager/reader_impl.cpp'
+                  ]
+
+test('vpd_manager_test', executable('vpd_manager_test',
+        ['vpd_manager_test/vpd_manager_test.cpp', application_src],
+build_rpath: get_option('oe-sdk').enabled() ? rpath : '',
+link_args: dynamic_linker,
+dependencies: [
+            gtest,
+            gmock,
+            sdbusplus,
+            phosphor_logging,
+    ],
+include_directories: configuration_inc,
+),
+workdir: meson.current_source_dir())
+
 vpd_test = ['ipz_parser/parser.cpp',
                 'keyword_vpd_parser_test/kw_vpd_test.cpp'
-    ]
+           ]
 application_src += ['../keyword_vpd_parser.cpp',
-  '../vpdecc/vpdecc.c',
-  '../vpdecc/vpdecc_support.c'
     ]
 foreach t : vpd_test
     test(t, executable(t.underscorify(),
