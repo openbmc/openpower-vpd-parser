@@ -128,6 +128,7 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
             EditorImpl edit(vpdFilePath, jsonFile, recordName, keyword);
             edit.updateKeyword(value);
 
+#ifndef ManagerTest
             // if it is a motehrboard FRU need to check for location expansion
             if (frus.find(path)->second.second)
             {
@@ -142,7 +143,7 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
                     edit.expandLocationCode("mts");
                 }
             }
-
+#endif //ManagerTest
             return;
         }
         throw std::runtime_error("Invalid VPD file type");
