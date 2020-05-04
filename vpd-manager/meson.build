@@ -28,5 +28,5 @@ vpd_manager_exe = executable('vpd-manager',
                               include_directories : configuration_inc,
                               dependencies :[vpd_manager_dependencies,
                                             ],
-                              install: true
+                              install: true,
                             )
