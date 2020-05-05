@@ -85,10 +85,10 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
             }
         }
     }
-    catch (std::exception& e)
+    catch (exception& e)
     {
-        std::cerr << "Failed to expand location code with exception: "
-                  << e.what() << "\n";
+        cerr << "Failed to expand location code with exception: " << e.what()
+             << "\n";
     }
     return expanded;
 }
@@ -111,17 +111,17 @@ static void populateFruSpecificInterfaces(const T& map,
 
     for (const auto& kwVal : map)
     {
-        std::vector<uint8_t> vec(kwVal.second.begin(), kwVal.second.end());
+        vector<uint8_t> vec(kwVal.second.begin(), kwVal.second.end());
 
         auto kw = kwVal.first;
 
         if (kw[0] == '#')
         {
-            kw = std::string("PD_") + kw[1];
+            kw = string("PD_") + kw[1];
         }
         else if (isdigit(kw[0]))
         {
-            kw = std::string("N_") + kw;
+            kw = string("N_") + kw;
         }
         prop.emplace(move(kw), move(vec));
     }
@@ -158,7 +158,7 @@ static void populateInterfaces(const nlohmann::json& js,
             }
             else if (itr.value().is_string())
             {
-                if constexpr (std::is_same<T, Parsed>::value)
+                if constexpr (is_same<T, Parsed>::value)
                 {
                     if (busProp == "LocationCode" &&
                         inf == "com.ibm.ipzvpd.Location")
@@ -183,7 +183,7 @@ static void populateInterfaces(const nlohmann::json& js,
                 const string& kw = itr.value().value("keywordName", "");
                 const string& encoding = itr.value().value("encoding", "");
 
-                if constexpr (std::is_same<T, Parsed>::value)
+                if constexpr (is_same<T, Parsed>::value)
                 {
                     if (!rec.empty() && !kw.empty() && vpdMap.count(rec) &&
                         vpdMap.at(rec).count(kw))
@@ -193,7 +193,7 @@ static void populateInterfaces(const nlohmann::json& js,
                         props.emplace(busProp, encoded);
                     }
                 }
-                else if constexpr (std::is_same<T, KeywordVpdMap>::value)
+                else if constexpr (is_same<T, KeywordVpdMap>::value)
                 {
                     if (!kw.empty() && vpdMap.count(kw))
                     {
@@ -207,6 +207,31 @@ static void populateInterfaces(const nlohmann::json& js,
         }
         interfaces.emplace(inf, move(props));
     }
+}
+
+Binary getVpdDataInVector(nlohmann::json& js, const string& file)
+{
+    uint32_t offset = 0;
+    // check if offset present?
+    for (const auto& item : js["frus"][file])
+    {
+        if (item.find("offset") != item.end())
+        {
+            offset = item["offset"];
+        }
+    }
+
+    // TODO: Figure out a better way to get max possible VPD size.
+    Binary vpdVector;
+    vpdVector.resize(65504);
+    ifstream vpdFile;
+    vpdFile.open(file, ios::binary);
+
+    vpdFile.seekg(offset, ios_base::cur);
+    vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), 65504);
+    vpdVector.resize(vpdFile.gcount());
+
+    return vpdVector;
 }
 
 /**
@@ -301,7 +326,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         // extraInterfaces.
         if (item.value("inherit", true))
         {
-            if constexpr (std::is_same<T, Parsed>::value)
+            if constexpr (is_same<T, Parsed>::value)
             {
                 // Each record in the VPD becomes an interface and all
                 // keyword within the record are properties under that
@@ -312,7 +337,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                         record.second, preIntrStr + record.first, interfaces);
                 }
             }
-            else if constexpr (std::is_same<T, KeywordVpdMap>::value)
+            else if constexpr (is_same<T, KeywordVpdMap>::value)
             {
                 populateFruSpecificInterfaces(vpdMap, preIntrStr, interfaces);
             }
@@ -325,7 +350,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         else
         {
             // Check if we have been asked to inherit specific record(s)
-            if constexpr (std::is_same<T, Parsed>::value)
+            if constexpr (is_same<T, Parsed>::value)
             {
                 if (item.find("copyRecords") != item.end())
                 {
@@ -343,13 +368,16 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
             }
         }
 
-        // Populate interfaces and properties that are common to every FRU
-        // and additional interface that might be defined on a per-FRU
-        // basis.
-        if (item.find("extraInterfaces") != item.end())
+        if (item.value("inheritEI", true))
         {
-            populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
-                               isSystemVpd);
+            // Populate interfaces and properties that are common to every FRU
+            // and additional interface that might be defined on a per-FRU
+            // basis.
+            if (item.find("extraInterfaces") != item.end())
+            {
+                populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
+                                   isSystemVpd);
+            }
         }
         objects.emplace(move(object), move(interfaces));
     }
@@ -432,30 +460,11 @@ int main(int argc, char** argv)
         if ((js.find("frus") == js.end()) ||
             (js["frus"].find(file) == js["frus"].end()))
         {
-            cout << "Device path not in JSON, ignoring" << std::endl;
+            cout << "Device path not in JSON, ignoring" << endl;
             return 0;
         }
 
-        uint32_t offset = 0;
-        // check if offset present?
-        for (const auto& item : js["frus"][file])
-        {
-            if (item.find("offset") != item.end())
-            {
-                offset = item["offset"];
-            }
-        }
-
-        // TODO: Figure out a better way to get max possible VPD size.
-        Binary vpdVector;
-        vpdVector.resize(65504);
-        ifstream vpdFile;
-        vpdFile.open(file, ios::binary);
-
-        vpdFile.seekg(offset, ios_base::cur);
-        vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), 65504);
-        vpdVector.resize(vpdFile.gcount());
-
+        Binary vpdVector(getVpdDataInVector(js, file));
         vpdType type = vpdTypeCheck(vpdVector);
 
         switch (type)
@@ -495,7 +504,7 @@ int main(int argc, char** argv)
             break;
 
             default:
-                throw std::runtime_error("Invalid VPD format");
+                throw runtime_error("Invalid VPD format");
         }
     }
     catch (exception& e)
