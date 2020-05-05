@@ -237,6 +237,96 @@ static void populateInterfaces(const nlohmann::json& js,
     }
 }
 
+Parsed processParentFruVpd(nlohmann::json& js, const string& parentFruVpdPath)
+{
+    Parsed vpdMap;
+
+    Binary vpdVector(getVpdDataInVector(js, parentFruVpdPath));
+
+    auto iterator = vpd.cbegin();
+    //point to VTOC offset
+    advance(iterator, 35);
+    uint16_t vtocOffsetLowByte = *iterator;
+    uint16_t vtocOffsetHighByte = *(iterator+1);
+    vtocOffsetLowByte |= (vtocOffsetHighByte << 8);
+
+    iterator = vpd.cbegin();
+    advance(iterator, vtocOffsetLowByte+12);
+    uint8_t ptLen= *iterator;
+
+    advance(iterator, 1); //point to next record
+
+    auto end = iterator;
+    std::advance(end, ptLen);
+
+    while (iterator < end)
+    {
+        string recordName(iterator, 4); //Read Record name
+        if(/*this record is one among CI records*/)
+        {
+            //collect it's offset
+            //move to next record
+        }
+        else
+        {
+            //move to next record
+        }
+    }//Got Record offset list
+
+    for each offset
+    {
+        //get records and kw-data and store it in parsed type.
+    }
+    return vpdMap;
+}
+
+Parsed getFruCiVpdMap(nlohmann::json& js, const string& moduleObjPath)
+{
+    string parentFruVpdPath;
+    bool moduleObjPathMatched = false;
+    bool parentFru = false;
+
+    //get all FRUs list
+    for (const auto& eachFru : js["frus"].items())
+    {
+        cout<<"checking "<<eachFru.key()<<"\n";
+        for (const auto& eachInventory : eachFru.value())
+        {
+            const auto& thisObjectPath = eachInventory["inventoryPath"];
+
+            // "type" exists only in CPU module and FRU
+            if (eachInventory.find("type") != eachInventory.end())
+            {
+                //If inventory type is fruAndModule then set flag
+                if( eachInventory["type"] == "fruAndModule")
+                {
+                    parentFru = true;
+                }
+
+                if(thisObjectPath == moduleObjPath)
+                {
+                    moduleObjPathMatched = true;
+                }
+            }
+        }
+
+        //If condition satisfies then collect this sys path and exit
+        if( parentFru && moduleObjPathMatched)
+        {
+            parentFruVpdPath = eachFru.key();
+            break;
+        }
+    }
+ 
+    //process this parent vpd to get CI 
+    cout<<"Found Parent FRU path is- "<<parentFruVpdPath <<"\n";
+
+    const auto& commonIntrfVpdMap = processParentFruVpd(parentFruVpdPath);
+
+    return commonIntrfVpdMap;
+}
+
+
 /**
  * @brief Populate Dbus.
  *
@@ -303,6 +393,28 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                         }
                     }
                 }
+                //check if it is a module Type, then find it's Parent FRU to get CI.
+                if (item.find("type") != item.end())
+                {
+                    if( item["type"] == "moduleOnly")
+                    {
+                        const auto & moduleObjPath = item["inventoryPath"];
+                        auto moduleCiVpdMap = getFruCiVpdMap( js, moduleObjPath);
+                        
+                        //Use this parsed type moduleCIvpdMap.
+                        if constexpr (std::is_same<T, Parsed>::value)
+                        {
+                            for (const auto& record : moduleCiVpdMap)
+                            {
+                                populateFruSpecificInterfaces(
+                                record.second, preIntrStr + record.first, interfaces);
+                            }
+                        }
+
+                        populateInterfaces(item["commonInterfaces"], interfaces, moduleCiVpdMap,
+                                                       isSystemVpd);
+                    }
+                }
             }
         }
 
@@ -318,6 +430,34 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
     // Notify PIM
     inventory::callPIM(move(objects));
+}
+
+Binary getVpdDataInVector(nlohmann::json& js, const string& filePath)
+{
+        uint32_t offset = 0;
+        // check if offset present?
+        for (const auto& item : js["frus"][filePath])
+        {
+            if (item.find("offset") != item.end())
+            {
+                offset = item["offset"];
+            }
+        }
+        char buf[2048];
+        ifstream vpdFile;
+        vpdFile.rdbuf()->pubsetbuf(buf, sizeof(buf));
+        vpdFile.open(filePath, ios::binary);
+        vpdFile.seekg(offset, std::ios_base::cur);
+
+        // Read 64KB data content of the binary file into a vector
+        Binary tmpVector((istreambuf_iterator<char>(vpdFile)),
+                         istreambuf_iterator<char>());
+
+        vector<unsigned char>::const_iterator first = tmpVector.begin();
+        vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
+
+        Binary vpdVector(first, last);
+        return vpdVector;
 }
 
 int main(int argc, char** argv)
@@ -349,30 +489,7 @@ int main(int argc, char** argv)
             return 0;
         }
 
-        uint32_t offset = 0;
-        // check if offset present?
-        for (const auto& item : js["frus"][file])
-        {
-            if (item.find("offset") != item.end())
-            {
-                offset = item["offset"];
-            }
-        }
-        char buf[2048];
-        ifstream vpdFile;
-        vpdFile.rdbuf()->pubsetbuf(buf, sizeof(buf));
-        vpdFile.open(file, ios::binary);
-        vpdFile.seekg(offset, std::ios_base::cur);
-
-        // Read 64KB data content of the binary file into a vector
-        Binary tmpVector((istreambuf_iterator<char>(vpdFile)),
-                         istreambuf_iterator<char>());
-
-        vector<unsigned char>::const_iterator first = tmpVector.begin();
-        vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
-
-        Binary vpdVector(first, last);
-
+        Binary vpdVector(getVpdDataInVector(js, file));
         vpdType type = vpdTypeCheck(vpdVector);
 
         switch (type)
