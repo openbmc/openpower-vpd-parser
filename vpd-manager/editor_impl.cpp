@@ -1,4 +1,6 @@
+#ifndef ManagerTest
 #include "config.h"
+#endif
 
 #include "editor_impl.hpp"
 
@@ -264,6 +266,7 @@ void EditorImpl::readVTOC()
     checkPTForRecord(iterator, ptLen);
 }
 
+#ifndef ManagerTest
 template <typename T>
 void EditorImpl::makeDbusCall(const std::string& object,
                               const std::string& interface,
@@ -343,43 +346,6 @@ void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
     }
 }
 
-void EditorImpl::updateCache()
-{
-    const std::vector<nlohmann::json>& groupEEPROM =
-        jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
-
-    // iterate through all the inventories for this file path
-    for (const auto& singleInventory : groupEEPROM)
-    {
-        // by default inherit property is true
-        bool isInherit = true;
-
-        if (singleInventory.find("inherit") != singleInventory.end())
-        {
-            isInherit = singleInventory["inherit"].get<bool>();
-        }
-
-        if (isInherit)
-        {
-            // update com interface
-            makeDbusCall<Binary>(
-                (INVENTORY_PATH +
-                 singleInventory["inventoryPath"].get<std::string>()),
-                (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
-                thisRecord.recKWd, thisRecord.kwdUpdatedData);
-
-            // process Common interface
-            processAndUpdateCI(singleInventory["inventoryPath"]
-                                   .get_ref<const nlohmann::json::string_t&>());
-        }
-
-        // process extra interfaces
-        processAndUpdateEI(singleInventory,
-                           singleInventory["inventoryPath"]
-                               .get_ref<const nlohmann::json::string_t&>());
-    }
-}
-
 void EditorImpl::expandLocationCode(const std::string& locationCodeType)
 {
     std::string property_FCorTM{};
@@ -448,6 +414,44 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
     }
 }
 
+void EditorImpl::updateCache()
+{
+    const std::vector<nlohmann::json>& groupEEPROM =
+        jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
+
+    // iterate through all the inventories for this file path
+    for (const auto& singleInventory : groupEEPROM)
+    {
+        // by default inherit property is true
+        bool isInherit = true;
+
+        if (singleInventory.find("inherit") != singleInventory.end())
+        {
+            isInherit = singleInventory["inherit"].get<bool>();
+        }
+
+        if (isInherit)
+        {
+            // update com interface
+            makeDbusCall<Binary>(
+                (INVENTORY_PATH +
+                 singleInventory["inventoryPath"].get<std::string>()),
+                (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
+                thisRecord.recKWd, thisRecord.kwdUpdatedData);
+
+            // process Common interface
+            processAndUpdateCI(singleInventory["inventoryPath"]
+                                   .get_ref<const nlohmann::json::string_t&>());
+        }
+
+        // process extra interfaces
+        processAndUpdateEI(singleInventory,
+                           singleInventory["inventoryPath"]
+                               .get_ref<const nlohmann::json::string_t&>());
+    }
+}
+#endif //ManagerTest
+
 void EditorImpl::updateKeyword(const Binary& kwdData)
 {
     vpdFileStream.open(vpdFilePath,
@@ -469,8 +473,10 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
     // update the ECC data for the record once data has been updated
     updateRecordECC();
 
+#ifndef ManagerTest
     // update the cache once data has been updated
     updateCache();
+#endif
 }
 
 } // namespace editor
