@@ -23,6 +23,7 @@ using namespace CLI;
 using namespace vpd::keyword::parser;
 using namespace vpdFormat;
 using namespace vpd::memory::parser;
+using namespace openpower::vpd::constants;
 
 /** @brief Reads a property from the inventory manager given object path,
  * intreface and property.
@@ -237,6 +238,196 @@ static void populateInterfaces(const nlohmann::json& js,
     }
 }
 
+Binary getVpdDataInVector(nlohmann::json& js, const string& filePath)
+{
+    uint32_t offset = 0;
+    // check if offset present?
+    for (const auto& item : js["frus"][filePath])
+    {
+        if (item.find("offset") != item.end())
+        {
+            offset = item["offset"];
+        }
+    }
+    char buf[2048];
+    ifstream vpdFile;
+    vpdFile.rdbuf()->pubsetbuf(buf, sizeof(buf));
+    vpdFile.open(filePath, ios::binary);
+    vpdFile.seekg(offset, std::ios_base::cur);
+
+    // Read 64KB data content of the binary file into a vector
+    Binary tmpVector((istreambuf_iterator<char>(vpdFile)),
+                     istreambuf_iterator<char>());
+
+    vector<unsigned char>::const_iterator first = tmpVector.begin();
+    vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
+
+    Binary vpdVector(first, last);
+    return vpdVector;
+}
+
+internal::KeywordMap readKeywords(Binary::const_iterator iterator)
+{
+    internal::KeywordMap map{};
+    while (true)
+    {
+        // Note keyword name
+        std::string kw(iterator, iterator + lengths::KW_NAME);
+        if (LAST_KW == kw)
+        {
+            cout << "Reched to Last KW, breaking... \n";
+            // We're done
+            break;
+        }
+        // Check if the Keyword is '#kw'
+        char kwNameStart = *iterator;
+        // Jump past keyword name
+        std::advance(iterator, lengths::KW_NAME);
+        std::size_t length;
+        std::size_t lengthHighByte;
+        if (POUND_KW == kwNameStart)
+        {
+            // Note keyword data length
+            length = *iterator;
+            lengthHighByte = *(iterator + 1);
+            length |= (lengthHighByte << 8);
+            // Jump past 2Byte keyword length
+            std::advance(iterator, sizeof(PoundKwSize));
+        }
+        else
+        {
+            // Note keyword data length
+            length = *iterator;
+            // Jump past keyword length
+            std::advance(iterator, sizeof(KwSize));
+        }
+        auto stop = std::next(iterator, length);
+        std::string kwdata(iterator, stop);
+        map.emplace(std::move(kw), std::move(kwdata));
+
+        // Jump past keyword data length
+        std::advance(iterator, length);
+    }
+
+    return map;
+}
+
+Parsed processParentFruVpd(nlohmann::json& js, const string& parentFruVpdPath)
+{
+    Parsed vpdMap;
+
+    // Temp hardcoded list.TODO:should get it dynamically?
+    vector<string> commonIntRecordsList = {"VINI", "VR10"};
+
+    Binary vpdVector(getVpdDataInVector(js, parentFruVpdPath));
+
+    auto iterator = vpdVector.cbegin();
+    // point to VTOC offset
+    advance(iterator, 35);
+    uint16_t vtocOffsetLowByte = *iterator;
+    uint16_t vtocOffsetHighByte = *(iterator + 1);
+    vtocOffsetLowByte |= (vtocOffsetHighByte << 8);
+
+    iterator = vpdVector.cbegin();
+    advance(iterator, vtocOffsetLowByte + 12);
+    uint8_t ptLen = *iterator;
+
+    advance(iterator, 1); // point to next record
+
+    auto end = iterator;
+    std::advance(end, ptLen);
+    vector<uint32_t> offsets;
+
+    while (iterator < end)
+    {
+        string recordName(iterator, iterator + 4); // Read Record name
+
+        if (find(commonIntRecordsList.begin(), commonIntRecordsList.end(),
+                 recordName) != commonIntRecordsList.end())
+        {
+            // collect it's offset
+            uint16_t offset;
+            advance(iterator, 4 + 2);
+
+            uint16_t recOffsetLowByte = *iterator;
+            uint16_t recOffsetHighByte = *(iterator + 1);
+            offset = recOffsetLowByte | (recOffsetHighByte << 8);
+
+            offsets.push_back(offset);
+
+            // move to next record
+            advance(iterator, 2 + 2 + 2 + 2);
+        }
+        else
+        {
+            // move to next record
+            advance(iterator, 4 + 2 + 2 + 2 + 2 + 2);
+        }
+    } // Got Record's offset list
+
+    for (const auto& offset : offsets)
+    {
+        iterator = vpdVector.cbegin();
+        // get records and kw-data and store it in parsed type.
+        advance(iterator, offset + sizeof(RecordId) + sizeof(RecordSize) +
+                              lengths::KW_NAME + sizeof(KwSize));
+
+        string name(iterator, iterator + lengths::RECORD_NAME);
+        advance(iterator, lengths::RECORD_NAME);
+
+        auto kwMap = readKeywords(iterator);
+        vpdMap.emplace(std::move(name), std::move(kwMap));
+    }
+    return vpdMap;
+}
+
+Parsed getFruCiVpdMap(nlohmann::json& js, const string& moduleObjPath)
+{
+    string parentFruVpdPath;
+    bool parentFruFound = false;
+
+    // get all FRUs list
+    for (const auto& eachFru : js["frus"].items())
+    {
+        bool moduleObjPathMatched = false;
+        bool parentFru = false;
+        for (const auto& eachInventory : eachFru.value())
+        {
+            const auto& thisObjectPath = eachInventory["inventoryPath"];
+
+            // "type" exists only in CPU module and FRU
+            if (eachInventory.find("type") != eachInventory.end())
+            {
+                // If inventory type is fruAndModule then set flag
+                if (eachInventory["type"] == "fruAndModule")
+                {
+                    parentFru = true;
+                }
+            }
+
+            if (thisObjectPath == moduleObjPath)
+            {
+                moduleObjPathMatched = true;
+            }
+        }
+
+        // If condition satisfies then collect this sys path and exit
+        if (parentFru && moduleObjPathMatched)
+        {
+            parentFruVpdPath = eachFru.key();
+            break;
+        }
+    }
+
+    // TODO 1:Handle if parentFruFound NOT found from JSON
+    // TODO 2:Handle if parentFruFound NOT present on the System
+
+    // process this parent vpd to get CI
+    const auto& commonIntrfVpdMap = processParentFruVpd(js, parentFruVpdPath);
+
+    return commonIntrfVpdMap;
+}
+
 /**
  * @brief Populate Dbus.
  *
@@ -303,6 +494,28 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                         }
                     }
                 }
+                // check if it is a module Type, then find it's Parent FRU to
+                // get CI.
+                if (item.find("type") != item.end())
+                {
+                    if (item["type"] == "moduleOnly")
+                    {
+                        const auto& moduleObjPath = item["inventoryPath"];
+                        auto moduleCiVpdMap = getFruCiVpdMap(js, moduleObjPath);
+                        // Use this parsed type moduleCIvpdMap.
+                        if constexpr (std::is_same<T, Parsed>::value)
+                        {
+                            for (const auto& record : moduleCiVpdMap)
+                            {
+                                populateFruSpecificInterfaces(
+                                    record.second, preIntrStr + record.first,
+                                    interfaces);
+                            }
+                        }
+                        populateInterfaces(js["commonInterfaces"], interfaces,
+                                           moduleCiVpdMap, isSystemVpd);
+                    }
+                }
             }
         }
 
@@ -349,30 +562,7 @@ int main(int argc, char** argv)
             return 0;
         }
 
-        uint32_t offset = 0;
-        // check if offset present?
-        for (const auto& item : js["frus"][file])
-        {
-            if (item.find("offset") != item.end())
-            {
-                offset = item["offset"];
-            }
-        }
-        char buf[2048];
-        ifstream vpdFile;
-        vpdFile.rdbuf()->pubsetbuf(buf, sizeof(buf));
-        vpdFile.open(file, ios::binary);
-        vpdFile.seekg(offset, std::ios_base::cur);
-
-        // Read 64KB data content of the binary file into a vector
-        Binary tmpVector((istreambuf_iterator<char>(vpdFile)),
-                         istreambuf_iterator<char>());
-
-        vector<unsigned char>::const_iterator first = tmpVector.begin();
-        vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
-
-        Binary vpdVector(first, last);
-
+        Binary vpdVector(getVpdDataInVector(js, file));
         vpdType type = vpdTypeCheck(vpdVector);
 
         switch (type)
