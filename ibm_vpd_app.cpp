@@ -210,6 +210,34 @@ static void populateInterfaces(const nlohmann::json& js,
     }
 }
 
+Binary getVpdDataInVector(nlohmann::json& js, const string& filePath)
+{
+    uint32_t offset = 0;
+    // check if offset present?
+    for (const auto& item : js["frus"][filePath])
+    {
+        if (item.find("offset") != item.end())
+        {
+            offset = item["offset"];
+        }
+    }
+    char buf[2048];
+    ifstream vpdFile;
+    vpdFile.rdbuf()->pubsetbuf(buf, sizeof(buf));
+    vpdFile.open(filePath, ios::binary);
+    vpdFile.seekg(offset, std::ios_base::cur);
+
+    // Read 64KB data content of the binary file into a vector
+    Binary tmpVector((istreambuf_iterator<char>(vpdFile)),
+                     istreambuf_iterator<char>());
+
+    vector<unsigned char>::const_iterator first = tmpVector.begin();
+    vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
+
+    Binary vpdVector(first, last);
+    return vpdVector;
+}
+
 /**
  * @brief Prime the Inventory
  * Prime the inventory by populating only the location code,
@@ -335,13 +363,16 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
             }
         }
 
-        // Populate interfaces and properties that are common to every FRU
-        // and additional interface that might be defined on a per-FRU
-        // basis.
-        if (item.find("extraInterfaces") != item.end())
+        if (item.value("inheritEI", true))
         {
-            populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
-                               isSystemVpd);
+            // Populate interfaces and properties that are common to every FRU
+            // and additional interface that might be defined on a per-FRU
+            // basis.
+            if (item.find("extraInterfaces") != item.end())
+            {
+                populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
+                                   isSystemVpd);
+            }
         }
 
         /*add Common interface to all the fru except the one having "mts" in
@@ -448,30 +479,7 @@ int main(int argc, char** argv)
             return 0;
         }
 
-        uint32_t offset = 0;
-        // check if offset present?
-        for (const auto& item : js["frus"][file])
-        {
-            if (item.find("offset") != item.end())
-            {
-                offset = item["offset"];
-            }
-        }
-        char buf[2048];
-        ifstream vpdFile;
-        vpdFile.rdbuf()->pubsetbuf(buf, sizeof(buf));
-        vpdFile.open(file, ios::binary);
-        vpdFile.seekg(offset, std::ios_base::cur);
-
-        // Read 64KB data content of the binary file into a vector
-        Binary tmpVector((istreambuf_iterator<char>(vpdFile)),
-                         istreambuf_iterator<char>());
-
-        vector<unsigned char>::const_iterator first = tmpVector.begin();
-        vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
-
-        Binary vpdVector(first, last);
-
+        Binary vpdVector(getVpdDataInVector(js, file));
         vpdType type = vpdTypeCheck(vpdVector);
 
         switch (type)
