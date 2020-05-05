@@ -237,6 +237,61 @@ static void populateInterfaces(const nlohmann::json& js,
     }
 }
 
+Parsed processParentFruVpd(const string& parentFruVpdPath)
+{
+    Parsed vpdMap;
+    //get offset of Only desired Records
+    //from that offset,get records and kw-data and store it in parsed type.
+    return vpdMap;
+}
+
+Parsed getFruCiVpdMap(nlohmann::json& js, const string& moduleObjPath)
+{
+    string parentFruVpdPath;
+    bool moduleObjPathMatched = false;
+    bool parentFru = false;
+
+    //get all FRUs list
+    for (const auto& eachFru : js["frus"])
+    cout<<"checking "<<eachFru.key()<<"\n";
+        for (const auto& eachInventory : eachFru)
+        {
+            const auto& thisObjectPath = eachInventory["inventoryPath"];
+
+            // "type" exists only in CPU module and FRU
+            if (eachInventory.find("type") != eachInventory.end())
+            {
+                //If inventory type is fruAndModule then set flag
+                if( eachInventory["type"] == "fruAndModule")
+                {
+                    parentFru = true;
+                }
+
+                if(thisObjectPath == moduleObjPath)
+                {
+                    moduleObjPathMatched = true;
+                }
+            }
+        }
+
+        //If condition satisfies then collect this sys path and exit
+        if( parentFru && moduleObjPathMatched)
+        {
+            parentFruVpdPath = eachFru.key();
+            break;
+        }
+    }
+ 
+    //process this parent vpd to get CI 
+    cout<<"Found Parent FRU path is- "<<parentFruVpdPath <<"\n";
+
+    const &Parsed commonIntrfVpdMap = processParentFruVpd(parentFruVpdPath);
+                        //get offset for desired Records
+                        //then process records and get kw-data and store it in parsed type.
+    return commonIntrfVpdMap;
+}
+
+
 /**
  * @brief Populate Dbus.
  *
@@ -301,6 +356,27 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                                 vpdMap.at(recordName), preIntrStr + recordName,
                                 interfaces);
                         }
+                    }
+                }
+                //check if it is a module Type, then find it's Parent FRU to get CI.
+                if (item.find("type") != item.end())
+                {
+                    if( item["type"] == "moduleOnly")
+                    {
+                        auto moduleCiVpdMap = getFruCiVpdMap( js, moduleObjPath);
+                        
+                        //Use this parsed type moduleCIvpdMap.
+                        if constexpr (std::is_same<T, Parsed>::value)
+                        {
+                            for (const auto& record : moduleCiVpdMap)
+                            {
+                                populateFruSpecificInterfaces(
+                                record.second, preIntrStr + record.first, interfaces);
+                            }
+                        }
+
+                        populateInterfaces(item["commonInterfaces"], interfaces, moduleCiVpdMap,
+                                                       isSystemVpd);
                     }
                 }
             }
