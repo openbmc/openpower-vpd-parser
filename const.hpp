@@ -21,6 +21,8 @@ using ECCLength = uint16_t;
 using LE2ByteData = uint16_t;
 using DataOffset = uint16_t;
 
+
+static constexpr auto NEXT_64_KB = 65536;
 static constexpr auto MAC_ADDRESS_LEN_BYTES = 6;
 static constexpr auto LAST_KW = "PF";
 static constexpr auto POUND_KW = '#';
