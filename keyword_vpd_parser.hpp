@@ -1,6 +1,6 @@
 #pragma once
 
-#include "keyword_vpd_types.hpp"
+#include "types.hpp"
 
 namespace vpd
 {
@@ -31,7 +31,6 @@ namespace parser
  * 6) Validate the 'small resource type last end tag'.
  * 7) Return the keyword-value map.
  */
-
 class KeywordVpdParser
 {
   public:
@@ -45,7 +44,7 @@ class KeywordVpdParser
      *
      * Move kwVpdVector to parser object's kwVpdVector
      */
-    KeywordVpdParser(Binary&& kwVpdVector) :
+    KeywordVpdParser(openpower::vpd::Binary&& kwVpdVector) :
         keywordVpdVector(std::move(kwVpdVector))
     {
     }
@@ -59,15 +58,19 @@ class KeywordVpdParser
      *
      * @return map of keyword:value
      */
-    KeywordVpdMap parseKwVpd();
+    openpower::vpd::inventory::KeywordVpdMap parseKwVpd();
 
   private:
-    Binary::iterator checkSumStart; //!< Pointer to the start byte from where
-                                    //!< the checksum need to be calculated
-    Binary::iterator checkSumEnd;   //!< Pointer to the end byte until which the
-                                    //!< checksum need to be calculated
-    Binary::iterator kwVpdIterator; //!< Iterator to parse the vector
-    Binary keywordVpdVector;        //!< Vector which stores keyword VPD data
+    openpower::vpd::Binary::iterator
+        checkSumStart; //!< Pointer to the start byte from where
+                       //!< the checksum need to be calculated
+    openpower::vpd::Binary::iterator
+        checkSumEnd; //!< Pointer to the end byte until which the
+                     //!< checksum need to be calculated
+    openpower::vpd::Binary::iterator
+        kwVpdIterator; //!< Iterator to parse the vector
+    openpower::vpd::Binary
+        keywordVpdVector; //!< Vector which stores keyword VPD data
 
     /**
      * @brief Validate the large resource identifier string
@@ -86,7 +89,7 @@ class KeywordVpdParser
      *
      * @return map of keyword:value
      */
-    KeywordVpdMap kwValParser();
+    openpower::vpd::inventory::KeywordVpdMap kwValParser();
 
     /**
      * @brief Validate small resource type end tag
