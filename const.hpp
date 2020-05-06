@@ -49,6 +49,23 @@ static constexpr auto INVALID_NODE_NUMBER = -1;
 static constexpr auto SYSTEM_2U = "50001001";
 static constexpr auto SYSTEM_4U = "50001000";
 
+constexpr uint8_t KW_VPD_START_TAG = 0x82;
+constexpr uint8_t KW_VPD_END_TAG = 0x78;
+constexpr uint8_t ALT_KW_VAL_PAIR_START_TAG = 0x90;
+constexpr uint8_t KW_VAL_PAIR_END_TAG = 0x79;
+constexpr auto MEMORY_VPD_START_TAG = "11S";
+constexpr int TWO_BYTES = 2;
+constexpr int KW_VPD_DATA_START = 0;
+constexpr auto MEMORY_VPD_DATA_START = 416;
+constexpr auto FORMAT_11S_LEN = 3;
+static constexpr auto PART_NUM_LEN = 7;
+static constexpr auto SERIAL_NUM_LEN = 12;
+static constexpr auto CCIN_LEN = 4;
+
+using namespace std::string_literals;
+constexpr auto pimPath = "/xyz/openbmc_project/inventory";
+constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
+
 namespace lengths
 {
 enum Lengths
