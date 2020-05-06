@@ -9,7 +9,6 @@ noinst_HEADERS = \
 	args.hpp \
 	utils.hpp \
         keyword_vpd_parser.hpp \
-	ibm_vpd_type_check.hpp \
 	vpd_tool_impl.hpp
 
 if IBM_PARSER
@@ -20,7 +19,6 @@ noinst_HEADERS += \
 bin_PROGRAMS = ibm-read-vpd
 ibm_read_vpd_SOURCES = \
 	ibm_vpd_app.cpp \
-	ibm_vpd_type_check.cpp \
 	parser.cpp \
 	vpdecc/vpdecc.c   \
 	vpdecc/vpdecc_support.c\
