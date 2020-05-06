@@ -1,5 +1,7 @@
 #include "keyword_vpd_parser.hpp"
 
+#include "const.hpp"
+
 #include <iostream>
 #include <numeric>
 #include <string>
@@ -10,6 +12,9 @@ namespace keyword
 {
 namespace parser
 {
+using namespace openpower::vpd::constants;
+using namespace openpower::vpd::inventory;
+
 KeywordVpdMap KeywordVpdParser::parseKwVpd()
 {
     int kwVpdType;
