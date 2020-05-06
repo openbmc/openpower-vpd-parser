@@ -4,15 +4,17 @@
 #include <numeric>
 #include <string>
 
+namespace openpower
+{
 namespace vpd
 {
 namespace memory
 {
 namespace parser
 {
-using namespace openpower::vpd;
-using namespace openpower::vpd::parser;
-using namespace vpd::keyword::parser;
+using namespace inventory;
+using namespace parser;
+using namespace constants;
 using namespace std;
 
 KeywordVpdMap memoryVpdParser::readKeywords(Binary::const_iterator iterator)
@@ -55,3 +57,4 @@ KeywordVpdMap memoryVpdParser::parseMemVpd()
 } // namespace parser
 } // namespace memory
 } // namespace vpd
+} // namespace openpower
