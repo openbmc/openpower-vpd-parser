@@ -40,9 +40,7 @@ using LocationCode = std::string;
 using LocationCodeMap = std::unordered_multimap<LocationCode, Path>;
 using ListOfPaths = std::vector<sdbusplus::message::object_path>;
 using Node = uint16_t;
-using namespace std::string_literals;
-constexpr auto pimPath = "/xyz/openbmc_project/inventory";
-constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
+using KeywordVpdMap = std::unordered_map<std::string, Binary>;
 
 } // namespace inventory
 
