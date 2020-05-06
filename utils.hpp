@@ -10,6 +10,27 @@ namespace openpower
 {
 namespace vpd
 {
+/**
+ * @brief Types of VPD
+ */
+enum vpdType
+{
+    IPZ_VPD,           /**< IPZ VPD type */
+    KEYWORD_VPD,       /**< Keyword VPD type */
+    MEMORY_VPD,        /**< Memory VPD type */
+    INVALID_VPD_FORMAT /**< Invalid VPD type */
+};
+
+/**
+ * @brief Check the type of VPD.
+ *
+ * Checks the type of vpd based on the start tag.
+ * @param[in] vector - Vpd data in vector format
+ *
+ * @return enum of type vpdType
+ */
+vpdType vpdTypeCheck(const Binary& vector);
+
 /** @brief Return the hex representation of the incoming byte
  *
  * @param [in] c - The input byte
