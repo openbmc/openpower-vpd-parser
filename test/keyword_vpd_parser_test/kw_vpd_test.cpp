@@ -1,11 +1,15 @@
 #include "keyword_vpd_parser.hpp"
 
+#include "types.hpp"
+
 #include <exception>
 #include <fstream>
 
 #include <gtest/gtest.h>
 
 using namespace vpd::keyword::parser;
+using namespace openpower::vpd;
+using namespace openpower::vpd::inventory;
 
 class KeywordVpdParserTest : public ::testing::Test
 {
