@@ -43,6 +43,7 @@ using NodeNumber = uint16_t;
 using namespace std::string_literals;
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
 constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
+using KeywordVpdMap = std::unordered_map<std::string, Binary>;
 
 } // namespace inventory
 
