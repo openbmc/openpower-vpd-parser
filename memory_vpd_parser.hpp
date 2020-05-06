@@ -1,8 +1,10 @@
 #pragma once
 
 #include "impl.hpp"
-#include "keyword_vpd_types.hpp"
+#include "types.hpp"
 
+namespace openpower
+{
 namespace vpd
 {
 namespace memory
@@ -11,11 +13,6 @@ namespace parser
 {
 using namespace openpower::vpd;
 using namespace openpower::vpd::parser;
-using namespace vpd::keyword::parser;
-
-static constexpr auto PART_NUM_LEN = 7;
-static constexpr auto SERIAL_NUM_LEN = 12;
-static constexpr auto CCIN_LEN = 4;
 
 class memoryVpdParser
 {
@@ -43,12 +40,12 @@ class memoryVpdParser
      *
      * @return map of keyword:value
      */
-    KeywordVpdMap parseMemVpd();
+    inventory::KeywordVpdMap parseMemVpd();
 
   private:
     /**
      */
-    KeywordVpdMap readKeywords(Binary::const_iterator iterator);
+    inventory::KeywordVpdMap readKeywords(Binary::const_iterator iterator);
 
     /**
      */
@@ -57,3 +54,4 @@ class memoryVpdParser
 } // namespace parser
 } // namespace memory
 } // namespace vpd
+} // namespace openpower
