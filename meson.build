@@ -37,7 +37,6 @@ if get_option('ibm-parser').enabled()
 compiler.has_header('CLI/CLI.hpp')
 compiler.has_header('nlohmann/json.hpp')
         ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',
-                                'ibm_vpd_type_check.cpp',
                                 'parser.cpp',
                                 'impl.cpp',
                                 'utils.cpp',
