@@ -2,7 +2,6 @@
 
 #include "const.hpp"
 #include "defines.hpp"
-#include "ibm_vpd_type_check.hpp"
 #include "keyword_vpd_parser.hpp"
 #include "parser.hpp"
 #include "utils.hpp"
@@ -22,10 +21,10 @@ using namespace std;
 using namespace openpower::vpd;
 using namespace CLI;
 using namespace vpd::keyword::parser;
-using namespace vpdFormat;
 using namespace openpower::vpd::constants;
 namespace fs = std::filesystem;
 using json = nlohmann::json;
+using namespace openpower::vpd::inventory;
 
 /**
  * @brief Expands location codes
