@@ -1,5 +1,6 @@
 #include "config.h"
 
+#include "const.hpp"
 #include "defines.hpp"
 #include "ibm_vpd_type_check.hpp"
 #include "keyword_vpd_parser.hpp"
@@ -19,6 +20,7 @@ using namespace openpower::vpd;
 using namespace CLI;
 using namespace vpd::keyword::parser;
 using namespace vpdFormat;
+using namespace openpower::vpd::constants;
 
 /**
  * @brief Expands location codes
@@ -241,11 +243,6 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
             {
                 populateFruSpecificInterfaces(vpdMap, preIntrStr, interfaces);
             }
-            if (js.find("commonInterfaces") != js.end())
-            {
-                populateInterfaces(js["commonInterfaces"], interfaces, vpdMap,
-                                   isSystemVpd);
-            }
         }
         else
         {
@@ -275,6 +272,21 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
             populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
                                isSystemVpd);
         }
+
+        /*add Common interface to all the fru except the one having "mts" in
+         their location code as they will not inherit CI*/
+        const std::string& LocationCode =
+            item["extraInterfaces"][LOCATION_CODE_INF]["LocationCode"]
+                .get_ref<const nlohmann::json::string_t&>();
+        if (LocationCode.substr(1, 3) != "mts")
+        {
+            if (js.find("commonInterfaces") != js.end())
+            {
+                populateInterfaces(js["commonInterfaces"], interfaces, vpdMap,
+                                   isSystemVpd);
+            }
+        }
+
         objects.emplace(move(object), move(interfaces));
     }
 
