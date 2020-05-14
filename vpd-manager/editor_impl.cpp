@@ -95,7 +95,8 @@ void EditorImpl::updateData(const Binary& kwdData)
 #else
 
     // update data in EEPROM as well. As we will not write complete file back
-    vpdFileStream.seekg(thisRecord.kwDataOffset, std::ios::beg);
+    vpdFileStream.seekg( offset + thisRecord.kwDataOffset, std::ios::beg);
+
     iteratorToNewdata = kwdData.cbegin();
     std::copy(iteratorToNewdata, end,
               std::ostreambuf_iterator<char>(vpdFileStream));
@@ -186,7 +187,7 @@ void EditorImpl::updateRecordECC()
     std::advance(end, thisRecord.recECCLength);
 
 #ifndef ManagerTest
-    vpdFileStream.seekp(thisRecord.recECCoffset, std::ios::beg);
+    vpdFileStream.seekp( offset + thisRecord.recECCoffset, std::ios::beg);
     std::copy(itrToRecordECC, end,
               std::ostreambuf_iterator<char>(vpdFileStream));
 #endif
@@ -370,9 +371,12 @@ void EditorImpl::updateCache()
         }
 
         // process extra interfaces
-        processAndUpdateEI(singleInventory,
-                           singleInventory["inventoryPath"]
-                               .get_ref<const nlohmann::json::string_t&>());
+        if (singleInventory.value("inheritEI", true))
+        {
+            processAndUpdateEI(singleInventory,
+                               singleInventory["inventoryPath"]
+                                   .get_ref<const nlohmann::json::string_t&>());
+        }
     }
 }
 
@@ -446,27 +450,34 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
 
 void EditorImpl::updateKeyword(const Binary& kwdData) // const Binary& kwdData)
 {
-
-#ifndef ManagerTest
-    vpdFileStream.open(vpdFilePath,
-                       std::ios::binary); // std::ios::in | std::ios::out |
-
-    if (!vpdFileStream)
+    offset = 0;
+    // check if offset present?
+    for (const auto& item : jsonFile["frus"][vpdFilePath])
     {
-        throw std::runtime_error("unable to open vpd file to edit");
+        if (item.find("offset") != item.end())
+        {
+            offset = item["offset"];
+        }
     }
+    char buf[2048];
+    vpdFileStream.rdbuf()->pubsetbuf(buf, sizeof(buf));
+    vpdFileStream.open(vpdFilePath, std::ios::in | std::ios::out |std::ios::binary);
+    vpdFileStream.seekg(offset, std::ios_base::cur);
 
-    Binary completeVPDFile((std::istreambuf_iterator<char>(vpdFileStream)),
-                           std::istreambuf_iterator<char>());
+    // Read 64KB data content of the binary file into a vector
+    Binary tmpVector((istreambuf_iterator<char>(vpdFileStream)),
+                     istreambuf_iterator<char>());
+
+    vector<unsigned char>::const_iterator first = tmpVector.begin();
+    vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
+
+    Binary completeVPDFile(first, last);
+
     vpdFile = completeVPDFile;
-#else
-    Binary completeVPDFile = vpdFile;
-#endif
     if (vpdFile.empty())
     {
         throw std::runtime_error("Invalid File");
     }
-
     auto iterator = vpdFile.cbegin();
     std::advance(iterator, IPZ_DATA_START);
 
