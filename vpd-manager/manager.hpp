@@ -118,6 +118,10 @@ class Manager : public ServerObject<ManagerIface>
     /** @brief Start processing DBus messages. */
     void run();
 
+    /*TODO*/
+    std::string getSysPathForThisFruType(const std::string& moduleObjPath,
+                                         const std::string& fruType);
+
   private:
     /** @brief process the given JSON file
      */
