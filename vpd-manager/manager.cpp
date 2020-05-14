@@ -11,6 +11,7 @@ using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::manager::editor;
 using namespace openpower::vpd::manager::reader;
+using namespace std;
 
 namespace openpower
 {
@@ -80,11 +81,16 @@ void Manager::processJSON()
                              .get_ref<const nlohmann::json::string_t&>(),
                          std::make_pair(itemFRUS.key(), isMotherboard));
 
-            fruLocationCode.emplace(
-                itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]["LocationCode"]
-                    .get_ref<const nlohmann::json::string_t&>(),
-                itemEEPROM["inventoryPath"]
-                    .get_ref<const nlohmann::json::string_t&>());
+            if (itemEEPROM["extraInterfaces"].find(LOCATION_CODE_INF) !=
+                itemEEPROM["extraInterfaces"].end())
+            {
+                fruLocationCode.emplace(
+                    itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]
+                              ["LocationCode"]
+                                  .get_ref<const nlohmann::json::string_t&>(),
+                    itemEEPROM["inventoryPath"]
+                        .get_ref<const nlohmann::json::string_t&>());
+            }
         }
     }
 }
@@ -100,10 +106,59 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
             throw std::runtime_error("Inventory path not found");
         }
 
-        inventory::Path vpdFilePath = frus.find(path)->second.first;
+        // check If it is CpuModule, update vpdFilePath accordingly
+        inventory::Path vpdFilePath = (frus.find(path)->second).first;
+        bool isCI = false;
+
+        // TODO 1:Temp hardcoded list. create it dynamically.
+        std::vector<std::string> commonIntVINIKwds = {"PN", "SN", "DR"};
+        std::vector<std::string> commonIntVR10Kwds = {"DC"};
+        std::unordered_map<std::string, std::vector<std::string>>
+            commonIntRecordsList = {{"VINI", commonIntVINIKwds},
+                                    {"VR10", commonIntVR10Kwds}};
+
+        // If requested Record&Kw is one among CI, then update 'FRU' type sys
+        // path, SPI2
+        unordered_map<std::string, vector<string>>::const_iterator isCommonInt =
+            commonIntRecordsList.find(recordName);
+
+        if ((isCommonInt != commonIntRecordsList.end()) &&
+            (find(isCommonInt->second.begin(), isCommonInt->second.end(),
+                  keyword) != isCommonInt->second.end()))
+        {
+            isCI = true;
+            vpdFilePath =
+                getSysPathForThisFruType(jsonFile, path, "fruAndModule");
+        }
+        else
+        {
+            for (const auto& eachFru : jsonFile["frus"].items())
+            {
+                for (const auto& eachInventory : eachFru.value())
+                {
+                    if (eachInventory.find("type") != eachInventory.end())
+                    {
+                        const auto& thisObjectPath =
+                            eachInventory["inventoryPath"];
+                        if ((eachInventory["type"] == "moduleOnly") &&
+                            (eachInventory.value("inheritEI", true)) &&
+                            (thisObjectPath == static_cast<string>(path)))
+                        {
+                            vpdFilePath = eachFru.key();
+                        }
+                    }
+                }
+            }
+        }
+        // If it is not a CPU fru then go ahead with default vpdFilePath from
+        // fruMap
+        if (vpdFilePath.empty())
+        {
+            vpdFilePath = (frus.find(path)->second).first;
+        }
 
         // instantiate editor class to update the data
-        EditorImpl edit(vpdFilePath, jsonFile, recordName, keyword);
+        EditorImpl edit(vpdFilePath, jsonFile, recordName, keyword, isCI);
         edit.updateKeyword(value);
 
         // if it is a motehrboard FRU need to check for location expansion
