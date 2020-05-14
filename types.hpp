@@ -34,8 +34,7 @@ using ObjectMap = std::map<Object, InterfaceMap>;
 
 using VPDfilepath = std::string;
 using FruIsMotherboard = bool;
-using FrusMap =
-    std::unordered_map<Path, std::pair<VPDfilepath, FruIsMotherboard>>;
+using FrusMap = std::multimap<Path, std::pair<VPDfilepath, FruIsMotherboard>>;
 using LocationCode = std::string;
 using LocationCodeMap = std::unordered_multimap<LocationCode, Path>;
 using ListOfPaths = std::vector<sdbusplus::message::object_path>;
