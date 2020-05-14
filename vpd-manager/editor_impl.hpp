@@ -157,6 +157,9 @@ class EditorImpl
     // stream to perform operation on file
     std::fstream vpdFileStream;
 
+    // offset to get vpd data from EEPROM
+    uint32_t offset ;
+
     // file to store parsed json
     const nlohmann::json& jsonFile;
 
