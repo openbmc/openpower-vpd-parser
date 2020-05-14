@@ -72,6 +72,21 @@ void Manager::processJSON()
     }
 }
 
+
+/*checkForCpuModule
+{
+    //for object_path CPU1
+    - object_path type
+    - If it is moduleOnly
+      - check Record is one among CIface
+      - If yes
+        - SPI2 (vpdFilePath = frus.find(path)->second)
+      - else
+        - SPI6 (vpdFilePath = frus.find(path)->second)
+
+    - else go ahead as usual
+}
+*/
 void Manager::writeKeyword(const sdbusplus::message::object_path path,
                            const std::string recordName,
                            const std::string keyword, const Binary value)
@@ -82,6 +97,8 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
         {
             throw std::runtime_error("Inventory path not found");
         }
+
+        //checkForCpuModule
 
         inventory::Path vpdFilePath = frus.find(path)->second;
         std::ifstream vpdStream(vpdFilePath, std::ios::binary);
