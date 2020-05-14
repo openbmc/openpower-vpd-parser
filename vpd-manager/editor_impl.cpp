@@ -358,11 +358,14 @@ void EditorImpl::updateCache()
         if (LocationCode.substr(1, 3) != "mts")
         {
             // update com interface
-            makeDbusCall<Binary>(
-                (INVENTORY_PATH +
-                 singleInventory["inventoryPath"].get<std::string>()),
-                (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
-                thisRecord.recKWd, thisRecord.kwdUpdatedData);
+            if (singleInventory.value("inheritEI", true))
+            {
+                makeDbusCall<Binary>(
+                    (INVENTORY_PATH +
+                     singleInventory["inventoryPath"].get<std::string>()),
+                    (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
+                    thisRecord.recKWd, thisRecord.kwdUpdatedData);
+            }
 
             // process Common interface
             processAndUpdateCI(singleInventory["inventoryPath"]
@@ -370,9 +373,12 @@ void EditorImpl::updateCache()
         }
 
         // process extra interfaces
-        processAndUpdateEI(singleInventory,
-                           singleInventory["inventoryPath"]
-                               .get_ref<const nlohmann::json::string_t&>());
+        if (singleInventory.value("inheritEI", true))
+        {
+            processAndUpdateEI(singleInventory,
+                               singleInventory["inventoryPath"]
+                                   .get_ref<const nlohmann::json::string_t&>());
+        }
     }
 }
 
@@ -447,21 +453,32 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
 void EditorImpl::updateKeyword(const Binary& kwdData) // const Binary& kwdData)
 {
 
-#ifndef ManagerTest
-    vpdFileStream.open(vpdFilePath,
-                       std::ios::binary); // std::ios::in | std::ios::out |
-
-    if (!vpdFileStream)
+    uint32_t offset = 0;
+    // check if offset present?
+    for (const auto& item : jsonFile["frus"][vpdFilePath])
     {
-        throw std::runtime_error("unable to open vpd file to edit");
+        if (item.find("offset") != item.end())
+        {
+            offset = item["offset"];
+        }
     }
 
-    Binary completeVPDFile((std::istreambuf_iterator<char>(vpdFileStream)),
-                           std::istreambuf_iterator<char>());
+    char buf[2048];
+    ifstream vpd;
+    vpd.rdbuf()->pubsetbuf(buf, sizeof(buf));
+    vpd.open(vpdFilePath, ios::binary);
+    vpd.seekg(offset, std::ios_base::cur);
+
+    // Read 64KB data content of the binary file into a vector
+    Binary tmpVector((istreambuf_iterator<char>(vpd)),
+                     istreambuf_iterator<char>());
+
+    vector<unsigned char>::const_iterator first = tmpVector.begin();
+    vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
+
+    Binary completeVPDFile(first, last);
+
     vpdFile = completeVPDFile;
-#else
-    Binary completeVPDFile = vpdFile;
-#endif
     if (vpdFile.empty())
     {
         throw std::runtime_error("Invalid File");
