@@ -11,6 +11,7 @@ using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::manager::editor;
 using namespace openpower::vpd::manager::reader;
+using namespace std;
 
 namespace openpower
 {
@@ -80,13 +81,60 @@ void Manager::processJSON()
                              .get_ref<const nlohmann::json::string_t&>(),
                          std::make_pair(itemFRUS.key(), isMotherBoard));
 
-            fruLocationCode.emplace(
-                itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]["LocationCode"]
-                    .get_ref<const nlohmann::json::string_t&>(),
-                itemEEPROM["inventoryPath"]
-                    .get_ref<const nlohmann::json::string_t&>());
+            if (itemEEPROM["extraInterfaces"].find(LOCATION_CODE_INF) !=
+                itemEEPROM["extraInterfaces"].end())
+            {
+                fruLocationCode.emplace(
+                    itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]
+                              ["LocationCode"]
+                                  .get_ref<const nlohmann::json::string_t&>(),
+                    itemEEPROM["inventoryPath"]
+                        .get_ref<const nlohmann::json::string_t&>());
+            }
         }
     }
+}
+
+string Manager::getSysPathForThisFruType(const string& moduleObjPath,
+                                         const string& fruType)
+{
+    string fruVpdPath;
+
+    // get all FRUs list
+    for (const auto& eachFru : jsonFile["frus"].items())
+    {
+        bool moduleObjPathMatched = false;
+        bool expectedFruFound = false;
+
+        for (const auto& eachInventory : eachFru.value())
+        {
+            const auto& thisObjectPath = eachInventory["inventoryPath"];
+
+            // "type" exists only in CPU module and FRU
+            if (eachInventory.find("type") != eachInventory.end())
+            {
+                // If inventory type is fruAndModule then set flag
+                if (eachInventory["type"] == fruType)
+                {
+                    expectedFruFound = true;
+                }
+            }
+
+            if (thisObjectPath == moduleObjPath)
+            {
+                moduleObjPathMatched = true;
+            }
+        }
+
+        // If condition satisfies then collect this sys path and exit
+        if (expectedFruFound && moduleObjPathMatched)
+        {
+            fruVpdPath = eachFru.key();
+            break;
+        }
+    }
+
+    return fruVpdPath;
 }
 
 void Manager::writeKeyword(const sdbusplus::message::object_path path,
@@ -100,8 +148,53 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
             throw std::runtime_error("Inventory path not found");
         }
 
-        inventory::Path vpdFilePath = frus.find(path)->second.first;
+        // check If it is CpuModule, update vpdFilePath accordingly
+        inventory::Path vpdFilePath = (frus.find(path)->second).first;
 
+        // TODO 1:Temp hardcoded list. create it dynamically.
+        vector<string> commonIntVINIKwds = {"PN", "SN", "DR"};
+        vector<string> commonIntVR10Kwds = {"DC"};
+        unordered_map<string, vector<string>> commonIntRecordsList = {
+            {"VINI", commonIntVINIKwds}, {"VR10", commonIntVR10Kwds}};
+
+        // If requested Record&Kw is one among CI, then update 'FRU' type sys
+        // path, SPI2
+        unordered_map<std::string, vector<string>>::const_iterator isCommonInt =
+            commonIntRecordsList.find(recordName);
+
+        if ((isCommonInt != commonIntRecordsList.end()) &&
+            (find(isCommonInt->second.begin(), isCommonInt->second.end(),
+                  keyword) != isCommonInt->second.end()))
+        {
+            vpdFilePath = getSysPathForThisFruType(path, "fruAndModule");
+        }
+        else
+        {
+            for (const auto& eachFru : jsonFile["frus"].items())
+            {
+                for (const auto& eachInventory : eachFru.value())
+                {
+                    if (eachInventory.find("type") != eachInventory.end())
+                    {
+                        const auto& thisObjectPath =
+                            eachInventory["inventoryPath"];
+                        if ((eachInventory["type"] == "moduleOnly") &&
+                            (eachInventory.value("inheritEI", true)) &&
+                            (thisObjectPath == static_cast<string>(path)))
+                        {
+                            vpdFilePath = eachFru.key();
+                        }
+                    }
+                }
+            }
+        }
+        // else go ahead with default vpdFilePath from fruMap
+
+        std::ifstream vpdStream(vpdFilePath, std::ios::binary);
+        if (!vpdStream)
+        {
+            throw std::runtime_error("file not found");
+        }
         // instantiate editor class to update the data
         EditorImpl edit(vpdFilePath, jsonFile, recordName, keyword);
         edit.updateKeyword(value);
