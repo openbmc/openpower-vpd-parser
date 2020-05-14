@@ -65,9 +65,10 @@ class EditorImpl
      *  @param[in] path - Path to the vpd file
      */
     EditorImpl(const inventory::Path& path, const nlohmann::json& json,
-               const std::string& record, const std::string& kwd) :
+               const std::string& record, const std::string& kwd,
+               const sdbusplus::message::object_path& inventoryPath) :
         vpdFilePath(path),
-        jsonFile(json), thisRecord(record, kwd)
+        jsonFile(json), thisRecord(record, kwd), objPath(inventoryPath)
     {
     }
 
@@ -151,10 +152,16 @@ class EditorImpl
                       const std::string& property, const std::variant<T>& data);
 
     // path to the VPD file to edit
-    const inventory::Path vpdFilePath;
+    inventory::Path vpdFilePath;
+
+    // inventory path of fru/module to update keyword
+    const inventory::Path objPath;
 
     // stream to perform operation on file
     std::fstream vpdFileStream;
+
+    // offset to get vpd data from EEPROM
+    uint32_t offset;
 
     // file to store parsed json
     const nlohmann::json jsonFile;
@@ -180,6 +187,25 @@ class EditorImpl
     } thisRecord;
 
     Binary vpdFile;
+
+    // If requested Interface is common Interface
+    bool isCI;
+
+    /** @brief This API will be used to find out Parent FRU of Module/CPU 
+     *
+     * @param[in] - moduleObjPath, object path of that FRU
+     * @param[in] - fruType, Type of Parent FRU
+     *              for Module/CPU Parent Type- FruAndModule
+     *
+     * @return returns vpd file path of Parent Fru of that Module
+     */
+    std::string getSysPathForThisFruType(const std::string& moduleObjPath,
+                                         const std::string& fruType);
+
+    /** @brief This API will search for correct EEPROM path for asked CPU
+     *         and will init vpdFilePath
+     */
+    void getVpdPathForCpu();
 
 }; // class EditorImpl
 

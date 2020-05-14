@@ -95,7 +95,8 @@ void EditorImpl::updateData(const Binary& kwdData)
 #else
 
     // update data in EEPROM as well. As we will not write complete file back
-    vpdFileStream.seekg(thisRecord.kwDataOffset, std::ios::beg);
+    vpdFileStream.seekg(offset + thisRecord.kwDataOffset, std::ios::beg);
+
     iteratorToNewdata = kwdData.cbegin();
     std::copy(iteratorToNewdata, end,
               std::ostreambuf_iterator<char>(vpdFileStream));
@@ -186,7 +187,7 @@ void EditorImpl::updateRecordECC()
     std::advance(end, thisRecord.recECCLength);
 
 #ifndef ManagerTest
-    vpdFileStream.seekp(thisRecord.recECCoffset, std::ios::beg);
+    vpdFileStream.seekp(offset + thisRecord.recECCoffset, std::ios::beg);
     std::copy(itrToRecordECC, end,
               std::ostreambuf_iterator<char>(vpdFileStream));
 #endif
@@ -352,30 +353,62 @@ void EditorImpl::updateCache()
     {
         // by default inherit property is true
         bool isInherit = true;
+        bool isInheritEI = true;
+        bool isCpuModuleOnly = false;
 
         if (singleInventory.find("inherit") != singleInventory.end())
         {
             isInherit = singleInventory["inherit"].get<bool>();
         }
 
+        if (singleInventory.find("inheritEI") != singleInventory.end())
+        {
+            isInheritEI = singleInventory["inheritEI"].get<bool>();
+        }
+
+        // "type" exists only in CPU module and FRU
+        if (singleInventory.find("type") != singleInventory.end())
+        {
+            if( singleInventory["type"] == "moduleOnly")
+            {
+                isCpuModuleOnly = true;
+            }
+        }
+
         if (isInherit)
         {
             // update com interface
-            makeDbusCall<Binary>(
-                (INVENTORY_PATH +
-                 singleInventory["inventoryPath"].get<std::string>()),
-                (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
-                thisRecord.recKWd, thisRecord.kwdUpdatedData);
+            // For CPU- update  com interface only when isCI true
+            if( (!isCpuModuleOnly) ||  (isCpuModuleOnly && isCI))
+            {
+                makeDbusCall<Binary>(
+                    (INVENTORY_PATH +
+                     singleInventory["inventoryPath"].get<std::string>()),
+                     (IPZ_INTERFACE + (std::string) "." +
+                     thisRecord.recName), thisRecord.recKWd, thisRecord.kwdUpdatedData);
+            }
 
             // process Common interface
             processAndUpdateCI(singleInventory["inventoryPath"]
                                    .get_ref<const nlohmann::json::string_t&>());
         }
 
-        // process extra interfaces
-        processAndUpdateEI(singleInventory,
-                           singleInventory["inventoryPath"]
-                               .get_ref<const nlohmann::json::string_t&>());
+        if (isInheritEI)
+        {
+            if(isCpuModuleOnly)
+            {
+                makeDbusCall<Binary>(
+                    (INVENTORY_PATH +
+                     singleInventory["inventoryPath"].get<std::string>()),
+                     (IPZ_INTERFACE + (std::string) "." +
+                     thisRecord.recName), thisRecord.recKWd, thisRecord.kwdUpdatedData);
+            }
+
+            // process extra interfaces
+            processAndUpdateEI(singleInventory,
+                               singleInventory["inventoryPath"]
+                                   .get_ref<const nlohmann::json::string_t&>());
+        }
     }
 }
 
@@ -446,29 +479,150 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
     }
 }
 
-void EditorImpl::updateKeyword(const Binary& kwdData)
+
+string EditorImpl::getSysPathForThisFruType(
+                                const string& moduleObjPath,
+                                const string& fruType)
 {
+    string fruVpdPath;
 
-#ifndef ManagerTest
-    vpdFileStream.open(vpdFilePath,
-                       std::ios::in | std::ios::out | std::ios::binary);
-
-    if (!vpdFileStream)
+    // get all FRUs list
+    for (const auto& eachFru : jsonFile["frus"].items())
     {
-        throw std::runtime_error("unable to open vpd file to edit");
+        bool moduleObjPathMatched = false;
+        bool expectedFruFound = false;
+
+        for (const auto& eachInventory : eachFru.value())
+        {
+            const auto& thisObjectPath = eachInventory["inventoryPath"];
+
+            // "type" exists only in CPU module and FRU
+            if (eachInventory.find("type") != eachInventory.end())
+            {
+                // If inventory type is fruAndModule then set flag
+                if (eachInventory["type"] == fruType)
+                {
+                    expectedFruFound = true;
+                }
+            }
+
+            if (thisObjectPath == moduleObjPath)
+            {
+                moduleObjPathMatched = true;
+            }
+        }
+
+        // If condition satisfies then collect this sys path and exit
+        if (expectedFruFound && moduleObjPathMatched)
+        {
+            fruVpdPath = eachFru.key();
+            break;
+        }
     }
 
-    Binary completeVPDFile((std::istreambuf_iterator<char>(vpdFileStream)),
-                           std::istreambuf_iterator<char>());
+    return fruVpdPath;
+}
+
+void EditorImpl::getVpdPathForCpu()
+{
+        isCI = false;
+        //keep a backup In case we need it later
+        inventory::Path  vpdFilePathBackup = vpdFilePath;
+
+        // TODO 1:Temp hardcoded list. create it dynamically.
+        std::vector<std::string> commonIntVINIKwds = {"PN", "SN", "DR"};
+        std::vector<std::string> commonIntVR10Kwds = {"DC"};
+        std::unordered_map<std::string, std::vector<std::string>>
+            commonIntRecordsList = {{"VINI", commonIntVINIKwds},
+                                    {"VR10", commonIntVR10Kwds}};
+
+        // If requested Record&Kw is one among CI, then update 'FRU' type sys
+        // path, SPI2
+        unordered_map<std::string, vector<string>>::const_iterator isCommonInt =
+            commonIntRecordsList.find(thisRecord.recName);
+
+        if ((isCommonInt != commonIntRecordsList.end()) &&
+            (find(isCommonInt->second.begin(), isCommonInt->second.end(),
+                  thisRecord.recKWd) != isCommonInt->second.end()))
+        {
+            isCI = true;
+            vpdFilePath =
+                getSysPathForThisFruType( objPath, "fruAndModule");
+        }
+        else
+        {
+            for (const auto& eachFru : jsonFile["frus"].items())
+            {
+                for (const auto& eachInventory : eachFru.value())
+                {
+                    if (eachInventory.find("type") != eachInventory.end())
+                    {
+                        const auto& thisObjectPath =
+                            eachInventory["inventoryPath"];
+                        if ((eachInventory["type"] == "moduleOnly") &&
+                            (eachInventory.value("inheritEI", true)) &&
+                            (thisObjectPath == static_cast<string>(objPath)))
+                        {
+                            vpdFilePath = eachFru.key();
+                        }
+                    }
+                }
+            }
+        }
+        // If it is not a CPU fru then go ahead with default vpdFilePath from
+        // fruMap
+        if (vpdFilePath.empty())
+        {
+            vpdFilePath = vpdFilePathBackup;
+        }
+}
+
+void EditorImpl::updateKeyword(const Binary& kwdData)
+{
+    offset = 0;
+#ifndef ManagerTest
+
+    getVpdPathForCpu();
+
+    // check if offset present?
+    for (const auto& item : jsonFile["frus"][vpdFilePath])
+    {
+        if (item.find("offset") != item.end())
+        {
+            offset = item["offset"];
+        }
+    }
+    char buf[2048];
+    vpdFileStream.rdbuf()->pubsetbuf(buf, sizeof(buf));
+    vpdFileStream.open(vpdFilePath,
+                       std::ios::in | std::ios::out | std::ios::binary);
+    vpdFileStream.seekg(offset, std::ios_base::cur);
+
+    // Read 64KB data content of the binary file into a vector
+    Binary tmpVector((istreambuf_iterator<char>(vpdFileStream)),
+                     istreambuf_iterator<char>());
+
+    vector<unsigned char>::const_iterator first = tmpVector.begin();
+    vector<unsigned char>::const_iterator last = tmpVector.begin() + NEXT_64_KB;
+
+    Binary completeVPDFile = tmpVector;
+    if (distance(first, last) > tmpVector.size())
+    {
+        Binary extracted64KbVpd(first, last);
+        completeVPDFile = extracted64KbVpd;
+    }
+
     vpdFile = completeVPDFile;
+
 #else
+        
     Binary completeVPDFile = vpdFile;
+                    
 #endif
     if (vpdFile.empty())
     {
         throw std::runtime_error("Invalid File");
     }
-
     auto iterator = vpdFile.cbegin();
     std::advance(iterator, IPZ_DATA_START);
 
