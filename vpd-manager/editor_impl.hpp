@@ -66,9 +66,10 @@ class EditorImpl
      *  @param[in] path - Path to the vpd file
      */
     EditorImpl(const inventory::Path& path, const nlohmann::json& json,
-               const std::string& record, const std::string& kwd) :
+               const std::string& record, const std::string& kwd,
+               bool& isCommonIntrf) :
         vpdFilePath(path),
-        jsonFile(json), thisRecord(record, kwd)
+        jsonFile(json), thisRecord(record, kwd), isCI(isCommonIntrf)
     {
     }
 
@@ -157,6 +158,9 @@ class EditorImpl
     // stream to perform operation on file
     std::fstream vpdFileStream;
 
+    // offset to get vpd data from EEPROM
+    uint32_t offset;
+
     // file to store parsed json
     const nlohmann::json& jsonFile;
 
@@ -181,6 +185,9 @@ class EditorImpl
     } thisRecord;
 
     Binary vpdFile;
+
+    // If requested Interface is common Interface
+    bool isCI;
 
 }; // class EditorImpl
 
