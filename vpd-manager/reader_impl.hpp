@@ -2,6 +2,7 @@
 
 #include "types.hpp"
 #include "utilInterface.hpp"
+#include <nlohmann/json.hpp>
 
 namespace openpower
 {
@@ -77,6 +78,19 @@ class ReaderImpl
 #endif
 
 }; // class ReaderImpl
+
+    /** @brief This API will be used to find out Parent FRU of Module/CPU 
+     *
+     * @param[in] - jsonFile to process and find out parent
+     * @param[in] - moduleObjPath, object path of that FRU
+     * @param[in] - fruType, Type of Parent FRU
+     *              for Module/CPU Parent Type- FruAndModule
+     *
+     * @return returns vpd file path of Parent Fru of that Module
+     */
+    std::string getSysPathForThisFruType(const nlohmann::json& jsonFile,
+                                         const std::string& moduleObjPath,
+                                         const std::string& fruType);
 
 } // namespace reader
 } // namespace manager

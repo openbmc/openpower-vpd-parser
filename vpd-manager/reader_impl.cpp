@@ -210,6 +210,50 @@ std::tuple<LocationCode, Node>
 
     return std::make_tuple(unexpandedLocationCode, nodeNummber);
 }
+
+string getSysPathForThisFruType(const nlohmann::json& jsonFile,
+                                const string& moduleObjPath,
+                                const string& fruType)
+{
+    string fruVpdPath;
+
+    // get all FRUs list
+    for (const auto& eachFru : jsonFile["frus"].items())
+    {
+        bool moduleObjPathMatched = false;
+        bool expectedFruFound = false;
+
+        for (const auto& eachInventory : eachFru.value())
+        {
+            const auto& thisObjectPath = eachInventory["inventoryPath"];
+
+            // "type" exists only in CPU module and FRU
+            if (eachInventory.find("type") != eachInventory.end())
+            {
+                // If inventory type is fruAndModule then set flag
+                if (eachInventory["type"] == fruType)
+                {
+                    expectedFruFound = true;
+                }
+            }
+
+            if (thisObjectPath == moduleObjPath)
+            {
+                moduleObjPathMatched = true;
+            }
+        }
+
+        // If condition satisfies then collect this sys path and exit
+        if (expectedFruFound && moduleObjPathMatched)
+        {
+            fruVpdPath = eachFru.key();
+            break;
+        }
+    }
+
+    return fruVpdPath;
+}
+
 } // namespace reader
 } // namespace manager
 } // namespace vpd
