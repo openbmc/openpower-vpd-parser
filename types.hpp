@@ -33,7 +33,7 @@ using Object = sdbusplus::message::object_path;
 using ObjectMap = std::map<Object, InterfaceMap>;
 
 using VPDfilepath = std::string;
-using FrusMap = std::unordered_map<Path, VPDfilepath>;
+using FrusMap = std::multimap<Path, VPDfilepath>;
 
 using namespace std::string_literals;
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
