@@ -89,6 +89,49 @@ void Manager::processJSON()
     }
 }
 
+string getSysPathForThisFruType(const string& moduleObjPath, const string& fruType)
+{
+    string fruVpdPath;
+
+    //get all FRUs list
+    for (const auto& eachFru : jsonFile["frus"].items())
+    {
+        bool moduleObjPathMatched = false;
+        bool expectedFruFound = false;
+        cout<<"checking "<<eachFru.key()<<"\n";
+
+        for (const auto& eachInventory : eachFru.value())
+        {
+            const auto& thisObjectPath = eachInventory["inventoryPath"];
+            cout<<"Processing for "<<thisObjectPath <<"\n";
+
+            // "type" exists only in CPU module and FRU
+            if (eachInventory.find("type") != eachInventory.end())
+            {
+                //If inventory type is fruAndModule then set flag
+                if( eachInventory["type"] == fruType)
+                {
+                    expectedFruFound = true;
+                }
+            }
+
+            if(thisObjectPath == moduleObjPath)
+            {
+                moduleObjPathMatched = true;
+            }
+        }
+
+        //If condition satisfies then collect this sys path and exit
+        if( expectedFruFound && moduleObjPathMatched)
+        {
+            fruVpdPath = eachFru.key();
+            break;
+        }
+    }
+
+    return fruVpdPath;
+}
+
 void Manager::writeKeyword(const sdbusplus::message::object_path path,
                            const std::string recordName,
                            const std::string keyword, const Binary value)
@@ -100,7 +143,40 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
             throw std::runtime_error("Inventory path not found");
         }
 
-        inventory::Path vpdFilePath = frus.find(path)->second.first;
+        // check If it is CpuModule, update vpdFilePath accordingly
+        inventory::Path vpdFilePath = frus.find(path)->second;
+
+        //Temp hardcoded list
+        vector<string> commonIntRecordsList = {"VINI", "VR10"};
+
+        if( jsonFile["frus"].find(vpdFilePath) == jsonFile["frus"].end())
+        for (const auto& item : jsonFile["frus"][vpdFilePath])
+        {
+            if (item.find("type") != item.end())
+            {
+                if( item["type"] == "moduleOnly")
+                {
+                    //If requested Record is one among CI, then update FRU sys path, SPI2
+                    if( find( commonIntRecordsList.begin(),commonIntRecordsList.end(), recordName) !=
+                        commonIntRecordsList.end() )
+                    {
+                        vpdFilePath = getSysPathForThisFruType(path, "fruAndModule");
+                    }
+                    else    //update Module_only sys path, SPI6
+                    {
+                        vpdFilePath = getSysPathForThisFruType(path, "moduleOnly");
+                    }
+                }
+            }
+            //else go ahead with default vpdFilePath from fruMap
+        }
+
+
+        std::ifstream vpdStream(vpdFilePath, std::ios::binary);
+        if (!vpdStream)
+        {
+            throw std::runtime_error("file not found");
+        }
 
         // instantiate editor class to update the data
         EditorImpl edit(vpdFilePath, jsonFile, recordName, keyword);
