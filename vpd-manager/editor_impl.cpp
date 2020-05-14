@@ -70,7 +70,6 @@ void EditorImpl::updateData(const Binary& kwdData)
     std::size_t lengthToUpdate = kwdData.size() <= thisRecord.kwdDataLength
                                      ? kwdData.size()
                                      : thisRecord.kwdDataLength;
-
     auto iteratorToNewdata = kwdData.cbegin();
     auto end = iteratorToNewdata;
     std::advance(end, lengthToUpdate);
@@ -80,6 +79,8 @@ void EditorImpl::updateData(const Binary& kwdData)
     auto iteratorToKWdData = vpdFile.begin();
     std::advance(iteratorToKWdData, thisRecord.kwDataOffset);
     std::copy(iteratorToNewdata, end, iteratorToKWdData);
+
+
 
 #ifdef ManagerTest
     auto startItr = vpdFile.begin();
@@ -93,7 +94,7 @@ void EditorImpl::updateData(const Binary& kwdData)
         throw std::runtime_error("Data updated successfully");
     }
 #else
-
+    
     // update data in EEPROM as well. As we will not write complete file back
     vpdFileStream.seekg(thisRecord.kwDataOffset, std::ios::beg);
     iteratorToNewdata = kwdData.cbegin();
@@ -358,11 +359,14 @@ void EditorImpl::updateCache()
         if (LocationCode.substr(1, 3) != "mts")
         {
             // update com interface
-            makeDbusCall<Binary>(
-                (INVENTORY_PATH +
-                 singleInventory["inventoryPath"].get<std::string>()),
-                (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
-                thisRecord.recKWd, thisRecord.kwdUpdatedData);
+            if (singleInventory.value("inheritEI", true))
+            {
+                makeDbusCall<Binary>(
+                    (INVENTORY_PATH +
+                     singleInventory["inventoryPath"].get<std::string>()),
+                    (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
+                    thisRecord.recKWd, thisRecord.kwdUpdatedData);
+            }
 
             // process Common interface
             processAndUpdateCI(singleInventory["inventoryPath"]
@@ -370,9 +374,12 @@ void EditorImpl::updateCache()
         }
 
         // process extra interfaces
-        processAndUpdateEI(singleInventory,
-                           singleInventory["inventoryPath"]
-                               .get_ref<const nlohmann::json::string_t&>());
+        if (singleInventory.value("inheritEI", true))
+        {
+            processAndUpdateEI(singleInventory,
+                               singleInventory["inventoryPath"]
+                                   .get_ref<const nlohmann::json::string_t&>());
+        }
     }
 }
 
@@ -446,22 +453,31 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
 
 void EditorImpl::updateKeyword(const Binary& kwdData) // const Binary& kwdData)
 {
-
-#ifndef ManagerTest
-    vpdFileStream.open(vpdFilePath,
-                       std::ios::binary); // std::ios::in | std::ios::out |
-
-    if (!vpdFileStream)
+    uint32_t offset = 0;
+    // check if offset present?
+    for (const auto& item : jsonFile["frus"][vpdFilePath])
     {
-        throw std::runtime_error("unable to open vpd file to edit");
+        if (item.find("offset") != item.end())
+        {
+            offset = item["offset"];
+        }
     }
 
-    Binary completeVPDFile((std::istreambuf_iterator<char>(vpdFileStream)),
-                           std::istreambuf_iterator<char>());
+    char buf[2048];
+    vpdFileStream.rdbuf()->pubsetbuf(buf, sizeof(buf));
+    vpdFileStream.open(vpdFilePath, std::ios::in | std::ios::out |std::ios::binary);
+    vpdFileStream.seekg(offset, std::ios_base::cur);
+
+    // Read 64KB data content of the binary file into a vector
+    Binary tmpVector((istreambuf_iterator<char>(vpdFileStream)),
+                     istreambuf_iterator<char>());
+
+    vector<unsigned char>::const_iterator first = tmpVector.begin();
+    vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
+
+    Binary completeVPDFile(first, last);
+
     vpdFile = completeVPDFile;
-#else
-    Binary completeVPDFile = vpdFile;
-#endif
     if (vpdFile.empty())
     {
         throw std::runtime_error("Invalid File");
