@@ -1,5 +1,6 @@
 #include "editor_impl.hpp"
 
+#include "parser.hpp"
 #include "utils.hpp"
 
 #include <fstream>
@@ -77,30 +78,43 @@ void EditorImpl::updateData(Binary kwdData)
     auto end = iteratorToNewdata;
     std::advance(end, lengthToUpdate);
 
+    // update data in file buffer as it will be needed to update ECC
+    // avoiding extra stream operation here
+    auto iteratorToKWdData = VPDFile.begin();
+    std::advance(iteratorToKWdData, thisRecord.KwDataOffset);
+    std::copy(iteratorToNewdata, end, iteratorToKWdData);
+
+    // update data in EEPROM as well. As we will not write complete file back
+    vpdFileStream.seekg(thisRecord.KwDataOffset, std::ios::beg);
+    iteratorToNewdata = kwdData.cbegin();
     std::copy(iteratorToNewdata, end,
               std::ostreambuf_iterator<char>(vpdFileStream));
+
+    // get a hold to new data in case encoding is needed
+    thisRecord.kwdUpdatedData.resize(thisRecord.kwdDataLength);
+    auto itrToKWdData = VPDFile.cbegin();
+    std::advance(itrToKWdData, thisRecord.KwDataOffset);
+    auto kwdDataEnd = itrToKWdData;
+    std::advance(kwdDataEnd, thisRecord.kwdDataLength);
+    std::copy(itrToKWdData, kwdDataEnd, thisRecord.kwdUpdatedData.begin());
 }
 
 void EditorImpl::checkRecordForKwd()
 {
     RecordOffset recOffset = thisRecord.recOffset;
 
-    // Jump to record name
-    auto nameOffset = recOffset + sizeof(RecordId) + sizeof(RecordSize) +
-                      // Skip past the RT keyword, which contains
-                      // the record name.
-                      lengths::KW_NAME + sizeof(KwSize);
+    // Amount to skip for record ID, size, and the RT keyword
+    constexpr auto skipBeg = sizeof(RecordId) + sizeof(RecordSize) +
+                             lengths::KW_NAME + sizeof(KwSize);
+    auto nameOffset = recOffset + skipBeg;
 
-    vpdFileStream.seekg(nameOffset + lengths::RECORD_NAME, std::ios::beg);
+    auto iterator = VPDFile.cbegin();
+    std::advance(iterator, recOffset + skipBeg + lengths::RECORD_NAME);
 
-    (thisRecord.recData).resize(thisRecord.recSize);
-    vpdFileStream.read(reinterpret_cast<char*>((thisRecord.recData).data()),
-                       thisRecord.recSize);
-
-    auto iterator = (thisRecord.recData).cbegin();
-    auto end = (thisRecord.recData).cend();
-
+    auto end = iterator;
+    std::advance(end, thisRecord.recSize);
     std::size_t dataLength = 0;
+
     while (iterator < end)
     {
         // Note keyword name
@@ -130,13 +144,8 @@ void EditorImpl::checkRecordForKwd()
 
         if (thisRecord.recKWd == kw)
         {
-            // We're done
-            std::size_t kwdOffset =
-                std::distance((thisRecord.recData).cbegin(), iterator);
-            vpdFileStream.seekp(nameOffset + lengths::RECORD_NAME + kwdOffset,
-                                std::ios::beg);
+            thisRecord.KwDataOffset = std::distance(VPDFile.cbegin(), iterator);
             thisRecord.kwdDataLength = dataLength;
-
             return;
         }
 
@@ -149,51 +158,47 @@ void EditorImpl::checkRecordForKwd()
 
 void EditorImpl::updateRecordECC()
 {
-    vpdFileStream.seekp(thisRecord.recECCoffset, std::ios::beg);
+    auto itrToRecordData = VPDFile.cbegin();
+    std::advance(itrToRecordData, thisRecord.recOffset);
 
-    (thisRecord.recEccData).resize(thisRecord.recECCLength);
-    vpdFileStream.read(reinterpret_cast<char*>((thisRecord.recEccData).data()),
-                       thisRecord.recECCLength);
-
-    auto recPtr = (thisRecord.recData).cbegin();
-    auto recEccPtr = (thisRecord.recEccData).cbegin();
+    auto itrToRecordECC = VPDFile.cbegin();
+    std::advance(itrToRecordECC, thisRecord.recECCoffset);
 
     auto l_status = vpdecc_create_ecc(
-        const_cast<uint8_t*>(&recPtr[0]), thisRecord.recSize,
-        const_cast<uint8_t*>(&recEccPtr[0]), &thisRecord.recECCLength);
+        const_cast<uint8_t*>(&itrToRecordData[0]), thisRecord.recSize,
+        const_cast<uint8_t*>(&itrToRecordECC[0]), &thisRecord.recECCLength);
     if (l_status != VPD_ECC_OK)
     {
         throw std::runtime_error("Ecc update failed");
     }
 
-    auto end = (thisRecord.recEccData).cbegin();
+    auto end = itrToRecordECC;
     std::advance(end, thisRecord.recECCLength);
 
-    std::copy((thisRecord.recEccData).cbegin(), end,
+    vpdFileStream.seekp(thisRecord.recECCoffset, std::ios::beg);
+    std::copy(itrToRecordECC, end,
               std::ostreambuf_iterator<char>(vpdFileStream));
 }
 
 auto EditorImpl::getValue(offsets::Offsets offset)
 {
-    Byte data = 0;
-    vpdFileStream.seekg(offset, std::ios::beg)
-        .get(*(reinterpret_cast<char*>(&data)));
-    LE2ByteData lowByte = data;
-
-    vpdFileStream.seekg(offset + 1, std::ios::beg)
-        .get(*(reinterpret_cast<char*>(&data)));
-    LE2ByteData highByte = data;
+    auto itr = VPDFile.cbegin();
+    std::advance(itr, offset);
+    LE2ByteData lowByte = *itr;
+    LE2ByteData highByte = *(itr + 1);
     lowByte |= (highByte << 8);
 
     return lowByte;
 }
 
-void EditorImpl::checkECC(const Binary& tocRecData, const Binary& tocECCData,
+void EditorImpl::checkECC(Binary::const_iterator& itrToRecData,
+                          Binary::const_iterator& itrToECCData,
                           RecordLength recLength, ECCLength eccLength)
 {
     auto l_status =
-        vpdecc_check_data(const_cast<uint8_t*>(&tocRecData[0]), recLength,
-                          const_cast<uint8_t*>(&tocECCData[0]), eccLength);
+        vpdecc_check_data(const_cast<uint8_t*>(&itrToRecData[0]), recLength,
+                          const_cast<uint8_t*>(&itrToECCData[0]), eccLength);
+
     if (l_status != VPD_ECC_OK)
     {
         throw std::runtime_error("Ecc check failed for VTOC");
@@ -214,42 +219,36 @@ void EditorImpl::readVTOC()
     // read TOC ecc length
     ECCLength tocECCLength = getValue(offsets::VTOC_ECC_LEN);
 
-    // read toc record data
-    Binary vtocRecord(tocLength);
-    vpdFileStream.seekg(tocOffset, std::ios::beg);
-    vpdFileStream.read(reinterpret_cast<char*>(vtocRecord.data()), tocLength);
+    auto itrToRecord = VPDFile.cbegin();
+    std::advance(itrToRecord, tocOffset);
 
-    // read toc ECC for ecc check
-    Binary vtocECC(tocECCLength);
-    vpdFileStream.seekg(tocECCOffset, std::ios::beg);
-    vpdFileStream.read(reinterpret_cast<char*>(vtocECC.data()), tocECCLength);
+    auto iteratorToECC = VPDFile.cbegin();
+    std::advance(iteratorToECC, tocECCOffset);
 
-    auto iterator = vtocRecord.cbegin();
+    // validate ecc for the record
+    checkECC(itrToRecord, iteratorToECC, tocLength, tocECCLength);
 
     // to get to the record name.
-    std::advance(iterator, sizeof(RecordId) + sizeof(RecordSize) +
-                               // Skip past the RT keyword, which contains
-                               // the record name.
-                               lengths::KW_NAME + sizeof(KwSize));
+    std::advance(itrToRecord, sizeof(RecordId) + sizeof(RecordSize) +
+                                  // Skip past the RT keyword, which contains
+                                  // the record name.
+                                  lengths::KW_NAME + sizeof(KwSize));
 
-    std::string recordName(iterator, iterator + lengths::RECORD_NAME);
+    std::string recordName(itrToRecord, itrToRecord + lengths::RECORD_NAME);
 
     if ("VTOC" != recordName)
     {
         throw std::runtime_error("VTOC record not found");
     }
 
-    // validate ecc for the record
-    checkECC(vtocRecord, vtocECC, tocLength, tocECCLength);
-
     // jump to length of PT kwd
-    std::advance(iterator, lengths::RECORD_NAME + lengths::KW_NAME);
+    std::advance(itrToRecord, lengths::RECORD_NAME + lengths::KW_NAME);
 
     // Note size of PT
-    Byte ptLen = *iterator;
-    std::advance(iterator, 1);
+    Byte ptLen = *itrToRecord;
+    std::advance(itrToRecord, 1);
 
-    checkPTForRecord(iterator, ptLen);
+    checkPTForRecord(itrToRecord, ptLen);
 }
 
 void EditorImpl::updateKeyword(const Binary& kwdData)
@@ -261,17 +260,35 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
         throw std::runtime_error("unable to open vpd file to edit");
     }
 
-    // process VTOC for PTT rkwd
-    readVTOC();
+    Binary CompleteVPDFile((std::istreambuf_iterator<char>(vpdFileStream)),
+                           std::istreambuf_iterator<char>());
+    VPDFile = CompleteVPDFile;
 
-    // check record for keywrod
-    checkRecordForKwd();
+    auto iterator = VPDFile.cbegin();
+    std::advance(iterator, IPZ_DATA_START);
 
-    // update the data to the file
-    updateData(kwdData);
+    Byte vpdType = *iterator;
+    if (vpdType == KW_VAL_PAIR_START_TAG)
+    {
+        openpower::vpd::keyword::editor::processHeader(
+            std::move(CompleteVPDFile));
 
-    // update the ECC data for the record once data has been updated
-    updateRecordECC();
+        // process VTOC for PTT rkwd
+        readVTOC();
+
+        // check record for keywrod
+        checkRecordForKwd();
+
+        // update the data to the file
+        updateData(kwdData);
+
+        // update the ECC data for the record once data has been updated
+        updateRecordECC();
+
+        return;
+    }
+
+    throw std::runtime_error("Invalid VPD file type");
 }
 
 } // namespace editor
