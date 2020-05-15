@@ -70,18 +70,19 @@ class EditorImpl
     void readVTOC();
 
     /** @brief validate ecc data for the VTOC record
-     *  @param[in] tocRecData - VTOC record data
-     *  @param[in] tocECCData - VTOC ECC data
-     *  @param[in] recLength - Lenght of VTOC record
-     *  @param[in] eccLength - Length of ECC record
+     *  @param[in] iterator to VTOC record data
+     *  @param[in] iterator to VTOC ECC data
+     *  @param[in] Lenght of VTOC record
+     *  @param[in] Length of ECC record
      */
-    void checkECC(const Binary& tocRecData, const Binary& tocECCData,
+    void checkECC(Binary::const_iterator& itrToRecData,
+                  Binary::const_iterator& itrToECCData,
                   openpower::vpd::constants::RecordLength recLength,
                   openpower::vpd::constants::ECCLength eccLength);
 
     /** @brief reads value at the given offset
      *  @param[in] offset - offset value
-     *  @return[out] - value at that offset in bigendian
+     *  @return  value at that offset in bigendian
      */
     auto getValue(openpower::vpd::constants::offsets::Offsets offset);
 
@@ -113,8 +114,7 @@ class EditorImpl
     // structure to hold info about record to edit
     struct RecInfo
     {
-        Binary recData;
-        Binary recEccData;
+        Binary kwdUpdatedData; // need access to it in case encoding is needed
         const std::string& recName;
         const std::string& recKWd;
         openpower::vpd::constants::RecordOffset recOffset;
@@ -122,14 +122,16 @@ class EditorImpl
         std::size_t recECCLength;
         std::size_t kwdDataLength;
         openpower::vpd::constants::RecordSize recSize;
-
+        openpower::vpd::constants::DataOffset KwDataOffset;
         // constructor
         RecInfo(const std::string& rec, const std::string& kwd) :
             recName(rec), recKWd(kwd), recOffset(0), recECCoffset(0),
-            recECCLength(0), kwdDataLength(0), recSize(0)
+            recECCLength(0), kwdDataLength(0), recSize(0), KwDataOffset(0)
         {
         }
     } thisRecord;
+
+    Binary VPDFile;
 
 }; // class EditorImpl
 
