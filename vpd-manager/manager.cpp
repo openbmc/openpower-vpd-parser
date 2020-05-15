@@ -84,36 +84,12 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
         }
 
         inventory::Path vpdFilePath = frus.find(path)->second;
-        std::ifstream vpdStream(vpdFilePath, std::ios::binary);
-        if (!vpdStream)
-        {
-            throw std::runtime_error("file not found");
-        }
 
-        Byte data;
-        vpdStream.seekg(IPZ_DATA_START, std::ios::beg);
-        vpdStream.get(*(reinterpret_cast<char*>(&data)));
+        // instantiate editor class to update the data
+        EditorImpl edit(vpdFilePath, recordName, keyword);
+        edit.updateKeyword(value);
 
-        // implies it is IPZ VPD
-        if (data == KW_VAL_PAIR_START_TAG)
-        {
-            Binary vpdHeader(lengths::VHDR_RECORD_LENGTH +
-                             lengths::VHDR_ECC_LENGTH);
-            vpdStream.seekg(0);
-            vpdStream.read(reinterpret_cast<char*>(vpdHeader.data()),
-                           vpdHeader.capacity());
-
-            // check if header is valid
-            openpower::vpd::keyword::editor::processHeader(
-                std::move(vpdHeader));
-
-            // instantiate editor class to update the data
-            EditorImpl edit(vpdFilePath, recordName, keyword);
-            edit.updateKeyword(value);
-
-            return;
-        }
-        throw std::runtime_error("Invalid VPD file type");
+        return;
     }
     catch (const std::exception& e)
     {

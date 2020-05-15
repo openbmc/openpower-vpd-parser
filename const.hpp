@@ -19,6 +19,7 @@ using PoundKwSize = uint16_t;
 using ECCOffset = uint16_t;
 using ECCLength = uint16_t;
 using LE2ByteData = uint16_t;
+using DataOffset = uint16_t;
 
 static constexpr auto MAC_ADDRESS_LEN_BYTES = 6;
 static constexpr auto LAST_KW = "PF";
