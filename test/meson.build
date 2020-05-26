@@ -41,8 +41,18 @@ foreach t : vpd_test
     cpp_args: ['-DIPZ_PARSER', '-DManagerTest'],
     c_args: ['-Wno-unused-parameter',
       '-Wno-unused-variable'],
+<<<<<<< 618cdda9d0a046375aadf94857281e2e94ba1ac9
     dependencies: dependecy_list,
     include_directories: configuration_inc
+=======
+    dependencies: [
+                gtest,
+                gmock,
+                sdbusplus,
+                phosphor_logging,
+        ],
+    include_directories: ['..','../vpd-parser']
+>>>>>>> Interface & Factory implementation for VPD Parsers
     ),
     workdir: meson.current_source_dir())
 endforeach
