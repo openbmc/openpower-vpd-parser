@@ -47,7 +47,9 @@ class EditorImpl
     EditorImpl& operator=(const EditorImpl&) = delete;
     EditorImpl(EditorImpl&&) = delete;
     EditorImpl& operator=(EditorImpl&&) = delete;
-    ~EditorImpl() = default;
+    ~EditorImpl()
+    {
+    }
 
     /** @brief Construct EditorImpl class
      *
