@@ -15,7 +15,7 @@ gmock = dependency('gmock', disabler: true, required: build_tests)
 gtest = dependency('gtest', main: true, disabler: true, required: build_tests)
 dependecy_list = [gtest, gmock, sdbusplus, phosphor_logging, phosphor_dbus_interfaces]
 
-configuration_inc = include_directories('..', '../vpd-manager', 'vpd-manager-test')
+configuration_inc = include_directories('..', '../vpd-manager', 'vpd-manager-test', '../vpd-parser')
 
 vpd_test = ['store/store.cpp',
             'ipz_parser/parser.cpp',
@@ -27,11 +27,13 @@ vpd_test = ['store/store.cpp',
 application_src =['../impl.cpp',
                    '../vpdecc/vpdecc.c',
                    '../vpdecc/vpdecc_support.c',
-                   '../parser.cpp',
+                   '../vpd-parser/ipz_parser.cpp',
                    '../utils.cpp',
                    '../vpd-manager/reader_impl.cpp',
-                   '../keyword_vpd_parser.cpp',
-                   '../vpd-manager/editor_impl.cpp'
+                   '../vpd-parser/keyword_vpd_parser.cpp',
+                   '../vpd-manager/editor_impl.cpp',
+                   '../vpd-parser/parser_factory.cpp',
+                   '../vpd-parser/memory_vpd_parser.cpp'
                   ]
 
 foreach t : vpd_test
