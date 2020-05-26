@@ -1,9 +1,10 @@
 #include "config.h"
 
 #include "defines.hpp"
+#include "ipz_parser.hpp"
 #include "keyword_vpd_parser.hpp"
 #include "memory_vpd_parser.hpp"
-#include "parser.hpp"
+#include "parser_factory.hpp"
 #include "utils.hpp"
 
 #include <ctype.h>
@@ -24,8 +25,10 @@ using namespace vpd::keyword::parser;
 using namespace openpower::vpd::constants;
 namespace fs = filesystem;
 using json = nlohmann::json;
+using namespace openpower::vpd::parser::factory;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::memory::parser;
+using namespace openpower::vpd::parser::interface;
 
 /**
  * @brief Expands location codes
@@ -311,13 +314,13 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
  */
 template <typename T>
 static void populateDbus(const T& vpdMap, nlohmann::json& js,
-                         const string& filePath, const string& preIntrStr)
+                         const string& filePath) //, const string &preIntrStr) {
 {
     inventory::InterfaceMap interfaces;
     inventory::ObjectMap objects;
     inventory::PropertyMap prop;
 
-    bool isSystemVpd;
+    bool isSystemVpd = false;
     for (const auto& item : js["frus"][filePath])
     {
         const auto& objectPath = item["inventoryPath"];
@@ -336,12 +339,12 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                 for (const auto& record : vpdMap)
                 {
                     populateFruSpecificInterfaces(
-                        record.second, preIntrStr + record.first, interfaces);
+                        record.second, ipzVpdInf + record.first, interfaces);
                 }
             }
             else if constexpr (is_same<T, KeywordVpdMap>::value)
             {
-                populateFruSpecificInterfaces(vpdMap, preIntrStr, interfaces);
+                populateFruSpecificInterfaces(vpdMap, kwdVpdInf, interfaces);
             }
             if (js.find("commonInterfaces") != js.end())
             {
@@ -362,7 +365,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                         if (vpdMap.find(recordName) != vpdMap.end())
                         {
                             populateFruSpecificInterfaces(
-                                vpdMap.at(recordName), preIntrStr + recordName,
+                                vpdMap.at(recordName), ipzVpdInf + recordName,
                                 interfaces);
                         }
                     }
@@ -471,48 +474,47 @@ int main(int argc, char** argv)
             return 0;
         }
 
-        Binary vpdVector(getVpdDataInVector(js, file));
-        vpdType type = vpdTypeCheck(vpdVector);
-
-        switch (type)
+        uint32_t offset = 0;
+        // check if offset present?
+        for (const auto& item : js["frus"][file])
         {
-            case IPZ_VPD:
+            if (item.find("offset") != item.end())
             {
-                // Invoking IPZ Vpd Parser
-                auto vpdStore = parse(move(vpdVector));
-                const Parsed& vpdMap = vpdStore.getVpdMap();
-                string preIntrStr = "com.ibm.ipzvpd.";
-                // Write it to the inventory
-                populateDbus(vpdMap, js, file, preIntrStr);
+                offset = item["offset"];
             }
-            break;
-
-            case KEYWORD_VPD:
-            {
-                // Creating Keyword Vpd Parser Object
-                KeywordVpdParser parserObj(move(vpdVector));
-                // Invoking KW Vpd Parser
-                const auto& kwValMap = parserObj.parseKwVpd();
-                string preIntrStr = "com.ibm.kwvpd.KWVPD";
-                populateDbus(kwValMap, js, file, preIntrStr);
-            }
-            break;
-
-            case MEMORY_VPD:
-            {
-                // Get an object to call API & get the key-value map
-                memoryVpdParser vpdParser(move(vpdVector));
-                const auto& memKwValMap = vpdParser.parseMemVpd();
-
-                string preIntrStr = "com.ibm.kwvpd.KWVPD";
-                // js(define dimm sys path in js), ObjPath(define in JS)
-                populateDbus(memKwValMap, js, file, preIntrStr);
-            }
-            break;
-
-            default:
-                throw runtime_error("Invalid VPD format");
         }
+        char buf[2048];
+        ifstream vpdFile;
+        vpdFile.rdbuf()->pubsetbuf(buf, sizeof(buf));
+        vpdFile.open(file, ios::binary);
+        vpdFile.seekg(offset, std::ios_base::cur);
+
+        // Read 64KB data content of the binary file into a vector
+        Binary tmpVector((istreambuf_iterator<char>(vpdFile)),
+                         istreambuf_iterator<char>());
+
+        vector<unsigned char>::const_iterator first = tmpVector.begin();
+        vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
+
+        Binary vpdVector(first, last);
+
+        ParserInterface* parser =
+            ParserFactory::getParser(std::move(vpdVector));
+
+        variant<KeywordVpdMap, Store> parseResult;
+        parseResult = parser->parse();
+
+        if (auto pVal = get_if<Store>(&parseResult))
+        {
+            populateDbus(pVal->getVpdMap(), js, file);
+        }
+        else if (auto pVal = get_if<KeywordVpdMap>(&parseResult))
+        {
+            populateDbus(*pVal, js, file);
+        }
+
+        // release the parser object
+        ParserFactory::freeParser(parser);
     }
     catch (exception& e)
     {
