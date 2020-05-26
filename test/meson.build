@@ -35,7 +35,7 @@ workdir: meson.current_source_dir())
 vpd_test = ['ipz_parser/parser.cpp',
                 'keyword_vpd_parser_test/kw_vpd_test.cpp'
     ]
-application_src += ['../keyword_vpd_parser.cpp',
+application_src += ['../vpd-parser/keyword_vpd_parser.cpp',
   '../vpdecc/vpdecc.c',
   '../vpdecc/vpdecc_support.c'
     ]
@@ -54,7 +54,7 @@ foreach t : vpd_test
                 sdbusplus,
                 phosphor_logging,
         ],
-    include_directories: '..'
+    include_directories: ['..','../vpd-parser']
     ),
     workdir: meson.current_source_dir())
 endforeach
