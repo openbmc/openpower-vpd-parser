@@ -2,10 +2,16 @@
 
 #include "editor_impl.hpp"
 
-#include "parser.hpp"
+#include "ipz_parser.hpp"
+#include "parser_factory.hpp"
 #include "utils.hpp"
 
 #include "vpdecc/vpdecc.h"
+
+using namespace openpower::vpd::parser::interface;
+using namespace openpower::vpd::constants;
+using namespace openpower::vpd::parser::factory;
+using namespace openpower::vpd::ipz::parser;
 
 namespace openpower
 {
@@ -15,7 +21,6 @@ namespace manager
 {
 namespace editor
 {
-using namespace openpower::vpd::constants;
 
 void EditorImpl::checkPTForRecord(Binary::const_iterator& iterator,
                                   Byte ptLength)
@@ -447,12 +452,10 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
     }
 }
 
-void EditorImpl::updateKeyword(const Binary& kwdData) // const Binary& kwdData)
+void EditorImpl::updateKeyword(const Binary& kwdData)
 {
-
 #ifndef ManagerTest
-    vpdFileStream.open(vpdFilePath,
-                       std::ios::binary); // std::ios::in | std::ios::out |
+    vpdFileStream.open(vpdFilePath, std::ios::binary);
 
     if (!vpdFileStream)
     {
@@ -476,24 +479,46 @@ void EditorImpl::updateKeyword(const Binary& kwdData) // const Binary& kwdData)
     Byte vpdType = *iterator;
     if (vpdType == KW_VAL_PAIR_START_TAG)
     {
-        openpower::vpd::keyword::editor::processHeader(
-            std::move(completeVPDFile));
+        ParserInterface* Iparser =
+            ParserFactory::getParser(std::move(completeVPDFile));
+        IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
 
-        // process VTOC for PTT rkwd
-        readVTOC();
+        try
+        {
+            if (ipzParser == nullptr)
+            {
+                throw std::runtime_error("Invalid cast");
+            }
 
-        // check record for keywrod
-        checkRecordForKwd();
+            ipzParser->processHeader();
+            delete ipzParser;
+            ipzParser = nullptr;
+            // ParserFactory::freeParser(Iparser);
 
-        // update the data to the file
-        updateData(kwdData);
+            // process VTOC for PTT rkwd
+            readVTOC();
 
-        // update the ECC data for the record once data has been updated
-        updateRecordECC();
+            // check record for keywrod
+            checkRecordForKwd();
+
+            // update the data to the file
+            updateData(kwdData);
+
+            // update the ECC data for the record once data has been updated
+            updateRecordECC();
 #ifndef ManagerTest
-        // update the cache once data has been updated
-        updateCache();
+            // update the cache once data has been updated
+            updateCache();
 #endif
+        }
+        catch (const std::exception& e)
+        {
+            if (ipzParser != nullptr)
+            {
+                delete ipzParser;
+            }
+            throw std::runtime_error(e.what());
+        }
         return;
     }
 }
