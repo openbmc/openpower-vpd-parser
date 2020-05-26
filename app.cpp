@@ -1,6 +1,6 @@
 #include "args.hpp"
 #include "defines.hpp"
-#include "parser.hpp"
+#include "ipz_parser.hpp"
 #include "write.hpp"
 
 #include <exception>
@@ -8,6 +8,7 @@
 #include <iostream>
 #include <iterator>
 #include <string>
+#include <variant>
 #include <vector>
 
 int main(int argc, char** argv)
@@ -17,6 +18,8 @@ int main(int argc, char** argv)
     try
     {
         using namespace openpower::vpd;
+        using namespace openpower::vpd::ipz::parser;
+
         args::Args arguments = args::parse(argc, argv);
 
         bool haveVpd = arguments.count("vpd");
@@ -45,7 +48,8 @@ int main(int argc, char** argv)
                    std::istreambuf_iterator<char>());
 
         // Parse VPD
-        auto vpdStore = parse(std::move(vpd));
+        IpzVpdParser ipzParser(std::move(vpd));
+        auto vpdStore = std::move(std::get<Store>(ipzParser.parse()));
 
         if (doDump)
         {
