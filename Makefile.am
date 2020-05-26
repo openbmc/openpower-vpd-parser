@@ -2,14 +2,16 @@
 noinst_HEADERS = \
 	defines.hpp \
 	store.hpp \
-	parser.hpp \
+	vpd-parser/ipz_parser.hpp \
 	types.hpp \
 	write.hpp \
 	impl.hpp \
 	args.hpp \
 	utils.hpp \
-        keyword_vpd_parser.hpp \
-	vpd_tool_impl.hpp
+    vpd-parser/keyword_vpd_parser.hpp \
+	vpd_tool_impl.hpp \
+	vpd-parser/parser_factory.hpp\
+	vpd-parser/parser_interface.hpp
 
 if IBM_PARSER
 noinst_HEADERS += \
@@ -19,23 +21,25 @@ noinst_HEADERS += \
 bin_PROGRAMS = ibm-read-vpd
 ibm_read_vpd_SOURCES = \
 	ibm_vpd_app.cpp \
-	parser.cpp \
+	vpd-parser/ipz_parser.cpp \
 	vpdecc/vpdecc.c   \
 	vpdecc/vpdecc_support.c\
 	impl.cpp \
 	utils.cpp \
-        keyword_vpd_parser.cpp
+	vpd-parser/keyword_vpd_parser.cpp\
+	vpd-parser/memory_vpd_parser.cpp \
+	vpd-parser/parser_factory.cpp
 
 ibm_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
-ibm_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
+ibm_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS) -I ${srcdir}/vpd-parser
 
 bin_PROGRAMS += vpd-tool
 vpd_tool_SOURCES = \
         vpd_tool.cpp \
         vpd_tool_impl.cpp
 
-vpd_tool_LDFLAGS = $(SDBUSPLUS_LIBS)
-vpd_tool_CXXFLAGS = $(SDBUSPLUS_CFLAGS)
+#vpd_tool_LDFLAGS = $(SDBUSPLUS_LIBS)
+#vpd_tool_CXXFLAGS = $(SDBUSPLUS_CFLAGS)
 
 else
 # Be sure to build these before compiling
@@ -74,11 +78,15 @@ openpower_read_vpd_SOURCES = \
 	app.cpp \
 	args.cpp \
 	impl.cpp \
-	parser.cpp \
+	vpd-parser/ipz_parser.cpp \
 	write.cpp \
-	utils.cpp
+	utils.cpp \
+    vpd-parser/keyword_vpd_parser.cpp\
+    vpd-parser/memory_vpd_parser.cpp \
+    vpd-parser/parser_factory.cpp
+
 openpower_read_vpd_LDFLAGS = $(SDBUSPLUS_LIBS) $(PHOSPHOR_LOGGING_LIBS)
-openpower_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS)
+openpower_read_vpd_CXXFLAGS = $(SDBUSPLUS_CFLAGS) $(PHOSPHOR_LOGGING_CFLAGS) -I ${srcdir}/vpd-parser
 endif
 
 SUBDIRS = test

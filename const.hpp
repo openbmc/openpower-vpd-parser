@@ -64,6 +64,9 @@ static constexpr auto CCIN_LEN = 4;
 using namespace std::string_literals;
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
 constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
+constexpr auto kwdVpdInf = "com.ibm.kwvpd.KWVPD";
+constexpr auto memVpdInf = "com.ibm.kwvpd.KWVPD";
+constexpr auto ipzVpdInf = "com.ibm.ipzvpd.";
 
 namespace lengths
 {

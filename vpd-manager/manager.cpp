@@ -3,7 +3,7 @@
 #include "manager.hpp"
 
 #include "editor_impl.hpp"
-#include "parser.hpp"
+#include "ipz_parser.hpp"
 #include "reader_impl.hpp"
 #include "utils.hpp"
 
