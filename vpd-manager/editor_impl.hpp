@@ -47,7 +47,9 @@ class EditorImpl
     EditorImpl& operator=(const EditorImpl&) = delete;
     EditorImpl(EditorImpl&&) = delete;
     EditorImpl& operator=(EditorImpl&&) = delete;
-    ~EditorImpl() = default;
+    ~EditorImpl()
+    {
+    }
 
     /** @brief Construct EditorImpl class
      *
@@ -55,8 +57,8 @@ class EditorImpl
      */
     EditorImpl(const std::string& record, const std::string& kwd,
                Binary&& vpd) :
-        thisRecord(record, kwd),
-        vpdFile(std::move(vpd))
+        startOffset(0),
+        thisRecord(record, kwd), vpdFile(std::move(vpd))
     {
     }
 
@@ -68,7 +70,8 @@ class EditorImpl
                const std::string& record, const std::string& kwd,
                const sdbusplus::message::object_path& inventoryPath) :
         vpdFilePath(path),
-        objPath(inventoryPath), jsonFile(json), thisRecord(record, kwd)
+        objPath(inventoryPath), startOffset(0), jsonFile(json),
+        thisRecord(record, kwd)
     {
     }
 
@@ -161,7 +164,7 @@ class EditorImpl
     std::fstream vpdFileStream;
 
     // offset to get vpd data from EEPROM
-    uint32_t offset;
+    uint32_t startOffset;
 
     // file to store parsed json
     const nlohmann::json jsonFile;

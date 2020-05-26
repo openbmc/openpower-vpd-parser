@@ -2,10 +2,16 @@
 
 #include "editor_impl.hpp"
 
-#include "parser.hpp"
+#include "ipz_parser.hpp"
+#include "parser_factory.hpp"
 #include "utils.hpp"
 
 #include "vpdecc/vpdecc.h"
+
+using namespace openpower::vpd::parser::interface;
+using namespace openpower::vpd::constants;
+using namespace openpower::vpd::parser::factory;
+using namespace openpower::vpd::ipz::parser;
 
 namespace openpower
 {
@@ -15,7 +21,6 @@ namespace manager
 {
 namespace editor
 {
-using namespace openpower::vpd::constants;
 
 void EditorImpl::checkPTForRecord(Binary::const_iterator& iterator,
                                   Byte ptLength)
@@ -95,7 +100,7 @@ void EditorImpl::updateData(const Binary& kwdData)
 #else
 
     // update data in EEPROM as well. As we will not write complete file back
-    vpdFileStream.seekp(offset + thisRecord.kwDataOffset, std::ios::beg);
+    vpdFileStream.seekp(startOffset + thisRecord.kwDataOffset, std::ios::beg);
 
     iteratorToNewdata = kwdData.cbegin();
     std::copy(iteratorToNewdata, end,
@@ -187,7 +192,7 @@ void EditorImpl::updateRecordECC()
     std::advance(end, thisRecord.recECCLength);
 
 #ifndef ManagerTest
-    vpdFileStream.seekp(offset + thisRecord.recECCoffset, std::ios::beg);
+    vpdFileStream.seekp(startOffset + thisRecord.recECCoffset, std::ios::beg);
     std::copy(itrToRecordECC, end,
               std::ostreambuf_iterator<char>(vpdFileStream));
 #endif
@@ -575,18 +580,17 @@ void EditorImpl::getVpdPathForCpu()
 
 void EditorImpl::updateKeyword(const Binary& kwdData)
 {
-    offset = 0;
+    startOffset = 0;
 #ifndef ManagerTest
 
     getVpdPathForCpu();
 
-    uint32_t offset = 0;
     // check if offset present?
     for (const auto& item : jsonFile["frus"][vpdFilePath])
     {
         if (item.find("offset") != item.end())
         {
-            offset = item["offset"];
+            startOffset = item["offset"];
         }
     }
 
@@ -596,7 +600,7 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
     vpdFileStream.open(vpdFilePath,
                        std::ios::in | std::ios::out | std::ios::binary);
 
-    vpdFileStream.seekg(offset, ios_base::cur);
+    vpdFileStream.seekg(startOffset, ios_base::cur);
     vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]), 65504);
     completeVPDFile.resize(vpdFileStream.gcount());
     vpdFileStream.clear(std::ios_base::eofbit);
@@ -618,24 +622,46 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
     Byte vpdType = *iterator;
     if (vpdType == KW_VAL_PAIR_START_TAG)
     {
-        openpower::vpd::keyword::editor::processHeader(
-            std::move(completeVPDFile));
+        ParserInterface* Iparser =
+            ParserFactory::getParser(std::move(completeVPDFile));
+        IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
 
-        // process VTOC for PTT rkwd
-        readVTOC();
+        try
+        {
+            if (ipzParser == nullptr)
+            {
+                throw std::runtime_error("Invalid cast");
+            }
 
-        // check record for keywrod
-        checkRecordForKwd();
+            ipzParser->processHeader();
+            delete ipzParser;
+            ipzParser = nullptr;
+            // ParserFactory::freeParser(Iparser);
 
-        // update the data to the file
-        updateData(kwdData);
+            // process VTOC for PTT rkwd
+            readVTOC();
 
-        // update the ECC data for the record once data has been updated
-        updateRecordECC();
+            // check record for keywrod
+            checkRecordForKwd();
+
+            // update the data to the file
+            updateData(kwdData);
+
+            // update the ECC data for the record once data has been updated
+            updateRecordECC();
 #ifndef ManagerTest
-        // update the cache once data has been updated
-        updateCache();
+            // update the cache once data has been updated
+            updateCache();
 #endif
+        }
+        catch (const std::exception& e)
+        {
+            if (ipzParser != nullptr)
+            {
+                delete ipzParser;
+            }
+            throw std::runtime_error(e.what());
+        }
         return;
     }
 }
