@@ -13,11 +13,11 @@ namespace memory
 namespace parser
 {
 using namespace inventory;
-using namespace parser;
 using namespace constants;
 using namespace std;
+using namespace openpower::vpd::parser;
 
-KeywordVpdMap memoryVpdParser::readKeywords(Binary::const_iterator iterator)
+kwdVpdMap memoryVpdParser::readKeywords(Binary::const_iterator iterator)
 {
     KeywordVpdMap map{};
 
@@ -36,7 +36,7 @@ KeywordVpdMap memoryVpdParser::readKeywords(Binary::const_iterator iterator)
     return map;
 }
 
-KeywordVpdMap memoryVpdParser::parseMemVpd()
+variant<kwdVpdMap, Store> memoryVpdParser::parse()
 {
     // check if vpd file is empty
     if (memVpd.empty())
@@ -52,6 +52,11 @@ KeywordVpdMap memoryVpdParser::parseMemVpd()
     auto vpdDataMap = readKeywords(iterator);
 
     return vpdDataMap;
+}
+
+std::string memoryVpdParser::getInterfaceName() const
+{
+    return memVpdInf;
 }
 
 } // namespace parser
