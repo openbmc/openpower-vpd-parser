@@ -10,6 +10,7 @@ check_PROGRAMS += ipz_parser_test
 
 ipz_parser_test_SOURCES = \
     ipz_parser/parser.cpp \
+    ../vpd-parser/ipz_parser.cpp \
     ../impl.cpp           \
     ../vpdecc/vpdecc.c  \
     ../vpdecc/vpdecc_support.c
@@ -45,7 +46,7 @@ noinst_PROGRAMS = parser_test
 parser_test_SOURCES = \
 	parser/parser.cpp \
     ../impl.cpp \
-    ../parser.cpp \
+    ../vpd-parser/ipz_parser.cpp \
     ../write.cpp \
     ../utils.cpp
 
