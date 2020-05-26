@@ -1,5 +1,5 @@
 #include "editor_impl.hpp"
-#include "parser.hpp"
+#include "ipz_parser.hpp"
 
 #include <algorithm>
 #include <nlohmann/json.hpp>

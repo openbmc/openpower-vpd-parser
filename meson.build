@@ -37,13 +37,14 @@ configure_file(output: 'config.h',
 
 if get_option('ibm-parser').enabled()
         ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',
-                                'parser.cpp',
+                                'vpd-parser/ipz_parser.cpp',
                                 'impl.cpp',
                                 'utils.cpp',
-                                'keyword_vpd_parser.cpp',
+                                'vpd-parser/keyword_vpd_parser.cpp',
                                 'vpdecc/vpdecc.c',
                                 'vpdecc/vpdecc_support.c',
-                                'memory_vpd_parser.cpp'
+                                'vpd-parser/memory_vpd_parser.cpp',
+                                'vpd-parser/parser_factory.cpp'
                                ]
 
         ibm_vpd_exe = executable(
@@ -53,6 +54,7 @@ if get_option('ibm-parser').enabled()
                                         sdbusplus,
                                         phosphor_logging,
                                 ],
+                                include_directories : 'vpd-parser/',
                                 install: true,
                                 cpp_args : '-DIPZ_PARSER'
                             )
@@ -115,7 +117,7 @@ else
         openpower_read_vpd_SOURCES = ['app.cpp',
                                       'args.cpp',
                                       'impl.cpp',
-                                      'parser.cpp',
+                                      'vpd-parser/ipz_parser.cpp',
                                       'write.cpp',
                                       'utils.cpp',
                                       writefru_hpp,
@@ -129,6 +131,7 @@ else
                         sdbusplus,
                         phosphor_logging,
                 ],
+                include_directories : 'vpd-parser/',
                 install: true,
         )
 endif

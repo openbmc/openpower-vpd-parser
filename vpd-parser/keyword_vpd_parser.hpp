@@ -1,5 +1,6 @@
 #pragma once
 
+#include "parser_interface.hpp"
 #include "types.hpp"
 
 namespace vpd
@@ -8,6 +9,10 @@ namespace keyword
 {
 namespace parser
 {
+
+using ParserInterface = openpower::vpd::parser::interface::ParserInterface;
+using kwdVpdMap = openpower::vpd::inventory::KeywordVpdMap;
+using store = openpower::vpd::Store;
 
 /**
  * @class KeywordVpdParser
@@ -31,7 +36,7 @@ namespace parser
  * 6) Validate the 'small resource type last end tag'.
  * 7) Return the keyword-value map.
  */
-class KeywordVpdParser
+class KeywordVpdParser : public ParserInterface
 {
   public:
     KeywordVpdParser() = delete;
@@ -40,7 +45,7 @@ class KeywordVpdParser
     ~KeywordVpdParser() = default;
 
     /**
-     * @brief Move Constructor
+     * @brief Constructor
      *
      * Move kwVpdVector to parser object's kwVpdVector
      */
@@ -51,14 +56,21 @@ class KeywordVpdParser
 
     /**
      * @brief Parse the keyword VPD binary data.
-     *
      * Calls the sub functions to emplace the
      * keyword-value pairs in map and to validate
      * certain tags and checksum data.
      *
      * @return map of keyword:value
      */
-    openpower::vpd::inventory::KeywordVpdMap parseKwVpd();
+    std::variant<kwdVpdMap, store> parse();
+
+    /**
+     * @brief An api to return interface name with respect to
+     * the parser selected.
+     *
+     * @return - Interface name for that vpd type.
+     */
+    std::string getInterfaceName() const;
 
   private:
     openpower::vpd::Binary::iterator
