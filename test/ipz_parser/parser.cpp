@@ -1,9 +1,10 @@
+#include "ipz_parser.hpp"
+
 #include <cassert>
 #include <defines.hpp>
 #include <fstream>
 #include <impl.hpp>
 #include <iterator>
-#include <parser.hpp>
 #include <store.hpp>
 
 #include <gtest/gtest.h>
