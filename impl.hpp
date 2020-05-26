@@ -5,29 +5,23 @@
 
 #include <cstddef>
 
-namespace openpower
-{
-namespace vpd
-{
-namespace parser
-{
-namespace keyword
-{
+namespace openpower {
+namespace vpd {
+namespace parser {
+namespace keyword {
 /** @brief Encoding scheme of a VPD keyword's data */
-enum class Encoding
-{
-    ASCII, /**< data encoded in ascii */
-    RAW,   /**< raw data */
-    // Keywords needing custom decoding
-    B1, /**< The keyword B1 needs to be decoded specially */
-    MB, /**< Special decoding of MB meant for Build Date */
-    UD  /**< Special decoding of UD meant for UUID */
+enum class Encoding {
+  ASCII, /**< data encoded in ascii */
+  RAW,   /**< raw data */
+  // Keywords needing custom decoding
+  B1, /**< The keyword B1 needs to be decoded specially */
+  MB, /**< Special decoding of MB meant for Build Date */
+  UD  /**< Special decoding of UD meant for UUID */
 };
 
 } // namespace keyword
 
-namespace internal
-{
+namespace internal {
 
 using KeywordInfo = std::tuple<record::Keyword, keyword::Encoding>;
 using OffsetList = std::vector<uint32_t>;
@@ -54,113 +48,110 @@ using KeywordMap = Parsed::mapped_type;
  *  4.2.1) Note keyword name and value, associate this information to
  *         to the record noted in step 4.1).
  */
-class Impl
-{
-  public:
-    Impl() = delete;
-    Impl(const Impl&) = delete;
-    Impl& operator=(const Impl&) = delete;
-    Impl(Impl&&) = delete;
-    Impl& operator=(Impl&&) = delete;
-    ~Impl() = default;
+class Impl {
+public:
+  Impl() = delete;
+  Impl(const Impl &) = delete;
+  Impl &operator=(const Impl &) = delete;
+  Impl(Impl &&) = delete;
+  Impl &operator=(Impl &&) = delete;
+  ~Impl() = default;
 
-    /** @brief Construct an Impl
-     *
-     *  @param[in] vpdBuffer - Binary VPD
-     */
-    explicit Impl(Binary&& vpdBuffer) : vpd(std::move(vpdBuffer)), out{}
-    {
-    }
+  /** @brief Construct an Impl
+   *
+   *  @param[in] vpdBuffer - Binary VPD
+   */
+  explicit Impl(Binary &&vpdBuffer) : vpd(std::move(vpdBuffer)), out{} {}
 
-    /** @brief Run the parser on binary VPD
-     *
-     *  @returns openpower::vpd::Store object
-     */
-    Store run();
+  /** @brief Run the parser on binary VPD
+   *
+   *  @returns openpower::vpd::Store object
+   */
+  Store run();
 
-    /** @brief check if VPD header is valid
-     */
-    void checkVPDHeader();
+  /** @brief check if VPD header is valid
+   */
+  void checkVPDHeader();
 
-  private:
-    /** @brief Process the table of contents record
-     *
-     *  @param[in] iterator - iterator to buffer containing VPD
-     *  @returns Size of the PT keyword in VTOC
-     */
-    std::size_t readTOC(Binary::const_iterator& iterator) const;
+private:
+  /** @brief Process the table of contents record
+   *
+   *  @param[in] iterator - iterator to buffer containing VPD
+   *  @returns Size of the PT keyword in VTOC
+   */
+  std::size_t readTOC(Binary::const_iterator &iterator) const;
 
-    /** @brief Read the PT keyword contained in the VHDR record,
-     *         to obtain offsets to other records in the VPD.
-     *
-     *  @param[in] iterator - iterator to buffer containing VPD
-     *  @param[in] ptLength - Length of PT keyword data
-     *
-     *  @returns List of offsets to records in VPD
-     */
-    internal::OffsetList readPT(Binary::const_iterator iterator,
-                                std::size_t ptLen) const;
+  /** @brief Read the PT keyword contained in the VHDR record,
+   *         to obtain offsets to other records in the VPD.
+   *
+   *  @param[in] iterator - iterator to buffer containing VPD
+   *  @param[in] ptLength - Length of PT keyword data
+   *
+   *  @returns List of offsets to records in VPD
+   */
+  internal::OffsetList readPT(Binary::const_iterator iterator,
+                              std::size_t ptLen) const;
 
-    /** @brief Read VPD information contained within a record
-     *
-     *  @param[in] recordOffset - offset to a record location
-     *      within the binary VPD
-     */
-    void processRecord(std::size_t recordOffset);
+  /** @brief Read VPD information contained within a record
+   *
+   *  @param[in] recordOffset - offset to a record location
+   *      within the binary VPD
+   */
+  void processRecord(std::size_t recordOffset);
 
-    /** @brief Read keyword data
-     *
-     *  @param[in] keyword - VPD keyword
-     *  @param[in] dataLength - Length of data to be read
-     *  @param[in] iterator - iterator pointing to a Keyword's data in
-     *      the VPD
-     *
-     *  @returns keyword data as a string
-     */
-    std::string readKwData(const internal::KeywordInfo& keyword,
-                           std::size_t dataLength,
-                           Binary::const_iterator iterator);
+  /** @brief Read keyword data
+   *
+   *  @param[in] keyword - VPD keyword
+   *  @param[in] dataLength - Length of data to be read
+   *  @param[in] iterator - iterator pointing to a Keyword's data in
+   *      the VPD
+   *
+   *  @returns keyword data as a string
+   */
+  std::string readKwData(const internal::KeywordInfo &keyword,
+                         std::size_t dataLength,
+                         Binary::const_iterator iterator);
 
-    /** @brief While we're pointing at the keyword section of
-     *     a record in the VPD, this will read all contained
-     *     keywords and their values.
-     *
-     *  @param[in] iterator - iterator pointing to a Keyword in the VPD
-     *
-     *  @returns map of keyword:data
-     */
-    internal::KeywordMap readKeywords(Binary::const_iterator iterator);
+  /** @brief While we're pointing at the keyword section of
+   *     a record in the VPD, this will read all contained
+   *     keywords and their values.
+   *
+   *  @param[in] iterator - iterator pointing to a Keyword in the VPD
+   *
+   *  @returns map of keyword:data
+   */
+  internal::KeywordMap readKeywords(Binary::const_iterator iterator);
 
-    /** @brief Checks if the VHDR record is present in the VPD */
-    void checkHeader() const;
+  /** @brief Checks if the VHDR record is present in the VPD */
+  void checkHeader() const;
 
-    /** @brief Checks the ECC for VHDR Record.
-     *  @returns Success(0) OR corrupted data(-1)
-     */
-    int vhdrEccCheck() const;
+  /** @brief Checks the ECC for VHDR Record.
+   *  @returns Success(0) OR corrupted data(-1)
+   */
+  int vhdrEccCheck() const;
 
-    /** @brief Checks the ECC for VTOC Record.
-     *  @returns Success(0) OR corrupted data(-1)
-     */
-    int vtocEccCheck() const;
+  /** @brief Checks the ECC for VTOC Record.
+   *  @returns Success(0) OR corrupted data(-1)
+   */
+  int vtocEccCheck() const;
 
-    /** @brief Checks the ECC for the given record.
-     *
-     * @param[in] iterator - iterator pointing to a record in the VPD
-     * @returns Success(0) OR corrupted data(-1)
-     */
-    int recordEccCheck(Binary::const_iterator iterator) const;
+  /** @brief Checks the ECC for the given record.
+   *
+   * @param[in] iterator - iterator pointing to a record in the VPD
+   * @returns Success(0) OR corrupted data(-1)
+   */
+  int recordEccCheck(Binary::const_iterator iterator) const;
 
-    /** @brief This interface collects Offset of VTOC
-     *  @returns VTOC Offset
-     */
-    openpower::vpd::constants::RecordOffset getVtocOffset() const;
+  /** @brief This interface collects Offset of VTOC
+   *  @returns VTOC Offset
+   */
+  openpower::vpd::constants::RecordOffset getVtocOffset() const;
 
-    /** @brief VPD in binary format */
-    Binary vpd;
+  /** @brief VPD in binary format */
+  Binary vpd;
 
-    /** @brief parser output */
-    Parsed out;
+  /** @brief parser output */
+  Parsed out;
 };
 
 } // namespace parser
