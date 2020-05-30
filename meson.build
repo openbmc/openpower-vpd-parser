@@ -12,6 +12,7 @@ build_tests = get_option('tests')
 
 sdbusplus = dependency('sdbusplus')
 phosphor_logging = dependency('phosphor-logging')
+phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
 
 compiler = meson.get_compiler('cpp')
 python = find_program('python3', required:true)
