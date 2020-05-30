@@ -1,6 +1,7 @@
 #pragma once
 
 #include "types.hpp"
+#include "utilInterface.hpp"
 
 namespace openpower
 {
@@ -11,6 +12,7 @@ namespace manager
 namespace reader
 {
 
+using IUtil = openpower::vpd::utils::interface::UtilityInterface;
 /** @class ReaderImpl
  *  @brief Implements functionalities related to reading of VPD related data
  *  from the system.
@@ -19,11 +21,17 @@ class ReaderImpl
 {
   public:
     ReaderImpl() = default;
-    ReaderImpl(const ReaderImpl&) = delete;
+    ReaderImpl(const ReaderImpl&) = default;
     ReaderImpl& operator=(const ReaderImpl&) = delete;
-    ReaderImpl(ReaderImpl&&) = delete;
+    ReaderImpl(ReaderImpl&&) = default;
     ReaderImpl& operator=(ReaderImpl&&) = delete;
     ~ReaderImpl() = default;
+
+#ifdef ManagerTest
+    explicit ReaderImpl(IUtil& obj) : utilObj(obj)
+    {
+    }
+#endif
 
     /** @brief An API to expand a given unexpanded location code.
      *  @param[in] locationCode - unexpanded location code.
@@ -63,6 +71,10 @@ class ReaderImpl
      *  @return true/false based on validity check
      */
     bool isValidLocationCode(const inventory::LocationCode& locationCode) const;
+
+#ifdef ManagerTest
+    IUtil& utilObj;
+#endif
 
 }; // class ReaderImpl
 
