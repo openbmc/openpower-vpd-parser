@@ -14,47 +14,36 @@ endif
 
 gmock = dependency('gmock', disabler: true, required: build_tests)
 gtest = dependency('gtest', main: true, disabler: true, required: build_tests)
+dependecy_list = [gtest, gmock, sdbusplus, phosphor_logging]
 
-application_src = ['../impl.cpp']
+configuration_inc = include_directories('..', '../vpd-manager', 'vpd-manager-test')
 
-test('store_test', executable('store_test',
-        ['store/store.cpp', application_src],
-build_rpath: get_option('oe-sdk').enabled() ? rpath : '',
+vpd_test = ['store/store.cpp',
+            'ipz_parser/parser.cpp',
+            'keyword_vpd_parser_test/kw_vpd_test.cpp',
+            'vpd-manager-test/reader_test.cpp',
+            'vpd-manager-test/util_mock.cpp'
+           ]
 
-link_args: dynamic_linker,
-dependencies: [
-            gtest,
-            gmock,
-            sdbusplus,
-            phosphor_logging,
-    ],
-include_directories: '..'
-),
-workdir: meson.current_source_dir())
+application_src =['../impl.cpp',
+                   '../vpdecc/vpdecc.c',
+                   '../vpdecc/vpdecc_support.c',
+                   '../parser.cpp',
+                   '../utils.cpp',
+                   '../vpd-manager/reader_impl.cpp',
+                   '../keyword_vpd_parser.cpp',
+                  ]
 
-vpd_test = ['ipz_parser/parser.cpp',
-                'keyword_vpd_parser_test/kw_vpd_test.cpp'
-    ]
-application_src += ['../keyword_vpd_parser.cpp',
-  '../vpdecc/vpdecc.c',
-  '../vpdecc/vpdecc_support.c'
-    ]
 foreach t : vpd_test
     test(t, executable(t.underscorify(),
             [t, application_src],
     build_rpath: get_option('oe-sdk').enabled() ? rpath : '',
-
     link_args: dynamic_linker,
-    cpp_args: '-DIPZ_PARSER',
+    cpp_args: ['-DIPZ_PARSER', '-DManagerTest'],
     c_args: ['-Wno-unused-parameter',
       '-Wno-unused-variable'],
-    dependencies: [
-                gtest,
-                gmock,
-                sdbusplus,
-                phosphor_logging,
-        ],
-    include_directories: '..'
+    dependencies: dependecy_list,
+    include_directories: configuration_inc
     ),
     workdir: meson.current_source_dir())
 endforeach
