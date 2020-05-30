@@ -16,9 +16,6 @@ phosphor_logging = dependency('phosphor-logging')
 compiler = meson.get_compiler('cpp')
 python = find_program('python3', required:true)
 
-if get_option('ibm-parser').enabled()
-compiler.has_header('CLI/CLI.hpp')
-compiler.has_header('nlohmann/json.hpp')
 configure_file(output: 'config.h',
                        configuration :{
                        'INVENTORY_JSON': '"'+get_option('INVENTORY_JSON')+'"',
@@ -34,6 +31,10 @@ configure_file(output: 'config.h',
 		       'INVENTORY_MANAGER_CACHE' : '"'+get_option('INVENTORY_MANAGER_CACHE')+'"'
                        }
   )
+
+if get_option('ibm-parser').enabled()
+compiler.has_header('CLI/CLI.hpp')
+compiler.has_header('nlohmann/json.hpp')
         ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',
                                 'ibm_vpd_type_check.cpp',
                                 'parser.cpp',

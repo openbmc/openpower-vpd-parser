@@ -11,6 +11,10 @@
 #include <vector>
 #include <xyz/openbmc_project/Common/error.hpp>
 
+#ifdef ManagerTest
+#include "reader_test.hpp"
+#endif
+
 namespace openpower
 {
 namespace vpd
@@ -23,6 +27,7 @@ namespace reader
 using namespace phosphor::logging;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::constants;
+using namespace openpower::vpd::utils::interface;
 
 using InvalidArgument =
     sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
@@ -46,13 +51,14 @@ LocationCode ReaderImpl::getExpandedLocationCode(
     const LocationCode& locationCode, const Node& nodeNumber,
     const LocationCodeMap& frusLocationCode) const
 {
+    // unused at this moment. Hence to avoid warnings
+    (void)nodeNumber;
     if (!isValidLocationCode(locationCode))
     {
         // argument is not valid
         elog<InvalidArgument>(Argument::ARGUMENT_NAME("LOCATIONCODE"),
                               Argument::ARGUMENT_VALUE(locationCode.c_str()));
     }
-
     auto iterator = frusLocationCode.find(locationCode);
     if (iterator == frusLocationCode.end())
     {
@@ -64,8 +70,13 @@ LocationCode ReaderImpl::getExpandedLocationCode(
                               Argument::ARGUMENT_VALUE(locationCode.c_str()));
     }
 
-    std::string expandedLocationCode =
+    std::string expandedLocationCode{};
+#ifndef ManagerTest
+    expandedLocationCode =
         readBusProperty(iterator->second, LOCATION_CODE_INF, "LocationCode");
+#else
+    expandedLocationCode = utilObj.readBusProperty("test", "test", "test");
+#endif
     return expandedLocationCode;
 }
 
@@ -74,6 +85,9 @@ ListOfPaths
                                   const Node& nodeNumber,
                                   const LocationCodeMap& frusLocationCode) const
 {
+    // unused at this moment, to avoid compilation warning
+    (void)nodeNumber;
+
     // TODO:Implementation related to node number
     if (!isValidLocationCode(locationCode))
     {
@@ -116,8 +130,14 @@ std::tuple<LocationCode, Node>
                               Argument::ARGUMENT_VALUE(locationCode.c_str()));
     }
 
-    std::string fc =
-        readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "FC");
+    std::string fc{};
+
+#ifndef ManagerTest
+
+    fc = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "FC");
+#else
+    fc = utilObj.readBusProperty("testFC", "testFC", "testFC");
+#endif
 
     // get the first part of expanded location code to check for FC or TM
     std::string FCorTM = locationCode.substr(1, 4);
@@ -168,9 +188,13 @@ std::tuple<LocationCode, Node>
     }
     else
     {
+        std::string tm{};
+#ifndef ManagerTest
         // read TM kwd value
-        std::string tm =
-            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "TM");
+        tm = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "FC");
+#else
+        tm = utilObj.readBusProperty("testTM", "testTM", "testTM");
+#endif
 
         // check if the substr matches to TM kwd
         if (tm.substr(0, 4) ==
