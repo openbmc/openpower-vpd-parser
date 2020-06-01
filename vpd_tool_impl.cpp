@@ -138,7 +138,8 @@ void addFruTypeAndLocation(json exIntf, const string& object, json& kwVal)
  *
  * @return json output which gives the properties under invPath's VINI interface
  */
-json getVINIProperties(string invPath, json exIntf)
+json getVINIProperties(const string& invPath, json exIntf,
+                       const string& fruType = "FRU")
 {
     variant<Binary> response;
     json output = json::object({});
@@ -166,6 +167,8 @@ json getVINIProperties(string invPath, json exIntf)
     }
 
     addFruTypeAndLocation(exIntf, objectName, kwVal);
+    kwVal.emplace("TYPE", fruType);
+
     output.emplace(invPath, kwVal);
     return output;
 }
@@ -233,11 +236,18 @@ json interfaceDecider(json& itemEEPROM)
 
     bool exIntfCheck = false;
     json output = json::object({});
+    string fruType = "FRU";
+
+    // check type and add FRU Type in object
+    if (itemEEPROM.find("type") != itemEEPROM.end())
+    {
+        fruType = itemEEPROM.at("type");
+    }
 
     if (itemEEPROM.value("inherit", true))
     {
         json j = getVINIProperties(itemEEPROM.at("inventoryPath"),
-                                   itemEEPROM["extraInterfaces"]);
+                                   itemEEPROM["extraInterfaces"], fruType);
         output.insert(j.begin(), j.end());
     }
     else
@@ -255,6 +265,7 @@ json interfaceDecider(json& itemEEPROM)
         }
         output.emplace(itemEEPROM.at("inventoryPath"), js);
     }
+
     return output;
 }
 
