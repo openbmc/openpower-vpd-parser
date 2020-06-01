@@ -144,6 +144,8 @@ json VpdTool::getVINIProperties(string invPath, json exIntf)
     }
 
     addFruTypeAndLocation(exIntf, objectName, kwVal);
+    kwVal.emplace("TYPE", fruType);
+
     output.emplace(invPath, kwVal);
     return output;
 }
@@ -189,6 +191,13 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
 
     bool exIntfCheck = false;
     json output = json::object({});
+    fruType = "FRU";
+
+    // check type and add FRU Type in object
+    if (itemEEPROM.find("type") != itemEEPROM.end())
+    {
+        fruType = itemEEPROM.at("type");
+    }
 
     if (itemEEPROM.value("inherit", true))
     {
@@ -211,6 +220,7 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
         }
         output.emplace(itemEEPROM.at("inventoryPath"), js);
     }
+
     return output;
 }
 
