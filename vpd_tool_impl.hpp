@@ -14,6 +14,9 @@ class VpdTool
     const std::string keyword;
     const std::string value;
 
+    // Store Type of FRU
+    std::string fruType;
+
     /**
      * @brief Debugger
      * Displays the output in JSON.
