@@ -54,6 +54,18 @@ class EditorImpl
      *  @param[in] path - Path to the vpd file
      */
     EditorImpl(const inventory::Path& path, const nlohmann::json& json,
+               const std::string& record, const std::string& kwd,
+               Binary&& vpd) :
+        vpdFilePath(path),
+        jsonFile(json), thisRecord(record, kwd), VPDFile(std::move(vpd))
+    {
+    }
+
+    /** @brief Construct EditorImpl class
+     *
+     *  @param[in] path - Path to the vpd file
+     */
+    EditorImpl(const inventory::Path& path, const nlohmann::json& json,
                const std::string& record, const std::string& kwd) :
         vpdFilePath(path),
         jsonFile(json), thisRecord(record, kwd)
@@ -140,7 +152,7 @@ class EditorImpl
                       const std::string& property, const std::variant<T>& data);
 
     // path to the VPD file to edit
-    const inventory::Path& vpdFilePath;
+    const inventory::Path vpdFilePath;
 
     // stream to perform operation on file
     std::fstream vpdFileStream;
@@ -152,8 +164,8 @@ class EditorImpl
     struct RecInfo
     {
         Binary kwdUpdatedData; // need access to it in case encoding is needed
-        const std::string& recName;
-        const std::string& recKWd;
+        const std::string recName;
+        const std::string recKWd;
         openpower::vpd::constants::RecordOffset recOffset;
         openpower::vpd::constants::ECCOffset recECCoffset;
         std::size_t recECCLength;
