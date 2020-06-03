@@ -61,7 +61,6 @@ void EditorImpl::checkPTForRecord(Binary::const_iterator& iterator,
                                        sizeof(ECCOffset) + sizeof(ECCLength));
         }
     }
-
     // imples the record was not found
     throw std::runtime_error("Record not found");
 }
@@ -82,6 +81,19 @@ void EditorImpl::updateData(Binary kwdData)
     std::advance(iteratorToKWdData, thisRecord.KwDataOffset);
     std::copy(iteratorToNewdata, end, iteratorToKWdData);
 
+#ifdef ManagerTest
+    auto startItr = VPDFile.begin();
+    std::advance(iteratorToKWdData, thisRecord.KwDataOffset);
+    auto endItr = startItr;
+    std::advance(endItr, thisRecord.kwdDataLength);
+
+    Binary updatedData(startItr, endItr);
+    if (updatedData == kwdData)
+    {
+        throw std::runtime_error("Data updated successfully");
+    }
+#else
+
     // update data in EEPROM as well. As we will not write complete file back
     vpdFileStream.seekg(thisRecord.KwDataOffset, std::ios::beg);
     iteratorToNewdata = kwdData.cbegin();
@@ -95,6 +107,7 @@ void EditorImpl::updateData(Binary kwdData)
     auto kwdDataEnd = itrToKWdData;
     std::advance(kwdDataEnd, thisRecord.kwdDataLength);
     std::copy(itrToKWdData, kwdDataEnd, thisRecord.kwdUpdatedData.begin());
+#endif
 }
 
 void EditorImpl::checkRecordForKwd()
@@ -104,7 +117,7 @@ void EditorImpl::checkRecordForKwd()
     // Amount to skip for record ID, size, and the RT keyword
     constexpr auto skipBeg = sizeof(RecordId) + sizeof(RecordSize) +
                              lengths::KW_NAME + sizeof(KwSize);
-    auto nameOffset = recOffset + skipBeg;
+    // auto nameOffset = recOffset + skipBeg;
 
     auto iterator = VPDFile.cbegin();
     std::advance(iterator, recOffset + skipBeg + lengths::RECORD_NAME);
@@ -173,9 +186,11 @@ void EditorImpl::updateRecordECC()
     auto end = itrToRecordECC;
     std::advance(end, thisRecord.recECCLength);
 
+#ifndef ManagerTest
     vpdFileStream.seekp(thisRecord.recECCoffset, std::ios::beg);
     std::copy(itrToRecordECC, end,
               std::ostreambuf_iterator<char>(vpdFileStream));
+#endif
 }
 
 auto EditorImpl::getValue(offsets::Offsets offset)
@@ -430,10 +445,13 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
     }
 }
 
-void EditorImpl::updateKeyword(const Binary& kwdData)
+void EditorImpl::updateKeyword(const Binary& kwdData) // const Binary& kwdData)
 {
+
+#ifndef ManagerTest
     vpdFileStream.open(vpdFilePath,
-                       std::ios::in | std::ios::out | std::ios::binary);
+                       std::ios::binary); // std::ios::in | std::ios::out |
+
     if (!vpdFileStream)
     {
         throw std::runtime_error("unable to open vpd file to edit");
@@ -442,6 +460,13 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
     Binary CompleteVPDFile((std::istreambuf_iterator<char>(vpdFileStream)),
                            std::istreambuf_iterator<char>());
     VPDFile = CompleteVPDFile;
+#else
+    Binary CompleteVPDFile = VPDFile;
+#endif
+    if (VPDFile.empty())
+    {
+        throw std::runtime_error("Invalid File");
+    }
 
     auto iterator = VPDFile.cbegin();
     std::advance(iterator, IPZ_DATA_START);
@@ -463,14 +488,14 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
 
         // update the ECC data for the record once data has been updated
         updateRecordECC();
-
+#ifndef ManagerTest
         // update the cache once data has been updated
         updateCache();
-
+#endif
         return;
     }
 
-    throw std::runtime_error("Invalid VPD file type");
+    // throw std::runtime_error("Invalid VPD file type");
 }
 
 } // namespace editor
