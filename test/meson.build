@@ -21,6 +21,7 @@ vpd_test = ['store/store.cpp',
             'ipz_parser/parser.cpp',
             'keyword_vpd_parser_test/kw_vpd_test.cpp',
             'vpd-manager-test/reader_test.cpp',
+            'vpd-manager-test/editor_test.cpp'
            ]
 
 application_src =['../impl.cpp',
@@ -30,6 +31,7 @@ application_src =['../impl.cpp',
                    '../utils.cpp',
                    '../vpd-manager/reader_impl.cpp',
                    '../keyword_vpd_parser.cpp',
+                   '../vpd-manager/editor_impl.cpp'
                   ]
 
 foreach t : vpd_test
