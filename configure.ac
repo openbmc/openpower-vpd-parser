@@ -16,7 +16,8 @@ AM_PATH_PYTHON([3],
 
 PKG_CHECK_MODULES([SDBUSPLUS], [sdbusplus])
 PKG_CHECK_MODULES([PHOSPHOR_LOGGING], [phosphor-logging])
-
+AC_CHECK_HEADER([CLI/CLI.hpp])
+AC_CHECK_HEADER([nlohmann/json.hpp])
 
 # Suppress the --with-libtool-sysroot error
 LT_INIT

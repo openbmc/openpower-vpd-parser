@@ -1,0 +1,8 @@
+{
+    "frus":[
+	    {
+            "PATH": "/sys/bus/i2c/devices/8-0050/eeprom"
+		}
+	]
+}
+
