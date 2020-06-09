@@ -511,6 +511,13 @@ int main(int argc, char** argv)
 
         Binary vpdVector(first, last);
 
+        // check if vpd file is empty
+        if (vpdVector.empty())
+        {
+            throw runtime_error(
+                "VPD file is empty. Can't process with blank file.");
+        }
+
         ParserInterface* parser =
             ParserFactory::getParser(std::move(vpdVector));
 
