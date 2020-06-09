@@ -21,10 +21,6 @@ namespace parser
 variant<KeywordVpdMap, store> KeywordVpdParser::parse()
 {
     int kwVpdType;
-    if (keywordVpdVector.empty())
-    {
-        throw std::runtime_error("Blank Vpd Data");
-    }
 
     validateLargeResourceIdentifierString();
 
