@@ -994,6 +994,14 @@ int main(int argc, char** argv)
         try
         {
             Binary vpdVector = getVpdDataInVector(js, file);
+
+            // check if vpd file is empty
+            if (vpdVector.empty())
+            {
+                throw runtime_error(
+                    "VPD file is empty. Can't process with blank file.");
+            }
+
             ParserInterface* parser = ParserFactory::getParser(move(vpdVector));
 
             variant<KeywordVpdMap, Store> parseResult;
