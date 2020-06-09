@@ -28,7 +28,7 @@ class memoryVpdParser : public ParserInterface
     /**
      * @brief Constructor
      *
-     * Move kwVpdVector to parser object's kwVpdVector
+     * Move memVpdVector to parser object's memVpdVector
      */
     memoryVpdParser(Binary&& VpdVector) : memVpd(std::move(VpdVector))
     {
@@ -64,4 +64,4 @@ class memoryVpdParser : public ParserInterface
 } // namespace parser
 } // namespace memory
 } // namespace vpd
-} // namespace openpower
+} //namespace openpower
