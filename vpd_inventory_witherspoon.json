@@ -1,0 +1,54 @@
+{
+  "commonInterfaces": {
+    "xyz.openbmc_project.Inventory.Decorator.Replaceable": {
+      "FieldReplaceable": false
+    }
+  },
+  "frus": {
+    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a400.i2c-bus/i2c-11/11-0051/eeprom": [
+      {
+        "inventoryPath": "/system/chassis/motherboard/boxelder/bmc",
+        "extraInterfaces": {
+	  "xyz.openbmc_project.Inventory.Decorator.Asset": {
+            "PartNumber": {
+              "recordName": "OPFR",
+              "keywordName": "VP"
+            },
+            "SerialNumber": {
+              "recordName": "OPFR",
+              "keywordName": "VS"
+            },
+            "Manufacturer": {
+              "recordName": "OPFR",
+              "keywordName": "VN"
+            }
+	  },
+	  "xyz.openbmc_project.Inventory.Item": {
+	    "PrettyName": {
+              "recordName": "VINI",
+              "keywordName": "DR"
+            },
+            "Present": true
+	  },
+	  "xyz.openbmc_project.Inventory.Item.Bmc": null,
+        }
+      },
+      {
+        "inventoryPath": "/system/chassis/motherboard/boxelder/bmc/ethernet",
+        "extraInterfaces": {
+	  "xyz.openbmc_project.Inventory.Item.NetworkInterface": {
+	     "MACAddress": {
+               "recoreName": "OPFR",
+	       "keywordName": "B1",
+               "encoding": "MAC"
+	     }
+	  },
+	  "xyz.openbmc_project.Inventory.Item": {
+	    "Present": true
+	  },
+	  "xyz.openbmc_project.Inventory.Item.Ethernet": null,
+	}
+      }
+    ]
+  }
+}
