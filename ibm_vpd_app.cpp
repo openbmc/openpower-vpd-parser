@@ -453,11 +453,14 @@ int main(int argc, char** argv)
 
     try
     {
-        App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
+        App app{"ibm-read-vpd - App to read VPD, parse it and store "
                 "in DBUS"};
         string file{};
+        bool doDump = false;
 
-        app.add_option("-f, --file", file, "File containing VPD (IPZ/KEYWORD)")
+        app.add_flag("--dump", doDump, "Optional argument to dump vpd");
+
+        app.add_option("-f, --file", file, "File containing VPD")
             ->required()
             ->check(ExistingFile);
 
@@ -513,6 +516,11 @@ int main(int argc, char** argv)
 
         if (auto pVal = get_if<Store>(&parseResult))
         {
+            if (doDump)
+            {
+                pVal->dump();
+                return 0;
+            }
             populateDbus(pVal->getVpdMap(), js, file);
         }
         else if (auto pVal = get_if<KeywordVpdMap>(&parseResult))
@@ -528,6 +536,5 @@ int main(int argc, char** argv)
         cerr << e.what() << "\n";
         rc = -1;
     }
-
     return rc;
 }
