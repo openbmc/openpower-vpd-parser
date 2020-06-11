@@ -28,6 +28,12 @@ Args parse(int argc, char** argv);
  */
 void usage(char** argv);
 
+/** @brief Check if all the required arguments are passed.
+ *
+ *  @param[in] argument list.
+ */
+bool isArgumentValid(const args::Args& arguments);
+
 } // namespace args
 } // namespace vpd
 } // namespace openpower
