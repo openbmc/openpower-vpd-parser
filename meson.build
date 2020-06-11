@@ -34,23 +34,24 @@ configure_file(output: 'config.h',
                        }
   )
 
-ibm_read_vpd_SOURCES= ['impl.cpp',
+ibm_read_vpd_SOURCES= ['ibm_vpd_app.cpp',
+                       'impl.cpp',
                        'utils.cpp',
-                       'vpd-parser/ipz_parser.cpp'
+                       'vpd-parser/parser_factory.cpp',
+                       'vpd-parser/memory_vpd_parser.cpp',
+                       'vpd-parser/keyword_vpd_parser.cpp',
+                       'vpd-parser/ipz_parser.cpp',
+                       'vpd-parser/openpower_parser.cpp',
 ]
 
-if get_option('ibm-parser').enabled()
+#if get_option('ibm-parser').enabled()
     
     compiler.has_header('CLI/CLI.hpp')
     compiler.has_header('nlohmann/json.hpp')
-    argument_list = ['-DIPZ_PARSER']
+#    argument_list = ['-DIPZ_PARSER']
         
-    ibm_read_vpd_SOURCES += ['ibm_vpd_app.cpp',
-                             'vpd-parser/keyword_vpd_parser.cpp',
-                             'vpdecc/vpdecc.c',
+    ibm_read_vpd_SOURCES += ['vpdecc/vpdecc.c',
                              'vpdecc/vpdecc_support.c',
-                             'vpd-parser/memory_vpd_parser.cpp',
-                             'vpd-parser/parser_factory.cpp'
     ]
 
     vpd_tool_SOURCES = ['vpd_tool.cpp',
@@ -63,15 +64,14 @@ if get_option('ibm-parser').enabled()
                                ],
                                install: true
     )
+if get_option('ibm-parser').enabled()
+    argument_list = ['-DIPZ_PARSER']
+#else
 
-else
-
-    ibm_read_vpd_SOURCES +=['app.cpp',
-                            'args.cpp',
-                            'write.cpp',
-                             #writefru_hpp,
-                             #extra_properties_gen_hpp
-    ]
+#    ibm_read_vpd_SOURCES +=['args.cpp',
+#                            #writefru_hpp,
+#                             #extra_properties_gen_hpp
+#    ]
 endif
 
     ibm_vpd_exe = executable('ibm-read-vpd',

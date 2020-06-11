@@ -1,10 +1,12 @@
 #include "config.h"
 
+#include "args.hpp"
 #include "const.hpp"
 #include "defines.hpp"
 #include "ipz_parser.hpp"
 #include "keyword_vpd_parser.hpp"
 #include "memory_vpd_parser.hpp"
+#include "opnepower_parser.hpp"
 #include "parser_factory.hpp"
 #include "utils.hpp"
 
@@ -30,6 +32,7 @@ using namespace openpower::vpd::parser::factory;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
+using namespace openpower::vpd::parser;
 
 /**
  * @brief Expands location codes
@@ -345,22 +348,27 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         {
             populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
                                isSystemVpd);
-        }
 
-        /*add Common interface to all the fru except the one having "mts" in
-         their location code as they will not inherit CI*/
-        const std::string& LocationCode =
-            item["extraInterfaces"][LOCATION_CODE_INF]["LocationCode"]
-                .get_ref<const nlohmann::json::string_t&>();
-        if (LocationCode.substr(1, 3) != "mts")
-        {
-            if (js.find("commonInterfaces") != js.end())
+            //this condition is needed as openpower json will not have location
+            //code interface
+            if(item["extraInterfaces"].find("LOCATION_CODE_INF") != item.end())
             {
-                populateInterfaces(js["commonInterfaces"], interfaces, vpdMap,
-                                   isSystemVpd);
+                /*add Common interface to all the fru except the one having "mts" in
+                their location code as they will not inherit CI*/
+                const std::string& LocationCode =
+                item["extraInterfaces"][LOCATION_CODE_INF]["LocationCode"]
+                    .get_ref<const nlohmann::json::string_t&>();
+                if (LocationCode.substr(1, 3) != "mts")
+                {
+                    if (js.find("commonInterfaces") != js.end())
+                    {
+                        populateInterfaces(js["commonInterfaces"], interfaces, vpdMap,
+                                        isSystemVpd);
+                    }
+                }
             }
         }
-
+        
         objects.emplace(move(object), move(interfaces));
     }
 
@@ -424,17 +432,87 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
     inventory::callPIM(move(objects));
 }
 
+void parseAndPopulateBus(Binary& vpdVector)
+{
+    ParserInterface* parser = ParserFactory::getParser(std::move(vpdVector));
+    string preIntrStr = parser->getInterfaceName();
+
+    variant<KeywordVpdMap, Store> parseResult;
+    parseResult = parser->parse();
+
+    if (auto pVal = get_if<Store>(&parseResult))
+    {
+        populateDbus(pVal->getVpdMap(), js, file);
+    }
+    else if (auto pVal = get_if<KeywordVpdMap>(&parseResult))
+    {
+        populateDbus(*pVal, js, file);
+    }
+
+    // release the parser object
+    ParserFactory::freeParser(parser);
+}
+
+//#ifdef IPZ_PARSER
+int processIbmVpd()
+{
+    uint32_t offset = 0;
+    // check if offset present?
+    for (const auto& item : js["frus"][file])
+    {
+        if (item.find("offset") != item.end())
+        {
+            offset = item["offset"];
+        }
+    }
+    char buf[2048];
+    ifstream vpdFile;
+    vpdFile.rdbuf()->pubsetbuf(buf, sizeof(buf));
+    vpdFile.open(file, ios::binary);
+    vpdFile.seekg(offset, std::ios_base::cur);
+
+    // Read 64KB data content of the binary file into a vector
+    Binary tmpVector((istreambuf_iterator<char>(vpdFile)),
+                     istreambuf_iterator<char>());
+
+    vector<unsigned char>::const_iterator first = tmpVector.begin();
+    vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
+
+    Binary vpdVector(first, last);
+    parseAndPopulateBus(vpdVector);
+}
+
+//#else
+int processOpenPowerVpd()
+{
+    int rc = 0;
+
+    std::ifstream vpdFile(file, std::ios::binary);
+    Binary vpd((std::istreambuf_iterator<char>(vpdFile)),
+               std::istreambuf_iterator<char>());
+
+    parseAndPopulateBus(vpd);
+    
+    //if (arguments.count("dump"))
+    //{
+    //    vpdStore.dump();
+    //}
+
+    return rc;
+}
+
+
 int main(int argc, char** argv)
 {
     int rc = 0;
 
     try
     {
-        App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
+        App app{"ibm-read-vpd - App to read VPD, parse it and store "
                 "in DBUS"};
         string file{};
 
-        app.add_option("-f, --file", file, "File containing VPD (IPZ/KEYWORD)")
+        app.add_option("-f, --file", file, "File containing VPD")
             ->required()
             ->check(ExistingFile);
 
@@ -451,54 +529,15 @@ int main(int argc, char** argv)
             return 0;
         }
 
-        uint32_t offset = 0;
-        // check if offset present?
-        for (const auto& item : js["frus"][file])
-        {
-            if (item.find("offset") != item.end())
-            {
-                offset = item["offset"];
-            }
-        }
-        char buf[2048];
-        ifstream vpdFile;
-        vpdFile.rdbuf()->pubsetbuf(buf, sizeof(buf));
-        vpdFile.open(file, ios::binary);
-        vpdFile.seekg(offset, std::ios_base::cur);
-
-        // Read 64KB data content of the binary file into a vector
-        Binary tmpVector((istreambuf_iterator<char>(vpdFile)),
-                         istreambuf_iterator<char>());
-
-        vector<unsigned char>::const_iterator first = tmpVector.begin();
-        vector<unsigned char>::const_iterator last = tmpVector.begin() + 65536;
-
-        Binary vpdVector(first, last);
-
-        ParserInterface* parser =
-            ParserFactory::getParser(std::move(vpdVector));
-        // string preIntrStr = parser->getInterfaceName();
-
-        variant<KeywordVpdMap, Store> parseResult;
-        parseResult = parser->parse();
-
-        if (auto pVal = get_if<Store>(&parseResult))
-        {
-            populateDbus(pVal->getVpdMap(), js, file); //, preIntrStr);
-        }
-        else if (auto pVal = get_if<KeywordVpdMap>(&parseResult))
-        {
-            populateDbus(*pVal, js, file); //, preIntrStr);
-        }
-
-        // release the parser object
-        ParserFactory::freeParser(parser);
+#ifdef IPZ_PARSER
+        rc = processIbmVpd(file);
+#else
+        rc = processOpenPowerVpd();
+#endif
     }
     catch (exception& e)
     {
         cerr << e.what() << "\n";
         rc = -1;
     }
-
-    return rc;
 }
