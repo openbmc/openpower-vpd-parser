@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -92,6 +93,28 @@ Args parse(int argc, char** argv)
     }
 
     return args;
+}
+
+bool isArgumentValid(const args::Args& arguments)
+{
+    bool haveVpd = arguments.count("vpd");
+    bool doDump = arguments.count("dump");
+    bool doFru = arguments.count("fru") && arguments.count("object");
+
+    if (!haveVpd)
+    {
+        std::cerr << "VPD file required (--vpd=<filename>)\n";
+        return false;
+    }
+
+    if (!doDump && !doFru)
+    {
+        std::cerr << "No task to perform\n\n";
+        std::cerr << "  Update FRU: --fru <type> --object <path>\n";
+        std::cerr << "              --fru <t1>,<t2> --object <p1>,<p2>\n\n";
+        std::cerr << "  Dump VPD: --dump\n\n";
+        return false;
+    }
 }
 
 } // namespace args

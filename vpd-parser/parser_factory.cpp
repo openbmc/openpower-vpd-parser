@@ -3,12 +3,14 @@
 #include "ipz_parser.hpp"
 #include "keyword_vpd_parser.hpp"
 #include "memory_vpd_parser.hpp"
+#include "opnepower_parser.hpp"
 #include "utils.hpp"
 
 using namespace vpd::keyword::parser;
 using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::ipz::parser;
+using namespace openpower::vpd::parser;
 
 namespace openpower
 {
@@ -26,7 +28,11 @@ interface::ParserInterface* ParserFactory::getParser(Binary&& vpdVector)
     {
         case IPZ_VPD:
         {
+#ifdef DIPZ_PARSER
             return new IpzVpdParser(std::move(vpdVector));
+#else
+            return new OpenpowerVpdParser(std::move(vpdVector));
+#endif
         }
 
         case KEYWORD_VPD:
