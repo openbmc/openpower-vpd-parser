@@ -383,17 +383,23 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
             }
         }
 
-        /*add Common interface to all the fru except the one having "mts" in
-         their location code as they will not inherit CI*/
-        const string& LocationCode =
-            item["extraInterfaces"][LOCATION_CODE_INF]["LocationCode"]
-                .get_ref<const nlohmann::json::string_t&>();
-        if (LocationCode.substr(1, 3) != "mts")
+        // this condition is needed as openpower json will not have location
+        // code interface
+        if (item["extraInterfaces"].find(LOCATION_CODE_INF) !=
+            item["extraInterfaces"].end())
         {
-            if (js.find("commonInterfaces") != js.end())
+            /*add Common interface to all the fru except the one having "mts" in
+            their location code as they will not inherit CI*/
+            const string& LocationCode =
+                item["extraInterfaces"][LOCATION_CODE_INF]["LocationCode"]
+                    .get_ref<const nlohmann::json::string_t&>();
+            if (LocationCode.substr(1, 3) != "mts")
             {
-                populateInterfaces(js["commonInterfaces"], interfaces, vpdMap,
-                                   isSystemVpd);
+                if (js.find("commonInterfaces") != js.end())
+                {
+                    populateInterfaces(js["commonInterfaces"], interfaces,
+                                       vpdMap, isSystemVpd);
+                }
             }
         }
 
@@ -466,18 +472,21 @@ int main(int argc, char** argv)
 
     try
     {
-        App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
+        App app{"ibm-read-vpd - App to read VPD, parse it and store "
                 "in DBUS"};
         string file{};
+        bool doDump = false;
 
-        app.add_option("-f, --file", file, "File containing VPD (IPZ/KEYWORD)")
+        app.add_flag("--dump", doDump, "Optional argument to dump vpd");
+
+        app.add_option("-f, --file", file, "File containing VPD")
             ->required()
             ->check(ExistingFile);
 
         CLI11_PARSE(app, argc, argv);
 
         // Make sure that the file path we get is for a supported EEPROM
-        ifstream inventoryJson(INVENTORY_JSON);
+        ifstream inventoryJson("vpd_inventory.json");
         auto js = json::parse(inventoryJson);
 
         if ((js.find("frus") == js.end()) ||
@@ -526,6 +535,11 @@ int main(int argc, char** argv)
 
         if (auto pVal = get_if<Store>(&parseResult))
         {
+            if (doDump)
+            {
+                pVal->dump();
+                return 0;
+            }
             populateDbus(pVal->getVpdMap(), js, file);
         }
         else if (auto pVal = get_if<KeywordVpdMap>(&parseResult))
@@ -541,6 +555,5 @@ int main(int argc, char** argv)
         cerr << e.what() << "\n";
         rc = -1;
     }
-
     return rc;
 }
