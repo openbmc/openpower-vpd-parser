@@ -1,6 +1,9 @@
 #pragma once
 
+#include "defines.hpp"
+
 #include <iostream>
+#include <unordered_map>
 
 namespace openpower
 {
@@ -160,6 +163,12 @@ enum PelSeverity
     ERROR
 };
 
+// Some systems have two MAC addresses
+/*static const std::unordered_map<std::string, Fru> SupportedFrus = {
+    {"BMC", Fru::BMC},
+    {"ETHERNET", Fru::ETHERNET},
+    {"ETHERNET1", Fru::ETHERNET1}};
+*/
 } // namespace constants
 } // namespace vpd
 } // namespace openpower
