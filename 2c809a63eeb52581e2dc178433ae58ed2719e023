@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29bbcdfa_5f5191bd",
+        "filename": "const.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-06-18T12:25:40Z",
+      "side": 1,
+      "message": "do we need this? why it commented?",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 2
+      },
+      "revId": "2c809a63eeb52581e2dc178433ae58ed2719e023",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7bd313e_ef63b42e",
+        "filename": "meson.build",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-06-18T12:25:40Z",
+      "side": 1,
+      "message": "extra space",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 2
+      },
+      "revId": "2c809a63eeb52581e2dc178433ae58ed2719e023",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc64cc54_7da1211d",
+        "filename": "meson.build",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-06-18T12:25:40Z",
+      "side": 1,
+      "message": "indentation",
+      "range": {
+        "startLine": 71,
+        "startChar": 25,
+        "endLine": 71,
+        "endChar": 30
+      },
+      "revId": "2c809a63eeb52581e2dc178433ae58ed2719e023",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
