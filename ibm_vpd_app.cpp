@@ -15,6 +15,7 @@
 #include <exception>
 #include <filesystem>
 #include <fstream>
+#include <gpiod.hpp>
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
@@ -275,6 +276,113 @@ Binary getVpdDataInVector(nlohmann::json& js, const string& filePath)
     }
 
     return tmpVector;
+}
+
+/** @brief This API will be called before vpd collection starts.
+ *         Based on the presence state of FRU, it set/unset it's bus line
+ *
+ * @param[in] js - json object
+ */
+void configGPIO(const nlohmann::json& json)
+{
+    uint8_t setOrReset = 0;
+    uint8_t polarity = 0;
+    string presencePinName, outputPinName;
+
+    inventory::ObjectMap objects;
+
+    for (const auto& eachFRU : json["frus"].items())
+    {
+        for (const auto& eachInventory : eachFRU.value())
+        {
+            if (eachInventory.find("preAction") != eachInventory.end())
+            {
+                // Get the pin No and polarity to know the "presence"
+                for (const auto& presStatus : eachInventory["presence"].items())
+                {
+                    if (presStatus.key() == "pin")
+                    {
+                        presencePinName = presStatus.value();
+                    }
+                    else if (presStatus.key() == "polarity")
+                    {
+                        if (presStatus.value() == "ACTIVE_HIGH")
+                        {
+                            polarity = 1;
+                        }
+                    }
+                }
+
+                uint8_t gpioData = 0;
+                gpiod::line presenceLine = gpiod::find_line(presencePinName);
+
+                if (!presenceLine)
+                {
+                    cout << "configGPIO: couldn't find presence line:"
+                         << presencePinName << " on GPIO, for Inventory path- "
+                         << eachInventory["inventoryPath"] << ". Skipping...\n";
+                    continue;
+                }
+
+                presenceLine.request({"Read the presence line",
+                                      gpiod::line_request::DIRECTION_INPUT, 0});
+
+                gpioData = presenceLine.get_value();
+
+                presenceLine.release();
+
+                // Take action, if it is 1 && polarity HIGH OR if it is 0 &&
+                // polarity LOW
+                if (!(gpioData ^ polarity))
+                {
+                    for (const auto& preAction :
+                         eachInventory["preAction"].items())
+                    {
+                        if (preAction.key() == "pin")
+                        {
+                            outputPinName = preAction.value();
+                        }
+                        else if (preAction.key() == "value")
+                        {
+                            setOrReset = preAction.value();
+                        }
+                    }
+
+                    gpiod::line outputLine = gpiod::find_line(outputPinName);
+
+                    if (!outputLine)
+                    {
+                        cout << "configGPIO: couldn't find output line:"
+                             << outputPinName
+                             << " on GPIO, for Inventory path- "
+                             << eachInventory["inventoryPath"]
+                             << ". Skipping...\n";
+                        continue;
+                    }
+
+                    outputLine.request({"FRU present: set the output pin",
+                                        gpiod::line_request::DIRECTION_OUTPUT,
+                                        0},
+                                       setOrReset);
+
+                    // release the line requests
+                    outputLine.release();
+                    presenceLine.release();
+
+                    // bind the driver
+                    string str = "echo ";
+                    string devNameAddr = eachInventory["devAddress"];
+                    string driverType = eachInventory["driverType"];
+                    string busType = eachInventory["busType"];
+
+                    str = str + devNameAddr + " > /sys/bus/" + busType +
+                          "/drivers/" + driverType + "/bind";
+
+                    system(str.c_str());
+                }
+            }
+        }
+    }
 }
 
 /**
@@ -629,10 +737,9 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
         if (item.value("inheritEI", true))
         {
-            // Populate interfaces and properties that are common to
-            // every FRU
-            // and additional interface that might be defined on a
-            // per-FRU basis.
+            // Populate interfaces and properties that are common to every FRU
+            // and additional interface that might be defined on a per-FRU
+            // basis.
             if (item.find("extraInterfaces") != item.end())
             {
                 populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
@@ -717,6 +824,9 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
+
+        // configure GPIO for all the inventory items, based on the JSON config.
+        configGPIO(js);
     }
 
     // Notify PIM
