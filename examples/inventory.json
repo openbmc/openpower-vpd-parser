@@ -29,6 +29,20 @@
       "extraInterfaces": {
         "xyz.openbmc_project.Inventory.Item.Bmc": null
       }
+    },
+    "/sys/devices/path/to/lcd_op_panel/eeprom": {
+      "inventoryPath": "/bus/path/for/lcd_op_panel",
+      "presence": {
+        "pin" : "RUSSEL_OPPANEL_PRESENCE_N",
+        "polarity" : "ACTIVE_LOW"
+      },
+      "preAction": {
+        "pin" : "RUSSEL_FW_I2C_ENABLE_N",
+        "value" : 0
+      },
+      "extraInterfaces": {
+        "xyz.openbmc_project.Inventory.Item.Panel": null
+      }
     }
   }
 }
