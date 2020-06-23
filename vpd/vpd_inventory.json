@@ -196,11 +196,11 @@
         }
         "preAction": {
           "pinNum" : "LCD_PANEL1",
-          "action" : "ENABLE"
+          "enable" : true
         },
         "postAction": {
           "pinNum" : "LCD_PANEL1",
-          "action" : "DISABLE",
+          "enable" : false,
           "cause"  : "VPD_COLLECTION_FAILED"
         },
         "extraInterfaces": {
