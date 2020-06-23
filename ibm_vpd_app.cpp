@@ -18,6 +18,7 @@
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
+#include <gpiod.hpp>
 
 using namespace std;
 using namespace openpower::vpd;
@@ -305,6 +306,113 @@ inventory::ObjectMap primeInventory(nlohmann::json& jsObject, const T& vpdMap)
     return objects;
 }
 
+
+/** This API will be called to take some actions before vpd collection starts
+ */
+void configGPIO(nlohmann::json& json)
+{
+    bool setOrReset = false;
+    uint8_t polarity, pinNo, togglePinNo = 0;
+    
+    inventory::ObjectMap objects;
+
+    if (json.find("frus") == json.end())
+    {
+        throw runtime_error("Frus missing in Inventory json");
+    }
+
+    for (auto eachFRU : json["frus"].items())
+    {
+        for (auto eachInventory : eachFRU.value())
+        {
+            bool toggleGPIO = false;
+            auto objPath = eachInventory["inventoryPath"].get<string>();
+            if (objPath.find("lcd_op_panel_hill") != string::npos)
+            {
+                toggleGPIO = true;
+            }
+            else
+            {
+                for (const auto& eachExtInt : eachInventory["extraInterfaces"].items())
+                {
+                    if( (eachExtInt.key().find("Inventory.Item.Item.PCIeDevice") != string::npos) )
+                    {
+                        toggleGPIO = true;
+                    }
+                }
+            }
+
+            if (toggleGPIO)
+            {
+                // Get the pin No to get "present"
+                for (const auto& presStatus: eachInventory["present"].items())
+                {
+                    if( presStatus.key().find("pinNum") !=  string::npos)
+                    {
+                        pinNo =  presStatus.value();
+                    }
+                    else if( presStatus.key().find("polarity") !=  string::npos )
+                    {
+                        polarity = presStatus.value();
+                    }
+                }
+
+                //TODO: correct gpio chip no
+                ::gpiod::chip chip("gpiochip0");
+                auto line = chip.get_line(pinNo);
+                line.request( {"checkPresence",
+                              ::gpiod::line_request::DIRECTION_INPUT,
+                              0});
+
+                //read this GPIO
+                uint8_t gpioData = line.get_value();
+
+                // if it is 1 && polarity HIGH, if it is 0 && polarity LOW
+                if( !(gpioData ^ polarity ))
+                {
+                    //"pre-action"- perform action(set/reset) on given PIN.
+                    for (const auto& preAction: eachInventory["preAction"].items())
+                    {
+                        if( preAction.key().find("pinNum") !=  string::npos)
+                        {
+                            togglePinNo =  preAction.value();
+                        }
+                        else if( preAction.key().find("enable") !=  string::npos )
+                        {
+                            setOrReset = preAction.value();
+                        }
+                    }
+                    auto line2 = chip.get_line(togglePinNo);
+                    line2.request( {"TogglePin",
+                                  ::gpiod::line_request::DIRECTION_OUTPUT,
+                                  0}, 0);
+                    if(setOrReset)
+                    {
+                        line2.set_value(1);
+                    }
+                    else
+                    {
+                        line2.set_value(0);
+                    }
+                }
+            }
+        }
+    }
+}
+
+/** This API will be called after vpd-collection
+ * to perform post-action as per the json
+ */
+void configGPIO_post_setup()
+{
+    /*
+- read object "post_action", it's Pin, and action and cause
+- if cause == vpd_colLECTION_result,
+  - then perform action on PIN. using gpio_chip API
+*/
+}
+
+
 /**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
@@ -454,6 +562,9 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
+
+        //configure GPIO for LCD op-panel and PCIe cable card
+        configGPIO( js );
     }
 
     // Notify PIM

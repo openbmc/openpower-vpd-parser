@@ -191,16 +191,16 @@
       {
         "inventoryPath": "/system/chassis/motherboard/lcd_op_panel_hill",
         "present": {
-            "pinNum" : "LCD_PANEL0",
+            "pinNum" : "RUSSEL_OPPANEL_PRESENCE_N",
             "polarity" : "ACTIVE_HIGH"
         }
         "preAction": {
-          "pinNum" : "LCD_PANEL1",
-          "action" : "ENABLE"
+          "pinNum" : "RUSSEL_FW_I2C_ENABLE_N",
+          "enable" : true
         },
         "postAction": {
-          "pinNum" : "LCD_PANEL1",
-          "action" : "DISABLE",
+          "pinNum" : "RUSSEL_FW_I2C_ENABLE_N",
+          "enable" : false,
           "cause"  : "VPD_COLLECTION_FAILED"
         },
         "extraInterfaces": {
@@ -236,6 +236,10 @@
     "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a280.i2c-bus/i2c-4/4-0050/4-00500/nvmem": [
       {
         "inventoryPath": "/system/chassis/motherboard/pcieslot_x160/pcie_cable_card",
+        "present": {
+            "pinNum" : "SLOT0_PRSNT_EN_RSVD",
+            "polarity" : "ACTIVE_HIGH"
+        },
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
           "com.ibm.ipzvpd.Location" : {
@@ -247,6 +251,10 @@
     "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a300.i2c-bus/i2c-5/5-0050/5-00500/nvmem": [
       {
         "inventoryPath": "/system/chassis/motherboard/pcieslot_x161/pcie_cable_card",
+        "present": {
+            "pinNum" : "SLOT1_PRSNT_EN_RSVD",
+            "polarity" : "ACTIVE_HIGH"
+        },
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
           "com.ibm.ipzvpd.Location" : {
@@ -258,6 +266,10 @@
     "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a300.i2c-bus/i2c-5/5-0051/5-00510/nvmem": [
       {
         "inventoryPath": "/system/chassis/motherboard/pcieslot_x162/pcie_cable_card",
+        "present": {
+            "pinNum" : "SLOT2_PRSNT_EN_RSVD",
+            "polarity" : "ACTIVE_HIGH"
+        },
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
           "com.ibm.ipzvpd.Location" : {
@@ -269,6 +281,10 @@
     "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a600.i2c-bus/i2c-11/11-0050/5-00500/nvmem": [
       {
         "inventoryPath": "/system/chassis/motherboard/pcieslot_x163/pcie_cable_card",
+        "present": {
+            "pinNum" : "SLOT3_PRSNT_EN_RSVD",
+            "polarity" : "ACTIVE_HIGH"
+        },
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
           "com.ibm.ipzvpd.Location" : {
@@ -280,6 +296,10 @@
     "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a280.i2c-bus/i2c-4/4-0052/4-00520/nvmem": [
       {
         "inventoryPath": "/system/chassis/motherboard/pcieslot_x84/pcie_cable_card",
+        "present": {
+            "pinNum" : "SLOT4_PRSNT_EN_RSVD",
+            "polarity" : "ACTIVE_HIGH"
+        },
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
           "com.ibm.ipzvpd.Location" : {
@@ -291,6 +311,10 @@
     "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a380.i2c-bus/i2c-6/6-0052/6-00520/nvmem": [
       {
         "inventoryPath": "/system/chassis/motherboard/pcieslot_x85/pcie_cable_card",
+        "present": {
+            "pinNum" : "SLOT0_EXPANDER_PRSNT_N",
+            "polarity" : "ACTIVE_HIGH"
+        },
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
           "com.ibm.ipzvpd.Location" : {
@@ -302,6 +326,10 @@
     "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a380.i2c-bus/i2c-6/6-0050/6-00500/nvmem": [
       {
         "inventoryPath": "/system/chassis/motherboard/pcieslot_x86/pcie_cable_card",
+        "present": {
+            "pinNum" : "SLOT1_EXPANDER_PRSNT_N",
+            "polarity" : "ACTIVE_HIGH"
+        },
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
           "com.ibm.ipzvpd.Location" : {
@@ -313,6 +341,10 @@
     "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a600.i2c-bus/i2c-11/11-0051/11-00510/nvmem": [
       {
         "inventoryPath": "/system/chassis/motherboard/pcieslot_x87/pcie_cable_card",
+        "present": {
+            "pinNum" : "SLOT2_EXPANDER_PRSNT_N",
+            "polarity" : "ACTIVE_HIGH"
+        },
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
           "com.ibm.ipzvpd.Location" : {
@@ -324,6 +356,10 @@
     "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a280.i2c-bus/i2c-4/4-0051/4-00510/nvmem": [
       {
         "inventoryPath": "/system/chassis/motherboard/pcieslot_x88/pcie_cable_card",
+        "present": {
+            "pinNum" : "SLOT3_EXPANDER_PRSNT_N",
+            "polarity" : "ACTIVE_HIGH"
+        },
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
           "com.ibm.ipzvpd.Location" : {
@@ -335,6 +371,10 @@
     "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a380.i2c-bus/i2c-6/6-0051/6-00510/nvmem": [
       {
         "inventoryPath": "/system/chassis/motherboard/pcieslot_x89/pcie_cable_card",
+        "present": {
+            "pinNum" : "SLOT4_EXPANDER_PRSNT_N",
+            "polarity" : "ACTIVE_HIGH"
+        },
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
           "com.ibm.ipzvpd.Location" : {
