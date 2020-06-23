@@ -29,6 +29,34 @@
       "extraInterfaces": {
         "xyz.openbmc_project.Inventory.Item.Bmc": null
       }
+    },
+    "/sys/devices/path/to/lcd_op_panel/eeprom": {
+      "inventoryPath": "/bus/path/for/lcd_op_panel",
+      "presence": {
+        "pin" : "lcd_op_panel/presence/pin/name",
+        "polarity" : "polarity/of/this/pin"
+      },
+      "preAction": {
+        "pin" : "i2c/bus/pin/name",
+        "value" : value/to/enable/this/i2c/pin
+      },
+      "extraInterfaces": {
+        "xyz.openbmc_project.Inventory.Item.Panel": null
+      }
+    },
+    "/sys/devices/path/to/pcie/eeprom": {
+      "inventoryPath": "/bus/path/for/pcie-card",
+      "presence": {
+        "pin" : "slot/expander/pin/name",
+        "polarity" : "polarty/of/this/pin"
+      },
+      "postAction" : {
+        "pin" : "slot/present/pin/name",
+        "value" : value/to/disable/this/pin
+      },
+      "extraInterfaces": {
+        "xyz.openbmc_project.Inventory.Item.PCIeDevice": null
+      }
     }
   }
 }
