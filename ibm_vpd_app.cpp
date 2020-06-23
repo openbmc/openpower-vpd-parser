@@ -14,6 +14,7 @@
 #include <exception>
 #include <filesystem>
 #include <fstream>
+#include <gpiod.hpp>
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
@@ -236,13 +237,308 @@ Binary getVpdDataInVector(nlohmann::json& js, const string& filePath)
     vector<unsigned char>::const_iterator first = tmpVector.begin();
     vector<unsigned char>::const_iterator last = tmpVector.begin() + NEXT_64_KB;
 
-    if (distance(first, last) < tmpVector.size())
+    if (distance(first, last) < static_cast<int>(tmpVector.size()))
     {
         Binary vpdVector(first, last);
         return vpdVector;
     }
 
     return tmpVector;
+}
+
+/** @brief This API will be called before vpd collection starts.
+ *         Based on the presence state of FRU, it set/unset it's bus line
+ *
+ * @param[in] js - json object
+ */
+void configGPIO(const nlohmann::json& json)
+{
+    uint8_t setOrReset = 0;
+    uint8_t polarity = 0;
+    string presencePinName, outputPinName;
+
+    inventory::ObjectMap objects;
+
+    for (const auto& eachFRU : json["frus"].items())
+    {
+        for (const auto& eachInventory : eachFRU.value())
+        {
+            if (eachInventory.find("preAction") != eachInventory.end())
+            {
+                // Get the pin No and polarity to know the "presence"
+                for (const auto& presStatus : eachInventory["presence"].items())
+                {
+                    if (presStatus.key() == "pin")
+                    {
+                        presencePinName = presStatus.value();
+                    }
+                    else if (presStatus.key() == "polarity")
+                    {
+                        if (presStatus.value() == "ACTIVE_HIGH")
+                        {
+                            polarity = 1;
+                        }
+                    }
+                }
+
+                uint8_t gpioData = 0;
+                gpiod::line presenceLine = gpiod::find_line(presencePinName);
+
+                if (!presenceLine)
+                {
+                    cout << "configGPIO: couldn't find presence line:"
+                         << presencePinName << " on GPIO, for Inventory path- "
+                         << eachInventory["inventoryPath"] << ". Skipping...\n";
+                    continue;
+                }
+
+                presenceLine.request({"Read the presence line",
+                                      gpiod::line_request::DIRECTION_INPUT, 0});
+
+                gpioData = presenceLine.get_value();
+
+                // Take action, if it is 1 && polarity HIGH OR if it is 0 &&
+                // polarity LOW
+                if (!(gpioData ^ polarity))
+                {
+                    for (const auto& preAction :
+                         eachInventory["preAction"].items())
+                    {
+                        if (preAction.key() == "pin")
+                        {
+                            outputPinName = preAction.value();
+                        }
+                        else if (preAction.key() == "value")
+                        {
+                            setOrReset = preAction.value();
+                        }
+                    }
+
+                    gpiod::line outputLine = gpiod::find_line(outputPinName);
+
+                    if (!outputLine)
+                    {
+                        cout << "configGPIO: couldn't find output line:"
+                             << outputPinName
+                             << " on GPIO, for Inventory path- "
+                             << eachInventory["inventoryPath"]
+                             << ". Skipping...\n";
+                        continue;
+                    }
+
+                    outputLine.request({"FRU present: set the output pin",
+                                        gpiod::line_request::DIRECTION_OUTPUT,
+                                        0},
+                                       setOrReset);
+
+                    // bind the driver
+                    string str = "echo ";
+                    string devNameAddr = eachInventory["devAddress"];
+                    string driverType = eachInventory["driverType"];
+                    string busType = eachInventory["busType"];
+
+                    str = str + devNameAddr + " > /sys/bus/" + busType +
+                          "/drivers/" + driverType + "/bind";
+
+                    system(str.c_str());
+                }
+            }
+        }
+    }
+}
+
+/**
+ * @brief Prime the Inventory
+ * Prime the inventory by populating only the location code,
+ * type interface and the inventory object for the frus
+ * which are not system vpd fru.
+ *
+ * @param[in] jsObject - Reference to vpd inventory json object
+ * @param[in] vpdMap -  Reference to the parsed vpd map
+ *
+ * @returns Map of items in extraInterface.
+ */
+template <typename T>
+inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
+                                    const T& vpdMap)
+{
+    inventory::ObjectMap objects;
+
+    for (auto& itemFRUS : jsObject["frus"].items())
+    {
+        for (auto& itemEEPROM : itemFRUS.value())
+        {
+            inventory::InterfaceMap interfaces;
+            auto isSystemVpd = itemEEPROM.value("isSystemVpd", false);
+            inventory::Object object(itemEEPROM.at("inventoryPath"));
+
+            if (!isSystemVpd)
+            {
+                for (const auto& eI : itemEEPROM["extraInterfaces"].items())
+                {
+                    inventory::PropertyMap props;
+                    if (eI.key() == LOCATION_CODE_INF)
+                    {
+                        if constexpr (is_same<T, Parsed>::value)
+                        {
+                            for (auto& lC : eI.value().items())
+                            {
+                                auto propVal =
+                                    expandLocationCode(lC.value().get<string>(),
+                                                       vpdMap, isSystemVpd);
+
+                                props.emplace(move(lC.key()), move(propVal));
+                                interfaces.emplace(move(eI.key()), move(props));
+                            }
+                        }
+                    }
+                    else if (eI.key().find("Inventory.Item.") != string::npos)
+                    {
+                        interfaces.emplace(move(eI.key()), move(props));
+                    }
+                }
+                objects.emplace(move(object), move(interfaces));
+            }
+        }
+    }
+    return objects;
+}
+
+/**
+ * @brief API to call VPD manager to write VPD to EEPROM.
+ * @param[in] Object path.
+ * @param[in] record to be updated.
+ * @param[in] keyword to be updated.
+ * @param[in] keyword data to be updated
+ */
+void updateHardware(const string& objectName, const string& recName,
+                    const string& kwdName, const Binary& data)
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto properties =
+            bus.new_method_call(BUSNAME, OBJPATH, IFACE, "WriteKeyword");
+        properties.append(
+            static_cast<sdbusplus::message::object_path>(objectName));
+        properties.append(recName);
+        properties.append(kwdName);
+        properties.append(data);
+        bus.call(properties);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        std::string what =
+            "VPDManager WriteKeyword api failed for inventory path " +
+            objectName;
+        what += " record " + recName;
+        what += " keyword " + kwdName;
+        what += " with bus error = " + std::string(e.what());
+
+        throw runtime_error(what);
+    }
+
+    return;
+}
+
+/**
+ * @brief API to create PEL entry
+ * @param[in] objectPath - Object path for the FRU, to be sent as additional
+ * data while creating PEL
+ */
+void createPEL(const std::string& objPath)
+{
+    try
+    {
+        // create PEL
+        std::map<std::string, std::string> additionalData;
+        auto bus = sdbusplus::bus::new_default();
+
+        additionalData.emplace("CALLOUT_INVENTORY_PATH", objPath);
+
+        std::string service =
+            getService(bus, loggerObjectPath, loggerCreateInterface);
+        auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
+                                          loggerCreateInterface, "Create");
+
+        method.append(errIntfForBlankSystemVPD,
+                      "xyz.openbmc_project.Logging.Entry.Level.Error",
+                      additionalData);
+        auto resp = bus.call(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        throw std::runtime_error(
+            "Error in invoking D-Bus logging create interface to register PEL");
+    }
+}
+
+/**
+ * @brief API to check if we need to restore system VPD
+ * @param[in] vpdMap - whild holds mapping of record and Kwd
+ * @param[in] objectPath - Object path for the FRU
+ */
+template <typename T>
+void restoreSystemVPD(T& vpdMap, const string& objectPath)
+{
+    static std::unordered_map<std::string, std::vector<std::string>> svpdKwdMap{
+        {"VSYS",
+         {"BR", "TM", "SE", "SU", "SG", "TN", "MN", "NN", "ID", "RG", "WN",
+          "RB", "DR"}},
+        {"VCEN", {"FC", "SE", "RG", "FC"}},
+        {"LXR0", {"LX"}}};
+
+    for (const auto& systemRecKwdPair : svpdKwdMap)
+    {
+        auto it = vpdMap.find(systemRecKwdPair.first);
+
+        // check if record is found in map we got by parser
+        if (it != vpdMap.end())
+        {
+            const auto& kwdListForRecord = systemRecKwdPair.second;
+            for (const auto& keyword : kwdListForRecord)
+            {
+                DbusPropertyMap& kwdValMap = it->second;
+                auto iterator = kwdValMap.find(keyword);
+
+                if (iterator != kwdValMap.end())
+                {
+                    string& kwdValue = iterator->second;
+
+                    // check if string has only ASCII spaces
+                    if (kwdValue.find_first_not_of(' ') != string::npos)
+                    {
+                        // implies the data is not blank so continue with
+                        // hardware data
+                        continue;
+                    }
+
+                    const string& recordName = systemRecKwdPair.first;
+                    const string& busValue = readBusProperty(
+                        objectPath, ipzVpdInf + recordName, keyword);
+
+                    if (busValue.find_first_not_of(' ') != string::npos)
+                    {
+                        // data is not blank on bus so convert to binary and
+                        // write to EEPROM
+                        Binary busData(busValue.begin(), busValue.end());
+
+                        updateHardware(objectPath, recordName, keyword,
+                                       busData);
+
+                        // update the map as well
+                        kwdValue = busValue;
+                    }
+                    else
+                    {
+                        // Log PEL data
+                        createPEL(objectPath);
+                        continue;
+                    }
+                }
+            }
+        }
+    }
 }
 
 /**
@@ -372,6 +668,56 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                 }
             }
         }
+        if (item.value("inheritEI", true))
+        {
+            // Populate interfaces and properties that are common to every FRU
+            // and additional interface that might be defined on a per-FRU
+            // basis.
+            if (item.find("extraInterfaces") != item.end())
+            {
+                populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
+                                   isSystemVpd);
+            }
+        }
+        objects.emplace(move(object), move(interfaces));
+    }
+
+    if (isSystemVpd)
+    {
+        vector<uint8_t> imVal;
+        if constexpr (is_same<T, Parsed>::value)
+        {
+            auto property = vpdMap.find("VSBP");
+            if (property != vpdMap.end())
+            {
+                auto value = (property->second).find("IM");
+                if (value != (property->second).end())
+                {
+                    //                          imVal = value->second;
+                    copy(value->second.begin(), value->second.end(),
+                         back_inserter(imVal));
+                }
+            }
+        }
+
+        fs::path target;
+        fs::path link = INVENTORY_JSON_SYM_LINK;
+
+        ostringstream oss;
+        for (auto& i : imVal)
+        {
+            if ((int)i / 10 == 0) // one digit number
+            {
+                oss << hex << 0;
+            }
+            oss << hex << static_cast<int>(i);
+        }
+        string imValStr = oss.str();
+
+        if (imValStr == SYSTEM_4U) // 4U
+        {
+            target = INVENTORY_JSON_4U;
+        }
 
         if (item.value("inheritEI", true))
         {
@@ -385,6 +731,22 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
             }
         }
         objects.emplace(move(object), move(interfaces));
+
+        // unlink the symlink which is created at build time
+        remove(INVENTORY_JSON_SYM_LINK);
+        // create a new symlink based on the system
+        fs::create_symlink(target, link);
+
+        // Reloading the json
+        ifstream inventoryJson(link);
+        auto js = json::parse(inventoryJson);
+        inventoryJson.close();
+
+        inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
+        objects.insert(primeObject.begin(), primeObject.end());
+
+        // configure GPIO for all the inventory items, based on the JSON config.
+        configGPIO(js);
     }
 
     if (isSystemVpd)
