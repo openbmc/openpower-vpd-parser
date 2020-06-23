@@ -17,6 +17,7 @@
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
+#include <gpiod.hpp>
 
 using namespace std;
 using namespace openpower::vpd;
@@ -301,6 +302,53 @@ inventory::ObjectMap primeInventory(nlohmann::json& jsObject, const T& vpdMap)
     return objects;
 }
 
+
+/** This API will be called to take some actions before vpd collection starts
+ */
+configGPIO(nlohmann::json& json)
+{
+    inventory::ObjectMap objects;
+    if (jsObject.find("frus") == jsObject.end())
+    {
+        throw runtime_error("Frus missing in Inventory json");
+    }
+
+    for (auto eachFRU : jsObject["frus"].items())
+    {
+        for (auto eachInventory : eachFRU.value())
+        {
+            for (const auto& eachExtInt : eachInventory["extraInterfaces"].items())
+            {
+                //check to find out
+                //"inventoryPath": "/system/chassis/motherboard/lcd_op_panel_hill",
+                //OR
+                //"xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
+                //if (eachExtInt.key().find("Inventory.Item.") != string::npos)
+                //then
+                {
+                    - read object "present" at pin No
+                        - if it is 1 && polarity HIGH
+                            - then process "pre-action"
+                            - perform this mentioned  action on that PIN.
+                        - if it is 0,- No action
+                }
+            }
+        }
+    }
+}
+
+/** This API will be called after vpd-collection
+ * to perform post-action as per the json
+ */
+configGPIO_post_setup
+{
+- read object "post_action", it's Pin, and action and cause
+- if cause == vpd_colLECTION_result,
+  - then perform action on PIN. using gpio_chip API
+}
+}
+
+
 /**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
@@ -450,6 +498,9 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
+
+        //configure GPIO for LCD op-panel and PCIe cable card
+        configGPIO( js );
     }
 
     // Notify PIM
