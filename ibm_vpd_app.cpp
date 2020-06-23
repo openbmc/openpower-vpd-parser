@@ -15,6 +15,7 @@
 #include <exception>
 #include <filesystem>
 #include <fstream>
+#include <gpiod.hpp>
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
@@ -275,6 +276,96 @@ Binary getVpdDataInVector(nlohmann::json& js, const string& filePath)
     }
 
     return tmpVector;
+}
+
+/** @brief This API will be called before vpd collection starts
+ *         If detects presence of lcd-op-panel, it toggles it's I2C pin
+ *
+ * @param[in] js - json object
+ */
+void configGPIO(nlohmann::json& json)
+{
+    bool setOrReset = false;
+    bool polarity = false;
+    string presencePinName, outputPinName;
+
+    inventory::ObjectMap objects;
+
+    for (auto& eachFRU : json["frus"].items())
+    {
+        for (auto& eachInventory : eachFRU.value())
+        {
+            if (eachInventory.find("preAction") != eachInventory.end())
+            {
+                if (eachInventory.find("presence") == eachInventory.end()
+                {
+                    // throw an error as Not able to detect it's presence
+                }
+
+                // Get the pin No and polarity to know the "presence"
+                for (const auto& presStatus : eachInventory["presence"].items())
+                {
+                    if (presStatus.key().find("pin") != string::npos)
+                    {
+                        presencePinName = presStatus.value();
+                    }
+                    else if (presStatus.key().find("polarity") != string::npos)
+                    {
+                        if (presStatus.value() == "ACTIVE_HIGH")
+                        {
+                            polarity = true;
+                        }
+                    }
+                }
+
+                gpiod::line presenceLine = gpiod::find_line(presencePinName);
+
+                presenceLine.request({"Read the presence line",
+                                     gpiod::line_request::DIRECTION_INPUT, 0});
+
+                bool gpioData = static_cast<bool> (presenceLine.get_value());
+
+                presenceLine.release();
+
+                // Take action, if it is 1 && polarity HIGH, if it is 0 && polarity LOW
+                if (!(gpioData ^ polarity))
+                {
+                    for (const auto& preAction :
+                         eachInventory["preAction"].items())
+                    {
+                        if (preAction.key().find("pin") != string::npos)
+                        {
+                            outputPinName = preAction.value();
+                        }
+                        else if (preAction.key().find("value") != string::npos)
+                        {
+                            setOrReset = preAction.value();
+                        }
+                    }
+
+                    gpiod::line outputLine = gpiod::find_line(outputPinName);
+                    outputLine.request({"FRU present: set the output pin",
+                                        ::gpiod::line_request::DIRECTION_OUTPUT,
+                                        0},
+                                       setOrReset);
+
+                    // release the line request
+                    outputLine.release();
+
+                    // bind the driver
+                    string str = "echo ";
+                    string i2cNameAddr = eachInventory["i2cAddress"];
+                    string driverType = eachInventory["driverType"];
+                    string busType = eachInventory["busType"];
+
+                    str = str + i2cNameAddr + " > /sys/bus/" + busType +
+                          "/drivers/" + driverType + "/bind";
+
+                    system(str.c_str());
+                }
+            }
+        }
+    }
 }
 
 /**
@@ -629,10 +720,9 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
         if (item.value("inheritEI", true))
         {
-            // Populate interfaces and properties that are common to
-            // every FRU
-            // and additional interface that might be defined on a
-            // per-FRU basis.
+            // Populate interfaces and properties that are common to every FRU
+            // and additional interface that might be defined on a per-FRU
+            // basis.
             if (item.find("extraInterfaces") != item.end())
             {
                 populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
@@ -717,6 +807,9 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
+
+        // configure GPIO for LCD op-panel.
+        configGPIO(js);
     }
 
     // Notify PIM
