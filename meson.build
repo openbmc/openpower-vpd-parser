@@ -13,6 +13,8 @@ build_tests = get_option('tests')
 sdbusplus = dependency('sdbusplus')
 phosphor_logging = dependency('phosphor-logging')
 phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
+libgpiod = dependency('libgpiod')
+libgpiodcxx = dependency('libgpiodcxx')
 
 compiler = meson.get_compiler('cpp')
 python = find_program('python3', required:true)
@@ -36,6 +38,8 @@ configure_file(output: 'config.h',
 if get_option('ibm-parser').enabled()
 compiler.has_header('CLI/CLI.hpp')
 compiler.has_header('nlohmann/json.hpp')
+compiler.has_header('gpiod.hpp')
+
         ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',
                                 'parser.cpp',
                                 'impl.cpp',
@@ -43,7 +47,7 @@ compiler.has_header('nlohmann/json.hpp')
                                 'keyword_vpd_parser.cpp',
                                 'vpdecc/vpdecc.c',
                                 'vpdecc/vpdecc_support.c',
-                                'memory_vpd_parser.cpp'
+                                'memory_vpd_parser.cpp',
                                ]
 
         ibm_vpd_exe = executable(
@@ -52,6 +56,8 @@ compiler.has_header('nlohmann/json.hpp')
                                 dependencies: [
                                         sdbusplus,
                                         phosphor_logging,
+                                        libgpiod,
+                                        libgpiodcxx
                                 ],
                                 install: true,
                                 cpp_args : '-DIPZ_PARSER'
