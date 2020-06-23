@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <exception>
 #include <fstream>
+#include <gpiod.hpp>
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
@@ -199,6 +200,220 @@ static void populateInterfaces(const nlohmann::json& js,
     }
 }
 
+Binary getVpdDataInVector(nlohmann::json& js, const string& filePath)
+{
+    uint32_t offset = 0;
+    // check if offset present?
+    for (const auto& item : js["frus"][filePath])
+    {
+        if (item.find("offset") != item.end())
+        {
+            offset = item["offset"];
+        }
+    }
+    char buf[2048];
+    ifstream vpdFile;
+    vpdFile.rdbuf()->pubsetbuf(buf, sizeof(buf));
+    vpdFile.open(filePath, ios::binary);
+    vpdFile.seekg(offset, ios_base::cur);
+
+    // Read 64KB data content of the binary file into a vector
+    Binary tmpVector((istreambuf_iterator<char>(vpdFile)),
+                     istreambuf_iterator<char>());
+
+    vector<unsigned char>::const_iterator first = tmpVector.begin();
+    vector<unsigned char>::const_iterator last = tmpVector.begin() + NEXT_64_KB;
+
+    if (distance(first, last) < tmpVector.size())
+    {
+        Binary vpdVector(first, last);
+        return vpdVector;
+    }
+
+    return tmpVector;
+}
+
+/**
+ * @brief Prime the Inventory
+ * Prime the inventory by populating only the location code,
+ * type interface and the inventory object for the frus
+ * which are not system vpd fru.
+ *
+ * @param[in] jsObject - Reference to vpd inventory json object
+ * @param[in] vpdMap -  Reference to the parsed vpd map
+ */
+template <typename T>
+inventory::ObjectMap primeInventory(nlohmann::json& jsObject, const T& vpdMap)
+{
+    inventory::ObjectMap objects;
+    if (jsObject.find("frus") == jsObject.end())
+    {
+        throw runtime_error("Frus missing in Inventory json");
+    }
+
+    for (auto itemFRUS : jsObject["frus"].items())
+    {
+        for (auto itemEEPROM : itemFRUS.value())
+        {
+            inventory::InterfaceMap interfaces;
+            auto isSystemVpd = itemEEPROM.value("isSystemVpd", false);
+            sdbusplus::message::object_path object(
+                itemEEPROM.at("inventoryPath"));
+
+            if (!isSystemVpd)
+            {
+                for (const auto& eI : itemEEPROM["extraInterfaces"].items())
+                {
+                    inventory::PropertyMap props;
+                    if (eI.key() == "com.ibm.ipzvpd.Location")
+                    {
+                        if constexpr (is_same<T, Parsed>::value)
+                        {
+                            for (auto& lC : eI.value().items())
+                            {
+                                auto propVal =
+                                    expandLocationCode(lC.value().get<string>(),
+                                                       vpdMap, isSystemVpd);
+
+                                props.emplace(move(lC.key()), move(propVal));
+                                interfaces.emplace(move(eI.key()), move(props));
+                            }
+                        }
+                    }
+                    else if (eI.key().find("Inventory.Item.") != string::npos)
+                    {
+                        interfaces.emplace(move(eI.key()), move(props));
+                    }
+                }
+                objects.emplace(move(object), move(interfaces));
+            }
+        }
+    }
+    return objects;
+}
+
+/** This API will be called to take some actions before vpd collection starts
+ */
+void configGPIO(nlohmann::json& json)
+{
+    bool setOrReset = false;
+    bool polarity = false;
+    string gpioPinName, togglingPinName;
+
+    inventory::ObjectMap objects;
+
+    if (json.find("frus") == json.end())
+    {
+        throw runtime_error("Frus missing in Inventory json");
+    }
+
+    for (auto eachFRU : json["frus"].items())
+    {
+        for (auto eachInventory : eachFRU.value())
+        {
+            bool toggleGPIO = false;
+            auto objPath = eachInventory["inventoryPath"].get<string>();
+            if (objPath.find("lcd_op_panel_hill") != string::npos)
+            {
+                toggleGPIO = true;
+            }
+            else
+            {
+                for (const auto& eachExtInt :
+                     eachInventory["extraInterfaces"].items())
+                {
+                    if ((eachExtInt.key().find(
+                             "Inventory.Item.Item.PCIeDevice") != string::npos))
+                    {
+                        toggleGPIO = true;
+                    }
+                }
+            }
+
+            if (toggleGPIO)
+            {
+                // Get the pin No to know "presence"
+                for (const auto& presStatus : eachInventory["present"].items())
+                {
+                    if (presStatus.key().find("pin") != string::npos)
+                    {
+                        gpioPinName = presStatus.value();
+                    }
+                    else if (presStatus.key().find("polarity") != string::npos)
+                    {
+                        if (presStatus.value() == "ACTIVE_HIGH")
+                        {
+                            polarity = true;
+                        }
+                    }
+                }
+
+                //::gpiod::chip chip();
+                gpiod::line line = gpiod::find_line(gpioPinName);
+                gpiod::chip chip(line.get_chip());
+
+                // auto line = chip.get_line(gpioPin);
+                line.request({"checkPresence",
+                              ::gpiod::line_request::DIRECTION_INPUT, 0});
+
+                // read this GPIO
+                uint8_t gpioData = line.get_value();
+
+                line.release();
+
+                // if it is 1 && polarity HIGH, if it is 0 && polarity LOW
+                if (!(gpioData ^ polarity))
+                {
+                    //"pre-action"- perform action(set/reset) on given PIN.
+                    for (const auto& preAction :
+                         eachInventory["preAction"].items())
+                    {
+                        if (preAction.key().find("pin") != string::npos)
+                        {
+                            togglingPinName = preAction.value();
+                        }
+                        else if (preAction.key().find("enable") != string::npos)
+                        {
+                            setOrReset = preAction.value();
+                        }
+                    }
+                    // auto line2 = chip.get_line(togglingPin);
+                    gpiod::line line2 = gpiod::find_line(togglingPinName);
+                    line2.request({"TogglePin",
+                                   ::gpiod::line_request::DIRECTION_OUTPUT, 0},
+                                  0);
+
+                    line2.set_value(setOrReset);
+
+                    // release the line request
+                    line2.release();
+
+                    // bind the driver
+                    string str = "echo ";
+                    // get 7-0051 from json
+                    string i2cNameAddr = eachInventory["i2cAddress"];
+                    str =
+                        str + i2cNameAddr + " > /sys/bus/i2c/drivers/at24/bind";
+                    const char* command = str.c_str();
+                    system(command);
+                }
+            }
+        }
+    }
+}
+
+/** This API will be called after vpd-collection
+ * to perform post-action as per the json
+ */
+void configGPIO_post_setup()
+{
+    /*
+- read object "post_action", it's Pin, and action and cause
+- if cause == vpd_colLECTION_result,
+  - then perform action on PIN. using gpio_chip API
+*/
+}
+
 /**
  * @brief Populate Dbus.
  *
@@ -268,14 +483,89 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
             }
         }
 
-        // Populate interfaces and properties that are common to every FRU
-        // and additional interface that might be defined on a per-FRU basis.
-        if (item.find("extraInterfaces") != item.end())
+        if (item.value("inheritEI", true))
+        {
+            // Populate interfaces and properties that are common to every FRU
+            // and additional interface that might be defined on a per-FRU
+            // basis.
+            if (item.find("extraInterfaces") != item.end())
+            {
+                populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
+                                   isSystemVpd);
+            }
+        }
+
+        /*add Common interface to all the fru except the one having "mts" in
+         their location code as they will not inherit CI*/
+        const string& LocationCode =
+            item["extraInterfaces"][LOCATION_CODE_INF]["LocationCode"]
+                .get_ref<const nlohmann::json::string_t&>();
+
+        if (LocationCode.substr(1, 3) != "mts")
         {
             populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
                                isSystemVpd);
         }
         objects.emplace(move(object), move(interfaces));
+    }
+
+    if (isSystemVpd)
+    {
+        vector<uint8_t> imVal;
+        if constexpr (is_same<T, Parsed>::value)
+        {
+            auto property = vpdMap.find("VSBP");
+            if (property != vpdMap.end())
+            {
+                auto value = (property->second).find("IM");
+                if (value != (property->second).end())
+                {
+                    //                          imVal = value->second;
+                    copy(value->second.begin(), value->second.end(),
+                         back_inserter(imVal));
+                }
+            }
+        }
+
+        fs::path target;
+        fs::path link = "/var/lib/vpd/vpd_inventory.json";
+
+        ostringstream oss;
+        for (auto& i : imVal)
+        {
+            if ((int)i / 10 == 0) // one digit number
+            {
+                oss << hex << 0;
+            }
+            oss << hex << static_cast<int>(i);
+        }
+        string imValStr = oss.str();
+
+        if (imValStr == "50001000") // 4U
+        {
+            target = "/usr/share/vpd/50001000.json";
+        }
+
+        else if (imValStr == "50001001") // 2U
+        {
+            target = "/usr/share/vpd/50001001.json";
+        }
+
+        // unlink the symlink which is created at build time
+        remove("/var/lib/vpd/vpd_inventory.json");
+        // create a new symlink based on the system
+        fs::create_symlink(target, link);
+
+        // Reloading the json
+        ifstream inventoryJson(link);
+        auto js = json::parse(inventoryJson);
+        inventoryJson.close();
+
+        inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
+        objects.insert(primeObject.begin(), primeObject.end());
+
+        // configure GPIO for LCD op-panel and PCIe cable card
+        configGPIO(js);
     }
 
     // Notify PIM
