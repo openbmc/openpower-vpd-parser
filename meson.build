@@ -13,6 +13,17 @@ build_tests = get_option('tests')
 sdbusplus = dependency('sdbusplus')
 phosphor_logging = dependency('phosphor-logging')
 phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
+systemd = dependency('libsystemd', version: '>= 221')
+libcrypto = meson.get_compiler('c').find_library('libcrypto')
+libgpiodcxx = dependency('libgpiodcxx')
+
+dependency_list = [sdbusplus,
+                  phosphor_logging,
+                  phosphor_dbus_interfaces,
+                  libcrypto,
+                  systemd,
+                  libgpiodcxx
+]
 
 compiler = meson.get_compiler('cpp')
 python = find_program('python3', required:true)
@@ -54,9 +65,7 @@ if get_option('ibm-parser').enabled()
         ibm_vpd_exe = executable(
                                 'ibm-read-vpd',
                                 ibm_read_vpd_SOURCES,
-                                dependencies: [
-                                        sdbusplus,
-                                        phosphor_logging,
+                                dependencies: [dependency_list,
                                 ],
                                 include_directories : 'vpd-parser/',
                                 install: true,
