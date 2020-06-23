@@ -444,6 +444,104 @@ static void preAction(const nlohmann::json& json, const string& file)
     }
 }
 
+/** @brief This API will be called before vpd collection starts.
+ *         Based on the presence state of FRU, it set/unset it's bus line
+ *
+ * @param[in] js - json object
+ */
+void configGPIO(const nlohmann::json& json)
+{
+    uint8_t setOrReset = 0;
+    uint8_t presValue = 0;
+    string presencePinName, outputPinName;
+
+    inventory::ObjectMap objects;
+
+    for (const auto& eachFRU : json["frus"].items())
+    {
+        for (const auto& eachInventory : eachFRU.value())
+        {
+            if (eachInventory.find("preAction") != eachInventory.end())
+            {
+                // Get the pin No and polarity to know the "presence"
+                for (const auto& presStatus : eachInventory["presence"].items())
+                {
+                    if (presStatus.key() == "pin")
+                    {
+                        presencePinName = presStatus.value();
+                    }
+                    else if (presStatus.key() == "value")
+                    {
+                        presValue = presStatus.value();
+                    }
+                }
+
+                uint8_t gpioData = 0;
+                gpiod::line presenceLine = gpiod::find_line(presencePinName);
+
+                if (!presenceLine)
+                {
+                    cout << "configGPIO: couldn't find presence line:"
+                         << presencePinName << " on GPIO, for Inventory path- "
+                         << eachInventory["inventoryPath"] << ". Skipping...\n";
+                    continue;
+                }
+
+                presenceLine.request({"Read the presence line",
+                                      gpiod::line_request::DIRECTION_INPUT, 0});
+
+                gpioData = presenceLine.get_value();
+
+                // Take action, if it is 1 && polarity HIGH OR
+                // if it is 0 && polarity LOW
+                if (!(gpioData ^ presValue))
+                {
+                    for (const auto& preAction :
+                         eachInventory["preAction"].items())
+                    {
+                        if (preAction.key() == "pin")
+                        {
+                            outputPinName = preAction.value();
+                        }
+                        else if (preAction.key() == "value")
+                        {
+                            setOrReset = preAction.value();
+                        }
+                    }
+
+                    gpiod::line outputLine = gpiod::find_line(outputPinName);
+
+                    if (!outputLine)
+                    {
+                        cout << "configGPIO: couldn't find output line:"
+                             << outputPinName
+                             << " on GPIO, for Inventory path- "
+                             << eachInventory["inventoryPath"]
+                             << ". Skipping...\n";
+                        continue;
+                    }
+
+                    outputLine.request({"FRU present: set the output pin",
+                                        gpiod::line_request::DIRECTION_OUTPUT,
+                                        0},
+                                       setOrReset);
+
+                    // bind the driver
+                    string str = "echo ";
+                    string devNameAddr = eachInventory["devAddress"];
+                    string driverType = eachInventory["driverType"];
+                    string busType = eachInventory["busType"];
+
+                    str = str + devNameAddr + " > /sys/bus/" + busType +
+                          "/drivers/" + driverType + "/bind";
+
+                    system(str.c_str());
+                }
+            }
+        }
+    }
+}
+
 /**
  * @brief Prime the Inventory
  * Prime the inventory by populating only the location code,
@@ -903,6 +1001,9 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             updateHardware(get<0>(item), get<1>(item), get<2>(item),
                            get<3>(item));
         }
+
+        // configure GPIO for all the inventory items, based on the JSON config.
+        configGPIO(js);
     }
 
     // Notify PIM
