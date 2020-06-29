@@ -1,0 +1,10 @@
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+1: Sunny Srivastava <sunnsr25@in.ibm.com>
+Code-Review+2: Santosh Puranik <santosh.puranik@in.ibm.com>
+Code-Review+1: PriyangaRamasamy <priyanga24@in.ibm.com>
+Submitted-by: Santosh Puranik <santosh.puranik@in.ibm.com>
+Submitted-at: Mon, 29 Jun 2020 13:51:17 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/27625
+Project: openbmc/openpower-vpd-parser
+Branch: refs/heads/master
