@@ -4,7 +4,9 @@
 #include "types.hpp"
 
 #include <iostream>
+#include <nlohmann/json.hpp>
 
+using json = nlohmann::json;
 using namespace std;
 namespace openpower
 {
@@ -79,5 +81,16 @@ string encodeKeyword(const string& kw, const string& encoding);
  */
 string readBusProperty(const string& obj, const string& inf,
                        const string& prop);
+
+/**
+ * @brief getVpdFilePath
+ * Get vpd file path corresponding to the given object path.
+ * @param[in] - jsonFile
+ * @param[in] - Object path
+ * @return - Vpd file path
+ */
+inventory::VPDfilepath getVpdFilePath(const json& jsonFile,
+                                      const std::string& ObjPath);
+
 } // namespace vpd
 } // namespace openpower
