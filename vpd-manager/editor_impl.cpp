@@ -578,13 +578,55 @@ void EditorImpl::getVpdPathForCpu()
     }
 }
 
+void EditorImpl::checkFileValidity(Binary vpd)
+{
+    if (vpd.empty())
+    {
+        throw std::runtime_error("Invalid File");
+    }
+    auto iterator = vpd.cbegin();
+    std::advance(iterator, IPZ_DATA_START);
+
+    Byte vpdType = *iterator;
+    if (vpdType == KW_VAL_PAIR_START_TAG)
+    {
+        ParserInterface* Iparser = ParserFactory::getParser(std::move(vpd));
+        IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
+
+        try
+        {
+            if (ipzParser == nullptr)
+            {
+                throw std::runtime_error("Invalid cast");
+            }
+
+            ipzParser->processHeader();
+            delete ipzParser;
+            ipzParser = nullptr;
+
+            // process VTOC for PTT rkwd
+            readVTOC();
+
+            // check record for keywrod
+            checkRecordForKwd();
+        }
+        catch (const std::exception& e)
+        {
+            if (ipzParser != nullptr)
+            {
+                delete ipzParser;
+            }
+            throw std::runtime_error(e.what());
+        }
+    }
+    return;
+}
+
 void EditorImpl::updateKeyword(const Binary& kwdData)
 {
     offset = 0;
 #ifndef ManagerTest
-
     getVpdPathForCpu();
-
     // check if offset present?
     for (const auto& item : jsonFile["frus"][vpdFilePath])
     {
@@ -606,72 +648,48 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
     vector<unsigned char>::const_iterator first = tmpVector.begin();
     vector<unsigned char>::const_iterator last = tmpVector.begin() + NEXT_64_KB;
 
-    Binary completeVPDFile = tmpVector;
+    vpdFile = tmpVector;
     if (distance(first, last) > tmpVector.size())
     {
         Binary extracted64KbVpd(first, last);
-        completeVPDFile = extracted64KbVpd;
+        vpdFile = extracted64KbVpd;
     }
-
-    vpdFile = completeVPDFile;
-
-#else
-
-    Binary completeVPDFile = vpdFile;
-
 #endif
-    if (vpdFile.empty())
-    {
-        throw std::runtime_error("Invalid File");
-    }
-    auto iterator = vpdFile.cbegin();
-    std::advance(iterator, IPZ_DATA_START);
 
-    Byte vpdType = *iterator;
-    if (vpdType == KW_VAL_PAIR_START_TAG)
-    {
-        ParserInterface* Iparser =
-            ParserFactory::getParser(std::move(completeVPDFile));
-        IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
+    // check if the vpd file is valid and it contains the kwd and record
+    checkFileValidity(vpdFile);
 
-        try
-        {
-            if (ipzParser == nullptr)
-            {
-                throw std::runtime_error("Invalid cast");
-            }
+    // update the data to the file
+    updateData(kwdData);
 
-            ipzParser->processHeader();
-            delete ipzParser;
-            ipzParser = nullptr;
-            // ParserFactory::freeParser(Iparser);
-
-            // process VTOC for PTT rkwd
-            readVTOC();
-
-            // check record for keywrod
-            checkRecordForKwd();
-
-            // update the data to the file
-            updateData(kwdData);
-
-            // update the ECC data for the record once data has been updated
-            updateRecordECC();
+    // update the ECC data for the record once data has been updated
+    updateRecordECC();
 #ifndef ManagerTest
-            // update the cache once data has been updated
-            updateCache();
+    // update the cache once data has been updated
+    updateCache();
 #endif
-        }
-        catch (const std::exception& e)
-        {
-            if (ipzParser != nullptr)
-            {
-                delete ipzParser;
-            }
-            throw std::runtime_error(e.what());
-        }
-        return;
-    }
+    return;
+}
+
+std::string EditorImpl::readKwd() const
+{
+    auto iteratorToKWdData = vpdFile.begin();
+    std::advance(iteratorToKWdData, thisRecord.kwDataOffset);
+    auto end = iteratorToKWdData;
+    std::advance(end, thisRecord.kwdDataLength);
+
+    std::string kwdData(iteratorToKWdData, end);
+    return kwdData;
+}
+
+std::string EditorImpl::getKwdData()
+{
+    // check if the vpd file is valid and check for record and kwd
+    checkFileValidity(vpdFile);
+
+    // if record and kwd is found read kwd data
+    std::string data = readKwd();
+    return data;
 }
 
 } // namespace editor
