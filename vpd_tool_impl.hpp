@@ -5,6 +5,7 @@
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
+using VPDfilepath = openpower::vpd::inventory::VPDfilepath;
 
 class VpdTool
 {
@@ -157,6 +158,15 @@ class VpdTool
      * @param[in] jsObject - Inventory JSON specified in configure file.
      */
     void forceReset(const nlohmann::basic_json<>& jsObject);
+
+    /**
+     * @brief Read keyword data from hardware
+     * Read the given object path, record name and keyword
+     * from the EEPROM and display the value of the keyword
+     * in JSON format.
+     * @param[in] - Json file for inventory layout.
+     */
+    void readKeywordFromHardware(const json& jsonFile);
 
     /**
      * @brief Constructor
