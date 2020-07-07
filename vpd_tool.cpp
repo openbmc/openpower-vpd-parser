@@ -64,6 +64,17 @@ int main(int argc, char** argv)
         "--forceReset, -f, -F", "Force Collect for Hardware. { vpd-tool-exe "
                                 "--forceReset/-f/-F }");
 
+    auto readHardware =
+        app.add_flag(
+               "--readHardware, -H",
+               "Read data from hardware. { "
+               "vpd-tool-exe --readKeyword/-r --readHardware/-H --object/-O "
+               "\"object-name\" --record/-R \"record-name\" --keyword/-K "
+               "\"keyword-name\" }")
+            ->needs(object)
+            ->needs(record)
+            ->needs(kw);
+
     CLI11_PARSE(app, argc, argv);
 
     ifstream inventoryJson(INVENTORY_JSON);
@@ -83,7 +94,7 @@ int main(int argc, char** argv)
             vpdToolObj.dumpInventory(jsObject);
         }
 
-        else if (*readFlag)
+        else if (*readFlag && !*readHardware)
         {
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword));
@@ -102,7 +113,12 @@ int main(int argc, char** argv)
             VpdTool vpdToolObj;
             vpdToolObj.forceReset(jsObject);
         }
-
+        else if (*readHardware)
+        {
+            VpdTool vpdToolObj(move(objectPath), move(recordName),
+                               move(keyword));
+            vpdToolObj.readKeywordFromHardware(jsObject);
+        }
         else
         {
             throw runtime_error("One of the valid options is required. Refer "
