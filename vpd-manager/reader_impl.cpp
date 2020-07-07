@@ -2,6 +2,7 @@
 
 #include "reader_impl.hpp"
 
+#include "editor_impl.hpp"
 #include "utils.hpp"
 
 #include <algorithm>
@@ -28,6 +29,7 @@ using namespace phosphor::logging;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::utils::interface;
+using namespace openpower::vpd::manager::editor;
 
 using InvalidArgument =
     sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
@@ -252,6 +254,25 @@ string getSysPathForThisFruType(const nlohmann::json& jsonFile,
     }
 
     return fruVpdPath;
+}
+
+std::string ReaderImpl::readKwdData(const std::string& vpdFilePath,
+                                    const std::string& recName,
+                                    const std::string& kwdName)
+{
+    std::fstream vpdFileStream;
+    vpdFileStream.open(vpdFilePath,
+                       std::ios::in | std::ios::out | std::ios::binary);
+    if (!vpdFileStream)
+    {
+        throw std::runtime_error("Failed to open vpd File");
+    }
+
+    Binary vpd((istreambuf_iterator<char>(vpdFileStream)),
+               istreambuf_iterator<char>());
+
+    EditorImpl editor(recName, kwdName, std::move(vpd));
+    return editor.getKwdData();
 }
 
 } // namespace reader
