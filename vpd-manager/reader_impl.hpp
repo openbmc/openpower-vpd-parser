@@ -3,6 +3,7 @@
 #include "types.hpp"
 #include "utilInterface.hpp"
 
+#include <nlohmann/json.hpp>
 namespace openpower
 {
 namespace vpd
@@ -65,6 +66,16 @@ class ReaderImpl
         const inventory::LocationCode& locationCode,
         const inventory::LocationCodeMap& frusLocationCode) const;
 
+    /** @brief An API to read keyword data from vpd file
+     *  @param[in] vpd file path.
+     *  @param[in] Record Name
+     *  @param[in] Keyword Name
+     *  @return data of the given keyword
+     */
+    std::string readKwdData(const std::string& vpdFilePath,
+                            const std::string& recName,
+                            const std::string& kwdName);
+
   private:
     /** @brief An api to check validity of location code
      *  @param[in] - location code
@@ -85,7 +96,6 @@ class ReaderImpl
 #endif
 
 }; // class ReaderImpl
-
 } // namespace reader
 } // namespace manager
 } // namespace vpd
