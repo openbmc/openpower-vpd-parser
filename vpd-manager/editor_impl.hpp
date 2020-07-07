@@ -84,6 +84,11 @@ class EditorImpl
      */
     void expandLocationCode(const std::string& locationCodeType);
 
+    /** @brief API to get kwd data from vpd file
+     *  @return - kwd data
+     */
+    std::string getKwdData();
+
   private:
     /** @brief read VTOC record from the vpd file
      */
@@ -152,6 +157,17 @@ class EditorImpl
     template <typename T>
     void makeDbusCall(const std::string& object, const std::string& interface,
                       const std::string& property, const std::variant<T>& data);
+
+    /** @brief method to check if the vpd file is valid
+     *  and it contains required record and keyword.
+     *  @param[in] vpdFile
+     */
+    void checkFileValidity(Binary vpd);
+
+    /** @brief API to read kwd data from vpdFile
+     *  @return keyword data
+     */
+    std::string readKwd() const;
 
     // path to the VPD file to edit
     const inventory::Path vpdFilePath;
