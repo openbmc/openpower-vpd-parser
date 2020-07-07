@@ -12,6 +12,7 @@ namespace openpower
 namespace vpd
 {
 using namespace openpower::vpd::constants;
+using namespace inventory;
 namespace inventory
 {
 
@@ -174,5 +175,36 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
     }
     return propVal;
 }
+
+inventory::VPDfilepath getVpdFilePath(const json& jsonFile,
+                                      const std::string& ObjPath)
+{
+    inventory::VPDfilepath filePath{};
+
+    if (jsonFile.find("frus") == jsonFile.end())
+    {
+        throw std::runtime_error("Invalid Json");
+    }
+
+    const nlohmann::json& groupFRUS =
+        jsonFile["frus"].get_ref<const nlohmann::json::object_t&>();
+    for (const auto& itemFRUS : groupFRUS.items())
+    {
+        const std::vector<nlohmann::json>& groupEEPROM =
+            itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
+        for (const auto& itemEEPROM : groupEEPROM)
+        {
+            if (itemEEPROM["inventoryPath"]
+                    .get_ref<const nlohmann::json::string_t&>() == ObjPath)
+            {
+                filePath = itemFRUS.key();
+                return filePath;
+            }
+        }
+    }
+
+    return filePath;
+}
+
 } // namespace vpd
 } // namespace openpower
