@@ -1,5 +1,7 @@
 #include "vpd_tool_impl.hpp"
 
+#include "reader_impl.hpp"
+
 #include <cstdlib>
 #include <filesystem>
 #include <iomanip>
@@ -12,6 +14,8 @@
 using namespace std;
 using sdbusplus::exception::SdBusError;
 using namespace openpower::vpd;
+using namespace inventory;
+using namespace openpower::vpd::manager::reader;
 namespace fs = std::filesystem;
 
 void VpdTool::eraseInventoryPath(string& fru)
@@ -462,4 +466,25 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
 
     string udevAdd = "udevadm trigger -c add -s \"*nvmem*\" -v";
     system(udevAdd.c_str());
+}
+
+void VpdTool::readKeywordFromHardware(const json& jsonFile)
+{
+    VPDfilepath filePath = getVpdFilePath(jsonFile, fruPath);
+    if (filePath.empty())
+    {
+        throw std::runtime_error("No Hardware found for given Object path");
+    }
+
+    ReaderImpl vpdReader;
+    std::string data = vpdReader.readKwdData(filePath, recordName, keyword);
+
+    json output = json::object({});
+    json kwVal = json::object({});
+
+    kwVal.emplace(keyword, data);
+    output.emplace(fruPath, kwVal);
+    debugger(output);
+
+    std::cout << data << std::endl;
 }
