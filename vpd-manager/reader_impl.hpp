@@ -2,9 +2,9 @@
 
 #include "types.hpp"
 #include "utilInterface.hpp"
-#include <nlohmann/json.hpp>
 
 #include <iostream>
+#include <nlohmann/json.hpp>
 
 namespace openpower
 {
@@ -68,6 +68,16 @@ class ReaderImpl
         getCollapsedLocationCode(
             const inventory::LocationCode& locationCode) const;
 
+    /** @brief An API to read keyword data from vpd file
+     *  @param[in] vpd file path.
+     *  @param[in] Record Name
+     *  @param[in] Keyword Name
+     *  @return data of the given keyword
+     */
+    std::string readKwdData(const std::string& vpdFilePath,
+                            const std::string& recName,
+                            const std::string& kwdName);
+
   private:
     /** @brief An api to check validity of location code
      *  @param[in] - location code
@@ -81,18 +91,18 @@ class ReaderImpl
 
 }; // class ReaderImpl
 
-    /** @brief This API will be used to find out Parent FRU of Module/CPU 
-     *
-     * @param[in] - jsonFile to process and find out parent
-     * @param[in] - moduleObjPath, object path of that FRU
-     * @param[in] - fruType, Type of Parent FRU
-     *              for Module/CPU Parent Type- FruAndModule
-     *
-     * @return returns vpd file path of Parent Fru of that Module
-     */
-    std::string getSysPathForThisFruType(const nlohmann::json& jsonFile,
-                                         const std::string& moduleObjPath,
-                                         const std::string& fruType);
+/** @brief This API will be used to find out Parent FRU of Module/CPU
+ *
+ * @param[in] - jsonFile to process and find out parent
+ * @param[in] - moduleObjPath, object path of that FRU
+ * @param[in] - fruType, Type of Parent FRU
+ *              for Module/CPU Parent Type- FruAndModule
+ *
+ * @return returns vpd file path of Parent Fru of that Module
+ */
+std::string getSysPathForThisFruType(const nlohmann::json& jsonFile,
+                                     const std::string& moduleObjPath,
+                                     const std::string& fruType);
 
 } // namespace reader
 } // namespace manager
