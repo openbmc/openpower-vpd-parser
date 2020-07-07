@@ -40,24 +40,30 @@ configure_file(output: 'config.h',
                        }
   )
 
-ibm_read_vpd_SOURCES= ['ibm_vpd_app.cpp',
-                       'impl.cpp',
-                       'utils.cpp',
-                       'vpd-parser/parser_factory.cpp',
-                       'vpd-parser/memory_vpd_parser.cpp',
-                       'vpd-parser/keyword_vpd_parser.cpp',
-                       'vpd-parser/ipz_parser.cpp',
-                       'vpdecc/vpdecc.c',
-                       'vpdecc/vpdecc_support.c'
+common_SOURCES= ['vpd-parser/parser_factory.cpp',
+                 'vpd-parser/memory_vpd_parser.cpp',
+                 'vpd-parser/keyword_vpd_parser.cpp',
+                 'vpd-parser/ipz_parser.cpp',
+                 'impl.cpp',
+                 'utils.cpp',
+                 'vpdecc/vpdecc.c',
+                 'vpdecc/vpdecc_support.c'
 ]
 
 vpd_tool_SOURCES = ['vpd_tool.cpp',
-                    'vpd_tool_impl.cpp'
-]
+                    'vpd_tool_impl.cpp',
+                    'vpd-manager/reader_impl.cpp',
+                    'vpd-manager/editor_impl.cpp',
+                    
+] + common_SOURCES
 
 vpd_tool_exe = executable('vpd-tool',
                            vpd_tool_SOURCES,
                            dependencies:[sdbusplus,
+                                         phosphor_logging
+                           ],
+                           include_directories : ['vpd-manager/', 
+                                                  'vpd-parser/'
                            ],
                            install: true
 )
@@ -65,6 +71,9 @@ vpd_tool_exe = executable('vpd-tool',
 if get_option('ibm-parser').enabled()
     argument_list = ['-DIPZ_PARSER']
 endif
+
+ibm_read_vpd_SOURCES= ['ibm_vpd_app.cpp',
+] + common_SOURCES
 
 ibm_vpd_exe = executable('ibm-read-vpd',
                               ibm_read_vpd_SOURCES,
