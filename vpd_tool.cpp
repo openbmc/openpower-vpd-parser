@@ -74,6 +74,11 @@ int main(int argc, char** argv)
             ->needs(record)
             ->needs(kw);
 
+    auto eccFixFlag = app.add_flag("--eccFix, -e, -E",
+                                   "Fix the broken ECC. {vpd-tool-exe "
+                                   "--eccFix/-e/-E --object/-O object-name}")
+                          ->needs(object);
+
     CLI11_PARSE(app, argc, argv);
 
     ifstream inventoryJson(INVENTORY_JSON);
@@ -118,6 +123,13 @@ int main(int argc, char** argv)
                                move(keyword));
             vpdToolObj.readKeywordFromHardware(jsObject);
         }
+
+        else if (*eccFixFlag)
+        {
+            VpdTool vpdToolObj(move(objectPath));
+            vpdToolObj.eccFix();
+        }
+
         else
         {
             throw runtime_error("One of the valid options is required. Refer "
