@@ -5,6 +5,7 @@
 #include "ipz_parser.hpp"
 #include "parser_factory.hpp"
 #include "utils.hpp"
+#include "vpd_exceptions.hpp"
 
 #include "vpdecc/vpdecc.h"
 
@@ -12,6 +13,7 @@ using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::parser::factory;
 using namespace openpower::vpd::ipz::parser;
+using namespace openpower::vpd::exceptions;
 
 namespace openpower
 {
@@ -21,7 +23,6 @@ namespace manager
 {
 namespace editor
 {
-
 void EditorImpl::checkPTForRecord(Binary::const_iterator& iterator,
                                   Byte ptLength)
 {
@@ -185,7 +186,18 @@ void EditorImpl::updateRecordECC()
         const_cast<uint8_t*>(&itrToRecordECC[0]), &thisRecord.recECCLength);
     if (l_status != VPD_ECC_OK)
     {
-        throw std::runtime_error("Ecc update failed");
+        string str = "Ecc update failed for the given record ";
+        str += thisRecord.recName;
+        str += " ,	present in the given object ";
+        str += objPath;
+        str += ".";
+        throw VpdEccException(str);
+    }
+    else
+    {
+        cout << "\n ECC updation successfull for the given record "
+             << thisRecord.recName << " ,present in the given object "
+             << objPath << "." << endl;
     }
 
     auto end = itrToRecordECC;
@@ -205,7 +217,6 @@ auto EditorImpl::getValue(offsets::Offsets offset)
     LE2ByteData lowByte = *itr;
     LE2ByteData highByte = *(itr + 1);
     lowByte |= (highByte << 8);
-
     return lowByte;
 }
 
@@ -242,7 +253,6 @@ void EditorImpl::readVTOC()
 
     auto iteratorToECC = vpdFile.cbegin();
     std::advance(iteratorToECC, tocECCOffset);
-
     // validate ecc for the record
     checkECC(itrToRecord, iteratorToECC, tocLength, tocECCLength);
 
@@ -526,12 +536,10 @@ string EditorImpl::getSysPathForThisFruType(const string& moduleObjPath,
     return fruVpdPath;
 }
 
-void EditorImpl::getVpdPathForCpu()
+void EditorImpl::getVpdPathForCpu(bool ecc)
 {
     isCI = false;
-    // keep a backup In case we need it later
-    inventory::Path vpdFilePathBackup = vpdFilePath;
-
+    inventory::Path vpdFilePathLocal{};
     // TODO 1:Temp hardcoded list. create it dynamically.
     std::vector<std::string> commonIntVINIKwds = {"PN", "SN", "DR"};
     std::vector<std::string> commonIntVR10Kwds = {"DC"};
@@ -546,10 +554,11 @@ void EditorImpl::getVpdPathForCpu()
 
     if ((isCommonInt != commonIntRecordsList.end()) &&
         (find(isCommonInt->second.begin(), isCommonInt->second.end(),
-              thisRecord.recKWd) != isCommonInt->second.end()))
+              thisRecord.recKWd) != isCommonInt->second.end()) &&
+        (!ecc))
     {
         isCI = true;
-        vpdFilePath = getSysPathForThisFruType(objPath, "fruAndModule");
+        vpdFilePathLocal = getSysPathForThisFruType(objPath, "fruAndModule");
     }
     else
     {
@@ -562,19 +571,25 @@ void EditorImpl::getVpdPathForCpu()
                     const auto& thisObjectPath = eachInventory["inventoryPath"];
                     if ((eachInventory["type"] == "moduleOnly") &&
                         (eachInventory.value("inheritEI", true)) &&
-                        (thisObjectPath == static_cast<string>(objPath)))
+                        (thisObjectPath == objPath))
                     {
-                        vpdFilePath = eachFru.key();
+                        vpdFilePathLocal = eachFru.key();
+                    }
+                    else if ((!isCI) &&
+                             (eachInventory["type"] == "fruAndModule") &&
+                             (thisObjectPath == objPath))
+                    {
+                        vpdFilePathLocal = eachFru.key();
+                        break;
                     }
                 }
             }
+            if (!vpdFilePathLocal.empty())
+            {
+                vpdFilePath = vpdFilePathLocal;
+                break;
+            }
         }
-    }
-    // If it is not a CPU fru then go ahead with default vpdFilePath from
-    // fruMap
-    if (vpdFilePath.empty())
-    {
-        vpdFilePath = vpdFilePathBackup;
     }
 }
 
@@ -583,27 +598,10 @@ void EditorImpl::updateKeyword(const Binary& kwdData, const bool& updCache)
     startOffset = 0;
 #ifndef ManagerTest
 
-    getVpdPathForCpu();
-
-    // check if offset present?
-    for (const auto& item : jsonFile["frus"][vpdFilePath])
-    {
-        if (item.find("offset") != item.end())
-        {
-            startOffset = item["offset"];
-        }
-    }
+    getVpdPathForCpu(false);
 
     // TODO: Figure out a better way to get max possible VPD size.
-    Binary completeVPDFile;
-    completeVPDFile.resize(65504);
-    vpdFileStream.open(vpdFilePath,
-                       std::ios::in | std::ios::out | std::ios::binary);
-
-    vpdFileStream.seekg(startOffset, ios_base::cur);
-    vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]), 65504);
-    completeVPDFile.resize(vpdFileStream.gcount());
-    vpdFileStream.clear(std::ios_base::eofbit);
+    Binary completeVPDFile = getVpdDataInVector(jsonFile, vpdFilePath);
 
     vpdFile = completeVPDFile;
 
@@ -666,6 +664,65 @@ void EditorImpl::updateKeyword(const Binary& kwdData, const bool& updCache)
             throw std::runtime_error(e.what());
         }
         return;
+    }
+}
+
+void EditorImpl::fixBrokenEcc()
+{
+    try
+    {
+        inventory::FrusMap frus{};
+        getInvToEepromMap(frus);
+        if (frus.find(objPath) == frus.end())
+        {
+            throw std::runtime_error("Inventory path not found");
+        }
+        vpdFilePath = (frus.find(objPath)->second).first;
+        getVpdPathForCpu(true);
+#if 0
+        for (const auto& item : jsonFile["frus"][vpdFilePath])
+        {
+            if (item.find("offset") != item.end())
+            {
+                startOffset = item["offset"];
+            }
+        }
+#endif
+        Binary completeVPDFile = getVpdDataInVector(jsonFile, vpdFilePath);
+        vpdFile = completeVPDFile;
+
+        ParserInterface* Iparser =
+            ParserFactory::getParser(std::move(completeVPDFile));
+        IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
+        try
+        {
+            if (ipzParser == nullptr)
+            {
+                throw std::runtime_error("Invalid cast");
+            }
+
+            ipzParser->processHeader();
+            delete ipzParser;
+            ipzParser = nullptr;
+
+            readVTOC();
+            updateRecordECC();
+        }
+        catch (const std::exception& e)
+        {
+            if (ipzParser != nullptr)
+            {
+                delete ipzParser;
+            }
+            throw std::runtime_error(e.what());
+        }
+        vpdFileStream.close();
+        delete ipzParser;
+        ipzParser = nullptr;
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
     }
 }
 } // namespace editor

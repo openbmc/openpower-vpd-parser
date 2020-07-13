@@ -139,5 +139,26 @@ bool isPathInJson(const std::string& eepromPath);
  */
 bool isRecKwInDbusJson(const std::string& record, const std::string& keyword);
 
+/**
+ * @brief getInvToEepromMap
+ * @param[out] frus - Map of inventory path and eeprom path.
+ */
+void getInvToEepromMap(inventory::FrusMap& frus);
+
+/**
+ * @brief getLocationCodeToInvMap
+ * @param[out] fruLocationCode - Map of Location code and inventory path.
+ */
+void getLocationCodeToInvMap(inventory::LocationCodeMap& fruLocationCode);
+
+/**
+ * @brief getVpdDataInVector
+ * @param[in] js - Parsed inventory json object
+ * @param[in] file - File path name
+ *
+ * return Vpd Vector
+ */
+Binary getVpdDataInVector(const nlohmann::json& js, const string& file);
+
 } // namespace vpd
 } // namespace openpower

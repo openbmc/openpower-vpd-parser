@@ -72,6 +72,22 @@ RecordOffset Impl::getVtocOffset() const
     return vtocOffset;
 }
 
+void catchNegatives(int l_status)
+{
+    if (l_status == VPD_ECC_NOT_ENOUGH_BUFFER)
+    {
+        throw std::runtime_error("Insufficient VPD ECC buffer");
+    }
+    else if (l_status == VPD_ECC_WRONG_ECC_SIZE)
+    {
+        throw std::runtime_error("Incorrect ECC size");
+    }
+    else if (l_status == VPD_ECC_WRONG_BUFFER_SIZE)
+    {
+        throw std::runtime_error("Incorrect ECC buffer size");
+    }
+}
+
 #ifdef IPZ_PARSER
 int Impl::vhdrEccCheck() const
 {
@@ -161,6 +177,7 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
     auto l_status = vpdecc_check_data(
         const_cast<uint8_t*>(&vpdPtr[recordOffset]), recordLength,
         const_cast<uint8_t*>(&vpdPtr[eccOffset]), eccLength);
+
     if (l_status != VPD_ECC_OK)
     {
         rc = eccStatus::FAILED;
