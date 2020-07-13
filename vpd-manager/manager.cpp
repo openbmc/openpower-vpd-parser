@@ -18,6 +18,7 @@ using namespace std;
 using namespace openpower::vpd::parser;
 using namespace openpower::vpd::exceptions;
 using namespace phosphor::logging;
+using json = nlohmann::json;
 
 namespace openpower
 {
@@ -31,6 +32,64 @@ Manager::Manager(sdbusplus::bus::bus&& bus, const char* busName,
     _bus(std::move(bus)), _manager(_bus, objPath)
 {
     _bus.request_name(busName);
+}
+
+void Manager::getLocationCodeToInvMap(
+    inventory::LocationCodeMap& fruLocationCode, const json& jsonFile)
+{
+    if (jsonFile.find("frus") == jsonFile.end())
+    {
+        throw VpdJsonException("frus group not found in Inventory json",
+                               INVENTORY_JSON_SYM_LINK);
+    }
+    const json& groupFRUS = jsonFile["frus"].get_ref<const json::object_t&>();
+    for (const auto& itemFRUS : groupFRUS.items())
+    {
+        const std::vector<json>& groupEEPROM =
+            itemFRUS.value().get_ref<const json::array_t&>();
+        for (const auto& itemEEPROM : groupEEPROM)
+        {
+            bool isMotherboard = false;
+            if (itemEEPROM["extraInterfaces"].find(
+                    "xyz.openbmc_project.Inventory.Item.Board.Motherboard") !=
+                itemEEPROM["extraInterfaces"].end())
+            {
+                isMotherboard = true;
+            }
+            frus.emplace(itemEEPROM["inventoryPath"]
+                             .get_ref<const nlohmann::json::string_t&>(),
+                         std::make_pair(itemFRUS.key(), isMotherboard));
+
+            if (itemEEPROM["extraInterfaces"].find(IBM_LOCATION_CODE_INF) !=
+                itemEEPROM["extraInterfaces"].end())
+            {
+                fruLocationCode.emplace(
+                    itemEEPROM["extraInterfaces"][IBM_LOCATION_CODE_INF]
+                              ["LocationCode"]
+                                  .get_ref<const json::string_t&>(),
+                    itemEEPROM["inventoryPath"]
+                        .get_ref<const json::string_t&>());
+            }
+        }
+    }
+}
+
+void Manager::getReplaceableFruVector(ReplaceableFrus& replaceableFrus,
+                                      const json jsonFile)
+{
+    const json& groupFRUS = jsonFile["frus"].get_ref<const json::object_t&>();
+    for (const auto& itemFRUS : groupFRUS.items())
+    {
+        const std::vector<json>& groupEEPROM =
+            itemFRUS.value().get_ref<const json::array_t&>();
+        for (const auto& itemEEPROM : groupEEPROM)
+        {
+            if (itemEEPROM.value("isReplaceable", false))
+            {
+                replaceableFrus.emplace_back(itemFRUS.key());
+            }
+        }
+    }
 }
 
 void Manager::run()
@@ -55,55 +114,10 @@ void Manager::run()
 
 void Manager::processJSON()
 {
-    std::ifstream json(INVENTORY_JSON_SYM_LINK, std::ios::binary);
-
-    if (!json)
-    {
-        throw std::runtime_error("json file not found");
-    }
-
-    jsonFile = nlohmann::json::parse(json);
-    if (jsonFile.find("frus") == jsonFile.end())
-    {
-        throw std::runtime_error("frus group not found in json");
-    }
-
-    const nlohmann::json& groupFRUS =
-        jsonFile["frus"].get_ref<const nlohmann::json::object_t&>();
-    for (const auto& itemFRUS : groupFRUS.items())
-    {
-        const std::vector<nlohmann::json>& groupEEPROM =
-            itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
-        for (const auto& itemEEPROM : groupEEPROM)
-        {
-            bool isMotherboard = false;
-            if (itemEEPROM["extraInterfaces"].find(
-                    "xyz.openbmc_project.Inventory.Item.Board.Motherboard") !=
-                itemEEPROM["extraInterfaces"].end())
-            {
-                isMotherboard = true;
-            }
-            frus.emplace(itemEEPROM["inventoryPath"]
-                             .get_ref<const nlohmann::json::string_t&>(),
-                         std::make_pair(itemFRUS.key(), isMotherboard));
-
-            if (itemEEPROM["extraInterfaces"].find(IBM_LOCATION_CODE_INF) !=
-                itemEEPROM["extraInterfaces"].end())
-            {
-                fruLocationCode.emplace(
-                    itemEEPROM["extraInterfaces"][IBM_LOCATION_CODE_INF]
-                              ["LocationCode"]
-                                  .get_ref<const nlohmann::json::string_t&>(),
-                    itemEEPROM["inventoryPath"]
-                        .get_ref<const nlohmann::json::string_t&>());
-            }
-
-            if (itemEEPROM.value("isReplaceable", false))
-            {
-                replaceableFrus.emplace_back(itemFRUS.key());
-            }
-        }
-    }
+    getParsedInventoryJsonObject(jsonFile);
+    getInvToEepromMap(frus, jsonFile);
+    getLocationCodeToInvMap(fruLocationCode, jsonFile);
+    getReplaceableFruVector(replaceableFrus, jsonFile);
 }
 
 void Manager::writeKeyword(const sdbusplus::message::object_path path,
@@ -241,7 +255,6 @@ void Manager::performVPDRecollection()
         }
     }
 }
-
 } // namespace manager
 } // namespace vpd
 } // namespace openpower

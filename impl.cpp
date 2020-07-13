@@ -88,7 +88,6 @@ int Impl::vhdrEccCheck() const
     {
         rc = eccStatus::FAILED;
     }
-
     return rc;
 }
 
