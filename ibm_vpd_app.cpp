@@ -35,6 +35,30 @@ static const deviceTreeMap deviceTreeSystemTypeMap = {
     {RAINIER_2U, "conf@aspeed-bmc-ibm-rainier-2u.dtb"},
     {RAINIER_4U, "conf@aspeed-bmc-ibm-rainier-4u.dtb"}};
 
+/** @brief An api to get keywords which needs to be published on DBus
+ *  @param[in] - map of record, keyword and keyword data
+ *  @return - A map which contains keyword and data that needs to be published
+ *  on interface for this record.
+ */
+inventory::DbusPropertyMap
+    getDBusPropertyMap(inventory::DbusPropertyMap dbusProperties,
+                       const vector<inventory::Keyword>& kwdsToPublish)
+{
+    for (auto it = dbusProperties.begin(); it != dbusProperties.end();)
+    {
+        if (find(kwdsToPublish.begin(), kwdsToPublish.end(), it->first) ==
+            kwdsToPublish.end())
+        {
+            it = dbusProperties.erase(it);
+        }
+        else
+        {
+            it++;
+        }
+    }
+    return dbusProperties;
+}
+
 /**
  * @brief Expands location codes
  */
@@ -100,6 +124,7 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
     }
     return expanded;
 }
+
 /**
  * @brief Populate FRU specific interfaces.
  *
@@ -435,6 +460,23 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
     inventory::ObjectMap objects;
     inventory::PropertyMap prop;
 
+    ifstream propertyJson("dbus_properties.json");
+    json dbusProperty;
+    bool publishSlectedKeywords = false;
+    // skip the implementation of selected keyword publish on Dbus in case this
+    // json is not present.
+    if (propertyJson.is_open())
+    {
+        publishSlectedKeywords = true;
+        auto dbusPropertyJson = json::parse(propertyJson);
+        if (dbusPropertyJson.find("dbusProperties") == dbusPropertyJson.end())
+        {
+            throw runtime_error("Dbus property json error");
+        }
+
+        dbusProperty = dbusPropertyJson["dbusProperties"];
+    }
+
     bool isSystemVpd = false;
     for (const auto& item : js["frus"][filePath])
     {
@@ -453,8 +495,26 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                 // interface.
                 for (const auto& record : vpdMap)
                 {
-                    populateFruSpecificInterfaces(
-                        record.second, ipzVpdInf + record.first, interfaces);
+                    if (publishSlectedKeywords)
+                    {
+                        if (dbusProperty.contains(record.first))
+                        {
+                            const vector<inventory::Keyword>& kwdsToPublish =
+                                dbusProperty[record.first];
+                            inventory::DbusPropertyMap busPropertyMap =
+                                getDBusPropertyMap(record.second,
+                                                   kwdsToPublish);
+                            populateFruSpecificInterfaces(
+                                busPropertyMap, ipzVpdInf + record.first,
+                                interfaces);
+                        }
+                    }
+                    else
+                    {
+                        populateFruSpecificInterfaces(record.second,
+                                                      ipzVpdInf + record.first,
+                                                      interfaces);
+                    }
                 }
             }
             else if constexpr (is_same<T, KeywordVpdMap>::value)
