@@ -118,6 +118,14 @@ class Manager : public ServerObject<ManagerIface>
     /** @brief Start processing DBus messages. */
     void run();
 
+    /** @brief Implementation for FixBrokenEcc
+     *  Method which fixes the ecc of the given object
+     *  if it is broken.
+     *
+     *  @param[in] path - Path to the D-Bus object that represents the FRU.
+     */
+    void fixBrokenEcc(const sdbusplus::message::object_path path);
+
   private:
     /** @brief process the given JSON file
      */
