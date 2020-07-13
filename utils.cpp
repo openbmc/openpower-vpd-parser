@@ -346,5 +346,81 @@ bool isRecKwInDbusJson(const std::string& recordName,
     return present;
 }
 
+void getInvToEepromMap(inventory::FrusMap& frus)
+{
+    std::ifstream json(INVENTORY_JSON_SYM_LINK, std::ios::binary);
+
+    if (!json)
+    {
+        throw std::runtime_error("json file not found");
+    }
+
+    nlohmann::json jsonFile;
+    jsonFile = nlohmann::json::parse(json);
+    if (jsonFile.find("frus") == jsonFile.end())
+    {
+        throw std::runtime_error("frus group not found in json");
+    }
+
+    const nlohmann::json& groupFRUS =
+        jsonFile["frus"].get_ref<const nlohmann::json::object_t&>();
+    for (const auto& itemFRUS : groupFRUS.items())
+    {
+        const std::vector<nlohmann::json>& groupEEPROM =
+            itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
+        for (const auto& itemEEPROM : groupEEPROM)
+        {
+            bool isMotherboard = false;
+            if (itemEEPROM["extraInterfaces"].find(
+                    "xyz.openbmc_project.Inventory.Item.Board.Motherboard") !=
+                itemEEPROM["extraInterfaces"].end())
+            {
+                isMotherboard = true;
+            }
+            frus.emplace(itemEEPROM["inventoryPath"]
+                             .get_ref<const nlohmann::json::string_t&>(),
+                         std::make_pair(itemFRUS.key(), isMotherboard));
+        }
+    }
+}
+
+void getLocationCodeToInvMap(inventory::LocationCodeMap& fruLocationCode)
+{
+    std::ifstream json(INVENTORY_JSON_SYM_LINK, std::ios::binary);
+
+    if (!json)
+    {
+        throw std::runtime_error("json file not found");
+    }
+
+    nlohmann::json jsonFile;
+    jsonFile = nlohmann::json::parse(json);
+    if (jsonFile.find("frus") == jsonFile.end())
+    {
+        throw std::runtime_error("frus group not found in json");
+    }
+
+    const nlohmann::json& groupFRUS =
+        jsonFile["frus"].get_ref<const nlohmann::json::object_t&>();
+    for (const auto& itemFRUS : groupFRUS.items())
+    {
+        const std::vector<nlohmann::json>& groupEEPROM =
+            itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
+        for (const auto& itemEEPROM : groupEEPROM)
+        {
+            if (itemEEPROM["extraInterfaces"].find(LOCATION_CODE_INF) !=
+                itemEEPROM["extraInterfaces"].end())
+            {
+                fruLocationCode.emplace(
+                    itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]
+                              ["LocationCode"]
+                                  .get_ref<const nlohmann::json::string_t&>(),
+                    itemEEPROM["inventoryPath"]
+                        .get_ref<const nlohmann::json::string_t&>());
+            }
+        }
+    }
+}
+
 } // namespace vpd
 } // namespace openpower
