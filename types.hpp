@@ -43,6 +43,9 @@ using namespace std::string_literals;
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
 constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
 using KeywordVpdMap = std::unordered_map<std::string, Binary>;
+using Keyword = std::string;
+using KeywordData = std::string;
+using DbusPropertyMap = std::unordered_map<Keyword, KeywordData>;
 
 } // namespace inventory
 
