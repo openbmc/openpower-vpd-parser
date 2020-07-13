@@ -1,5 +1,9 @@
 #include "vpd_tool_impl.hpp"
 
+#include "const.hpp"
+#include "editor_impl.hpp"
+#include "utils.hpp"
+
 #include <cstdlib>
 #include <filesystem>
 #include <iomanip>
@@ -13,6 +17,8 @@ using namespace std;
 using sdbusplus::exception::SdBusError;
 using namespace openpower::vpd;
 namespace fs = std::filesystem;
+using namespace openpower::vpd::manager::editor;
+using namespace openpower::vpd::constants;
 
 void VpdTool::printReturnCode(int returnCode)
 {
@@ -112,13 +118,12 @@ void VpdTool::addFruTypeAndLocation(json exIntf, const string& object,
     }
 
     // Add location code.
-    constexpr auto LOCATION_CODE_IF = "com.ibm.ipzvpd.Location";
     constexpr auto LOCATION_CODE_PROP = "LocationCode";
 
     try
     {
         variant<string> response;
-        makeDBusCall(object, LOCATION_CODE_IF, LOCATION_CODE_PROP)
+        makeDBusCall(object, LOCATION_CODE_INF, LOCATION_CODE_PROP)
             .read(response);
 
         if (auto prop = get_if<string>(&response))
@@ -344,8 +349,7 @@ void VpdTool::readKeyword()
     }
     catch (json::exception& e)
     {
-        json output = json::object({});
-        json kwVal = json::object({});
+        cerr << e.what() << endl;
     }
 }
 
@@ -441,4 +445,12 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
     string udevAdd = "udevadm trigger -c add -s \"*nvmem*\" -v";
     returnCode = system(udevAdd.c_str());
     printReturnCode(returnCode);
+}
+
+void VpdTool::fixEcc()
+{
+    json jsonObject;
+    getParsedInventoryJsonObject(jsonObject);
+    EditorImpl editor(fruPath, recordName, jsonObject);
+    editor.fixBrokenEcc();
 }
