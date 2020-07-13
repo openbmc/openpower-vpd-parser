@@ -63,7 +63,6 @@ int main(int argc, char** argv)
     auto forceResetFlag = app.add_flag(
         "--forceReset, -f, -F", "Force Collect for Hardware. { vpd-tool-exe "
                                 "--forceReset/-f/-F }");
-
     auto readHardware =
         app.add_flag(
                "--readHardware, -H",
@@ -74,6 +73,11 @@ int main(int argc, char** argv)
             ->needs(object)
             ->needs(record)
             ->needs(kw);
+
+    auto eccFixFlag = app.add_flag("--eccFix, -e, -E",
+                                   "Fix the broken ECC. {vpd-tool-exe "
+                                   "--eccFix/-e/-E --object/-O object-name}")
+                          ->needs(object);
 
     CLI11_PARSE(app, argc, argv);
 
@@ -119,6 +123,14 @@ int main(int argc, char** argv)
                                move(keyword));
             vpdToolObj.readKeywordFromHardware(jsObject);
         }
+
+        else if (*eccFixFlag)
+        {
+            VpdTool vpdToolObj(move(objectPath));
+            cout << "\n in vpdtool " << endl;
+            vpdToolObj.eccFix();
+        }
+
         else
         {
             throw runtime_error("One of the valid options is required. Refer "

@@ -488,3 +488,19 @@ void VpdTool::readKeywordFromHardware(const json& jsonFile)
 
     std::cout << data << std::endl;
 }
+
+void VpdTool::eccFix()
+{
+    cout << "\n in vpdtool impl.cpp " << endl;
+    auto bus = sdbusplus::bus::new_default();
+    auto properties =
+        bus.new_method_call(BUSNAME, OBJPATH, IFACE,
+                            "FixBrokenEcc"); // Method name in interface yaml
+    properties.append(static_cast<sdbusplus::message::object_path>(fruPath));
+    auto result = bus.call(properties);
+    cout << "\n ending vpdtool impl.cpp";
+    if (result.is_method_error())
+    {
+        throw runtime_error("Get api failed");
+    }
+}

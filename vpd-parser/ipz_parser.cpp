@@ -31,6 +31,13 @@ std::string IpzVpdParser::getInterfaceName() const
     return ipzVpdInf;
 }
 
+Binary IpzVpdParser::fixEcc()
+{
+    Impl ecc(std::move(vpd));
+    std::cout << "\n calling impl cpp " << std::endl;
+    Binary temp = ecc.fixEccImpl();
+    return Binary(std::move(temp));
+}
 } // namespace parser
 } // namespace ipz
 } // namespace vpd
