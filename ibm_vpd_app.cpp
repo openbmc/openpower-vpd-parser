@@ -253,31 +253,6 @@ static void populateInterfaces(const nlohmann::json& js,
     }
 }
 
-static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
-{
-    uint32_t offset = 0;
-    // check if offset present?
-    for (const auto& item : js["frus"][file])
-    {
-        if (item.find("offset") != item.end())
-        {
-            offset = item["offset"];
-        }
-    }
-
-    // TODO: Figure out a better way to get max possible VPD size.
-    Binary vpdVector;
-    vpdVector.resize(65504);
-    ifstream vpdFile;
-    vpdFile.open(file, ios::binary);
-
-    vpdFile.seekg(offset, ios_base::cur);
-    vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), 65504);
-    vpdVector.resize(vpdFile.gcount());
-
-    return vpdVector;
-}
-
 /* It does nothing. Just an empty function to return null
  * at the end of variadic template args
  */

@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include <string>
 #include <tuple>
 
 namespace openpower
@@ -89,6 +90,19 @@ class EditorImpl
     {
     }
 
+    /** @brief Construct EditorImpl class
+     *
+     *  @param[in] invPath - Inventory Path
+     *  @param[in] record - Record Name
+     *  @param[in] json - Parsed inventory json object
+     */
+    EditorImpl(const inventory::Path& invPath, const std::string& record,
+               const nlohmann::json& json) :
+        objPath(invPath),
+        startOffset(0), jsonFile(json), thisRecord(record)
+    {
+    }
+
     /** @brief Update data for keyword
      *  @param[in] kwdData - data to update
      *  @param[in] updCache - Flag which tells whether to update Cache or not.
@@ -99,6 +113,9 @@ class EditorImpl
      *  @param[in] locationCodeType - "fcs" or "mts"
      */
     void expandLocationCode(const std::string& locationCodeType);
+
+    /** @brief Fix Broken Ecc*/
+    void fixBrokenEcc();
 
   private:
     /** @brief read VTOC record from the vpd file
@@ -169,6 +186,13 @@ class EditorImpl
     void makeDbusCall(const std::string& object, const std::string& interface,
                       const std::string& property, const std::variant<T>& data);
 
+    /** @brief method which stores the file stream contents into a vector
+     *
+     *  @param[out] completeVPDFile - The vector reference which holds the file
+     * contents.
+     */
+    void getVectorFromFile(Binary& completeVPDFile);
+
     // path to the VPD file to edit
     inventory::Path vpdFilePath;
 
@@ -196,7 +220,15 @@ class EditorImpl
         std::size_t kwdDataLength;
         openpower::vpd::constants::RecordSize recSize;
         openpower::vpd::constants::DataOffset kwDataOffset;
-        // constructor
+
+        /** @brief
+         *  Default constructor for record info.
+         */
+        RecInfo(const std::string& rec) :
+            recName(rec), recKWd(std::string()), recOffset(0), recECCoffset(0),
+            recECCLength(0), kwdDataLength(0), recSize(0), kwDataOffset(0)
+        {
+        }
         RecInfo(const std::string& rec, const std::string& kwd) :
             recName(rec), recKWd(kwd), recOffset(0), recECCoffset(0),
             recECCLength(0), kwdDataLength(0), recSize(0), kwDataOffset(0)
@@ -222,8 +254,10 @@ class EditorImpl
 
     /** @brief This API will search for correct EEPROM path for asked CPU
      *         and will init vpdFilePath
+     *
+     *  @param[in] - ecc flag, sets true when fixing ecc, false otherwise.
      */
-    void getVpdPathForCpu();
+    void getVpdPathForCpu(bool ecc);
 
 }; // class EditorImpl
 
