@@ -1,5 +1,7 @@
+
 #include "vpd_tool_impl.hpp"
 
+#include "editor_impl.hpp"
 #include "vpd_exceptions.hpp"
 
 #include <cstdlib>
@@ -463,4 +465,12 @@ int VpdTool::updateHardware()
         throw(VpdJsonException("Json Parsing failed", INVENTORY_JSON_SYM_LINK));
     }
     return rc;
+}
+
+void VpdTool::fixEcc()
+{
+    ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
+    auto json = nlohmann::json::parse(inventoryJson);
+    EditorImpl editor(fruPath, recordName, json);
+    editor.fixBrokenEcc();
 }
