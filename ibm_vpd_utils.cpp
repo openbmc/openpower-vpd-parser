@@ -318,5 +318,99 @@ vpdType vpdTypeCheck(const Binary& vpdVector)
     return vpdType::INVALID_VPD_FORMAT;
 }
 
+void getParsedInventoryJsonObject(json& jsonFile)
+{
+    std::ifstream invJson(INVENTORY_JSON_SYM_LINK, std::ios::binary);
+
+    if (!invJson)
+    {
+        throw VpdJsonException("Inventory Json file not found",
+                               INVENTORY_JSON_SYM_LINK);
+    }
+
+    jsonFile = json::parse(invJson);
+
+    if (jsonFile.find("frus") == jsonFile.end())
+    {
+        throw VpdJsonException("frus group not found in Inventory json",
+                               INVENTORY_JSON_SYM_LINK);
+    }
+}
+
+void getInvToEepromMap(inventory::FrusMap& frus, const json jsonFile)
+{
+    const json& groupFRUS = jsonFile["frus"].get_ref<const json::object_t&>();
+    for (const auto& itemFRUS : groupFRUS.items())
+    {
+        const std::vector<json>& groupEEPROM =
+            itemFRUS.value().get_ref<const json::array_t&>();
+        for (const auto& itemEEPROM : groupEEPROM)
+        {
+            bool isMotherboard = false;
+            if (itemEEPROM["extraInterfaces"].find(
+                    "xyz.openbmc_project.Inventory.Item.Board.Motherboard") !=
+                itemEEPROM["extraInterfaces"].end())
+            {
+                isMotherboard = true;
+            }
+            frus.emplace(
+                itemEEPROM["inventoryPath"].get_ref<const json::string_t&>(),
+                std::make_pair(itemFRUS.key(), isMotherboard));
+        }
+    }
+}
+
+void getLocationCodeToInvMap(inventory::LocationCodeMap& fruLocationCode,
+                             const json jsonFile)
+{
+    const json& groupFRUS = jsonFile["frus"].get_ref<const json::object_t&>();
+    for (const auto& itemFRUS : groupFRUS.items())
+    {
+        const std::vector<json>& groupEEPROM =
+            itemFRUS.value().get_ref<const json::array_t&>();
+        for (const auto& itemEEPROM : groupEEPROM)
+        {
+            if (itemEEPROM["extraInterfaces"].find(LOCATION_CODE_INF) !=
+                itemEEPROM["extraInterfaces"].end())
+            {
+                fruLocationCode.emplace(
+                    itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]
+                              ["LocationCode"]
+                                  .get_ref<const json::string_t&>(),
+                    itemEEPROM["inventoryPath"]
+                        .get_ref<const json::string_t&>());
+            }
+        }
+    }
+}
+
+void getVpdDataInVector(const json& js, const string& file,
+                        fstream& vpdFileStream, uint32_t& offset,
+                        Binary& vpdVector)
+{
+    // check if offset present?
+    for (const auto& item : js["frus"][file])
+    {
+        if (item.find("offset") != item.end())
+        {
+            offset = item["offset"];
+        }
+    }
+
+    // TODO: Figure out a better way to get max possible VPD size.
+    vpdVector.resize(MAX_VPD_SIZE_BYTES);
+    vpdFileStream.open(file, ios::in | ios::out | ios::binary);
+    if (!vpdFileStream)
+    {
+        // throw EepromFailureException
+        throw std::runtime_error("Unable to open vpd file");
+    }
+
+    vpdFileStream.seekg(offset, ios_base::cur);
+    vpdFileStream.read(reinterpret_cast<char*>(&vpdVector[0]),
+                       MAX_VPD_SIZE_BYTES);
+    vpdVector.resize(vpdFileStream.gcount());
+    vpdFileStream.clear(std::ios_base::eofbit);
+}
 } // namespace vpd
 } // namespace openpower
