@@ -1,0 +1,9 @@
+{
+  "dbusProperties": {
+      "VINI": ["SN", "CC", "FN", "VZ", "TS", "PN", "HX", "HW", "HE", "FG", "DR", "CT", "CE", "B7", "RT", "B3", "B4"],
+      "VR10": ["RT", "DC", "DR", "FL", "WA"],
+      "VW10": ["RT", "DR", "GD"],
+      "LXR0": ["RT", "LX", "VZ"],
+      "VSYS": ["RT", "BR", "DR", "FV", "ID", "MN", "NN", "RB", "RG", "SE", "SG", "SU", "TM", "TN", "WN"]
+  }
+}
