@@ -58,12 +58,11 @@ int main(int argc, char** argv)
             ->needs(kw);
 
     auto writeFlag =
-        app.add_flag(
-               "--writeKeyword, -w, --updateKeyword, -u",
-               "Update the value. { vpd-tool-exe "
-               "--writeKeyword/-w/--updateKeyword/-u "
-               "--object/-O object-name --record/-R record-name --keyword/-K "
-               "keyword-name --value/-V value-to-be-updated }")
+        app.add_flag("--writeKeyword, -w, --updateKeyword, -u",
+                     "Update the value. { vpd-tool-exe "
+                     "--writeKeyword/-w/--updateKeyword/-u "
+                     "--path/-P path --record/-R record-name --keyword/-K "
+                     "keyword-name --value/-V value-to-be-updated }")
             ->needs(pathOption)
             ->needs(record)
             ->needs(kw)
@@ -78,6 +77,14 @@ int main(int argc, char** argv)
         "Enter the hardware path while using the object option in "
         "corresponding read/write flags. This --Hardware flag is to be given "
         "along with readKeyword/writeKeyword.");
+
+    auto eccFixFlag =
+        app.add_flag("--eccFix, -e", "Fix the broken ECC by assuming the given "
+                                     "record's data is correct. {vpd-tool-exe "
+                                     "--eccFix/-e --object/-O object-name "
+                                     "--record/-R \"record-name\"}")
+            ->needs(object)
+            ->needs(record);
 
     CLI11_PARSE(app, argc, argv);
 
@@ -145,6 +152,12 @@ int main(int argc, char** argv)
             VpdTool vpdToolObj(move(path), move(recordName), move(keyword),
                                move(val));
             rc = vpdToolObj.updateHardware();
+        }
+
+        else if (*eccFixFlag)
+        {
+            VpdTool vpdToolObj(move(objectPath), move(recordName));
+            rc = vpdToolObj.fixEcc();
         }
 
         else
