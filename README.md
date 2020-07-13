@@ -30,6 +30,13 @@ Making the application runtime JSON driven allows us to support multiple systems
 (with different FRU configurations) to be supported in a single code image as
 well as making the application more flexible for future improvements.
 
+## Keywrod as property on DBus 
+* Keywords which are published as property on DBus under com.ibm.ipzvpd.<record>
+can be configured using `dbus_properties.json`.
+* Modification in the keywords which needs to be published on DBus for any given
+record can be achieved by editing the `dbus_propertyies.json` file only, given that
+the keyword should be present for that record in the VPD file.
+
 ## TODOs and Future Improvements
  1. The long-term goal is to completely do away with the build time YAML driven
 configurations and instead reconcile the OpenPower VPD parser and the IBM VPD
