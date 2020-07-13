@@ -4,6 +4,7 @@
 
 #include <gmock/gmock.h>
 
+using namespace std;
 using namespace openpower::vpd::utils::interface;
 
 class MockUtilCalls : public UtilityInterface
