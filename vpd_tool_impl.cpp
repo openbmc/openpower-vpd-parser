@@ -488,3 +488,17 @@ void VpdTool::readKeywordFromHardware(const json& jsonFile)
     output.emplace(fruPath, kwVal);
     debugger(output);
 }
+
+void VpdTool::eccFix()
+{
+    auto bus = sdbusplus::bus::new_default();
+    auto properties =
+        bus.new_method_call(BUSNAME, OBJPATH, IFACE,
+                            "FixBrokenEcc"); // Method name in interface yaml
+    properties.append(static_cast<sdbusplus::message::object_path>(fruPath));
+    auto result = bus.call(properties);
+    if (result.is_method_error())
+    {
+        throw runtime_error("Get api failed");
+    }
+}
