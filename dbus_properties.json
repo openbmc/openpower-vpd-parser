@@ -1,0 +1,7 @@
+{
+  "dbusProperties": {
+      "VINI": [
+          "SN", "CC", "FN", "VZ", "TS", "PN", "HX", "HW", "HE", "FG", "DR", "CT", "CE", "B7"
+      ]
+  }
+}
