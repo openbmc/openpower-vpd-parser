@@ -420,3 +420,17 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
     string udevAdd = "udevadm trigger -c add -s \"*nvmem*\" -v";
     system(udevAdd.c_str());
 }
+
+void VpdTool::eccFix()
+{
+    auto bus = sdbusplus::bus::new_default();
+    auto properties =
+        bus.new_method_call(BUSNAME, OBJPATH, IFACE,
+                            "FixBrokenEcc"); // Method name in interface yaml
+    properties.append(static_cast<sdbusplus::message::object_path>(fruPath));
+    auto result = bus.call(properties);
+    if (result.is_method_error())
+    {
+        throw runtime_error("Get api failed");
+    }
+}
