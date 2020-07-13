@@ -20,6 +20,7 @@ using namespace std;
 using namespace openpower::vpd::parser;
 using namespace openpower::vpd::exceptions;
 using namespace phosphor::logging;
+using json = nlohmann::json;
 
 namespace openpower
 {
@@ -97,27 +98,19 @@ void Manager::hostStateCallBack(sdbusplus::message::message& msg)
     }
 }
 
-void Manager::processJSON()
+void Manager::getLocationCodeToInvMap(
+    inventory::LocationCodeMap& fruLocationCode, const json& jsonFile)
 {
-    std::ifstream json(INVENTORY_JSON_SYM_LINK, std::ios::binary);
-
-    if (!json)
-    {
-        throw std::runtime_error("json file not found");
-    }
-
-    jsonFile = nlohmann::json::parse(json);
     if (jsonFile.find("frus") == jsonFile.end())
     {
-        throw std::runtime_error("frus group not found in json");
+        throw VpdJsonException("frus group not found in Inventory json",
+                               INVENTORY_JSON_SYM_LINK);
     }
-
-    const nlohmann::json& groupFRUS =
-        jsonFile["frus"].get_ref<const nlohmann::json::object_t&>();
+    const json& groupFRUS = jsonFile["frus"].get_ref<const json::object_t&>();
     for (const auto& itemFRUS : groupFRUS.items())
     {
-        const std::vector<nlohmann::json>& groupEEPROM =
-            itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
+        const std::vector<json>& groupEEPROM =
+            itemFRUS.value().get_ref<const json::array_t&>();
         for (const auto& itemEEPROM : groupEEPROM)
         {
             bool isMotherboard = false;
@@ -145,17 +138,38 @@ void Manager::processJSON()
                 fruLocationCode.emplace(
                     itemEEPROM["extraInterfaces"][IBM_LOCATION_CODE_INF]
                               ["LocationCode"]
-                                  .get_ref<const nlohmann::json::string_t&>(),
+                                  .get_ref<const json::string_t&>(),
                     itemEEPROM["inventoryPath"]
-                        .get_ref<const nlohmann::json::string_t&>());
+                        .get_ref<const json::string_t&>());
             }
+        }
+    }
+}
 
-            if (itemEEPROM.value("replaceableAtStandby", false))
+void Manager::getReplaceableFruVector(ReplaceableFrus& replaceableFrus,
+                                      const json jsonFile)
+{
+    const json& groupFRUS = jsonFile["frus"].get_ref<const json::object_t&>();
+    for (const auto& itemFRUS : groupFRUS.items())
+    {
+        const std::vector<json>& groupEEPROM =
+            itemFRUS.value().get_ref<const json::array_t&>();
+        for (const auto& itemEEPROM : groupEEPROM)
+        {
+            if (itemEEPROM.value("isReplaceable", false))
             {
                 replaceableFrus.emplace_back(itemFRUS.key());
             }
         }
     }
+}
+
+void Manager::processJSON()
+{
+    getParsedInventoryJsonObject(jsonFile);
+    getInvToEepromMap(frus, jsonFile);
+    getLocationCodeToInvMap(fruLocationCode, jsonFile);
+    getReplaceableFruVector(replaceableFrus, jsonFile);
 }
 
 void Manager::writeKeyword(const sdbusplus::message::object_path path,
@@ -320,7 +334,6 @@ void Manager::performVPDRecollection()
         }
     }
 }
-
 } // namespace manager
 } // namespace vpd
 } // namespace openpower

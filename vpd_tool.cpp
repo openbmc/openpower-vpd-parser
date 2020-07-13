@@ -72,6 +72,14 @@ int main(int argc, char** argv)
         "-H flag is given, User should provide valid hardware/eeprom path (and "
         "not dbus object path) in the -O/--object path.");
 
+    auto eccFixFlag =
+        app.add_flag("--eccFix, -e", "Fix the broken ECC by assuming the given "
+                                     "record's data is correct. {vpd-tool-exe "
+                                     "--eccFix/-e --object/-O object-name "
+                                     "--record/-R \"record-name\"}")
+            ->needs(object)
+            ->needs(record);
+
     CLI11_PARSE(app, argc, argv);
 
     ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
@@ -129,6 +137,12 @@ int main(int argc, char** argv)
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword), move(val));
             rc = vpdToolObj.updateHardware();
+        }
+
+        else if (*eccFixFlag)
+        {
+            VpdTool vpdToolObj(move(objectPath), move(recordName));
+            rc = vpdToolObj.fixEcc();
         }
 
         else

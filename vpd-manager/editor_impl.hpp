@@ -39,7 +39,7 @@ class EditorImpl
     EditorImpl(const std::string& record, const std::string& kwd,
                Binary&& vpd) :
         startOffset(0),
-        thisRecord(record, kwd), vpdFile(std::move(vpd))
+        thisRecord(record, kwd), vpdVector(std::move(vpd))
     {
     }
 
@@ -74,6 +74,19 @@ class EditorImpl
     {
     }
 
+    /** @brief Construct EditorImpl class
+     *
+     *  @param[in] invPath - Inventory Path
+     *  @param[in] record - Record Name
+     *  @param[in] json - Parsed inventory json object
+     */
+    EditorImpl(const inventory::Path& invPath, const std::string& record,
+               const nlohmann::json& json) :
+        objPath(invPath),
+        startOffset(0), jsonFile(json), thisRecord(record), isCI(false)
+    {
+    }
+
     /**
      * @brief Update data for keyword
      * The method looks for the record name to update in VTOC and then
@@ -103,6 +116,14 @@ class EditorImpl
      *  @param[in] locationCodeType - "fcs" or "mts"
      */
     void expandLocationCode(const std::string& locationCodeType);
+
+    /** @brief Fix the broken ECC if the given record data is modified
+     * An editor object is constructed to fix ecc for the given record under
+     *  the given inventory path. The Fix ECC implementation assumes the record
+     * data is correct and updates the record's ECC accordingly.
+     * @return return code which indicates success or failure of execution.
+     */
+    int fixBrokenEcc();
 
   private:
     /** @brief read VTOC record from the vpd file
@@ -184,32 +205,58 @@ class EditorImpl
     uint32_t startOffset;
 
     // file to store parsed json
-    const nlohmann::json jsonFile;
+    nlohmann::json jsonFile;
 
     // structure to hold info about record to edit
     struct RecInfo
     {
         Binary kwdUpdatedData; // need access to it in case encoding is needed
-        const std::string recName;
-        const std::string recKWd;
-        openpower::vpd::constants::RecordOffset recOffset;
-        openpower::vpd::constants::ECCOffset recECCoffset;
-        std::size_t recECCLength;
-        std::size_t kwdDataLength;
-        openpower::vpd::constants::RecordSize recSize;
-        openpower::vpd::constants::DataOffset kwDataOffset;
-        // constructor
+        const std::string recName{};
+        const std::string recKWd{};
+        openpower::vpd::constants::RecordOffset recOffset = 0;
+        openpower::vpd::constants::ECCOffset recECCoffset = 0;
+        std::size_t recECCLength = 0;
+        std::size_t kwdDataLength = 0;
+        openpower::vpd::constants::RecordSize recSize = 0;
+        openpower::vpd::constants::DataOffset kwDataOffset = 0;
+
+        /** @brief
+         *  Default constructor for record info.
+         */
+        explicit RecInfo(const std::string& rec) : recName(rec)
+        {
+        }
         RecInfo(const std::string& rec, const std::string& kwd) :
-            recName(rec), recKWd(kwd), recOffset(0), recECCoffset(0),
-            recECCLength(0), kwdDataLength(0), recSize(0), kwDataOffset(0)
+            recName(rec), recKWd(kwd)
         {
         }
     } thisRecord;
 
-    Binary vpdFile;
+    Binary vpdVector;
 
     // If requested Interface is common Interface
     bool isCI;
+
+    /** @brief This API will be used to find out Parent FRU of Module/CPU
+     *
+     * @param[in] - moduleObjPath, object path of that FRU
+     * @param[in] - fruType, Type of Parent FRU
+     *              for Module/CPU Parent Type- FruAndModule
+     *
+     * @return returns vpd file path of Parent Fru of that Module
+     */
+    std::string getSysPathForThisFruType(const std::string& moduleObjPath,
+                                         const std::string& fruType);
+
+    /** @brief This API will search for correct EEPROM path for asked CPU
+     *         and will init vpdFilePath
+     *
+     *  @param[in] - checkCIRecordList flag is set true when there is a need to
+     * select "fru&Module" vpd path based on the common interface record list.
+     * Flase otherwise.
+     */
+    void getVpdPathForCpu(bool checkCIRecordList);
+
 }; // class EditorImpl
 
 } // namespace editor

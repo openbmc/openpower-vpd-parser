@@ -5,6 +5,7 @@
 #include "types.hpp"
 
 #include <iostream>
+#include <nlohmann/json.hpp>
 
 using namespace std;
 
@@ -12,7 +13,6 @@ namespace openpower
 {
 namespace vpd
 {
-
 /** @brief Return the hex representation of the incoming byte
  *
  * @param [in] c - The input byte
@@ -53,7 +53,7 @@ openpower::vpd::constants::LE2ByteData
  *  @param[in] kw - kwd data in string format
  *  @param[in] encoding - required for kwd data
  */
-string encodeKeyword(const string& kw, const string& encoding);
+std::string encodeKeyword(const std::string& kw, const std::string& encoding);
 
 /** @brief Reads a property from the inventory manager given object path,
  *         intreface and property.
@@ -62,8 +62,8 @@ string encodeKeyword(const string& kw, const string& encoding);
  *  @param[in] prop - property whose value is fetched
  *  @return [out] - value of the property
  */
-string readBusProperty(const string& obj, const string& inf,
-                       const string& prop);
+std::string readBusProperty(const std::string& obj, const std::string& inf,
+                            const std::string& prop);
 
 /**
  * @brief API to create PEL entry
@@ -81,7 +81,7 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
  * @param[in] - Object path
  * @return - Vpd file path
  */
-inventory::VPDfilepath getVpdFilePath(const string& jsonFile,
+inventory::VPDfilepath getVpdFilePath(const std::string& jsonFile,
                                       const std::string& ObjPath);
 
 /**
@@ -118,7 +118,7 @@ constants::vpdType vpdTypeCheck(const Binary& vector);
  * @brief This method does nothing. Just an empty function to return null
  * at the end of variadic template args
  */
-inline string getCommand()
+inline std::string getCommand()
 {
     return "";
 }
@@ -129,9 +129,9 @@ inline string getCommand()
  * @return cmd - command string
  */
 template <typename T, typename... Types>
-inline string getCommand(T arg1, Types... args)
+inline std::string getCommand(T arg1, Types... args)
 {
-    string cmd = " " + arg1 + getCommand(args...);
+    std::string cmd = " " + arg1 + getCommand(args...);
 
     return cmd;
 }
@@ -143,17 +143,18 @@ inline string getCommand(T arg1, Types... args)
  * @returns output of that command
  */
 template <typename T, typename... Types>
-inline vector<string> executeCmd(T&& path, Types... args)
+inline std::vector<std::string> executeCmd(T&& path, Types... args)
 {
-    vector<string> stdOutput;
-    array<char, 128> buffer;
+    std::vector<std::string> stdOutput;
+    std::array<char, 128> buffer;
 
-    string cmd = path + getCommand(args...);
+    std::string cmd = path + getCommand(args...);
 
-    unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"),
+                                                  pclose);
     if (!pipe)
     {
-        throw runtime_error("popen() failed!");
+        throw std::runtime_error("popen() failed!");
     }
     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
     {
@@ -168,24 +169,24 @@ inline vector<string> executeCmd(T&& path, Types... args)
  *  @param[in] vpdMap -  parsed vpd
  *  @returns System json path
  */
-string getSystemsJson(const Parsed& vpdMap);
+std::string getSystemsJson(const Parsed& vpdMap);
 
 /** @brief Reads HW Keyword from the vpd
  *  @param[in] vpdMap -  parsed vpd
  *  @returns value of HW Keyword
  */
-const string getHW(const Parsed& vpdMap);
+const std::string getHW(const Parsed& vpdMap);
 
 /** @brief Reads IM Keyword from the vpd
  *  @param[in] vpdMap -  parsed vpd
  *  @returns value of IM Keyword
  */
-const string getIM(const Parsed& vpdMap);
+const std::string getIM(const Parsed& vpdMap);
 
 /** @brief Translate udev event generated path to a generic /sys/bus eeprom path
  *  @param[io] file - path generated from udev event.
  */
-void udevToGenericPath(string& file);
+void udevToGenericPath(std::string& file);
 
 /**
  * @brief API to generate a vpd name in some pattern.
@@ -197,7 +198,7 @@ void udevToGenericPath(string& file);
  * @param[in] file - file path of the vpd
  * @return the vpd-name.
  */
-string getBadVpdName(const string& file);
+std::string getBadVpdName(const std::string& file);
 
 /**
  * @brief API which dumps the broken/bad vpd in a directory
@@ -259,6 +260,31 @@ string getPrintableValue(const Binary& vec);
  * @return hexadecimal string of bytes.
  */
 string byteArrayToHexString(const Binary& vec);
+
+/**
+ * @brief Method to parse the inventory json
+ * @param [out] jsonFile - Reference to the parsed inventory json object
+ */
+void getParsedInventoryJsonObject(nlohmann::json& jsonFile);
+
+/**
+ * @brief Method which returns Map of Inventory path to its corresponding Eeprom
+ * Path
+ * @param[out] frus - Map of inventory path and eeprom path.
+ * @param[in] jsonFile - Parsed inventory json object.
+ */
+void getInvToEepromMap(inventory::FrusMap& frus,
+                       const nlohmann::json& jsonFile);
+
+/**
+ * @brief Copy vpd data from the eeprom path to the vector
+ * @param[in] js - Inventory Json Object
+ * @param[in] file - eeprom path
+ * @param[out] offset - offset value
+ * @param[out] vpdVector - vpd as vector object
+ */
+void getVpdDataInVector(const nlohmann::json& js, const std::string& file,
+                        uint32_t& offset, Binary& vpdVector);
 
 } // namespace vpd
 } // namespace openpower
