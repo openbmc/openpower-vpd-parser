@@ -64,6 +64,13 @@ int main(int argc, char** argv)
         "--forceReset, -f, -F", "Force Collect for Hardware. { vpd-tool-exe "
                                 "--forceReset/-f/-F }");
 
+    auto eccFixFlag = app.add_flag("--eccFix, -e, -E",
+                                   "Fix the broken ECC. {vpd-tool-exe "
+                                   "--eccFix/-e/-E --object/-O object-name "
+                                   "--record/-R \"record-name\"}")
+                          ->needs(object)
+                          ->needs(record);
+
     CLI11_PARSE(app, argc, argv);
 
     ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
@@ -101,6 +108,12 @@ int main(int argc, char** argv)
         {
             VpdTool vpdToolObj;
             vpdToolObj.forceReset(jsObject);
+        }
+
+        else if (*eccFixFlag)
+        {
+            VpdTool vpdToolObj(move(objectPath), move(recordName));
+            vpdToolObj.fixEcc();
         }
 
         else

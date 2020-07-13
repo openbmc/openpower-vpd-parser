@@ -161,6 +161,7 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
     auto l_status = vpdecc_check_data(
         const_cast<uint8_t*>(&vpdPtr[recordOffset]), recordLength,
         const_cast<uint8_t*>(&vpdPtr[eccOffset]), eccLength);
+
     if (l_status != VPD_ECC_OK)
     {
         rc = eccStatus::FAILED;

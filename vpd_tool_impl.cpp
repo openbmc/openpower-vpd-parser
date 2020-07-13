@@ -1,5 +1,8 @@
 #include "vpd_tool_impl.hpp"
 
+#include "editor_impl.hpp"
+#include "utils.hpp"
+
 #include <cstdlib>
 #include <filesystem>
 #include <iomanip>
@@ -13,6 +16,8 @@ using namespace std;
 using sdbusplus::exception::SdBusError;
 using namespace openpower::vpd;
 namespace fs = std::filesystem;
+using namespace openpower::vpd::manager::editor;
+using json = nlohmann::json;
 
 void VpdTool::printReturnCode(int returnCode)
 {
@@ -433,4 +438,12 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
     string udevAdd = "udevadm trigger -c add -s \"*nvmem*\" -v";
     returnCode = system(udevAdd.c_str());
     printReturnCode(returnCode);
+}
+
+void VpdTool::fixEcc()
+{
+    nlohmann::json jsonObject;
+    getParsedInventoryJsonObject(jsonObject);
+    EditorImpl editor(fruPath, recordName, jsonObject);
+    editor.fixBrokenEcc();
 }
