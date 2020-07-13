@@ -31,6 +31,26 @@ using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
 
+/** @brief An api to get keywords which needs to be published on DBus
+ *  @param[in] - map of record, keyword and keyword data
+ *  @return - A map which contains keyword and data that needs to be published
+ *  on interface for this record.
+ */
+inventory::DbusPropertyMap getDBusPropertyMap(inventory::DbusPropertyMap dbusProperties, const vector<inventory::Keyword>& kwdsToPublish)
+{
+    //inventory::DbusPropertyMap dbusProperties = record.second;
+    //vector<inventory::Keyword> kwdsToPublish = dbusPropertyJson[record.first].get_ref<nlohmann::json::array_t&>();
+
+    for(auto const& item : dbusProperties)
+    {
+        if(find(kwdsToPublish.begin(), kwdsToPublish.end(), item.first) == kwdsToPublish.end())
+        {
+            dbusProperties.erase(item.first);
+        }
+    }
+    return dbusProperties;
+}
+
 /**
  * @brief Expands location codes
  */
@@ -112,7 +132,7 @@ static void populateFruSpecificInterfaces(const T& map,
                                           inventory::InterfaceMap& interfaces)
 {
     inventory::PropertyMap prop;
-
+    
     for (const auto& kwVal : map)
     {
         vector<uint8_t> vec(kwVal.second.begin(), kwVal.second.end());
@@ -317,12 +337,24 @@ inventory::ObjectMap primeInventory(nlohmann::json& jsObject, const T& vpdMap)
  */
 template <typename T>
 static void populateDbus(const T& vpdMap, nlohmann::json& js,
-                         const string& filePath) //, const string &preIntrStr) {
+                         const string& filePath)
 {
     inventory::InterfaceMap interfaces;
     inventory::ObjectMap objects;
     inventory::PropertyMap prop;
 
+    std::cout<<"parse1"<<std::endl;
+    ifstream propertyJson("dbus_properties.json");
+    auto dbusPropertyJson = json::parse(propertyJson);
+    if(dbusPropertyJson.find("dbusProperties") == dbusPropertyJson.end())
+    {
+        throw runtime_error("Dbus property json error");
+    }
+    std::cout<<"parse2"<<std::endl;
+
+    const json& dbusProperty =
+        dbusPropertyJson["dbusProperties"].get_ref<const nlohmann::json::object_t&>();
+    
     bool isSystemVpd = false;
     for (const auto& item : js["frus"][filePath])
     {
@@ -341,8 +373,12 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                 // interface.
                 for (const auto& record : vpdMap)
                 {
-                    populateFruSpecificInterfaces(
-                        record.second, ipzVpdInf + record.first, interfaces);
+                    if(dbusProperty.contains(record.first))
+                    {
+                        const vector<inventory::Keyword>& kwdsToPublish = dbusProperty[record.first];
+                        inventory::DbusPropertyMap busPropertyMap = getDBusPropertyMap(record.second, kwdsToPublish);
+                        populateFruSpecificInterfaces(busPropertyMap, ipzVpdInf + record.first, interfaces);
+                    }
                 }
             }
             else if constexpr (is_same<T, KeywordVpdMap>::value)
@@ -486,7 +522,7 @@ int main(int argc, char** argv)
         CLI11_PARSE(app, argc, argv);
 
         // Make sure that the file path we get is for a supported EEPROM
-        ifstream inventoryJson("vpd_inventory.json");
+        ifstream inventoryJson(INVENTORY_JSON);
         auto js = json::parse(inventoryJson);
 
         if ((js.find("frus") == js.end()) ||
