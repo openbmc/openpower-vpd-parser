@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include <string>
 #include <tuple>
 
 namespace openpower
@@ -19,7 +20,7 @@ namespace editor
 
 /** @class Editor
  *  @brief Implements VPD editing related functinality, currently
- *  implemented to support only keyword data update functionality.
+ *  implemented to support only keyword data update and ecc fix functionality.
  *
  *  An Editor object must be constructed by passing in VPD in
  *  binary format. To edit the keyword data, call the updateKeyword() method.
@@ -37,7 +38,12 @@ namespace editor
  *  1) Look for the record name in the given VPD file
  *  2) Look for the keyword name for which data needs to be updated
  *     which is the table of contents record.
- *  3) update the data for that keyword with the new data
+ *  3) update the data for that keyword with the new data.
+ *
+ *  Fix the ECC:
+ *  An editor object is constructed to fix ecc for the given record under
+ *  the given inventory path. The Fix ECC implementation assumes the record data
+ *  is correct and updates the record's ECC accordingly.
  */
 class EditorImpl
 {
@@ -58,7 +64,7 @@ class EditorImpl
     EditorImpl(const std::string& record, const std::string& kwd,
                Binary&& vpd) :
         startOffset(0),
-        thisRecord(record, kwd), vpdFile(std::move(vpd))
+        thisRecord(record, kwd), vpdVector(std::move(vpd))
     {
     }
 
@@ -75,6 +81,19 @@ class EditorImpl
     {
     }
 
+    /** @brief Construct EditorImpl class
+     *
+     *  @param[in] invPath - Inventory Path
+     *  @param[in] record - Record Name
+     *  @param[in] json - Parsed inventory json object
+     */
+    EditorImpl(const inventory::Path& invPath, const std::string& record,
+               const nlohmann::json& json) :
+        objPath(invPath),
+        startOffset(0), jsonFile(json), thisRecord(record), isCI(false)
+    {
+    }
+
     /** @brief Update data for keyword
      *  @param[in] kwdData - data to update
      */
@@ -84,6 +103,9 @@ class EditorImpl
      *  @param[in] locationCodeType - "fcs" or "mts"
      */
     void expandLocationCode(const std::string& locationCodeType);
+
+    /** @brief Fix the broken ECC if the given record data is modified */
+    void fixBrokenEcc();
 
   private:
     /** @brief read VTOC record from the vpd file
@@ -167,7 +189,7 @@ class EditorImpl
     uint32_t startOffset;
 
     // file to store parsed json
-    const nlohmann::json jsonFile;
+    nlohmann::json jsonFile;
 
     // structure to hold info about record to edit
     struct RecInfo
@@ -181,7 +203,15 @@ class EditorImpl
         std::size_t kwdDataLength;
         openpower::vpd::constants::RecordSize recSize;
         openpower::vpd::constants::DataOffset kwDataOffset;
-        // constructor
+
+        /** @brief
+         *  Default constructor for record info.
+         */
+        explicit RecInfo(const std::string& rec) :
+            recName(rec), recKWd(std::string()), recOffset(0), recECCoffset(0),
+            recECCLength(0), kwdDataLength(0), recSize(0), kwDataOffset(0)
+        {
+        }
         RecInfo(const std::string& rec, const std::string& kwd) :
             recName(rec), recKWd(kwd), recOffset(0), recECCoffset(0),
             recECCLength(0), kwdDataLength(0), recSize(0), kwDataOffset(0)
@@ -189,7 +219,7 @@ class EditorImpl
         }
     } thisRecord;
 
-    Binary vpdFile;
+    Binary vpdVector;
 
     // If requested Interface is common Interface
     bool isCI;
@@ -207,8 +237,10 @@ class EditorImpl
 
     /** @brief This API will search for correct EEPROM path for asked CPU
      *         and will init vpdFilePath
+     *
+     *  @param[in] - ecc flag, sets true when fixing ecc, false otherwise.
      */
-    void getVpdPathForCpu();
+    void getVpdPathForCpu(bool ecc);
 
 }; // class EditorImpl
 

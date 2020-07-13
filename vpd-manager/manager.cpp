@@ -3,9 +3,13 @@
 #include "manager.hpp"
 
 #include "editor_impl.hpp"
+#include "impl.hpp"
 #include "ipz_parser.hpp"
+#include "parser_factory.hpp"
 #include "reader_impl.hpp"
 #include "utils.hpp"
+
+#include <fstream>
 
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
@@ -48,50 +52,9 @@ void Manager::run()
 
 void Manager::processJSON()
 {
-    std::ifstream json(INVENTORY_JSON_SYM_LINK, std::ios::binary);
-
-    if (!json)
-    {
-        throw std::runtime_error("json file not found");
-    }
-
-    jsonFile = nlohmann::json::parse(json);
-    if (jsonFile.find("frus") == jsonFile.end())
-    {
-        throw std::runtime_error("frus group not found in json");
-    }
-
-    const nlohmann::json& groupFRUS =
-        jsonFile["frus"].get_ref<const nlohmann::json::object_t&>();
-    for (const auto& itemFRUS : groupFRUS.items())
-    {
-        const std::vector<nlohmann::json>& groupEEPROM =
-            itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
-        for (const auto& itemEEPROM : groupEEPROM)
-        {
-            bool isMotherboard = false;
-            if (itemEEPROM["extraInterfaces"].find(
-                    "xyz.openbmc_project.Inventory.Item.Board.Motherboard") !=
-                itemEEPROM["extraInterfaces"].end())
-            {
-                isMotherboard = true;
-            }
-            frus.emplace(itemEEPROM["inventoryPath"]
-                             .get_ref<const nlohmann::json::string_t&>(),
-                         std::make_pair(itemFRUS.key(), isMotherboard));
-
-            if (itemEEPROM["extraInterfaces"].find(LOCATION_CODE_INF) !=
-                itemEEPROM["extraInterfaces"].end())
-            {
-                fruLocationCode.emplace(
-                    itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]
-                              ["LocationCode"]
-                                  .get_ref<const nlohmann::json::string_t&>(),
-                    itemEEPROM["inventoryPath"]
-                        .get_ref<const nlohmann::json::string_t&>());
-            }
-        }
-    }
+    getParsedInventoryJsonObject(jsonFile);
+    getInvToEepromMap(frus, jsonFile);
+    getLocationCodeToInvMap(fruLocationCode, jsonFile);
 }
 
 void Manager::writeKeyword(const sdbusplus::message::object_path path,
@@ -155,7 +118,6 @@ LocationCode Manager::getExpandedLocationCode(const LocationCode locationCode,
     return read.getExpandedLocationCode(locationCode, nodeNumber,
                                         fruLocationCode);
 }
-
 } // namespace manager
 } // namespace vpd
 } // namespace openpower

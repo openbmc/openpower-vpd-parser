@@ -78,7 +78,16 @@ if get_option('ibm-parser').enabled()
                             )
 
         vpd_tool_SOURCES = ['vpd_tool.cpp',
-                            'vpd_tool_impl.cpp'
+                            'vpd_tool_impl.cpp',
+                            'vpd-manager/editor_impl.cpp',
+                            'utils.cpp',
+                            'vpdecc/vpdecc.c',
+                            'vpdecc/vpdecc_support.c',
+                            'vpd-parser/ipz_parser.cpp',
+                            'impl.cpp',
+                            'vpd-parser/memory_vpd_parser.cpp',
+                            'vpd-parser/keyword_vpd_parser.cpp',
+                            'vpd-parser/parser_factory.cpp'
                            ]
 
         vpd_tool_exe = executable(
@@ -87,6 +96,7 @@ if get_option('ibm-parser').enabled()
                                  dependencies: [
                                    sdbusplus
                                    ],
+                                 include_directories : ['vpd-manager/', 'vpd-parser/'],
                                  install: true
                                  )
 if get_option('vpd-manager').enabled()
