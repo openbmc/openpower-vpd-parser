@@ -57,6 +57,19 @@ class IpzVpdParser : public ParserInterface
      */
     void processHeader();
 
+    /** @brief Fix ECC implementation
+     *  Parse all the records in the vpd and check if the
+     *  ECC is correct or incorrect or uncorrectable.
+     *
+     *  If the ecc is correct - no action needed.
+     *  If the ecc is incorrect - correct the ecc and write back to the EEPROM.
+     *  If the ecc is uncorrectable - Abort/Skip the ecc check based on the
+     * record. For records present in VTOC - Skip the ecc check if the ecc is
+     * uncorrectable. For all the other records - Abort the ecc check if the ecc
+     * is uncorrectable.
+     */
+    Binary fixEcc();
+
   private:
     Binary vpd;
 }; // class IpzVpdParser

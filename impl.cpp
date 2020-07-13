@@ -70,6 +70,22 @@ RecordOffset Impl::getVtocOffset() const
     return vtocOffset;
 }
 
+void catchNegatives(int l_status)
+{
+    if (l_status == VPD_ECC_NOT_ENOUGH_BUFFER)
+    {
+        throw std::runtime_error("Insufficient VPD ECC buffer");
+    }
+    else if (l_status == VPD_ECC_WRONG_ECC_SIZE)
+    {
+        throw std::runtime_error("Incorrect ECC size");
+    }
+    else if (l_status == VPD_ECC_WRONG_BUFFER_SIZE)
+    {
+        throw std::runtime_error("Incorrect ECC buffer size");
+    }
+}
+
 #ifdef IPZ_PARSER
 
 int Impl::vhdrEccCheck() const
@@ -82,6 +98,23 @@ int Impl::vhdrEccCheck() const
                           lengths::VHDR_RECORD_LENGTH,
                           const_cast<uint8_t*>(&vpdPtr[offsets::VHDR_ECC]),
                           lengths::VHDR_ECC_LENGTH);
+
+    if (eccFlag)
+    {
+        if (l_status == VPD_ECC_UNCORRECTABLE_DATA)
+        {
+            throw std::runtime_error("VHDR ECC IS UNCORRECTABLE");
+        }
+        else if ((l_status == VPD_ECC_CORRECTABLE_DATA) ||
+                 (l_status == VPD_ECC_OK))
+        {
+            return rc;
+        }
+        else
+        {
+            catchNegatives(l_status);
+        }
+    }
     if (l_status != VPD_ECC_OK)
     {
         rc = eccStatus::FAILED;
@@ -119,6 +152,24 @@ int Impl::vtocEccCheck() const
     auto l_status = vpdecc_check_data(
         const_cast<uint8_t*>(&vpdPtr[vtocOffset]), vtocLength,
         const_cast<uint8_t*>(&vpdPtr[vtocECCOffset]), vtocECCLength);
+
+    if (eccFlag)
+    {
+        if (l_status == VPD_ECC_UNCORRECTABLE_DATA)
+        {
+            throw std::runtime_error("VTOC ECC IS UNCORRECTABLE");
+        }
+        else if ((l_status == VPD_ECC_CORRECTABLE_DATA) ||
+                 (l_status == VPD_ECC_OK))
+        {
+            return rc;
+        }
+        else
+        {
+            catchNegatives(l_status);
+        }
+    }
+
     if (l_status != VPD_ECC_OK)
     {
         rc = eccStatus::FAILED;
@@ -154,6 +205,21 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
     auto l_status = vpdecc_check_data(
         const_cast<uint8_t*>(&vpdPtr[recordOffset]), recordLength,
         const_cast<uint8_t*>(&vpdPtr[eccOffset]), eccLength);
+
+    if (eccFlag)
+    {
+        if ((l_status == VPD_ECC_OK) ||
+            (l_status == VPD_ECC_CORRECTABLE_DATA) ||
+            (l_status == VPD_ECC_UNCORRECTABLE_DATA))
+        {
+            return rc;
+        }
+        else
+        {
+            catchNegatives(l_status);
+        }
+    }
+
     if (l_status != VPD_ECC_OK)
     {
         rc = eccStatus::FAILED;
@@ -496,6 +562,15 @@ void Impl::checkVPDHeader()
     checkHeader();
 }
 
+Binary Impl::fixEccImpl()
+{
+    eccFlag = true;
+    checkHeader();
+    auto iterator = vpd.cbegin();
+    std::size_t ptLen = readTOC(iterator);
+    auto offsets = readPT(iterator, ptLen);
+    return Binary(std::move(vpd));
+}
 } // namespace parser
 } // namespace vpd
 } // namespace openpower
