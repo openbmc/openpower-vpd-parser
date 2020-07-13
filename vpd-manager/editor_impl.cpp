@@ -484,7 +484,6 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
     }
 }
 
-<<<<<<< HEAD
 string EditorImpl::getSysPathForThisFruType(const string& moduleObjPath,
                                             const string& fruType)
 {
@@ -627,7 +626,7 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
 {
     offset = 0;
 #ifndef ManagerTest
- 
+
     getVpdPathForCpu();
     // check if offset present?
     for (const auto& item : jsonFile["frus"][vpdFilePath])
@@ -656,7 +655,7 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
         Binary extracted64KbVpd(first, last);
         vpdFile = extracted64KbVpd;
     }
-#else
+#endif
 
     // check if the vpd file is valid and it contains the kwd and record
     checkFileValidity(vpdFile);
