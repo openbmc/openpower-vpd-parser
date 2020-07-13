@@ -3,15 +3,22 @@
 #include "manager.hpp"
 
 #include "editor_impl.hpp"
+#include "impl.hpp"
 #include "ipz_parser.hpp"
+#include "parser_factory.hpp"
 #include "reader_impl.hpp"
 #include "utils.hpp"
+
+#include <fstream>
 
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::manager::editor;
 using namespace openpower::vpd::manager::reader;
 using namespace std;
+using namespace openpower::vpd::parser;
+using namespace openpower::vpd::ipz::parser;
+using namespace openpower::vpd::parser::factory;
 
 namespace openpower
 {
@@ -207,6 +214,76 @@ LocationCode Manager::getExpandedLocationCode(const LocationCode locationCode,
                                         fruLocationCode);
 }
 
+void Manager::fixBrokenEcc(const sdbusplus::message::object_path path)
+{
+    try
+    {
+        if (frus.find(path) == frus.end())
+        {
+            throw std::runtime_error("Inventory path not found");
+        }
+
+        inventory::Path vpdFilePath = (frus.find(path)->second).first;
+        std::fstream vpdFileStream;
+        char buf[2048];
+        vpdFileStream.rdbuf()->pubsetbuf(buf, sizeof(buf));
+        vpdFileStream.open(vpdFilePath,
+                           std::ios::in | std::ios::out | std::ios::binary);
+
+        if (!vpdFileStream)
+        {
+            throw std::runtime_error("Unable to open vpd file");
+        }
+
+        Binary vpdVector((std::istreambuf_iterator<char>(vpdFileStream)),
+                         std::istreambuf_iterator<char>());
+
+        ParserInterface* Iparser =
+            ParserFactory::getParser(std::move(vpdVector));
+        IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
+        try
+        {
+            if (ipzParser == nullptr)
+            {
+                throw std::runtime_error("Invalid cast");
+            }
+
+            auto vpdPtr = ipzParser->fixEcc();
+
+            // closing and reopening the vpd file stream in truncate mode.
+            vpdFileStream.close();
+
+            std::fstream vpdFileStream;
+            char buf[2048];
+            vpdFileStream.rdbuf()->pubsetbuf(buf, sizeof(buf));
+            vpdFileStream.open(vpdFilePath, std::ios::in | std::ios::out |
+                                                std::ios::binary |
+                                                std::ios::trunc);
+
+            std::ostream_iterator<uint8_t> outputIterator(vpdFileStream);
+            auto start = vpdPtr.begin();
+            auto end = vpdPtr.end();
+            std::copy(start, end, outputIterator);
+
+            vpdFileStream.close();
+        }
+        catch (const std::exception& e)
+        {
+            if (ipzParser != nullptr)
+            {
+                delete ipzParser;
+            }
+            throw std::runtime_error(e.what());
+        }
+        vpdFileStream.close();
+        delete ipzParser;
+        ipzParser = nullptr;
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+}
 } // namespace manager
 } // namespace vpd
 } // namespace openpower
