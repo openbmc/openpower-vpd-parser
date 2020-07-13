@@ -129,6 +129,10 @@ class Manager : public ServerObject<ManagerIface>
      */
     void processJSON();
 
+    /** @brief get replaceable frus vector */
+    void getReplaceableFruVector(inventory::ReplaceableFrus& replaceableFrus,
+                                 const nlohmann::json jsonFile);
+
     /** @brief Persistent sdbusplus DBus bus connection. */
     sdbusplus::bus::bus _bus;
 

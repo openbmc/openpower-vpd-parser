@@ -255,31 +255,6 @@ static void populateInterfaces(const nlohmann::json& js,
     }
 }
 
-static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
-{
-    uint32_t offset = 0;
-    // check if offset present?
-    for (const auto& item : js["frus"][file])
-    {
-        if (item.find("offset") != item.end())
-        {
-            offset = item["offset"];
-        }
-    }
-
-    // TODO: Figure out a better way to get max possible VPD size.
-    Binary vpdVector;
-    vpdVector.resize(65504);
-    ifstream vpdFile;
-    vpdFile.open(file, ios::binary);
-
-    vpdFile.seekg(offset, ios_base::cur);
-    vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), 65504);
-    vpdVector.resize(vpdFile.gcount());
-
-    return vpdVector;
-}
-
 /** This API will be called at the end of VPD collection to perform any post
  * actions.
  *
@@ -984,8 +959,13 @@ int main(int argc, char** argv)
                     "VPD file is empty. Can't process with blank file."));
             }
 
-            Binary vpdVector = getVpdDataInVector(js, file);
-            ParserInterface* parser = ParserFactory::getParser(move(vpdVector));
+            fstream vpdFileStream;
+            Binary vpdVector{};
+            uint32_t offset = 0;
+            getVpdDataInVector(js, file, vpdFileStream, offset, vpdVector);
+            Binary vpdVectorLocal = vpdVector;
+            ParserInterface* parser =
+                ParserFactory::getParser(std::move(vpdVector));
 
             variant<KeywordVpdMap, Store> parseResult;
             parseResult = parser->parse();

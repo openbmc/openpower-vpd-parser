@@ -4,13 +4,14 @@
 #include "types.hpp"
 
 #include <iostream>
-
-using namespace std;
+#include <nlohmann/json.hpp>
 
 namespace openpower
 {
 namespace vpd
 {
+using namespace std;
+using json = nlohmann::json;
 
 /** @brief Return the hex representation of the incoming byte
  *
@@ -162,5 +163,39 @@ inline vector<string> executeCmd(T&& path, Types... args)
     return stdOutput;
 }
 
+/**
+ * @brief Method to parse the inventory json
+ * @param [out] jsonFile - Reference to the parsed inventory json object
+ */
+void getParsedInventoryJsonObject(json& jsonFile);
+
+/**
+ * @brief Method which returns Map of Inventory path to its corresponding Eeprom
+ * Path
+ * @param[out] frus - Map of inventory path and eeprom path.
+ * @param[in] jsonFile - Parsed inventory json object.
+ */
+void getInvToEepromMap(inventory::FrusMap& frus, const json jsonFile);
+
+/**
+ * @brief Method which returns Map of Inventory path to its corresponding
+ * Location Code
+ * @param[out] fruLocationCode - Map of Location code and inventory path.
+ * @param[in] jsonFile - Parsed inventory json object.
+ */
+void getLocationCodeToInvMap(inventory::LocationCodeMap& fruLocationCode,
+                             const json jsonFile);
+
+/**
+ * @brief Copy vpd data from the eeprom path to the vector
+ * @param[in] js - Inventory Json Object
+ * @param[in] file - eeprom path
+ * @param[out] vpdFileStream - vpd file stream object
+ * @param[out] offset - offset value
+ * @param[out] vpdVector - vpd as vector object
+ */
+void getVpdDataInVector(const json& js, const string& file,
+                        fstream& vpdFileStream, uint32_t& offset,
+                        Binary& vpdVector);
 } // namespace vpd
 } // namespace openpower
