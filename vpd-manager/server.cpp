@@ -33,14 +33,12 @@ int Manager::_callback_WriteKeyword(sd_bus_message* msg, void* context,
     try
     {
         auto m = message::message(msg);
-#if 1
         {
             auto tbus = m.get_bus();
             sdbusplus::server::transaction::Transaction t(tbus, m);
             sdbusplus::server::transaction::set_id(
                 std::hash<sdbusplus::server::transaction::Transaction>{}(t));
         }
-#endif
 
         sdbusplus::message::object_path path{};
         std::string record{};
@@ -100,14 +98,12 @@ int Manager::_callback_GetFRUsByUnexpandedLocationCode(sd_bus_message* msg,
     try
     {
         auto m = message::message(msg);
-#if 1
         {
             auto tbus = m.get_bus();
             sdbusplus::server::transaction::Transaction t(tbus, m);
             sdbusplus::server::transaction::set_id(
                 std::hash<sdbusplus::server::transaction::Transaction>{}(t));
         }
-#endif
 
         std::string locationCode{};
         uint16_t nodeNumber{};
@@ -161,14 +157,12 @@ int Manager::_callback_GetFRUsByExpandedLocationCode(sd_bus_message* msg,
     try
     {
         auto m = message::message(msg);
-#if 1
         {
             auto tbus = m.get_bus();
             sdbusplus::server::transaction::Transaction t(tbus, m);
             sdbusplus::server::transaction::set_id(
                 std::hash<sdbusplus::server::transaction::Transaction>{}(t));
         }
-#endif
 
         std::string locationCode{};
 
@@ -221,14 +215,12 @@ int Manager::_callback_GetExpandedLocationCode(sd_bus_message* msg,
     try
     {
         auto m = message::message(msg);
-#if 1
         {
             auto tbus = m.get_bus();
             sdbusplus::server::transaction::Transaction t(tbus, m);
             sdbusplus::server::transaction::set_id(
                 std::hash<sdbusplus::server::transaction::Transaction>{}(t));
         }
-#endif
 
         std::string locationCode{};
         uint16_t nodeNumber{};
@@ -274,6 +266,50 @@ static const auto _return_GetExpandedLocationCode =
 } // namespace Manager
 } // namespace details
 
+int Manager::_callback_FixBrokenEcc(sd_bus_message* msg, void* context,
+                                    sd_bus_error* error)
+{
+    try
+    {
+        auto m = message::message(msg);
+        {
+            auto tbus = m.get_bus();
+            sdbusplus::server::transaction::Transaction t(tbus, m);
+            sdbusplus::server::transaction::set_id(
+                std::hash<sdbusplus::server::transaction::Transaction>{}(t));
+        }
+
+        sdbusplus::message::object_path path{};
+
+        m.read(path);
+
+        auto o = static_cast<Manager*>(context);
+        o->fixBrokenEcc(path);
+
+        auto reply = m.new_method_return();
+        // No data to append on reply.
+
+        reply.method_return();
+    }
+    catch (sdbusplus::internal_exception_t& e)
+    {
+        return sd_bus_error_set(error, e.name(), e.description());
+    }
+
+    return true;
+}
+
+namespace details
+{
+namespace Manager
+{
+static const auto _param_FixBrokenEcc = utility::tuple_to_array(
+    message::types::type_id<sdbusplus::message::object_path>());
+static const auto _return_FixBrokenEcc =
+    utility::tuple_to_array(std::make_tuple('\0'));
+} // namespace Manager
+} // namespace details
+
 const vtable::vtable_t Manager::_vtable[] = {
     vtable::start(),
 
@@ -297,7 +333,12 @@ const vtable::vtable_t Manager::_vtable[] = {
                    details::Manager::_param_GetExpandedLocationCode.data(),
                    details::Manager::_return_GetExpandedLocationCode.data(),
                    _callback_GetExpandedLocationCode),
-    vtable::end()};
+
+    vtable::method("FixBrokenEcc", details::Manager::_param_FixBrokenEcc.data(),
+                   details::Manager::_return_FixBrokenEcc.data(),
+                   _callback_FixBrokenEcc),
+    vtable::end()
+};
 
 } // namespace server
 } // namespace VPD
