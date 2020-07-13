@@ -199,6 +199,16 @@ class VpdTool
     int updateHardware();
 
     /**
+     * @brief ECC Fix
+     *
+     * Fix the ecc for the given record in the given object.
+     * The Fix ECC implementation assumes the record data is correct and updates
+     * the record's ECC accordingly.
+     * @return return code to indicate success or failure of execution.
+     */
+    int fixEcc();
+
+    /**
      * @brief Constructor
      * Constructor is called during the
      * object instantiation for dumpInventory option and
@@ -240,6 +250,15 @@ class VpdTool
         fruPath(std::move(fru)),
         recordName(std::move(recName)), keyword(std::move(kw)),
         value(std::move(val))
+    {
+    }
+
+    /**
+     * @brief Constructor
+     * Constructor is called during object instantiation for fixEcc option.
+     */
+    VpdTool(const std::string&& fru, const std::string&& recName) :
+        fruPath(std::move(fru)), recordName(std::move(recName))
     {
     }
 };
