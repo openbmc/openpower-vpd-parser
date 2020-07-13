@@ -55,6 +55,7 @@ static constexpr auto RAINIER_4U = "50001000_0001";
 static constexpr auto RAINIER_4U_V2 = "50001000_0002";
 static constexpr auto RAINIER_1S4U = "50001002";
 static constexpr auto EVEREST = "50003000";
+static constexpr auto MAX_VPD_SIZE_BYTES = 65504;
 
 constexpr uint8_t KW_VPD_START_TAG = 0x82;
 constexpr uint8_t KW_VPD_END_TAG = 0x78;
