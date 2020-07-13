@@ -80,6 +80,13 @@ int main(int argc, char** argv)
         "corresponding read/write flags. This --Hardware flag is to be given "
         "along with readKeyword/writeKeyword.");
 
+    auto eccFixFlag = app.add_flag("--eccFix, -e, -E",
+                                   "Fix the broken ECC. {vpd-tool-exe "
+                                   "--eccFix/-e/-E --object/-O object-name "
+                                   "--record/-R \"record-name\"}")
+                          ->needs(object)
+                          ->needs(record);
+
     CLI11_PARSE(app, argc, argv);
 
     ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
@@ -146,6 +153,12 @@ int main(int argc, char** argv)
             VpdTool vpdToolObj(move(path), move(recordName), move(keyword),
                                move(val));
             rc = vpdToolObj.updateHardware();
+        }
+
+        else if (*eccFixFlag)
+        {
+            VpdTool vpdToolObj(move(objectPath), move(recordName));
+            vpdToolObj.fixEcc();
         }
 
         else
