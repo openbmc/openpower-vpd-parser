@@ -40,6 +40,9 @@ using LocationCodeMap = std::unordered_multimap<LocationCode, Path>;
 using ListOfPaths = std::vector<sdbusplus::message::object_path>;
 using Node = uint16_t;
 using KeywordVpdMap = std::unordered_map<std::string, Binary>;
+using Keyword = std::string;
+using KeywordData = std::string;
+using DbusPropertyMap = std::unordered_map<Keyword, KeywordData>;
 
 } // namespace inventory
 
