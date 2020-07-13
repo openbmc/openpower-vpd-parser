@@ -178,6 +178,13 @@ class VpdTool
     void readKeywordFromHardware(const json& jsonFile);
 
     /**
+     * @brief ECC Fix
+     * Fix the ecc for the given object by making a dbus call
+     * to "FixBrokenEcc" method in VPD Manager interface.
+     */
+    void eccFix();
+
+    /**
      * @brief Constructor
      * Constructor is called during the
      * object instantiation for dumpInventory option and
@@ -190,7 +197,8 @@ class VpdTool
     /**
      * @brief Constructor
      * Constructor is called during the
-     * object instantiation for dumpObject option.
+     * object instantiation for dumpObject option and
+     * eccFix option.
      */
     VpdTool(const std::string&& fru) : fruPath(std::move(fru))
     {
