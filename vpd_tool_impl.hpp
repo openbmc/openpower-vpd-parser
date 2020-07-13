@@ -162,6 +162,13 @@ class VpdTool
     void forceReset(const nlohmann::basic_json<>& jsObject);
 
     /**
+     * @brief ECC Fix
+     * Fix the ecc for the given object by making a dbus call
+     * to "FixBrokenEcc" method in VPD Manager interface.
+     */
+    void fixEcc();
+
+    /**
      * @brief Constructor
      * Constructor is called during the
      * object instantiation for dumpInventory option and
@@ -203,6 +210,15 @@ class VpdTool
         fruPath(std::move(fru)),
         recordName(std::move(recName)), keyword(std::move(kw)),
         value(std::move(val))
+    {
+    }
+
+    /**
+     * @brief Constructor
+     * Constructor is called during object instantiation for fixEcc option.
+     */
+    VpdTool(const std::string&& fru, const std::string&& recName) :
+        fruPath(std::move(fru)), recordName(std::move(recName))
     {
     }
 };
