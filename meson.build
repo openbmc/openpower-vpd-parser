@@ -48,8 +48,8 @@ common_SOURCES= ['vpd-parser/parser_factory.cpp',
                  'vpd-parser/ipz_parser.cpp',
                  'impl.cpp',
                  'utils.cpp',
-                 'vpdecc/vpdecc.c',
-                 'vpdecc/vpdecc_support.c'
+		 'vpdecc/vpdecc.c',
+		 'vpdecc/vpdecc_support.c'
 ]
 
 vpd_tool_SOURCES = ['vpd_tool.cpp',
