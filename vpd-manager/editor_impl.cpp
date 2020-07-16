@@ -539,7 +539,7 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
     vector<unsigned char>::const_iterator last = tmpVector.begin() + NEXT_64_KB;
 
     vpdFile = tmpVector;
-    if (distance(first, last) > tmpVector.size())
+    if (distance(first, last) > static_cast<int>(tmpVector.size()))
     {
         Binary extracted64KbVpd(first, last);
         vpdFile = extracted64KbVpd;

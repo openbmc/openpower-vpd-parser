@@ -20,7 +20,8 @@ namespace vpd
 namespace manager
 {
 Manager::Manager(sdbusplus::bus::bus&& bus, const char* busName,
-                 const char* objPath, const char* iFace) :
+                 const char* objPath,
+                 const char* iFace __attribute__((unused))) :
     ServerObject<ManagerIface>(bus, objPath),
     _bus(std::move(bus)), _manager(_bus, objPath)
 {

@@ -10,10 +10,10 @@ vpd_manager_SOURCES =['manager_main.cpp',
                       'editor_impl.cpp',
                       'reader_impl.cpp',
                       '../impl.cpp',
+		      '../vpdecc/vpdecc.c',
+		      '../vpdecc/vpdecc_support.c',
                       '../vpd-parser/ipz_parser.cpp',
                       '../utils.cpp',
-                      '../vpdecc/vpdecc.c',
-                      '../vpdecc/vpdecc_support.c',
                       '../vpd-parser//keyword_vpd_parser.cpp',
                       '../vpd-parser/memory_vpd_parser.cpp',
                       '../vpd-parser/parser_factory.cpp',
@@ -32,5 +32,6 @@ vpd_manager_exe = executable(
                  dependencies : [
                                 vpd_manager_dependencies,
                                 ],
-                 install : true
+                 install : true,
+		 cpp_args : '-DIPZ_PARSER'
                 )
