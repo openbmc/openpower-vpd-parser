@@ -1,4 +1,3 @@
-
 #include "vpdecc_support.h"
 
 #include <string.h>

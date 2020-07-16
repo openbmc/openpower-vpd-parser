@@ -17,6 +17,9 @@
 #ifndef _VPDECC_H_
 #define _VPDECC_H_
 
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
 #include <stdlib.h>
 
 #define VPD_ECC_OK 0
