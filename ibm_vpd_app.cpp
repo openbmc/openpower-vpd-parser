@@ -260,7 +260,7 @@ Binary getVpdDataInVector(nlohmann::json& js, const string& filePath)
     vector<unsigned char>::const_iterator first = tmpVector.begin();
     vector<unsigned char>::const_iterator last = tmpVector.begin() + NEXT_64_KB;
 
-    if (distance(first, last) < tmpVector.size())
+    if (distance(first, last) < static_cast<int>(tmpVector.size()))
     {
         Binary vpdVector(first, last);
         return vpdVector;
