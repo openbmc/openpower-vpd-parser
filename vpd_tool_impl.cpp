@@ -197,7 +197,6 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
         throw runtime_error("Extra Interfaces not found");
     }
 
-    bool exIntfCheck = false;
     json output = json::object({});
     fruType = "FRU";
 
@@ -220,7 +219,6 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
         {
             if (!(ex.value().is_null()))
             {
-                exIntfCheck = true;
                 getExtraInterfaceProperties(itemEEPROM.at("inventoryPath"),
                                             ex.key(), ex.value(),
                                             itemEEPROM["extraInterfaces"], js);

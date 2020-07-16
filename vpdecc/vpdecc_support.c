@@ -1,3 +1,4 @@
+#pragma GCC diagnostic ignored "-Wunused-variable"
 
 #include "vpdecc_support.h"
 
