@@ -15,14 +15,14 @@ using namespace openpower::vpd::constants;
 
 std::variant<kwdVpdMap, Store> IpzVpdParser::parse()
 {
-    Impl p(std::move(vpd));
+    Impl p(std::move(vpd), vpdFilePath);
     Store s = p.run();
     return s;
 }
 
 void IpzVpdParser::processHeader()
 {
-    Impl p(std::move(vpd));
+    Impl p(std::move(vpd), vpdFilePath);
     p.checkVPDHeader();
 }
 
@@ -33,7 +33,7 @@ std::string IpzVpdParser::getInterfaceName() const
 
 Binary IpzVpdParser::fixEcc()
 {
-    Impl ecc(std::move(vpd));
+    Impl ecc(std::move(vpd), vpdFilePath);
     Binary temp = ecc.fixEccImpl();
     return Binary(std::move(temp));
 }
