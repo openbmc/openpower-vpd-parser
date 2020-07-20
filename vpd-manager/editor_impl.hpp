@@ -57,8 +57,8 @@ class EditorImpl
      */
     EditorImpl(const std::string& record, const std::string& kwd,
                Binary&& vpd) :
-        thisRecord(record, kwd),
-        vpdFile(std::move(vpd))
+        vpdFile(std::move(vpd)),
+        thisRecord(record, kwd)
     {
     }
 
@@ -70,7 +70,7 @@ class EditorImpl
                const std::string& record, const std::string& kwd,
                const sdbusplus::message::object_path& inventoryPath) :
         vpdFilePath(path),
-        jsonFile(json), thisRecord(record, kwd), objPath(inventoryPath)
+        objPath(inventoryPath), jsonFile(json), thisRecord(record, kwd)
     {
     }
 
@@ -179,6 +179,8 @@ class EditorImpl
     // file to store parsed json
     const nlohmann::json jsonFile;
 
+    Binary vpdFile;
+
     // structure to hold info about record to edit
     struct RecInfo
     {
@@ -198,8 +200,6 @@ class EditorImpl
         {
         }
     } thisRecord;
-
-    Binary vpdFile;
 
     // If requested Interface is common Interface
     bool isCI;

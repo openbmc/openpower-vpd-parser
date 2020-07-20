@@ -92,5 +92,13 @@ string readBusProperty(const string& obj, const string& inf,
 inventory::VPDfilepath getVpdFilePath(const json& jsonFile,
                                       const std::string& ObjPath);
 
+/**
+ * @brief getSHA
+ * API to generate a SHA value for a given string
+ * @param[in] - EEPROM path
+ * @return - SHA string
+ */
+std::string getSHA(const std::string& filePath);
+
 } // namespace vpd
 } // namespace openpower
