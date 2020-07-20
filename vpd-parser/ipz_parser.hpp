@@ -32,7 +32,8 @@ class IpzVpdParser : public ParserInterface
     /**
      * @brief Constructor
      */
-    IpzVpdParser(Binary&& VpdVector) : vpd(std::move(VpdVector))
+    IpzVpdParser(Binary&& VpdVector, const inventory::Path& filePath) :
+        vpd(std::move(VpdVector)), vpdFilePath(filePath)
     {
     }
 
@@ -72,6 +73,8 @@ class IpzVpdParser : public ParserInterface
 
   private:
     Binary vpd;
+
+    inventory::Path vpdFilePath;
 }; // class IpzVpdParser
 
 } // namespace parser

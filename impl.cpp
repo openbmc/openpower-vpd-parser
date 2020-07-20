@@ -1,11 +1,18 @@
+#include "config.h"
+
 #include "impl.hpp"
 
 #include "const.hpp"
 #include "defines.hpp"
 #include "utils.hpp"
 
+#include <dirent.h>
+#include <errno.h>
+#include <sys/stat.h>
+
 #include <algorithm>
 #include <exception>
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <iterator>
@@ -365,7 +372,7 @@ void Impl::processRecord(std::size_t recordOffset)
         std::advance(iterator, -(lengths::KW_NAME + sizeof(KwSize) +
                                  lengths::RECORD_NAME));
 #endif
-        auto kwMap = readKeywords(iterator);
+        auto kwMap = readKeywords(iterator, name);
         // Add entry for this record (and contained keyword:value pairs)
         // to the parsed vpd output.
         out.emplace(std::move(name), std::move(kwMap));
@@ -471,7 +478,52 @@ std::string Impl::readKwData(const internal::KeywordInfo& keyword,
     return {};
 }
 
-internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
+void Impl::storeOffset(uint16_t offset, std::string kwdName)
+{
+    // restricting file name length to 8.
+    std::string jsonName = getSHA(vpdFilePath);
+
+    std::string jsonPath = offsetJsonFirectory + jsonName + string(".json");
+
+    // check if the directory exist if not create it
+    struct stat st;
+    if (stat(offsetJsonFirectory, &st) == FAILED)
+    {
+        if (errno == ENOENT)
+        {
+            // make directory with full permission
+            int ret = mkdir(offsetJsonFirectory, 0777);
+            if (ret == FAILED)
+            {
+                // directory creation failed
+                return;
+            }
+        }
+        else
+        {
+            // some other issue with the path. should not proceed
+            return;
+        }
+    }
+
+    std::ifstream offsetJson(jsonPath);
+    json js;
+    if (offsetJson)
+    {
+        // for the first time json file will not exist so input stream
+        // will fail hence don't parse the json in that case.
+        js = json::parse(offsetJson);
+    }
+
+    transform(kwdName.begin(), kwdName.end(), kwdName.begin(), ::tolower);
+    js.emplace(kwdName + string("Offset"), offset);
+
+    std::ofstream jsOpStream(jsonPath);
+    jsOpStream << std::setw(2) << js << std::endl;
+}
+
+internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator,
+                                        const std::string& recName)
 {
     internal::KeywordMap map{};
     while (true)
@@ -508,6 +560,11 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
 
             // Jump past keyword length
             std::advance(iterator, sizeof(KwSize));
+        }
+
+        if ((kw == "FN" || kw == "SN") && recName == "VINI")
+        {
+            storeOffset(std::distance(vpd.cbegin(), iterator), kw);
         }
 
         // Pointing to keyword data now
