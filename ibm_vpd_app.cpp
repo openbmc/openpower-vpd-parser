@@ -430,18 +430,20 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
             }
         }
 
-        if (item.value("inheritEI", true))
-        {
-            // Populate interfaces and properties that are common to every FRU
-            // and additional interface that might be defined on a per-FRU
-            // basis.
-            if (item.find("extraInterfaces") != item.end())
-            {
-                populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
-                                   isSystemVpd);
-            }
-        }
-
+        /*       if (item.value("inheritEI", true))
+               {
+                   // Populate interfaces and properties that are common to
+           every FRU
+                   // and additional interface that might be defined on a
+           per-FRU
+                   // basis.
+                   if (item.find("extraInterfaces") != item.end())
+                   {
+                       populateInterfaces(item["extraInterfaces"], interfaces,
+           vpdMap, isSystemVpd);
+                   }
+               }
+       */
         // this condition is needed as openpower json will not have location
         // code interface
         if (item["extraInterfaces"].find(LOCATION_CODE_INF) !=
@@ -465,64 +467,152 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         objects.emplace(move(object), move(interfaces));
     }
 
-    if (isSystemVpd)
-    {
-        vector<uint8_t> imVal;
-        if constexpr (is_same<T, Parsed>::value)
-        {
-            auto property = vpdMap.find("VSBP");
-            if (property != vpdMap.end())
-            {
-                auto value = (property->second).find("IM");
-                if (value != (property->second).end())
-                {
-                    //                          imVal = value->second;
-                    copy(value->second.begin(), value->second.end(),
-                         back_inserter(imVal));
-                }
-            }
-        }
+    /*   if (isSystemVpd)
+       {
+           vector<uint8_t> imVal;
+           if constexpr (is_same<T, Parsed>::value)
+           {
+               auto property = vpdMap.find("VSBP");
+               if (property != vpdMap.end())
+               {
+                   auto value = (property->second).find("IM");
+                   if (value != (property->second).end())
+                   {
+                       //                          imVal = value->second;
+                       copy(value->second.begin(), value->second.end(),
+                            back_inserter(imVal));
+                   }
+               }
+           }
 
-        fs::path target;
-        fs::path link = "/var/lib/vpd/vpd_inventory.json";
+           fs::path target;
+           fs::path link = "/var/lib/vpd/vpd_inventory.json";
 
-        ostringstream oss;
-        for (auto& i : imVal)
-        {
-            if ((int)i / 10 == 0) // one digit number
-            {
-                oss << hex << 0;
-            }
-            oss << hex << static_cast<int>(i);
-        }
-        string imValStr = oss.str();
+           ostringstream oss;
+           for (auto& i : imVal)
+           {
+               if ((int)i / 10 == 0) // one digit number
+               {
+                   oss << hex << 0;
+               }
+               oss << hex << static_cast<int>(i);
+           }
+           string imValStr = oss.str();
 
-        if (imValStr == "50001000") // 4U
-        {
-            target = "/usr/share/vpd/50001000.json";
-        }
+           if (imValStr == "50001000") // 4U
+           {
+               target = "/usr/share/vpd/50001000.json";
+           }
 
-        else if (imValStr == "50001001") // 2U
-        {
-            target = "/usr/share/vpd/50001001.json";
-        }
+           else if (imValStr == "50001001") // 2U
+           {
+               target = "/usr/share/vpd/50001001.json";
+           }
 
-        // unlink the symlink which is created at build time
-        remove("/var/lib/vpd/vpd_inventory.json");
-        // create a new symlink based on the system
-        fs::create_symlink(target, link);
+           // unlink the symlink which is created at build time
+           remove("/var/lib/vpd/vpd_inventory.json");
+           // create a new symlink based on the system
+           fs::create_symlink(target, link);
 
-        // Reloading the json
-        ifstream inventoryJson(link);
-        auto js = json::parse(inventoryJson);
-        inventoryJson.close();
+           // Reloading the json
+           ifstream inventoryJson(link);
+           auto js = json::parse(inventoryJson);
+           inventoryJson.close();
 
-        inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
-        objects.insert(primeObject.begin(), primeObject.end());
-    }
-
+           inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
+           objects.insert(primeObject.begin(), primeObject.end());
+       }
+   */
     // Notify PIM
     inventory::callPIM(move(objects));
+}
+
+tuple<uint16_t, uint16_t> checkSNandFNoffset(const string& filePath)
+{
+    tuple<int16_t, int16_t> offset{INVALID, INVALID};
+
+    // restricting file name length to 8.
+    std::string jsonName = getSHA(filePath);
+
+    std::string jsonPath = offsetJsonFirectory + jsonName + string(".json");
+    std::fstream offsetJSon(jsonPath, std::ios::in | std::ios::binary);
+    // if file is not found
+    if (!offsetJSon)
+    {
+        return offset;
+    }
+
+    auto js = json::parse(offsetJSon);
+
+    if (js.find("snOffset") != js.end() && js.find("fnOffset") != js.end())
+    {
+        // return offset of SN and FN kwd
+        offset = make_tuple(js["snOffset"], js["fnOffset"]);
+        return offset;
+    }
+
+    // if offset is not found return invalid offset.
+    return offset;
+}
+
+tuple<string, string> getDataFromFile(tuple<uint16_t, uint16_t> offset,
+                                      const Binary& vpdFile)
+{
+    uint16_t snOffset = get<0>(offset);
+    uint16_t fnOffset = get<1>(offset);
+
+    auto iterator = vpdFile.cbegin();
+    advance(iterator, snOffset);
+
+    string snData(iterator, iterator + SERIAL_NUM_LEN);
+
+    iterator = vpdFile.cbegin();
+    advance(iterator, fnOffset);
+
+    string fnData(iterator, iterator + FRU_NUM_LEN);
+
+    return make_tuple(snData, fnData);
+}
+
+tuple<string, string> getDataFromDbus(const json& js, const string& filePath)
+{
+    string interface = ipzVpdInf + string("VINI");
+    string objPath{};
+    string snData{};
+    string fnData{};
+
+    for (const auto& itemEEPROM : js["frus"][filePath])
+    {
+        if (itemEEPROM.value("inherit", true))
+        {
+            objPath = itemEEPROM["inventoryPath"];
+
+            // we need object path of any fru that has inherit as true under
+            // this file path
+            break;
+        }
+    }
+
+    if (!objPath.empty())
+    {
+        // read bus property for SN kwd
+        snData = readBusProperty(objPath, interface, "SN");
+
+        // read bus property for FN kwd
+        fnData = readBusProperty(objPath, interface, "FN");
+    }
+
+    return make_tuple(snData, fnData);
+}
+
+bool compareData(tuple<string, string> fileData, tuple<string, string> busData)
+{
+    if ((get<0>(fileData) == get<0>(busData)) &&
+        (get<1>(fileData) == get<1>(busData)))
+    {
+        return true;
+    }
+    return false;
 }
 
 int main(int argc, char** argv)
@@ -564,6 +654,7 @@ int main(int argc, char** argv)
                 offset = item["offset"];
             }
         }
+
         char buf[2048];
         ifstream vpdFile;
         vpdFile.rdbuf()->pubsetbuf(buf, sizeof(buf));
@@ -586,8 +677,22 @@ int main(int argc, char** argv)
                 "VPD file is empty. Can't process with blank file.");
         }
 
+        tuple<int16_t, int16_t> kwdOffsets = checkSNandFNoffset(file);
+        if (get<0>(kwdOffsets) != INVALID && get<1>(kwdOffsets) != INVALID)
+        {
+            tuple<string, string> fileData =
+                getDataFromFile(kwdOffsets, vpdVector);
+
+            tuple<string, string> busData = getDataFromDbus(js, file);
+
+            if (compareData(fileData, busData))
+            {
+                return rc;
+            }
+        }
+
         ParserInterface* parser =
-            ParserFactory::getParser(std::move(vpdVector));
+            ParserFactory::getParser(std::move(vpdVector), file);
 
         variant<KeywordVpdMap, Store> parseResult;
         parseResult = parser->parse();
