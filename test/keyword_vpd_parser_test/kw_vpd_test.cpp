@@ -18,6 +18,8 @@ class KeywordVpdParserTest : public ::testing::Test
     Binary keywordVpdVector;
     Binary bonoKwVpdVector;
 
+    inventory::Path path = "/dummyPath";
+
     KeywordVpdParserTest()
     {
         // Open the kw VPD file in binary mode
@@ -37,7 +39,7 @@ class KeywordVpdParserTest : public ::testing::Test
 
 TEST_F(KeywordVpdParserTest, GoodTestCase)
 {
-    KeywordVpdParser parserObj1(std::move(keywordVpdVector));
+    KeywordVpdParser parserObj1(std::move(keywordVpdVector), path);
     KeywordVpdMap map1 = {
         {"WI", {0x00}},
         {"FL", {0x50, 0x32, 0x20, 0x20, 0x20}},
@@ -65,7 +67,7 @@ TEST_F(KeywordVpdParserTest, GoodTestCase)
     ASSERT_EQ(1, map1 == map2);
 
     // BONO TYPE VPD
-    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector));
+    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector), path);
     map1 = {{"B2",
              {0x50, 0x0, 0xb3, 0xe0, 0x90, 0x0, 0x2, 0x50, 0x0, 0x0, 0x0, 0x0,
               0x0, 0x0, 0x0, 0x0}},
@@ -91,12 +93,12 @@ TEST_F(KeywordVpdParserTest, InvKwVpdTag)
 {
     // Invalid Large resource type Identifier String - corrupted at index[0]
     keywordVpdVector[0] = 0x83;
-    KeywordVpdParser parserObj1(std::move(keywordVpdVector));
+    KeywordVpdParser parserObj1(std::move(keywordVpdVector), path);
     EXPECT_THROW(parserObj1.parse(), std::runtime_error);
 
     // For BONO type VPD
     bonoKwVpdVector[0] = 0x83;
-    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector));
+    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector), path);
     EXPECT_THROW(parserObj2.parse(), std::runtime_error);
 }
 
@@ -104,12 +106,12 @@ TEST_F(KeywordVpdParserTest, InvKwValTag)
 {
     // Invalid Large resource type Vendor Defined - corrupted at index[19]
     keywordVpdVector[19] = 0x85;
-    KeywordVpdParser parserObj1(std::move(keywordVpdVector));
+    KeywordVpdParser parserObj1(std::move(keywordVpdVector), path);
     EXPECT_THROW(parserObj1.parse(), std::runtime_error);
 
     // For BONO type VPD - corruputed at index[33]
     bonoKwVpdVector[33] = 0x91;
-    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector));
+    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector), path);
     EXPECT_THROW(parserObj2.parse(), std::runtime_error);
 }
 
@@ -117,12 +119,12 @@ TEST_F(KeywordVpdParserTest, InvKwValSize)
 {
     // Badly formed keyword VPD data - corrupted at index[20]
     keywordVpdVector[20] = 0x00;
-    KeywordVpdParser parserObj1(std::move(keywordVpdVector));
+    KeywordVpdParser parserObj1(std::move(keywordVpdVector), path);
     EXPECT_THROW(parserObj1.parse(), std::runtime_error);
 
     // For BONO type VPD - corruputed at index[34]
     bonoKwVpdVector[34] = 0x00;
-    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector));
+    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector), path);
     EXPECT_THROW(parserObj2.parse(), std::runtime_error);
 }
 
@@ -130,7 +132,7 @@ TEST_F(KeywordVpdParserTest, InvKwValEndTag)
 {
     // Invalid Small resource type End - corrupted at index[177]
     keywordVpdVector[177] = 0x80;
-    KeywordVpdParser parserObj1(std::move(keywordVpdVector));
+    KeywordVpdParser parserObj1(std::move(keywordVpdVector), path);
     EXPECT_THROW(parserObj1.parse(), std::runtime_error);
 }
 
@@ -138,7 +140,7 @@ TEST_F(KeywordVpdParserTest, InvChecksum)
 {
     // Invalid Check sum - corrupted at index[178]
     keywordVpdVector[178] = 0xb1;
-    KeywordVpdParser parserObj1(std::move(keywordVpdVector));
+    KeywordVpdParser parserObj1(std::move(keywordVpdVector), path);
     EXPECT_THROW(parserObj1.parse(), std::runtime_error);
 }
 
@@ -146,12 +148,12 @@ TEST_F(KeywordVpdParserTest, InvKwVpdEndTag)
 {
     // Invalid Small resource type Last End Of Data - corrupted at index[179]
     keywordVpdVector[179] = 0x79;
-    KeywordVpdParser parserObj1(std::move(keywordVpdVector));
+    KeywordVpdParser parserObj1(std::move(keywordVpdVector), path);
     EXPECT_THROW(parserObj1.parse(), std::runtime_error);
 
     // For BONO type VPD - corrupted at index[147]
     bonoKwVpdVector[147] = 0x79;
-    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector));
+    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector), path);
     EXPECT_THROW(parserObj2.parse(), std::runtime_error);
 }
 
@@ -160,12 +162,12 @@ TEST_F(KeywordVpdParserTest, OutOfBoundGreaterSize)
     // Iterator Out of Bound - size is larger than the actual size - corrupted
     // at index[24]
     keywordVpdVector[24] = 0x32;
-    KeywordVpdParser parserObj1(std::move(keywordVpdVector));
+    KeywordVpdParser parserObj1(std::move(keywordVpdVector), path);
     EXPECT_THROW(parserObj1.parse(), std::runtime_error);
 
     // For BONO type VPD - corrupted at index[38]
     bonoKwVpdVector[38] = 0x4D;
-    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector));
+    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector), path);
     EXPECT_THROW(parserObj2.parse(), std::runtime_error);
 }
 
@@ -174,12 +176,12 @@ TEST_F(KeywordVpdParserTest, OutOfBoundLesserSize)
     // Iterator Out of Bound - size is smaller than the actual size - corrupted
     // at index[24]
     keywordVpdVector[24] = 0x03;
-    KeywordVpdParser parserObj1(std::move(keywordVpdVector));
+    KeywordVpdParser parserObj1(std::move(keywordVpdVector), path);
     EXPECT_THROW(parserObj1.parse(), std::runtime_error);
 
     // For BONO type VPD - corrupted at index[38]
     bonoKwVpdVector[38] = 0x04;
-    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector));
+    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector), path);
     EXPECT_THROW(parserObj2.parse(), std::runtime_error);
 }
 
@@ -187,12 +189,12 @@ TEST_F(KeywordVpdParserTest, BlankVpd)
 {
     // Blank Kw Vpd
     keywordVpdVector.clear();
-    KeywordVpdParser parserObj1(std::move(keywordVpdVector));
+    KeywordVpdParser parserObj1(std::move(keywordVpdVector), path);
     EXPECT_THROW(parserObj1.parse(), std::runtime_error);
 
     // Blank Bono Type Vpd
     bonoKwVpdVector.clear();
-    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector));
+    KeywordVpdParser parserObj2(std::move(bonoKwVpdVector), path);
     EXPECT_THROW(parserObj2.parse(), std::runtime_error);
 }
 
