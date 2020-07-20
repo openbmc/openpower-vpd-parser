@@ -525,6 +525,96 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
     inventory::callPIM(move(objects));
 }
 
+tuple<uint16_t, uint16_t> checkSNandFNoffset(const json& js,
+                                             const string& filePath)
+{
+    tuple<uint16_t, uint16_t> offset{INVALID, INVALID};
+
+    for (const auto& itemEEPROM : js["frus"][filePath])
+    {
+        // only frus having inherit true will have com.ibm.ipzvpd interface and
+        // common interface
+        if (itemEEPROM.value("inherit", true))
+        {
+            if (itemEEPROM.find("snoffset") != js[filePath].end() &&
+                itemEEPROM.find("fnoffset") != js[filePath].end())
+            {
+                // return offset of SN and FN kwd
+                offset =
+                    make_tuple(itemEEPROM["snoffset"], itemEEPROM["fnoffset"]);
+                return offset;
+            }
+
+            // if offset is not found return invalid offset.
+            return offset;
+        }
+    }
+}
+
+tuple<string, string> getDataFromFile(tuple<uint16_t, uint16_t> offset,
+                                      const Binary& vpdFile)
+{
+    uint16_t snOffset = get<0>(offset);
+    uint16_t fnOffset = get<1>(offset);
+
+    auto iterator = vpdFile.cbegin();
+    advance(iterator, snOffset);
+    auto end = iterator;
+    advance(end, SERIAL_NUM_LEN);
+
+    string snData(iterator, end);
+
+    iterator = vpdFile.cbegin();
+    advance(iterator, fnOffset);
+    end = iterator;
+    advance(end, FRU_NUM_LEN);
+
+    string fnData(iterator, end);
+
+    return make_tuple(snData, fnData);
+}
+
+tuple<string, string> getDataFromDbus(const json& js, const string& filePath)
+{
+    string interface = ipzVpdInf + string("VINI");
+    string objPath{};
+    string snData{};
+    string fnData{};
+
+    for (const auto& itemEEPROM : js["frus"][filePath])
+    {
+        if (itemEEPROM.value("inherit", true))
+        {
+            objPath = itemEEPROM["inventoryPath"];
+
+            // we need object path of any fru that has inherit as true under
+            // this file path
+            break;
+        }
+    }
+
+    if (!objPath.empty())
+    {
+        // read bus property for SN kwd
+        snData = readBusProperty(objPath, interface, "SN");
+
+        // read bus property for FN kwd
+        fnData = readBusProperty(objPath, interface, "FN");
+    }
+
+    return make_tuple(snData, fnData);
+}
+
+bool compareData(tuple<string, string> fileData, tuple<string, string> busData)
+{
+    if ((get<0>(fileData) == get<0>(busData)) &&
+        (get<1>(fileData) == get<1>(busData)))
+    {
+        return true;
+    }
+    return false;
+}
+
 int main(int argc, char** argv)
 {
     int rc = 0;
@@ -586,8 +676,22 @@ int main(int argc, char** argv)
                 "VPD file is empty. Can't process with blank file.");
         }
 
+        tuple<uint16_t, uint16_t> kwdOffsets = checkSNandFNoffset(js, file);
+
+        if (get<0>(kwdOffsets) != INVALID && get<1>(kwdOffsets) != INVALID)
+        {
+            tuple<string, string> fileData =
+                getDataFromFile(kwdOffsets, vpdVector);
+            tuple<string, string> busData = getDataFromDbus(js, file);
+
+            if (compareData(fileData, busData))
+            {
+                return rc;
+            }
+        }
+
         ParserInterface* parser =
-            ParserFactory::getParser(std::move(vpdVector));
+            ParserFactory::getParser(std::move(vpdVector), file);
 
         variant<KeywordVpdMap, Store> parseResult;
         parseResult = parser->parse();

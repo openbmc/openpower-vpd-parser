@@ -590,7 +590,8 @@ void EditorImpl::checkFileValidity(Binary vpd)
     Byte vpdType = *iterator;
     if (vpdType == KW_VAL_PAIR_START_TAG)
     {
-        ParserInterface* Iparser = ParserFactory::getParser(std::move(vpd));
+        ParserInterface* Iparser =
+            ParserFactory::getParser(std::move(vpd), vpdFilePath);
         IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
 
         try
