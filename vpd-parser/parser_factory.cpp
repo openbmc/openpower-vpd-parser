@@ -13,6 +13,7 @@ using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::ipz::parser;
 using namespace openpower::vpd::exceptions;
 using namespace openpower::vpd::constants;
+using namespace openpower::vpd::inventory;
 
 namespace openpower
 {
@@ -22,7 +23,8 @@ namespace parser
 {
 namespace factory
 {
-interface::ParserInterface* ParserFactory::getParser(Binary&& vpdVector)
+interface::ParserInterface* ParserFactory::getParser(Binary&& vpdVector,
+                                                     Path& filePath)
 {
     vpdType type = vpdTypeCheck(vpdVector);
 
@@ -30,17 +32,17 @@ interface::ParserInterface* ParserFactory::getParser(Binary&& vpdVector)
     {
         case IPZ_VPD:
         {
-            return new IpzVpdParser(std::move(vpdVector));
+            return new IpzVpdParser(std::move(vpdVector), filePath);
         }
 
         case KEYWORD_VPD:
         {
-            return new KeywordVpdParser(std::move(vpdVector));
+            return new KeywordVpdParser(std::move(vpdVector), filePath);
         }
 
         case MEMORY_VPD:
         {
-            return new memoryVpdParser(std::move(vpdVector));
+            return new memoryVpdParser(std::move(vpdVector), filePath);
         }
 
         default:

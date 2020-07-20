@@ -1,6 +1,8 @@
 #include "args.hpp"
 #include "defines.hpp"
 #include "ipz_parser.hpp"
+#include "keyword_vpd_parser.hpp"
+#include "parser_factory.hpp"
 #include "write.hpp"
 
 #include <exception>
@@ -19,6 +21,7 @@ int main(int argc, char** argv)
     {
         using namespace openpower::vpd;
         using namespace openpower::vpd::ipz::parser;
+        using namespace openpower::vpd::parser::factory;
 
         args::Args arguments = args::parse(argc, argv);
 
@@ -48,33 +51,42 @@ int main(int argc, char** argv)
                    std::istreambuf_iterator<char>());
 
         // Parse VPD
-        IpzVpdParser ipzParser(std::move(vpd));
-        auto vpdStore = std::move(std::get<Store>(ipzParser.parse()));
+        ParserInterface* parser =
+            ParserFactory::getParser(std::move(vpd), file);
 
-        if (doDump)
+        std::variant<openpower::vpd::inventory::KeywordVpdMap, Store>
+            parseResult;
+        parseResult = parser->parse();
+
+        if (auto pVal = std::get_if<Store>(&parseResult))
         {
-            vpdStore.dump();
-        }
+            auto vpdStore = std::move(*pVal);
 
-        // Set FRU based on FRU type and object path
-        if (doFru)
-        {
-            using argList = std::vector<std::string>;
-            argList frus = std::move(arguments.at("fru"));
-            argList objects = std::move(arguments.at("object"));
-
-            if (frus.size() != objects.size())
+            if (doDump)
             {
-                std::cerr << "Unequal number of FRU types and object paths "
-                             "specified\n";
-                rc = -1;
+                vpdStore.dump();
             }
-            else
+
+            // Set FRU based on FRU type and object path
+            if (doFru)
             {
-                // Write VPD to FRU inventory
-                for (std::size_t index = 0; index < frus.size(); ++index)
+                using argList = std::vector<std::string>;
+                argList frus = std::move(arguments.at("fru"));
+                argList objects = std::move(arguments.at("object"));
+
+                if (frus.size() != objects.size())
                 {
-                    inventory::write(frus[index], vpdStore, objects[index]);
+                    std::cerr << "Unequal number of FRU types and object paths "
+                                 "specified\n";
+                    rc = -1;
+                }
+                else
+                {
+                    // Write VPD to FRU inventory
+                    for (std::size_t index = 0; index < frus.size(); ++index)
+                    {
+                        inventory::write(frus[index], vpdStore, objects[index]);
+                    }
                 }
             }
         }
