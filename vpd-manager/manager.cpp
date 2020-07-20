@@ -190,7 +190,7 @@ void Manager::fixBrokenEcc(const sdbusplus::message::object_path path)
                          std::istreambuf_iterator<char>());
 
         ParserInterface* Iparser =
-            ParserFactory::getParser(std::move(vpdVector));
+            ParserFactory::getParser(std::move(vpdVector), vpdFilePath);
         IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
         try
         {
