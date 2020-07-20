@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "impl.hpp"
 
 #include "const.hpp"
@@ -6,6 +8,7 @@
 
 #include <algorithm>
 #include <exception>
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <iterator>
@@ -471,6 +474,34 @@ std::string Impl::readKwData(const internal::KeywordInfo& keyword,
     return {};
 }
 
+void Impl::storeOffset(uint16_t offset, std::string kwdName)
+{
+    std::string jsonName{};
+
+    if (vpdFilePath.find("i2c") != string::npos)
+    {
+        jsonName = "test"; // vpdFilePath.substr(vpdFilePath.find("i2c"));
+    }
+
+    std::string jsonPath = string("/var/lib/vpd/") + jsonName + string(".json");
+    std::cout << "Json path_impl " << jsonPath << std::endl;
+
+    std::ifstream offsetJson(jsonPath);
+    json js;
+    if (offsetJson)
+    {
+        // for the first time json file will not exist so input stream
+        // will fail hence don't parse the json in that case.
+        js = json::parse(offsetJson);
+    }
+
+    transform(kwdName.begin(), kwdName.end(), kwdName.begin(), ::tolower);
+    js.emplace(kwdName + string("Offset"), offset);
+
+    std::ofstream jsOpStream(jsonPath);
+    jsOpStream << std::setw(2) << js << std::endl;
+}
+
 internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
 {
     internal::KeywordMap map{};
@@ -508,6 +539,11 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
 
             // Jump past keyword length
             std::advance(iterator, sizeof(KwSize));
+        }
+
+        if (kw == "FN" || kw == "SN")
+        {
+            storeOffset(std::distance(vpd.cbegin(), iterator), kw);
         }
 
         // Pointing to keyword data now
