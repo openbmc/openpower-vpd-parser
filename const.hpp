@@ -65,6 +65,9 @@ constexpr auto FORMAT_11S_LEN = 3;
 static constexpr auto PART_NUM_LEN = 7;
 static constexpr auto SERIAL_NUM_LEN = 12;
 static constexpr auto CCIN_LEN = 4;
+static constexpr auto FRU_NUM_LEN = 7;
+static constexpr auto INVALID_OFFSET = -1;
+static constexpr auto FAILED = -1;
 
 using namespace std::string_literals;
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
@@ -72,6 +75,7 @@ constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
 constexpr auto kwdVpdInf = "com.ibm.kwvpd.KWVPD";
 constexpr auto memVpdInf = "com.ibm.kwvpd.KWVPD";
 constexpr auto ipzVpdInf = "com.ibm.ipzvpd.";
+constexpr auto offsetJsonDirectory = "/var/lib/vpd/";
 
 namespace lengths
 {
