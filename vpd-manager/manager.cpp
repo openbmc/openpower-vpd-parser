@@ -155,7 +155,6 @@ LocationCode Manager::getExpandedLocationCode(const LocationCode locationCode,
     return read.getExpandedLocationCode(locationCode, nodeNumber,
                                         fruLocationCode);
 }
-
 } // namespace manager
 } // namespace vpd
 } // namespace openpower

@@ -13,7 +13,7 @@ else
 endif
 gmock = dependency('gmock', disabler: true, required: build_tests)
 gtest = dependency('gtest', main: true, disabler: true, required: build_tests)
-dependecy_list = [gtest, gmock, sdbusplus, phosphor_logging, phosphor_dbus_interfaces]
+dependecy_list = [gtest, gmock, sdbusplus, phosphor_logging, phosphor_dbus_interfaces, libcrypto]
 
 configuration_inc = include_directories('..', '../vpd-manager', 'vpd-manager-test', '../vpd-parser')
 

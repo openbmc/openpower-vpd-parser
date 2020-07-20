@@ -15,7 +15,8 @@ void runTests()
         Binary vpd((std::istreambuf_iterator<char>(vpdFile)),
                    std::istreambuf_iterator<char>());
 
-        IpzVpdParser ipzParser(std::move(vpd));
+        std::string path = "/dummyPath";
+        IpzVpdParser ipzParser(std::move(vpd), path);
         auto vpdStore = std::move(std::get<Store>(ipzParser.parse()));
 
         assert(("P012" == vpdStore.get<Record::VINI, record::Keyword::CC>()));
