@@ -58,7 +58,7 @@ class EditorImpl
     EditorImpl(const std::string& record, const std::string& kwd,
                Binary&& vpd) :
         startOffset(0),
-        thisRecord(record, kwd), vpdFile(std::move(vpd))
+        vpdFile(std::move(vpd)), thisRecord(record, kwd)
     {
     }
 
@@ -169,6 +169,8 @@ class EditorImpl
     // file to store parsed json
     const nlohmann::json jsonFile;
 
+    Binary vpdFile;
+
     // structure to hold info about record to edit
     struct RecInfo
     {
@@ -188,8 +190,6 @@ class EditorImpl
         {
         }
     } thisRecord;
-
-    Binary vpdFile;
 
     // If requested Interface is common Interface
     bool isCI;
