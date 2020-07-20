@@ -30,7 +30,8 @@ class memoryVpdParser : public ParserInterface
      *
      * Move memVpdVector to parser object's memVpdVector
      */
-    memoryVpdParser(Binary&& VpdVector) : memVpd(std::move(VpdVector))
+    memoryVpdParser(Binary&& VpdVector, inventory::Path& filePath) :
+        memVpd(std::move(VpdVector)), vpdFilePath(filePath)
     {
     }
 
@@ -60,6 +61,8 @@ class memoryVpdParser : public ParserInterface
 
     // vdp file to be parsed
     Binary memVpd;
+
+    inventory::Path vpdFilePath;
 };
 } // namespace parser
 } // namespace memory

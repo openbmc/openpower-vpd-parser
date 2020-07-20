@@ -30,6 +30,18 @@ if(get_option('optimization') == '0')
   message('Disabling FORTIFY_SOURCE as optimization is set to 0')
 endif
 
+systemd = dependency('libsystemd', version: '>= 221')
+libcrypto = meson.get_compiler('c').find_library('libcrypto')
+
+dependency_list = [sdbusplus,
+                  phosphor_logging,
+                  phosphor_dbus_interfaces,
+                  libcrypto,
+                  systemd
+]
+
+compiler.has_header('openssl/sha.h')
+
 configure_file(output: 'config.h',
                        configuration :{
                        'INVENTORY_JSON_DEFAULT': '"'+get_option('INVENTORY_JSON_DEFAULT')+'"',
@@ -69,9 +81,8 @@ if get_option('ibm-parser').enabled()
                                 'ibm-read-vpd',
                                 ibm_read_vpd_SOURCES,
                                 dependencies: [
-                                        sdbusplus,
-                                        phosphor_logging,
-                                        libgpiodcxx,
+                                    dependency_list,
+                                    libgpiodcxx
                                 ],
                                 include_directories : 'vpd-parser/',
                                 install: true,
@@ -89,7 +100,8 @@ if get_option('ibm-parser').enabled()
                                  'vpd-tool',
                                  vpd_tool_SOURCES,
                                  dependencies: [
-                                   sdbusplus
+                                   sdbusplus,
+                                   libcrypto
                                    ],
                                  install: true,
                                  include_directories : vpd_tool_INCLUDE
@@ -151,8 +163,7 @@ else
                 'openpower-read-vpd',
                 openpower_read_vpd_SOURCES,
                 dependencies: [
-                        sdbusplus,
-                        phosphor_logging,
+                    dependency_list
                 ],
                 include_directories : 'vpd-parser/',
                 install: true,

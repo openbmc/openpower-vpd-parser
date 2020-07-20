@@ -8,7 +8,6 @@
 #include <iostream>
 #include <iterator>
 #include <string>
-#include <variant>
 #include <vector>
 
 int main(int argc, char** argv)
@@ -48,7 +47,7 @@ int main(int argc, char** argv)
                    std::istreambuf_iterator<char>());
 
         // Parse VPD
-        IpzVpdParser ipzParser(std::move(vpd));
+        IpzVpdParser ipzParser(std::move(vpd), file);
         auto vpdStore = std::move(std::get<Store>(ipzParser.parse()));
 
         if (doDump)

@@ -68,7 +68,8 @@ class Impl
      *
      *  @param[in] vpdBuffer - Binary VPD
      */
-    explicit Impl(Binary&& vpdBuffer) : vpd(std::move(vpdBuffer)), out{}
+    explicit Impl(Binary&& vpdBuffer, inventory::Path& filePath) :
+        vpd(std::move(vpdBuffer)), out{}, vpdFilePath(filePath)
     {
     }
 
@@ -126,10 +127,20 @@ class Impl
      *     keywords and their values.
      *
      *  @param[in] iterator - iterator pointing to a Keyword in the VPD
+     *  @param[in] - recName - record name whose keywords are to be read.
      *
      *  @returns map of keyword:data
      */
-    internal::KeywordMap readKeywords(Binary::const_iterator iterator);
+    internal::KeywordMap readKeywords(Binary::const_iterator iterator,
+                                      const std::string& recName);
+
+#ifdef IPZ_PARSER
+    /** @brief An api to store offset of SN and FN Keyword in json
+     *  @param[in] - offset of Keyword
+     *  @param[in] - name of the Keyword
+     */
+    void storeOffset(uint16_t offset, const std::string& kwdName);
+#endif
 
     /** @brief Checks if the VHDR record is present in the VPD */
     void checkHeader() const;
@@ -161,6 +172,9 @@ class Impl
 
     /** @brief parser output */
     Parsed out;
+
+    /** @brief vpd file path*/
+    inventory::Path vpdFilePath;
 };
 
 } // namespace parser

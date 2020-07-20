@@ -162,5 +162,13 @@ inline vector<string> executeCmd(T&& path, Types... args)
     return stdOutput;
 }
 
+/**
+ * @brief getSHA
+ * API to generate a SHA value for a given string
+ * @param[in] - EEPROM path
+ * @return - SHA string
+ */
+std::string getSHA(const std::string& filePath);
+
 } // namespace vpd
 } // namespace openpower

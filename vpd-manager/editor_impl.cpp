@@ -623,7 +623,7 @@ void EditorImpl::updateKeyword(const Binary& kwdData, const bool& updCache)
     if (vpdType == KW_VAL_PAIR_START_TAG)
     {
         ParserInterface* Iparser =
-            ParserFactory::getParser(std::move(completeVPDFile));
+            ParserFactory::getParser(std::move(completeVPDFile), vpdFilePath);
         IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
 
         try
