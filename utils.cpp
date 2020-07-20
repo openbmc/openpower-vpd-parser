@@ -206,5 +206,22 @@ inventory::VPDfilepath getVpdFilePath(const json& jsonFile,
     return filePath;
 }
 
+std::string getSHA(std::string filePath)
+{
+    unsigned char digest[SHA256_DIGEST_LENGTH];
+    SHA256_CTX ctx;
+    SHA256_Init(&ctx);
+    SHA256_Update(&ctx, filePath.c_str(), strlen(filePath.c_str()));
+    SHA256_Final(digest, &ctx);
+    char mdString[SHA256_DIGEST_LENGTH * 2 + 1];
+    for (int i = 0; i < SHA256_DIGEST_LENGTH; i++)
+    {
+        snprintf(&mdString[i * 2], 3, "%02x", (unsigned int)digest[i]);
+    }
+
+    return std::string(mdString);
+    ;
+}
+
 } // namespace vpd
 } // namespace openpower
