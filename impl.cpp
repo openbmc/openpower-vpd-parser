@@ -1,11 +1,18 @@
+#include "config.h"
+
 #include "impl.hpp"
 
 #include "const.hpp"
 #include "defines.hpp"
 #include "utils.hpp"
 
+#include <dirent.h>
+#include <errno.h>
+#include <sys/stat.h>
+
 #include <algorithm>
 #include <exception>
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <iterator>
@@ -471,6 +478,51 @@ std::string Impl::readKwData(const internal::KeywordInfo& keyword,
     return {};
 }
 
+void Impl::storeOffset(uint16_t offset, std::string kwdName)
+{
+    // restricting file name length to 8.
+    std::string jsonName = getSHA(vpdFilePath);
+    jsonName = jsonName.substr(0, 8);
+
+    std::string jsonPath = offsetJsonFirectory + jsonName + string(".json");
+
+    // check if the directory exist if not create it
+    struct stat st;
+    if (stat(offsetJsonFirectory, &st) == INVALID)
+    {
+        if (errno == ENOENT)
+        {
+            // make directory with full permission
+            int ret = mkdir(offsetJsonFirectory, 0777);
+            if (ret == INVALID)
+            {
+                // directory creation failed
+                return;
+            }
+        }
+        else
+        {
+            // some other issue with the path. should not proceed
+            return;
+        }
+    }
+
+    std::ifstream offsetJson(jsonPath);
+    json js;
+    if (offsetJson)
+    {
+        // for the first time json file will not exist so input stream
+        // will fail hence don't parse the json in that case.
+        js = json::parse(offsetJson);
+    }
+
+    transform(kwdName.begin(), kwdName.end(), kwdName.begin(), ::tolower);
+    js.emplace(kwdName + string("Offset"), offset);
+
+    std::ofstream jsOpStream(jsonPath);
+    jsOpStream << std::setw(2) << js << std::endl;
+}
+
 internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
 {
     internal::KeywordMap map{};
@@ -508,6 +560,11 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
 
             // Jump past keyword length
             std::advance(iterator, sizeof(KwSize));
+        }
+
+        if (kw == "FN" || kw == "SN")
+        {
+            storeOffset(std::distance(vpd.cbegin(), iterator), kw);
         }
 
         // Pointing to keyword data now

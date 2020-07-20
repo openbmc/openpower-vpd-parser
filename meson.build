@@ -1,86 +1,91 @@
-project(
-     'openpower-vpd-parser',
-     'c',
-     'cpp',
-     default_options: [
-     'cpp_std=c++17'
-     ],
-     version: '1.0'
-)
+project('openpower-vpd-parser', 'c', 'cpp', default_options
+        : ['cpp_std=c++17'], version
+        : '1.0')
 
-build_tests = get_option('tests')
+    build_tests = get_option('tests')
 
-sdbusplus = dependency('sdbusplus')
-phosphor_logging = dependency('phosphor-logging')
-phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
+        sdbusplus = dependency('sdbusplus') phosphor_logging =
+            dependency('phosphor-logging') phosphor_dbus_interfaces =
+                dependency('phosphor-dbus-interfaces') libcrypto =
+                    meson.get_compiler('c').find_library('libcrypto') systemd =
+                        dependency('libsystemd', version
+                                   : '>= 221')
 
-compiler = meson.get_compiler('cpp')
-python = find_program('python3', required:true)
-compiler.has_header('CLI/CLI.hpp')
-compiler.has_header('nlohmann/json.hpp')
+                            dependecy_list =
+                                [
+                                    sdbusplus, phosphor_logging,
+                                    phosphor_dbus_interfaces, libcrypto,
+                                    systemd
+                                ] compiler = meson.get_compiler('cpp') python =
+                                    find_program('python3', required
+                                                 : true) compiler
+                                        .has_header('CLI/CLI.hpp') compiler
+                                        .has_header('nlohmann/json.hpp')
+                                            compiler.has_header('openssl/sha.h')
 
-argument_list = []
+                                                argument_list = []
 
-configure_file(output: 'config.h',
-                       configuration :{
-                       'INVENTORY_JSON': '"'+get_option('INVENTORY_JSON')+'"',
-                       'INVENTORY_PATH': '"'+get_option('INVENTORY_PATH')+'"',
-                       'IPZ_INTERFACE': '"'+get_option('IPZ_INTERFACE')+'"',
-                       'INVENTORY_MANAGER_SERVICE': '"'+get_option('INVENTORY_MANAGER_SERVICE')+'"',
-                       'BUSNAME' : '"' + get_option('BUSNAME') + '"',
-                       'OBJPATH' : '"' + get_option('OBJPATH') + '"',
-                       'IFACE' : '"' + get_option('IFACE') + '"',
-                       'OBJECT_MAPPER_SERVICE' : '"'+get_option('OBJECT_MAPPER_SERVICE')+'"',
-                       'OBJECT_MAPPER_OBJECT' : '"'+get_option('OBJECT_MAPPER_OBJECT')+'"',
-                       'POWER_SUPPLY_TYPE_INTERFACE' : '"'+get_option('POWER_SUPPLY_TYPE_INTERFACE')+'"',
-                       'INVENTORY_MANAGER_CACHE' : '"'+get_option('INVENTORY_MANAGER_CACHE')+'"'
-                       }
-  )
+    configure_file(
+        output
+        : 'config.h', configuration
+        : {
+            'INVENTORY_JSON' : '"' + get_option('INVENTORY_JSON') + '"',
+            'INVENTORY_PATH' : '"' + get_option('INVENTORY_PATH') + '"',
+            'IPZ_INTERFACE' : '"' + get_option('IPZ_INTERFACE') + '"',
+            'INVENTORY_MANAGER_SERVICE' :
+                    '"' + get_option('INVENTORY_MANAGER_SERVICE') + '"',
+            'BUSNAME' : '"' + get_option('BUSNAME') + '"',
+            'OBJPATH' : '"' + get_option('OBJPATH') + '"',
+            'IFACE' : '"' + get_option('IFACE') + '"',
+            'OBJECT_MAPPER_SERVICE' :
+                    '"' + get_option('OBJECT_MAPPER_SERVICE') + '"',
+            'OBJECT_MAPPER_OBJECT' :
+                    '"' + get_option('OBJECT_MAPPER_OBJECT') + '"',
+            'POWER_SUPPLY_TYPE_INTERFACE' :
+                    '"' + get_option('POWER_SUPPLY_TYPE_INTERFACE') + '"',
+            'INVENTORY_MANAGER_CACHE' :
+                    '"' + get_option('INVENTORY_MANAGER_CACHE') + '"'
+        })
 
-common_SOURCES= ['vpd-parser/parser_factory.cpp',
-                 'vpd-parser/memory_vpd_parser.cpp',
-                 'vpd-parser/keyword_vpd_parser.cpp',
-                 'vpd-parser/ipz_parser.cpp',
-                 'impl.cpp',
-                 'utils.cpp',
-		 'vpdecc/vpdecc.c',
-		 'vpdecc/vpdecc_support.c'
-]
+        common_SOURCES =
+            [
+                'vpd-parser/parser_factory.cpp',
+                'vpd-parser/memory_vpd_parser.cpp',
+                'vpd-parser/keyword_vpd_parser.cpp',
+                'vpd-parser/ipz_parser.cpp', 'impl.cpp', 'utils.cpp',
+                'vpdecc/vpdecc.c', 'vpdecc/vpdecc_support.c'
+            ]
 
-vpd_tool_SOURCES = ['vpd_tool.cpp',
-                    'vpd_tool_impl.cpp',
-                    'vpd-manager/reader_impl.cpp',
-                    'vpd-manager/editor_impl.cpp',
-                    
-] + common_SOURCES
+    vpd_tool_SOURCES =
+        [
+            'vpd_tool.cpp',
+            'vpd_tool_impl.cpp',
+            'vpd-manager/reader_impl.cpp',
+            'vpd-manager/editor_impl.cpp',
 
-vpd_tool_exe = executable('vpd-tool',
-                           vpd_tool_SOURCES,
-                           dependencies:[sdbusplus,
-                                         phosphor_logging
-                           ],
-                           include_directories : ['vpd-manager/', 
-                                                  'vpd-parser/'
-                           ],
-                           install: true
-)
+        ] +
+        common_SOURCES
 
-if get_option('ibm-parser').enabled()
-    argument_list = ['-DIPZ_PARSER']
-endif
+        vpd_tool_exe = executable('vpd-tool', vpd_tool_SOURCES, dependencies
+                                  : [dependecy_list], include_directories
+                                  : [ 'vpd-manager/', 'vpd-parser/' ], install
+                                  : true)
 
-ibm_read_vpd_SOURCES= ['ibm_vpd_app.cpp',
-] + common_SOURCES
+                           if get_option('ibm-parser')
+                               .enabled() argument_list
+    += ['-DIPZ_PARSER'] endif
 
-ibm_vpd_exe = executable('ibm-read-vpd',
-                              ibm_read_vpd_SOURCES,
-                              dependencies:[sdbusplus,
-                                            phosphor_logging,
-                              ],
-                              include_directories : 'vpd-parser/',
-                              install: true,
-                              cpp_args : argument_list
-)
+    ibm_read_vpd_SOURCES =
+        [
+            'ibm_vpd_app.cpp',
+        ] +
+        common_SOURCES
 
-subdir('test')
-subdir('vpd-manager')
+        ibm_vpd_exe = executable('ibm-read-vpd', ibm_read_vpd_SOURCES,
+                                 dependencies
+                                 : [dependecy_list], include_directories
+                                 : 'vpd-parser/', install
+                                 : true, cpp_args
+                                 : argument_list)
+
+            subdir('test') subdir('vpd-manager')
