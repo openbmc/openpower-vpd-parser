@@ -490,9 +490,10 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
         if (item.value("inheritEI", true))
         {
-            // Populate interfaces and properties that are common to every FRU
-            // and additional interface that might be defined on a per-FRU
-            // basis.
+            // Populate interfaces and properties that are common to
+            // every FRU
+            // and additional interface that might be defined on a
+            // per-FRU basis.
             if (item.find("extraInterfaces") != item.end())
             {
                 populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
@@ -562,6 +563,115 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
     inventory::callPIM(move(objects));
 }
 
+/**
+ * @brief API to check for SN and FN offset stored in JSON
+ * @param[in] - VPD file path
+ * @return - offset of SN and FN keyword
+ */
+auto checkSNandFNoffset(const string& filePath)
+{
+    tuple<int16_t, int16_t> offset{INVALID_OFFSET, INVALID_OFFSET};
+
+    const std::string jsonName = getSHA(filePath);
+    const std::string jsonPath =
+        offsetJsonDirectory + jsonName + string(".json");
+
+    std::fstream offsetJSon(jsonPath, std::ios::in | std::ios::binary);
+
+    // if file is not found
+    if (!offsetJSon)
+    {
+        return offset;
+    }
+
+    try
+    {
+        auto js = json::parse(offsetJSon);
+        if (js.find("SN_Offset") != js.end() &&
+            js.find("FN_Offset") != js.end())
+        {
+            // return offset of SN and FN kwd
+            offset = make_tuple(js["SN_Offset"], js["FN_Offset"]);
+            return offset;
+        }
+    }
+    catch (json::parse_error& ex)
+    {
+        fs::path offsetJsonDirPath(jsonPath);
+        fs::remove(offsetJsonDirPath);
+    }
+
+    // if offset is not found return invalid offset.
+    return offset;
+}
+
+/**
+ * @brief An api to read SN and FN data from File
+ * @param[in] - offset of SN and FN Kwd
+ * @param[in] - VPD file path
+ * @return - SN and FN data from File
+ */
+auto getSNandFNDataFromHardware(tuple<uint16_t, uint16_t> offset,
+                                const std::string& filePath)
+{
+    auto snOffset = get<0>(offset);
+    auto fnOffset = get<1>(offset);
+
+    fstream fileStream(filePath,
+                       std::ios::in | std::ios::out | std::ios::binary);
+    if (fileStream)
+    {
+        throw std::runtime_error("Failed to access EEPROM path");
+    }
+
+    fileStream.seekg(snOffset, std::ios::beg);
+    string snData(SERIAL_NUM_LEN, '\0');
+    fileStream.read(reinterpret_cast<char*>(snData.data()), SERIAL_NUM_LEN);
+
+    fileStream.seekg(fnOffset, std::ios::beg);
+    string fnData(FRU_NUM_LEN, '\0');
+    fileStream.read(reinterpret_cast<char*>(fnData.data()), FRU_NUM_LEN);
+
+    return make_tuple(snData, fnData);
+}
+
+/**
+ * @brief An api to read SN and FN data from Bus
+ * @param[in] - json File
+ * @param[in] - vpd file path
+ * @return - SN and FN data on bus
+ */
+auto getSNandFNDataFromDbus(const json& js, const string& filePath)
+{
+    string interface = ipzVpdInf + string("VINI");
+    string objPath{};
+    string snData{};
+    string fnData{};
+
+    for (const auto& itemEEPROM : js["frus"][filePath])
+    {
+        if (itemEEPROM.value("inherit", true))
+        {
+            objPath = itemEEPROM["inventoryPath"];
+
+            // we need object path of any fru that has inherit as true under
+            // this file path
+            break;
+        }
+    }
+
+    if (!objPath.empty())
+    {
+        // read bus property for SN kwd
+        snData = readBusProperty(objPath, interface, "SN");
+
+        // read bus property for FN kwd
+        fnData = readBusProperty(objPath, interface, "FN");
+    }
+
+    return make_tuple(snData, fnData);
+}
+
 int main(int argc, char** argv)
 {
     int rc = 0;
@@ -598,8 +708,36 @@ int main(int argc, char** argv)
             return 0;
         }
 
+        try
+        {
+            auto kwdOffsets = checkSNandFNoffset(file);
+            if (get<0>(kwdOffsets) != INVALID_OFFSET &&
+                get<1>(kwdOffsets) != INVALID_OFFSET)
+            {
+                auto fileData = getSNandFNDataFromHardware(kwdOffsets, file);
+                auto busData = getSNandFNDataFromDbus(js, file);
+
+                if (fileData == busData)
+                {
+                    cout << "Data already on Cache, skipping VPD collection "
+                            "for the FRU"
+                         << std::endl;
+                    return rc;
+                }
+            }
+        }
+        catch (...)
+        {
+            // in case optimization fails we will try to proceed with normal
+            // execution
+            cout << "Optimization failed with exception, Continue normal "
+                    "execution"
+                 << std::endl;
+        }
+
         Binary vpdVector = getVpdDataInVector(js, file);
-        ParserInterface* parser = ParserFactory::getParser(move(vpdVector));
+        ParserInterface* parser =
+            ParserFactory::getParser(std::move(vpdVector), file);
 
         variant<KeywordVpdMap, Store> parseResult;
         parseResult = parser->parse();

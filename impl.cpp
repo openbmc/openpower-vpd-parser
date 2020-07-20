@@ -1,11 +1,19 @@
+#include "config.h"
+
 #include "impl.hpp"
 
 #include "const.hpp"
 #include "defines.hpp"
 #include "utils.hpp"
 
+#include <dirent.h>
+#include <errno.h>
+#include <sys/stat.h>
+
 #include <algorithm>
 #include <exception>
+#include <filesystem>
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <iterator>
@@ -22,6 +30,7 @@ namespace vpd
 namespace parser
 {
 using namespace openpower::vpd::constants;
+namespace fs = std::filesystem;
 
 static const std::unordered_map<std::string, Record> supportedRecords = {
     {"VINI", Record::VINI}, {"OPFR", Record::OPFR}, {"OSYS", Record::OSYS}};
@@ -299,7 +308,7 @@ void Impl::processRecord(std::size_t recordOffset)
         std::advance(iterator, -(lengths::KW_NAME + sizeof(KwSize) +
                                  lengths::RECORD_NAME));
 #endif
-        auto kwMap = readKeywords(iterator);
+        auto kwMap = readKeywords(iterator, name);
         // Add entry for this record (and contained keyword:value pairs)
         // to the parsed vpd output.
         out.emplace(std::move(name), std::move(kwMap));
@@ -405,7 +414,45 @@ std::string Impl::readKwData(const internal::KeywordInfo& keyword,
     return {};
 }
 
-internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
+void Impl::storeOffset(uint16_t offset, const std::string& kwdName)
+{
+    const std::string jsonName = getSHA(vpdFilePath);
+    const std::string jsonPath =
+        offsetJsonDirectory + jsonName + string(".json");
+
+    try
+    {
+        fs::path offsetJsonDirPath(offsetJsonDirectory);
+        if (!fs::exists(offsetJsonDirPath) ||
+            !fs::is_directory(offsetJsonDirPath))
+        {
+            // check if the directory does not exist
+            fs::create_directory(offsetJsonDirectory);
+        }
+    }
+    catch (fs::filesystem_error& err)
+    {
+        throw std::runtime_error(err.what());
+    }
+
+    std::ifstream offsetJson(jsonPath);
+    json js;
+    if (offsetJson)
+    {
+        // for the first time json file will not exist so input stream
+        // will fail hence don't parse the json in that case.
+        js = json::parse(offsetJson);
+    }
+
+    js.emplace("EEPROM_Path", vpdFilePath);
+    js.emplace(kwdName + string("_Offset"), offset);
+
+    std::ofstream jsOpStream(jsonPath);
+    jsOpStream << std::setw(2) << js << std::endl;
+}
+
+internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator,
+                                        const std::string& recName)
 {
     internal::KeywordMap map{};
     while (true)
@@ -442,6 +489,20 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
 
             // Jump past keyword length
             std::advance(iterator, sizeof(KwSize));
+        }
+
+        try
+        {
+            if ((kw == "FN" || kw == "SN") && recName == "VINI")
+            {
+                storeOffset(std::distance(vpd.cbegin(), iterator), kw);
+            }
+        }
+        catch (exception& e)
+        {
+            // not stopping execution for this exception as this is just for
+            // optimization
+            std::cout << e.what();
         }
 
         // Pointing to keyword data now
