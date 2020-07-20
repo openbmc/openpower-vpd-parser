@@ -525,6 +525,24 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
     inventory::callPIM(move(objects));
 }
 
+void checkOffsetOfSNandFN(const json& js, const std::string& filePath, const Binary& vpdFile)
+{
+    if(js[filePath].find("snoffset") == js[filePath].end() || js[filePath].find("fnoffset") == js[filePath].end())
+    {
+        //as these offsets are not present in json, we need to continue to parse the complete vpd for this file
+        //and publish on Dbus
+        return;
+    }
+
+    //if these offsets are present we need to check if its value matches with the value in vpd file.
+    //if matches we do not have to reparse the complete file and populate Dbus
+    uint16_t snOffset = js[filePath]["snoffset"];
+    uint16_t fnOffset = js[filePath]["fnoffset"];
+
+    auto iterator = vpdFile.cbegin();
+    std::advance(iterator, snOffset);
+}
+
 int main(int argc, char** argv)
 {
     int rc = 0;
@@ -586,11 +604,13 @@ int main(int argc, char** argv)
                 "VPD file is empty. Can't process with blank file.");
         }
 
+        checkOffsetOfSNandFN(js, file, vpdVector);
+
         ParserInterface* parser =
             ParserFactory::getParser(std::move(vpdVector));
 
         variant<KeywordVpdMap, Store> parseResult;
-        parseResult = parser->parse();
+        parseResult = parser->parse(file);
 
         if (auto pVal = get_if<Store>(&parseResult))
         {

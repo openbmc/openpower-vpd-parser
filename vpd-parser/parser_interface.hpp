@@ -33,7 +33,7 @@ class ParserInterface
      * @return parsed format for vpd data, depending upon the
      * parsing logic.
      */
-    virtual std::variant<kwdVpdMap, Store> parse() = 0;
+    virtual std::variant<kwdVpdMap, Store> parse(std::string filePath) = 0;
 
     /**
      * @brief An api to return interface name which will hold the

@@ -62,7 +62,7 @@ class KeywordVpdParser : public ParserInterface
      *
      * @return map of keyword:value
      */
-    std::variant<kwdVpdMap, store> parse();
+    std::variant<kwdVpdMap, store> parse(std::string filePath);
 
     /**
      * @brief An api to return interface name with respect to
