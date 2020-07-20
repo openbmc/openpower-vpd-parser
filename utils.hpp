@@ -4,7 +4,9 @@
 #include "types.hpp"
 
 #include <iostream>
+#include <nlohmann/json.hpp>
 
+using json = nlohmann::json;
 using namespace std;
 namespace openpower
 {
@@ -87,5 +89,24 @@ string readBusProperty(const string& obj, const string& inf,
  */
 void createPEL(const std::map<std::string, std::string>& additionalData,
                const std::string& errIntf);
+
+/** 
+ * @brief getVpdFilePath
+ * Get vpd file path corresponding to the given object path.
+ * @param[in] - jsonFile
+ * @param[in] - Object path
+ * @return - Vpd file path
+ */
+inventory::VPDfilepath getVpdFilePath(const json& jsonFile,
+                                      const std::string& ObjPath);
+
+/**
+ * @brief getSHA
+ * API to generate a SHA value for a given string
+ * @param[in] - EEPROM path
+ * @return - SHA string
+ */
+std::string getSHA(const std::string& filePath);
+
 } // namespace vpd
 } // namespace openpower

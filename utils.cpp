@@ -4,6 +4,8 @@
 
 #include "defines.hpp"
 
+#include <openssl/sha.h>
+
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/server.hpp>
 
@@ -201,5 +203,52 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
             "Error in invoking D-Bus logging create interface to register PEL");
     }
 }
+
+inventory::VPDfilepath getVpdFilePath(const json& jsonFile,
+                                      const std::string& ObjPath)
+{
+    inventory::VPDfilepath filePath{};
+
+    if (jsonFile.find("frus") == jsonFile.end())
+    {
+        throw std::runtime_error("Invalid Json");
+    }
+
+    const nlohmann::json& groupFRUS =
+        jsonFile["frus"].get_ref<const nlohmann::json::object_t&>();
+    for (const auto& itemFRUS : groupFRUS.items())
+    {
+        const std::vector<nlohmann::json>& groupEEPROM =
+            itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
+        for (const auto& itemEEPROM : groupEEPROM)
+        {
+            if (itemEEPROM["inventoryPath"]
+                    .get_ref<const nlohmann::json::string_t&>() == ObjPath)
+            {
+                filePath = itemFRUS.key();
+                return filePath;
+            }
+        }
+    }
+
+    return filePath;
+}
+
+std::string getSHA(const std::string& filePath)
+{
+    unsigned char digest[SHA256_DIGEST_LENGTH];
+    SHA256_CTX ctx;
+    SHA256_Init(&ctx);
+    SHA256_Update(&ctx, filePath.c_str(), filePath.length());
+    SHA256_Final(digest, &ctx);
+    char mdString[SHA256_DIGEST_LENGTH * 2 + 1];
+    for (int i = 0; i < SHA256_DIGEST_LENGTH; i++)
+    {
+        snprintf(&mdString[i * 2], 3, "%02x", (unsigned int)digest[i]);
+    }
+
+    return std::string(mdString);
+}
+
 } // namespace vpd
 } // namespace openpower
