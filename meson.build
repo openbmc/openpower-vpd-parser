@@ -1,11 +1,9 @@
-project(
-     'openpower-vpd-parser',
-     'c',
-     'cpp',
-     default_options: [
-     'cpp_std=c++17'
-     ],
-     version: '1.0'
+project('openpower-vpd-parser',
+        'c',
+        'cpp',
+        default_options: ['cpp_std=c++17'
+        ],
+        version: '1.0'
 )
 
 build_tests = get_option('tests')
@@ -20,6 +18,19 @@ python = find_program('python3', required:true)
 compiler.has_header('CLI/CLI.hpp')
 compiler.has_header('nlohmann/json.hpp')
 add_global_arguments('-Wno-psabi', language : ['c', 'cpp'])
+systemd = dependency('libsystemd', version: '>= 221')
+libcrypto = meson.get_compiler('c').find_library('libcrypto')
+
+dependency_list = [sdbusplus,
+                  phosphor_logging,
+                  phosphor_dbus_interfaces,
+                  libcrypto,
+                  systemd
+]
+
+compiler.has_header('openssl/sha.h')
+
+
 configure_file(output: 'config.h',
                        configuration :{
                        'INVENTORY_JSON': '"'+get_option('INVENTORY_JSON')+'"',
@@ -33,9 +44,9 @@ configure_file(output: 'config.h',
                        'OBJECT_MAPPER_OBJECT' : '"'+get_option('OBJECT_MAPPER_OBJECT')+'"',
                        'POWER_SUPPLY_TYPE_INTERFACE' : '"'+get_option('POWER_SUPPLY_TYPE_INTERFACE')+'"',
                        'INVENTORY_MANAGER_CACHE' : '"'+get_option('INVENTORY_MANAGER_CACHE')+'"',
-		       'INVENTORY_JSON_SYM_LINK': '"'+get_option('INVENTORY_JSON_SYM_LINK')+'"',
-		       'INVENTORY_JSON_2U': '"'+get_option('INVENTORY_JSON_2U')+'"',
-		       'INVENTORY_JSON_4U': '"'+get_option('INVENTORY_JSON_4U')+'"'
+                       'INVENTORY_JSON_SYM_LINK': '"'+get_option('INVENTORY_JSON_SYM_LINK')+'"',
+                       'INVENTORY_JSON_2U': '"'+get_option('INVENTORY_JSON_2U')+'"',
+                       'INVENTORY_JSON_4U': '"'+get_option('INVENTORY_JSON_4U')+'"'
                        }
   )
 
@@ -55,8 +66,7 @@ if get_option('ibm-parser').enabled()
                                 'ibm-read-vpd',
                                 ibm_read_vpd_SOURCES,
                                 dependencies: [
-                                        sdbusplus,
-                                        phosphor_logging,
+                                    dependency_list
                                 ],
                                 include_directories : 'vpd-parser/',
                                 install: true,
@@ -122,6 +132,9 @@ else
                                       'args.cpp',
                                       'impl.cpp',
                                       'vpd-parser/ipz_parser.cpp',
+                                      'vpd-parser/keyword_vpd_parser.cpp',
+                                      'vpd-parser/memory_vpd_parser.cpp',
+                                      'vpd-parser/parser_factory.cpp',
                                       'write.cpp',
                                       'utils.cpp',
                                       writefru_hpp,
@@ -132,8 +145,7 @@ else
                 'openpower-read-vpd',
                 openpower_read_vpd_SOURCES,
                 dependencies: [
-                        sdbusplus,
-                        phosphor_logging,
+                    dependency_list
                 ],
                 include_directories : 'vpd-parser/',
                 install: true,
