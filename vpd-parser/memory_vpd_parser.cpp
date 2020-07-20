@@ -36,7 +36,7 @@ kwdVpdMap memoryVpdParser::readKeywords(Binary::const_iterator iterator)
     return map;
 }
 
-variant<kwdVpdMap, Store> memoryVpdParser::parse()
+variant<kwdVpdMap, Store> memoryVpdParser::parse(std::string filePath)
 {
     // Read the data and return the map
     auto iterator = memVpd.cbegin();

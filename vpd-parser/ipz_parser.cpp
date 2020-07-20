@@ -13,7 +13,7 @@ namespace parser
 using namespace openpower::vpd::parser;
 using namespace openpower::vpd::constants;
 
-std::variant<kwdVpdMap, Store> IpzVpdParser::parse()
+std::variant<kwdVpdMap, Store> IpzVpdParser::parse(std::string filePath)
 {
     Impl p(std::move(vpd));
     Store s = p.run();

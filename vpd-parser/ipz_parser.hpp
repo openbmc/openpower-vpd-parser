@@ -42,7 +42,7 @@ class IpzVpdParser : public ParserInterface
      *
      * @return map of keyword:value
      */
-    std::variant<kwdVpdMap, Store> parse();
+    std::variant<kwdVpdMap, Store> parse(std::string filePath);
 
     /**
      * @brief An api to return interface name with respect to

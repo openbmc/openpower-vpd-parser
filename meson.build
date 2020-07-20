@@ -82,5 +82,5 @@ ibm_vpd_exe = executable('ibm-read-vpd',
                               cpp_args : argument_list
 )
 
-subdir('test')
+#subdir('test')
 subdir('vpd-manager')
