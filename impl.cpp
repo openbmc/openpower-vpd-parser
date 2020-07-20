@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "impl.hpp"
 
 #include "const.hpp"
@@ -6,6 +8,7 @@
 
 #include <algorithm>
 #include <exception>
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <iterator>
@@ -471,6 +474,42 @@ std::string Impl::readKwData(const internal::KeywordInfo& keyword,
     return {};
 }
 
+void Impl::storeOffset(uint16_t offset, std::string kwdName)
+{
+    std::ifstream inventoryJSon("vpd_inventory.json");
+    if (!inventoryJSon)
+    {
+        throw std::runtime_error("Error opening json file");
+    }
+
+    json vpdInventoryjson = json::parse(inventoryJSon);
+
+    for (auto& itemEEPROM : vpdInventoryjson["frus"][vpdFilePath])
+    {
+        if (itemEEPROM.find("offsetFilePath") != itemEEPROM.end())
+        {
+            std::string path = itemEEPROM["offsetFilePath"];
+
+            std::ifstream offsetJson("test.json");
+            json js;
+            if (offsetJson)
+            {
+                // for the first time json file will not exist so input stream
+                // will fail hence don't parse the json in that case.
+                js = json::parse(offsetJson);
+            }
+
+            transform(kwdName.begin(), kwdName.end(), kwdName.begin(),
+                      ::tolower);
+            js.emplace(kwdName + string("Offset"), offset);
+
+            std::ofstream jsOpStream("test.json");
+            jsOpStream << std::setw(2) << js << std::endl;
+            break;
+        }
+    }
+}
+
 internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
 {
     internal::KeywordMap map{};
@@ -508,6 +547,11 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
 
             // Jump past keyword length
             std::advance(iterator, sizeof(KwSize));
+        }
+
+        if (kw == "FN" || kw == "SN")
+        {
+            storeOffset(std::distance(vpd.cbegin(), iterator), kw);
         }
 
         // Pointing to keyword data now
