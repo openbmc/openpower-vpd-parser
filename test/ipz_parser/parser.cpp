@@ -36,8 +36,9 @@ TEST(IpzVpdParserApp, vpdGoodPath)
         0x00, 0x00, 0x00, 0x00, 0x50, 0x46, 0x02, 0x00, 0x00, 0x78, 0x84, 0xdc,
         0x00, 0x52, 0x54, 0x04};
 
+    std::string path = "/dummyPath";
     // call app for this vpd
-    parser::Impl p(std::move(vpd));
+    parser::Impl p(std::move(vpd), path);
     Store vpdStore = p.run();
 
     static const std::string record = "VINI";
@@ -64,8 +65,9 @@ TEST(IpzVpdParserApp, vpdBadPathEmptyVPD)
 {
     Binary vpd = {};
 
+    std::string path = "/dummyPath";
     // VPD is empty
-    parser::Impl p(std::move(vpd));
+    parser::Impl p(std::move(vpd), path);
 
     // Expecting a throw here
     EXPECT_THROW(p.run(), std::runtime_error);
@@ -98,7 +100,8 @@ TEST(IpzVpdParserApp, vpdBadPathMissingHeader)
     // corrupt the VHDR
     vpd[17] = 0x00;
 
-    parser::Impl p(std::move(vpd));
+    std::string path = "/dummyPath";
+    parser::Impl p(std::move(vpd), path);
 
     // Expecting a throw here
     EXPECT_THROW(p.run(), std::runtime_error);
@@ -131,7 +134,8 @@ TEST(IpzVpdParserApp, vpdBadPathMissingVTOC)
     // corrupt the VTOC
     vpd[61] = 0x00;
 
-    parser::Impl p(std::move(vpd));
+    std::string path = "/dummyPath";
+    parser::Impl p(std::move(vpd), path);
 
     // Expecting a throw here
     EXPECT_THROW(p.run(), std::runtime_error);
