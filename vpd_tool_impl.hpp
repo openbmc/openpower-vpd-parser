@@ -210,7 +210,7 @@ class VpdTool
      * object instantiation for readKeyword option.
      */
     VpdTool(const std::string&& fru, const std::string&& recName,
-            const std::string&& kw) :
+            const std::string&& ) :
         fruPath(std::move(fru)),
         recordName(std::move(recName)), keyword(std::move(kw))
     {

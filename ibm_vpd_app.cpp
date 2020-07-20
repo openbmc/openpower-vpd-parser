@@ -525,6 +525,85 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
     inventory::callPIM(move(objects));
 }
 
+tuple<uint16_t, uint16_t> checkSNandFNoffset(const json& js, const string& filePath)
+{
+    tuple<uint16_t, uint16_t> offset {INVALID, INVALID};
+
+    for (const auto& itemEEPROM : js["frus"][filePath])
+    {
+        //only frus having inherit true will have com.ibm.ipzvpd interface and common interface 
+        if(itemEEPROM.value("inherit", true))
+        {
+            if(itemEEPROM.find("snoffset") != js[filePath].end() && itemEEPROM.find("fnoffset") != js[filePath].end())
+            {
+                //if these offsets are present we need to check if its value matches with the value in vpd file.
+                //if matches we do not have to reparse the complete file and populate Dbus
+                offset = make_tuple(itemEEPROM["snoffset"], itemEEPROM["fnoffset"]);
+                return offset;
+            }
+
+            //as these offsets are not present in json, we need to continue to parse the complete vpd for this file
+            //and publish on Dbus
+            return offset;           
+        }
+    }
+}
+
+tuple<string, string> getDataFromFile(tuple<uint16_t, uint16_t> offset, const Binary& vpd)
+{
+    uint16_t snOffset = get<0>(offset);
+    uint16_t fnOffset = get<1>(offset);
+
+    auto iterator = vpdFile.cbegin();
+    advance(iterator, snOffset);
+    auto end = iterator;
+    advance(end, SERIAL_NUM_LEN);
+
+    string snData(iterator, end);
+
+    iterator = vpdFile.cbegin();
+    advance(iterator, fnOffset);
+    end = itearator;
+    advance(end, FRU_NUM_LEN);
+
+    string fnData(iterator, end);
+    return make_tuple(snData, fnData);
+}
+
+tuple<string, string> getDataFromDbus(const string& js, const string& filePath)
+{
+    string interface = ipzVpdInf + "VINI";
+    string objPath{};
+    
+    for (const auto& itemEEPROM : js["frus"][filePath])
+    {
+        if(itemEEPROM.value("inherit", true))
+        {
+            objPath = itemEEPROM["inventoryPath"];
+            
+            //we need object path of any fru that has inherit as true under this file path
+            break;
+        }
+    }
+    
+    //read bus property for SN kwd
+    string snData = readBusProperty(objPath, interface, "SN");
+
+    //read bus property for FN kwd
+    string fnData = readBusProperty(objPath, interface, "SN");
+
+    return make_tuple(snData, fnData);
+}
+
+bool compareData(tuple<string, string> fileData, tuple<string, string> busData)
+{
+    if((get<0>(fileData) == get<0>(busData)) && (get<1>(fileData) == get<1>(busData)))
+    {
+        return true;
+    }
+    return false;
+}
+
 int main(int argc, char** argv)
 {
     int rc = 0;
@@ -586,11 +665,24 @@ int main(int argc, char** argv)
                 "VPD file is empty. Can't process with blank file.");
         }
 
+        tuple<uint16_t, uint16_t> offset = checkSNandFNoffset(js, file);
+        
+        if(get<0>(offset) != INVALID && get<1>(offset) != INVALID)
+        {
+            tuple<string, string> fileData = getDataFromFile(offset, vpdVector);
+            tuple<string, string> busData = getDataFromDbus(js, file);
+
+            if(compareData(fileData, busData))
+            {
+                return rc;
+            }
+        }
+
         ParserInterface* parser =
             ParserFactory::getParser(std::move(vpdVector));
 
         variant<KeywordVpdMap, Store> parseResult;
-        parseResult = parser->parse();
+        parseResult = parser->parse(file);
 
         if (auto pVal = get_if<Store>(&parseResult))
         {

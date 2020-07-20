@@ -18,7 +18,7 @@ namespace keyword
 namespace parser
 {
 
-variant<KeywordVpdMap, store> KeywordVpdParser::parse()
+variant<KeywordVpdMap, store> KeywordVpdParser::parse(std::string filePath)
 {
     int kwVpdType;
 
