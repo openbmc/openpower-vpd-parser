@@ -1,0 +1,701 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://github.com/openbmc/openpower-vpd-parser/schema/inventory_schema.json",
+    "type": "object",
+    "title": "json schema for vpd inventory json",
+    "properties": {
+        "commonInterfaces": {
+            "$ref": "#/definitions/commonInterfaces"
+	},
+	"frus": {
+		"$ref": "#/definitions/frus"
+	}
+    },
+    "required": [
+        "commonInterfaces",
+        "frus"
+    ],
+    "definitions": {
+	    "commonInterfaces":	{
+		    "type": "object",
+		    "properties": {
+			    "xyz.openbmc_project.Inventory.Decorator.Asset": {
+				    "type":"object",
+				    "properties": {
+					    "PartNumber": {"$ref": "#/definitions/PartNumber"},
+					    "SerialNumber": {"$ref": "#/definitions/SerialNumber"},
+					    "BuildDate": {"$ref": "#/definitions/BuildDate"}
+				    },
+				    "required": [
+					    "PartNumber",
+					    "SerialNumber",
+					    "BuildDate"
+				    ]
+			    },
+			    "xyz.openbmc_project.Inventory.Item": {
+				    "type":"object",
+				    "properties": {
+					    "PrettyName": {"$ref": "#/definitions/PrettyName"},
+					    "Present": {"$ref": "#/definitions/Present"}
+				    },
+				    "required": [
+					    "PrettyName",
+					    "Present"
+				    ]
+			    }
+		    },
+		    "required": [
+			    "xyz.openbmc_project.Inventory.Decorator.Asset",
+			    "xyz.openbmc_project.Inventory.Item"
+			    ]
+	    },
+	    "frus": {
+		    "type":"object",
+		    "properties": {
+			    "/sys/bus/i2c/drivers/at24/8-0050/eeprom" : {
+				    "type":"array",
+				    "items":
+				    {
+					    "type":"object",
+					    "properties": {
+						    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+						    "isSystemVpd": {"$ref": "#/definitions/isSystemVpd"},
+						    "extraInterfaces": {
+							    "type":"object",
+							    "properties": {
+								    "xyz.openbmc_project.Inventory.Item.Board.Motherboard": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.Board.Motherboard"},
+								    "com.ibm.ipzvpd.Location": {"$ref":"#/definitions/com.ibm.ipzvpd.Location"},
+								    "xyz.openbmc_project.Inventory.Item.System": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.System"},
+								    "xyz.openbmc_project.Inventory.Decorator.Asset":{"$ref": "#/definitions/xyz.openbmc_project.Inventory.Decorator.Asset"},
+								    "xyz.openbmc_project.Inventory.Item.Chassis": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.Chassis"},
+								    "xyz.openbmc_project.Inventory.Item.Battery": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.Battery"},
+								    "xyz.openbmc_project.Inventory.Item.Connector": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.Connector"}
+							    },
+							    "required": ["com.ibm.ipzvpd.Location"]
+						    },
+						    "inherit": {"$ref": "#/definitions/inherit"}
+					    },
+					    "required": ["inventoryPath","extraInterfaces","isSystemVpd"]
+				    },
+				    "minitems":3
+			    },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a480.i2c-bus/i2c-8/8-0051/8-00510/nvmem" : {
+				    "type":"array",
+				    "items":
+				    {
+					    "type":"object",
+					    "properties": {
+						    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+						    "extraInterfaces": {
+							    "type":"object",
+                                                            "properties": {
+								    "xyz.openbmc_project.Inventory.Item.Bmc": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.Bmc"},
+								    "xyz.openbmc_project.Inventory.Item.Ethernet": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.Ethernet"},
+								    "xyz.openbmc_project.Inventory.Item.NetworkInterface": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.NetworkInterface"},
+								    "com.ibm.ipzvpd.Location": {"$ref":"#/definitions/com.ibm.ipzvpd.Location"},
+								    "xyz.openbmc_project.Inventory.Item.Connector": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.Connector"}
+							    },
+							    "required": ["com.ibm.ipzvpd.Location"]
+						    },
+						    "inherit": {"$ref": "#/definitions/inherit"}
+					    },
+					    "required": ["inventoryPath","extraInterfaces"]
+				    },
+				    "minitems":3
+			    },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a080.i2c-bus/i2c-0/0-0051/0-00510/nvmem" : {
+				    "type":"array",
+				    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+						    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+							    "type": "object",
+							    "properties": {
+								     "xyz.openbmc_project.Inventory.Item.Tpm": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.Tpm"},
+								     "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+							    },
+							    "required": ["xyz.openbmc_project.Inventory.Item.Tpm", "com.ibm.ipzvpd.Location"]
+						    }
+					    },
+					    "required": ["inventoryPath","extraInterfaces"]
+				    },
+				    "minitems":1
+			    },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a400.i2c-bus/i2c-7/7-0050/7-00500/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+							    "type":"object",
+							    "properties": {
+								    "xyz.openbmc_project.Inventory.Item.Panel": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.Panel"},
+								    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+							    },
+							    "required": ["xyz.openbmc_project.Inventory.Item.Panel", "com.ibm.ipzvpd.Location"]
+						    }
+					    },
+                                            "required": ["inventoryPath","extraInterfaces"]
+                                    },
+                                    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a400.i2c-bus/i2c-7/7-0051/7-00510/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+							    "type": "object",
+							    "properties": {
+								    "xyz.openbmc_project.Inventory.Item.Panel": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.Panel"},
+								    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+							    },
+							    "required": ["xyz.openbmc_project.Inventory.Item.Panel", "com.ibm.ipzvpd.Location"]
+						    }
+                                            },
+                                            "required": ["inventoryPath","extraInterfaces"]
+                                    },
+                                    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a500.i2c-bus/i2c-9/9-0050/9-00500/nvmem" : {
+				    "type":"array",
+				    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+						    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.Vrm": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.Vrm"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.Vrm", "com.ibm.ipzvpd.Location"]
+                                                    }
+                                            },
+                                            "required": ["inventoryPath","extraInterfaces"]
+                                    },
+                                    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a580.i2c-bus/i2c-10/10-0050/10-00500/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+						    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.Vrm": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.Vrm"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.Vrm", "com.ibm.ipzvpd.Location"]
+                                                    }
+                                            },
+                                            "required": ["inventoryPath","extraInterfaces"]
+                                    },
+                                    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/1e79b000.fsi/fsi-master/fsi0/slave@00:00/00:00:00:04/spi_master/spi2/spi2.0/spi2.00/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+						    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+						    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.Cpu": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.Cpu"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.Cpu", "com.ibm.ipzvpd.Location"]
+                                                    },
+						    "offset": {"$ref": "#/definitions/offset"},
+                                                    "type": { "$ref": "#/definitions/type"},
+                                                    "inheritEI": {"$ref": "#/definitions/inheritEI"}
+					    },
+					    "required": ["inventoryPath","extraInterfaces","type"]
+				    },
+				    "minitems":2
+			    },
+			    "/sys/devices/platform/ahb/ahb:apb/1e79b000.fsi/fsi-master/fsi0/slave@00:00/00:00:00:0a/fsi-master/fsi1/slave@03:00/01:03:00:04/spi_master/spi6/spi6.0/spi6.00/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+						    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.Cpu": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.Cpu"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.Cpu", "com.ibm.ipzvpd.Location"]
+                                                    },
+                                                    "offset": {"$ref": "#/definitions/offset"},
+                                                    "type": { "$ref": "#/definitions/type"},
+						    "inherit": {"$ref": "#/definitions/inherit"}
+					    },
+					    "required": ["inventoryPath","extraInterfaces","type","offset","inherit"]
+				    },
+				    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a280.i2c-bus/i2c-4/4-0050/4-00500/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.PCIeDevice": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.PCIeDevice"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.PCIeDevice", "com.ibm.ipzvpd.Location"]
+                                                    }
+					    }
+				    },
+				    "minitems":1
+			    },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a300.i2c-bus/i2c-5/5-0050/5-00500/nvmem" : {
+                                    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.PCIeDevice": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.PCIeDevice"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.PCIeDevice", "com.ibm.ipzvpd.Location"]
+                                                    }
+                                            }
+                                    },
+				    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a300.i2c-bus/i2c-5/5-0051/5-00510/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.PCIeDevice": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.PCIeDevice"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.PCIeDevice", "com.ibm.ipzvpd.Location"]
+                                                    }
+                                            }
+                                    },
+                                    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a600.i2c-bus/i2c-11/11-0050/5-00500/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.PCIeDevice": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.PCIeDevice"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.PCIeDevice", "com.ibm.ipzvpd.Location"]
+                                                    }
+                                            }
+                                    },
+                                    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a280.i2c-bus/i2c-4/4-0052/4-00520/nvmem" : {
+				   "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.PCIeDevice": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.PCIeDevice"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.PCIeDevice", "com.ibm.ipzvpd.Location"]
+                                                    }
+                                            }
+                                    },
+                                    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a380.i2c-bus/i2c-6/6-0052/6-00520/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.PCIeDevice": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.PCIeDevice"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.PCIeDevice", "com.ibm.ipzvpd.Location"]
+                                                    }
+                                            }
+                                    },
+                                    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a380.i2c-bus/i2c-6/6-0050/6-00500/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.PCIeDevice": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.PCIeDevice"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.PCIeDevice", "com.ibm.ipzvpd.Location"]
+                                                    }
+                                            }
+                                    },
+                                    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a600.i2c-bus/i2c-11/11-0051/11-00510/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.PCIeDevice": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.PCIeDevice"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.PCIeDevice", "com.ibm.ipzvpd.Location"]
+                                                    }
+                                            }
+                                    },
+                                    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a280.i2c-bus/i2c-4/4-0051/4-00510/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.PCIeDevice": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.PCIeDevice"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.PCIeDevice", "com.ibm.ipzvpd.Location"]
+                                                    }
+                                            }
+                                    },
+                                    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a380.i2c-bus/i2c-6/6-0051/6-00510/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.PCIeDevice": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.PCIeDevice"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.PCIeDevice", "com.ibm.ipzvpd.Location"]
+                                                    }
+                                            }
+                                    },
+                                    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a700.i2c-bus/i2c-13/13-0050/13-00500/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.DiskBackplane": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.DiskBackplane"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.DiskBackplane", "com.ibm.ipzvpd.Location"]
+                                                    }
+                                            }
+                                    },
+                                    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a780.i2c-bus/i2c-14/14-0050/14-00500/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.DiskBackplane": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.DiskBackplane"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.DiskBackplane", "com.ibm.ipzvpd.Location"]
+                                                    }
+                                            }
+                                    },
+                                    "minitems":1
+                            },
+			    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a800.i2c-bus/i2c-15/15-0050/15-00500/nvmem" : {
+				    "type":"array",
+                                    "items":
+                                    {
+                                            "type":"object",
+                                            "properties": {
+                                                    "inventoryPath": {"$ref": "#/definitions/inventoryPath"},
+                                                    "extraInterfaces": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                    "xyz.openbmc_project.Inventory.Item.DiskBackplane": {"$ref": "#/definitions/xyz.openbmc_project.Inventory.Item.DiskBackplane"},
+                                                                    "com.ibm.ipzvpd.Location": {"$ref": "#/definitions/com.ibm.ipzvpd.Location"}
+                                                            },
+                                                            "required": ["xyz.openbmc_project.Inventory.Item.DiskBackplane", "com.ibm.ipzvpd.Location"]
+                                                    }
+                                            }
+                                    },
+                                    "minitems":1
+                            }
+		    },
+
+			    "required": [
+			    "/sys/bus/i2c/drivers/at24/8-0050/eeprom",
+                            "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a480.i2c-bus/i2c-8/8-0051/8-00510/nvmem",
+                	    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a080.i2c-bus/i2c-0/0-0051/0-00510/nvmem",
+	                    "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a400.i2c-bus/i2c-7/7-0050/7-00500/nvmem",
+                            "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a400.i2c-bus/i2c-7/7-0051/7-00510/nvmem",
+                            "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a500.i2c-bus/i2c-9/9-0050/9-00500/nvmem",
+                            "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a580.i2c-bus/i2c-10/10-0050/10-00500/nvmem",
+                            "/sys/devices/platform/ahb/ahb:apb/1e79b000.fsi/fsi-master/fsi0/slave@00:00/00:00:00:04/spi_master/spi2/spi2.0/spi2.00/nvmem",
+                            "/sys/devices/platform/ahb/ahb:apb/1e79b000.fsi/fsi-master/fsi0/slave@00:00/00:00:00:0a/fsi-master/fsi1/slave@03:00/01:03:00:04/spi_master/spi6/spi6.0/spi6.00/nvmem", "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a280.i2c-bus/i2c-4/4-0050/4-00500/nvmem", "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a300.i2c-bus/i2c-5/5-0050/5-00500/nvmem", "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a300.i2c-bus/i2c-5/5-0051/5-00510/nvmem", "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a600.i2c-bus/i2c-11/11-0050/5-00500/nvmem", "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a280.i2c-bus/i2c-4/4-0052/4-00520/nvmem", "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a380.i2c-bus/i2c-6/6-0052/6-00520/nvmem", "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a380.i2c-bus/i2c-6/6-0050/6-00500/nvmem", "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a600.i2c-bus/i2c-11/11-0051/11-00510/nvmem", "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a280.i2c-bus/i2c-4/4-0051/4-00510/nvmem", "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a380.i2c-bus/i2c-6/6-0051/6-00510/nvmem", "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a700.i2c-bus/i2c-13/13-0050/13-00500/nvmem"
+		    ]
+	    },
+	    "PartNumber": {
+		    "type":"object",
+                    "properties": {
+			    "recordName": {
+				    "$ref": "#/definitions/recordName"
+			    },
+                            "keywordName": {
+                                    "$ref": "#/definitions/keywordName"
+                            }
+                     },
+                     "required": [
+                            "recordName",
+                            "keywordName"
+                     ]
+            },
+	    "SerialNumber": {
+                     "type":"object",
+                     "properties": {
+                            "recordName": {
+                                   "$ref": "#/definitions/recordName"
+                            },
+                            "keywordName": {
+                                   "$ref": "#/definitions/keywordName"
+                            }
+                     },
+                     "required": [
+                            "recordName",
+                            "keywordName"
+                     ]
+            },
+	    "BuildDate": {
+                     "type":"object",
+                     "properties": {
+                         "recordName": {
+                                   "$ref": "#/definitions/recordName"
+                         },
+                         "keywordName": {
+                                   "$ref": "#/definitions/keywordName"
+                         },
+                         "encoding": {
+                                   "$ref": "#/definitions/encoding"
+                         }
+                     },
+                     "required": [
+			     "recordName",
+			     "keywordName",
+                             "encoding"
+                     ]
+            },
+	    "PrettyName": {
+		    "type":"object",
+                    "properties": {
+			    "recordName": {
+				    "$ref": "#/definitions/recordName"
+                            },
+                            "keywordName": {
+                                    "$ref": "#/definitions/keywordName"
+                            }
+                    },
+                    "required": [
+			    "recordName",
+                            "keywordName"
+                    ]
+            },
+            "Present": {
+		    "type":"boolean"
+            },
+	    "Model": {
+		    "type":"object",
+                     "properties": {
+                            "recordName": {
+                                   "$ref": "#/definitions/recordName"
+                            },
+                            "keywordName": {
+                                   "$ref": "#/definitions/keywordName"
+                            }
+                     },
+                     "required": [
+                            "recordName",
+                            "keywordName"
+                     ]
+	    },
+	    "MACAddress": {
+		    "type":"object",
+                     "properties": {
+                            "recordName": {
+                                   "$ref": "#/definitions/recordName"
+                            },
+                            "keywordName": {
+                                   "$ref": "#/definitions/keywordName"
+                            },
+			    "encoding": {
+				    "$ref": "#/definitions/encoding"
+			    }
+		     }
+	    },
+	    "recordName": {
+		    "type": "string"
+	    },
+	    "keywordName": {
+		    "type": "string"
+            },
+	    "encoding": {
+                    "type": "string"
+            },
+	    "inventoryPath": {
+                    "type": "string"
+            },
+	    "type": {
+                    "type": "string"
+            },
+	    "isSystemVpd": {
+                    "type": "boolean"
+            },
+	    "inherit": {
+                    "type": "boolean"
+            },
+	    "inheritEI": {
+                    "type": "boolean"
+            },
+	    "offset": {
+                    "type": "number"
+            },
+	    "xyz.openbmc_project.Inventory.Item.Board.Motherboard": {
+		    "type": "null"
+	    },
+	    "xyz.openbmc_project.Inventory.Item.System": {
+		    "type": "null"
+            },
+	    "xyz.openbmc_project.Inventory.Decorator.Asset": {
+		    "type": "object",
+		    "properties": {
+			    "SerialNumber": {"$ref": "#/definitions/SerialNumber"},
+			    "Model": {"$ref": "#/definitions/Model"}
+		    },
+		    "required": ["SerialNumber", "Model"]
+	    },
+	    "xyz.openbmc_project.Inventory.Item.Chassis": {
+                    "type": "null"
+            },
+	    "xyz.openbmc_project.Inventory.Item.Bmc": {
+		    "type": "null"
+            },
+	    "xyz.openbmc_project.Inventory.Item.Ethernet": {
+		    "type": "null"
+            },
+	    "xyz.openbmc_project.Inventory.Item.NetworkInterface": {
+		    "type": "object",
+                    "properties": {
+			    "MACAddress": {"$ref": "#/definitions/MACAddress"}
+		    },
+		    "required": ["MACAddress"]
+	    },
+	    "xyz.openbmc_project.Inventory.Item.Tpm": {
+		    "type": "null"
+            },
+	    "xyz.openbmc_project.Inventory.Item.Panel": {
+		    "type": "null"
+            },
+	    "xyz.openbmc_project.Inventory.Item.Vrm": {
+		    "type": "null"
+            },
+	    "xyz.openbmc_project.Inventory.Item.Cpu": {
+		    "type": "null"
+            },
+	    "xyz.openbmc_project.Inventory.Item.Battery": {
+		    "type": "null"
+            },
+	    "xyz.openbmc_project.Inventory.Item.Connector": {
+		    "type": "null"
+            },
+	    "xyz.openbmc_project.Inventory.Item.PCIeDevice": {
+		    "type": "null"
+            },
+	    "xyz.openbmc_project.Inventory.Item.DiskBackplane": {
+		    "type": "null"
+            },
+	    "com.ibm.ipzvpd.Location" : {
+		    "type": "object",
+		    "properties": {
+			    "LocationCode": {"$ref": "#/definitions/LocationCode"}
+		    },
+		    "required": ["LocationCode"]
+	    },
+	    "LocationCode": {
+		    "type": "string"
+	    }
+    }
+}
