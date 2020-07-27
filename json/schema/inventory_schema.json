@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://github.com/openbmc/openpower-vpd-parser/schema/inventory_schema.json",
+  "type": "object",
+  "title": "json schema for vpd inventory json",
+  "properties": {
+    "commonInterfaces": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z_.]+$": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z]+$": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "patternProperties": {
+                    "^[a-zA-Z]+$": {
+                      "type": "string"
+                    }
+                  },
+                  "minProperties": 2,
+                  "maxProperties": 3,
+                  "additionalProperties": false
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "frus": {
+      "type": "object",
+      "patternProperties": {
+        "^[/a-zA-Z0-9:@._-]*$": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "inventoryPath": {
+                "type": "string"
+              },
+              "isSystemVpd": {
+                "type": "boolean"
+              },
+              "inherit": {
+                "type": "boolean"
+              },
+              "type": {
+                "type": "string"
+              },
+              "inheritEI": {
+                "type": "boolean"
+              },
+              "offset": {
+                "type": "number"
+              },
+              "extraInterfaces": {
+                "type": "object",
+                "patternProperties": {
+                  "^[a-zA-Z._]+$": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "patternProperties": {
+                          "^[a-zA-z]+$": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "object",
+                                "patternProperties": {
+                                  "^[a-zA-Z]+$": {
+                                    "type": "string"
+                                  }
+                                },
+                                "minProperties": 2,
+                                "additionalProperties": false
+                              }
+                            ]
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "inventoryPath"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "commonInterfaces",
+    "frus"
+  ]
+}
