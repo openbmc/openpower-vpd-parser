@@ -109,4 +109,10 @@ ibm_vpd_exe = executable('ibm-read-vpd',
 
 subdir('test')
 
+inv_schema_main = meson.source_root()+'/json/schema/main.py'
+inv_schema_json = meson.source_root()+'/json/schema/inventory_schema.json'
+
+foreach t : [['inventory-schema-valiation-2U-system', files(meson.source_root()+'/json/system/50001001.json')],['inventory-schema-valiation-4U-system', files(meson.source_root()+'/json/system/50001000.json')]]
+  test(t[0], python, args: [inv_schema_main, '-d', t[1], '-s', inv_schema_json])
+endforeach
 
