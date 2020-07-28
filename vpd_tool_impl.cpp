@@ -22,27 +22,6 @@ void VpdTool::eraseInventoryPath(string& fru)
     fru.erase(0, sizeof(INVENTORY_PATH) - 1);
 }
 
-void VpdTool::getPowerSupplyFruPath(vector<string>& powSuppFrus)
-{
-    auto bus = sdbusplus::bus::new_default();
-    auto properties = bus.new_method_call(
-        OBJECT_MAPPER_SERVICE, OBJECT_MAPPER_OBJECT,
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
-    properties.append(INVENTORY_PATH);
-    properties.append(0);
-    properties.append(array<const char*, 1>{POWER_SUPPLY_TYPE_INTERFACE});
-
-    auto result = bus.call(properties);
-
-    if (result.is_method_error())
-    {
-        throw runtime_error(
-            "GetSubTreePaths api in ObjectMapper service is failed.");
-    }
-
-    result.read(powSuppFrus);
-}
-
 void VpdTool::debugger(json output)
 {
     cout << output.dump(4) << '\n';
@@ -277,17 +256,6 @@ void VpdTool::dumpInventory(const nlohmann::basic_json<>& jsObject)
     char flag = 'I';
     json output = json::array({});
     output.emplace_back(parseInvJson(jsObject, flag, ""));
-
-    vector<string> powSuppFrus;
-
-    getPowerSupplyFruPath(powSuppFrus);
-
-    for (const auto& fru : powSuppFrus)
-    {
-        output.emplace_back(
-            getVINIProperties(fru, nlohmann::detail::value_t::null));
-    }
-
     debugger(output);
 }
 
@@ -295,20 +263,7 @@ void VpdTool::dumpObject(const nlohmann::basic_json<>& jsObject)
 {
     char flag = 'O';
     json output = json::array({});
-    vector<string> powSuppFrus;
-
-    getPowerSupplyFruPath(powSuppFrus);
-
-    if (find(powSuppFrus.begin(), powSuppFrus.end(), fruPath) !=
-        powSuppFrus.end())
-    {
-        output.emplace_back(
-            getVINIProperties(fruPath, nlohmann::detail::value_t::null));
-    }
-    else
-    {
-        output.emplace_back(parseInvJson(jsObject, flag, fruPath));
-    }
+    output.emplace_back(parseInvJson(jsObject, flag, fruPath));
     debugger(output);
 }
 

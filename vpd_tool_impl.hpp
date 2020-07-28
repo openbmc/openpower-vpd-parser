@@ -105,15 +105,6 @@ class VpdTool
     json parseInvJson(const json& jsObject, char flag, std::string fruPath);
 
     /**
-     * @brief getPowerSupplyFruPath
-     * Get the power supply fru paths from Object mapper service.
-     *
-     * @param[out] powSuppFrus - Reference to a vector which has the power
-     * supply fruPaths.
-     */
-    void getPowerSupplyFruPath(std::vector<std::string>& powSuppFrus);
-
-    /**
      * @brief eraseInventoryPath
      * Remove the INVENTORY_PATH - "/xyz/openbmc_project/inventory"
      * for code convenience.
