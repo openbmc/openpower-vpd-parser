@@ -118,6 +118,15 @@ class VpdTool
      */
     void eraseInventoryPath(std::string& fru);
 
+    /**
+     * @brief getPowerSupplyFruPath
+     * Get the power supply fru paths from Object mapper service.
+     *
+     * @param[out] powSuppFrus - Reference to a vector which has the power
+     * supply fruPaths.
+     */
+    void getPowerSupplyFruPath(std::vector<std::string>& powSuppFrus);
+
   public:
     /**
      * @brief Dump the complete inventory in JSON format
