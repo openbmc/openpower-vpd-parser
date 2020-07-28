@@ -15,7 +15,7 @@ systemd = dependency('libsystemd', version: '>= 221')
 libcrypto = meson.get_compiler('c').find_library('libcrypto')
 systemd = dependency('libsystemd', version: '>= 221')
 
-dependecy_list = [sdbusplus, 
+dependency_list = [sdbusplus, 
                   phosphor_logging,
                   phosphor_dbus_interfaces,
                   libcrypto,
@@ -61,7 +61,7 @@ vpd_tool_SOURCES =['vpd_tool.cpp',
 
 vpd_tool_exe = executable('vpd-tool',
                            vpd_tool_SOURCES,
-                           dependencies: [dependecy_list
+                           dependencies: [dependency_list
                            ],
                            include_directories:[ 'vpd-manager/',
                                                  'vpd-parser/' 
@@ -97,7 +97,7 @@ ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',
 
 ibm_vpd_exe = executable('ibm-read-vpd',
                           ibm_read_vpd_SOURCES,
-                          dependencies: [dependecy_list
+                          dependencies: [dependency_list
                           ],
                           include_directories: 'vpd-parser/',
                           install: true,
