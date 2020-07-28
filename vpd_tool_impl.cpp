@@ -151,8 +151,11 @@ json VpdTool::getVINIProperties(string invPath, json exIntf)
         }
     }
 
-    addFruTypeAndLocation(exIntf, objectName, kwVal);
-    kwVal.emplace("TYPE", fruType);
+    if (invPath.find("powersupply") == std::string::npos)
+    {
+        addFruTypeAndLocation(exIntf, objectName, kwVal);
+        kwVal.emplace("TYPE", fruType);
+    }
 
     output.emplace(invPath, kwVal);
     return output;
@@ -288,17 +291,20 @@ void VpdTool::dumpInventory(const nlohmann::basic_json<>& jsObject)
 {
     char flag = 'I';
     json output = json::array({});
-    output.emplace_back(parseInvJson(jsObject, flag, ""));
+    json j = parseInvJson(jsObject, flag, "");
+    json out = json::object();
+    out.insert(j.begin(), j.end());
 
     vector<string> powSuppFrus;
 
     getPowerSupplyFruPath(powSuppFrus);
-
-    for (const auto& fru : powSuppFrus)
+    for (auto& fru : powSuppFrus)
     {
-        output.emplace_back(
-            getVINIProperties(fru, nlohmann::detail::value_t::null));
+        eraseInventoryPath(fru);
+        json j = getVINIProperties(fru, nlohmann::detail::value_t::null);
+        out.insert(j.begin(), j.end());
     }
+    output.emplace_back(out);
 
     debugger(output);
 }
@@ -310,9 +316,8 @@ void VpdTool::dumpObject(const nlohmann::basic_json<>& jsObject)
     vector<string> powSuppFrus;
 
     getPowerSupplyFruPath(powSuppFrus);
-
-    if (find(powSuppFrus.begin(), powSuppFrus.end(), fruPath) !=
-        powSuppFrus.end())
+    if (find(powSuppFrus.begin(), powSuppFrus.end(),
+             INVENTORY_PATH + fruPath) != powSuppFrus.end())
     {
         output.emplace_back(
             getVINIProperties(fruPath, nlohmann::detail::value_t::null));
