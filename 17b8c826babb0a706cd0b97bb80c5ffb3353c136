@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62fdeef9_d4e41622",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-07-30T11:50:08Z",
+      "side": 1,
+      "message": "why is this truncation done ?\nwhat is the guarantee that it will not be same for another?",
+      "range": {
+        "startLine": 532,
+        "startChar": 0,
+        "endLine": 534,
+        "endChar": 37
+      },
+      "revId": "17b8c826babb0a706cd0b97bb80c5ffb3353c136",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "829c87c4_4171474e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-07-30T11:50:08Z",
+      "side": 1,
+      "message": "do we need to do anything for case sensitivity or it is case insensitive ?",
+      "range": {
+        "startLine": 607,
+        "startChar": 0,
+        "endLine": 616,
+        "endChar": 0
+      },
+      "revId": "17b8c826babb0a706cd0b97bb80c5ffb3353c136",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7160afb_3c825c9e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-07-30T11:50:08Z",
+      "side": 1,
+      "message": "this function does the get SN / FN offset from file correct?",
+      "range": {
+        "startLine": 679,
+        "startChar": 45,
+        "endLine": 679,
+        "endChar": 63
+      },
+      "revId": "17b8c826babb0a706cd0b97bb80c5ffb3353c136",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec19570c_61782cb3",
+        "filename": "impl.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-07-30T11:50:08Z",
+      "side": 1,
+      "message": "this is the keyword under which record ?",
+      "range": {
+        "startLine": 565,
+        "startChar": 8,
+        "endLine": 569,
+        "endChar": 0
+      },
+      "revId": "17b8c826babb0a706cd0b97bb80c5ffb3353c136",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70dd2b7a_c06baf86",
+        "filename": "meson.build",
+        "patchSetId": 9
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-07-30T11:50:08Z",
+      "side": 1,
+      "message": "trailing spaces",
+      "range": {
+        "startLine": 5,
+        "startChar": 10,
+        "endLine": 5,
+        "endChar": 11
+      },
+      "revId": "17b8c826babb0a706cd0b97bb80c5ffb3353c136",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bbae8e0_cf8acae4",
+        "filename": "meson.build",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-07-30T11:50:08Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 13
+      },
+      "revId": "17b8c826babb0a706cd0b97bb80c5ffb3353c136",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b4c2d8a_4dcef823",
+        "filename": "meson.build",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-07-30T11:50:08Z",
+      "side": 1,
+      "message": "trailing spaces",
+      "range": {
+        "startLine": 71,
+        "startChar": 36,
+        "endLine": 71,
+        "endChar": 37
+      },
+      "revId": "17b8c826babb0a706cd0b97bb80c5ffb3353c136",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11155076_46aef674",
+        "filename": "meson.build",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-07-30T11:50:08Z",
+      "side": 1,
+      "message": "close bracket to be in first column",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 8
+      },
+      "revId": "17b8c826babb0a706cd0b97bb80c5ffb3353c136",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "486711b4_f3e6894b",
+        "filename": "test/meson.build",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-07-30T11:50:08Z",
+      "side": 1,
+      "message": "could have ordered this meson similar to the main meson",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 97
+      },
+      "revId": "17b8c826babb0a706cd0b97bb80c5ffb3353c136",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2da935ac_955c077b",
+        "filename": "vpd-manager/meson.build",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-07-30T11:50:08Z",
+      "side": 1,
+      "message": "remove tabs and keep spaces",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "17b8c826babb0a706cd0b97bb80c5ffb3353c136",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6efec0c_9f47165f",
+        "filename": "vpd-manager/meson.build",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-07-30T11:50:08Z",
+      "side": 1,
+      "message": "is it necessary to give the relative path to the file (I mean like the ../ ), would it not be clean to have each directory have a meson build and get the sources out of that folder , just a thought",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 57
+      },
+      "revId": "17b8c826babb0a706cd0b97bb80c5ffb3353c136",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01a290c2_7e46bb4f",
+        "filename": "vpd-manager/meson.build",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-07-30T11:50:08Z",
+      "side": 1,
+      "message": "convert tabs to spaces",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 3
+      },
+      "revId": "17b8c826babb0a706cd0b97bb80c5ffb3353c136",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
