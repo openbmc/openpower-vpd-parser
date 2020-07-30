@@ -13,6 +13,7 @@ build_tests = get_option('tests')
 sdbusplus = dependency('sdbusplus')
 phosphor_logging = dependency('phosphor-logging')
 phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
+systemd = dependency('libsystemd', version: '>= 221')
 
 compiler = meson.get_compiler('cpp')
 python = find_program('python3', required:true)
@@ -20,22 +21,23 @@ compiler.has_header('CLI/CLI.hpp')
 compiler.has_header('nlohmann/json.hpp')
 
 argument_list = []
+dependency_list = [sdbusplus, phosphor_logging, phosphor_dbus_interfaces, systemd]
 
 configure_file(output: 'config.h',
-                       configuration :{
-                       'INVENTORY_JSON': '"'+get_option('INVENTORY_JSON')+'"',
-                       'INVENTORY_PATH': '"'+get_option('INVENTORY_PATH')+'"',
-                       'IPZ_INTERFACE': '"'+get_option('IPZ_INTERFACE')+'"',
-                       'INVENTORY_MANAGER_SERVICE': '"'+get_option('INVENTORY_MANAGER_SERVICE')+'"',
-                       'BUSNAME' : '"' + get_option('BUSNAME') + '"',
-                       'OBJPATH' : '"' + get_option('OBJPATH') + '"',
-                       'IFACE' : '"' + get_option('IFACE') + '"',
-                       'OBJECT_MAPPER_SERVICE' : '"'+get_option('OBJECT_MAPPER_SERVICE')+'"',
-                       'OBJECT_MAPPER_OBJECT' : '"'+get_option('OBJECT_MAPPER_OBJECT')+'"',
-                       'POWER_SUPPLY_TYPE_INTERFACE' : '"'+get_option('POWER_SUPPLY_TYPE_INTERFACE')+'"',
-                       'INVENTORY_MANAGER_CACHE' : '"'+get_option('INVENTORY_MANAGER_CACHE')+'"'
-                       }
-  )
+                        configuration : {
+                            'INVENTORY_JSON': '"'+get_option('INVENTORY_JSON')+'"',
+                            'INVENTORY_PATH': '"'+get_option('INVENTORY_PATH')+'"',
+                            'IPZ_INTERFACE': '"'+get_option('IPZ_INTERFACE')+'"',
+                            'INVENTORY_MANAGER_SERVICE': '"'+get_option('INVENTORY_MANAGER_SERVICE')+'"',
+                            'BUSNAME' : '"' + get_option('BUSNAME') + '"',
+                            'OBJPATH' : '"' + get_option('OBJPATH') + '"',
+                            'IFACE' : '"' + get_option('IFACE') + '"',
+                            'OBJECT_MAPPER_SERVICE' : '"'+get_option('OBJECT_MAPPER_SERVICE')+'"',
+                            'OBJECT_MAPPER_OBJECT' : '"'+get_option('OBJECT_MAPPER_OBJECT')+'"',
+                            'POWER_SUPPLY_TYPE_INTERFACE' : '"'+get_option('POWER_SUPPLY_TYPE_INTERFACE')+'"',
+                            'INVENTORY_MANAGER_CACHE' : '"'+get_option('INVENTORY_MANAGER_CACHE')+'"'
+                        }
+)
 
 common_SOURCES= ['vpd-parser/parser_factory.cpp',
                  'vpd-parser/memory_vpd_parser.cpp',
@@ -65,6 +67,25 @@ vpd_tool_exe = executable('vpd-tool',
                            install: true
 )
 
+vpd_manager_SOURCES = ['vpd-manager/manager_main.cpp',
+                       'vpd-manager/manager.cpp',
+                       'vpd-manager/server.cpp',
+                       'vpd-manager/error.cpp',
+                       'vpd-manager/editor_impl.cpp',
+                       'vpd-manager/reader_impl.cpp',
+] + common_SOURCES
+
+vpd_manager_exe = executable('vpd-manager',
+                              vpd_manager_SOURCES,
+                              include_directories : ['.',
+                                                     '../',
+                                                     '../vpd-parser/'
+                              ],
+                              dependencies : [ dependency_list,
+                              ],
+                              install : true
+)
+
 if get_option('ibm-parser').enabled()
     argument_list = ['-DIPZ_PARSER']
 endif
@@ -73,14 +94,15 @@ ibm_read_vpd_SOURCES= ['ibm_vpd_app.cpp',
 ] + common_SOURCES
 
 ibm_vpd_exe = executable('ibm-read-vpd',
-                              ibm_read_vpd_SOURCES,
-                              dependencies:[sdbusplus,
-                                            phosphor_logging,
-                              ],
-                              include_directories : 'vpd-parser/',
-                              install: true,
-                              cpp_args : argument_list
+                          ibm_read_vpd_SOURCES,
+                          dependencies:[sdbusplus,
+                                        phosphor_logging,
+                          ],
+                          include_directories : 'vpd-parser/',
+                          install: true,
+                          cpp_args : argument_list
 )
 
 subdir('test')
-subdir('vpd-manager')
+
+
