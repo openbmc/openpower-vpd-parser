@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26a355a4_dfd62330",
+        "filename": "meson.build",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-03T04:56:24Z",
+      "side": 1,
+      "message": "spelling - dependency\nits causing build failure here(35089:JSON Schema for VPD inventory json.) has it has changed to the right spelling in this commit https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/35144/8/meson.build#18",
+      "range": {
+        "startLine": 18,
+        "startChar": 5,
+        "endLine": 18,
+        "endChar": 9
+      },
+      "revId": "d6ba4be524c9f666ba8717d2db7ae0bb335eee51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a671b31_a16c502c",
+        "filename": "meson.build",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-03T04:56:24Z",
+      "side": 1,
+      "message": "spelling - dependency",
+      "range": {
+        "startLine": 64,
+        "startChar": 47,
+        "endLine": 64,
+        "endChar": 51
+      },
+      "revId": "d6ba4be524c9f666ba8717d2db7ae0bb335eee51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "791eff64_93010337",
+        "filename": "meson.build",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-03T04:56:24Z",
+      "side": 1,
+      "message": "spelling - dependency",
+      "range": {
+        "startLine": 100,
+        "startChar": 47,
+        "endLine": 100,
+        "endChar": 52
+      },
+      "revId": "d6ba4be524c9f666ba8717d2db7ae0bb335eee51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
