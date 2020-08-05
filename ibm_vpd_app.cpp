@@ -452,6 +452,144 @@ void setDevTreeEnv(const string& systemType)
 }
 
 /**
+ * @brief API to call VPD manager to write VPD to EEPROM.
+ * @param[in] Object path.
+ * @param[in] record to be updated.
+ * @param[in] keyword to be updated.
+ * @param[in] keyword data to be updated
+ */
+void updateHardware(const string& objectName, const string& recName,
+                    const string& kwdName, const Binary& data)
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto properties =
+            bus.new_method_call(BUSNAME, OBJPATH, IFACE, "WriteKeyword");
+        properties.append(
+            static_cast<sdbusplus::message::object_path>(objectName));
+        properties.append(recName);
+        properties.append(kwdName);
+        properties.append(data);
+        bus.call(properties);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        std::string what =
+            "VPDManager WriteKeyword api failed for inventory path " +
+            objectName;
+        what += " record " + recName;
+        what += " keyword " + kwdName;
+        what += " with bus error = " + std::string(e.what());
+
+        // map to hold additional data in case of logging pel
+        PelAdditionalData additionalData{};
+        additionalData.emplace("CALLOUT_INVENTORY_PATH", objectName);
+        additionalData.emplace("DESCRIPTION", what);
+        createPEL(additionalData, errIntfForBusFailure);
+    }
+}
+
+/**
+ * @brief API to check if we need to restore system VPD
+ * This functionality is only applicable for IPZ VPD data.
+ * @param[in] vpdMap - IPZ vpd map
+ * @param[in] objectPath - Object path for the FRU
+ * @return EEPROMs with records and keywords updated at standby
+ */
+std::vector<EEPROMsUpdatedAtStandby> restoreSystemVPD(Parsed& vpdMap,
+                                                      const string& objectPath)
+{
+    static std::unordered_map<std::string, std::vector<std::string>> svpdKwdMap{
+        {"VSYS",
+         {"BR", "TM", "SE", "SU", "SG", "TN", "MN", "NN", "ID", "RG", "WN",
+          "RB", "DR"}},
+        {"VCEN", {"FC", "SE", "RG", "FC"}},
+        {"LXR0", {"LX"}}};
+
+    // vector to hold all the EEPROMs updated at standby
+    std::vector<EEPROMsUpdatedAtStandby> updatedEeproms = {};
+
+    for (const auto& systemRecKwdPair : svpdKwdMap)
+    {
+        auto it = vpdMap.find(systemRecKwdPair.first);
+
+        // check if record is found in map we got by parser
+        if (it != vpdMap.end())
+        {
+            const auto& kwdListForRecord = systemRecKwdPair.second;
+            for (const auto& keyword : kwdListForRecord)
+            {
+                DbusPropertyMap& kwdValMap = it->second;
+                auto iterator = kwdValMap.find(keyword);
+
+                if (iterator != kwdValMap.end())
+                {
+                    string& kwdValue = iterator->second;
+
+                    // check bus data
+                    const string& recordName = systemRecKwdPair.first;
+                    const string& busValue = readBusProperty(
+                        objectPath, ipzVpdInf + recordName, keyword);
+
+                    if (busValue.find_first_not_of(' ') != string::npos)
+                    {
+                        if (kwdValue.find_first_not_of(' ') != string::npos)
+                        {
+                            // both the data are present, check for mismatch
+                            if (busValue != kwdValue)
+                            {
+                                // data mismatch
+                                PelAdditionalData additionalData;
+                                additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                                       objectPath);
+                                additionalData.emplace(
+                                    "DESCRIPTION",
+                                    "VPD data mismatch on cache and hardware");
+
+                                createPEL(additionalData, errIntfForInvalidVPD);
+                            }
+                        }
+                        else
+                        {
+                            // implies hardware data is blank
+                            // update the map
+                            Binary busData(busValue.begin(), busValue.end());
+
+                            updatedEeproms.push_back(std::make_tuple(
+                                objectPath, recordName, keyword, busData));
+                        }
+
+                        // update the map as well, so that cache data is not
+                        // updated as blank while populating VPD map on Dbus in
+                        // populateDBus Api
+                        kwdValue = busValue;
+                        continue;
+                    }
+                    else if (kwdValue.find_first_not_of(' ') == string::npos)
+                    {
+                        // both the data are blanks, log PEL
+                        PelAdditionalData additionalData;
+                        additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                               objectPath);
+                        additionalData.emplace(
+                            "DESCRIPTION",
+                            "VPD is blank on both cache and hardware. SSR need "
+                            "to update hardware VPD");
+
+                        // log PEL TODO: Block IPL
+                        createPEL(additionalData, errIntfForBlankSystemVPD);
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+
+    return updatedEeproms;
+}
+
+/**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
  * and notifies PIM about dbus object.
@@ -462,12 +600,14 @@ void setDevTreeEnv(const string& systemType)
  * @param[in] preIntrStr - Interface string
  */
 template <typename T>
-static void populateDbus(const T& vpdMap, nlohmann::json& js,
-                         const string& filePath)
+static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 {
     inventory::InterfaceMap interfaces;
     inventory::ObjectMap objects;
     inventory::PropertyMap prop;
+
+    // map to hold all the keywords whose value has been changed at standby
+    vector<EEPROMsUpdatedAtStandby> updatedEeproms = {};
 
     bool isSystemVpd = false;
     for (const auto& item : js["frus"][filePath])
@@ -475,6 +615,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         const auto& objectPath = item["inventoryPath"];
         sdbusplus::message::object_path object(objectPath);
         isSystemVpd = item.value("isSystemVpd", false);
+
         // Populate the VPD keywords and the common interfaces only if we
         // are asked to inherit that data from the VPD, else only add the
         // extraInterfaces.
@@ -482,6 +623,23 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         {
             if constexpr (is_same<T, Parsed>::value)
             {
+                if (isSystemVpd)
+                {
+                    std::vector<std::string> interfaces = {
+                        motherboardInterface};
+                    // call mapper to check for object path creation
+                    MapperResponse subTree =
+                        getObjectSubtreeForInterfaces(pimPath, 0, interfaces);
+
+                    // Skip system vpd restore if object path is not generated
+                    // for motherboard, Implies first boot.
+                    if (subTree.size() != 0)
+                    {
+                        // implies motherboard object path has been created
+                        updatedEeproms = restoreSystemVPD(vpdMap, objectPath);
+                    }
+                }
+
                 // Each record in the VPD becomes an interface and all
                 // keyword within the record are properties under that
                 // interface.
@@ -521,7 +679,6 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                 }
             }
         }
-
         if (item.value("inheritEI", true))
         {
             // Populate interfaces and properties that are common to every FRU
@@ -593,6 +750,16 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
         // set the U-boot environment variable for device-tree
         setDevTreeEnv(imValStr);
+
+        // if system VPD has been restored at standby, update the EEPROM
+        if (updatedEeproms.size() != 0)
+        {
+            for (const auto& item : updatedEeproms)
+            {
+                updateHardware(get<0>(item), get<1>(item), get<2>(item),
+                               get<3>(item));
+            }
+        }
     }
 
     // Notify PIM
