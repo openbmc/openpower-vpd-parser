@@ -4,8 +4,10 @@
 
 #include "defines.hpp"
 
+#include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/server.hpp>
+#include <xyz/openbmc_project/Common/error.hpp>
 
 namespace openpower
 {
@@ -14,6 +16,7 @@ namespace vpd
 using namespace openpower::vpd::constants;
 using namespace inventory;
 using namespace phosphor::logging;
+using namespace sdbusplus::xyz::openbmc_project::Common::Error;
 
 namespace inventory
 {
@@ -66,9 +69,36 @@ void callPIM(ObjectMap&& objects)
     }
     catch (const std::runtime_error& e)
     {
-        using namespace phosphor::logging;
         log<level::ERR>(e.what());
     }
+}
+
+MapperResponse
+    getObjectSubtreeForInterfaces(const std::string& root, const int32_t depth,
+                                  const std::vector<std::string>& interfaces)
+{
+    auto bus = sdbusplus::bus::new_default();
+    auto mapperCall = bus.new_method_call(mapperDestination, mapperObjectPath,
+                                          mapperInterface, "GetSubTree");
+    mapperCall.append(root);
+    mapperCall.append(depth);
+    mapperCall.append(interfaces);
+
+    MapperResponse result = {};
+
+    try
+    {
+        auto response = bus.call(mapperCall);
+
+        response.read(result);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        log<level::ERR>("Error in mapper GetSubTree",
+                        entry("ERROR=%s", e.what()));
+    }
+
+    return result;
 }
 
 } // namespace inventory
@@ -186,7 +216,6 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
     try
     {
         auto bus = sdbusplus::bus::new_default();
-
         auto service = getService(bus, loggerObjectPath, loggerCreateInterface);
         auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
                                           loggerCreateInterface, "Create");
