@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <unordered_map>
 
 namespace openpower
 {
@@ -109,6 +110,7 @@ enum Status
     FAILED = -1
 };
 } // namespace eccStatus
+
 } // namespace constants
 } // namespace vpd
 } // namespace openpower
