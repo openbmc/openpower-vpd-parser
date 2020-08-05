@@ -109,6 +109,7 @@ enum Status
     FAILED = -1
 };
 } // namespace eccStatus
+
 } // namespace constants
 } // namespace vpd
 } // namespace openpower

@@ -46,7 +46,7 @@ class Store final
      *
      *  @returns VPD as a Parsed object
      */
-    inline const Parsed& getVpdMap() const
+    inline Parsed& getVpdMap()
     {
         return vpd;
     }
