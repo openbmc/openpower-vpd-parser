@@ -6,6 +6,7 @@
 #include <iostream>
 
 using namespace std;
+
 namespace openpower
 {
 namespace vpd
@@ -46,14 +47,33 @@ namespace inventory
 {
 
 /** @brief Get inventory-manager's d-bus service
+ *  @param[in] - Bus object
+ *  @param[in] - object path of the service
+ *  @param[in] - interface under the object path
+ *  @return service name
  */
-auto getPIMService();
+std::string getService(sdbusplus::bus::bus& bus, const std::string& path,
+                       const std::string& interface);
 
 /** @brief Call inventory-manager to add objects
  *
  *  @param [in] objects - Map of inventory object paths
  */
 void callPIM(ObjectMap&& objects);
+
+/** @brief Api to obtain a dictionary of path -> services
+ * where path is in subtree and services is of the type
+ * returned by the GetObject method.
+ *
+ * @param [in] root - Root path for object subtree
+ * @param [in] depth - Maximum subtree depth required
+ * @param [in] interfaces - Array to interfaces for which
+ * result is required.
+ * @return A dictionary of Path -> services
+ */
+MapperResponse
+    getObjectSubtreeForInterfaces(const std::string& root, const int32_t depth,
+                                  const std::vector<std::string>& interfaces);
 
 } // namespace inventory
 
@@ -87,5 +107,6 @@ string readBusProperty(const string& obj, const string& inf,
  */
 void createPEL(const std::map<std::string, std::string>& additionalData,
                const std::string& errIntf);
+
 } // namespace vpd
 } // namespace openpower
