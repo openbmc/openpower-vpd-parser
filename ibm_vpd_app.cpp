@@ -328,6 +328,111 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
 }
 
 /**
+ * @brief API to call VPD manager to write VPD to EEPROM.
+ * @param[in] Object path.
+ * @param[in] record to be updated.
+ * @param[in] keyword to be updated.
+ * @param[in] keyword data to be updated
+ */
+void updateHardware(const string& objectName, const string& recName,
+                    const string& kwdName, const Binary& data)
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto properties =
+            bus.new_method_call(BUSNAME, OBJPATH, IFACE, "WriteKeyword");
+        properties.append(
+            static_cast<sdbusplus::message::object_path>(objectName));
+        properties.append(recName);
+        properties.append(kwdName);
+        properties.append(data);
+        bus.call(properties);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        std::string what =
+            "VPDManager WriteKeyword api failed for inventory path " +
+            objectName;
+        what += " record " + recName;
+        what += " keyword " + kwdName;
+        what += " with bus error = " + std::string(e.what());
+
+        throw runtime_error(what);
+    }
+
+    return;
+}
+
+/**
+ * @brief API to check if we need to restore system VPD
+ * @param[in] vpdMap - Either IPZ vpd map or Keyword vpd map based on the
+ * input.
+ * @param[in] objectPath - Object path for the FRU
+ */
+template <typename T>
+void restoreSystemVPD(T& vpdMap, const string& objectPath)
+{
+    static std::unordered_map<std::string, std::vector<std::string>> svpdKwdMap{
+        {"VSYS",
+         {"BR", "TM", "SE", "SU", "SG", "TN", "MN", "NN", "ID", "RG", "WN",
+          "RB", "DR"}},
+        {"VCEN", {"FC", "SE", "RG", "FC"}},
+        {"LXR0", {"LX"}}};
+
+    for (const auto& systemRecKwdPair : svpdKwdMap)
+    {
+        auto it = vpdMap.find(systemRecKwdPair.first);
+
+        // check if record is found in map we got by parser
+        if (it != vpdMap.end())
+        {
+            const auto& kwdListForRecord = systemRecKwdPair.second;
+            for (const auto& keyword : kwdListForRecord)
+            {
+                DbusPropertyMap& kwdValMap = it->second;
+                auto iterator = kwdValMap.find(keyword);
+
+                if (iterator != kwdValMap.end())
+                {
+                    string& kwdValue = iterator->second;
+
+                    // check if string has only ASCII spaces
+                    if (kwdValue.find_first_not_of(' ') != string::npos)
+                    {
+                        // implies the data is not blank so continue with
+                        // hardware data
+                        continue;
+                    }
+
+                    const string& recordName = systemRecKwdPair.first;
+                    const string& busValue = readBusProperty(
+                        objectPath, ipzVpdInf + recordName, keyword);
+
+                    if (busValue.find_first_not_of(' ') != string::npos)
+                    {
+                        // data is not blank on bus so convert to binary and
+                        // write to EEPROM
+                        Binary busData(busValue.begin(), busValue.end());
+
+                        updateHardware(objectPath, recordName, keyword,
+                                       busData);
+
+                        // update the map as well
+                        kwdValue = busValue;
+                    }
+                    else
+                    {
+                        // TODO::Data is blank on both Bus and Hardware Log PEL
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
  * and notifies PIM about dbus object.
@@ -338,8 +443,7 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
  * @param[in] preIntrStr - Interface string
  */
 template <typename T>
-static void populateDbus(const T& vpdMap, nlohmann::json& js,
-                         const string& filePath)
+static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 {
     inventory::InterfaceMap interfaces;
     inventory::ObjectMap objects;
@@ -368,6 +472,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         const auto& objectPath = item["inventoryPath"];
         sdbusplus::message::object_path object(objectPath);
         isSystemVpd = item.value("isSystemVpd", false);
+
         // Populate the VPD keywords and the common interfaces only if we
         // are asked to inherit that data from the VPD, else only add the
         // extraInterfaces.
@@ -375,6 +480,13 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         {
             if constexpr (is_same<T, Parsed>::value)
             {
+
+                // if This EEPROM belongs to system handle system vpd restore
+                if (isSystemVpd)
+                {
+                    restoreSystemVPD(vpdMap, objectPath);
+                }
+
                 // Each record in the VPD becomes an interface and all
                 // keyword within the record are properties under that
                 // interface.
