@@ -328,6 +328,69 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
 }
 
 /**
+ * @brief API to check if we need to restore system VPD
+ * @param[in] vpdMap - Either IPZ vpd map or Keyword vpd map based on the
+ * input.
+ * @param[in] objectPath - Object path for the FRU
+ */
+template <typename T>
+void restoreSystemVPD(T& vpdMap, const std::string& objectPath)
+{
+
+    for(const auto& systemRecKwdPair : svpdKwdMap)
+    {
+        auto it = vpdMap.find(systemRecKwdPair.first);
+        std::cout<<"Record to find:"<<systemRecKwdPair.first<<std::endl;
+        //check if record is found in map we got by parser
+        if(it != vpdMap.end())
+        {
+            std::cout<<"Record is found "<<systemRecKwdPair.first<<std::endl;
+            auto kwdListForRecord = systemRecKwdPair.second;
+            for(const auto& keyword : kwdListForRecord)
+            {
+                DbusPropertyMap kwdValMap = it->second;
+                auto iterator = kwdValMap.find(keyword);
+
+                //if kwd is found for in the map we got from parser
+                if(iterator != kwdValMap.end())
+                {
+                    std::cout<<"KWd is found "<<keyword<<std::endl;
+                    std::string kwdValue = iterator->second;
+
+                    //check if string has only ASCII spaces
+                    if(kwdValue.find_first_not_of(' ') != std::string::npos)
+                    {
+                        //implies the data is not blank so continue with hardware data
+                        std::cout<<"Data is not blank in the map"<<std::endl;
+                        //return;
+                    }
+
+                    std::string recordName = systemRecKwdPair.first;
+                    std::string busValue = makeDbusCall(pimIntf, INVENTORY_PATH + objectPath, "org.freedesktop.DBus.Properties", "Get", "ss", ipzVpdInf + recordName, keyword);
+                    
+                    if(busValue.find_first_not_of(' ') != std::string::npos)
+                    {
+                        //data is not blank on bus so convert to binary and write to EEPROM
+                        std::cout<<"Data is not blank on BUs"<<std::endl;
+                        
+                        Binary busData;
+                        for(const auto& singleChar : busValue)
+                        {
+                            std::cout<<"Binary Conversion"<<singleChar - NULL<<std::endl;
+                            busData.push_back(singleChar - NULL);
+                        }
+
+                        std::cout<<"Copy the bus value to EEPROM"<<std::endl;
+                        //iterator->second = busValue;
+                        makeDbusCall(BUSNAME, OBJPATH, IFACE, "WriteKeyword", "ossb", static_cast<sdbusplus::message::object_path>(objectPath), recordName, keyword, busData);
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
  * and notifies PIM about dbus object.
@@ -368,6 +431,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         const auto& objectPath = item["inventoryPath"];
         sdbusplus::message::object_path object(objectPath);
         isSystemVpd = item.value("isSystemVpd", false);
+
         // Populate the VPD keywords and the common interfaces only if we
         // are asked to inherit that data from the VPD, else only add the
         // extraInterfaces.
@@ -375,6 +439,14 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         {
             if constexpr (is_same<T, Parsed>::value)
             {
+
+                //if This EEPROM belongs to system handle system vpd restore 
+                if(filePath == systemEEPROM)
+                {
+                    std::cout<<"This EEPROM belongs to system"<<std::endl;
+                    restoreSystemVPD(const_cast<T&>(vpdMap), objectPath);
+                }
+
                 // Each record in the VPD becomes an interface and all
                 // keyword within the record are properties under that
                 // interface.
@@ -428,7 +500,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
             }
         }
 
-        if (item.value("inheritEI", true))
+/*        if (item.value("inheritEI", true))
         {
             // Populate interfaces and properties that are common to
             // every FRU
@@ -440,7 +512,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                                    isSystemVpd);
             }
         }
-
+*/
         // this condition is needed as openpower json will not have location
         // code interface
         if (item["extraInterfaces"].find(LOCATION_CODE_INF) !=
@@ -464,7 +536,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         objects.emplace(move(object), move(interfaces));
     }
 
-    if (isSystemVpd)
+ /*   if (isSystemVpd)
     {
         vector<uint8_t> imVal;
         if constexpr (is_same<T, Parsed>::value)
@@ -519,7 +591,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
     }
-
+*/
     // Notify PIM
     inventory::callPIM(move(objects));
 }
@@ -607,7 +679,7 @@ bool compareData(tuple<string, string> fileData, tuple<string, string> busData)
     if ((get<0>(fileData) == get<0>(busData)) &&
         (get<1>(fileData) == get<1>(busData)))
     {
-        return true;
+        return false;
     }
     return false;
 }
