@@ -40,15 +40,20 @@ using LocationCodeMap = std::unordered_multimap<LocationCode, Path>;
 using ListOfPaths = std::vector<sdbusplus::message::object_path>;
 using NodeNumber = uint16_t;
 using namespace std::string_literals;
-constexpr auto pimPath = "/xyz/openbmc_project/inventory";
-constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
 using KeywordVpdMap = std::unordered_map<std::string, Binary>;
 
 using systemType = std::string;
 using deviceTree = std::string;
 using deviceTreeMap = std::unordered_map<systemType, deviceTree>;
 using PelAdditionalData = std::map<std::string, std::string>;
-
+using Keyword = std::string;
+using KeywordData = std::string;
+using DbusPropertyMap = std::unordered_map<Keyword, KeywordData>;
+using PelAdditionalData = std::map<std::string, std::string>;
+using Service = std::string;
+using MapperResponse =
+    std::map<Path, std::map<Service, std::vector<Interface>>>;
+using EEPROMsUpdatedAtStandby = std::tuple<Path, std::string, Keyword, Binary>;
 } // namespace inventory
 
 } // namespace vpd
