@@ -330,6 +330,54 @@ inventory::ObjectMap primeInventory(nlohmann::json& jsObject, const T& vpdMap)
 }
 
 /**
+ * @brief API to check if we need to restore system VPD
+ * @param[in] vpdMap - Either IPZ vpd map or Keyword vpd map based on the
+ * input.
+ * @param[in] objectPath - Object path for the FRU
+ */
+void restoreSystemVPD(const T& vpdMap, const std::string objectPath)
+{
+    if constexpr (is_same<T, Parsed>::value)
+    {
+        //Parsed recKwdMap = pVal->getVpdMap();
+
+        for(const auto& systemRecKwdPair : svpdKwdMap)
+        {
+            auto it = vpdMap.find(systemRecKwdPair->first);
+
+            //check if record is found in map we got by parser
+            if(it != vpdMap.end())
+            {
+                auto kwdListForRecord = systemRecKwdPair->second;
+                for(const auto& keyword : kwdListForRecord)
+                {
+                    std::map<std::string, std::string> kwdValMap = it.second;
+                    auto iterator = kwdValMap.find(keyword);
+
+                    //if kwd is found for in the map we got from parser
+                    if(iterator != kwdValMap.end())
+                    {
+                        std::string kwdValue = iterator.second;
+
+                        //check if string has only ASCII spaces
+                        
+                        if(str.find_first_not_of(' ') != std::string::npos)
+                        {
+                            //implies the data is not blank
+                            return;
+                        }
+
+                        //implies the data is blank, we need to restore
+                        //TODO:implement a method in vpd tool to call read and write 
+
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
  * and notifies PIM about dbus object.
@@ -370,6 +418,14 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         const auto& objectPath = item["inventoryPath"];
         sdbusplus::message::object_path object(objectPath);
         isSystemVpd = item.value("isSystemVpd", false);
+
+        //if This EEPROM belongs to system handle system vpd restore 
+        if(filePath == systemEEPROM)
+        {
+            std::cout<<"This EEPROM belongs to system"<<std::endl;
+            restoreSystemVPD(vpdMap, objectPath);
+        }
+
         // Populate the VPD keywords and the common interfaces only if we
         // are asked to inherit that data from the VPD, else only add the
         // extraInterfaces.
