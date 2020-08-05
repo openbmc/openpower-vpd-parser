@@ -269,28 +269,6 @@ void EditorImpl::readVTOC()
     checkPTForRecord(itrToRecord, ptLen);
 }
 
-template <typename T>
-void EditorImpl::makeDbusCall(const std::string& object,
-                              const std::string& interface,
-                              const std::string& property,
-                              const std::variant<T>& data)
-{
-    auto bus = sdbusplus::bus::new_default();
-    auto properties =
-        bus.new_method_call(INVENTORY_MANAGER_SERVICE, object.c_str(),
-                            "org.freedesktop.DBus.Properties", "Set");
-    properties.append(interface);
-    properties.append(property);
-    properties.append(data);
-
-    auto result = bus.call(properties);
-
-    if (result.is_method_error())
-    {
-        throw std::runtime_error("bus call failed");
-    }
-}
-
 void EditorImpl::processAndUpdateCI(const std::string& objectPath)
 {
     for (auto& commonInterface : jsonFile["commonInterfaces"].items())
@@ -308,9 +286,10 @@ void EditorImpl::processAndUpdateCI(const std::string& objectPath)
                     std::string kwdData(thisRecord.kwdUpdatedData.begin(),
                                         thisRecord.kwdUpdatedData.end());
 
-                    makeDbusCall<std::string>((INVENTORY_PATH + objectPath),
-                                              commonInterface.key(),
-                                              ciPropertyList.key(), kwdData);
+                    makeDbusCall(pimIntf, INVENTORY_PATH + objPath,
+                                 "org.freedesktop.DBus.Properties", "Set",
+                                 "sss", commonInterface.key(),
+                                 ciPropertyList.key(), kwdData);
                 }
             }
         }
@@ -336,9 +315,11 @@ void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
                     {
                         std::string kwdData(thisRecord.kwdUpdatedData.begin(),
                                             thisRecord.kwdUpdatedData.end());
-                        makeDbusCall<std::string>(
-                            (INVENTORY_PATH + objPath), extraInterface.key(),
-                            eiPropertyList.key(),
+
+                        makeDbusCall(
+                            pimIntf, INVENTORY_PATH + objPath,
+                            "org.freedesktop.DBus.Properties", "Set", "sss",
+                            extraInterface.key(), eiPropertyList.key(),
                             encodeKeyword(kwdData, eiPropertyList.value().value(
                                                        "encoding", "")));
                     }
@@ -386,9 +367,11 @@ void EditorImpl::updateCache()
             // For CPU- update  com interface only when isCI true
             if ((!isCpuModuleOnly) || (isCpuModuleOnly && isCI))
             {
-                makeDbusCall<Binary>(
-                    (INVENTORY_PATH +
-                     singleInventory["inventoryPath"].get<std::string>()),
+                makeDbusCall(
+                    pimIntf,
+                    INVENTORY_PATH +
+                        singleInventory["inventoryPath"].get<std::string>(),
+                    "org.freedesktop.DBus.Properties", "Set", "ssb",
                     (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
                     thisRecord.recKWd, thisRecord.kwdUpdatedData);
             }
@@ -402,9 +385,11 @@ void EditorImpl::updateCache()
         {
             if (isCpuModuleOnly)
             {
-                makeDbusCall<Binary>(
-                    (INVENTORY_PATH +
-                     singleInventory["inventoryPath"].get<std::string>()),
+                makeDbusCall(
+                    pimIntf,
+                    INVENTORY_PATH +
+                        singleInventory["inventoryPath"].get<std::string>(),
+                    "org.freedesktop.DBus.Properties", "Set", "ssb",
                     (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
                     thisRecord.recKWd, thisRecord.kwdUpdatedData);
             }
@@ -425,16 +410,24 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
     if (locationCodeType == "fcs")
     {
         propertyFCorTM =
-            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "FC");
+            makeDbusCall(pimIntf, INVENTORY_PATH + (std::string)SYSTEM_OBJECT,
+                         "org.freedesktop.DBus.Properties", "Get", "ss",
+                         "com.ibm.ipzvpd.VCEN", "FC");
         propertySE =
-            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "SE");
+            makeDbusCall(pimIntf, INVENTORY_PATH + (std::string)SYSTEM_OBJECT,
+                         "org.freedesktop.DBus.Properties", "Get", "ss",
+                         "com.ibm.ipzvpd.VCEN", "SE");
     }
     else if (locationCodeType == "mts")
     {
         propertyFCorTM =
-            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "TM");
+            makeDbusCall(pimIntf, INVENTORY_PATH + (std::string)SYSTEM_OBJECT,
+                         "org.freedesktop.DBus.Properties", "Get", "ss",
+                         "com.ibm.ipzvpd.VSYS", "TM");
         propertySE =
-            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "SE");
+            makeDbusCall(pimIntf, INVENTORY_PATH + (std::string)SYSTEM_OBJECT,
+                         "org.freedesktop.DBus.Properties", "Get", "ss",
+                         "com.ibm.ipzvpd.VSYS", "SE");
     }
 
     const nlohmann::json& groupFRUS =
@@ -473,10 +466,12 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
                     }
 
                     // update the DBUS interface
-                    makeDbusCall<std::string>(
-                        (INVENTORY_PATH +
-                         itemEEPROM["inventoryPath"]
-                             .get_ref<const nlohmann::json::string_t&>()),
+                    makeDbusCall(
+                        pimIntf,
+                        INVENTORY_PATH +
+                            itemEEPROM["inventoryPath"]
+                                .get_ref<const nlohmann::json::string_t&>(),
+                        "org.freedesktop.DBus.Properties", "Set", "sss",
                         LOCATION_CODE_INF, "LocationCode", expandedLoctionCode);
                 }
             }

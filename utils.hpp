@@ -81,8 +81,8 @@ string encodeKeyword(const string& kw, const string& encoding);
  *  @param[in] prop - property whose value is fetched
  *  @return [out] - value of the property
  */
-string readBusProperty(const string& obj, const string& inf,
-                       const string& prop);
+// string readBusProperty(const string& obj, const string& inf,
+//                      const string& prop);
 
 /**
  * @brief getVpdFilePath
@@ -101,6 +101,20 @@ inventory::VPDfilepath getVpdFilePath(const json& jsonFile,
  * @return - SHA string
  */
 std::string getSHA(std::string filePath);
+
+/**
+ * @brief A gereric api to handle both read and write on DBus
+ * @param[in] - Bus Name
+ * @param[in] - Object Path
+ * @param[in] - Interface Name
+ * @param[in] - Method to call
+ * @param[in] - variable number of arguments as required
+ * @param[in] - Type and number of parameter passed
+ * @return - result of bus call
+ */
+std::string makeDbusCall(std::string busName, std::string objectPath,
+                         std::string intfName, std::string methodName,
+                         std::string parameterType, ...);
 
 } // namespace vpd
 } // namespace openpower

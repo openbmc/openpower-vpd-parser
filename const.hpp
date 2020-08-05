@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <unordered_map>
+#include <vector>
+#include <string>
 
 namespace openpower
 {
@@ -75,6 +77,7 @@ constexpr auto kwdVpdInf = "com.ibm.kwvpd.KWVPD";
 constexpr auto memVpdInf = "com.ibm.kwvpd.KWVPD";
 constexpr auto ipzVpdInf = "com.ibm.ipzvpd.";
 constexpr auto offsetJsonFirectory = "/var/lib/vpd/";
+constexpr auto systemEEPROM = "/sys/bus/i2c/drivers/at24/8-0050/eeprom";
 
 namespace lengths
 {
@@ -115,6 +118,13 @@ enum Status
     FAILED = -1
 };
 } // namespace eccStatus
+
+static std::unordered_map<std::string, std::vector<std::string>> svpdKwdMap{
+    {"VSYS", {"BR", "TM", "SE", "SU", "SG", "TN", "MN", "NN", "ID", "RG", "WN", "RB"}},
+    {"VCEN", {"FC", "SE", "RG", "FC"}},
+    {"LXR0", {"LX"}}
+};
+
 } // namespace constants
 } // namespace vpd
 } // namespace openpower

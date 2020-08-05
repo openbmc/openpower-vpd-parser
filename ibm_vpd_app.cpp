@@ -81,8 +81,14 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
             }
             else
             {
-                fc = readBusProperty(SYSTEM_OBJECT, VCEN_IF, "FC");
-                se = readBusProperty(SYSTEM_OBJECT, VCEN_IF, "SE");
+                fc = makeDbusCall(pimIntf,
+                                  INVENTORY_PATH + (std::string)SYSTEM_OBJECT,
+                                  "org.freedesktop.DBus.Properties", "Get",
+                                  "ss", VCEN_IF, "FC");
+                se = makeDbusCall(pimIntf,
+                                  INVENTORY_PATH + (std::string)SYSTEM_OBJECT,
+                                  "org.freedesktop.DBus.Properties", "Get",
+                                  "ss", VCEN_IF, "SE");
             }
 
             // TODO: See if ND1 can be placed in the JSON
@@ -104,8 +110,14 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
                 }
                 else
                 {
-                    mt = readBusProperty(SYSTEM_OBJECT, VSYS_IF, "TM");
-                    se = readBusProperty(SYSTEM_OBJECT, VSYS_IF, "SE");
+                    mt = makeDbusCall(
+                        pimIntf, INVENTORY_PATH + (std::string)SYSTEM_OBJECT,
+                        "org.freedesktop.DBus.Properties", "Get", "ss", VSYS_IF,
+                        "TM");
+                    se = makeDbusCall(
+                        pimIntf, INVENTORY_PATH + (std::string)SYSTEM_OBJECT,
+                        "org.freedesktop.DBus.Properties", "Get", "ss", VSYS_IF,
+                        "SE");
                 }
 
                 replace(mt.begin(), mt.end(), '-', '.');
@@ -328,6 +340,90 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
 }
 
 /**
+ * @brief API to check if we need to restore system VPD
+ * @param[in] vpdMap - Either IPZ vpd map or Keyword vpd map based on the
+ * input.
+ * @param[in] objectPath - Object path for the FRU
+ */
+template <typename T>
+void restoreSystemVPD(T& vpdMap, const std::string& objectPath)
+{
+
+    for (const auto& systemRecKwdPair : svpdKwdMap)
+    {
+        auto it = vpdMap.find(systemRecKwdPair.first);
+        std::cout << "Record to find:" << systemRecKwdPair.first << std::endl;
+        // check if record is found in map we got by parser
+        if (it != vpdMap.end())
+        {
+            std::cout << "Record is found " << systemRecKwdPair.first
+                      << std::endl;
+            auto kwdListForRecord = systemRecKwdPair.second;
+            for (const auto& keyword : kwdListForRecord)
+            {
+                DbusPropertyMap kwdValMap = it->second;
+                auto iterator = kwdValMap.find(keyword);
+
+                // if kwd is found in the map we got from parser
+                if (iterator != kwdValMap.end())
+                {
+                    std::cout << "KWd is found " << keyword << std::endl;
+                    std::string kwdValue = iterator->second;
+
+                    // check if string has only ASCII spaces
+                    if (kwdValue.find_first_not_of(' ') != std::string::npos)
+                    {
+                        // implies the data is not blank so continue with
+                        // hardware data
+                        std::cout << "Data is not blank in the map, continue "
+                                     "with another kwd"
+                                  << std::endl;
+                        continue;
+                    }
+
+                    std::string recordName = systemRecKwdPair.first;
+                    std::string busValue =
+                        makeDbusCall(pimIntf, INVENTORY_PATH + objectPath,
+                                     "org.freedesktop.DBus.Properties", "Get",
+                                     "ss", ipzVpdInf + recordName, keyword);
+
+                    if (busValue.find_first_not_of(' ') != std::string::npos)
+                    {
+                        // data is not blank on bus so convert to binary and
+                        // write to EEPROM
+                        std::cout << "Data is not blank on Bus" << std::endl;
+
+                        Binary busData;
+                        for (const auto& singleChar : busValue)
+                        {
+                            std::cout << "Binary Conversion"
+                                      << singleChar - NULL << std::endl;
+                            busData.push_back(singleChar - NULL);
+                        }
+
+                        std::cout << "Copy the bus value to EEPROM"
+                                  << std::endl;
+                        // iterator->second = busValue;
+                        makeDbusCall(
+                            BUSNAME, OBJPATH, IFACE, "WriteKeyword", "ossb",
+                            static_cast<sdbusplus::message::object_path>(
+                                objectPath),
+                            recordName, keyword, busData);
+                    }
+                    else
+                    {
+                        // data is blank on Bus and file both. Log ERROR
+                        std::cout << "Data is blank of bus as well, log error"
+                                  << std::endl;
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
  * and notifies PIM about dbus object.
@@ -368,6 +464,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         const auto& objectPath = item["inventoryPath"];
         sdbusplus::message::object_path object(objectPath);
         isSystemVpd = item.value("isSystemVpd", false);
+
         // Populate the VPD keywords and the common interfaces only if we
         // are asked to inherit that data from the VPD, else only add the
         // extraInterfaces.
@@ -375,6 +472,14 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         {
             if constexpr (is_same<T, Parsed>::value)
             {
+
+                // if This EEPROM belongs to system handle system vpd restore
+                if (filePath == systemEEPROM)
+                {
+                    std::cout << "This EEPROM belongs to system" << std::endl;
+                    restoreSystemVPD(const_cast<T&>(vpdMap), objectPath);
+                }
+
                 // Each record in the VPD becomes an interface and all
                 // keyword within the record are properties under that
                 // interface.
@@ -428,19 +533,19 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
             }
         }
 
-        if (item.value("inheritEI", true))
-        {
-            // Populate interfaces and properties that are common to
-            // every FRU
-            // and additional interface that might be defined on a
-            // per-FRU basis.
-            if (item.find("extraInterfaces") != item.end())
-            {
-                populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
-                                   isSystemVpd);
-            }
-        }
-
+        /*        if (item.value("inheritEI", true))
+                {
+                    // Populate interfaces and properties that are common to
+                    // every FRU
+                    // and additional interface that might be defined on a
+                    // per-FRU basis.
+                    if (item.find("extraInterfaces") != item.end())
+                    {
+                        populateInterfaces(item["extraInterfaces"], interfaces,
+           vpdMap, isSystemVpd);
+                    }
+                }
+        */
         // this condition is needed as openpower json will not have location
         // code interface
         if (item["extraInterfaces"].find(LOCATION_CODE_INF) !=
@@ -464,62 +569,62 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         objects.emplace(move(object), move(interfaces));
     }
 
-    if (isSystemVpd)
-    {
-        vector<uint8_t> imVal;
-        if constexpr (is_same<T, Parsed>::value)
-        {
-            auto property = vpdMap.find("VSBP");
-            if (property != vpdMap.end())
-            {
-                auto value = (property->second).find("IM");
-                if (value != (property->second).end())
-                {
-                    //                          imVal = value->second;
-                    copy(value->second.begin(), value->second.end(),
-                         back_inserter(imVal));
-                }
-            }
-        }
+    /*   if (isSystemVpd)
+       {
+           vector<uint8_t> imVal;
+           if constexpr (is_same<T, Parsed>::value)
+           {
+               auto property = vpdMap.find("VSBP");
+               if (property != vpdMap.end())
+               {
+                   auto value = (property->second).find("IM");
+                   if (value != (property->second).end())
+                   {
+                       //                          imVal = value->second;
+                       copy(value->second.begin(), value->second.end(),
+                            back_inserter(imVal));
+                   }
+               }
+           }
 
-        fs::path target;
-        fs::path link = INVENTORY_JSON_SYM_LINK;
+           fs::path target;
+           fs::path link = INVENTORY_JSON_SYM_LINK;
 
-        ostringstream oss;
-        for (auto& i : imVal)
-        {
-            if ((int)i / 10 == 0) // one digit number
-            {
-                oss << hex << 0;
-            }
-            oss << hex << static_cast<int>(i);
-        }
-        string imValStr = oss.str();
+           ostringstream oss;
+           for (auto& i : imVal)
+           {
+               if ((int)i / 10 == 0) // one digit number
+               {
+                   oss << hex << 0;
+               }
+               oss << hex << static_cast<int>(i);
+           }
+           string imValStr = oss.str();
 
-        if (imValStr == SYSTEM_4U) // 4U
-        {
-            target = INVENTORY_JSON_4U;
-        }
+           if (imValStr == SYSTEM_4U) // 4U
+           {
+               target = INVENTORY_JSON_4U;
+           }
 
-        else if (imValStr == SYSTEM_2U) // 2U
-        {
-            target = INVENTORY_JSON_2U;
-        }
+           else if (imValStr == SYSTEM_2U) // 2U
+           {
+               target = INVENTORY_JSON_2U;
+           }
 
-        // unlink the symlink which is created at build time
-        remove(INVENTORY_JSON_SYM_LINK);
-        // create a new symlink based on the system
-        fs::create_symlink(target, link);
+           // unlink the symlink which is created at build time
+           remove(INVENTORY_JSON_SYM_LINK);
+           // create a new symlink based on the system
+           fs::create_symlink(target, link);
 
-        // Reloading the json
-        ifstream inventoryJson(link);
-        auto js = json::parse(inventoryJson);
-        inventoryJson.close();
+           // Reloading the json
+           ifstream inventoryJson(link);
+           auto js = json::parse(inventoryJson);
+           inventoryJson.close();
 
-        inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
-        objects.insert(primeObject.begin(), primeObject.end());
-    }
-
+           inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
+           objects.insert(primeObject.begin(), primeObject.end());
+       }
+   */
     // Notify PIM
     inventory::callPIM(move(objects));
 }
@@ -593,10 +698,14 @@ tuple<string, string> getDataFromDbus(const json& js, const string& filePath)
     if (!objPath.empty())
     {
         // read bus property for SN kwd
-        snData = readBusProperty(objPath, interface, "SN");
+        snData = makeDbusCall(pimIntf, INVENTORY_PATH + objPath,
+                              "org.freedesktop.DBus.Properties", "Get", "ss",
+                              interface, "SN");
 
         // read bus property for FN kwd
-        fnData = readBusProperty(objPath, interface, "FN");
+        fnData = makeDbusCall(pimIntf, INVENTORY_PATH + objPath,
+                              "org.freedesktop.DBus.Properties", "Get", "ss",
+                              interface, "FN");
     }
 
     return make_tuple(snData, fnData);
@@ -607,7 +716,7 @@ bool compareData(tuple<string, string> fileData, tuple<string, string> busData)
     if ((get<0>(fileData) == get<0>(busData)) &&
         (get<1>(fileData) == get<1>(busData)))
     {
-        return true;
+        return false;
     }
     return false;
 }

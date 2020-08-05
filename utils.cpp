@@ -4,6 +4,7 @@
 
 #include "defines.hpp"
 
+#include <cstdarg>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/server.hpp>
 
@@ -148,7 +149,8 @@ string encodeKeyword(const string& kw, const string& encoding)
     }
 }
 
-string readBusProperty(const string& obj, const string& inf, const string& prop)
+/*string readBusProperty(const string& obj, const string& inf, const string&
+prop)
 {
     std::string propVal{};
     std::string object = INVENTORY_PATH + obj;
@@ -175,7 +177,7 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
     }
     return propVal;
 }
-
+*/
 inventory::VPDfilepath getVpdFilePath(const json& jsonFile,
                                       const std::string& ObjPath)
 {
@@ -221,6 +223,68 @@ std::string getSHA(std::string filePath)
 
     return std::string(mdString);
     ;
+}
+
+std::string makeDbusCall(std::string busName, std::string objectPath,
+                         std::string intfName, std::string methodName,
+                         std::string parameterType, ...)
+{
+    std::string propVal{};
+    auto bus = sdbusplus::bus::new_default();
+    auto properties = bus.new_method_call(busName.c_str(), objectPath.c_str(),
+                                          intfName.c_str(), methodName.c_str());
+
+    va_list arguments;
+    va_start(arguments, parameterType);
+    for (const auto& item : parameterType)
+    {
+        std::cout << item << std::endl;
+        switch (item)
+        {
+            // sdbus object type
+            case 'o':
+                properties.append(
+                    va_arg(arguments, sdbusplus::message::object_path));
+                break;
+
+            // string type
+            case 's':
+                properties.append(va_arg(arguments, std::string));
+                break;
+
+            // binary type
+            case 'b':
+                properties.append(va_arg(arguments, Binary));
+                break;
+        }
+    }
+    va_end(arguments);
+
+    auto result = bus.call(properties);
+    if (!result.is_method_error())
+    {
+        // if we have to read some value from BUS
+        if (methodName == "Get")
+        {
+            variant<Binary, string> val;
+            result.read(val);
+            if (auto pVal = get_if<Binary>(&val))
+            {
+                propVal.assign(reinterpret_cast<const char*>(pVal->data()),
+                               pVal->size());
+            }
+            else if (auto pVal = get_if<string>(&val))
+            {
+                propVal.assign(pVal->data(), pVal->size());
+            }
+        }
+        else
+        {
+            propVal = "Success";
+        }
+    }
+
+    return propVal;
 }
 
 } // namespace vpd
