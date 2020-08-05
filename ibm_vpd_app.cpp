@@ -328,6 +328,93 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
 }
 
 /**
+ * @brief API to call VPD manager to write VPD to EEPROM.
+ * @param[in] Object path.
+ * @param[in] record to be updated.
+ * @param[in] keyword to be updated.
+ * @param[in] keyword data to be updated
+ */
+void updateHardware(const string& objectName, const string& recName,
+                    const string& kwdName, const Binary& data)
+{
+    auto bus = sdbusplus::bus::new_default();
+    auto properties =
+        bus.new_method_call(BUSNAME, OBJPATH, IFACE, "WriteKeyword");
+    properties.append(static_cast<sdbusplus::message::object_path>(objectName));
+    properties.append(recName);
+    properties.append(kwdName);
+    properties.append(data);
+    auto result = bus.call(properties);
+
+    if (result.is_method_error())
+    {
+        throw runtime_error("Get api failed");
+    }
+    return;
+}
+
+/**
+ * @brief API to check if we need to restore system VPD
+ * @param[in] vpdMap - Either IPZ vpd map or Keyword vpd map based on the
+ * input.
+ * @param[in] objectPath - Object path for the FRU
+ */
+template <typename T>
+void restoreSystemVPD(T& vpdMap, const string& objectPath)
+{
+    for (const auto& systemRecKwdPair : svpdKwdMap)
+    {
+        auto it = vpdMap.find(systemRecKwdPair.first);
+
+        // check if record is found in map we got by parser
+        if (it != vpdMap.end())
+        {
+            auto kwdListForRecord = systemRecKwdPair.second;
+            for (const auto& keyword : kwdListForRecord)
+            {
+                DbusPropertyMap kwdValMap = it->second;
+                auto iterator = kwdValMap.find(keyword);
+
+                if (iterator != kwdValMap.end())
+                {
+                    string kwdValue = iterator->second;
+
+                    // check if string has only ASCII spaces
+                    if (kwdValue.find_first_not_of(' ') != string::npos)
+                    {
+                        // implies the data is not blank so continue with
+                        // hardware data
+                        continue;
+                    }
+
+                    const string& recordName = systemRecKwdPair.first;
+                    const string& busValue = readBusProperty(
+                        objectPath, ipzVpdInf + recordName, keyword);
+
+                    if (busValue.find_first_not_of(' ') != string::npos)
+                    {
+                        // data is not blank on bus so convert to binary and
+                        // write to EEPROM
+                        Binary busData;
+                        for (const auto& singleChar : busValue)
+                        {
+                            busData.push_back(singleChar - NULL);
+                        }
+                        updateHardware(objectPath, recordName, keyword,
+                                       busData);
+                    }
+                    else
+                    {
+                        // TODO::Data is blank on both Bus and Hardware Log PEL
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
  * and notifies PIM about dbus object.
@@ -368,6 +455,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         const auto& objectPath = item["inventoryPath"];
         sdbusplus::message::object_path object(objectPath);
         isSystemVpd = item.value("isSystemVpd", false);
+
         // Populate the VPD keywords and the common interfaces only if we
         // are asked to inherit that data from the VPD, else only add the
         // extraInterfaces.
@@ -375,6 +463,13 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         {
             if constexpr (is_same<T, Parsed>::value)
             {
+
+                // if This EEPROM belongs to system handle system vpd restore
+                if (filePath == systemEEPROM)
+                {
+                    restoreSystemVPD(const_cast<T&>(vpdMap), objectPath);
+                }
+
                 // Each record in the VPD becomes an interface and all
                 // keyword within the record are properties under that
                 // interface.
@@ -607,7 +702,7 @@ bool compareData(tuple<string, string> fileData, tuple<string, string> busData)
     if ((get<0>(fileData) == get<0>(busData)) &&
         (get<1>(fileData) == get<1>(busData)))
     {
-        return true;
+        return false;
     }
     return false;
 }

@@ -4,6 +4,7 @@
 
 #include "defines.hpp"
 
+#include <cstdarg>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/server.hpp>
 
