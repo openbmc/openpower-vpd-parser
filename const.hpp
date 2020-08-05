@@ -82,6 +82,8 @@ constexpr auto errIntfForStreamFail = "com.ibm.VPD.Error.InavlidEepromPath";
 constexpr auto errIntfForEccCheckFail = "com.ibm.VPD.Error.EccCheckFailed";
 constexpr auto errIntfForJsonFailure = "com.ibm.VPD.Error.InvalidJson";
 constexpr auto errIntfForBusFailure = "com.ibm.VPD.Error.DbusFailure";
+constexpr auto motherBoardInterface =
+    "xyz.openbmc_project.Inventory.Item.Board.Motherboard";
 
 namespace lengths
 {
