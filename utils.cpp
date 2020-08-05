@@ -66,7 +66,6 @@ void callPIM(ObjectMap&& objects)
     }
     catch (const std::runtime_error& e)
     {
-        using namespace phosphor::logging;
         log<level::ERR>(e.what());
     }
 }
@@ -186,7 +185,6 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
     try
     {
         auto bus = sdbusplus::bus::new_default();
-
         auto service = getService(bus, loggerObjectPath, loggerCreateInterface);
         auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
                                           loggerCreateInterface, "Create");
