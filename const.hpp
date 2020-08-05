@@ -3,7 +3,9 @@
 #include "defines.hpp"
 
 #include <iostream>
+#include <string>
 #include <unordered_map>
+#include <vector>
 
 namespace openpower
 {
@@ -116,6 +118,7 @@ enum Status
     FAILED = -1
 };
 } // namespace eccStatus
+
 } // namespace constants
 } // namespace vpd
 } // namespace openpower
