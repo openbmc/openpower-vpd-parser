@@ -108,4 +108,3 @@ ibm_vpd_exe = executable('ibm-read-vpd',
 )
 
 subdir('test')
-
