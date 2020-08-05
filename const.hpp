@@ -3,7 +3,9 @@
 #include "defines.hpp"
 
 #include <iostream>
+#include <string>
 #include <unordered_map>
+#include <vector>
 
 namespace openpower
 {
@@ -115,6 +117,14 @@ enum Status
     FAILED = -1
 };
 } // namespace eccStatus
+
+static std::unordered_map<std::string, std::vector<std::string>> svpdKwdMap{
+    {"VSYS",
+     {"BR", "TM", "SE", "SU", "SG", "TN", "MN", "NN", "ID", "RG", "WN", "RB",
+      "DR"}},
+    {"VCEN", {"FC", "SE", "RG", "FC"}},
+    {"LXR0", {"LX"}}};
+
 } // namespace constants
 } // namespace vpd
 } // namespace openpower
