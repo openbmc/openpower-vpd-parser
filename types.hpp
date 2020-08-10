@@ -41,9 +41,6 @@ using LocationCodeMap = std::unordered_multimap<LocationCode, Path>;
 using ListOfPaths = std::vector<sdbusplus::message::object_path>;
 using NodeNumber = uint16_t;
 using namespace std::string_literals;
-constexpr auto pimPath = "/xyz/openbmc_project/inventory";
-constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
-
 } // namespace inventory
 
 } // namespace vpd

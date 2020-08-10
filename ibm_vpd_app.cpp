@@ -19,6 +19,7 @@ using namespace openpower::vpd;
 using namespace CLI;
 using namespace vpd::keyword::parser;
 using namespace vpdFormat;
+using namespace openpower::vpd::constants;
 
 /**
  * @brief Expands location codes
@@ -46,8 +47,10 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
             }
             else
             {
-                fc = readBusProperty(SYSTEM_OBJECT, VCEN_IF, "FC");
-                se = readBusProperty(SYSTEM_OBJECT, VCEN_IF, "SE");
+                fc = makeDbusCall(INVENTORY_PATH + (std::string)SYSTEM_OBJECT,
+                                  "Get", "ss", VCEN_IF, (std::string) "FC");
+                se = makeDbusCall(INVENTORY_PATH + (std::string)SYSTEM_OBJECT,
+                                  "Get", "ss", VCEN_IF, (std::string) "SE");
             }
 
             // TODO: See if ND1 can be placed in the JSON
@@ -69,8 +72,12 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
                 }
                 else
                 {
-                    mt = readBusProperty(SYSTEM_OBJECT, VSYS_IF, "TM");
-                    se = readBusProperty(SYSTEM_OBJECT, VSYS_IF, "SE");
+                    mt = makeDbusCall(INVENTORY_PATH +
+                                          (std::string)SYSTEM_OBJECT,
+                                      "Get", "ss", VSYS_IF, (std::string) "TM");
+                    se = makeDbusCall(INVENTORY_PATH +
+                                          (std::string)SYSTEM_OBJECT,
+                                      "Get", "ss", VSYS_IF, (std::string) "SE");
                 }
 
                 replace(mt.begin(), mt.end(), '-', '.');

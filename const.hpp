@@ -47,6 +47,10 @@ constexpr uint8_t EXP_LOCATIN_CODE_MIN_LENGTH = 17;
 static constexpr auto SE_KWD_LENGTH = 7;
 static constexpr auto INVALID_NODE_NUMBER = -1;
 
+constexpr auto pimPath = "/xyz/openbmc_project/inventory";
+constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
+constexpr auto dbusInf = "org.freedesktop.DBus.Properties";
+
 namespace lengths
 {
 enum Lengths

@@ -49,14 +49,16 @@ openpower::vpd::constants::LE2ByteData
  */
 string encodeKeyword(const string& kw, const string& encoding);
 
-/** @brief Reads a property from the inventory manager given object path,
- *         intreface and property.
- *  @param[in] obj - object path
- *  @param[in] inf - interface
- *  @param[in] prop - property whose value is fetched
- *  @return [out] - value of the property
+/**
+ * @brief A gereric api to handle both read and write on DBus
+ * @param[in] - Object Path
+ * @param[in] - Operation to perform
+ * @param[in] - Type(s) of parameter to be followed
+ * @param[in] - variable number of arguments as required
+ * @return - result of bus call
  */
-string readBusProperty(const string& obj, const string& inf,
-                       const string& prop);
+std::string makeDbusCall(std::string objectPath, std::string operation,
+                         std::string parameterType, ...);
+
 } // namespace vpd
 } // namespace openpower

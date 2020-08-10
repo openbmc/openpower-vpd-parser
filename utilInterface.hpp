@@ -34,7 +34,9 @@ class utility : public UtilityInterface
     std::string readBusProperty(const std::string& obj, const std::string& inf,
                                 const std::string& prop) override
     {
-        return openpower::vpd::readBusProperty(obj, inf, prop);
+        return openpower::vpd::makeDbusCall(
+            std::string("/xyz/openbmc_project/inventory") + obj, "Get", inf,
+            prop);
     }
 };
 

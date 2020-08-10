@@ -11,7 +11,7 @@ namespace openpower
 {
 namespace vpd
 {
-
+using namespace openpower::vpd::constants;
 namespace inventory
 {
 
@@ -119,31 +119,89 @@ string encodeKeyword(const string& kw, const string& encoding)
     }
 }
 
-string readBusProperty(const string& obj, const string& inf, const string& prop)
+std::string makeDbusCall(std::string objectPath, std::string operation,
+                         std::string parameterType, ...)
 {
     std::string propVal{};
-    std::string object = INVENTORY_PATH + obj;
+
     auto bus = sdbusplus::bus::new_default();
-    auto properties = bus.new_method_call(
-        "xyz.openbmc_project.Inventory.Manager", object.c_str(),
-        "org.freedesktop.DBus.Properties", "Get");
-    properties.append(inf);
-    properties.append(prop);
+    auto properties = bus.new_method_call(pimIntf, objectPath.c_str(), dbusInf,
+                                          operation.c_str());
+
+    // need this because last argument should be treated as variant in case of
+    // Set operation
+    size_t numberOfProperties = parameterType.length();
+    size_t itemCounter = 0;
+
+    va_list arguments;
+    va_start(arguments, parameterType);
+    for (const auto& item : parameterType)
+    {
+        itemCounter++;
+        switch (item)
+        {
+            // sdbus object type
+            case 'o':
+                properties.append(
+                    va_arg(arguments, sdbusplus::message::object_path));
+                break;
+
+            // string type
+            case 's':
+                // implies we are processing last argument
+                if (operation == "Set" && itemCounter == numberOfProperties)
+                {
+                    std::variant<string> argData =
+                        va_arg(arguments, std::string);
+                    properties.append(argData);
+                }
+                else
+                {
+                    properties.append(va_arg(arguments, std::string));
+                }
+                break;
+
+            // binary type
+            case 'b':
+                // implies we are processing last argument
+                if (operation == "Set" && itemCounter == numberOfProperties)
+                {
+                    std::variant<Binary> argData = va_arg(arguments, Binary);
+                    properties.append(argData);
+                }
+                else
+                {
+                    properties.append(va_arg(arguments, Binary));
+                }
+                break;
+        }
+    }
+    va_end(arguments);
+
     auto result = bus.call(properties);
     if (!result.is_method_error())
     {
-        variant<Binary, string> val;
-        result.read(val);
-        if (auto pVal = get_if<Binary>(&val))
+        // if we have to read some value from BUS
+        if (operation == "Get")
         {
-            propVal.assign(reinterpret_cast<const char*>(pVal->data()),
-                           pVal->size());
+            variant<Binary, string> val;
+            result.read(val);
+            if (auto pVal = get_if<Binary>(&val))
+            {
+                propVal.assign(reinterpret_cast<const char*>(pVal->data()),
+                               pVal->size());
+            }
+            else if (auto pVal = get_if<string>(&val))
+            {
+                propVal.assign(pVal->data(), pVal->size());
+            }
         }
-        else if (auto pVal = get_if<string>(&val))
+        else
         {
-            propVal.assign(pVal->data(), pVal->size());
+            propVal = "Success";
         }
     }
+
     return propVal;
 }
 } // namespace vpd
