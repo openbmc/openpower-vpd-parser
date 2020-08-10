@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "558e6045_cbec5105",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-08-10T10:53:18Z",
+      "side": 1,
+      "message": "missing input paramter in comments.",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baa59f1a_f33cd534",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-08-10T10:53:18Z",
+      "side": 1,
+      "message": "We have already done this check in main function.\nDo we need this again?",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6db967e8_29d12400",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-08-10T10:53:18Z",
+      "side": 1,
+      "message": "Can we use reference here?",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ec511c9_46f67468",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-08-10T10:53:18Z",
+      "side": 1,
+      "message": "same as above.",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d2dbaa2_a72c0237",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-08-10T10:53:18Z",
+      "side": 1,
+      "message": "reference.",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8bef91d_6e1a9db5",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-08-10T10:53:18Z",
+      "side": 1,
+      "message": "Is this function body left blank intentionally?",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "691be135_30bdd50f",
+        "filename": "meson.build",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-08-10T10:53:18Z",
+      "side": 1,
+      "message": "We already have this on line 22 and 23.",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
