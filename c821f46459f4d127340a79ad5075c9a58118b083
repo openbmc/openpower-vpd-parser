@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "2a879d93_692f47a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-10T13:47:52Z",
+      "side": 1,
+      "message": "Can you give some detailed explanation about gpio pin configuration in commit message.",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ebfa3f07_063e753e",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 15
@@ -88,6 +105,29 @@
     },
     {
       "key": {
+        "uuid": "ec11c611_faac28e9",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-10T13:47:52Z",
+      "side": 1,
+      "message": "Can you elaborate the need of this function?",
+      "range": {
+        "startLine": 297,
+        "startChar": 2,
+        "endLine": 297,
+        "endChar": 24
+      },
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "baa59f1a_f33cd534",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 15
@@ -156,6 +196,29 @@
     },
     {
       "key": {
+        "uuid": "ea8babe5_631a7315",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-10T13:47:52Z",
+      "side": 1,
+      "message": "what is echo ?",
+      "range": {
+        "startLine": 392,
+        "startChar": 34,
+        "endLine": 392,
+        "endChar": 41
+      },
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8bef91d_6e1a9db5",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 15
@@ -207,6 +270,52 @@
       "writtenOn": "2020-08-10T10:53:18Z",
       "side": 1,
       "message": "We already have this on line 22 and 23.",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b926f42f_e920e3a2",
+        "filename": "vpd/vpd_inventory.json",
+        "patchSetId": 15
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-10T13:47:52Z",
+      "side": 1,
+      "message": "Can you format this json using some online formatter",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 17,
+        "endChar": 25
+      },
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9995fb13_4ce96cfb",
+        "filename": "vpd/vpd_inventory.json",
+        "patchSetId": 15
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-10T13:47:52Z",
+      "side": 1,
+      "message": "What is preAction \u0026 postAction properties usecase?",
+      "range": {
+        "startLine": 231,
+        "startChar": 7,
+        "endLine": 239,
+        "endChar": 10
+      },
       "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
