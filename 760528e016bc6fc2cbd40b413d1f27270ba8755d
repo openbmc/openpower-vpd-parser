@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c43ab8ae_181f2ef4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-10T13:24:45Z",
+      "side": 1,
+      "message": "Can we have an elaborate commit message?",
+      "revId": "760528e016bc6fc2cbd40b413d1f27270ba8755d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "09dc0a70_78e2d972",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 14
