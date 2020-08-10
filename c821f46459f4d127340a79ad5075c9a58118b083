@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "ebfa3f07_063e753e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-10T13:24:45Z",
+      "side": 1,
+      "message": "Can we have a doxygen description for getVpdDataInVector() api",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 31
+      },
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4aea42a_72cb1a60",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-10T13:24:45Z",
+      "side": 1,
+      "message": "what if the frus other than cpu frus satisfy this condition ? (Condition : tmpVector size greater than 64KB for frus other than cpu).\n\nWhat if we can have someother check point specific to cpu frus before returning the vpdVector?",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 231,
+        "endChar": 5
+      },
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4207a2c_9de10a25",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-10T13:24:45Z",
+      "side": 1,
+      "message": "primeInventory api is not part of this commit? Can you remove it else we may get conflicts in future.",
+      "range": {
+        "startLine": 246,
+        "startChar": 1,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "558e6045_cbec5105",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 15
@@ -98,6 +167,29 @@
       "writtenOn": "2020-08-10T10:53:18Z",
       "side": 1,
       "message": "Is this function body left blank intentionally?",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32fbaa0a_c48d3d82",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-10T13:24:45Z",
+      "side": 1,
+      "message": "This one also doesn\u0027t come into this change. YOu can remove it.",
+      "range": {
+        "startLine": 512,
+        "startChar": 2,
+        "endLine": 565,
+        "endChar": 63
+      },
       "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
