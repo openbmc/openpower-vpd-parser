@@ -45,6 +45,30 @@
       "revId": "760528e016bc6fc2cbd40b413d1f27270ba8755d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d876c58b_ab9d529d",
+        "filename": "vpd/vpd_inventory.json",
+        "patchSetId": 14
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-10T08:24:53Z",
+      "side": 1,
+      "message": "I used these names from Rainier work-book. But I am still working on device tree to support gpio and line-names, once that work is done, line names will be updated here.",
+      "parentUuid": "31652614_a1fef9a1",
+      "range": {
+        "startLine": 284,
+        "startChar": 21,
+        "endLine": 284,
+        "endChar": 40
+      },
+      "revId": "760528e016bc6fc2cbd40b413d1f27270ba8755d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
