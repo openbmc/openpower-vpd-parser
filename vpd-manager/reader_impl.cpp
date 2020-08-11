@@ -30,6 +30,7 @@ using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::utils::interface;
 using namespace openpower::vpd::manager::editor;
+using namespace openpower::vpd::filestream;
 
 using InvalidArgument =
     sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
@@ -235,7 +236,11 @@ std::string ReaderImpl::readKwdData(const std::string& vpdFilePath,
                        std::ios::in | std::ios::out | std::ios::binary);
     if (!vpdFileStream)
     {
-        throw std::runtime_error("Failed to open vpd File");
+        std::string status = string(streamStatus(vpdFileStream));
+        string errorMsg =
+            string("Unable to open ") + vpdFilePath +
+            " in a file stream buffer. State of the file stream : " + status;
+        throw std::runtime_error(errorMsg);
     }
 
     Binary vpd((istreambuf_iterator<char>(vpdFileStream)),
