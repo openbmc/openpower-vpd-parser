@@ -67,7 +67,11 @@ void EditorImpl::checkPTForRecord(Binary::const_iterator& iterator,
         }
     }
     // imples the record was not found
-    throw std::runtime_error("Record not found");
+    std::string errorMsg =
+        string("Record \"") + thisRecord.recName +
+        ("\" not found in VTOC's PT keyword in this vpd : \"") + vpdFilePath +
+        "\".";
+    throw std::runtime_error(errorMsg);
 }
 
 void EditorImpl::updateData(const Binary& kwdData)
@@ -95,7 +99,12 @@ void EditorImpl::updateData(const Binary& kwdData)
     Binary updatedData(startItr, endItr);
     if (updatedData == kwdData)
     {
-        throw std::runtime_error("Data updated successfully");
+        std::string errorMsg = string("The given data ");
+        // errorMsg.append(updatedData);
+        errorMsg += ", is updated in the given record " + thisRecord.recName +
+                    (", in the given keyword ") + thisRecord.recKWd +
+                    (", in the vpd \"") + vpdFilePath + ("\".");
+        throw std::runtime_error(errorMsg);
     }
 #else
 
@@ -169,7 +178,11 @@ void EditorImpl::checkRecordForKwd()
         std::advance(iterator, dataLength);
     }
 
-    throw std::runtime_error("Keyword not found");
+    std::string errorMsg =
+        std::string("The given Keyword ") + thisRecord.recKWd +
+        (", is not found in the given record ") + thisRecord.recName +
+        (", in the vpd \"") + vpdFilePath + ("\".");
+    throw std::runtime_error(errorMsg);
 }
 
 void EditorImpl::updateRecordECC()
@@ -185,7 +198,10 @@ void EditorImpl::updateRecordECC()
         const_cast<uint8_t*>(&itrToRecordECC[0]), &thisRecord.recECCLength);
     if (l_status != VPD_ECC_OK)
     {
-        throw std::runtime_error("Ecc update failed");
+        std::string errorMsg = std::string("ECC update for the given record ") +
+                               thisRecord.recName + (" failed for the vpd \"") +
+                               vpdFilePath + ("\".");
+        throw std::runtime_error(errorMsg);
     }
 
     auto end = itrToRecordECC;
@@ -219,7 +235,10 @@ void EditorImpl::checkECC(Binary::const_iterator& itrToRecData,
 
     if (l_status != VPD_ECC_OK)
     {
-        throw std::runtime_error("Ecc check failed for VTOC");
+        std::string errorMsg =
+            std::string("ECC check failed for VTOC record in the vpd \"") +
+            vpdFilePath + ("\".");
+        throw std::runtime_error(errorMsg);
     }
 }
 
@@ -256,7 +275,10 @@ void EditorImpl::readVTOC()
 
     if ("VTOC" != recordName)
     {
-        throw std::runtime_error("VTOC record not found");
+        std::string errorMsg =
+            std::string("VTOC record not found in the vpd \"") + vpdFilePath +
+            ("\".");
+        throw std::runtime_error(errorMsg);
     }
 
     // jump to length of PT kwd
@@ -287,7 +309,20 @@ void EditorImpl::makeDbusCall(const std::string& object,
 
     if (result.is_method_error())
     {
-        throw std::runtime_error("bus call failed");
+        std::string errorMsg =
+            string("Dbus method call failed while trying to Set the data: ");
+        // errorMsg.append(std::string(data));
+        errorMsg += " to the property: ";
+        errorMsg.append(property);
+        errorMsg += " in the interface: ";
+        errorMsg.append(interface);
+        errorMsg += " for the object: ";
+        errorMsg.append(object);
+        errorMsg += " in the service: ";
+        errorMsg.append(INVENTORY_MANAGER_SERVICE);
+        errorMsg += (".");
+
+        throw std::runtime_error(errorMsg);
     }
 }
 
@@ -582,7 +617,9 @@ void EditorImpl::checkFileValidity(Binary vpd)
 {
     if (vpd.empty())
     {
-        throw std::runtime_error("Invalid File");
+        std::string errorMsg =
+            std::string("VPD File \"") + vpdFilePath + ("\" is Empty/Invalid.");
+        throw std::runtime_error(errorMsg);
     }
     auto iterator = vpd.cbegin();
     std::advance(iterator, IPZ_DATA_START);
@@ -598,7 +635,10 @@ void EditorImpl::checkFileValidity(Binary vpd)
         {
             if (ipzParser == nullptr)
             {
-                throw std::runtime_error("Invalid cast");
+                throw std::runtime_error(
+                    "The given vpd is not of type IPZ. Thereby, dynamic cast "
+                    "failure occured while tried to downcast a vpdParser "
+                    "object to IpzVpdParser object.");
             }
 
             ipzParser->processHeader();
