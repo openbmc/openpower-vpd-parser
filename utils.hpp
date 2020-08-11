@@ -104,6 +104,16 @@ inventory::VPDfilepath getVpdFilePath(const json& jsonFile,
  * @return - SHA string
  */
 std::string getSHA(const std::string& filePath);
-
+namespace filestream
+{
+/**
+ * @brief streamStatus
+ * Return the file stream status.
+ * @param[in] - vpdFileStream
+ *
+ * @return - status of the given file stream(eof/fail/bad/good)
+ */
+std::string streamStatus(std::fstream& vpdFileStream);
+} // namespace filestream
 } // namespace vpd
 } // namespace openpower
