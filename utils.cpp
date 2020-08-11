@@ -6,6 +6,7 @@
 
 #include <openssl/sha.h>
 
+#include <fstream>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/server.hpp>
 
@@ -15,6 +16,8 @@ namespace vpd
 {
 using namespace openpower::vpd::constants;
 using namespace inventory;
+using namespace filestream;
+
 namespace inventory
 {
 
@@ -223,5 +226,29 @@ std::string getSHA(const std::string& filePath)
 
     return std::string(mdString);
 }
+namespace filestream
+{
+std::string streamStatus(std::fstream& vpdFileStream)
+{
+    string status = "";
+    if (vpdFileStream.eof())
+    {
+        status = "End of file";
+    }
+    else if (vpdFileStream.good())
+    {
+        status = "Good";
+    }
+    else if (vpdFileStream.fail())
+    {
+        status = "Fail";
+    }
+    else if (vpdFileStream.bad())
+    {
+        status = "Bad";
+    }
+    return status;
+}
+} // namespace filestream
 } // namespace vpd
 } // namespace openpower
