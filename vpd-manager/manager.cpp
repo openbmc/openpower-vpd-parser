@@ -19,6 +19,7 @@ using namespace std;
 using namespace openpower::vpd::parser;
 using namespace openpower::vpd::ipz::parser;
 using namespace openpower::vpd::parser::factory;
+using namespace openpower::vpd::filestream;
 
 namespace openpower
 {
@@ -61,13 +62,18 @@ void Manager::processJSON()
 
     if (!json)
     {
-        throw std::runtime_error("json file not found");
+        string errorMsg =
+            string("JSON file not found in path : ") + INVENTORY_JSON;
+        throw std::runtime_error(errorMsg);
     }
 
     jsonFile = nlohmann::json::parse(json);
     if (jsonFile.find("frus") == jsonFile.end())
     {
-        throw std::runtime_error("frus group not found in json");
+        string errorMsg =
+            string("Invalid JSON structure - frus{} object not found in ") +
+            INVENTORY_JSON;
+        throw std::runtime_error(errorMsg);
     }
 
     const nlohmann::json& groupFRUS =
@@ -111,7 +117,10 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
     {
         if (frus.find(path) == frus.end())
         {
-            throw std::runtime_error("Inventory path not found");
+            string errorMsg = string("The given Inventory path ( ");
+            errorMsg.append(path);
+            errorMsg = string(" ) not found in ") + INVENTORY_JSON;
+            throw std::runtime_error(errorMsg);
         }
 
         inventory::Path vpdFilePath = frus.find(path)->second.first;
@@ -171,7 +180,10 @@ void Manager::fixBrokenEcc(const sdbusplus::message::object_path path)
     {
         if (frus.find(path) == frus.end())
         {
-            throw std::runtime_error("Inventory path not found");
+            string errorMsg = string("The given Inventory path ( ");
+            errorMsg.append(path);
+            errorMsg = string(" ) not found in ") + INVENTORY_JSON;
+            throw std::runtime_error(errorMsg);
         }
 
         inventory::Path vpdFilePath = (frus.find(path)->second).first;
@@ -183,7 +195,13 @@ void Manager::fixBrokenEcc(const sdbusplus::message::object_path path)
 
         if (!vpdFileStream)
         {
-            throw std::runtime_error("Unable to open vpd file");
+            string status = string(streamStatus(vpdFileStream));
+            string errorMsg =
+                string("Unable to open ") + vpdFilePath +
+                " in a file stream buffer. State of the file stream : " +
+                status;
+
+            throw std::runtime_error(errorMsg);
         }
 
         Binary vpdVector((std::istreambuf_iterator<char>(vpdFileStream)),
@@ -191,12 +209,18 @@ void Manager::fixBrokenEcc(const sdbusplus::message::object_path path)
 
         ParserInterface* Iparser =
             ParserFactory::getParser(std::move(vpdVector), vpdFilePath);
+        // checking
+        // ParserInterface* Iparser = new KeywordVpdParser(std::move(vpdVector),
+        // filePath);
         IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
         try
         {
             if (ipzParser == nullptr)
             {
-                throw std::runtime_error("Invalid cast");
+                throw std::runtime_error(
+                    "The given vpd is not of type IPZ. Thereby, dynamic cast "
+                    "failure occured while tried to downcast a vpdParser "
+                    "object to IpzVpdParser object.");
             }
 
             auto vpdPtr = ipzParser->fixEcc();

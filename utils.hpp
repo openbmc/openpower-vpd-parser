@@ -113,5 +113,16 @@ std::string getSHA(const std::string& filePath);
 void createPEL(const std::map<std::string, std::string>& additionalData,
                const std::string& errIntf);
 
+namespace filestream
+{
+/**
+ * @brief streamStatus
+ * Return the file stream status.
+ * @param[in] - vpdFileStream
+ *
+ * @return - status of the given file stream(eof/fail/bad/good)
+ */
+std::string streamStatus(std::fstream& vpdFileStream);
+} // namespace filestream
 } // namespace vpd
 } // namespace openpower
