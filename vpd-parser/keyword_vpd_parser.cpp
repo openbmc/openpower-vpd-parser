@@ -58,8 +58,11 @@ void KeywordVpdParser::validateLargeResourceIdentifierString()
     // Check for large resource type identfier string
     if (*kwVpdIterator != KW_VPD_START_TAG)
     {
-        throw std::runtime_error(
-            "Invalid Large resource type Identifier String");
+        std::string errorMsg =
+            std::string(
+                "Invalid Large Resource Identifier String in the vpd ") +
+            vpdFilePath;
+        throw std::runtime_error(errorMsg);
     }
 
     itrOutOfBoundCheck(1);
@@ -94,7 +97,10 @@ int KeywordVpdParser::validateTheTypeOfKwVpd()
     {
         if (*kwVpdIterator != ALT_KW_VAL_PAIR_START_TAG)
         {
-            throw std::runtime_error("Invalid Keyword Value Pair Start Tag");
+            std::string errorMsg =
+                (" Invalid Large Resource Vendor Defined String in the vpd: ") +
+                vpdFilePath;
+            throw std::runtime_error(errorMsg);
         }
         // Bono vpd referred as 1
         kwVpdType = 1;
@@ -117,7 +123,8 @@ KeywordVpdMap KeywordVpdParser::kwValParser()
 
     if (totalSize == 0)
     {
-        throw std::runtime_error("Badly formed keyword VPD data");
+        throw std::runtime_error("Badly formed keyword VPD data; Total Size of "
+                                 "the keyword-value pair is zero.");
     }
 
     itrOutOfBoundCheck(TWO_BYTES);
@@ -157,7 +164,10 @@ void KeywordVpdParser::validateSmallResourceTypeEnd()
     // Check for small resource type end tag
     if (*kwVpdIterator != KW_VAL_PAIR_END_TAG)
     {
-        throw std::runtime_error("Invalid Small resource type End");
+        std::string errorMsg =
+            std::string("Invalid Small Resource Type End in the vpd: ") +
+            vpdFilePath;
+        throw std::runtime_error(errorMsg);
     }
 }
 
@@ -171,7 +181,9 @@ void KeywordVpdParser::validateChecksum()
 
     if (checkSum != *(kwVpdIterator + 1))
     {
-        throw std::runtime_error("Invalid Check sum");
+        std::string errorMsg =
+            std::string("Incorrect Checksum for the vpd: ") + vpdFilePath;
+        throw std::runtime_error(errorMsg);
     }
 #ifdef DEBUG_KW_VPD
     std::cout << "\nCHECKSUM : " << std::hex << static_cast<int>(checkSum)
@@ -187,8 +199,11 @@ void KeywordVpdParser::validateSmallResourceTypeLastEnd()
     // Check for small resource type last end of data
     if (*kwVpdIterator != KW_VPD_END_TAG)
     {
-        throw std::runtime_error(
-            "Invalid Small resource type Last End Of Data");
+        std::string errorMsg =
+            std::string(
+                "Invalid Small Resource Type Last End Of Data in the vpd: ") +
+            vpdFilePath;
+        throw std::runtime_error(errorMsg);
     }
 }
 
@@ -203,7 +218,11 @@ void KeywordVpdParser::itrOutOfBoundCheck(uint8_t incVar)
     if ((std::distance(keywordVpdVector.begin(), kwVpdIterator + incVar)) >
         std::distance(keywordVpdVector.begin(), keywordVpdVector.end()))
     {
-        throw std::runtime_error("Badly formed VPD data");
+        std::string errorMsg =
+            std::string("Badly formed VPD data. Iterator reached out of "
+                        "boundary in the vpd: ") +
+            vpdFilePath;
+        throw std::runtime_error(errorMsg);
     }
 }
 

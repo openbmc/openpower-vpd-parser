@@ -219,7 +219,14 @@ json VpdTool::parseInvJson(const json& jsObject, char flag, string fruPath)
 
     if (jsObject.find("frus") == jsObject.end())
     {
-        throw runtime_error("Frus missing in Inventory json");
+        string errorMsg =
+            string("Invalid JSON structure - frus{} object not found in ") +
+            INVENTORY_JSON;
+        //	    cout<<errorMsg<<endl;
+
+        //	    return 0;
+        throw std::runtime_error(errorMsg);
+        //        throw runtime_error("Frus missing in Inventory json");
     }
     else
     {

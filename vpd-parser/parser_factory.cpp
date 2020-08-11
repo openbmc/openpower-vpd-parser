@@ -42,7 +42,10 @@ interface::ParserInterface* ParserFactory::getParser(Binary&& vpdVector,
         }
 
         default:
-            throw std::runtime_error("Invalid VPD format");
+            std::string errorMsg = std::string("The given vpd: ") + filePath +
+                                   (" - is neither of IPZ/KEYWORD/MEMORY Type. "
+                                    "Invalid VPD format");
+            throw std::runtime_error(errorMsg);
     }
 }
 
