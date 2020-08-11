@@ -493,7 +493,8 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         auto dbusPropertyJson = json::parse(propertyJson);
         if (dbusPropertyJson.find("dbusProperties") == dbusPropertyJson.end())
         {
-            throw runtime_error("Dbus property json error");
+            throw runtime_error("Invalid Dbus property json structure. Missing "
+                                "dbusProperties{} object");
         }
 
         dbusProperty = dbusPropertyJson["dbusProperties"];
@@ -800,11 +801,16 @@ int main(int argc, char** argv)
         ifstream inventoryJson(INVENTORY_JSON);
         auto js = json::parse(inventoryJson);
 
-        if ((js.find("frus") == js.end()) ||
-            (js["frus"].find(file) == js["frus"].end()))
+        if (js.find("frus") == js.end())
         {
-            cout << "Device path not in JSON, ignoring" << endl;
+            cout << "Invalid JSON structure - frus{} object not found in "
+                 << INVENTORY_JSON << endl;
             return 0;
+        }
+        if (js["frus"].find(file) == js["frus"].end())
+        {
+            string errorMsg = ("Vpd File: ") + file + (" - not found");
+            throw runtime_error(errorMsg);
         }
 
         try
@@ -862,8 +868,9 @@ int main(int argc, char** argv)
         // check if vpd file is empty
         if (vpdVector.empty())
         {
-            throw runtime_error(
-                "VPD file is empty. Can't process with blank file.");
+            string errorMsg = string("VPD file: ") + file +
+                              (" is empty. Can't process with blank file.");
+            throw runtime_error(errorMsg);
         }
 
         ParserInterface* parser =
