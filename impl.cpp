@@ -81,15 +81,21 @@ void catchNegatives(int l_status)
 {
     if (l_status == VPD_ECC_NOT_ENOUGH_BUFFER)
     {
-        throw std::runtime_error("Insufficient VPD ECC buffer");
+        std::string errorMsg =
+            std::string("Insufficient ECC buffer for the given vpd ");
+        throw std::runtime_error(errorMsg);
     }
     else if (l_status == VPD_ECC_WRONG_ECC_SIZE)
     {
-        throw std::runtime_error("Incorrect ECC size");
+        std::string errorMsg =
+            std::string("Incorrect ECC size for the given vpd ");
+        throw std::runtime_error(errorMsg);
     }
     else if (l_status == VPD_ECC_WRONG_BUFFER_SIZE)
     {
-        throw std::runtime_error("Incorrect ECC buffer size");
+        std::string errorMsg =
+            std::string("Incorrect ECC buffer size for the given vpd ");
+        throw std::runtime_error(errorMsg);
     }
 }
 
@@ -110,7 +116,10 @@ int Impl::vhdrEccCheck() const
     {
         if (l_status == VPD_ECC_UNCORRECTABLE_DATA)
         {
-            throw std::runtime_error("VHDR ECC IS UNCORRECTABLE");
+            std::string errorMsg =
+                std::string("VHDR ECC IS UNCORRECTABLE for the vpd: ") +
+                vpdFilePath;
+            throw std::runtime_error(errorMsg);
         }
         else if ((l_status == VPD_ECC_CORRECTABLE_DATA) ||
                  (l_status == VPD_ECC_OK))
@@ -164,7 +173,10 @@ int Impl::vtocEccCheck() const
     {
         if (l_status == VPD_ECC_UNCORRECTABLE_DATA)
         {
-            throw std::runtime_error("VTOC ECC IS UNCORRECTABLE");
+            std::string errorMsg =
+                std::string("VTOC ECC IS UNCORRECTABLE for the vpd: ") +
+                vpdFilePath;
+            throw std::runtime_error(errorMsg);
         }
         else if ((l_status == VPD_ECC_CORRECTABLE_DATA) ||
                  (l_status == VPD_ECC_OK))
@@ -203,8 +215,11 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
     if (eccLength == 0 || eccOffset == 0 || recordOffset == 0 ||
         recordLength == 0)
     {
-        throw std::runtime_error("Something went wrong. Could't find Record's "
-                                 "OR its ECC's offset and Length");
+        std::string errorMsg =
+            std::string("Something went wrong. Could't find vpd Record's "
+                        "OR its ECC's offset and Length for the vpd: ") +
+            vpdFilePath;
+        throw std::runtime_error(errorMsg);
     }
 
     auto vpdPtr = vpd.cbegin();
@@ -238,9 +253,18 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
 
 void Impl::checkHeader() const
 {
-    if (vpd.empty() || (lengths::RECORD_MIN > vpd.size()))
+    if (vpd.empty())
     {
-        throw std::runtime_error("Malformed VPD");
+        std::string errorMsg = std::string("Empty vpd file: ") + vpdFilePath;
+        throw std::runtime_error(errorMsg);
+    }
+    if (lengths::RECORD_MIN > vpd.size())
+    {
+        std::string errorMsg =
+            std::string("Vpd size is lesser than the minimum length of the "
+                        "record(44bytes). Malformed VPD: ") +
+            vpdFilePath;
+        throw std::runtime_error(errorMsg);
     }
     else
     {
@@ -250,7 +274,10 @@ void Impl::checkHeader() const
         std::string record(iterator, stop);
         if ("VHDR" != record)
         {
-            throw std::runtime_error("VHDR record not found");
+            std::string errorMsg =
+                std::string("VHDR record not found for the vpd: ") +
+                vpdFilePath;
+            throw std::runtime_error(errorMsg);
         }
 
 #ifdef IPZ_PARSER
@@ -259,7 +286,10 @@ void Impl::checkHeader() const
         rc = vhdrEccCheck();
         if (rc != eccStatus::SUCCESS)
         {
-            throw std::runtime_error("ERROR: VHDR ECC check Failed");
+            std::string errorMsg =
+                std::string("ERROR: VHDR ECC check Failed for the vpd: ") +
+                vpdFilePath;
+            throw std::runtime_error(errorMsg);
         }
 #endif
     }
@@ -281,7 +311,9 @@ std::size_t Impl::readTOC(Binary::const_iterator& iterator) const
     std::string record(iterator, stop);
     if ("VTOC" != record)
     {
-        throw std::runtime_error("VTOC record not found");
+        std::string errorMsg =
+            std::string("VTOC record not found for the vpd: ") + vpdFilePath;
+        throw std::runtime_error(errorMsg);
     }
 
 #ifdef IPZ_PARSER
@@ -290,7 +322,10 @@ std::size_t Impl::readTOC(Binary::const_iterator& iterator) const
     rc = vtocEccCheck();
     if (rc != eccStatus::SUCCESS)
     {
-        throw std::runtime_error("ERROR: VTOC ECC check Failed");
+        std::string errorMsg =
+            std::string("ERROR: VTOC ECC check Failed for the vpd: ") +
+            vpdFilePath;
+        throw std::runtime_error(errorMsg);
     }
 #endif
     // VTOC record name is good, now read through the TOC, stored in the PT
@@ -332,8 +367,11 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
 
         if (rc != eccStatus::SUCCESS)
         {
-            throw std::runtime_error(
-                "ERROR: ECC check for one of the Record did not Pass.");
+            std::string errorMsg =
+                std::string("ERROR: ECC check for one of the Record did not "
+                            "Pass for the vpd: ") +
+                vpdFilePath;
+            throw std::runtime_error(errorMsg);
         }
 #endif
 
@@ -496,12 +534,15 @@ void Impl::storeOffset(uint16_t offset, std::string kwdName)
             if (ret == INVALID)
             {
                 // directory creation failed
+                cout << "\nFailed creating directory : " << offsetJsonFirectory
+                     << endl;
                 return;
             }
         }
         else
         {
             // some other issue with the path. should not proceed
+            cout << "\nIssue in vpd inventory json path" << endl;
             return;
         }
     }
