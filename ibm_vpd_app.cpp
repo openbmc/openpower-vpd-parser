@@ -456,8 +456,7 @@ void updateHardware(const string& objectName, const string& recName,
 
 /**
  * @brief API to check if we need to restore system VPD
- * @param[in] vpdMap - Either IPZ vpd map or Keyword vpd map based on the
- * input.
+ * @param[in] vpdMap - whild holds mapping of record and Kwd
  * @param[in] objectPath - Object path for the FRU
  */
 template <typename T>
@@ -500,7 +499,14 @@ void restoreSystemVPD(T& vpdMap, const string& objectPath)
                             if (busValue != kwdValue)
                             {
                                 // data mismatch
-                                // TODO: Log PEL error
+                                PelAdditionalData additionalData;
+                                additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                                       objectPath);
+                                additionalData.emplace(
+                                    "DESCRIPTION",
+                                    "VPD data mismatch on cache and hardware");
+
+                                createPEL(additionalData, errIntfForInvalidVPD);
                             }
                         }
                         else
@@ -522,7 +528,16 @@ void restoreSystemVPD(T& vpdMap, const string& objectPath)
                              (kwdValue.find_first_not_of(' ') == string::npos))
                     {
                         // both the data are blanks, log PEL
-                        // TODO: Log PEL
+                        PelAdditionalData additionalData;
+                        additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                               objectPath);
+                        additionalData.emplace(
+                            "DESCRIPTION",
+                            "VPD is blank on both cache and hardware. SSR need "
+                            "to update hardware VPD");
+
+                        // log PEL TODO: Block IPL
+                        createPEL(additionalData, errIntfForBlankSystemVPD);
                         continue;
                     }
                 }
@@ -608,7 +623,6 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
                 }
             }
         }
-
         if (item.value("inheritEI", true))
         {
             // Populate interfaces and properties that are common to every FRU
