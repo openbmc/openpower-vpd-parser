@@ -6,6 +6,7 @@
 #include <iostream>
 
 using namespace std;
+
 namespace openpower
 {
 namespace vpd
@@ -46,8 +47,13 @@ namespace inventory
 {
 
 /** @brief Get inventory-manager's d-bus service
+ *  @param[in] - Bus object
+ *  @param[in] - object path of the service
+ *  @param[in] - interface under the object pah
+ *  @return service name
  */
-auto getPIMService();
+std::string getService(sdbusplus::bus::bus& bus, const std::string& path,
+                       const std::string& interface);
 
 /** @brief Call inventory-manager to add objects
  *
@@ -79,5 +85,14 @@ string encodeKeyword(const string& kw, const string& encoding);
  */
 string readBusProperty(const string& obj, const string& inf,
                        const string& prop);
+
+/**
+ * @brief API to create PEL entry
+ * @param[in] Map holding the additional data
+ * @param[in] error interface
+ */
+void createPEL(const std::map<std::string, std::string>& additionalData,
+               const std::string& errIntf);
+
 } // namespace vpd
 } // namespace openpower
