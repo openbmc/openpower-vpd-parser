@@ -18,6 +18,8 @@
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
+#include <phosphor-logging/elog-errors.hpp>
+#include <xyz/openbmc_project/Common/Callout/error.hpp>
 
 using namespace std;
 using namespace openpower::vpd;
@@ -30,6 +32,11 @@ using namespace openpower::vpd::parser::factory;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
+using namespace phosphor::logging;
+
+using InventoryError =
+    sdbusplus::xyz::openbmc_project::Common::Callout::Error::Inventory;
+using CalloutInventory = xyz::openbmc_project::Common::Callout::Inventory;
 
 /** @brief An api to get keywords which needs to be published on DBus
  *  @param[in] - map of record, keyword and keyword data
@@ -371,6 +378,75 @@ void updateHardware(const string& objectName, const string& recName,
     return;
 }
 
+std::string getService(sdbusplus::bus::bus& bus, const std::string& objectPath,
+                       const std::string& interface)
+{
+    constexpr auto mapperBusBame = "xyz.openbmc_project.ObjectMapper";
+    constexpr auto mapperObjectPath = "/xyz/openbmc_project/object_mapper";
+    constexpr auto mapperInterface = "xyz.openbmc_project.ObjectMapper";
+    std::vector<std::pair<std::string, std::vector<std::string>>> response;
+    auto method = bus.new_method_call(mapperBusBame, mapperObjectPath,
+                                      mapperInterface, "GetObject");
+    method.append(objectPath, std::vector<std::string>({interface}));
+    try
+    {
+        auto reply = bus.call(method);
+        reply.read(response);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        log<level::ERR>("D-Bus call exception",
+                        entry("OBJPATH=%s", mapperObjectPath),
+                        entry("INTERFACE=%s", mapperInterface),
+                        entry("EXCEPTION=%s", e.what()));
+
+        throw std::runtime_error("Service name is not found");
+    }
+
+    if (response.empty())
+    {
+        throw std::runtime_error("Service name response is empty");
+    }
+    return response.begin()->first;
+}
+
+/**
+ * @brief API to create PEL entry
+ * @param[in] objectPath - Object path for the FRU, to be sent as additional
+ * data while creating PEL
+ */
+void createPEL(const std::string& objPath)
+{
+    try
+    {
+        // create PEL
+        constexpr auto loggingObjectPath = "/xyz/openbmc_project/logging";
+        constexpr auto loggingInterface = "xyz.openbmc_project.Logging.Create";
+
+        std::map<std::string, std::string> additionalData;
+        auto bus = sdbusplus::bus::new_default();
+
+        additionalData.emplace("CALLOUT_INVENTORY_PATH", objPath);
+
+        std::string service =
+            getService(bus, loggingObjectPath, loggingInterface);
+        auto method = bus.new_method_call(service.c_str(), loggingObjectPath,
+                                          loggingInterface, "Create");
+
+        static constexpr auto ErrorMessage =
+            "EEPROM and Cache data both are blank";
+        method.append(ErrorMessage,
+                      "xyz.openbmc_project.Logging.Entry.Level.Error",
+                      additionalData);
+        auto resp = bus.call(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        throw std::runtime_error(
+            "Error in invoking D-Bus logging create interface to register PEL");
+    }
+}
+
 /**
  * @brief API to check if we need to restore system VPD
  * @param[in] vpdMap - Either IPZ vpd map or Keyword vpd map based on the
@@ -424,7 +500,14 @@ void restoreSystemVPD(T& vpdMap, const string& objectPath)
                     }
                     else
                     {
-                        // TODO::Data is blank on both Bus and Hardware Log PEL
+                        // just logging for time being. will remove it in final
+                        // commit
+                        elog<InventoryError>(
+                            CalloutInventory::CALLOUT_INVENTORY_PATH(
+                                objectPath.c_str()));
+
+                        // Log PEL data
+                        createPEL(objectPath);
                         continue;
                     }
                 }
