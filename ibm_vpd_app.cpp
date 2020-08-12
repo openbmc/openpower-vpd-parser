@@ -372,9 +372,40 @@ void updateHardware(const string& objectName, const string& recName,
 }
 
 /**
+ * @brief API to create PEL entry
+ * @param[in] objectPath - Object path for the FRU, to be sent as additional
+ * data while creating PEL
+ */
+void createPEL(const std::string& objPath)
+{
+    try
+    {
+        // create PEL
+        std::map<std::string, std::string> additionalData;
+        auto bus = sdbusplus::bus::new_default();
+
+        additionalData.emplace("CALLOUT_INVENTORY_PATH", objPath);
+
+        std::string service =
+            getService(bus, loggerObjectPath, loggerCreateInterface);
+        auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
+                                          loggerCreateInterface, "Create");
+
+        method.append(errIntfForBlankSystemVPD,
+                      "xyz.openbmc_project.Logging.Entry.Level.Error",
+                      additionalData);
+        auto resp = bus.call(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        throw std::runtime_error(
+            "Error in invoking D-Bus logging create interface to register PEL");
+    }
+}
+
+/**
  * @brief API to check if we need to restore system VPD
- * @param[in] vpdMap - Either IPZ vpd map or Keyword vpd map based on the
- * input.
+ * @param[in] vpdMap - whild holds mapping of record and Kwd
  * @param[in] objectPath - Object path for the FRU
  */
 template <typename T>
@@ -413,7 +444,6 @@ void restoreSystemVPD(T& vpdMap, const string& objectPath)
                     {
                         // data is not blank on bus so convert to binary and
                         // write to EEPROM
-                        std::cout << "Data is blank" << std::endl;
                         Binary busData(busValue.begin(), busValue.end());
 
                         updateHardware(objectPath, recordName, keyword,
@@ -424,7 +454,8 @@ void restoreSystemVPD(T& vpdMap, const string& objectPath)
                     }
                     else
                     {
-                        // TODO::Data is blank on both Bus and Hardware Log PEL
+                        // Log PEL data
+                        createPEL(objectPath);
                         continue;
                     }
                 }
@@ -486,7 +517,6 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                 // if This EEPROM belongs to system handle system vpd restore
                 if (isSystemVpd)
                 {
-                    std::cout << "system VPD" << std::endl;
                     restoreSystemVPD(const_cast<T&>(vpdMap), objectPath);
                 }
 
@@ -542,20 +572,20 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                 }
             }
         }
-
-        if (item.value("inheritEI", true))
-        {
-            // Populate interfaces and properties that are common to
-            // every FRU
-            // and additional interface that might be defined on a
-            // per-FRU basis.
-            if (item.find("extraInterfaces") != item.end())
-            {
-                populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
-                                   isSystemVpd);
-            }
-        }
-
+        /*
+                if (item.value("inheritEI", true))
+                {
+                    // Populate interfaces and properties that are common to
+                    // every FRU
+                    // and additional interface that might be defined on a
+                    // per-FRU basis.
+                    if (item.find("extraInterfaces") != item.end())
+                    {
+                        populateInterfaces(item["extraInterfaces"], interfaces,
+           vpdMap, isSystemVpd);
+                    }
+                }
+        */
         // this condition is needed as openpower json will not have location
         // code interface
         if (item["extraInterfaces"].find(LOCATION_CODE_INF) !=
@@ -579,62 +609,62 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         objects.emplace(move(object), move(interfaces));
     }
 
-    if (isSystemVpd)
-    {
-        vector<uint8_t> imVal;
-        if constexpr (is_same<T, Parsed>::value)
+    /*    if (isSystemVpd)
         {
-            auto property = vpdMap.find("VSBP");
-            if (property != vpdMap.end())
+            vector<uint8_t> imVal;
+            if constexpr (is_same<T, Parsed>::value)
             {
-                auto value = (property->second).find("IM");
-                if (value != (property->second).end())
+                auto property = vpdMap.find("VSBP");
+                if (property != vpdMap.end())
                 {
-                    //                          imVal = value->second;
-                    copy(value->second.begin(), value->second.end(),
-                         back_inserter(imVal));
+                    auto value = (property->second).find("IM");
+                    if (value != (property->second).end())
+                    {
+                        //                          imVal = value->second;
+                        copy(value->second.begin(), value->second.end(),
+                             back_inserter(imVal));
+                    }
                 }
             }
-        }
 
-        fs::path target;
-        fs::path link = INVENTORY_JSON_SYM_LINK;
+            fs::path target;
+            fs::path link = INVENTORY_JSON_SYM_LINK;
 
-        ostringstream oss;
-        for (auto& i : imVal)
-        {
-            if ((int)i / 10 == 0) // one digit number
+            ostringstream oss;
+            for (auto& i : imVal)
             {
-                oss << hex << 0;
+                if ((int)i / 10 == 0) // one digit number
+                {
+                    oss << hex << 0;
+                }
+                oss << hex << static_cast<int>(i);
             }
-            oss << hex << static_cast<int>(i);
+            string imValStr = oss.str();
+
+            if (imValStr == SYSTEM_4U) // 4U
+            {
+                target = INVENTORY_JSON_4U;
+            }
+
+            else if (imValStr == SYSTEM_2U) // 2U
+            {
+                target = INVENTORY_JSON_2U;
+            }
+
+            // unlink the symlink which is created at build time
+            remove(INVENTORY_JSON_SYM_LINK);
+            // create a new symlink based on the system
+            fs::create_symlink(target, link);
+
+            // Reloading the json
+            ifstream inventoryJson(link);
+            auto js = json::parse(inventoryJson);
+            inventoryJson.close();
+
+            inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
+            objects.insert(primeObject.begin(), primeObject.end());
         }
-        string imValStr = oss.str();
-
-        if (imValStr == SYSTEM_4U) // 4U
-        {
-            target = INVENTORY_JSON_4U;
-        }
-
-        else if (imValStr == SYSTEM_2U) // 2U
-        {
-            target = INVENTORY_JSON_2U;
-        }
-
-        // unlink the symlink which is created at build time
-        remove(INVENTORY_JSON_SYM_LINK);
-        // create a new symlink based on the system
-        fs::create_symlink(target, link);
-
-        // Reloading the json
-        ifstream inventoryJson(link);
-        auto js = json::parse(inventoryJson);
-        inventoryJson.close();
-
-        inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
-        objects.insert(primeObject.begin(), primeObject.end());
-    }
-
+    */
     // Notify PIM
     inventory::callPIM(move(objects));
 }
@@ -695,7 +725,7 @@ auto getSNandFNDataFromHardware(tuple<uint16_t, uint16_t> offset,
 
     fstream fileStream(filePath,
                        std::ios::in | std::ios::out | std::ios::binary);
-    if (fileStream)
+    if (!fileStream)
     {
         throw std::runtime_error("Failed to access EEPROM path");
     }
