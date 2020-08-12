@@ -46,8 +46,13 @@ namespace inventory
 {
 
 /** @brief Get inventory-manager's d-bus service
+ *  @param[in] - Bus object
+ *  @param[in] - object path of the service
+ *  @param[in] - interface under the object pah
+ *  @return service name
  */
-auto getPIMService();
+std::string getService(sdbusplus::bus::bus& bus, const std::string& path,
+                       const std::string& interface);
 
 /** @brief Call inventory-manager to add objects
  *
