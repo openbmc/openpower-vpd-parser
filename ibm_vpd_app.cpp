@@ -365,9 +365,40 @@ void updateHardware(const string& objectName, const string& recName,
 }
 
 /**
+ * @brief API to create PEL entry
+ * @param[in] objectPath - Object path for the FRU, to be sent as additional
+ * data while creating PEL
+ */
+void createPEL(const std::string& objPath)
+{
+    try
+    {
+        // create PEL
+        std::map<std::string, std::string> additionalData;
+        auto bus = sdbusplus::bus::new_default();
+
+        additionalData.emplace("CALLOUT_INVENTORY_PATH", objPath);
+
+        std::string service =
+            getService(bus, loggerObjectPath, loggerCreateInterface);
+        auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
+                                          loggerCreateInterface, "Create");
+
+        method.append(errIntfForBlankSystemVPD,
+                      "xyz.openbmc_project.Logging.Entry.Level.Error",
+                      additionalData);
+        auto resp = bus.call(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        throw std::runtime_error(
+            "Error in invoking D-Bus logging create interface to register PEL");
+    }
+}
+
+/**
  * @brief API to check if we need to restore system VPD
- * @param[in] vpdMap - Either IPZ vpd map or Keyword vpd map based on the
- * input.
+ * @param[in] vpdMap - whild holds mapping of record and Kwd
  * @param[in] objectPath - Object path for the FRU
  */
 template <typename T>
@@ -423,7 +454,8 @@ void restoreSystemVPD(T& vpdMap, const string& objectPath)
                     }
                     else
                     {
-                        // TODO::Data is blank on both Bus and Hardware Log PEL
+                        // Log PEL data
+                        createPEL(objectPath);
                         continue;
                     }
                 }
@@ -539,7 +571,6 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
                 }
             }
         }
-
         if (item.value("inheritEI", true))
         {
             // Populate interfaces and properties that are common to
@@ -692,7 +723,7 @@ auto getSNandFNDataFromHardware(tuple<uint16_t, uint16_t> offset,
 
     fstream fileStream(filePath,
                        std::ios::in | std::ios::out | std::ios::binary);
-    if (fileStream)
+    if (!fileStream)
     {
         throw std::runtime_error("Failed to access EEPROM path");
     }
