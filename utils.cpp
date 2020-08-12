@@ -15,31 +15,37 @@ namespace vpd
 {
 using namespace openpower::vpd::constants;
 using namespace inventory;
+using namespace phosphor::logging;
+
 namespace inventory
 {
 
-auto getPIMService()
+std::string getService(sdbusplus::bus::bus& bus, const std::string& path,
+                       const std::string& interface)
 {
-    auto bus = sdbusplus::bus::new_default();
-    auto mapper =
-        bus.new_method_call("xyz.openbmc_project.ObjectMapper",
-                            "/xyz/openbmc_project/object_mapper",
-                            "xyz.openbmc_project.ObjectMapper", "GetObject");
-
-    mapper.append(pimPath);
-    mapper.append(std::vector<std::string>({pimIntf}));
-
-    auto result = bus.call(mapper);
-    if (result.is_method_error())
-    {
-        throw std::runtime_error("ObjectMapper GetObject failed");
-    }
+    auto mapper = bus.new_method_call(mapperDestination, mapperObjectPath,
+                                      mapperInterface, "GetObject");
+    mapper.append(path, std::vector<std::string>({interface}));
 
     std::map<std::string, std::vector<std::string>> response;
-    result.read(response);
+    try
+    {
+        auto reply = bus.call(mapper);
+        reply.read(response);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        log<level::ERR>("D-Bus call exception",
+                        entry("OBJPATH=%s", mapperObjectPath),
+                        entry("INTERFACE=%s", mapperInterface),
+                        entry("EXCEPTION=%s", e.what()));
+
+        throw std::runtime_error("Service name is not found");
+    }
+
     if (response.empty())
     {
-        throw std::runtime_error("ObjectMapper GetObject bad response");
+        throw std::runtime_error("Service name response is empty");
     }
 
     return response.begin()->first;
@@ -51,8 +57,8 @@ void callPIM(ObjectMap&& objects)
 
     try
     {
-        service = getPIMService();
         auto bus = sdbusplus::bus::new_default();
+        service = getService(bus, pimPath, pimIntf);
         auto pimMsg =
             bus.new_method_call(service.c_str(), pimPath, pimIntf, "Notify");
         pimMsg.append(std::move(objects));
@@ -64,7 +70,6 @@ void callPIM(ObjectMap&& objects)
     }
     catch (const std::runtime_error& e)
     {
-        using namespace phosphor::logging;
         log<level::ERR>(e.what());
     }
 }
@@ -222,6 +227,29 @@ std::string getSHA(const std::string& filePath)
     }
 
     return std::string(mdString);
+}
+
+void createPEL(const std::map<std::string, std::string>& additionalData,
+               const std::string& errIntf)
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+
+        std::string service =
+            getService(bus, loggerObjectPath, loggerCreateInterface);
+        auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
+                                          loggerCreateInterface, "Create");
+
+        method.append(errIntf, "xyz.openbmc_project.Logging.Entry.Level.Error",
+                      additionalData);
+        auto resp = bus.call(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        throw std::runtime_error(
+            "Error in invoking D-Bus logging create interface to register PEL");
+    }
 }
 } // namespace vpd
 } // namespace openpower
