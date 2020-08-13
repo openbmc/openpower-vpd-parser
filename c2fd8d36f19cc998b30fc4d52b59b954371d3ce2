@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50a67a0a_a06f81cf",
+        "filename": "const.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-13T05:40:39Z",
+      "side": 1,
+      "message": "This name is way too generic. INVALID what? Please add more details.",
+      "range": {
+        "startLine": 69,
+        "startChar": 22,
+        "endLine": 69,
+        "endChar": 29
+      },
+      "revId": "c2fd8d36f19cc998b30fc4d52b59b954371d3ce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8ebb8d3_cc24d05e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-13T05:40:39Z",
+      "side": 1,
+      "message": "All of the new functions you\u0027ve added need doxygen headers.",
+      "range": {
+        "startLine": 527,
+        "startChar": 26,
+        "endLine": 527,
+        "endChar": 44
+      },
+      "revId": "c2fd8d36f19cc998b30fc4d52b59b954371d3ce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56e387f2_0554c1ca",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-13T05:40:39Z",
+      "side": 1,
+      "message": "Not any more? Please remove the comment",
+      "range": {
+        "startLine": 531,
+        "startChar": 4,
+        "endLine": 531,
+        "endChar": 41
+      },
+      "revId": "c2fd8d36f19cc998b30fc4d52b59b954371d3ce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94cc2d8c_6a14ecdd",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-13T05:40:39Z",
+      "side": 1,
+      "message": "Please name this better. The name is way too generic.",
+      "range": {
+        "startLine": 555,
+        "startChar": 22,
+        "endLine": 555,
+        "endChar": 37
+      },
+      "revId": "c2fd8d36f19cc998b30fc4d52b59b954371d3ce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f733c862_87eb28bc",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-13T05:40:39Z",
+      "side": 1,
+      "message": "auto?",
+      "range": {
+        "startLine": 558,
+        "startChar": 4,
+        "endLine": 558,
+        "endChar": 12
+      },
+      "revId": "c2fd8d36f19cc998b30fc4d52b59b954371d3ce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "039b10aa_8b3bb0ec",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-13T05:40:39Z",
+      "side": 1,
+      "message": "auto?",
+      "range": {
+        "startLine": 559,
+        "startChar": 4,
+        "endLine": 559,
+        "endChar": 12
+      },
+      "revId": "c2fd8d36f19cc998b30fc4d52b59b954371d3ce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1148e907_19c6ee13",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-13T05:40:39Z",
+      "side": 1,
+      "message": "Again, too generic a name.",
+      "range": {
+        "startLine": 574,
+        "startChar": 22,
+        "endLine": 574,
+        "endChar": 37
+      },
+      "revId": "c2fd8d36f19cc998b30fc4d52b59b954371d3ce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4520ba6b_f66edd46",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-13T05:40:39Z",
+      "side": 1,
+      "message": "You can compare two tuples by using \u003d\u003d",
+      "range": {
+        "startLine": 605,
+        "startChar": 0,
+        "endLine": 613,
+        "endChar": 1
+      },
+      "revId": "c2fd8d36f19cc998b30fc4d52b59b954371d3ce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
