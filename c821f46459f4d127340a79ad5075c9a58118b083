@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "eff0d351_aaf482f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-13T04:31:38Z",
+      "side": 1,
+      "message": "Needs a lot more detail and a tested section",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ebfa3f07_063e753e",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 15
@@ -252,6 +269,29 @@
         "startChar": 2,
         "endLine": 565,
         "endChar": 63
+      },
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b78115ef_566d01bb",
+        "filename": "meson.build",
+        "patchSetId": 15
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-13T04:31:38Z",
+      "side": 1,
+      "message": "Do we need both, now that we are only using the c++ API?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 39
       },
       "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
