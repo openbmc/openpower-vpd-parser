@@ -1,0 +1,314 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c1e5e92_4b0915ad",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-14T03:28:39Z",
+      "side": 1,
+      "message": "Can be auto",
+      "range": {
+        "startLine": 532,
+        "startChar": 0,
+        "endLine": 532,
+        "endChar": 25
+      },
+      "revId": "50f77b9bd8e1375781c99f9919cfb2ec56d346e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "610130c6_fa0b1832",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-14T03:28:39Z",
+      "side": 1,
+      "message": "You mean offsetJsonDirectory, right? Typo?",
+      "range": {
+        "startLine": 538,
+        "startChar": 27,
+        "endLine": 538,
+        "endChar": 46
+      },
+      "revId": "50f77b9bd8e1375781c99f9919cfb2ec56d346e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b0ab80d_865bbb6f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-14T03:28:39Z",
+      "side": 1,
+      "message": "Should we handle a parsing exception here? Need to check if the parsing succeeded and if not, delete the file and return invalid offsets.",
+      "range": {
+        "startLine": 546,
+        "startChar": 4,
+        "endLine": 546,
+        "endChar": 38
+      },
+      "revId": "50f77b9bd8e1375781c99f9919cfb2ec56d346e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bda871ae_63471408",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-14T03:28:39Z",
+      "side": 1,
+      "message": "From file and from json are ambiguous. Perhaps name this better - from hardware?",
+      "range": {
+        "startLine": 565,
+        "startChar": 22,
+        "endLine": 565,
+        "endChar": 44
+      },
+      "revId": "50f77b9bd8e1375781c99f9919cfb2ec56d346e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a72acb39_a73089b5",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-14T03:28:39Z",
+      "side": 1,
+      "message": "At this point, we have already read the entire file from the hardware into a buffer! So how is this optimizing the reads?\n\nThe idea behind this was to only read from hardware what is necessary.\nSo perhaps pass in the stream to this function and then:\n\nseek to SN offset, read SN bytes; seek to FN offset, read FN bytes.",
+      "range": {
+        "startLine": 689,
+        "startChar": 51,
+        "endLine": 689,
+        "endChar": 60
+      },
+      "revId": "50f77b9bd8e1375781c99f9919cfb2ec56d346e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b5b3ca1_3fd35181",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-14T03:28:39Z",
+      "side": 1,
+      "message": "I\u0027d like a cout here to trace that we are skipping a full collection.",
+      "revId": "50f77b9bd8e1375781c99f9919cfb2ec56d346e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "105e4484_3b5e128c",
+        "filename": "impl.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-14T03:28:39Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 483,
+        "startChar": 4,
+        "endLine": 483,
+        "endChar": 40
+      },
+      "revId": "50f77b9bd8e1375781c99f9919cfb2ec56d346e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72b84ae5_9e52d268",
+        "filename": "impl.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-14T03:28:39Z",
+      "side": 1,
+      "message": "I would prefer we use the C++ filesystem APIs: https://en.cppreference.com/w/cpp/filesystem",
+      "range": {
+        "startLine": 488,
+        "startChar": 1,
+        "endLine": 507,
+        "endChar": 5
+      },
+      "revId": "50f77b9bd8e1375781c99f9919cfb2ec56d346e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e30fd0d0_cbab1545",
+        "filename": "impl.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-14T03:28:39Z",
+      "side": 1,
+      "message": "Why lowercase?",
+      "range": {
+        "startLine": 518,
+        "startChar": 4,
+        "endLine": 518,
+        "endChar": 74
+      },
+      "revId": "50f77b9bd8e1375781c99f9919cfb2ec56d346e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce437923_d6219e5c",
+        "filename": "impl.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-14T03:28:39Z",
+      "side": 1,
+      "message": "Please store the vpd file path in the JSON file too. It will help match the SHA in teh name of the file to the path for debugging.",
+      "revId": "50f77b9bd8e1375781c99f9919cfb2ec56d346e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "858162ca_4096a796",
+        "filename": "utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-14T03:28:39Z",
+      "side": 1,
+      "message": "This is unnecessary. Please use std::string::length",
+      "range": {
+        "startLine": 214,
+        "startChar": 42,
+        "endLine": 214,
+        "endChar": 66
+      },
+      "revId": "50f77b9bd8e1375781c99f9919cfb2ec56d346e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd05e630_2ad37b69",
+        "filename": "utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-14T03:28:39Z",
+      "side": 1,
+      "message": "Please remove",
+      "range": {
+        "startLine": 223,
+        "startChar": 4,
+        "endLine": 223,
+        "endChar": 5
+      },
+      "revId": "50f77b9bd8e1375781c99f9919cfb2ec56d346e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59e17c6a_50d2690f",
+        "filename": "utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-14T03:28:39Z",
+      "side": 1,
+      "message": "This include should be moved to the cpp file.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 24
+      },
+      "revId": "50f77b9bd8e1375781c99f9919cfb2ec56d346e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a867375_be082880",
+        "filename": "utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-14T03:28:39Z",
+      "side": 1,
+      "message": "Please use const refs for input params. Passing around strings by value is expensive.",
+      "range": {
+        "startLine": 103,
+        "startChar": 19,
+        "endLine": 103,
+        "endChar": 39
+      },
+      "revId": "50f77b9bd8e1375781c99f9919cfb2ec56d346e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
