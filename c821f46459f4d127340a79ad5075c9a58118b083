@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "a0995637_72c35aa1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-15T10:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eff0d351_aaf482f3",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ebfa3f07_063e753e",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 15
@@ -59,6 +77,30 @@
     },
     {
       "key": {
+        "uuid": "8629c464_9fdc2b15",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-15T10:12:59Z",
+      "side": 1,
+      "message": "I need to handle this as part of rebase. it is part of https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/31921/",
+      "parentUuid": "ebfa3f07_063e753e",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 31
+      },
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4aea42a_72cb1a60",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 15
@@ -70,6 +112,30 @@
       "writtenOn": "2020-08-10T13:24:45Z",
       "side": 1,
       "message": "what if the frus other than cpu frus satisfy this condition ? (Condition : tmpVector size greater than 64KB for frus other than cpu).\n\nWhat if we can have someother check point specific to cpu frus before returning the vpdVector?",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 231,
+        "endChar": 5
+      },
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf238a22_00d6503e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-15T10:12:59Z",
+      "side": 1,
+      "message": "for any FRU, eeprom file greater than 64KB will be handled here. It is not specific for CPU.",
+      "parentUuid": "c4aea42a_72cb1a60",
       "range": {
         "startLine": 227,
         "startChar": 4,
@@ -105,6 +171,30 @@
     },
     {
       "key": {
+        "uuid": "0b2923ac_c5aad75f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-15T10:12:59Z",
+      "side": 1,
+      "message": "yes. will rebase it correctly.",
+      "parentUuid": "a4207a2c_9de10a25",
+      "range": {
+        "startLine": 246,
+        "startChar": 1,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "558e6045_cbec5105",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 15
@@ -119,6 +209,24 @@
       "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aa2ce02_d60d48d2",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-15T10:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "558e6045_cbec5105",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -145,6 +253,30 @@
     },
     {
       "key": {
+        "uuid": "e9e4594f_87575ccb",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-15T10:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec11c611_faac28e9",
+      "range": {
+        "startLine": 297,
+        "startChar": 2,
+        "endLine": 297,
+        "endChar": 24
+      },
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "baa59f1a_f33cd534",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 15
@@ -159,6 +291,24 @@
       "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bf5cb9a_97342493",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-15T10:12:59Z",
+      "side": 1,
+      "message": "Not needed.\nDone",
+      "parentUuid": "baa59f1a_f33cd534",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -179,6 +329,24 @@
     },
     {
       "key": {
+        "uuid": "f79640f6_00316d0f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-15T10:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6db967e8_29d12400",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ec511c9_46f67468",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 15
@@ -196,6 +364,24 @@
     },
     {
       "key": {
+        "uuid": "7edc323f_bf34b388",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-15T10:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ec511c9_46f67468",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d2dbaa2_a72c0237",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 15
@@ -210,6 +396,24 @@
       "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b281b2d_25f5720f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-15T10:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d2dbaa2_a72c0237",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -236,6 +440,30 @@
     },
     {
       "key": {
+        "uuid": "767ec302_a0de3d53",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-15T10:12:59Z",
+      "side": 1,
+      "message": "this is command to bind the driver to a bus.",
+      "parentUuid": "ea8babe5_631a7315",
+      "range": {
+        "startLine": 392,
+        "startChar": 34,
+        "endLine": 392,
+        "endChar": 41
+      },
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8bef91d_6e1a9db5",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 15
@@ -250,6 +478,24 @@
       "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b009263_d6a04314",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-15T10:12:59Z",
+      "side": 1,
+      "message": "yes. this is in progress .",
+      "parentUuid": "d8bef91d_6e1a9db5",
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -273,6 +519,30 @@
       "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f8fa596_8690e760",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-15T10:12:59Z",
+      "side": 1,
+      "message": "yeah. I will rebase it correctly.",
+      "parentUuid": "32fbaa0a_c48d3d82",
+      "range": {
+        "startLine": 512,
+        "startChar": 2,
+        "endLine": 565,
+        "endChar": 63
+      },
+      "revId": "c821f46459f4d127340a79ad5075c9a58118b083",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
