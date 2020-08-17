@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ac79c493_990cf5c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-08-17T13:44:46Z",
+      "side": 1,
+      "message": "It reduces the burden of publishing all the keywords on Dbus and also not all the keywords are required to be published on dbus. Making it configurable will help in modifying the list time to time as per requirement.",
+      "parentUuid": "4bbe470f_944a6b58",
+      "revId": "6dd2d2a2570c7ac7f7722c7010d3fe165a110c0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "06cd0633_5e9599a0",
         "filename": "README.md",
         "patchSetId": 17
