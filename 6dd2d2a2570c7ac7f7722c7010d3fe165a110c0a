@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bbe470f_944a6b58",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-17T09:51:50Z",
+      "side": 1,
+      "message": "what is the usecase of publishing only specific keywords on dbus and not all the keywords?",
+      "revId": "6dd2d2a2570c7ac7f7722c7010d3fe165a110c0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06cd0633_5e9599a0",
+        "filename": "README.md",
+        "patchSetId": 17
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-17T09:51:50Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 33,
+        "startChar": 5,
+        "endLine": 33,
+        "endChar": 10
+      },
+      "revId": "6dd2d2a2570c7ac7f7722c7010d3fe165a110c0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e660c678_339ee54b",
+        "filename": "README.md",
+        "patchSetId": 17
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-17T09:51:50Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 37,
+        "startChar": 40,
+        "endLine": 37,
+        "endChar": 60
+      },
+      "revId": "6dd2d2a2570c7ac7f7722c7010d3fe165a110c0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff388162_5cb2fdb4",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-17T09:51:50Z",
+      "side": 1,
+      "message": "missing @param for kwdsToPublish",
+      "revId": "6dd2d2a2570c7ac7f7722c7010d3fe165a110c0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
