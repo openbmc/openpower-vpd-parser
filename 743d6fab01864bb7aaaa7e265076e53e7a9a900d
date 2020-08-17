@@ -46,6 +46,30 @@
       "revId": "743d6fab01864bb7aaaa7e265076e53e7a9a900d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d6175a1_698046cf",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-17T14:23:49Z",
+      "side": 1,
+      "message": "coding wise what is the use of giving additional flagoption (--readKeyword). I dont see any dependency of readHardware with readKeyword implementation. \n\neven with: vpd-tool --readHardware -O \u003c\u003e -R \u003c\u003e -K \u003c\u003e will work fine right? \n\nwell, we can change the name of the option from readKeyword to readFromDbus - if that bothers",
+      "parentUuid": "1167f92b_2d02c922",
+      "range": {
+        "startLine": 71,
+        "startChar": 29,
+        "endLine": 71,
+        "endChar": 45
+      },
+      "revId": "743d6fab01864bb7aaaa7e265076e53e7a9a900d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
