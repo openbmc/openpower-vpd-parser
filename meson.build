@@ -13,6 +13,7 @@ build_tests = get_option('tests')
 sdbusplus = dependency('sdbusplus')
 phosphor_logging = dependency('phosphor-logging')
 phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
+libgpiodcxx = dependency('libgpiodcxx')
 
 compiler = meson.get_compiler('cpp')
 python = find_program('python3', required:true)
@@ -56,6 +57,7 @@ if get_option('ibm-parser').enabled()
                                 dependencies: [
                                         sdbusplus,
                                         phosphor_logging,
+                                        libgpiodcxx,
                                 ],
                                 include_directories : 'vpd-parser/',
                                 install: true,

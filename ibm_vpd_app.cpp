@@ -14,6 +14,7 @@
 #include <exception>
 #include <filesystem>
 #include <fstream>
+#include <gpiod.hpp>
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
@@ -212,7 +213,7 @@ static void populateInterfaces(const nlohmann::json& js,
     }
 }
 
-Binary getVpdDataInVector(nlohmann::json& js, const string& filePath)
+Binary getVpdDataInVector(const nlohmann::json& js, const string& filePath)
 {
     uint32_t offset = 0;
     // check if offset present?
@@ -243,6 +244,98 @@ Binary getVpdDataInVector(nlohmann::json& js, const string& filePath)
     }
 
     return tmpVector;
+}
+
+/** This API will be used to check processing eeprom file is PCIe eeprom file.
+ *
+ * @param[in] json - json object
+ * returns true if it is PCIe otherwise false.
+ */
+bool isPostActionNeeded(const nlohmann::json& js, const string& file)
+{
+    for (const auto& eachInventory : js["frus"][file])
+    {
+        if (eachInventory.find("postAction") != eachInventory.end())
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/** This API will be called to disable the PCIe slots If vpd-collection fail
+ *
+ * @param[in] json - json object
+ * @param[in] file - eeprom file path
+ */
+void configGPIOpostAction(const nlohmann::json& json, const string& file)
+{
+    uint8_t disablePin = 0;
+    uint8_t polarity = 0;
+    string pinName, outputPinName;
+
+    for (const auto& eachInventory : json["frus"][file])
+    {
+        for (const auto& presenceStatus : eachInventory["present"].items())
+        {
+            if (presenceStatus.key() == "pin")
+            {
+                pinName = presenceStatus.value();
+            }
+            else if (presenceStatus.key() == "polarity")
+            {
+                if (presenceStatus.value() == "ACTIVE_HIGH")
+                {
+                    polarity = 1;
+                }
+            }
+        }
+
+        gpiod::line presenceLine = gpiod::find_line(pinName);
+
+        if (!presenceLine)
+        {
+            cout << "configGPIOpostAction: Presence Line not found on gpio. "
+                    "Skipping postAction...\n";
+            return;
+        }
+        presenceLine.request({"Read the Presence line",
+                              ::gpiod::line_request::DIRECTION_INPUT, 0});
+
+        uint8_t readPinValue = presenceLine.get_value();
+
+        // Action needed if it is 1 && polarity HIGH, OR if it is 0 && polarity
+        // LOW
+        if (readPinValue ^ polarity)
+        {
+            for (const auto& postAction : eachInventory["postAction"].items())
+            {
+                if (postAction.key() == "pin")
+                {
+                    outputPinName = postAction.value();
+                }
+                else if (postAction.key() == "value")
+                {
+                    // Get the value to disable the pin
+                    disablePin = postAction.value();
+                }
+            }
+
+            gpiod::line outputLine = gpiod::find_line(outputPinName);
+
+            if (!outputLine)
+            {
+                cout << "configGPIOpostAction: couldn't find output line:"
+                     << outputPinName << " on GPIO. Skipping...\n";
+
+                return;
+            }
+            outputLine.request({"FRU not present: disable the pin",
+                                ::gpiod::line_request::DIRECTION_OUTPUT, 0},
+                               disablePin);
+        }
+    }
 }
 
 /**
@@ -506,6 +599,13 @@ int main(int argc, char** argv)
 
         if (auto pVal = get_if<Store>(&parseResult))
         {
+            if (pVal->getVpdMap().empty())
+            {
+                if (isPostActionNeeded(js, file))
+                {
+                    configGPIOpostAction(js, file);
+                }
+            }
             populateDbus(pVal->getVpdMap(), js, file);
         }
         else if (auto pVal = get_if<KeywordVpdMap>(&parseResult))
