@@ -43,6 +43,7 @@ configure_file(output: 'config.h',
   )
 
 if get_option('ibm-parser').enabled()
+        libgpiodcxx = dependency('libgpiodcxx')
         ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',
                                 'vpd-parser/ipz_parser.cpp',
                                 'impl.cpp',
@@ -60,6 +61,7 @@ if get_option('ibm-parser').enabled()
                                 dependencies: [
                                         sdbusplus,
                                         phosphor_logging,
+                                        libgpiodcxx,
                                 ],
                                 include_directories : 'vpd-parser/',
                                 install: true,
