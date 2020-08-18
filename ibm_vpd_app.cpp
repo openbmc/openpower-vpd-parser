@@ -16,6 +16,7 @@
 #include <exception>
 #include <filesystem>
 #include <fstream>
+#include <gpiod.hpp>
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
@@ -133,6 +134,7 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
     }
     return expanded;
 }
+
 /**
  * @brief Populate FRU specific interfaces.
  *
@@ -250,7 +252,7 @@ static void populateInterfaces(const nlohmann::json& js,
     }
 }
 
-Binary getVpdDataInVector(nlohmann::json& js, const string& file)
+static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
 {
     uint32_t offset = 0;
     // check if offset present?
@@ -275,6 +277,172 @@ Binary getVpdDataInVector(nlohmann::json& js, const string& file)
     return vpdVector;
 }
 
+/* It does nothing. Just an empty function to return null
+ * at the end of variadic template args
+ */
+static string getCommand()
+{
+    return "";
+}
+
+/* This function to arrange all arguments to make command
+ */
+template <typename T, typename... Types>
+static string getCommand(T arg1, Types... args)
+{
+    string cmd = " " + arg1 + getCommand(args...);
+
+    return cmd;
+}
+
+/* This API takes arguments and run that command
+ * returns output of that command
+ */
+template <typename T, typename... Types>
+static vector<string> executeCmd(T&& path, Types... args)
+{
+    vector<string> stdOutput;
+    array<char, 128> buffer;
+
+    string cmd = path + getCommand(args...);
+
+    unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
+    if (!pipe)
+    {
+        throw runtime_error("popen() failed!");
+    }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
+    {
+        stdOutput.emplace_back(buffer.data());
+    }
+
+    return stdOutput;
+}
+
+/** This API will be called at the end of VPD collection to perform any post
+ * actions.
+ *
+ * @param[in] json - json object
+ * @param[in] file - eeprom file path
+ */
+static void postFailAction(const nlohmann::json& json, const string& file)
+{
+    if ((json["frus"][file].at(0)).find("postActionFail") ==
+        json["frus"][file].at(0).end())
+    {
+        return;
+    }
+
+    uint8_t pinValue = 0;
+    string pinName;
+
+    for (const auto& postAction :
+         (json["frus"][file].at(0))["postActionFail"].items())
+    {
+        if (postAction.key() == "pin")
+        {
+            pinName = postAction.value();
+        }
+        else if (postAction.key() == "value")
+        {
+            // Get the value to set
+            pinValue = postAction.value();
+        }
+    }
+
+    cout << "Setting GPIO: " << pinName << " to " << (int)pinValue << endl;
+
+    try
+    {
+        gpiod::line outputLine = gpiod::find_line(pinName);
+
+        if (!outputLine)
+        {
+            cout << "Couldn't find output line:" << pinName
+                 << " on GPIO. Skipping...\n";
+
+            return;
+        }
+        outputLine.request(
+            {"Disable line", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
+            pinValue);
+    }
+    catch (system_error&)
+    {
+        cerr << "Failed to set post-action GPIO" << endl;
+    }
+}
+
+/** Performs any pre-action needed to get the FRU setup for collection.
+ *
+ * @param[in] json - json object
+ * @param[in] file - eeprom file path
+ */
+static void preAction(const nlohmann::json& json, const string& file)
+{
+    if ((json["frus"][file].at(0)).find("preAction") ==
+        json["frus"][file].at(0).end())
+    {
+        return;
+    }
+
+    uint8_t pinValue = 0;
+    string pinName;
+
+    for (const auto& postAction :
+         (json["frus"][file].at(0))["preAction"].items())
+    {
+        if (postAction.key() == "pin")
+        {
+            pinName = postAction.value();
+        }
+        else if (postAction.key() == "value")
+        {
+            // Get the value to set
+            pinValue = postAction.value();
+        }
+    }
+
+    cout << "Setting GPIO: " << pinName << " to " << (int)pinValue << endl;
+    try
+    {
+        gpiod::line outputLine = gpiod::find_line(pinName);
+
+        if (!outputLine)
+        {
+            cout << "Couldn't find output line:" << pinName
+                 << " on GPIO. Skipping...\n";
+
+            return;
+        }
+        outputLine.request(
+            {"FRU pre-action", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
+            pinValue);
+    }
+    catch (system_error&)
+    {
+        cerr << "Failed to set pre-action GPIO" << endl;
+        return;
+    }
+
+    // Now bind the device
+    string bind = json["frus"][file].at(0).value("bind", "");
+    cout << "Binding device " << bind << endl;
+    string bindCmd = string("echo \"") + bind +
+                     string("\" > /sys/bus/i2c/drivers/at24/bind");
+    cout << bindCmd << endl;
+    executeCmd(bindCmd);
+
+    // Check if device showed up (test for file)
+    if (!fs::exists(file))
+    {
+        cout << "EEPROM " << file << " does not exist. Take failure action"
+             << endl;
+        // If not, then take failure postAction
+        postFailAction(json, file);
+    }
+}
+
 /**
  * @brief Prime the Inventory
  * Prime the inventory by populating only the location code,
@@ -294,6 +462,8 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
 
     for (auto& itemFRUS : jsObject["frus"].items())
     {
+        // Take pre actions
+        preAction(jsObject, itemFRUS.key());
         for (auto& itemEEPROM : itemFRUS.value())
         {
             inventory::InterfaceMap interfaces;
@@ -336,48 +506,6 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
         }
     }
     return objects;
-}
-
-/* It does nothing. Just an empty function to return null
- * at the end of variadic template args
- */
-string getCommand()
-{
-    return "";
-}
-
-/* This function to arrange all arguments to make command
- */
-template <typename T, typename... Types>
-string getCommand(T arg1, Types... args)
-{
-    string cmd = " " + arg1 + getCommand(args...);
-
-    return cmd;
-}
-
-/* This API takes arguments and run that command
- * returns output of that command
- */
-template <typename T, typename... Types>
-static vector<string> executeCmd(T& path, Types... args)
-{
-    vector<string> stdOutput;
-    array<char, 128> buffer;
-
-    string cmd = path + getCommand(args...);
-
-    unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
-    if (!pipe)
-    {
-        throw runtime_error("popen() failed!");
-    }
-    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
-    {
-        stdOutput.emplace_back(buffer.data());
-    }
-
-    return stdOutput;
 }
 
 /**
@@ -619,8 +747,7 @@ int main(int argc, char** argv)
         string file{};
 
         app.add_option("-f, --file", file, "File containing VPD (IPZ/KEYWORD)")
-            ->required()
-            ->check(ExistingFile);
+            ->required();
 
         CLI11_PARSE(app, argc, argv);
 
@@ -657,6 +784,13 @@ int main(int argc, char** argv)
             return 0;
         }
 
+        if (!fs::exists(file))
+        {
+            cout << "Device path: " << file
+                 << " does not exist. Spurious udev event? Exiting." << endl;
+            return 0;
+        }
+
         baseFruInventoryPath = js["frus"][file][0]["inventoryPath"];
         // Check if we can read the VPD file based on the power state
         if (js["frus"][file].at(0).value("powerOffOnly", false))
@@ -675,17 +809,30 @@ int main(int argc, char** argv)
         variant<KeywordVpdMap, Store> parseResult;
         parseResult = parser->parse();
 
-        if (auto pVal = get_if<Store>(&parseResult))
+        try
         {
-            populateDbus(pVal->getVpdMap(), js, file);
-        }
-        else if (auto pVal = get_if<KeywordVpdMap>(&parseResult))
-        {
-            populateDbus(*pVal, js, file);
-        }
+            Binary vpdVector = getVpdDataInVector(js, file);
+            ParserInterface* parser = ParserFactory::getParser(move(vpdVector));
 
-        // release the parser object
-        ParserFactory::freeParser(parser);
+            variant<KeywordVpdMap, Store> parseResult;
+            parseResult = parser->parse();
+            if (auto pVal = get_if<Store>(&parseResult))
+            {
+                populateDbus(pVal->getVpdMap(), js, file);
+            }
+            else if (auto pVal = get_if<KeywordVpdMap>(&parseResult))
+            {
+                populateDbus(*pVal, js, file);
+            }
+
+            // release the parser object
+            ParserFactory::freeParser(parser);
+        }
+        catch (exception& e)
+        {
+            postFailAction(js, file);
+            throw e;
+        }
     }
     catch (const VpdJsonException& ex)
     {
