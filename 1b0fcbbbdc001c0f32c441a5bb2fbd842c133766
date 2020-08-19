@@ -71,6 +71,78 @@
     },
     {
       "key": {
+        "uuid": "79167d0c_f7e9c546",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-19T20:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f3627b7_1f80a751",
+      "range": {
+        "startLine": 7,
+        "startChar": 16,
+        "endLine": 7,
+        "endChar": 23
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a89fff9d_06246989",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-19T20:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f68c283_2adec6dd",
+      "range": {
+        "startLine": 7,
+        "startChar": 28,
+        "endLine": 7,
+        "endChar": 36
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75024057_7aec2130",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-19T20:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25d81b74_e234e05e",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78edd2d9_e3420006",
         "filename": "/COMMIT_MSG",
         "patchSetId": 18
@@ -91,6 +163,30 @@
       "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3f29391_520f77d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-19T20:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78edd2d9_e3420006",
+      "range": {
+        "startLine": 9,
+        "startChar": 35,
+        "endLine": 9,
+        "endChar": 43
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "0a54ff61_99ea8101",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-19T20:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44f7facd_16ef0636",
+      "range": {
+        "startLine": 10,
+        "startChar": 44,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43511171_2904f45a",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 18
@@ -137,6 +257,30 @@
       "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "477eb572_850a832d",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-19T20:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43511171_2904f45a",
+      "range": {
+        "startLine": 302,
+        "startChar": 12,
+        "endLine": 305,
+        "endChar": 13
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "10d43e7a_3ebca537",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-19T20:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dacbb80_1b8137a7",
+      "range": {
+        "startLine": 335,
+        "startChar": 22,
+        "endLine": 335,
+        "endChar": 41
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "086229e7_f81e87ab",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 18
@@ -183,6 +351,30 @@
       "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f535e97e_81d8b6fa",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-19T20:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "086229e7_f81e87ab",
+      "range": {
+        "startLine": 351,
+        "startChar": 35,
+        "endLine": 351,
+        "endChar": 46
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "db20317e_3de4b8d5",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-19T20:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63e34d5a_74fe3f6c",
+      "range": {
+        "startLine": 355,
+        "startChar": 20,
+        "endLine": 355,
+        "endChar": 48
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e949f06a_169f177a",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 18
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "efc43998_b7b7813d",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-19T20:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e949f06a_169f177a",
+      "range": {
+        "startLine": 364,
+        "startChar": 69,
+        "endLine": 364,
+        "endChar": 73
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54ecd1a3_02d336ae",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 18
@@ -252,6 +492,30 @@
       "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6be08d87_5ad4d895",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-19T20:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54ecd1a3_02d336ae",
+      "range": {
+        "startLine": 365,
+        "startChar": 20,
+        "endLine": 365,
+        "endChar": 54
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -295,6 +559,24 @@
     },
     {
       "key": {
+        "uuid": "2b25ca80_ebc231ea",
+        "filename": "vpd/vpd_inventory.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-19T20:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c298f491_b7f0fb0c",
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3763799d_74868c88",
         "filename": "vpd/vpd_inventory.json",
         "patchSetId": 18
@@ -318,6 +600,30 @@
     },
     {
       "key": {
+        "uuid": "b756b559_a4f51c0a",
+        "filename": "vpd/vpd_inventory.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-19T20:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3763799d_74868c88",
+      "range": {
+        "startLine": 186,
+        "startChar": 9,
+        "endLine": 186,
+        "endChar": 16
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "262f4604_1e010d77",
         "filename": "vpd/vpd_inventory.json",
         "patchSetId": 18
@@ -338,6 +644,30 @@
       "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a58aa69_e2f5e128",
+        "filename": "vpd/vpd_inventory.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-19T20:00:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "262f4604_1e010d77",
+      "range": {
+        "startLine": 192,
+        "startChar": 10,
+        "endLine": 192,
+        "endChar": 26
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
