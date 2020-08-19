@@ -1,0 +1,343 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f3627b7_1f80a751",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "typo: support",
+      "range": {
+        "startLine": 7,
+        "startChar": 16,
+        "endLine": 7,
+        "endChar": 23
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25d81b74_e234e05e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "\"Enable presence detect support\" is more appropriate",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f68c283_2adec6dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "Don\u0027t need this detail here",
+      "range": {
+        "startLine": 7,
+        "startChar": 28,
+        "endLine": 7,
+        "endChar": 36
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78edd2d9_e3420006",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "Op-panel is just an example. The code is generic such that it can do this for any inventory item based on the JSON config. Please reword this message.",
+      "range": {
+        "startLine": 9,
+        "startChar": 35,
+        "endLine": 9,
+        "endChar": 43
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44f7facd_16ef0636",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "if**",
+      "range": {
+        "startLine": 10,
+        "startChar": 44,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43511171_2904f45a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "We cannot have this. The logic should check if a pre action is setup in the JSON and take a decision based on that. Not based on inventory paths!",
+      "range": {
+        "startLine": 302,
+        "startChar": 12,
+        "endLine": 305,
+        "endChar": 13
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dacbb80_1b8137a7",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "gpioData is a uint8 and polarity is a bool. As such, this is undefined behavior. Either make both uint8 (and mask all but the LSBit) or just use bools and use logical operations.",
+      "range": {
+        "startLine": 335,
+        "startChar": 22,
+        "endLine": 335,
+        "endChar": 41
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "086229e7_f81e87ab",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "What is this string for? We should use something meaningful here like the program name",
+      "range": {
+        "startLine": 351,
+        "startChar": 35,
+        "endLine": 351,
+        "endChar": 46
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63e34d5a_74fe3f6c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "You don\u0027t need this, request itself allows you to pass in the value in that last parameter?",
+      "range": {
+        "startLine": 355,
+        "startChar": 20,
+        "endLine": 355,
+        "endChar": 48
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e949f06a_169f177a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "The driver type and bus type (i2c) should also come from the JSON.",
+      "range": {
+        "startLine": 364,
+        "startChar": 69,
+        "endLine": 364,
+        "endChar": 73
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54ecd1a3_02d336ae",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "Don\u0027t need this extra local variable. Just pass in str.c_str() to the system command below.",
+      "range": {
+        "startLine": 365,
+        "startChar": 20,
+        "endLine": 365,
+        "endChar": 54
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d73e9661_55de8f7d",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "This function is not just for the op-panel, please remove that reference.",
+      "range": {
+        "startLine": 814,
+        "startChar": 26,
+        "endLine": 814,
+        "endChar": 43
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c298f491_b7f0fb0c",
+        "filename": "vpd/vpd_inventory.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "Please remove this file from the commit once the review comments are addressed. This file will be checked in to this repo later.",
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3763799d_74868c88",
+        "filename": "vpd/vpd_inventory.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "\"presence\" would be more appropriate.",
+      "range": {
+        "startLine": 186,
+        "startChar": 9,
+        "endLine": 186,
+        "endChar": 16
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "262f4604_1e010d77",
+        "filename": "vpd/vpd_inventory.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-19T10:18:46Z",
+      "side": 1,
+      "message": "I would prefer just a 0 or 1 instead of enable/disable which is ambiguous. So: maybe \"value\" : 0",
+      "range": {
+        "startLine": 192,
+        "startChar": 10,
+        "endLine": 192,
+        "endChar": 26
+      },
+      "revId": "1b0fcbbbdc001c0f32c441a5bb2fbd842c133766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
