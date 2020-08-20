@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e8110c8_e5ba285b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-20T12:55:23Z",
+      "side": 1,
+      "message": "Why isn\u0027t this an exact match?",
+      "range": {
+        "startLine": 303,
+        "startChar": 24,
+        "endLine": 303,
+        "endChar": 68
+      },
+      "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e287f57_1e940244",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-20T12:55:23Z",
+      "side": 1,
+      "message": "Same here, why not just \u003d\u003d \"polarity\" ?",
+      "range": {
+        "startLine": 307,
+        "startChar": 29,
+        "endLine": 307,
+        "endChar": 78
+      },
+      "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8b1b2a4_a5922894",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-20T12:55:23Z",
+      "side": 1,
+      "message": "What if find_line() fails to find the line?",
+      "range": {
+        "startLine": 318,
+        "startChar": 16,
+        "endLine": 318,
+        "endChar": 28
+      },
+      "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "206ab53b_1fa6960d",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-20T12:55:23Z",
+      "side": 1,
+      "message": "Same comment about using \u003d\u003d here",
+      "range": {
+        "startLine": 332,
+        "startChar": 28,
+        "endLine": 332,
+        "endChar": 71
+      },
+      "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f28b4626_1321384d",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-20T12:55:23Z",
+      "side": 1,
+      "message": "Please use exact match",
+      "range": {
+        "startLine": 336,
+        "startChar": 33,
+        "endLine": 336,
+        "endChar": 78
+      },
+      "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c24b283b_8b30ec2e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-20T12:55:23Z",
+      "side": 1,
+      "message": "What if find_line fails?",
+      "range": {
+        "startLine": 343,
+        "startChar": 20,
+        "endLine": 343,
+        "endChar": 30
+      },
+      "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
