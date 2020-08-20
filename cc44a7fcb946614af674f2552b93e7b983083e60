@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "28206586_b3125a0d",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-20T08:50:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d77c30f_bd665065",
+      "range": {
+        "startLine": 275,
+        "startChar": 11,
+        "endLine": 275,
+        "endChar": 71
+      },
+      "revId": "cc44a7fcb946614af674f2552b93e7b983083e60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe497819_f205937a",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 23
@@ -36,6 +60,30 @@
       "writtenOn": "2020-08-20T08:01:43Z",
       "side": 1,
       "message": "why inside isSystemVpd and not outside ?",
+      "range": {
+        "startLine": 757,
+        "startChar": 0,
+        "endLine": 758,
+        "endChar": 23
+      },
+      "revId": "cc44a7fcb946614af674f2552b93e7b983083e60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df7fa993_0d1a1fa1",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-20T08:50:10Z",
+      "side": 1,
+      "message": "because this executions needs to be done before vpd-collection for all FRUs starts.\nSO triggering as part of system-vpd, where we are priming the inventory also.",
+      "parentUuid": "fe497819_f205937a",
       "range": {
         "startLine": 757,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9fc60811_628d0071",
+        "filename": "meson.build",
+        "patchSetId": 23
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-20T08:50:10Z",
+      "side": 1,
+      "message": "yes. I saw that but didn\u0027t remove in my patch to avoid extra change.\nWill remove now.",
+      "parentUuid": "93609585_927fbc62",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 53
+      },
+      "revId": "cc44a7fcb946614af674f2552b93e7b983083e60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf5e1c1b_bd8a5b8e",
         "filename": "meson.build",
         "patchSetId": 23
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "528b9eb1_fe473a51",
+        "filename": "meson.build",
+        "patchSetId": 23
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-20T08:50:10Z",
+      "side": 1,
+      "message": "Not adding here as it\u0027s common for all executables. \nmoving it the list.",
+      "parentUuid": "cf5e1c1b_bd8a5b8e",
+      "range": {
+        "startLine": 23,
+        "startChar": 18,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "cc44a7fcb946614af674f2552b93e7b983083e60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42313d22_c99827e1",
         "filename": "meson.build",
         "patchSetId": 23
@@ -114,6 +210,30 @@
       "revId": "cc44a7fcb946614af674f2552b93e7b983083e60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b57369c_c550e243",
+        "filename": "meson.build",
+        "patchSetId": 23
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-20T08:50:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42313d22_c99827e1",
+      "range": {
+        "startLine": 105,
+        "startChar": 41,
+        "endLine": 105,
+        "endChar": 52
+      },
+      "revId": "cc44a7fcb946614af674f2552b93e7b983083e60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
