@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f97ade6_144926a8",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-20T05:39:25Z",
+      "side": 1,
+      "message": "Can we just continue; on to the next one for now? I don\u0027t think this should be an error condition.",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 22
+      },
+      "revId": "d540a1e1adec318d6dc0a5058c544325d9d5b3e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11329f7c_45c2fc93",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-20T05:39:25Z",
+      "side": 1,
+      "message": "I would prefer we do logical checks if using bool. If you must use bitwise, please change both operands to uint8 types (no cast, change the definitions)",
+      "range": {
+        "startLine": 324,
+        "startChar": 21,
+        "endLine": 324,
+        "endChar": 42
+      },
+      "revId": "d540a1e1adec318d6dc0a5058c544325d9d5b3e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98db9642_b9aa2551",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-20T05:39:25Z",
+      "side": 1,
+      "message": "Since we want this generic by bus type, please rename this to just devAddress (both in JSON as well as the variable name)",
+      "range": {
+        "startLine": 350,
+        "startChar": 56,
+        "endLine": 350,
+        "endChar": 66
+      },
+      "revId": "d540a1e1adec318d6dc0a5058c544325d9d5b3e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4a36a84_88a4f39f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-20T05:39:25Z",
+      "side": 1,
+      "message": "Still have this comment?",
+      "range": {
+        "startLine": 757,
+        "startChar": 30,
+        "endLine": 757,
+        "endChar": 43
+      },
+      "revId": "d540a1e1adec318d6dc0a5058c544325d9d5b3e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
