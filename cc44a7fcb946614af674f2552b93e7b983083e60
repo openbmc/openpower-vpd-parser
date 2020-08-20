@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d77c30f_bd665065",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-08-20T08:01:43Z",
+      "side": 1,
+      "message": "change this basically I see the function as to do a preAction (set or unset a gpis line) based on presence state for it.",
+      "range": {
+        "startLine": 275,
+        "startChar": 11,
+        "endLine": 275,
+        "endChar": 71
+      },
+      "revId": "cc44a7fcb946614af674f2552b93e7b983083e60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe497819_f205937a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-08-20T08:01:43Z",
+      "side": 1,
+      "message": "why inside isSystemVpd and not outside ?",
+      "range": {
+        "startLine": 757,
+        "startChar": 0,
+        "endLine": 758,
+        "endChar": 23
+      },
+      "revId": "cc44a7fcb946614af674f2552b93e7b983083e60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93609585_927fbc62",
+        "filename": "meson.build",
+        "patchSetId": 23
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-08-20T08:01:43Z",
+      "side": 1,
+      "message": "defined twice (on line 14 and line 16) , can you remove this",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 53
+      },
+      "revId": "cc44a7fcb946614af674f2552b93e7b983083e60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf5e1c1b_bd8a5b8e",
+        "filename": "meson.build",
+        "patchSetId": 23
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-08-20T08:01:43Z",
+      "side": 1,
+      "message": "add your dependency here\n (libgpiodcxx)",
+      "range": {
+        "startLine": 23,
+        "startChar": 18,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "cc44a7fcb946614af674f2552b93e7b983083e60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42313d22_c99827e1",
+        "filename": "meson.build",
+        "patchSetId": 23
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-08-20T08:01:43Z",
+      "side": 1,
+      "message": "move this to the dependency_list",
+      "range": {
+        "startLine": 105,
+        "startChar": 41,
+        "endLine": 105,
+        "endChar": 52
+      },
+      "revId": "cc44a7fcb946614af674f2552b93e7b983083e60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
