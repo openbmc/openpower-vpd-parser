@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "591116f4_24b29b86",
+        "filename": "const.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-20T05:41:35Z",
+      "side": 1,
+      "message": "we have object mapper service and object defined as config variables in meson.build. should remove one..",
+      "range": {
+        "startLine": 81,
+        "startChar": 15,
+        "endLine": 82,
+        "endChar": 68
+      },
+      "revId": "2f8d22476d3ada7b4575182865c9ed7a5a0ee165",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0e9f82b_576dc06a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-20T05:41:35Z",
+      "side": 1,
+      "message": "typo?",
+      "range": {
+        "startLine": 408,
+        "startChar": 22,
+        "endLine": 408,
+        "endChar": 29
+      },
+      "revId": "2f8d22476d3ada7b4575182865c9ed7a5a0ee165",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9b12f53_d0abba92",
+        "filename": "utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-20T05:41:35Z",
+      "side": 1,
+      "message": "Can you add more details on this? like - what was the expected service name here ?",
+      "range": {
+        "startLine": 43,
+        "startChar": 31,
+        "endLine": 43,
+        "endChar": 59
+      },
+      "revId": "2f8d22476d3ada7b4575182865c9ed7a5a0ee165",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4866221_c0878ac7",
+        "filename": "utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-20T05:41:35Z",
+      "side": 1,
+      "message": "same here..",
+      "range": {
+        "startLine": 48,
+        "startChar": 35,
+        "endLine": 48,
+        "endChar": 47
+      },
+      "revId": "2f8d22476d3ada7b4575182865c9ed7a5a0ee165",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1984e96_4157b4bb",
+        "filename": "utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-08-20T05:41:35Z",
+      "side": 1,
+      "message": "typo?",
+      "range": {
+        "startLine": 53,
+        "startChar": 43,
+        "endLine": 53,
+        "endChar": 47
+      },
+      "revId": "2f8d22476d3ada7b4575182865c9ed7a5a0ee165",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
