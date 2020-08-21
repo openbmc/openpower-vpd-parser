@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b21650db_8ed9f652",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-21T10:29:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e8110c8_e5ba285b",
+      "range": {
+        "startLine": 303,
+        "startChar": 24,
+        "endLine": 303,
+        "endChar": 68
+      },
+      "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e287f57_1e940244",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 24
@@ -45,6 +69,30 @@
       "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7296f4d_49b3c8dc",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-21T10:29:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e287f57_1e940244",
+      "range": {
+        "startLine": 307,
+        "startChar": 29,
+        "endLine": 307,
+        "endChar": 78
+      },
+      "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "83b2e9c5_468c365f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-21T10:29:47Z",
+      "side": 1,
+      "message": "if(presenceLine)--\u003e will go ahead\nelse --\u003e will skip this inventory with a msg on console.",
+      "parentUuid": "8e399adc_a666c0dc",
+      "range": {
+        "startLine": 318,
+        "startChar": 16,
+        "endLine": 318,
+        "endChar": 28
+      },
+      "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "206ab53b_1fa6960d",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 24
@@ -115,6 +187,30 @@
       "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36f58f5a_f5c14cc4",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-21T10:29:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "206ab53b_1fa6960d",
+      "range": {
+        "startLine": 332,
+        "startChar": 28,
+        "endLine": 332,
+        "endChar": 71
+      },
+      "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -141,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "abf17b67_823082d6",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-21T10:29:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f28b4626_1321384d",
+      "range": {
+        "startLine": 336,
+        "startChar": 33,
+        "endLine": 336,
+        "endChar": 78
+      },
+      "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c24b283b_8b30ec2e",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 24
@@ -161,6 +281,30 @@
       "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "853b8872_18941161",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-08-21T10:29:47Z",
+      "side": 1,
+      "message": "if( outputLine)--\u003e will go ahead\nelse --\u003e will skip this inventory with a msg on console.",
+      "parentUuid": "c24b283b_8b30ec2e",
+      "range": {
+        "startLine": 343,
+        "startChar": 20,
+        "endLine": 343,
+        "endChar": 30
+      },
+      "revId": "6234cc7a734f7e05a0b78df50d8e4e38cbc1f544",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
