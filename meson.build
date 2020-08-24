@@ -38,9 +38,18 @@ configure_file(output: 'config.h',
                        'INVENTORY_MANAGER_CACHE' : '"'+get_option('INVENTORY_MANAGER_CACHE')+'"',
                        'INVENTORY_JSON_SYM_LINK': '"'+get_option('INVENTORY_JSON_SYM_LINK')+'"',
                        'INVENTORY_JSON_2U': '"'+get_option('INVENTORY_JSON_2U')+'"',
-                       'INVENTORY_JSON_4U': '"'+get_option('INVENTORY_JSON_4U')+'"'
+                       'INVENTORY_JSON_4U': '"'+get_option('INVENTORY_JSON_4U')+'"',
+		       'DBUS_PROP_JSON': '"'+get_option('DBUS_PROP_JSON')+'"'
                        }
   )
+
+common_SOURCES =[
+'vpd-parser/parser_factory.cpp',
+                 'vpd-parser/memory_vpd_parser.cpp',
+                 'vpd-parser/keyword_vpd_parser.cpp',
+                 'vpd-parser/ipz_parser.cpp', 'impl.cpp', 'utils.cpp',
+                 'vpdecc/vpdecc.c', 'vpdecc/vpdecc_support.c'
+]
 
 if get_option('ibm-parser').enabled()
         ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',
@@ -67,8 +76,11 @@ if get_option('ibm-parser').enabled()
                             )
 
         vpd_tool_SOURCES = ['vpd_tool.cpp',
-                            'vpd_tool_impl.cpp'
-                           ]
+                            'vpd_tool_impl.cpp',
+			    'vpd-manager/editor_impl.cpp',
+                           ]+common_SOURCES
+
+	vpd_tool_INCLUDE = include_directories('vpd-parser/', 'vpd-manager')
 
         vpd_tool_exe = executable(
                                  'vpd-tool',
@@ -76,7 +88,8 @@ if get_option('ibm-parser').enabled()
                                  dependencies: [
                                    sdbusplus
                                    ],
-                                 install: true
+                                 install: true,
+				 include_directories : vpd_tool_INCLUDE
                                  )
 if get_option('vpd-manager').enabled()
     subdir('vpd-manager')

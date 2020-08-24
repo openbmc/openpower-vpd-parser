@@ -4,8 +4,12 @@
 
 #include "defines.hpp"
 
+#include <fstream>
+#include <iomanip>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/server.hpp>
+#include <sstream>
+#include <vector>
 
 namespace openpower
 {
@@ -14,7 +18,7 @@ namespace vpd
 using namespace openpower::vpd::constants;
 using namespace inventory;
 using namespace phosphor::logging;
-
+using namespace record;
 namespace inventory
 {
 
@@ -200,6 +204,119 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
         throw std::runtime_error(
             "Error in invoking D-Bus logging create interface to register PEL");
     }
+}
+
+inventory::VPDfilepath getVpdFilePath(const json& jsonFile,
+                                      const std::string& ObjPath)
+{
+    inventory::VPDfilepath filePath{};
+
+    if (jsonFile.find("frus") == jsonFile.end())
+    {
+        throw std::runtime_error("Invalid Json");
+    }
+
+    const nlohmann::json& groupFRUS =
+        jsonFile["frus"].get_ref<const nlohmann::json::object_t&>();
+    for (const auto& itemFRUS : groupFRUS.items())
+    {
+        const std::vector<nlohmann::json>& groupEEPROM =
+            itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
+        for (const auto& itemEEPROM : groupEEPROM)
+        {
+            if (itemEEPROM["inventoryPath"]
+                    .get_ref<const nlohmann::json::string_t&>() == ObjPath)
+            {
+                filePath = itemFRUS.key();
+                return filePath;
+            }
+        }
+    }
+
+    return filePath;
+}
+
+bool eepromPresenceInJson(const std::string& eepromPath)
+{
+    bool present = false;
+    ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
+    auto js = json::parse(inventoryJson);
+
+    if (js.find("frus") == js.end())
+    {
+        cout << "Invalid JSON structure - frus{} object not found in "
+             << INVENTORY_JSON_SYM_LINK << endl;
+        return 0;
+    }
+    json fruJson = js["frus"];
+    if (fruJson.find(eepromPath) != fruJson.end())
+    {
+        present = true;
+    }
+    return present;
+}
+
+bool recKwPresenceInDbusProp(const std::string& recordName,
+                             const std::string& keyword)
+{
+    ifstream propertyJson(DBUS_PROP_JSON);
+    json dbusProperty;
+    bool present = false;
+
+    if (propertyJson.is_open())
+    {
+        auto dbusPropertyJson = json::parse(propertyJson);
+        if (dbusPropertyJson.find("dbusProperties") == dbusPropertyJson.end())
+        {
+            throw runtime_error("Dbus property json error");
+        }
+
+        dbusProperty = dbusPropertyJson["dbusProperties"];
+        if (dbusProperty.contains(recordName))
+        {
+            const vector<string>& kwdsToPublish = dbusProperty[recordName];
+            if (find(kwdsToPublish.begin(), kwdsToPublish.end(), keyword) !=
+                kwdsToPublish.end()) // present
+            {
+                present = true;
+            }
+        }
+    }
+    else
+    {
+        throw runtime_error("Unable to open dbus_properties.json");
+    }
+    return present;
+}
+
+Binary toBinary(const std::string& value)
+{
+    Binary val;
+    if (value.find("0x") == string::npos)
+    {
+        val.assign(value.begin(), value.end());
+    }
+    else if (value.find("0x") != string::npos)
+    {
+        stringstream ss;
+        ss.str(value.substr(2));
+        string byteStr{};
+
+        while (!ss.eof())
+        {
+            ss >> setw(2) >> byteStr;
+            uint8_t byte = strtoul(byteStr.c_str(), nullptr, 16);
+
+            val.push_back(byte);
+        }
+    }
+
+    else
+    {
+        throw runtime_error("The value to be updated should be either in ascii "
+                            "or in hex. Refer --help option");
+    }
+    return val;
 }
 } // namespace vpd
 } // namespace openpower

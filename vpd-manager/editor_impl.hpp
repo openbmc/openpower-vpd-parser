@@ -75,15 +75,34 @@ class EditorImpl
     {
     }
 
+    /** @brief Construct EditorImpl class
+     *
+     * @param[in] path - EEPROM path
+     * @param[in] json - Parsed inventory json object
+     * @param[in] record - Record name
+     * @param[in] kwd - Keyword name
+     */
+    EditorImpl(const inventory::Path& path, const nlohmann::json& json,
+               const std::string& record, const std::string& kwd) :
+        vpdFilePath(path),
+        jsonFile(json), thisRecord(record, kwd)
+    {
+    }
+
     /** @brief Update data for keyword
      *  @param[in] kwdData - data to update
      */
-    void updateKeyword(const Binary& kwdData);
+    void updateKeyword(Binary kwdData);
 
     /** @brief Expands location code on DBUS
      *  @param[in] locationCodeType - "fcs" or "mts"
      */
     void expandLocationCode(const std::string& locationCodeType);
+
+    /** @brief Flag which tells whether to update Cache or not.
+     *  By default updCache flag is set true.
+     */
+    bool updCache = true;
 
   private:
     /** @brief read VTOC record from the vpd file

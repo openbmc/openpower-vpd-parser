@@ -578,7 +578,7 @@ void EditorImpl::getVpdPathForCpu()
     }
 }
 
-void EditorImpl::updateKeyword(const Binary& kwdData)
+void EditorImpl::updateKeyword(Binary kwdData)
 {
     startOffset = 0;
 #ifndef ManagerTest
@@ -649,10 +649,13 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
 
             // update the ECC data for the record once data has been updated
             updateRecordECC();
+            if (updCache)
+            {
 #ifndef ManagerTest
-            // update the cache once data has been updated
-            updateCache();
+                // update the cache once data has been updated
+                updateCache();
 #endif
+            }
         }
         catch (const std::exception& e)
         {
@@ -665,7 +668,6 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
         return;
     }
 }
-
 } // namespace editor
 } // namespace manager
 } // namespace vpd
