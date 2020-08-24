@@ -1,18 +1,52 @@
 #include "vpd_tool_impl.hpp"
 
+#include "vpd_exceptions.hpp"
+
 #include <cstdlib>
 #include <filesystem>
-#include <iomanip>
 #include <iostream>
 #include <sdbusplus/bus.hpp>
-#include <sstream>
 #include <variant>
 #include <vector>
 
 using namespace std;
 using sdbusplus::exception::SdBusError;
 using namespace openpower::vpd;
+using namespace inventory;
+using namespace openpower::vpd::manager::editor;
 namespace fs = std::filesystem;
+using json = nlohmann::json;
+using namespace openpower::vpd::exceptions;
+
+Binary VpdTool::toBinary(const std::string& value)
+{
+    Binary val{};
+    if (value.find("0x") == string::npos)
+    {
+        val.assign(value.begin(), value.end());
+    }
+    else if (value.find("0x") != string::npos)
+    {
+        stringstream ss;
+        ss.str(value.substr(2));
+        string byteStr{};
+
+        while (!ss.eof())
+        {
+            ss >> setw(2) >> byteStr;
+            uint8_t byte = strtoul(byteStr.c_str(), nullptr, 16);
+
+            val.push_back(byte);
+        }
+    }
+
+    else
+    {
+        throw runtime_error("The value to be updated should be either in ascii "
+                            "or in hex. Refer --help option");
+    }
+    return val;
+}
 
 void VpdTool::printReturnCode(int returnCode)
 {
@@ -351,35 +385,7 @@ void VpdTool::readKeyword()
 
 int VpdTool::updateKeyword()
 {
-    Binary val;
-
-    if (value.find("0x") == string::npos)
-    {
-        val.assign(value.begin(), value.end());
-    }
-    else if (value.find("0x") != string::npos)
-    {
-        stringstream ss;
-        ss.str(value.substr(2));
-        string byteStr{};
-
-        while (!ss.eof())
-        {
-            ss >> setw(2) >> byteStr;
-            uint8_t byte = strtoul(byteStr.c_str(), nullptr, 16);
-
-            val.push_back(byte);
-        }
-    }
-
-    else
-    {
-        throw runtime_error("The value to be updated should be either in ascii "
-                            "or in hex. Refer --help option");
-    }
-
-    // writeKeyword(fruPath, recordName, keyword, val);
-
+    Binary val = toBinary(value);
     auto bus = sdbusplus::bus::new_default();
     auto properties =
         bus.new_method_call(BUSNAME, OBJPATH, IFACE, "WriteKeyword");
@@ -441,4 +447,28 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
     string udevAdd = "udevadm trigger -c add -s \"*nvmem*\" -v";
     returnCode = system(udevAdd.c_str());
     printReturnCode(returnCode);
+}
+
+int VpdTool::updateHardware()
+{
+    int rc = 0;
+    bool updCache = true;
+    const Binary& val = static_cast<const Binary&>(toBinary(value));
+    ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
+    try
+    {
+        auto json = nlohmann::json::parse(inventoryJson);
+        EditorImpl edit(fruPath, json, recordName, keyword);
+        if (!((isPathInJson(fruPath)) &&
+              (isRecKwInDbusJson(recordName, keyword))))
+        {
+            updCache = false;
+        }
+        edit.updateKeyword(val, updCache);
+    }
+    catch (json::parse_error& ex)
+    {
+        throw(VpdJsonException("Json Parsing failed", INVENTORY_JSON_SYM_LINK));
+    }
+    return rc;
 }

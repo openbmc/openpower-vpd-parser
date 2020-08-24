@@ -109,7 +109,7 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
 
         // instantiate editor class to update the data
         EditorImpl edit(vpdFilePath, jsonFile, recordName, keyword, path);
-        edit.updateKeyword(value);
+        edit.updateKeyword(value, true);
 
         // if it is a motehrboard FRU need to check for location expansion
         if (frus.find(path)->second.second)

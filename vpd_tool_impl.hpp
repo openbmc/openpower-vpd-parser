@@ -1,6 +1,8 @@
 #include "config.h"
 
+#include "editor_impl.hpp"
 #include "types.hpp"
+#include "utils.hpp"
 
 #include <nlohmann/json.hpp>
 #include <string>
@@ -118,8 +120,21 @@ class VpdTool
      */
     void eraseInventoryPath(std::string& fru);
 
-    /** @brief printReturnCode */
+    /**
+     * @brief printReturnCode
+     * Prints the return code of the program in console output, whenever
+     * the program fails to exit successfully.
+     *
+     * @param[in] returnCode - return code of the program.
+     */
     void printReturnCode(int returnCode);
+
+    /**
+     * @brief Convert hex/ascii values to Binary
+     * @param[in] - value in hex/ascii.
+     * @param[out] - value in binary.
+     */
+    openpower::vpd::Binary toBinary(const std::string& value);
 
   public:
     /**
@@ -166,13 +181,22 @@ class VpdTool
      * @brief Get Printable Value
      *
      * Checks if the vector value has non printable characters.
-     * And returns hex value if non printable char is found else
+     * Returns hex value if non printable char is found else
      * returns ascii value.
      *
      * @param[in] vector - Reference of the Binary vector
      * @return printable value - either in hex or in ascii.
      */
-    std::string getPrintableValue(const std::vector<unsigned char>& vec);
+    std::string getPrintableValue(const std::vector<unsigned char>& vector);
+
+    /**
+     * @brief Update Hardware
+     * If the given record-keyword pair is present in dbus_properties.json,
+     * then will update the given data in both dbus and hardware.
+     * Else update the given data only in hardware.
+     * @return returncode (success/failure).
+     */
+    int updateHardware();
 
     /**
      * @brief Constructor

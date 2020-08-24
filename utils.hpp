@@ -4,6 +4,7 @@
 #include "types.hpp"
 
 #include <iostream>
+#include <nlohmann/json.hpp>
 
 using namespace std;
 
@@ -107,6 +108,36 @@ string readBusProperty(const string& obj, const string& inf,
  */
 void createPEL(const std::map<std::string, std::string>& additionalData,
                const std::string& errIntf);
+
+/**
+ * @brief getVpdFilePath
+ * Get vpd file path corresponding to the given object path.
+ * @param[in] - json file path
+ * @param[in] - Object path
+ * @return - Vpd file path
+ */
+inventory::VPDfilepath getVpdFilePath(const string& jsonFile,
+                                      const std::string& ObjPath);
+
+/**
+ * @brief isPathInJson
+ * API which checks for the presence of the given eeprom path in the given json.
+ * @param[in] - eepromPath
+ * @return - true if the eeprom is present in the json; false otherwise
+ */
+bool isPathInJson(const std::string& eepromPath);
+
+/**
+ * @brief isRecKwInDbusJson
+ * API which checks whether the given keyword under the given record is to be
+ * published on dbus or not. Checks against the keywords present in
+ * dbus_property.json.
+ * @param[in] - record name
+ * @param[in] - keyword name
+ * @return - true if the record-keyword pair is present in dbus_property.json;
+ * false otherwise.
+ */
+bool isRecKwInDbusJson(const std::string& record, const std::string& keyword);
 
 } // namespace vpd
 } // namespace openpower
