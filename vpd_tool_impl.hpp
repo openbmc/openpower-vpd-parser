@@ -1,10 +1,13 @@
 #include "config.h"
 
+#include "editor_impl.hpp"
 #include "types.hpp"
+#include "utils.hpp"
 
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
+// using VPDfilepath = openpower::vpd::inventory::VPDfilepath;
 
 class VpdTool
 {
@@ -157,6 +160,27 @@ class VpdTool
      * @param[in] jsObject - Inventory JSON specified in configure file.
      */
     void forceReset(const nlohmann::basic_json<>& jsObject);
+
+    /**
+     * @brief Get Printable Value
+     *
+     * Checks if the vector value has non printable characters.
+     * Returns hex value if non printable char is found else
+     * returns ascii value.
+     *
+     * @param[in] vector - Reference of the Binary vector
+     * @return printable value - either in hex or in ascii.
+     */
+    std::string getPrintableValue(const std::vector<unsigned char>& vector);
+
+    /**
+     * @brief Update Hardware
+     * If the given record-keyword pair is present in dbus_properties.json,
+     * then will update the given data in both dbus and hardware.
+     * Else update the given data only in hardware.
+     * @return returncode (success/failure).
+     */
+    int updateHardware();
 
     /**
      * @brief Constructor
