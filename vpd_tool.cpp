@@ -1,11 +1,15 @@
+#include "utils.hpp"
 #include "vpd_tool_impl.hpp"
 
 #include <CLI/CLI.hpp>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 
 using namespace CLI;
 using namespace std;
+namespace fs = std::filesystem;
+using namespace openpower::vpd;
 
 int main(int argc, char** argv)
 {
@@ -17,6 +21,7 @@ int main(int argc, char** argv)
     string recordName{};
     string keyword{};
     string val{};
+    string path{};
 
     auto object =
         app.add_option("--object, -O", objectPath, "Enter the Object Path");
@@ -27,6 +32,10 @@ int main(int argc, char** argv)
         "--value, -V", val,
         "Enter the value. The value to be updated should be either in ascii or "
         "in hex. ascii eg: 01234; hex eg: 0x30313233");
+    auto pathOption =
+        app.add_option("--path, -P", path,
+                       "Path - if hardware option is used, give either EEPROM "
+                       "path/Object path; if not give the object path");
 
     auto dumpObjFlag =
         app.add_flag("--dumpObject, -o",
@@ -44,7 +53,7 @@ int main(int argc, char** argv)
                      "vpd-tool-exe --readKeyword/-r --object/-O "
                      "\"object-name\" --record/-R \"record-name\" --keyword/-K "
                      "\"keyword-name\" }")
-            ->needs(object)
+            ->needs(pathOption)
             ->needs(record)
             ->needs(kw);
 
@@ -55,7 +64,7 @@ int main(int argc, char** argv)
                "--writeKeyword/-w/--updateKeyword/-u "
                "--object/-O object-name --record/-R record-name --keyword/-K "
                "keyword-name --value/-V value-to-be-updated }")
-            ->needs(object)
+            ->needs(pathOption)
             ->needs(record)
             ->needs(kw)
             ->needs(valOption);
@@ -63,16 +72,12 @@ int main(int argc, char** argv)
     auto forceResetFlag = app.add_flag(
         "--forceReset, -f, -F", "Force Collect for Hardware. { vpd-tool-exe "
                                 "--forceReset/-f/-F }");
-
-    auto Hardware =
-        app.add_flag("--Hardware, -H",
-                     "Read data from hardware. { "
-                     "vpd-tool-exe --readKeyword/-r --Hardware/-H --object/-O "
-                     "\"object-name\" --record/-R \"record-name\" --keyword/-K "
-                     "\"keyword-name\" }")
-            ->needs(object)
-            ->needs(record)
-            ->needs(kw);
+    auto Hardware = app.add_flag(
+        "--Hardware, -H",
+        "This is a supplementary flag to read/write directly from/to hardware. "
+        "Enter the hardware path while using the object option in "
+        "corresponding read/write flags. This --Hardware flag is to be given "
+        "along with readKeyword/writeKeyword.");
 
     auto eccFixFlag = app.add_flag("--eccFix, -e, -E",
                                    "Fix the broken ECC. {vpd-tool-exe "
@@ -86,6 +91,28 @@ int main(int argc, char** argv)
 
     try
     {
+        if (*Hardware)
+        {
+            if (!fs::exists(path)) // dbus object path
+            {
+                string p = getVpdFilePath(jsObject, path);
+                if (p.empty()) // object path not present in inventory json
+                {
+                    string errorMsg = "Invalid object path : ";
+                    errorMsg += path;
+                    errorMsg += ". Unable to find the corresponding EEPROM "
+                                "path for the given object path : ";
+                    errorMsg += path;
+                    errorMsg += " in the vpd inventory json : ";
+                    errorMsg += INVENTORY_JSON_SYM_LINK;
+                    throw runtime_error(errorMsg);
+                }
+                else
+                {
+                    path = p;
+                }
+            }
+        }
         if (*dumpObjFlag)
         {
             VpdTool vpdToolObj(move(objectPath));
@@ -100,15 +127,14 @@ int main(int argc, char** argv)
 
         else if (*readFlag && !*Hardware)
         {
-            VpdTool vpdToolObj(move(objectPath), move(recordName),
-                               move(keyword));
+            VpdTool vpdToolObj(move(path), move(recordName), move(keyword));
             vpdToolObj.readKeyword();
         }
 
-        else if (*writeFlag)
+        else if (*writeFlag && !*Hardware)
         {
-            VpdTool vpdToolObj(move(objectPath), move(recordName),
-                               move(keyword), move(val));
+            VpdTool vpdToolObj(move(path), move(recordName), move(keyword),
+                               move(val));
             rc = vpdToolObj.updateKeyword();
         }
 
@@ -119,9 +145,15 @@ int main(int argc, char** argv)
         }
         else if (*readFlag && *Hardware)
         {
-            VpdTool vpdToolObj(move(objectPath), move(recordName),
-                               move(keyword));
-            vpdToolObj.readKeywordFromHardware(jsObject);
+            VpdTool vpdToolObj(move(path), move(recordName), move(keyword));
+            vpdToolObj.readKeywordFromHardware();
+        }
+
+        else if (*writeFlag && *Hardware)
+        {
+            VpdTool vpdToolObj(move(path), move(recordName), move(keyword),
+                               move(val));
+            rc = vpdToolObj.updateHardware();
         }
 
         else if (*eccFixFlag)
