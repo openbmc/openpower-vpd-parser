@@ -4,8 +4,10 @@
 #include "types.hpp"
 
 #include <iostream>
+#include <nlohmann/json.hpp>
 
 using namespace std;
+using json = nlohmann::json;
 namespace openpower
 {
 namespace vpd
@@ -87,5 +89,44 @@ string readBusProperty(const string& obj, const string& inf,
  */
 void createPEL(const std::map<std::string, std::string>& additionalData,
                const std::string& errIntf);
+
+/**
+ * @brief getVpdFilePath
+ * Get vpd file path corresponding to the given object path.
+ * @param[in] - jsonFile
+ * @param[in] - Object path
+ * @return - Vpd file path
+ */
+inventory::VPDfilepath getVpdFilePath(const json& jsonFile,
+                                      const std::string& ObjPath);
+
+/**
+ * @brief eepromPresenceInJson
+ * API which checks for the presence of the given eeprom path in the given json.
+ * @param[in] - eepromPath
+ * @param[in] - the inventory json object
+ * @return - true if the eeprom is present in the json; false otherwise
+ */
+bool eepromPresenceInJson(const std::string& eepromPath);
+
+/**
+ * @brief recKwPresenceInDbusProp
+ * API which checks whether the given keyword under the given record is to be
+ * published on dbus or not. Checks against the keywords present in
+ * dbus_property.json.
+ * @param[in] - record name
+ * @param[in] - keyword name
+ * @return - true if the record-keyword pair is present in dbus_property.json;
+ * false otherwise.
+ */
+bool recKwPresenceInDbusProp(const std::string& record,
+                             const std::string& keyword);
+
+/**
+ * @brief Convert hex/ascii values to Binary
+ * @param[in] - value in hex/ascii.
+ * @param[out] - value in binary.
+ */
+Binary toBinary(const std::string& value);
 } // namespace vpd
 } // namespace openpower
