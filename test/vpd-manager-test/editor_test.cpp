@@ -87,7 +87,7 @@ TEST_F(vpdManagerEditorTest, InvalidFile)
     {
         // Invalid kwd name
         EditorImpl edit("VINI", "SN", std::move(emptyVpdFile));
-        edit.updateKeyword(dataToUodate);
+        edit.updateKeyword(dataToUodate, true);
     }
     catch (const std::exception& e)
     {
@@ -105,7 +105,7 @@ TEST_F(vpdManagerEditorTest, InvalidHeader)
     {
         // the path is dummy
         EditorImpl edit("VINI", "SN", std::move(vpd));
-        edit.updateKeyword(dataToUodate);
+        edit.updateKeyword(dataToUodate, true);
     }
     catch (const std::exception& e)
     {
@@ -124,7 +124,7 @@ TEST_F(vpdManagerEditorTest, InvalidRecordName)
     {
         // Invalid record name "VIN", path is dummy
         EditorImpl edit("VIN", "SN", std::move(vpd));
-        edit.updateKeyword(dataToUodate);
+        edit.updateKeyword(dataToUodate, true);
     }
     catch (const std::exception& e)
     {
@@ -143,7 +143,7 @@ TEST_F(vpdManagerEditorTest, InvalidKWdName)
     {
         // All valid data
         EditorImpl edit("VINI", "Sn", std::move(vpd));
-        edit.updateKeyword(dataToUodate);
+        edit.updateKeyword(dataToUodate, true);
     }
     catch (std::runtime_error& e)
     {
@@ -162,7 +162,7 @@ TEST_F(vpdManagerEditorTest, UpdateKwd_Success)
     {
         // All valid data
         EditorImpl edit("VINI", "SN", std::move(vpd));
-        edit.updateKeyword(dataToUodate);
+        edit.updateKeyword(dataToUodate, true);
     }
     catch (std::runtime_error& e)
     {
