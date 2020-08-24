@@ -1,3 +1,4 @@
+#include "utils.hpp"
 #include "vpd_tool_impl.hpp"
 
 #include <CLI/CLI.hpp>
@@ -6,6 +7,7 @@
 
 using namespace CLI;
 using namespace std;
+using namespace openpower::vpd;
 
 int main(int argc, char** argv)
 {
@@ -63,16 +65,12 @@ int main(int argc, char** argv)
     auto forceResetFlag = app.add_flag(
         "--forceReset, -f, -F", "Force Collect for Hardware. { vpd-tool-exe "
                                 "--forceReset/-f/-F }");
-
-    auto Hardware =
-        app.add_flag("--Hardware, -H",
-                     "Read data from hardware. { "
-                     "vpd-tool-exe --readKeyword/-r --Hardware/-H --object/-O "
-                     "\"object-name\" --record/-R \"record-name\" --keyword/-K "
-                     "\"keyword-name\" }")
-            ->needs(object)
-            ->needs(record)
-            ->needs(kw);
+    auto Hardware = app.add_flag(
+        "--Hardware, -H",
+        "This is a supplementary flag to read/write directly from/to hardware. "
+        "Enter the hardware path while using the object option in "
+        "corresponding read/write flags. This --Hardware flag is to be given "
+        "along with readKeyword/writeKeyword.");
 
     auto eccFixFlag = app.add_flag("--eccFix, -e, -E",
                                    "Fix the broken ECC. {vpd-tool-exe "
@@ -105,7 +103,7 @@ int main(int argc, char** argv)
             vpdToolObj.readKeyword();
         }
 
-        else if (*writeFlag)
+        else if (*writeFlag && !*Hardware)
         {
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword), move(val));
@@ -122,6 +120,13 @@ int main(int argc, char** argv)
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword));
             vpdToolObj.readKeywordFromHardware(jsObject);
+        }
+
+        else if (*writeFlag && *Hardware)
+        {
+            VpdTool vpdToolObj(move(objectPath), move(recordName),
+                               move(keyword), move(val));
+            rc = vpdToolObj.updateHardware();
         }
 
         else if (*eccFixFlag)

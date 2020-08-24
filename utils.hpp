@@ -115,5 +115,34 @@ namespace filestream
  */
 std::string streamStatus(std::fstream& vpdFileStream);
 } // namespace filestream
+
+/**
+ * @brief eepromPresenceInJson
+ * API which checks for the presence of the given eeprom path in the given json.
+ * @param[in] - eepromPath
+ * @param[in] - the inventory json object
+ * @return - true if the eeprom is present in the json; false otherwise
+ */
+bool eepromPresenceInJson(const std::string& eepromPath);
+
+/**
+ * @brief recKwPresenceInDbusProp
+ * API which checks whether the given keyword under the given record is to be
+ * published on dbus or not. Checks against the keywords present in
+ * dbus_property.json.
+ * @param[in] - record name
+ * @param[in] - keyword name
+ * @return - true if the record-keyword pair is present in dbus_property.json;
+ * false otherwise.
+ */
+bool recKwPresenceInDbusProp(const std::string& record,
+                             const std::string& keyword);
+
+/**
+ * @brief Convert hex/ascii values to Binary
+ * @param[in] - value in hex/ascii.
+ * @param[out] - value in binary.
+ */
+Binary toBinary(const std::string& value);
 } // namespace vpd
 } // namespace openpower

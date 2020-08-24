@@ -633,7 +633,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
                 // if This EEPROM belongs to system handle system vpd restore
                 if (isSystemVpd)
                 {
-                    restoreSystemVPD(vpdMap, objectPath);
+                    // restoreSystemVPD(vpdMap, objectPath);
                 }
 
                 // Each record in the VPD becomes an interface and all
@@ -763,6 +763,11 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         else if (imValStr == SYSTEM_2U) // 2U
         {
             target = INVENTORY_JSON_2U;
+        }
+
+        else
+        {
+            throw runtime_error("Unable to find system IM keyword");
         }
 
         // unlink the symlink which is created at build time
@@ -929,7 +934,6 @@ int main(int argc, char** argv)
             string errorMsg = ("Vpd File: ") + file + (" - not found");
             throw runtime_error(errorMsg);
         }
-
         try
         {
             auto kwdOffsets = checkSNandFNoffset(file);
@@ -956,7 +960,6 @@ int main(int argc, char** argv)
                     "execution"
                  << std::endl;
         }
-
         uint32_t offset = 0;
         // check if offset present?
         for (const auto& item : js["frus"][file])
