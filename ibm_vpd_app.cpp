@@ -734,6 +734,11 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             target = INVENTORY_JSON_2U;
         }
 
+        else
+        {
+            throw runtime_error("Unable to find system IM keyword");
+        }
+
         // unlink the symlink which is created at build time
         remove(INVENTORY_JSON_SYM_LINK);
         // create a new symlink based on the system
@@ -898,7 +903,6 @@ int main(int argc, char** argv)
             string errorMsg = ("Vpd File: ") + file + (" - not found");
             throw runtime_error(errorMsg);
         }
-
         try
         {
             auto kwdOffsets = checkSNandFNoffset(file);
@@ -925,7 +929,6 @@ int main(int argc, char** argv)
                     "execution"
                  << std::endl;
         }
-
         uint32_t offset = 0;
         // check if offset present?
         for (const auto& item : js["frus"][file])

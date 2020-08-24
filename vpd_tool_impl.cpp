@@ -1,13 +1,12 @@
 #include "vpd_tool_impl.hpp"
 
+#include "editor_impl.hpp"
 #include "reader_impl.hpp"
 
 #include <cstdlib>
 #include <filesystem>
-#include <iomanip>
 #include <iostream>
 #include <sdbusplus/bus.hpp>
-#include <sstream>
 #include <variant>
 #include <vector>
 
@@ -16,6 +15,7 @@ using sdbusplus::exception::SdBusError;
 using namespace openpower::vpd;
 using namespace inventory;
 using namespace openpower::vpd::manager::reader;
+using namespace openpower::vpd::manager::editor;
 namespace fs = std::filesystem;
 
 void VpdTool::eraseInventoryPath(string& fru)
@@ -374,35 +374,7 @@ void VpdTool::readKeyword()
 
 int VpdTool::updateKeyword()
 {
-    Binary val;
-
-    if (value.find("0x") == string::npos)
-    {
-        val.assign(value.begin(), value.end());
-    }
-    else if (value.find("0x") != string::npos)
-    {
-        stringstream ss;
-        ss.str(value.substr(2));
-        string byteStr{};
-
-        while (!ss.eof())
-        {
-            ss >> setw(2) >> byteStr;
-            uint8_t byte = strtoul(byteStr.c_str(), nullptr, 16);
-
-            val.push_back(byte);
-        }
-    }
-
-    else
-    {
-        throw runtime_error("The value to be updated should be either in ascii "
-                            "or in hex. Refer --help option");
-    }
-
-    // writeKeyword(fruPath, recordName, keyword, val);
-
+    Binary val = toBinary(value);
     auto bus = sdbusplus::bus::new_default();
     auto properties =
         bus.new_method_call(BUSNAME, OBJPATH, IFACE, "WriteKeyword");
@@ -461,16 +433,10 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
     system(udevAdd.c_str());
 }
 
-void VpdTool::readKeywordFromHardware(const json& jsonFile)
+void VpdTool::readKeywordFromHardware()
 {
-    VPDfilepath filePath = getVpdFilePath(jsonFile, fruPath);
-    if (filePath.empty())
-    {
-        throw std::runtime_error("No Hardware found for given Object path");
-    }
-
     ReaderImpl vpdReader;
-    std::string data = vpdReader.readKwdData(filePath, recordName, keyword);
+    std::string data = vpdReader.readKwdData(fruPath, recordName, keyword);
 
     json output = json::object({});
     json kwVal = json::object({});
@@ -492,4 +458,20 @@ void VpdTool::eccFix()
     {
         throw runtime_error("Get api failed");
     }
+}
+
+int VpdTool::updateHardware()
+{
+    int rc = 0;
+    Binary val = toBinary(value);
+    ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
+    auto json = nlohmann::json::parse(inventoryJson);
+    EditorImpl edit(fruPath, json, recordName, keyword);
+    if (!((eepromPresenceInJson(fruPath)) &&
+          (recKwPresenceInDbusProp(recordName, keyword))))
+    {
+        edit.updCache = false;
+    }
+    edit.updateKeyword(val);
+    return rc;
 }
