@@ -705,10 +705,13 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
 
     // update the ECC data for the record once data has been updated
     updateRecordECC();
+    if (updCache)
+    {
 #ifndef ManagerTest
-    // update the cache once data has been updated
-    updateCache();
+        // update the cache once data has been updated
+        updateCache();
 #endif
+    }
     return;
 }
 
