@@ -1,13 +1,12 @@
 #include "vpd_tool_impl.hpp"
 
+#include "editor_impl.hpp"
 #include "reader_impl.hpp"
 
 #include <cstdlib>
 #include <filesystem>
-#include <iomanip>
 #include <iostream>
 #include <sdbusplus/bus.hpp>
-#include <sstream>
 #include <variant>
 #include <vector>
 
@@ -16,6 +15,7 @@ using sdbusplus::exception::SdBusError;
 using namespace openpower::vpd;
 using namespace inventory;
 using namespace openpower::vpd::manager::reader;
+using namespace openpower::vpd::manager::editor;
 namespace fs = std::filesystem;
 
 void VpdTool::eraseInventoryPath(string& fru)
@@ -395,8 +395,8 @@ void VpdTool::readKeyword()
 
 int VpdTool::updateKeyword()
 {
-    Binary val;
-
+    Binary val = toBinary(value);
+#if 0
     if (value.find("0x") == string::npos)
     {
         val.assign(value.begin(), value.end());
@@ -421,7 +421,7 @@ int VpdTool::updateKeyword()
         throw runtime_error("The value to be updated should be either in ascii "
                             "or in hex. Refer --help option");
     }
-
+#endif
     // writeKeyword(fruPath, recordName, keyword, val);
 
     auto bus = sdbusplus::bus::new_default();
@@ -513,4 +513,45 @@ void VpdTool::eccFix()
     {
         throw runtime_error("Get api failed");
     }
+}
+
+int VpdTool::updateHardware()
+{
+    int rc = 0;
+    Binary val = toBinary(value);
+#if 0
+    if (value.find("0x") == string::npos)
+    {
+        val.assign(value.begin(), value.end());
+    }
+    else if (value.find("0x") != string::npos)
+    {
+        stringstream ss;
+        ss.str(value.substr(2));
+        string byteStr{};
+
+        while (!ss.eof())
+        {
+            ss >> setw(2) >> byteStr;
+            uint8_t byte = strtoul(byteStr.c_str(), nullptr, 16);
+
+            val.push_back(byte);
+        }
+    }
+    else
+    {
+	    throw runtime_error("The value to be updated should be either in ascii "
+                            "or in hex. Refer --help option");
+    }
+#endif
+    ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
+    auto json = nlohmann::json::parse(inventoryJson);
+    EditorImpl edit(fruPath, json, recordName, keyword);
+    if (!((eepromPresenceInJson(fruPath)) &&
+          (recKwPresenceInDbusProp(recordName, keyword))))
+    {
+        edit.updCache = false;
+    }
+    edit.updateKeyword(val);
+    return rc;
 }

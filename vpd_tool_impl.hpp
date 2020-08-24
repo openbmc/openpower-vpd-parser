@@ -185,6 +185,15 @@ class VpdTool
     void eccFix();
 
     /**
+     * @brief Update Hardware
+     * If the given record-keyword pair is present in dbus_properties.json,
+     * then will update the given data in both dbus and hardware.
+     * Else update the given data only in hardware.
+     * @return returncode (success/failure).
+     */
+    int updateHardware();
+
+    /**
      * @brief Constructor
      * Constructor is called during the
      * object instantiation for dumpInventory option and
