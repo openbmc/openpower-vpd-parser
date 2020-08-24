@@ -173,9 +173,8 @@ class VpdTool
      * Read the given object path, record name and keyword
      * from the EEPROM and display the value of the keyword
      * in JSON format.
-     * @param[in] - Json file for inventory layout.
      */
-    void readKeywordFromHardware(const json& jsonFile);
+    void readKeywordFromHardware();
 
     /**
      * @brief ECC Fix
@@ -183,6 +182,15 @@ class VpdTool
      * to "FixBrokenEcc" method in VPD Manager interface.
      */
     void eccFix();
+
+    /**
+     * @brief Update Hardware
+     * If the given record-keyword pair is present in dbus_properties.json,
+     * then will update the given data in both dbus and hardware.
+     * Else update the given data only in hardware.
+     * @return returncode (success/failure).
+     */
+    int updateHardware();
 
     /**
      * @brief Constructor
