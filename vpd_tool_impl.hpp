@@ -1,10 +1,10 @@
 #include "config.h"
 
+#include "editor_impl.hpp"
 #include "types.hpp"
+#include "utils.hpp"
 
 #include <nlohmann/json.hpp>
-
-using json = nlohmann::json;
 
 class VpdTool
 {
@@ -23,7 +23,7 @@ class VpdTool
      *
      * @param[in] output - json output to be displayed
      */
-    void debugger(json output);
+    void debugger(nlohmann::json output);
 
     /**
      * @brief make Dbus Call
@@ -46,8 +46,8 @@ class VpdTool
      * @param[out] kwVal - JSON object into which the FRU type and location code
      * are placed
      */
-    void addFruTypeAndLocation(json exIntf, const std::string& object,
-                               json& kwVal);
+    void addFruTypeAndLocation(nlohmann::json exIntf, const std::string& object,
+                               nlohmann::json& kwVal);
 
     /**
      * @brief Get VINI properties
@@ -60,7 +60,8 @@ class VpdTool
      * @return json output which gives the properties under invPath's VINI
      * interface
      */
-    json getVINIProperties(std::string invPath, json exIntf);
+    nlohmann::json getVINIProperties(std::string invPath,
+                                     nlohmann::json exIntf);
 
     /**
      * @brief Get ExtraInterface Properties
@@ -75,8 +76,9 @@ class VpdTool
      *         extraInterface.
      */
     void getExtraInterfaceProperties(std::string invPath,
-                                     std::string extraInterface, json prop,
-                                     json exIntf, json& output);
+                                     std::string extraInterface,
+                                     nlohmann::json prop, nlohmann::json exIntf,
+                                     nlohmann::json& output);
 
     /**
      * @brief Interface Decider
@@ -89,7 +91,7 @@ class VpdTool
      *
      * @return json output for one of the EEPROM objects.
      */
-    json interfaceDecider(json& itemEEPROM);
+    nlohmann::json interfaceDecider(nlohmann::json& itemEEPROM);
 
     /**
      * @brief Parse Inventory JSON
@@ -105,7 +107,8 @@ class VpdTool
      *
      * @return output json
      */
-    json parseInvJson(const json& jsObject, char flag, std::string fruPath);
+    nlohmann::json parseInvJson(const nlohmann::json& jsObject, char flag,
+                                std::string fruPath);
 
     /**
      * @brief eraseInventoryPath
@@ -119,6 +122,13 @@ class VpdTool
 
     /** @brief printReturnCode */
     void printReturnCode(int returnCode);
+    
+    /**
+     * @brief Convert hex/ascii values to Binary
+     * @param[in] - value in hex/ascii.
+     * @param[out] - value in binary.
+     */
+    openpower::vpd::Binary toBinary(const std::string& value);
 
   public:
     /**
@@ -160,6 +170,27 @@ class VpdTool
      * @param[in] jsObject - Inventory JSON specified in configure file.
      */
     void forceReset(const nlohmann::basic_json<>& jsObject);
+
+    /**
+     * @brief Get Printable Value
+     *
+     * Checks if the vector value has non printable characters.
+     * Returns hex value if non printable char is found else
+     * returns ascii value.
+     *
+     * @param[in] vector - Reference of the Binary vector
+     * @return printable value - either in hex or in ascii.
+     */
+    std::string getPrintableValue(const std::vector<unsigned char>& vector);
+
+    /**
+     * @brief Update Hardware
+     * If the given record-keyword pair is present in dbus_properties.json,
+     * then will update the given data in both dbus and hardware.
+     * Else update the given data only in hardware.
+     * @return returncode (success/failure).
+     */
+    int updateHardware();
 
     /**
      * @brief Constructor
