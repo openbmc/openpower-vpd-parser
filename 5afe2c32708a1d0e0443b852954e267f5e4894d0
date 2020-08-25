@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f6a31dc_ce79ce58",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-25T14:38:28Z",
+      "side": 1,
+      "message": "Are these strictly required? Wouldn\u0027t the destructor take care? If they aren\u0027t, please remove these.\n\nIf they are explicitly needed, they are missed in flows where we continue;",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 43
+      },
+      "revId": "5afe2c32708a1d0e0443b852954e267f5e4894d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
