@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ebd227c3_6a106c00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 30
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-25T11:14:30Z",
+      "side": 1,
+      "message": "No, because we aren\u0027t upstreaming JSON changes yet. Perhaps we should update the example JSON with this, though.",
+      "parentUuid": "7ec2625c_1fd01197",
+      "range": {
+        "startLine": 10,
+        "startChar": 45,
+        "endLine": 10,
+        "endChar": 56
+      },
+      "revId": "d4b489d6b787b93e7fbed83a557063d9220d23fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ff9dab4_9e8cada7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 30
@@ -36,6 +60,30 @@
       "writtenOn": "2020-08-25T10:58:20Z",
       "side": 1,
       "message": "Not following this.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 13
+      },
+      "revId": "d4b489d6b787b93e7fbed83a557063d9220d23fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76939114_7320c546",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 30
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-25T11:14:30Z",
+      "side": 1,
+      "message": "I think Alpana meant the device at address 0x51 has a driver bound to it now - please reword, or just remove this line.",
+      "parentUuid": "4ff9dab4_9e8cada7",
       "range": {
         "startLine": 38,
         "startChar": 0,
