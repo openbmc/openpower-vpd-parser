@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2834d35e_14fe150f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 30
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-08-25T11:38:03Z",
+      "side": 1,
+      "message": "Yes, an example JSON would be good.",
+      "parentUuid": "ebd227c3_6a106c00",
+      "range": {
+        "startLine": 10,
+        "startChar": 45,
+        "endLine": 10,
+        "endChar": 56
+      },
+      "revId": "d4b489d6b787b93e7fbed83a557063d9220d23fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ff9dab4_9e8cada7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 30
@@ -107,6 +131,30 @@
       "writtenOn": "2020-08-25T11:34:54Z",
       "side": 1,
       "message": "yes. you are right.\nI will reword it to get more meaningful message.",
+      "parentUuid": "76939114_7320c546",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 13
+      },
+      "revId": "d4b489d6b787b93e7fbed83a557063d9220d23fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88a90e01_431c7c1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 30
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-08-25T11:38:03Z",
+      "side": 1,
+      "message": "Ok, got it. It wasn\u0027t very obvious because it could have also been due to a device tree entry that a driver was bound. Maybe a before/after this app runs output will make it clearer.",
       "parentUuid": "76939114_7320c546",
       "range": {
         "startLine": 38,
