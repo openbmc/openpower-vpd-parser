@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e367b85_afe29589",
+        "filename": "impl.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-08-25T11:57:07Z",
+      "side": 1,
+      "message": "Why we have defined a method in this cpp file which does not belong to impl class?",
+      "revId": "246340f9857c2738ec6ce3e76aa069e27b2d9a72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
