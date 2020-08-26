@@ -44,6 +44,7 @@ using KeywordVpdMap = std::unordered_map<std::string, Binary>;
 using Keyword = std::string;
 using KeywordData = std::string;
 using DbusPropertyMap = std::unordered_map<Keyword, KeywordData>;
+using PelAdditionalData = std::map<std::string, std::string>;
 
 } // namespace inventory
 

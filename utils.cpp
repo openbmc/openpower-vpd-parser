@@ -32,6 +32,9 @@ std::string getService(sdbusplus::bus::bus& bus, const std::string& path,
     mapper.append(path, std::vector<std::string>({interface}));
 
     std::map<std::string, std::vector<std::string>> response;
+
+    // map to hold additional data in case of logging pel
+    PelAdditionalData additionalData{};
     try
     {
         auto reply = bus.call(mapper);
@@ -39,16 +42,22 @@ std::string getService(sdbusplus::bus::bus& bus, const std::string& path,
     }
     catch (const sdbusplus::exception::SdBusError& e)
     {
-        log<level::ERR>("D-Bus call exception",
-                        entry("OBJPATH=%s", mapperObjectPath),
-                        entry("INTERFACE=%s", mapperInterface),
-                        entry("EXCEPTION=%s", e.what()));
+        additionalData.emplace("OBJECT_PATH", mapperObjectPath);
+        additionalData.emplace("INTERFACE", mapperInterface);
+        additionalData.emplace("SERVICE", mapperDestination);
+        additionalData.emplace("EXCEPTION", e.what());
+        createPEL(additionalData, errIntfForBusFailure);
 
         throw std::runtime_error("Service name is not found");
     }
 
     if (response.empty())
     {
+        additionalData.emplace("OBJECT_PATH", path);
+        additionalData.emplace("INTERFACE", interface);
+        additionalData.emplace("DESCRIPTION", "Service name response is empty");
+        createPEL(additionalData, errIntfForBusFailure);
+
         throw std::runtime_error("Service name response is empty");
     }
 
@@ -340,5 +349,29 @@ Binary toBinary(const std::string& value)
     }
     return val;
 }
+
+void createPEL(const std::map<std::string, std::string>& additionalData,
+               const std::string& errIntf)
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+
+        std::string service =
+            getService(bus, loggerObjectPath, loggerCreateInterface);
+        auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
+                                          loggerCreateInterface, "Create");
+
+        method.append(errIntf, "xyz.openbmc_project.Logging.Entry.Level.Error",
+                      additionalData);
+        auto resp = bus.call(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        throw std::runtime_error(
+            "Error in invoking D-Bus logging create interface to register PEL");
+    }
+}
+
 } // namespace vpd
 } // namespace openpower

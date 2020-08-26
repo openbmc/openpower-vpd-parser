@@ -6,6 +6,7 @@
 #include "memory_vpd_parser.hpp"
 #include "parser_factory.hpp"
 #include "utils.hpp"
+#include "vpd_exceptions.hpp"
 
 #include <ctype.h>
 
@@ -30,6 +31,7 @@ using namespace openpower::vpd::parser::factory;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
+using namespace openpower::vpd::exceptions;
 
 /** @brief An api to get keywords which needs to be published on DBus
  *  @param[in] - map of record, keyword and keyword data
@@ -459,42 +461,16 @@ void updateHardware(const string& objectName, const string& recName,
         what += " keyword " + kwdName;
         what += " with bus error = " + std::string(e.what());
 
+        // map to hold additional data in case of logging pel
+        PelAdditionalData additionalData{};
+        additionalData.emplace("CALLOUT_INVENTORY_PATH", objectName);
+        additionalData.emplace("DESCRIPTION", what);
+        createPEL(additionalData, errIntfForBusFailure);
+
         throw runtime_error(what);
     }
 
     return;
-}
-
-/**
- * @brief API to create PEL entry
- * @param[in] objectPath - Object path for the FRU, to be sent as additional
- * data while creating PEL
- */
-void createPEL(const std::string& objPath)
-{
-    try
-    {
-        // create PEL
-        std::map<std::string, std::string> additionalData;
-        auto bus = sdbusplus::bus::new_default();
-
-        additionalData.emplace("CALLOUT_INVENTORY_PATH", objPath);
-
-        std::string service =
-            getService(bus, loggerObjectPath, loggerCreateInterface);
-        auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
-                                          loggerCreateInterface, "Create");
-
-        method.append(errIntfForBlankSystemVPD,
-                      "xyz.openbmc_project.Logging.Entry.Level.Error",
-                      additionalData);
-        auto resp = bus.call(method);
-    }
-    catch (const sdbusplus::exception::SdBusError& e)
-    {
-        throw std::runtime_error(
-            "Error in invoking D-Bus logging create interface to register PEL");
-    }
 }
 
 /**
@@ -555,8 +531,12 @@ void restoreSystemVPD(T& vpdMap, const string& objectPath)
                     }
                     else
                     {
+                        std::map<std::string, std::string> additionalData;
+                        additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                               objectPath);
+
                         // Log PEL data
-                        createPEL(objectPath);
+                        createPEL(additionalData, errIntfForBlankSystemVPD);
                         continue;
                     }
                 }
@@ -593,8 +573,9 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         auto dbusPropertyJson = json::parse(propertyJson);
         if (dbusPropertyJson.find("dbusProperties") == dbusPropertyJson.end())
         {
-            throw runtime_error("Invalid Dbus property json structure. Missing "
-                                "dbusProperties{} object");
+            throw(VpdJsonException("Invalid Dbus property json structure. "
+                                   "Missing dbusProperties{} object",
+                                   "dbus_properties.json"));
         }
 
         dbusProperty = dbusPropertyJson["dbusProperties"];
@@ -888,21 +869,42 @@ int main(int argc, char** argv)
 
         CLI11_PARSE(app, argc, argv);
 
+        // map to hold additional data in case of logging pel
+        PelAdditionalData additionalData{};
+
         // Make sure that the file path we get is for a supported EEPROM
-        ifstream inventoryJson(INVENTORY_JSON);
-        auto js = json::parse(inventoryJson);
+        ifstream inventoryJson("temp"); // INVENTORY_JSON);
+        if (!inventoryJson)
+        {
+            throw((
+                VpdJsonException("Failed to acces Json path", INVENTORY_JSON)));
+        }
+
+        json js;
+        try
+        {
+            js = json::parse(inventoryJson);
+        }
+        catch (json::parse_error& ex)
+        {
+            throw((VpdJsonException("Json parsing failed", INVENTORY_JSON)));
+        }
 
         if (js.find("frus") == js.end())
         {
-            cout << "Invalid JSON structure - frus{} object not found in "
-                 << INVENTORY_JSON << endl;
-            return 0;
+            std::string msg =
+                std::string(
+                    "Invalid JSON structure - frus{} object not found in ") +
+                INVENTORY_JSON;
+            throw((VpdJsonException(msg, INVENTORY_JSON)));
         }
+
         if (js["frus"].find(file) == js["frus"].end())
         {
-            string errorMsg = ("Vpd File: ") + file + (" - not found");
-            throw runtime_error(errorMsg);
+            string errorMsg = ("Vpd File: ") + file + (" - not found in Json");
+            throw((VpdJsonException(errorMsg, INVENTORY_JSON)));
         }
+
         try
         {
             auto kwdOffsets = checkSNandFNoffset(file);
@@ -929,6 +931,7 @@ int main(int argc, char** argv)
                     "execution"
                  << std::endl;
         }
+
         uint32_t offset = 0;
         // check if offset present?
         for (const auto& item : js["frus"][file])
@@ -957,6 +960,11 @@ int main(int argc, char** argv)
         // check if vpd file is empty
         if (vpdVector.empty())
         {
+            // create PEL for invalid file
+            additionalData.emplace("EEPROM_PATH", file);
+            additionalData.emplace("DESCRIPTION", "Empty VPD");
+            createPEL(additionalData, errIntfForInvalidVPD);
+
             string errorMsg = string("VPD file: ") + file +
                               (" is empty. Can't process with blank file.");
             throw runtime_error(errorMsg);
@@ -984,6 +992,21 @@ int main(int argc, char** argv)
 
         // release the parser object
         ParserFactory::freeParser(parser);
+    }
+    catch (const VpdJsonException& ex)
+    {
+        // map to hold additional data in case of logging pel
+        PelAdditionalData additionalData{};
+        additionalData.emplace("PATH", ex.getJsonPath());
+        additionalData.emplace("DESCRIPTION", ex.what());
+        createPEL(
+            additionalData,
+            "xyz.openbmc_project.Common.Device.Error.ReadFailure"); // errIntfForJsonFailure);
+                                                                    // //just for
+                                                                    // test
+
+        cerr << ex.what() << "\n";
+        rc = -1;
     }
     catch (exception& e)
     {
