@@ -93,6 +93,5 @@ string readBusProperty(const string& obj, const string& inf,
  */
 void createPEL(const std::map<std::string, std::string>& additionalData,
                const std::string& errIntf);
-
 } // namespace vpd
 } // namespace openpower
