@@ -340,5 +340,36 @@ Binary toBinary(const std::string& value)
     }
     return val;
 }
+
+/**
+ * @brief API to create PEL entry
+ * @param[in] objectPath - Object path for the FRU, to be sent as additional
+ * data while creating PEL
+ */
+void createPEL(const std::map<std::string, std::string>& additionalData, const std::string& errIntf)
+{
+    try
+    {
+        // create PEL
+        //std::map<std::string, std::string> additionalData;
+        auto bus = sdbusplus::bus::new_default();
+
+        std::string service =
+            getService(bus, loggerObjectPath, loggerCreateInterface);
+        auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
+                                          loggerCreateInterface, "Create");
+
+        method.append(errIntf,
+                      "xyz.openbmc_project.Logging.Entry.Level.Error",
+                      additionalData);
+        auto resp = bus.call(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        throw std::runtime_error(
+            "Error in invoking D-Bus logging create interface to register PEL");
+    }
+}
+
 } // namespace vpd
 } // namespace openpower

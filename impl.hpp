@@ -69,7 +69,10 @@ class Impl
      *  @param[in] vpdBuffer - Binary VPD
      */
     explicit Impl(Binary&& vpdBuffer, inventory::Path& filePath) :
-        vpd(std::move(vpdBuffer)), out{}, vpdFilePath(filePath)
+        vpd(std::move(vpdBuffer)),
+        out{},
+        vpdFilePath(filePath),
+        isEccFailure(false)
     {
     }
 
@@ -189,6 +192,9 @@ class Impl
 
     /** @brief vpd file path*/
     inventory::Path vpdFilePath;
+
+    /** @brief flag to check type of error */
+    bool isEccFailure;
 };
 
 } // namespace parser
