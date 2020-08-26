@@ -47,6 +47,7 @@ using KeywordVpdMap = std::unordered_map<std::string, Binary>;
 using systemType = std::string;
 using deviceTree = std::string;
 using deviceTreeMap = std::unordered_map<systemType, deviceTree>;
+using PelAdditionalData = std::map<std::string, std::string>;
 
 } // namespace inventory
 
