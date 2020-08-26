@@ -481,38 +481,6 @@ void updateHardware(const string& objectName, const string& recName,
 }
 
 /**
- * @brief API to create PEL entry
- * @param[in] objectPath - Object path for the FRU, to be sent as additional
- * data while creating PEL
- */
-void createPEL(const std::string& objPath)
-{
-    try
-    {
-        // create PEL
-        std::map<std::string, std::string> additionalData;
-        auto bus = sdbusplus::bus::new_default();
-
-        additionalData.emplace("CALLOUT_INVENTORY_PATH", objPath);
-
-        std::string service =
-            getService(bus, loggerObjectPath, loggerCreateInterface);
-        auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
-                                          loggerCreateInterface, "Create");
-
-        method.append(errIntfForBlankSystemVPD,
-                      "xyz.openbmc_project.Logging.Entry.Level.Error",
-                      additionalData);
-        auto resp = bus.call(method);
-    }
-    catch (const sdbusplus::exception::SdBusError& e)
-    {
-        throw std::runtime_error(
-            "Error in invoking D-Bus logging create interface to register PEL");
-    }
-}
-
-/**
  * @brief API to check if we need to restore system VPD
  * @param[in] vpdMap - whild holds mapping of record and Kwd
  * @param[in] objectPath - Object path for the FRU
@@ -570,8 +538,11 @@ void restoreSystemVPD(T& vpdMap, const string& objectPath)
                     }
                     else
                     {
+                        std::map<std::string, std::string> additionalData;
+                        additionalData.emplace("CALLOUT_INVENTORY_PATH", objectPath);
+            
                         // Log PEL data
-                        createPEL(objectPath);
+                        createPEL(additionalData, errIntfForBlankSystemVPD);
                         continue;
                     }
                 }
@@ -919,21 +890,45 @@ int main(int argc, char** argv)
 
         CLI11_PARSE(app, argc, argv);
 
+        //map to hold additional data in case oflogging pel
+        std::map<std::string, std::string> pelAdditionalData{};
+        
         // Make sure that the file path we get is for a supported EEPROM
-        ifstream inventoryJson(INVENTORY_JSON);
-        auto js = json::parse(inventoryJson);
+        ifstream inventoryJson("temp"); //INVENTORY_JSON);
+        if(!inventoryJson)
+        {
+            pelAdditionalData.emplace("CALLOUT_PATH", INVENTORY_JSON);
+            createPEL(pelAdditionalData, errIntfForStreamFail);
+            cout<<"Invalid json path";
+            return 0;
+        }
+
+        try
+        {   
+            auto js = json::parse(inventoryJson);
+        }
+        catch (json::parse_error& ex)
+        {
+            pelAdditionalData.emplace("CALLOUT_PATH", INVENTORY_JSON);
+            createPEL(pelAdditionalData, errIntfForJsonFailure);
+        }
 
         if (js.find("frus") == js.end())
         {
             cout << "Invalid JSON structure - frus{} object not found in "
                  << INVENTORY_JSON << endl;
+
+            pelAdditionalData.emplace("CALLOUT_PATH", INVENTORY_JSON);
+            createPEL(pelAdditionalData, errIntfForJsonFailure);
             return 0;
         }
+
         if (js["frus"].find(file) == js["frus"].end())
         {
             string errorMsg = ("Vpd File: ") + file + (" - not found");
             throw runtime_error(errorMsg);
         }
+
         try
         {
             auto kwdOffsets = checkSNandFNoffset(file);
@@ -960,6 +955,7 @@ int main(int argc, char** argv)
                     "execution"
                  << std::endl;
         }
+        
         uint32_t offset = 0;
         // check if offset present?
         for (const auto& item : js["frus"][file])
