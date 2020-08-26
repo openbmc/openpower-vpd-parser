@@ -255,45 +255,64 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
 
 void Impl::checkHeader() const
 {
-    if (vpd.empty())
+    try
     {
-        std::string errorMsg = std::string("Empty vpd file: ") + vpdFilePath;
-        throw std::runtime_error(errorMsg);
-    }
-    if (lengths::RECORD_MIN > vpd.size())
-    {
-        std::string errorMsg =
-            std::string("Vpd size is lesser than the minimum length of the "
-                        "record(44bytes). Malformed VPD: ") +
-            vpdFilePath;
-        throw std::runtime_error(errorMsg);
-    }
-    else
-    {
-        auto iterator = vpd.cbegin();
-        std::advance(iterator, offsets::VHDR);
-        auto stop = std::next(iterator, lengths::RECORD_NAME);
-        std::string record(iterator, stop);
-        if ("VHDR" != record)
+        if (vpd.empty())
+        {
+            std::string errorMsg = std::string("Empty vpd file: ") + vpdFilePath;
+            throw std::runtime_error(errorMsg);
+        }
+        if (lengths::RECORD_MIN > vpd.size())
         {
             std::string errorMsg =
-                std::string("VHDR record not found for the vpd: ") +
+                std::string("Vpd size is lesser than the minimum length of the "
+                            "record(44bytes). Malformed VPD: ") +
                 vpdFilePath;
             throw std::runtime_error(errorMsg);
+        }
+        else
+        {
+            auto iterator = vpd.cbegin();
+            std::advance(iterator, offsets::VHDR);
+            auto stop = std::next(iterator, lengths::RECORD_NAME);
+            std::string record(iterator, stop);
+            if ("VHDR" != record)
+            {
+                std::string errorMsg =
+                    std::string("VHDR record not found for the vpd: ") +
+                    vpdFilePath;
+                throw std::runtime_error(errorMsg);
+            }
+
+    #ifdef IPZ_PARSER
+            // Check ECC
+            int rc = eccStatus::FAILED;
+            rc = vhdrEccCheck();
+            if (rc != eccStatus::SUCCESS)
+            {
+                std::string errorMsg =
+                    std::string("ERROR: VHDR ECC check Failed for the vpd: ") +
+                    vpdFilePath;
+                throw std::runtime_error(errorMsg);
+            }
+    #endif
+        }
+    }
+    catch(exception& e)
+    {
+        //map to hold additional data in case oflogging pel
+        std::map<std::string, std::string> pelAdditionalData{};
+        std::string errMSg = e.what();
+        std::string inf = errIntfForInvalidVPDFile;
+
+        if(errMSg.find("ERROR: VHDR ECC check Failed") != std::string::npos)
+        {
+            inf = errIntfForEccCheckFail;
         }
 
-#ifdef IPZ_PARSER
-        // Check ECC
-        int rc = eccStatus::FAILED;
-        rc = vhdrEccCheck();
-        if (rc != eccStatus::SUCCESS)
-        {
-            std::string errorMsg =
-                std::string("ERROR: VHDR ECC check Failed for the vpd: ") +
-                vpdFilePath;
-            throw std::runtime_error(errorMsg);
-        }
-#endif
+        //log PEL and rethrow the error
+        createPEL(pelAdditionalData, inf);
+        throw e.what();
     }
 }
 
@@ -626,24 +645,31 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator,
 
 Store Impl::run()
 {
-    // Check if the VHDR record is present
-    checkHeader();
-
-    auto iterator = vpd.cbegin();
-
-    // Read the table of contents record
-    std::size_t ptLen = readTOC(iterator);
-
-    // Read the table of contents record, to get offsets
-    // to other records.
-    auto offsets = readPT(iterator, ptLen);
-    for (const auto& offset : offsets)
+    try
     {
-        processRecord(offset);
+        // Check if the VHDR record is present
+        checkHeader();
+
+        auto iterator = vpd.cbegin();
+
+        // Read the table of contents record
+        std::size_t ptLen = readTOC(iterator);
+
+        // Read the table of contents record, to get offsets
+        // to other records.
+        auto offsets = readPT(iterator, ptLen);
+        for (const auto& offset : offsets)
+        {
+            processRecord(offset);
+        }
+        // Return a Store object, which has interfaces to
+        // access parsed VPD by record:keyword
+        return Store(std::move(out));
     }
-    // Return a Store object, which has interfaces to
-    // access parsed VPD by record:keyword
-    return Store(std::move(out));
+    catch(exception& ex)
+    {
+        
+    }
 }
 
 void Impl::checkVPDHeader()
