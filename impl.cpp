@@ -3,6 +3,7 @@
 #include "const.hpp"
 #include "defines.hpp"
 #include "utils.hpp"
+#include "vpd_exceptions.hpp"
 
 #include <algorithm>
 #include <exception>
@@ -22,6 +23,7 @@ namespace vpd
 namespace parser
 {
 using namespace openpower::vpd::constants;
+using namespace openpower::vpd::exceptions;
 
 static const std::unordered_map<std::string, Record> supportedRecords = {
     {"VINI", Record::VINI}, {"OPFR", Record::OPFR}, {"OSYS", Record::OSYS}};
@@ -71,7 +73,6 @@ RecordOffset Impl::getVtocOffset() const
 }
 
 #ifdef IPZ_PARSER
-
 int Impl::vhdrEccCheck() const
 {
     int rc = eccStatus::SUCCESS;
@@ -82,6 +83,7 @@ int Impl::vhdrEccCheck() const
                           lengths::VHDR_RECORD_LENGTH,
                           const_cast<uint8_t*>(&vpdPtr[offsets::VHDR_ECC]),
                           lengths::VHDR_ECC_LENGTH);
+
     if (l_status != VPD_ECC_OK)
     {
         rc = eccStatus::FAILED;
@@ -119,6 +121,7 @@ int Impl::vtocEccCheck() const
     auto l_status = vpdecc_check_data(
         const_cast<uint8_t*>(&vpdPtr[vtocOffset]), vtocLength,
         const_cast<uint8_t*>(&vpdPtr[vtocECCOffset]), vtocECCLength);
+
     if (l_status != VPD_ECC_OK)
     {
         rc = eccStatus::FAILED;
@@ -142,11 +145,15 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
     std::advance(iterator, sizeof(ECCOffset));
     auto eccLength = readUInt16LE(iterator);
 
-    if (eccLength == 0 || eccOffset == 0 || recordOffset == 0 ||
-        recordLength == 0)
+    if (eccLength == 0 || eccOffset == 0)
     {
-        throw std::runtime_error("Something went wrong. Could't find Record's "
-                                 "OR its ECC's offset and Length");
+        throw(VpdEccException("Could not find ECC's offset or Length"));
+    }
+
+    if (recordOffset == 0 || recordLength == 0)
+    {
+        throw(VpdDataException(
+            "Could not find VPD record offset or VPD record length"));
     }
 
     auto vpdPtr = vpd.cbegin();
@@ -167,7 +174,7 @@ void Impl::checkHeader() const
 {
     if (vpd.empty() || (lengths::RECORD_MIN > vpd.size()))
     {
-        throw std::runtime_error("Malformed VPD");
+        throw(VpdDataException("Malformed VPD"));
     }
     else
     {
@@ -177,7 +184,7 @@ void Impl::checkHeader() const
         std::string record(iterator, stop);
         if ("VHDR" != record)
         {
-            throw std::runtime_error("VHDR record not found");
+            throw(VpdDataException("VHDR record not found"));
         }
 
 #ifdef IPZ_PARSER
@@ -186,7 +193,7 @@ void Impl::checkHeader() const
         rc = vhdrEccCheck();
         if (rc != eccStatus::SUCCESS)
         {
-            throw std::runtime_error("ERROR: VHDR ECC check Failed");
+            throw(VpdEccException("ERROR: VHDR ECC check Failed"));
         }
 #endif
     }
@@ -208,7 +215,7 @@ std::size_t Impl::readTOC(Binary::const_iterator& iterator) const
     std::string record(iterator, stop);
     if ("VTOC" != record)
     {
-        throw std::runtime_error("VTOC record not found");
+        throw(VpdDataException("VTOC record not found"));
     }
 
 #ifdef IPZ_PARSER
@@ -217,7 +224,7 @@ std::size_t Impl::readTOC(Binary::const_iterator& iterator) const
     rc = vtocEccCheck();
     if (rc != eccStatus::SUCCESS)
     {
-        throw std::runtime_error("ERROR: VTOC ECC check Failed");
+        throw(VpdEccException("ERROR: VTOC ECC check Failed"));
     }
 #endif
     // VTOC record name is good, now read through the TOC, stored in the PT
@@ -246,6 +253,8 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
     // we care only about the record offset information.
     while (iterator < end)
     {
+        std::string recordName(iterator, iterator + lengths::RECORD_NAME);
+
         // Skip record name and record type
         std::advance(iterator, lengths::RECORD_NAME + sizeof(RecordType));
 
@@ -259,8 +268,10 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
 
         if (rc != eccStatus::SUCCESS)
         {
-            throw std::runtime_error(
-                "ERROR: ECC check for one of the Record did not Pass.");
+            std::string errorMsg =
+                std::string("ERROR: ECC check did not pass for the Record:") +
+                recordName;
+            throw(VpdEccException(errorMsg));
         }
 #endif
 
@@ -470,24 +481,37 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
 
 Store Impl::run()
 {
-    // Check if the VHDR record is present
-    checkHeader();
-
-    auto iterator = vpd.cbegin();
-
-    // Read the table of contents record
-    std::size_t ptLen = readTOC(iterator);
-
-    // Read the table of contents record, to get offsets
-    // to other records.
-    auto offsets = readPT(iterator, ptLen);
-    for (const auto& offset : offsets)
+    try
     {
-        processRecord(offset);
+        // Check if the VHDR record is present
+        checkHeader();
+
+        auto iterator = vpd.cbegin();
+
+        // Read the table of contents record
+        std::size_t ptLen = readTOC(iterator);
+
+        // Read the table of contents record, to get offsets
+        // to other records.
+        auto offsets = readPT(iterator, ptLen);
+        for (const auto& offset : offsets)
+        {
+            processRecord(offset);
+        }
+        // Return a Store object, which has interfaces to
+        // access parsed VPD by record:keyword
+        return Store(std::move(out));
     }
-    // Return a Store object, which has interfaces to
-    // access parsed VPD by record:keyword
-    return Store(std::move(out));
+    catch (const VpdEccException& ex)
+    {
+        // TODO: Create PEL
+        throw std::runtime_error(ex.what());
+    }
+    catch (const VpdDataException& ex)
+    {
+        // TODO: Create PEL
+        throw std::runtime_error(ex.what());
+    }
 }
 
 void Impl::checkVPDHeader()
