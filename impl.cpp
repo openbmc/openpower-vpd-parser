@@ -283,7 +283,7 @@ void Impl::checkHeader() const
             std::string errorMsg =
                 std::string("VHDR record not found for the vpd: ") +
                 vpdFilePath;
-            throw(VpdDataException(errorMsg));
+            throw std::runtime_error(errorMsg);
         }
 
 #ifdef IPZ_PARSER
@@ -295,7 +295,7 @@ void Impl::checkHeader() const
             std::string errorMsg =
                 std::string("ERROR: VHDR ECC check Failed for the vpd: ") +
                 vpdFilePath;
-            throw(VpdEccException(errorMsg));
+            throw std::runtime_error(errorMsg);
         }
 #endif
     }
@@ -653,12 +653,22 @@ Store Impl::run()
     }
     catch (const VpdEccException& ex)
     {
-        // TODO: Create PEL
+        // map to hold additional data in case of logging pel
+        inventory::PelAdditionalData additionalData{};
+        additionalData.emplace("EEPROM_PATH", vpdFilePath);
+        additionalData.emplace("DESCRIPTION", "ECC check failed");
+        createPEL(additionalData, errIntfForEccCheckFail);
+
         throw std::runtime_error(ex.what());
     }
     catch (const VpdDataException& ex)
     {
-        // TODO: Create PEL
+        // map to hold additional data in case of logging pel
+        inventory::PelAdditionalData additionalData{};
+        additionalData.emplace("EEPROM_PATH", vpdFilePath);
+        additionalData.emplace("DESCRIPTION", "Invalid VPD data");
+        createPEL(additionalData, errIntfForInvalidVPD);
+
         throw std::runtime_error(ex.what());
     }
 }
