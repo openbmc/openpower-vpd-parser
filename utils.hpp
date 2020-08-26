@@ -144,5 +144,13 @@ bool recKwPresenceInDbusProp(const std::string& record,
  * @param[out] - value in binary.
  */
 Binary toBinary(const std::string& value);
+
+/**
+ * @brief API to create PEL entry
+ * @param[in] Map holding the additional data
+ * @param[in] error interface 
+ */
+void createPEL(const std::map<std::string, std::string>& additionalData, const std::string& errIntf);
+
 } // namespace vpd
 } // namespace openpower
