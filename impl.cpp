@@ -5,6 +5,7 @@
 #include "const.hpp"
 #include "defines.hpp"
 #include "utils.hpp"
+#include "vpd_exceptions.hpp"
 
 #include <dirent.h>
 #include <errno.h>
@@ -30,6 +31,8 @@ namespace vpd
 namespace parser
 {
 using namespace openpower::vpd::constants;
+using namespace openpower::vpd::exceptions;
+
 namespace fs = std::filesystem;
 
 static const std::unordered_map<std::string, Record> supportedRecords = {
@@ -83,21 +86,15 @@ void catchNegatives(int l_status)
 {
     if (l_status == VPD_ECC_NOT_ENOUGH_BUFFER)
     {
-        std::string errorMsg =
-            std::string("Insufficient ECC buffer for the given vpd ");
-        throw std::runtime_error(errorMsg);
+        throw(VpdEccException("Insufficient ECC buffer for the given vpd "));
     }
     else if (l_status == VPD_ECC_WRONG_ECC_SIZE)
     {
-        std::string errorMsg =
-            std::string("Incorrect ECC size for the given vpd ");
-        throw std::runtime_error(errorMsg);
+        throw(VpdEccException("Incorrect ECC size for the given vpd "));
     }
     else if (l_status == VPD_ECC_WRONG_BUFFER_SIZE)
     {
-        std::string errorMsg =
-            std::string("Incorrect ECC buffer size for the given vpd ");
-        throw std::runtime_error(errorMsg);
+        throw(VpdEccException("Incorrect ECC buffer size for the given vpd "));
     }
 }
 
@@ -121,7 +118,7 @@ int Impl::vhdrEccCheck() const
             std::string errorMsg =
                 std::string("VHDR ECC IS UNCORRECTABLE for the vpd: ") +
                 vpdFilePath;
-            throw std::runtime_error(errorMsg);
+            throw(VpdEccException(errorMsg));
         }
         else if ((l_status == VPD_ECC_CORRECTABLE_DATA) ||
                  (l_status == VPD_ECC_OK))
@@ -178,7 +175,7 @@ int Impl::vtocEccCheck() const
             std::string errorMsg =
                 std::string("VTOC ECC IS UNCORRECTABLE for the vpd: ") +
                 vpdFilePath;
-            throw std::runtime_error(errorMsg);
+            throw(VpdEccException(errorMsg));
         }
         else if ((l_status == VPD_ECC_CORRECTABLE_DATA) ||
                  (l_status == VPD_ECC_OK))
@@ -214,14 +211,21 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
     std::advance(iterator, sizeof(ECCOffset));
     auto eccLength = readUInt16LE(iterator);
 
-    if (eccLength == 0 || eccOffset == 0 || recordOffset == 0 ||
-        recordLength == 0)
+    if (eccLength == 0 || eccOffset == 0)
     {
         std::string errorMsg =
-            std::string("Something went wrong. Could't find vpd Record's "
-                        "OR its ECC's offset and Length for the vpd: ") +
+            std::string("Something went wrong. Could't find ECC's offset and "
+                        "Length for the vpd: ") +
             vpdFilePath;
-        throw std::runtime_error(errorMsg);
+        throw(VpdEccException(errorMsg));
+    }
+
+    if (recordOffset == 0 || recordLength == 0)
+    {
+        std::string errorMsg =
+            std::string("Could't find vpd Record's for the vpd: ") +
+            vpdFilePath;
+        throw(VpdDataException(errorMsg));
     }
 
     auto vpdPtr = vpd.cbegin();
@@ -258,7 +262,7 @@ void Impl::checkHeader() const
     if (vpd.empty())
     {
         std::string errorMsg = std::string("Empty vpd file: ") + vpdFilePath;
-        throw std::runtime_error(errorMsg);
+        throw(VpdDataException(errorMsg));
     }
     if (lengths::RECORD_MIN > vpd.size())
     {
@@ -266,7 +270,7 @@ void Impl::checkHeader() const
             std::string("Vpd size is lesser than the minimum length of the "
                         "record(44bytes). Malformed VPD: ") +
             vpdFilePath;
-        throw std::runtime_error(errorMsg);
+        throw(VpdDataException(errorMsg));
     }
     else
     {
@@ -279,7 +283,7 @@ void Impl::checkHeader() const
             std::string errorMsg =
                 std::string("VHDR record not found for the vpd: ") +
                 vpdFilePath;
-            throw std::runtime_error(errorMsg);
+            throw(VpdDataException(errorMsg));
         }
 
 #ifdef IPZ_PARSER
@@ -291,7 +295,7 @@ void Impl::checkHeader() const
             std::string errorMsg =
                 std::string("ERROR: VHDR ECC check Failed for the vpd: ") +
                 vpdFilePath;
-            throw std::runtime_error(errorMsg);
+            throw(VpdEccException(errorMsg));
         }
 #endif
     }
@@ -315,7 +319,7 @@ std::size_t Impl::readTOC(Binary::const_iterator& iterator) const
     {
         std::string errorMsg =
             std::string("VTOC record not found for the vpd: ") + vpdFilePath;
-        throw std::runtime_error(errorMsg);
+        throw(VpdDataException(errorMsg));
     }
 
 #ifdef IPZ_PARSER
@@ -327,7 +331,7 @@ std::size_t Impl::readTOC(Binary::const_iterator& iterator) const
         std::string errorMsg =
             std::string("ERROR: VTOC ECC check Failed for the vpd: ") +
             vpdFilePath;
-        throw std::runtime_error(errorMsg);
+        throw(VpdEccException(errorMsg));
     }
 #endif
     // VTOC record name is good, now read through the TOC, stored in the PT
@@ -373,7 +377,7 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
                 std::string("ERROR: ECC check for one of the Record did not "
                             "Pass for the vpd: ") +
                 vpdFilePath;
-            throw std::runtime_error(errorMsg);
+            throw(VpdEccException(errorMsg));
         }
 #endif
 
@@ -626,24 +630,37 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator,
 
 Store Impl::run()
 {
-    // Check if the VHDR record is present
-    checkHeader();
-
-    auto iterator = vpd.cbegin();
-
-    // Read the table of contents record
-    std::size_t ptLen = readTOC(iterator);
-
-    // Read the table of contents record, to get offsets
-    // to other records.
-    auto offsets = readPT(iterator, ptLen);
-    for (const auto& offset : offsets)
+    try
     {
-        processRecord(offset);
+        // Check if the VHDR record is present
+        checkHeader();
+
+        auto iterator = vpd.cbegin();
+
+        // Read the table of contents record
+        std::size_t ptLen = readTOC(iterator);
+
+        // Read the table of contents record, to get offsets
+        // to other records.
+        auto offsets = readPT(iterator, ptLen);
+        for (const auto& offset : offsets)
+        {
+            processRecord(offset);
+        }
+        // Return a Store object, which has interfaces to
+        // access parsed VPD by record:keyword
+        return Store(std::move(out));
     }
-    // Return a Store object, which has interfaces to
-    // access parsed VPD by record:keyword
-    return Store(std::move(out));
+    catch (const VpdEccException& ex)
+    {
+        // TODO: Create PEL
+        throw std::runtime_error(ex.what());
+    }
+    catch (const VpdDataException& ex)
+    {
+        // TODO: Create PEL
+        throw std::runtime_error(ex.what());
+    }
 }
 
 void Impl::checkVPDHeader()
