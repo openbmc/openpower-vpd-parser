@@ -49,8 +49,10 @@ class KeywordVpdParser : public ParserInterface
      *
      * Move kwVpdVector to parser object's kwVpdVector
      */
-    KeywordVpdParser(openpower::vpd::Binary&& kwVpdVector) :
-        keywordVpdVector(std::move(kwVpdVector))
+    KeywordVpdParser(openpower::vpd::Binary&& kwVpdVector,
+                     openpower::vpd::inventory::Path& filePath) :
+        keywordVpdVector(std::move(kwVpdVector)),
+        vpdFilePath(filePath)
     {
     }
 
@@ -83,6 +85,8 @@ class KeywordVpdParser : public ParserInterface
         kwVpdIterator; //!< Iterator to parse the vector
     openpower::vpd::Binary
         keywordVpdVector; //!< Vector which stores keyword VPD data
+
+    openpower::vpd::inventory::Path vpdFilePath;
 
     /**
      * @brief Validate the large resource identifier string

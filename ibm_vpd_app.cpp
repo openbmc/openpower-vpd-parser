@@ -6,6 +6,7 @@
 #include "memory_vpd_parser.hpp"
 #include "parser_factory.hpp"
 #include "utils.hpp"
+#include "vpd_exceptions.hpp"
 
 #include <ctype.h>
 
@@ -30,6 +31,7 @@ using namespace openpower::vpd::parser::factory;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
+using namespace openpower::vpd::exceptions;
 
 static const deviceTreeMap deviceTreeSystemTypeMap = {
     {RAINIER_2U, "conf@aspeed-bmc-ibm-rainier-2u.dtb"},
@@ -448,6 +450,12 @@ void updateHardware(const string& objectName, const string& recName,
         what += " keyword " + kwdName;
         what += " with bus error = " + std::string(e.what());
 
+        // map to hold additional data in case of logging pel
+        PelAdditionalData additionalData{};
+        additionalData.emplace("CALLOUT_INVENTORY_PATH", objectName);
+        additionalData.emplace("DESCRIPTION", what);
+        createPEL(additionalData, errIntfForBusFailure);
+
         throw runtime_error(what);
     }
 
@@ -711,19 +719,46 @@ int main(int argc, char** argv)
 
         CLI11_PARSE(app, argc, argv);
 
+        // map to hold additional data in case of logging pel
+        PelAdditionalData additionalData{};
+
         // Make sure that the file path we get is for a supported EEPROM
-        ifstream inventoryJson(INVENTORY_JSON);
-        auto js = json::parse(inventoryJson);
+        ifstream inventoryJson("temp"); // INVENTORY_JSON);
+        if (!inventoryJson)
+        {
+            throw((
+                VpdJsonException("Failed to acces Json path", INVENTORY_JSON)));
+        }
+
+        json js;
+        try
+        {
+            js = json::parse(inventoryJson);
+        }
+        catch (json::parse_error& ex)
+        {
+            throw((VpdJsonException("Json parsing failed", INVENTORY_JSON)));
+        }
 
         if ((js.find("frus") == js.end()) ||
             (js["frus"].find(file) == js["frus"].end()))
         {
-            cout << "Device path not in JSON, ignoring" << endl;
-            return 0;
+            std::string msg =
+                std::string(
+                    "Invalid JSON structure - frus{} object not found in ") +
+                INVENTORY_JSON;
+            throw((VpdJsonException(msg, INVENTORY_JSON)));
+        }
+
+        if (js["frus"].find(file) == js["frus"].end())
+        {
+            string errorMsg = ("Vpd File: ") + file + (" - not found in Json");
+            throw((VpdJsonException(errorMsg, INVENTORY_JSON)));
         }
 
         Binary vpdVector = getVpdDataInVector(js, file);
-        ParserInterface* parser = ParserFactory::getParser(move(vpdVector));
+        ParserInterface* parser =
+            ParserFactory::getParser(std::move(vpdVector), file);
 
         variant<KeywordVpdMap, Store> parseResult;
         parseResult = parser->parse();
@@ -739,6 +774,21 @@ int main(int argc, char** argv)
 
         // release the parser object
         ParserFactory::freeParser(parser);
+    }
+    catch (const VpdJsonException& ex)
+    {
+        // map to hold additional data in case of logging pel
+        PelAdditionalData additionalData{};
+        additionalData.emplace("PATH", ex.getJsonPath());
+        additionalData.emplace("DESCRIPTION", ex.what());
+        createPEL(
+            additionalData,
+            "xyz.openbmc_project.Common.Device.Error.ReadFailure"); // errIntfForJsonFailure);
+                                                                    // //just for
+                                                                    // test
+
+        cerr << ex.what() << "\n";
+        rc = -1;
     }
     catch (exception& e)
     {
