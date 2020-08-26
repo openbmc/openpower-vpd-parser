@@ -6,6 +6,7 @@
 #include "memory_vpd_parser.hpp"
 #include "parser_factory.hpp"
 #include "utils.hpp"
+#include "vpd_exceptions.hpp"
 
 #include <ctype.h>
 
@@ -30,6 +31,7 @@ using namespace openpower::vpd::parser::factory;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
+using namespace openpower::vpd::exceptions;
 
 static const deviceTreeMap deviceTreeSystemTypeMap = {
     {RAINIER_2U, "conf@aspeed-bmc-ibm-rainier-2u.dtb"},
@@ -565,6 +567,15 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 int main(int argc, char** argv)
 {
     int rc = 0;
+    string file{};
+    json js{};
+
+    // map to hold additional data in case of logging pel
+    PelAdditionalData additionalData{};
+
+    // this is needed to hold base fru inventory path in case there is ECC or
+    // vpd exception while parsing the file
+    std::string baseFruInventoryPath = {};
 
     try
     {
@@ -589,7 +600,19 @@ int main(int argc, char** argv)
 
         // Make sure that the file path we get is for a supported EEPROM
         ifstream inventoryJson(jsonToParse);
-        auto js = json::parse(inventoryJson);
+        if (!inventoryJson)
+        {
+            throw((VpdJsonException("Failed to acces Json path", jsonToParse)));
+        }
+
+        try
+        {
+            js = json::parse(inventoryJson);
+        }
+        catch (json::parse_error& ex)
+        {
+            throw((VpdJsonException("Json parsing failed", jsonToParse)));
+        }
 
         if ((js.find("frus") == js.end()) ||
             (js["frus"].find(file) == js["frus"].end()))
@@ -615,6 +638,35 @@ int main(int argc, char** argv)
 
         // release the parser object
         ParserFactory::freeParser(parser);
+    }
+    catch (const VpdJsonException& ex)
+    {
+        additionalData.emplace("JSON_PATH", ex.getJsonPath());
+        additionalData.emplace("DESCRIPTION", ex.what());
+        createPEL(additionalData, errIntfForJsonFailure);
+
+        cerr << ex.what() << "\n";
+        rc = -1;
+    }
+    catch (const VpdEccException& ex)
+    {
+        additionalData.emplace("DESCRIPTION", "ECC check failed");
+        additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                               INVENTORY_PATH + baseFruInventoryPath);
+        createPEL(additionalData, errIntfForEccCheckFail);
+
+        cerr << ex.what() << "\n";
+        rc = -1;
+    }
+    catch (const VpdDataException& ex)
+    {
+        additionalData.emplace("DESCRIPTION", "Invalid VPD data");
+        additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                               INVENTORY_PATH + baseFruInventoryPath);
+        createPEL(additionalData, errIntfForInvalidVPD);
+
+        cerr << ex.what() << "\n";
+        rc = -1;
     }
     catch (exception& e)
     {
