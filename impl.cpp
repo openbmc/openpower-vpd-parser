@@ -485,37 +485,24 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
 
 Store Impl::run()
 {
-    try
-    {
-        // Check if the VHDR record is present
-        checkHeader();
+    // Check if the VHDR record is present
+    checkHeader();
 
-        auto iterator = vpd.cbegin();
+    auto iterator = vpd.cbegin();
 
-        // Read the table of contents record
-        std::size_t ptLen = readTOC(iterator);
+    // Read the table of contents record
+    std::size_t ptLen = readTOC(iterator);
 
-        // Read the table of contents record, to get offsets
-        // to other records.
-        auto offsets = readPT(iterator, ptLen);
-        for (const auto& offset : offsets)
-        {
-            processRecord(offset);
-        }
-        // Return a Store object, which has interfaces to
-        // access parsed VPD by record:keyword
-        return Store(std::move(out));
-    }
-    catch (const VpdEccException& ex)
+    // Read the table of contents record, to get offsets
+    // to other records.
+    auto offsets = readPT(iterator, ptLen);
+    for (const auto& offset : offsets)
     {
-        // TODO: Create PEL
-        throw std::runtime_error(ex.what());
+        processRecord(offset);
     }
-    catch (const VpdDataException& ex)
-    {
-        // TODO: Create PEL
-        throw std::runtime_error(ex.what());
-    }
+    // Return a Store object, which has interfaces to
+    // access parsed VPD by record:keyword
+    return Store(std::move(out));
 }
 
 void Impl::checkVPDHeader()
