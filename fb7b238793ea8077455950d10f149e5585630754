@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8934e01_8c813663",
+        "filename": "examples/inventory.json",
+        "patchSetId": 35
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-27T03:32:12Z",
+      "side": 1,
+      "message": "GPIO line name here (come up with an example one). What you have here now makes it seem like a path, which it isn\u0027t.",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 47
+      },
+      "revId": "fb7b238793ea8077455950d10f149e5585630754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db6f6a9a_d776f36c",
+        "filename": "examples/inventory.json",
+        "patchSetId": 35
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-27T03:32:12Z",
+      "side": 1,
+      "message": "This is wrong too - ACTIVE_HIGH or ACTIVE_LOW should be the only allowed values.",
+      "range": {
+        "startLine": 37,
+        "startChar": 22,
+        "endLine": 37,
+        "endChar": 42
+      },
+      "revId": "fb7b238793ea8077455950d10f149e5585630754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67c050a9_74b550b2",
+        "filename": "examples/inventory.json",
+        "patchSetId": 35
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-27T03:32:12Z",
+      "side": 1,
+      "message": "This is wrong too - We need the GPIO line name here, please change accordingly",
+      "range": {
+        "startLine": 40,
+        "startChar": 17,
+        "endLine": 40,
+        "endChar": 33
+      },
+      "revId": "fb7b238793ea8077455950d10f149e5585630754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05f00086_93c085a2",
+        "filename": "examples/inventory.json",
+        "patchSetId": 35
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-27T03:32:12Z",
+      "side": 1,
+      "message": "This is invalid JSON. The value is just a number (0/1) - please provide an example accordingly.",
+      "range": {
+        "startLine": 41,
+        "startChar": 18,
+        "endLine": 41,
+        "endChar": 46
+      },
+      "revId": "fb7b238793ea8077455950d10f149e5585630754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4277b85_f546f022",
+        "filename": "examples/inventory.json",
+        "patchSetId": 35
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-08-27T03:32:12Z",
+      "side": 1,
+      "message": "This commit does not add support for postAction, right? Please remove this section.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 7
+      },
+      "revId": "fb7b238793ea8077455950d10f149e5585630754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
