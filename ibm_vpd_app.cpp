@@ -17,6 +17,8 @@
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
+#include <boost/process/child.hpp>
+#include <boost/process/io.hpp>
 
 using namespace std;
 using namespace openpower::vpd;
@@ -302,6 +304,48 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
     return objects;
 }
 
+template <typename... ArgTypes>
+static std::vector<std::string> executeCmd(const char* path,
+                                           ArgTypes&&... tArgs)
+{
+    std::vector<std::string> stdOutput;
+    boost::process::ipstream stdOutStream;
+    boost::process::child execProg(path, const_cast<char*>(tArgs)...,
+                                   boost::process::std_out > stdOutStream);
+    std::string stdOutLine;
+
+    while (stdOutStream && std::getline(stdOutStream, stdOutLine) &&
+           !stdOutLine.empty())
+    {
+        stdOutput.emplace_back(stdOutLine);
+    }
+
+    execProg.wait();
+
+    int retCode = execProg.exit_code();
+    if (retCode)
+    {
+         cout<<"Command execution failed. PATH="<<path<<" RETURN_CODE:"<<retCode<<"\n";
+    }
+
+    return stdOutput;
+}
+
+void setAndReboot(const string& key, const string& value)
+{
+    //set env and reboot and break.
+    executeCmd("/sbin/fw_setenv", key.c_str(), value.c_str());
+
+    //make dbus call to reboot
+    auto bus = sdbusplus::bus::new_default_system();
+    auto method = bus.new_method_call("org.freedesktop.systemd1",
+                                      "/org/freedesktop/systemd1",
+                                      "org.freedesktop.systemd1.Manager",
+                                      "Reboot");
+    auto reply = bus.call(method);
+
+}
+
 /**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
@@ -314,7 +358,7 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
  */
 template <typename T>
 static void populateDbus(const T& vpdMap, nlohmann::json& js,
-                         const string& filePath) //, const string &preIntrStr) {
+                         const string& filePath)
 {
     inventory::InterfaceMap interfaces;
     inventory::ObjectMap objects;
@@ -441,6 +485,65 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
+
+        //set the U-boot environment variable for device-tree
+
+        //create map of System type and device-tree. dynamic?
+        //TODO: temp local, move it later
+        deviceTreeMap deviceTreeList = {{SYSTEM_2U, "fw_dt1"},
+                                        {SYSTEM_4U, "fw_dt2"}};
+
+        //Use IM keyword of system vpd and find it's device tree from above map
+        string systemType;
+        string newDeviceTree;
+
+        systemType = imValStr;
+
+        if (deviceTreeList.find(systemType) != deviceTreeList.end())
+        {
+            newDeviceTree = deviceTreeList.at(systemType);
+        }
+
+        //read the env variable devTree's value.TODO:confirm variable
+        string readVarValue;
+        bool envVarFound = false;
+
+        std::vector<std::string> output = executeCmd("/sbin/fw_printenv");
+        for (const auto& entry : output)
+        {
+            size_t pos = entry.find("=");
+            std::string key = entry.substr(0, pos);
+            if( key != "devTree")
+            {
+                continue;
+            }
+
+            envVarFound = true;
+            if (pos + 1 >= entry.size())
+            {
+                cout<<"U-Boot environment is empty: ENTRY = "<< entry.c_str()<<", updating...\n";
+            }
+            else
+            {
+                readVarValue = entry.substr(pos + 1);
+                if (readVarValue == newDeviceTree)
+                {
+                    cout<<"U-Boot environment is Updated.\n";
+                    break;
+                }
+                cout<<"U-Boot environment is not updated. Updating...\n";
+ 
+            }
+            //set env and reboot and break.
+            setAndReboot( key, newDeviceTree);
+        }
+
+        //check If env var Not found
+        if (!envVarFound)
+        {
+            cout<<"U-Boot environment is not set. Updating...\n";
+            setAndReboot("devTree",newDeviceTree);
+        }
     }
 
     // Notify PIM
