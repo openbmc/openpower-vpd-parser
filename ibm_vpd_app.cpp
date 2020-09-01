@@ -18,6 +18,8 @@
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
+#include <boost/process/child.hpp>
+#include <boost/process/io.hpp>
 
 using namespace std;
 using namespace openpower::vpd;
@@ -303,6 +305,32 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
     return objects;
 }
 
+template <typename... ArgTypes>
+static std::vector<std::string> executeCmd(const char* path,
+                                           ArgTypes&&... tArgs)
+{
+    std::vector<std::string> stdOutput;
+    boost::process::ipstream stdOutStream;
+    boost::process::child execProg(path, const_cast<char*>(tArgs)...,
+                                   boost::process::std_out > stdOutStream);
+    std::string stdOutLine;
+
+    while (stdOutStream && std::getline(stdOutStream, stdOutLine) &&
+           !stdOutLine.empty())
+    {
+        stdOutput.emplace_back(stdOutLine);
+    }
+
+    execProg.wait();
+
+    int retCode = execProg.exit_code();
+    if (retCode)
+    {
+         cout<<"Command execution failed. PATH="<<path<<" RETURN_CODE:"<<retCode<<"\n";
+    }
+
+    return stdOutput;
+}
 /**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
@@ -452,6 +480,72 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
+
+        //set the U-boot environment variable for device-tree
+
+        //create map of System type and device-tree. dynamic?
+        //TODO: temp local, move it later
+        deviceTreeMap deviceTreeList = {{"2s2u", "fw_dt1"},
+                                        {"2s4u", "fw_dt2"}};
+
+        //Read IM keyword for this system vpd and find in map
+        //TODO: later re-use Priyanga's code, as re-reading IM keyword
+        Binary systemType;
+        string newDeviceTree;
+    
+        if constexpr (is_same<T, Parsed>::value)
+        {
+            auto recordFound = vpdMap.find("VSBP");
+            if (recordFound != vpdMap.end())
+            {
+                auto imKeywordFound = (recordFound->second).find("IM");
+
+                if (imKeywordFound != (recordFound->second).end())
+                {
+                    systemType = imKeywordFound->second;
+                }
+            }
+        }
+
+        if (deviceTreeList.find(systemType) != deviceTreeList.end())
+        {
+            newDeviceTree = deviceTreeList.at(systemType);
+        }
+
+        //read the env variable devTree's value.TODO:confirm variable
+        string readVarValue;
+
+        std::vector<std::string> output = executeCmd("/sbin/fw_printenv");
+        for (const auto& entry : output)
+        {
+            size_t pos = entry.find("=");
+            std::string key = entry.substr(0, pos);
+            if( key != "devTree")
+            {
+                continue;
+            }
+
+            if (pos + 1 >= entry.size())
+            {
+                cout<<"U-Boot environment is empty: ENTRY = "<< entry.c_str()<<", updating...\n";
+            }
+            else
+            {
+                readVarValue = entry.substr(pos + 1);
+                if (readVarValue == newDeviceTree)
+                {
+                    cout<<"U-Boot environment is Updated.\n";
+                    break;
+                }
+                cout<<"U-Boot environment is not updated. Updating...\n";
+              
+            }
+            //set env and reboot and break.
+            executeCmd("/sbin/fw_setenv", key.c_str(), newDeviceTree.c_str());
+         
+            //make dbus call to reboot
+            //Reboot();
+        }
     }
 
     // Notify PIM
