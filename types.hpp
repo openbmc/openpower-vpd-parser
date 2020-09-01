@@ -44,6 +44,10 @@ constexpr auto pimPath = "/xyz/openbmc_project/inventory";
 constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
 using KeywordVpdMap = std::unordered_map<std::string, Binary>;
 
+using systemType = std::string;
+using deviceTree = std::string;
+using deviceTreeMap = std::unordered_map<systemType, deviceTree>;
+
 } // namespace inventory
 
 } // namespace vpd
