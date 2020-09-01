@@ -11,6 +11,7 @@
 
 #include <CLI/CLI.hpp>
 #include <algorithm>
+#include <cstdarg>
 #include <exception>
 #include <filesystem>
 #include <fstream>
@@ -29,6 +30,10 @@ using namespace openpower::vpd::parser::factory;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
+
+static const deviceTreeMap deviceTreeSystemTypeMap = {
+    {RAINIER_2U, "conf@aspeed-bmc-ibm-rainier-2u.dtb"},
+    {RAINIER_4U, "conf@aspeed-bmc-ibm-rainier-4u.dtb"}};
 
 /**
  * @brief Expands location codes
@@ -302,6 +307,118 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
     return objects;
 }
 
+/* It does nothing. Just an empty function to return null
+ * at the end of variadic template args
+ */
+string getCommand()
+{
+    return "";
+}
+
+/* This function to arrange all arguments to make command
+ */
+template <typename T, typename... Types>
+string getCommand(T arg1, Types... args)
+{
+    string cmd = " " + arg1 + getCommand(args...);
+
+    return cmd;
+}
+
+/* This API takes arguments and run that command
+ * returns output of that command
+ */
+template <typename T, typename... Types>
+static vector<string> executeCmd(T& path, Types... args)
+{
+    vector<string> stdOutput;
+    array<char, 128> buffer;
+
+    string cmd = path + getCommand(args...);
+
+    unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
+    if (!pipe)
+    {
+        throw runtime_error("popen() failed!");
+    }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
+    {
+        stdOutput.emplace_back(buffer.data());
+    }
+
+    return stdOutput;
+}
+
+/**
+ * @brief This API executes command to set environment variable
+ *        And then reboot the system
+ * @param[in] key   -env key to set new value
+ * @param[in] value -value to set.
+ */
+void setEnvAndReboot(const string& key, const string& value)
+{
+    // set env and reboot and break.
+    executeCmd("/sbin/fw_setenv", key, value);
+    // make dbus call to reboot
+    auto bus = sdbusplus::bus::new_default_system();
+    auto method = bus.new_method_call(
+        "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+        "org.freedesktop.systemd1.Manager", "Reboot");
+    bus.call_noreply(method);
+}
+
+/*
+ * @brief This API checks for env var fitconfig.
+ *        If not initialised OR updated as per the current system type,
+ *        update this env var and reboot the system.
+ *
+ * @param[in] systemType IM kwd in vpd tells about which system type it is.
+ * */
+void setDevTreeEnv(const string& systemType)
+{
+    string newDeviceTree;
+
+    if (deviceTreeSystemTypeMap.find(systemType) !=
+        deviceTreeSystemTypeMap.end())
+    {
+        newDeviceTree = deviceTreeSystemTypeMap.at(systemType);
+    }
+
+    string readVarValue;
+    bool envVarFound = false;
+
+    vector<string> output = executeCmd("/sbin/fw_printenv");
+    for (const auto& entry : output)
+    {
+        size_t pos = entry.find("=");
+        string key = entry.substr(0, pos);
+        if (key != "fitconfig")
+        {
+            continue;
+        }
+
+        envVarFound = true;
+        if (pos + 1 < entry.size())
+        {
+            readVarValue = entry.substr(pos + 1);
+            if (readVarValue.find(newDeviceTree) != string::npos)
+            {
+                // fitconfig is Updated. No action needed
+                break;
+            }
+        }
+        // set env and reboot and break.
+        setEnvAndReboot(key, newDeviceTree);
+        exit(0);
+    }
+
+    // check If env var Not found
+    if (!envVarFound)
+    {
+        setEnvAndReboot("fitconfig", newDeviceTree);
+    }
+}
+
 /**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
@@ -314,7 +431,7 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
  */
 template <typename T>
 static void populateDbus(const T& vpdMap, nlohmann::json& js,
-                         const string& filePath) //, const string &preIntrStr) {
+                         const string& filePath)
 {
     inventory::InterfaceMap interfaces;
     inventory::ObjectMap objects;
@@ -419,12 +536,12 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         }
         string imValStr = oss.str();
 
-        if (imValStr == SYSTEM_4U) // 4U
+        if (imValStr == RAINIER_4U) // 4U
         {
             target = INVENTORY_JSON_4U;
         }
 
-        else if (imValStr == SYSTEM_2U) // 2U
+        else if (imValStr == RAINIER_2U) // 2U
         {
             target = INVENTORY_JSON_2U;
         }
@@ -441,6 +558,9 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
+
+        // set the U-boot environment variable for device-tree
+        setDevTreeEnv(imValStr);
     }
 
     // Notify PIM
@@ -487,7 +607,7 @@ int main(int argc, char** argv)
         ifstream vpdFile;
         vpdFile.rdbuf()->pubsetbuf(buf, sizeof(buf));
         vpdFile.open(file, ios::binary);
-        vpdFile.seekg(offset, std::ios_base::cur);
+        vpdFile.seekg(offset, ios_base::cur);
 
         // Read 64KB data content of the binary file into a vector
         Binary tmpVector((istreambuf_iterator<char>(vpdFile)),
@@ -498,8 +618,7 @@ int main(int argc, char** argv)
 
         Binary vpdVector(first, last);
 
-        ParserInterface* parser =
-            ParserFactory::getParser(std::move(vpdVector));
+        ParserInterface* parser = ParserFactory::getParser(move(vpdVector));
 
         variant<KeywordVpdMap, Store> parseResult;
         parseResult = parser->parse();
