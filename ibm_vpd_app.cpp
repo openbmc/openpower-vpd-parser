@@ -303,6 +303,27 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
     return objects;
 }
 
+
+void createSysTypeDeviceTreeMap()
+{
+    Binary systemType;
+    
+    if constexpr (is_same<T, Parsed>::value)
+    {
+        auto recordFound = vpdMap.find("VSBP");
+        if (recordFound != vpdMap.end())
+        {
+            auto imKeywordFound = (recordFound->second).find("IM");
+
+            if (imKeywordFound != (recordFound->second).end())
+            {
+                systemType = imKeywordFound->second;
+                //create a global map of systemTYpe and device-tree
+            }
+        }
+    }
+}
+
 /**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
@@ -452,6 +473,24 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
+
+        //set the U-boot environment variable for device-tree
+
+        //create map of System type and device-tree. dynamic?
+        //createSysTypeDeviceTreeMap();
+
+        //Read IM keyword for this system vpd and find in map
+        //readKeyword("VSBP","IM", keywordValue);
+
+        //If this keywordValue found in device-tree-map
+        //get the name of device-tree.
+
+        //check/read the env variable ABC's value
+        //If (varValue == empty OR varValue != newVarValue)
+            // set it to the env variable ABC
+            // And reboot the system- Reboot();
+        //else
+            //device tree is updated one. DO Nothing
     }
 
     // Notify PIM
