@@ -3,6 +3,7 @@
 #include "types.hpp"
 
 #include <nlohmann/json.hpp>
+#include <string>
 
 using json = nlohmann::json;
 
@@ -160,6 +161,18 @@ class VpdTool
      * @param[in] jsObject - Inventory JSON specified in configure file.
      */
     void forceReset(const nlohmann::basic_json<>& jsObject);
+
+    /**
+     * @brief Get Printable Value
+     *
+     * Checks if the vector value has non printable characters.
+     * And returns hex value if non printable char is found else
+     * returns ascii value.
+     *
+     * @param[in] vector - Reference of the Binary vector
+     * @return printable value - either in hex or in ascii.
+     */
+    std::string getPrintableValue(const std::vector<unsigned char>& vec);
 
     /**
      * @brief Constructor

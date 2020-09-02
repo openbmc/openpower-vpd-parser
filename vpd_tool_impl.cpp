@@ -23,6 +23,40 @@ void VpdTool::printReturnCode(int returnCode)
     }
 }
 
+string VpdTool::getPrintableValue(const vector<unsigned char>& vec)
+{
+    string str{};
+    bool printableChar = true;
+    for (auto i : vec)
+    {
+        if (!isprint(i))
+        {
+            printableChar = false;
+            break;
+        }
+    }
+
+    if (!printableChar)
+    {
+        stringstream ss;
+        string hexRep = "0x";
+        ss << hexRep;
+        str = ss.str();
+
+        // convert Decimal to Hex
+        for (auto& v : vec)
+        {
+            ss << setfill('0') << setw(2) << hex << (int)v;
+            str = ss.str();
+        }
+    }
+    else
+    {
+        str = string(vec.begin(), vec.end());
+    }
+    return str;
+}
+
 void VpdTool::eraseInventoryPath(string& fru)
 {
     // Power supply frupath comes with INVENTORY_PATH appended in prefix.
@@ -126,7 +160,8 @@ json VpdTool::getVINIProperties(string invPath, json exIntf)
 
             if (auto vec = get_if<Binary>(&response))
             {
-                kwVal.emplace(kw, string(vec->begin(), vec->end()));
+                string printableVal = getPrintableValue(*vec);
+                kwVal.emplace(kw, printableVal);
             }
         }
         catch (const SdBusError& e)
@@ -296,10 +331,12 @@ void VpdTool::readKeyword()
         makeDBusCall(INVENTORY_PATH + fruPath, interface + recordName, keyword)
             .read(response);
 
+        string printableVal{};
         if (auto vec = get_if<Binary>(&response))
         {
-            kwVal.emplace(keyword, string(vec->begin(), vec->end()));
+            printableVal = getPrintableValue(*vec);
         }
+        kwVal.emplace(keyword, printableVal);
 
         output.emplace(fruPath, kwVal);
 
@@ -309,35 +346,6 @@ void VpdTool::readKeyword()
     {
         json output = json::object({});
         json kwVal = json::object({});
-
-        if (e.id == 316) // invalid UTF-8 byte exception
-        {
-            stringstream ss;
-            string hexByte;
-            string hexRep = "0x";
-            ss << hexRep;
-            hexByte = ss.str();
-
-            // convert Decimal to Hex
-            if (auto resp = get_if<Binary>(&response))
-            {
-                for (auto& vec : *resp)
-                {
-                    if ((int)vec == 0)
-                    {
-                        ss << hex << (int)vec;
-                        hexByte = ss.str();
-                    }
-                    ss << hex << (int)vec;
-                    hexByte = ss.str();
-                }
-            }
-
-            kwVal.emplace(keyword, hexByte);
-            output.emplace(fruPath, kwVal);
-
-            debugger(output);
-        }
     }
 }
 
