@@ -267,6 +267,15 @@ void VpdTool::dumpObject(const nlohmann::basic_json<>& jsObject)
     debugger(output);
 }
 
+bool VpdTool::otherCntrlCodes(int c)
+{
+    if (c >= 16 && c <= 31)
+    {
+        return true;
+    }
+    return false;
+}
+
 void VpdTool::readKeyword()
 {
     string interface = "com.ibm.ipzvpd.";
@@ -281,9 +290,46 @@ void VpdTool::readKeyword()
 
         if (auto vec = get_if<Binary>(&response))
         {
-            kwVal.emplace(keyword, string(vec->begin(), vec->end()));
-        }
+            bool printableChar = true;
+            std::vector<unsigned char>& vector = *vec;
+            for (auto i : vector)
+            {
+                if (!isprint(i))
+                {
+                    printableChar = false;
+                    break;
+                }
+            }
+            if (!printableChar)
+            {
+                stringstream ss;
+                string hexByte;
+                string hexRep = "0x";
+                ss << hexRep;
+                hexByte = ss.str();
 
+                // convert Decimal to Hex
+                if (auto resp = get_if<Binary>(&response))
+                {
+                    for (auto& vec : *resp)
+                    {
+                        if ((iscntrl(vec)) && (!otherCntrlCodes((int)vec)))
+                        {
+                            ss << hex << 0;
+                            hexByte = ss.str();
+                        }
+                        ss << hex << (int)vec;
+                        hexByte = ss.str();
+                    }
+                }
+                kwVal.emplace(keyword, hexByte);
+            }
+            else
+            {
+                string str = string(vec->begin(), vec->end());
+                kwVal.emplace(keyword, str);
+            }
+        }
         output.emplace(fruPath, kwVal);
 
         debugger(output);
@@ -292,35 +338,6 @@ void VpdTool::readKeyword()
     {
         json output = json::object({});
         json kwVal = json::object({});
-
-        if (e.id == 316) // invalid UTF-8 byte exception
-        {
-            stringstream ss;
-            string hexByte;
-            string hexRep = "0x";
-            ss << hexRep;
-            hexByte = ss.str();
-
-            // convert Decimal to Hex
-            if (auto resp = get_if<Binary>(&response))
-            {
-                for (auto& vec : *resp)
-                {
-                    if ((int)vec == 0)
-                    {
-                        ss << hex << (int)vec;
-                        hexByte = ss.str();
-                    }
-                    ss << hex << (int)vec;
-                    hexByte = ss.str();
-                }
-            }
-
-            kwVal.emplace(keyword, hexByte);
-            output.emplace(fruPath, kwVal);
-
-            debugger(output);
-        }
     }
 }
 

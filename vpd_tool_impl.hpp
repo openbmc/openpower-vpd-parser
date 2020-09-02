@@ -156,6 +156,16 @@ class VpdTool
     void forceReset(const nlohmann::basic_json<>& jsObject);
 
     /**
+     * @brief other control codes
+     * If the given integer value is a part of other control codes
+     * from 0x10 to 0x1F then return true else return false.
+     *
+     * @param[in] c - integral value
+     * @return true/false.
+     */
+    bool otherCntrlCodes(int c);
+
+    /**
      * @brief Constructor
      * Constructor is called during the
      * object instantiation for dumpInventory option and
