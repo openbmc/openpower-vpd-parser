@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sdbusplus/bus.hpp>
 #include <sstream>
+#include <string>
 #include <variant>
 #include <vector>
 
@@ -13,6 +14,57 @@ using namespace std;
 using sdbusplus::exception::SdBusError;
 using namespace openpower::vpd;
 namespace fs = std::filesystem;
+
+bool VpdTool::otherCntrlCodes(int c)
+{
+    if (c >= 16 && c <= 31)
+    {
+        return true;
+    }
+    return false;
+}
+
+string VpdTool::returnPrintableVal(std::vector<unsigned char>& vector)
+{
+    string str{};
+    bool printableChar = true;
+    for (auto i : vector)
+    {
+        if (!isprint(i))
+        {
+            printableChar = false;
+            break;
+        }
+    }
+
+    if (!printableChar)
+    {
+        stringstream ss;
+        string hexByte;
+        string hexRep = "0x";
+        ss << hexRep;
+        hexByte = ss.str();
+
+        // convert Decimal to Hex
+        for (auto& vec : vector)
+        {
+            if ((iscntrl(vec)) && (!otherCntrlCodes((int)vec)))
+            {
+                ss << hex << 0;
+                hexByte = ss.str();
+            }
+            ss << hex << (int)vec;
+            hexByte = ss.str();
+        }
+        return hexByte;
+    }
+    else
+    {
+        string str = string(vector.begin(), vector.end());
+        return str;
+    }
+    return str;
+}
 
 void VpdTool::eraseInventoryPath(string& fru)
 {
@@ -117,7 +169,8 @@ json VpdTool::getVINIProperties(string invPath, json exIntf)
 
             if (auto vec = get_if<Binary>(&response))
             {
-                kwVal.emplace(kw, string(vec->begin(), vec->end()));
+                string printableVal = returnPrintableVal(*vec);
+                kwVal.emplace(kw, printableVal);
             }
         }
         catch (const SdBusError& e)
@@ -287,10 +340,12 @@ void VpdTool::readKeyword()
         makeDBusCall(INVENTORY_PATH + fruPath, interface + recordName, keyword)
             .read(response);
 
+        string printableVal{};
         if (auto vec = get_if<Binary>(&response))
         {
-            kwVal.emplace(keyword, string(vec->begin(), vec->end()));
+            printableVal = returnPrintableVal(*vec);
         }
+        kwVal.emplace(keyword, printableVal);
 
         output.emplace(fruPath, kwVal);
 
@@ -300,35 +355,6 @@ void VpdTool::readKeyword()
     {
         json output = json::object({});
         json kwVal = json::object({});
-
-        if (e.id == 316) // invalid UTF-8 byte exception
-        {
-            stringstream ss;
-            string hexByte;
-            string hexRep = "0x";
-            ss << hexRep;
-            hexByte = ss.str();
-
-            // convert Decimal to Hex
-            if (auto resp = get_if<Binary>(&response))
-            {
-                for (auto& vec : *resp)
-                {
-                    if ((int)vec == 0)
-                    {
-                        ss << hex << (int)vec;
-                        hexByte = ss.str();
-                    }
-                    ss << hex << (int)vec;
-                    hexByte = ss.str();
-                }
-            }
-
-            kwVal.emplace(keyword, hexByte);
-            output.emplace(fruPath, kwVal);
-
-            debugger(output);
-        }
     }
 }
 
