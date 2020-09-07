@@ -346,5 +346,10 @@ bool isRecKwInDbusJson(const std::string& recordName,
     return present;
 }
 
+string getCommand()
+{
+    return "";
+}
+
 } // namespace vpd
 } // namespace openpower
