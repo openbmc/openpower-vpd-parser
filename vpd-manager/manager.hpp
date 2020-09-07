@@ -118,6 +118,13 @@ class Manager : public ServerObject<ManagerIface>
     /** @brief Start processing DBus messages. */
     void run();
 
+    /** @brief Api to perform VPD recollection
+     * This api will trigger parser to check for
+     * any FRU replaced at standby and if required
+     * perform VPD recollection for FRUs replaced
+     */
+    void performVPDRecollection();
+
   private:
     /** @brief process the given JSON file
      */
@@ -138,6 +145,9 @@ class Manager : public ServerObject<ManagerIface>
 
     // map to hold the mapping of location code and inventory path
     inventory::LocationCodeMap fruLocationCode;
+
+    // map to hold FRUs which can be replaced at standby
+    inventory::ReplaceableFrus replaceableFrus;
 };
 
 } // namespace manager
