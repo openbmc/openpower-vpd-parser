@@ -279,48 +279,6 @@ static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
     return vpdVector;
 }
 
-/* It does nothing. Just an empty function to return null
- * at the end of variadic template args
- */
-static string getCommand()
-{
-    return "";
-}
-
-/* This function to arrange all arguments to make command
- */
-template <typename T, typename... Types>
-static string getCommand(T arg1, Types... args)
-{
-    string cmd = " " + arg1 + getCommand(args...);
-
-    return cmd;
-}
-
-/* This API takes arguments and run that command
- * returns output of that command
- */
-template <typename T, typename... Types>
-static vector<string> executeCmd(T&& path, Types... args)
-{
-    vector<string> stdOutput;
-    array<char, 128> buffer;
-
-    string cmd = path + getCommand(args...);
-
-    unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
-    if (!pipe)
-    {
-        throw runtime_error("popen() failed!");
-    }
-    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
-    {
-        stdOutput.emplace_back(buffer.data());
-    }
-
-    return stdOutput;
-}
-
 /** This API will be called at the end of VPD collection to perform any post
  * actions.
  *
@@ -1006,6 +964,7 @@ int main(int argc, char** argv)
 
             variant<KeywordVpdMap, Store> parseResult;
             parseResult = parser->parse();
+
             if (auto pVal = get_if<Store>(&parseResult))
             {
                 populateDbus(pVal->getVpdMap(), js, file);

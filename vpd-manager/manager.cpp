@@ -6,11 +6,15 @@
 #include "ipz_parser.hpp"
 #include "reader_impl.hpp"
 #include "utils.hpp"
+#include "vpd_exceptions.hpp"
 
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::manager::editor;
 using namespace openpower::vpd::manager::reader;
+using namespace std;
+using namespace openpower::vpd::parser;
+using namespace openpower::vpd::exceptions;
 
 namespace openpower
 {
@@ -67,6 +71,7 @@ void Manager::processJSON()
     {
         const std::vector<nlohmann::json>& groupEEPROM =
             itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
+
         for (const auto& itemEEPROM : groupEEPROM)
         {
             bool isMotherboard = false;
@@ -89,6 +94,11 @@ void Manager::processJSON()
                                   .get_ref<const nlohmann::json::string_t&>(),
                     itemEEPROM["inventoryPath"]
                         .get_ref<const nlohmann::json::string_t&>());
+            }
+
+            if (itemEEPROM.value("isReplacable", false))
+            {
+                replacableFrus.emplace_back(itemFRUS.key());
             }
         }
     }
@@ -154,6 +164,116 @@ LocationCode Manager::getExpandedLocationCode(const LocationCode locationCode,
     ReaderImpl read;
     return read.getExpandedLocationCode(locationCode, nodeNumber,
                                         fruLocationCode);
+}
+
+void Manager::performVPDRecollection()
+{
+    try
+    {
+        // get list of FRUs replacable at standby
+        for (const auto& item : replacableFrus)
+        {
+            bool isRecollected = false;
+            string inventoryPath{};
+            const vector<nlohmann::json>& groupEEPROM = jsonFile["frus"][item];
+            for (const auto& singleFru : groupEEPROM)
+            {
+                // Check if the FRU can be replaces at standby
+                if (!singleFru.value("isReplacable", false))
+                {
+                    continue;
+                }
+
+                inventoryPath = singleFru["inventoryPath"]
+                                    .get_ref<const nlohmann::json::string_t&>();
+
+                if ((singleFru.find("devAddress") == singleFru.end()) ||
+                    (singleFru.find("driverType") == singleFru.end()) ||
+                    (singleFru.find("busType") == singleFru.end()))
+                {
+                    // The FRUs is marked for replacement but missing mandatory
+                    // fields for recollection
+                    break;
+                }
+
+                string str = "echo ";
+                string deviceAddress = singleFru["devAddress"];
+                const string& driverType = singleFru["driverType"];
+                const string& busType = singleFru["busType"];
+                string cmd = str + deviceAddress + " > /sys/bus/" + busType +
+                             "/drivers/" + driverType;
+
+                // devTreeStatus flag is present in json as false to mention
+                // that the EEPROM is not mentioned in device tree. If this flag
+                // is absent consider the value to be true, i.e EEPROM is
+                // mentioned in device tree
+                if (!singleFru.value("devTreeStatus", true))
+                {
+                    auto pos = deviceAddress.find('-');
+                    if (pos != string::npos)
+                    {
+                        executeCmd(cmd + "/unbind");
+
+                        string busNum = deviceAddress.substr(0, pos);
+                        deviceAddress =
+                            "0x" + deviceAddress.substr(pos + 1, string::npos);
+
+                        string bindCmd = str + driverType + " " +
+                                         deviceAddress + " > /sys/bus/" +
+                                         busType + "/devices/" + busType + "-" +
+                                         busNum + "/new_device";
+
+                        executeCmd(bindCmd);
+
+                        isRecollected = true;
+
+                        // do not process other FRUs under the EEPROM path once
+                        // data has been recollected.
+                        break;
+                    }
+                    else
+                    {
+                        throw VpdJsonException("Wrong format of data in "
+                                               "device address field of Json.",
+                                               INVENTORY_JSON_SYM_LINK);
+                    }
+                }
+                // if present it should be true, if absent then consider as true
+                else
+                {
+                    executeCmd(cmd + "/unbind");
+                    executeCmd(cmd + "/bind");
+
+                    isRecollected = true;
+                    // do not process other FRUs under the EEPROM path once data
+                    // has been recollected.
+                    break;
+                }
+            }
+
+            // if the VPD has not been recollected till this point implies entry
+            // is missing in JSON
+            if (isRecollected == false)
+            {
+                // if FRU is marked as replacable and mandatory fields are
+                // missing log error
+                throw VpdJsonException(
+                    "Mandatory field(s) devAddress/driverType/busType required "
+                    "for recollection is missing in JSON for fru " +
+                        inventoryPath,
+                    INVENTORY_JSON_SYM_LINK);
+            }
+        }
+    }
+    catch (const VpdJsonException& ex)
+    {
+        // map to hold additional data in case of logging pel
+        PelAdditionalData additionalData{};
+        additionalData.emplace("JSON_PATH", ex.getJsonPath());
+        additionalData.emplace("DESCRIPTION", ex.what());
+        createPEL(additionalData, errIntfForJsonFailure);
+        cerr << ex.what() << endl;
+    }
 }
 
 } // namespace manager
