@@ -6,11 +6,18 @@
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "reader_impl.hpp"
+#include "vpd_exceptions.hpp"
+
+#include <phosphor-logging/elog-errors.hpp>
 
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::manager::editor;
 using namespace openpower::vpd::manager::reader;
+using namespace std;
+using namespace openpower::vpd::parser;
+using namespace openpower::vpd::exceptions;
+using namespace phosphor::logging;
 
 namespace openpower
 {
@@ -90,6 +97,11 @@ void Manager::processJSON()
                     itemEEPROM["inventoryPath"]
                         .get_ref<const nlohmann::json::string_t&>());
             }
+
+            if (itemEEPROM.value("isReplaceable", false))
+            {
+                replaceableFrus.emplace_back(itemFRUS.key());
+            }
         }
     }
 }
@@ -154,6 +166,80 @@ LocationCode Manager::getExpandedLocationCode(const LocationCode locationCode,
     ReaderImpl read;
     return read.getExpandedLocationCode(locationCode, nodeNumber,
                                         fruLocationCode);
+}
+
+void Manager::performVPDRecollection()
+{
+    // get list of FRUs replacable at standby
+    for (const auto& item : replaceableFrus)
+    {
+        const vector<nlohmann::json>& groupEEPROM = jsonFile["frus"][item];
+        const nlohmann::json& singleFru = groupEEPROM[0];
+
+        string inventoryPath = singleFru["inventoryPath"]
+                                   .get_ref<const nlohmann::json::string_t&>();
+
+        if ((singleFru.find("devAddress") == singleFru.end()) ||
+            (singleFru.find("driverType") == singleFru.end()) ||
+            (singleFru.find("busType") == singleFru.end()))
+        {
+            // The FRUs is marked for replacement but missing mandatory
+            // fields for recollection. Skip to another replaceable fru.
+            log<level::ERR>(
+                "Recollection Failed as mandatory field missing in Json",
+                entry("ERROR=%s",
+                      ("Recollectin failed for " + inventoryPath).c_str()));
+            continue;
+        }
+
+        string str = "echo ";
+        string deviceAddress = singleFru["devAddress"];
+        const string& driverType = singleFru["driverType"];
+        const string& busType = singleFru["busType"];
+
+        // devTreeStatus flag is present in json as false to mention
+        // that the EEPROM is not mentioned in device tree. If this flag
+        // is absent consider the value to be true, i.e EEPROM is
+        // mentioned in device tree
+        if (!singleFru.value("devTreeStatus", true))
+        {
+            auto pos = deviceAddress.find('-');
+            if (pos != string::npos)
+            {
+                string busNum = deviceAddress.substr(0, pos);
+                deviceAddress =
+                    "0x" + deviceAddress.substr(pos + 1, string::npos);
+
+                string deleteDevice = str + deviceAddress + " > /sys/bus/" +
+                                      busType + "/devices/" + busType + "-" +
+                                      busNum + "/delete_device";
+                executeCmd(deleteDevice);
+
+                string addDevice = str + driverType + " " + deviceAddress +
+                                   " > /sys/bus/" + busType + "/devices/" +
+                                   busType + "-" + busNum + "/new_device";
+                executeCmd(addDevice);
+            }
+            else
+            {
+                log<level::ERR>(
+                    "Wrong format of device address in Json",
+                    entry(
+                        "ERROR=%s",
+                        ("Recollection failed for " + inventoryPath).c_str()));
+                continue;
+            }
+        }
+        // if present it should be true, if absent then consider as true
+        else
+        {
+            string cmd = str + deviceAddress + " > /sys/bus/" + busType +
+                         "/drivers/" + driverType;
+
+            executeCmd(cmd + "/unbind");
+            executeCmd(cmd + "/bind");
+        }
+    }
 }
 
 } // namespace manager
