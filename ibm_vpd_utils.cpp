@@ -318,5 +318,10 @@ vpdType vpdTypeCheck(const Binary& vpdVector)
     return vpdType::INVALID_VPD_FORMAT;
 }
 
+string getCommand()
+{
+    return "";
+}
+
 } // namespace vpd
 } // namespace openpower
