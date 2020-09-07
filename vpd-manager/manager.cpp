@@ -11,6 +11,8 @@ using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::manager::editor;
 using namespace openpower::vpd::manager::reader;
+using namespace std;
+using namespace openpower::vpd::parser;
 
 namespace openpower
 {
@@ -48,7 +50,8 @@ void Manager::run()
 
 void Manager::processJSON()
 {
-    std::ifstream json(INVENTORY_JSON, std::ios::binary);
+    std::ifstream json("/var/lib/vpd/vpd_inventory.json",
+                       std::ios::binary); // INVENTORY_JSON, std::ios::binary);
 
     if (!json)
     {
@@ -67,6 +70,7 @@ void Manager::processJSON()
     {
         const std::vector<nlohmann::json>& groupEEPROM =
             itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
+
         for (const auto& itemEEPROM : groupEEPROM)
         {
             bool isMotherboard = false;
@@ -90,6 +94,11 @@ void Manager::processJSON()
                     itemEEPROM["inventoryPath"]
                         .get_ref<const nlohmann::json::string_t&>());
             }
+
+            if (itemEEPROM.value("isReplacable", false) == true)
+            {
+                replacableFrus.emplace_back(itemFRUS.key());
+            }
         }
     }
 }
@@ -98,6 +107,8 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
                            const std::string recordName,
                            const std::string keyword, const Binary value)
 {
+    performVPDRecollection();
+    /*
     try
     {
         if (frus.find(path) == frus.end())
@@ -131,6 +142,7 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
     {
         std::cerr << e.what() << std::endl;
     }
+    */
 }
 
 ListOfPaths
@@ -155,6 +167,120 @@ LocationCode Manager::getExpandedLocationCode(const LocationCode locationCode,
     return read.getExpandedLocationCode(locationCode, nodeNumber,
                                         fruLocationCode);
 }
+
+void Manager::performVPDRecollection()
+{
+    try
+    {
+        // get list of FRUs replacable at standby
+        for (const auto& item : replacableFrus)
+        {
+            bool isRecollected = false;
+            const std::vector<nlohmann::json>& groupEEPROM =
+                jsonFile["frus"][item];
+            for (const auto& singleFru : groupEEPROM)
+            {
+                if (isRecollected)
+                {
+                    // imples the vpd has been recollected for the EEPROM, no
+                    // need to process all the FRUS under this path
+                    break;
+                }
+
+                if ((singleFru.find("devAddress") == singleFru.end()) ||
+                    (singleFru.find("driverType") == singleFru.end()) ||
+                    (singleFru.find("busType") == singleFru.end()))
+                {
+                    // look for these entry in any of the FRU under this EEPROM
+                    // path
+                    continue;
+                }
+
+                string str = "echo ";
+                string deviceAddress = singleFru["devAddress"];
+                const string& driverType = singleFru["driverType"];
+                const string& busType = singleFru["busType"];
+
+                // this flag is present in json as false to mention that the
+                // EEPROM is not mentioned in device tree if this flag is absent
+                // consider the value to be true, i.e EEPROM is mentioned in
+                // device tree
+                if (singleFru.value("devTreeStatus", true) == false)
+                {
+                    auto pos = deviceAddress.find('-');
+                    if (pos != string::npos)
+                    {
+                        str = str + deviceAddress + " > /sys/bus/" + busType +
+                              "/drivers/" + driverType;
+                        std::cout << str + "/unbind" << std::endl;
+                        system((str + "/unbind").c_str());
+
+                        string busNum = deviceAddress.substr(0, pos);
+                        deviceAddress =
+                            "0x" + deviceAddress.substr(pos + 1, string::npos);
+
+                        str = "echo ";
+                        std::cout
+                            << str + driverType + " " + deviceAddress +
+                                   " > /sys/bus/" + busType + "/devices/" +
+                                   busType + "-" + busNum + "/new_device"
+                            << std::endl;
+                        // system((str + deviceAddress + " > /sys/bus/" +
+                        // busType + "/devices/" + busType + "-" + busNum +
+                        // "/delete_device").c_str());
+                        system((str + driverType + " " + deviceAddress +
+                                " > /sys/bus/" + busType + "/devices/" +
+                                busType + "-" + busNum + "/new_device")
+                                   .c_str());
+
+                        isRecollected = true;
+                    }
+                    else
+                    {
+                        throw std::runtime_error(
+                            "Wrong format of data in "
+                            "device address field of Json.");
+                    }
+                }
+                // if present it should be true, if absent then consider as true
+                else if ((singleFru.value("devTreeStatus", true) == true))
+                {
+                    str = str + deviceAddress + " > /sys/bus/" + busType +
+                          "/drivers/" + driverType;
+                    system((str + "/unbind").c_str());
+                    system((str + "/bind").c_str());
+
+                    isRecollected = true;
+                }
+            }
+
+            // if the VPD has not been recollected till this point implies entry
+            // is missing in JSON
+            if (isRecollected == false)
+            {
+                // if FRU is marked as replacable and these fields are missing
+                // log error
+                throw std::runtime_error(
+                    "Field missing in Json for recollection");
+            }
+        }
+    }
+    // TODO: Needs to be enabled once the custom exception code moves in
+    /*catch (const VpdJsonException& ex)
+    {
+        // map to hold additional data in case of logging pel
+        PelAdditionalData additionalData{};
+        additionalData.emplace("JSON_PATH", ex.getJsonPath());
+        additionalData.emplace("DESCRIPTION", ex.what());
+        createPEL(additionalData, errIntfForJsonFailure);
+        std::cerr << ex.what() << std::endl;
+    }*/
+    catch (const exception& ex)
+    {
+        std::cerr << ex.what() << std::endl;
+    }
+}
+
 } // namespace manager
 } // namespace vpd
 } // namespace openpower
