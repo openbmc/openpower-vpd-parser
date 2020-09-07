@@ -279,48 +279,6 @@ static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
     return vpdVector;
 }
 
-/* It does nothing. Just an empty function to return null
- * at the end of variadic template args
- */
-static string getCommand()
-{
-    return "";
-}
-
-/* This function to arrange all arguments to make command
- */
-template <typename T, typename... Types>
-static string getCommand(T arg1, Types... args)
-{
-    string cmd = " " + arg1 + getCommand(args...);
-
-    return cmd;
-}
-
-/* This API takes arguments and run that command
- * returns output of that command
- */
-template <typename T, typename... Types>
-static vector<string> executeCmd(T&& path, Types... args)
-{
-    vector<string> stdOutput;
-    array<char, 128> buffer;
-
-    string cmd = path + getCommand(args...);
-
-    unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
-    if (!pipe)
-    {
-        throw runtime_error("popen() failed!");
-    }
-    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
-    {
-        stdOutput.emplace_back(buffer.data());
-    }
-
-    return stdOutput;
-}
-
 /** This API will be called at the end of VPD collection to perform any post
  * actions.
  *
@@ -575,14 +533,14 @@ void setDevTreeEnv(const string& systemType)
             }
         }
         // set env and reboot and break.
-        setEnvAndReboot(key, newDeviceTree);
+        // setEnvAndReboot(key, newDeviceTree);
         exit(0);
     }
 
     // check If env var Not found
     if (!envVarFound)
     {
-        setEnvAndReboot("fitconfig", newDeviceTree);
+        // setEnvAndReboot("fitconfig", newDeviceTree);
     }
 }
 
@@ -931,6 +889,7 @@ int main(int argc, char** argv)
 
     try
     {
+        std::cout << "1" << std::endl;
         App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
                 "in DBUS"};
         string file{};
@@ -949,6 +908,7 @@ int main(int argc, char** argv)
             jsonToParse = INVENTORY_JSON_SYM_LINK;
         }
 
+        std::cout << "2" << std::endl;
         // Make sure that the file path we get is for a supported EEPROM
         ifstream inventoryJson(jsonToParse);
         if (!inventoryJson)
@@ -991,14 +951,16 @@ int main(int argc, char** argv)
                 return 0;
             }
         }
-
+        std::cout << "3" << std::endl;
         try
         {
             Binary vpdVector = getVpdDataInVector(js, file);
             ParserInterface* parser = ParserFactory::getParser(move(vpdVector));
 
+            std::cout << "4" << std::endl;
             variant<KeywordVpdMap, Store> parseResult;
             parseResult = parser->parse();
+            std::cout << "5" << std::endl;
             if (auto pVal = get_if<Store>(&parseResult))
             {
                 populateDbus(pVal->getVpdMap(), js, file);
@@ -1007,12 +969,14 @@ int main(int argc, char** argv)
             {
                 populateDbus(*pVal, js, file);
             }
+            std::cout << "6" << std::endl;
 
             // release the parser object
             ParserFactory::freeParser(parser);
         }
         catch (exception& e)
         {
+            std::cout << "Exception from here" << std::endl;
             postFailAction(js, file);
             throw e;
         }

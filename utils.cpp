@@ -230,5 +230,11 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
             "Error in invoking D-Bus logging create interface to register PEL");
     }
 }
+
+string getCommand()
+{
+    return "";
+}
+
 } // namespace vpd
 } // namespace openpower
