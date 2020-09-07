@@ -48,6 +48,7 @@ using systemType = std::string;
 using deviceTree = std::string;
 using deviceTreeMap = std::unordered_map<systemType, deviceTree>;
 using PelAdditionalData = std::map<std::string, std::string>;
+using ReplacableFrus = std::vector<VPDfilepath>;
 
 } // namespace inventory
 

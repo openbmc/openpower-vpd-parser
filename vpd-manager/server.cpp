@@ -274,6 +274,51 @@ static const auto _return_GetExpandedLocationCode =
 } // namespace Manager
 } // namespace details
 
+int Manager::_callback_PerformVPDRecollection(sd_bus_message* msg,
+                                              void* context,
+                                              sd_bus_error* error)
+{
+    try
+    {
+        auto m = message::message(msg);
+        {
+            auto tbus = m.get_bus();
+            sdbusplus::server::transaction::Transaction t(tbus, m);
+            sdbusplus::server::transaction::set_id(
+                std::hash<sdbusplus::server::transaction::Transaction>{}(t));
+        }
+
+        auto o = static_cast<Manager*>(context);
+        o->performVPDRecollection();
+
+        auto reply = m.new_method_return();
+        // No data to append on reply.
+
+        reply.method_return();
+    }
+    catch (sdbusplus::internal_exception_t& e)
+    {
+        return sd_bus_error_set(error, e.name(), e.description());
+    }
+    catch (sdbusplus::xyz::openbmc_project::Common::Error::InternalFailure& e)
+    {
+        return sd_bus_error_set(error, e.name(), e.description());
+    }
+
+    return true;
+}
+
+namespace details
+{
+namespace Manager
+{
+static const auto _param_PerformVPDRecollection =
+    utility::tuple_to_array(std::make_tuple('\0'));
+static const auto _return_PerformVPDRecollection =
+    utility::tuple_to_array(std::make_tuple('\0'));
+} // namespace Manager
+} // namespace details
+
 const vtable::vtable_t Manager::_vtable[] = {
     vtable::start(),
 
@@ -297,6 +342,11 @@ const vtable::vtable_t Manager::_vtable[] = {
                    details::Manager::_param_GetExpandedLocationCode.data(),
                    details::Manager::_return_GetExpandedLocationCode.data(),
                    _callback_GetExpandedLocationCode),
+
+    vtable::method("PerformVPDRecollection",
+                   details::Manager::_param_PerformVPDRecollection.data(),
+                   details::Manager::_return_PerformVPDRecollection.data(),
+                   _callback_PerformVPDRecollection),
     vtable::end()};
 
 } // namespace server
