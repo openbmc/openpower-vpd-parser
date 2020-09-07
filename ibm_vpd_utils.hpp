@@ -113,5 +113,54 @@ bool isRecKwInDbusJson(const std::string& record, const std::string& keyword);
  */
 constants::vpdType vpdTypeCheck(const Binary& vector);
 
+/*
+ * @brief This method does nothing. Just an empty function to return null
+ * at the end of variadic template args
+ */
+inline string getCommand()
+{
+    return "";
+}
+
+/**
+ * @brief This function to arrange all arguments to make commandy
+ * @param[in] arguments to create the command
+ * @return cmd - command string
+ */
+template <typename T, typename... Types>
+inline string getCommand(T arg1, Types... args)
+{
+    string cmd = " " + arg1 + getCommand(args...);
+
+    return cmd;
+}
+
+/**
+ * @brief This API takes arguments, creates a shell command line and exceutes
+ * them.
+ * @param[in] arguments for command
+ * @returns output of that command
+ */
+template <typename T, typename... Types>
+inline vector<string> executeCmd(T&& path, Types... args)
+{
+    vector<string> stdOutput;
+    array<char, 128> buffer;
+
+    string cmd = path + getCommand(args...);
+
+    unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
+    if (!pipe)
+    {
+        throw runtime_error("popen() failed!");
+    }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
+    {
+        stdOutput.emplace_back(buffer.data());
+    }
+
+    return stdOutput;
+}
+
 } // namespace vpd
 } // namespace openpower
