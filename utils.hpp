@@ -58,5 +58,11 @@ string encodeKeyword(const string& kw, const string& encoding);
  */
 string readBusProperty(const string& obj, const string& inf,
                        const string& prop);
+
+/** @brief Translate udev even generated path to a generic /sys/bus path
+ *  @param[in] udevPath - path generated from udev event.
+ *  @return a generic path.
+ */
+string udevToGenericPath(string udevPath);
 } // namespace vpd
 } // namespace openpower

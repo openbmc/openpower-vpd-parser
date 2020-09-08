@@ -292,13 +292,31 @@ int main(int argc, char** argv)
 
         App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
                 "in DBUS"};
-        string file{};
+        string udevPath{};
 
-        app.add_option("-f, --file", file, "File containing VPD (IPZ/KEYWORD)")
+        app.add_option("-f, --file", udevPath,
+                       "File containing VPD (IPZ/KEYWORD)")
             ->required()
             ->check(ExistingFile);
 
         CLI11_PARSE(app, argc, argv);
+
+        string file{};
+
+        // if u find a pattern like this (/ahb/ahb:apb/ahb:apb:bus@) in the
+        // given path, then its a udev event generated Path.
+        if (udevPath.find("/ahb:apb") != string::npos)
+        {
+            // Translate udev event generated file path to a generic /sys/bus/..
+            // path.
+            file = udevToGenericPath(udevPath);
+        }
+        else
+        {
+            file = udevPath;
+        }
+
+        // update the json with the generic path.. and then test..
 
         // Make sure that the file path we get is for a supported EEPROM
         ifstream inventoryJson(INVENTORY_JSON);
