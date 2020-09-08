@@ -933,10 +933,10 @@ int main(int argc, char** argv)
     {
         App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
                 "in DBUS"};
-        string file{};
 
         app.add_option("-f, --file", file, "File containing VPD (IPZ/KEYWORD)")
-            ->required();
+            ->required()
+            ->check(ExistingFile);
 
         CLI11_PARSE(app, argc, argv);
 
@@ -966,6 +966,26 @@ int main(int argc, char** argv)
             throw((VpdJsonException("Json parsing failed", jsonToParse)));
         }
 
+        // Check if it's a udev path - patterned as(/ahb/ahb:apb/ahb:apb:bus@)
+        if (file.find("/ahb:apb") != string::npos)
+        {
+            // Translate udev path to a generic /sys/bus/.. file path.
+            udevToGenericPath(file);
+            cout << "\n debug 1 : after udev to generic translation . the "
+                    "translated path is : "
+                 << endl;
+            if (js["frus"][file].at(0).value("isSystemVpd", false))
+            {
+                return 0;
+            }
+        }
+
+        if (file.empty())
+        {
+            cerr << "The EEPROM path <" << file << "> is not valid.";
+            return 0;
+        }
+        cout << "file path : " << file << endl;
         if ((js.find("frus") == js.end()) ||
             (js["frus"].find(file) == js["frus"].end()))
         {
