@@ -69,6 +69,8 @@ constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
 constexpr auto kwdVpdInf = "com.ibm.ipzvpd.VINI";
 constexpr auto memVpdInf = "com.ibm.ipzvpd.VINI";
 constexpr auto ipzVpdInf = "com.ibm.ipzvpd.";
+constexpr auto i2cPathPrefix = "/sys/bus/i2c/drivers/at24/";
+constexpr auto spiPathPrefix = "/sys/bus/spi/drivers/at25/";
 
 namespace lengths
 {
