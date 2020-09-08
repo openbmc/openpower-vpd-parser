@@ -5,6 +5,7 @@
 #include "defines.hpp"
 
 #include <phosphor-logging/log.hpp>
+#include <regex>
 #include <sdbusplus/server.hpp>
 
 namespace openpower
@@ -173,6 +174,46 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
         }
     }
     return propVal;
+}
+
+string udevToGenericPath(const string& udevPath)
+{
+    string file{};
+
+    if (udevPath.find("i2c") != string::npos) // i2c path
+    {
+        string i2cBus{};
+        regex i2cPattern("((i2c)-[0-9]\\/)+");
+        auto i2cWord =
+            sregex_iterator(udevPath.begin(), udevPath.end(), i2cPattern);
+        for (auto i = i2cWord; i != sregex_iterator(); ++i)
+        {
+            smatch match = *i;
+            i2cBus = match.str();
+        }
+        regex udevPattern("[^\\s]+" + i2cBus);
+        file = std::regex_replace(udevPath, udevPattern, i2cPathPrefix);
+    }
+    else if (udevPath.find("spi") != string::npos) // spi path
+    {
+        regex spiPattern("((spi)[0-9]\\/)+");
+        auto spiWord =
+            sregex_iterator(udevPath.begin(), udevPath.end(), spiPattern);
+        string spiBus{};
+        for (auto i = spiWord; i != sregex_iterator(); ++i)
+        {
+            smatch match = *i;
+            spiBus = match.str();
+        }
+        regex udevPattern("[^\\s]+" + spiBus);
+        file = std::regex_replace(udevPath, udevPattern, spiPathPrefix);
+    }
+    else
+    {
+        throw runtime_error(
+            "Udev event generated path is neither i2c nor spi driver's path.");
+    }
+    return file;
 }
 } // namespace vpd
 } // namespace openpower

@@ -570,9 +570,10 @@ int main(int argc, char** argv)
     {
         App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
                 "in DBUS"};
-        string file{};
+        string udevPath{};
 
-        app.add_option("-f, --file", file, "File containing VPD (IPZ/KEYWORD)")
+        app.add_option("-f, --file", udevPath,
+                       "File containing VPD (IPZ/KEYWORD)")
             ->required()
             ->check(ExistingFile);
 
@@ -585,6 +586,18 @@ int main(int argc, char** argv)
         if (fs::exists(INVENTORY_JSON_SYM_LINK))
         {
             jsonToParse = INVENTORY_JSON_SYM_LINK;
+        }
+        string file{};
+
+        // Check if it's a udev path - patterned as(/ahb/ahb:apb/ahb:apb:bus@)
+        if (udevPath.find("/ahb:apb") != string::npos)
+        {
+            // Translate udev path to a generic /sys/bus/.. file path.
+            file = udevToGenericPath(udevPath);
+        }
+        else
+        {
+            file = udevPath;
         }
 
         // Make sure that the file path we get is for a supported EEPROM
