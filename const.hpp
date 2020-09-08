@@ -81,6 +81,8 @@ constexpr auto errIntfForStreamFail = "com.ibm.VPD.Error.InavlidEepromPath";
 constexpr auto errIntfForEccCheckFail = "com.ibm.VPD.Error.EccCheckFailed";
 constexpr auto errIntfForJsonFailure = "com.ibm.VPD.Error.InvalidJson";
 constexpr auto errIntfForBusFailure = "com.ibm.VPD.Error.DbusFailure";
+constexpr auto i2cPathPrefix = "/sys/bus/i2c/drivers/at24/";
+constexpr auto spiPathPrefix = "/sys/bus/spi/drivers/at25/";
 
 namespace lengths
 {
