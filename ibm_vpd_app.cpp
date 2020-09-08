@@ -933,10 +933,12 @@ int main(int argc, char** argv)
     {
         App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
                 "in DBUS"};
-        string file{};
+        string udevPath{};
 
-        app.add_option("-f, --file", file, "File containing VPD (IPZ/KEYWORD)")
-            ->required();
+        app.add_option("-f, --file", udevPath,
+                       "File containing VPD (IPZ/KEYWORD)")
+            ->required()
+            ->check(ExistingFile);
 
         CLI11_PARSE(app, argc, argv);
 
@@ -964,6 +966,29 @@ int main(int argc, char** argv)
         catch (json::parse_error& ex)
         {
             throw((VpdJsonException("Json parsing failed", jsonToParse)));
+        }
+
+        string file{};
+
+        // Check if it's a udev path - patterned as(/ahb/ahb:apb/ahb:apb:bus@)
+        if (udevPath.find("/ahb:apb") != string::npos)
+        {
+            // Translate udev path to a generic /sys/bus/.. file path.
+            file = udevToGenericPath(udevPath);
+            if (js["frus"][file].at(0).value("isSystemVpd", false))
+            {
+                return 0;
+            }
+        }
+        else
+        {
+            file = udevPath;
+        }
+
+        if (file.empty())
+        {
+            cerr << "The given path <" << udevPath << "> is not valid.";
+            return -1;
         }
 
         if ((js.find("frus") == js.end()) ||

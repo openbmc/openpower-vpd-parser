@@ -139,5 +139,10 @@ bool isPathInJson(const std::string& eepromPath);
  */
 bool isRecKwInDbusJson(const std::string& record, const std::string& keyword);
 
+/** @brief Translate udev event generated path to a generic /sys/bus path
+ *  @param[in] udevPath - path generated from udev event.
+ *  @return a generic path.
+ */
+string udevToGenericPath(const string& udevPath);
 } // namespace vpd
 } // namespace openpower

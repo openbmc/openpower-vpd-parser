@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
+#include <regex>
 #include <sdbusplus/server.hpp>
 #include <sstream>
 #include <vector>
@@ -346,5 +347,66 @@ bool isRecKwInDbusJson(const std::string& recordName,
     return present;
 }
 
+string udevToGenericPath(const string& udevPath)
+{
+    string file{};
+
+    // Sample udevEvent i2c path :
+    // "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a480.i2c-bus/i2c-8/8-0051/8-00510/nvmem"
+    // find if the path contains the word i2c in it.
+    if (udevPath.find("i2c") != string::npos)
+    {
+        string i2cBus{};
+
+        // Every udev i2c path will have common pattern "i2c-digit/", which
+        // describes the i2c bus number at which the fru is connected; followed
+        // by a slash following the vpd address of the fru. Taking the above
+        // input as a common key, we try to match the pattern "i2c-digit/" using
+        // regular expression.
+        regex i2cPattern("i2c-[0-9]+\\/");
+        auto i2cWord =
+            sregex_iterator(udevPath.begin(), udevPath.end(), i2cPattern);
+        for (auto i = i2cWord; i != sregex_iterator(); ++i)
+        {
+            smatch match = *i;
+            i2cBus = match.str();
+        }
+
+        // Replacing the i2c udev path with the words succeeding the pattern
+        // match; Say, "8-0051/8-00510/nvmem" - prefixing
+        // "/sys/bus/i2c/drivers/at24/" - gives the complete i2c generic path.
+        regex udevPattern("[^\\s]+" + i2cBus);
+        file = std::regex_replace(udevPath, udevPattern, i2cPathPrefix);
+    }
+
+    // Sample udevEvent spi path :
+    // "/sys/devices/platform/ahb/ahb:apb/1e79b000.fsi/fsi-master/fsi0/slave@00:00/00:00:00:04/spi_master/spi2/spi2.0/spi2.00/nvmem"
+    // find if the path contains the word spi in it.
+    else if (udevPath.find("spi") != string::npos)
+    {
+
+        // Every udev spi path will have common pattern "spi<Digit>/", which
+        // describes the spi bus number at which the fru is connected; Followed
+        // by a slash following the vpd address of the fru. Taking the above
+        // input as a common key, we try to match the pattern "spi<Digit>/"
+        // using regular expression.
+        regex spiPattern("((spi)[0-9]+\\/)");
+        auto spiWord =
+            sregex_iterator(udevPath.begin(), udevPath.end(), spiPattern);
+        string spiBus{};
+        for (auto i = spiWord; i != sregex_iterator(); ++i)
+        {
+            smatch match = *i;
+            spiBus = match.str();
+        }
+
+        // Replacing the spi udev path with the words succeeding the pattern
+        // match; Say, "spi2.0/spi2.00/nvmem" - prefixing
+        // "/sys/bus/spi/drivers/at25/" - gives the complete spi generic path
+        regex udevPattern("[^\\s]+" + spiBus);
+        file = std::regex_replace(udevPath, udevPattern, spiPathPrefix);
+    }
+    return file;
+}
 } // namespace vpd
 } // namespace openpower
