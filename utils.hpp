@@ -87,5 +87,11 @@ string readBusProperty(const string& obj, const string& inf,
  */
 void createPEL(const std::map<std::string, std::string>& additionalData,
                const std::string& errIntf);
+
+/** @brief Translate udev event generated path to a generic /sys/bus path
+ *  @param[in] udevPath - path generated from udev event.
+ *  @return a generic path.
+ */
+string udevToGenericPath(const string& udevPath);
 } // namespace vpd
 } // namespace openpower
