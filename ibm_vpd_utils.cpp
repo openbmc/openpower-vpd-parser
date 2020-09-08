@@ -11,6 +11,7 @@
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
+#include <regex>
 #include <sdbusplus/server.hpp>
 #include <sstream>
 #include <vector>
@@ -318,5 +319,71 @@ vpdType vpdTypeCheck(const Binary& vpdVector)
     return vpdType::INVALID_VPD_FORMAT;
 }
 
+void udevToGenericPath(string& file)
+{
+    // Sample udevEvent i2c path :
+    // "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a480.i2c-bus/i2c-8/8-0051/8-00510/nvmem"
+    // find if the path contains the word i2c in it.
+    if (file.find("i2c") != string::npos)
+    {
+        string i2cBusAddr{};
+
+        // Every udev i2c path should have the common pattern
+        // "i2c-bus_number/bus_number-vpd_address". Search for
+        // "bus_number-vpd_address".
+        regex i2cPattern("((i2c)-[0-9]+\\/)([0-9]+-[0-9]{4})");
+        smatch match;
+        if (regex_search(file, match, i2cPattern))
+        {
+            i2cBusAddr = match.str(3);
+        }
+        else
+        {
+            cerr << "The given udev path < " << file
+                 << " > doesn't match the required pattern. Skipping VPD "
+                    "collection."
+                 << endl;
+            exit(EXIT_SUCCESS);
+        }
+        // Forming the generic file path
+        file = i2cPathPrefix + i2cBusAddr + "/eeprom";
+    }
+    // Sample udevEvent spi path :
+    // "/sys/devices/platform/ahb/ahb:apb/1e79b000.fsi/fsi-master/fsi0/slave@00:00/00:00:00:04/spi_master/spi2/spi2.0/spi2.00/nvmem"
+    // find if the path contains the word spi in it.
+    else if (file.find("spi") != string::npos)
+    {
+        // Every udev spi path will have common pattern "spi<Digit>/", which
+        // describes the spi bus number at which the fru is connected; Followed
+        // by a slash following the vpd address of the fru. Taking the above
+        // input as a common key, we try to search for the pattern "spi<Digit>/"
+        // using regular expression.
+        regex spiPattern("((spi)[0-9]+)(\\/)");
+        string spiBus{};
+        smatch match;
+        if (regex_search(file, match, spiPattern))
+        {
+            spiBus = match.str(1);
+        }
+        else
+        {
+            cerr << "The given udev path < " << file
+                 << " > doesn't match the required pattern. Skipping VPD "
+                    "collection."
+                 << endl;
+            exit(EXIT_SUCCESS);
+        }
+        // Forming the generic path
+        file = spiPathPrefix + spiBus + ".0/eeprom";
+    }
+    else
+    {
+        cerr << "\n The given EEPROM path < " << file
+             << " > is not valid. It's neither I2C nor "
+                "SPI path. Skipping VPD collection.."
+             << endl;
+        exit(EXIT_SUCCESS);
+    }
+}
 } // namespace vpd
 } // namespace openpower
