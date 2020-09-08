@@ -113,5 +113,10 @@ bool isRecKwInDbusJson(const std::string& record, const std::string& keyword);
  */
 constants::vpdType vpdTypeCheck(const Binary& vector);
 
+/** @brief Translate udev event generated path to a generic /sys/bus path
+ *  @param[in] file - path generated from udev event.
+ *  @return a generic path.
+ */
+string udevToGenericPath(string& file);
 } // namespace vpd
 } // namespace openpower
