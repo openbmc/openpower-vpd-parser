@@ -887,7 +887,6 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 int main(int argc, char** argv)
 {
     int rc = 0;
-    string file{};
     json js{};
 
     // map to hold additional data in case of logging pel
@@ -902,9 +901,9 @@ int main(int argc, char** argv)
 
     try
     {
+        string file{};
         App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
                 "in DBUS"};
-        string file{};
 
         app.add_option("-f, --file", file, "File containing VPD (IPZ/KEYWORD)")
             ->required();
@@ -942,6 +941,22 @@ int main(int argc, char** argv)
             throw(VpdJsonException("Json parsing failed", jsonToParse));
         }
 
+        // Check if it's a udev path - patterned as(/ahb/ahb:apb/ahb:apb:bus@)
+        if (file.find("/ahb:apb") != string::npos)
+        {
+            // Translate udev path to a generic /sys/bus/.. file path.
+            udevToGenericPath(file);
+            if (js["frus"][file].at(0).value("isSystemVpd", false))
+            {
+                return 0;
+            }
+        }
+
+        if (file.empty())
+        {
+            cerr << "The EEPROM path <" << file << "> is not valid.";
+            return 0;
+        }
         if ((js.find("frus") == js.end()) ||
             (js["frus"].find(file) == js["frus"].end()))
         {
@@ -970,13 +985,6 @@ int main(int argc, char** argv)
 
         try
         {
-            // check if vpd file is empty
-            if (file.empty())
-            {
-                throw(VpdDataException(
-                    "VPD file is empty. Can't process with blank file."));
-            }
-
             Binary vpdVector = getVpdDataInVector(js, file);
             ParserInterface* parser = ParserFactory::getParser(move(vpdVector));
 
