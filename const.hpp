@@ -90,6 +90,9 @@ constexpr auto errIntfForBusFailure = "com.ibm.VPD.Error.DbusFailure";
 constexpr auto motherBoardInterface =
     "xyz.openbmc_project.Inventory.Item.Board.Motherboard";
 constexpr auto systemVpdFilePath = "/sys/bus/i2c/drivers/at24/8-0050/eeprom";
+constexpr auto i2cPathPrefix = "/sys/bus/i2c/drivers/at24/";
+constexpr auto spiPathPrefix = "/sys/bus/spi/drivers/at25/";
+
 namespace lengths
 {
 enum Lengths

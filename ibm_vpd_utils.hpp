@@ -182,5 +182,9 @@ const string getHW(const Parsed& vpdMap);
  */
 const string getIM(const Parsed& vpdMap);
 
+/** @brief Translate udev event generated path to a generic /sys/bus eeprom path
+ *  @param[io] file - path generated from udev event.
+ */
+void udevToGenericPath(string& file);
 } // namespace vpd
 } // namespace openpower
