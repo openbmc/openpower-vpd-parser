@@ -51,6 +51,24 @@
       "revId": "59c19409b6958c315bb0b1059a289fd7eeb7e067",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ef05dc8_cd24cc6b",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-09-23T07:05:30Z",
+      "side": 1,
+      "message": "a) \nAm checking the eeprom presence in json for setting the updateCache value and not for throwing the error..\n\nby default updateCache will set to true. (vpd-manager/editor_impl.hpp #109)\n\nOnly if the eeprom is not present in json / the given rec-kw pair is not present in dbus_properties.json - no need to updateCache.. so it will be set to false..\n\n\u0026\u0026\n \nin vpd_tool.cpp (line: 96) I will check for the eeprom path presence in the json only when the given path is a dbus object path.. \n\nif the given path is not the dbus object path \u0026 say it is the eeprom path - then no check is needed for its presence in json. (as sometimes we will get the eeprom which is not present in json)\n\nb) I don\u0027t see - editor\u0027s updateKeyword is throwing error when the eeprom is not present in json..\n\nc) yes.. sometimes we expect to update the vpd of those eeproms not present in our inventory json.",
+      "parentUuid": "74ad26a3_066cc14a",
+      "revId": "59c19409b6958c315bb0b1059a289fd7eeb7e067",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
