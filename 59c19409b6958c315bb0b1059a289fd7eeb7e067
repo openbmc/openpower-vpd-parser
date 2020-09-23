@@ -69,6 +69,24 @@
       "revId": "59c19409b6958c315bb0b1059a289fd7eeb7e067",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a946ed62_893a1ca1",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-09-23T08:13:50Z",
+      "side": 1,
+      "message": "b) I am not saying editor\u0027s update keyword is throwing error. I am saying, if Stream open fails to open the eeprom path, it sets an error code internally. You can check the error code to establish the validity of eeprom path and can throw appropriate exception for better error handling.\n\nc) I was not aware of this, hence point (a) also stands invalid. I guess check is needed in that case.",
+      "parentUuid": "0ef05dc8_cd24cc6b",
+      "revId": "59c19409b6958c315bb0b1059a289fd7eeb7e067",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
