@@ -87,6 +87,24 @@
       "revId": "59c19409b6958c315bb0b1059a289fd7eeb7e067",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd5a232b_513eb24d",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-09-23T08:31:00Z",
+      "side": 1,
+      "message": "b) true - if the given vpd path is unable to open in a filestream - then we should throw an error.. that the updateKeyword is handling.. that is not handled here anywhere...\n\nhere I am just checking the given eeprom is present in json or not..",
+      "parentUuid": "a946ed62_893a1ca1",
+      "revId": "59c19409b6958c315bb0b1059a289fd7eeb7e067",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
