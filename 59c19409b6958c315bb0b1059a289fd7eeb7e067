@@ -105,6 +105,24 @@
       "revId": "59c19409b6958c315bb0b1059a289fd7eeb7e067",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36152138_350b08b2",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-09-23T09:24:27Z",
+      "side": 1,
+      "message": "update keyword api is not handling that currently. Right now if the stream open fails there is no check to that, in case the eeprom path is invalid I think user should be notified to check/rectify that and also next statement is to seek the stream pointer which may give undefined behaviour if stream object is not set.\nYou can check the standard error code set by stream class in case of failure for invalid path and throw a runtime error stating that eeprom path is invalid which you can in turn cout to the user so that user can check for eeprom path that is being passed.",
+      "parentUuid": "dd5a232b_513eb24d",
+      "revId": "59c19409b6958c315bb0b1059a289fd7eeb7e067",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
