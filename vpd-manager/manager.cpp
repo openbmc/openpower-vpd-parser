@@ -3,6 +3,7 @@
 #include "manager.hpp"
 
 #include "editor_impl.hpp"
+#include "gpioMonitor.hpp"
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "reader_impl.hpp"
@@ -10,6 +11,7 @@
 
 #include <phosphor-logging/elog-errors.hpp>
 
+using namespace openpower::vpd::manager::gpiomonitor;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::manager::editor;
@@ -38,18 +40,18 @@ void Manager::run()
     try
     {
         processJSON();
+
+        auto event = sdeventplus::Event::get_default();
+        cout << "DBG: initialising gpioMON\n";
+        GpioMonitor gpioMon1(jsonFile, event);
+
+        _bus.attach_event(event.get(), SD_EVENT_PRIORITY_IMPORTANT);
+        cout << "DBG: event attached, running loop\n";
+        event.loop();
     }
     catch (const std::exception& e)
     {
         std::cerr << e.what() << "\n";
-    }
-
-    while (true)
-    {
-        _bus.process_discard();
-
-        // wait for event
-        _bus.wait();
     }
 }
 
@@ -233,11 +235,10 @@ void Manager::performVPDRecollection()
         }
         else
         {
-            string cmd = str + deviceAddress + " > /sys/bus/" + busType +
-                         "/drivers/" + driverType;
-
-            executeCmd(cmd + "/unbind");
-            executeCmd(cmd + "/bind");
+            executeCmd(createBindUnbindDriverCmnd(deviceAddress, busType,
+                                                  driverType, "/unbind"));
+            executeCmd(createBindUnbindDriverCmnd(deviceAddress, busType,
+                                                  driverType, "/bind"));
         }
     }
 }
