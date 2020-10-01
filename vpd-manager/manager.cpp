@@ -1,14 +1,16 @@
 #include "config.h"
 
 #include "manager.hpp"
-
+#include "gpioMonitor.hpp"
 #include "editor_impl.hpp"
 #include "ipz_parser.hpp"
 #include "reader_impl.hpp"
 #include "utils.hpp"
 
+using namespace openpower::vpd::gpioMonitor;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
+using namespace openpower::vpd::manager;
 using namespace openpower::vpd::manager::editor;
 using namespace openpower::vpd::manager::reader;
 
@@ -31,6 +33,9 @@ void Manager::run()
     try
     {
         processJSON();
+
+        boost::asio::io_service io_service;
+        GpioMonitor gpioMon(io_service);
     }
     catch (const std::exception& e)
     {
@@ -155,6 +160,7 @@ LocationCode Manager::getExpandedLocationCode(const LocationCode locationCode,
     return read.getExpandedLocationCode(locationCode, nodeNumber,
                                         fruLocationCode);
 }
+
 
 } // namespace manager
 } // namespace vpd
