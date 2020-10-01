@@ -186,5 +186,14 @@ const string getIM(const Parsed& vpdMap);
  *  @param[io] file - path generated from udev event.
  */
 void udevToGenericPath(string& file);
+
+inline string createBindUnbindDriverCmnd(const string& devNameAddr,
+                                         const string& busType,
+                                         const string& driverType)
+{
+    return ("echo " + devNameAddr + " > /sys/bus/" + busType + "/drivers/" +
+            driverType);
+}
+
 } // namespace vpd
 } // namespace openpower

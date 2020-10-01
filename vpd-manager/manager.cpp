@@ -1,8 +1,7 @@
 #include "config.h"
 
-#include "manager.hpp"
-
 #include "editor_impl.hpp"
+#include "gpioMonitor.hpp"
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "reader_impl.hpp"
@@ -10,6 +9,7 @@
 
 #include <phosphor-logging/elog-errors.hpp>
 
+using namespace openpower::vpd::manager::gpioMonitor;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::manager::editor;
@@ -38,6 +38,8 @@ void Manager::run()
     try
     {
         processJSON();
+
+        GpioMonitor gpioMon(jsonFile, _bus);
     }
     catch (const std::exception& e)
     {
