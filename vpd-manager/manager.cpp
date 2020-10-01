@@ -1,12 +1,12 @@
 #include "config.h"
 
-#include "manager.hpp"
-
 #include "editor_impl.hpp"
+#include "gpioMonitor.hpp"
 #include "ipz_parser.hpp"
 #include "reader_impl.hpp"
 #include "utils.hpp"
 
+using namespace openpower::vpd::gpioMonitor;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::manager::editor;
@@ -31,6 +31,8 @@ void Manager::run()
     try
     {
         processJSON();
+
+        GpioMonitor gpioMon(jsonFile, _bus);
     }
     catch (const std::exception& e)
     {
@@ -54,7 +56,6 @@ void Manager::processJSON()
     {
         throw std::runtime_error("json file not found");
     }
-
     jsonFile = nlohmann::json::parse(json);
     if (jsonFile.find("frus") == jsonFile.end())
     {
@@ -79,7 +80,6 @@ void Manager::processJSON()
             frus.emplace(itemEEPROM["inventoryPath"]
                              .get_ref<const nlohmann::json::string_t&>(),
                          std::make_pair(itemFRUS.key(), isMotherboard));
-
             if (itemEEPROM["extraInterfaces"].find(LOCATION_CODE_INF) !=
                 itemEEPROM["extraInterfaces"].end())
             {
