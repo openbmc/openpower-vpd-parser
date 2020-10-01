@@ -3,13 +3,18 @@
 #include "manager.hpp"
 
 #include "editor_impl.hpp"
+#include "gpioMonitor.hpp"
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "reader_impl.hpp"
 #include "vpd_exceptions.hpp"
 
 #include <phosphor-logging/elog-errors.hpp>
+#include <sdeventplus/clock.hpp>
+#include <sdeventplus/event.hpp>
+#include <sdeventplus/utility/timer.hpp>
 
+using namespace openpower::vpd::manager::gpiomonitor;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::manager::editor;
@@ -18,6 +23,10 @@ using namespace std;
 using namespace openpower::vpd::parser;
 using namespace openpower::vpd::exceptions;
 using namespace phosphor::logging;
+using sdeventplus::ClockId;
+using sdeventplus::Event;
+constexpr auto clockId = ClockId::RealTime;
+using Timer = sdeventplus::utility::Timer<clockId>;
 
 namespace openpower
 {
@@ -38,18 +47,25 @@ void Manager::run()
     try
     {
         processJSON();
+
+        auto event = sdeventplus::Event::get_default();
+
+        std::shared_ptr<GpioEventHandler> gpioObj1(nullptr);
+        std::shared_ptr<Timer> timer1(nullptr);
+        string gpioPin1 = "RUSSEL_OPPANEL_PRESENCE_N";
+        GpioMonitor gpioMon1(gpioObj1, jsonFile, gpioPin1, timer1, event);
+
+        std::shared_ptr<GpioEventHandler> gpioObj2(nullptr);
+        std::shared_ptr<Timer> timer2(nullptr);
+        string gpioPin2 = "BLYTH_OPPANEL_PRESENCE_N";
+        GpioMonitor gpioMon2(gpioObj2, jsonFile, gpioPin2, timer2, event);
+
+        _bus.attach_event(event.get(), SD_EVENT_PRIORITY_IMPORTANT);
+        event.loop();
     }
     catch (const std::exception& e)
     {
         std::cerr << e.what() << "\n";
-    }
-
-    while (true)
-    {
-        _bus.process_discard();
-
-        // wait for event
-        _bus.wait();
     }
 }
 
@@ -233,11 +249,14 @@ void Manager::performVPDRecollection()
         }
         else
         {
-            string cmd = str + deviceAddress + " > /sys/bus/" + busType +
-                         "/drivers/" + driverType;
+            string unbindCmd = createBindUnbindDriverCmnd(
+                deviceAddress, busType, driverType, "/unbind");
 
-            executeCmd(cmd + "/unbind");
-            executeCmd(cmd + "/bind");
+            string bindCmd = createBindUnbindDriverCmnd(deviceAddress, busType,
+                                                        driverType, "/bind");
+
+            executeCmd(unbindCmd);
+            executeCmd(bindCmd);
         }
     }
 }
