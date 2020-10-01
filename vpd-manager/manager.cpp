@@ -156,6 +156,74 @@ LocationCode Manager::getExpandedLocationCode(const LocationCode locationCode,
                                         fruLocationCode);
 }
 
+void dynamicPresenceDetect()
+{
+    /** @brief GPIO line */
+    gpiod_line* gpioLine;
+
+    /** @brief GPIO line configuration */
+    gpiod_line_request_config gpioConfig;
+
+    /** @brief GPIO event descriptor */
+    boost::asio::posix::stream_descriptor gpioEventDescriptor;
+
+    /*open chip get line*/
+    chip = gpiod_chip_open(gpiod_chip_path(0));
+    if(chip Null)
+    {
+        // log an error
+        // break
+    }
+
+    gpioLine = gpiod_chip_get_line(chip, 7);
+    if( gpioLine Null)
+    {
+        // error break
+    }
+
+    /* Request an event to monitor for respected gpio line */
+    if (gpiod_line_request(gpioLine, &gpioConfig, 0) < 0)
+    { log error, return;
+    }
+
+    /*get FD*/
+    gpioLineFd = gpiod_line_event_get_fd(gpioLine);
+    if (gpioLineFd < 0)
+    { log error; return;
+    }
+
+    /* Assign line fd to descriptor for monitoring */
+    gpioEventDescriptor.assign(gpioLineFd);
+
+
+    /* Schedule a wait event */
+    gpioEventDescriptor.async_wait(
+        boost::asio::posix::stream_descriptor::wait_read,
+        event_handler);
+}
+
+void   event_handler(const boost::system::error_code& ec)
+{
+    if (ec)
+    {
+        return;
+    }
+
+    /*Event handler*/
+    gpiod_line_event gpioLineEvent;
+    if (gpiod_line_event_read_fd(gpioEventDescriptor.native_handle(),
+                                 &gpioLineEvent) < 0)
+    {
+        log error;
+        return;
+    }
+
+    // Action: check if present. If yes, then further action
+    
+    //continue to wait. Call wait event.
+
+}
+
 } // namespace manager
 } // namespace vpd
 } // namespace openpower
