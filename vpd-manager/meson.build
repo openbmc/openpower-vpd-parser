@@ -1,5 +1,11 @@
+boost_args = ['-DBOOST_ASIO_DISABLE_THREADS',
+              '-DBOOST_ERROR_CODE_HEADER_ONLY',
+              '-DBOOST_SYSTEM_NO_DEPRECATED']
+
 systemd = dependency('libsystemd', version: '>= 221')
 phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
+libgpiod = dependency('libgpiod')
+boost = dependency('Boost')
 
 configuration_inc = include_directories('.', '../', '../vpd-parser/')
 
@@ -9,6 +15,7 @@ vpd_manager_SOURCES =['manager_main.cpp',
                       'error.cpp',
                       'editor_impl.cpp',
                       'reader_impl.cpp',
+                      'gpioMonitor.cpp',
                       '../impl.cpp',
                       '../vpd-parser/ipz_parser.cpp',
                       '../utils.cpp',
@@ -23,6 +30,8 @@ vpd_manager_dependencies =[sdbusplus,
                            phosphor_logging,
                            systemd,
                            phosphor_dbus_interfaces,
+                           libgpiod,
+                           boost,
                           ]
 
 vpd_manager_exe = executable(
@@ -32,5 +41,6 @@ vpd_manager_exe = executable(
                  dependencies : [
                                 vpd_manager_dependencies,
                                 ],
+                 cpp_args: boost_args,
                  install : true
                 )
