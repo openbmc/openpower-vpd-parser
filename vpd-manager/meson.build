@@ -1,5 +1,6 @@
 systemd = dependency('libsystemd', version: '>= 221')
 phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
+sdeventplus = dependency('sdeventplus')
 
 configuration_inc = include_directories('.', '../', '../vpd-parser/')
 
@@ -9,6 +10,7 @@ vpd_manager_SOURCES =['manager_main.cpp',
                       'error.cpp',
                       'editor_impl.cpp',
                       'reader_impl.cpp',
+                      'gpioMonitor.cpp',
                       '../impl.cpp',
                       '../vpd-parser/ipz_parser.cpp',
                       '../ibm_vpd_utils.cpp',
@@ -24,11 +26,13 @@ vpd_manager_dependencies =[sdbusplus,
                            phosphor_logging,
                            systemd,
                            phosphor_dbus_interfaces,
+                           libgpiodcxx,
+                           sdeventplus,
                           ]
 
 vpd_manager_exe = executable(
                  'vpd-manager',
-                 vpd_manager_SOURCES, 
+                 vpd_manager_SOURCES,
                  include_directories : configuration_inc,
                  dependencies : [
                                 vpd_manager_dependencies,
