@@ -1,12 +1,13 @@
 #include "config.h"
 
 #include "manager.hpp"
-
+//#include "gpioMonitor.hpp"
 #include "editor_impl.hpp"
 #include "ipz_parser.hpp"
 #include "reader_impl.hpp"
 #include "utils.hpp"
 
+//using namespace openpower::vpd::gpioMonitor;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::manager::editor;
@@ -28,9 +29,15 @@ Manager::Manager(sdbusplus::bus::bus&& bus, const char* busName,
 
 void Manager::run()
 {
+    cout<<"vpdManager Run Entered\n";
     try
     {
         processJSON();
+        /*
+cout<<"processJSON Done\n";
+        boost::asio::io_service io_service;
+cout<<"init GpioMonitor\n";
+        GpioMonitor gpioMon(io_service);*/
     }
     catch (const std::exception& e)
     {
@@ -48,6 +55,7 @@ void Manager::run()
 
 void Manager::processJSON()
 {
+    cout<<"processJSON Entered\n";
     std::ifstream json(INVENTORY_JSON, std::ios::binary);
 
     if (!json)
