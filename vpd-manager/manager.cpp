@@ -1,12 +1,13 @@
 #include "config.h"
 
 #include "manager.hpp"
-
+#include "gpioMonitor.hpp"
 #include "editor_impl.hpp"
 #include "ipz_parser.hpp"
 #include "reader_impl.hpp"
 #include "utils.hpp"
 
+using namespace openpower::vpd::gpioMonitor;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::manager::editor;
@@ -31,6 +32,9 @@ void Manager::run()
     try
     {
         processJSON();
+
+        boost::asio::io_service io_service;
+        GpioMonitor gpioMon(io_service);
     }
     catch (const std::exception& e)
     {
