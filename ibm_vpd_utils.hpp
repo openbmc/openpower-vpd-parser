@@ -209,5 +209,23 @@ string getBadVpdName(const string& file);
  * @param[in] vpdVector - bad vpd vector
  */
 void dumpBadVpd(const std::string& file, const Binary& vpdVector);
+
+/** @brief This creates a complete command to bind OR unbind the driver,
+ *         from all it's input parameters.
+ *  @param[in] devNameAddr - device address on that bus
+ *  @param[in] busType - i2c, spi
+ *  @param[in] driverType - type of driver like at24
+ *  @param[in] bindOrUnbind - either bind or unbind
+ *  @returns  Command to bind OR unbind the driver.
+ */
+inline string createBindUnbindDriverCmnd(const string& devNameAddr,
+                                         const string& busType,
+                                         const string& driverType,
+                                         const string& bindOrUnbind)
+{
+    return ("echo " + devNameAddr + " > /sys/bus/" + busType + "/drivers/" +
+            driverType + "/" + bindOrUnbind);
+}
+
 } // namespace vpd
 } // namespace openpower
