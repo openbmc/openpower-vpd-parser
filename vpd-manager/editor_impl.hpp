@@ -154,6 +154,18 @@ class EditorImpl
     void makeDbusCall(const std::string& object, const std::string& interface,
                       const std::string& property, const std::variant<T>& data);
 
+    /** @brief updateCopyRecordsIfAny
+     *  For the given vpd, this function checks if its subfrus
+     *  copy the user given record from its parent or not.
+     *  If the record is getting copied, then we update the subfrus dbus object
+     *  with the updated record's value, taken from its parent.
+     *  @param[in] inventory - one of the inventory objects of the given
+     *  		       vpdfilepath
+     *  @param[in] objPath - inventory path
+     */
+    void updateCopyRecordsIfAny(const nlohmann::json& inventory,
+                                const inventory::Path& objPath);
+
     // path to the VPD file to edit
     inventory::Path vpdFilePath;
 
