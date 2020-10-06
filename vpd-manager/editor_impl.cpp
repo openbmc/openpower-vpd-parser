@@ -414,6 +414,11 @@ void EditorImpl::updateCache()
                                singleInventory["inventoryPath"]
                                    .get_ref<const nlohmann::json::string_t&>());
         }
+
+        // update copy records
+        updateCopyRecordsIfAny(singleInventory,
+                               singleInventory["inventoryPath"]
+                                   .get_ref<const nlohmann::json::string_t&>());
     }
 }
 
@@ -575,6 +580,24 @@ void EditorImpl::getVpdPathForCpu()
     if (vpdFilePath.empty())
     {
         vpdFilePath = vpdFilePathBackup;
+    }
+}
+
+void EditorImpl::updateCopyRecordsIfAny(const nlohmann::json& inventory,
+                                        const inventory::Path& objPath)
+{
+    if (inventory.find("copyRecords") != inventory.end())
+    {
+        for (const auto& record : inventory["copyRecords"])
+        {
+            if (record == thisRecord.recName)
+            {
+                makeDbusCall<Binary>(
+                    (INVENTORY_PATH + objPath),
+                    (IPZ_INTERFACE + std::string(".") + thisRecord.recName),
+                    thisRecord.recKWd, thisRecord.kwdUpdatedData);
+            }
+        }
     }
 }
 
