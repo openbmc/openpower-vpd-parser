@@ -150,6 +150,17 @@ class EditorImpl
     void makeDbusCall(const std::string& object, const std::string& interface,
                       const std::string& property, const std::variant<T>& data);
 
+    /** @brief Method which updates the copy records if its there for any of the
+     * subfru
+     *
+     *  @param[in] inventory - one of the inventory objects of the given
+     * vpdfilepath
+     *  @param[in] objPath -  the inventory path value of the \"inventory\"
+     *
+     */
+    void updateCopyRecordsIfAny(const nlohmann::json& inventory,
+                                const inventory::Path& objPath);
+
     // path to the VPD file to edit
     const inventory::Path vpdFilePath;
 
