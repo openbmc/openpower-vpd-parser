@@ -19,6 +19,7 @@ python = find_program('python3', required:true)
 
 compiler.has_header('CLI/CLI.hpp')
 compiler.has_header('nlohmann/json.hpp')
+add_global_arguments('-Wno-psabi', language : ['c', 'cpp'])
 configure_file(output: 'config.h',
                        configuration :{
                        'INVENTORY_JSON': '"'+get_option('INVENTORY_JSON')+'"',
