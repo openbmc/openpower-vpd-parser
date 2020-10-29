@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9652ffe8_ebc5fd5f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-10-29T12:47:58Z",
+      "side": 1,
+      "message": "Can we do something else? The interface name is subject to change, why not add another key to the JSON to indicate that pre/post processing needs to be done?",
+      "range": {
+        "startLine": 260,
+        "startChar": 15,
+        "endLine": 260,
+        "endChar": 64
+      },
+      "revId": "d74b35460bf187d2a0d6ce2e0f9f06db2b2d9c0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de187d67_ba430b54",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-10-29T12:47:58Z",
+      "side": 1,
+      "message": "Please remove",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 278,
+        "endChar": 44
+      },
+      "revId": "d74b35460bf187d2a0d6ce2e0f9f06db2b2d9c0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acbd140a_decec59a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-10-29T12:47:58Z",
+      "side": 1,
+      "message": "Please remove",
+      "range": {
+        "startLine": 342,
+        "startChar": 4,
+        "endLine": 342,
+        "endChar": 42
+      },
+      "revId": "d74b35460bf187d2a0d6ce2e0f9f06db2b2d9c0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d120cbf0_87a1d6ca",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-10-29T12:47:58Z",
+      "side": 1,
+      "message": "Cleanup this space",
+      "range": {
+        "startLine": 504,
+        "startChar": 0,
+        "endLine": 504,
+        "endChar": 8
+      },
+      "revId": "d74b35460bf187d2a0d6ce2e0f9f06db2b2d9c0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cb29775_493b7505",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-10-29T12:47:58Z",
+      "side": 1,
+      "message": "How about we check if the result is empty? That way you don;t have to do this within the exception handler and can access the js, file objects.",
+      "revId": "d74b35460bf187d2a0d6ce2e0f9f06db2b2d9c0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
