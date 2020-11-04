@@ -66,7 +66,7 @@ int main(int argc, char** argv)
 
     CLI11_PARSE(app, argc, argv);
 
-    ifstream inventoryJson(INVENTORY_JSON);
+    ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
     auto jsObject = json::parse(inventoryJson);
 
     try

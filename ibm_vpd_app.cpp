@@ -539,7 +539,9 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
             target = INVENTORY_JSON_2U;
         }
 
-        // unlink the symlink which is created at build time
+        // Create the directory for hosting the symlink
+        fs::create_directories(VPD_FILES_PATH);
+        // unlink the symlink previously created (if any)
         remove(INVENTORY_JSON_SYM_LINK);
         // create a new symlink based on the system
         fs::create_symlink(target, link);
@@ -576,8 +578,17 @@ int main(int argc, char** argv)
 
         CLI11_PARSE(app, argc, argv);
 
+        auto jsonToParse = INVENTORY_JSON_DEFAULT;
+
+        // If the symlink exists, it means it has been setup for us, switch the
+        // path
+        if (fs::exists(INVENTORY_JSON_SYM_LINK))
+        {
+            jsonToParse = INVENTORY_JSON_SYM_LINK;
+        }
+
         // Make sure that the file path we get is for a supported EEPROM
-        ifstream inventoryJson(INVENTORY_JSON);
+        ifstream inventoryJson(jsonToParse);
         auto js = json::parse(inventoryJson);
 
         if ((js.find("frus") == js.end()) ||

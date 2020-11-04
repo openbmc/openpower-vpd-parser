@@ -48,7 +48,7 @@ void Manager::run()
 
 void Manager::processJSON()
 {
-    std::ifstream json(INVENTORY_JSON, std::ios::binary);
+    std::ifstream json(INVENTORY_JSON_SYM_LINK, std::ios::binary);
 
     if (!json)
     {

@@ -22,7 +22,8 @@ compiler.has_header('nlohmann/json.hpp')
 add_global_arguments('-Wno-psabi', language : ['c', 'cpp'])
 configure_file(output: 'config.h',
                        configuration :{
-                       'INVENTORY_JSON': '"'+get_option('INVENTORY_JSON')+'"',
+                       'INVENTORY_JSON_DEFAULT': '"'+get_option('INVENTORY_JSON_DEFAULT')+'"',
+                       'VPD_FILES_PATH': '"'+get_option('VPD_FILES_PATH')+'"',
                        'INVENTORY_PATH': '"'+get_option('INVENTORY_PATH')+'"',
                        'IPZ_INTERFACE': '"'+get_option('IPZ_INTERFACE')+'"',
                        'INVENTORY_MANAGER_SERVICE': '"'+get_option('INVENTORY_MANAGER_SERVICE')+'"',
@@ -33,9 +34,9 @@ configure_file(output: 'config.h',
                        'OBJECT_MAPPER_OBJECT' : '"'+get_option('OBJECT_MAPPER_OBJECT')+'"',
                        'POWER_SUPPLY_TYPE_INTERFACE' : '"'+get_option('POWER_SUPPLY_TYPE_INTERFACE')+'"',
                        'INVENTORY_MANAGER_CACHE' : '"'+get_option('INVENTORY_MANAGER_CACHE')+'"',
-		       'INVENTORY_JSON_SYM_LINK': '"'+get_option('INVENTORY_JSON_SYM_LINK')+'"',
-		       'INVENTORY_JSON_2U': '"'+get_option('INVENTORY_JSON_2U')+'"',
-		       'INVENTORY_JSON_4U': '"'+get_option('INVENTORY_JSON_4U')+'"'
+                       'INVENTORY_JSON_SYM_LINK': '"'+get_option('INVENTORY_JSON_SYM_LINK')+'"',
+                       'INVENTORY_JSON_2U': '"'+get_option('INVENTORY_JSON_2U')+'"',
+                       'INVENTORY_JSON_4U': '"'+get_option('INVENTORY_JSON_4U')+'"'
                        }
   )
 
