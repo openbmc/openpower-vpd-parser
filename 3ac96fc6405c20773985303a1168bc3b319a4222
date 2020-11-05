@@ -2,6 +2,92 @@
   "comments": [
     {
       "key": {
+        "uuid": "6b674921_e5279b26",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-11-05T09:27:23Z",
+      "side": 1,
+      "message": "No SMS lingo :) Also the comment does not match the actual check being performed.",
+      "range": {
+        "startLine": 306,
+        "startChar": 14,
+        "endLine": 306,
+        "endChar": 15
+      },
+      "revId": "3ac96fc6405c20773985303a1168bc3b319a4222",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3b8f69e_6c7ed349",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-11-05T09:27:23Z",
+      "side": 1,
+      "message": "it\u0027s",
+      "range": {
+        "startLine": 307,
+        "startChar": 28,
+        "endLine": 307,
+        "endChar": 31
+      },
+      "revId": "3ac96fc6405c20773985303a1168bc3b319a4222",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12ac0df5_a0bb0875",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-11-05T09:27:23Z",
+      "side": 1,
+      "message": "Please add a trace here that says we translated path to \"file\"",
+      "revId": "3ac96fc6405c20773985303a1168bc3b319a4222",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b62ca50b_1989e4bf",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-11-05T09:27:23Z",
+      "side": 1,
+      "message": "Please remove this?",
+      "range": {
+        "startLine": 319,
+        "startChar": 8,
+        "endLine": 319,
+        "endChar": 66
+      },
+      "revId": "3ac96fc6405c20773985303a1168bc3b319a4222",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "647cdcec_a92eb40d",
         "filename": "utils.cpp",
         "patchSetId": 1
@@ -36,6 +122,24 @@
     },
     {
       "key": {
+        "uuid": "1214ee9c_ad7cc867",
+        "filename": "utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-11-05T09:27:23Z",
+      "side": 1,
+      "message": "I doubt if we have a use for these outside of these methods. Still, no harm in moving them.",
+      "parentUuid": "7515402b_9f2e2164",
+      "revId": "3ac96fc6405c20773985303a1168bc3b319a4222",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "74bba2b3_33eac5ed",
         "filename": "utils.cpp",
         "patchSetId": 1
@@ -64,6 +168,24 @@
       "writtenOn": "2020-09-22T16:27:21Z",
       "side": 1,
       "message": "Constant reference as parameter.",
+      "revId": "3ac96fc6405c20773985303a1168bc3b319a4222",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e16d64e9_6a476698",
+        "filename": "utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-11-05T09:27:23Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "4362b2ee_34524103",
       "revId": "3ac96fc6405c20773985303a1168bc3b319a4222",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
