@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08c22068_5893423d",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-11-06T05:24:47Z",
+      "side": 1,
+      "message": "This call is causing build failure.\n\"../vpd_tool_impl.cpp:279:5: error: ‘getPowerSupplyFruPath’ was not declared in this scope\".\n\nCould you please check.",
+      "revId": "cdf376607a137ed1e1c1e702ec43dd1b4b753ad5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9849457f_18c57d7c",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-11-06T05:24:47Z",
+      "side": 1,
+      "message": "This call is causing build failure.\n\"../vpd_tool_impl.cpp:297:5: error: ‘getPowerSupplyFruPath’ was not declared in this scope\".\n\nCould you please check.",
+      "revId": "cdf376607a137ed1e1c1e702ec43dd1b4b753ad5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
