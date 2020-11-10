@@ -36,6 +36,34 @@ static const deviceTreeMap deviceTreeSystemTypeMap = {
     {RAINIER_4U, "conf@aspeed-bmc-ibm-rainier-4u.dtb"}};
 
 /**
+ * @brief Returns the power state for chassis0
+ */
+static auto getPowerState()
+{
+    // TODO: How do we handle multiple chassis?
+    string powerState{};
+    auto bus = sdbusplus::bus::new_default();
+    auto properties =
+        bus.new_method_call("xyz.openbmc_project.State.Chassis",
+                            "/xyz/openbmc_project/state/chassis0",
+                            "org.freedesktop.DBus.Properties", "Get");
+    properties.append("xyz.openbmc_project.State.Chassis");
+    properties.append("CurrentPowerState");
+    auto result = bus.call(properties);
+    if (!result.is_method_error())
+    {
+        variant<string> val;
+        result.read(val);
+        if (auto pVal = get_if<string>(&val))
+        {
+            powerState = *pVal;
+        }
+    }
+    cout << "Power state is: " << powerState << endl;
+    return powerState;
+}
+
+/**
  * @brief Expands location codes
  */
 static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
@@ -596,6 +624,17 @@ int main(int argc, char** argv)
         {
             cout << "Device path not in JSON, ignoring" << endl;
             return 0;
+        }
+
+        // Check if we can read the VPD file based on the power state
+        if (js["frus"][file].at(0).value("powerOffOnly", false))
+        {
+            if ("xyz.openbmc_project.State.Chassis.PowerState.On" ==
+                getPowerState())
+            {
+                cout << "This VPD cannot be read when power is ON" << endl;
+                return 0;
+            }
         }
 
         Binary vpdVector = getVpdDataInVector(js, file);
