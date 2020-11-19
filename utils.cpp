@@ -4,8 +4,14 @@
 
 #include "defines.hpp"
 
+#include <fstream>
+#include <iomanip>
+#include <nlohmann/json.hpp>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/server.hpp>
+#include <sstream>
+
+using json = nlohmann::json;
 
 namespace openpower
 {
@@ -180,26 +186,99 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
     return propVal;
 }
 
-void createPEL(const std::map<std::string, std::string>& additionalData,
-               const std::string& errIntf)
+const string getIM(const Parsed& vpdMap)
 {
-    try
+    Binary imVal;
+    auto property = vpdMap.find("VSBP");
+    if (property != vpdMap.end())
     {
-        auto bus = sdbusplus::bus::new_default();
-
-        auto service = getService(bus, loggerObjectPath, loggerCreateInterface);
-        auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
-                                          loggerCreateInterface, "Create");
-
-        method.append(errIntf, "xyz.openbmc_project.Logging.Entry.Level.Error",
-                      additionalData);
-        auto resp = bus.call(method);
+        auto kw = (property->second).find("IM");
+        if (kw != (property->second).end())
+        {
+            copy(kw->second.begin(), kw->second.end(),
+                 back_inserter(imVal));
+        }
     }
-    catch (const sdbusplus::exception::SdBusError& e)
+
+    ostringstream oss;
+    for (auto& i : imVal)
     {
-        throw std::runtime_error(
-            "Error in invoking D-Bus logging create interface to register PEL");
+        oss << setw(2) << setfill('0') << hex << static_cast<int>(i);
     }
+
+    return oss.str();
+}
+
+const string getPN(const Parsed& vpdMap)
+{
+    string pnVal;
+    auto prop = vpdMap.find("VINI");
+    if (prop != vpdMap.end())
+    {
+        auto kw = (prop->second).find("PN");
+        if (kw != (prop->second).end())
+        {
+            pnVal = kw->second;
+        }
+    }
+
+    return pnVal;
+}
+
+string getSystemsJson(const Parsed& vpdMap)
+{
+    ifstream systemJson(SYSTEM_JSON);
+    auto js = json::parse(systemJson);
+
+    const string partNumber = getPN(vpdMap);
+    const string imKeyword = getIM(vpdMap);
+
+    if (js.find("system") == js.end())
+    {
+        throw runtime_error("Invalid systems Json");
+    }
+
+    if (js["system"].find(imKeyword) == js["system"].end())
+    {
+        throw runtime_error(
+            "Invalid system. The system is not present in the systemsJson");
+    }
+
+    string jsonPath = "/usr/share/vpd/";
+    string jsonName{};
+
+    string pn{};
+    for (auto& systems : js.items())
+    {
+        for (auto& systemType : systems.value().items())
+        {
+            if (systemType.key() == imKeyword)
+            {
+                for (auto& key : systemType.value().items())
+                {
+                    if (key.value().is_object())
+                    {
+                        pn = key.value().value("PN", "");
+                        if (pn == partNumber)
+                        {
+                            jsonName = key.value().value("json", "");
+                            break;
+                        }
+                    }
+                    else if (key.value().is_string())
+                    {
+                        jsonName = key.value().get<string>();
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    jsonPath += jsonName;
+
+    return jsonPath;
+>>>>>>> Handle PASS 2 Planar in ibm-read-vpd
 }
 } // namespace vpd
 } // namespace openpower
