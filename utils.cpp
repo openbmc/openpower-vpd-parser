@@ -4,8 +4,14 @@
 
 #include "defines.hpp"
 
+#include <fstream>
+#include <iomanip>
+#include <nlohmann/json.hpp>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/server.hpp>
+#include <sstream>
+
+using json = nlohmann::json;
 
 namespace openpower
 {
@@ -173,6 +179,154 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
         }
     }
     return propVal;
+}
+
+const string getIM(const Parsed& vpdMap)
+{
+    vector<uint8_t> imVal;
+    auto property = vpdMap.find("VSBP");
+    if (property != vpdMap.end())
+    {
+        auto value = (property->second).find("IM");
+        if (value != (property->second).end())
+        {
+            copy(value->second.begin(), value->second.end(),
+                 back_inserter(imVal));
+        }
+    }
+
+    ostringstream oss;
+    for (auto& i : imVal)
+    {
+        oss << setw(2) << setfill('0') << hex << static_cast<int>(i);
+    }
+    return oss.str();
+}
+
+const string getPN(const Parsed& vpdMap)
+{
+    vector<uint8_t> pnVal;
+    auto prop = vpdMap.find("VINI");
+    if (prop != vpdMap.end())
+    {
+        auto value = (prop->second).find("PN");
+        if (value != (prop->second).end())
+        {
+            copy(value->second.begin(), value->second.end(),
+                 back_inserter(pnVal));
+        }
+    }
+
+    ostringstream oss1;
+    for (auto& i : pnVal)
+    {
+        oss1 << setw(2) << setfill('0') << hex << static_cast<int>(i);
+    }
+
+    return oss1.str();
+}
+
+string getSystemsJson(const Parsed& vpdMap)
+{
+#if 0
+        vector<uint8_t> imVal;
+	vector<uint8_t> pnVal;
+            auto property = vpdMap.find("VSBP");
+            if (property != vpdMap.end())
+            {
+                auto value = (property->second).find("IM");
+                if (value != (property->second).end())
+                {
+                    copy(value->second.begin(), value->second.end(),
+                         back_inserter(imVal));
+                }
+            }
+	auto prop = vpdMap.find("VINI");
+	if (prop != vpdMap.end())
+	{
+		auto value = (prop->second).find("PN");
+		if (value != (prop->second).end())
+		{
+			copy(value->second.begin(), value->second.end(), back_inserter(pnVal));
+		}
+	}
+        ostringstream oss;
+        for (auto& i : imVal)
+        {
+#if 0
+	    	if ((int)i / 10 == 0) // one digit number
+            {
+                oss << hex << 0;
+            }
+            oss << hex << static_cast<int>(i);
+#endif
+	    oss << setw(2) << setfill('0') << hex << static_cast<int>(i);
+        }
+
+	ostringstream oss1;
+	for(auto& i : pnVal)
+	{
+#if 0
+		if ((int)i / 10 == 0) // one digit number
+            {
+                oss1 << hex << 0;
+            }
+            oss1 << hex << static_cast<int>(i);
+#endif
+	    oss1 << setw(2) << setfill('0') << hex << static_cast<int>(i);
+	}
+#endif
+    const string pnValStr = getPN(vpdMap);
+    const string imValStr = getIM(vpdMap);
+
+    string jsonPath = "/usr/share/vpd/";
+    string jsonName{};
+
+    ifstream systemJson(SYSTEM_JSON);
+    auto js = json::parse(systemJson);
+    string pn{};
+    for (auto& i : js.items())
+    {
+        for (auto& j : i.value().items())
+        {
+            if (j.key() == imValStr)
+            {
+                for (auto& k : j.value().items())
+                {
+                    if (k.value().is_object())
+                    {
+                        pn = k.value().value("PN", "");
+                        if (pn == pnValStr)
+                        {
+                            jsonName = k.value().value("json", "");
+                            break;
+                        }
+                    }
+                    else if (k.value().is_string())
+                    {
+                        jsonName = k.value().get<string>();
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    if (js.find("system") == js.end())
+    {
+        throw runtime_error("Invalid systems Json");
+    }
+    else if (js["system"].find(imValStr) == js["system"].end())
+    {
+        throw runtime_error(
+            "Invalid system. The system is not present in the systemsJson");
+    }
+    else
+    {
+        jsonPath += jsonName;
+    }
+
+    return jsonPath;
 }
 } // namespace vpd
 } // namespace openpower

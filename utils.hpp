@@ -1,11 +1,13 @@
 #pragma once
 
 #include "const.hpp"
+#include "store.hpp"
 #include "types.hpp"
 
 #include <iostream>
 
 using namespace std;
+
 namespace openpower
 {
 namespace vpd
@@ -79,5 +81,10 @@ string encodeKeyword(const string& kw, const string& encoding);
  */
 string readBusProperty(const string& obj, const string& inf,
                        const string& prop);
+
+string getSystemsJson(const Parsed& vpdMap);
+
+const string getPN(const Parsed& vpdMap);
+const string getIM(const Parsed& vpdMap);
 } // namespace vpd
 } // namespace openpower

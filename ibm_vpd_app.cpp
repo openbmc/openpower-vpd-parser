@@ -504,6 +504,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
     if (isSystemVpd)
     {
+#if 0
         vector<uint8_t> imVal;
         if constexpr (is_same<T, Parsed>::value)
         {
@@ -518,10 +519,21 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                 }
             }
         }
+#endif
+        // pick the right system json
+        string systemJson{};
+        if constexpr (is_same<T, Parsed>::value)
+        {
+            systemJson = getSystemsJson(vpdMap);
+            // set the U-boot environment variable for device-tree
+            //        const string im = getIM(vpdMap);
+            setDevTreeEnv(getIM(vpdMap));
+        }
 
         fs::path target;
         fs::path link = INVENTORY_JSON_SYM_LINK;
 
+#if 0
         ostringstream oss;
         for (auto& i : imVal)
         {
@@ -538,7 +550,8 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         {
             target = INVENTORY_JSON_2U;
         }
-
+#endif
+        target = systemJson;
         // Create the directory for hosting the symlink
         fs::create_directories(VPD_FILES_PATH);
         // unlink the symlink previously created (if any)
@@ -554,8 +567,11 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
 
+#if 0
         // set the U-boot environment variable for device-tree
-        setDevTreeEnv(imValStr);
+	const string im = getIM(vpdMap);
+	setDevTreeEnv(im);
+#endif
     }
 
     // Notify PIM
