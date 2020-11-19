@@ -1,0 +1,18 @@
+{
+ "system":{
+    "50001001":{
+       "constraint": {
+            "HW" : "0001",
+            "json" : "50001001.json"
+        },
+        "default" : "50001001_v2.json"
+     },
+    "50001000":{
+       "constraint": {
+            "HW" : "0001",
+            "json" : "50001000.json"
+        },
+        "default" : "50001000_v2.json"
+     }
+  }
+}
