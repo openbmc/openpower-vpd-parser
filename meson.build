@@ -40,6 +40,7 @@ configure_file(output: 'config.h',
                        'INVENTORY_JSON_2U': '"'+get_option('INVENTORY_JSON_2U')+'"',
                        'INVENTORY_JSON_4U': '"'+get_option('INVENTORY_JSON_4U')+'"',
                        'INVENTORY_JSON_EVEREST': '"'+get_option('INVENTORY_JSON_EVEREST')+'"'
+                       'SYSTEM_JSON' : '"'+get_option('SYSTEM_JSON')+'"'
                        }
   )
 
