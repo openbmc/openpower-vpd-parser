@@ -1,11 +1,13 @@
 #pragma once
 
 #include "const.hpp"
+#include "store.hpp"
 #include "types.hpp"
 
 #include <iostream>
 
 using namespace std;
+
 namespace openpower
 {
 namespace vpd
@@ -80,12 +82,24 @@ string encodeKeyword(const string& kw, const string& encoding);
 string readBusProperty(const string& obj, const string& inf,
                        const string& prop);
 
-/**
- * @brief API to create PEL entry
- * @param[in] Map holding the additional data
- * @param[in] error interface
+/** @brief This API checks for IM and PN keywords, and based
+ *         on these values decides which system json to be used.
+ *  @param[in] vpdMap  parsed vpd
+ *  @returns System json path
  */
-void createPEL(const std::map<std::string, std::string>& additionalData,
-               const std::string& errIntf);
+string getSystemsJson(const Parsed& vpdMap);
+
+/** @brief Reads PN Keyword from the vpd
+ *  @param[in] vpdMap  parsed vpd
+ *  @returns   value of PN Keyword
+ */
+const string getPN(const Parsed& vpdMap);
+
+/** @brief Reads IM Keyword from the vpd
+ *  @param[in] vpdMap  parsed vpd
+ *  @returns   value of IM Keyword
+ */
+const string getIM(const Parsed& vpdMap);
+
 } // namespace vpd
 } // namespace openpower
