@@ -841,44 +841,18 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 
     if (isSystemVpd)
     {
-        vector<uint8_t> imVal;
+        // pick the right system json
+        string systemJson{};
         if constexpr (is_same<T, Parsed>::value)
         {
-            auto property = vpdMap.find("VSBP");
-            if (property != vpdMap.end())
-            {
-                auto value = (property->second).find("IM");
-                if (value != (property->second).end())
-                {
-                    copy(value->second.begin(), value->second.end(),
-                         back_inserter(imVal));
-                }
-            }
+            systemJson = getSystemsJson(vpdMap);
+            cout << "Processing with this JSON - " << systemJson << " \n";
         }
 
         fs::path target;
         fs::path link = INVENTORY_JSON_SYM_LINK;
 
-        ostringstream oss;
-        for (auto& i : imVal)
-        {
-            oss << setw(2) << setfill('0') << hex << static_cast<int>(i);
-        }
-        string imValStr = oss.str();
-
-        if (imValStr == RAINIER_4U) // 4U
-        {
-            target = INVENTORY_JSON_4U;
-        }
-        else if (imValStr == RAINIER_2U) // 2U
-        {
-            target = INVENTORY_JSON_2U;
-        }
-        else if (imValStr == EVEREST)
-        {
-            target = INVENTORY_JSON_EVEREST;
-        }
-
+        target = systemJson;
         // Create the directory for hosting the symlink
         fs::create_directories(VPD_FILES_PATH);
         // unlink the symlink previously created (if any)
@@ -894,162 +868,169 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
 
-        // set the U-boot environment variable for device-tree
-        setDevTreeEnv(imValStr);
-
         // if system VPD has been restored at standby, update the EEPROM
         for (const auto& item : updatedEeproms)
         {
             updateHardware(get<0>(item), get<1>(item), get<2>(item),
                            get<3>(item));
-        }
-    }
 
-    // Notify PIM
-    inventory::callPIM(move(objects));
-}
-
-int main(int argc, char** argv)
-{
-    int rc = 0;
-    string file{};
-    json js{};
-
-    // map to hold additional data in case of logging pel
-    PelAdditionalData additionalData{};
-
-    // this is needed to hold base fru inventory path in case there is ECC or
-    // vpd exception while parsing the file
-    std::string baseFruInventoryPath = {};
-
-    try
-    {
-        App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
-                "in DBUS"};
-        string file{};
-
-        app.add_option("-f, --file", file, "File containing VPD (IPZ/KEYWORD)")
-            ->required();
-
-        CLI11_PARSE(app, argc, argv);
-
-        auto jsonToParse = INVENTORY_JSON_DEFAULT;
-
-        // If the symlink exists, it means it has been setup for us, switch the
-        // path
-        if (fs::exists(INVENTORY_JSON_SYM_LINK))
-        {
-            jsonToParse = INVENTORY_JSON_SYM_LINK;
-        }
-
-        // Make sure that the file path we get is for a supported EEPROM
-        ifstream inventoryJson(jsonToParse);
-        if (!inventoryJson)
-        {
-            throw(
-                (VpdJsonException("Failed to access Json path", jsonToParse)));
-        }
-
-        try
-        {
-            js = json::parse(inventoryJson);
-        }
-        catch (json::parse_error& ex)
-        {
-            throw((VpdJsonException("Json parsing failed", jsonToParse)));
-        }
-
-        if ((js.find("frus") == js.end()) ||
-            (js["frus"].find(file) == js["frus"].end()))
-        {
-            cout << "Device path not in JSON, ignoring" << endl;
-            return 0;
-        }
-
-        if (!fs::exists(file))
-        {
-            cout << "Device path: " << file
-                 << " does not exist. Spurious udev event? Exiting." << endl;
-            return 0;
-        }
-
-        baseFruInventoryPath = js["frus"][file][0]["inventoryPath"];
-        // Check if we can read the VPD file based on the power state
-        if (js["frus"][file].at(0).value("powerOffOnly", false))
-        {
-            if ("xyz.openbmc_project.State.Chassis.PowerState.On" ==
-                getPowerState())
+            // set the U-boot environment variable for device-tree
+            if constexpr (is_same<T, Parsed>::value)
             {
-                cout << "This VPD cannot be read when power is ON" << endl;
-                return 0;
+                const string imKeyword = getIM(vpdMap);
+                setDevTreeEnv(imKeyword);
             }
         }
 
-        Binary vpdVector = getVpdDataInVector(js, file);
-        ParserInterface* parser = ParserFactory::getParser(move(vpdVector));
+        // Notify PIM
+        inventory::callPIM(move(objects));
+    }
 
-        variant<KeywordVpdMap, Store> parseResult;
-        parseResult = parser->parse();
+    int main(int argc, char** argv)
+    {
+        int rc = 0;
+        string file{};
+        json js{};
+
+        // map to hold additional data in case of logging pel
+        PelAdditionalData additionalData{};
+
+        // this is needed to hold base fru inventory path in case there is ECC
+        // or vpd exception while parsing the file
+        std::string baseFruInventoryPath = {};
 
         try
         {
+            App app{
+                "ibm-read-vpd - App to read IPZ format VPD, parse it and store "
+                "in DBUS"};
+            string file{};
+
+            app.add_option("-f, --file", file,
+                           "File containing VPD (IPZ/KEYWORD)")
+                ->required();
+
+            CLI11_PARSE(app, argc, argv);
+
+            auto jsonToParse = INVENTORY_JSON_DEFAULT;
+
+            // If the symlink exists, it means it has been setup for us, switch
+            // the path
+            if (fs::exists(INVENTORY_JSON_SYM_LINK))
+            {
+                jsonToParse = INVENTORY_JSON_SYM_LINK;
+            }
+
+            // Make sure that the file path we get is for a supported EEPROM
+            ifstream inventoryJson(jsonToParse);
+            if (!inventoryJson)
+            {
+                throw((VpdJsonException("Failed to access Json path",
+                                        jsonToParse)));
+            }
+
+            try
+            {
+                js = json::parse(inventoryJson);
+            }
+            catch (json::parse_error& ex)
+            {
+                throw((VpdJsonException("Json parsing failed", jsonToParse)));
+            }
+
+            if ((js.find("frus") == js.end()) ||
+                (js["frus"].find(file) == js["frus"].end()))
+            {
+                cout << "Device path not in JSON, ignoring" << endl;
+                return 0;
+            }
+
+            if (!fs::exists(file))
+            {
+                cout << "Device path: " << file
+                     << " does not exist. Spurious udev event? Exiting."
+                     << endl;
+                return 0;
+            }
+
+            baseFruInventoryPath = js["frus"][file][0]["inventoryPath"];
+            // Check if we can read the VPD file based on the power state
+            if (js["frus"][file].at(0).value("powerOffOnly", false))
+            {
+                if ("xyz.openbmc_project.State.Chassis.PowerState.On" ==
+                    getPowerState())
+                {
+                    cout << "This VPD cannot be read when power is ON" << endl;
+                    return 0;
+                }
+            }
+
             Binary vpdVector = getVpdDataInVector(js, file);
             ParserInterface* parser = ParserFactory::getParser(move(vpdVector));
 
             variant<KeywordVpdMap, Store> parseResult;
             parseResult = parser->parse();
-            if (auto pVal = get_if<Store>(&parseResult))
-            {
-                populateDbus(pVal->getVpdMap(), js, file);
-            }
-            else if (auto pVal = get_if<KeywordVpdMap>(&parseResult))
-            {
-                populateDbus(*pVal, js, file);
-            }
 
-            // release the parser object
-            ParserFactory::freeParser(parser);
+            try
+            {
+                Binary vpdVector = getVpdDataInVector(js, file);
+                ParserInterface* parser =
+                    ParserFactory::getParser(move(vpdVector));
+
+                variant<KeywordVpdMap, Store> parseResult;
+                parseResult = parser->parse();
+                if (auto pVal = get_if<Store>(&parseResult))
+                {
+                    populateDbus(pVal->getVpdMap(), js, file);
+                }
+                else if (auto pVal = get_if<KeywordVpdMap>(&parseResult))
+                {
+                    populateDbus(*pVal, js, file);
+                }
+
+                // release the parser object
+                ParserFactory::freeParser(parser);
+            }
+            catch (exception& e)
+            {
+                postFailAction(js, file);
+                throw e;
+            }
+        }
+        catch (const VpdJsonException& ex)
+        {
+            additionalData.emplace("JSON_PATH", ex.getJsonPath());
+            additionalData.emplace("DESCRIPTION", ex.what());
+            createPEL(additionalData, errIntfForJsonFailure);
+
+            cerr << ex.what() << "\n";
+            rc = -1;
+        }
+        catch (const VpdEccException& ex)
+        {
+            additionalData.emplace("DESCRIPTION", "ECC check failed");
+            additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                   INVENTORY_PATH + baseFruInventoryPath);
+            createPEL(additionalData, errIntfForEccCheckFail);
+
+            cerr << ex.what() << "\n";
+            rc = -1;
+        }
+        catch (const VpdDataException& ex)
+        {
+            additionalData.emplace("DESCRIPTION", "Invalid VPD data");
+            additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                   INVENTORY_PATH + baseFruInventoryPath);
+            createPEL(additionalData, errIntfForInvalidVPD);
+
+            cerr << ex.what() << "\n";
+            rc = -1;
         }
         catch (exception& e)
         {
-            postFailAction(js, file);
-            throw e;
+            cerr << e.what() << "\n";
+            rc = -1;
         }
-    }
-    catch (const VpdJsonException& ex)
-    {
-        additionalData.emplace("JSON_PATH", ex.getJsonPath());
-        additionalData.emplace("DESCRIPTION", ex.what());
-        createPEL(additionalData, errIntfForJsonFailure);
 
-        cerr << ex.what() << "\n";
-        rc = -1;
+        return rc;
     }
-    catch (const VpdEccException& ex)
-    {
-        additionalData.emplace("DESCRIPTION", "ECC check failed");
-        additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                               INVENTORY_PATH + baseFruInventoryPath);
-        createPEL(additionalData, errIntfForEccCheckFail);
-
-        cerr << ex.what() << "\n";
-        rc = -1;
-    }
-    catch (const VpdDataException& ex)
-    {
-        additionalData.emplace("DESCRIPTION", "Invalid VPD data");
-        additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                               INVENTORY_PATH + baseFruInventoryPath);
-        createPEL(additionalData, errIntfForInvalidVPD);
-
-        cerr << ex.what() << "\n";
-        rc = -1;
-    }
-    catch (exception& e)
-    {
-        cerr << e.what() << "\n";
-        rc = -1;
-    }
-
-    return rc;
-}
