@@ -4,8 +4,14 @@
 
 #include "defines.hpp"
 
+#include <fstream>
+#include <iomanip>
+#include <nlohmann/json.hpp>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/server.hpp>
+#include <sstream>
+
+using json = nlohmann::json;
 
 namespace openpower
 {
@@ -173,6 +179,100 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
         }
     }
     return propVal;
+}
+
+const string getIM(const Parsed& vpdMap)
+{
+    Binary imVal;
+    auto property = vpdMap.find("VSBP");
+    if (property != vpdMap.end())
+    {
+        auto kw = (property->second).find("IM");
+        if (kw != (property->second).end())
+        {
+            copy(kw->second.begin(), kw->second.end(),
+                 back_inserter(imVal));
+        }
+    }
+
+    ostringstream oss;
+    for (auto& i : imVal)
+    {
+        oss << setw(2) << setfill('0') << hex << static_cast<int>(i);
+    }
+
+    return oss.str();
+}
+
+const string getPN(const Parsed& vpdMap)
+{
+    string pnVal;
+    auto prop = vpdMap.find("VINI");
+    if (prop != vpdMap.end())
+    {
+        auto kw = (prop->second).find("PN");
+        if (kw != (prop->second).end())
+        {
+            pnVal = kw->second;
+        }
+    }
+
+    return pnVal;
+}
+
+string getSystemsJson(const Parsed& vpdMap)
+{
+    ifstream systemJson(SYSTEM_JSON);
+    auto js = json::parse(systemJson);
+
+    const string partNumber = getPN(vpdMap);
+    const string imKeyword = getIM(vpdMap);
+
+    if (js.find("system") == js.end())
+    {
+        throw runtime_error("Invalid systems Json");
+    }
+
+    if (js["system"].find(imKeyword) == js["system"].end())
+    {
+        throw runtime_error(
+            "Invalid system. The system is not present in the systemsJson");
+    }
+
+    string jsonPath = "/usr/share/vpd/";
+    string jsonName{};
+
+    string pn{};
+    for (auto& systems : js.items())
+    {
+        for (auto& systemType : systems.value().items())
+        {
+            if (systemType.key() == imKeyword)
+            {
+                for (auto& key : systemType.value().items())
+                {
+                    if (key.value().is_object())
+                    {
+                        pn = key.value().value("PN", "");
+                        if (pn == partNumber)
+                        {
+                            jsonName = key.value().value("json", "");
+                            break;
+                        }
+                    }
+                    else if (key.value().is_string())
+                    {
+                        jsonName = key.value().get<string>();
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    jsonPath += jsonName;
+
+    return jsonPath;
 }
 } // namespace vpd
 } // namespace openpower
