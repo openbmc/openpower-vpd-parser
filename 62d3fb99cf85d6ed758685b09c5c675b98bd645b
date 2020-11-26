@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8716158a_399463c1",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-11-26T05:18:44Z",
+      "side": 1,
+      "message": "what is other control codes",
+      "range": {
+        "startLine": 163,
+        "startChar": 14,
+        "endLine": 163,
+        "endChar": 33
+      },
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4585468f_74872639",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-11-26T05:18:44Z",
+      "side": 1,
+      "message": "avoid single char for variables",
+      "range": {
+        "startLine": 167,
+        "startChar": 18,
+        "endLine": 167,
+        "endChar": 19
+      },
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c45bab33_3d4c23a9",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-11-26T05:18:44Z",
+      "side": 1,
+      "message": "did not understand the brief",
+      "range": {
+        "startLine": 173,
+        "startChar": 14,
+        "endLine": 173,
+        "endChar": 32
+      },
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e56ddccc_04431042",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2020-11-26T05:18:44Z",
+      "side": 1,
+      "message": "what are the non printable characters?",
+      "range": {
+        "startLine": 175,
+        "startChar": 38,
+        "endLine": 175,
+        "endChar": 63
+      },
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
