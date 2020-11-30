@@ -36,8 +36,9 @@ using namespace openpower::vpd::exceptions;
 using namespace phosphor::logging;
 
 static const deviceTreeMap deviceTreeSystemTypeMap = {
-    {RAINIER_2U, "conf@aspeed-bmc-ibm-rainier-2u.dtb"},
-    {RAINIER_4U, "conf@aspeed-bmc-ibm-rainier-4u.dtb"}};
+    {RAINIER_2U, "conf@aspeed-bmc-ibm-rainier.dtb"},
+    {RAINIER_4U, "conf@aspeed-bmc-ibm-rainier-4u.dtb"},
+    {EVEREST, "conf@aspeed-bmc-ibm-everest.dtb"}};
 
 /**
  * @brief Expands location codes
@@ -538,10 +539,13 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
         {
             target = INVENTORY_JSON_4U;
         }
-
         else if (imValStr == RAINIER_2U) // 2U
         {
             target = INVENTORY_JSON_2U;
+        }
+        else if (imValStr == EVEREST)
+        {
+            target = INVENTORY_JSON_EVEREST;
         }
 
         // Create the directory for hosting the symlink
