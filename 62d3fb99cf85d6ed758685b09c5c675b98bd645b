@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "839c5eb1_18dce500",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-02T14:56:10Z",
+      "side": 1,
+      "message": "This I have created to check if the control code is a single byte or a nibble..\n(if it is a nibble, I set a 0 in prefix here-\u003e https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/36195/2/vpd_tool_impl.cpp#53 )\n\n\nFinding it unnecessary.. I will remove this funtion and use setw() and setfill() instead.",
+      "parentUuid": "8716158a_399463c1",
+      "range": {
+        "startLine": 163,
+        "startChar": 14,
+        "endLine": 163,
+        "endChar": 33
+      },
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4585468f_74872639",
         "filename": "vpd_tool_impl.hpp",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82aaf82e_809eee86",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-02T14:56:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4585468f_74872639",
+      "range": {
+        "startLine": 167,
+        "startChar": 18,
+        "endLine": 167,
+        "endChar": 19
+      },
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a757749b_2cb7cc63",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-02T14:56:10Z",
+      "side": 1,
+      "message": "returning a printable value. that is - if the vpd data has control characters (non printable ones - say from 0x00 till 0x1F) then we print the vpd data in hex.\nelse we print the vpd data in ascii..",
+      "parentUuid": "c45bab33_3d4c23a9",
+      "range": {
+        "startLine": 173,
+        "startChar": 14,
+        "endLine": 173,
+        "endChar": 32
+      },
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e56ddccc_04431042",
         "filename": "vpd_tool_impl.hpp",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2020-11-26T05:18:44Z",
       "side": 1,
       "message": "what are the non printable characters?",
+      "range": {
+        "startLine": 175,
+        "startChar": 38,
+        "endLine": 175,
+        "endChar": 63
+      },
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4645e2a1_90e143b8",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-02T14:56:10Z",
+      "side": 1,
+      "message": "Non printable characters are the control characters ranges from 0x00 till 0x1F.\nThe first 32 characters in ascii table..",
+      "parentUuid": "e56ddccc_04431042",
       "range": {
         "startLine": 175,
         "startChar": 38,
