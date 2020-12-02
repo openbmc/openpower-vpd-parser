@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "712bda64_755d2f54",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-02T17:20:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b1b8017_09e6c25f",
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dcc9f1e0_6d2e4269",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2020-12-02T15:55:27Z",
       "side": 1,
       "message": "instead of \u0027c\u0027 can we have a more readable variable name?",
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62b20fac_a5138dd2",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-02T17:20:29Z",
+      "side": 1,
+      "message": "removed the api itself as it is not needed",
+      "parentUuid": "dcc9f1e0_6d2e4269",
       "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e04ab0cb_ce1196b4",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-02T17:20:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16c280d7_99a4100a",
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f00549ec_a0fa3e8b",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 2
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "504d720e_77ea92eb",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-02T17:20:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f00549ec_a0fa3e8b",
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7768653f_9e546990",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 2
@@ -84,6 +156,24 @@
       "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "361d818c_34575edc",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-02T17:20:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7768653f_9e546990",
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
