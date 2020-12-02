@@ -2,6 +2,91 @@
   "comments": [
     {
       "key": {
+        "uuid": "7b1b8017_09e6c25f",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-02T15:55:27Z",
+      "side": 1,
+      "message": "You already have this header included in hpp file.",
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcc9f1e0_6d2e4269",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-02T15:55:27Z",
+      "side": 1,
+      "message": "instead of \u0027c\u0027 can we have a more readable variable name?",
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16c280d7_99a4100a",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-02T15:55:27Z",
+      "side": 1,
+      "message": "we are not modifying the parameter so \nconstant reference as parameter.",
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f00549ec_a0fa3e8b",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-02T15:55:27Z",
+      "side": 1,
+      "message": "Why we need to declare a new string variable here again? We can use the one declared at the beginning of the function?",
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7768653f_9e546990",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-02T15:55:27Z",
+      "side": 1,
+      "message": "We can also get rid of this return statement here.",
+      "revId": "62d3fb99cf85d6ed758685b09c5c675b98bd645b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8716158a_399463c1",
         "filename": "vpd_tool_impl.hpp",
         "patchSetId": 2
