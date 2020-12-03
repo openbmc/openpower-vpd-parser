@@ -361,8 +361,8 @@ static void postFailAction(const nlohmann::json& json, const string& file)
         return;
     }
 
-    uint8_t pinValue = 0;
-    string pinName;
+    Byte pinValue = 0;
+    string pinName{};
 
     for (const auto& postAction :
          (json["frus"][file].at(0))["postActionFail"].items())
@@ -401,56 +401,101 @@ static void postFailAction(const nlohmann::json& json, const string& file)
     }
 }
 
-/** Performs any pre-action needed to get the FRU setup for collection.
+/** Performs pre-action needed to get the FRU VPD collection.
  *
  * @param[in] json - json object
  * @param[in] file - eeprom file path
  */
 static void preAction(const nlohmann::json& json, const string& file)
 {
-    if ((json["frus"][file].at(0)).find("preAction") ==
+    if ((json["frus"][file].at(0)).find("presence") !=
         json["frus"][file].at(0).end())
     {
-        return;
-    }
+        Byte presPinValue = 0;
+        string presPinName;
 
-    uint8_t pinValue = 0;
-    string pinName;
-
-    for (const auto& postAction :
-         (json["frus"][file].at(0))["preAction"].items())
-    {
-        if (postAction.key() == "pin")
+        for (const auto& presence :
+             (json["frus"][file].at(0))["presence"].items())
         {
-            pinName = postAction.value();
+            if (presence.key() == "pin")
+            {
+                presPinName = presence.value();
+            }
+            else if (presence.key() == "value")
+            {
+                presPinValue = presence.value();
+            }
         }
-        else if (postAction.key() == "value")
+
+        Byte gpioData = 0;
+        try
         {
-            // Get the value to set
-            pinValue = postAction.value();
+            gpiod::line presenceLine = gpiod::find_line(presPinName);
+
+            if (!presenceLine)
+            {
+                cerr << "couldn't find presence line:" << presPinName << "\n";
+                return;
+            }
+
+            presenceLine.request({"Read the presence line",
+                                  gpiod::line_request::DIRECTION_INPUT, 0});
+
+            gpioData = presenceLine.get_value();
+
+            if (gpioData != presPinValue)
+            {
+                return;
+            }
         }
-    }
-
-    cout << "Setting GPIO: " << pinName << " to " << (int)pinValue << endl;
-    try
-    {
-        gpiod::line outputLine = gpiod::find_line(pinName);
-
-        if (!outputLine)
+        catch (system_error&)
         {
-            cout << "Couldn't find output line:" << pinName
-                 << " on GPIO. Skipping...\n";
-
+            cerr << "Failed to get the presence GPIO" << endl;
             return;
         }
-        outputLine.request(
-            {"FRU pre-action", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
-            pinValue);
     }
-    catch (system_error&)
+
+    if ((json["frus"][file].at(0)).find("preAction") !=
+        json["frus"][file].at(0).end())
     {
-        cerr << "Failed to set pre-action GPIO" << endl;
-        return;
+        Byte pinValue = 0;
+        string pinName;
+
+        for (const auto& preAction :
+             (json["frus"][file].at(0))["preAction"].items())
+        {
+            if (preAction.key() == "pin")
+            {
+                pinName = preAction.value();
+            }
+            else if (preAction.key() == "value")
+            {
+                // Get the value to set
+                pinValue = preAction.value();
+            }
+        }
+
+        cout << "Setting GPIO: " << pinName << " to " << (int)pinValue << endl;
+        try
+        {
+            gpiod::line outputLine = gpiod::find_line(pinName);
+
+            if (!outputLine)
+            {
+                cout << "Couldn't find output line:" << pinName
+                     << " on GPIO. Skipping...\n";
+
+                return;
+            }
+            outputLine.request(
+                {"FRU pre-action", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
+                pinValue);
+        }
+        catch (system_error&)
+        {
+            cerr << "Failed to set pre-action GPIO" << endl;
+            return;
+        }
     }
 
     // Now bind the device
@@ -544,10 +589,14 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
 
     for (auto& itemFRUS : jsObject["frus"].items())
     {
-        // Take pre actions
-        preAction(jsObject, itemFRUS.key());
         for (auto& itemEEPROM : itemFRUS.value())
         {
+            // Take pre actions if needed
+            if (itemEEPROM.find("preAction") != itemEEPROM.end())
+            {
+                preAction(jsObject, itemFRUS.key());
+            }
+
             inventory::InterfaceMap interfaces;
             inventory::Object object(itemEEPROM.at("inventoryPath"));
 
@@ -648,7 +697,6 @@ void setDevTreeEnv(const string& systemType)
     {
         newDeviceTree = deviceTreeSystemTypeMap.at(systemType);
     }
-
     string readVarValue;
     bool envVarFound = false;
 
