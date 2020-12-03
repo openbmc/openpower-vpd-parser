@@ -35,7 +35,7 @@ using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::exceptions;
 
 static const deviceTreeMap deviceTreeSystemTypeMap = {
-    {RAINIER_2U, "conf@aspeed-bmc-ibm-rainier-2u.dtb"},
+    {RAINIER_2U, "conf@aspeed-bmc-ibm-rainier.dtb"},
     {RAINIER_4U, "conf@aspeed-bmc-ibm-rainier-4u.dtb"}};
 
 /**
@@ -349,26 +349,93 @@ static void postFailAction(const nlohmann::json& json, const string& file)
  */
 static void preAction(const nlohmann::json& json, const string& file)
 {
-    if ((json["frus"][file].at(0)).find("preAction") ==
+    //If presence block NOT found,
+    //    if ingnorable NOT found OR !=true, return
+    //    else continue. take preAction
+    //else presence block found, read the presence
+    //    If couldn't read the presence PIN, check if it is ignnorable?
+    //        if NOT ignorable, return
+    //        else continue, ingnorable=true, take preAction
+    //
+    //    If NOT present, return
+    //    else present , continue... take preAction
+
+    if ((json["frus"][file].at(0)).find("presence") ==
         json["frus"][file].at(0).end())
     {
-        return;
+        //presence info not present, check if it is ignorable AND STILL PREaCTION SHOULD BE TAKEN?
+        if ( ! (json["frus"][file].at(0)).value("presenceIgnorable", false))
+        {
+            return;
+        }
+    }
+    else
+    {
+        //read the presence pin
+        uint8_t presPinValue = 0;
+        string presPinName;
+
+        for (const auto& presence :
+                (json["frus"][file].at(0))["presence"].items())
+        {
+            if (presence.key() == "pin")
+            {
+                presPinName = presence.value();
+                cout<<presence.key()<<" - "<<presPinName<<"\n";
+            }
+            else if(presence.key() == "value")
+            {
+                presPinValue = presence.value();
+                cout<<presence.key()<<" - "<<unsigned(presPinValue)<<"\n";
+            }
+        }
+
+        uint8_t gpioData = 0;
+        gpiod::line presenceLine = gpiod::find_line(presPinName);
+
+        if (!presenceLine)
+        {
+            cout << "couldn't find presence line:"
+                 << presPinName
+                 <<". Let's check if presence ignorable to take pre action\n";
+
+            if ( ! (json["frus"][file].at(0)).value("presenceIgnorable", false))
+            {
+                return;
+            }
+        }
+ 
+        presenceLine.request({"Read the presence line",
+                            gpiod::line_request::DIRECTION_INPUT, 0});
+
+        gpioData = presenceLine.get_value();
+
+        if(gpioData != presPinValue)
+        {
+            cout<<"presence pin state is-"<<unsigned(gpioData)<<", NOT present.\n";
+            if ( ! (json["frus"][file].at(0)).value("presenceIgnorable", false))
+            {
+                return;
+            }
+        }
+        //else continue
+        cout<<"presence pin state is-"<<unsigned(gpioData)<<", it's present. Take action\n";
     }
 
     uint8_t pinValue = 0;
     string pinName;
 
-    for (const auto& postAction :
+    for (const auto& preAction :
          (json["frus"][file].at(0))["preAction"].items())
     {
-        if (postAction.key() == "pin")
+        if (preAction.key() == "pin")
         {
-            pinName = postAction.value();
+            pinName = preAction.value();
         }
-        else if (postAction.key() == "value")
+        else if (preAction.key() == "value")
         {
             // Get the value to set
-            pinValue = postAction.value();
+            pinValue = preAction.value();
         }
     }
 
@@ -431,10 +498,14 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
 
     for (auto& itemFRUS : jsObject["frus"].items())
     {
-        // Take pre actions
-        preAction(jsObject, itemFRUS.key());
         for (auto& itemEEPROM : itemFRUS.value())
         {
+            // Take pre actions if needed
+            if (itemEEPROM.find("preAction") != itemEEPROM.end())
+            {
+                preAction(jsObject, itemFRUS.key());
+            }
+            
             inventory::InterfaceMap interfaces;
             auto isSystemVpd = itemEEPROM.value("isSystemVpd", false);
             inventory::Object object(itemEEPROM.at("inventoryPath"));
@@ -511,7 +582,6 @@ void setDevTreeEnv(const string& systemType)
     {
         newDeviceTree = deviceTreeSystemTypeMap.at(systemType);
     }
-
     string readVarValue;
     bool envVarFound = false;
 
@@ -529,6 +599,7 @@ void setDevTreeEnv(const string& systemType)
         if (pos + 1 < entry.size())
         {
             readVarValue = entry.substr(pos + 1);
+            
             if (readVarValue.find(newDeviceTree) != string::npos)
             {
                 // fitconfig is Updated. No action needed
@@ -683,7 +754,7 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
 
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
-
+    
         // set the U-boot environment variable for device-tree
         setDevTreeEnv(imValStr);
     }
