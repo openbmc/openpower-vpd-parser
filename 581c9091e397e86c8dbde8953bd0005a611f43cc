@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8733ff39_3fc3a3ca",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-12-03T19:03:09Z",
+      "side": 1,
+      "message": "as you have added namespace in line no 14, remove all these std.",
+      "range": {
+        "startLine": 63,
+        "startChar": 14,
+        "endLine": 63,
+        "endChar": 19
+      },
+      "revId": "581c9091e397e86c8dbde8953bd0005a611f43cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de37c648_85cbb026",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-12-03T19:03:09Z",
+      "side": 1,
+      "message": "I don\u0027t think you need a comparison here.\nThis should work fine-\n  if (itemEEPROM.value(\"isReplacable\", false))",
+      "range": {
+        "startLine": 97,
+        "startChar": 12,
+        "endLine": 97,
+        "endChar": 64
+      },
+      "revId": "581c9091e397e86c8dbde8953bd0005a611f43cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fe00a54_07ef01f2",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-12-03T19:03:09Z",
+      "side": 1,
+      "message": "this can be-  if ( ! singleFru.value(\"devTreeStatus\", true) )",
+      "range": {
+        "startLine": 204,
+        "startChar": 15,
+        "endLine": 204,
+        "endChar": 68
+      },
+      "revId": "581c9091e397e86c8dbde8953bd0005a611f43cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "954f55a9_e2bdd85d",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-12-03T19:03:09Z",
+      "side": 1,
+      "message": "I think you can go with just else instead of else if.",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 74
+      },
+      "revId": "581c9091e397e86c8dbde8953bd0005a611f43cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5563b96c_7188bc2d",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-12-03T19:03:09Z",
+      "side": 1,
+      "message": "you can remove std , all occurrence",
+      "range": {
+        "startLine": 251,
+        "startChar": 22,
+        "endLine": 251,
+        "endChar": 27
+      },
+      "revId": "581c9091e397e86c8dbde8953bd0005a611f43cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78cce0f1_64a799d2",
+        "filename": "vpd_inventory.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2020-12-03T19:03:09Z",
+      "side": 1,
+      "message": "please hi-light your change here.\nyou can add comment there, saying- this is my change.",
+      "revId": "581c9091e397e86c8dbde8953bd0005a611f43cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
