@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f88bb716_a3e432c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 9,
+        "startChar": 13,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0a75113_3cee70ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 12
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efb069e2_0f1c6286",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 16,
+        "startChar": 11,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2bda57c_ed001503",
+        "filename": "app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "you can remove these two commented lines",
+      "range": {
+        "startLine": 65,
+        "startChar": 12,
+        "endLine": 66,
+        "endChar": 38
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3804511_0f70e8ba",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "function name is not in camel case. can we rewrite as checkSNAndFNOffset ?",
+      "range": {
+        "startLine": 573,
+        "startChar": 5,
+        "endLine": 573,
+        "endChar": 23
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1c57fd1_42947175",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "camelcase not followed - offsetJSon.. \neither offsetJSON or offsetJson can be used.",
+      "range": {
+        "startLine": 581,
+        "startChar": 17,
+        "endLine": 581,
+        "endChar": 27
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "041fce91_9171596c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "can we change this to -\u003e \"keyword\"",
+      "range": {
+        "startLine": 612,
+        "startChar": 36,
+        "endLine": 612,
+        "endChar": 39
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82639c1c_5a80fa05",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "camel case not followed. getSNAndFNDataFromHardware",
+      "range": {
+        "startLine": 616,
+        "startChar": 5,
+        "endLine": 616,
+        "endChar": 30
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fd8a2f1_9d0b2e4a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "camelcase not followed : getSNAndFNDataFromDbus",
+      "range": {
+        "startLine": 646,
+        "startChar": 5,
+        "endLine": 646,
+        "endChar": 27
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "978f7c17_56373372",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "these lines can be given at the beginning of forloop - say at 653..",
+      "range": {
+        "startLine": 659,
+        "startChar": 15,
+        "endLine": 660,
+        "endChar": 29
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc009e1e_6a217f9c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "can we give more information here using else cases like,\n\n// fileData is present and busData is not present - which means populating for the first time\nelse if(busData \u003d\u003d NULL) \n{\n   cout \u003c\u003c \"Populating the dbus objects \" \u003c\u003cstd::endl;\n}\nelse if(busData !\u003d fileData)\n{\n   cout \u003c\u003c \"Mismatch in the vpd present in hardware and dbus. Suspecting the fru\u003cfru_name\u003e replacement\" \u003c\u003cstd::endl;\n}",
+      "range": {
+        "startLine": 752,
+        "startChar": 16,
+        "endLine": 752,
+        "endChar": 17
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e243e075_9bdc440e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "failed with what kind of exception? can we catch the exception and print it (e.what)?",
+      "range": {
+        "startLine": 759,
+        "startChar": 21,
+        "endLine": 760,
+        "endChar": 30
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9217beb0_b16f1d3f",
+        "filename": "impl.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "\u0027create\u0027 if the dir doesnot exist",
+      "range": {
+        "startLine": 444,
+        "startChar": 15,
+        "endLine": 444,
+        "endChar": 20
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2f8d2cd_92cec20d",
+        "filename": "impl.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "keyword ?",
+      "range": {
+        "startLine": 137,
+        "startChar": 51,
+        "endLine": 137,
+        "endChar": 54
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5b370e4_3cf4fb7b",
+        "filename": "test/ipz_parser/parser.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "instead of giving a dummy path - we can give the ipz vpd file path present in this repo - under test/vpd.dat",
+      "range": {
+        "startLine": 68,
+        "startChar": 24,
+        "endLine": 68,
+        "endChar": 34
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f231a28b_41ad89de",
+        "filename": "test/keyword_vpd_parser_test/kw_vpd_test.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-03T11:49:10Z",
+      "side": 1,
+      "message": "instead of giving a dummy path - we can give the keyword vpd file path present in this repo - under test/bono.vpd",
+      "range": {
+        "startLine": 21,
+        "startChar": 28,
+        "endLine": 21,
+        "endChar": 40
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
