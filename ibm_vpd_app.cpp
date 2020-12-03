@@ -392,7 +392,7 @@ static void postFailAction(const nlohmann::json& json, const string& file)
         return;
     }
 
-    uint8_t pinValue = 0;
+    Byte pinValue = 0;
     string pinName;
 
     for (const auto& postAction :
@@ -432,34 +432,63 @@ static void postFailAction(const nlohmann::json& json, const string& file)
     }
 }
 
-/** Performs any pre-action needed to get the FRU setup for collection.
+/** Performs pre-action needed to get the FRU VPD collection.
  *
  * @param[in] json - json object
  * @param[in] file - eeprom file path
  */
 static void preAction(const nlohmann::json& json, const string& file)
 {
-    if ((json["frus"][file].at(0)).find("preAction") ==
+    if ((json["frus"][file].at(0)).find("presence") !=
         json["frus"][file].at(0).end())
     {
-        return;
+        Byte presPinValue = 0;
+        string presPinName;
+
+        presPinName = json["frus"][file].at(0)["presence"]["pin"];
+        presPinValue = json["frus"][file].at(0)["presence"]["value"];
     }
 
-    uint8_t pinValue = 0;
+    Byte gpioData = 0;
+    try
+    {
+        gpiod::line presenceLine = gpiod::find_line(presPinName);
+
+        if (!presenceLine)
+        {
+            cerr << "couldn't find presence line:" << presPinName << "\n";
+            return;
+        }
+
+        presenceLine.request({"Read the presence line",
+                              gpiod::line_request::DIRECTION_INPUT, 0});
+
+        gpioData = presenceLine.get_value();
+
+        if (gpioData != presPinValue)
+        {
+            return;
+        }
+    }
+    catch (system_error&)
+    {
+        cerr << "Failed to get the presence GPIO for - " << presPinName << endl;
+        return;
+    }
+}
+
+if ((json["frus"][file].at(0)).find("preAction") !=
+    json["frus"][file].at(0).end())
+{
+    Byte pinValue = 0;
     string pinName;
 
-    for (const auto& postAction :
+    for (const auto& preAction :
          (json["frus"][file].at(0))["preAction"].items())
     {
-        if (postAction.key() == "pin")
-        {
-            pinName = postAction.value();
-        }
-        else if (postAction.key() == "value")
-        {
-            // Get the value to set
-            pinValue = postAction.value();
-        }
+        pinName = json["frus"][file].at(0)["preAction"]["pin"];
+        // Get the value to set
+        pinValue = json["frus"][file].at(0)["preAction"]["value"];
     }
 
     cout << "Setting GPIO: " << pinName << " to " << (int)pinValue << endl;
@@ -478,28 +507,28 @@ static void preAction(const nlohmann::json& json, const string& file)
             {"FRU pre-action", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
             pinValue);
     }
-    catch (const system_error&)
+    catch (system_error&)
     {
-        cerr << "Failed to set pre-action GPIO" << endl;
+        cerr << "Failed to set pre-action for GPIO - " << pinName << endl;
         return;
     }
+}
 
-    // Now bind the device
-    string bind = json["frus"][file].at(0).value("devAddress", "");
-    cout << "Binding device " << bind << endl;
-    string bindCmd = string("echo \"") + bind +
-                     string("\" > /sys/bus/i2c/drivers/at24/bind");
-    cout << bindCmd << endl;
-    executeCmd(bindCmd);
+// Now bind the device
+string bind = json["frus"][file].at(0).value("devAddress", "");
+cout << "Binding device " << bind << endl;
+string bindCmd =
+    string("echo \"") + bind + string("\" > /sys/bus/i2c/drivers/at24/bind");
+cout << bindCmd << endl;
+executeCmd(bindCmd);
 
-    // Check if device showed up (test for file)
-    if (!fs::exists(file))
-    {
-        cout << "EEPROM " << file << " does not exist. Take failure action"
-             << endl;
-        // If not, then take failure postAction
-        postFailAction(json, file);
-    }
+// Check if device showed up (test for file)
+if (!fs::exists(file))
+{
+    cout << "EEPROM " << file << " does not exist. Take failure action" << endl;
+    // If not, then take failure postAction
+    postFailAction(json, file);
+}
 }
 
 /**
@@ -575,10 +604,14 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
 
     for (auto& itemFRUS : jsObject["frus"].items())
     {
-        // Take pre actions
-        preAction(jsObject, itemFRUS.key());
         for (auto& itemEEPROM : itemFRUS.value())
         {
+            // Take pre actions if needed
+            if (itemEEPROM.find("preAction") != itemEEPROM.end())
+            {
+                preAction(jsObject, itemFRUS.key());
+            }
+
             inventory::InterfaceMap interfaces;
             inventory::Object object(itemEEPROM.at("inventoryPath"));
 
