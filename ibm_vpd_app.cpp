@@ -349,26 +349,86 @@ static void postFailAction(const nlohmann::json& json, const string& file)
  */
 static void preAction(const nlohmann::json& json, const string& file)
 {
-    if ((json["frus"][file].at(0)).find("preAction") ==
+    //If presence block NOT found,
+    //    if ingnorable NOT found OR !=true, return
+    //    else continue. take preAction
+    //else presence block found, read the presence
+    //    If couldn't read the presence PIN, check if it is ignnorable?
+    //        if NOT ignorable, return
+    //        else continue, ingnorable=true, take preAction
+    //
+    //    If NOT present, return
+    //    else present , continue... take preAction
+
+    if ((json["frus"][file].at(0)).find("presence") ==
         json["frus"][file].at(0).end())
     {
-        return;
+        //presence info not present, check if it is ignorable?
+        if ( ! (json["frus"][file].at(0)).value("presenceIgnorable", false))
+        {
+            return;
+        }
+    }
+    else
+    {
+        //read the presence pin
+        uint8_t presPinValue = 0;
+        string presPinName;
+
+        for (const auto& presence :
+                (json["frus"][file].at(0))["presence"].items())
+        {
+            if (presence.key() == "pin")
+            {
+                presPinValue = presence.value();
+            }
+            else if(presence.key() == "value")
+            {
+                presPinValue = presence.value();
+            }
+        }
+
+        uint8_t gpioData = 0;
+        gpiod::line presenceLine = gpiod::find_line(presPinName);
+
+        if (!presenceLine)
+        {
+            cout << "couldn't find presence line:"
+                 << presencePinName
+                 <<". Let's check if presence ignorable to take pre action\n";
+
+            if ( ! (json["frus"][file].at(0)).value("presenceIgnorable", false))
+            {
+                return;
+            }
+        }
+ 
+        presenceLine.request({"Read the presence line",
+                            gpiod::line_request::DIRECTION_INPUT, 0});
+
+        gpioData = presenceLine.get_value();
+
+        if(gpioData != presPinValue)
+        {
+            return;
+        }
+        //else continue
     }
 
     uint8_t pinValue = 0;
     string pinName;
 
-    for (const auto& postAction :
+    for (const auto& preAction :
          (json["frus"][file].at(0))["preAction"].items())
     {
-        if (postAction.key() == "pin")
+        if (preAction.key() == "pin")
         {
-            pinName = postAction.value();
+            pinName = preAction.value();
         }
-        else if (postAction.key() == "value")
+        else if (preAction.key() == "value")
         {
             // Get the value to set
-            pinValue = postAction.value();
+            pinValue = preAction.value();
         }
     }
 
@@ -431,8 +491,13 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
 
     for (auto& itemFRUS : jsObject["frus"].items())
     {
-        // Take pre actions
-        preAction(jsObject, itemFRUS.key());
+        // Take pre actions if needed
+        if ((json["frus"][file].at(0)).find("preAction") !=
+                    json["frus"][file].at(0).end())
+        {
+            preAction(jsObject, itemFRUS.key());
+        }
+
         for (auto& itemEEPROM : itemFRUS.value())
         {
             inventory::InterfaceMap interfaces;
