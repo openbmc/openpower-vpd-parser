@@ -159,7 +159,7 @@ static void populateFruSpecificInterfaces(const T& map,
 
     for (const auto& kwVal : map)
     {
-        vector<uint8_t> vec(kwVal.second.begin(), kwVal.second.end());
+        Binary vec(kwVal.second.begin(), kwVal.second.end());
 
         auto kw = kwVal.first;
 
@@ -298,8 +298,8 @@ static void postFailAction(const nlohmann::json& json, const string& file)
         return;
     }
 
-    uint8_t pinValue = 0;
-    string pinName;
+    Byte pinValue = 0;
+    string pinName{};
 
     for (const auto& postAction :
          (json["frus"][file].at(0))["postActionFail"].items())
@@ -345,26 +345,80 @@ static void postFailAction(const nlohmann::json& json, const string& file)
  */
 static void preAction(const nlohmann::json& json, const string& file)
 {
-    if ((json["frus"][file].at(0)).find("preAction") ==
+    bool forceAction = false;
+    if ((json["frus"][file].at(0)).find("presence") ==
         json["frus"][file].at(0).end())
     {
-        return;
+        if (!(json["frus"][file].at(0)).value("presenceIgnorable", false))
+        {
+            return;
+        }
+        forceAction = true;
+    }
+    else
+    {
+        Byte presPinValue = 0;
+        string presPinName{};
+
+        for (const auto& presence :
+             (json["frus"][file].at(0))["presence"].items())
+        {
+            if (presence.key() == "pin")
+            {
+                presPinName = presence.value();
+            }
+            else if (presence.key() == "value")
+            {
+                presPinValue = presence.value();
+            }
+        }
+
+        Byte gpioData = 0;
+        gpiod::line presenceLine = gpiod::find_line(presPinName);
+
+        if (!presenceLine)
+        {
+            cout << "couldn't find presence line:" << presPinName
+                 << ". Let's check if presence ignorable to take pre action\n";
+
+            if (!(json["frus"][file].at(0)).value("presenceIgnorable", false))
+            {
+                return;
+            }
+
+            forceAction = true;
+        }
+
+        presenceLine.request({"Read the presence line",
+                              gpiod::line_request::DIRECTION_INPUT, 0});
+
+        gpioData = presenceLine.get_value();
+
+        if (gpioData != presPinValue)
+        {
+            if (!(json["frus"][file].at(0)).value("presenceIgnorable", false))
+            {
+                return;
+            }
+
+            forceAction = true;
+        }
     }
 
-    uint8_t pinValue = 0;
-    string pinName;
+    Byte pinValue = 0;
+    string pinName{};
 
-    for (const auto& postAction :
+    for (const auto& preAction :
          (json["frus"][file].at(0))["preAction"].items())
     {
-        if (postAction.key() == "pin")
+        if (preAction.key() == "pin")
         {
-            pinName = postAction.value();
+            pinName = preAction.value();
         }
-        else if (postAction.key() == "value")
+        else if (preAction.key() == "value")
         {
             // Get the value to set
-            pinValue = postAction.value();
+            pinValue = preAction.value();
         }
     }
 
@@ -390,13 +444,16 @@ static void preAction(const nlohmann::json& json, const string& file)
         return;
     }
 
-    // Now bind the device
-    string bind = json["frus"][file].at(0).value("bind", "");
-    cout << "Binding device " << bind << endl;
-    string bindCmd = string("echo \"") + bind +
-                     string("\" > /sys/bus/i2c/drivers/at24/bind");
-    cout << bindCmd << endl;
-    executeCmd(bindCmd);
+    // Now bind the device If present
+    if (!forceAction)
+    {
+        string bind = json["frus"][file].at(0).value("bind", "");
+        cout << "Binding device " << bind << endl;
+        string bindCmd = string("echo \"") + bind +
+                         string("\" > /sys/bus/i2c/drivers/at24/bind");
+        cout << bindCmd << endl;
+        executeCmd(bindCmd);
+    }
 
     // Check if device showed up (test for file)
     if (!fs::exists(file))
@@ -427,10 +484,14 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
 
     for (auto& itemFRUS : jsObject["frus"].items())
     {
-        // Take pre actions
-        preAction(jsObject, itemFRUS.key());
         for (auto& itemEEPROM : itemFRUS.value())
         {
+            // Take pre actions if needed
+            if (itemEEPROM.find("preAction") != itemEEPROM.end())
+            {
+                preAction(jsObject, itemFRUS.key());
+            }
+
             inventory::InterfaceMap interfaces;
             auto isSystemVpd = itemEEPROM.value("isSystemVpd", false);
             inventory::Object object(itemEEPROM.at("inventoryPath"));
@@ -512,7 +573,6 @@ void setDevTreeEnv(const string& systemType)
     {
         newDeviceTree = deviceTreeSystemTypeMap.at(systemType);
     }
-
     string readVarValue;
     bool envVarFound = false;
 
