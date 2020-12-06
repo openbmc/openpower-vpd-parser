@@ -879,6 +879,11 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             target = INVENTORY_JSON_EVEREST;
         }
 
+        else
+        {
+            throw runtime_error("Unable to find system IM keyword");
+        }
+
         // Create the directory for hosting the symlink
         fs::create_directories(VPD_FILES_PATH);
         // unlink the symlink previously created (if any)
