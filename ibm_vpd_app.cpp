@@ -889,6 +889,19 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             target = INVENTORY_JSON_EVEREST;
         }
 
+        else
+        {
+            PelAdditionalData additionalData{};
+            PelSeverity pelSeverity = PelSeverity::ERROR;
+            additionalData.emplace("SYSTEM VPD PATH", filePath);
+            additionalData.emplace(
+                "DESCRIPTION", "System IM value is erroneous/not supported.");
+            additionalData.emplace("INVALID IM VALUE", imValStr);
+            createPEL(additionalData, pelSeverity, errIntfForInvalidVPD);
+            throw runtime_error(
+                "Erroneous/Unsupported IM in System VPD. PEL logged.");
+        }
+
         // Create the directory for hosting the symlink
         fs::create_directories(VPD_FILES_PATH);
         // unlink the symlink previously created (if any)
@@ -1032,6 +1045,7 @@ int main(int argc, char** argv)
         catch (exception& e)
         {
             postFailAction(js, file);
+            cerr << e.what() << endl;
             throw e;
         }
     }
