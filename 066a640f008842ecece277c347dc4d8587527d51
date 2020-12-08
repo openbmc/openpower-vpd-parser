@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b124ab50_78557b08",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f88bb716_a3e432c4",
+      "range": {
+        "startLine": 9,
+        "startChar": 13,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0a75113_3cee70ba",
         "filename": "/COMMIT_MSG",
         "patchSetId": 33
@@ -45,6 +69,30 @@
       "revId": "066a640f008842ecece277c347dc4d8587527d51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65bbc797_0e9e6dbd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0a75113_3cee70ba",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 12
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d627e781_8a982640",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efb069e2_0f1c6286",
+      "range": {
+        "startLine": 16,
+        "startChar": 11,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2bda57c_ed001503",
         "filename": "app.cpp",
         "patchSetId": 33
@@ -91,6 +163,30 @@
       "revId": "066a640f008842ecece277c347dc4d8587527d51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52ea9a1f_aa0cb132",
+        "filename": "app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2bda57c_ed001503",
+      "range": {
+        "startLine": 65,
+        "startChar": 12,
+        "endLine": 66,
+        "endChar": 38
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d37ad252_533be217",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3804511_0f70e8ba",
+      "range": {
+        "startLine": 573,
+        "startChar": 5,
+        "endLine": 573,
+        "endChar": 23
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1c57fd1_42947175",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 33
@@ -137,6 +257,30 @@
       "revId": "066a640f008842ecece277c347dc4d8587527d51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8368cb0_e09cfa27",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1c57fd1_42947175",
+      "range": {
+        "startLine": 581,
+        "startChar": 17,
+        "endLine": 581,
+        "endChar": 27
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "60a57817_202918fa",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "041fce91_9171596c",
+      "range": {
+        "startLine": 612,
+        "startChar": 36,
+        "endLine": 612,
+        "endChar": 39
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82639c1c_5a80fa05",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 33
@@ -183,6 +351,30 @@
       "revId": "066a640f008842ecece277c347dc4d8587527d51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74b104aa_4ad382b2",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82639c1c_5a80fa05",
+      "range": {
+        "startLine": 616,
+        "startChar": 5,
+        "endLine": 616,
+        "endChar": 30
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "9663263d_62d97158",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fd8a2f1_9d0b2e4a",
+      "range": {
+        "startLine": 646,
+        "startChar": 5,
+        "endLine": 646,
+        "endChar": 27
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "978f7c17_56373372",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 33
@@ -229,6 +445,30 @@
       "revId": "066a640f008842ecece277c347dc4d8587527d51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "690cf242_4bce396a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "978f7c17_56373372",
+      "range": {
+        "startLine": 659,
+        "startChar": 15,
+        "endLine": 660,
+        "endChar": 29
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "f26274e0_0b1a4287",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "The else cases will just trigger the normal process of the parser code. Why we need to do a cout for that?",
+      "parentUuid": "bc009e1e_6a217f9c",
+      "range": {
+        "startLine": 752,
+        "startChar": 16,
+        "endLine": 752,
+        "endChar": 17
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e243e075_9bdc440e",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 33
@@ -275,6 +539,30 @@
       "revId": "066a640f008842ecece277c347dc4d8587527d51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f58a8455_4a00efea",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "There can be multiple types of exception that can be thrown in the process. Like some runtime errors or we can get dbus failure or filestream etc.\nNow since this is an optimisation process, we don\u0027t want the process to stop incase there is an exception in this process, rather we want normal process to continue even in case this optimisation fails. So on safe side catching all the known/unknown exceptions here.",
+      "parentUuid": "e243e075_9bdc440e",
+      "range": {
+        "startLine": 759,
+        "startChar": 21,
+        "endLine": 760,
+        "endChar": 30
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "ea751676_eb1e9957",
+        "filename": "impl.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9217beb0_b16f1d3f",
+      "range": {
+        "startLine": 444,
+        "startChar": 15,
+        "endLine": 444,
+        "endChar": 20
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2f8d2cd_92cec20d",
         "filename": "impl.hpp",
         "patchSetId": 33
@@ -321,6 +633,30 @@
       "revId": "066a640f008842ecece277c347dc4d8587527d51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "761a9356_6818a422",
+        "filename": "impl.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2f8d2cd_92cec20d",
+      "range": {
+        "startLine": 137,
+        "startChar": 51,
+        "endLine": 137,
+        "endChar": 54
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "ca1ca27d_1aeeda4e",
+        "filename": "test/ipz_parser/parser.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "Well since the file used in these test cases are defined in the body of the test case itself, the name was given so with the intention so that reader can identify it is a dummy path and\nalso that will not have any effect on the test cases. The file that is being passed to the impl class is the local file created in this method itself.",
+      "parentUuid": "a5b370e4_3cf4fb7b",
+      "range": {
+        "startLine": 68,
+        "startChar": 24,
+        "endLine": 68,
+        "endChar": 34
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f231a28b_41ad89de",
         "filename": "test/keyword_vpd_parser_test/kw_vpd_test.cpp",
         "patchSetId": 33
@@ -358,6 +718,30 @@
       "writtenOn": "2020-12-03T11:49:10Z",
       "side": 1,
       "message": "instead of giving a dummy path - we can give the keyword vpd file path present in this repo - under test/bono.vpd",
+      "range": {
+        "startLine": 21,
+        "startChar": 28,
+        "endLine": 21,
+        "endChar": 40
+      },
+      "revId": "066a640f008842ecece277c347dc4d8587527d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1305e6f2_f75744b5",
+        "filename": "test/keyword_vpd_parser_test/kw_vpd_test.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-08T18:12:25Z",
+      "side": 1,
+      "message": "Same here, The intention is to let user know that a dummy path can also be sent and will not effect the test cases.",
+      "parentUuid": "f231a28b_41ad89de",
       "range": {
         "startLine": 21,
         "startChar": 28,
