@@ -19,6 +19,7 @@
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
+#include <phosphor-logging/log.hpp>
 
 using namespace std;
 using namespace openpower::vpd;
@@ -32,6 +33,7 @@ using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::exceptions;
+using namespace phosphor::logging;
 
 static const deviceTreeMap deviceTreeSystemTypeMap = {
     {RAINIER_2U, "conf@aspeed-bmc-ibm-rainier-2u.dtb"},
@@ -359,6 +361,7 @@ void setEnvAndReboot(const string& key, const string& value)
 {
     // set env and reboot and break.
     executeCmd("/sbin/fw_setenv", key, value);
+    log<level::INFO>("Rebooting BMC to pick up new device tree");
     // make dbus call to reboot
     auto bus = sdbusplus::bus::new_default_system();
     auto method = bus.new_method_call(
