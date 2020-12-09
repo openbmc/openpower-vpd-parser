@@ -463,11 +463,6 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
             {
                 populateFruSpecificInterfaces(vpdMap, kwdVpdInf, interfaces);
             }
-            if (js.find("commonInterfaces") != js.end())
-            {
-                populateInterfaces(js["commonInterfaces"], interfaces, vpdMap,
-                                   isSystemVpd);
-            }
         }
         else
         {
@@ -490,7 +485,8 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
             }
         }
 
-        if (item.value("inheritEI", true))
+        // if this flag is true publish Extrainterfaces for this FRU
+        if (item.value("publishEI", true))
         {
             // Populate interfaces and properties that are common to every FRU
             // and additional interface that might be defined on a per-FRU
@@ -501,6 +497,22 @@ static void populateDbus(const T& vpdMap, nlohmann::json& js,
                                    isSystemVpd);
             }
         }
+
+        // if this flag is true, publish common interface for this FRU
+        if (item.value("publishCI", true))
+        {
+            if (js.find("commonInterfaces") != js.end())
+            {
+                populateInterfaces(js["commonInterfaces"], interfaces, vpdMap,
+                                   isSystemVpd);
+            }
+            else
+            {
+                throw VpdJsonException("Common Interface missing in JSON",
+                                       INVENTORY_JSON_DEFAULT);
+            }
+        }
+
         objects.emplace(move(object), move(interfaces));
     }
 

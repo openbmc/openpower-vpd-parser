@@ -356,20 +356,7 @@ void EditorImpl::updateCache()
     // iterate through all the inventories for this file path
     for (const auto& singleInventory : groupEEPROM)
     {
-        // by default inherit property is true
-        bool isInherit = true;
-        bool isInheritEI = true;
         bool isCpuModuleOnly = false;
-
-        if (singleInventory.find("inherit") != singleInventory.end())
-        {
-            isInherit = singleInventory["inherit"].get<bool>();
-        }
-
-        if (singleInventory.find("inheritEI") != singleInventory.end())
-        {
-            isInheritEI = singleInventory["inheritEI"].get<bool>();
-        }
 
         // "type" exists only in CPU module and FRU
         if (singleInventory.find("type") != singleInventory.end())
@@ -380,7 +367,7 @@ void EditorImpl::updateCache()
             }
         }
 
-        if (isInherit)
+        if (singleInventory.value("inherit", true))
         {
             // update com interface
             // For CPU- update  com interface only when isCI true
@@ -392,13 +379,9 @@ void EditorImpl::updateCache()
                     (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
                     thisRecord.recKWd, thisRecord.kwdUpdatedData);
             }
-
-            // process Common interface
-            processAndUpdateCI(singleInventory["inventoryPath"]
-                                   .get_ref<const nlohmann::json::string_t&>());
         }
 
-        if (isInheritEI)
+        if (singleInventory.value("publishEI", true))
         {
             if (isCpuModuleOnly)
             {
@@ -412,6 +395,13 @@ void EditorImpl::updateCache()
             // process extra interfaces
             processAndUpdateEI(singleInventory,
                                singleInventory["inventoryPath"]
+                                   .get_ref<const nlohmann::json::string_t&>());
+        }
+
+        // process Common interface
+        if (singleInventory.value("publishCI", true))
+        {
+            processAndUpdateCI(singleInventory["inventoryPath"]
                                    .get_ref<const nlohmann::json::string_t&>());
         }
     }
