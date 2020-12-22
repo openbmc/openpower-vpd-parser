@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45665002_50ef312e",
+        "filename": "meson.build",
+        "patchSetId": 13
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-22T12:41:40Z",
+      "side": 1,
+      "message": "If your intention in defining the common_SOURCES was to reuse them, please do so here as well.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 32
+      },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c067ee43_cd33c4ae",
+        "filename": "utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-22T12:41:40Z",
+      "side": 1,
+      "message": "Does this function actually need to be in util? Seems like it handles cases too specific to the vpd tool\u0027s update options.",
+      "range": {
+        "startLine": 292,
+        "startChar": 7,
+        "endLine": 292,
+        "endChar": 15
+      },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5427f5be_e9f622d2",
+        "filename": "utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-22T12:41:40Z",
+      "side": 1,
+      "message": "This kind of a message is too generic to be placed in util. How do you know that the app that links this in even has a help option, or whether it even want to update anything? I would recommend either just returning an empty vector and let the caller do this handling.",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 62
+      },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aab11ab2_26db2414",
+        "filename": "utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-22T12:41:40Z",
+      "side": 1,
+      "message": "Please name functions as verbs - So a better name is \"isPathInJson\"",
+      "range": {
+        "startLine": 110,
+        "startChar": 5,
+        "endLine": 110,
+        "endChar": 25
+      },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7857da4c_15b7327e",
+        "filename": "utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-22T12:41:40Z",
+      "side": 1,
+      "message": "Same here, please name functions better.",
+      "range": {
+        "startLine": 122,
+        "startChar": 5,
+        "endLine": 122,
+        "endChar": 28
+      },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a3cf33b_9b7bd999",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-22T12:41:40Z",
+      "side": 1,
+      "message": "Why can\u0027t this be an argument to updateKeyword? Why do we need a publicly accessible member?",
+      "range": {
+        "startLine": 406,
+        "startChar": 8,
+        "endLine": 406,
+        "endChar": 30
+      },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01a5043c_1cc5599b",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-22T12:41:40Z",
+      "side": 1,
+      "message": "Please cleanup",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 1
+      },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
