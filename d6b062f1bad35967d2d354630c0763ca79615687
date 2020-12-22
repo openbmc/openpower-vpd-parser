@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2913cd05_67a7ca76",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-22T05:56:30Z",
+      "side": 1,
+      "message": "Not needed",
+      "range": {
+        "startLine": 460,
+        "startChar": 4,
+        "endLine": 460,
+        "endChar": 10
+      },
+      "revId": "d6b062f1bad35967d2d354630c0763ca79615687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
