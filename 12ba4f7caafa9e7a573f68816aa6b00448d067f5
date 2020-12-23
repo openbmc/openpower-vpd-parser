@@ -25,6 +25,74 @@
     },
     {
       "key": {
+        "uuid": "6f92f455_5421e8e4",
+        "filename": "utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-23T14:23:16Z",
+      "side": 1,
+      "message": "We can throw VpdJsonException for this. Please refer vpd_exceptions.hpp for details.",
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc3874ef_c5cae63e",
+        "filename": "utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-23T14:23:16Z",
+      "side": 1,
+      "message": "Can we put the parse call under try catch? In case parsing throws an exception we should be able to handle that.",
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "025ae6dc_c3bee48a",
+        "filename": "utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-23T14:23:16Z",
+      "side": 1,
+      "message": "Handle exception while call to parse?",
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d46bf5e_ec1994d9",
+        "filename": "utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-23T14:23:16Z",
+      "side": 1,
+      "message": "Throw VpdJsonException?",
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c067ee43_cd33c4ae",
         "filename": "utils.cpp",
         "patchSetId": 13
@@ -111,6 +179,40 @@
         "endLine": 122,
         "endChar": 28
       },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "532aca1b_39fbd50a",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-23T14:23:16Z",
+      "side": 1,
+      "message": "Same query here, why we need to change this to non const?",
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3744af25_fa2cbb93",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-23T14:23:16Z",
+      "side": 1,
+      "message": "Why do we need to change parameter to non const when we are not changing the kwdData in this method?",
       "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
