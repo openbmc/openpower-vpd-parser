@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22deec22_158e0106",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-24T16:06:38Z",
+      "side": 1,
+      "message": "by default setting the updateCache as true.",
+      "range": {
+        "startLine": 112,
+        "startChar": 33,
+        "endLine": 112,
+        "endChar": 40
+      },
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
