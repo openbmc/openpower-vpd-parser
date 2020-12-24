@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8d8150cc_9785309a",
+        "filename": "meson.build",
+        "patchSetId": 13
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-24T16:03:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "45665002_50ef312e",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 32
+      },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f92f455_5421e8e4",
         "filename": "utils.cpp",
         "patchSetId": 13
@@ -36,6 +60,24 @@
       "writtenOn": "2020-12-23T14:23:16Z",
       "side": 1,
       "message": "We can throw VpdJsonException for this. Please refer vpd_exceptions.hpp for details.",
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "242f9796_1def9ad2",
+        "filename": "utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-24T16:03:25Z",
+      "side": 1,
+      "message": "Well, then we need to pass JSON PATH to the exception - that is not known to this api.\nLet me change the parameters a bit - will pass JSON PATH instead of JSON OBJECT.",
+      "parentUuid": "6f92f455_5421e8e4",
       "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "91f8f84b_aee8346c",
+        "filename": "utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-24T16:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc3874ef_c5cae63e",
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "025ae6dc_c3bee48a",
         "filename": "utils.cpp",
         "patchSetId": 13
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "bc2352a4_de809f69",
+        "filename": "utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-24T16:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "025ae6dc_c3bee48a",
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d46bf5e_ec1994d9",
         "filename": "utils.cpp",
         "patchSetId": 13
@@ -90,6 +168,24 @@
       "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e36c86c3_fa970e93",
+        "filename": "utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-24T16:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d46bf5e_ec1994d9",
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -116,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "c874fd62_dbf2c913",
+        "filename": "utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-24T16:03:25Z",
+      "side": 1,
+      "message": "Right. will move it out of util",
+      "parentUuid": "c067ee43_cd33c4ae",
+      "range": {
+        "startLine": 292,
+        "startChar": 7,
+        "endLine": 292,
+        "endChar": 15
+      },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5427f5be_e9f622d2",
         "filename": "utils.cpp",
         "patchSetId": 13
@@ -127,6 +247,30 @@
       "writtenOn": "2020-12-22T12:41:40Z",
       "side": 1,
       "message": "This kind of a message is too generic to be placed in util. How do you know that the app that links this in even has a help option, or whether it even want to update anything? I would recommend either just returning an empty vector and let the caller do this handling.",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 62
+      },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ebb4975_0f3bca09",
+        "filename": "utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-24T16:03:25Z",
+      "side": 1,
+      "message": "I will move this api to VpdTool - so that i can have this message as such - which is specific to VpdTool updation.",
+      "parentUuid": "5427f5be_e9f622d2",
       "range": {
         "startLine": 316,
         "startChar": 0,
@@ -162,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "c6d143d0_f45eb969",
+        "filename": "utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-24T16:03:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "aab11ab2_26db2414",
+      "range": {
+        "startLine": 110,
+        "startChar": 5,
+        "endLine": 110,
+        "endChar": 25
+      },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7857da4c_15b7327e",
         "filename": "utils.hpp",
         "patchSetId": 13
@@ -185,6 +353,30 @@
     },
     {
       "key": {
+        "uuid": "df55cecd_18141a89",
+        "filename": "utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-24T16:03:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7857da4c_15b7327e",
+      "range": {
+        "startLine": 122,
+        "startChar": 5,
+        "endLine": 122,
+        "endChar": 28
+      },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "532aca1b_39fbd50a",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 13
@@ -196,6 +388,24 @@
       "writtenOn": "2020-12-23T14:23:16Z",
       "side": 1,
       "message": "Same query here, why we need to change this to non const?",
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1f8e071_509d0fe4",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-24T16:03:25Z",
+      "side": 1,
+      "message": "revereted back to const",
+      "parentUuid": "532aca1b_39fbd50a",
       "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -219,6 +429,24 @@
     },
     {
       "key": {
+        "uuid": "3639836a_3f722c7f",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-24T16:03:25Z",
+      "side": 1,
+      "message": "reverted back to const",
+      "parentUuid": "3744af25_fa2cbb93",
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a3cf33b_9b7bd999",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 13
@@ -230,6 +458,30 @@
       "writtenOn": "2020-12-22T12:41:40Z",
       "side": 1,
       "message": "Why can\u0027t this be an argument to updateKeyword? Why do we need a publicly accessible member?",
+      "range": {
+        "startLine": 406,
+        "startChar": 8,
+        "endLine": 406,
+        "endChar": 30
+      },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77963517_1e884a66",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-24T16:03:25Z",
+      "side": 1,
+      "message": "yeah right.. updated accordingly",
+      "parentUuid": "2a3cf33b_9b7bd999",
       "range": {
         "startLine": 406,
         "startChar": 8,
@@ -262,6 +514,30 @@
       "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a7a511b_ecff6d87",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2020-12-24T16:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01a5043c_1cc5599b",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 1
+      },
+      "revId": "12ba4f7caafa9e7a573f68816aa6b00448d067f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
