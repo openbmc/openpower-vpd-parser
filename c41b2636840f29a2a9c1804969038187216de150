@@ -2,6 +2,159 @@
   "comments": [
     {
       "key": {
+        "uuid": "d91ca545_24abe64b",
+        "filename": "meson.build",
+        "patchSetId": 14
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-24T16:59:40Z",
+      "side": 1,
+      "message": "Tabs",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2b44d02_84d66576",
+        "filename": "meson.build",
+        "patchSetId": 14
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-24T16:59:40Z",
+      "side": 1,
+      "message": "Tabs",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dba6e727_072684e0",
+        "filename": "meson.build",
+        "patchSetId": 14
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-24T16:59:40Z",
+      "side": 1,
+      "message": "Tabs",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12c18727_e739bf8a",
+        "filename": "utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-24T16:59:40Z",
+      "side": 1,
+      "message": "This return will never get executed.",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92bd6e66_c0132efa",
+        "filename": "utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-24T16:59:40Z",
+      "side": 1,
+      "message": "This api is dependent on commit\n\"https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/34636\".\n\nIt will work only when the above commit is merged else it will always throw exception. \n@santosh Should we rebase this commit on top of the above commit or this is fine?",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d013a521_3c4b8d6d",
+        "filename": "utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-24T16:59:40Z",
+      "side": 1,
+      "message": "Please avoid using un-initialised local variable. This might lead to undefined behaviour.",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c179c342_f5070e8c",
+        "filename": "utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-24T16:59:40Z",
+      "side": 1,
+      "message": "Please don\u0027t define type in header file. It can cause issue in other files that might use this header file.",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f0ec217_961fdf39",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-24T16:59:40Z",
+      "side": 1,
+      "message": "We can use constant reference for bool as well?",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94741eba_417e5e5b",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-24T16:59:40Z",
+      "side": 1,
+      "message": "Constant reference for bool as well.",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22deec22_158e0106",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 14
@@ -19,6 +172,57 @@
         "endLine": 112,
         "endChar": 40
       },
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80b98dd4_6b37068d",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-24T16:59:40Z",
+      "side": 1,
+      "message": "Please avoid using uninitialised local variables.",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99a07ada_4f05eff6",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-24T16:59:40Z",
+      "side": 1,
+      "message": "Handle exception for call to parse.",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d43e5ff_a7f65917",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2020-12-24T16:59:40Z",
+      "side": 1,
+      "message": "Don\u0027t use namespace declaration in header files.\nAlso if possible could you please fix the \"using json \u003d nlohmann::json;\".",
       "revId": "c41b2636840f29a2a9c1804969038187216de150",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
