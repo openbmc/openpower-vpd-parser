@@ -2,6 +2,230 @@
   "comments": [
     {
       "key": {
+        "uuid": "bf2bb7ae_4b23eea8",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-24T06:15:40Z",
+      "side": 1,
+      "message": "Why do you need this?, all of the code below is in that namespace anyway",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 44
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a731706f_32002e2f",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-24T06:15:40Z",
+      "side": 1,
+      "message": "I wouldn\u0027t want to exit the whole process just because you did not find a pin name. Please ignore this condition by logging an error.",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 17
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "902bb5c4_93dbf464",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-24T06:15:40Z",
+      "side": 1,
+      "message": "Why is the return from this not handled?",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 24
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7968dec7_53600614",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-24T06:15:40Z",
+      "side": 1,
+      "message": "I think we have removed polarity now? Please fix this accordingly",
+      "range": {
+        "startLine": 32,
+        "startChar": 21,
+        "endLine": 32,
+        "endChar": 37
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0d5b06e_8fbc5266",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-24T06:15:40Z",
+      "side": 1,
+      "message": "Remove unnecessary blank lines.",
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "059ca560_88480eb1",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-24T06:15:40Z",
+      "side": 1,
+      "message": "This can be collapsed into one line. return getCurrentPresenceState() !\u003d prevPresenceState;",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 20
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39c4472f_5d0a046a",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-24T06:15:40Z",
+      "side": 1,
+      "message": "Please use a reference here. Copying over an entire JSON object would be very expensive. While using a reference adds dependency to the class/method that contains the JSON, I think that is OK.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "742538df_51b09be6",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-24T06:15:40Z",
+      "side": 1,
+      "message": "Why is uint8_t taken in as a non-const ref? In fact all of the references that you take in should be const",
+      "range": {
+        "startLine": 61,
+        "startChar": 21,
+        "endLine": 61,
+        "endChar": 42
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b239e65_0afad1fb",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-24T06:15:40Z",
+      "side": 1,
+      "message": "Why is this public?",
+      "range": {
+        "startLine": 72,
+        "startChar": 9,
+        "endLine": 72,
+        "endChar": 26
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e23ba0d_73aace69",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2020-12-24T06:15:40Z",
+      "side": 1,
+      "message": "It is not an API if it is private. Please remove that term from all private member functions.",
+      "range": {
+        "startLine": 85,
+        "startChar": 19,
+        "endLine": 85,
+        "endChar": 22
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e3080ec_9d6ff691",
         "filename": "vpd-manager/meson.build",
         "patchSetId": 7
