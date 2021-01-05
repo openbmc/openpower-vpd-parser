@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "85700c4b_116f84af",
+        "filename": "meson.build",
+        "patchSetId": 14
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-05T13:00:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d91ca545_24abe64b",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2b44d02_84d66576",
         "filename": "meson.build",
         "patchSetId": 14
@@ -33,6 +51,24 @@
       "revId": "c41b2636840f29a2a9c1804969038187216de150",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cac0a4c4_19b31e72",
+        "filename": "meson.build",
+        "patchSetId": 14
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-05T13:00:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b2b44d02_84d66576",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "952421b6_f2035ed5",
+        "filename": "meson.build",
+        "patchSetId": 14
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-05T13:00:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dba6e727_072684e0",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12c18727_e739bf8a",
         "filename": "utils.cpp",
         "patchSetId": 14
@@ -67,6 +121,24 @@
       "revId": "c41b2636840f29a2a9c1804969038187216de150",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39f471fc_d43d54df",
+        "filename": "utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-05T13:00:38Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "12c18727_e739bf8a",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "89a1f37b_758117d4",
+        "filename": "utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-05T13:00:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d013a521_3c4b8d6d",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c179c342_f5070e8c",
         "filename": "utils.hpp",
         "patchSetId": 14
@@ -118,6 +208,24 @@
       "revId": "c41b2636840f29a2a9c1804969038187216de150",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efe5456e_f6d460e6",
+        "filename": "utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-05T13:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c179c342_f5070e8c",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -152,6 +260,24 @@
       "revId": "c41b2636840f29a2a9c1804969038187216de150",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc444e56_859c60a6",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-05T13:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94741eba_417e5e5b",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -195,6 +321,24 @@
     },
     {
       "key": {
+        "uuid": "09e9ad63_fa38ffc8",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-05T13:00:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "80b98dd4_6b37068d",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99a07ada_4f05eff6",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 14
@@ -212,6 +356,24 @@
     },
     {
       "key": {
+        "uuid": "89b37ef2_07a74928",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-05T13:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99a07ada_4f05eff6",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d43e5ff_a7f65917",
         "filename": "vpd_tool_impl.hpp",
         "patchSetId": 14
@@ -226,6 +388,24 @@
       "revId": "c41b2636840f29a2a9c1804969038187216de150",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "470853e6_cb065fb5",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-05T13:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d43e5ff_a7f65917",
+      "revId": "c41b2636840f29a2a9c1804969038187216de150",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
