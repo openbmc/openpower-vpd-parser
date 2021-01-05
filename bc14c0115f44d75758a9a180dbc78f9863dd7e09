@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f37baf1e_d677f78b",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-05T19:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf2bb7ae_4b23eea8",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 44
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a731706f_32002e2f",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7d71eafd_5ed5f84b",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-05T19:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a731706f_32002e2f",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 17
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "902bb5c4_93dbf464",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 7
@@ -59,6 +107,30 @@
       "writtenOn": "2020-12-24T06:15:40Z",
       "side": 1,
       "message": "Why is the return from this not handled?",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 24
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39defab5_218f55d2",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-05T19:25:12Z",
+      "side": 1,
+      "message": "This returns void\n\nref- https://github.com/brgl/libgpiod/blob/master/bindings/cxx/gpiod.hpp\n/**\n\t * @brief Request this line.\n\t * @param config Request config (see gpiod::line_request).\n\t * @param default_val Default value - only matters for OUTPUT direction.\n\t */\n\tGPIOD_API void request(const line_request\u0026 config, int default_val \u003d 0) const;",
+      "parentUuid": "902bb5c4_93dbf464",
       "range": {
         "startLine": 28,
         "startChar": 4,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "e152335e_04b0b165",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-05T19:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7968dec7_53600614",
+      "range": {
+        "startLine": 32,
+        "startChar": 21,
+        "endLine": 32,
+        "endChar": 37
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0d5b06e_8fbc5266",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 7
@@ -108,6 +204,24 @@
       "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "476361d7_d2c55cd1",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-05T19:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0d5b06e_8fbc5266",
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "368a12fa_f89796f2",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-05T19:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "059ca560_88480eb1",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 20
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39c4472f_5d0a046a",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 7
@@ -154,6 +292,30 @@
       "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08b4e876_51d5f9a5",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-05T19:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39c4472f_5d0a046a",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "39899f17_97324116",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-05T19:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "742538df_51b09be6",
+      "range": {
+        "startLine": 61,
+        "startChar": 21,
+        "endLine": 61,
+        "endChar": 42
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b239e65_0afad1fb",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 7
@@ -191,6 +377,30 @@
       "writtenOn": "2020-12-24T06:15:40Z",
       "side": 1,
       "message": "Why is this public?",
+      "range": {
+        "startLine": 72,
+        "startChar": 9,
+        "endLine": 72,
+        "endChar": 26
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce670bb0_0eb5ba1b",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-05T19:25:12Z",
+      "side": 1,
+      "message": "If it\u0027s PRIVATE then only constructor can init it.\nBut it\u0027s requirement is to modify every time when status gets changed, so kept it public.",
+      "parentUuid": "3b239e65_0afad1fb",
       "range": {
         "startLine": 72,
         "startChar": 9,
@@ -223,6 +433,30 @@
       "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1c1a308_5d4323a4",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-05T19:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e23ba0d_73aace69",
+      "range": {
+        "startLine": 85,
+        "startChar": 19,
+        "endLine": 85,
+        "endChar": 22
+      },
+      "revId": "bc14c0115f44d75758a9a180dbc78f9863dd7e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
