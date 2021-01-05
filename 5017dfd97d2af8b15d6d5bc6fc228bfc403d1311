@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3cb56eab_723a55cb",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-05T12:34:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3332266a_4ed5ac0f",
+      "range": {
+        "startLine": 527,
+        "startChar": 45,
+        "endLine": 527,
+        "endChar": 60
+      },
+      "revId": "5017dfd97d2af8b15d6d5bc6fc228bfc403d1311",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03530477_17d6169b",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 19
@@ -45,6 +69,30 @@
       "revId": "5017dfd97d2af8b15d6d5bc6fc228bfc403d1311",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fde2b891_0f8efcd5",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-05T12:34:15Z",
+      "side": 1,
+      "message": "I have moved the update hardware portion after the correct JSON is selected.",
+      "parentUuid": "03530477_17d6169b",
+      "range": {
+        "startLine": 616,
+        "startChar": 0,
+        "endLine": 620,
+        "endChar": 17
+      },
+      "revId": "5017dfd97d2af8b15d6d5bc6fc228bfc403d1311",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
