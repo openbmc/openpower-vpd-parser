@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8936bc37_63fe2394",
+        "filename": "types.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-01-06T06:10:44Z",
+      "side": 1,
+      "message": "What does updated at standby mean? I think we need to name this better. The EEPROM is being updated as a part of the collection process, not \"at standby\"",
+      "range": {
+        "startLine": 56,
+        "startChar": 6,
+        "endLine": 56,
+        "endChar": 29
+      },
+      "revId": "3e48c7f787ade0bd7a2e50f28e3c05e98e2df5af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fda1db1_fc4d9c58",
+        "filename": "utils.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-01-06T06:10:44Z",
+      "side": 1,
+      "message": "Please just pass the right type so that we don\u0027t need a cast",
+      "range": {
+        "startLine": 84,
+        "startChar": 23,
+        "endLine": 84,
+        "endChar": 31
+      },
+      "revId": "3e48c7f787ade0bd7a2e50f28e3c05e98e2df5af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceb662ae_b0c4c837",
+        "filename": "utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-01-06T06:10:44Z",
+      "side": 1,
+      "message": "This does not match the actual signature",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 43
+      },
+      "revId": "3e48c7f787ade0bd7a2e50f28e3c05e98e2df5af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7451a551_d6f8a487",
+        "filename": "utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-01-06T06:10:44Z",
+      "side": 1,
+      "message": "For uint8\u0027s, just use a pass-by-value. Also please prefer using size_t here.",
+      "range": {
+        "startLine": 74,
+        "startChar": 59,
+        "endLine": 74,
+        "endChar": 79
+      },
+      "revId": "3e48c7f787ade0bd7a2e50f28e3c05e98e2df5af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
