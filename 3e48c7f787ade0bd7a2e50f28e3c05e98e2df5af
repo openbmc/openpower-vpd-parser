@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "1232c72d_e63b9612",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-01-06T09:53:25Z",
+      "side": 1,
+      "message": "We should check that the path returned in the subtree matches this object path. Right now, since just have the one motherboard, this does not really matter, so maybe just add an assert at least?",
+      "range": {
+        "startLine": 639,
+        "startChar": 66,
+        "endLine": 639,
+        "endChar": 76
+      },
+      "revId": "3e48c7f787ade0bd7a2e50f28e3c05e98e2df5af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03bd3906_36790118",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-01-06T09:53:25Z",
+      "side": 1,
+      "message": "unnecessary",
+      "range": {
+        "startLine": 755,
+        "startChar": 7,
+        "endLine": 755,
+        "endChar": 39
+      },
+      "revId": "3e48c7f787ade0bd7a2e50f28e3c05e98e2df5af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8936bc37_63fe2394",
         "filename": "types.hpp",
         "patchSetId": 21
