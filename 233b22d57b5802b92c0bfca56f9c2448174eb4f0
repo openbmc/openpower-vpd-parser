@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b7a15dd_c2c96e3e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-01-07T14:11:56Z",
+      "side": 1,
+      "message": "Can we also add the keyword which needs to be programmed here? When I tried this on simics, I found a few of these errors getting logged (because simics has quite a few blank VPD fields), I would like to just do a peltool -i and figure out which keyword is blank instead of debugging.",
+      "range": {
+        "startLine": 574,
+        "startChar": 24,
+        "endLine": 575,
+        "endChar": 59
+      },
+      "revId": "233b22d57b5802b92c0bfca56f9c2448174eb4f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
