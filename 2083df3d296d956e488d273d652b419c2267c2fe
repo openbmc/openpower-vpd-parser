@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "07ec039c_f71dc939",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-11T13:43:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f99b404e_a71cf2d6",
+      "revId": "2083df3d296d956e488d273d652b419c2267c2fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1e0aa9c_0bbe4722",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 25
@@ -33,6 +51,24 @@
       "revId": "2083df3d296d956e488d273d652b419c2267c2fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05cb00f8_771317cd",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-11T13:43:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1e0aa9c_0bbe4722",
+      "revId": "2083df3d296d956e488d273d652b419c2267c2fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "2083df3d296d956e488d273d652b419c2267c2fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "074a5d38_90b1e87f",
+        "filename": "utils.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-11T13:43:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55f533fb_854ea71e",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 9
+      },
+      "revId": "2083df3d296d956e488d273d652b419c2267c2fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }

@@ -444,6 +444,30 @@
     },
     {
       "key": {
+        "uuid": "97916d60_068816dd",
+        "filename": "utils.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-11T13:43:34Z",
+      "side": 1,
+      "message": "Updated the brief accordingly.",
+      "parentUuid": "ddfa1994_e3ca4223",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 22
+      },
+      "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0a5ffd5_79c9d947",
         "filename": "utils.hpp",
         "patchSetId": 24
