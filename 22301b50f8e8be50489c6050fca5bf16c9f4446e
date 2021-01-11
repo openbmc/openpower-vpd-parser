@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ea91cbf2_00c8692c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-11T11:18:14Z",
+      "side": 1,
+      "message": "you can include in commit message.",
+      "parentUuid": "8fc0bd3b_e72361b6",
+      "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d23ff44d_21122b1c",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 24
@@ -213,6 +231,30 @@
     },
     {
       "key": {
+        "uuid": "0e0a94e6_d0a705d7",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-11T11:18:14Z",
+      "side": 1,
+      "message": "yeah..okay",
+      "parentUuid": "87aa635a_43280dde",
+      "range": {
+        "startLine": 897,
+        "startChar": 8,
+        "endLine": 901,
+        "endChar": 9
+      },
+      "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d416bcbc_7ee49d69",
         "filename": "types.hpp",
         "patchSetId": 24
@@ -248,6 +290,30 @@
       "side": 1,
       "message": "I am not naming any particular service here. I am defining type for service. It can be any service.",
       "parentUuid": "d416bcbc_7ee49d69",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 13
+      },
+      "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e82d155f_0935158c",
+        "filename": "types.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-11T11:18:14Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "118d4986_02cd2f75",
       "range": {
         "startLine": 53,
         "startChar": 6,
@@ -342,6 +408,30 @@
       "side": 1,
       "message": "If you look at the definition, this api is not restricted to getting inventory manager service. It can be used to get any service based on the interface passed. Hence it has been named so generic.",
       "parentUuid": "a6519005_453fd07c",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 22
+      },
+      "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ddfa1994_e3ca4223",
+        "filename": "utils.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-11T11:18:14Z",
+      "side": 1,
+      "message": "But the @brief(line49) which is given is specific to inventory manager service.",
+      "parentUuid": "c00cf878_ac9dd81b",
       "range": {
         "startLine": 55,
         "startChar": 12,
