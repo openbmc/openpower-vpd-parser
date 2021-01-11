@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8fc0bd3b_e72361b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-11T09:09:41Z",
+      "side": 1,
+      "message": "You can refer workbook for that and we also discussed the same in team meeting when we were discussing the design for this.\nDo you want me to explain that or you wan that to be included in commit message?",
+      "parentUuid": "52000b78_ecaf4531",
+      "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d23ff44d_21122b1c",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 24
@@ -30,6 +48,24 @@
       "writtenOn": "2021-01-11T08:44:25Z",
       "side": 1,
       "message": "Just fyi, update cache is always set to true in writekeyword() as well; https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/35903/15/vpd-manager/manager.cpp. .",
+      "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f29c30ac_91e1847f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-11T09:09:41Z",
+      "side": 1,
+      "message": "ok, anyways we are updating cache data on EEPROM so not an issue.",
+      "parentUuid": "d23ff44d_21122b1c",
       "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "d4965635_3a295b32",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-11T09:09:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e20c6a81_a63e5a1b",
+      "range": {
+        "startLine": 633,
+        "startChar": 26,
+        "endLine": 633,
+        "endChar": 31
+      },
+      "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f48b29b4_aa338a0b",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 24
@@ -70,6 +130,30 @@
       "writtenOn": "2021-01-11T08:44:25Z",
       "side": 1,
       "message": "who is SSR",
+      "range": {
+        "startLine": 710,
+        "startChar": 37,
+        "endLine": 710,
+        "endChar": 40
+      },
+      "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2e5b0bf_602ef794",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-11T09:09:41Z",
+      "side": 1,
+      "message": "System service engineer.",
+      "parentUuid": "f48b29b4_aa338a0b",
       "range": {
         "startLine": 710,
         "startChar": 37,
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "87aa635a_43280dde",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-11T09:09:41Z",
+      "side": 1,
+      "message": "Well, If \"updatedEeproms\" is empty it will never enter the for loop.",
+      "parentUuid": "3c3a292e_530f0de3",
+      "range": {
+        "startLine": 897,
+        "startChar": 8,
+        "endLine": 901,
+        "endChar": 9
+      },
+      "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d416bcbc_7ee49d69",
         "filename": "types.hpp",
         "patchSetId": 24
@@ -116,6 +224,30 @@
       "writtenOn": "2021-01-11T08:44:25Z",
       "side": 1,
       "message": "what service is this? Can you detail the naming?",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 13
+      },
+      "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "118d4986_02cd2f75",
+        "filename": "types.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-11T09:09:41Z",
+      "side": 1,
+      "message": "I am not naming any particular service here. I am defining type for service. It can be any service.",
+      "parentUuid": "d416bcbc_7ee49d69",
       "range": {
         "startLine": 53,
         "startChar": 6,
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "2abecdb5_74ac987b",
+        "filename": "utils.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-11T09:09:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80451b92_8868cc27",
+      "range": {
+        "startLine": 52,
+        "startChar": 44,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6519005_453fd07c",
         "filename": "utils.hpp",
         "patchSetId": 24
@@ -174,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "c00cf878_ac9dd81b",
+        "filename": "utils.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-11T09:09:41Z",
+      "side": 1,
+      "message": "If you look at the definition, this api is not restricted to getting inventory manager service. It can be used to get any service based on the interface passed. Hence it has been named so generic.",
+      "parentUuid": "a6519005_453fd07c",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 22
+      },
+      "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0a5ffd5_79c9d947",
         "filename": "utils.hpp",
         "patchSetId": 24
@@ -194,6 +374,30 @@
       "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d92cfd0_3f12c9e1",
+        "filename": "utils.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-11T09:09:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0a5ffd5_79c9d947",
+      "range": {
+        "startLine": 65,
+        "startChar": 20,
+        "endLine": 65,
+        "endChar": 28
+      },
+      "revId": "22301b50f8e8be50489c6050fca5bf16c9f4446e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
