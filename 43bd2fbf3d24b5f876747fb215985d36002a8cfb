@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b94efb53_05a14021",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-12T09:47:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d767baec_f53dfe52",
+      "range": {
+        "startLine": 7,
+        "startChar": 37,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "43bd2fbf3d24b5f876747fb215985d36002a8cfb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4cd6533_6c1a10f7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 11
@@ -39,6 +63,24 @@
       "revId": "43bd2fbf3d24b5f876747fb215985d36002a8cfb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15b8384f_fcf2e34a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-12T09:47:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4cd6533_6c1a10f7",
+      "revId": "43bd2fbf3d24b5f876747fb215985d36002a8cfb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "1f3f184a_90ccaf0c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-12T09:47:08Z",
+      "side": 1,
+      "message": "Updated commit message, it has explanation about this event.\nThese debug messages are just for Testing, to know the code flow..",
+      "parentUuid": "810e3e4c_ed3219ae",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 31
+      },
+      "revId": "43bd2fbf3d24b5f876747fb215985d36002a8cfb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69e544b9_feffc44f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 11
@@ -76,6 +142,30 @@
       "writtenOn": "2021-01-08T12:31:29Z",
       "side": 1,
       "message": "Also what you are trying to figure out from this output.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 27
+      },
+      "revId": "43bd2fbf3d24b5f876747fb215985d36002a8cfb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e69e1dd1_b47b5f99",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-12T09:47:08Z",
+      "side": 1,
+      "message": "you will see the difference at 51\nit gets bound-unbound accordingly.",
+      "parentUuid": "69e544b9_feffc44f",
       "range": {
         "startLine": 33,
         "startChar": 0,
