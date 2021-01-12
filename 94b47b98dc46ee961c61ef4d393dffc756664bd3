@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62cec951_ff6262eb",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-12T16:19:55Z",
+      "side": 1,
+      "message": "tabs.",
+      "revId": "94b47b98dc46ee961c61ef4d393dffc756664bd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe9352f4_d48a7221",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-01-12T16:19:55Z",
+      "side": 1,
+      "message": "You are passing JSON here, but in brief you have mentioned inventory object.\n\nAlso update and copy both are creating confusion. How about updateCopiedRecordsIfAny?",
+      "revId": "94b47b98dc46ee961c61ef4d393dffc756664bd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
