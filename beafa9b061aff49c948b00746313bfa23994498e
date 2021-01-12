@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5cd6e317_61588c29",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-12T11:22:13Z",
+      "side": 1,
+      "message": "we don\u0027t need these infos from JSON anymore?\n\n529                 // bind the driver\n                    string str \u003d \"echo \";\n                    string devNameAddr \u003d eachInventory[\"devAddress\"];\n                    string driverType \u003d eachInventory[\"driverType\"];\n                    string busType \u003d eachInventory[\"busType\"];\n\n                    str \u003d str + devNameAddr + \" \u003e /sys/bus/\" + busType +\n                          \"/drivers/\" + driverType + \"/bind\";",
+      "range": {
+        "startLine": 432,
+        "startChar": 3,
+        "endLine": 433,
+        "endChar": 67
+      },
+      "revId": "beafa9b061aff49c948b00746313bfa23994498e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1055b997_c09dac7e",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 47
@@ -13,6 +36,30 @@
       "writtenOn": "2021-01-12T10:35:42Z",
       "side": 1,
       "message": "Isn\u0027t think the very thing that is done in the above function? Why do we need this commit anymore?",
+      "range": {
+        "startLine": 452,
+        "startChar": 0,
+        "endLine": 452,
+        "endChar": 1
+      },
+      "revId": "beafa9b061aff49c948b00746313bfa23994498e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "797a696e_63a15660",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-01-12T11:22:13Z",
+      "side": 1,
+      "message": "yes. \nwith commit 38759, things will be done(presence-check). we can remove this commit.",
+      "parentUuid": "1055b997_c09dac7e",
       "range": {
         "startLine": 452,
         "startChar": 0,
