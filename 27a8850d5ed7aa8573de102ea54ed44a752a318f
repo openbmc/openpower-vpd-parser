@@ -1,0 +1,320 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b360c42_472b466d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-21T17:58:18Z",
+      "side": 1,
+      "message": "Can you update the commit message accroding to the current design?\nsay HW instead of PN - whereever applicable",
+      "range": {
+        "startLine": 14,
+        "startChar": 13,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "27a8850d5ed7aa8573de102ea54ed44a752a318f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3fb8c14_e04d1005",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-21T17:58:18Z",
+      "side": 1,
+      "message": "Can you update the output tested with HW keyword",
+      "range": {
+        "startLine": 20,
+        "startChar": 21,
+        "endLine": 20,
+        "endChar": 40
+      },
+      "revId": "27a8850d5ed7aa8573de102ea54ed44a752a318f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a8a0f2d_ffd226cb",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-21T17:58:18Z",
+      "side": 1,
+      "message": "We can have this comment in line 848?",
+      "range": {
+        "startLine": 844,
+        "startChar": 8,
+        "endLine": 844,
+        "endChar": 37
+      },
+      "revId": "27a8850d5ed7aa8573de102ea54ed44a752a318f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3598f6c_405db782",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-21T17:58:18Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "range": {
+        "startLine": 849,
+        "startChar": 13,
+        "endLine": 849,
+        "endChar": 74
+      },
+      "revId": "27a8850d5ed7aa8573de102ea54ed44a752a318f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50987bd7_5c3624b8",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-21T17:58:18Z",
+      "side": 1,
+      "message": "Why dont we get IM value in line849 itself and make \"string imKeyword{}\" local to main function? so that we can avoid the if check in 879; and also in future if any other api needs IM value, they can use it without calling getIM again?",
+      "range": {
+        "startLine": 881,
+        "startChar": 12,
+        "endLine": 881,
+        "endChar": 51
+      },
+      "revId": "27a8850d5ed7aa8573de102ea54ed44a752a318f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4ac1b49_2b94d69f",
+        "filename": "json/system/systems.json",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-21T17:58:18Z",
+      "side": 1,
+      "message": "Can you format this json",
+      "revId": "27a8850d5ed7aa8573de102ea54ed44a752a318f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e426019_8c170fbd",
+        "filename": "utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-21T17:58:18Z",
+      "side": 1,
+      "message": "Can we also include the IM Keyword value here?\nsay, the system with IM 0xABCD is not available in systemsJson.",
+      "range": {
+        "startLine": 298,
+        "startChar": 29,
+        "endLine": 298,
+        "endChar": 73
+      },
+      "revId": "27a8850d5ed7aa8573de102ea54ed44a752a318f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fb84e64_b625fa24",
+        "filename": "utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-21T17:58:18Z",
+      "side": 1,
+      "message": "The @brief line we follow to use it in the second line. Can we follow the same pattern for all the apis\u0027?",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 12
+      },
+      "revId": "27a8850d5ed7aa8573de102ea54ed44a752a318f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ecc9c93_105b9437",
+        "filename": "utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-21T17:58:18Z",
+      "side": 1,
+      "message": "HW keyword",
+      "range": {
+        "startLine": 112,
+        "startChar": 37,
+        "endLine": 112,
+        "endChar": 41
+      },
+      "revId": "27a8850d5ed7aa8573de102ea54ed44a752a318f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1b5c7d9_cb8d3925",
+        "filename": "utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-21T17:58:18Z",
+      "side": 1,
+      "message": "Can we have a hiphen here?",
+      "range": {
+        "startLine": 114,
+        "startChar": 21,
+        "endLine": 114,
+        "endChar": 23
+      },
+      "revId": "27a8850d5ed7aa8573de102ea54ed44a752a318f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fffa9a10_0ef1035b",
+        "filename": "utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-21T17:58:18Z",
+      "side": 1,
+      "message": "Hiphen?",
+      "range": {
+        "startLine": 120,
+        "startChar": 21,
+        "endLine": 120,
+        "endChar": 23
+      },
+      "revId": "27a8850d5ed7aa8573de102ea54ed44a752a318f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beaf7f3e_2411e4c7",
+        "filename": "utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-21T17:58:18Z",
+      "side": 1,
+      "message": "extra space",
+      "range": {
+        "startLine": 121,
+        "startChar": 12,
+        "endLine": 121,
+        "endChar": 15
+      },
+      "revId": "27a8850d5ed7aa8573de102ea54ed44a752a318f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b1eeefd_27a245ea",
+        "filename": "utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-21T17:58:18Z",
+      "side": 1,
+      "message": "Hiphen?",
+      "range": {
+        "startLine": 126,
+        "startChar": 21,
+        "endLine": 126,
+        "endChar": 23
+      },
+      "revId": "27a8850d5ed7aa8573de102ea54ed44a752a318f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6374b9a8_322e81d7",
+        "filename": "utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-01-21T17:58:18Z",
+      "side": 1,
+      "message": "extra space",
+      "range": {
+        "startLine": 127,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 15
+      },
+      "revId": "27a8850d5ed7aa8573de102ea54ed44a752a318f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
