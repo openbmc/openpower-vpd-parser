@@ -48,6 +48,16 @@ static const deviceTreeMap deviceTreeSystemTypeMap = {
     {RAINIER_1S4U, "conf-aspeed-bmc-ibm-rainier-1s4u.dtb"},
     {EVEREST, "conf-aspeed-bmc-ibm-everest.dtb"}};
 
+static const brandRecKwdMap vpdBrands{
+    {"S0",
+     {{"VSYS", {"TM", "SE", "SU", "RB"}},
+      {"VCEN", {"FC", "SE"}},
+      {"LXR0", {"LX"}}}},
+    {"D0",
+     {{"VSYS", {"SE", "SG", "TM", "TN", "MN", "ID", "SU", "NN"}},
+      {"VCEN", {"FC", "SE"}},
+      {"LXR0", {"LX"}}}}};
+
 /**
  * @brief Returns the power state for chassis0
  */
@@ -725,43 +735,58 @@ void updateHardware(const string& objectName, const string& recName,
 
 /**
  * @brief API to check if we need to restore system VPD
- * This functionality is only applicable for IPZ VPD data.
+ *        This functionality is only applicable for IPZ VPD data.
  * @param[in] vpdMap - IPZ vpd map
  * @param[in] objectPath - Object path for the FRU
  * @return EEPROMs with records and keywords updated at standby
  */
-std::vector<RestoredEeproms> restoreSystemVPD(Parsed& vpdMap,
+std::vector<RestoredEeproms> restoreSystemVPD(const Parsed& vpdMap,
                                               const string& objectPath)
 {
-    // the list of keywords for VSYS record is as per the S0 system. Should be
-    // updated for another type of systems
-    static std::unordered_map<std::string, std::vector<std::string>> svpdKwdMap{
-        {"VSYS", {"BR", "TM", "SE", "SU", "RB"}},
-        {"VCEN", {"FC", "SE"}},
-        {"LXR0", {"LX"}}};
+    // the list of keywords for VSYS record is different for S0 and D0 systems.
+    // lets check which system it is, and load the map accordingly.
+    auto kwVal = getKwVal(vpdMap, "VSYS", "BR");
+    if (kwVal.at(0) == 'S')
+    {
+        thisSysBrand = "S0";
+    }
+    else if (kwVal.at(0) == 'D')
+    {
+        thisSysBrand = "D0";
+    }
+    else
+    {
+        // log error and exit
+        cerr << "\nFound keyword value invalid OR not supported...breaking\n";
+        exit(-1);
+    }
 
     // vector to hold all the EEPROMs updated at standby
     std::vector<RestoredEeproms> updatedEeproms = {};
 
-    for (const auto& systemRecKwdPair : svpdKwdMap)
+    for (const auto& [brand, recKwMap] : vpdBrands)
     {
-        auto it = vpdMap.find(systemRecKwdPair.first);
-
-        // check if record is found in map we got by parser
-        if (it != vpdMap.end())
+        if (thisSysBrand == brand)
         {
-            const auto& kwdListForRecord = systemRecKwdPair.second;
-            for (const auto& keyword : kwdListForRecord)
+            for (const auto& [recordName, keywordList] : recKwMap)
             {
-                DbusPropertyMap& kwdValMap = it->second;
-                auto iterator = kwdValMap.find(keyword);
-
-                if (iterator != kwdValMap.end())
+                for (const auto& keyword : keywordList)
                 {
-                    string& kwdValue = iterator->second;
+                    auto kwdValue = getKwVal(vpdMap, recordName, keyword);
+
+                    if (keyword == "RB")
+                    {
+                        // validate value of 'RB' keyword
+                        if ((kwdValue.at(0) < '1') || (kwdValue.at(0) > '3'))
+                        {
+                            // log error and exit
+                            cerr << "\n RB keyword value is "
+                                    "invalid...breaking\n";
+                            exit(-1);
+                        }
+                    }
 
                     // check bus data
-                    const string& recordName = systemRecKwdPair.first;
                     const string& busValue = readBusProperty(
                         objectPath, ipzVpdInf + recordName, keyword);
 
@@ -774,7 +799,7 @@ std::vector<RestoredEeproms> restoreSystemVPD(Parsed& vpdMap,
                             {
                                 string errMsg = "VPD data mismatch on cache "
                                                 "and hardware for record: ";
-                                errMsg += (*it).first;
+                                errMsg += recordName;
                                 errMsg += " and keyword: ";
                                 errMsg += keyword;
 
@@ -808,7 +833,7 @@ std::vector<RestoredEeproms> restoreSystemVPD(Parsed& vpdMap,
                     {
                         string errMsg = "VPD is blank on both cache and "
                                         "hardware for record: ";
-                        errMsg += (*it).first;
+                        errMsg += recordName;
                         errMsg += " and keyword: ";
                         errMsg += keyword;
                         errMsg += ". SSR need to update hardware VPD.";
