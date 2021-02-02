@@ -1,6 +1,7 @@
 #pragma once
 
 #include "const.hpp"
+#include "store.hpp"
 #include "types.hpp"
 
 #include <iostream>
@@ -107,6 +108,18 @@ string readBusProperty(const string& obj, const string& inf,
  */
 void createPEL(const std::map<std::string, std::string>& additionalData,
                const std::string& errIntf);
+
+/*
+ * @brief This function fetch the value for given keyword in the given record
+ *        from vpd data and returns this value
+ *
+ * @param[in] vpdMap - vpd to find out the data
+ * @param[in] rec - Record under which desired keyword exists
+ * @param[in] kwd - keyword to read the data from
+ *
+ * @returns keyword value
+ */
+const string getKwVal(Parsed& vpdMap, const string& rec, const string& kwd);
 
 } // namespace vpd
 } // namespace openpower

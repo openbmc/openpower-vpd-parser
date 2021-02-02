@@ -54,6 +54,8 @@ using Service = std::string;
 using MapperResponse =
     std::map<Path, std::map<Service, std::vector<Interface>>>;
 using RestoredEeproms = std::tuple<Path, std::string, Keyword, Binary>;
+
+using svpdKwdMap = std::unordered_map<std::string, std::vector<std::string>>;
 } // namespace inventory
 
 } // namespace vpd
