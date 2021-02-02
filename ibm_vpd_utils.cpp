@@ -489,6 +489,7 @@ void udevToGenericPath(string& file)
         exit(EXIT_SUCCESS);
     }
 }
+
 string getBadVpdName(const string& file)
 {
     string badVpd = BAD_VPD_DIR;
@@ -543,5 +544,37 @@ void dumpBadVpd(const string& file, const Binary& vpdVector)
     badVpdFileStream.write(reinterpret_cast<const char*>(vpdVector.data()),
                            vpdVector.size());
 }
+
+/*
+ * @brief This function fetch the value for given keyword in the given record
+ *        from vpd data and returns this value
+ *
+ * @param[in] vpdMap - vpd to find out the data
+ * @param[in] rec - Record under which desired keyword exists
+ * @param[in] kwd - keyword to read the data from
+ *
+ * @returns keyword value
+ */
+const string getKwVal(const Parsed& vpdMap, const string& rec,
+                      const string& kwd)
+{
+    string kwVal{};
+
+    auto findRec = vpdMap.find(rec);
+
+    // check if record is found in map we got by parser
+    if (findRec != vpdMap.end())
+    {
+        auto findKwd = findRec->second.find(kwd);
+
+        if (findKwd != findRec->second.end())
+        {
+            kwVal = findKwd->second;
+        }
+    }
+
+    return kwVal;
+}
+
 } // namespace vpd
 } // namespace openpower
