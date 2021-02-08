@@ -471,8 +471,14 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
             auto isSystemVpd = itemEEPROM.value("isSystemVpd", false);
             inventory::Object object(itemEEPROM.at("inventoryPath"));
 
+            interfaces.emplace("presence", false);
+
             if (!isSystemVpd && !itemEEPROM.value("noprime", false))
             {
+                inventory::PropertyMap presProp;
+                presProp.emplace("presence", false);
+                interfaces.emplace("xyz.openbmc_project.Inventory.Item", move(presProp));
+
                 if (itemEEPROM.find("extraInterfaces") != itemEEPROM.end())
                 {
                     for (const auto& eI : itemEEPROM["extraInterfaces"].items())
