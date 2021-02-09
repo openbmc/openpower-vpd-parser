@@ -2,6 +2,239 @@
   "comments": [
     {
       "key": {
+        "uuid": "db9eb76f_4e1f7223",
+        "filename": "impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "Any specific reason we added a global method instead of adding it to the class? If it is utility method can we add this to utils?",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a62853c_5bd45c86",
+        "filename": "impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "Please throw appropriate exception like \"VpdEccException\"",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c48893e_837d0f96",
+        "filename": "utils.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "Instead of simple runtime we use VpdJsonException here?",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d978f510_22a581b7",
+        "filename": "utils.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "Same as line 362.",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2597f5e_2a5ac9b3",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "Please change this magic number. Define in const.hpp",
+      "range": {
+        "startLine": 27,
+        "startChar": 27,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "173fe519_4d1786ae",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 31,
+        "startChar": 69,
+        "endLine": 31,
+        "endChar": 74
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9447e1e2_e45ee189",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "You are doing this check at last after performing operations using vpdFileStream? Will not all those operations fail if vpdFileStream is invalid?\nNeed to reposition this?",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d287b96e_4f51e052",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "Throw appropriate exceptions now as defined in vpdException class?",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae4d3293_1305e8d5",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "We need this? Commented temporarily?",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f94e8a30_56d82548",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "Please initialise with empty string.",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5c11038_e9573409",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "same as line 596, although this is not in this commit",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38da7b65_06085de0",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "why we need this cast here?",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "487f6f22_a4d0c9fe",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "How will this part execute?",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a26b981_eb15dc43",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 25
@@ -19,6 +252,40 @@
         "endLine": 645,
         "endChar": 40
       },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e179bdfd_6f548c27",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "Initialise with default value.",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44d7f48c_a6efa095",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-09T09:47:25Z",
+      "side": 1,
+      "message": "Temporarily commented? I am skipping the part under the if for now.",
       "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
