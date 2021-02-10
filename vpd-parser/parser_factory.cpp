@@ -4,6 +4,7 @@
 #include "keyword_vpd_parser.hpp"
 #include "memory_vpd_parser.hpp"
 #include "utils.hpp"
+#include "vpd_exceptions.hpp"
 
 using namespace vpd::keyword::parser;
 using namespace openpower::vpd::memory::parser;
@@ -40,7 +41,7 @@ interface::ParserInterface* ParserFactory::getParser(Binary&& vpdVector)
         }
 
         default:
-            throw std::runtime_error("Invalid VPD format");
+            throw VpdDataException("Unable to determine VPD format");
     }
 }
 
