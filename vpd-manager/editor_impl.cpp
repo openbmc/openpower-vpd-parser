@@ -462,7 +462,7 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
                     {
                         expandedLoctionCode.replace(
                             idx, 3,
-                            propertyFCorTM.substr(0, 4) + ".ND0." + propertySE);
+                            propertyFCorTM.substr(0, 4) + ".ND1." + propertySE);
                     }
                     else if (locationCodeType == "mts")
                     {
