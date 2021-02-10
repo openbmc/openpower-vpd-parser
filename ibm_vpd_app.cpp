@@ -100,8 +100,8 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
                 se = readBusProperty(SYSTEM_OBJECT, VCEN_IF, "SE");
             }
 
-            // TODO: See if ND1 can be placed in the JSON
-            expanded.replace(idx, 3, fc.substr(0, 4) + ".ND1." + se);
+            // TODO: See if ND0 can be placed in the JSON
+            expanded.replace(idx, 3, fc.substr(0, 4) + ".ND0." + se);
         }
         else
         {
