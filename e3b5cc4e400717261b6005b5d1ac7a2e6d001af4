@@ -671,6 +671,29 @@
     },
     {
       "key": {
+        "uuid": "66b45307_d79f0569",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:35:42Z",
+      "side": 1,
+      "message": "can we optimize this code? as we are repeating it here after 437-440.\nYou can store this json once, and process it multiple times.",
+      "range": {
+        "startLine": 458,
+        "startChar": 4,
+        "endLine": 459,
+        "endChar": 53
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1649692a_90bc36fb",
         "filename": "vpd_tool_impl.hpp",
         "patchSetId": 25
