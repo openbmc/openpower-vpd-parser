@@ -1,0 +1,260 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84766c4c_faf65c7d",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:45:50Z",
+      "side": 1,
+      "message": "Include manager in hierarchy of namespaces.",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f22601a8_5ede40d3",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:45:50Z",
+      "side": 1,
+      "message": "Byte?",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dd9f3eb_94f3f9e2",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:45:50Z",
+      "side": 1,
+      "message": "Initialise local variables.",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54abf33c_085e6cd5",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:45:50Z",
+      "side": 1,
+      "message": "What is 5 and why 5? Can we have a meaningful const defined or a comment on top of this line?",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a1dbb8b_0f271eb5",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:45:50Z",
+      "side": 1,
+      "message": "Why you need this header file included in this file?",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b31aae7_bc178e82",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:45:50Z",
+      "side": 1,
+      "message": "Also why we need to include these headers in this file? We are using them in .cpp only so we can include it there?",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a5f49a8_5463449f",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:45:50Z",
+      "side": 1,
+      "message": "If it is under manager, its better we use the hierarchy in the namespace.\nopenpower\u003evpd\u003emanager\u003egpioMonitor?",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8f63e26_fee8a74f",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:45:50Z",
+      "side": 1,
+      "message": "Also do we need these in header file?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 51
+      },
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a51a7461_a5013e57",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:45:50Z",
+      "side": 1,
+      "message": "you can remove Semicolon after function definition.",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62f917d0_050a2020",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:45:50Z",
+      "side": 1,
+      "message": "I think we generally follow function declaration then the variable declaration. Well not sure if it is mandatory practice but i guess other can weigh in here.",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81390105_c77f97b3",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:45:50Z",
+      "side": 1,
+      "message": "Order in which the data is initialised here and the order in which they are declared is different. This will throw warning message and in case warning is to be treated as errors this will result in build failure.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 78
+      },
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a5cc316_ee4a195d",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:45:50Z",
+      "side": 1,
+      "message": "Semicolon.",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01660bd2_97c03bb4",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:45:50Z",
+      "side": 1,
+      "message": "Can we name this better? Something meaningful, Mon is not making any sense.",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3b3d318_11a9e93d",
+        "filename": "vpd-manager/meson.build",
+        "patchSetId": 13
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:45:50Z",
+      "side": 1,
+      "message": "This is already included in meson.build at parent directory. You don\u0027t have to include it here again.",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
