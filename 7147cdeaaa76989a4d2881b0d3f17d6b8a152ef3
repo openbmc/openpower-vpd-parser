@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "3d25d978_c130234e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:11:03Z",
+      "side": 1,
+      "message": "We can use Byte for better readability?",
+      "revId": "7147cdeaaa76989a4d2881b0d3f17d6b8a152ef3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44f8807b_f67d2819",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-11T15:11:03Z",
+      "side": 1,
+      "message": "Initialise local variable.",
+      "revId": "7147cdeaaa76989a4d2881b0d3f17d6b8a152ef3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "57bcfde5_d0268fd7",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 8
