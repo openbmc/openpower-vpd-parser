@@ -14,23 +14,22 @@
  *
  *****************************************************************************/
 
+
 #ifndef _VPDECC_H_
 #define _VPDECC_H_
-
-#pragma GCC diagnostic ignored "-Wunused-variable"
-#pragma GCC diagnostic ignored "-Wunused-parameter"
 
 #include <stdlib.h>
 
 #define VPD_ECC_OK 0
-#define VPD_ECC_NOT_ENOUGH_BUFFER 1
-#define VPD_ECC_WRONG_ECC_SIZE 2
-#define VPD_ECC_WRONG_BUFFER_SIZE 9
-#define VPD_ECC_UNCORRECTABLE_DATA 90
-#define VPD_ECC_CORRECTABLE_DATA 91
+#define VPD_ECC_NOT_ENOUGH_BUFFER   1
+#define VPD_ECC_WRONG_ECC_SIZE      2
+#define VPD_ECC_WRONG_BUFFER_SIZE   9
+#define VPD_ECC_UNCORRECTABLE_DATA  90
+#define VPD_ECC_CORRECTABLE_DATA    91
+
 
 #ifdef __cplusplus
-extern "C" {
+   extern "C" {
 #endif
 
 /* TODO  doxygen !!!!!!!! */
@@ -47,7 +46,7 @@ extern "C" {
 /* @param     vDataLength     In        should contain the length of the Data */
 /*                                      in the buffer given to vData          */
 /*                                                                            */
-/* @param     pEcc            Out-Buffer after execution this will be the     */
+/* @param     pEcc            Out-Buffer after execution this will be the     */ 
 /*                                      buffer for the calculated Ecc         */
 /*                                                                            */
 /* @param     pEccLenght      In/Out    In : size of buffer                   */
@@ -73,18 +72,21 @@ int vpdecc_create_ecc(const unsigned char* data, size_t datalength,
 /* @param     vDataLength     In        should contain the length of the Data */
 /*                                      in the buffer given to vData          */
 /*                                                                            */
-/* @param     pEcc            In-Buffer should contain the Ecc for the data   */
+/* @param     pEcc            In-Buffer should contain the Ecc for the data   */ 
 /*                                                                            */
 /*                                                                            */
-/* @param     vEccLenght      In        should contain the length of the Ecc  */
+/* @param     vEccLenght      In        should contain the length of the Ecc  */ 
 /*                                                                            */
 /* @return Error returncode                                                   */
 /******************************************************************************/
 int vpdecc_check_data(unsigned char* data, size_t data_length,
                       const unsigned char* ecc, size_t ecc_length);
 
+
+
+
 #ifdef __cplusplus
-} /* end extern "C" */
+   } /* end extern "C" */
 #endif
 
-#endif /* endif _VPDECC_H_ */
+#endif  /* endif _VPDECC_H_ */
