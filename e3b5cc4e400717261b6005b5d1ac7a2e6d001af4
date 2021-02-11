@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "a6f09b4c_4552c2d3",
+        "filename": "impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "this can go to util?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5a62853c_5bd45c86",
         "filename": "impl.cpp",
         "patchSetId": 25
@@ -86,6 +109,29 @@
         "startChar": 27,
         "endLine": 27,
         "endChar": 32
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "632eaa44_86d51806",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "we already have one code doing this job, in ibm_vpd_app (getVpdDataInVector).\nIf you need that functionality here, You can move getVpdDataInVector in utility and use it here.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 34
       },
       "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
@@ -167,6 +213,29 @@
     },
     {
       "key": {
+        "uuid": "981f377d_3e81b88c",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "you are not storing as backup",
+      "range": {
+        "startLine": 556,
+        "startChar": 4,
+        "endLine": 556,
+        "endChar": 45
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f94e8a30_56d82548",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 25
@@ -178,6 +247,52 @@
       "writtenOn": "2021-02-09T09:47:25Z",
       "side": 1,
       "message": "Please initialise with empty string.",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b01882e_1698c851",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "any reason to move this down?\navoid extra changes, to keep it clean",
+      "range": {
+        "startLine": 558,
+        "startChar": 0,
+        "endLine": 558,
+        "endChar": 17
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5a5a248_8e6abe11",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "WHy is this bool ecc needed  in this code?  I couldn\u0027t get this .",
+      "range": {
+        "startLine": 574,
+        "startChar": 5,
+        "endLine": 574,
+        "endChar": 14
+      },
       "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -201,6 +316,52 @@
     },
     {
       "key": {
+        "uuid": "a3fa9c64_70d8cac9",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "we are already in else part (where isCI \u003d false).\nplease explain this else if section is for what.",
+      "range": {
+        "startLine": 594,
+        "startChar": 18,
+        "endLine": 594,
+        "endChar": 39
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc6549fa_08c91eb3",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "for this TYPE \"fruAndModule\", below code will provide you sys path.\n       vpdFilePathLocal \u003d getSysPathForThisFruType(objPath, \"fruAndModule\");",
+      "range": {
+        "startLine": 595,
+        "startChar": 21,
+        "endLine": 595,
+        "endChar": 70
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "38da7b65_06085de0",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 25
@@ -212,6 +373,29 @@
       "writtenOn": "2021-02-09T09:47:25Z",
       "side": 1,
       "message": "why we need this cast here?",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74d1208a_56371724",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "you have not initialized this as empty",
+      "range": {
+        "startLine": 603,
+        "startChar": 10,
+        "endLine": 603,
+        "endChar": 42
+      },
       "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -292,6 +476,167 @@
     },
     {
       "key": {
+        "uuid": "3d79f418_baea3424",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "you have 3 parameters in constructor",
+      "range": {
+        "startLine": 95,
+        "startChar": 1,
+        "endLine": 97,
+        "endChar": 7
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b772acae_3f127825",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "I would suggest to keep the params in same sequence as  first constructor in 86.\nas path. json. record.",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 44
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5368ed31_70b1221a",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "do we really need this 2nd constructor?\nas I see the difference is, 1st one has 4 params and 2nd one has 3 params\nSo can we use 1st one by passing dummy/empty value to the 4th param kwd.\nAnd for Inventory path we can get it from the map of Inv path and EEPROM",
+      "range": {
+        "startLine": 100,
+        "startChar": 1,
+        "endLine": 103,
+        "endChar": 5
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de446815_15156070",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "I don\u0027t see any parameter",
+      "range": {
+        "startLine": 117,
+        "startChar": 2,
+        "endLine": 117,
+        "endChar": 40
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "285f9b68_87b42764",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "as you are adding this, you will have to remove std prefix from all the places.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b560af4_04e14c73",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "are you using all these here? I think you have moved previous code to utils.cpp, so I don\u0027t see\na need of these namespace.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb7cbb95_8f1a451d",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "What is the purpose of segregating this code (ProcessJSON) into getInvToEepromMap and  getLocationCodeToInvMap, \n\nI mean, this is one time task to get this map and store it globally for further use. so why we need these interfaces in utility?",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 45
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "276ea86a_37464206",
         "filename": "vpd-manager/server.cpp",
         "patchSetId": 25
@@ -320,6 +665,52 @@
       "writtenOn": "2021-02-08T05:52:28Z",
       "side": 1,
       "message": "This file is not needed..Will remove it in next patch.",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1649692a_90bc36fb",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "I would prefer this as fixECC()",
+      "range": {
+        "startLine": 197,
+        "startChar": 9,
+        "endLine": 197,
+        "endChar": 15
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ea68856_5092d211",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-11T19:31:59Z",
+      "side": 1,
+      "message": "I think you have added another constructor in 249 for eccFix option.",
+      "range": {
+        "startLine": 212,
+        "startChar": 49,
+        "endLine": 213,
+        "endChar": 21
+      },
       "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
