@@ -14,6 +14,15 @@ using sdbusplus::exception::SdBusError;
 using namespace openpower::vpd;
 namespace fs = std::filesystem;
 
+void VpdTool::printReturnCode(int returnCode)
+{
+    if (returnCode)
+    {
+        cout << "\n Command failed with the return code " << returnCode
+             << ". Continuing the execution. " << endl;
+    }
+}
+
 void VpdTool::eraseInventoryPath(string& fru)
 {
     // Power supply frupath comes with INVENTORY_PATH appended in prefix.
@@ -407,16 +416,21 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
         }
     }
 
+    cout.flush();
     string udevRemove = "udevadm trigger -c remove -s \"*nvmem*\" -v";
-    system(udevRemove.c_str());
+    int returnCode = system(udevRemove.c_str());
+    printReturnCode(returnCode);
 
     string invManagerRestart =
         "systemctl restart xyz.openbmc_project.Inventory.Manager.service";
-    system(invManagerRestart.c_str());
+    returnCode = system(invManagerRestart.c_str());
+    printReturnCode(returnCode);
 
     string sysVpdStop = "systemctl stop system-vpd.service";
-    system(sysVpdStop.c_str());
+    returnCode = system(sysVpdStop.c_str());
+    printReturnCode(returnCode);
 
     string udevAdd = "udevadm trigger -c add -s \"*nvmem*\" -v";
-    system(udevAdd.c_str());
+    returnCode = system(udevAdd.c_str());
+    printReturnCode(returnCode);
 }
