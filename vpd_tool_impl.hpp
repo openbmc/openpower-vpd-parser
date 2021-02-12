@@ -117,6 +117,9 @@ class VpdTool
      */
     void eraseInventoryPath(std::string& fru);
 
+    /** @brief printReturnCode */
+    void printReturnCode(int returnCode);
+
   public:
     /**
      * @brief Dump the complete inventory in JSON format
