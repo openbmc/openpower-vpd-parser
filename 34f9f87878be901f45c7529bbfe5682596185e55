@@ -93,6 +93,30 @@
       "revId": "34f9f87878be901f45c7529bbfe5682596185e55",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43c810e1_7501e2c1",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-02-12T11:10:41Z",
+      "side": 1,
+      "message": "I see that, it just seems a little odd to pull this into a local variable. Just doing a cast to void right here seems cleaner.",
+      "parentUuid": "2e797f8e_84f4ddbe",
+      "range": {
+        "startLine": 412,
+        "startChar": 4,
+        "endLine": 412,
+        "endChar": 23
+      },
+      "revId": "34f9f87878be901f45c7529bbfe5682596185e55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
