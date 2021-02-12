@@ -4,6 +4,7 @@ project(
      'cpp',
      default_options: [
        'warning_level=3',
+       'Werror=unused-result',
        'werror=true',
        'cpp_std=c++17'
      ],
