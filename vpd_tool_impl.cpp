@@ -407,16 +407,18 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
         }
     }
 
+    cout.flush();
     string udevRemove = "udevadm trigger -c remove -s \"*nvmem*\" -v";
-    system(udevRemove.c_str());
+    int return_code = system(udevRemove.c_str());
 
     string invManagerRestart =
         "systemctl restart xyz.openbmc_project.Inventory.Manager.service";
-    system(invManagerRestart.c_str());
+    return_code = system(invManagerRestart.c_str());
 
     string sysVpdStop = "systemctl stop system-vpd.service";
-    system(sysVpdStop.c_str());
+    return_code = system(sysVpdStop.c_str());
 
     string udevAdd = "udevadm trigger -c add -s \"*nvmem*\" -v";
-    system(udevAdd.c_str());
+    return_code = system(udevAdd.c_str());
+    (void)return_code;
 }
