@@ -42,6 +42,48 @@
     },
     {
       "key": {
+        "uuid": "d4f19d43_05c6e7c4",
+        "filename": "impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "method not needed..so removing it",
+      "parentUuid": "a6f09b4c_4552c2d3",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c31adf3a_2d4526b7",
+        "filename": "impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "I don\u0027t think this method is needed right now.. so removing it.",
+      "parentUuid": "db9eb76f_4e1f7223",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5a62853c_5bd45c86",
         "filename": "impl.cpp",
         "patchSetId": 25
@@ -76,6 +118,24 @@
     },
     {
       "key": {
+        "uuid": "6ea063b5_ba014d35",
+        "filename": "utils.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c48893e_837d0f96",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d978f510_22a581b7",
         "filename": "utils.cpp",
         "patchSetId": 25
@@ -90,6 +150,24 @@
       "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c55808c9_c7be4fd7",
+        "filename": "utils.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d978f510_22a581b7",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +217,54 @@
     },
     {
       "key": {
+        "uuid": "70305cdf_2c2f75f4",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2597f5e_2a5ac9b3",
+      "range": {
+        "startLine": 27,
+        "startChar": 27,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38066f41_6738a906",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "632eaa44_86d51806",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 34
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "173fe519_4d1786ae",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 25
@@ -162,6 +288,30 @@
     },
     {
       "key": {
+        "uuid": "08527577_afe23451",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "173fe519_4d1786ae",
+      "range": {
+        "startLine": 31,
+        "startChar": 69,
+        "endLine": 31,
+        "endChar": 74
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9447e1e2_e45ee189",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 25
@@ -176,6 +326,24 @@
       "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c891eea_10995d86",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9447e1e2_e45ee189",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -196,6 +364,24 @@
     },
     {
       "key": {
+        "uuid": "dd950894_4eb9240b",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d287b96e_4f51e052",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae4d3293_1305e8d5",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 25
@@ -207,6 +393,24 @@
       "writtenOn": "2021-02-09T09:47:25Z",
       "side": 1,
       "message": "We need this? Commented temporarily?",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb4f1bfe_cc1c68cb",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "not needed..",
+      "parentUuid": "ae4d3293_1305e8d5",
       "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -236,6 +440,30 @@
     },
     {
       "key": {
+        "uuid": "0f22c1be_d2323a87",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "981f377d_3e81b88c",
+      "range": {
+        "startLine": 556,
+        "startChar": 4,
+        "endLine": 556,
+        "endChar": 45
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f94e8a30_56d82548",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 25
@@ -250,6 +478,24 @@
       "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dad7a58_29a55860",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f94e8a30_56d82548",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -276,6 +522,30 @@
     },
     {
       "key": {
+        "uuid": "45045d4f_42f2ee62",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b01882e_1698c851",
+      "range": {
+        "startLine": 558,
+        "startChar": 0,
+        "endLine": 558,
+        "endChar": 17
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5a5a248_8e6abe11",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 25
@@ -287,6 +557,30 @@
       "writtenOn": "2021-02-11T19:31:59Z",
       "side": 1,
       "message": "WHy is this bool ecc needed  in this code?  I couldn\u0027t get this .",
+      "range": {
+        "startLine": 574,
+        "startChar": 5,
+        "endLine": 574,
+        "endChar": 14
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a61c8324_53d07ad1",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "before my change - getVpdPathForCpu() -\u003e returns \n   -\u003e \"fru\u0026module\" cpu path if the rec-kw is one of CI. ELSE returns\n   -\u003e \"module only\" cpu path if the rec-kw is not one of CI.\n\nfor ecc fix,  getVpdPathForCpu() -\u003e should return the cpu path based on the given inventory path.\n\nso introduced a ecc boolean to achieve the requisite and also made sure that it won\u0027t affect any of your logic.",
+      "parentUuid": "f5a5a248_8e6abe11",
       "range": {
         "startLine": 574,
         "startChar": 5,
@@ -316,6 +610,24 @@
     },
     {
       "key": {
+        "uuid": "d48cb7f3_66d83d80",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c5c11038_e9573409",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3fa9c64_70d8cac9",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 25
@@ -327,6 +639,30 @@
       "writtenOn": "2021-02-11T19:31:59Z",
       "side": 1,
       "message": "we are already in else part (where isCI \u003d false).\nplease explain this else if section is for what.",
+      "range": {
+        "startLine": 594,
+        "startChar": 18,
+        "endLine": 594,
+        "endChar": 39
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7080b626_a2f6c5e9",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "we are already in else part (where isCI \u003d false).\u003d\u003e not only when isCI \u003dfalse, but also when ecc is true.. \nsay, if isCI is true you don\u0027t need line598 to execute.. as you already got vpdFilePathLocal in line577.\nbut line598 - is needed for ecc - as ecc needs to pass the check for \"fru\u0026Module\" cpus.",
+      "parentUuid": "a3fa9c64_70d8cac9",
       "range": {
         "startLine": 594,
         "startChar": 18,
@@ -362,6 +698,30 @@
     },
     {
       "key": {
+        "uuid": "fad67fec_93f87765",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "yes I agree.. but getSysPathForThisFruType again parses the json and sends me the same eachFru.key(); where am parsing the json already here from line 581.",
+      "parentUuid": "dc6549fa_08c91eb3",
+      "range": {
+        "startLine": 595,
+        "startChar": 21,
+        "endLine": 595,
+        "endChar": 70
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "38da7b65_06085de0",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 25
@@ -373,6 +733,24 @@
       "writtenOn": "2021-02-09T09:47:25Z",
       "side": 1,
       "message": "why we need this cast here?",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8149af60_e7ebbf51",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "yup. will make the change accordingly..",
+      "parentUuid": "38da7b65_06085de0",
       "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -402,6 +780,30 @@
     },
     {
       "key": {
+        "uuid": "9e4152d1_9addce40",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74d1208a_56371724",
+      "range": {
+        "startLine": 603,
+        "startChar": 10,
+        "endLine": 603,
+        "endChar": 42
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "487f6f22_a4d0c9fe",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 25
@@ -413,6 +815,24 @@
       "writtenOn": "2021-02-09T09:47:25Z",
       "side": 1,
       "message": "How will this part execute?",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94637814_e38c9474",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "not needed.. added this snippet in line:603",
+      "parentUuid": "487f6f22_a4d0c9fe",
       "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -442,6 +862,30 @@
     },
     {
       "key": {
+        "uuid": "8367681c_9f830335",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a26b981_eb15dc43",
+      "range": {
+        "startLine": 638,
+        "startChar": 3,
+        "endLine": 645,
+        "endChar": 40
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e179bdfd_6f548c27",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 25
@@ -459,6 +903,24 @@
     },
     {
       "key": {
+        "uuid": "d8526efd_537d6f64",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e179bdfd_6f548c27",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44d7f48c_a6efa095",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 25
@@ -470,6 +932,24 @@
       "writtenOn": "2021-02-09T09:47:25Z",
       "side": 1,
       "message": "Temporarily commented? I am skipping the part under the if for now.",
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c093110_1a77ac63",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "this snippet is not needed. removing",
+      "parentUuid": "44d7f48c_a6efa095",
       "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -499,6 +979,30 @@
     },
     {
       "key": {
+        "uuid": "441ae252_7432f443",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d79f418_baea3424",
+      "range": {
+        "startLine": 95,
+        "startChar": 1,
+        "endLine": 97,
+        "endChar": 7
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b772acae_3f127825",
         "filename": "vpd-manager/editor_impl.hpp",
         "patchSetId": 25
@@ -510,6 +1014,30 @@
       "writtenOn": "2021-02-11T19:31:59Z",
       "side": 1,
       "message": "I would suggest to keep the params in same sequence as  first constructor in 86.\nas path. json. record.",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 44
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cc5edd9_b64647c5",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "arrangement doesn\u0027t matter I guess..only the way in which we initialise matters..",
+      "parentUuid": "b772acae_3f127825",
       "range": {
         "startLine": 98,
         "startChar": 2,
@@ -545,6 +1073,30 @@
     },
     {
       "key": {
+        "uuid": "1df60cb0_7d4707aa",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "inventoryPath is the user given input.. so we can\u0027t use the constructor at line 86.\nI don\u0027t think we can re-use any other constructor as well.",
+      "parentUuid": "5368ed31_70b1221a",
+      "range": {
+        "startLine": 100,
+        "startChar": 1,
+        "endLine": 103,
+        "endChar": 5
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de446815_15156070",
         "filename": "vpd-manager/editor_impl.hpp",
         "patchSetId": 25
@@ -556,6 +1108,30 @@
       "writtenOn": "2021-02-11T19:31:59Z",
       "side": 1,
       "message": "I don\u0027t see any parameter",
+      "range": {
+        "startLine": 117,
+        "startChar": 2,
+        "endLine": 117,
+        "endChar": 40
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87013fb1_fd99130f",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "de446815_15156070",
       "range": {
         "startLine": 117,
         "startChar": 2,
@@ -591,6 +1167,30 @@
     },
     {
       "key": {
+        "uuid": "2e891bfd_c14c1cb1",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "better to remove line18",
+      "parentUuid": "285f9b68_87b42764",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0b560af4_04e14c73",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 25
@@ -614,6 +1214,30 @@
     },
     {
       "key": {
+        "uuid": "58d0b054_1cd03ded",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b560af4_04e14c73",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb7cbb95_8f1a451d",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 25
@@ -625,6 +1249,30 @@
       "writtenOn": "2021-02-11T19:31:59Z",
       "side": 1,
       "message": "What is the purpose of segregating this code (ProcessJSON) into getInvToEepromMap and  getLocationCodeToInvMap, \n\nI mean, this is one time task to get this map and store it globally for further use. so why we need these interfaces in utility?",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 45
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85f74590_62405431",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "well, this mapping of inventory to eeprom is needed by editor class. so moving it to utils inorder to make it available for other apis\u0027.",
+      "parentUuid": "fb7cbb95_8f1a451d",
       "range": {
         "startLine": 59,
         "startChar": 2,
@@ -717,6 +1365,30 @@
     },
     {
       "key": {
+        "uuid": "fdccca61_b5752dce",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1649692a_90bc36fb",
+      "range": {
+        "startLine": 197,
+        "startChar": 9,
+        "endLine": 197,
+        "endChar": 15
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ea68856_5092d211",
         "filename": "vpd_tool_impl.hpp",
         "patchSetId": 25
@@ -728,6 +1400,30 @@
       "writtenOn": "2021-02-11T19:31:59Z",
       "side": 1,
       "message": "I think you have added another constructor in 249 for eccFix option.",
+      "range": {
+        "startLine": 212,
+        "startChar": 49,
+        "endLine": 213,
+        "endChar": 21
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1e062d4_dbba0ff9",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T14:51:09Z",
+      "side": 1,
+      "message": "yup..updated.",
+      "parentUuid": "9ea68856_5092d211",
       "range": {
         "startLine": 212,
         "startChar": 49,
