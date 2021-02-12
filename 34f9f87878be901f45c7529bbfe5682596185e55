@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "85604814_6b0938bb",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T11:07:44Z",
+      "side": 1,
+      "message": "An explicit flush of std::cout is also necessary before a call to std::system, if the spawned process performs any screen I/O.\ngiven here https://en.cppreference.com/w/cpp/utility/program/system",
+      "parentUuid": "00bf68fa_d0a8e2f3",
+      "range": {
+        "startLine": 410,
+        "startChar": 4,
+        "endLine": 410,
+        "endChar": 17
+      },
+      "revId": "34f9f87878be901f45c7529bbfe5682596185e55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd1d338a_de28ee6d",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2021-02-12T11:03:23Z",
       "side": 1,
       "message": "Umm .. you could just do a static_cast\u003cvoid\u003e(system(...))",
+      "range": {
+        "startLine": 412,
+        "startChar": 4,
+        "endLine": 412,
+        "endChar": 23
+      },
+      "revId": "34f9f87878be901f45c7529bbfe5682596185e55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e797f8e_84f4ddbe",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-12T11:07:44Z",
+      "side": 1,
+      "message": "I have casted in line 423..",
+      "parentUuid": "cd1d338a_de28ee6d",
       "range": {
         "startLine": 412,
         "startChar": 4,
