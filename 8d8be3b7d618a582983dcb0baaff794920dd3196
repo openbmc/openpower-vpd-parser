@@ -53,6 +53,69 @@
     },
     {
       "key": {
+        "uuid": "0b66f1fb_244b3af8",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-15T14:18:44Z",
+      "side": 1,
+      "message": "can you post the updated json link in commit message?",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "935aa4ec_ececae26",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-15T14:18:44Z",
+      "side": 1,
+      "message": "why do we need a loop here? Do we have multiple \"presence items\"? .. if not, You can use find() function instead of looping.",
+      "range": {
+        "startLine": 55,
+        "startChar": 15,
+        "endLine": 55,
+        "endChar": 46
+      },
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "878ed7ec_6c95ac12",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-15T14:18:44Z",
+      "side": 1,
+      "message": "same, why we need loop ?",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 80
+      },
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54abf33c_085e6cd5",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 13
@@ -207,6 +270,30 @@
     },
     {
       "key": {
+        "uuid": "31b26c53_1e21e2da",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-15T14:18:44Z",
+      "side": 1,
+      "message": "yes warnings are treated as errors..\nFind if this is useful(https://stackoverflow.com/questions/12222417/why-should-i-initialize-member-variables-in-the-order-theyre-declared-in)",
+      "parentUuid": "81390105_c77f97b3",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 78
+      },
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a5cc316_ee4a195d",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 13
@@ -252,6 +339,23 @@
       "writtenOn": "2021-02-11T15:45:50Z",
       "side": 1,
       "message": "This is already included in meson.build at parent directory. You don\u0027t have to include it here again.",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b00aa86_843c1163",
+        "filename": "vpd-manager/meson.build",
+        "patchSetId": 13
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-15T14:18:44Z",
+      "side": 1,
+      "message": "blank space",
       "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
