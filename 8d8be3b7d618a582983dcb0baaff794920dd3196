@@ -70,6 +70,24 @@
     },
     {
       "key": {
+        "uuid": "b7cad758_f68b8b5b",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-16T11:30:58Z",
+      "side": 1,
+      "message": "that part you can check here , this is another commit, but that piece of code is same-\nhttps://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/39594/2/json/system/50001000_v2.json",
+      "parentUuid": "0b66f1fb_244b3af8",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "935aa4ec_ececae26",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 13
@@ -81,6 +99,30 @@
       "writtenOn": "2021-02-15T14:18:44Z",
       "side": 1,
       "message": "why do we need a loop here? Do we have multiple \"presence items\"? .. if not, You can use find() function instead of looping.",
+      "range": {
+        "startLine": 55,
+        "startChar": 15,
+        "endLine": 55,
+        "endChar": 46
+      },
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d71a189c_9ac95296",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-16T11:30:58Z",
+      "side": 1,
+      "message": "yes. \"presence\" has multiple items, so looping to go through each item",
+      "parentUuid": "935aa4ec_ececae26",
       "range": {
         "startLine": 55,
         "startChar": 15,
@@ -116,6 +158,30 @@
     },
     {
       "key": {
+        "uuid": "395f3f17_514a06d2",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-16T11:30:58Z",
+      "side": 1,
+      "message": "I will share json link-\nref- https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/39594/2/json/system/50001000_v2.json",
+      "parentUuid": "878ed7ec_6c95ac12",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 80
+      },
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54abf33c_085e6cd5",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 13
@@ -127,6 +193,24 @@
       "writtenOn": "2021-02-11T15:45:50Z",
       "side": 1,
       "message": "What is 5 and why 5? Can we have a meaningful const defined or a comment on top of this line?",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b045d8d3_a594339d",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-16T11:30:58Z",
+      "side": 1,
+      "message": "yeah. It is 5seconds. will define a const for it.",
+      "parentUuid": "54abf33c_085e6cd5",
       "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -328,6 +412,24 @@
     },
     {
       "key": {
+        "uuid": "9a7a87b2_9705c6aa",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-16T11:30:58Z",
+      "side": 1,
+      "message": "we already have one phosphur-Mon for this event monitor, so I preferred similar name as gpioMonitor",
+      "parentUuid": "01660bd2_97c03bb4",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3b3d318_11a9e93d",
         "filename": "vpd-manager/meson.build",
         "patchSetId": 13
@@ -339,6 +441,24 @@
       "writtenOn": "2021-02-11T15:45:50Z",
       "side": 1,
       "message": "This is already included in meson.build at parent directory. You don\u0027t have to include it here again.",
+      "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e55f828d_a4cdf1d0",
+        "filename": "vpd-manager/meson.build",
+        "patchSetId": 13
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-02-16T11:30:58Z",
+      "side": 1,
+      "message": "I will check and remove this",
+      "parentUuid": "e3b3d318_11a9e93d",
       "revId": "8d8be3b7d618a582983dcb0baaff794920dd3196",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
