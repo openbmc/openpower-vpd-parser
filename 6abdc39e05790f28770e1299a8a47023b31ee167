@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0dd8d83_0ee78527",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-17T05:26:40Z",
+      "side": 1,
+      "message": "why can\u0027t we have this check before returning from getVpdDataInVector()?",
+      "range": {
+        "startLine": 999,
+        "startChar": 12,
+        "endLine": 1003,
+        "endChar": 13
+      },
+      "revId": "6abdc39e05790f28770e1299a8a47023b31ee167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "053b4610_111e70ce",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-17T05:26:40Z",
+      "side": 1,
+      "message": "remove line 60",
+      "revId": "6abdc39e05790f28770e1299a8a47023b31ee167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e00cdaf4_4884981e",
+        "filename": "vpd-parser/memory_vpd_parser.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-17T05:26:40Z",
+      "side": 1,
+      "message": "you can remove line68",
+      "revId": "6abdc39e05790f28770e1299a8a47023b31ee167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
