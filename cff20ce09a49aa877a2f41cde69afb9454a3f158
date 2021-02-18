@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0fa1bf6_6acc050f",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-02-18T07:09:42Z",
+      "side": 1,
+      "message": "Brief about the method and the method name is having same exact words. Adding brief hence is not actually adding any value. If possible can you explain some more.",
+      "revId": "cff20ce09a49aa877a2f41cde69afb9454a3f158",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
