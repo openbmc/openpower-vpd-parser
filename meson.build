@@ -5,7 +5,8 @@ project(
      default_options: [
        'warning_level=3',
        'werror=true',
-       'cpp_std=c++17'
+       'cpp_std=c++17',
+       'build=debugoptimized'
      ],
      version: '1.0'
 )
@@ -22,6 +23,13 @@ python = find_program('python3', required:true)
 compiler.has_header('CLI/CLI.hpp')
 compiler.has_header('nlohmann/json.hpp')
 add_global_arguments('-Wno-psabi', language : ['c', 'cpp'])
+
+# Disable FORTIFY_SOURCE when compiling with no optimization
+if(get_option('optimization') == '0')
+  add_project_arguments('-U_FORTIFY_SOURCE',language:['cpp','c'])
+  message('Disabling FORTIFY_SOURCE as optimization is set to 0')
+endif
+
 configure_file(output: 'config.h',
                        configuration :{
                        'INVENTORY_JSON_DEFAULT': '"'+get_option('INVENTORY_JSON_DEFAULT')+'"',
