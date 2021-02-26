@@ -34,6 +34,24 @@
       "revId": "039d7517c7dadfe01187b000608ad1af76ff9e3d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba3cbdb1_aa1ecc19",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-02-26T06:15:20Z",
+      "side": 1,
+      "message": "I misunderstood it..you are right.. let me make the change accordingly..",
+      "parentUuid": "cfb7eb04_b9d521f4",
+      "revId": "039d7517c7dadfe01187b000608ad1af76ff9e3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
