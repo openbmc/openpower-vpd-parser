@@ -6,6 +6,7 @@
 #include "defines.hpp"
 #include "vpd_exceptions.hpp"
 
+#include <filesystem>
 #include <fstream>
 #include <iomanip>
 #include <nlohmann/json.hpp>
@@ -31,6 +32,7 @@ using namespace record;
 using namespace openpower::vpd::exceptions;
 using namespace common::utility;
 using Severity = openpower::vpd::constants::PelSeverity;
+namespace fs = std::filesystem;
 
 // mapping of severity enum to severity interface
 static std::unordered_map<Severity, std::string> sevMap = {
@@ -486,6 +488,57 @@ void udevToGenericPath(string& file)
              << endl;
         exit(EXIT_SUCCESS);
     }
+}
+string getBadVpdName(const string& file)
+{
+    string badVpd = BAD_VPD_DIR;
+    if (file.find("i2c") != string::npos)
+    {
+        badVpd += "i2c-";
+        regex i2cPattern("(at24/)([0-9]+-[0-9]+)\\/");
+        smatch match;
+        if (regex_search(file, match, i2cPattern))
+        {
+            badVpd += match.str(2);
+        }
+    }
+    else if (file.find("spi") != string::npos)
+    {
+        regex spiPattern("((spi)[0-9]+)(.0)");
+        smatch match;
+        if (regex_search(file, match, spiPattern))
+        {
+            badVpd += match.str(1);
+        }
+    }
+    return badVpd;
+}
+
+void dumpBadVpd(const string& file, const Binary& vpdVector)
+{
+    fs::path badVpdDir = BAD_VPD_DIR;
+    fs::create_directory(badVpdDir);
+    string badVpdPath = getBadVpdName(file);
+    if (fs::exists(badVpdPath))
+    {
+        std::error_code ec;
+        fs::remove(badVpdPath, ec);
+        if (ec) // error code
+        {
+            cerr << "\n Error removing the existing broken vpd in "
+                 << badVpdPath << endl;
+            cerr << "\n Error code : " << ec.value()
+                 << "\n Error message : " << ec.message() << endl;
+        }
+    }
+    ofstream badVpdFileStream(badVpdPath, ofstream::binary);
+    if (!badVpdFileStream)
+    {
+        throw runtime_error("Failed to open bad vpd file path in /tmp/bad-vpd. "
+                            "Unable to dump the broken/bad vpd file.");
+    }
+    badVpdFileStream.write(reinterpret_cast<const char*>(vpdVector.data()),
+                           vpdVector.size());
 }
 } // namespace vpd
 } // namespace openpower

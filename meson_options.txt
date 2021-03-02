@@ -22,3 +22,4 @@ option('INVENTORY_JSON_4U',type: 'string', value: '/usr/share/vpd/50001000.json'
 option('INVENTORY_JSON_EVEREST',type: 'string', value: '/usr/share/vpd/50003000.json',  description: 'Inventory JSON for Everest system.')
 option('DBUS_PROP_JSON',type: 'string', value: '/usr/share/vpd/dbus_properties.json',  description: 'Json which contains properties specific to dbus.')
 option('SYSTEM_JSON',type: 'string', value: '/usr/share/vpd/systems.json',  description: 'JSON file used to pick the right system json')
+option('BAD_VPD_DIR',type: 'string', value: '/tmp/bad-vpd/', description: 'Directory which contains the bad vpd file - which needs to be included in bmc dump.')
