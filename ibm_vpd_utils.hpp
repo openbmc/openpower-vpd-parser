@@ -186,5 +186,28 @@ const string getIM(const Parsed& vpdMap);
  *  @param[io] file - path generated from udev event.
  */
 void udevToGenericPath(string& file);
+
+/**
+ * @brief Api to generate a vpd-name in some pattern.
+ * This vpd-name denotes name of the bad vpd file.
+ * For i2c eeproms - the pattern of the vpd-name will be
+ * i2c-<bus-number>-<eeprom-address>. For spi eeproms - the pattern of the
+ * vpd-name will be spi-<spi-number>.
+ *
+ * @param[in] file - file path of the vpd
+ * @return the vpd-name.
+ */
+string getBadVpdName(const string& file);
+
+/**
+ * @brief Api which dumps the broken/bad vpd in a directory
+ * When the vpd is bad, this api places  the bad vpd file inside
+ * "/tmp/bad-vpd" in BMC, inorder to collect bad vpd s' as a part of user
+ * initiated BMC dump.
+ *
+ * @param[in] file - bad vpd file path
+ * @param[in] vpdVector - bad vpd vector
+ */
+void dumpBadVpd(const std::string& file, Binary&& vpdVector);
 } // namespace vpd
 } // namespace openpower
