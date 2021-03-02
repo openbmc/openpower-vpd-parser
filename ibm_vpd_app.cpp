@@ -137,6 +137,98 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
 }
 
 /**
+ * calculate dimm size
+ */
+
+uint64_t getDimmSize(const KeywordVpdMap&  vpdMap )
+{
+    uint64_t dimmSize = 0;
+#define SVPD_JEDE_SZ_KW_SIZE                        7
+
+    uint32_t  sdram_cap = 1,  pri_bus_wid = 1,  sdram_wid  = 1,  logical_ranks_per_dimm = 1,  tmp = 0;
+    Byte SVPD_MEM_BYTE_4 = 0, SVPD_MEM_BYTE_6 = 0, SVPD_MEM_BYTE_12 = 0, SVPD_MEM_BYTE_13 = 0;
+
+    for(auto & thispair : vpdMap)
+    {
+        if(thispair.first == "PN")
+        {
+            SVPD_MEM_BYTE_4 = thispair.second.at(4);
+        }
+        else if(thispair.first == "SN")
+        {
+            SVPD_MEM_BYTE_6 = thispair.second.at(1);
+        }
+        else if(thispair.first == "CC")
+        {
+            SVPD_MEM_BYTE_12 = thispair.second.at(0);
+            SVPD_MEM_BYTE_13 = thispair.second.at(1);
+        }
+    }
+
+    Byte  primaryBusWidthByteInSPD = SVPD_MEM_BYTE_13;
+    Byte  sdramCapacityByteInSPD = SVPD_MEM_BYTE_4;
+    Byte  sdramDeviceWidthByteInSPD = SVPD_MEM_BYTE_12;
+    Byte  packageRanksPerDimmByteInSPD = SVPD_MEM_BYTE_12;
+    Byte  dieCount = 1;
+
+    //TODO check If it's DDR4?
+
+    //Calculate SDRAM  capacity
+         tmp =  sdramCapacityByteInSPD & SVPD_JEDEC_SDRAM_CAP_MASK;
+        /* Make sure the bits are not Reserved */
+        if( tmp > SVPD_JEDEC_SDRAMCAP_RESERVED)
+        {
+             tmp =  sdramCapacityByteInSPD;
+            // TODO break here
+        }
+         sdram_cap = ( sdram_cap <<  tmp) * SVPD_JEDEC_SDRAMCAP_MULTIPLIER;
+
+        /* Calculate Primary bus width */
+         tmp =  primaryBusWidthByteInSPD & SVPD_JEDEC_PRI_BUS_WIDTH_MASK;
+        if( tmp > SVPD_JEDEC_RESERVED_BITS)
+        {
+             tmp =  primaryBusWidthByteInSPD;
+            // TODO break here
+        }
+         pri_bus_wid = ( pri_bus_wid <<  tmp) * SVPD_JEDEC_PRI_BUS_WIDTH_MULTIPLIER;
+
+        /* Calculate SDRAM width */
+         tmp =  sdramDeviceWidthByteInSPD & SVPD_JEDEC_SDRAM_WIDTH_MASK;
+        if( tmp > SVPD_JEDEC_RESERVED_BITS)
+        {
+             tmp =  sdramDeviceWidthByteInSPD;
+            // TODO break here
+        }
+         sdram_wid = ( sdram_wid <<  tmp) * SVPD_JEDEC_SDRAM_WIDTH_MULTIPLIER;
+
+         tmp = SVPD_MEM_BYTE_6 & SVPD_JEDEC_SIGNAL_LOADING_MASK;
+
+        if( tmp == SVPD_JEDEC_SINGLE_LOAD_STACK)
+        {
+                //Fetch die count
+                 tmp = SVPD_MEM_BYTE_6 & SVPD_JEDEC_DIE_COUNT_MASK;
+                 tmp >>= SVPD_JEDEC_DIE_COUNT_RIGHT_SHIFT;
+                 dieCount =  tmp + 1;
+        }
+
+        /* Calculate Number of ranks */
+         tmp =  packageRanksPerDimmByteInSPD & SVPD_JEDEC_NUM_RANKS_MASK;
+         tmp >>= SVPD_JEDEC_RESERVED_BITS;
+
+        if( tmp > SVPD_JEDEC_RESERVED_BITS)
+        {
+             tmp =  packageRanksPerDimmByteInSPD;
+            // TODO break here
+        }
+         logical_ranks_per_dimm = ( tmp + 1) *  dieCount;
+
+        dimmSize = ( sdram_cap/SVPD_JEDEC_PRI_BUS_WIDTH_MULTIPLIER) *
+                   ( pri_bus_wid/ sdram_wid) *  logical_ranks_per_dimm;
+
+    return dimmSize;
+}
+
+/**
  * @brief Populate FRU specific interfaces.
  *
  * This is a common method which handles both
@@ -153,9 +245,19 @@ static void populateFruSpecificInterfaces(const T& map,
 {
     inventory::PropertyMap prop;
 
+    // check if it's DIMM, DIMM VPD Map will have only 3 entries
+    bool snFound = false, pnFound = false, ccFound = false;
+
     for (const auto& kwVal : map)
     {
-        vector<uint8_t> vec(kwVal.second.begin(), kwVal.second.end());
+        if (kwVal.first == "SN")
+            snFound = true;
+        if (kwVal.first == "PN")
+            pnFound = true;
+        if (kwVal.first == "CC")
+            ccFound = true;
+
+        Binary vec(kwVal.second.begin(), kwVal.second.end());
 
         auto kw = kwVal.first;
 
@@ -170,8 +272,18 @@ static void populateFruSpecificInterfaces(const T& map,
         prop.emplace(move(kw), move(vec));
     }
 
+    if ( map.size() == 3 && snFound && pnFound && ccFound)
+    {
+        if constexpr (is_same<T, KeywordVpdMap>::value)
+        {
+        // colect Dimm size value
+        auto value = getDimmSize( map );
+        prop.emplace( string("MemorySize"), value);//TODO:confirm prop name?
+        }
+    }
     interfaces.emplace(preIntrStr, move(prop));
 }
+
 
 /**
  * @brief Populate Interfaces.
