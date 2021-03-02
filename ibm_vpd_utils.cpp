@@ -6,11 +6,13 @@
 #include "defines.hpp"
 #include "vpd_exceptions.hpp"
 
+#include <filesystem>
 #include <fstream>
 #include <iomanip>
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
+#include <regex>
 #include <sdbusplus/server.hpp>
 #include <sstream>
 #include <vector>
@@ -30,6 +32,7 @@ using namespace record;
 using namespace openpower::vpd::exceptions;
 using namespace common::utility;
 using Severity = openpower::vpd::constants::PelSeverity;
+namespace fs = std::filesystem;
 
 // mapping of severity enum to severity interface
 static std::unordered_map<Severity, std::string> sevMap = {
@@ -318,5 +321,39 @@ vpdType vpdTypeCheck(const Binary& vpdVector)
     return vpdType::INVALID_VPD_FORMAT;
 }
 
+string getBadVpdName(const string& file)
+{
+    string badVpd = "/tmp/bad-vpd/";
+    if (file.find("i2c") != string::npos)
+    {
+        badVpd += "i2c-";
+        regex i2cPattern("(at24/)([0-9]+-[0-9]+)\\/");
+        smatch match;
+        if (regex_search(file, match, i2cPattern))
+        {
+            badVpd += match.str(2);
+        }
+    }
+    else if (file.find("spi") != string::npos)
+    {
+        regex spiPattern("((spi)[0-9]+)(.0)");
+        smatch match;
+        if (regex_search(file, match, spiPattern))
+        {
+            badVpd += match.str(1);
+        }
+    }
+    return badVpd;
+}
+
+void dumpBadVpd(const string& file, Binary&& vpdVector)
+{
+    fs::path badVpdDir = BAD_VPD_DIR;
+    fs::create_directory(badVpdDir);
+    string badVpdPath = getBadVpdName(file);
+    ofstream badVpdFileStream(badVpdPath, ofstream::binary);
+    badVpdFileStream.write(reinterpret_cast<char*>(&vpdVector[0]),
+                           vpdVector.size());
+}
 } // namespace vpd
 } // namespace openpower
