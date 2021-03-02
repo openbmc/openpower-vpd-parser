@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5b9c932_33d59c23",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-02T13:54:08Z",
+      "side": 1,
+      "message": "I would really want to avoid this unconditional copy. I guess you had to do this because we move the vector to the Parser. In that case, you can move the code that writes that bad vector to a file to wherever the buffer is owned.",
+      "range": {
+        "startLine": 279,
+        "startChar": 4,
+        "endLine": 279,
+        "endChar": 31
+      },
+      "revId": "ca1653928445bf8392271f43284fcba91a9a0a07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
