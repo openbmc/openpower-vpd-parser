@@ -174,6 +174,100 @@ static void populateFruSpecificInterfaces(const T& map,
 }
 
 /**
+ * calculate dimm size
+ */
+template <typename T>
+uint64_t getDimmSize(const T&  vpdMap )
+{
+    uint64_t dimmSize = 0;
+#define SVPD_JEDE_SZ_KW_SIZE                        7
+
+    uint32_t  sdram_cap = 1,  pri_bus_wid = 1,  sdram_wid  = 1,  logical_ranks_per_dimm = 1,  tmp = 0;
+    Byte SVPD_MEM_BYTE_4 = 0, SVPD_MEM_BYTE_6 = 0, SVPD_MEM_BYTE_7 = 0, SVPD_MEM_BYTE_8 = 0, SVPD_MEM_BYTE_12 = 0, SVPD_MEM_BYTE_13 = 0;
+
+    for(auto & thispair : vpdMap)
+    {
+        if(thispair.first == "PN")
+        {
+            SVPD_MEM_BYTE_4 = thispair.second[4];
+        }
+        else if(thispair.first == "SN")
+        {
+            SVPD_MEM_BYTE_6 = thispair.second[1];
+            SVPD_MEM_BYTE_7 = thispair.second[2];
+            SVPD_MEM_BYTE_8 = thispair.second[3];
+        }
+        else if(thispair.first == "CC")
+        {
+            SVPD_MEM_BYTE_12 = thispair.second[0];
+            SVPD_MEM_BYTE_13 = thispair.second[1];
+        }
+    }
+
+    Byte  primaryBusWidthByteInSPD = SVPD_MEM_BYTE_13;
+    Byte  sdramCapacityByteInSPD = SVPD_MEM_BYTE_4;
+    Byte  sdramDeviceWidthByteInSPD = SVPD_MEM_BYTE_12;
+    Byte  packageRanksPerDimmByteInSPD = SVPD_MEM_BYTE_12;
+    Byte  dieCount = 1;
+
+    //TODO check If it's DDR4?
+
+    //Calculate SDRAM  capacity
+         tmp =  sdramCapacityByteInSPD & SVPD_JEDEC_SDRAM_CAP_MASK;
+        /* Make sure the bits are not Reserved */
+        if( tmp > SVPD_JEDEC_SDRAMCAP_RESERVED)
+        {
+             tmp =  sdramCapacityByteInSPD;
+            // TODO break here
+        }
+         sdram_cap = ( sdram_cap <<  tmp) * SVPD_JEDEC_SDRAMCAP_MULTIPLIER;
+
+        /* Calculate Primary bus width */
+         tmp =  primaryBusWidthByteInSPD & SVPD_JEDEC_PRI_BUS_WIDTH_MASK;
+        if( tmp > SVPD_JEDEC_RESERVED_BITS)
+        {
+             tmp =  primaryBusWidthByteInSPD;
+            // TODO break here
+        }
+         pri_bus_wid = ( pri_bus_wid <<  tmp) * SVPD_JEDEC_PRI_BUS_WIDTH_MULTIPLIER;
+
+        /* Calculate SDRAM width */
+         tmp =  sdramDeviceWidthByteInSPD & SVPD_JEDEC_SDRAM_WIDTH_MASK;
+        if( tmp > SVPD_JEDEC_RESERVED_BITS)
+        {
+             tmp =  sdramDeviceWidthByteInSPD;
+            // TODO break here
+        }
+         sdram_wid = ( sdram_wid <<  tmp) * SVPD_JEDEC_SDRAM_WIDTH_MULTIPLIER;
+
+         tmp = SVPD_MEM_BYTE_6 & SVPD_JEDEC_SIGNAL_LOADING_MASK;
+
+        if( tmp == SVPD_JEDEC_SINGLE_LOAD_STACK)
+        {
+                //Fetch die count
+                 tmp = SVPD_MEM_BYTE_6 & SVPD_JEDEC_DIE_COUNT_MASK;
+                 tmp >>= SVPD_JEDEC_DIE_COUNT_RIGHT_SHIFT;
+                 dieCount =  tmp + 1;
+        }
+
+        /* Calculate Number of ranks */
+         tmp =  packageRanksPerDimmByteInSPD & SVPD_JEDEC_NUM_RANKS_MASK;
+         tmp >>= SVPD_JEDEC_RESERVED_BITS;
+
+        if( tmp > SVPD_JEDEC_RESERVED_BITS)
+        {
+             tmp =  packageRanksPerDimmByteInSPD;
+            // TODO break here
+        }
+         logical_ranks_per_dimm = ( tmp + 1) *  dieCount;
+
+        dimmSize = ( sdram_cap/SVPD_JEDEC_PRI_BUS_WID_MULTIPLIER) *
+                   ( pri_bus_wid/ sdram_wid) *  logical_ranks_per_dimm;
+
+    return dimmSize;
+}
+
+/**
  * @brief Populate Interfaces.
  *
  * This method populates common and extra interfaces to dbus.
@@ -191,6 +285,14 @@ static void populateInterfaces(const nlohmann::json& js,
     {
         string inf = ifs.key();
         inventory::PropertyMap props;
+
+        // check if it's DIMM
+        if (inf.find("Inventory.Item.Dimm") != string::npos)
+        {
+            // colect Dimm size value
+            auto value = getDimmSize( vpdMap );
+            props.emplace( "dimmSize", value);//TODO:confirm prop name?
+        }
 
         for (const auto& itr : ifs.value().items())
         {
@@ -530,7 +632,7 @@ void setEnvAndReboot(const string& key, const string& value)
     auto method = bus.new_method_call(
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
         "org.freedesktop.systemd1.Manager", "Reboot");
-    bus.call_noreply(method);
+    bus.cal noreply(method);
 }
 
 /*
