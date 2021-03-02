@@ -267,9 +267,9 @@ static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
     }
 
     // TODO: Figure out a better way to get max possible VPD size.
+    ifstream vpdFile;
     Binary vpdVector;
     vpdVector.resize(65504);
-    ifstream vpdFile;
     vpdFile.open(file, ios::binary);
 
     vpdFile.seekg(offset, ios_base::cur);
@@ -921,7 +921,7 @@ int main(int argc, char** argv)
     int rc = 0;
     string file{};
     json js{};
-
+    Binary vpdVector{};
     // map to hold additional data in case of logging pel
     PelAdditionalData additionalData{};
 
@@ -933,7 +933,6 @@ int main(int argc, char** argv)
     {
         App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
                 "in DBUS"};
-        string file{};
 
         app.add_option("-f, --file", file, "File containing VPD (IPZ/KEYWORD)")
             ->required();
@@ -994,8 +993,10 @@ int main(int argc, char** argv)
 
         try
         {
-            Binary vpdVector = getVpdDataInVector(js, file);
-            ParserInterface* parser = ParserFactory::getParser(move(vpdVector));
+            vpdVector = getVpdDataInVector(js, file);
+            Binary vpdVectorLocal = vpdVector;
+            ParserInterface* parser =
+                ParserFactory::getParser(std::move(vpdVectorLocal));
 
             variant<KeywordVpdMap, Store> parseResult;
             parseResult = parser->parse();
@@ -1014,6 +1015,7 @@ int main(int argc, char** argv)
         catch (exception& e)
         {
             postFailAction(js, file);
+            dumpBadVpd(file, std::move(vpdVector));
             throw e;
         }
     }
@@ -1032,7 +1034,7 @@ int main(int argc, char** argv)
         additionalData.emplace("CALLOUT_INVENTORY_PATH",
                                INVENTORY_PATH + baseFruInventoryPath);
         createPEL(additionalData, errIntfForEccCheckFail);
-
+        dumpBadVpd(file, std::move(vpdVector));
         cerr << ex.what() << "\n";
         rc = -1;
     }
@@ -1042,12 +1044,13 @@ int main(int argc, char** argv)
         additionalData.emplace("CALLOUT_INVENTORY_PATH",
                                INVENTORY_PATH + baseFruInventoryPath);
         createPEL(additionalData, errIntfForInvalidVPD);
-
+        dumpBadVpd(file, std::move(vpdVector));
         cerr << ex.what() << "\n";
         rc = -1;
     }
     catch (exception& e)
     {
+        dumpBadVpd(file, std::move(vpdVector));
         cerr << e.what() << "\n";
         rc = -1;
     }
