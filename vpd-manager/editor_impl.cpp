@@ -622,8 +622,9 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
     Byte vpdType = *iterator;
     if (vpdType == KW_VAL_PAIR_START_TAG)
     {
-        ParserInterface* Iparser =
-            ParserFactory::getParser(std::move(completeVPDFile));
+        createBadVpdDir();
+        ParserInterface* Iparser = ParserFactory::getParser(
+            std::move(completeVPDFile), getBadVpdName(vpdFilePath));
         IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
 
         try
@@ -653,6 +654,7 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
             // update the cache once data has been updated
             updateCache();
 #endif
+            ParserFactory::freeParser(Iparser);
         }
         catch (const std::exception& e)
         {

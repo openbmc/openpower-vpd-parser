@@ -6,6 +6,8 @@
 #include "utils.hpp"
 #include "vpd_exceptions.hpp"
 
+#include <fstream>
+
 using namespace vpd::keyword::parser;
 using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
@@ -20,9 +22,15 @@ namespace parser
 {
 namespace factory
 {
-interface::ParserInterface* ParserFactory::getParser(Binary&& vpdVector)
+std::string ParserFactory::badVpdPath{};
+interface::ParserInterface* ParserFactory::getParser(Binary&& vpdVector,
+                                                     string badVpd)
 {
+    ParserFactory::badVpdPath = badVpd;
     vpdType type = vpdTypeCheck(vpdVector);
+    ofstream badVpdFileStream(badVpdPath, ofstream::binary);
+    badVpdFileStream.write(reinterpret_cast<char*>(&vpdVector[0]),
+                           vpdVector.size());
 
     switch (type)
     {
@@ -50,6 +58,7 @@ void ParserFactory::freeParser(interface::ParserInterface* parser)
 {
     if (parser)
     {
+        std::remove(ParserFactory::badVpdPath.c_str());
         delete parser;
         parser = nullptr;
     }

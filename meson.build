@@ -47,7 +47,8 @@ configure_file(output: 'config.h',
                        'INVENTORY_JSON_SYM_LINK': '"'+get_option('INVENTORY_JSON_SYM_LINK')+'"',
                        'INVENTORY_JSON_2U': '"'+get_option('INVENTORY_JSON_2U')+'"',
                        'INVENTORY_JSON_4U': '"'+get_option('INVENTORY_JSON_4U')+'"',
-                       'INVENTORY_JSON_EVEREST': '"'+get_option('INVENTORY_JSON_EVEREST')+'"'
+                       'INVENTORY_JSON_EVEREST': '"'+get_option('INVENTORY_JSON_EVEREST')+'"',
+		       'BAD_VPD_DIR': '"'+get_option('BAD_VPD_DIR')+'"'
                        }
   )
 
