@@ -20,7 +20,7 @@ namespace parser
 {
 namespace factory
 {
-interface::ParserInterface* ParserFactory::getParser(Binary&& vpdVector)
+interface::ParserInterface* ParserFactory::getParser(Binary& vpdVector)
 {
     vpdType type = vpdTypeCheck(vpdVector);
 

@@ -4,8 +4,11 @@
 
 #include "defines.hpp"
 
+#include <filesystem>
+#include <fstream>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
+#include <regex>
 #include <sdbusplus/server.hpp>
 #include <xyz/openbmc_project/Common/error.hpp>
 
@@ -17,6 +20,7 @@ using namespace openpower::vpd::constants;
 using namespace inventory;
 using namespace phosphor::logging;
 using namespace sdbusplus::xyz::openbmc_project::Common::Error;
+namespace fs = std::filesystem;
 
 namespace inventory
 {
@@ -229,6 +233,48 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
         throw std::runtime_error(
             "Error in invoking D-Bus logging create interface to register PEL");
     }
+}
+
+string getBadVpdName(const string& file)
+{
+    string badVpd = "/tmp/bad-vpd/";
+    if (file.find("i2c") != string::npos)
+    {
+        badVpd += "i2c-";
+        regex i2cPattern("i2c-[0-9]+\\/");
+        auto i2cWord = sregex_iterator(file.begin(), file.end(), i2cPattern);
+
+        for (auto i = i2cWord; i != sregex_iterator(); ++i)
+        {
+            smatch match = *i;
+            string s = match.suffix().str();
+            size_t p = s.find("/");
+            badVpd += s.substr(0, p);
+        }
+    }
+    else if (file.find("spi") != string::npos)
+    {
+        regex spiPattern("((spi)[0-9]+)");
+        auto spiWord = sregex_iterator(file.begin(), file.end(), spiPattern);
+        for (auto i = spiWord; i != sregex_iterator(); ++i)
+        {
+            smatch match = *i;
+
+            badVpd += match.str();
+            break;
+        }
+    }
+    return badVpd;
+}
+
+void dumpBadVpd(const string& file, Binary&& vpdVector)
+{
+    fs::path badVpdDir = BAD_VPD_DIR;
+    fs::create_directory(badVpdDir);
+    string badVpdPath = getBadVpdName(file);
+    ofstream badVpdFileStream(badVpdPath, ofstream::binary);
+    badVpdFileStream.write(reinterpret_cast<char*>(&vpdVector[0]),
+                           vpdVector.size());
 }
 } // namespace vpd
 } // namespace openpower
