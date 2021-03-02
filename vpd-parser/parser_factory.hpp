@@ -32,13 +32,16 @@ class ParserFactory
      * @param[in] - vpd file to check for the type.
      * @return - Pointer to concrete parser class object.
      */
-    static interface::ParserInterface* getParser(Binary&& vpdVector);
+    static interface::ParserInterface* getParser(Binary&& vpdVector,
+                                                 std::string badVpd);
 
     /**
      * @brief A method to delete the parser object.
      * @param[in] - Pointer to the parser object.
      */
     static void freeParser(interface::ParserInterface* parser);
+
+    static std::string badVpdPath;
 }; // ParserFactory
 
 } // namespace factory

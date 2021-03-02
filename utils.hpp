@@ -108,5 +108,20 @@ string readBusProperty(const string& obj, const string& inf,
 void createPEL(const std::map<std::string, std::string>& additionalData,
                const std::string& errIntf);
 
+/**
+ * @brief Api to generate a vpd-name in some pattern.
+ * This vpd-name denotes name of the bad vpd file.
+ * For i2c eeproms - the pattern of the vpd-name will be
+ * i2c-<bus-number>-<eeprom-address>. For spi eeproms - the pattern of the
+ * vpd-name will be spi-<spi-number>.
+ *
+ * @param[in] file - file path of the vpd
+ * @return the vpd-name.
+ */
+string getBadVpdName(const string& file);
+
+/** @brief Creates Bad vpd Directory to collect bad vpds' if any */
+void createBadVpdDir();
+
 } // namespace vpd
 } // namespace openpower
