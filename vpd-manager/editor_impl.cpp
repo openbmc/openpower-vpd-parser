@@ -1,7 +1,7 @@
 #include "config.h"
 
 #include "editor_impl.hpp"
-
+#include "common_utility.hpp"
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "parser_factory.hpp"
@@ -293,6 +293,7 @@ void EditorImpl::makeDbusCall(const std::string& object,
 
 void EditorImpl::processAndUpdateCI(const std::string& objectPath)
 {
+    inventory::ObjectMap objects;
     for (auto& commonInterface : jsonFile["commonInterfaces"].items())
     {
         for (auto& ciPropertyList : commonInterface.value().items())
@@ -305,21 +306,26 @@ void EditorImpl::processAndUpdateCI(const std::string& objectPath)
                     (ciPropertyList.value().value("keywordName", "") ==
                      thisRecord.recKWd))
                 {
+                    inventory::PropertyMap prop;
+                    inventory::InterfaceMap interfaces;
                     std::string kwdData(thisRecord.kwdUpdatedData.begin(),
                                         thisRecord.kwdUpdatedData.end());
 
-                    makeDbusCall<std::string>((INVENTORY_PATH + objectPath),
-                                              commonInterface.key(),
-                                              ciPropertyList.key(), kwdData);
+                    prop.emplace(ciPropertyList.key(), move(kwdData));
+                    interfaces.emplace(commonInterface.key(), move(prop));
+                    objects.emplace(objectPath, move(interfaces));
                 }
             }
         }
     }
+    // Notify PIM
+    common::utility::callPIM(move(objects));
 }
 
 void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
                                     const inventory::Path& objPath)
 {
+    inventory::ObjectMap objects;
     for (const auto& extraInterface : Inventory["extraInterfaces"].items())
     {
         if (extraInterface.value() != NULL)
@@ -334,18 +340,23 @@ void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
                         ((eiPropertyList.value().value("keywordName", "") ==
                           thisRecord.recKWd)))
                     {
+                        inventory::PropertyMap prop;
+                        inventory::InterfaceMap interfaces;
                         std::string kwdData(thisRecord.kwdUpdatedData.begin(),
                                             thisRecord.kwdUpdatedData.end());
-                        makeDbusCall<std::string>(
-                            (INVENTORY_PATH + objPath), extraInterface.key(),
-                            eiPropertyList.key(),
-                            encodeKeyword(kwdData, eiPropertyList.value().value(
-                                                       "encoding", "")));
+                        encodeKeyword(kwdData, eiPropertyList.value().value(
+                                                   "encoding", ""));
+
+                        prop.emplace(eiPropertyList.key(), move(kwdData));
+                        interfaces.emplace(extraInterface.key(), move(prop));
+                        objects.emplace(objPath, move(interfaces));
                     }
                 }
             }
         }
     }
+    // Notify PIM
+    common::utility::callPIM(move(objects));
 }
 
 void EditorImpl::updateCache()
@@ -353,9 +364,12 @@ void EditorImpl::updateCache()
     const std::vector<nlohmann::json>& groupEEPROM =
         jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
 
+    inventory::ObjectMap objects;
     // iterate through all the inventories for this file path
     for (const auto& singleInventory : groupEEPROM)
     {
+        inventory::PropertyMap prop;
+        inventory::InterfaceMap interfaces;
         // by default inherit property is true
         bool isInherit = true;
         bool isInheritEI = true;
@@ -386,11 +400,13 @@ void EditorImpl::updateCache()
             // For CPU- update  com interface only when isCI true
             if ((!isCpuModuleOnly) || (isCpuModuleOnly && isCI))
             {
-                makeDbusCall<Binary>(
-                    (INVENTORY_PATH +
-                     singleInventory["inventoryPath"].get<std::string>()),
+                prop.emplace(thisRecord.recKWd, thisRecord.kwdUpdatedData);
+                interfaces.emplace(
                     (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
-                    thisRecord.recKWd, thisRecord.kwdUpdatedData);
+                    move(prop));
+                objects.emplace(
+                    (singleInventory["inventoryPath"].get<std::string>()),
+                    move(interfaces));
             }
 
             // process Common interface
@@ -402,11 +418,13 @@ void EditorImpl::updateCache()
         {
             if (isCpuModuleOnly)
             {
-                makeDbusCall<Binary>(
-                    (INVENTORY_PATH +
-                     singleInventory["inventoryPath"].get<std::string>()),
+                prop.emplace(thisRecord.recKWd, thisRecord.kwdUpdatedData);
+                interfaces.emplace(
                     (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
-                    thisRecord.recKWd, thisRecord.kwdUpdatedData);
+                    move(prop));
+                objects.emplace(
+                    (singleInventory["inventoryPath"].get<std::string>()),
+                    move(interfaces));
             }
 
             // process extra interfaces
@@ -415,6 +433,8 @@ void EditorImpl::updateCache()
                                    .get_ref<const nlohmann::json::string_t&>());
         }
     }
+    // Notify PIM
+    common::utility::callPIM(move(objects));
 }
 
 void EditorImpl::expandLocationCode(const std::string& locationCodeType)
@@ -439,28 +459,35 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
 
     const nlohmann::json& groupFRUS =
         jsonFile["frus"].get_ref<const nlohmann::json::object_t&>();
+    inventory::ObjectMap objects;
+
     for (const auto& itemFRUS : groupFRUS.items())
     {
         const std::vector<nlohmann::json>& groupEEPROM =
             itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
         for (const auto& itemEEPROM : groupEEPROM)
         {
+            inventory::PropertyMap prop;
+            inventory::InterfaceMap interfaces;
+            const auto& objectPath = itemEEPROM["inventoryPath"];
+            sdbusplus::message::object_path object(objectPath);
+
             // check if the given item implements location code interface
-            if (itemEEPROM["extraInterfaces"].find(LOCATION_CODE_INF) !=
+            if (itemEEPROM["extraInterfaces"].find(IBM_LOCATION_CODE_INF) !=
                 itemEEPROM["extraInterfaces"].end())
             {
                 const std::string& unexpandedLocationCode =
-                    itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]
+                    itemEEPROM["extraInterfaces"][IBM_LOCATION_CODE_INF]
                               ["LocationCode"]
                                   .get_ref<const nlohmann::json::string_t&>();
                 std::size_t idx = unexpandedLocationCode.find(locationCodeType);
                 if (idx != std::string::npos)
                 {
-                    std::string expandedLoctionCode(unexpandedLocationCode);
+                    std::string expandedLocationCode(unexpandedLocationCode);
 
                     if (locationCodeType == "fcs")
                     {
-                        expandedLoctionCode.replace(
+                        expandedLocationCode.replace(
                             idx, 3,
                             propertyFCorTM.substr(0, 4) + ".ND0." + propertySE);
                     }
@@ -468,20 +495,22 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
                     {
                         std::replace(propertyFCorTM.begin(),
                                      propertyFCorTM.end(), '-', '.');
-                        expandedLoctionCode.replace(
+                        expandedLocationCode.replace(
                             idx, 3, propertyFCorTM + "." + propertySE);
                     }
 
-                    // update the DBUS interface
-                    makeDbusCall<std::string>(
-                        (INVENTORY_PATH +
-                         itemEEPROM["inventoryPath"]
-                             .get_ref<const nlohmann::json::string_t&>()),
-                        LOCATION_CODE_INF, "LocationCode", expandedLoctionCode);
+                    // update the DBUS interface COM as well as XYZ path
+                    prop.emplace("LocationCode", expandedLocationCode);
+                    // TODO depricate this com.ibm interface later
+                    interfaces.emplace(IBM_LOCATION_CODE_INF, prop);
+                    interfaces.emplace(XYZ_LOCATION_CODE_INF, move(prop));
                 }
             }
+            objects.emplace(move(object), move(interfaces));
         }
     }
+    // Notify PIM
+    common::utility::callPIM(move(objects));
 }
 
 string EditorImpl::getSysPathForThisFruType(const string& moduleObjPath,
