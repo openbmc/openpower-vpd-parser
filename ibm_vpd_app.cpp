@@ -205,11 +205,12 @@ static void populateInterfaces(const nlohmann::json& js,
                 if constexpr (is_same<T, Parsed>::value)
                 {
                     if (busProp == "LocationCode" &&
-                        inf == "com.ibm.ipzvpd.Location")
+                        inf == IBM_LOCATION_CODE_INF)
                     {
                         auto prop = expandLocationCode(
                             itr.value().get<string>(), vpdMap, isSystemVpd);
                         props.emplace(busProp, prop);
+                        interfaces.emplace(XYZ_LOCATION_CODE_INF, props);
                     }
                     else
                     {
@@ -249,6 +250,7 @@ static void populateInterfaces(const nlohmann::json& js,
                 }
             }
         }
+
         interfaces.emplace(inf, move(props));
     }
 }
@@ -484,7 +486,7 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                     {
                         inventory::PropertyMap props;
                         if (eI.key() ==
-                            openpower::vpd::constants::LOCATION_CODE_INF)
+                            openpower::vpd::constants::IBM_LOCATION_CODE_INF)
                         {
                             if constexpr (std::is_same<T, Parsed>::value)
                             {

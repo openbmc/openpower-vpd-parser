@@ -439,18 +439,25 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
 
     const nlohmann::json& groupFRUS =
         jsonFile["frus"].get_ref<const nlohmann::json::object_t&>();
+    inventory::ObjectMap objects;
+
     for (const auto& itemFRUS : groupFRUS.items())
     {
         const std::vector<nlohmann::json>& groupEEPROM =
             itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
         for (const auto& itemEEPROM : groupEEPROM)
         {
+	    inventory::PropertyMap prop;
+            inventory::InterfaceMap interfaces;
+            const auto& objectPath = itemEEPROM["inventoryPath"];
+            sdbusplus::message::object_path object(objectPath);
+
             // check if the given item implements location code interface
-            if (itemEEPROM["extraInterfaces"].find(LOCATION_CODE_INF) !=
+            if (itemEEPROM["extraInterfaces"].find(IBM_LOCATION_CODE_INF) !=
                 itemEEPROM["extraInterfaces"].end())
             {
                 const std::string& unexpandedLocationCode =
-                    itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]
+                    itemEEPROM["extraInterfaces"][IBM_LOCATION_CODE_INF]
                               ["LocationCode"]
                                   .get_ref<const nlohmann::json::string_t&>();
                 std::size_t idx = unexpandedLocationCode.find(locationCodeType);
@@ -472,16 +479,18 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
                             idx, 3, propertyFCorTM + "." + propertySE);
                     }
 
-                    // update the DBUS interface
-                    makeDbusCall<std::string>(
-                        (INVENTORY_PATH +
-                         itemEEPROM["inventoryPath"]
-                             .get_ref<const nlohmann::json::string_t&>()),
-                        LOCATION_CODE_INF, "LocationCode", expandedLoctionCode);
+                    // update the DBUS interface COM as well as XYZ path
+		    prop.emplace("LocationCode", expandedLoctionCode);
+                    interfaces.emplace(IBM_LOCATION_CODE_INF, prop);
+		    interfaces.emplace(XYZ_LOCATION_CODE_INF, move(prop));
                 }
             }
+	    objects.emplace(move(object), move(interfaces));
         }
     }
+    // Notify PIM
+    inventory::callPIM(move(objects));
+
 }
 
 string EditorImpl::getSysPathForThisFruType(const string& moduleObjPath,

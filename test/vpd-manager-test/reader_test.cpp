@@ -65,7 +65,7 @@ void vpdManagerReaderTest::processJson()
         for (const auto& itemEEPROM : groupEEPROM)
         {
             fruLocationCode.emplace(
-                itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]["LocationCode"]
+                itemEEPROM["extraInterfaces"][IBM_LOCATION_CODE_INF]["LocationCode"]
                     .get_ref<const nlohmann::json::string_t&>(),
                 itemEEPROM["inventoryPath"]
                     .get_ref<const nlohmann::json::string_t&>());
@@ -110,7 +110,7 @@ TEST_F(vpdManagerReaderTest, getExpandedLocationCode_Valid)
     // mock the call to read bus property
     MockUtilCalls uCalls;
     EXPECT_CALL(uCalls, readBusProperty("/system/chassis/motherboard",
-                                        LOCATION_CODE_INF, "LocationCode"))
+                                        IBM_LOCATION_CODE_INF, "LocationCode"))
         .Times(1)
         .WillOnce(testing::Return("U78DA.ND1.1234567-P0"));
 
