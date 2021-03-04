@@ -446,11 +446,11 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
         for (const auto& itemEEPROM : groupEEPROM)
         {
             // check if the given item implements location code interface
-            if (itemEEPROM["extraInterfaces"].find(LOCATION_CODE_INF) !=
+            if (itemEEPROM["extraInterfaces"].find(IBM_LOCATION_CODE_INF) !=
                 itemEEPROM["extraInterfaces"].end())
             {
                 const std::string& unexpandedLocationCode =
-                    itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]
+                    itemEEPROM["extraInterfaces"][IBM_LOCATION_CODE_INF]
                               ["LocationCode"]
                                   .get_ref<const nlohmann::json::string_t&>();
                 std::size_t idx = unexpandedLocationCode.find(locationCodeType);
@@ -472,12 +472,18 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
                             idx, 3, propertyFCorTM + "." + propertySE);
                     }
 
-                    // update the DBUS interface
+                    // update the DBUS interface COM as well as XYZ path
                     makeDbusCall<std::string>(
                         (INVENTORY_PATH +
                          itemEEPROM["inventoryPath"]
                              .get_ref<const nlohmann::json::string_t&>()),
-                        LOCATION_CODE_INF, "LocationCode", expandedLoctionCode);
+                        IBM_LOCATION_CODE_INF, "LocationCode", expandedLoctionCode);
+
+                    makeDbusCall<std::string>(
+                        (INVENTORY_PATH +
+                         itemEEPROM["inventoryPath"]
+                             .get_ref<const nlohmann::json::string_t&>()),
+                        XYZ_LOCATION_CODE_INF, "LocationCode", expandedLoctionCode);
                 }
             }
         }

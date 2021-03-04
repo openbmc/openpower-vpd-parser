@@ -80,11 +80,11 @@ void Manager::processJSON()
                              .get_ref<const nlohmann::json::string_t&>(),
                          std::make_pair(itemFRUS.key(), isMotherboard));
 
-            if (itemEEPROM["extraInterfaces"].find(LOCATION_CODE_INF) !=
+            if (itemEEPROM["extraInterfaces"].find(IBM_LOCATION_CODE_INF) !=
                 itemEEPROM["extraInterfaces"].end())
             {
                 fruLocationCode.emplace(
-                    itemEEPROM["extraInterfaces"][LOCATION_CODE_INF]
+                    itemEEPROM["extraInterfaces"][IBM_LOCATION_CODE_INF]
                               ["LocationCode"]
                                   .get_ref<const nlohmann::json::string_t&>(),
                     itemEEPROM["inventoryPath"]

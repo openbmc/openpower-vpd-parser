@@ -484,7 +484,7 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                     {
                         inventory::PropertyMap props;
                         if (eI.key() ==
-                            openpower::vpd::constants::LOCATION_CODE_INF)
+                            openpower::vpd::constants::IBM_LOCATION_CODE_INF)
                         {
                             if constexpr (std::is_same<T, Parsed>::value)
                             {
