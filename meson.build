@@ -6,7 +6,7 @@ project(
        'warning_level=3',
        'werror=true',
        'cpp_std=c++17',
-       'build=debugoptimized'
+       'buildtype=debugoptimized'
      ],
      version: '1.0'
 )
