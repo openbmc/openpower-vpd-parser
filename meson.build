@@ -69,18 +69,6 @@ if get_option('ibm-parser').enabled()
                                 cpp_args : '-DIPZ_PARSER'
                             )
 
-        vpd_tool_SOURCES = ['vpd_tool.cpp',
-                            'vpd_tool_impl.cpp'
-                           ]
-
-        vpd_tool_exe = executable(
-                                 'vpd-tool',
-                                 vpd_tool_SOURCES,
-                                 dependencies: [
-                                   sdbusplus
-                                   ],
-                                 install: true
-                                 )
 if get_option('vpd-manager').enabled()
     subdir('vpd-manager')
 endif
