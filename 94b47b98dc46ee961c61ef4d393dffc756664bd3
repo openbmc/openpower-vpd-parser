@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a44f5bb_fc8f922e",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-09T10:50:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62cec951_ff6262eb",
+      "revId": "94b47b98dc46ee961c61ef4d393dffc756664bd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe9352f4_d48a7221",
         "filename": "vpd-manager/editor_impl.hpp",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2021-01-12T16:19:55Z",
       "side": 1,
       "message": "You are passing JSON here, but in brief you have mentioned inventory object.\n\nAlso update and copy both are creating confusion. How about updateCopiedRecordsIfAny?",
+      "revId": "94b47b98dc46ee961c61ef4d393dffc756664bd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35e2acd6_d454dcda",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-09T10:50:05Z",
+      "side": 1,
+      "message": "1.Given the brief about inventory object in line 162.\n\n2.copyRecords is an attribute in json. \nhere, we update the records mentioned in copyRecords attribute. I don\u0027t think we need to change the api name.",
+      "parentUuid": "fe9352f4_d48a7221",
       "revId": "94b47b98dc46ee961c61ef4d393dffc756664bd3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
