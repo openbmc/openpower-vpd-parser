@@ -1,6 +1,7 @@
 #include "config.h"
 
 #include "defines.hpp"
+#include "impl.hpp"
 #include "ipz_parser.hpp"
 #include "keyword_vpd_parser.hpp"
 #include "memory_vpd_parser.hpp"
@@ -36,6 +37,7 @@ using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::exceptions;
 using namespace phosphor::logging;
+using namespace openpower::vpd::parser;
 
 static const deviceTreeMap deviceTreeSystemTypeMap = {
     {RAINIER_2U, "conf@aspeed-bmc-ibm-rainier.dtb"},
@@ -989,7 +991,6 @@ int main(int argc, char** argv)
                 return 0;
             }
         }
-
         try
         {
             Binary vpdVector = getVpdDataInVector(js, file);
@@ -1009,9 +1010,46 @@ int main(int argc, char** argv)
             // release the parser object
             ParserFactory::freeParser(parser);
         }
+        catch (const VpdJsonException& ex)
+        {
+            additionalData.emplace("JSON_PATH", ex.getJsonPath());
+            additionalData.emplace("DESCRIPTION", ex.what());
+            createPEL(additionalData, errIntfForJsonFailure);
+
+            cerr << ex.what() << "\n";
+            rc = -1;
+        }
+        catch (const VpdEccException& ex)
+        {
+            additionalData.emplace("DESCRIPTION", "ECC check failed");
+            additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                   INVENTORY_PATH + baseFruInventoryPath);
+            additionalData.emplace("RECORD FOR WHICH THE ECC FAILED",
+                                   ex.getRecord());
+            additionalData.emplace("RECORD DATA FOR WHICH THE ECC FAILED",
+                                   ex.getFailedRecordData());
+            additionalData.emplace("ECC DATA OF THE FAILED RECORD",
+                                   ex.getFailedEccData());
+            createPEL(additionalData, errIntfForEccCheckFail);
+
+            cerr << ex.what() << "\n";
+            rc = -1;
+        }
+        catch (const VpdDataException& ex)
+        {
+            additionalData.emplace("DESCRIPTION", "Invalid VPD data");
+            additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                   INVENTORY_PATH + baseFruInventoryPath);
+            createPEL(additionalData, errIntfForInvalidVPD);
+
+            cerr << ex.what() << "\n";
+            rc = -1;
+        }
         catch (exception& e)
         {
             postFailAction(js, file);
+            cerr << e.what() << "\n";
+            rc = -1;
             throw e;
         }
     }
@@ -1029,6 +1067,12 @@ int main(int argc, char** argv)
         additionalData.emplace("DESCRIPTION", "ECC check failed");
         additionalData.emplace("CALLOUT_INVENTORY_PATH",
                                INVENTORY_PATH + baseFruInventoryPath);
+        additionalData.emplace("RECORD FOR WHICH THE ECC FAILED",
+                               ex.getRecord());
+        additionalData.emplace("RECORD DATA FOR WHICH THE ECC FAILED",
+                               ex.getFailedRecordData());
+        additionalData.emplace("ECC DATA OF THE FAILED RECORD",
+                               ex.getFailedEccData());
         createPEL(additionalData, errIntfForEccCheckFail);
 
         cerr << ex.what() << "\n";
