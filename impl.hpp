@@ -137,19 +137,19 @@ class Impl
     /** @brief Checks the ECC for VHDR Record.
      *  @returns Success(0) OR corrupted data(-1)
      */
-    int vhdrEccCheck() const;
+    void vhdrEccCheck() const;
 
     /** @brief Checks the ECC for VTOC Record.
      *  @returns Success(0) OR corrupted data(-1)
      */
-    int vtocEccCheck() const;
+    void vtocEccCheck() const;
 
     /** @brief Checks the ECC for the given record.
      *
      * @param[in] iterator - iterator pointing to a record in the VPD
      * @returns Success(0) OR corrupted data(-1)
      */
-    int recordEccCheck(Binary::const_iterator iterator) const;
+    void recordEccCheck(Binary::const_iterator iterator) const;
 
     /** @brief This interface collects Offset of VTOC
      *  @returns VTOC Offset
