@@ -4,9 +4,11 @@
 
 #include "defines.hpp"
 
+#include <iomanip>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/server.hpp>
+#include <sstream>
 #include <xyz/openbmc_project/Common/error.hpp>
 
 namespace openpower
@@ -219,16 +221,33 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
         auto service = getService(bus, loggerObjectPath, loggerCreateInterface);
         auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
                                           loggerCreateInterface, "Create");
-
         method.append(errIntf, "xyz.openbmc_project.Logging.Entry.Level.Error",
                       additionalData);
+
         auto resp = bus.call(method);
     }
     catch (const sdbusplus::exception::SdBusError& e)
     {
+        cerr << e.what() << endl;
         throw std::runtime_error(
             "Error in invoking D-Bus logging create interface to register PEL");
     }
+}
+
+const string byteVecToHexString(Binary::const_iterator itrBegin,
+                                short unsigned int length)
+{
+    ostringstream ss;
+    ss << hex << uppercase << setfill('0');
+    ss << "0x";
+    while (length != 0)
+    {
+        ss << hex << setw(2) << (int)*itrBegin;
+        ++itrBegin;
+        --length;
+    }
+    const string str = ss.str();
+    return str;
 }
 } // namespace vpd
 } // namespace openpower
