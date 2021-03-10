@@ -33,5 +33,6 @@ vpd_manager_exe = executable(
                  dependencies : [
                                 vpd_manager_dependencies,
                                 ],
-                 install : true
+                 install : true,
+                 cpp_args : '-DIPZ_PARSER'
                 )
