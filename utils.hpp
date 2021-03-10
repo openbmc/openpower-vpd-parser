@@ -108,5 +108,15 @@ string readBusProperty(const string& obj, const string& inf,
 void createPEL(const std::map<std::string, std::string>& additionalData,
                const std::string& errIntf);
 
+/**
+ * @brief API to covert byte vector to hex string
+ * @param[in] itrBegin - Iterator pointing to the byte value of the vector.
+ * @param[in] length - number of bytes from the itrBegin that needs to be
+ * converted to hex.
+ * @return the hex format of the byte vector values in string.
+ */
+const string byteVecToHexString(Binary::const_iterator itrBegin,
+                                short unsigned int length);
+
 } // namespace vpd
 } // namespace openpower

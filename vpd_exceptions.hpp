@@ -68,9 +68,33 @@ class VpdEccException : public VPDException
     /** @brief constructor
      *  @param[in] - string to define exception
      */
-    explicit VpdEccException(const std::string& msg) : VPDException(msg)
+    explicit VpdEccException(const std::string& msg, std::string rec,
+                             std::string failedRecord, std::string failedEcc) :
+        VPDException(msg),
+        recordName(rec), failedRecordData(failedRecord),
+        failedEccData(failedEcc)
     {
     }
+
+    inline std::string getRecord() const
+    {
+        return recordName;
+    }
+
+    inline std::string getFailedRecordData() const
+    {
+        return failedRecordData;
+    }
+
+    inline std::string getFailedEccData() const
+    {
+        return failedEccData;
+    }
+
+  private:
+    std::string recordName;
+    std::string failedRecordData;
+    std::string failedEccData;
 
 }; // class VpdEccException
 
