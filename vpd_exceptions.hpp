@@ -154,6 +154,47 @@ class VpdJsonException : public VPDException
 
 }; // class VpdJSonException
 
+class EepromException : public VPDException
+{
+  public:
+    EepromException() = delete;
+    EepromException(const EepromException&) = delete;
+    EepromException(EepromException&&) = delete;
+    EepromException& operator=(const EepromException&) = delete;
+
+    ~EepromException() = default;
+
+    /** @brief constructor
+     * @param[in] -
+     */
+    explicit EepromException(const std::string& msg,
+                             const std::string& eepromFile, const int error,
+                             const std::string& strError) :
+        VPDException(msg),
+        eepromPath(eepromFile), errorCode(error), errorDesc(strError)
+    {
+    }
+
+    inline std::string getEepromPath() const
+    {
+        return eepromPath;
+    }
+
+    inline int getErrno() const
+    {
+        return errorCode;
+    }
+    inline std::string getErrorDesc() const
+    {
+        return errorDesc;
+    }
+
+  private:
+    std::string eepromPath;
+    int errorCode;
+    std::string errorDesc;
+
+}; // class EepromException
 } // namespace exceptions
 } // namespace vpd
 } // namespace openpower

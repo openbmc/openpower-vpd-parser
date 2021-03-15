@@ -118,5 +118,6 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
 const string byteVecToHexString(Binary::const_iterator itrBegin,
                                 short unsigned int length);
 
+const string intToString(int n);
 } // namespace vpd
 } // namespace openpower

@@ -5,6 +5,9 @@
 #include "ipz_parser.hpp"
 #include "parser_factory.hpp"
 #include "utils.hpp"
+#include "vpd_exceptions.hpp"
+
+#include <filesystem>
 
 #include "vpdecc/vpdecc.h"
 
@@ -12,7 +15,9 @@ using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::parser::factory;
 using namespace openpower::vpd::ipz::parser;
-
+using namespace openpower::vpd::exceptions;
+using namespace openpower::vpd::inventory;
+using namespace std;
 namespace openpower
 {
 namespace vpd
@@ -99,20 +104,30 @@ void EditorImpl::updateData(const Binary& kwdData)
     }
 #else
 
-    // update data in EEPROM as well. As we will not write complete file back
-    vpdFileStream.seekp(startOffset + thisRecord.kwDataOffset, std::ios::beg);
+    try
+    {
+        // update data in EEPROM as well. As we will not write complete file
+        // back
+        vpdFileStream.seekp(startOffset + thisRecord.kwDataOffset,
+                            std::ios::beg);
 
-    iteratorToNewdata = kwdData.cbegin();
-    std::copy(iteratorToNewdata, end,
-              std::ostreambuf_iterator<char>(vpdFileStream));
+        iteratorToNewdata = kwdData.cbegin();
+        std::copy(iteratorToNewdata, end,
+                  std::ostreambuf_iterator<char>(vpdFileStream));
 
-    // get a hold to new data in case encoding is needed
-    thisRecord.kwdUpdatedData.resize(thisRecord.kwdDataLength);
-    auto itrToKWdData = vpdFile.cbegin();
-    std::advance(itrToKWdData, thisRecord.kwDataOffset);
-    auto kwdDataEnd = itrToKWdData;
-    std::advance(kwdDataEnd, thisRecord.kwdDataLength);
-    std::copy(itrToKWdData, kwdDataEnd, thisRecord.kwdUpdatedData.begin());
+        // get a hold to new data in case encoding is needed
+        thisRecord.kwdUpdatedData.resize(thisRecord.kwdDataLength);
+        auto itrToKWdData = vpdFile.cbegin();
+        std::advance(itrToKWdData, thisRecord.kwDataOffset);
+        auto kwdDataEnd = itrToKWdData;
+        std::advance(kwdDataEnd, thisRecord.kwdDataLength);
+        std::copy(itrToKWdData, kwdDataEnd, thisRecord.kwdUpdatedData.begin());
+    }
+    catch (filesystem::filesystem_error& ex)
+    {
+        throw(EepromException("Failed to update the EEPROM", vpdFilePath, errno,
+                              strerror(errno)));
+    }
 #endif
 }
 
@@ -192,9 +207,19 @@ void EditorImpl::updateRecordECC()
     std::advance(end, thisRecord.recECCLength);
 
 #ifndef ManagerTest
-    vpdFileStream.seekp(startOffset + thisRecord.recECCoffset, std::ios::beg);
-    std::copy(itrToRecordECC, end,
-              std::ostreambuf_iterator<char>(vpdFileStream));
+    try
+    {
+        vpdFileStream.seekp(startOffset + thisRecord.recECCoffset,
+                            std::ios::beg);
+
+        std::copy(itrToRecordECC, end,
+                  std::ostreambuf_iterator<char>(vpdFileStream));
+    }
+    catch (filesystem::filesystem_error& ex)
+    {
+        throw(EepromException("Failed to seek from the EEPROM", vpdFilePath,
+                              errno, strerror(errno)));
+    }
 #endif
 }
 
@@ -580,6 +605,7 @@ void EditorImpl::getVpdPathForCpu()
 
 void EditorImpl::updateKeyword(const Binary& kwdData)
 {
+    PelAdditionalData additionalData{};
     startOffset = 0;
 #ifndef ManagerTest
 
@@ -596,12 +622,22 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
 
     // TODO: Figure out a better way to get max possible VPD size.
     Binary completeVPDFile;
-    completeVPDFile.resize(65504);
-    vpdFileStream.open(vpdFilePath,
-                       std::ios::in | std::ios::out | std::ios::binary);
+    try
+    {
+        completeVPDFile.resize(65504);
+        vpdFileStream.open(vpdFilePath,
+                           std::ios::in | std::ios::out | std::ios::binary);
 
-    vpdFileStream.seekg(startOffset, ios_base::cur);
-    vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]), 65504);
+        vpdFileStream.seekg(startOffset, ios_base::cur);
+
+        vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]), 65504);
+    }
+    catch (filesystem::filesystem_error& ex)
+    {
+        throw(EepromException("Failed to open/write/read from the EEPROM",
+                              vpdFilePath, errno, strerror(errno)));
+    }
+
     completeVPDFile.resize(vpdFileStream.gcount());
     vpdFileStream.clear(std::ios_base::eofbit);
 
@@ -653,6 +689,17 @@ void EditorImpl::updateKeyword(const Binary& kwdData)
             // update the cache once data has been updated
             updateCache();
 #endif
+        }
+        catch (const EepromException& ex)
+        {
+            additionalData.emplace("DESCRIPTION",
+                                   "Operation Failure in EEPROM");
+            additionalData.emplace("EEPROM PATH", ex.getEepromPath());
+            additionalData.emplace("ERRNO", intToString(ex.getErrno()));
+            additionalData.emplace("ERROR DESCRIPTION", ex.getErrorDesc());
+
+            createPEL(additionalData, errIntfForEepromFailure);
+            cerr << ex.what() << "\n";
         }
         catch (const std::exception& e)
         {

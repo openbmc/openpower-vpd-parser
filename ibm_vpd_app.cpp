@@ -271,10 +271,17 @@ static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
     Binary vpdVector;
     vpdVector.resize(65504);
     ifstream vpdFile;
-    vpdFile.open(file, ios::binary);
-
-    vpdFile.seekg(offset, ios_base::cur);
-    vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), 65504);
+    try
+    {
+        vpdFile.open(file, ios::binary);
+        vpdFile.seekg(offset, ios_base::cur);
+        vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), 65504);
+    }
+    catch (fs::filesystem_error& ex)
+    {
+        throw(EepromException("Failed to open/seek/read from Eeprom", file,
+                              errno, strerror(errno)));
+    }
     vpdVector.resize(vpdFile.gcount());
 
     return vpdVector;
@@ -975,8 +982,9 @@ int main(int argc, char** argv)
 
         if (!fs::exists(file))
         {
-            cout << "Device path: " << file
-                 << " does not exist. Spurious udev event? Exiting." << endl;
+            throw(EepromException(
+                "File does not exist. Spurious udev event? Exiting.", file,
+                errno, strerror(errno)));
             return 0;
         }
 
@@ -1045,6 +1053,17 @@ int main(int argc, char** argv)
             cerr << ex.what() << "\n";
             rc = -1;
         }
+        catch (const EepromException& ex)
+        {
+            additionalData.emplace("DESCRIPTION",
+                                   "Operation Failure in EEPROM");
+            additionalData.emplace("EEPROM PATH", ex.getEepromPath());
+            additionalData.emplace("ERRNO", intToString(ex.getErrno()));
+            additionalData.emplace("ERROR DESCRIPTION", ex.getErrorDesc());
+            createPEL(additionalData, errIntfForEepromFailure);
+            cerr << ex.what() << "\n";
+            rc = -1;
+        }
         catch (exception& e)
         {
             postFailAction(js, file);
@@ -1088,6 +1107,19 @@ int main(int argc, char** argv)
         cerr << ex.what() << "\n";
         rc = -1;
     }
+
+    catch (const EepromException& ex)
+    {
+        additionalData.emplace("DESCRIPTION", "Operation Failure in EEPROM");
+        additionalData.emplace("EEPROM PATH", ex.getEepromPath());
+        additionalData.emplace("ERRNO", intToString(ex.getErrno()));
+        additionalData.emplace("ERROR DESCRIPTION", ex.getErrorDesc());
+
+        createPEL(additionalData, errIntfForEepromFailure);
+        cerr << ex.what() << "\n";
+        rc = -1;
+    }
+
     catch (exception& e)
     {
         cerr << e.what() << "\n";

@@ -78,12 +78,13 @@ constexpr auto loggerObjectPath = "/xyz/openbmc_project/logging";
 constexpr auto loggerCreateInterface = "xyz.openbmc_project.Logging.Create";
 constexpr auto errIntfForBlankSystemVPD = "com.ibm.VPD.Error.BlankSystemVPD";
 constexpr auto errIntfForInvalidVPD = "com.ibm.VPD.Error.InvalidVPD";
-constexpr auto errIntfForStreamFail = "com.ibm.VPD.Error.InavlidEepromPath";
+constexpr auto errIntfForStreamFail = "com.ibm.VPD.Error.InvalidEepromPath";
 constexpr auto errIntfForEccCheckFail = "com.ibm.VPD.Error.EccCheckFailed";
 constexpr auto errIntfForJsonFailure = "com.ibm.VPD.Error.InvalidJson";
 constexpr auto errIntfForBusFailure = "com.ibm.VPD.Error.DbusFailure";
 constexpr auto motherBoardInterface =
     "xyz.openbmc_project.Inventory.Item.Board.Motherboard";
+constexpr auto errIntfForEepromFailure = "com.ibm.VPD.Error.EepromFailure";
 
 namespace lengths
 {
