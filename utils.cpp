@@ -249,5 +249,14 @@ const string byteVecToHexString(Binary::const_iterator itrBegin,
     const string str = ss.str();
     return str;
 }
+
+const string intToString(int n)
+{
+   stringstream ss;
+   ss<<n;
+   string s;
+   ss>>s;
+   return s;
+}
 } // namespace vpd
 } // namespace openpower
