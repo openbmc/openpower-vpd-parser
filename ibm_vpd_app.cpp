@@ -40,6 +40,7 @@ using namespace phosphor::logging;
 static const deviceTreeMap deviceTreeSystemTypeMap = {
     {RAINIER_2U, "conf@aspeed-bmc-ibm-rainier.dtb"},
     {RAINIER_4U, "conf@aspeed-bmc-ibm-rainier-4u.dtb"},
+    {RAINIER_1S4U, "conf@aspeed-bmc-ibm-rainier-1s4u.dtb"},
     {EVEREST, "conf@aspeed-bmc-ibm-everest.dtb"}};
 
 /**
@@ -871,7 +872,8 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         }
         string imValStr = oss.str();
 
-        if (imValStr == RAINIER_4U) // 4U
+        if ((imValStr == RAINIER_4U) || // 4U
+            (imValStr == RAINIER_1S4U))
         {
             target = INVENTORY_JSON_4U;
         }
