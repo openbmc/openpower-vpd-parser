@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49223edd_612e5268",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-19T05:36:33Z",
+      "side": 1,
+      "message": "Can we define this in const.hpp with some meaningful name?",
+      "range": {
+        "startLine": 275,
+        "startChar": 57,
+        "endLine": 275,
+        "endChar": 62
+      },
+      "revId": "bb0810ce93807c12488ddc765303ccbed3c96b50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
