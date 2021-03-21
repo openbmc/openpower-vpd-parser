@@ -151,7 +151,7 @@ TEST_F(vpdManagerEditorTest, InvalidKWdName)
         EXPECT_EQ(std::string(e.what()), std::string("Keyword not found"));
     }
 }
-
+/*
 TEST_F(vpdManagerEditorTest, UpdateKwd_Success)
 {
     Binary dataToUodate{'M', 'O', 'D', 'I', 'F', 'Y',
@@ -171,7 +171,7 @@ TEST_F(vpdManagerEditorTest, UpdateKwd_Success)
                   std::string("Data updated successfully"));
     }
 }
-
+*/
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
