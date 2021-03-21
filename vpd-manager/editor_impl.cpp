@@ -674,6 +674,12 @@ void EditorImpl::updateKeyword(const Binary& kwdData, const bool& updCache)
             // check record for keywrod
             checkRecordForKwd();
 
+            // Verify the ECC data before updating the record data.
+            // This call won't update ECC data as we have no update on VPD data,
+            // but this returns success means we have implementation of vpdecc,
+            // which is a pre-requisite for updateData.
+            updateRecordECC();
+
             // update the data to the file
             updateData(kwdData);
 
