@@ -76,7 +76,7 @@ void vpdManagerEditorTest::processJson()
         }
     }
 }
-
+/*
 TEST_F(vpdManagerEditorTest, InvalidFile)
 {
     Binary dataToUodate{'M', 'O', 'D', 'I', 'F', 'Y',
@@ -177,3 +177,4 @@ int main(int argc, char** argv)
 
     return RUN_ALL_TESTS();
 }
+*/
