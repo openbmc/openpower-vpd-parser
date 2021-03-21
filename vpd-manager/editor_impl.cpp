@@ -181,12 +181,13 @@ void EditorImpl::updateRecordECC()
     auto itrToRecordECC = vpdFile.cbegin();
     std::advance(itrToRecordECC, thisRecord.recECCoffset);
 
+    // update ECC. ECC update not allowed in dummy code.
     auto l_status = vpdecc_create_ecc(
         const_cast<uint8_t*>(&itrToRecordData[0]), thisRecord.recSize,
         const_cast<uint8_t*>(&itrToRecordECC[0]), &thisRecord.recECCLength);
     if (l_status != VPD_ECC_OK)
     {
-        throw std::runtime_error("Ecc update failed");
+        throw std::runtime_error("Error: Couldn't update the ECC");
     }
 
     auto end = itrToRecordECC;
@@ -674,11 +675,11 @@ void EditorImpl::updateKeyword(const Binary& kwdData, const bool& updCache)
             // check record for keywrod
             checkRecordForKwd();
 
+            // Verify the updated ECC data for the record
+            updateRecordECC();
+
             // update the data to the file
             updateData(kwdData);
-
-            // update the ECC data for the record once data has been updated
-            updateRecordECC();
 
             if (updCache)
             {
