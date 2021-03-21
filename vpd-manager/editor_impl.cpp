@@ -674,6 +674,9 @@ void EditorImpl::updateKeyword(const Binary& kwdData, const bool& updCache)
             // check record for keywrod
             checkRecordForKwd();
 
+            // Verify the ECC data before updating the record
+            updateRecordECC();
+
             // update the data to the file
             updateData(kwdData);
 
