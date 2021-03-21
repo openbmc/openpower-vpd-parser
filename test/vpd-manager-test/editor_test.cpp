@@ -161,14 +161,13 @@ TEST_F(vpdManagerEditorTest, UpdateKwd_Success)
 
     try
     {
-        // All valid data
+        // All valid data, but can't update with dummy ECC code
         EditorImpl edit("VINI", "SN", std::move(vpd));
         edit.updateKeyword(dataToUodate, true);
     }
     catch (std::runtime_error& e)
     {
-        EXPECT_EQ(std::string(e.what()),
-                  std::string("Data updated successfully"));
+        EXPECT_EQ(std::string(e.what()), std::string("Ecc update failed"));
     }
 }
 
