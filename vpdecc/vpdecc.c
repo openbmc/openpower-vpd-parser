@@ -5,9 +5,7 @@
 int vpdecc_create_ecc(const unsigned char* data, size_t data_length,
                       unsigned char* ecc, size_t* ecc_buffersize)
 {
-    int i, vRet = 0;
-
-    memset(ecc, 0, *ecc_buffersize);
+    int i, vRet = -1;
 
     return vRet;
 }
