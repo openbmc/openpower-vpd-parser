@@ -29,6 +29,20 @@ using namespace sdbusplus::xyz::openbmc_project::Common::Error;
 using namespace record;
 using namespace openpower::vpd::exceptions;
 using namespace common::utility;
+using Severity = openpower::vpd::constants::PelSeverity;
+
+// mapping of severity enum to severity interface
+static std::unordered_map<Severity, std::string> sevMap = {
+    {Severity::INFORMATIONAL,
+     "xyz.openbmc_project.Logging.Entry.Level.Informational"},
+    {Severity::DEBUG, "xyz.openbmc_project.Logging.Entry.Level.Debug"},
+    {Severity::NOTICE, "xyz.openbmc_project.Logging.Entry.Level.Notice"},
+    {Severity::WARNING, "xyz.openbmc_project.Logging.Entry.Level.Warning"},
+    {Severity::CRITICAL, "xyz.openbmc_project.Logging.Entry.Level.Critical"},
+    {Severity::EMERGENCY, "xyz.openbmc_project.Logging.Entry.Level.Emergency"},
+    {Severity::ERROR, "xyz.openbmc_project.Logging.Entry.Level.Error"},
+    {Severity::ALERT, "xyz.openbmc_project.Logging.Entry.Level.Alert"}};
+
 namespace inventory
 {
 
@@ -141,17 +155,24 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
 }
 
 void createPEL(const std::map<std::string, std::string>& additionalData,
-               const std::string& errIntf)
+               const Severity& sev, const std::string& errIntf)
 {
     try
     {
+        std::string pelSeverity =
+            "xyz.openbmc_project.Logging.Entry.Level.Error";
         auto bus = sdbusplus::bus::new_default();
         auto service = getService(bus, loggerObjectPath, loggerCreateInterface);
         auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
                                           loggerCreateInterface, "Create");
 
-        method.append(errIntf, "xyz.openbmc_project.Logging.Entry.Level.Error",
-                      additionalData);
+        auto itr = sevMap.find(sev);
+        if (itr != sevMap.end())
+        {
+            pelSeverity = itr->second;
+        }
+
+        method.append(errIntf, pelSeverity, additionalData);
         auto resp = bus.call(method);
     }
     catch (const sdbusplus::exception::SdBusError& e)

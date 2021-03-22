@@ -85,7 +85,7 @@ constexpr auto errIntfForJsonFailure = "com.ibm.VPD.Error.InvalidJson";
 constexpr auto errIntfForBusFailure = "com.ibm.VPD.Error.DbusFailure";
 constexpr auto motherBoardInterface =
     "xyz.openbmc_project.Inventory.Item.Board.Motherboard";
-
+constexpr auto systemVpdFilePath = "/sys/bus/i2c/drivers/at24/8-0050/eeprom";
 namespace lengths
 {
 enum Lengths
@@ -136,6 +136,19 @@ enum vpdType
     MEMORY_VPD,        /**< Memory VPD type */
     INVALID_VPD_FORMAT /**< Invalid VPD type */
 };
+
+enum PelSeverity
+{
+    NOTICE,
+    INFORMATIONAL,
+    DEBUG,
+    WARNING,
+    CRITICAL,
+    EMERGENCY,
+    ALERT,
+    ERROR
+};
+
 } // namespace constants
 } // namespace vpd
 } // namespace openpower
