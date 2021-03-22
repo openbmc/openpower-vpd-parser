@@ -103,9 +103,11 @@ string readBusProperty(const string& obj, const string& inf,
 /**
  * @brief API to create PEL entry
  * @param[in] Map holding the additional data
+ * @param[in] Severity
  * @param[in] error interface
  */
 void createPEL(const std::map<std::string, std::string>& additionalData,
+               const constants::severity::PelSeverity& sev,
                const std::string& errIntf);
 
 } // namespace vpd

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <unordered_map>
 
 namespace openpower
 {
@@ -85,7 +86,7 @@ constexpr auto errIntfForJsonFailure = "com.ibm.VPD.Error.InvalidJson";
 constexpr auto errIntfForBusFailure = "com.ibm.VPD.Error.DbusFailure";
 constexpr auto motherBoardInterface =
     "xyz.openbmc_project.Inventory.Item.Board.Motherboard";
-
+constexpr auto systemVpdFilePath = "/sys/bus/i2c/drivers/at24/8-0050/eeprom";
 namespace lengths
 {
 enum Lengths
@@ -125,6 +126,32 @@ enum Status
     FAILED = -1
 };
 } // namespace eccStatus
+
+namespace severity
+{
+enum PelSeverity
+{
+    NOTICE,
+    INFORMATIONAL,
+    DEBUG,
+    WARNING,
+    CRITICAL,
+    EMERGENCY,
+    ALERT,
+    ERROR
+};
+
+static std::unordered_map<PelSeverity, std::string> sevMap = {
+    {INFORMATIONAL, "xyz.openbmc_project.Logging.Entry.Level.Informational"},
+    {DEBUG, "xyz.openbmc_project.Logging.Entry.Level.Debug"},
+    {NOTICE, "xyz.openbmc_project.Logging.Entry.Level.Notice"},
+    {WARNING, "xyz.openbmc_project.Logging.Entry.Level.Warning"},
+    {CRITICAL, "xyz.openbmc_project.Logging.Entry.Level.Critical"},
+    {EMERGENCY, "xyz.openbmc_project.Logging.Entry.Level.Emergency"},
+    {ERROR, "xyz.openbmc_project.Logging.Entry.Level.Error"},
+    {ALERT, "xyz.openbmc_project.Logging.Entry.Level.Alert"}};
+
+} // namespace severity
 } // namespace constants
 } // namespace vpd
 } // namespace openpower

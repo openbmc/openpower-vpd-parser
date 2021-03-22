@@ -112,13 +112,17 @@ class VpdJsonException : public VPDException
     ~VpdJsonException() = default;
 
     /** @brief constructor
-     *  @param[in] - string to define exception
+     * @param[in] - string to define exception
+     * @param[in] - Json path
      */
-    explicit VpdJsonException(const std::string& msg, const std::string& Path) :
+    VpdJsonException(const std::string& msg, const std::string& Path) :
         VPDException(msg), jsonPath(Path)
     {
     }
 
+    /** @brief Json path getter method.
+     * @return - Json path
+     */
     inline std::string getJsonPath() const
     {
         return jsonPath;
