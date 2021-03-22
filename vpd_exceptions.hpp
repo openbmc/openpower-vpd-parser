@@ -1,5 +1,7 @@
 #pragma once
 
+#include "const.hpp"
+
 #include <stdexcept>
 
 namespace openpower
@@ -8,6 +10,7 @@ namespace vpd
 {
 namespace exceptions
 {
+using Severity = openpower::vpd::constants::severity::PelSeverity;
 
 /** @class VPDException
  * @brief This class inherits std::runtime_error and overrrides
@@ -72,6 +75,28 @@ class VpdEccException : public VPDException
     {
     }
 
+    /** @brief constructor
+     *  @param[in] - string to define exception
+     *  @param[in] - severity of the exception
+     */
+    VpdEccException(const std::string& msg, Severity severity) :
+        VPDException(msg), exceptionSeverity(severity)
+    {
+    }
+
+    /** @brief Severity getter method.
+     * @return - Severity
+     */
+    inline Severity getSeverity() const
+    {
+        return exceptionSeverity;
+    }
+
+  private:
+    /** To set the severity of the exception, required to set the value in case
+     * PEL is logged, UNRECOVERABLE if not set otehrwise*/
+    Severity exceptionSeverity = Severity::UNRECOVERABLE;
+
 }; // class VpdEccException
 
 /** @class VpdDataException
@@ -97,6 +122,27 @@ class VpdDataException : public VPDException
     {
     }
 
+    /** @brief constructor
+     *  @param[in] - string to define exception
+     *  @param[in] - severity of the exception
+     */
+    VpdDataException(const std::string& msg, Severity severity) :
+        VPDException(msg), exceptionSeverity(severity)
+    {
+    }
+
+    /** @brief Severity getter method.
+     * @return - Severity
+     */
+    inline Severity getSeverity() const
+    {
+        return exceptionSeverity;
+    }
+
+  private:
+    /** To set the severity of the exception, required to set the value in case
+     * PEL is logged, UNRECOVERABLE if not set otehrwise*/
+    Severity exceptionSeverity = Severity::UNRECOVERABLE;
 }; // class VpdDataException
 
 class VpdJsonException : public VPDException
@@ -112,21 +158,49 @@ class VpdJsonException : public VPDException
     ~VpdJsonException() = default;
 
     /** @brief constructor
-     *  @param[in] - string to define exception
+     * @param[in] - string to define exception
+     * @param[in] - Json path
      */
-    explicit VpdJsonException(const std::string& msg, const std::string& Path) :
+    VpdJsonException(const std::string& msg, const std::string& Path) :
         VPDException(msg), jsonPath(Path)
     {
     }
 
+    /** @brief constructor
+     * @param[in] - string to define exception
+     * @param[in] - Json path
+     * @param[in] - severity of the error
+     */
+    VpdJsonException(const std::string& msg, const std::string& Path,
+                     Severity severity) :
+        VPDException(msg),
+        jsonPath(Path), exceptionSeverity(severity)
+    {
+    }
+
+    /** @brief Json path getter method.
+     * @return - Json path
+     */
     inline std::string getJsonPath() const
     {
         return jsonPath;
     }
 
+    /** @brief Severity getter method.
+     * @return - Severity
+     */
+    inline Severity getSeverity() const
+    {
+        return exceptionSeverity;
+    }
+
   private:
     /** To hold the path of Json that failed to parse*/
     std::string jsonPath;
+
+    /** To set the severity of the exception, required to set the value in case
+     * PEL is logged, UNRECOVERABLE if not set otehrwise*/
+    Severity exceptionSeverity = Severity::UNRECOVERABLE;
 
 }; // class VpdJSonException
 
