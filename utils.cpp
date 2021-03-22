@@ -210,6 +210,29 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
     return propVal;
 }
 
+void createTestPEL(const std::map<std::string, std::string>& additionalData,
+                   const std::string& severity, const std::string& errIntf)
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto service = getService(bus, loggerObjectPath, loggerCreateInterface);
+        auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
+                                          loggerCreateInterface, "Create");
+
+        method.append(
+            errIntf,
+            severity, //"xyz.openbmc_project.Logging.Entry.Level.Error",
+            additionalData);
+        auto resp = bus.call(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        throw std::runtime_error(
+            "Error in invoking D-Bus logging create interface to register PEL");
+    }
+}
+
 void createPEL(const std::map<std::string, std::string>& additionalData,
                const std::string& errIntf)
 {
