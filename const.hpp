@@ -124,6 +124,22 @@ enum Status
     FAILED = -1
 };
 } // namespace eccStatus
+
+namespace severity
+{
+enum PelSeverity
+{
+    UNRECOVERABLE,
+    NOTICE,
+    INFORMATIONAL,
+    DEBUG,
+    WARNING,
+    CRITICAL,
+    EMERGENCY,
+    ALERT,
+    ERROR
+};
+} // namespace severity
 } // namespace constants
 } // namespace vpd
 } // namespace openpower

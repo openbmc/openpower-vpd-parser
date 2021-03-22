@@ -947,6 +947,10 @@ int main(int argc, char** argv)
             jsonToParse = INVENTORY_JSON_SYM_LINK;
         }
 
+        /*Test code*/
+        throw((VpdJsonException("Test PEL for severity", jsonToParse,
+                                severity::PelSeverity::WARNING)));
+
         // Make sure that the file path we get is for a supported EEPROM
         ifstream inventoryJson(jsonToParse);
         if (!inventoryJson)
@@ -1017,9 +1021,11 @@ int main(int argc, char** argv)
     }
     catch (const VpdJsonException& ex)
     {
+        std::string severity = ex.getSeverity();
+        std::cout << "severity = " << severity << std::endl;
         additionalData.emplace("JSON_PATH", ex.getJsonPath());
         additionalData.emplace("DESCRIPTION", ex.what());
-        createPEL(additionalData, errIntfForJsonFailure);
+        createTestPEL(additionalData, severity, errIntfForJsonFailure);
 
         cerr << ex.what() << "\n";
         rc = -1;
