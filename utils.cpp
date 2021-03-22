@@ -26,6 +26,8 @@ using namespace phosphor::logging;
 using namespace sdbusplus::xyz::openbmc_project::Common::Error;
 using namespace record;
 using namespace openpower::vpd::exceptions;
+using Severity = openpower::vpd::constants::severity::PelSeverity;
+
 namespace inventory
 {
 
@@ -219,17 +221,24 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
 }
 
 void createPEL(const std::map<std::string, std::string>& additionalData,
-               const std::string& errIntf)
+               const Severity& sev, const std::string& errIntf)
 {
     try
     {
+        std::string pelSeverity =
+            "xyz.openbmc_project.Logging.Entry.Level.Error";
         auto bus = sdbusplus::bus::new_default();
         auto service = getService(bus, loggerObjectPath, loggerCreateInterface);
         auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
                                           loggerCreateInterface, "Create");
 
-        method.append(errIntf, "xyz.openbmc_project.Logging.Entry.Level.Error",
-                      additionalData);
+        auto itr = severity::sevMap.find(sev);
+        if (itr != severity::sevMap.end())
+        {
+            pelSeverity = itr->second;
+        }
+
+        method.append(errIntf, pelSeverity, additionalData);
         auto resp = bus.call(method);
     }
     catch (const sdbusplus::exception::SdBusError& e)
