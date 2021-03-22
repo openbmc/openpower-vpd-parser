@@ -621,7 +621,8 @@ void updateHardware(const string& objectName, const string& recName,
         PelAdditionalData additionalData{};
         additionalData.emplace("CALLOUT_INVENTORY_PATH", objectName);
         additionalData.emplace("DESCRIPTION", what);
-        createPEL(additionalData, errIntfForBusFailure);
+        createPEL(additionalData, severity::PelSeverity::WARNING,
+                  errIntfForBusFailure);
     }
 }
 
@@ -687,7 +688,9 @@ std::vector<RestoredEeproms> restoreSystemVPD(Parsed& vpdMap,
 
                                 additionalData.emplace("DESCRIPTION", errMsg);
 
-                                createPEL(additionalData, errIntfForInvalidVPD);
+                                createPEL(additionalData,
+                                          severity::PelSeverity::WARNING,
+                                          errIntfForInvalidVPD);
                             }
                         }
                         else
@@ -723,7 +726,8 @@ std::vector<RestoredEeproms> restoreSystemVPD(Parsed& vpdMap,
                         additionalData.emplace("DESCRIPTION", errMsg);
 
                         // log PEL TODO: Block IPL
-                        createPEL(additionalData, errIntfForBlankSystemVPD);
+                        createPEL(additionalData, severity::PelSeverity::ERROR,
+                                  errIntfForBlankSystemVPD);
                         continue;
                     }
                 }
@@ -929,6 +933,9 @@ int main(int argc, char** argv)
     // vpd exception while parsing the file
     std::string baseFruInventoryPath = {};
 
+    // Flag for system file
+    bool isSystemVpd = false;
+
     try
     {
         App app{"ibm-read-vpd - App to read IPZ format VPD, parse it and store "
@@ -939,6 +946,12 @@ int main(int argc, char** argv)
             ->required();
 
         CLI11_PARSE(app, argc, argv);
+
+        // need this info to log PEL with correct severity
+        if (file == systemVpdFilePath)
+        {
+            isSystemVpd = true;
+        }
 
         auto jsonToParse = INVENTORY_JSON_DEFAULT;
 
@@ -953,8 +966,7 @@ int main(int argc, char** argv)
         ifstream inventoryJson(jsonToParse);
         if (!inventoryJson)
         {
-            throw(
-                (VpdJsonException("Failed to access Json path", jsonToParse)));
+            throw(VpdJsonException("Failed to access Json path", jsonToParse));
         }
 
         try
@@ -963,7 +975,7 @@ int main(int argc, char** argv)
         }
         catch (json::parse_error& ex)
         {
-            throw((VpdJsonException("Json parsing failed", jsonToParse)));
+            throw(VpdJsonException("Json parsing failed", jsonToParse));
         }
 
         if ((js.find("frus") == js.end()) ||
@@ -1019,29 +1031,44 @@ int main(int argc, char** argv)
     }
     catch (const VpdJsonException& ex)
     {
+        severity::PelSeverity pelSeverity = severity::PelSeverity::WARNING;
+        if (isSystemVpd)
+        {
+            pelSeverity = severity::PelSeverity::ERROR;
+        }
         additionalData.emplace("JSON_PATH", ex.getJsonPath());
         additionalData.emplace("DESCRIPTION", ex.what());
-        createPEL(additionalData, errIntfForJsonFailure);
+        createPEL(additionalData, pelSeverity, errIntfForJsonFailure);
 
         cerr << ex.what() << "\n";
         rc = -1;
     }
     catch (const VpdEccException& ex)
     {
+        severity::PelSeverity pelSeverity = severity::PelSeverity::WARNING;
+        if (isSystemVpd)
+        {
+            pelSeverity = severity::PelSeverity::ERROR;
+        }
         additionalData.emplace("DESCRIPTION", "ECC check failed");
         additionalData.emplace("CALLOUT_INVENTORY_PATH",
                                INVENTORY_PATH + baseFruInventoryPath);
-        createPEL(additionalData, errIntfForEccCheckFail);
+        createPEL(additionalData, pelSeverity, errIntfForEccCheckFail);
 
         cerr << ex.what() << "\n";
         rc = -1;
     }
     catch (const VpdDataException& ex)
     {
+        severity::PelSeverity pelSeverity = severity::PelSeverity::WARNING;
+        if (isSystemVpd)
+        {
+            pelSeverity = severity::PelSeverity::ERROR;
+        }
         additionalData.emplace("DESCRIPTION", "Invalid VPD data");
         additionalData.emplace("CALLOUT_INVENTORY_PATH",
                                INVENTORY_PATH + baseFruInventoryPath);
-        createPEL(additionalData, errIntfForInvalidVPD);
+        createPEL(additionalData, pelSeverity, errIntfForInvalidVPD);
 
         cerr << ex.what() << "\n";
         rc = -1;
