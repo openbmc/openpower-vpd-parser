@@ -22,6 +22,29 @@
       "revId": "eadca8b235e2108a4aa64c1be7395168042c5325",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b01f4cb_2a0910fc",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-23T06:12:57Z",
+      "side": 1,
+      "message": "If the file is empty, should we throw VpdDataException?",
+      "range": {
+        "startLine": 996,
+        "startChar": 12,
+        "endLine": 1000,
+        "endChar": 13
+      },
+      "revId": "eadca8b235e2108a4aa64c1be7395168042c5325",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
