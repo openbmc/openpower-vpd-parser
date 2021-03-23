@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "480ef440_cbe97fc3",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-03-23T05:00:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d25d978_c130234e",
+      "revId": "7147cdeaaa76989a4d2881b0d3f17d6b8a152ef3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44f8807b_f67d2819",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "7147cdeaaa76989a4d2881b0d3f17d6b8a152ef3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b24c415e_3530194f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-03-23T05:00:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44f8807b_f67d2819",
+      "revId": "7147cdeaaa76989a4d2881b0d3f17d6b8a152ef3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "63dd46a7_4fd5089e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-03-23T05:00:53Z",
+      "side": 1,
+      "message": "yes. It will go to journal when triggered by udev.",
+      "parentUuid": "57bcfde5_d0268fd7",
+      "range": {
+        "startLine": 489,
+        "startChar": 8,
+        "endLine": 489,
+        "endChar": 32
+      },
+      "revId": "7147cdeaaa76989a4d2881b0d3f17d6b8a152ef3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "518daa39_75f889cf",
         "filename": "json/vpd_inventory.json",
         "patchSetId": 8
@@ -70,6 +130,24 @@
       "writtenOn": "2021-01-20T04:59:25Z",
       "side": 1,
       "message": "The directory structure of this file should be \" json/system/vpd_inventory.json \" , so that when we validate using schema jsons, we wont get conflicts in json paths.",
+      "revId": "7147cdeaaa76989a4d2881b0d3f17d6b8a152ef3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9b6033a_6837dd7e",
+        "filename": "json/vpd_inventory.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-03-23T05:00:53Z",
+      "side": 1,
+      "message": "this json I share here, just for reference. I dont we are ready to put json in openpower-vpd-parser. let me check",
+      "parentUuid": "518daa39_75f889cf",
       "revId": "7147cdeaaa76989a4d2881b0d3f17d6b8a152ef3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
