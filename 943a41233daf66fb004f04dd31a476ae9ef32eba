@@ -46,6 +46,30 @@
       "revId": "943a41233daf66fb004f04dd31a476ae9ef32eba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fb729c4_d6eefa12",
+        "filename": "vpd-parser/parser_factory.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-28T20:15:39Z",
+      "side": 1,
+      "message": "even if we get rid of the move in the getParser() signature, the logic in the getParser api moves the vector again to the respective parser constructors.\nSo We face the same issue again..\n\nSo its better to have a local copy of the vector only once at the place before calling the getParser() api..\n\nThe patchset 7 has a working code with the local vector copy created only once (at the place before calling the getParser() api..)",
+      "parentUuid": "84f4c65e_17dc2d81",
+      "range": {
+        "startLine": 36,
+        "startChar": 49,
+        "endLine": 36,
+        "endChar": 67
+      },
+      "revId": "943a41233daf66fb004f04dd31a476ae9ef32eba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
