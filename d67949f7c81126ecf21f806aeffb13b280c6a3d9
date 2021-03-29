@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9759fc12_44a7a75f",
+        "filename": "impl.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-29T05:09:06Z",
+      "side": 1,
+      "message": "will remove this line in next ps.",
+      "revId": "d67949f7c81126ecf21f806aeffb13b280c6a3d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d718a31_336a298e",
+        "filename": "vpd-parser/parser_factory.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-29T05:09:06Z",
+      "side": 1,
+      "message": "will remove this line in next ps.",
+      "revId": "d67949f7c81126ecf21f806aeffb13b280c6a3d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
