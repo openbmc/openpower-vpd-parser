@@ -18,9 +18,10 @@ namespace editor
 {
 
 /** @class Editor
- *  @brief Implements VPD editing related functinality, currently
- *  implemented to support only keyword data update functionality.
+ *  @brief Implements VPD editing related functionality, currently
+ *  implemented to support only keyword data update and ecc fix functionality.
  *
+ *  Update Keyword Data:
  *  An Editor object must be constructed by passing in VPD in
  *  binary format. To edit the keyword data, call the updateKeyword() method.
  *  The method looks for the record name to update in VTOC and
@@ -38,6 +39,11 @@ namespace editor
  *  2) Look for the keyword name for which data needs to be updated
  *     which is the table of contents record.
  *  3) update the data for that keyword with the new data
+ *
+ *  Fix the ECC:
+ *  An editor object is constructed to fix ecc for the given record name under
+ *  the given inventory path. The Fix ECC implementation assumes the record data
+ *  is correct and updates the record's ECC accordingly.
  */
 class EditorImpl
 {
@@ -53,7 +59,9 @@ class EditorImpl
 
     /** @brief Construct EditorImpl class
      *
-     *  @param[in] path - Path to the vpd file
+     *  @param[in] record - Record Name
+     *  @param[in] kwd - Keyword
+     *  @param[in] vpd - Vpd Vector
      */
     EditorImpl(const std::string& record, const std::string& kwd,
                Binary&& vpd) :
@@ -64,7 +72,11 @@ class EditorImpl
 
     /** @brief Construct EditorImpl class
      *
-     *  @param[in] path - Path to the vpd file
+     *  @param[in] path - Eeprom Path of the vpd
+     *  @param[in] json - Parsed inventory json
+     *  @param[in] record - Record name
+     *  @param[in] kwd - Keyword
+     *  @param[in] inventoryPath - Inventory path of the vpd
      */
     EditorImpl(const inventory::Path& path, const nlohmann::json& json,
                const std::string& record, const std::string& kwd,
@@ -91,10 +103,10 @@ class EditorImpl
     void readVTOC();
 
     /** @brief validate ecc data for the VTOC record
-     *  @param[in] iterator to VTOC record data
-     *  @param[in] iterator to VTOC ECC data
-     *  @param[in] Lenght of VTOC record
-     *  @param[in] Length of ECC record
+     *  @param[in] itrToRecData -iterator to VTOC record data
+     *  @param[in] itrToECCData - iterator to VTOC ECC data
+     *  @param[in] recLength - Length of VTOC record
+     *  @param[in] eccLength - Length of ECC record
      */
     void checkECC(Binary::const_iterator& itrToRecData,
                   Binary::const_iterator& itrToECCData,
@@ -113,8 +125,7 @@ class EditorImpl
      */
     void checkPTForRecord(Binary::const_iterator& iterator, Byte ptLength);
 
-    /** @brief Checks for reuired keyword in the record
-     */
+    /** @brief Checks for required keyword in the record */
     void checkRecordForKwd();
 
     /** @brief update data for given keyword
@@ -122,11 +133,10 @@ class EditorImpl
      */
     void updateData(const Binary& kwdData);
 
-    /** @brief update record ECC
-     */
+    /** @brief update record ECC */
     void updateRecordECC();
 
-    /** @brief method to update cache once the data for kwd has been updated
+    /** @brief method to update cache once the data for keyword has been updated
      */
     void updateCache();
 
@@ -135,9 +145,9 @@ class EditorImpl
      */
     void processAndUpdateCI(const std::string& objectPath);
 
-    /** @brief method to process and update Extra Interface
+    /** @brief method to process and update extra interface
      *  @param[in] Inventory - single inventory json subpart
-     *  @param[in] objectPath - path of the object to introspect
+     *  @param[in] objPath - path of the object to introspect
      */
     void processAndUpdateEI(const nlohmann::json& Inventory,
                             const inventory::Path& objPath);
@@ -147,17 +157,17 @@ class EditorImpl
      *  @param[in] object - bus object path
      *  @param[in] interface - bus interface
      *  @param[in] property - property to update on BUS
-     *  @param[in] data - data to be updayed on Bus
+     *  @param[in] data - data to be updated on Bus
      *
      */
     template <typename T>
     void makeDbusCall(const std::string& object, const std::string& interface,
                       const std::string& property, const std::variant<T>& data);
 
-    // path to the VPD file to edit
+    // Eeprom path of the VPD file to edit
     inventory::Path vpdFilePath;
 
-    // inventory path of fru/module to update keyword
+    // inventory path of the vpd to update keyword
     const inventory::Path objPath;
 
     // stream to perform operation on file
@@ -191,7 +201,7 @@ class EditorImpl
 
     Binary vpdFile;
 
-    // If requested Interface is common Interface
+    // Tells if the requested Interface is common Interface or not
     bool isCI;
 
     /** @brief This API will be used to find out Parent FRU of Module/CPU
