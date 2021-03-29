@@ -347,6 +347,29 @@
     },
     {
       "key": {
+        "uuid": "4edc16f5_fd299c61",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-29T04:44:38Z",
+      "side": 1,
+      "message": "throw EepromFailureException after rebasing this commit on top of https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/41464",
+      "range": {
+        "startLine": 36,
+        "startChar": 14,
+        "endLine": 36,
+        "endChar": 33
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d287b96e_4f51e052",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 25
@@ -663,6 +686,30 @@
       "side": 1,
       "message": "we are already in else part (where isCI \u003d false).\u003d\u003e not only when isCI \u003dfalse, but also when ecc is true.. \nsay, if isCI is true you don\u0027t need line598 to execute.. as you already got vpdFilePathLocal in line577.\nbut line598 - is needed for ecc - as ecc needs to pass the check for \"fru\u0026Module\" cpus.",
       "parentUuid": "a3fa9c64_70d8cac9",
+      "range": {
+        "startLine": 594,
+        "startChar": 18,
+        "endLine": 594,
+        "endChar": 39
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a463ecd_d805865d",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-29T04:44:38Z",
+      "side": 1,
+      "message": "I remodified the check condition in ps 30. Please check it.",
+      "parentUuid": "7080b626_a2f6c5e9",
       "range": {
         "startLine": 594,
         "startChar": 18,
@@ -1330,6 +1377,30 @@
       "writtenOn": "2021-02-11T19:35:42Z",
       "side": 1,
       "message": "can we optimize this code? as we are repeating it here after 437-440.\nYou can store this json once, and process it multiple times.",
+      "range": {
+        "startLine": 458,
+        "startChar": 4,
+        "endLine": 459,
+        "endChar": 53
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fd467c3_d8a392af",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-29T04:44:38Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "66b45307_d79f0569",
       "range": {
         "startLine": 458,
         "startChar": 4,
