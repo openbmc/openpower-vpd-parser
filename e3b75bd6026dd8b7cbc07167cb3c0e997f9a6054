@@ -22,6 +22,30 @@
       "revId": "e3b75bd6026dd8b7cbc07167cb3c0e997f9a6054",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b4feff4_4f41cd5b",
+        "filename": "utils.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-29T04:46:33Z",
+      "side": 1,
+      "message": "this functionality is a common change made in utils.cpp as a part of this commit only..\nFound the bug and fixed in ps 30..",
+      "parentUuid": "b38d5794_e3047a0a",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 425,
+        "endChar": 1
+      },
+      "revId": "e3b75bd6026dd8b7cbc07167cb3c0e997f9a6054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
