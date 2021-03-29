@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0eb184d1_39066dfd",
+        "filename": "utils.cpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-29T17:36:20Z",
+      "side": 1,
+      "message": "nit,\nYou have defined a type name for this in hpp file. Still you are not using that here and at many other occurrences. In my opinion, if defined why not use it.\nBut up to you if you want to make change.",
+      "range": {
+        "startLine": 258,
+        "startChar": 10,
+        "endLine": 258,
+        "endChar": 24
+      },
+      "revId": "737ecd474d4d1e70e29b533431b07601a3a52c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6d08665_87383b49",
+        "filename": "utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-29T17:36:20Z",
+      "side": 1,
+      "message": "In case there is a need to define this in header files, Please define inside namespace.",
+      "revId": "737ecd474d4d1e70e29b533431b07601a3a52c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d29494a_92d7557f",
+        "filename": "utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-29T17:36:20Z",
+      "side": 1,
+      "message": "This does not add any value. It is same as function name.",
+      "range": {
+        "startLine": 121,
+        "startChar": 10,
+        "endLine": 121,
+        "endChar": 27
+      },
+      "revId": "737ecd474d4d1e70e29b533431b07601a3a52c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe925a08_70344b82",
+        "filename": "utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-29T17:36:20Z",
+      "side": 1,
+      "message": "Same as 121.",
+      "revId": "737ecd474d4d1e70e29b533431b07601a3a52c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11615849_0c3f5fe6",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-29T17:36:20Z",
+      "side": 1,
+      "message": "Not adding any value. Just the function name.",
+      "revId": "737ecd474d4d1e70e29b533431b07601a3a52c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73cc97d0_e002c9b1",
+        "filename": "vpd-parser/parser_factory.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-29T17:36:20Z",
+      "side": 1,
+      "message": "Please remove this.",
+      "revId": "737ecd474d4d1e70e29b533431b07601a3a52c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22223ace_4e501871",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-29T17:36:20Z",
+      "side": 1,
+      "message": "Why you need to define it here? You have already defined in in utils.hpp.",
+      "revId": "737ecd474d4d1e70e29b533431b07601a3a52c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9384f6a_128b7ce5",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-03-29T17:36:20Z",
+      "side": 1,
+      "message": "If you define type alias for this better use it,",
+      "range": {
+        "startLine": 445,
+        "startChar": 4,
+        "endLine": 445,
+        "endChar": 18
+      },
+      "revId": "737ecd474d4d1e70e29b533431b07601a3a52c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
