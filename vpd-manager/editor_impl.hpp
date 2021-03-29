@@ -17,28 +17,7 @@ namespace manager
 namespace editor
 {
 
-/** @class Editor
- *  @brief Implements VPD editing related functinality, currently
- *  implemented to support only keyword data update functionality.
- *
- *  An Editor object must be constructed by passing in VPD in
- *  binary format. To edit the keyword data, call the updateKeyword() method.
- *  The method looks for the record name to update in VTOC and
- *  then looks for the keyword name in that record.
- *  when found it updates the data of keyword with the given data.
- *  It does not block keyword data update in case the length of new data is
- *  greater than or less than the current data length.
- *  If the new data length is more than the length alotted to that keyword
- *  the new data will be truncated to update only the allotted length.
- *  Similarly if the new data length is less then only that much data will
- *  be updated for the keyword and remaining bits will be left unchanged.
- *
- *  Following is the algorithm used to update keyword:
- *  1) Look for the record name in the given VPD file
- *  2) Look for the keyword name for which data needs to be updated
- *     which is the table of contents record.
- *  3) update the data for that keyword with the new data
- */
+/** @class EditorImpl */
 class EditorImpl
 {
   public:
@@ -53,7 +32,9 @@ class EditorImpl
 
     /** @brief Construct EditorImpl class
      *
-     *  @param[in] path - Path to the vpd file
+     *  @param[in] record - Record Name
+     *  @param[in] kwd - Keyword
+     *  @param[in] vpd - Vpd Vector
      */
     EditorImpl(const std::string& record, const std::string& kwd,
                Binary&& vpd) :
@@ -65,6 +46,10 @@ class EditorImpl
     /** @brief Construct EditorImpl class
      *
      *  @param[in] path - Path to the vpd file
+     *  @param[in] json - Parsed inventory json
+     *  @param[in] record - Record name
+     *  @param[in] kwd - Keyword
+     *  @param[in] inventoryPath - Inventory path of the vpd
      */
     EditorImpl(const inventory::Path& path, const nlohmann::json& json,
                const std::string& record, const std::string& kwd,
@@ -89,9 +74,26 @@ class EditorImpl
     {
     }
 
-    /** @brief Update data for keyword
-     *  @param[in] kwdData - data to update
-     *  @param[in] updCache - Flag which tells whether to update Cache or not.
+    /**
+     * @brief Update data for keyword
+     * The method looks for the record name to update in VTOC and then
+     * looks for the keyword name in that record. when found it updates the data
+     * of keyword with the given data. It does not block keyword data update in
+     * case the length of new data is greater than or less than the current data
+     * length. If the new data length is more than the length alotted to that
+     * keyword the new data will be truncated to update only the allotted
+     * length. Similarly if the new data length is less then only that much data
+     * will be updated for the keyword and remaining bits will be left
+     * unchanged.
+     *
+     * Following is the algorithm used to update keyword:
+     * 1) Look for the record name in the given VPD file
+     * 2) Look for the keyword name for which data needs to be updated
+     *    which is the table of contents record.
+     * 3) update the data for that keyword with the new data
+     *
+     * @param[in] kwdData - data to update
+     * @param[in] updCache - Flag which tells whether to update Cache or not.
      */
     void updateKeyword(const Binary& kwdData, const bool& updCache);
 
@@ -106,10 +108,10 @@ class EditorImpl
     void readVTOC();
 
     /** @brief validate ecc data for the VTOC record
-     *  @param[in] iterator to VTOC record data
-     *  @param[in] iterator to VTOC ECC data
-     *  @param[in] Lenght of VTOC record
-     *  @param[in] Length of ECC record
+     *  @param[in] itrToRecData -iterator to the record data
+     *  @param[in] itrToECCData - iterator to the ECC data
+     *  @param[in] recLength - Length of the record
+     *  @param[in] eccLength - Length of the record's ECC
      */
     void checkECC(Binary::const_iterator& itrToRecData,
                   Binary::const_iterator& itrToECCData,
@@ -128,8 +130,7 @@ class EditorImpl
      */
     void checkPTForRecord(Binary::const_iterator& iterator, Byte ptLength);
 
-    /** @brief Checks for reuired keyword in the record
-     */
+    /** @brief Checks for required keyword in the record */
     void checkRecordForKwd();
 
     /** @brief update data for given keyword
@@ -137,11 +138,10 @@ class EditorImpl
      */
     void updateData(const Binary& kwdData);
 
-    /** @brief update record ECC
-     */
+    /** @brief update record ECC */
     void updateRecordECC();
 
-    /** @brief method to update cache once the data for kwd has been updated
+    /** @brief method to update cache once the data for keyword has been updated
      */
     void updateCache();
 
@@ -150,9 +150,9 @@ class EditorImpl
      */
     void processAndUpdateCI(const std::string& objectPath);
 
-    /** @brief method to process and update Extra Interface
+    /** @brief method to process and update extra interface
      *  @param[in] Inventory - single inventory json subpart
-     *  @param[in] objectPath - path of the object to introspect
+     *  @param[in] objPath - path of the object to introspect
      */
     void processAndUpdateEI(const nlohmann::json& Inventory,
                             const inventory::Path& objPath);
@@ -162,7 +162,7 @@ class EditorImpl
      *  @param[in] object - bus object path
      *  @param[in] interface - bus interface
      *  @param[in] property - property to update on BUS
-     *  @param[in] data - data to be updayed on Bus
+     *  @param[in] data - data to be updated on Bus
      *
      */
     template <typename T>
@@ -172,7 +172,7 @@ class EditorImpl
     // path to the VPD file to edit
     inventory::Path vpdFilePath;
 
-    // inventory path of fru/module to update keyword
+    // inventory path of the vpd fru to update keyword
     const inventory::Path objPath;
 
     // stream to perform operation on file
