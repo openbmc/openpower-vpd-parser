@@ -36,6 +36,29 @@
     },
     {
       "key": {
+        "uuid": "361b8cc1_2768308f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-30T12:21:02Z",
+      "side": 1,
+      "message": "namespace is already defined at the top of the file.. so remove it",
+      "range": {
+        "startLine": 489,
+        "startChar": 28,
+        "endLine": 489,
+        "endChar": 55
+      },
+      "revId": "33cd1bbc9d2c5eb1235afd0757273833a0e95cdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fedce663_7474bb41",
         "filename": "test/vpd-manager-test/editor_test.cpp",
         "patchSetId": 3
@@ -47,6 +70,29 @@
       "writtenOn": "2021-03-30T11:12:00Z",
       "side": 1,
       "message": "Please try and avoid unnecessary whitespace changes",
+      "revId": "33cd1bbc9d2c5eb1235afd0757273833a0e95cdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a52c72e7_1aefd2c8",
+        "filename": "test/vpd-manager-test/reader_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-30T12:21:02Z",
+      "side": 1,
+      "message": "you can make use of the predefined variable SYSTEM_OBJECT from const.hpp..",
+      "range": {
+        "startLine": 113,
+        "startChar": 41,
+        "endLine": 113,
+        "endChar": 68
+      },
       "revId": "33cd1bbc9d2c5eb1235afd0757273833a0e95cdb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -138,6 +184,29 @@
       "writtenOn": "2021-03-30T11:12:00Z",
       "side": 1,
       "message": "Same TODO here too about deprecating the old interface",
+      "revId": "33cd1bbc9d2c5eb1235afd0757273833a0e95cdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f44c095a_39eb9b72",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-30T12:21:02Z",
+      "side": 1,
+      "message": "Can you correct the typo and change as Location.. so that it gives a meaning..",
+      "range": {
+        "startLine": 466,
+        "startChar": 40,
+        "endLine": 466,
+        "endChar": 47
+      },
       "revId": "33cd1bbc9d2c5eb1235afd0757273833a0e95cdb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
