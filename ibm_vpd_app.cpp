@@ -81,9 +81,6 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
                                bool isSystemVpd)
 {
     auto expanded{unexpanded};
-    static constexpr auto SYSTEM_OBJECT = "/system/chassis/motherboard";
-    static constexpr auto VCEN_IF = "com.ibm.ipzvpd.VCEN";
-    static constexpr auto VSYS_IF = "com.ibm.ipzvpd.VSYS";
     size_t idx = expanded.find("fcs");
     try
     {
@@ -722,10 +719,10 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     {
         if (isSystemVpd)
         {
-            std::vector<std::string> interfaces = {motherBoardInterface};
+            std::vector<std::string> systemInterfaces = {motherBoardInterface};
             // call mapper to check for object path creation
             MapperResponse subTree =
-                getObjectSubtreeForInterfaces(pimPath, 0, interfaces);
+                getObjectSubtreeForInterfaces(pimPath, 0, systemInterfaces);
             string mboardPath =
                 js["frus"][filePath].at(0).value("inventoryPath", "");
 
@@ -755,6 +752,30 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         {
             if constexpr (is_same<T, Parsed>::value)
             {
+                if (isSystemVpd)
+                {
+                    std::vector<std::string> systemInterface = {
+                        motherBoardInterface};
+                    // call mapper to check for object path creation
+                    MapperResponse subTree = getObjectSubtreeForInterfaces(
+                        pimPath, 0, systemInterface);
+
+                    // Skip system vpd restore if object path is not generated
+                    // for motherboard, Implies first boot.
+                    if (subTree.size() != 0)
+                    {
+                        assert(
+                            (subTree.find(pimPath + std::string(objectPath)) !=
+                             subTree.end()));
+
+                        updatedEeproms = restoreSystemVPD(vpdMap, objectPath);
+                    }
+                    else
+                    {
+                        log<level::ERR>("No object path found");
+                    }
+                }
+
                 // Each record in the VPD becomes an interface and all
                 // keyword within the record are properties under that
                 // interface.
@@ -829,10 +850,10 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 
         // Reloading the json
         ifstream inventoryJson(link);
-        auto js = json::parse(inventoryJson);
+        auto jsReload = json::parse(inventoryJson);
         inventoryJson.close();
 
-        inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
+        inventory::ObjectMap primeObject = primeInventory(jsReload, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
 
         // if system VPD has been restored at standby, update the EEPROM

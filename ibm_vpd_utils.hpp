@@ -209,5 +209,14 @@ string getBadVpdName(const string& file);
  * @param[in] vpdVector - bad vpd vector
  */
 void dumpBadVpd(const std::string& file, const Binary& vpdVector);
+
+/**
+ * @brief Checks if the given data has all printable values.
+ * @param[in] vpdData - Vpd data whose values needs to be checked. The data can
+ * be of type string/vector/anything else.
+ * @returns true if the given data has all printable values, false otherwise.
+ */
+template <typename T>
+bool isPrintableData(const T& vpdData);
 } // namespace vpd
 } // namespace openpower

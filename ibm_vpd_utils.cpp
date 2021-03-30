@@ -204,14 +204,21 @@ inventory::VPDfilepath getVpdFilePath(const string& jsonFile,
     {
         const std::vector<nlohmann::json>& groupEEPROM =
             itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
-        for (const auto& itemEEPROM : groupEEPROM)
+
+        auto isObjPresent = std::any_of(
+            groupEEPROM.begin(), groupEEPROM.end(),
+            [ObjPath](const auto& itemEEPROM) {
+                if (itemEEPROM["inventoryPath"].nlohmann::json::
+                        get_ref<const nlohmann::json::string_t&>() == ObjPath)
+                {
+                    return true;
+                }
+                return false;
+            });
+        if (isObjPresent)
         {
-            if (itemEEPROM["inventoryPath"]
-                    .get_ref<const nlohmann::json::string_t&>() == ObjPath)
-            {
-                filePath = itemFRUS.key();
-                return filePath;
-            }
+            filePath = itemFRUS.key();
+            cout << "\n file path = " << filePath << endl;
         }
     }
 

@@ -1,5 +1,8 @@
 #include "vpd_tool_impl.hpp"
 
+#include "const.hpp"
+#include "ibm_vpd_utils.hpp"
+#include "ibm_vpd_utils_templated.hpp"
 #include "vpd_exceptions.hpp"
 
 #include <cstdlib>
@@ -17,6 +20,7 @@ using namespace openpower::vpd::manager::editor;
 namespace fs = std::filesystem;
 using json = nlohmann::json;
 using namespace openpower::vpd::exceptions;
+using namespace openpower::vpd::constants;
 
 Binary VpdTool::toBinary(const std::string& value)
 {
@@ -25,7 +29,7 @@ Binary VpdTool::toBinary(const std::string& value)
     {
         val.assign(value.begin(), value.end());
     }
-    else if (value.find("0x") != string::npos)
+    else if (isPrintableData(value))
     {
         stringstream ss;
         ss.str(value.substr(2));
@@ -60,17 +64,7 @@ void VpdTool::printReturnCode(int returnCode)
 string VpdTool::getPrintableValue(const vector<unsigned char>& vec)
 {
     string str{};
-    bool printableChar = true;
-    for (auto i : vec)
-    {
-        if (!isprint(i))
-        {
-            printableChar = false;
-            break;
-        }
-    }
-
-    if (!printableChar)
+    if (!isPrintableData(vec))
     {
         stringstream ss;
         string hexRep = "0x";
@@ -145,14 +139,12 @@ void VpdTool::addFruTypeAndLocation(json exIntf, const string& object,
         }
     }
 
-    // Add location code.
-    constexpr auto LOCATION_CODE_IF = "com.ibm.ipzvpd.Location";
     constexpr auto LOCATION_CODE_PROP = "LocationCode";
 
     try
     {
         variant<string> response;
-        makeDBusCall(object, LOCATION_CODE_IF, LOCATION_CODE_PROP)
+        makeDBusCall(object, IBM_LOCATION_CODE_INF, LOCATION_CODE_PROP)
             .read(response);
 
         if (auto prop = get_if<string>(&response))
@@ -174,7 +166,7 @@ json VpdTool::getVINIProperties(string invPath, json exIntf)
 
     vector<string> keyword{"CC", "SN", "PN", "FN", "DR"};
     string interface = "com.ibm.ipzvpd.VINI";
-    string objectName = {};
+    string objectName;
 
     if (invPath.find(INVENTORY_PATH) != string::npos)
     {
@@ -211,8 +203,10 @@ json VpdTool::getVINIProperties(string invPath, json exIntf)
     return output;
 }
 
-void VpdTool::getExtraInterfaceProperties(string invPath, string extraInterface,
-                                          json prop, json exIntf, json& output)
+void VpdTool::getExtraInterfaceProperties(const string& invPath,
+                                          const string& extraInterface,
+                                          const json& prop, const json& exIntf,
+                                          json& output)
 {
     variant<string> response;
 
@@ -283,10 +277,10 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
     return output;
 }
 
-json VpdTool::parseInvJson(const json& jsObject, char flag, string fruPath)
+json VpdTool::parseInvJson(const json& jsObject, char flag,
+                           const string& fruPath)
 {
     json output = json::object({});
-    bool validObject = false;
 
     if (jsObject.find("frus") == jsObject.end())
     {
@@ -294,6 +288,7 @@ json VpdTool::parseInvJson(const json& jsObject, char flag, string fruPath)
     }
     else
     {
+        bool validObject = false;
         for (const auto& itemFRUS : jsObject["frus"].items())
         {
             for (auto itemEEPROM : itemFRUS.value())
@@ -378,8 +373,7 @@ void VpdTool::readKeyword()
     }
     catch (json::exception& e)
     {
-        json output = json::object({});
-        json kwVal = json::object({});
+        cerr << e.what() << endl;
     }
 }
 
@@ -452,11 +446,11 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
 int VpdTool::updateHardware()
 {
     int rc = 0;
-    bool updCache = true;
-    const Binary& val = static_cast<const Binary&>(toBinary(value));
-    ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
     try
     {
+        bool updCache = true;
+        const Binary& val = static_cast<const Binary&>(toBinary(value));
+        ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
         auto json = nlohmann::json::parse(inventoryJson);
         EditorImpl edit(fruPath, json, recordName, keyword);
         if (!((isPathInJson(fruPath)) &&

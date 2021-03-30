@@ -30,7 +30,7 @@ class memoryVpdParser : public ParserInterface
      *
      * Move memVpdVector to parser object's memVpdVector
      */
-    memoryVpdParser(const Binary& VpdVector) : memVpd(VpdVector)
+    explicit memoryVpdParser(const Binary& VpdVector) : memVpd(VpdVector)
     {
     }
 
@@ -40,7 +40,7 @@ class memoryVpdParser : public ParserInterface
      *
      * @return map of keyword:value
      */
-    std::variant<kwdVpdMap, Store> parse();
+    std::variant<kwdVpdMap, Store> parse() override;
 
     /**
      * @brief An api to return interface name with respect to
@@ -48,7 +48,7 @@ class memoryVpdParser : public ParserInterface
      *
      * @return - Interface name for that vpd type.
      */
-    std::string getInterfaceName() const;
+    std::string getInterfaceName() const override;
 
   private:
     /**
