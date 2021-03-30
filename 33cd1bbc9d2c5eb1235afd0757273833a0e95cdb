@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "889163f8_b734ae5e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-30T11:12:00Z",
+      "side": 1,
+      "message": "Please add a TODO here about having to deprecate the com.ibm interface.",
+      "revId": "33cd1bbc9d2c5eb1235afd0757273833a0e95cdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f82ffa32_ef7dadbf",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-30T11:12:00Z",
+      "side": 1,
+      "message": "Please remove extra newline",
+      "revId": "33cd1bbc9d2c5eb1235afd0757273833a0e95cdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fedce663_7474bb41",
+        "filename": "test/vpd-manager-test/editor_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-30T11:12:00Z",
+      "side": 1,
+      "message": "Please try and avoid unnecessary whitespace changes",
+      "revId": "33cd1bbc9d2c5eb1235afd0757273833a0e95cdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0c08d30_9d707627",
+        "filename": "test/vpd-manager-test/reader_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-30T11:12:00Z",
+      "side": 1,
+      "message": "Remove this newline",
+      "revId": "33cd1bbc9d2c5eb1235afd0757273833a0e95cdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e596d34e_51697f2f",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-30T11:12:00Z",
+      "side": 1,
+      "message": "Change this to use Notify too",
+      "revId": "33cd1bbc9d2c5eb1235afd0757273833a0e95cdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8b13891_3fb25884",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-30T11:12:00Z",
+      "side": 1,
+      "message": "Notify here as well",
+      "revId": "33cd1bbc9d2c5eb1235afd0757273833a0e95cdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68ff21e8_68ff68e8",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-30T11:12:00Z",
+      "side": 1,
+      "message": "You need to change this to make a Notify call as well",
+      "range": {
+        "startLine": 389,
+        "startChar": 16,
+        "endLine": 389,
+        "endChar": 28
+      },
+      "revId": "33cd1bbc9d2c5eb1235afd0757273833a0e95cdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19afdf27_98b2fdf9",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-03-30T11:12:00Z",
+      "side": 1,
+      "message": "Same TODO here too about deprecating the old interface",
+      "revId": "33cd1bbc9d2c5eb1235afd0757273833a0e95cdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
