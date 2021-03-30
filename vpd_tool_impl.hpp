@@ -75,9 +75,10 @@ class VpdTool
      * @return json output which gives the properties under invPath's
      *         extraInterface.
      */
-    void getExtraInterfaceProperties(std::string invPath,
-                                     std::string extraInterface, json prop,
-                                     json exIntf, json& output);
+    void getExtraInterfaceProperties(const std::string& invPath,
+                                     const std::string& extraInterface,
+                                     const json& prop, const json& exIntf,
+                                     json& output);
 
     /**
      * @brief Interface Decider
@@ -106,7 +107,8 @@ class VpdTool
      *
      * @return output json
      */
-    json parseInvJson(const json& jsObject, char flag, std::string fruPath);
+    json parseInvJson(const json& jsObject, char flag,
+                      const std::string& fruPath);
 
     /**
      * @brief eraseInventoryPath
@@ -189,7 +191,7 @@ class VpdTool
      * Constructor is called during the
      * object instantiation for dumpObject option.
      */
-    VpdTool(const std::string&& fru) : fruPath(std::move(fru))
+    explicit VpdTool(const std::string&& fru) : fruPath(std::move(fru))
     {
     }
 

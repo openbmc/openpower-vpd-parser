@@ -46,12 +46,12 @@ interface::ParserInterface* ParserFactory::getParser(Binary&& vpdVector)
     }
 }
 
-void ParserFactory::freeParser(interface::ParserInterface* parser)
+void ParserFactory::freeParser(interface::ParserInterface** parser)
 {
-    if (parser)
+    if (*parser)
     {
+        *parser = nullptr;
         delete parser;
-        parser = nullptr;
     }
 }
 

@@ -58,7 +58,7 @@ class EditorImpl
     EditorImpl(const std::string& record, const std::string& kwd,
                Binary&& vpd) :
         startOffset(0),
-        thisRecord(record, kwd), vpdFile(std::move(vpd))
+        thisRecord(record, kwd), vpdFile(std::move(vpd)), isCI(false)
     {
     }
 
@@ -71,7 +71,7 @@ class EditorImpl
                const sdbusplus::message::object_path& inventoryPath) :
         vpdFilePath(path),
         objPath(inventoryPath), startOffset(0), jsonFile(json),
-        thisRecord(record, kwd)
+        thisRecord(record, kwd), isCI(false)
     {
     }
 

@@ -2,6 +2,9 @@
 
 #include <string.h>
 
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
 int vpdecc_create_ecc(const unsigned char* data, size_t data_length,
                       unsigned char* ecc, size_t* ecc_buffersize)
 {

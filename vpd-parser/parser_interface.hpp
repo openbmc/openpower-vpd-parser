@@ -44,7 +44,6 @@ class ParserInterface
      * @return - Interface name for that vpd type.
      */
     virtual std::string getInterfaceName() const = 0;
-    // virtual void test() = 0;
 
     /**
      * @brief Virtual destructor for the interface.

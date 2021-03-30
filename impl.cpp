@@ -189,8 +189,7 @@ void Impl::checkHeader() const
 
 #ifdef IPZ_PARSER
         // Check ECC
-        int rc = eccStatus::FAILED;
-        rc = vhdrEccCheck();
+        int rc = vhdrEccCheck();
         if (rc != eccStatus::SUCCESS)
         {
             throw(VpdEccException("ERROR: VHDR ECC check Failed"));
@@ -220,8 +219,7 @@ std::size_t Impl::readTOC(Binary::const_iterator& iterator) const
 
 #ifdef IPZ_PARSER
     // Check ECC
-    int rc = eccStatus::FAILED;
-    rc = vtocEccCheck();
+    int rc = vtocEccCheck();
     if (rc != eccStatus::SUCCESS)
     {
         throw(VpdEccException("ERROR: VTOC ECC check Failed"));
@@ -439,12 +437,11 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
         std::advance(iterator, lengths::KW_NAME);
 
         std::size_t length;
-        std::size_t lengthHighByte;
         if (POUND_KW == kwNameStart)
         {
             // Note keyword data length
             length = *iterator;
-            lengthHighByte = *(iterator + 1);
+            std::size_t lengthHighByte = *(iterator + 1);
             length |= (lengthHighByte << 8);
 
             // Jump past 2Byte keyword length
