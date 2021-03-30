@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8dc17c9d_5647c930",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-30T06:57:17Z",
+      "side": 1,
+      "message": "Can you brief the cases when we break the execution and when we continue with the blank keyword?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "b828af52e43a34dc67f7ecfe4b21b0590fff45c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ba395b81_ab33bd84",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 2
