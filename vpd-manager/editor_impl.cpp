@@ -384,7 +384,7 @@ void EditorImpl::updateCache()
         {
             // update com interface
             // For CPU- update  com interface only when isCI true
-            if ((!isCpuModuleOnly) || (isCpuModuleOnly && isCI))
+            if ((!isCpuModuleOnly) || (isCI))
             {
                 makeDbusCall<Binary>(
                     (INVENTORY_PATH +

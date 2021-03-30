@@ -1,5 +1,8 @@
 #include "vpd_tool_impl.hpp"
 
+#include "utils.hpp"
+#include "utils_templated.hpp"
+
 #include <cstdlib>
 #include <filesystem>
 #include <iomanip>
@@ -26,7 +29,7 @@ void VpdTool::printReturnCode(int returnCode)
 string VpdTool::getPrintableValue(const vector<unsigned char>& vec)
 {
     string str{};
-    bool printableChar = true;
+#if 0
     for (auto i : vec)
     {
         if (!isprint(i))
@@ -35,8 +38,9 @@ string VpdTool::getPrintableValue(const vector<unsigned char>& vec)
             break;
         }
     }
+#endif
 
-    if (!printableChar)
+    if (!isPrintableData(vec))
     {
         stringstream ss;
         string hexRep = "0x";
@@ -140,7 +144,7 @@ json VpdTool::getVINIProperties(string invPath, json exIntf)
 
     vector<string> keyword{"CC", "SN", "PN", "FN", "DR"};
     string interface = "com.ibm.ipzvpd.VINI";
-    string objectName = {};
+    string objectName;
 
     if (invPath.find(INVENTORY_PATH) != string::npos)
     {
@@ -177,8 +181,10 @@ json VpdTool::getVINIProperties(string invPath, json exIntf)
     return output;
 }
 
-void VpdTool::getExtraInterfaceProperties(string invPath, string extraInterface,
-                                          json prop, json exIntf, json& output)
+void VpdTool::getExtraInterfaceProperties(const string& invPath,
+                                          const string& extraInterface,
+                                          const json& prop, const json& exIntf,
+                                          json& output)
 {
     variant<string> response;
 
@@ -249,10 +255,10 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
     return output;
 }
 
-json VpdTool::parseInvJson(const json& jsObject, char flag, string fruPath)
+json VpdTool::parseInvJson(const json& jsObject, char flag,
+                           const string& fruPath)
 {
     json output = json::object({});
-    bool validObject = false;
 
     if (jsObject.find("frus") == jsObject.end())
     {
@@ -260,6 +266,7 @@ json VpdTool::parseInvJson(const json& jsObject, char flag, string fruPath)
     }
     else
     {
+        bool validObject = false;
         for (const auto& itemFRUS : jsObject["frus"].items())
         {
             for (auto itemEEPROM : itemFRUS.value())
@@ -357,7 +364,7 @@ int VpdTool::updateKeyword()
     {
         val.assign(value.begin(), value.end());
     }
-    else if (value.find("0x") != string::npos)
+    else if (isPrintableData(value))
     {
         stringstream ss;
         ss.str(value.substr(2));
@@ -371,7 +378,6 @@ int VpdTool::updateKeyword()
             val.push_back(byte);
         }
     }
-
     else
     {
         throw runtime_error("The value to be updated should be either in ascii "

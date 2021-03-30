@@ -114,7 +114,7 @@ KeywordVpdMap KeywordVpdParser::kwValParser()
     checkSumStart = kwVpdIterator;
 
     itrOutOfBoundCheck(1);
-    kwVpdIterator++;
+    ++kwVpdIterator;
 
     // Get the total length of all keyword value pairs
     totalSize = getKwDataSize();
@@ -139,7 +139,7 @@ KeywordVpdMap KeywordVpdParser::kwValParser()
         size_t kwSize = *kwVpdIterator;
 
         itrOutOfBoundCheck(1);
-        kwVpdIterator++;
+        ++kwVpdIterator;
 
         std::vector<uint8_t> valVec(kwVpdIterator, kwVpdIterator + kwSize);
 

@@ -78,9 +78,6 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
                                bool isSystemVpd)
 {
     auto expanded{unexpanded};
-    static constexpr auto SYSTEM_OBJECT = "/system/chassis/motherboard";
-    static constexpr auto VCEN_IF = "com.ibm.ipzvpd.VCEN";
-    static constexpr auto VSYS_IF = "com.ibm.ipzvpd.VSYS";
     size_t idx = expanded.find("fcs");
     try
     {
@@ -770,11 +767,11 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             {
                 if (isSystemVpd)
                 {
-                    std::vector<std::string> interfaces = {
+                    std::vector<std::string> systemInterface = {
                         motherBoardInterface};
                     // call mapper to check for object path creation
-                    MapperResponse subTree =
-                        getObjectSubtreeForInterfaces(pimPath, 0, interfaces);
+                    MapperResponse subTree = getObjectSubtreeForInterfaces(
+                        pimPath, 0, systemInterface);
 
                     // Skip system vpd restore if object path is not generated
                     // for motherboard, Implies first boot.
@@ -895,10 +892,10 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 
         // Reloading the json
         ifstream inventoryJson(link);
-        auto js = json::parse(inventoryJson);
+        auto jsReload = json::parse(inventoryJson);
         inventoryJson.close();
 
-        inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
+        inventory::ObjectMap primeObject = primeInventory(jsReload, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
 
         // set the U-boot environment variable for device-tree
@@ -919,7 +916,6 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 int main(int argc, char** argv)
 {
     int rc = 0;
-    string file{};
     json js{};
 
     // map to hold additional data in case of logging pel
@@ -1014,7 +1010,7 @@ int main(int argc, char** argv)
         catch (exception& e)
         {
             postFailAction(js, file);
-            throw e;
+            throw;
         }
     }
     catch (const VpdJsonException& ex)

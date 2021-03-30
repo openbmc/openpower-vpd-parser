@@ -11,6 +11,8 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#pragma GCC diagnostic ignored "-Wunused-variable"
+
 using namespace openpower::vpd::manager::reader;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::constants;
