@@ -40,6 +40,9 @@ static constexpr auto MB_HOUR_END = 13;
 static constexpr auto MB_MIN_END = 16;
 static constexpr auto SYSTEM_OBJECT = "/system/chassis/motherboard";
 static constexpr auto LOCATION_CODE_INF = "com.ibm.ipzvpd.Location";
+static constexpr auto VCEN_IF = "com.ibm.ipzvpd.VCEN";
+static constexpr auto VSYS_IF = "com.ibm.ipzvpd.VSYS";
+
 constexpr int IPZ_DATA_START = 11;
 constexpr uint8_t KW_VAL_PAIR_START_TAG = 0x84;
 constexpr uint8_t RECORD_END_TAG = 0x78;

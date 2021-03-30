@@ -38,7 +38,7 @@ class ParserFactory
      * @brief A method to delete the parser object.
      * @param[in] - Pointer to the parser object.
      */
-    static void freeParser(interface::ParserInterface* parser);
+    static void freeParser(interface::ParserInterface** parser);
 }; // ParserFactory
 
 } // namespace factory

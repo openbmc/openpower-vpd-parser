@@ -129,7 +129,7 @@ void EditorImpl::checkRecordForKwd()
 
     auto end = iterator;
     std::advance(end, thisRecord.recSize);
-    std::size_t dataLength = 0;
+    std::size_t dataLength;
 
     while (iterator < end)
     {
@@ -384,7 +384,7 @@ void EditorImpl::updateCache()
         {
             // update com interface
             // For CPU- update  com interface only when isCI true
-            if ((!isCpuModuleOnly) || (isCpuModuleOnly && isCI))
+            if ((!isCpuModuleOnly) || (isCI))
             {
                 makeDbusCall<Binary>(
                     (INVENTORY_PATH +
