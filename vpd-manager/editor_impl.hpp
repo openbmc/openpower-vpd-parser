@@ -38,8 +38,8 @@ class EditorImpl
      */
     EditorImpl(const std::string& record, const std::string& kwd,
                Binary&& vpd) :
-        startOffset(0),
-        thisRecord(record, kwd), vpdFile(std::move(vpd))
+        thisRecord(record, kwd),
+        vpdFile(std::move(vpd))
     {
     }
 
@@ -55,8 +55,7 @@ class EditorImpl
                const std::string& record, const std::string& kwd,
                const sdbusplus::message::object_path& inventoryPath) :
         vpdFilePath(path),
-        objPath(inventoryPath), startOffset(0), jsonFile(json),
-        thisRecord(record, kwd)
+        objPath(inventoryPath), jsonFile(json), thisRecord(record, kwd)
     {
     }
 
@@ -179,7 +178,7 @@ class EditorImpl
     std::fstream vpdFileStream;
 
     // offset to get vpd data from EEPROM
-    uint32_t startOffset;
+    uint32_t startOffset = 0;
 
     // file to store parsed json
     const nlohmann::json jsonFile;
@@ -207,7 +206,7 @@ class EditorImpl
     Binary vpdFile;
 
     // If requested Interface is common Interface
-    bool isCI;
+    bool isCI = false;
 
     /** @brief This API will be used to find out Parent FRU of Module/CPU
      *
