@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e66a3e83_23313d95",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-31T06:23:40Z",
+      "side": 1,
+      "message": "Can you reword it or explain it..am not getting exactly what you are trying to tell..",
+      "range": {
+        "startLine": 97,
+        "startChar": 7,
+        "endLine": 97,
+        "endChar": 58
+      },
+      "revId": "fbf99651409b6863263b1a455ccc01ff1158f3af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8693f60_3f05af55",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-31T06:23:40Z",
+      "side": 1,
+      "message": "spellcheck",
+      "range": {
+        "startLine": 97,
+        "startChar": 47,
+        "endLine": 97,
+        "endChar": 55
+      },
+      "revId": "fbf99651409b6863263b1a455ccc01ff1158f3af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29633b12_622c0b1e",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-03-31T06:23:40Z",
+      "side": 1,
+      "message": "I see this method is getting used in all of the derived class.. Why not moving it to the base class itself? so that we avoid copy of this api in all derived classes",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 5
+      },
+      "revId": "fbf99651409b6863263b1a455ccc01ff1158f3af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
