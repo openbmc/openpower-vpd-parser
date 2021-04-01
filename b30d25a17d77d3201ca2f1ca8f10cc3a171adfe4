@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e9d09ec3_5b8329f4",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-01T10:49:13Z",
+      "side": 1,
+      "message": "yes.it should go away",
+      "parentUuid": "699daab3_0a33a502",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 29
+      },
+      "revId": "b30d25a17d77d3201ca2f1ca8f10cc3a171adfe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14006e4a_a469ff15",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "b30d25a17d77d3201ca2f1ca8f10cc3a171adfe4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b627bfa0_f5a8fef9",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-01T10:49:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14006e4a_a469ff15",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 38
+      },
+      "revId": "b30d25a17d77d3201ca2f1ca8f10cc3a171adfe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7c9b44ad_c663f630",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-01T10:49:13Z",
+      "side": 1,
+      "message": "this can\u0027t be as part of constructor as constructor will be called only once, but I need to update this variable frequently.",
+      "parentUuid": "6910f230_a43dde56",
+      "range": {
+        "startLine": 68,
+        "startChar": 9,
+        "endLine": 68,
+        "endChar": 27
+      },
+      "revId": "b30d25a17d77d3201ca2f1ca8f10cc3a171adfe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7732a700_a5617e7e",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 16
@@ -82,6 +154,30 @@
       "writtenOn": "2021-03-30T05:31:05Z",
       "side": 1,
       "message": "this is already defined in gpioMonitor.hpp.. remove it.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 22
+      },
+      "revId": "b30d25a17d77d3201ca2f1ca8f10cc3a171adfe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fde1d31e_7bf84b50",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-01T10:49:13Z",
+      "side": 1,
+      "message": "I will check if I can remove it.",
+      "parentUuid": "7732a700_a5617e7e",
       "range": {
         "startLine": 3,
         "startChar": 0,
