@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73ece722_36a56dad",
+        "filename": "test/vpd-manager-test/reader_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-01T05:14:11Z",
+      "side": 1,
+      "message": "I don\u0027t understand how this extra line is getting inserted here.\nNot seeing this in my local when pushing it.",
+      "revId": "8809e2049042aae51fe5069fd2722f53d172805e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
