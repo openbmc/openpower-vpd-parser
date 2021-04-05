@@ -159,9 +159,18 @@ static void populateFruSpecificInterfaces(const T& map,
 
     for (const auto& kwVal : map)
     {
-        vector<uint8_t> vec(kwVal.second.begin(), kwVal.second.end());
+        Binary vec(kwVal.second.begin(), kwVal.second.end());
 
         auto kw = kwVal.first;
+
+        if (kw == "MemorySizeInKb")
+        {
+            inventory::PropertyMap memProp;
+            memProp.emplace(kw, move(vec));
+            interfaces.emplace("xyz.openbmc_project.Inventory.Item.Dimm",
+                               move(memProp));
+            continue;
+        }
 
         if (kw[0] == '#')
         {
