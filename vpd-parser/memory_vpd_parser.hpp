@@ -4,6 +4,8 @@
 #include "parser_interface.hpp"
 #include "types.hpp"
 
+#include <iomanip>
+
 namespace openpower
 {
 namespace vpd
@@ -57,6 +59,17 @@ class memoryVpdParser : public ParserInterface
      * @return- map of kwd:value
      */
     kwdVpdMap readKeywords(Binary::const_iterator iterator);
+
+    /**
+     * @brief This function calculates dimm size from DIMM VPD
+     *
+     * @param[in] vpdMap - Map to get the Bytes
+     * @param[in] tmp - this is being used to hold the bytes and checks if
+     * anything wrong
+     *
+     * @return returns either calculated data OR Error code.
+     */
+    auto getDimmSize(const kwdVpdMap& vpdMap, size_t& tmp);
 
     // vdp file to be parsed
     Binary memVpd;
