@@ -159,8 +159,6 @@ static void populateFruSpecificInterfaces(const T& map,
 
     for (const auto& kwVal : map)
     {
-        vector<uint8_t> vec(kwVal.second.begin(), kwVal.second.end());
-
         auto kw = kwVal.first;
 
         if (kw[0] == '#')
@@ -171,7 +169,41 @@ static void populateFruSpecificInterfaces(const T& map,
         {
             kw = string("N_") + kw;
         }
-        prop.emplace(move(kw), move(vec));
+        if constexpr (is_same<T, KeywordVpdMap>::value)
+        {
+            if (get_if<Binary>(&kwVal.second))
+            {
+                Binary vec(get_if<Binary>(&kwVal.second)->begin(),
+                           get_if<Binary>(&kwVal.second)->end());
+
+                prop.emplace(move(kw), move(vec));
+            }
+            else
+            {
+                if (kw == "MemorySizeInKB")
+                {
+                    inventory::PropertyMap memProp;
+                    auto memVal = get_if<size_t>(&kwVal.second);
+                    if (memVal)
+                    {
+                        memProp.emplace(move(kw),
+                                        ((*memVal) * CONVERT_MB_TO_KB));
+                        interfaces.emplace(
+                            "xyz.openbmc_project.Inventory.Item.Dimm",
+                            move(memProp));
+                    }
+                    else
+                    {
+                        cerr << "MemorySizeInKB value not found in vpd map\n";
+                    }
+                }
+            }
+        }
+        else
+        {
+            Binary vec(kwVal.second.begin(), kwVal.second.end());
+            prop.emplace(move(kw), move(vec));
+        }
     }
 
     interfaces.emplace(preIntrStr, move(prop));
@@ -259,10 +291,22 @@ static void populateInterfaces(const nlohmann::json& js,
                 {
                     if (!kw.empty() && vpdMap.count(kw))
                     {
-                        auto prop =
-                            string(vpdMap.at(kw).begin(), vpdMap.at(kw).end());
-                        auto encoded = encodeKeyword(prop, encoding);
-                        props.emplace(busProp, encoded);
+                        auto kwValue = get_if<Binary>(&vpdMap.at(kw));
+                        auto uintValue = get_if<size_t>(&vpdMap.at(kw));
+
+                        if (kwValue)
+                        {
+                            auto prop =
+                                string((*kwValue).begin(), (*kwValue).end());
+
+                            auto encoded = encodeKeyword(prop, encoding);
+
+                            props.emplace(busProp, encoded);
+                        }
+                        else if (uintValue)
+                        {
+                            props.emplace(busProp, *uintValue);
+                        }
                     }
                 }
             }
