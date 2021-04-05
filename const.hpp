@@ -65,6 +65,21 @@ static constexpr auto PART_NUM_LEN = 7;
 static constexpr auto SERIAL_NUM_LEN = 12;
 static constexpr auto CCIN_LEN = 4;
 
+static constexpr auto SVPD_JEDEC_SDRAM_CAP_MASK = 0x0F;
+static constexpr auto SVPD_JEDEC_PRI_BUS_WIDTH_MASK = 0x07;
+static constexpr auto SVPD_JEDEC_SDRAM_WIDTH_MASK = 0x07;
+static constexpr auto SVPD_JEDEC_NUM_RANKS_MASK = 0x38;
+static constexpr auto SVPD_JEDEC_DIE_COUNT_MASK = 0x70;
+static constexpr auto SVPD_JEDEC_SINGLE_LOAD_STACK = 0x02;
+static constexpr auto SVPD_JEDEC_SIGNAL_LOADING_MASK = 0x03;
+
+static constexpr auto SVPD_JEDEC_SDRAMCAP_MULTIPLIER = 256;
+static constexpr auto SVPD_JEDEC_PRI_BUS_WIDTH_MULTIPLIER = 8;
+static constexpr auto SVPD_JEDEC_SDRAM_WIDTH_MULTIPLIER = 4;
+static constexpr auto SVPD_JEDEC_SDRAMCAP_RESERVED = 6;
+static constexpr auto SVPD_JEDEC_RESERVED_BITS = 3;
+static constexpr auto SVPD_JEDEC_DIE_COUNT_RIGHT_SHIFT = 4;
+
 using namespace std::string_literals;
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
 constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
