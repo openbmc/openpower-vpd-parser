@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "730dfbbd_c76e396a",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-05T17:53:30Z",
+      "side": 1,
+      "message": "Inside constructor we can only init private variables. My requirement is public variable.\nI rebased my commit to today\u0027s master. And compiled, not seeing any issue.",
+      "parentUuid": "7c9b44ad_c663f630",
+      "range": {
+        "startLine": 68,
+        "startChar": 9,
+        "endLine": 68,
+        "endChar": 27
+      },
+      "revId": "b30d25a17d77d3201ca2f1ca8f10cc3a171adfe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7732a700_a5617e7e",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 16
@@ -187,6 +211,30 @@
       "revId": "b30d25a17d77d3201ca2f1ca8f10cc3a171adfe4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c371f785_1f4db544",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-05T17:53:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fde1d31e_7bf84b50",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 22
+      },
+      "revId": "b30d25a17d77d3201ca2f1ca8f10cc3a171adfe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
