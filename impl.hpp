@@ -68,7 +68,7 @@ class Impl
      *
      *  @param[in] vpdBuffer - Binary VPD
      */
-    explicit Impl(Binary&& vpdBuffer) : vpd(std::move(vpdBuffer)), out{}
+    explicit Impl(const Binary& vpdBuffer) : vpd(vpdBuffer), out{}
     {
     }
 
@@ -157,7 +157,7 @@ class Impl
     openpower::vpd::constants::RecordOffset getVtocOffset() const;
 
     /** @brief VPD in binary format */
-    Binary vpd;
+    const Binary& vpd;
 
     /** @brief parser output */
     Parsed out;

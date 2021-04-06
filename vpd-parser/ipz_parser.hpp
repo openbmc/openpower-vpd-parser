@@ -32,7 +32,7 @@ class IpzVpdParser : public ParserInterface
     /**
      * @brief Constructor
      */
-    IpzVpdParser(Binary&& VpdVector) : vpd(std::move(VpdVector))
+    IpzVpdParser(const Binary& VpdVector) : vpd(VpdVector)
     {
     }
 
@@ -58,7 +58,7 @@ class IpzVpdParser : public ParserInterface
     void processHeader();
 
   private:
-    Binary vpd;
+    const Binary& vpd;
 }; // class IpzVpdParser
 
 } // namespace parser
