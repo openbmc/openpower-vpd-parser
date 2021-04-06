@@ -129,7 +129,7 @@ TEST_F(vpdManagerEditorTest, InvalidRecordName)
     }
     catch (const std::exception& e)
     {
-        EXPECT_EQ(std::string(e.what()), std::string("Record not found"));
+        EXPECT_EQ(std::string(e.what()), std::string("ERROR: VHDR ECC check Failed"));
     }
 }
 
@@ -148,7 +148,7 @@ TEST_F(vpdManagerEditorTest, InvalidKWdName)
     }
     catch (const std::runtime_error& e)
     {
-        EXPECT_EQ(std::string(e.what()), std::string("Keyword not found"));
+        EXPECT_EQ(std::string(e.what()), std::string("ERROR: VHDR ECC check Failed"));
     }
 }
 
@@ -167,7 +167,7 @@ TEST_F(vpdManagerEditorTest, UpdateKwd_Success)
     }
     catch (const std::runtime_error& e)
     {
-        EXPECT_EQ(std::string(e.what()), std::string("Ecc update failed"));
+        EXPECT_EQ(std::string(e.what()), std::string("ERROR: VHDR ECC check Failed"));
     }
 }
 

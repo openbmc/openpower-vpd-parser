@@ -22,6 +22,32 @@ namespace manager
 {
 namespace editor
 {
+void EditorImpl::checkECC(Binary::const_iterator& itrToRecData,
+                          Binary::const_iterator& itrToECCData,
+                          RecordLength recLength, ECCLength eccLength,
+                          std::string recordName)
+{
+    auto l_status =
+        vpdecc_check_data(const_cast<uint8_t*>(&itrToRecData[0]), recLength,
+                          const_cast<uint8_t*>(&itrToECCData[0]), eccLength);
+
+    if (l_status != VPD_ECC_OK)
+    {
+        std::string error = "Ecc check failed for the record " + recordName;
+        throw std::runtime_error(error);
+    }
+}
+
+void EditorImpl::checkRecordECC()
+{
+    auto itrToRecordData = vpdFile.cbegin();
+    std::advance(itrToRecordData, thisRecord.recOffset);
+
+    auto itrToRecordECC = vpdFile.cbegin();
+    std::advance(itrToRecordECC, thisRecord.recECCoffset);
+    checkECC(itrToRecordData, itrToRecordECC, thisRecord.recOffset,
+             thisRecord.recECCoffset, thisRecord.recName);
+}
 
 void EditorImpl::checkPTForRecord(Binary::const_iterator& iterator,
                                   Byte ptLength)
@@ -210,20 +236,6 @@ auto EditorImpl::getValue(offsets::Offsets offset)
     return lowByte;
 }
 
-void EditorImpl::checkECC(Binary::const_iterator& itrToRecData,
-                          Binary::const_iterator& itrToECCData,
-                          RecordLength recLength, ECCLength eccLength)
-{
-    auto l_status =
-        vpdecc_check_data(const_cast<uint8_t*>(&itrToRecData[0]), recLength,
-                          const_cast<uint8_t*>(&itrToECCData[0]), eccLength);
-
-    if (l_status != VPD_ECC_OK)
-    {
-        throw std::runtime_error("Ecc check failed for VTOC");
-    }
-}
-
 void EditorImpl::readVTOC()
 {
     // read VTOC offset
@@ -245,7 +257,7 @@ void EditorImpl::readVTOC()
     std::advance(iteratorToECC, tocECCOffset);
 
     // validate ecc for the record
-    checkECC(itrToRecord, iteratorToECC, tocLength, tocECCLength);
+    checkECC(itrToRecord, iteratorToECC, tocLength, tocECCLength, "VTOC");
 
     // to get to the record name.
     std::advance(itrToRecord, sizeof(RecordId) + sizeof(RecordSize) +
@@ -548,6 +560,8 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
             // process VTOC for PTT rkwd
             readVTOC();
 
+            // check the record's ecc before updating
+            checkRecordECC();
             // check record for keywrod
             checkRecordForKwd();
 
