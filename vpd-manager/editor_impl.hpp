@@ -90,16 +90,18 @@ class EditorImpl
      */
     void readVTOC();
 
-    /** @brief validate ecc data for the VTOC record
-     *  @param[in] iterator to VTOC record data
-     *  @param[in] iterator to VTOC ECC data
-     *  @param[in] Lenght of VTOC record
-     *  @param[in] Length of ECC record
+    /** @brief validate ecc data for the record
+     *  @param[in] itrToRecData - iterator to the record data
+     *  @param[in] itrToECCData - iterator to the record's ECC data
+     *  @param[in] recLength - Lenght of the record
+     *  @param[in] eccLength - Length of record's ECC
+     *  @param[in] recordName - name of the record which needs ECC validation
      */
     void checkECC(Binary::const_iterator& itrToRecData,
                   Binary::const_iterator& itrToECCData,
                   openpower::vpd::constants::RecordLength recLength,
-                  openpower::vpd::constants::ECCLength eccLength);
+                  openpower::vpd::constants::ECCLength eccLength,
+                  std::string recordName);
 
     /** @brief reads value at the given offset
      *  @param[in] offset - offset value
@@ -153,6 +155,9 @@ class EditorImpl
     template <typename T>
     void makeDbusCall(const std::string& object, const std::string& interface,
                       const std::string& property, const std::variant<T>& data);
+
+    /** @brief Method to check the record's ECC before updating */
+    void checkRecordECC();
 
     // path to the VPD file to edit
     inventory::Path vpdFilePath;
