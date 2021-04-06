@@ -22,7 +22,7 @@ namespace parser
 {
 namespace factory
 {
-interface::ParserInterface* ParserFactory::getParser(Binary&& vpdVector)
+interface::ParserInterface* ParserFactory::getParser(const Binary& vpdVector)
 {
     vpdType type = vpdTypeCheck(vpdVector);
 
@@ -30,17 +30,17 @@ interface::ParserInterface* ParserFactory::getParser(Binary&& vpdVector)
     {
         case IPZ_VPD:
         {
-            return new IpzVpdParser(std::move(vpdVector));
+            return new IpzVpdParser(vpdVector);
         }
 
         case KEYWORD_VPD:
         {
-            return new KeywordVpdParser(std::move(vpdVector));
+            return new KeywordVpdParser(vpdVector);
         }
 
         case MEMORY_VPD:
         {
-            return new memoryVpdParser(std::move(vpdVector));
+            return new memoryVpdParser(vpdVector);
         }
 
         default:
