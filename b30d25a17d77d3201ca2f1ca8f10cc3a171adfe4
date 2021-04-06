@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "0494002e_5db4ebbd",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-06T05:28:59Z",
+      "side": 1,
+      "message": "agreed",
+      "parentUuid": "730dfbbd_c76e396a",
+      "range": {
+        "startLine": 68,
+        "startChar": 9,
+        "endLine": 68,
+        "endChar": 27
+      },
+      "revId": "b30d25a17d77d3201ca2f1ca8f10cc3a171adfe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7732a700_a5617e7e",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 16

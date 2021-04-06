@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffbec61b_3b8cb1c3",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-06T05:28:59Z",
+      "side": 1,
+      "message": "Why did you revert the change from Byte to uint8_t ?",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "f2357f72e5d98afb2d017b31794d739e80d6eeb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b4ca4b1_b3a9f2f2",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-06T05:28:59Z",
+      "side": 1,
+      "message": "Why did you revert the change? \nfrom FIVE_SEC to 5?",
+      "range": {
+        "startLine": 141,
+        "startChar": 24,
+        "endLine": 141,
+        "endChar": 25
+      },
+      "revId": "f2357f72e5d98afb2d017b31794d739e80d6eeb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3aa5c54_fac225c0",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-06T05:28:59Z",
+      "side": 1,
+      "message": "Should mention the keyword inline in header file as well.",
+      "range": {
+        "startLine": 99,
+        "startChar": 3,
+        "endLine": 99,
+        "endChar": 24
+      },
+      "revId": "f2357f72e5d98afb2d017b31794d739e80d6eeb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ab167a3_71a78cbf",
+        "filename": "vpd-manager/meson.build",
+        "patchSetId": 18
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-06T05:28:59Z",
+      "side": 1,
+      "message": "whitespace at the end of line 35",
+      "range": {
+        "startLine": 35,
+        "startChar": 37,
+        "endLine": 35,
+        "endChar": 38
+      },
+      "revId": "f2357f72e5d98afb2d017b31794d739e80d6eeb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
