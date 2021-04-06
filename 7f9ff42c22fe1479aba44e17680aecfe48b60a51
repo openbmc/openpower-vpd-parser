@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00e5c05d_9aca104d",
+        "filename": "const.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-06T05:40:12Z",
+      "side": 1,
+      "message": "I am not sure we need all these?\nI can understand need of these 4 here- \nDebug\nINformational(interprets NOTICE), \nWarning(interprets ALERT), \nError(interprets CRITICAL/EMERGENCY)",
+      "range": {
+        "startLine": 134,
+        "startChar": 1,
+        "endLine": 141,
+        "endChar": 9
+      },
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cd20cd6_7104142d",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-06T05:40:12Z",
+      "side": 1,
+      "message": "using Severity \u003d openpower::vpd::constants::severity::PelSeverity;\nyou can use Severity at all places.",
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1377b75_ac180b99",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-06T05:40:12Z",
+      "side": 1,
+      "message": "are you sure this should be warning?\nIf hardware update gets failed then there could be data mismatch.",
+      "range": {
+        "startLine": 624,
+        "startChar": 1,
+        "endLine": 624,
+        "endChar": 64
+      },
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff3c3e6c_958d824a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-06T05:40:12Z",
+      "side": 1,
+      "message": "If data mismatched, don\u0027t we need any action to correct this.\nIf we are fixing it then we can go ahead with WARNING MSG.",
+      "range": {
+        "startLine": 691,
+        "startChar": 31,
+        "endLine": 693,
+        "endChar": 62
+      },
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b86b7234_7202f373",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-06T05:40:12Z",
+      "side": 1,
+      "message": "I know severity should be based on type of error but basically for all exception we are making it as ERROR if it is systemVpd otherwise WARNING.\nCan we do it at first place(common to all exceptions)",
+      "range": {
+        "startLine": 1034,
+        "startChar": 0,
+        "endLine": 1038,
+        "endChar": 9
+      },
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "886c8195_7f884dbf",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-06T05:40:12Z",
+      "side": 1,
+      "message": "please follow indentation . make it aligned .",
+      "range": {
+        "startLine": 114,
+        "startChar": 1,
+        "endLine": 116,
+        "endChar": 29
+      },
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e304ab35_5184f457",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-06T05:40:12Z",
+      "side": 1,
+      "message": "now we have multiple jsons, so can we make this statement more clear that which json it will return.",
+      "range": {
+        "startLine": 124,
+        "startChar": 17,
+        "endLine": 124,
+        "endChar": 26
+      },
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "400e1266_648a9388",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-06T05:40:12Z",
+      "side": 1,
+      "message": "please follow indentation . make it aligned .",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 26
+      },
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
