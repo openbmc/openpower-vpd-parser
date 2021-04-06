@@ -49,8 +49,8 @@ class KeywordVpdParser : public ParserInterface
      *
      * Move kwVpdVector to parser object's kwVpdVector
      */
-    KeywordVpdParser(openpower::vpd::Binary&& kwVpdVector) :
-        keywordVpdVector(std::move(kwVpdVector))
+    KeywordVpdParser(const openpower::vpd::Binary& kwVpdVector) :
+        keywordVpdVector(kwVpdVector)
     {
     }
 
@@ -73,15 +73,15 @@ class KeywordVpdParser : public ParserInterface
     std::string getInterfaceName() const;
 
   private:
-    openpower::vpd::Binary::iterator
+    openpower::vpd::Binary::const_iterator
         checkSumStart; //!< Pointer to the start byte from where
                        //!< the checksum need to be calculated
-    openpower::vpd::Binary::iterator
+    openpower::vpd::Binary::const_iterator
         checkSumEnd; //!< Pointer to the end byte until which the
                      //!< checksum need to be calculated
-    openpower::vpd::Binary::iterator
+    openpower::vpd::Binary::const_iterator
         kwVpdIterator; //!< Iterator to parse the vector
-    openpower::vpd::Binary
+    const openpower::vpd::Binary&
         keywordVpdVector; //!< Vector which stores keyword VPD data
 
     /**

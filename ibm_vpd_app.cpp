@@ -995,7 +995,7 @@ int main(int argc, char** argv)
         try
         {
             Binary vpdVector = getVpdDataInVector(js, file);
-            ParserInterface* parser = ParserFactory::getParser(move(vpdVector));
+            ParserInterface* parser = ParserFactory::getParser(vpdVector);
 
             variant<KeywordVpdMap, Store> parseResult;
             parseResult = parser->parse();
