@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "86955895_21c0be02",
+        "filename": "const.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-06T06:33:23Z",
+      "side": 1,
+      "message": "If you are pointing to the current implementation of phosphor-logging then instead of coupling this code with respect to phosphor-logging implementation, it is better to code to the interface file which states all these as different types of severity and let phosphor-logging decide how they want to log it now or in future.",
+      "parentUuid": "00e5c05d_9aca104d",
+      "range": {
+        "startLine": 134,
+        "startChar": 1,
+        "endLine": 141,
+        "endChar": 9
+      },
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5cd20cd6_7104142d",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 9
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "194f048b_0e7c5de9",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-06T06:33:23Z",
+      "side": 1,
+      "message": "I know but I prefer this for some readability about what WARNING, ERROR etc means.",
+      "parentUuid": "5cd20cd6_7104142d",
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1377b75_ac180b99",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 9
@@ -53,6 +95,30 @@
       "writtenOn": "2021-04-06T05:40:12Z",
       "side": 1,
       "message": "are you sure this should be warning?\nIf hardware update gets failed then there could be data mismatch.",
+      "range": {
+        "startLine": 624,
+        "startChar": 1,
+        "endLine": 624,
+        "endChar": 64
+      },
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6b1300a_4b61855b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-06T06:33:23Z",
+      "side": 1,
+      "message": "Yes, as we discussed apart from system vpd we will log everything else as warning.\nWarning is also a type of error which is kind of predictive.",
+      "parentUuid": "e1377b75_ac180b99",
       "range": {
         "startLine": 624,
         "startChar": 1,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "dc9293fe_3cd57670",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-06T06:33:23Z",
+      "side": 1,
+      "message": "We need that is why we are logging the PEL, but since in this case we are continuing with the cache copy, we are just logging warning, error will mean that system is unusable which is not true in this case.",
+      "parentUuid": "ff3c3e6c_958d824a",
+      "range": {
+        "startLine": 691,
+        "startChar": 31,
+        "endLine": 693,
+        "endChar": 62
+      },
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b86b7234_7202f373",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 9
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "9d476cbf_821f960c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-06T06:33:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b86b7234_7202f373",
+      "range": {
+        "startLine": 1034,
+        "startChar": 0,
+        "endLine": 1038,
+        "endChar": 9
+      },
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "886c8195_7f884dbf",
         "filename": "vpd_exceptions.hpp",
         "patchSetId": 9
@@ -131,6 +245,30 @@
       "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68704f24_b3eb072d",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-06T06:33:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "886c8195_7f884dbf",
+      "range": {
+        "startLine": 114,
+        "startChar": 1,
+        "endLine": 116,
+        "endChar": 29
+      },
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -171,6 +309,54 @@
       "range": {
         "startLine": 123,
         "startChar": 0,
+        "endLine": 124,
+        "endChar": 26
+      },
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53530f56_5ee52aa4",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-06T06:33:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "400e1266_648a9388",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 26
+      },
+      "revId": "7f9ff42c22fe1479aba44e17680aecfe48b60a51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a52672a0_b2513957",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-06T06:33:23Z",
+      "side": 1,
+      "message": "We can\u0027t state that here. the path of Json is being passed as a part of exception construction. So this method cannot know the path of JSON it will just return the path whichever is passed by the exception.",
+      "parentUuid": "e304ab35_5184f457",
+      "range": {
+        "startLine": 124,
+        "startChar": 17,
         "endLine": 124,
         "endChar": 26
       },
