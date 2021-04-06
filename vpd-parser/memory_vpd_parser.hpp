@@ -30,7 +30,7 @@ class memoryVpdParser : public ParserInterface
      *
      * Move memVpdVector to parser object's memVpdVector
      */
-    memoryVpdParser(Binary&& VpdVector) : memVpd(std::move(VpdVector))
+    memoryVpdParser(const Binary& VpdVector) : memVpd(VpdVector)
     {
     }
 
@@ -59,7 +59,7 @@ class memoryVpdParser : public ParserInterface
     kwdVpdMap readKeywords(Binary::const_iterator iterator);
 
     // vdp file to be parsed
-    Binary memVpd;
+    const Binary& memVpd;
 };
 } // namespace parser
 } // namespace memory
