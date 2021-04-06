@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "fc3380f6_7cb5491f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-06T15:14:45Z",
+      "side": 1,
+      "message": "These are not really false positives :) ..",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "956493ac_f6509ca1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-06T15:14:45Z",
+      "side": 1,
+      "message": "Why is this in all CAPS? 😊",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 25
+      },
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4c286b6d_cd0a30e0",
         "filename": "test/vpd-manager-test/reader_test.cpp",
         "patchSetId": 3
@@ -13,6 +59,115 @@
       "writtenOn": "2021-04-05T08:54:35Z",
       "side": 1,
       "message": "Remove the new line",
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d35b80f_5d791711",
+        "filename": "utils_templated.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-06T15:14:45Z",
+      "side": 1,
+      "message": "I don\u0027t understand, why was this needed? How will this for for any type T?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff7c41cd_16375b30",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-06T15:14:45Z",
+      "side": 1,
+      "message": "Why? In general we always want to initialize all locals, I believe this warning should be ignored.",
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e32015f_deaedb04",
+        "filename": "vpd-parser/parser_factory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-06T15:14:45Z",
+      "side": 1,
+      "message": "This is wrong? It should read:\ndelete *parser;\n*parser \u003d nullptr;",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 22
+      },
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8ec751b_8c71a486",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-06T15:14:45Z",
+      "side": 1,
+      "message": "Why did you need to move this to a templated function?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 30
+      },
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ee26502_f8014e14",
+        "filename": "vpdecc/vpdecc.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-06T15:14:45Z",
+      "side": 1,
+      "message": "Why are these not needed anymore?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 51
+      },
       "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
