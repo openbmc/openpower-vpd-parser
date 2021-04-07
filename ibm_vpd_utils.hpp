@@ -1,6 +1,7 @@
 #pragma once
 
 #include "const.hpp"
+#include "store.hpp"
 #include "types.hpp"
 
 #include <iostream>
@@ -161,6 +162,25 @@ inline vector<string> executeCmd(T&& path, Types... args)
 
     return stdOutput;
 }
+
+/** @brief This API checks for IM and HW keywords, and based
+ *         on these values decides which system json to be used.
+ *  @param[in] vpdMap -  parsed vpd
+ *  @returns System json path
+ */
+string getSystemsJson(const Parsed& vpdMap);
+
+/** @brief Reads HW Keyword from the vpd
+ *  @param[in] vpdMap -  parsed vpd
+ *  @returns value of HW Keyword
+ */
+const string getHW(const Parsed& vpdMap);
+
+/** @brief Reads IM Keyword from the vpd
+ *  @param[in] vpdMap -  parsed vpd
+ *  @returns value of IM Keyword
+ */
+const string getIM(const Parsed& vpdMap);
 
 } // namespace vpd
 } // namespace openpower
