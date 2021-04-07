@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a495850c_764d1e47",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T16:02:02Z",
+      "side": 1,
+      "message": "cpp standard error checks ?",
+      "parentUuid": "fc3380f6_7cb5491f",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "956493ac_f6509ca1",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2021-04-06T15:14:45Z",
       "side": 1,
       "message": "Why is this in all CAPS? 😊",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 25
+      },
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8d84aa0_f745b17f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T16:02:02Z",
+      "side": 1,
+      "message": "effect of copy paste from my notepad.. will make the change",
+      "parentUuid": "956493ac_f6509ca1",
       "range": {
         "startLine": 27,
         "startChar": 0,
@@ -88,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "12e96dda_d2f669f7",
+        "filename": "utils_templated.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T16:02:02Z",
+      "side": 1,
+      "message": "the vpdData can be of vector or can be of string.\nvector in the case of vpd_tool_impl.cpp line 31\nand string in vpd_tool_impl.cpp line 355",
+      "parentUuid": "4d35b80f_5d791711",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff7c41cd_16375b30",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 3
@@ -105,6 +177,47 @@
     },
     {
       "key": {
+        "uuid": "f962d5ba_6ed766f9",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T16:02:02Z",
+      "side": 1,
+      "message": "yeah..there creates an ambiguity with the two warnings - unReadVariable and uninitialsedVariable\n\nvpd-manager/editor_impl.cpp:133:28: style: Variable \u0027dataLength\u0027 is assigned a value that is never used. [unreadVariable] -CPP ISSUE\n    std::size_t dataLength \u003d 0;\n\nthe data_length is getting overwritten before reading the default value..so it says unreadVariable..",
+      "parentUuid": "ff7c41cd_16375b30",
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6a51b1e_d84072c7",
+        "filename": "vpd-parser/parser_factory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T16:02:02Z",
+      "side": 1,
+      "message": "the reason I wanted to make parser variable a double pointer is \nvpd-parser/parser_factory.cpp:54:9: warning: Assignment of function parameter has no effect outside the function. Did you forget dereferencing it? [uselessAssignmentPtrArg] \n        parser \u003d nullptr;\n\nIf its a single pointer, the scope of the variable ends in this api itself.. so getting the above warning.\nso made it to double pointer and its scope remains active in the caller..\n\neither should remove parser\u003dnullptr... or should make double pointer like the one which I did.",
+      "range": {
+        "startLine": 49,
+        "startChar": 57,
+        "endLine": 49,
+        "endChar": 67
+      },
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e32015f_deaedb04",
         "filename": "vpd-parser/parser_factory.cpp",
         "patchSetId": 3
@@ -116,6 +229,30 @@
       "writtenOn": "2021-04-06T15:14:45Z",
       "side": 1,
       "message": "This is wrong? It should read:\ndelete *parser;\n*parser \u003d nullptr;",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 22
+      },
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0be6358e_dc3ce402",
+        "filename": "vpd-parser/parser_factory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T16:02:02Z",
+      "side": 1,
+      "message": "no..after the pointer gets deleted, not able to assign the nullptr value to the pointer. throwing errors..",
+      "parentUuid": "6e32015f_deaedb04",
       "range": {
         "startLine": 53,
         "startChar": 0,
@@ -151,6 +288,30 @@
     },
     {
       "key": {
+        "uuid": "aca1036e_e0b495de",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T16:02:02Z",
+      "side": 1,
+      "message": "The template function If I define in .cpp file, compiler is throwing linker error - as its not able to identify the definition of the templated function in .cpp files.\n\nso it needs to be defined in a header file and if I define it in utils.hpp - the templated function will get processed and included in most of the files where we include utils.hpp..which is not necessary..\n\nso created a seperate utils_templated.hpp file - so that we include this template function wherever necessary.. (currently its needed only in vpd_tool_impl.cpp)",
+      "parentUuid": "d8ec751b_8c71a486",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 30
+      },
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ee26502_f8014e14",
         "filename": "vpdecc/vpdecc.c",
         "patchSetId": 3
@@ -162,6 +323,30 @@
       "writtenOn": "2021-04-06T15:14:45Z",
       "side": 1,
       "message": "Why are these not needed anymore?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 51
+      },
+      "revId": "e26a810cf5f82538f1bc0d55bbfe84e51f1e4d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4572bd2_0e650971",
+        "filename": "vpdecc/vpdecc.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T16:02:02Z",
+      "side": 1,
+      "message": "even after having this, I get unused variable warning.. need to look on it",
+      "parentUuid": "2ee26502_f8014e14",
       "range": {
         "startLine": 5,
         "startChar": 0,
