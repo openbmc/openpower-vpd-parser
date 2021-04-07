@@ -47,10 +47,12 @@ constexpr int UNEXP_LOCATION_CODE_MIN_LENGTH = 4;
 constexpr uint8_t EXP_LOCATIN_CODE_MIN_LENGTH = 17;
 static constexpr auto SE_KWD_LENGTH = 7;
 static constexpr auto INVALID_NODE_NUMBER = -1;
-static constexpr auto RAINIER_2U = "50001001";
-static constexpr auto RAINIER_4U = "50001000";
-static constexpr auto RAINIER_1S4U = "50001002";
-static constexpr auto EVEREST = "50003000";
+static constexpr auto RAINIER_2U    = "50001001_0001";
+static constexpr auto RAINIER_2U_V2 = "50001001_0002";
+static constexpr auto RAINIER_4U    = "50001000_0001";
+static constexpr auto RAINIER_4U_V2 = "50001000_0002";
+static constexpr auto RAINIER_1S4U  = "50001002";
+static constexpr auto EVEREST       = "50003000";
 
 constexpr uint8_t KW_VPD_START_TAG = 0x82;
 constexpr uint8_t KW_VPD_END_TAG = 0x78;

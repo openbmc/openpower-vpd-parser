@@ -39,7 +39,9 @@ using namespace phosphor::logging;
 
 static const deviceTreeMap deviceTreeSystemTypeMap = {
     {RAINIER_2U, "conf-aspeed-bmc-ibm-rainier.dtb"},
+    {RAINIER_2U_V2, "conf-aspeed-bmc-ibm-rainier-v2.dtb"},
     {RAINIER_4U, "conf-aspeed-bmc-ibm-rainier-4u.dtb"},
+    {RAINIER_4U_V2, "conf-aspeed-bmc-ibm-rainier-4u-v2.dtb"},
     {RAINIER_1S4U, "conf-aspeed-bmc-ibm-rainier-1s4u.dtb"},
     {EVEREST, "conf-aspeed-bmc-ibm-everest.dtb"}};
 
@@ -847,44 +849,15 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 
     if (isSystemVpd)
     {
-        vector<uint8_t> imVal;
+        string systemJson{};
         if constexpr (is_same<T, Parsed>::value)
         {
-            auto property = vpdMap.find("VSBP");
-            if (property != vpdMap.end())
-            {
-                auto value = (property->second).find("IM");
-                if (value != (property->second).end())
-                {
-                    copy(value->second.begin(), value->second.end(),
-                         back_inserter(imVal));
-                }
-            }
+            // pick the right system json
+            systemJson = getSystemsJson(vpdMap);
         }
 
-        fs::path target;
+        fs::path target = systemJson;
         fs::path link = INVENTORY_JSON_SYM_LINK;
-
-        ostringstream oss;
-        for (auto& i : imVal)
-        {
-            oss << setw(2) << setfill('0') << hex << static_cast<int>(i);
-        }
-        string imValStr = oss.str();
-
-        if ((imValStr == RAINIER_4U) || // 4U
-            (imValStr == RAINIER_1S4U))
-        {
-            target = INVENTORY_JSON_4U;
-        }
-        else if (imValStr == RAINIER_2U) // 2U
-        {
-            target = INVENTORY_JSON_2U;
-        }
-        else if (imValStr == EVEREST)
-        {
-            target = INVENTORY_JSON_EVEREST;
-        }
 
         // Create the directory for hosting the symlink
         fs::create_directories(VPD_FILES_PATH);
@@ -901,14 +874,20 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
 
-        // set the U-boot environment variable for device-tree
-        setDevTreeEnv(imValStr);
-
         // if system VPD has been restored at standby, update the EEPROM
         for (const auto& item : updatedEeproms)
         {
             updateHardware(get<0>(item), get<1>(item), get<2>(item),
                            get<3>(item));
+        }
+
+        // set the U-boot environment variable for device-tree
+        if constexpr (is_same<T, Parsed>::value)
+        {
+            const string imKeyword = getIM(vpdMap);
+            const string hwKeyword = getHW(vpdMap);
+            string systemType = imKeyword + "_" + hwKeyword;
+            setDevTreeEnv(systemType);
         }
     }
 
