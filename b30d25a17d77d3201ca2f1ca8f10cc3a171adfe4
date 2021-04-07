@@ -283,6 +283,30 @@
       "revId": "b30d25a17d77d3201ca2f1ca8f10cc3a171adfe4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb90a6d9_bb712b40",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-07T10:39:03Z",
+      "side": 1,
+      "message": "Its ok, but in my opinion since pragma once it there this should not cause an issue and having header files defined increases readability, like I know that this file depends on manager.hpp but once it has been removed, I am not getting that info just by looking at the header inclusions.",
+      "parentUuid": "c371f785_1f4db544",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 22
+      },
+      "revId": "b30d25a17d77d3201ca2f1ca8f10cc3a171adfe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
