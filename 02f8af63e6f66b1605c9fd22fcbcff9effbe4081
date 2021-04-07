@@ -52,6 +52,24 @@
       "revId": "02f8af63e6f66b1605c9fd22fcbcff9effbe4081",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "411de636_5ab62ca3",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T08:15:41Z",
+      "side": 1,
+      "message": "no I got your point..We can throw vpdECCException but without creating PEL.as I mentioned above we face deadlock.",
+      "parentUuid": "1ce33e24_fda76185",
+      "revId": "02f8af63e6f66b1605c9fd22fcbcff9effbe4081",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
