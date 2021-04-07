@@ -346,5 +346,93 @@ bool isRecKwInDbusJson(const std::string& recordName,
     return present;
 }
 
+const string getIM(const Parsed& vpdMap)
+{
+    Binary imVal;
+    auto property = vpdMap.find("VSBP");
+    if (property != vpdMap.end())
+    {
+        auto kw = (property->second).find("IM");
+        if (kw != (property->second).end())
+        {
+            copy(kw->second.begin(), kw->second.end(), back_inserter(imVal));
+        }
+    }
+
+    ostringstream oss;
+    for (auto& i : imVal)
+    {
+        oss << setw(2) << setfill('0') << hex << static_cast<int>(i);
+    }
+
+    return oss.str();
+}
+
+const string getHW(const Parsed& vpdMap)
+{
+    Binary hwVal;
+    auto prop = vpdMap.find("VINI");
+    if (prop != vpdMap.end())
+    {
+        auto kw = (prop->second).find("HW");
+        if (kw != (prop->second).end())
+        {
+            copy(kw->second.begin(), kw->second.end(), back_inserter(hwVal));
+        }
+    }
+
+    ostringstream hwString;
+    for (auto& i : hwVal)
+    {
+        hwString << setw(2) << setfill('0') << hex << static_cast<int>(i);
+    }
+
+    return hwString.str();
+}
+
+string getSystemsJson(const Parsed& vpdMap)
+{
+    ifstream systemJson(SYSTEM_JSON);
+    auto js = json::parse(systemJson);
+
+    const string hwKeyword = getHW(vpdMap);
+    const string imKeyword = getIM(vpdMap);
+
+    string jsonPath = "/usr/share/vpd/";
+    string jsonName{};
+
+    if (js.find("system") == js.end())
+    {
+        throw runtime_error("Invalid systems Json");
+    }
+
+    if (js["system"].find(imKeyword) == js["system"].end())
+    {
+        throw runtime_error("Invalid system. This system type is not present "
+                            "in the systemsJson. IM: " +
+                            imKeyword);
+    }
+
+    if ((js["system"][imKeyword].find("constraint") !=
+         js["system"][imKeyword].end()) &&
+        (hwKeyword == js["system"][imKeyword]["constraint"]["HW"]))
+    {
+        jsonName = js["system"][imKeyword]["constraint"]["json"];
+    }
+    else if (js["system"][imKeyword].find("default") !=
+             js["system"][imKeyword].end())
+    {
+        jsonName = js["system"][imKeyword]["default"];
+    }
+    else
+    {
+        throw runtime_error(
+            "Bad System json. Neither constraint nor default found");
+    }
+
+    jsonPath += jsonName;
+
+    return jsonPath;
+}
 } // namespace vpd
 } // namespace openpower
