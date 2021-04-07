@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fabb2e20_3605b9fc",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-07T15:30:14Z",
+      "side": 1,
+      "message": "1S4U has gone missing from here - please add",
+      "revId": "67c19ccf05ba78236b628b7dd8e0e2d2104e8dca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2aff31f1_1b6a4fd6",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-07T15:30:14Z",
+      "side": 1,
+      "message": "What is this for?",
+      "range": {
+        "startLine": 529,
+        "startChar": 0,
+        "endLine": 530,
+        "endChar": 47
+      },
+      "revId": "67c19ccf05ba78236b628b7dd8e0e2d2104e8dca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d2920eb_b2a9841b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-07T15:30:14Z",
+      "side": 1,
+      "message": "Please cleanup",
+      "range": {
+        "startLine": 550,
+        "startChar": 3,
+        "endLine": 550,
+        "endChar": 34
+      },
+      "revId": "67c19ccf05ba78236b628b7dd8e0e2d2104e8dca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4df828c3_1a670e00",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-07T15:30:14Z",
+      "side": 1,
+      "message": "Please get rid of all these",
+      "revId": "67c19ccf05ba78236b628b7dd8e0e2d2104e8dca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3be16af_55488f52",
+        "filename": "utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-07T15:30:14Z",
+      "side": 1,
+      "message": "If you use lookups as described below, this loop will not be needed.",
+      "range": {
+        "startLine": 312,
+        "startChar": 16,
+        "endLine": 312,
+        "endChar": 60
+      },
+      "revId": "67c19ccf05ba78236b628b7dd8e0e2d2104e8dca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d313aea0_e6251d67",
+        "filename": "utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-07T15:30:14Z",
+      "side": 1,
+      "message": "Why does this not do a lookup based on \"constraint\"?",
+      "revId": "67c19ccf05ba78236b628b7dd8e0e2d2104e8dca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6be2233a_039c4d87",
+        "filename": "utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-07T15:30:14Z",
+      "side": 1,
+      "message": "Here too .. the lookup should be with a \"default\"",
+      "revId": "67c19ccf05ba78236b628b7dd8e0e2d2104e8dca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
