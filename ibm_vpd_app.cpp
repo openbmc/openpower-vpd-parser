@@ -40,7 +40,9 @@ using namespace phosphor::logging;
 
 static const deviceTreeMap deviceTreeSystemTypeMap = {
     {RAINIER_2U, "conf-aspeed-bmc-ibm-rainier.dtb"},
+    {RAINIER_2U_V2, "conf-aspeed-bmc-ibm-rainier-v2.dtb"},
     {RAINIER_4U, "conf-aspeed-bmc-ibm-rainier-4u.dtb"},
+    {RAINIER_4U_V2, "conf-aspeed-bmc-ibm-rainier-4u-v2.dtb"},
     {RAINIER_1S4U, "conf-aspeed-bmc-ibm-rainier-1s4u.dtb"},
     {EVEREST, "conf-aspeed-bmc-ibm-everest.dtb"}};
 
@@ -807,58 +809,15 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 
     if (isSystemVpd)
     {
-        vector<uint8_t> imVal;
+        string systemJson{};
         if constexpr (is_same<T, Parsed>::value)
         {
-            auto property = vpdMap.find("VSBP");
-            if (property != vpdMap.end())
-            {
-                auto value = (property->second).find("IM");
-                if (value != (property->second).end())
-                {
-                    copy(value->second.begin(), value->second.end(),
-                         back_inserter(imVal));
-                }
-            }
+            // pick the right system json
+            systemJson = getSystemsJson(vpdMap);
         }
 
-        fs::path target;
+        fs::path target = systemJson;
         fs::path link = INVENTORY_JSON_SYM_LINK;
-
-        ostringstream oss;
-        for (auto& i : imVal)
-        {
-            oss << setw(2) << setfill('0') << hex << static_cast<int>(i);
-        }
-        string imValStr = oss.str();
-
-        if ((imValStr == RAINIER_4U) || // 4U
-            (imValStr == RAINIER_1S4U))
-        {
-            target = INVENTORY_JSON_4U;
-        }
-        else if (imValStr == RAINIER_2U) // 2U
-        {
-            target = INVENTORY_JSON_2U;
-        }
-        else if (imValStr == EVEREST)
-        {
-            target = INVENTORY_JSON_EVEREST;
-        }
-        else
-        {
-            PelAdditionalData additionalData{};
-            const string& baseFruInventoryPath =
-                js["frus"][filePath][0]["inventoryPath"].get_ref<string&>();
-            additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                                   INVENTORY_PATH + baseFruInventoryPath);
-            additionalData.emplace(
-                "DESCRIPTION", "System IM value is erroneous/not supported.");
-            additionalData.emplace("INVALID IM VALUE", imValStr);
-            createPEL(additionalData, PelSeverity::ERROR, errIntfForInvalidVPD);
-            throw runtime_error(
-                "Erroneous/Unsupported IM in System VPD. PEL logged.");
-        }
 
         // Create the directory for hosting the symlink
         fs::create_directories(VPD_FILES_PATH);
@@ -875,14 +834,49 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
 
-        // set the U-boot environment variable for device-tree
-        setDevTreeEnv(imValStr);
-
         // if system VPD has been restored at standby, update the EEPROM
         for (const auto& item : updatedEeproms)
         {
             updateHardware(get<0>(item), get<1>(item), get<2>(item),
                            get<3>(item));
+        }
+
+        // set the U-boot environment variable for device-tree
+        if constexpr (is_same<T, Parsed>::value)
+        {
+            const string imKeyword = getIM(vpdMap);
+            const string hwKeyword = getHW(vpdMap);
+            string systemType = imKeyword;
+
+            // check If system has constraint then append HW version to it.
+            ifstream sysJson(SYSTEM_JSON);
+            if (!sysJson)
+            {
+                throw((VpdJsonException("Failed to access Json path",
+                                        SYSTEM_JSON)));
+            }
+
+            try
+            {
+                auto systemJson = json::parse(sysJson);
+            }
+            catch (json::parse_error& ex)
+            {
+                throw((VpdJsonException("System Json parsing failed",
+                                        SYSTEM_JSON)));
+            }
+
+            if (systemJson["system"].find(imKeyword) !=
+                systemJson["system"].end())
+            {
+                if (systemJson["system"][imKeyword].find("constraint") !=
+                    systemJson["system"][imKeyword].end())
+                {
+                    systemType += "_" + hwKeyword;
+                }
+            }
+
+            setDevTreeEnv(systemType);
         }
     }
 
