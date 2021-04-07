@@ -38,10 +38,11 @@ using namespace openpower::vpd::exceptions;
 using namespace phosphor::logging;
 
 static const deviceTreeMap deviceTreeSystemTypeMap = {
-    {RAINIER_2U, "conf-aspeed-bmc-ibm-rainier.dtb"},
-    {RAINIER_4U, "conf-aspeed-bmc-ibm-rainier-4u.dtb"},
-    {RAINIER_1S4U, "conf-aspeed-bmc-ibm-rainier-1s4u.dtb"},
-    {EVEREST, "conf-aspeed-bmc-ibm-everest.dtb"}};
+    {RAINIER_2U, "conf@aspeed-bmc-ibm-rainier.dtb"},
+    {RAINIER_2U_V2, "conf@aspeed-bmc-ibm-rainier-v2.dtb"},
+    {RAINIER_4U, "conf@aspeed-bmc-ibm-rainier-4u.dtb"},
+    {RAINIER_4U_V2, "conf@aspeed-bmc-ibm-rainier-4u-v2.dtb"},
+    {EVEREST, "conf@aspeed-bmc-ibm-everest.dtb"}};
 
 /**
  * @brief Returns the power state for chassis0
@@ -525,6 +526,9 @@ void setEnvAndReboot(const string& key, const string& value)
 {
     // set env and reboot and break.
     executeCmd("/sbin/fw_setenv", key, value);
+    const string value1 = "conf@aspeed-bmc-ibm-rainier-v2.dtb";
+    executeCmd("/sbin/fw_setenv", key, value1);
+
     log<level::INFO>("Rebooting BMC to pick up new device tree");
     // make dbus call to reboot
     auto bus = sdbusplus::bus::new_default_system();
@@ -543,6 +547,7 @@ void setEnvAndReboot(const string& key, const string& value)
  * */
 void setDevTreeEnv(const string& systemType)
 {
+    log<level::INFO>("DBG 51 \n");
     string newDeviceTree;
 
     if (deviceTreeSystemTypeMap.find(systemType) !=
@@ -554,6 +559,7 @@ void setDevTreeEnv(const string& systemType)
     string readVarValue;
     bool envVarFound = false;
 
+    cout << "DBG: newDeviceTree- " << newDeviceTree << "\n";
     vector<string> output = executeCmd("/sbin/fw_printenv");
     for (const auto& entry : output)
     {
@@ -570,11 +576,13 @@ void setDevTreeEnv(const string& systemType)
             readVarValue = entry.substr(pos + 1);
             if (readVarValue.find(newDeviceTree) != string::npos)
             {
+                log<level::INFO>("DBG: fitconfig is Updated.\n");
                 // fitconfig is Updated. No action needed
                 break;
             }
         }
         // set env and reboot and break.
+        log<level::INFO>("DBG set env and reboot and break\n");
         setEnvAndReboot(key, newDeviceTree);
         exit(0);
     }
@@ -582,6 +590,7 @@ void setDevTreeEnv(const string& systemType)
     // check If env var Not found
     if (!envVarFound)
     {
+        log<level::INFO>("DBG: env var Not found\n");
         setEnvAndReboot("fitconfig", newDeviceTree);
     }
 }
@@ -747,6 +756,7 @@ std::vector<RestoredEeproms> restoreSystemVPD(Parsed& vpdMap,
 template <typename T>
 static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 {
+    log<level::INFO>("DBG10 \n");
     inventory::InterfaceMap interfaces;
     inventory::ObjectMap objects;
     inventory::PropertyMap prop;
@@ -754,42 +764,52 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     // map to hold all the keywords whose value has been changed at standby
     vector<RestoredEeproms> updatedEeproms = {};
 
+    log<level::INFO>("DBG20 \n");
     bool isSystemVpd = false;
     for (const auto& item : js["frus"][filePath])
     {
+        log<level::INFO>("DBG21 \n");
         const auto& objectPath = item["inventoryPath"];
         sdbusplus::message::object_path object(objectPath);
         isSystemVpd = item.value("isSystemVpd", false);
 
+        log<level::INFO>("DBG22 \n");
         // Populate the VPD keywords and the common interfaces only if we
         // are asked to inherit that data from the VPD, else only add the
         // extraInterfaces.
         if (item.value("inherit", true))
         {
+            log<level::INFO>("DBG23 \n");
             if constexpr (is_same<T, Parsed>::value)
             {
+                log<level::INFO>("DBG24 \n");
                 if (isSystemVpd)
                 {
+                    log<level::INFO>("DBG25 \n");
                     std::vector<std::string> interfaces = {
                         motherBoardInterface};
+                    log<level::INFO>("DBG26 \n");
                     // call mapper to check for object path creation
                     MapperResponse subTree =
                         getObjectSubtreeForInterfaces(pimPath, 0, interfaces);
 
+                    log<level::INFO>("DBG27 \n");
                     // Skip system vpd restore if object path is not generated
                     // for motherboard, Implies first boot.
                     if (subTree.size() != 0)
                     {
+                        log<level::INFO>("DBG28 \n");
                         assert(
                             (subTree.find(pimPath + std::string(objectPath)) !=
                              subTree.end()));
 
                         updatedEeproms = restoreSystemVPD(vpdMap, objectPath);
+                        log<level::INFO>("DBG29 \n");
                     }
-                    else
-                    {
-                        log<level::ERR>("No object path found");
-                    }
+                    /*    else
+                        {
+                            log<level::ERR>("No object path found");
+                        }*/
                 }
 
                 // Each record in the VPD becomes an interface and all
@@ -797,32 +817,42 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
                 // interface.
                 for (const auto& record : vpdMap)
                 {
+                    log<level::INFO>("DBG30 \n");
                     populateFruSpecificInterfaces(
                         record.second, ipzVpdInf + record.first, interfaces);
+                    log<level::INFO>("DBG31 \n");
                 }
             }
             else if constexpr (is_same<T, KeywordVpdMap>::value)
             {
+                log<level::INFO>("DBG31 \n");
                 populateFruSpecificInterfaces(vpdMap, kwdVpdInf, interfaces);
+                log<level::INFO>("DBG32 \n");
             }
             if (js.find("commonInterfaces") != js.end())
             {
+                log<level::INFO>("DBG32 \n");
                 populateInterfaces(js["commonInterfaces"], interfaces, vpdMap,
                                    isSystemVpd);
+                log<level::INFO>("DBG33 \n");
             }
         }
         else
         {
+            log<level::INFO>("DBG34 \n");
             // Check if we have been asked to inherit specific record(s)
             if constexpr (is_same<T, Parsed>::value)
             {
+                log<level::INFO>("DBG35 \n");
                 if (item.find("copyRecords") != item.end())
                 {
+                    log<level::INFO>("DBG36 \n");
                     for (const auto& record : item["copyRecords"])
                     {
                         const string& recordName = record;
                         if (vpdMap.find(recordName) != vpdMap.end())
                         {
+                            log<level::INFO>("DBG37 \n");
                             populateFruSpecificInterfaces(
                                 vpdMap.at(recordName), ipzVpdInf + recordName,
                                 interfaces);
@@ -838,54 +868,30 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             // basis.
             if (item.find("extraInterfaces") != item.end())
             {
+                log<level::INFO>("DBG38 \n");
                 populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
                                    isSystemVpd);
             }
         }
+        log<level::INFO>("DBG39 \n");
         objects.emplace(move(object), move(interfaces));
+        log<level::INFO>("DBG40 \n");
     }
 
     if (isSystemVpd)
     {
-        vector<uint8_t> imVal;
+        string systemJson{};
         if constexpr (is_same<T, Parsed>::value)
         {
-            auto property = vpdMap.find("VSBP");
-            if (property != vpdMap.end())
-            {
-                auto value = (property->second).find("IM");
-                if (value != (property->second).end())
-                {
-                    copy(value->second.begin(), value->second.end(),
-                         back_inserter(imVal));
-                }
-            }
+            // pick the right system json
+            systemJson = getSystemsJson(vpdMap);
+            cout << "Processing with this JSON - " << systemJson << " \n";
         }
 
         fs::path target;
         fs::path link = INVENTORY_JSON_SYM_LINK;
 
-        ostringstream oss;
-        for (auto& i : imVal)
-        {
-            oss << setw(2) << setfill('0') << hex << static_cast<int>(i);
-        }
-        string imValStr = oss.str();
-
-        if ((imValStr == RAINIER_4U) || // 4U
-            (imValStr == RAINIER_1S4U))
-        {
-            target = INVENTORY_JSON_4U;
-        }
-        else if (imValStr == RAINIER_2U) // 2U
-        {
-            target = INVENTORY_JSON_2U;
-        }
-        else if (imValStr == EVEREST)
-        {
-            target = INVENTORY_JSON_EVEREST;
-        }
-
+        target = systemJson;
         // Create the directory for hosting the symlink
         fs::create_directories(VPD_FILES_PATH);
         // unlink the symlink previously created (if any)
@@ -893,22 +899,34 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         // create a new symlink based on the system
         fs::create_symlink(target, link);
 
+        log<level::INFO>("DBG44 \n");
+        cout << "target-" << target << "\n";
+        cout << "link- " << link << "\n";
         // Reloading the json
         ifstream inventoryJson(link);
         auto js = json::parse(inventoryJson);
+        log<level::INFO>("DBG45 \n");
         inventoryJson.close();
 
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
+        log<level::INFO>("DBG46 \n");
         objects.insert(primeObject.begin(), primeObject.end());
-
-        // set the U-boot environment variable for device-tree
-        setDevTreeEnv(imValStr);
+        log<level::INFO>("DBG47 \n");
 
         // if system VPD has been restored at standby, update the EEPROM
         for (const auto& item : updatedEeproms)
         {
             updateHardware(get<0>(item), get<1>(item), get<2>(item),
                            get<3>(item));
+        }
+
+        // set the U-boot environment variable for device-tree
+        if constexpr (is_same<T, Parsed>::value)
+        {
+            const string imKeyword = getIM(vpdMap);
+            const string hwKeyword = getHW(vpdMap);
+            string systemType = imKeyword + "_" + hwKeyword;
+            setDevTreeEnv(systemType);
         }
     }
 
@@ -942,6 +960,7 @@ int main(int argc, char** argv)
 
         auto jsonToParse = INVENTORY_JSON_DEFAULT;
 
+        log<level::INFO>("DBG1 \n");
         // If the symlink exists, it means it has been setup for us, switch the
         // path
         if (fs::exists(INVENTORY_JSON_SYM_LINK))
@@ -949,8 +968,10 @@ int main(int argc, char** argv)
             jsonToParse = INVENTORY_JSON_SYM_LINK;
         }
 
+        log<level::INFO>("DBG2 \n");
         // Make sure that the file path we get is for a supported EEPROM
         ifstream inventoryJson(jsonToParse);
+        log<level::INFO>("DBG3 \n");
         if (!inventoryJson)
         {
             throw(
@@ -959,7 +980,9 @@ int main(int argc, char** argv)
 
         try
         {
+            log<level::INFO>("DBG4 \n");
             js = json::parse(inventoryJson);
+            log<level::INFO>("DBG5 \n");
         }
         catch (json::parse_error& ex)
         {
@@ -994,18 +1017,13 @@ int main(int argc, char** argv)
 
         try
         {
-            // check if vpd file is empty
-            if (file.empty())
-            {
-                throw(VpdDataException(
-                    "VPD file is empty. Can't process with blank file."));
-            }
-
+            log<level::INFO>("DBG6 \n");
             Binary vpdVector = getVpdDataInVector(js, file);
             ParserInterface* parser = ParserFactory::getParser(move(vpdVector));
 
             variant<KeywordVpdMap, Store> parseResult;
             parseResult = parser->parse();
+            log<level::INFO>("DBG7 \n");
             if (auto pVal = get_if<Store>(&parseResult))
             {
                 populateDbus(pVal->getVpdMap(), js, file);

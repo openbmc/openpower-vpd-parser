@@ -3,15 +3,14 @@
 #include "utils.hpp"
 
 #include "defines.hpp"
-#include "vpd_exceptions.hpp"
 
 #include <fstream>
 #include <iomanip>
+#include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/server.hpp>
 #include <sstream>
-#include <vector>
 #include <xyz/openbmc_project/Common/error.hpp>
 
 using json = nlohmann::json;
@@ -24,8 +23,7 @@ using namespace openpower::vpd::constants;
 using namespace inventory;
 using namespace phosphor::logging;
 using namespace sdbusplus::xyz::openbmc_project::Common::Error;
-using namespace record;
-using namespace openpower::vpd::exceptions;
+
 namespace inventory
 {
 
@@ -227,7 +225,6 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
         auto service = getService(bus, loggerObjectPath, loggerCreateInterface);
         auto method = bus.new_method_call(service.c_str(), loggerObjectPath,
                                           loggerCreateInterface, "Create");
-
         method.append(errIntf, "xyz.openbmc_project.Logging.Entry.Level.Error",
                       additionalData);
         auto resp = bus.call(method);
@@ -238,113 +235,104 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
             "Error in invoking D-Bus logging create interface to register PEL");
     }
 }
-
-inventory::VPDfilepath getVpdFilePath(const string& jsonFile,
-                                      const std::string& ObjPath)
+const string getIM(const Parsed& vpdMap)
 {
-    ifstream inventoryJson(jsonFile);
-    const auto& jsonObject = json::parse(inventoryJson);
-    inventory::VPDfilepath filePath{};
-
-    if (jsonObject.find("frus") == jsonObject.end())
+    Binary imVal;
+    auto property = vpdMap.find("VSBP");
+    if (property != vpdMap.end())
     {
-        throw(VpdJsonException(
-            "Invalid JSON structure - frus{} object not found in ", jsonFile));
-    }
-
-    const nlohmann::json& groupFRUS =
-        jsonObject["frus"].get_ref<const nlohmann::json::object_t&>();
-    for (const auto& itemFRUS : groupFRUS.items())
-    {
-        const std::vector<nlohmann::json>& groupEEPROM =
-            itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
-        for (const auto& itemEEPROM : groupEEPROM)
+        auto kw = (property->second).find("IM");
+        if (kw != (property->second).end())
         {
-            if (itemEEPROM["inventoryPath"]
-                    .get_ref<const nlohmann::json::string_t&>() == ObjPath)
-            {
-                filePath = itemFRUS.key();
-                return filePath;
-            }
+            copy(kw->second.begin(), kw->second.end(), back_inserter(imVal));
         }
     }
 
-    return filePath;
+    ostringstream oss;
+    for (auto& i : imVal)
+    {
+        oss << setw(2) << setfill('0') << hex << static_cast<int>(i);
+    }
+
+    return oss.str();
 }
 
-bool isPathInJson(const std::string& eepromPath)
+const string getHW(const Parsed& vpdMap)
 {
-    bool present = false;
-    ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
-
-    try
+    Binary hwVal;
+    auto prop = vpdMap.find("VINI");
+    if (prop != vpdMap.end())
     {
-        auto js = json::parse(inventoryJson);
-        if (js.find("frus") == js.end())
+        auto kw = (prop->second).find("HW");
+        if (kw != (prop->second).end())
         {
-            throw(VpdJsonException(
-                "Invalid JSON structure - frus{} object not found in ",
-                INVENTORY_JSON_SYM_LINK));
-        }
-        json fruJson = js["frus"];
-
-        if (fruJson.find(eepromPath) != fruJson.end())
-        {
-            present = true;
+            copy(kw->second.begin(), kw->second.end(), back_inserter(hwVal));
         }
     }
-    catch (json::parse_error& ex)
+
+    ostringstream hwString;
+    for (auto& i : hwVal)
     {
-        throw(VpdJsonException("Json Parsing failed", INVENTORY_JSON_SYM_LINK));
+        hwString << setw(2) << setfill('0') << hex << static_cast<int>(i);
     }
-    return present;
+
+    return hwString.str();
 }
 
-bool isRecKwInDbusJson(const std::string& recordName,
-                       const std::string& keyword)
+string getSystemsJson(const Parsed& vpdMap)
 {
-    ifstream propertyJson(DBUS_PROP_JSON);
-    json dbusProperty;
-    bool present = false;
+    ifstream systemJson(SYSTEM_JSON);
+    auto js = json::parse(systemJson);
 
-    if (propertyJson.is_open())
+    const string hwKeyword = getHW(vpdMap);
+    const string imKeyword = getIM(vpdMap);
+
+    if (js.find("system") == js.end())
     {
-        try
-        {
-            auto dbusPropertyJson = json::parse(propertyJson);
-            if (dbusPropertyJson.find("dbusProperties") ==
-                dbusPropertyJson.end())
-            {
-                throw(VpdJsonException("dbusProperties{} object not found in "
-                                       "DbusProperties json : ",
-                                       DBUS_PROP_JSON));
-            }
+        throw runtime_error("Invalid systems Json");
+    }
 
-            dbusProperty = dbusPropertyJson["dbusProperties"];
-            if (dbusProperty.contains(recordName))
+    if (js["system"].find(imKeyword) == js["system"].end())
+    {
+        throw runtime_error("Invalid system. This system type is not present "
+                            "in the systemsJson. IM: " +
+                            imKeyword);
+    }
+
+    string jsonPath = "/usr/share/vpd/";
+    string jsonName{};
+
+    string hw{};
+    for (auto& systems : js.items())
+    {
+        for (auto& systemType : systems.value().items())
+        {
+            if (systemType.key() == imKeyword)
             {
-                const vector<string>& kwdsToPublish = dbusProperty[recordName];
-                if (find(kwdsToPublish.begin(), kwdsToPublish.end(), keyword) !=
-                    kwdsToPublish.end()) // present
+                for (auto& key : systemType.value().items())
                 {
-                    present = true;
+                    if (key.value().is_object())
+                    {
+                        hw = key.value().value("HW", "");
+                        if (hw == hwKeyword)
+                        {
+                            jsonName = key.value().value("json", "");
+                            break;
+                        }
+                    }
+                    else if (key.value().is_string())
+                    {
+                        jsonName = key.value().get<string>();
+                        break;
+                    }
                 }
             }
         }
-        catch (json::parse_error& ex)
-        {
-            throw(VpdJsonException("Json Parsing failed", DBUS_PROP_JSON));
-        }
     }
-    else
-    {
-        // If dbus properties json is not available, we assume the given
-        // record-keyword is part of dbus-properties json. So setting the bool
-        // variable to true.
-        present = true;
-    }
-    return present;
-}
 
+    jsonPath += jsonName;
+
+    return jsonPath;
+}
 } // namespace vpd
 } // namespace openpower

@@ -1,10 +1,10 @@
 #pragma once
 
 #include "const.hpp"
+#include "store.hpp"
 #include "types.hpp"
 
 #include <iostream>
-#include <nlohmann/json.hpp>
 
 using namespace std;
 
@@ -109,35 +109,24 @@ string readBusProperty(const string& obj, const string& inf,
 void createPEL(const std::map<std::string, std::string>& additionalData,
                const std::string& errIntf);
 
-/**
- * @brief getVpdFilePath
- * Get vpd file path corresponding to the given object path.
- * @param[in] - json file path
- * @param[in] - Object path
- * @return - Vpd file path
+/** @brief This API checks for IM and HW keywords, and based
+ *         on these values decides which system json to be used.
+ *  @param[in] vpdMap -  parsed vpd
+ *  @returns System json path
  */
-inventory::VPDfilepath getVpdFilePath(const string& jsonFile,
-                                      const std::string& ObjPath);
+string getSystemsJson(const Parsed& vpdMap);
 
-/**
- * @brief isPathInJson
- * API which checks for the presence of the given eeprom path in the given json.
- * @param[in] - eepromPath
- * @return - true if the eeprom is present in the json; false otherwise
+/** @brief Reads HW Keyword from the vpd
+ *  @param[in] vpdMap -  parsed vpd
+ *  @returns value of HW Keyword
  */
-bool isPathInJson(const std::string& eepromPath);
+const string getHW(const Parsed& vpdMap);
 
-/**
- * @brief isRecKwInDbusJson
- * API which checks whether the given keyword under the given record is to be
- * published on dbus or not. Checks against the keywords present in
- * dbus_property.json.
- * @param[in] - record name
- * @param[in] - keyword name
- * @return - true if the record-keyword pair is present in dbus_property.json;
- * false otherwise.
+/** @brief Reads IM Keyword from the vpd
+ *  @param[in] vpdMap -  parsed vpd
+ *  @returns value of IM Keyword
  */
-bool isRecKwInDbusJson(const std::string& record, const std::string& keyword);
+const string getIM(const Parsed& vpdMap);
 
 } // namespace vpd
 } // namespace openpower
