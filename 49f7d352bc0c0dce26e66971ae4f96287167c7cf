@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "429ca4e8_e4f4c1bf",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T08:47:07Z",
+      "side": 1,
+      "message": "- the phrase doesn\u0027t describe about helper functions.. It covers all the VPD editing related functions.. (editing - can denote edit the record-keyword value / edit the ecc data, etc) I dont think we need any change there.\n- there is no full stop after currently..please join the sentence.\n- keyword data update / update keyword data functionality.",
+      "parentUuid": "e84e745b_8abe28e3",
+      "range": {
+        "startLine": 21,
+        "startChar": 1,
+        "endLine": 22,
+        "endChar": 66
+      },
+      "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "45511e39_539f123d",
         "filename": "vpd-manager/editor_impl.hpp",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2021-04-07T08:13:40Z",
       "side": 1,
       "message": "we can make the description more meaningful saying something like this -\nrecord - Name of the Record containing keyword to be modified\nkwd - Name of the Keyword whose data has to be modified.",
+      "range": {
+        "startLine": 57,
+        "startChar": 6,
+        "endLine": 58,
+        "endChar": 32
+      },
+      "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75897ee2_e6952e52",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T08:47:07Z",
+      "side": 1,
+      "message": "I think Record name and keyword makes sense.. the operation on it might vary from case to case.",
+      "parentUuid": "45511e39_539f123d",
       "range": {
         "startLine": 57,
         "startChar": 6,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d85133d7_49525a72",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T08:47:07Z",
+      "side": 1,
+      "message": "am not getting your view on it..\nitrToECCData is making sense..",
+      "parentUuid": "a5a44255_33c897c4",
+      "range": {
+        "startLine": 102,
+        "startChar": 19,
+        "endLine": 102,
+        "endChar": 31
+      },
+      "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6acf821c_2e0141bd",
         "filename": "vpd-manager/editor_impl.hpp",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2021-04-07T08:13:40Z",
       "side": 1,
       "message": "this is wrong. \nThis checkECC will verify the ECC for any given record, Not only for VTOC.\nso this can be-\nitrToRecData - iterator to the processing Record\u0027s data\nitrToECCData - iterator to the processing Record\u0027s ECC\nrecLength - Length of processing record\u0027s data\neccLength - Length of ECC",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 52
+      },
+      "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c63f0f36_5508bb6b",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T08:47:07Z",
+      "side": 1,
+      "message": "yes. I have modified it in this commit https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/42006/1/vpd-manager/editor_impl.hpp#93\nI can replicate the change here again.",
+      "parentUuid": "6acf821c_2e0141bd",
       "range": {
         "startLine": 101,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "31a59be9_b35fcc1f",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T08:47:07Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "d1952503_7c3f7922",
+      "range": {
+        "startLine": 104,
+        "startChar": 41,
+        "endLine": 104,
+        "endChar": 51
+      },
+      "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "94652ec0_46d70fb1",
         "filename": "vpd-manager/editor_impl.hpp",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2021-04-07T08:13:40Z",
       "side": 1,
       "message": "this can be combined. like this is a term coming from our json. so keep it same as json.",
+      "range": {
+        "startLine": 143,
+        "startChar": 44,
+        "endLine": 143,
+        "endChar": 59
+      },
+      "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30694733_527d3e51",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T08:47:07Z",
+      "side": 1,
+      "message": "extra interface is understandable.. I don\u0027t think we need to follow up as per json, as it doesn\u0027t come under c++ standard",
+      "parentUuid": "94652ec0_46d70fb1",
       "range": {
         "startLine": 143,
         "startChar": 44,
@@ -160,6 +304,30 @@
       "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c248cda_0501ebea",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-07T08:47:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d7e141fe_0270ef56",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 32
+      },
+      "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
