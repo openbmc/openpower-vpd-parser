@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e84e745b_8abe28e3",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-07T08:13:40Z",
+      "side": 1,
+      "message": "VPD editing related functionality ---\u003e VPD editor helper functions ?\n\nLittle confusing for me-\n-mplements VPD editing related functionality, currently: why currently?\n-implemented to support only keyword data update functionality: only keyword data update functionality, means?",
+      "range": {
+        "startLine": 21,
+        "startChar": 1,
+        "endLine": 22,
+        "endChar": 66
+      },
+      "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45511e39_539f123d",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-07T08:13:40Z",
+      "side": 1,
+      "message": "we can make the description more meaningful saying something like this -\nrecord - Name of the Record containing keyword to be modified\nkwd - Name of the Keyword whose data has to be modified.",
+      "range": {
+        "startLine": 57,
+        "startChar": 6,
+        "endLine": 58,
+        "endChar": 32
+      },
+      "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5a44255_33c897c4",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-07T08:13:40Z",
+      "side": 1,
+      "message": "itrToECCData- ECC doesn\u0027t contain like key-value pair. ECC itself is an encoded data. so lets keep it as itrToRecordECC.",
+      "range": {
+        "startLine": 102,
+        "startChar": 19,
+        "endLine": 102,
+        "endChar": 31
+      },
+      "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6acf821c_2e0141bd",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-07T08:13:40Z",
+      "side": 1,
+      "message": "this is wrong. \nThis checkECC will verify the ECC for any given record, Not only for VTOC.\nso this can be-\nitrToRecData - iterator to the processing Record\u0027s data\nitrToECCData - iterator to the processing Record\u0027s ECC\nrecLength - Length of processing record\u0027s data\neccLength - Length of ECC",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 52
+      },
+      "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1952503_7c3f7922",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-07T08:13:40Z",
+      "side": 1,
+      "message": "ECC is not a Record. please correct it.",
+      "range": {
+        "startLine": 104,
+        "startChar": 41,
+        "endLine": 104,
+        "endChar": 51
+      },
+      "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94652ec0_46d70fb1",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-07T08:13:40Z",
+      "side": 1,
+      "message": "this can be combined. like this is a term coming from our json. so keep it same as json.",
+      "range": {
+        "startLine": 143,
+        "startChar": 44,
+        "endLine": 143,
+        "endChar": 59
+      },
+      "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7e141fe_0270ef56",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-07T08:13:40Z",
+      "side": 1,
+      "message": "I don\u0027t think this is correct\ninventory path exists for FRUs not for vpd. VPD is just a file in eeprom path.so a FRU will have an eeprom path and inventory path.",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 32
+      },
+      "revId": "49f7d352bc0c0dce26e66971ae4f96287167c7cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
