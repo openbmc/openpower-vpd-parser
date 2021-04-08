@@ -1,0 +1,291 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54328cdb_86011450",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T11:48:24Z",
+      "side": 1,
+      "message": "why this new line?",
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f94ad2a8_6a7e76f5",
+        "filename": "utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T11:48:24Z",
+      "side": 1,
+      "message": "I don\u0027t see cmd output parameter",
+      "range": {
+        "startLine": 151,
+        "startChar": 3,
+        "endLine": 151,
+        "endChar": 35
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dba4e9f_de4b3dd3",
+        "filename": "utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T11:48:24Z",
+      "side": 1,
+      "message": "can you specify which command?",
+      "range": {
+        "startLine": 162,
+        "startChar": 43,
+        "endLine": 162,
+        "endChar": 48
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e3b5fb7_a6e2682f",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T11:48:24Z",
+      "side": 1,
+      "message": "why we have this check at the beggining of the loop? for the first time entry into the loop, isRecollected is anyways false..\nCan we have this as else case in line 258.. you are checking the same condition there as well.",
+      "range": {
+        "startLine": 180,
+        "startChar": 16,
+        "endLine": 185,
+        "endChar": 17
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8090118_f9ca00ff",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T11:48:24Z",
+      "side": 1,
+      "message": "Should we have AND \u0026\u0026 condition here instead of OR ||?\n\nCoz, in line 197-199 , you are assigning values of all three properties(devAddress, driverType, busType).. so looks the three properties together are mandatory.. \nso we will use \u0026\u0026 while checking the presence of three properties.",
+      "range": {
+        "startLine": 187,
+        "startChar": 70,
+        "endLine": 188,
+        "endChar": 72
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0cb20f6_ce7615e3",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T11:48:24Z",
+      "side": 1,
+      "message": "is the comment placed in the right line?",
+      "range": {
+        "startLine": 191,
+        "startChar": 20,
+        "endLine": 192,
+        "endChar": 27
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30381fcf_d49b76f6",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T11:48:24Z",
+      "side": 1,
+      "message": "instead of using this flag, can you tell which flag.",
+      "range": {
+        "startLine": 201,
+        "startChar": 19,
+        "endLine": 201,
+        "endChar": 23
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ce84746_7daad58c",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T11:48:24Z",
+      "side": 1,
+      "message": "Can we have a fullstop after device tree for readability.",
+      "range": {
+        "startLine": 202,
+        "startChar": 53,
+        "endLine": 202,
+        "endChar": 61
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdea0984_4eac56f6",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T11:48:24Z",
+      "side": 1,
+      "message": "You are checking whether the deviceAddress is in right pattern or not.. Why not using a regex pattern to check it properly ?",
+      "range": {
+        "startLine": 207,
+        "startChar": 50,
+        "endLine": 207,
+        "endChar": 53
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bf6608d_aa3594c4",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T11:48:24Z",
+      "side": 1,
+      "message": "Can we have a seperate variable for this,\nstring device \u003d str + deviceAddress + \" \u003e /sys/bus/\" + busType + \"/drivers/\" + driverType;\nas you repeat the same pattern in line 210 and line 239..\nthen append \"/unbind\" at the end.. this avoids redundant code.",
+      "range": {
+        "startLine": 210,
+        "startChar": 24,
+        "endLine": 212,
+        "endChar": 80
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "863a15bc_8e82e38d",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T11:48:24Z",
+      "side": 1,
+      "message": "Can you specify which field is missing in json \u0026 if possible can you specify a detailed description of the error",
+      "range": {
+        "startLine": 255,
+        "startChar": 40,
+        "endLine": 255,
+        "endChar": 45
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9e3bd08_f0c8d907",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T11:48:24Z",
+      "side": 1,
+      "message": "two times \"to\"",
+      "range": {
+        "startLine": 122,
+        "startChar": 39,
+        "endLine": 122,
+        "endChar": 41
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97b1b6b7_db00ed03",
+        "filename": "vpd_inventory.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T11:48:24Z",
+      "side": 1,
+      "message": "Why we have this json here?\nif we have to maintain the json in the repo, json should go into\nopenpower-vpd-parser/system/json/ directory..",
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
