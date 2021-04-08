@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5fe9c87a_ec7e355c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T13:28:02Z",
+      "side": 1,
+      "message": "Yes, I placed it here so that if/else can be spaced out from the object creation and filling the parse result.",
+      "parentUuid": "54328cdb_86011450",
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f94ad2a8_6a7e76f5",
         "filename": "utils.hpp",
         "patchSetId": 11
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "a9a9074d_db341cda",
+        "filename": "utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T13:28:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f94ad2a8_6a7e76f5",
+      "range": {
+        "startLine": 151,
+        "startChar": 3,
+        "endLine": 151,
+        "endChar": 35
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0dba4e9f_de4b3dd3",
         "filename": "utils.hpp",
         "patchSetId": 11
@@ -53,6 +95,30 @@
       "writtenOn": "2021-04-08T11:48:24Z",
       "side": 1,
       "message": "can you specify which command?",
+      "range": {
+        "startLine": 162,
+        "startChar": 43,
+        "endLine": 162,
+        "endChar": 48
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef2966a6_113f365e",
+        "filename": "utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T13:28:02Z",
+      "side": 1,
+      "message": "There is no specific command that this api will execute, it can take different command strings and will execute that. So it won\u0027t be possible to specify the command here.\nLet me know if that makes sense.",
+      "parentUuid": "0dba4e9f_de4b3dd3",
       "range": {
         "startLine": 162,
         "startChar": 43,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "c9ea8af6_f9a4d839",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T13:28:02Z",
+      "side": 1,
+      "message": "1) How do you ensure that when is the first entry to the loop? We are not maintaining any counter here.\n2) There is array of inventory under an EEPROM path, so once data has been recollected for any of the FRU under that EEPROM path we do not want recollection to trigger again for other FRUs in the array.\nSo I am checking before processing the FRU here at the beginning to check if the data has been recollected.\n3) Check at line 258 is to handle the case where the fields required for recollection is missing and the loop gets exhausted.\n\nI did not understand the \"Can we have this as else...\" part though. Else of which if?",
+      "parentUuid": "7e3b5fb7_a6e2682f",
+      "range": {
+        "startLine": 180,
+        "startChar": 16,
+        "endLine": 185,
+        "endChar": 17
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8090118_f9ca00ff",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 11
@@ -99,6 +189,30 @@
       "writtenOn": "2021-04-08T11:48:24Z",
       "side": 1,
       "message": "Should we have AND \u0026\u0026 condition here instead of OR ||?\n\nCoz, in line 197-199 , you are assigning values of all three properties(devAddress, driverType, busType).. so looks the three properties together are mandatory.. \nso we will use \u0026\u0026 while checking the presence of three properties.",
+      "range": {
+        "startLine": 187,
+        "startChar": 70,
+        "endLine": 188,
+        "endChar": 72
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7260779c_33252a79",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T13:28:02Z",
+      "side": 1,
+      "message": "Yes all these three properties are mandatory that is why OR is being used to check if any one of the property is missing we continue back and do not proceed with recollection.",
+      "parentUuid": "c8090118_f9ca00ff",
       "range": {
         "startLine": 187,
         "startChar": 70,
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "f7fa5c85_21552f33",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T13:28:02Z",
+      "side": 1,
+      "message": "Yes, i have placed it intentionally here so that we know why we are continuing and not proceeding with the execution.",
+      "parentUuid": "f0cb20f6_ce7615e3",
+      "range": {
+        "startLine": 191,
+        "startChar": 20,
+        "endLine": 192,
+        "endChar": 27
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "30381fcf_d49b76f6",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 11
@@ -154,6 +292,30 @@
       "revId": "9154fd8a978f07421439cfac615c39131a904473",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffe82bab_e84cca39",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T13:28:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30381fcf_d49b76f6",
+      "range": {
+        "startLine": 201,
+        "startChar": 19,
+        "endLine": 201,
+        "endChar": 23
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "e8498344_e3c0e630",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T13:28:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ce84746_7daad58c",
+      "range": {
+        "startLine": 202,
+        "startChar": 53,
+        "endLine": 202,
+        "endChar": 61
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fdea0984_4eac56f6",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 11
@@ -191,6 +377,30 @@
       "writtenOn": "2021-04-08T11:48:24Z",
       "side": 1,
       "message": "You are checking whether the deviceAddress is in right pattern or not.. Why not using a regex pattern to check it properly ?",
+      "range": {
+        "startLine": 207,
+        "startChar": 50,
+        "endLine": 207,
+        "endChar": 53
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85839a7d_e78f8364",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T13:28:02Z",
+      "side": 1,
+      "message": "No, I am just checking for the position of (-). No Pattern checking. Just for finding one char, I find this convenient.",
+      "parentUuid": "fdea0984_4eac56f6",
       "range": {
         "startLine": 207,
         "startChar": 50,
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "ea929a9e_b6142bbd",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T13:28:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bf6608d_aa3594c4",
+      "range": {
+        "startLine": 210,
+        "startChar": 24,
+        "endLine": 212,
+        "endChar": 80
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "863a15bc_8e82e38d",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 11
@@ -237,6 +471,30 @@
       "writtenOn": "2021-04-08T11:48:24Z",
       "side": 1,
       "message": "Can you specify which field is missing in json \u0026 if possible can you specify a detailed description of the error",
+      "range": {
+        "startLine": 255,
+        "startChar": 40,
+        "endLine": 255,
+        "endChar": 45
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23a75c7a_bca1c629",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T13:28:02Z",
+      "side": 1,
+      "message": "Three fields are required for recollection, now to mention which one is missing I will have to carry a variable which will hold that info and then pass it here. Also I will have to implement different individual checks for each field and create a dynamic string here.\nDoing all that to add just the filed info out of just three to exception does not appear to add much value.\n\nAlso which extra info you think would be helpful here about the exception?\nPlease let me know if you agree.",
+      "parentUuid": "863a15bc_8e82e38d",
       "range": {
         "startLine": 255,
         "startChar": 40,
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "d6cd3371_f59852ca",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T13:28:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9e3bd08_f0c8d907",
+      "range": {
+        "startLine": 122,
+        "startChar": 39,
+        "endLine": 122,
+        "endChar": 41
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97b1b6b7_db00ed03",
         "filename": "vpd_inventory.json",
         "patchSetId": 11
@@ -283,6 +565,24 @@
       "writtenOn": "2021-04-08T11:48:24Z",
       "side": 1,
       "message": "Why we have this json here?\nif we have to maintain the json in the repo, json should go into\nopenpower-vpd-parser/system/json/ directory..",
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76879a6b_bf53401c",
+        "filename": "vpd_inventory.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-08T13:28:02Z",
+      "side": 1,
+      "message": "This is just for review purpose as there are few fields that i have added under ebmc_card.\nAlso I do not see and system path under openpower-vpd-parser.\nWill need some more input on this.",
+      "parentUuid": "97b1b6b7_db00ed03",
       "revId": "9154fd8a978f07421439cfac615c39131a904473",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
