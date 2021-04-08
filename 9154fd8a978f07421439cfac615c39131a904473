@@ -131,6 +131,30 @@
     },
     {
       "key": {
+        "uuid": "b9393f91_f7581b46",
+        "filename": "utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T18:28:41Z",
+      "side": 1,
+      "message": "what kind of commands it is? kernel commands ? am just asking the generic term of it instead of \"that\" command",
+      "parentUuid": "ef2966a6_113f365e",
+      "range": {
+        "startLine": 162,
+        "startChar": 43,
+        "endLine": 162,
+        "endChar": 48
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e3b5fb7_a6e2682f",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 11
@@ -166,6 +190,30 @@
       "side": 1,
       "message": "1) How do you ensure that when is the first entry to the loop? We are not maintaining any counter here.\n2) There is array of inventory under an EEPROM path, so once data has been recollected for any of the FRU under that EEPROM path we do not want recollection to trigger again for other FRUs in the array.\nSo I am checking before processing the FRU here at the beginning to check if the data has been recollected.\n3) Check at line 258 is to handle the case where the fields required for recollection is missing and the loop gets exhausted.\n\nI did not understand the \"Can we have this as else...\" part though. Else of which if?",
       "parentUuid": "7e3b5fb7_a6e2682f",
+      "range": {
+        "startLine": 180,
+        "startChar": 16,
+        "endLine": 185,
+        "endChar": 17
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "496e7394_19fe1b46",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T18:28:41Z",
+      "side": 1,
+      "message": "ok..ignore the previous comment.. I have another thought on this to avoid this if (isRecollected){ break; } at line 180..\nput a break statement whenever isRecollected is set to true - that is at line 227 \u0026 245.. so that it breaks the inner loop once the recollection is successful..\nyou don\u0027t want a check for this..",
+      "parentUuid": "c9ea8af6_f9a4d839",
       "range": {
         "startLine": 180,
         "startChar": 16,
@@ -225,6 +273,30 @@
     },
     {
       "key": {
+        "uuid": "3410ad87_eb16caa2",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T18:28:41Z",
+      "side": 1,
+      "message": "Got it",
+      "parentUuid": "7260779c_33252a79",
+      "range": {
+        "startLine": 187,
+        "startChar": 70,
+        "endLine": 188,
+        "endChar": 72
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0cb20f6_ce7615e3",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 11
@@ -260,6 +332,30 @@
       "side": 1,
       "message": "Yes, i have placed it intentionally here so that we know why we are continuing and not proceeding with the execution.",
       "parentUuid": "f0cb20f6_ce7615e3",
+      "range": {
+        "startLine": 191,
+        "startChar": 20,
+        "endLine": 192,
+        "endChar": 27
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26f5f0ee_4b8bcd77",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T18:28:41Z",
+      "side": 1,
+      "message": "oh ok..I get that now.. may be you can rephrase like\n\" continue looking for these entry in any of the FRU under this EEPROM path \"",
+      "parentUuid": "f7fa5c85_21552f33",
       "range": {
         "startLine": 191,
         "startChar": 20,
@@ -413,6 +509,30 @@
     },
     {
       "key": {
+        "uuid": "5aef8c7b_66f6fb87",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T18:28:41Z",
+      "side": 1,
+      "message": "I can see you throwing the exception when the format of device address is incorrect.. How did you tell the format is incorrect just if \u0027-\u0027 is not present in it...why not we have some alphabets in the device address..\n\nI know those cases are not going to happen as the json is build time and we should be responsible for feeding the right value in json.\nthen why we have to check for \u0027-\u0027 alone 😊 \n\nNow I don\u0027t find a necessity for the device address format check at line 208.",
+      "parentUuid": "85839a7d_e78f8364",
+      "range": {
+        "startLine": 207,
+        "startChar": 50,
+        "endLine": 207,
+        "endChar": 53
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7bf6608d_aa3594c4",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 11
@@ -507,6 +627,30 @@
     },
     {
       "key": {
+        "uuid": "67653eae_4b27dd45",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T18:28:41Z",
+      "side": 1,
+      "message": "Extra Info is describing the scenario like: \"when you are trying to do recollection for \"this\" particular fru (mention the fru path), found \"this\" field is missing\" \nit will more clear and debugging is made simpler with the exception message itself.\n\neven for those who are not knowledged on the vpd-code, they be able to understand the error easily..",
+      "parentUuid": "23a75c7a_bca1c629",
+      "range": {
+        "startLine": 255,
+        "startChar": 40,
+        "endLine": 255,
+        "endChar": 45
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b9e3bd08_f0c8d907",
         "filename": "vpd-manager/manager.hpp",
         "patchSetId": 11
@@ -583,6 +727,24 @@
       "side": 1,
       "message": "This is just for review purpose as there are few fields that i have added under ebmc_card.\nAlso I do not see and system path under openpower-vpd-parser.\nWill need some more input on this.",
       "parentUuid": "97b1b6b7_db00ed03",
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc1d311e_34c79c38",
+        "filename": "vpd_inventory.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T18:28:41Z",
+      "side": 1,
+      "message": "if its just for this commit purpose, then fine..",
+      "parentUuid": "76879a6b_bf53401c",
       "revId": "9154fd8a978f07421439cfac615c39131a904473",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true

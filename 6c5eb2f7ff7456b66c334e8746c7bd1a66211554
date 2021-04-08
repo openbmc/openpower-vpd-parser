@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "618117fb_fddda3d3",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-08T18:28:41Z",
+      "side": 1,
+      "message": "This cannot be str + \"/bind\" now.. as value of str \u003d \"echo\"..\nThats why I asked you to have\nstring device \u003d str + deviceAddress + \" \u003e /sys/bus/\" + busType + \"/drivers/\" + driverType;\nThen append unbind/bind wherever you want to..",
+      "range": {
+        "startLine": 239,
+        "startChar": 31,
+        "endLine": 239,
+        "endChar": 44
+      },
+      "revId": "6c5eb2f7ff7456b66c334e8746c7bd1a66211554",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
