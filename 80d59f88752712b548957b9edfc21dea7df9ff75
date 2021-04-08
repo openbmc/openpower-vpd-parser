@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b627c417_ea897cb3",
+        "filename": "const.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-08T07:44:07Z",
+      "side": 1,
+      "message": "These need _0001 suffixed too, right?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 48
+      },
+      "revId": "80d59f88752712b548957b9edfc21dea7df9ff75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dc3484f_c28a8d75",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-08T07:44:07Z",
+      "side": 1,
+      "message": "Since we always append the HW keyword, before we do the lookup, we need to be sure that the key in deviceTreeSystemTypeMap has the right format.",
+      "range": {
+        "startLine": 889,
+        "startChar": 12,
+        "endLine": 890,
+        "endChar": 38
+      },
+      "revId": "80d59f88752712b548957b9edfc21dea7df9ff75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "503fdd17_5eb20a69",
+        "filename": "utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-08T07:44:07Z",
+      "side": 1,
+      "message": "This is still not fixed from the previous patchset",
+      "range": {
+        "startLine": 425,
+        "startChar": 0,
+        "endLine": 425,
+        "endChar": 48
+      },
+      "revId": "80d59f88752712b548957b9edfc21dea7df9ff75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
