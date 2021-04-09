@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "5f508122_d63f8729",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-09T11:18:27Z",
+      "side": 1,
+      "message": "yes we can log in EepromException - which is not merged- defined here (yet https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/41464/2/vpd_exceptions.hpp )",
+      "parentUuid": "d45cc56b_c1ccd1f4",
+      "revId": "010dcd270e5b77f8bfccda40c908ea0c8c3c1374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27382aa9_353244db",
         "filename": "utils.cpp",
         "patchSetId": 7
