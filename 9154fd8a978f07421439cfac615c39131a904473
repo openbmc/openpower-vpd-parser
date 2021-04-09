@@ -226,6 +226,30 @@
     },
     {
       "key": {
+        "uuid": "49ec5c4e_52636cef",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T07:31:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "496e7394_19fe1b46",
+      "range": {
+        "startLine": 180,
+        "startChar": 16,
+        "endLine": 185,
+        "endChar": 17
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8090118_f9ca00ff",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 11
@@ -297,6 +321,30 @@
     },
     {
       "key": {
+        "uuid": "cb9a2bfe_55e2be90",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T07:31:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3410ad87_eb16caa2",
+      "range": {
+        "startLine": 187,
+        "startChar": 70,
+        "endLine": 188,
+        "endChar": 72
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0cb20f6_ce7615e3",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 11
@@ -365,6 +413,30 @@
       "revId": "9154fd8a978f07421439cfac615c39131a904473",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fb2e897_6cc61741",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T07:31:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26f5f0ee_4b8bcd77",
+      "range": {
+        "startLine": 191,
+        "startChar": 20,
+        "endLine": 192,
+        "endChar": 27
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -533,6 +605,30 @@
     },
     {
       "key": {
+        "uuid": "67fedb2d_0ff86178",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T07:31:28Z",
+      "side": 1,
+      "message": "It is not a format check for device address, Obviously it is build time entry so we do not need to necessarily do that.\nNow, since I need the data after \"-\" as you see in line 217. I am extracting the position of \"-\" in device address.\nNow as a part of practise where after extracting position we check it for end of string i am doing this check which in case fails, I am throwing the exception.",
+      "parentUuid": "5aef8c7b_66f6fb87",
+      "range": {
+        "startLine": 207,
+        "startChar": 50,
+        "endLine": 207,
+        "endChar": 53
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7bf6608d_aa3594c4",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 11
@@ -648,6 +744,30 @@
       "revId": "9154fd8a978f07421439cfac615c39131a904473",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "455cc52b_ed911d42",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T07:31:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "67653eae_4b27dd45",
+      "range": {
+        "startLine": 255,
+        "startChar": 40,
+        "endLine": 255,
+        "endChar": 45
+      },
+      "revId": "9154fd8a978f07421439cfac615c39131a904473",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
