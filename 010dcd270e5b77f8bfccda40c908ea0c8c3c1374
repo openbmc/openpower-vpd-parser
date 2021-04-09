@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5f1be006_2e45367d",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-09T11:15:13Z",
+      "side": 1,
+      "message": "Avoid additional variable udevPath. pass file as reference to the udevToGenericPath() api. and revert the change at line 936 to have a single variable string file{} only;",
+      "range": {
+        "startLine": 977,
+        "startChar": 37,
+        "endLine": 977,
+        "endChar": 45
+      },
+      "revId": "010dcd270e5b77f8bfccda40c908ea0c8c3c1374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d45cc56b_c1ccd1f4",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 7
@@ -13,6 +36,23 @@
       "writtenOn": "2021-04-09T11:02:35Z",
       "side": 1,
       "message": "In case a file is empty and we are not going to collect VPD for that stating that the udevPath is not valid. \nShouldn\u0027t we log PEL in this case as VPD for this EEPROM will never be collected till the path from Udev is corrected?",
+      "revId": "010dcd270e5b77f8bfccda40c908ea0c8c3c1374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27382aa9_353244db",
+        "filename": "utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-09T11:15:13Z",
+      "side": 1,
+      "message": "add an else condition",
       "revId": "010dcd270e5b77f8bfccda40c908ea0c8c3c1374",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
