@@ -22,6 +22,30 @@
       "revId": "408aaf7c5a85f281b780b5ad9764a589bdf8f973",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b717a62_791769a4",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T16:16:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b45f3753_215ceba8",
+      "range": {
+        "startLine": 118,
+        "startChar": 64,
+        "endLine": 118,
+        "endChar": 68
+      },
+      "revId": "408aaf7c5a85f281b780b5ad9764a589bdf8f973",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
