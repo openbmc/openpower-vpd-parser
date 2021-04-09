@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "094dccd8_cefda045",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T11:20:14Z",
+      "side": 1,
+      "message": "What if any of these operation fails?",
+      "range": {
+        "startLine": 892,
+        "startChar": 12,
+        "endLine": 893,
+        "endChar": 51
+      },
+      "revId": "96d4bb04c4d404cd668e90bb43866c969e7780f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15e4dc0b_c75ad696",
+        "filename": "utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T11:20:14Z",
+      "side": 1,
+      "message": "What if any of these operation fails?",
+      "range": {
+        "startLine": 395,
+        "startChar": 4,
+        "endLine": 396,
+        "endChar": 38
+      },
+      "revId": "96d4bb04c4d404cd668e90bb43866c969e7780f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f91f9d9b_8505b24b",
+        "filename": "utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T11:20:14Z",
+      "side": 1,
+      "message": "If we throw this exception means systemVPD collection failed. This should log a PEL not just runtime error.",
+      "revId": "96d4bb04c4d404cd668e90bb43866c969e7780f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48fe9b10_85ed18ae",
+        "filename": "utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T11:20:14Z",
+      "side": 1,
+      "message": "Same as 406.",
+      "revId": "96d4bb04c4d404cd668e90bb43866c969e7780f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e82d6451_5d13c514",
+        "filename": "utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T11:20:14Z",
+      "side": 1,
+      "message": "Same here. Correct me if I am wrong.\nAll the exception thrown from this method will restrict systemVPD collection? If yes the please log PEL.",
+      "revId": "96d4bb04c4d404cd668e90bb43866c969e7780f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "536a4d54_70fdf11f",
+        "filename": "utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T11:20:14Z",
+      "side": 1,
+      "message": "Next line should start from extreme left? Indentation.",
+      "revId": "96d4bb04c4d404cd668e90bb43866c969e7780f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
