@@ -1,0 +1,239 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efdb4bd9_f20cc548",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-09T13:21:52Z",
+      "side": 1,
+      "message": "one more thing, is this an error or just an intimation of what is happening? as I can see you are proceeding further without stopping the execution",
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "064bec9c_c5c0406a",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-09T13:21:52Z",
+      "side": 1,
+      "message": "can you rephrase the error line in a more clear way. People with no vpd knowledge will not know what getCurrentPresenceState is ? \n\nmake sure your error phrase should be enough for understanding the error at the first level.",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 46
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d8fea8c_39f81acc",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-09T13:21:52Z",
+      "side": 1,
+      "message": "the scope of these variables can be reduced.. you can actually declare the variables after the if condition at line 64. \n(this avoids variableScope c++ error during code analysis.)",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d520e56_4bccb601",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-09T13:21:52Z",
+      "side": 1,
+      "message": "we are repeating this again in vpd-manager/manager.cpp here https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/38393/13/vpd-manager/manager.cpp\nCan we have a common method which returns the concat of the command..and the commit vpd recollection at standby can also make use of the method.\n\ninline string getDriver(devNameAddr, busType, driverType)\n{\n   return (\"echo \" + devNameAddr + \" \u003e /sys/bus/\" + busType + \"/drivers/\" + driverType);\n // don\u0027t append \"/bind\" or \"/unbind\" at the end of the string.. let the respective callers do it\n}",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 132,
+        "endChar": 29
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "746659e2_c9e38c26",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-09T13:21:52Z",
+      "side": 1,
+      "message": "this can also make use of the getDriver() method and then append \"/unbind\" at the end",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 24
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "035da2cc_d670e9be",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-09T13:21:52Z",
+      "side": 1,
+      "message": "can you move this definition to the header file",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 1
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6a8b275_2d2b4d5b",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-09T13:21:52Z",
+      "side": 1,
+      "message": "do we need a new line here?",
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39a43942_37546f13",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-09T13:21:52Z",
+      "side": 1,
+      "message": "the constructor gets const reference parameters.. but you are assigning those to non-const variable.\nIf those variables are constant, why can\u0027t you make it const reference in the class declaration itself (at line 71 till 78).\nIf not, then remove the const reference in constructor parameter.",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 63
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4be1dc2_253bfd75",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-09T13:21:52Z",
+      "side": 1,
+      "message": "inline functions can be defined in header file itself. so please give the definition of it here.",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 32
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9275adee_5af97840",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-09T13:21:52Z",
+      "side": 1,
+      "message": "give a fullstop after happened",
+      "range": {
+        "startLine": 102,
+        "startChar": 62,
+        "endLine": 102,
+        "endChar": 66
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a91a711e_e0393a85",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-09T13:21:52Z",
+      "side": 1,
+      "message": "no need of new line here..",
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
