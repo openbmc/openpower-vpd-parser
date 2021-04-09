@@ -78,6 +78,24 @@
     },
     {
       "key": {
+        "uuid": "aa65fa4c_e03d1934",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T11:29:16Z",
+      "side": 1,
+      "message": "In case we are not logging PELs for exceptions beyond EEPROM data handling then I am ok with this.",
+      "parentUuid": "49acf999_a065da60",
+      "revId": "010dcd270e5b77f8bfccda40c908ea0c8c3c1374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27382aa9_353244db",
         "filename": "utils.cpp",
         "patchSetId": 7
