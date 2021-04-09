@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "90ed4a23_003d6769",
+        "filename": "const.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T10:39:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae1198e2_39279611",
+      "revId": "6a77f8d652c78d38aaefa1c6965c2eb38997c414",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f1d2755_3c186e49",
         "filename": "vpd_exceptions.hpp",
         "patchSetId": 12
@@ -30,6 +48,24 @@
       "writtenOn": "2021-04-09T08:53:19Z",
       "side": 1,
       "message": "Is there a reason why you removed the explicit modifier from the constructor?",
+      "revId": "6a77f8d652c78d38aaefa1c6965c2eb38997c414",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46a9a11c_b7c07c66",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-09T10:39:44Z",
+      "side": 1,
+      "message": "Constructor with two parameters need not be defined as explicit.",
+      "parentUuid": "8f1d2755_3c186e49",
       "revId": "6a77f8d652c78d38aaefa1c6965c2eb38997c414",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
