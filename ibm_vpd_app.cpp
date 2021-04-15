@@ -1,5 +1,6 @@
 #include "config.h"
 
+#include "common_utility.hpp"
 #include "defines.hpp"
 #include "ipz_parser.hpp"
 #include "keyword_vpd_parser.hpp"
@@ -913,7 +914,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     }
 
     // Notify PIM
-    inventory::callPIM(move(objects));
+    common::utility::callPIM(move(objects));
 }
 
 int main(int argc, char** argv)

@@ -1,9 +1,10 @@
 #include "parser_factory.hpp"
 
+#include "common_utility.hpp"
+#include "const.hpp"
 #include "ipz_parser.hpp"
 #include "keyword_vpd_parser.hpp"
 #include "memory_vpd_parser.hpp"
-#include "utils.hpp"
 #include "vpd_exceptions.hpp"
 
 using namespace vpd::keyword::parser;
@@ -11,6 +12,8 @@ using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::ipz::parser;
 using namespace openpower::vpd::exceptions;
+using namespace openpower::vpd::constants;
+using namespace openpower::vpd::common::utility;
 
 namespace openpower
 {
