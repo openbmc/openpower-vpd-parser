@@ -4,7 +4,6 @@
 #include "types.hpp"
 
 #include <iostream>
-#include <nlohmann/json.hpp>
 
 using namespace std;
 
@@ -12,26 +11,6 @@ namespace openpower
 {
 namespace vpd
 {
-/**
- * @brief Types of VPD
- */
-enum vpdType
-{
-    IPZ_VPD,           /**< IPZ VPD type */
-    KEYWORD_VPD,       /**< Keyword VPD type */
-    MEMORY_VPD,        /**< Memory VPD type */
-    INVALID_VPD_FORMAT /**< Invalid VPD type */
-};
-
-/**
- * @brief Check the type of VPD.
- *
- * Checks the type of vpd based on the start tag.
- * @param[in] vector - Vpd data in vector format
- *
- * @return enum of type vpdType
- */
-vpdType vpdTypeCheck(const Binary& vector);
 
 /** @brief Return the hex representation of the incoming byte
  *
@@ -46,22 +25,6 @@ constexpr auto toHex(size_t c)
 
 namespace inventory
 {
-
-/** @brief Api to Get d-bus service for given interface
- *  @param[in] - Bus object
- *  @param[in] - object path of the service
- *  @param[in] - interface under the object path
- *  @return service name
- */
-std::string getService(sdbusplus::bus::bus& bus, const std::string& path,
-                       const std::string& interface);
-
-/** @brief Call inventory-manager to add objects
- *
- *  @param [in] objects - Map of inventory object paths
- */
-void callPIM(ObjectMap&& objects);
-
 /** @brief Api to obtain a dictionary of path -> services
  * where path is in subtree and services is of the type
  * returned by the GetObject method.
@@ -121,7 +84,8 @@ inventory::VPDfilepath getVpdFilePath(const string& jsonFile,
 
 /**
  * @brief isPathInJson
- * API which checks for the presence of the given eeprom path in the given json.
+ * API which checks for the presence of the given eeprom path in the given
+ * json.
  * @param[in] - eepromPath
  * @return - true if the eeprom is present in the json; false otherwise
  */
@@ -138,6 +102,16 @@ bool isPathInJson(const std::string& eepromPath);
  * false otherwise.
  */
 bool isRecKwInDbusJson(const std::string& record, const std::string& keyword);
+
+/**
+ * @brief Check the type of VPD.
+ *
+ * Checks the type of vpd based on the start tag.
+ * @param[in] vector - Vpd data in vector format
+ *
+ * @return enum of type vpdType
+ */
+constants::vpdType vpdTypeCheck(const Binary& vector);
 
 } // namespace vpd
 } // namespace openpower

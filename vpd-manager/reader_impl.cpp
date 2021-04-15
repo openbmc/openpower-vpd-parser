@@ -2,7 +2,7 @@
 
 #include "reader_impl.hpp"
 
-#include "utils.hpp"
+#include "ibm_vpd_utils.hpp"
 
 #include <algorithm>
 #include <com/ibm/VPD/error.hpp>

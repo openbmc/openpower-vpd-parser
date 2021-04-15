@@ -22,13 +22,14 @@ vpd_test = ['store/store.cpp',
             'keyword_vpd_parser_test/kw_vpd_test.cpp',
             'vpd-manager-test/reader_test.cpp',
             'vpd-manager-test/editor_test.cpp'
-           ]
+]
 
 application_src =['../impl.cpp',
                    '../vpdecc/vpdecc.c',
                    '../vpdecc/vpdecc_support.c',
                    '../vpd-parser/ipz_parser.cpp',
-                   '../utils.cpp',
+                   '../ibm_vpd_utils.cpp',
+                   '../common_utility.cpp',
                    '../vpd-manager/reader_impl.cpp',
                    '../vpd-parser/keyword_vpd_parser.cpp',
                    '../vpd-manager/editor_impl.cpp',
