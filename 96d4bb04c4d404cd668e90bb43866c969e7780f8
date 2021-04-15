@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7f939186_d83957d5",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-15T12:32:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "094dccd8_cefda045",
+      "range": {
+        "startLine": 892,
+        "startChar": 12,
+        "endLine": 893,
+        "endChar": 51
+      },
+      "revId": "96d4bb04c4d404cd668e90bb43866c969e7780f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15e4dc0b_c75ad696",
         "filename": "utils.cpp",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "96d4bb04c4d404cd668e90bb43866c969e7780f8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c088ef20_198161df",
+        "filename": "utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-15T12:32:22Z",
+      "side": 1,
+      "message": "I think I should handle this.\nalso, there are more places , where we are not handling this. like L 245",
+      "parentUuid": "15e4dc0b_c75ad696",
+      "range": {
+        "startLine": 395,
+        "startChar": 4,
+        "endLine": 396,
+        "endChar": 38
+      },
+      "revId": "96d4bb04c4d404cd668e90bb43866c969e7780f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -164,6 +212,24 @@
       "writtenOn": "2021-04-09T11:20:14Z",
       "side": 1,
       "message": "Next line should start from extreme left? Indentation.",
+      "revId": "96d4bb04c4d404cd668e90bb43866c969e7780f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b579080_d7bc59c5",
+        "filename": "utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-04-15T12:32:22Z",
+      "side": 1,
+      "message": "I did this for the purpose of readability.I prefer it since p9 work. if there is no certain rule we can have it like this.",
+      "parentUuid": "536a4d54_70fdf11f",
       "revId": "96d4bb04c4d404cd668e90bb43866c969e7780f8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
