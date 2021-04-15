@@ -21,7 +21,7 @@ compiler = meson.get_compiler('cpp')
 python = find_program('python3', required:true)
 
 compiler.has_header('CLI/CLI.hpp')
-compiler.has_header('nlohmann/json.hpp')
+#compiler.has_header('nlohmann/json.hpp')
 add_global_arguments('-Wno-psabi', language : ['c', 'cpp'])
 
 # Disable FORTIFY_SOURCE when compiling with no optimization
@@ -52,12 +52,15 @@ configure_file(output: 'config.h',
                        }
   )
 
-common_SOURCES =[
-'vpd-parser/parser_factory.cpp',
+common_SOURCES =['common_utility.cpp',
+                 'vpd-parser/parser_factory.cpp',
                  'vpd-parser/memory_vpd_parser.cpp',
                  'vpd-parser/keyword_vpd_parser.cpp',
-                 'vpd-parser/ipz_parser.cpp', 'impl.cpp', 'utils.cpp',
-                 'vpdecc/vpdecc.c', 'vpdecc/vpdecc_support.c'
+                 'vpd-parser/ipz_parser.cpp',
+                 'impl.cpp',
+                 #'utils.cpp',
+                 'vpdecc/vpdecc.c',
+                 'vpdecc/vpdecc_support.c'
 ]
 
 if get_option('ibm-parser').enabled()
@@ -142,7 +145,7 @@ else
                                       'impl.cpp',
                                       'vpd-parser/ipz_parser.cpp',
                                       'write.cpp',
-                                      'utils.cpp',
+                                      #'utils.cpp',
                                       writefru_hpp,
                                       extra_properties_gen_hpp
         ]
@@ -158,4 +161,4 @@ else
                 install: true,
         )
 endif
-subdir('test')
+#subdir('test')
