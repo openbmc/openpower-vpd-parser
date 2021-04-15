@@ -125,6 +125,17 @@ enum Status
     FAILED = -1
 };
 } // namespace eccStatus
+
+/**
+ * @brief Types of VPD
+ */
+enum vpdType
+{
+    IPZ_VPD,           /**< IPZ VPD type */
+    KEYWORD_VPD,       /**< Keyword VPD type */
+    MEMORY_VPD,        /**< Memory VPD type */
+    INVALID_VPD_FORMAT /**< Invalid VPD type */
+};
 } // namespace constants
 } // namespace vpd
 } // namespace openpower

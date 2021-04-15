@@ -1,11 +1,12 @@
 #include "config.h"
 
+#include "common_utility.hpp"
 #include "defines.hpp"
+#include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "keyword_vpd_parser.hpp"
 #include "memory_vpd_parser.hpp"
 #include "parser_factory.hpp"
-#include "utils.hpp"
 #include "vpd_exceptions.hpp"
 
 #include <assert.h>
@@ -913,7 +914,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     }
 
     // Notify PIM
-    inventory::callPIM(move(objects));
+    common::utility::callPIM(move(objects));
 }
 
 int main(int argc, char** argv)

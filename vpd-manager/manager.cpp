@@ -3,9 +3,9 @@
 #include "manager.hpp"
 
 #include "editor_impl.hpp"
+#include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "reader_impl.hpp"
-#include "utils.hpp"
 
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;

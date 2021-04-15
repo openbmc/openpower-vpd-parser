@@ -2,7 +2,7 @@
 
 #include "const.hpp"
 #include "defines.hpp"
-#include "utils.hpp"
+#include "ibm_vpd_utils.hpp"
 #include "vpd_exceptions.hpp"
 
 #include <algorithm>
