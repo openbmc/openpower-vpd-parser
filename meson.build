@@ -142,7 +142,7 @@ else
                                       'impl.cpp',
                                       'vpd-parser/ipz_parser.cpp',
                                       'write.cpp',
-                                      'utils.cpp',
+                                      'common_utility.cpp',
                                       writefru_hpp,
                                       extra_properties_gen_hpp
         ]
@@ -158,4 +158,4 @@ else
                 install: true,
         )
 endif
-subdir('test')
+#subdir('test')
