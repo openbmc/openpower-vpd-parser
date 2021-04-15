@@ -18,17 +18,26 @@ dependecy_list = [gtest, gmock, sdbusplus, phosphor_logging, phosphor_dbus_inter
 configuration_inc = include_directories('..', '../vpd-manager', 'vpd-manager-test', '../vpd-parser')
 
 vpd_test = ['store/store.cpp',
-            'ipz_parser/parser.cpp',
-            'keyword_vpd_parser_test/kw_vpd_test.cpp',
-            'vpd-manager-test/reader_test.cpp',
-            'vpd-manager-test/editor_test.cpp'
-           ]
+            'ipz_parser/parser.cpp'
+]
+
+if get_option('ibm-parser').enabled()
+    vpd_test +=['keyword_vpd_parser_test/kw_vpd_test.cpp'
+]
+#nested condition
+    if get_option('vpd-manager').enabled()
+        vpd_test +=['vpd-manager-test/reader_test.cpp',
+                    'vpd-manager-test/editor_test.cpp'
+    ]
+    endif
+endif
 
 application_src =['../impl.cpp',
                    '../vpdecc/vpdecc.c',
                    '../vpdecc/vpdecc_support.c',
                    '../vpd-parser/ipz_parser.cpp',
-                   '../utils.cpp',
+                   '../ibm_vpd_utils.cpp',
+                   '../common_utility.cpp',
                    '../vpd-manager/reader_impl.cpp',
                    '../vpd-parser/keyword_vpd_parser.cpp',
                    '../vpd-manager/editor_impl.cpp',

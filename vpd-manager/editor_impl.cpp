@@ -2,9 +2,9 @@
 
 #include "editor_impl.hpp"
 
+#include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "parser_factory.hpp"
-#include "utils.hpp"
 
 #include "vpdecc/vpdecc.h"
 

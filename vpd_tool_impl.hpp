@@ -1,8 +1,8 @@
 #include "config.h"
 
 #include "editor_impl.hpp"
+#include "ibm_vpd_utils.hpp"
 #include "types.hpp"
-#include "utils.hpp"
 
 #include <nlohmann/json.hpp>
 #include <string>
