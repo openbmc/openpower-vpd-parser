@@ -52,11 +52,11 @@ configure_file(output: 'config.h',
                        }
   )
 
-common_SOURCES =[
+common_SOURCES =['common_utility.cpp',
 'vpd-parser/parser_factory.cpp',
                  'vpd-parser/memory_vpd_parser.cpp',
                  'vpd-parser/keyword_vpd_parser.cpp',
-                 'vpd-parser/ipz_parser.cpp', 'impl.cpp', 'utils.cpp',
+                 'vpd-parser/ipz_parser.cpp', 'impl.cpp', 'ibm_vpd_utils.cpp',
                  'vpdecc/vpdecc.c', 'vpdecc/vpdecc_support.c'
 ]
 
@@ -142,7 +142,7 @@ else
                                       'impl.cpp',
                                       'vpd-parser/ipz_parser.cpp',
                                       'write.cpp',
-                                      'utils.cpp',
+                                      'common_utility.cpp',
                                       writefru_hpp,
                                       extra_properties_gen_hpp
         ]
@@ -158,4 +158,4 @@ else
                 install: true,
         )
 endif
-subdir('test')
+#subdir('test')

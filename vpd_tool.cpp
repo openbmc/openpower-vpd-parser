@@ -1,4 +1,3 @@
-#include "utils.hpp"
 #include "vpd_tool_impl.hpp"
 
 #include <CLI/CLI.hpp>

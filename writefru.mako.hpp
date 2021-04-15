@@ -10,7 +10,7 @@
 #include "defines.hpp"
 #include "store.hpp"
 #include "types.hpp"
-#include "utils.hpp"
+#include "common_utility.hpp"
 #include "extra-properties-gen.hpp"
 
 namespace openpower
@@ -19,6 +19,7 @@ namespace vpd
 {
 namespace inventory
 {
+using namespace openpower::vpd::common::utility;
 
 /** @brief API to write parsed VPD to inventory,
  *      for a specific FRU
