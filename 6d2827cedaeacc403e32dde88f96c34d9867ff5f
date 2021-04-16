@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a9f9ef4a_c3ce5f7b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-16T13:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3997ce45_6f45ee8d",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 10
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2768db5f_4cda0bf2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1ed89aa_5f597c9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-16T13:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2768db5f_4cda0bf2",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9cc5a1a4_e7e6dbbf",
+        "filename": "common_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-16T13:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "686b4d9d_8a2114c7",
+      "range": {
+        "startLine": 14,
+        "startChar": 4,
+        "endLine": 14,
+        "endChar": 27
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15834db9_e7872df2",
         "filename": "common_utility.hpp",
         "patchSetId": 6
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "7faf133c_f04d0d46",
+        "filename": "common_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-16T13:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15834db9_e7872df2",
+      "range": {
+        "startLine": 15,
+        "startChar": 3,
+        "endLine": 16,
+        "endChar": 48
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "678967b8_5a2f1246",
         "filename": "const.hpp",
         "patchSetId": 6
@@ -105,6 +201,30 @@
       "writtenOn": "2021-04-16T09:07:47Z",
       "side": 1,
       "message": "Can we have a namespace for this enum",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 2
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0ccabc2_69ccfbe2",
+        "filename": "const.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-16T13:16:56Z",
+      "side": 1,
+      "message": "Why namespace is required here?",
+      "parentUuid": "678967b8_5a2f1246",
       "range": {
         "startLine": 132,
         "startChar": 0,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "5180c34c_a980b1a0",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-16T13:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dedf014f_97c6bdf8",
+      "range": {
+        "startLine": 87,
+        "startChar": 3,
+        "endLine": 88,
+        "endChar": 7
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb4d295d_e5dcc701",
         "filename": "impl.cpp",
         "patchSetId": 6
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "79341386_19e82317",
+        "filename": "impl.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-16T13:16:56Z",
+      "side": 1,
+      "message": "Yes, but instead of that const.hpp will only be included once so no side effect.\nAlso its very tricky to trace all the header files recursively to detect which header files are getting indirectly included.\nAlso this gives a readability, just by looking at this file we can conclude that it depends on const.hpp.",
+      "parentUuid": "fb4d295d_e5dcc701",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee6f7705_a3326795",
         "filename": "utilInterface.hpp",
         "patchSetId": 6
@@ -174,6 +342,24 @@
       "writtenOn": "2021-04-16T09:07:47Z",
       "side": 1,
       "message": "can we reformat this file name as util_interface.hpp",
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c3df12c_30630bfb",
+        "filename": "utilInterface.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-16T13:16:56Z",
+      "side": 1,
+      "message": "This commit is just to handle the defect that we are getting in the build of openpower-vpd-parser in witherspoon.\nSo only minimum required changes are done. We can take this up when we in future refactor or optimise the code?\nWill that be ok?",
+      "parentUuid": "ee6f7705_a3326795",
       "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
