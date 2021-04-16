@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3997ce45_6f45ee8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-16T08:07:34Z",
+      "side": 1,
+      "message": "Nit: Segregate**",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 10
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2768db5f_4cda0bf2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-16T08:07:34Z",
+      "side": 1,
+      "message": "Typo: segregates",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
