@@ -45,6 +45,138 @@
       "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "686b4d9d_8a2114c7",
+        "filename": "common_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-16T09:07:47Z",
+      "side": 1,
+      "message": "Can you specify the parameter name like:\n@param[in] bus - Bus object",
+      "range": {
+        "startLine": 14,
+        "startChar": 4,
+        "endLine": 14,
+        "endChar": 27
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15834db9_e7872df2",
+        "filename": "common_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-16T09:07:47Z",
+      "side": 1,
+      "message": "parameter name missing",
+      "range": {
+        "startLine": 15,
+        "startChar": 3,
+        "endLine": 16,
+        "endChar": 48
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "678967b8_5a2f1246",
+        "filename": "const.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-16T09:07:47Z",
+      "side": 1,
+      "message": "Can we have a namespace for this enum",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 2
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dedf014f_97c6bdf8",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-16T09:07:47Z",
+      "side": 1,
+      "message": "why we have this change? did you move the word json to the next line ?\ncan you revert it to avoid unnecessary changes",
+      "range": {
+        "startLine": 87,
+        "startChar": 3,
+        "endLine": 88,
+        "endChar": 7
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb4d295d_e5dcc701",
+        "filename": "impl.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-16T09:07:47Z",
+      "side": 1,
+      "message": "we don\u0027t need this inclusion as its included in ibm_vpd_utils.hpp",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee6f7705_a3326795",
+        "filename": "utilInterface.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-16T09:07:47Z",
+      "side": 1,
+      "message": "can we reformat this file name as util_interface.hpp",
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
