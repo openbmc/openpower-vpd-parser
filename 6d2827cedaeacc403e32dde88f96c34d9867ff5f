@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "dfc2e565_0afc7445",
+        "filename": "const.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-16T13:51:05Z",
+      "side": 1,
+      "message": "Every other enums has a namespace.so thought should we have one for vpdType as well to avoid conflicts in future. am ok with with or without namespace.",
+      "parentUuid": "5eb4d7b5_740ca8cd",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 2
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dedf014f_97c6bdf8",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 6
@@ -379,6 +403,30 @@
     },
     {
       "key": {
+        "uuid": "c3091400_72868f89",
+        "filename": "impl.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-16T13:51:05Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "1ed2620a_12e17c74",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee6f7705_a3326795",
         "filename": "utilInterface.hpp",
         "patchSetId": 6
@@ -426,6 +474,24 @@
       "side": 1,
       "message": "I agree, any name changes to existing files (other that the util files, of course) are outside of this commit\u0027s scope",
       "parentUuid": "6c3df12c_30630bfb",
+      "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70f031f1_c3c6924b",
+        "filename": "utilInterface.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-16T13:51:05Z",
+      "side": 1,
+      "message": "ok.",
+      "parentUuid": "655a81d1_0346ffab",
       "revId": "6d2827cedaeacc403e32dde88f96c34d9867ff5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
