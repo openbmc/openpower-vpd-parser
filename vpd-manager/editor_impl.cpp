@@ -650,13 +650,13 @@ void EditorImpl::updateKeyword(const Binary& kwdData, const bool& updCache)
             // update the ECC data for the record once data has been updated
             updateRecordECC();
 
-#ifndef ManagerTest
             if (updCache)
             {
+#ifndef ManagerTest
                 // update the cache once data has been updated
                 updateCache();
-            }
 #endif
+            }
         }
         catch (const std::exception& e)
         {
