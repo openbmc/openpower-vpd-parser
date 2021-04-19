@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c0a4e38b_75b8a14a",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-19T11:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfddbd9d_50b1fa9b",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 324,
+        "endChar": 1
+      },
+      "revId": "1bb5673af1edf924c931d9bd50acc6ff03facddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae1d57a7_c9897a73",
         "filename": "types.hpp",
         "patchSetId": 14
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "166750a3_1bea251c",
+        "filename": "types.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-19T11:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae1d57a7_c9897a73",
+      "range": {
+        "startLine": 57,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 20
+      },
+      "revId": "1bb5673af1edf924c931d9bd50acc6ff03facddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b138708b_0e5ec2ad",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 14
@@ -62,6 +110,24 @@
       "revId": "1bb5673af1edf924c931d9bd50acc6ff03facddb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21904263_3d5ff4d5",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-19T11:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b138708b_0e5ec2ad",
+      "revId": "1bb5673af1edf924c931d9bd50acc6ff03facddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "0957ef2e_3f2f1d50",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-19T11:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0e4ee16_40eb40de",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 274,
+        "endChar": 77
+      },
+      "revId": "1bb5673af1edf924c931d9bd50acc6ff03facddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f6a69aa_10b0e1c2",
         "filename": "vpd_inventory.json",
         "patchSetId": 14
@@ -99,6 +189,24 @@
       "writtenOn": "2021-04-19T10:54:06Z",
       "side": 1,
       "message": "Please remove this file from the commit and instead add this to the example JSON. TODO: Figure out which FRUs actually need recollection and tag them such in our actual system JSONs",
+      "revId": "1bb5673af1edf924c931d9bd50acc6ff03facddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00535c3b_60baab2e",
+        "filename": "vpd_inventory.json",
+        "patchSetId": 14
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-19T11:45:39Z",
+      "side": 1,
+      "message": "File moved to examples folder.",
+      "parentUuid": "2f6a69aa_10b0e1c2",
       "revId": "1bb5673af1edf924c931d9bd50acc6ff03facddb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
