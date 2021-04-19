@@ -22,6 +22,92 @@
       "revId": "26c353a26b44ac83b39d2110fb0bad5256bacdbb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24dd0b84_2b51119d",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-19T07:31:09Z",
+      "side": 1,
+      "message": "why don\u0027t we have these severity interfaces define in const.hpp?",
+      "range": {
+        "startLine": 37,
+        "startChar": 6,
+        "endLine": 37,
+        "endChar": 59
+      },
+      "revId": "26c353a26b44ac83b39d2110fb0bad5256bacdbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a44f3eb0_81853cd8",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-19T07:31:09Z",
+      "side": 1,
+      "message": "Can we have the parameters described with its name.\nadditionalData - \u003cdescription\u003e\nsev - \u003cdescription\u003e etc..",
+      "range": {
+        "startLine": 69,
+        "startChar": 3,
+        "endLine": 71,
+        "endChar": 29
+      },
+      "revId": "26c353a26b44ac83b39d2110fb0bad5256bacdbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ca27aa5_b0381bb7",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-19T07:31:09Z",
+      "side": 1,
+      "message": "decription with variable name",
+      "range": {
+        "startLine": 115,
+        "startChar": 21,
+        "endLine": 116,
+        "endChar": 28
+      },
+      "revId": "26c353a26b44ac83b39d2110fb0bad5256bacdbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "303c049c_9302dd84",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-19T07:31:09Z",
+      "side": 1,
+      "message": "can you remove this new line using \" esc :set noeol \"  in vim",
+      "revId": "26c353a26b44ac83b39d2110fb0bad5256bacdbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
