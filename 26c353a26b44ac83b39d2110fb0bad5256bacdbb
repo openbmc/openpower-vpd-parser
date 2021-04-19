@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "e9e2ece3_86d36243",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-19T07:43:04Z",
+      "side": 1,
+      "message": "Why do we need them in const.hpp? I think we are abusing const.hpp slightly. As long as this is the only place where these strings are referenced, I would be OK to leave them here. It is afr more readable.",
+      "parentUuid": "24dd0b84_2b51119d",
+      "range": {
+        "startLine": 37,
+        "startChar": 6,
+        "endLine": 37,
+        "endChar": 59
+      },
+      "revId": "26c353a26b44ac83b39d2110fb0bad5256bacdbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a44f3eb0_81853cd8",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 16
@@ -105,6 +129,24 @@
       "writtenOn": "2021-04-19T07:31:09Z",
       "side": 1,
       "message": "can you remove this new line using \" esc :set noeol \"  in vim",
+      "revId": "26c353a26b44ac83b39d2110fb0bad5256bacdbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "861760af_df05cecb",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-19T07:43:04Z",
+      "side": 1,
+      "message": "+1 - You are assuming he\u0027s using vim, though. Either way, please get rid of unnecessary whitespace changes.",
+      "parentUuid": "303c049c_9302dd84",
       "revId": "26c353a26b44ac83b39d2110fb0bad5256bacdbb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
