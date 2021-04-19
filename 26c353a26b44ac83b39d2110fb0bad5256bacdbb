@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "120bf6f7_c021c431",
+        "filename": "const.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-19T05:43:41Z",
+      "side": 1,
+      "message": "Why is this needed now? Please move this to the place where the map is defined.",
+      "range": {
+        "startLine": 4,
+        "startChar": 10,
+        "endLine": 4,
+        "endChar": 23
+      },
+      "revId": "26c353a26b44ac83b39d2110fb0bad5256bacdbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
