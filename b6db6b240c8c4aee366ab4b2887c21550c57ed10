@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9662a8c8_71e3d17d",
+        "filename": "examples/inventory_json_with_replacable_frus.json",
+        "patchSetId": 16
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-20T07:14:48Z",
+      "side": 1,
+      "message": "Can we just move this to teh existing example JSON and delete this file from the commit?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 25
+      },
+      "revId": "b6db6b240c8c4aee366ab4b2887c21550c57ed10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba584405_b07047cc",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-20T07:14:48Z",
+      "side": 1,
+      "message": "Typo: Replaceable",
+      "range": {
+        "startLine": 101,
+        "startChar": 34,
+        "endLine": 101,
+        "endChar": 46
+      },
+      "revId": "b6db6b240c8c4aee366ab4b2887c21550c57ed10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81ea62f9_8dcfd7ac",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-20T07:14:48Z",
+      "side": 1,
+      "message": "Typo here too",
+      "range": {
+        "startLine": 103,
+        "startChar": 16,
+        "endLine": 103,
+        "endChar": 30
+      },
+      "revId": "b6db6b240c8c4aee366ab4b2887c21550c57ed10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a12f7ba4_9ec83847",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-20T07:14:48Z",
+      "side": 1,
+      "message": "To keep things simple, can we get rid of this loop and just look at the first entry?",
+      "range": {
+        "startLine": 181,
+        "startChar": 11,
+        "endLine": 181,
+        "endChar": 53
+      },
+      "revId": "b6db6b240c8c4aee366ab4b2887c21550c57ed10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
