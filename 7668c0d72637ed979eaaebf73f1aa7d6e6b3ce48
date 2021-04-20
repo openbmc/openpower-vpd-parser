@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ecb2b08_2a087d3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-20T05:50:38Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 2
+      },
+      "revId": "7668c0d72637ed979eaaebf73f1aa7d6e6b3ce48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e1d98d4_9b77ba83",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-20T05:50:38Z",
+      "side": 1,
+      "message": "We need to create a PEL - and capture the IM value as userdata.",
+      "range": {
+        "startLine": 884,
+        "startChar": 12,
+        "endLine": 884,
+        "endChar": 68
+      },
+      "revId": "7668c0d72637ed979eaaebf73f1aa7d6e6b3ce48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
