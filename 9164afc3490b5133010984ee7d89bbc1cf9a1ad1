@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "562eaf5c_14283d81",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-21T17:04:29Z",
+      "side": 1,
+      "message": "ok. the existing json was having all generic nvmem paths \u003chttps://gerrit.openbmc-project.xyz/c/openbmc/meta-ibm/+/36296/2/meta-witherspoon/recipes-phosphor/vpd/ibm-vpd-parser/50001001.json\u003e \nnow to get rid of the nvmem dependency, will make the json to have generic eeprom paths only and will modify this code accrodingly.",
+      "parentUuid": "3ad863f3_2cb7b49f",
+      "range": {
+        "startLine": 345,
+        "startChar": 37,
+        "endLine": 345,
+        "endChar": 38
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc464ae3_5d764447",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 9
@@ -306,6 +330,30 @@
       "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f697259_53b888c0",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-21T17:04:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dc920f4f_ef2c54c2",
+      "range": {
+        "startLine": 352,
+        "startChar": 123,
+        "endLine": 352,
+        "endChar": 125
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
