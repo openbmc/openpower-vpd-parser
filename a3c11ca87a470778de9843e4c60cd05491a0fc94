@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8d3e72e_0eca390d",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-21T06:08:26Z",
+      "side": 1,
+      "message": "This line basically does not belong to updateKeyword method. It mainly define how object will be constructed.",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 80,
+        "endChar": 20
+      },
+      "revId": "a3c11ca87a470778de9843e4c60cd05491a0fc94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ef9e920_635d6dce",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-21T06:08:26Z",
+      "side": 1,
+      "message": "The paragraph and the pointers are just explaining the same thing in different ways. We can have just one.\nIn my opinion paragraph is more explanatory. But I am fine with both.\nYour call.",
+      "range": {
+        "startLine": 81,
+        "startChar": 16,
+        "endLine": 95,
+        "endChar": 60
+      },
+      "revId": "a3c11ca87a470778de9843e4c60cd05491a0fc94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
