@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1c94b51_ffaa579b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T07:39:27Z",
+      "side": 1,
+      "message": "Would be good if you delete this additional line",
+      "revId": "7c09de4dd9098d5872ef44ece739f7f5b6fac092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65e9936e_109c0a57",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T07:39:27Z",
+      "side": 1,
+      "message": "It is less verbose to just pass this directly at line 903 instead of capturing it in a local variable",
+      "range": {
+        "startLine": 895,
+        "startChar": 12,
+        "endLine": 895,
+        "endChar": 57
+      },
+      "revId": "7c09de4dd9098d5872ef44ece739f7f5b6fac092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a1e53ad_052add20",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T07:39:27Z",
+      "side": 1,
+      "message": "This creates a copy of the string, you should use a get_ref",
+      "range": {
+        "startLine": 896,
+        "startChar": 0,
+        "endLine": 897,
+        "endChar": 57
+      },
+      "revId": "7c09de4dd9098d5872ef44ece739f7f5b6fac092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68f923ef_975297fd",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T07:39:27Z",
+      "side": 1,
+      "message": "+1, this was actually a bug",
+      "revId": "7c09de4dd9098d5872ef44ece739f7f5b6fac092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
