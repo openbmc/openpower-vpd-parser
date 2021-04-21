@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ff5850be_224e58b5",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-21T06:27:38Z",
+      "side": 1,
+      "message": "removing the first two sentences",
+      "parentUuid": "d8d3e72e_0eca390d",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 80,
+        "endChar": 20
+      },
+      "revId": "a3c11ca87a470778de9843e4c60cd05491a0fc94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ef9e920_635d6dce",
         "filename": "vpd-manager/editor_impl.hpp",
         "patchSetId": 5
