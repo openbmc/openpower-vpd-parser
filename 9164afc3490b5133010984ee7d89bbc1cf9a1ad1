@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "71e77751_a715a483",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-21T15:44:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ea7e0065_c03a45ec",
+      "range": {
+        "startLine": 945,
+        "startChar": 0,
+        "endLine": 945,
+        "endChar": 34
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99624440_e66f7cb6",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2021-04-21T10:47:19Z",
       "side": 1,
       "message": "const string\u0026 ?",
+      "range": {
+        "startLine": 322,
+        "startChar": 25,
+        "endLine": 322,
+        "endChar": 37
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91435346_61d54137",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-21T15:44:30Z",
+      "side": 1,
+      "message": "the variable \"file\" is modified and returned.\nso may be I\u0027ll not return file from this api as its passed by reference.",
+      "parentUuid": "99624440_e66f7cb6",
       "range": {
         "startLine": 322,
         "startChar": 25,
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "6db08310_6263f236",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-21T15:44:30Z",
+      "side": 1,
+      "message": "yes.",
+      "parentUuid": "97e142fd_3c6e8852",
+      "range": {
+        "startLine": 341,
+        "startChar": 12,
+        "endLine": 341,
+        "endChar": 33
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "daf0cf90_426fd9d7",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 9
@@ -106,6 +178,30 @@
       "writtenOn": "2021-04-21T10:47:19Z",
       "side": 1,
       "message": "I just discovered that with kernel 5.10, this value is no longer guaranteed to be 0, therefore, we cannot include this in our VPD JSON.\n\nHow about we modify this a little to get the \u003cbus\u003e-\u003c00addr\u003e and append an /eeprom to it?",
+      "range": {
+        "startLine": 345,
+        "startChar": 37,
+        "endLine": 345,
+        "endChar": 38
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13379e07_4640a02d",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-21T15:44:30Z",
+      "side": 1,
+      "message": "modify what?\nhow does the udev path look in kernel 5.10 ?",
+      "parentUuid": "daf0cf90_426fd9d7",
       "range": {
         "startLine": 345,
         "startChar": 37,
@@ -141,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "62d68610_d66ec332",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-21T15:44:30Z",
+      "side": 1,
+      "message": "ok.. so you say we won\u0027t have \"\u003cseg\u003e/nvmem\" in udev path in kernel 5.10..\n\nthe path\u0027s end segment looks like \n\n/sys/devices/platform/ahb/ahb:apb/1e79b000.fsi/fsi-master/fsi0/slave@00:00/00:00:00:04/spi_master/spi(digit)/spi(digit).0/eeprom \n\u0026\u0026\n/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a480.i2c-bus/\ni2c-(digit)/i2c-(digit-addr)/eeprom  ?",
+      "parentUuid": "cc464ae3_5d764447",
+      "range": {
+        "startLine": 352,
+        "startChar": 123,
+        "endLine": 352,
+        "endChar": 125
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "870f16b0_4a14f430",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 9
@@ -152,6 +272,30 @@
       "writtenOn": "2021-04-21T10:47:19Z",
       "side": 1,
       "message": "Break after first match? What if nothing matches?",
+      "range": {
+        "startLine": 368,
+        "startChar": 12,
+        "endLine": 368,
+        "endChar": 32
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "875f7265_202f5aca",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-21T15:44:30Z",
+      "side": 1,
+      "message": "should I really need a break here for spi paths?\n\nWhat if nothing matches?\nI can have a match.size() check and throw error if there is no match.",
+      "parentUuid": "870f16b0_4a14f430",
       "range": {
         "startLine": 368,
         "startChar": 12,
