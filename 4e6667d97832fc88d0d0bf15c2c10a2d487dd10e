@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9d76918_bcb68fa1",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T09:59:38Z",
+      "side": 1,
+      "message": "const ref here too?",
+      "range": {
+        "startLine": 196,
+        "startChar": 8,
+        "endLine": 196,
+        "endChar": 28
+      },
+      "revId": "4e6667d97832fc88d0d0bf15c2c10a2d487dd10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8edf6afb_55563cb0",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T09:59:38Z",
+      "side": 1,
+      "message": "Does an unbind work when you\u0027ve done a new_device? Shouldn\u0027t thins be delete_device?",
+      "range": {
+        "startLine": 211,
+        "startChar": 16,
+        "endLine": 211,
+        "endChar": 44
+      },
+      "revId": "4e6667d97832fc88d0d0bf15c2c10a2d487dd10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9154c3d1_15b78669",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T09:59:38Z",
+      "side": 1,
+      "message": "Typo: Recollection",
+      "range": {
+        "startLine": 228,
+        "startChar": 28,
+        "endLine": 228,
+        "endChar": 39
+      },
+      "revId": "4e6667d97832fc88d0d0bf15c2c10a2d487dd10e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
