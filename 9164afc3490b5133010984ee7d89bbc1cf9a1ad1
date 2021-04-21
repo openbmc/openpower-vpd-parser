@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "3ad863f3_2cb7b49f",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T16:16:17Z",
+      "side": 1,
+      "message": "Here\u0027s how it looks on 5.10 (I have a simulation session running with that in case you want to look). For ex:\n\n/sys/devices/platform/ahb/ahb\\:apb/ahb\\:apb\\:bus\\@1e78a000/1e78a480.i2c-bus/i2c-8/8-0051/8-005112/nvmem \u003d\u003d\u003e Notice the 0051(12), this used to be 0051(0)\n\nI guess what I am saying is we simply extract the I2C bus number and address from the udev string and create this out of it:\n/sys/bus/i2c/drivers/at24/\u003cbus\u003e-00\u003caddr\u003e/eeprom",
+      "parentUuid": "13379e07_4640a02d",
+      "range": {
+        "startLine": 345,
+        "startChar": 37,
+        "endLine": 345,
+        "endChar": 38
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc464ae3_5d764447",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 9
@@ -249,6 +273,30 @@
       "side": 1,
       "message": "ok.. so you say we won\u0027t have \"\u003cseg\u003e/nvmem\" in udev path in kernel 5.10..\n\nthe path\u0027s end segment looks like \n\n/sys/devices/platform/ahb/ahb:apb/1e79b000.fsi/fsi-master/fsi0/slave@00:00/00:00:00:04/spi_master/spi(digit)/spi(digit).0/eeprom \n\u0026\u0026\n/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a480.i2c-bus/\ni2c-(digit)/i2c-(digit-addr)/eeprom  ?",
       "parentUuid": "cc464ae3_5d764447",
+      "range": {
+        "startLine": 352,
+        "startChar": 123,
+        "endLine": 352,
+        "endChar": 125
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc920f4f_ef2c54c2",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T16:16:17Z",
+      "side": 1,
+      "message": "We may or may not have nvmem. I think all we really need is the spi bus number to create:\n/sys/bus/spi/drivers/at25/spi\u003cbusnum\u003e.0/eeprom",
+      "parentUuid": "62d68610_d66ec332",
       "range": {
         "startLine": 352,
         "startChar": 123,
