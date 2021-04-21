@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea7e0065_c03a45ec",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T10:47:19Z",
+      "side": 1,
+      "message": "Please remove this, I have seen instances where we get udev events to non-existing files and I would just like this to fail at line 1003",
+      "range": {
+        "startLine": 945,
+        "startChar": 0,
+        "endLine": 945,
+        "endChar": 34
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99624440_e66f7cb6",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T10:47:19Z",
+      "side": 1,
+      "message": "const string\u0026 ?",
+      "range": {
+        "startLine": 322,
+        "startChar": 25,
+        "endLine": 322,
+        "endChar": 37
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11c7b003_c7787ad7",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T10:47:19Z",
+      "side": 1,
+      "message": "Break after the first match? Also how do we handle the case where we did not find the said pattern?",
+      "range": {
+        "startLine": 341,
+        "startChar": 12,
+        "endLine": 341,
+        "endChar": 33
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daf0cf90_426fd9d7",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T10:47:19Z",
+      "side": 1,
+      "message": "I just discovered that with kernel 5.10, this value is no longer guaranteed to be 0, therefore, we cannot include this in our VPD JSON.\n\nHow about we modify this a little to get the \u003cbus\u003e-\u003c00addr\u003e and append an /eeprom to it?",
+      "range": {
+        "startLine": 345,
+        "startChar": 37,
+        "endLine": 345,
+        "endChar": 38
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc464ae3_5d764447",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T10:47:19Z",
+      "side": 1,
+      "message": "I guess the same thing could happen here too, although the path here still matches what is in kernel 5.10, I think we should look for (spi)[0-9].0 and append /eeprom to it",
+      "range": {
+        "startLine": 352,
+        "startChar": 123,
+        "endLine": 352,
+        "endChar": 125
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "870f16b0_4a14f430",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-21T10:47:19Z",
+      "side": 1,
+      "message": "Break after first match? What if nothing matches?",
+      "range": {
+        "startLine": 368,
+        "startChar": 12,
+        "endLine": 368,
+        "endChar": 32
+      },
+      "revId": "9164afc3490b5133010984ee7d89bbc1cf9a1ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
