@@ -34,6 +34,24 @@
       "revId": "a683a8a5225215dbe3a8873a0382d74d7e0cd3c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb965476_7b8dea12",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-21T06:42:04Z",
+      "side": 1,
+      "message": "I did not get that. These are two identical lines, You are throwing the same exception again from here. Why the output of these lines will be different?",
+      "parentUuid": "9cb4b338_28600b17",
+      "revId": "a683a8a5225215dbe3a8873a0382d74d7e0cd3c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
