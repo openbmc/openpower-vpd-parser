@@ -22,6 +22,30 @@
       "revId": "0a1f35ada1937693c7ad4d4c188231ce24edf410",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88657719_8e30571c",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-21T06:01:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ec37798_8a8fca31",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 57
+      },
+      "revId": "0a1f35ada1937693c7ad4d4c188231ce24edf410",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
