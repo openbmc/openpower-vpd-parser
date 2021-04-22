@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f8933b77_ecfacaa8",
+        "filename": "examples/inventory.json",
+        "patchSetId": 19
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-22T04:54:06Z",
+      "side": 1,
+      "message": "We need to see why it was created this way in first place. Also as that is not part of this commit we can correct it as a different item.",
+      "parentUuid": "02d27156_5e5efc2a",
+      "range": {
+        "startLine": 26,
+        "startChar": 5,
+        "endLine": 28,
+        "endChar": 46
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b12435de_42a78d06",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 19
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5204a006_9fca516d",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-22T04:54:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b12435de_42a78d06",
+      "range": {
+        "startLine": 139,
+        "startChar": 71,
+        "endLine": 139,
+        "endChar": 76
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da7bfcc1_fe8fd947",
         "filename": "types.hpp",
         "patchSetId": 19
@@ -59,6 +107,30 @@
       "writtenOn": "2021-04-22T04:02:53Z",
       "side": 1,
       "message": "VPDfilepath variable not following upper camel case format",
+      "range": {
+        "startLine": 57,
+        "startChar": 36,
+        "endLine": 57,
+        "endChar": 46
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "652013cd_d60f7903",
+        "filename": "types.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-22T04:54:06Z",
+      "side": 1,
+      "message": "The variable is not declared as a part of this commit, Changing that will have effect on other part of the codes not intended to go with this change.\nWe can take these corrections as separate items.",
+      "parentUuid": "da7bfcc1_fe8fd947",
       "range": {
         "startLine": 57,
         "startChar": 36,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "a0b314e0_6046fad4",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-22T04:54:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37e37e2c_f7f1686d",
+      "range": {
+        "startLine": 173,
+        "startChar": 28,
+        "endLine": 173,
+        "endChar": 34
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99c17b6b_fe2559ab",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 19
@@ -114,6 +210,30 @@
       "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03fc91ba_559c9539",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-22T04:54:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99c17b6b_fe2559ab",
+      "range": {
+        "startLine": 191,
+        "startChar": 29,
+        "endLine": 191,
+        "endChar": 35
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "ca3416e2_a1991d62",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-22T04:54:06Z",
+      "side": 1,
+      "message": "Comment above if is sufficient i guess.",
+      "parentUuid": "7be1e93f_2eb0c3cf",
+      "range": {
+        "startLine": 233,
+        "startChar": 11,
+        "endLine": 233,
+        "endChar": 21
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fe5c821_7c7b5dd9",
         "filename": "vpd-manager/manager.hpp",
         "patchSetId": 19
@@ -160,6 +304,30 @@
       "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97e0cba1_904e46f4",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-22T04:54:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fe5c821_7c7b5dd9",
+      "range": {
+        "startLine": 149,
+        "startChar": 19,
+        "endLine": 149,
+        "endChar": 24
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
