@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02d27156_5e5efc2a",
+        "filename": "examples/inventory.json",
+        "patchSetId": 19
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-22T04:02:53Z",
+      "side": 1,
+      "message": "we will have array of fru data in the vpd_inventory.json. Its missing in example json.\nsame in line 21.",
+      "range": {
+        "startLine": 26,
+        "startChar": 5,
+        "endLine": 28,
+        "endChar": 46
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b12435de_42a78d06",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-22T04:02:53Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 139,
+        "startChar": 71,
+        "endLine": 139,
+        "endChar": 76
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da7bfcc1_fe8fd947",
+        "filename": "types.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-22T04:02:53Z",
+      "side": 1,
+      "message": "VPDfilepath variable not following upper camel case format",
+      "range": {
+        "startLine": 57,
+        "startChar": 36,
+        "endLine": 57,
+        "endChar": 46
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37e37e2c_f7f1686d",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-22T04:02:53Z",
+      "side": 1,
+      "message": "replaceable",
+      "range": {
+        "startLine": 173,
+        "startChar": 28,
+        "endLine": 173,
+        "endChar": 34
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99c17b6b_fe2559ab",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-22T04:02:53Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 191,
+        "startChar": 29,
+        "endLine": 191,
+        "endChar": 35
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7be1e93f_2eb0c3cf",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-22T04:02:53Z",
+      "side": 1,
+      "message": "if what is present? Can we rephrase it as\nif devTreeStatus flag in json is present ...?",
+      "range": {
+        "startLine": 233,
+        "startChar": 11,
+        "endLine": 233,
+        "endChar": 21
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fe5c821_7c7b5dd9",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-04-22T04:02:53Z",
+      "side": 1,
+      "message": "FRUs\u0027?",
+      "range": {
+        "startLine": 149,
+        "startChar": 19,
+        "endLine": 149,
+        "endChar": 24
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
