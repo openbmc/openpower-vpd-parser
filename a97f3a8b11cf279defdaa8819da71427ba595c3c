@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "83dc3215_9511b68c",
+        "filename": "examples/inventory.json",
+        "patchSetId": 19
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-23T05:44:14Z",
+      "side": 1,
+      "message": "This file needs to be updated - can be taken up in a commit of its own. I don\u0027t see a reason to block this commit",
+      "parentUuid": "f8933b77_ecfacaa8",
+      "range": {
+        "startLine": 26,
+        "startChar": 5,
+        "endLine": 28,
+        "endChar": 46
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b12435de_42a78d06",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 19
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "The variable is not declared as a part of this commit, Changing that will have effect on other part of the codes not intended to go with this change.\nWe can take these corrections as separate items.",
       "parentUuid": "da7bfcc1_fe8fd947",
+      "range": {
+        "startLine": 57,
+        "startChar": 36,
+        "endLine": 57,
+        "endChar": 46
+      },
+      "revId": "a97f3a8b11cf279defdaa8819da71427ba595c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "962d0715_bb9c8067",
+        "filename": "types.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-23T05:44:14Z",
+      "side": 1,
+      "message": "+1, also VPDFilePath is a type name, not a variable.",
+      "parentUuid": "652013cd_d60f7903",
       "range": {
         "startLine": 57,
         "startChar": 36,
