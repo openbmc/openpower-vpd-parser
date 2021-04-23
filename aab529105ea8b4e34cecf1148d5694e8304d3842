@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c2ef25d_d69dae57",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-23T10:30:58Z",
+      "side": 1,
+      "message": "Please remove at standby from here too - How about:\nImplement VPD Recollection",
+      "range": {
+        "startLine": 7,
+        "startChar": 16,
+        "endLine": 7,
+        "endChar": 27
+      },
+      "revId": "aab529105ea8b4e34cecf1148d5694e8304d3842",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49638c02_ff2c9390",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-23T10:30:58Z",
+      "side": 1,
+      "message": "Nit: This should be split into two lines.",
+      "range": {
+        "startLine": 10,
+        "startChar": 72,
+        "endLine": 10,
+        "endChar": 74
+      },
+      "revId": "aab529105ea8b4e34cecf1148d5694e8304d3842",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14d35000_6513ba00",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-23T10:30:58Z",
+      "side": 1,
+      "message": "Nit: not needed, but I\u0027ll leave it upto you to keep it or change it",
+      "range": {
+        "startLine": 231,
+        "startChar": 15,
+        "endLine": 231,
+        "endChar": 25
+      },
+      "revId": "aab529105ea8b4e34cecf1148d5694e8304d3842",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
