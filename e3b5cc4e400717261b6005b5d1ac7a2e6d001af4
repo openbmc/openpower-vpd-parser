@@ -1097,6 +1097,30 @@
     },
     {
       "key": {
+        "uuid": "c423dd3e_3e1155a6",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "It does matter - member variables must be initialized in the order that they are defined.",
+      "parentUuid": "9cc5edd9_b64647c5",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 44
+      },
+      "revId": "e3b5cc4e400717261b6005b5d1ac7a2e6d001af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5368ed31_70b1221a",
         "filename": "vpd-manager/editor_impl.hpp",
         "patchSetId": 25

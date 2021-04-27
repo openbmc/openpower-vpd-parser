@@ -1,0 +1,501 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "088671ce_68c892b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Priyanga: This is not correcting one bit errors - just recalculating and updating the ECC assuming the record is good.",
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1fc9401_047082f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Nit: Make this two lines.",
+      "range": {
+        "startLine": 19,
+        "startChar": 69,
+        "endLine": 19,
+        "endChar": 78
+      },
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeb013e3_e04a16f3",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "This is not needed for *this* commit.",
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e5a3f53_8ee88f5b",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Please handle the exceptions that parse might throw and throw as a VpdJsonException out of the handler.",
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5d59c07_fb0171ec",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Sunny: Move this out of this method and instead check at access. For ex, in the following method.",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 5
+      },
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc1130f7_8d55e9fc",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Why is this needed?",
+      "range": {
+        "startLine": 413,
+        "startChar": 0,
+        "endLine": 413,
+        "endChar": 47
+      },
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b7e1403_2b835578",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Please move all using directives to source files.",
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "591c5d62_ed18ad8c",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Please change to const ref",
+      "range": {
+        "startLine": 178,
+        "startChar": 48,
+        "endLine": 178,
+        "endChar": 68
+      },
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d27d36d1_4c49b7d3",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Is this really needed in utils?",
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a44f02c0_9a961774",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Pass by const ref",
+      "range": {
+        "startLine": 187,
+        "startChar": 29,
+        "endLine": 187,
+        "endChar": 48
+      },
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38445e09_f33610de",
+        "filename": "impl.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Please remove this file from this change",
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58068015_4818b35c",
+        "filename": "test/vpd-manager-test/reader_test.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Needed?",
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db70f46c_830324a3",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Please simplify the changes to this function by:\n\n* Removing the spi check.\n* Commenting thoroughly on why the ecc variable was checked.\n* Rename the ecc variable to something else -- maybe pickModuleOnly?",
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52f4ab9e_31fe425b",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "It is OK to create a loacl stream in getVpdDataInVector() and also one here. Offset calculation is OK to move inside getVpdDataInVector",
+      "range": {
+        "startLine": 607,
+        "startChar": 46,
+        "endLine": 607,
+        "endChar": 59
+      },
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24dc5b2f_2bacd387",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Not needed since offset is got from the following fn.",
+      "range": {
+        "startLine": 682,
+        "startChar": 0,
+        "endLine": 688,
+        "endChar": 9
+      },
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ea46af4_246f6ae1",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "camelCase",
+      "range": {
+        "startLine": 693,
+        "startChar": 25,
+        "endLine": 693,
+        "endChar": 32
+      },
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6697dba_1436499c",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Use the method inside the ParserFactory",
+      "range": {
+        "startLine": 704,
+        "startChar": 0,
+        "endLine": 705,
+        "endChar": 32
+      },
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52e6f166_7c929ae0",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Please see if this can be eliminated and have a single catch at the end where you can perform cleanup",
+      "range": {
+        "startLine": 710,
+        "startChar": 0,
+        "endLine": 717,
+        "endChar": 9
+      },
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97517c7e_c518d8e4",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Needed?",
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24968554_64416646",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Can we initialize most of these in-place?",
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9db286d5_6aa953a5",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Just keep one of these",
+      "range": {
+        "startLine": 82,
+        "startChar": 46,
+        "endLine": 82,
+        "endChar": 52
+      },
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "134c6723_5988044d",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Check rc",
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5e2d508_87ea794c",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Just pass in the string directly at line 157",
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40e363bd_7a4d563b",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Handle exception and return RC",
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02179bd0_9cc25455",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-04-27T07:36:39Z",
+      "side": 1,
+      "message": "Please reword according to the current impl.",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 57
+      },
+      "revId": "7f9c0e1cc36791f1139cb6899dbd29e1d1688e14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
