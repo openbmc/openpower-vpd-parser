@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c3cce5e_6581ec38",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-28T14:16:27Z",
+      "side": 1,
+      "message": "This change is not just confined to vpd-write, reader has also been modified. \nHow about mentioning complete \"vpd-manager\"?",
+      "range": {
+        "startLine": 9,
+        "startChar": 58,
+        "endLine": 9,
+        "endChar": 67
+      },
+      "revId": "1265141a29090cbed1b94c13d105808827228873",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ed3b5d0_399fb5bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-28T14:16:27Z",
+      "side": 1,
+      "message": "\"xyz location code interface\" or \"xyz interface for location code\"?",
+      "range": {
+        "startLine": 9,
+        "startChar": 7,
+        "endLine": 9,
+        "endChar": 34
+      },
+      "revId": "1265141a29090cbed1b94c13d105808827228873",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8948d22c_4b54c4e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-04-28T14:16:27Z",
+      "side": 1,
+      "message": "\"com.ibm.path for location code\"?",
+      "range": {
+        "startLine": 10,
+        "startChar": 11,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "1265141a29090cbed1b94c13d105808827228873",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
