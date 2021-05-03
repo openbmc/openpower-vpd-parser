@@ -69,6 +69,30 @@
       "revId": "68dc6f8792cff238d9e243ca1fa3014cfb2c36a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7915c0f_f594029e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-03T10:59:35Z",
+      "side": 1,
+      "message": "I think the comment is still accurate. We skip restore only if we don\u0027t find the motherboard path",
+      "parentUuid": "a6687438_20323ef8",
+      "range": {
+        "startLine": 741,
+        "startChar": 20,
+        "endLine": 742,
+        "endChar": 59
+      },
+      "revId": "68dc6f8792cff238d9e243ca1fa3014cfb2c36a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
