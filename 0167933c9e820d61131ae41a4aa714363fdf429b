@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8acae0ba_2d3bf63e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-03T05:43:02Z",
+      "side": 1,
+      "message": "reference?",
+      "revId": "0167933c9e820d61131ae41a4aa714363fdf429b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a208a48b_31be8ab0",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-03T05:43:02Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "0167933c9e820d61131ae41a4aa714363fdf429b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
