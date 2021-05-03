@@ -738,14 +738,12 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
                     MapperResponse subTree =
                         getObjectSubtreeForInterfaces(pimPath, 0, interfaces);
 
-                    // Skip system vpd restore if object path is not generated
-                    // for motherboard, Implies first boot.
-                    if (subTree.size() != 0)
+                    // Attempt system VPD restore if we have a motherboard
+                    // object in the inventory.
+                    if ((subTree.size() != 0) &&
+                        (subTree.find(pimPath + std::string(objectPath)) !=
+                         subTree.end()))
                     {
-                        assert(
-                            (subTree.find(pimPath + std::string(objectPath)) !=
-                             subTree.end()));
-
                         updatedEeproms = restoreSystemVPD(vpdMap, objectPath);
                     }
                     else
