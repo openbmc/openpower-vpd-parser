@@ -809,14 +809,14 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 
     if (isSystemVpd)
     {
-        string systemJson{};
+        string systemJsonName{};
         if constexpr (is_same<T, Parsed>::value)
         {
             // pick the right system json
-            systemJson = getSystemsJson(vpdMap);
+            systemJsonName = getSystemsJson(vpdMap);
         }
 
-        fs::path target = systemJson;
+        fs::path target = systemJsonName;
         fs::path link = INVENTORY_JSON_SYM_LINK;
 
         // Create the directory for hosting the symlink
@@ -859,21 +859,20 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             try
             {
                 auto systemJson = json::parse(sysJson);
+                if (systemJson["system"].find(imKeyword) !=
+                    systemJson["system"].end())
+                {
+                    if (systemJson["system"][imKeyword].find("constraint") !=
+                        systemJson["system"][imKeyword].end())
+                    {
+                        systemType += "_" + hwKeyword;
+                    }
+                }
             }
             catch (json::parse_error& ex)
             {
                 throw((VpdJsonException("System Json parsing failed",
                                         SYSTEM_JSON)));
-            }
-
-            if (systemJson["system"].find(imKeyword) !=
-                systemJson["system"].end())
-            {
-                if (systemJson["system"][imKeyword].find("constraint") !=
-                    systemJson["system"][imKeyword].end())
-                {
-                    systemType += "_" + hwKeyword;
-                }
             }
 
             setDevTreeEnv(systemType);
