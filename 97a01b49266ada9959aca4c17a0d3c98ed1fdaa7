@@ -16,6 +16,23 @@
       "revId": "97a01b49266ada9959aca4c17a0d3c98ed1fdaa7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "749f4277_2ff2233c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-10T05:28:02Z",
+      "side": 1,
+      "message": "We already have this check at line 989. Do we need at both the places or one can be removed?",
+      "revId": "97a01b49266ada9959aca4c17a0d3c98ed1fdaa7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
