@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f6bc5f3_bea21430",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-11T14:19:27Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 9,
+        "startChar": 21,
+        "endLine": 9,
+        "endChar": 29
+      },
+      "revId": "381715f103be8c7eafce5415ee4601bf3203b9e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f3414eb_0f7227c3",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-11T14:19:27Z",
+      "side": 1,
+      "message": "Do we need this cout?",
+      "range": {
+        "startLine": 912,
+        "startChar": 8,
+        "endLine": 912,
+        "endChar": 62
+      },
+      "revId": "381715f103be8c7eafce5415ee4601bf3203b9e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bec89dd4_6bd72344",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-11T14:19:27Z",
+      "side": 1,
+      "message": "Do we need this cout?",
+      "range": {
+        "startLine": 957,
+        "startChar": 12,
+        "endLine": 957,
+        "endChar": 63
+      },
+      "revId": "381715f103be8c7eafce5415ee4601bf3203b9e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d21b9fd3_be5f46e0",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-11T14:19:27Z",
+      "side": 1,
+      "message": "Can we move this snippet to line 958 - that is after path translation and remove the repeating check at line 959.",
+      "range": {
+        "startLine": 971,
+        "startChar": 8,
+        "endLine": 975,
+        "endChar": 9
+      },
+      "revId": "381715f103be8c7eafce5415ee4601bf3203b9e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
