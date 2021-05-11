@@ -909,6 +909,8 @@ int main(int argc, char** argv)
 
         CLI11_PARSE(app, argc, argv);
 
+        cout << "Parser launched with file: " << file << "\n";
+
         // PEL severity should be ERROR in case of any system VPD failure
         if (file == systemVpdFilePath)
         {
@@ -940,12 +942,22 @@ int main(int argc, char** argv)
             throw(VpdJsonException("Json parsing failed", jsonToParse));
         }
 
+        // Do we have the mandatory "frus" section?
+        if (js.find("frus") == js.end())
+        {
+            throw(VpdJsonException("FRUs section not found in JSON",
+                                   jsonToParse));
+        }
+
         // Check if it's a udev path - patterned as(/ahb/ahb:apb/ahb:apb:bus@)
         if (file.find("/ahb:apb") != string::npos)
         {
             // Translate udev path to a generic /sys/bus/.. file path.
             udevToGenericPath(file);
-            if (js["frus"][file].at(0).value("isSystemVpd", false))
+            cout << "Path after translation: " << file << "\n";
+
+            if ((js["frus"].find(file) != js["frus"].end()) &&
+                (js["frus"][file].at(0).value("isSystemVpd", false)))
             {
                 return 0;
             }
@@ -956,8 +968,7 @@ int main(int argc, char** argv)
             cerr << "The EEPROM path <" << file << "> is not valid.";
             return 0;
         }
-        if ((js.find("frus") == js.end()) ||
-            (js["frus"].find(file) == js["frus"].end()))
+        if (js["frus"].find(file) == js["frus"].end())
         {
             cout << "Device path not in JSON, ignoring" << endl;
             return 0;
