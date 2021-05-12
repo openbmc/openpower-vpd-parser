@@ -823,6 +823,9 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         fs::create_directories(VPD_FILES_PATH);
         // unlink the symlink previously created (if any)
         remove(INVENTORY_JSON_SYM_LINK);
+
+        cout << "Creating symlink for VPD JSON: " << link << " ==> " << target
+             << "\n";
         // create a new symlink based on the system
         fs::create_symlink(target, link);
 
@@ -847,6 +850,8 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             const string imKeyword = getIM(vpdMap);
             const string hwKeyword = getHW(vpdMap);
             string systemType = imKeyword;
+
+            cout << "System VPD IM keyword: " << systemType << "\n";
 
             // check If system has constraint then append HW version to it.
             ifstream sysJson(SYSTEM_JSON);
