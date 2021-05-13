@@ -21,7 +21,6 @@ int main(int argc, char** argv)
     string recordName{};
     string keyword{};
     string val{};
-    string path{};
 
     auto object =
         app.add_option("--object, -O", objectPath, "Enter the Object Path");
@@ -32,11 +31,6 @@ int main(int argc, char** argv)
         "--value, -V", val,
         "Enter the value. The value to be updated should be either in ascii or "
         "in hex. ascii eg: 01234; hex eg: 0x30313233");
-    auto pathOption =
-        app.add_option("--path, -P", path,
-                       "Path - if hardware option is used, give either EEPROM "
-                       "path/Object path; if not give the object path");
-
     auto dumpObjFlag =
         app.add_flag("--dumpObject, -o",
                      "Dump the given object from the inventory. { "
@@ -64,7 +58,7 @@ int main(int argc, char** argv)
                "--writeKeyword/-w/--updateKeyword/-u "
                "--object/-O object-name --record/-R record-name --keyword/-K "
                "keyword-name --value/-V value-to-be-updated }")
-            ->needs(pathOption)
+            ->needs(object)
             ->needs(record)
             ->needs(kw)
             ->needs(valOption);
@@ -74,10 +68,9 @@ int main(int argc, char** argv)
                                 "--forceReset/-f/-F }");
     auto Hardware = app.add_flag(
         "--Hardware, -H",
-        "This is a supplementary flag to read/write directly from/to hardware. "
-        "Enter the hardware path while using the object option in "
-        "corresponding read/write flags. This --Hardware flag is to be given "
-        "along with readKeyword/writeKeyword.");
+        "This is a supplementary flag to write directly to hardware. When the "
+        "-H flag is given, User should provide valid hardware/eeprom path (and "
+        "not dbus object path) in the -O/--object path.");
 
     CLI11_PARSE(app, argc, argv);
 
@@ -88,24 +81,15 @@ int main(int argc, char** argv)
     {
         if (*Hardware)
         {
-            if (!fs::exists(path)) // dbus object path
+            if (!fs::exists(objectPath)) // if dbus object path is given or invalid
+                                   // eeprom path is given
             {
-                string p = getVpdFilePath(INVENTORY_JSON_SYM_LINK, path);
-                if (p.empty()) // object path not present in inventory json
-                {
-                    string errorMsg = "Invalid object path : ";
-                    errorMsg += path;
-                    errorMsg += ". Unable to find the corresponding EEPROM "
-                                "path for the given object path : ";
-                    errorMsg += path;
-                    errorMsg += " in the vpd inventory json : ";
-                    errorMsg += INVENTORY_JSON_SYM_LINK;
-                    throw runtime_error(errorMsg);
-                }
-                else
-                {
-                    path = p;
-                }
+                string errorMsg = "Invalid EEPROM path : ";
+                errorMsg += objectPath;
+                errorMsg +=
+                    ". The given EEPROM path doesn't exist. Provide valid "
+                    "EEPROM path when -H flag is used. Refer help option. ";
+                throw runtime_error(errorMsg);
             }
         }
         if (*dumpObjFlag)
@@ -129,8 +113,8 @@ int main(int argc, char** argv)
 
         else if (*writeFlag && !*Hardware)
         {
-            VpdTool vpdToolObj(move(path), move(recordName), move(keyword),
-                               move(val));
+            VpdTool vpdToolObj(move(objectPath), move(recordName),
+                               move(keyword), move(val));
             rc = vpdToolObj.updateKeyword();
         }
 
@@ -142,8 +126,8 @@ int main(int argc, char** argv)
 
         else if (*writeFlag && *Hardware)
         {
-            VpdTool vpdToolObj(move(path), move(recordName), move(keyword),
-                               move(val));
+            VpdTool vpdToolObj(move(objectPath), move(recordName),
+                               move(keyword), move(val));
             rc = vpdToolObj.updateHardware();
         }
 
