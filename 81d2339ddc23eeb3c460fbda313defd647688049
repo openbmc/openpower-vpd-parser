@@ -42,6 +42,48 @@
     },
     {
       "key": {
+        "uuid": "30049d55_06808905",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-05-17T05:17:56Z",
+      "side": 1,
+      "message": "see the line 39, it\u0027s returning a valid data, without any further action.",
+      "parentUuid": "efdb4bd9_f20cc548",
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97179792_0ae723d8",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-05-17T05:17:56Z",
+      "side": 1,
+      "message": "This is an informational error, and not a critical one. Outside vpd no need to worry about it as it is handled internally and will not cause any problem.\n\nThe Error line is very clear saying-\nThere is an Error in getCurrentPresenceState, which is failed to find the presence line for mentioned Pin.",
+      "parentUuid": "064bec9c_c5c0406a",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 46
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d8fea8c_39f81acc",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 22
@@ -53,6 +95,30 @@
       "writtenOn": "2021-04-09T13:21:52Z",
       "side": 1,
       "message": "the scope of these variables can be reduced.. you can actually declare the variables after the if condition at line 64. \n(this avoids variableScope c++ error during code analysis.)",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cf8ecb4_0e7ba200",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-05-17T05:17:56Z",
+      "side": 1,
+      "message": "yes, we can do that. but as this is very simple code to read the data and initialize some const variables, so not a complex one.\n\nAlso, I prefer this (until it breaks the execution) for better code readability .\nAll the required variables declarations first and then processing.",
+      "parentUuid": "1d8fea8c_39f81acc",
       "range": {
         "startLine": 56,
         "startChar": 4,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "10af3bd3_5ed8e3c1",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-05-17T05:17:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d520e56_4bccb601",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 132,
+        "endChar": 29
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "746659e2_c9e38c26",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 22
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "ddd011a9_d047ebfa",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-05-17T05:17:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "746659e2_c9e38c26",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 24
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "035da2cc_d670e9be",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 22
@@ -122,6 +236,30 @@
       "writtenOn": "2021-04-09T13:21:52Z",
       "side": 1,
       "message": "can you move this definition to the header file",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 1
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6687dbc1_93d82092",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-05-17T05:17:56Z",
+      "side": 1,
+      "message": "This function is dependent on getCurrentPresenceState(), and it is normal function.(more number of lines) so dont think inline will fit in this case.",
+      "parentUuid": "035da2cc_d670e9be",
       "range": {
         "startLine": 145,
         "startChar": 0,
@@ -151,6 +289,24 @@
     },
     {
       "key": {
+        "uuid": "14a7dfe6_d6015b52",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-05-17T05:17:56Z",
+      "side": 1,
+      "message": "yes. one line to make it visible that function ends here. for clear readability.",
+      "parentUuid": "b6a8b275_2d2b4d5b",
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39a43942_37546f13",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 22
@@ -174,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "27865fe9_14510446",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-05-17T05:17:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39a43942_37546f13",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 63
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4be1dc2_253bfd75",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 22
@@ -185,6 +365,30 @@
       "writtenOn": "2021-04-09T13:21:52Z",
       "side": 1,
       "message": "inline functions can be defined in header file itself. so please give the definition of it here.",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 32
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da68cb72_c0afebc5",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-05-17T05:17:56Z",
+      "side": 1,
+      "message": "I don\u0027t think I can make it inline. you\u0027re seeing this has one line of code, but that one line of code is \"calling another function\" which number of lines to execute.\n\nSo this is not a requirement of inline.",
+      "parentUuid": "e4be1dc2_253bfd75",
       "range": {
         "startLine": 93,
         "startChar": 4,
@@ -220,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "96e4469d_ab562851",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-05-17T05:17:56Z",
+      "side": 1,
+      "message": "the sentence is not completed there, check the next line.",
+      "parentUuid": "9275adee_5af97840",
+      "range": {
+        "startLine": 102,
+        "startChar": 62,
+        "endLine": 102,
+        "endChar": 66
+      },
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a91a711e_e0393a85",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 22
@@ -231,6 +459,24 @@
       "writtenOn": "2021-04-09T13:21:52Z",
       "side": 1,
       "message": "no need of new line here..",
+      "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dd00785_10756717",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-05-17T05:17:56Z",
+      "side": 1,
+      "message": "I kept it for readability",
+      "parentUuid": "a91a711e_e0393a85",
       "revId": "81d2339ddc23eeb3c460fbda313defd647688049",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
