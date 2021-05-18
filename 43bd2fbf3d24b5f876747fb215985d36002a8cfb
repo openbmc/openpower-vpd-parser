@@ -175,6 +175,98 @@
       "revId": "43bd2fbf3d24b5f876747fb215985d36002a8cfb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af1a99be_61112346",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please name this better - Maybe \"didEventOccur\". I also don\u0027t see why this is function, this one liner can be inlined at the call site.",
+      "range": {
+        "startLine": 138,
+        "startChar": 23,
+        "endLine": 138,
+        "endChar": 36
+      },
+      "revId": "43bd2fbf3d24b5f876747fb215985d36002a8cfb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a64054b_1f6d612c",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please remove all debug tracing. I would ask for a cout only in the case where the GPIO state changed.",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 33
+      },
+      "revId": "43bd2fbf3d24b5f876747fb215985d36002a8cfb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb24b90f_2ac5f805",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "This could be a consexpr, or better still a meson option.",
+      "range": {
+        "startLine": 147,
+        "startChar": 1,
+        "endLine": 147,
+        "endChar": 26
+      },
+      "revId": "43bd2fbf3d24b5f876747fb215985d36002a8cfb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "797ec97c_0a76f521",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please remove references to Op-panel in function names and commits. Remember that it just so happens that we are implementing this logic for the Op-panel, but it isn\u0027t restricted to that.",
+      "range": {
+        "startLine": 155,
+        "startChar": 16,
+        "endLine": 155,
+        "endChar": 33
+      },
+      "revId": "43bd2fbf3d24b5f876747fb215985d36002a8cfb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }

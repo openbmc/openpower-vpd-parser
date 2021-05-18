@@ -1,0 +1,454 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84847882_9d9f5b66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please rephrase - Omit references to the Op-panel. Instead in the detailed message, mention that op-panel is one example of how this could be used.",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c716521_175ec09a",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please add a doxygen. Also, make this function return a full bind/unbind command based on a parameter?",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b87b480b_a824865b",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Priyanga: Remove this line.",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "386933f1_d47b1ffa",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Needed?",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efc80c0c_0b7cd8d6",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please check if these spaces can be cleaned up without getting format errors?",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5194a6dc_ab6c7ebf",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please check for the existence of both \"preAction\" and presence",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8a66001_b592a621",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please revisit this and include a JSON example - rebase to the latest JSONs.",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cbfb63b_d62f8985",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please fix this - Right now, this will only work if there is a single GPIO to monitor. For multiple GPIO, please create an object of this class (create a shared_ptr) and then at the end after all the objects are created, call the event.loop",
+      "range": {
+        "startLine": 96,
+        "startChar": 15,
+        "endLine": 98,
+        "endChar": 60
+      },
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b55f561_83086d14",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please don\u0027t include the manager header here.",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76930bca_4976dcd4",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Needed?",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3de450b_43011b92",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please check if this should be camelCase",
+      "range": {
+        "startLine": 14,
+        "startChar": 10,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef92bf1e_9357480d",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please move using to cpp",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c37afb4_00d4a683",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please elaborate.",
+      "range": {
+        "startLine": 19,
+        "startChar": 11,
+        "endLine": 19,
+        "endChar": 54
+      },
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29ac9e40_b3785a91",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please remove OpPanel from the name",
+      "range": {
+        "startLine": 34,
+        "startChar": 12,
+        "endLine": 34,
+        "endChar": 19
+      },
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0701881_57b2b9b6",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Sunny: Please reword this comment.",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fa76d0e_2cd92935",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Some details about the event that it handles - please add here",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82d9735a_1732fd84",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please add doxygen for all public APIs",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "969a866a_c764de76",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please add a comment to describe what the member variables are for.",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2f32b97_7ac3416b",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Jinu: Please elaborate what false and true mean.",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdae013c_131eadf9",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Remove Op-panel from names",
+      "range": {
+        "startLine": 86,
+        "startChar": 15,
+        "endLine": 86,
+        "endChar": 22
+      },
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb236c01_87c28190",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please make this clearer - that it detects change in state from the previous state",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef6a6cf0_92eac8d6",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Maybe rename: hasEventOccurred",
+      "range": {
+        "startLine": 93,
+        "startChar": 9,
+        "endLine": 93,
+        "endChar": 22
+      },
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5502d598_81f5e5ac",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Please reword to indicate that this is the one that runs the timer.",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7703edff_2ebf84ee",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-18T07:54:48Z",
+      "side": 1,
+      "message": "Sunny: Why was this header removed?",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
