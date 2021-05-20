@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a66f5ec_a26b9794",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-20T09:37:10Z",
+      "side": 1,
+      "message": "This TODO is now out of place",
+      "revId": "8f55f74602b53fc4e7c6e3a40089de1157eec368",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc42ec07_481e3aaa",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-20T09:37:10Z",
+      "side": 1,
+      "message": "Why did you have to rearrange this?",
+      "revId": "8f55f74602b53fc4e7c6e3a40089de1157eec368",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc489b22_7bfdd5d5",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-20T09:37:10Z",
+      "side": 1,
+      "message": "Why would the name ever be empty? The message below is misleading too, it seems to indicate the file is 0 bytes in length, but really this is checking for the name of the file not its contents.",
+      "range": {
+        "startLine": 999,
+        "startChar": 11,
+        "endLine": 999,
+        "endChar": 29
+      },
+      "revId": "8f55f74602b53fc4e7c6e3a40089de1157eec368",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da7b4140_a18305e6",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-20T09:37:10Z",
+      "side": 1,
+      "message": "Why is this hyphenated?",
+      "range": {
+        "startLine": 191,
+        "startChar": 28,
+        "endLine": 191,
+        "endChar": 36
+      },
+      "revId": "8f55f74602b53fc4e7c6e3a40089de1157eec368",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec610530_2c77a530",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-20T09:37:10Z",
+      "side": 1,
+      "message": "Please change this to a const ref too",
+      "range": {
+        "startLine": 211,
+        "startChar": 41,
+        "endLine": 211,
+        "endChar": 59
+      },
+      "revId": "8f55f74602b53fc4e7c6e3a40089de1157eec368",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "485b5527_3de9a550",
+        "filename": "meson.build",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-20T09:37:10Z",
+      "side": 1,
+      "message": "Please get rid of the TABS for consistency.",
+      "revId": "8f55f74602b53fc4e7c6e3a40089de1157eec368",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
