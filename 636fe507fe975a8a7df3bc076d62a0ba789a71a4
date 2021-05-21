@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c6a2ad4_011c738a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-21T05:13:29Z",
+      "side": 1,
+      "message": "We do not need at both the places. Line 1017 and 1052?",
+      "revId": "636fe507fe975a8a7df3bc076d62a0ba789a71a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e89d9e78_02b882ab",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-21T05:13:29Z",
+      "side": 1,
+      "message": "Please check stream for failure condition.",
+      "revId": "636fe507fe975a8a7df3bc076d62a0ba789a71a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
