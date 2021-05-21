@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "006a4b3d_8b6e6405",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-21T10:04:52Z",
+      "side": 1,
+      "message": "This should use BAD_VPD_DIR config option.",
+      "range": {
+        "startLine": 494,
+        "startChar": 21,
+        "endLine": 494,
+        "endChar": 34
+      },
+      "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beda2497_e380beb2",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-21T10:04:52Z",
+      "side": 1,
+      "message": "Have you verified that this work with the new generic paths?",
+      "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bba0fcba_62fdb114",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-21T10:04:52Z",
+      "side": 1,
+      "message": "How does this behave if there is a file already in that path? What happens with the write() then?\n\nIf the size of the old file is more than the size of vpdVector, can the file be partially overwritten?\n\nIt might be best to delete the old file (if any) and then recreate it.",
+      "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f21e16b_553aff10",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-21T10:04:52Z",
+      "side": 1,
+      "message": "Nit: API Or just omit it - A function is an API.",
+      "range": {
+        "startLine": 191,
+        "startChar": 10,
+        "endLine": 191,
+        "endChar": 13
+      },
+      "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bca89a9_7295275a",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-21T10:04:52Z",
+      "side": 1,
+      "message": "Nit: Same here",
+      "range": {
+        "startLine": 203,
+        "startChar": 10,
+        "endLine": 203,
+        "endChar": 13
+      },
+      "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c14467a4_28d77201",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-21T10:04:52Z",
+      "side": 1,
+      "message": "bad VPD data**",
+      "range": {
+        "startLine": 205,
+        "startChar": 49,
+        "endLine": 205,
+        "endChar": 55
+      },
+      "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ec5ffbf_7625e8dc",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-21T10:04:52Z",
+      "side": 1,
+      "message": "Nit: in order**",
+      "range": {
+        "startLine": 205,
+        "startChar": 26,
+        "endLine": 205,
+        "endChar": 33
+      },
+      "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
