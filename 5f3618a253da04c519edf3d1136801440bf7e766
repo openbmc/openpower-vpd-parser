@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fb9f9118_9a2b055a",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-21T13:19:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "006a4b3d_8b6e6405",
+      "range": {
+        "startLine": 494,
+        "startChar": 21,
+        "endLine": 494,
+        "endChar": 34
+      },
+      "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "beda2497_e380beb2",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 11
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "d5b782a6_be33bb63",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-21T13:19:57Z",
+      "side": 1,
+      "message": "yes. verified. this works only for generic paths .",
+      "parentUuid": "beda2497_e380beb2",
+      "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bba0fcba_62fdb114",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 11
@@ -53,6 +95,24 @@
       "writtenOn": "2021-05-21T10:04:52Z",
       "side": 1,
       "message": "How does this behave if there is a file already in that path? What happens with the write() then?\n\nIf the size of the old file is more than the size of vpdVector, can the file be partially overwritten?\n\nIt might be best to delete the old file (if any) and then recreate it.",
+      "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1362d5e_86bd41f6",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-21T13:19:57Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "bba0fcba_62fdb114",
       "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "2b76bd09_055678b8",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-21T13:19:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f21e16b_553aff10",
+      "range": {
+        "startLine": 191,
+        "startChar": 10,
+        "endLine": 191,
+        "endChar": 13
+      },
+      "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bca89a9_7295275a",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 11
@@ -102,6 +186,30 @@
       "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cda3a33d_f3d93f3d",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-21T13:19:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bca89a9_7295275a",
+      "range": {
+        "startLine": 203,
+        "startChar": 10,
+        "endLine": 203,
+        "endChar": 13
+      },
+      "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -148,6 +256,54 @@
       "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fd98691_d3e06742",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-21T13:19:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ec5ffbf_7625e8dc",
+      "range": {
+        "startLine": 205,
+        "startChar": 26,
+        "endLine": 205,
+        "endChar": 33
+      },
+      "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1dca6f4_e4d8a542",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-21T13:19:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c14467a4_28d77201",
+      "range": {
+        "startLine": 205,
+        "startChar": 49,
+        "endLine": 205,
+        "endChar": 55
+      },
+      "revId": "5f3618a253da04c519edf3d1136801440bf7e766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
