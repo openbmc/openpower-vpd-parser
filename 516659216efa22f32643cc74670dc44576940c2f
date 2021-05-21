@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7126c26_3ce184a8",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-21T13:36:14Z",
+      "side": 1,
+      "message": "Please use fs::remove() So that you don\u0027t need that .data() call. Also please check the return value and handle it (we can throw an exception)",
+      "range": {
+        "startLine": 524,
+        "startChar": 8,
+        "endLine": 524,
+        "endChar": 34
+      },
+      "revId": "516659216efa22f32643cc74670dc44576940c2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
