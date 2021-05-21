@@ -46,6 +46,30 @@
       "revId": "516659216efa22f32643cc74670dc44576940c2f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07094897_8cb877b6",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-21T15:47:04Z",
+      "side": 1,
+      "message": "Don\u0027t we land up here if the file does exist? So we should check for whether removed failed",
+      "parentUuid": "ace78e84_78114d5c",
+      "range": {
+        "startLine": 524,
+        "startChar": 8,
+        "endLine": 524,
+        "endChar": 34
+      },
+      "revId": "516659216efa22f32643cc74670dc44576940c2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
