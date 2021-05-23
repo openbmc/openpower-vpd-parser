@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c35016be_7a20de05",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-05-23T18:08:02Z",
+      "side": 1,
+      "message": "This should go away",
+      "range": {
+        "startLine": 685,
+        "startChar": 11,
+        "endLine": 686,
+        "endChar": 30
+      },
+      "revId": "3fb4f755a03e5ba9c601b3308dc086fe3cac76a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
