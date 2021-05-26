@@ -432,10 +432,10 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
         for (auto& itemEEPROM : itemFRUS.value())
         {
             inventory::InterfaceMap interfaces;
-            auto isSystemVpd = itemEEPROM.value("isSystemVpd", false);
             inventory::Object object(itemEEPROM.at("inventoryPath"));
 
-            if (!isSystemVpd && !itemEEPROM.value("noprime", false))
+            if ((itemFRUS.key() != systemVpdFilePath) &&
+                !itemEEPROM.value("noprime", false))
             {
                 inventory::PropertyMap presProp;
                 presProp.emplace("Present", false);
@@ -718,12 +718,36 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     // map to hold all the keywords whose value has been changed at standby
     vector<RestoredEeproms> updatedEeproms = {};
 
-    bool isSystemVpd = false;
+    bool isSystemVpd = (filePath == systemVpdFilePath);
+    if constexpr (is_same<T, Parsed>::value)
+    {
+        if (isSystemVpd)
+        {
+            std::vector<std::string> interfaces = {motherBoardInterface};
+            // call mapper to check for object path creation
+            MapperResponse subTree =
+                getObjectSubtreeForInterfaces(pimPath, 0, interfaces);
+            string mboardPath =
+                js["frus"][filePath].at(0).value("inventoryPath", "");
+
+            // Attempt system VPD restore if we have a motherboard
+            // object in the inventory.
+            if ((subTree.size() != 0) &&
+                (subTree.find(pimPath + mboardPath) != subTree.end()))
+            {
+                updatedEeproms = restoreSystemVPD(vpdMap, mboardPath);
+            }
+            else
+            {
+                log<level::ERR>("No object path found");
+            }
+        }
+    }
+
     for (const auto& item : js["frus"][filePath])
     {
         const auto& objectPath = item["inventoryPath"];
         sdbusplus::message::object_path object(objectPath);
-        isSystemVpd = item.value("isSystemVpd", false);
 
         // Populate the VPD keywords and the common interfaces only if we
         // are asked to inherit that data from the VPD, else only add the
@@ -732,28 +756,6 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         {
             if constexpr (is_same<T, Parsed>::value)
             {
-                if (isSystemVpd)
-                {
-                    std::vector<std::string> interfaces = {
-                        motherBoardInterface};
-                    // call mapper to check for object path creation
-                    MapperResponse subTree =
-                        getObjectSubtreeForInterfaces(pimPath, 0, interfaces);
-
-                    // Attempt system VPD restore if we have a motherboard
-                    // object in the inventory.
-                    if ((subTree.size() != 0) &&
-                        (subTree.find(pimPath + std::string(objectPath)) !=
-                         subTree.end()))
-                    {
-                        updatedEeproms = restoreSystemVPD(vpdMap, objectPath);
-                    }
-                    else
-                    {
-                        log<level::ERR>("No object path found");
-                    }
-                }
-
                 // Each record in the VPD becomes an interface and all
                 // keyword within the record are properties under that
                 // interface.
@@ -957,7 +959,7 @@ int main(int argc, char** argv)
             cout << "Path after translation: " << file << "\n";
 
             if ((js["frus"].find(file) != js["frus"].end()) &&
-                (js["frus"][file].at(0).value("isSystemVpd", false)))
+                (file == systemVpdFilePath))
             {
                 return 0;
             }
