@@ -39,10 +39,10 @@ using namespace openpower::vpd::exceptions;
 using namespace phosphor::logging;
 
 static const deviceTreeMap deviceTreeSystemTypeMap = {
-    {RAINIER_2U, "conf-aspeed-bmc-ibm-rainier.dtb"},
-    {RAINIER_2U_V2, "conf-aspeed-bmc-ibm-rainier-v2.dtb"},
-    {RAINIER_4U, "conf-aspeed-bmc-ibm-rainier-4u.dtb"},
-    {RAINIER_4U_V2, "conf-aspeed-bmc-ibm-rainier-4u-v2.dtb"},
+    {RAINIER_2U, "conf-aspeed-bmc-ibm-rainier-v1.dtb"},
+    {RAINIER_2U_V2, "conf-aspeed-bmc-ibm-rainier.dtb"},
+    {RAINIER_4U, "conf-aspeed-bmc-ibm-rainier-4u-v1.dtb"},
+    {RAINIER_4U_V2, "conf-aspeed-bmc-ibm-rainier-4u.dtb"},
     {RAINIER_1S4U, "conf-aspeed-bmc-ibm-rainier-1s4u.dtb"},
     {EVEREST, "conf-aspeed-bmc-ibm-everest.dtb"}};
 
