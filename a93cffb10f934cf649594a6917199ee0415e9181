@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7dcb9f90_5c4ae7f1",
+        "filename": "test/vpd-manager-test/reader_test.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-26T15:11:35Z",
+      "side": 1,
+      "message": "needed for the string parameters at line 14.",
+      "parentUuid": "f528625c_1673ee46",
+      "revId": "a93cffb10f934cf649594a6917199ee0415e9181",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16fb2191_7e496ab5",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 39
@@ -30,6 +48,24 @@
       "writtenOn": "2021-05-26T05:43:30Z",
       "side": 1,
       "message": "Can we add a test case for this api.",
+      "revId": "a93cffb10f934cf649594a6917199ee0415e9181",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30398071_1b384b10",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-26T15:11:35Z",
+      "side": 1,
+      "message": "this is called by the vpd-tool. Do we need test case for the tool option?",
+      "parentUuid": "16fb2191_7e496ab5",
       "revId": "a93cffb10f934cf649594a6917199ee0415e9181",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "655b8889_9518106f",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-26T15:11:35Z",
+      "side": 1,
+      "message": "not needed. removed",
+      "parentUuid": "f64b1af4_f07730ea",
+      "revId": "a93cffb10f934cf649594a6917199ee0415e9181",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d1e3df0_6fe7c4c2",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 39
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "0ef78fb5_5fbf1c83",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-26T15:11:35Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "7d1e3df0_6fe7c4c2",
+      "revId": "a93cffb10f934cf649594a6917199ee0415e9181",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86b00087_a3976e86",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 39
@@ -81,6 +153,24 @@
       "writtenOn": "2021-05-26T05:43:30Z",
       "side": 1,
       "message": "This as well?",
+      "revId": "a93cffb10f934cf649594a6917199ee0415e9181",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e69e2f9a_c1b92610",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-26T15:11:35Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "86b00087_a3976e86",
       "revId": "a93cffb10f934cf649594a6917199ee0415e9181",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
