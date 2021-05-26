@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21d34123_62e67a9e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-05-26T13:11:31Z",
+      "side": 1,
+      "message": "I am confused, how is removing this continue fixing the mismatch case?",
+      "revId": "15d84b291a030612a07f6000f8b97ea05a8b76fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
