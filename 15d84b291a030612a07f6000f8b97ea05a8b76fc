@@ -16,6 +16,24 @@
       "revId": "15d84b291a030612a07f6000f8b97ea05a8b76fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "832a4eac_c16de242",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-26T13:32:19Z",
+      "side": 1,
+      "message": "Earlier, when there was mismatch we were creating PEL and then updating the Kwdvalue in the map (Which has its entries from EEPROM file) with the bus value and continuing. So once this method is executed and we go back to populate Dbus we update the bus with older bus value which has been copied to map.\n\nBut now since the busValue is not being copied to map in case of mis match the data that will be uploaded on bus will be from EEPROM only.",
+      "parentUuid": "21d34123_62e67a9e",
+      "revId": "15d84b291a030612a07f6000f8b97ea05a8b76fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
