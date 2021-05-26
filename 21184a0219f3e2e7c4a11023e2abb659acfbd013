@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80ec3a6e_7e9b542a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-05-26T13:04:08Z",
+      "side": 1,
+      "message": "Can we reduce the scope of this variable(isSystemVpd) by having it inside the nested for loop at line 433?\nas there is no usage of the variable in the outer loop(at line 430).",
+      "range": {
+        "startLine": 430,
+        "startChar": 8,
+        "endLine": 430,
+        "endChar": 25
+      },
+      "revId": "21184a0219f3e2e7c4a11023e2abb659acfbd013",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
