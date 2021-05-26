@@ -661,13 +661,12 @@ std::vector<RestoredEeproms> restoreSystemVPD(Parsed& vpdMap,
 
                             updatedEeproms.push_back(std::make_tuple(
                                 objectPath, recordName, keyword, busData));
-                        }
 
-                        // update the map as well, so that cache data is not
-                        // updated as blank while populating VPD map on Dbus in
-                        // populateDBus Api
-                        kwdValue = busValue;
-                        continue;
+                            // update the map as well, so that cache data is not
+                            // updated as blank while populating VPD map on Dbus
+                            // in populateDBus Api
+                            kwdValue = busValue;
+                        }
                     }
                     else if (kwdValue.find_first_not_of(' ') == string::npos)
                     {
