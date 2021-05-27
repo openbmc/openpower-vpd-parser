@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5330c8e8_26a424f5",
+        "filename": "test/vpd-manager-test/reader_test.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-27T05:18:49Z",
+      "side": 1,
+      "message": "There is no other change, so how it was working before?\nI guess this is not required here, try to build without this change.",
+      "parentUuid": "7dcb9f90_5c4ae7f1",
+      "revId": "a93cffb10f934cf649594a6917199ee0415e9181",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16fb2191_7e496ab5",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 39
