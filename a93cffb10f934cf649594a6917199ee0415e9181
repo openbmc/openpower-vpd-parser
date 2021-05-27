@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "3ce34805_4f84f149",
+        "filename": "test/vpd-manager-test/reader_test.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-27T13:43:46Z",
+      "side": 1,
+      "message": "Ok, In that case it is better to add std:: in from of those string object and avoid including namespaces in header files.\nThough it is a test header file but just for consistency.",
+      "parentUuid": "29e5d87d_800de442",
+      "revId": "a93cffb10f934cf649594a6917199ee0415e9181",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16fb2191_7e496ab5",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 39
