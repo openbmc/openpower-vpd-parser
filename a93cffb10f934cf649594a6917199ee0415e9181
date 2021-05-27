@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "19d3c66a_637a2360",
+        "filename": "test/vpd-manager-test/reader_test.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-05-27T14:26:29Z",
+      "side": 1,
+      "message": "std:: in front of*",
+      "parentUuid": "1d3d45d0_076c6012",
+      "revId": "a93cffb10f934cf649594a6917199ee0415e9181",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16fb2191_7e496ab5",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 39
