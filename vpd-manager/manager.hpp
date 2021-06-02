@@ -124,10 +124,35 @@ class Manager : public ServerObject<ManagerIface>
      */
     void performVPDRecollection();
 
+    /** @brief Api to perform VPD collection for a single fru.
+     *  @param[in] path - Dbus object path of that fru.
+     */
+    void collectSingleFruVpd(const sdbusplus::message::object_path path);
+
   private:
     /** @brief process the given JSON file
      */
     void processJSON();
+
+    /** @brief get the vector of frus which are replaceable at standby */
+    void getReplaceableFruVector(inventory::ReplaceableFrus& replaceableFrus,
+                                 const nlohmann::json jsonFile);
+
+    /**
+     * @brief Method which returns Map of Inventory path to its corresponding
+     * Location Code
+     * @param[out] fruLocationCode - Map of Location code and inventory path.
+     * @param[in] jsonFile - Parsed inventory json object.
+     */
+    void getLocationCodeToInvMap(inventory::LocationCodeMap& fruLocationCode,
+                                 const nlohmann::json& jsonFile);
+
+    /**
+     * @brief An api to trigger vpd collection for a fru by bind/unbind of
+     * driver.
+     * @param[in] singleFru - Json of a single fru inder a given EEPROM path.
+     */
+    void triggerVpdCollection(const nlohmann::json& singleFru);
 
     /** @brief Persistent sdbusplus DBus bus connection. */
     sdbusplus::bus::bus _bus;
