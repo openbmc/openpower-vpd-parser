@@ -8,6 +8,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <gpiod.hpp>
 #include <iomanip>
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
@@ -542,6 +543,104 @@ void dumpBadVpd(const string& file, const Binary& vpdVector)
     }
     badVpdFileStream.write(reinterpret_cast<const char*>(vpdVector.data()),
                            vpdVector.size());
+}
+
+bool executePreAction(const nlohmann::json& json, const string& file)
+{
+    if ((json["frus"][file].at(0)).find("preAction") ==
+        json["frus"][file].at(0).end())
+    {
+        return false;
+    }
+
+    uint8_t pinValue = 0;
+    string pinName{};
+
+    for (const auto& postAction :
+         (json["frus"][file].at(0))["preAction"].items())
+    {
+        if (postAction.key() == "pin")
+        {
+            pinName = postAction.value();
+        }
+        else if (postAction.key() == "value")
+        {
+            // Get the value to set
+            pinValue = postAction.value();
+        }
+    }
+
+    cout << "Setting GPIO: " << pinName << " to " << (int)pinValue << endl;
+    try
+    {
+        gpiod::line outputLine = gpiod::find_line(pinName);
+
+        if (!outputLine)
+        {
+            cout << "Couldn't find output line:" << pinName
+                 << " on GPIO. Skipping...\n";
+
+            return false;
+        }
+        outputLine.request(
+            {"FRU pre-action", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
+            pinValue);
+    }
+    catch (system_error&)
+    {
+        cerr << "Failed to set pre-action GPIO" << endl;
+        return false;
+    }
+
+    return true;
+}
+
+void exeutePostFailAction(const nlohmann::json& json, const string& file)
+{
+    if ((json["frus"][file].at(0)).find("postActionFail") ==
+        json["frus"][file].at(0).end())
+    {
+        return;
+    }
+
+    uint8_t pinValue = 0;
+    string pinName;
+
+    for (const auto& postAction :
+         (json["frus"][file].at(0))["postActionFail"].items())
+    {
+        if (postAction.key() == "pin")
+        {
+            pinName = postAction.value();
+        }
+        else if (postAction.key() == "value")
+        {
+            // Get the value to set
+            pinValue = postAction.value();
+        }
+    }
+
+    cout << "Setting GPIO: " << pinName << " to " << (int)pinValue << endl;
+
+    try
+    {
+        gpiod::line outputLine = gpiod::find_line(pinName);
+
+        if (!outputLine)
+        {
+            cout << "Couldn't find output line:" << pinName
+                 << " on GPIO. Skipping...\n";
+
+            return;
+        }
+        outputLine.request(
+            {"Disable line", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
+            pinValue);
+    }
+    catch (system_error&)
+    {
+        cerr << "Failed to set post-action GPIO" << endl;
+    }
 }
 } // namespace vpd
 } // namespace openpower
