@@ -124,6 +124,18 @@ class Manager : public ServerObject<ManagerIface>
      */
     void performVPDRecollection();
 
+    /** @brief Api to delete FRU VPD.
+     * This api will set the present property of given FRU to false. If already
+     * set to false, It will log an error.
+     * @param[in] path - Object path of FRU.
+     */
+    void deleteFRUVPD(const sdbusplus::message::object_path path);
+
+    /** @brief Api to perform VPD collection for a single fru.
+     *  @param[in] path - Dbus object path of that fru.
+     */
+    void collectFRUVPD(const sdbusplus::message::object_path path);
+
   private:
     /** @brief process the given JSON file
      */
@@ -138,6 +150,15 @@ class Manager : public ServerObject<ManagerIface>
      *  @param[in] msg - callback message.
      */
     void hostStateCallBack(sdbusplus::message::message& msg);
+
+    /**
+     * @brief An api to trigger vpd collection for a fru by bind/unbind of
+     * driver.
+     * @param[in] singleFru - Json of a single fru inder a given EEPROM path.
+     * @param[in] path - Inventory path.
+     */
+    void triggerVpdCollection(const nlohmann::json& singleFru,
+                              const std::string& path);
 
     /** @brief Persistent sdbusplus DBus bus connection. */
     sdbusplus::bus::bus _bus;

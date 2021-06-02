@@ -5,6 +5,7 @@
 #include "types.hpp"
 
 #include <iostream>
+#include <nlohmann/json.hpp>
 
 using namespace std;
 
@@ -260,5 +261,22 @@ string getPrintableValue(const Binary& vec);
  */
 string byteArrayToHexString(const Binary& vec);
 
+/**
+ * @brief Performs any pre-action needed to get the FRU setup for collection.
+ *
+ * @param[in] json - json object
+ * @param[in] file - eeprom file path
+ * @return - success or failure
+ */
+bool executePreAction(const nlohmann::json& json, const string& file);
+
+/**
+ * @brief This API will be called at the end of VPD collection to perform any
+ * post actions.
+ *
+ * @param[in] json - json object
+ * @param[in] file - eeprom file path
+ */
+void executePostFailAction(const nlohmann::json& json, const string& file);
 } // namespace vpd
 } // namespace openpower
