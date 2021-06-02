@@ -233,6 +233,38 @@ static const auto _return_PerformVPDRecollection =
 } // namespace Manager
 } // namespace details
 
+int Manager::_callback_CollectSingleFruVpd(sd_bus_message* msg, void* context,
+                                           sd_bus_error* error)
+{
+    auto o = static_cast<Manager*>(context);
+
+    try
+    {
+        return sdbusplus::sdbuspp::method_callback(
+            msg, o->_intf, error,
+            std::function([=](sdbusplus::message::object_path&& inventoryPath) {
+                return o->collectSingleFruVpd(inventoryPath);
+            }));
+    }
+    catch (sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument& e)
+    {
+        return o->_intf->sd_bus_error_set(error, e.name(), e.description());
+    }
+
+    return 0;
+}
+
+namespace details
+{
+namespace Manager
+{
+static const auto _param_CollectSingleFruVpd = utility::tuple_to_array(
+    message::types::type_id<sdbusplus::message::object_path>());
+static const auto _return_CollectSingleFruVpd =
+    utility::tuple_to_array(std::make_tuple('\0'));
+} // namespace Manager
+} // namespace details
+
 const vtable::vtable_t Manager::_vtable[] = {
     vtable::start(),
 
@@ -261,6 +293,11 @@ const vtable::vtable_t Manager::_vtable[] = {
                    details::Manager::_param_PerformVPDRecollection.data(),
                    details::Manager::_return_PerformVPDRecollection.data(),
                    _callback_PerformVPDRecollection),
+
+    vtable::method("CollectSingleFruVpd",
+                   details::Manager::_param_CollectSingleFruVpd.data(),
+                   details::Manager::_return_CollectSingleFruVpd.data(),
+                   _callback_CollectSingleFruVpd),
     vtable::end()};
 
 } // namespace server

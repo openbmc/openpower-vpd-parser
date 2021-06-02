@@ -9,6 +9,7 @@
 #include "vpd_exceptions.hpp"
 
 #include <phosphor-logging/elog-errors.hpp>
+#include <xyz/openbmc_project/Common/error.hpp>
 
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
@@ -194,7 +195,7 @@ void Manager::performVPDRecollection()
             singleFru["inventoryPath"]
                 .get_ref<const nlohmann::json::string_t&>();
 
-        if ((singleFru.find("devAddress") == singleFru.end()) ||
+        if ((singleFru.find("bind") == singleFru.end()) ||
             (singleFru.find("driverType") == singleFru.end()) ||
             (singleFru.find("busType") == singleFru.end()))
         {
@@ -206,55 +207,112 @@ void Manager::performVPDRecollection()
                       ("Recollection failed for " + inventoryPath).c_str()));
             continue;
         }
+        triggerVpdCollection(singleFru);
+    }
+}
 
-        string str = "echo ";
-        string deviceAddress = singleFru["devAddress"];
-        const string& driverType = singleFru["driverType"];
-        const string& busType = singleFru["busType"];
+void Manager::collectSingleFruVpd(const sdbusplus::message::object_path path)
+{
+    using InvalidArgument =
+        sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
+    using Argument = xyz::openbmc_project::Common::InvalidArgument;
 
-        // devTreeStatus flag is present in json as false to mention
-        // that the EEPROM is not mentioned in device tree. If this flag
-        // is absent consider the value to be true, i.e EEPROM is
-        // mentioned in device tree
-        if (!singleFru.value("devTreeStatus", true))
+    // if path not found in Json.
+    if (frus.find(path) == frus.end())
+    {
+        elog<InvalidArgument>(
+            Argument::ARGUMENT_NAME("Object Path"),
+            Argument::ARGUMENT_VALUE(std::string(path).c_str()));
+    }
+
+    inventory::Path vpdFilePath = frus.find(path)->second.first;
+
+    const std::vector<json>& groupEEPROM =
+        jsonFile["frus"][vpdFilePath].get_ref<const json::array_t&>();
+
+    const nlohmann::json& singleFru = groupEEPROM[0];
+
+    // check if the device qualifies for CM.
+    if (singleFru.value("concurrentlyMaintainable", false))
+    {
+        if ((singleFru.find("bind") == singleFru.end()) ||
+            (singleFru.find("driverType") == singleFru.end()) ||
+            (singleFru.find("busType") == singleFru.end()))
         {
-            auto pos = deviceAddress.find('-');
-            if (pos != string::npos)
-            {
-                string busNum = deviceAddress.substr(0, pos);
-                deviceAddress =
-                    "0x" + deviceAddress.substr(pos + 1, string::npos);
+            // The FRUs is marked for collection but missing mandatory
+            // fields for collection. Log error and return.
+            log<level::ERR>(
+                "Collection Failed as mandatory field missing in Json",
+                entry(
+                    "ERROR=%s",
+                    ("Recollection failed for " + std::string(path)).c_str()));
 
-                string deleteDevice = str + deviceAddress + " > /sys/bus/" +
-                                      busType + "/devices/" + busType + "-" +
-                                      busNum + "/delete_device";
-                executeCmd(deleteDevice);
+            return;
+        }
 
-                string addDevice = str + driverType + " " + deviceAddress +
-                                   " > /sys/bus/" + busType + "/devices/" +
-                                   busType + "-" + busNum + "/new_device";
-                executeCmd(addDevice);
-            }
-            else
-            {
-                log<level::ERR>(
-                    "Wrong format of device address in Json",
-                    entry(
-                        "ERROR=%s",
-                        ("Recollection failed for " + inventoryPath).c_str()));
-                continue;
-            }
+        // unbind, bind the driver to trigger parser.
+        triggerVpdCollection(singleFru);
+        return;
+    }
+    else
+    {
+        elog<InvalidArgument>(
+            Argument::ARGUMENT_NAME("Object Path"),
+            Argument::ARGUMENT_VALUE(std::string(path).c_str()));
+    }
+}
+
+void Manager::triggerVpdCollection(const nlohmann::json& singleFru)
+{
+    string str = "echo ";
+    string deviceAddress = singleFru["bind"];
+    const string& driverType = singleFru["driverType"];
+    const string& busType = singleFru["busType"];
+
+    // devTreeStatus flag is present in json as false to mention
+    // that the EEPROM is not mentioned in device tree. If this flag
+    // is absent consider the value to be true, i.e EEPROM is
+    // mentioned in device tree
+    if (!singleFru.value("devTreeStatus", true))
+    {
+        auto pos = deviceAddress.find('-');
+        if (pos != string::npos)
+        {
+            string busNum = deviceAddress.substr(0, pos);
+            deviceAddress = "0x" + deviceAddress.substr(pos + 1, string::npos);
+
+            string deleteDevice = str + deviceAddress + " > /sys/bus/" +
+                                  busType + "/devices/" + busType + "-" +
+                                  busNum + "/delete_device";
+            executeCmd(deleteDevice);
+
+            string addDevice = str + driverType + " " + deviceAddress +
+                               " > /sys/bus/" + busType + "/devices/" +
+                               busType + "-" + busNum + "/new_device";
+            executeCmd(addDevice);
         }
         else
         {
-            string cmd = str + deviceAddress + " > /sys/bus/" + busType +
-                         "/drivers/" + driverType;
+            const string& inventoryPath =
+                singleFru["inventoryPath"]
+                    .get_ref<const nlohmann::json::string_t&>();
 
-            executeCmd(cmd + "/unbind");
-            executeCmd(cmd + "/bind");
+            log<level::ERR>(
+                "Wrong format of device address in Json",
+                entry("ERROR=%s",
+                      ("Recollection failed for " + inventoryPath).c_str()));
         }
     }
+    else
+    {
+        string cmd = str + deviceAddress + " > /sys/bus/" + busType +
+                     "/drivers/" + driverType;
+
+        executeCmd(cmd + "/unbind");
+        executeCmd(cmd + "/bind");
+    }
 }
+
 } // namespace manager
 } // namespace vpd
 } // namespace openpower
