@@ -24,11 +24,12 @@ vpd_manager_dependencies =[sdbusplus,
                            phosphor_logging,
                            systemd,
                            phosphor_dbus_interfaces,
+                           libgpiodcxx,
                           ]
 
 vpd_manager_exe = executable(
                  'vpd-manager',
-                 vpd_manager_SOURCES, 
+                 vpd_manager_SOURCES,
                  include_directories : configuration_inc,
                  dependencies : [
                                 vpd_manager_dependencies,
