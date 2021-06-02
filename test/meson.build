@@ -11,7 +11,10 @@ if get_option('oe-sdk').enabled()
 else
   dynamic_linker = []
 endif
-dependecy_list = [gtest_dep, gmock_dep, sdbusplus, phosphor_logging, phosphor_dbus_interfaces]
+gmock = dependency('gmock', disabler: true, required: build_tests)
+gtest = dependency('gtest', main: true, disabler: true, required: build_tests)
+libgpiodcxx = dependency('libgpiodcxx')
+dependecy_list = [gtest, gmock, sdbusplus, phosphor_logging, phosphor_dbus_interfaces, libgpiodcxx]
 
 configuration_inc = include_directories('..', '../vpd-manager', 'vpd-manager-test', '../vpd-parser')
 
