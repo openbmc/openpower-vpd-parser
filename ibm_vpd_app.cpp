@@ -22,7 +22,6 @@
 #include <gpiod.hpp>
 #include <iostream>
 #include <iterator>
-#include <nlohmann/json.hpp>
 #include <phosphor-logging/log.hpp>
 #include <regex>
 
@@ -347,60 +346,6 @@ static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
     return vpdVector;
 }
 
-/** This API will be called at the end of VPD collection to perform any post
- * actions.
- *
- * @param[in] json - json object
- * @param[in] file - eeprom file path
- */
-static void postFailAction(const nlohmann::json& json, const string& file)
-{
-    if ((json["frus"][file].at(0)).find("postActionFail") ==
-        json["frus"][file].at(0).end())
-    {
-        return;
-    }
-
-    uint8_t pinValue = 0;
-    string pinName;
-
-    for (const auto& postAction :
-         (json["frus"][file].at(0))["postActionFail"].items())
-    {
-        if (postAction.key() == "pin")
-        {
-            pinName = postAction.value();
-        }
-        else if (postAction.key() == "value")
-        {
-            // Get the value to set
-            pinValue = postAction.value();
-        }
-    }
-
-    cout << "Setting GPIO: " << pinName << " to " << (int)pinValue << endl;
-
-    try
-    {
-        gpiod::line outputLine = gpiod::find_line(pinName);
-
-        if (!outputLine)
-        {
-            cout << "Couldn't find output line:" << pinName
-                 << " on GPIO. Skipping...\n";
-
-            return;
-        }
-        outputLine.request(
-            {"Disable line", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
-            pinValue);
-    }
-    catch (system_error&)
-    {
-        cerr << "Failed to set post-action GPIO" << endl;
-    }
-}
-
 /** Performs any pre-action needed to get the FRU setup for collection.
  *
  * @param[in] json - json object
@@ -414,60 +359,24 @@ static void preAction(const nlohmann::json& json, const string& file)
         return;
     }
 
-    uint8_t pinValue = 0;
-    string pinName;
-
-    for (const auto& postAction :
-         (json["frus"][file].at(0))["preAction"].items())
+    if (executePreAction(json, file))
     {
-        if (postAction.key() == "pin")
+        // Now bind the device
+        string bind = json["frus"][file].at(0).value("bind", "");
+        cout << "Binding device " << bind << endl;
+        string bindCmd = string("echo \"") + bind +
+                         string("\" > /sys/bus/i2c/drivers/at24/bind");
+        cout << bindCmd << endl;
+        executeCmd(bindCmd);
+
+        // Check if device showed up (test for file)
+        if (!fs::exists(file))
         {
-            pinName = postAction.value();
+            cout << "EEPROM " << file << " does not exist. Take failure action"
+                 << endl;
+            // If not, then take failure postAction
+            executePostFailAction(json, file);
         }
-        else if (postAction.key() == "value")
-        {
-            // Get the value to set
-            pinValue = postAction.value();
-        }
-    }
-
-    cout << "Setting GPIO: " << pinName << " to " << (int)pinValue << endl;
-    try
-    {
-        gpiod::line outputLine = gpiod::find_line(pinName);
-
-        if (!outputLine)
-        {
-            cout << "Couldn't find output line:" << pinName
-                 << " on GPIO. Skipping...\n";
-
-            return;
-        }
-        outputLine.request(
-            {"FRU pre-action", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
-            pinValue);
-    }
-    catch (system_error&)
-    {
-        cerr << "Failed to set pre-action GPIO" << endl;
-        return;
-    }
-
-    // Now bind the device
-    string bind = json["frus"][file].at(0).value("bind", "");
-    cout << "Binding device " << bind << endl;
-    string bindCmd = string("echo \"") + bind +
-                     string("\" > /sys/bus/i2c/drivers/at24/bind");
-    cout << bindCmd << endl;
-    executeCmd(bindCmd);
-
-    // Check if device showed up (test for file)
-    if (!fs::exists(file))
-    {
-        cout << "EEPROM " << file << " does not exist. Take failure action"
-             << endl;
-        // If not, then take failure postAction
-        postFailAction(json, file);
     }
 }
 
@@ -1277,7 +1186,7 @@ int main(int argc, char** argv)
         }
         catch (exception& e)
         {
-            postFailAction(js, file);
+            executePostFailAction(js, file);
             throw;
         }
     }
