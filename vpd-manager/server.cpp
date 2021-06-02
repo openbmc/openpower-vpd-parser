@@ -275,6 +275,38 @@ static const auto _return_DeleteFRUVPD =
 } // namespace Manager
 } // namespace details
 
+int Manager::_callback_CollectFRUVPD(sd_bus_message* msg, void* context,
+                                     sd_bus_error* error)
+{
+    auto o = static_cast<Manager*>(context);
+
+    try
+    {
+        return sdbusplus::sdbuspp::method_callback(
+            msg, o->_intf, error,
+            std::function([=](sdbusplus::message::object_path&& inventoryPath) {
+                return o->collectFRUVPD(inventoryPath);
+            }));
+    }
+    catch (sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument& e)
+    {
+        return o->_intf->sd_bus_error_set(error, e.name(), e.description());
+    }
+
+    return 0;
+}
+
+namespace details
+{
+namespace Manager
+{
+static const auto _param_CollectFRUVPD = utility::tuple_to_array(
+    message::types::type_id<sdbusplus::message::object_path>());
+static const auto _return_CollectFRUVPD =
+    utility::tuple_to_array(std::make_tuple('\0'));
+} // namespace Manager
+} // namespace details
+
 const vtable::vtable_t Manager::_vtable[] = {
     vtable::start(),
 
@@ -307,6 +339,11 @@ const vtable::vtable_t Manager::_vtable[] = {
     vtable::method("deleteFRUVPD", details::Manager::_param_DeleteFRUVPD.data(),
                    details::Manager::_return_DeleteFRUVPD.data(),
                    _callback_DeleteFRUVPD),
+
+    vtable::method("CollectFRUVPD",
+                   details::Manager::_param_CollectFRUVPD.data(),
+                   details::Manager::_return_CollectFRUVPD.data(),
+                   _callback_CollectFRUVPD),
     vtable::end()};
 
 } // namespace server
