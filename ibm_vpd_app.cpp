@@ -22,7 +22,6 @@
 #include <gpiod.hpp>
 #include <iostream>
 #include <iterator>
-#include <nlohmann/json.hpp>
 #include <phosphor-logging/log.hpp>
 #include <regex>
 #include <thread>

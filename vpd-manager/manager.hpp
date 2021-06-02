@@ -117,6 +117,11 @@ class Manager
      */
     void deleteFRUVPD(const sdbusplus::message::object_path& path);
 
+    /** @brief Api to perform VPD collection for a single fru.
+     *  @param[in] path - Dbus object path of that fru.
+     */
+    void collectFRUVPD(const sdbusplus::message::object_path& path);
+
   private:
     /**
      * @brief An api to process some initial requirements.
@@ -156,6 +161,15 @@ class Manager
      * value that is in the D-Bus cache.
      */
     void restoreSystemVpd();
+
+    /**
+     * @brief An api to trigger vpd collection for a fru by bind/unbind of
+     * driver.
+     * @param[in] singleFru - Json of a single fru inder a given EEPROM path.
+     * @param[in] path - Inventory path.
+     */
+    void triggerVpdCollection(const nlohmann::json& singleFru,
+                              const std::string& path);
 
     /**
      * @brief Check for essential fru in the system.
