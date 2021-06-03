@@ -33,12 +33,6 @@ class ParserFactory
      * @return - Pointer to concrete parser class object.
      */
     static interface::ParserInterface* getParser(const Binary& vpdVector);
-
-    /**
-     * @brief A method to delete the parser object.
-     * @param[in] - Pointer to the parser object.
-     */
-    static void freeParser(interface::ParserInterface* parser);
 }; // ParserFactory
 
 } // namespace factory

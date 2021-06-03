@@ -652,8 +652,9 @@ void EditorImpl::updateKeyword(const Binary& kwdData, const bool& updCache)
     Byte vpdType = *iterator;
     if (vpdType == KW_VAL_PAIR_START_TAG)
     {
-        ParserInterface* Iparser = ParserFactory::getParser(completeVPDFile);
-        IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
+        ParserInterface* iParser = ParserFactory::getParser(completeVPDFile);
+        unique_ptr<IpzVpdParser> ipzParser(
+            dynamic_cast<IpzVpdParser*>(iParser));
 
         try
         {
@@ -663,9 +664,6 @@ void EditorImpl::updateKeyword(const Binary& kwdData, const bool& updCache)
             }
 
             ipzParser->processHeader();
-            delete ipzParser;
-            ipzParser = nullptr;
-            // ParserFactory::freeParser(Iparser);
 
             // process VTOC for PTT rkwd
             readVTOC();
@@ -689,10 +687,6 @@ void EditorImpl::updateKeyword(const Binary& kwdData, const bool& updCache)
         }
         catch (const std::exception& e)
         {
-            if (ipzParser != nullptr)
-            {
-                delete ipzParser;
-            }
             throw std::runtime_error(e.what());
         }
         return;

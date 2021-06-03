@@ -997,7 +997,8 @@ int main(int argc, char** argv)
         try
         {
             vpdVector = getVpdDataInVector(js, file);
-            ParserInterface* parser = ParserFactory::getParser(vpdVector);
+            unique_ptr<ParserInterface> parser(
+                ParserFactory::getParser(vpdVector));
             variant<KeywordVpdMap, Store> parseResult;
             parseResult = parser->parse();
 
@@ -1009,9 +1010,6 @@ int main(int argc, char** argv)
             {
                 populateDbus(*pVal, js, file);
             }
-
-            // release the parser object
-            ParserFactory::freeParser(parser);
         }
         catch (exception& e)
         {

@@ -47,16 +47,6 @@ interface::ParserInterface* ParserFactory::getParser(const Binary& vpdVector)
             throw VpdDataException("Unable to determine VPD format");
     }
 }
-
-void ParserFactory::freeParser(interface::ParserInterface* parser)
-{
-    if (parser)
-    {
-        delete parser;
-        parser = nullptr;
-    }
-}
-
 } // namespace factory
 } // namespace parser
 } // namespace vpd
