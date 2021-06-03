@@ -122,54 +122,9 @@ auto VpdTool::makeDBusCall(const string& objectName, const string& interface,
     return result;
 }
 
-void VpdTool::addFruTypeAndLocation(json exIntf, const string& object,
-                                    json& kwVal)
-{
-    if (object.find("powersupply") != string::npos)
-    {
-        kwVal.emplace("type", POWER_SUPPLY_TYPE_INTERFACE);
-    }
-
-    // add else if statement for fan fru
-
-    else
-    {
-        for (const auto& intf : exIntf.items())
-        {
-            if ((intf.key().find("Item") != string::npos) &&
-                (intf.value().is_null()))
-            {
-                kwVal.emplace("type", intf.key());
-                break;
-            }
-        }
-    }
-
-    // Add location code.
-    constexpr auto LOCATION_CODE_IF = "com.ibm.ipzvpd.Location";
-    constexpr auto LOCATION_CODE_PROP = "LocationCode";
-
-    try
-    {
-        variant<string> response;
-        makeDBusCall(object, LOCATION_CODE_IF, LOCATION_CODE_PROP)
-            .read(response);
-
-        if (auto prop = get_if<string>(&response))
-        {
-            kwVal.emplace(LOCATION_CODE_PROP, *prop);
-        }
-    }
-    catch (const SdBusError& e)
-    {
-        kwVal.emplace(LOCATION_CODE_PROP, "");
-    }
-}
-
-json VpdTool::getVINIProperties(string invPath, json exIntf)
+json VpdTool::getVINIProperties(string invPath)
 {
     variant<Binary> response;
-    json output = json::object({});
     json kwVal = json::object({});
 
     vector<string> keyword{"CC", "SN", "PN", "FN", "DR"};
@@ -185,7 +140,6 @@ json VpdTool::getVINIProperties(string invPath, json exIntf)
     {
         objectName = INVENTORY_PATH + invPath;
     }
-
     for (string kw : keyword)
     {
         try
@@ -200,19 +154,22 @@ json VpdTool::getVINIProperties(string invPath, json exIntf)
         }
         catch (const SdBusError& e)
         {
-            output.emplace(invPath, json::object({}));
+            if (string(e.name()) ==
+                string("org.freedesktop.DBus.Error.UnknownObject"))
+            {
+                kwVal.emplace(invPath, json::object({}));
+                objFound = false;
+                break;
+            }
         }
     }
 
-    addFruTypeAndLocation(exIntf, objectName, kwVal);
-    kwVal.emplace("TYPE", fruType);
-
-    output.emplace(invPath, kwVal);
-    return output;
+    return kwVal;
 }
 
-void VpdTool::getExtraInterfaceProperties(string invPath, string extraInterface,
-                                          json prop, json exIntf, json& output)
+void VpdTool::getExtraInterfaceProperties(const string& invPath,
+                                          const string& extraInterface,
+                                          const json& prop, json& output)
 {
     variant<string> response;
 
@@ -232,10 +189,19 @@ void VpdTool::getExtraInterfaceProperties(string invPath, string extraInterface,
         }
         catch (const SdBusError& e)
         {
-            output.emplace(invPath, json::object({}));
+            if (std::string(e.name()) ==
+                std::string("org.freedesktop.DBus.Error.UnknownObject"))
+            {
+                objFound = false;
+                break;
+            }
+            else if (std::string(e.name()) ==
+                     std::string("org.freedesktop.DBus.Error.UnknownProperty"))
+            {
+                output.emplace(kw, "");
+            }
         }
     }
-    addFruTypeAndLocation(exIntf, objectName, output);
 }
 
 json VpdTool::interfaceDecider(json& itemEEPROM)
@@ -251,35 +217,49 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
     }
 
     json output = json::object({});
+    json subOutput = json::object({});
     fruType = "FRU";
 
-    // check type and add FRU Type in object
-    if (itemEEPROM.find("type") != itemEEPROM.end())
-    {
-        fruType = itemEEPROM.at("type");
-    }
+    json j;
+    objFound = true;
+    string invPath = itemEEPROM.at("inventoryPath");
 
-    if (itemEEPROM.value("inherit", true))
+    j = getVINIProperties(invPath);
+
+    if (objFound)
     {
-        json j = getVINIProperties(itemEEPROM.at("inventoryPath"),
-                                   itemEEPROM["extraInterfaces"]);
-        output.insert(j.begin(), j.end());
-    }
-    else
-    {
+        subOutput.insert(j.begin(), j.end());
         json js;
+        if (itemEEPROM.find("type") != itemEEPROM.end())
+        {
+            fruType = itemEEPROM.at("type");
+        }
+        js.emplace("TYPE", fruType);
+
+        if (invPath.find("powersupply") != string::npos)
+        {
+            js.emplace("type", POWER_SUPPLY_TYPE_INTERFACE);
+        }
+        else if (invPath.find("fan") != string::npos)
+        {
+            js.emplace("type", FAN_INTERFACE);
+        }
+
         for (const auto& ex : itemEEPROM["extraInterfaces"].items())
         {
             if (!(ex.value().is_null()))
             {
-                getExtraInterfaceProperties(itemEEPROM.at("inventoryPath"),
-                                            ex.key(), ex.value(),
-                                            itemEEPROM["extraInterfaces"], js);
+                getExtraInterfaceProperties(invPath, ex.key(), ex.value(), js);
             }
+            if ((ex.key().find("Item") != string::npos) &&
+                (ex.value().is_null()))
+            {
+                js.emplace("type", ex.key());
+            }
+            subOutput.insert(js.begin(), js.end());
         }
-        output.emplace(itemEEPROM.at("inventoryPath"), js);
     }
-
+    output.emplace(invPath, subOutput);
     return output;
 }
 
