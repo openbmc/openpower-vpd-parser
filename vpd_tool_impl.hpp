@@ -16,6 +16,7 @@ class VpdTool
     const std::string recordName;
     const std::string keyword;
     const std::string value;
+    bool objFound = true;
 
     // Store Type of FRU
     std::string fruType;
@@ -41,29 +42,16 @@ class VpdTool
                       const std::string& interface, const std::string& kw);
 
     /**
-     * @brief Adds FRU type and Location Code
-     * Appends the type of the FRU and location code to the output
-     *
-     * @param[in] exIntf - extraInterfaces json from INVENTORY_JSON
-     * @param[in] object - The D-Bus object to read the location code from
-     * @param[out] kwVal - JSON object into which the FRU type and location code
-     * are placed
-     */
-    void addFruTypeAndLocation(json exIntf, const std::string& object,
-                               json& kwVal);
-
-    /**
      * @brief Get VINI properties
      * Making a dbus call for properties [SN, PN, CC, FN, DR]
      * under VINI interface.
      *
      * @param[in] invPath - Value of inventory Path
-     * @param[in] exIntf - extraInterfaces json from INVENTORY_JSON
      *
      * @return json output which gives the properties under invPath's VINI
      * interface
      */
-    json getVINIProperties(std::string invPath, json exIntf);
+    json getVINIProperties(std::string invPath);
 
     /**
      * @brief Get ExtraInterface Properties
@@ -73,13 +61,12 @@ class VpdTool
      * @param[in] extraInterface - One of the invPath's extraInterfaces whose
      * value is not null
      * @param[in] prop - All properties of the extraInterface.
-     *
-     * @return json output which gives the properties under invPath's
-     *         extraInterface.
+     * @param[out] output - output json which has the properties under invPath's
+     * extra interface.
      */
     void getExtraInterfaceProperties(std::string invPath,
                                      std::string extraInterface, json prop,
-                                     json exIntf, json& output);
+                                     json& output);
 
     /**
      * @brief Interface Decider
