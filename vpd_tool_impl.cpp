@@ -129,9 +129,10 @@ void VpdTool::addFruTypeAndLocation(json exIntf, const string& object,
     {
         kwVal.emplace("type", POWER_SUPPLY_TYPE_INTERFACE);
     }
-
-    // add else if statement for fan fru
-
+    else if (object.find("fan") != string::npos)
+    {
+        kwVal.emplace("type", FAN_INTERFACE);
+    }
     else
     {
         for (const auto& intf : exIntf.items())
@@ -162,7 +163,11 @@ void VpdTool::addFruTypeAndLocation(json exIntf, const string& object,
     }
     catch (const SdBusError& e)
     {
-        kwVal.emplace(LOCATION_CODE_PROP, "");
+        if (std::string(e.name()) ==
+            std::string("org.freedesktop.DBus.Error.UnknownProperty"))
+        {
+            kwVal.emplace(LOCATION_CODE_PROP, "");
+        }
     }
 }
 
@@ -185,7 +190,6 @@ json VpdTool::getVINIProperties(string invPath, json exIntf)
     {
         objectName = INVENTORY_PATH + invPath;
     }
-
     for (string kw : keyword)
     {
         try
@@ -200,13 +204,17 @@ json VpdTool::getVINIProperties(string invPath, json exIntf)
         }
         catch (const SdBusError& e)
         {
-            output.emplace(invPath, json::object({}));
+            if (std::string(e.name()) ==
+                std::string("org.freedesktop.DBus.Error.UnknownObject"))
+            {
+                output.emplace(invPath, json::object({}));
+                break;
+            }
         }
     }
 
     addFruTypeAndLocation(exIntf, objectName, kwVal);
     kwVal.emplace("TYPE", fruType);
-
     output.emplace(invPath, kwVal);
     return output;
 }
@@ -232,10 +240,17 @@ void VpdTool::getExtraInterfaceProperties(string invPath, string extraInterface,
         }
         catch (const SdBusError& e)
         {
-            output.emplace(invPath, json::object({}));
+            if (std::string(e.name()) ==
+                std::string("org.freedesktop.DBus.Error.UnknownObject"))
+            {
+                break;
+            }
         }
     }
-    addFruTypeAndLocation(exIntf, objectName, output);
+    if (!output.empty())
+    {
+        addFruTypeAndLocation(exIntf, objectName, output);
+    }
 }
 
 json VpdTool::interfaceDecider(json& itemEEPROM)
