@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "01b7ad7b_6417e2cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-06-13T07:17:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57eae847_9f7e4f5b",
+      "revId": "3634560c8763204bea4f742ad9433c586d9d75dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e730d01f_b84928c8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "3634560c8763204bea4f742ad9433c586d9d75dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64f2eb55_6145d942",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-06-13T07:17:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e730d01f_b84928c8",
+      "revId": "3634560c8763204bea4f742ad9433c586d9d75dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +112,30 @@
     },
     {
       "key": {
+        "uuid": "4cba6a58_af7c422d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-06-13T07:17:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae3ca024_aba80f50",
+      "range": {
+        "startLine": 19,
+        "startChar": 60,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "3634560c8763204bea4f742ad9433c586d9d75dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "faff342a_e34a1325",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -93,6 +153,24 @@
     },
     {
       "key": {
+        "uuid": "d82588c1_450285f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-06-13T07:17:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faff342a_e34a1325",
+      "revId": "3634560c8763204bea4f742ad9433c586d9d75dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c11a3d8c_8910132e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -104,6 +182,24 @@
       "writtenOn": "2021-06-11T05:58:27Z",
       "side": 1,
       "message": "Does this not break the users of the tool?",
+      "revId": "3634560c8763204bea4f742ad9433c586d9d75dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef54993e_54ead131",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-06-13T07:17:06Z",
+      "side": 1,
+      "message": "It breaks the users. So reverted the change back to have the key as \"type\" itself.",
+      "parentUuid": "c11a3d8c_8910132e",
       "revId": "3634560c8763204bea4f742ad9433c586d9d75dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
