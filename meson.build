@@ -11,9 +11,43 @@ project(
      version: '1.0'
 )
 
-build_tests = get_option('tests')
-
 add_global_arguments('-Wno-psabi', language : ['c', 'cpp'])
+
+# Disable FORTIFY_SOURCE when compiling with no optimization
+if(get_option('optimization') == '0')
+  add_project_arguments('-U_FORTIFY_SOURCE',language:['cpp','c'])
+  message('Disabling FORTIFY_SOURCE as optimization is set to 0')
+endif
+
+# Setup googletest before we import any projects that also depend on it to make
+# sure we have control over its configuration
+build_tests = get_option('tests')
+if not build_tests.disabled()
+    gtest_dep = dependency('gtest', main: true, disabler: true, required: false)
+    gmock_dep = dependency('gmock', disabler: true, required: false)
+    if not gtest_dep.found() or not gmock_dep.found()
+        cmake = import('cmake')
+        gtest_opts = cmake.subproject_options()
+        gtest_opts.set_override_option('warning_level', '1')
+        gtest_opts.set_override_option('werror', 'false')
+        gtest_proj = cmake.subproject('googletest',
+                                      options: gtest_opts,
+                                      required: false)
+        if gtest_proj.found()
+            gtest_dep = declare_dependency(
+                dependencies: [
+                    dependency('threads'),
+                    gtest_proj.dependency('gtest'),
+                    gtest_proj.dependency('gtest_main'),
+                ]
+            )
+            gmock_dep = gtest_proj.dependency('gmock')
+        else
+            assert(not get_option('tests').enabled(),
+                   'Googletest is required if tests are enabled')
+        endif
+    endif
+endif
 
 phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces',
     default_options: [ 'data_com_ibm=true', 'data_org_open_power=true' ],
@@ -25,17 +59,15 @@ phosphor_logging = dependency('phosphor-logging',
 
 sdbusplus = dependency('sdbusplus', fallback: [ 'sdbusplus', 'sdbusplus_dep' ])
 
+if not build_tests.disabled()
+    subdir('test')
+endif
+
 compiler = meson.get_compiler('cpp')
 python = find_program('python3', required:true)
 
 compiler.has_header('CLI/CLI.hpp')
 compiler.has_header('nlohmann/json.hpp')
-
-# Disable FORTIFY_SOURCE when compiling with no optimization
-if(get_option('optimization') == '0')
-  add_project_arguments('-U_FORTIFY_SOURCE',language:['cpp','c'])
-  message('Disabling FORTIFY_SOURCE as optimization is set to 0')
-endif
 
 configure_file(output: 'config.h',
                        configuration :{
@@ -167,4 +199,3 @@ else
                 install: true,
         )
 endif
-subdir('test')
