@@ -15,9 +15,15 @@ build_tests = get_option('tests')
 
 add_global_arguments('-Wno-psabi', language : ['c', 'cpp'])
 
-sdbusplus = dependency('sdbusplus')
-phosphor_logging = dependency('phosphor-logging')
-phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
+phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces',
+    default_options: [ 'data_com_ibm=true', 'data_org_open_power=true' ],
+    fallback: ['phosphor-dbus-interfaces', 'phosphor_dbus_interfaces_dep'])
+
+phosphor_logging = dependency('phosphor-logging',
+    default_options: [ 'openpower-pel-extension=enabled' ],
+    fallback: ['phosphor-logging', 'phosphor_logging_dep'])
+
+sdbusplus = dependency('sdbusplus', fallback: [ 'sdbusplus', 'sdbusplus_dep' ])
 
 compiler = meson.get_compiler('cpp')
 python = find_program('python3', required:true)
