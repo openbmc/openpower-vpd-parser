@@ -13,6 +13,8 @@ project(
 
 build_tests = get_option('tests')
 
+add_global_arguments('-Wno-psabi', language : ['c', 'cpp'])
+
 sdbusplus = dependency('sdbusplus')
 phosphor_logging = dependency('phosphor-logging')
 phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
@@ -22,7 +24,6 @@ python = find_program('python3', required:true)
 
 compiler.has_header('CLI/CLI.hpp')
 compiler.has_header('nlohmann/json.hpp')
-add_global_arguments('-Wno-psabi', language : ['c', 'cpp'])
 
 # Disable FORTIFY_SOURCE when compiling with no optimization
 if(get_option('optimization') == '0')
