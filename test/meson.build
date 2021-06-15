@@ -11,9 +11,27 @@ if get_option('oe-sdk').enabled()
 else
   dynamic_linker = []
 endif
-gmock = dependency('gmock', disabler: true, required: build_tests)
-gtest = dependency('gtest', main: true, disabler: true, required: build_tests)
-dependecy_list = [gtest, gmock, sdbusplus, phosphor_logging, phosphor_dbus_interfaces]
+gtest_dep = dependency('gtest', main: true, disabler: true, required: false)
+gmock_dep = dependency('gmock', disabler: true, required: false)
+if not gtest_dep.found() or not gmock_dep.found()
+    gtest_proj = import('cmake').subproject('googletest', required: false)
+    if gtest_proj.found()
+        gtest_dep = declare_dependency(
+            dependencies: [
+                dependency('threads'),
+                gtest_proj.dependency('gtest'),
+                gtest_proj.dependency('gtest_main'),
+            ]
+        )
+        gmock_dep = gtest_proj.dependency('gmock')
+  else
+        assert(
+            not get_option('tests').enabled(),
+            'Googletest is required if tests are enabled'
+        )
+  endif
+endif
+dependecy_list = [gtest_dep, gmock_dep, sdbusplus, phosphor_logging, phosphor_dbus_interfaces]
 
 configuration_inc = include_directories('..', '../vpd-manager', 'vpd-manager-test', '../vpd-parser')
 
