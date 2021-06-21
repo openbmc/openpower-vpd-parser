@@ -458,6 +458,8 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
 
                                     props.emplace(move(lC.key()),
                                                   move(propVal));
+                                    interfaces.emplace(XYZ_LOCATION_CODE_INF,
+                                                       props);
                                     interfaces.emplace(move(eI.key()),
                                                        move(props));
                                 }
