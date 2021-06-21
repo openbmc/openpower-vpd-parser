@@ -441,6 +441,11 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                 presProp.emplace("Present", false);
                 interfaces.emplace("xyz.openbmc_project.Inventory.Item",
                                    move(presProp));
+                inventory::PropertyMap functionalProp;
+                functionalProp.emplace("Functional", true);
+                interfaces.emplace(
+                        "xyz.openbmc_project.State.Decorator.OperationalStatus",
+                        move(functionalProp));
 
                 if (itemEEPROM.find("extraInterfaces") != itemEEPROM.end())
                 {
