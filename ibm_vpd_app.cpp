@@ -227,6 +227,18 @@ static void populateInterfaces(const nlohmann::json& js,
                     props.emplace(busProp, itr.value().get<string>());
                 }
             }
+            else if (itr.value().is_array())
+            {
+                try
+                {
+                    props.emplace(busProp, itr.value().get<Binary>());
+                }
+                catch (nlohmann::detail::type_error& e)
+                {
+                    std::cerr << "Type exception: " << e.what() << "\n";
+                    // Ignore any type errors
+                }
+            }
             else if (itr.value().is_object())
             {
                 const string& rec = itr.value().value("recordName", "");
@@ -441,7 +453,6 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                 presProp.emplace("Present", false);
                 interfaces.emplace("xyz.openbmc_project.Inventory.Item",
                                    move(presProp));
-
                 if (itemEEPROM.find("extraInterfaces") != itemEEPROM.end())
                 {
                     for (const auto& eI : itemEEPROM["extraInterfaces"].items())
