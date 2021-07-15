@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e771b5e0_4bf46b1b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84847882_9d9f5b66",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c716521_175ec09a",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 25
@@ -39,6 +63,24 @@
       "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e952a92b_f23c7a5f",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c716521_175ec09a",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "826cddd4_a0d26340",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b87b480b_a824865b",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "386933f1_d47b1ffa",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 25
@@ -73,6 +133,24 @@
       "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0fbd2e5_80aea16a",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "386933f1_d47b1ffa",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "2f05b472_1dd5c6e6",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "I cleared all spaces. then ran clang. It formatted it like this again.",
+      "parentUuid": "efc80c0c_0b7cd8d6",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5194a6dc_ab6c7ebf",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 25
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "5105cd18_7150d992",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5194a6dc_ab6c7ebf",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8a66001_b592a621",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 25
@@ -124,6 +238,24 @@
       "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfb9e1d7_f837fbf6",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "In case of Presence-detect before standby- This setup gets done before vpd collection. And so\nwe named it as preAction, in vpd json.\nAnd that same json infos being used here for runtime presence-detect also. \nso we have nodes as preAction and presence in json.\n\nI will attach that json in this commit .",
+      "parentUuid": "b8a66001_b592a621",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -167,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "9a66d19d_dc672e2d",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "need this for sdbusplus uses, line no 31",
+      "parentUuid": "6b55f561_83086d14",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76930bca_4976dcd4",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 25
@@ -181,6 +331,24 @@
       "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8aa03f2d_32a3aa71",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76930bca_4976dcd4",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -207,6 +375,30 @@
     },
     {
       "key": {
+        "uuid": "9cb3d322_4fa2b593",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3de450b_43011b92",
+      "range": {
+        "startLine": 14,
+        "startChar": 10,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef92bf1e_9357480d",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 25
@@ -221,6 +413,24 @@
       "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ee831b8_4fba054f",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef92bf1e_9357480d",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -247,6 +457,30 @@
     },
     {
       "key": {
+        "uuid": "4a148cab_a96e870f",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c37afb4_00d4a683",
+      "range": {
+        "startLine": 19,
+        "startChar": 11,
+        "endLine": 19,
+        "endChar": 54
+      },
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29ac9e40_b3785a91",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 25
@@ -270,6 +504,30 @@
     },
     {
       "key": {
+        "uuid": "083ab228_5ad01cd8",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29ac9e40_b3785a91",
+      "range": {
+        "startLine": 34,
+        "startChar": 12,
+        "endLine": 34,
+        "endChar": 19
+      },
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0701881_57b2b9b6",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 25
@@ -284,6 +542,24 @@
       "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9444ed7_ced6ac7f",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0701881_57b2b9b6",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -304,6 +580,24 @@
     },
     {
       "key": {
+        "uuid": "46632aa2_2d55d5ea",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fa76d0e_2cd92935",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82d9735a_1732fd84",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 25
@@ -318,6 +612,24 @@
       "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11cd17c0_b2b541e5",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82d9735a_1732fd84",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -338,6 +650,24 @@
     },
     {
       "key": {
+        "uuid": "1310ce8b_cbd8f9fb",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "969a866a_c764de76",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2f32b97_7ac3416b",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 25
@@ -352,6 +682,24 @@
       "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96a8be4b_9f4574a5",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2f32b97_7ac3416b",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -378,6 +726,30 @@
     },
     {
       "key": {
+        "uuid": "8da0dcef_52e25e4f",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdae013c_131eadf9",
+      "range": {
+        "startLine": 86,
+        "startChar": 15,
+        "endLine": 86,
+        "endChar": 22
+      },
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb236c01_87c28190",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 25
@@ -392,6 +764,24 @@
       "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c3c54f7_e8285b19",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb236c01_87c28190",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -418,6 +808,30 @@
     },
     {
       "key": {
+        "uuid": "a20fba67_57d9e80d",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef6a6cf0_92eac8d6",
+      "range": {
+        "startLine": 93,
+        "startChar": 9,
+        "endLine": 93,
+        "endChar": 22
+      },
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5502d598_81f5e5ac",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 25
@@ -435,6 +849,24 @@
     },
     {
       "key": {
+        "uuid": "2ea36574_c6c92058",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5502d598_81f5e5ac",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7703edff_2ebf84ee",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 25
@@ -449,6 +881,24 @@
       "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11f9ee3a_5bfe6f84",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-15T18:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7703edff_2ebf84ee",
+      "revId": "a9158bf96cad9d3242c8c584296a1717acd07b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
