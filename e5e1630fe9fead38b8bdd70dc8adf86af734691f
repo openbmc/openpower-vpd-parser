@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "89178792_93746e7d",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-22T05:52:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45e1b297_7cba6a51",
+      "revId": "e5e1630fe9fead38b8bdd70dc8adf86af734691f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98093398_b6340a52",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 27
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "0e33c321_209fb2de",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-22T05:52:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98093398_b6340a52",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 168,
+        "endChar": 5
+      },
+      "revId": "e5e1630fe9fead38b8bdd70dc8adf86af734691f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66fe31fc_d081366a",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 27
@@ -53,6 +95,30 @@
       "writtenOn": "2021-07-20T06:22:24Z",
       "side": 1,
       "message": "This is not required can be skipped.",
+      "range": {
+        "startLine": 176,
+        "startChar": 4,
+        "endLine": 176,
+        "endChar": 45
+      },
+      "revId": "e5e1630fe9fead38b8bdd70dc8adf86af734691f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be261db5_0044ce19",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-22T05:52:57Z",
+      "side": 1,
+      "message": "Before we trigger event loop, this should have some value to compare next time.\n\nSo I think we need it.",
+      "parentUuid": "66fe31fc_d081366a",
       "range": {
         "startLine": 176,
         "startChar": 4,
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "ac497c44_3654d7d6",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-22T05:52:57Z",
+      "side": 1,
+      "message": "This one line comment is telling that we need all these GPIO infos which will be stored from vpd json.\n\nThen each variable has a comment to tell what it is for.",
+      "parentUuid": "e7f1982e_7a3b339a",
+      "revId": "e5e1630fe9fead38b8bdd70dc8adf86af734691f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7019fb4_9e3978ef",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 27
@@ -96,6 +180,24 @@
       "revId": "e5e1630fe9fead38b8bdd70dc8adf86af734691f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49368011_062963de",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-22T05:52:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7019fb4_9e3978ef",
+      "revId": "e5e1630fe9fead38b8bdd70dc8adf86af734691f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "3d049d95_9aa7503a",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-22T05:52:57Z",
+      "side": 1,
+      "message": "yeah. this will go away",
+      "parentUuid": "0c7df7f5_18911758",
+      "revId": "e5e1630fe9fead38b8bdd70dc8adf86af734691f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02547918_904fde19",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 27
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "a58e1a02_e0151bbb",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-22T05:52:57Z",
+      "side": 1,
+      "message": "you mean doxygen.?\nupdating for input params.",
+      "parentUuid": "02547918_904fde19",
+      "revId": "e5e1630fe9fead38b8bdd70dc8adf86af734691f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3b1d9f7_37d847d5",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 27
@@ -144,6 +282,24 @@
       "writtenOn": "2021-07-20T06:22:24Z",
       "side": 1,
       "message": "Please remove commented code.",
+      "revId": "e5e1630fe9fead38b8bdd70dc8adf86af734691f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "762e8d4d_c089ca31",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-22T05:52:57Z",
+      "side": 1,
+      "message": "Actually I m not sure about this code to be removed.\n\nFor my testing I commented out.\n\nso shall I remove this while block?",
+      "parentUuid": "f3b1d9f7_37d847d5",
       "revId": "e5e1630fe9fead38b8bdd70dc8adf86af734691f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
