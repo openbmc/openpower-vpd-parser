@@ -14,6 +14,7 @@
 
 #include <CLI/CLI.hpp>
 #include <algorithm>
+#include <boost/algorithm/string.hpp>
 #include <cstdarg>
 #include <exception>
 #include <filesystem>
@@ -23,6 +24,7 @@
 #include <iterator>
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/log.hpp>
+#include <regex>
 
 using namespace std;
 using namespace openpower::vpd;
@@ -169,8 +171,6 @@ static void populateFruSpecificInterfaces(const T& map,
 
     for (const auto& kwVal : map)
     {
-        vector<uint8_t> vec(kwVal.second.begin(), kwVal.second.end());
-
         auto kw = kwVal.first;
 
         if (kw[0] == '#')
@@ -181,7 +181,41 @@ static void populateFruSpecificInterfaces(const T& map,
         {
             kw = string("N_") + kw;
         }
-        prop.emplace(move(kw), move(vec));
+
+        if constexpr (is_same<T, KeywordVpdMap>::value)
+        {
+            if (get_if<Binary>(&kwVal.second))
+            {
+                Binary vec(get_if<Binary>(&kwVal.second)->begin(),
+                           get_if<Binary>(&kwVal.second)->end());
+                prop.emplace(move(kw), move(vec));
+            }
+            else
+            {
+                if (kw == "MemorySizeInKB")
+                {
+                    inventory::PropertyMap memProp;
+                    auto memVal = get_if<size_t>(&kwVal.second);
+                    if (memVal)
+                    {
+                        memProp.emplace(move(kw), (*memVal));
+                        interfaces.emplace(
+                            "xyz.openbmc_project.Inventory.Item.Dimm",
+                            move(memProp));
+                    }
+                    else
+                    {
+                        cerr << "MemorySizeInKB value not found in vpd map\n";
+                    }
+                    continue;
+                }
+            }
+        }
+        else
+        {
+            Binary vec(kwVal.second.begin(), kwVal.second.end());
+            prop.emplace(move(kw), move(vec));
+        }
     }
 
     interfaces.emplace(preIntrStr, move(prop));
@@ -257,10 +291,19 @@ static void populateInterfaces(const nlohmann::json& js,
                 {
                     if (!kw.empty() && vpdMap.count(kw))
                     {
-                        auto prop =
-                            string(vpdMap.at(kw).begin(), vpdMap.at(kw).end());
-                        auto encoded = encodeKeyword(prop, encoding);
-                        props.emplace(busProp, encoded);
+                        auto kwValue = get_if<Binary>(&vpdMap.at(kw));
+                        auto uintValue = get_if<size_t>(&vpdMap.at(kw));
+                        if (kwValue)
+                        {
+                            auto prop =
+                                string((*kwValue).begin(), (*kwValue).end());
+                            auto encoded = encodeKeyword(prop, encoding);
+                            props.emplace(busProp, encoded);
+                        }
+                        else if (uintValue)
+                        {
+                            props.emplace(busProp, *uintValue);
+                        }
                     }
                 }
             }
@@ -741,6 +784,107 @@ std::vector<RestoredEeproms> restoreSystemVPD(const Parsed& vpdMap,
 }
 
 /**
+ * @brief This checks for is this FRU a processor
+ *        And if yes, then checks for is this primary
+ *
+ * @param[in] js- vpd json to get the information about this FRU
+ * @param[in] filePath- FRU vpd
+ *
+ * @return true/false
+ */
+bool isThisPrimaryProcessor(nlohmann::json& js, const string& filePath)
+{
+    bool isProcessor = false;
+    bool isPrimary = false;
+
+    for (const auto& item : js["frus"][filePath])
+    {
+        if (item.find("extraInterfaces") != item.end())
+        {
+            for (const auto& eI : item["extraInterfaces"].items())
+            {
+                if (eI.key().find("Inventory.Item.Cpu") != string::npos)
+                {
+                    isProcessor = true;
+                }
+            }
+        }
+
+        if (isProcessor)
+        {
+            string cpuType = item.value("cpuType", "");
+            if (cpuType == "primary")
+            {
+                isPrimary = true;
+            }
+        }
+    }
+
+    return (isProcessor && isPrimary);
+}
+
+/**
+ * @brief This finds DIMM vpd in vpd json and enables them by binding the device
+ *        driver
+ * @param[in] js- vpd json to iterate through and take action if it is DIMM
+ */
+void doEnableAllDimms(nlohmann::json& js)
+{
+    // iterate over each fru
+    for (const auto& eachFru : js["frus"].items())
+    {
+        // skip the driver binding if eeprom already exists
+        if (fs::exists(eachFru.key()))
+        {
+            continue;
+        }
+
+        for (const auto& eachInventory : eachFru.value())
+        {
+            if (eachInventory.find("extraInterfaces") != eachInventory.end())
+            {
+                for (const auto& eI : eachInventory["extraInterfaces"].items())
+                {
+                    if (eI.key().find("Inventory.Item.Dimm") != string::npos)
+                    {
+                        string dimmVpd = eachFru.key();
+                        // fetch it from
+                        // "/sys/bus/i2c/drivers/at24/414-0050/eeprom"
+
+                        regex matchPatern("([0-9]+-[0-9]{4})");
+                        smatch matchFound;
+                        if (regex_search(dimmVpd, matchFound, matchPatern))
+                        {
+                            vector<string> i2cReg;
+                            boost::split(i2cReg, matchFound.str(0),
+                                         boost::is_any_of("-"));
+
+                            // remove 0s from begining
+                            const regex pattern("^0+(?!$)");
+                            for (auto& i : i2cReg)
+                            {
+                                i = regex_replace(i, pattern, "");
+                            }
+
+                            if (i2cReg.size() == 2)
+                            {
+                                // echo 24c32 0x50 >
+                                // /sys/bus/i2c/devices/i2c-16/new_device
+                                string cmnd = "echo 24c32 0x" + i2cReg[1] +
+                                              " > /sys/bus/i2c/devices/i2c-" +
+                                              i2cReg[0] + "/new_device";
+
+                                executeCmd(cmnd);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
  * and notifies PIM about dbus object.
@@ -782,6 +926,23 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             else
             {
                 log<level::ERR>("No object path found");
+            }
+        }
+        else
+        {
+            // check if it is processor vpd.
+            auto isPrimaryCpu = isThisPrimaryProcessor(js, filePath);
+
+            if (isPrimaryCpu)
+            {
+                auto ddVersion = getKwVal(vpdMap, "CRP0", "DD");
+
+                auto chipVersion = atoi(ddVersion.substr(1, 2).c_str());
+
+                if (chipVersion >= 2)
+                {
+                    doEnableAllDimms(js);
+                }
             }
         }
     }
