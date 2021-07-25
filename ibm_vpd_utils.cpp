@@ -543,5 +543,27 @@ void dumpBadVpd(const string& file, const Binary& vpdVector)
     badVpdFileStream.write(reinterpret_cast<const char*>(vpdVector.data()),
                            vpdVector.size());
 }
+
+const string getKwVal(const Parsed& vpdMap, const string& rec,
+                      const string& kwd)
+{
+    string kwVal{};
+
+    auto findRec = vpdMap.find(rec);
+
+    // check if record is found in map we got by parser
+    if (findRec != vpdMap.end())
+    {
+        auto findKwd = findRec->second.find(kwd);
+
+        if (findKwd != findRec->second.end())
+        {
+            kwVal = findKwd->second;
+        }
+    }
+
+    return kwVal;
+}
+
 } // namespace vpd
 } // namespace openpower
