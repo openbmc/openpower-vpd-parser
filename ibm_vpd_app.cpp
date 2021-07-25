@@ -14,6 +14,7 @@
 
 #include <CLI/CLI.hpp>
 #include <algorithm>
+#include <boost/algorithm/string.hpp>
 #include <cstdarg>
 #include <exception>
 #include <filesystem>
@@ -744,6 +745,79 @@ std::vector<RestoredEeproms> restoreSystemVPD(const Parsed& vpdMap,
 }
 
 /**
+ *
+ */
+bool isThisPrimaryProcessor(nlohmann::json& js, const string& filePath)
+{
+    bool isProcessor = false;
+    bool isPrimary = false;
+
+    for (const auto& item : js["frus"][filePath])
+    {
+        if (item.find("extraInterfaces") != item.end())
+        {
+            for (const auto& eI : item["extraInterfaces"].items())
+            {
+                if (eI.key().find("Inventory.Item.Cpu") != string::npos)
+                {
+                    isProcessor = true;
+                }
+            }
+        }
+
+        if (isProcessor)
+        {
+            string cpuType = item.value("cpuType", "");
+            if (cpuType == "primary")
+            {
+                isPrimary = true;
+            }
+        }
+    }
+
+    return (isProcessor && isPrimary);
+}
+
+/**
+ *
+ */
+void doEnableAllDimms(nlohmann::json& js)
+{
+    // iterate over each fru
+    for (const auto& eachFru : js["frus"].items())
+    {
+        for (const auto& eachInventory : eachFru.value())
+        {
+            if (eachInventory.find("extraInterfaces") != eachInventory.end())
+            {
+                for (const auto& eI : eachInventory["extraInterfaces"].items())
+                {
+                    if (eI.key().find("Inventory.Item.Dimm") != string::npos)
+                    {
+                        string dimmVpd = eachFru.key();
+                        // fetch it from
+                        // "/sys/bus/i2c/drivers/at24/414-0050/eeprom"
+                        vector<string> result;
+                        boost::split(result, dimmVpd, boost::is_any_of("/"));
+
+                        vector<string> i2cReg;
+                        boost::split(i2cReg, result[6], boost::is_any_of("-"));
+
+                        i2cReg[1] = i2cReg[1].substr(2, 2);
+
+                        string cmnd = "echo 24c32 0x" + i2cReg[1] +
+                                      " > /sys/bus/i2c/devices/i2c-" +
+                                      i2cReg[0] + "/new_device";
+                        executeCmd(cmnd);
+                    }
+                }
+            }
+        }
+    }
+    // •	echo 24c32 0x50 > /sys/bus/i2c/devices/i2c-16/new_device
+}
+
+/**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
  * and notifies PIM about dbus object.
@@ -785,6 +859,23 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             else
             {
                 log<level::ERR>("No object path found");
+            }
+        }
+        else
+        {
+            // check if it is processor vpd?TODO: const for rec/Kw/number?
+            auto isPrimaryCpu = isThisPrimaryProcessor(js, filePath);
+
+            if (isPrimaryCpu)
+            {
+                auto ddVersion = getKwVal(vpdMap, "CRP0", "DD");
+
+                auto chipVersion = atoi(ddVersion.substr(1, 2).c_str());
+
+                if (chipVersion >= 2)
+                {
+                    doEnableAllDimms(js);
+                }
             }
         }
     }
