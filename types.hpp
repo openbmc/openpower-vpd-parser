@@ -20,31 +20,35 @@ using Binary = std::vector<Byte>;
 
 namespace inventory
 {
+using namespace std::string_literals;
 
 using Path = std::string;
 using Property = std::string;
 using Value = std::variant<bool, size_t, int64_t, std::string, Binary>;
-using PropertyMap = std::map<Property, Value>;
 using kwdVpdValueTypes = std::variant<size_t, Binary>;
 
 using Interface = std::string;
-using InterfaceMap = std::map<Interface, PropertyMap>;
-
 using Object = sdbusplus::message::object_path;
-using ObjectMap = std::map<Object, InterfaceMap>;
-
 using VPDfilepath = std::string;
 using FruIsMotherboard = bool;
-using FrusMap = std::multimap<Path, std::pair<VPDfilepath, FruIsMotherboard>>;
 using LocationCode = std::string;
-using LocationCodeMap = std::unordered_multimap<LocationCode, Path>;
-using ListOfPaths = std::vector<sdbusplus::message::object_path>;
 using NodeNumber = uint16_t;
-using namespace std::string_literals;
-using KeywordVpdMap = std::unordered_map<std::string, kwdVpdValueTypes>;
 
 using systemType = std::string;
 using deviceTree = std::string;
+using Keyword = std::string;
+using RecordName = std::string;
+using KeywordData = std::string;
+using Service = std::string;
+using BrandType = std::string;
+
+using PropertyMap = std::map<Property, Value>;
+using InterfaceMap = std::map<Interface, PropertyMap>;
+using ObjectMap = std::map<Object, InterfaceMap>;
+using FrusMap = std::multimap<Path, std::pair<VPDfilepath, FruIsMotherboard>>;
+using LocationCodeMap = std::unordered_multimap<LocationCode, Path>;
+using ListOfPaths = std::vector<sdbusplus::message::object_path>;
+using KeywordVpdMap = std::unordered_map<std::string, kwdVpdValueTypes>;
 using deviceTreeMap = std::unordered_map<systemType, deviceTree>;
 using PelAdditionalData = std::map<std::string, std::string>;
 using Keyword = std::string;
