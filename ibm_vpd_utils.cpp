@@ -144,7 +144,7 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
     auto result = bus.call(properties);
     if (!result.is_method_error())
     {
-        variant<Binary, string> val;
+        inventory::Value val;
         result.read(val);
         if (auto pVal = get_if<Binary>(&val))
         {
@@ -154,6 +154,17 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
         else if (auto pVal = get_if<string>(&val))
         {
             propVal.assign(pVal->data(), pVal->size());
+        }
+        else if (auto pVal = get_if<bool>(&val))
+        {
+            if (*pVal == false)
+            {
+                propVal = "false";
+            }
+            else
+            {
+                propVal = "true";
+            }
         }
     }
     return propVal;
