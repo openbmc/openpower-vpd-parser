@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a108e887_14770a5a",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-28T17:36:55Z",
+      "side": 1,
+      "message": "if it is single type- \u0027Binary\u0027, do we need variant here?",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 19
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db1ee868_f4610eac",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-28T17:36:55Z",
+      "side": 1,
+      "message": "not compulsory, but recommended to use const and reference in range based for loop.",
+      "range": {
+        "startLine": 143,
+        "startChar": 1,
+        "endLine": 143,
+        "endChar": 29
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2268b488_f94bfd11",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-28T17:36:55Z",
+      "side": 1,
+      "message": "is this a good idea to have try-catch block inside for loop.?\nOR\nfor loop inside try block would be better?",
+      "range": {
+        "startLine": 145,
+        "startChar": 1,
+        "endLine": 146,
+        "endChar": 9
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0af1341_25dde627",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-28T17:36:55Z",
+      "side": 1,
+      "message": "no need of std",
+      "range": {
+        "startLine": 157,
+        "startChar": 16,
+        "endLine": 158,
+        "endChar": 21
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af5df998_7f4569a2",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-28T17:36:55Z",
+      "side": 1,
+      "message": "suggestion to always have input parameters as const",
+      "range": {
+        "startLine": 170,
+        "startChar": 42,
+        "endLine": 171,
+        "endChar": 51
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c3899b4_f5064d90",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-28T17:36:55Z",
+      "side": 1,
+      "message": "variant required here?",
+      "range": {
+        "startLine": 173,
+        "startChar": 4,
+        "endLine": 173,
+        "endChar": 20
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a3a8157_733aabac",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-28T17:36:55Z",
+      "side": 1,
+      "message": "previously you checked and then took action on invPath.line 134\nare you sure this is not included xyz path?\nLike you have check in 134 to 142",
+      "range": {
+        "startLine": 175,
+        "startChar": 41,
+        "endLine": 175,
+        "endChar": 48
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65fd9ab1_20e235d9",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-28T17:36:55Z",
+      "side": 1,
+      "message": "same as above\n\ntry-catch inside for loop",
+      "range": {
+        "startLine": 177,
+        "startChar": 4,
+        "endLine": 180,
+        "endChar": 11
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2c9eb7f_8fa3f629",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-28T17:36:55Z",
+      "side": 1,
+      "message": "I see most of the code is common for getExtraInterfaceProp and getViniProperties\n\nyou can have one single function(merge of these 2), \n1. which has input param \"interface\"\n   as you already have one-\ngetExtraInterfaceProperties(string invPath, string extraInterface,\n\ncaller can send VINI or other extraInterface.\n\n2. retrieving response in if-else - \n   get_if\u003cBinary\u003e\n   get_if\u003cstring\u003e\n\notherwise all code is common.",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 204,
+        "endChar": 1
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82080807_51a41d82",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-28T17:36:55Z",
+      "side": 1,
+      "message": "in case if it wont go to 232- if (itemEEPROM.find(\"type\")\n\nthen you are emplacing TYPE as blank.\n\nyou can have some default value initialized to fruType, \nto avoid spending time in debugging why it is blank.\n\ni will suggest all your private variables to have some default value. if something left empty , will display \"Default\"",
+      "range": {
+        "startLine": 236,
+        "startChar": 8,
+        "endLine": 236,
+        "endChar": 36
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "265a5d1d_40bb5b8f",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-07-28T17:36:55Z",
+      "side": 1,
+      "message": "incase if you fall to  line-191\nwhich means you will not have extraInterfacePropertiesValue in js. And objFound \u003d false\n\nDO you want to check objFound and put some message here.?",
+      "range": {
+        "startLine": 251,
+        "startChar": 16,
+        "endLine": 251,
+        "endChar": 77
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
