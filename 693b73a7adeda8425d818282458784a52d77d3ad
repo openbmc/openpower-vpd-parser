@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f47fa86e_8ac740f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 28
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-28T19:46:49Z",
+      "side": 1,
+      "message": "Why all the words are starting with capital?",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2860427f_4090d04d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 28
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-28T19:46:49Z",
+      "side": 1,
+      "message": "Why capital?",
+      "range": {
+        "startLine": 10,
+        "startChar": 33,
+        "endLine": 10,
+        "endChar": 35
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d798322f_49fc2ccc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 28
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-28T19:46:49Z",
+      "side": 1,
+      "message": "Need to look for 70 characters else move to another line.",
+      "range": {
+        "startLine": 11,
+        "startChar": 53,
+        "endLine": 11,
+        "endChar": 72
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cba6c7f3_d996e1d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 28
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-28T19:46:49Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 12,
+        "startChar": 51,
+        "endLine": 12,
+        "endChar": 71
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b6a2fa3_3c9f4883",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-28T19:46:49Z",
+      "side": 1,
+      "message": "why this is capital?",
+      "range": {
+        "startLine": 213,
+        "startChar": 51,
+        "endLine": 213,
+        "endChar": 53
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f62d2bf_460ea95b",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-28T19:46:49Z",
+      "side": 1,
+      "message": "This information appears irrelevant.",
+      "range": {
+        "startLine": 214,
+        "startChar": 11,
+        "endLine": 214,
+        "endChar": 42
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb786929_f7cd21a2",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-28T19:46:49Z",
+      "side": 1,
+      "message": "Why capital?",
+      "range": {
+        "startLine": 219,
+        "startChar": 30,
+        "endLine": 219,
+        "endChar": 32
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4a0624f_34551e51",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-28T19:46:49Z",
+      "side": 1,
+      "message": "Just a query here:\n1) First call line 177, lets say prevPresPinValue \u003d false is set.\n2) Now after 5 sec we get the presence pin value as true and we call toggleGpio().\n3) presPinVal at line 140 will be true now.\n4) Now in case we return from line 155 the value of prevPresPinValue remain false for future timer expirations even when the value of present pin has been read as true this time.\n\nJust understanding:\nIs this what we are expecting?",
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fda92e14_dabb4644",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-28T19:46:49Z",
+      "side": 1,
+      "message": "Did we missed the alignment here which was followed above?",
+      "range": {
+        "startLine": 22,
+        "startChar": 1,
+        "endLine": 22,
+        "endChar": 11
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
