@@ -13,6 +13,7 @@
 
 #include <filesystem>
 #include <phosphor-logging/elog-errors.hpp>
+#include <xyz/openbmc_project/Common/error.hpp>
 
 using namespace openpower::vpd::manager;
 using namespace openpower::vpd::constants;
@@ -399,6 +400,38 @@ void Manager::performVPDRecollection()
                 executePostFailAction(jsonFile, item);
             }
         }
+    }
+}
+
+void Manager::deleteFRUVPD(const sdbusplus::message::object_path path)
+{
+    using InvalidArgument =
+        sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
+    using Argument = xyz::openbmc_project::Common::InvalidArgument;
+
+    // if path not found in Json.
+    if (frus.find(path) == frus.end())
+    {
+        elog<InvalidArgument>(
+            Argument::ARGUMENT_NAME("Object Path"),
+            Argument::ARGUMENT_VALUE(std::string(path).c_str()));
+    }
+
+    // if the FRU is not present then log error
+    if (readBusProperty(path, "xyz.openbmc_project.Inventory.Item",
+                        "Present") == "false")
+    {
+        elog<InvalidArgument>(
+            Argument::ARGUMENT_NAME("FRU not preset"),
+            Argument::ARGUMENT_VALUE(std::string(path).c_str()));
+    }
+    else
+    {
+        inventory::ObjectMap objectMap = {
+            {path,
+             {{"xyz.openbmc_project.Inventory.Item", {{"Present", false}}}}}};
+
+        common::utility::callPIM(move(objectMap));
     }
 }
 
