@@ -124,6 +124,13 @@ class Manager : public ServerObject<ManagerIface>
      */
     void performVPDRecollection();
 
+    /** @brief Api to delete FRU VPD.
+     * This api will set the present property of given FRU to false. If already
+     * set to false, It will log an error.
+     * @param[in] path - Object path of FRU.
+     */
+    void deleteFRUVPD(const sdbusplus::message::object_path path);
+
   private:
     /** @brief process the given JSON file
      */
