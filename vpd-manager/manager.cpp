@@ -2,6 +2,7 @@
 
 #include "manager.hpp"
 
+#include "common_utility.hpp"
 #include "editor_impl.hpp"
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
@@ -9,6 +10,7 @@
 #include "vpd_exceptions.hpp"
 
 #include <phosphor-logging/elog-errors.hpp>
+#include <xyz/openbmc_project/Common/error.hpp>
 
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
@@ -239,6 +241,40 @@ void Manager::performVPDRecollection()
             executeCmd(cmd + "/unbind");
             executeCmd(cmd + "/bind");
         }
+    }
+}
+
+void Manager::deleteFRUVPD(const sdbusplus::message::object_path path)
+{
+    using InvalidArgument =
+        sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
+    using Argument = xyz::openbmc_project::Common::InvalidArgument;
+
+    // if path not found in Json.
+    if (frus.find(path) == frus.end())
+    {
+        elog<InvalidArgument>(
+            Argument::ARGUMENT_NAME("Object Path"),
+            Argument::ARGUMENT_VALUE(std::string(path).c_str()));
+    }
+
+    // if the FRU is not present then log error
+    if (readBusProperty(path, "xyz.openbmc_project.Inventory.Item",
+                        "Present") == "false")
+    {
+        elog<InvalidArgument>(
+            Argument::ARGUMENT_NAME("FRU not preset"),
+            Argument::ARGUMENT_VALUE(std::string(path).c_str()));
+    }
+    else
+    {
+        inventory::Value presentValue = false;
+        inventory::ObjectMap objectMap = {
+            {path,
+             {{"xyz.openbmc_project.Inventory.Item",
+               {{"Present", presentValue}}}}}};
+
+        common::utility::callPIM(move(objectMap));
     }
 }
 
