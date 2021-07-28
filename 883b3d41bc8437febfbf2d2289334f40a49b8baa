@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84b3ab05_806e46a3",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-28T08:08:29Z",
+      "side": 1,
+      "message": "This is a work around to return bool as string.\nAs before this commit only string values were read from bus, this api is written accordingly.\nNow to make it to return a variant, calling of this method needs to be changed at 25 places to be precise.\nWe can take a call.",
+      "range": {
+        "startLine": 156,
+        "startChar": 8,
+        "endLine": 166,
+        "endChar": 9
+      },
+      "revId": "883b3d41bc8437febfbf2d2289334f40a49b8baa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
