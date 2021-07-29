@@ -122,6 +122,29 @@
     },
     {
       "key": {
+        "uuid": "634ba2af_426c327a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:40:42Z",
+      "side": 1,
+      "message": "I don\u0027t think we should complicate this by adding yet another flag. For pass 1 planars, we can simply omit the presence flag.",
+      "range": {
+        "startLine": 352,
+        "startChar": 47,
+        "endLine": 352,
+        "endChar": 64
+      },
+      "revId": "71dee59edf299f54e29c192c1fde12b121607615",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e01ae34e_f9dcb8d9",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 11
