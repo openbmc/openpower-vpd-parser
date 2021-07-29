@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "d5a452b3_961ae3a6",
+        "filename": "test/vpd-manager-test/editor_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T07:01:26Z",
+      "side": 1,
+      "message": "Why have you commented this?",
+      "revId": "3fb4f755a03e5ba9c601b3308dc086fe3cac76a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79fe6834_5ff26341",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T07:01:26Z",
+      "side": 1,
+      "message": "Why do we need this cout?",
+      "revId": "3fb4f755a03e5ba9c601b3308dc086fe3cac76a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c35016be_7a20de05",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 7
@@ -13,6 +47,30 @@
       "writtenOn": "2021-05-23T18:08:02Z",
       "side": 1,
       "message": "This should go away",
+      "range": {
+        "startLine": 685,
+        "startChar": 11,
+        "endLine": 686,
+        "endChar": 30
+      },
+      "revId": "3fb4f755a03e5ba9c601b3308dc086fe3cac76a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "098cd896_00280e74",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T07:01:26Z",
+      "side": 1,
+      "message": "Please remove it then",
+      "parentUuid": "c35016be_7a20de05",
       "range": {
         "startLine": 685,
         "startChar": 11,
