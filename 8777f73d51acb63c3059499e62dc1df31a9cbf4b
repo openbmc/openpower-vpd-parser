@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "88adb897_15c72142",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:58:14Z",
+      "side": 1,
+      "message": "This should have been set to true if VPD got collected",
+      "range": {
+        "startLine": 76,
+        "startChar": 72,
+        "endLine": 76,
+        "endChar": 80
+      },
+      "revId": "8777f73d51acb63c3059499e62dc1df31a9cbf4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9236f6f8_725de119",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:58:14Z",
+      "side": 1,
+      "message": "Still 0? Why?",
+      "range": {
+        "startLine": 89,
+        "startChar": 73,
+        "endLine": 89,
+        "endChar": 74
+      },
+      "revId": "8777f73d51acb63c3059499e62dc1df31a9cbf4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6da58cf0_505bbf27",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 3
