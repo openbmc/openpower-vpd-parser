@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5604f1fc_de46d7a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-29T06:36:05Z",
+      "side": 1,
+      "message": "This needs to be 50 characters only.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 58
+      },
+      "revId": "71dee59edf299f54e29c192c1fde12b121607615",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a734a8c6_cafa360a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-29T06:36:05Z",
+      "side": 1,
+      "message": "Can you add some description about what and why.",
+      "revId": "71dee59edf299f54e29c192c1fde12b121607615",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4f16791_06563ab6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-29T06:36:05Z",
+      "side": 1,
+      "message": "Where ever it is crossing 70 characters, please move to new line.",
+      "range": {
+        "startLine": 10,
+        "startChar": 60,
+        "endLine": 10,
+        "endChar": 72
+      },
+      "revId": "71dee59edf299f54e29c192c1fde12b121607615",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "903dd0ac_5c39cca9",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-29T06:36:05Z",
+      "side": 1,
+      "message": "Jus fyi, I read that string default initialisation to empty string is taken care by compiler. So we can skip this if want to. :)",
+      "revId": "71dee59edf299f54e29c192c1fde12b121607615",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4747ec97_b6f8612b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-29T06:36:05Z",
+      "side": 1,
+      "message": "What action it will force? A comment would help.",
+      "range": {
+        "startLine": 348,
+        "startChar": 4,
+        "endLine": 348,
+        "endChar": 29
+      },
+      "revId": "71dee59edf299f54e29c192c1fde12b121607615",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68cc1fc0_32b4517c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-29T06:36:05Z",
+      "side": 1,
+      "message": "Query: If presence is ignorable then we proceed and if presence is not ignorable then we return?\nWhat is the role of this flag? I am not able to follow.\nPlease add some comments in the code flow.",
+      "revId": "71dee59edf299f54e29c192c1fde12b121607615",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e01ae34e_f9dcb8d9",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-29T06:36:05Z",
+      "side": 1,
+      "message": "If forceAction is true we don\u0027t bind else we bind? I am not able to get the role of this flag.",
+      "revId": "71dee59edf299f54e29c192c1fde12b121607615",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
