@@ -163,6 +163,138 @@
     },
     {
       "key": {
+        "uuid": "da025ef7_a09ae1ee",
+        "filename": "json/vpd_inventory.json",
+        "patchSetId": 28
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:24:50Z",
+      "side": 1,
+      "message": "Could you mark the keys that are new here?",
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a9c7052_07640885",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:24:50Z",
+      "side": 1,
+      "message": "This seems unnecessary, just use ClockId::RealTime directly where applicable. I would also prefer this to be Monotonic time to protect against wall clock changes.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 43
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46363edc_3a2f1d1d",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:24:50Z",
+      "side": 1,
+      "message": "This can be collapsed to return gpioData",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 5
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abfc7f2d_c4ea8bdc",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:24:50Z",
+      "side": 1,
+      "message": "camelCase, please",
+      "range": {
+        "startLine": 61,
+        "startChar": 9,
+        "endLine": 61,
+        "endChar": 22
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4739084_b38b8ec0",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:24:50Z",
+      "side": 1,
+      "message": "I don\u0027t get this. You took a shared_ptr to the event handler and now we\u0027re overwriting it? Why?",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 68
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cab0e044_f8188614",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:24:50Z",
+      "side": 1,
+      "message": "This does not make sense. This loop should create as many handlers as are needed to monitor all applicable GPIOs",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 9
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4a0624f_34551e51",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 28
@@ -196,6 +328,132 @@
         "startChar": 1,
         "endLine": 22,
         "endChar": 11
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b25fd281_934d8ada",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:24:50Z",
+      "side": 1,
+      "message": "These don\u0027t need to be public, right?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 28
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd3dcd6c_ee44d63c",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:24:50Z",
+      "side": 1,
+      "message": "Not needed?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 40
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce0db567_78550eb5",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:24:50Z",
+      "side": 1,
+      "message": "You don\u0027t need these in this file",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 51
+      },
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "388a30c2_1890a064",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:24:50Z",
+      "side": 1,
+      "message": "Why is this hardcoded here? Is this test code that is supposed to be removed?",
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "411bce86_2e3fcf8a",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:24:50Z",
+      "side": 1,
+      "message": "How does this work? I would have expected we create just one instance of the GpioMonitor object and that can then create instances of Event Handlers for every FRU where presence needs to be monitored. This seems backwards.",
+      "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0800b68c_cead800f",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:24:50Z",
+      "side": 1,
+      "message": "Please collapse this into two lines - executeCmd(createBindOr....())",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 32
       },
       "revId": "693b73a7adeda8425d818282458784a52d77d3ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
