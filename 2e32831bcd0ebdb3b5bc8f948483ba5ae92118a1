@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ddf99ed1_3382b059",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-07-29T09:10:54Z",
+      "side": 1,
+      "message": "busctl call returns output in variant form. so we need this.",
+      "parentUuid": "a108e887_14770a5a",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 19
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "db1ee868_f4610eac",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2021-07-28T17:36:55Z",
       "side": 1,
       "message": "not compulsory, but recommended to use const and reference in range based for loop.",
+      "range": {
+        "startLine": 143,
+        "startChar": 1,
+        "endLine": 143,
+        "endChar": 29
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a9f5c00_73e713cd",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-07-29T09:10:54Z",
+      "side": 1,
+      "message": "will take the comments out of this commits scope in a separate commit.",
+      "parentUuid": "db1ee868_f4610eac",
       "range": {
         "startLine": 143,
         "startChar": 1,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "e7b6d93a_7a041753",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-07-29T09:10:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0af1341_25dde627",
+      "range": {
+        "startLine": 157,
+        "startChar": 16,
+        "endLine": 158,
+        "endChar": 21
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af5df998_7f4569a2",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 3
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "2f623cb4_d5bba8b8",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-07-29T09:10:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af5df998_7f4569a2",
+      "range": {
+        "startLine": 170,
+        "startChar": 42,
+        "endLine": 171,
+        "endChar": 51
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c3899b4_f5064d90",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 3
@@ -128,6 +224,30 @@
       "writtenOn": "2021-07-28T17:36:55Z",
       "side": 1,
       "message": "variant required here?",
+      "range": {
+        "startLine": 173,
+        "startChar": 4,
+        "endLine": 173,
+        "endChar": 20
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "979286cf_cc8cba2c",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-07-29T09:10:54Z",
+      "side": 1,
+      "message": "yes. as busctl call returns output in variant form",
+      "parentUuid": "5c3899b4_f5064d90",
       "range": {
         "startLine": 173,
         "startChar": 4,
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "eadd70c4_579bbf76",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-07-29T09:10:54Z",
+      "side": 1,
+      "message": "yes. xyz path is not included in this \"invPath\" at line 175.\nBecause am erasing the xyz path if present (check line 137).",
+      "parentUuid": "6a3a8157_733aabac",
+      "range": {
+        "startLine": 175,
+        "startChar": 41,
+        "endLine": 175,
+        "endChar": 48
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65fd9ab1_20e235d9",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 3
@@ -174,6 +318,30 @@
       "writtenOn": "2021-07-28T17:36:55Z",
       "side": 1,
       "message": "same as above\n\ntry-catch inside for loop",
+      "range": {
+        "startLine": 177,
+        "startChar": 4,
+        "endLine": 180,
+        "endChar": 11
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85259e88_5570387e",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-07-29T09:10:54Z",
+      "side": 1,
+      "message": "I need the value of \"kw\" to be emplaced in the output json based on a caught exception.\nAlso I need to continue the for loop incase if UnknownProperty exception is caught.\n\nSo I need try catch block inside for loop.",
+      "parentUuid": "65fd9ab1_20e235d9",
       "range": {
         "startLine": 177,
         "startChar": 4,
@@ -209,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "cb7ed2f3_6248e9e6",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-07-29T09:10:54Z",
+      "side": 1,
+      "message": "Incase of merging this to a single function:\n\ncaller who needs only vini properties will have to send unnecessary extra interface input params (string extraInterface, json prop, json\u0026 output).\n\nand also there is no common caller who needs both interfaces at the same time.\n\nplaces where we call these methods are entirely different and it depends on some conditions.. so no point in having this together.",
+      "parentUuid": "f2c9eb7f_8fa3f629",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 204,
+        "endChar": 1
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82080807_51a41d82",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 3
@@ -232,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "e1b9fb37_13cad0ec",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-07-29T09:10:54Z",
+      "side": 1,
+      "message": "please refer line 220. emplacing default value as \"FRU\"",
+      "parentUuid": "82080807_51a41d82",
+      "range": {
+        "startLine": 236,
+        "startChar": 8,
+        "endLine": 236,
+        "endChar": 36
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "265a5d1d_40bb5b8f",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 3
@@ -243,6 +459,30 @@
       "writtenOn": "2021-07-28T17:36:55Z",
       "side": 1,
       "message": "incase if you fall to  line-191\nwhich means you will not have extraInterfacePropertiesValue in js. And objFound \u003d false\n\nDO you want to check objFound and put some message here.?",
+      "range": {
+        "startLine": 251,
+        "startChar": 16,
+        "endLine": 251,
+        "endChar": 77
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bae88cff_580fdfe5",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-07-29T09:10:54Z",
+      "side": 1,
+      "message": "not needed. if object is not found I simply ignore it and don\u0027t add the object in js.\nalso no need to tell the user that the object is not found.",
+      "parentUuid": "265a5d1d_40bb5b8f",
       "range": {
         "startLine": 251,
         "startChar": 16,
