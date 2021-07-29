@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33c0ae09_6f2c1785",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:50:20Z",
+      "side": 1,
+      "message": "The commit title is not in the right format. \"Enable BR Keyword Check\" is probably better.",
+      "revId": "961c7665119674904a12c47995937602254c07a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5235b9b_fb5dee5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:50:20Z",
+      "side": 1,
+      "message": "What is this? Isn\u0027t it systemVpdRestore or similar?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "961c7665119674904a12c47995937602254c07a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45c76b66_1355441f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:50:20Z",
+      "side": 1,
+      "message": "I\u0027ll need to validate this",
+      "revId": "961c7665119674904a12c47995937602254c07a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aa5cfd8_8ab98119",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:50:20Z",
+      "side": 1,
+      "message": "Suggestion, you can use structured bindings to make this more readable, ex:\n\nconst auto\u0026 [brand, recKWMap] : svpdBrands",
+      "range": {
+        "startLine": 661,
+        "startChar": 21,
+        "endLine": 661,
+        "endChar": 34
+      },
+      "revId": "961c7665119674904a12c47995937602254c07a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ac311dd_f3c3ff80",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:50:20Z",
+      "side": 1,
+      "message": "Can use structured binding here too.",
+      "revId": "961c7665119674904a12c47995937602254c07a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "707d5094_3596b339",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-07-29T06:50:20Z",
+      "side": 1,
+      "message": "Why these random changes? Please revert",
+      "revId": "961c7665119674904a12c47995937602254c07a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
