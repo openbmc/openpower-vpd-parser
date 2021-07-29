@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5013282a_90ea4ab9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-29T05:28:12Z",
+      "side": 1,
+      "message": "I don\u0027t think camel case is required here. Here is is just a statement.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 10
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "637dd3a6_59222818",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-29T05:28:12Z",
+      "side": 1,
+      "message": "Please check for nullptr before dereferencing.",
+      "range": {
+        "startLine": 186,
+        "startChar": 20,
+        "endLine": 186,
+        "endChar": 64
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9e706f5_6c8e464a",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-29T05:28:12Z",
+      "side": 1,
+      "message": "Why do we need to re-assign these constants to a local variable? Why can\u0027t constants be used in place?",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 57
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd702411_a5774a4d",
+        "filename": "vpd-parser/memory_vpd_parser.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-29T05:28:12Z",
+      "side": 1,
+      "message": "Why this needs to be in capitals?",
+      "range": {
+        "startLine": 70,
+        "startChar": 46,
+        "endLine": 70,
+        "endChar": 48
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f09801a3_c8a129b1",
+        "filename": "vpd-parser/memory_vpd_parser.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-07-29T05:28:12Z",
+      "side": 1,
+      "message": "@return already denotes this.",
+      "range": {
+        "startLine": 70,
+        "startChar": 15,
+        "endLine": 70,
+        "endChar": 22
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
