@@ -401,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "4608a303_bdc5566d",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-02T10:23:13Z",
+      "side": 1,
+      "message": "No, i didn\u0027t mean both interfaces at the same time.\n\nI meant one generic function which you can call for either \u0027VINI\u0027 interface or\u0027extraInterface\u0027\n\nBecause I saw both of them needed interface, property and json. for VINI you are hardcoding inside the function, that caller can pass.(same as extraInterface call intf, prop)\n\nAnd for output-\none has output as passByReference, and another one you are returning value.that also you can make it same.",
+      "parentUuid": "cb7ed2f3_6248e9e6",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 204,
+        "endChar": 1
+      },
+      "revId": "2e32831bcd0ebdb3b5bc8f948483ba5ae92118a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82080807_51a41d82",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 3
