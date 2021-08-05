@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c070ddfa_3bd355ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-05T18:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5013282a_90ea4ab9",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 10
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cdb45cc_7680898a",
         "filename": "const.hpp",
         "patchSetId": 7
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "8a9fb128_8f26f199",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-05T18:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "637dd3a6_59222818",
+      "range": {
+        "startLine": 186,
+        "startChar": 20,
+        "endLine": 186,
+        "endChar": 64
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d387768_2d41ce2c",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 7
@@ -91,6 +139,30 @@
       "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeffbb75_1ba3727a",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-05T18:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d387768_2d41ce2c",
+      "range": {
+        "startLine": 20,
+        "startChar": 66,
+        "endLine": 20,
+        "endChar": 78
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +212,54 @@
     },
     {
       "key": {
+        "uuid": "45b403be_700c3294",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-05T18:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb2d0f4c_b2bb8407",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 57
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eabc38c2_c4099a89",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-05T18:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9e706f5_6c8e464a",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 57
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8068966f_aa2972aa",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 7
@@ -154,6 +274,24 @@
       "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7795a58_37f9efbc",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-05T18:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8068966f_aa2972aa",
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "f961d8fd_dab49d53",
+        "filename": "vpd-parser/memory_vpd_parser.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-05T18:24:16Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "f06f9b61_792a3cf9",
+      "range": {
+        "startLine": 66,
+        "startChar": 18,
+        "endLine": 66,
+        "endChar": 24
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "046014ce_a4aa2e02",
         "filename": "vpd-parser/memory_vpd_parser.hpp",
         "patchSetId": 7
@@ -200,6 +362,30 @@
       "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32256060_01d2ddad",
+        "filename": "vpd-parser/memory_vpd_parser.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-05T18:24:16Z",
+      "side": 1,
+      "message": "I will change to meaningful name.\n\nActually it holds some temporary value of calculations. And if that value fails on validity check, this tmp parameter will contain BYTE which has problem..",
+      "parentUuid": "046014ce_a4aa2e02",
+      "range": {
+        "startLine": 67,
+        "startChar": 18,
+        "endLine": 68,
+        "endChar": 21
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -269,6 +455,78 @@
       "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20a4deff_7c10c147",
+        "filename": "vpd-parser/memory_vpd_parser.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-05T18:24:16Z",
+      "side": 1,
+      "message": "there are some sanity check inside the code while calculating the size.\nif any one of them fails, it will return rc.\n\nI will put it here as enum.",
+      "parentUuid": "63bb361f_4b00eaa6",
+      "range": {
+        "startLine": 70,
+        "startChar": 14,
+        "endLine": 70,
+        "endChar": 60
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0b3827f_25ddbdda",
+        "filename": "vpd-parser/memory_vpd_parser.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-05T18:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd702411_a5774a4d",
+      "range": {
+        "startLine": 70,
+        "startChar": 46,
+        "endLine": 70,
+        "endChar": 48
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf5f5af6_9cc806a7",
+        "filename": "vpd-parser/memory_vpd_parser.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-05T18:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f09801a3_c8a129b1",
+      "range": {
+        "startLine": 70,
+        "startChar": 15,
+        "endLine": 70,
+        "endChar": 22
+      },
+      "revId": "f4bcfa8a07908bad62203ece1985c18115a01b49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
