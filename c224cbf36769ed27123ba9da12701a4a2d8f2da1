@@ -1,0 +1,203 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ef41609_5ed738a6",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-05T07:49:39Z",
+      "side": 1,
+      "message": "Instead of making this static, please make this a private member variable in the Monitor class",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 10
+      },
+      "revId": "c224cbf36769ed27123ba9da12701a4a2d8f2da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49e3d976_8d85ca8d",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-05T07:49:39Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to justify the naming of the variable in a comment, at least not in this case.",
+      "range": {
+        "startLine": 75,
+        "startChar": 68,
+        "endLine": 76,
+        "endChar": 29
+      },
+      "revId": "c224cbf36769ed27123ba9da12701a4a2d8f2da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5b64307_25e801f1",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-05T07:49:39Z",
+      "side": 1,
+      "message": "Remove this commented line",
+      "revId": "c224cbf36769ed27123ba9da12701a4a2d8f2da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d32836d_7b590a90",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-05T07:49:39Z",
+      "side": 1,
+      "message": "Please remove this line.",
+      "revId": "c224cbf36769ed27123ba9da12701a4a2d8f2da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f7b7edc_4ead4e4c",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-05T07:49:39Z",
+      "side": 1,
+      "message": "Why can\u0027t this just be if (presPinVal \u003d\u003d presenceValue)",
+      "revId": "c224cbf36769ed27123ba9da12701a4a2d8f2da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3464413_19c52c82",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-05T07:49:39Z",
+      "side": 1,
+      "message": "This comment confuses me - we aren\u0027t setting any pin here",
+      "revId": "c224cbf36769ed27123ba9da12701a4a2d8f2da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e68a35c_9646f921",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-05T07:49:39Z",
+      "side": 1,
+      "message": "Should we check for 0 instead? I don\u0027t know if the return could be anything other than -1 in case of a failure",
+      "revId": "c224cbf36769ed27123ba9da12701a4a2d8f2da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14afb661_b3bf5741",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-05T07:49:39Z",
+      "side": 1,
+      "message": "Please output the command that was run",
+      "revId": "c224cbf36769ed27123ba9da12701a4a2d8f2da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f48eed9c_f77d16ef",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-05T07:49:39Z",
+      "side": 1,
+      "message": "Unnecessary variable",
+      "revId": "c224cbf36769ed27123ba9da12701a4a2d8f2da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfd7325f_179e0a3e",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-05T07:49:39Z",
+      "side": 1,
+      "message": "Please remove these couts",
+      "revId": "c224cbf36769ed27123ba9da12701a4a2d8f2da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c357939_f2bc7561",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-05T07:49:39Z",
+      "side": 1,
+      "message": "It is OK to keep this, but please rephrase: \"VPD manager event loop started\"",
+      "revId": "c224cbf36769ed27123ba9da12701a4a2d8f2da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
