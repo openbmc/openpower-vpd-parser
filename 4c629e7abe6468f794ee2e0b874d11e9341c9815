@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00f9e282_e03db9bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-08-06T04:53:33Z",
+      "side": 1,
+      "message": "nit: period missing.",
+      "range": {
+        "startLine": 9,
+        "startChar": 46,
+        "endLine": 9,
+        "endChar": 47
+      },
+      "revId": "4c629e7abe6468f794ee2e0b874d11e9341c9815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6c610ab_dbf859c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-08-06T04:53:33Z",
+      "side": 1,
+      "message": "Needs rephrasing?",
+      "range": {
+        "startLine": 10,
+        "startChar": 50,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "4c629e7abe6468f794ee2e0b874d11e9341c9815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c65361d_74a0817d",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-08-06T04:53:33Z",
+      "side": 1,
+      "message": "not needed.",
+      "range": {
+        "startLine": 198,
+        "startChar": 20,
+        "endLine": 198,
+        "endChar": 29
+      },
+      "revId": "4c629e7abe6468f794ee2e0b874d11e9341c9815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
