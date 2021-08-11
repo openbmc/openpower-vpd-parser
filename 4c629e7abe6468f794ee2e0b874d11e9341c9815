@@ -91,6 +91,46 @@
       "revId": "4c629e7abe6468f794ee2e0b874d11e9341c9815",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69522308_b6f724b5",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-11T10:28:54Z",
+      "side": 1,
+      "message": "None of these are in camelCase. Please fix.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 37
+      },
+      "revId": "4c629e7abe6468f794ee2e0b874d11e9341c9815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d3ea2c6_3d407aaf",
+        "filename": "vpd-parser/memory_vpd_parser.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-11T10:28:54Z",
+      "side": 1,
+      "message": "Not needed",
+      "revId": "4c629e7abe6468f794ee2e0b874d11e9341c9815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
