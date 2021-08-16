@@ -16,6 +16,24 @@
       "revId": "dbbde0d5dc23fb9a2ffb997d7b8988ad2fb17572",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "011203a0_5dde7f08",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-16T10:39:20Z",
+      "side": 1,
+      "message": "Not exactly intentional :) But there is a change coming here anyway to set the Availability and Functional properties. So I\u0027ll ignore this for now.",
+      "parentUuid": "a2d210f7_2a5e8e53",
+      "revId": "dbbde0d5dc23fb9a2ffb997d7b8988ad2fb17572",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
