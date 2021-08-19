@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "aed6f725_263fe824",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-19T11:37:22Z",
+      "side": 1,
+      "message": "I made change. but lost it seems. Will handle it.",
+      "range": {
+        "startLine": 118,
+        "startChar": 6,
+        "endLine": 118,
+        "endChar": 27
+      },
+      "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a86abe3a_7b7b8ccf",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 30
@@ -19,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "8dc2af54_6a2e815f",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-19T11:37:22Z",
+      "side": 1,
+      "message": "if isPresent false, then call dbus and set the present as false. before unbinding it.\nOR\ncall dbus for all FRUs,(set value conditionally based on isPresent ?true:false)\n\nI will prefer 2nd option, as present should be based on binding/unbinding.",
+      "parentUuid": "a86abe3a_7b7b8ccf",
+      "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "81a4e2c2_a6f8763b",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 30
@@ -30,6 +71,30 @@
       "writtenOn": "2021-08-17T09:37:14Z",
       "side": 1,
       "message": "I think we should use the new chrono time literals here, So simply replace this with 5s and remove the definition from const file.\n\nhttps://en.cppreference.com/w/cpp/chrono/operator%22%22s",
+      "range": {
+        "startLine": 155,
+        "startChar": 29,
+        "endLine": 155,
+        "endChar": 37
+      },
+      "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24660488_a194b1d2",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-19T11:37:22Z",
+      "side": 1,
+      "message": "making change.",
+      "parentUuid": "81a4e2c2_a6f8763b",
       "range": {
         "startLine": 155,
         "startChar": 29,
