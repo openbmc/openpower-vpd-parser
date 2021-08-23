@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "50aff962_6fd2362b",
+        "filename": "json/vpd_inventory.json",
+        "patchSetId": 30
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2021-08-23T16:31:01Z",
+      "side": 1,
+      "message": "is this needed for Blyth?",
+      "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f700d686_4eff3398",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2021-08-23T16:31:01Z",
+      "side": 1,
+      "message": "does this give 0 or 1 ? so 1 is the default correct ? basically I got mixed with the boolean used for bool prevPresPinValue \u003d false; isn\u0027t it a negated line the default ? sorry may have missed something",
+      "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aed6f725_263fe824",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 30
@@ -54,6 +88,23 @@
       "side": 1,
       "message": "if isPresent false, then call dbus and set the present as false. before unbinding it.\nOR\ncall dbus for all FRUs,(set value conditionally based on isPresent ?true:false)\n\nI will prefer 2nd option, as present should be based on binding/unbinding.",
       "parentUuid": "a86abe3a_7b7b8ccf",
+      "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "260fec4c_e3268853",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2021-08-23T16:31:01Z",
+      "side": 1,
+      "message": "what is the reason for this here ? isn\u0027t this done in toggle gpio ? can there be a change in value in both places ?",
       "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
