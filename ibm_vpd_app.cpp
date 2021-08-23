@@ -466,6 +466,60 @@ static void preAction(const nlohmann::json& json, const string& file)
 }
 
 /**
+ * @brief Set certain one time properties in the inventory
+ * Use this function to insert the Functional and Enabled properties into the
+ * inventory map. This function first checks if the object in question already
+ * has these properties hosted on D-Bus, if the property is already there, it is
+ * not modified, hence the name "one time". If the property is not already
+ * present, it will be added to the map with a suitable default value (true for
+ * Functional and false for Enabled)
+ *
+ * @param[in] object - The inventory D-Bus obejct without the inventory prefix.
+ * @param[inout] interfaces - Reference to a map of inventory interfaces to
+ * which the properties will be attached.
+ */
+static void setOneTimeProperties(const std::string& object,
+                                 inventory::InterfaceMap& interfaces)
+{
+    auto bus = sdbusplus::bus::new_default();
+    auto objectPath = INVENTORY_PATH + object;
+    auto prop = bus.new_method_call("xyz.openbmc_project.Inventory.Manager",
+                                    objectPath.c_str(),
+                                    "org.freedesktop.DBus.Properties", "Get");
+    prop.append("xyz.openbmc_project.State.Decorator.OperationalStatus");
+    prop.append("Functional");
+    try
+    {
+        auto result = bus.call(prop);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        // Treat as property unavailable
+        inventory::PropertyMap prop;
+        prop.emplace("Functional", true);
+        interfaces.emplace(
+            "xyz.openbmc_project.State.Decorator.OperationalStatus",
+            move(prop));
+    }
+    prop = bus.new_method_call("xyz.openbmc_project.Inventory.Manager",
+                               objectPath.c_str(),
+                               "org.freedesktop.DBus.Properties", "Get");
+    prop.append("xyz.openbmc_project.Object.Enable");
+    prop.append("Enabled");
+    try
+    {
+        auto result = bus.call(prop);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        // Treat as property unavailable
+        inventory::PropertyMap prop;
+        prop.emplace("Enabled", false);
+        interfaces.emplace("xyz.openbmc_project.Object.Enable", move(prop));
+    }
+}
+
+/**
  * @brief Prime the Inventory
  * Prime the inventory by populating only the location code,
  * type interface and the inventory object for the frus
@@ -497,7 +551,8 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                 inventory::PropertyMap presProp;
                 presProp.emplace("Present", false);
                 interfaces.emplace("xyz.openbmc_project.Inventory.Item",
-                                   move(presProp));
+                                   presProp);
+                setOneTimeProperties(object, interfaces);
                 if (itemEEPROM.find("extraInterfaces") != itemEEPROM.end())
                 {
                     for (const auto& eI : itemEEPROM["extraInterfaces"].items())
@@ -525,6 +580,23 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                                  string::npos)
                         {
                             interfaces.emplace(move(eI.key()), move(props));
+                        }
+                        else if (eI.key() ==
+                                 "xyz.openbmc_project.Inventory.Item")
+                        {
+                            for (auto& val : eI.value().items())
+                            {
+                                if (val.key() == "PrettyName")
+                                {
+                                    presProp.emplace(val.key(),
+                                                     val.value().get<string>());
+                                }
+                            }
+                            // Use insert_or_assign here as we may already have
+                            // inserted the present property only earlier in
+                            // this function under this same interface.
+                            interfaces.insert_or_assign(eI.key(),
+                                                        move(presProp));
                         }
                     }
                 }
@@ -923,6 +995,14 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     {
         const auto& objectPath = item["inventoryPath"];
         sdbusplus::message::object_path object(objectPath);
+
+        if (isSystemVpd)
+        {
+            // Populate one time properties for the system VPD and its sub-frus.
+            // For the remaining FRUs, this will get handled as a part of
+            // priming the inventory.
+            setOneTimeProperties(objectPath, interfaces);
+        }
 
         // Populate the VPD keywords and the common interfaces only if we
         // are asked to inherit that data from the VPD, else only add the
