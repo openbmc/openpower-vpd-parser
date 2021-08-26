@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "83218ed2_872abbc0",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-26T10:42:50Z",
+      "side": 1,
+      "message": "This can be 0 OR 1, based on presenceLine.\n\nFor LCD it is Active low, so I can have default as 1.\nif some other FRU comes later which has Active High then it will be same situation as now.",
+      "parentUuid": "f700d686_4eff3398",
+      "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aed6f725_263fe824",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 30
@@ -56,6 +74,30 @@
       "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cf7c215_e54bb912",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-26T10:42:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aed6f725_263fe824",
+      "range": {
+        "startLine": 118,
+        "startChar": 6,
+        "endLine": 118,
+        "endChar": 27
+      },
+      "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "0c2e4e59_26f0b30c",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-26T10:42:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dc2af54_6a2e815f",
+      "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "260fec4c_e3268853",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 30
@@ -105,6 +165,24 @@
       "writtenOn": "2021-08-23T16:31:01Z",
       "side": 1,
       "message": "what is the reason for this here ? isn\u0027t this done in toggle gpio ? can there be a change in value in both places ?",
+      "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b8a0495_3d5deb3c",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-26T10:42:50Z",
+      "side": 1,
+      "message": "This will be called only first time setup. will store the initial value.\n\nToggleGpio will keep triggering if any event found.so it will check for current value and update the gpio accordingly.",
+      "parentUuid": "260fec4c_e3268853",
       "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -158,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "15f0f5c0_6e42ef00",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-26T10:42:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24660488_a194b1d2",
+      "range": {
+        "startLine": 155,
+        "startChar": 29,
+        "endLine": 155,
+        "endChar": 37
+      },
+      "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35c8532b_34dc739b",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 30
@@ -181,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "fb95a4e8_8ce90192",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-26T10:42:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35c8532b_34dc739b",
+      "range": {
+        "startLine": 18,
+        "startChar": 45,
+        "endLine": 18,
+        "endChar": 73
+      },
+      "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb5c4053_a72e8c4d",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 30
@@ -195,6 +321,24 @@
       "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82bcfe1e_6615492d",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-08-26T10:42:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb5c4053_a72e8c4d",
+      "revId": "19522b0551125b467d4bad119bc369d34a3ccb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
