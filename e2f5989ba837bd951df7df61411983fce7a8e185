@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63a8f2c2_ee861a69",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-08-27T05:29:38Z",
+      "side": 1,
+      "message": "Where is the check for \"if FRU went away here\"? We should be setting to false only if we go from present\u003d\u003d\u003enot-present",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 44
+      },
+      "revId": "e2f5989ba837bd951df7df61411983fce7a8e185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
