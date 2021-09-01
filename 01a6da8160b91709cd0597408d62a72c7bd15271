@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9375b0be_8456aa12",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-01T08:15:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1554a6b8_f3d86e3c",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 1
+      },
+      "revId": "01a6da8160b91709cd0597408d62a72c7bd15271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e6889f7_0c5b0a83",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 33
@@ -36,6 +60,30 @@
       "writtenOn": "2021-09-01T07:39:04Z",
       "side": 1,
       "message": "This is the format for multiple line comment. Not sure if this qualifies for Doxygen comments.",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 7
+      },
+      "revId": "01a6da8160b91709cd0597408d62a72c7bd15271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fee8b125_478ff5b1",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-01T08:15:44Z",
+      "side": 1,
+      "message": "/**\n */\nThis one I meant, will modify",
+      "parentUuid": "7e6889f7_0c5b0a83",
       "range": {
         "startLine": 75,
         "startChar": 4,
