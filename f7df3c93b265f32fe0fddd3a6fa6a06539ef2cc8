@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f64ca18e_0d72f192",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-01T05:48:40Z",
+      "side": 1,
+      "message": "This indentation is intentional. This looks clear and more readable so I do it this way.",
+      "parentUuid": "588622bd_97f3c1e7",
+      "range": {
+        "startLine": 213,
+        "startChar": 4,
+        "endLine": 214,
+        "endChar": 40
+      },
+      "revId": "f7df3c93b265f32fe0fddd3a6fa6a06539ef2cc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac6caebd_5b678eb5",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 32
@@ -39,6 +63,24 @@
       "revId": "f7df3c93b265f32fe0fddd3a6fa6a06539ef2cc8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a89b5f04_a5520514",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-01T05:48:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac6caebd_5b678eb5",
+      "revId": "f7df3c93b265f32fe0fddd3a6fa6a06539ef2cc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "b8134c9b_6260ce66",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-01T05:48:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "332cf780_f05fff24",
+      "range": {
+        "startLine": 11,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "f7df3c93b265f32fe0fddd3a6fa6a06539ef2cc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "65265b15_d3c43247",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 32
@@ -76,6 +142,30 @@
       "writtenOn": "2021-08-31T08:03:56Z",
       "side": 1,
       "message": "where are we utilising this vector data?",
+      "range": {
+        "startLine": 103,
+        "startChar": 16,
+        "endLine": 103,
+        "endChar": 27
+      },
+      "revId": "f7df3c93b265f32fe0fddd3a6fa6a06539ef2cc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "421916cc_606e032d",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-01T05:48:40Z",
+      "side": 1,
+      "message": "AT runtime, all these data are being used. when timer running",
+      "parentUuid": "65265b15_d3c43247",
       "range": {
         "startLine": 103,
         "startChar": 16,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "ce4dd8f1_cf3b8876",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-01T05:48:40Z",
+      "side": 1,
+      "message": "I guess I did made this inline. nor sure why I m back to this. will check.",
+      "parentUuid": "1a6c09d7_27c06689",
+      "range": {
+        "startLine": 109,
+        "startChar": 1,
+        "endLine": 113,
+        "endChar": 0
+      },
+      "revId": "f7df3c93b265f32fe0fddd3a6fa6a06539ef2cc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8bc31ef0_dedfa9ef",
         "filename": "vpd-manager/gpioMonitor.cpp",
         "patchSetId": 32
@@ -122,6 +236,30 @@
       "writtenOn": "2021-08-31T08:03:56Z",
       "side": 1,
       "message": "is this toggling gpio specific to op-panel only? since this is an event loop we have to listen to any events. this may conflict in future if we have to listen to multiple events.\nwhy can\u0027t we make this api a common to toggle any gpio?",
+      "range": {
+        "startLine": 150,
+        "startChar": 25,
+        "endLine": 150,
+        "endChar": 45
+      },
+      "revId": "f7df3c93b265f32fe0fddd3a6fa6a06539ef2cc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6730bd9_09aefb3a",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-01T05:48:40Z",
+      "side": 1,
+      "message": "This is a multi GPIO handling code",
+      "parentUuid": "8bc31ef0_dedfa9ef",
       "range": {
         "startLine": 150,
         "startChar": 25,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "307cdfe6_7e41af76",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-01T05:48:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17ae3141_0261009c",
+      "range": {
+        "startLine": 5,
+        "startChar": 1,
+        "endLine": 5,
+        "endChar": 28
+      },
+      "revId": "f7df3c93b265f32fe0fddd3a6fa6a06539ef2cc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad0c45d5_e4d1cd74",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 32
@@ -168,6 +330,30 @@
       "writtenOn": "2021-08-31T08:03:56Z",
       "side": 1,
       "message": "if any of the \"above\" event? what is it?",
+      "range": {
+        "startLine": 19,
+        "startChar": 11,
+        "endLine": 19,
+        "endChar": 36
+      },
+      "revId": "f7df3c93b265f32fe0fddd3a6fa6a06539ef2cc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5387232_d03cc8b3",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-01T05:48:40Z",
+      "side": 1,
+      "message": "attachment/de-attachment event",
+      "parentUuid": "ad0c45d5_e4d1cd74",
       "range": {
         "startLine": 19,
         "startChar": 11,
@@ -197,6 +383,24 @@
     },
     {
       "key": {
+        "uuid": "00dfe654_2fb72d30",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-01T05:48:40Z",
+      "side": 1,
+      "message": "Most of them are done by clang script.",
+      "parentUuid": "30623a02_f0048bea",
+      "revId": "f7df3c93b265f32fe0fddd3a6fa6a06539ef2cc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c2086be_3a03c1d9",
         "filename": "vpd-manager/gpioMonitor.hpp",
         "patchSetId": 32
@@ -208,6 +412,30 @@
       "writtenOn": "2021-08-31T08:03:56Z",
       "side": 1,
       "message": "can you take care of the alignments wherever needed?",
+      "range": {
+        "startLine": 125,
+        "startChar": 5,
+        "endLine": 127,
+        "endChar": 19
+      },
+      "revId": "f7df3c93b265f32fe0fddd3a6fa6a06539ef2cc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42927357_ffb5f70e",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-01T05:48:40Z",
+      "side": 1,
+      "message": "This is again done by clang",
+      "parentUuid": "8c2086be_3a03c1d9",
       "range": {
         "startLine": 125,
         "startChar": 5,
