@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1554a6b8_f3d86e3c",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-01T07:39:04Z",
+      "side": 1,
+      "message": "This can be removed. Class name is also a namespace to define the scope of member/functions.\n\nWhen we are already defining class with name GpioMonitor/GpioEventHandler. We can get rid of unnecessary namespace nesting.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 1
+      },
+      "revId": "01a6da8160b91709cd0597408d62a72c7bd15271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e6889f7_0c5b0a83",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-01T07:39:04Z",
+      "side": 1,
+      "message": "This is the format for multiple line comment. Not sure if this qualifies for Doxygen comments.",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 7
+      },
+      "revId": "01a6da8160b91709cd0597408d62a72c7bd15271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
