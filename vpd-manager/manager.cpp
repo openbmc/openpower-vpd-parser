@@ -53,6 +53,47 @@ void Manager::run()
     }
 }
 
+void Manager::listenHostState()
+{
+    static std::shared_ptr<sdbusplus::bus::match::match> hostState =
+        std::make_shared<sdbusplus::bus::match::match>(
+            _bus,
+            sdbusplus::bus::match::rules::propertiesChanged(
+                "/xyz/openbmc_project/state/host0",
+                "xyz.openbmc_project.State.Host"),
+            [this](sdbusplus::message::message& msg) {
+                hostStateCallBack(msg);
+            });
+}
+
+void Manager::hostStateCallBack(sdbusplus::message::message& msg)
+{
+    if (msg.is_method_error())
+    {
+        std::cerr << "Error in reading signal " << std::endl;
+    }
+
+    Path object;
+    PropertyMap propMap;
+    msg.read(object, propMap);
+    const auto itr = propMap.find("CurrentHostState");
+    if (itr != propMap.end())
+    {
+        if (auto hostState = std::get_if<std::string>(&(itr->second)))
+        {
+            // implies system is moving from standby to power on state
+            if (*hostState == "xyz.openbmc_project.State.Host.HostState."
+                              "TransitioningToRunning")
+            {
+                // check and perfrom recollection for FRUs replacable at
+                // standby.
+                performVPDRecollection();
+            }
+        }
+        std::cerr << "Failed to read Host state" << std::endl;
+    }
+}
+
 void Manager::processJSON()
 {
     std::ifstream json(INVENTORY_JSON_SYM_LINK, std::ios::binary);
@@ -180,7 +221,7 @@ void Manager::performVPDRecollection()
             singleFru["inventoryPath"]
                 .get_ref<const nlohmann::json::string_t&>();
 
-        if ((singleFru.find("devAddress") == singleFru.end()) ||
+        if ((singleFru.find("bind") == singleFru.end()) ||
             (singleFru.find("driverType") == singleFru.end()) ||
             (singleFru.find("busType") == singleFru.end()))
         {
@@ -194,7 +235,7 @@ void Manager::performVPDRecollection()
         }
 
         string str = "echo ";
-        string deviceAddress = singleFru["devAddress"];
+        string deviceAddress = singleFru["bind"];
         const string& driverType = singleFru["driverType"];
         const string& busType = singleFru["busType"];
 
