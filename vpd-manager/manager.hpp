@@ -129,6 +129,16 @@ class Manager : public ServerObject<ManagerIface>
      */
     void processJSON();
 
+    /** @brief Api to register host state callback.
+     * This api will register callback to listen for host state property change.
+     */
+    void listenHostState();
+
+    /** @brief Callback to listen for Host state change
+     *  @param[in] msg - callback message.
+     */
+    void hostStateCallBack(sdbusplus::message::message& msg);
+
     /** @brief Persistent sdbusplus DBus bus connection. */
     sdbusplus::bus::bus _bus;
 
