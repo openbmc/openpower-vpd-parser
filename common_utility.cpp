@@ -30,7 +30,7 @@ std::string getService(sdbusplus::bus::bus& bus, const std::string& path,
         auto reply = bus.call(mapper);
         reply.read(response);
     }
-    catch (const sdbusplus::exception::SdBusError& e)
+    catch (const sdbusplus::exception::exception& e)
     {
         log<level::ERR>("D-Bus call exception",
                         entry("OBJPATH=%s", mapperObjectPath),

@@ -583,7 +583,7 @@ void updateHardware(const string& objectName, const string& recName,
         properties.append(data);
         bus.call(properties);
     }
-    catch (const sdbusplus::exception::SdBusError& e)
+    catch (const sdbusplus::exception::exception& e)
     {
         std::string what =
             "VPDManager WriteKeyword api failed for inventory path " +

@@ -10,7 +10,6 @@
 #include <vector>
 
 using namespace std;
-using sdbusplus::exception::SdBusError;
 using namespace openpower::vpd;
 using namespace inventory;
 using namespace openpower::vpd::manager::editor;
@@ -152,7 +151,7 @@ json VpdTool::getVINIProperties(string invPath)
                 kwVal.emplace(kw, printableVal);
             }
         }
-        catch (const SdBusError& e)
+        catch (const sdbusplus::exception::exception& e)
         {
             if (string(e.name()) ==
                 string("org.freedesktop.DBus.Error.UnknownObject"))
@@ -187,7 +186,7 @@ void VpdTool::getExtraInterfaceProperties(const string& invPath,
                 output.emplace(kw, *str);
             }
         }
-        catch (const SdBusError& e)
+        catch (const sdbusplus::exception::exception& e)
         {
             if (std::string(e.name()) ==
                 std::string("org.freedesktop.DBus.Error.UnknownObject"))

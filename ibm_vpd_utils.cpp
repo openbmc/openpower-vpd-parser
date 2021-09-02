@@ -68,7 +68,7 @@ MapperResponse
 
         response.read(result);
     }
-    catch (const sdbusplus::exception::SdBusError& e)
+    catch (const sdbusplus::exception::exception& e)
     {
         log<level::ERR>("Error in mapper GetSubTree",
                         entry("ERROR=%s", e.what()));
@@ -178,7 +178,7 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
         method.append(errIntf, pelSeverity, additionalData);
         auto resp = bus.call(method);
     }
-    catch (const sdbusplus::exception::SdBusError& e)
+    catch (const sdbusplus::exception::exception& e)
     {
         throw std::runtime_error(
             "Error in invoking D-Bus logging create interface to register PEL");
