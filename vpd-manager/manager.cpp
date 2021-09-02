@@ -38,6 +38,7 @@ void Manager::run()
     try
     {
         processJSON();
+        listenHostState();
     }
     catch (const std::exception& e)
     {
@@ -50,6 +51,48 @@ void Manager::run()
 
         // wait for event
         _bus.wait();
+    }
+}
+
+void Manager::listenHostState()
+{
+    static std::shared_ptr<sdbusplus::bus::match::match> hostState =
+        std::make_shared<sdbusplus::bus::match::match>(
+            _bus,
+            sdbusplus::bus::match::rules::propertiesChanged(
+                "/xyz/openbmc_project/state/host0",
+                "xyz.openbmc_project.State.Host"),
+            [this](sdbusplus::message::message& msg) {
+                hostStateCallBack(msg);
+            });
+}
+
+void Manager::hostStateCallBack(sdbusplus::message::message& msg)
+{
+    if (msg.is_method_error())
+    {
+        std::cerr << "Error in reading signal " << std::endl;
+    }
+
+    Path object;
+    PropertyMap propMap;
+    msg.read(object, propMap);
+    const auto itr = propMap.find("CurrentHostState");
+    if (itr != propMap.end())
+    {
+        if (auto hostState = std::get_if<std::string>(&(itr->second)))
+        {
+            // implies system is moving from standby to power on state
+            if (*hostState == "xyz.openbmc_project.State.Host.HostState."
+                              "TransitioningToRunning")
+            {
+                // check and perfrom recollection for FRUs replaceable at
+                // standby.
+                performVPDRecollection();
+                return;
+            }
+        }
+        std::cerr << "Failed to read Host state" << std::endl;
     }
 }
 
