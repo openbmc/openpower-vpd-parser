@@ -22,6 +22,30 @@
       "revId": "76074649dff92bb648c86e7121237cd41c5112f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d64424fa_9e09e96e",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-06T10:14:00Z",
+      "side": 1,
+      "message": "Yes it should be.",
+      "parentUuid": "af6ede0d_5372353d",
+      "range": {
+        "startLine": 271,
+        "startChar": 8,
+        "endLine": 271,
+        "endChar": 46
+      },
+      "revId": "76074649dff92bb648c86e7121237cd41c5112f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
