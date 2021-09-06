@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a772dd4_90acba9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-06T16:02:03Z",
+      "side": 1,
+      "message": "I am still looking for an updated commit message that shows a DIMM D-Bus object with some real values.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 121
+      },
+      "revId": "a43c1971b9d3020c3a42491d85ea91cce6a120fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eacee40d_38893fd6",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-06T16:02:03Z",
+      "side": 1,
+      "message": "Please remove",
+      "revId": "a43c1971b9d3020c3a42491d85ea91cce6a120fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "019bb358_81151c97",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-06T16:02:03Z",
+      "side": 1,
+      "message": "Please remove",
+      "revId": "a43c1971b9d3020c3a42491d85ea91cce6a120fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be4c2acd_c7c2c1c4",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1282,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-06T16:02:03Z",
+      "side": 1,
+      "message": "Remove this newline",
+      "revId": "a43c1971b9d3020c3a42491d85ea91cce6a120fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "770dd909_ca95550b",
+        "filename": "json/50001000.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-06T16:02:03Z",
+      "side": 1,
+      "message": "Please do not add a whole new file, update the existing JSON",
+      "revId": "a43c1971b9d3020c3a42491d85ea91cce6a120fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
