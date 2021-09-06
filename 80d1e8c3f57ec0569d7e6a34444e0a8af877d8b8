@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a55df60_0a42d312",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-06T10:40:23Z",
+      "side": 1,
+      "message": "replaceable**",
+      "range": {
+        "startLine": 89,
+        "startChar": 59,
+        "endLine": 89,
+        "endChar": 69
+      },
+      "revId": "80d1e8c3f57ec0569d7e6a34444e0a8af877d8b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
