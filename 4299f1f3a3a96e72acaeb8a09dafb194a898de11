@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eba199eb_dc8a4f7b",
+        "filename": "examples/50001000.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-06T10:32:04Z",
+      "side": 1,
+      "message": "Instead of adding a whole new file, pleae modify the existing example JSON.",
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21f844d6_ceda27a9",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-06T10:32:04Z",
+      "side": 1,
+      "message": "This method uses a bool return to indicate both a \"no pre-action needed\" and an error. Please fix.",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 564,
+        "endChar": 21
+      },
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5421b9ea_08646df2",
+        "filename": "meson.build",
+        "patchSetId": 11
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-06T10:32:04Z",
+      "side": 1,
+      "message": "This is an unintended side-effect of moving the GPIO function to the util file. The tool does not even use these. We should split the utils into common and app utils. Please add a TODO here  to do that in a future commit.",
+      "range": {
+        "startLine": 96,
+        "startChar": 35,
+        "endLine": 96,
+        "endChar": 46
+      },
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a93763f7_06c9cb62",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-06T10:32:04Z",
+      "side": 1,
+      "message": "If the preaction part fails, we should not be doing this at all, right?",
+      "range": {
+        "startLine": 217,
+        "startChar": 8,
+        "endLine": 217,
+        "endChar": 59
+      },
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ea036af_cf978783",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-06T10:32:04Z",
+      "side": 1,
+      "message": "Or new_device/delete_device.",
+      "range": {
+        "startLine": 145,
+        "startChar": 57,
+        "endLine": 145,
+        "endChar": 74
+      },
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
