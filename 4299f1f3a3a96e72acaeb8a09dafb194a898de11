@@ -88,6 +88,30 @@
     },
     {
       "key": {
+        "uuid": "d924a145_8d0b0f85",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-06T11:51:43Z",
+      "side": 1,
+      "message": "I thought we discussed that though it is only for cable cards right now we will keep it generic. Hence for FRUs for which preAction is not applicable we will just collect the VPD.",
+      "parentUuid": "a93763f7_06c9cb62",
+      "range": {
+        "startLine": 217,
+        "startChar": 8,
+        "endLine": 217,
+        "endChar": 59
+      },
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ea036af_cf978783",
         "filename": "vpd-manager/manager.hpp",
         "patchSetId": 11
