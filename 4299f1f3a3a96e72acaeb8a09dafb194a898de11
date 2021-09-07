@@ -42,6 +42,23 @@
     },
     {
       "key": {
+        "uuid": "65b5d339_706e9760",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2021-09-07T04:59:14Z",
+      "side": 1,
+      "message": "An indication of error will be good, as in below?",
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5421b9ea_08646df2",
         "filename": "meson.build",
         "patchSetId": 11
@@ -59,6 +76,23 @@
         "endLine": 96,
         "endChar": 46
       },
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfcb3771_9a79b824",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2021-09-07T04:59:14Z",
+      "side": 1,
+      "message": "Won\u0027t this be costly, than checking using file operators?",
       "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -106,6 +140,23 @@
         "endLine": 217,
         "endChar": 59
       },
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c98e411_a99f655f",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2021-09-07T04:59:14Z",
+      "side": 1,
+      "message": "Can it/name be changed for Single FRUVPD?",
       "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
