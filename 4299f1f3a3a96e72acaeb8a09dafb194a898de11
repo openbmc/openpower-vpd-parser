@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "5828e547_e04d160a",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-08T05:06:53Z",
+      "side": 1,
+      "message": "As in ibm_vpd_app, where this function was defined before. It was just returning incase preAction flag is missing or there is any error and would not proceed with bind and postFailAction.\n\nI am just trying to replicate that by returning false from here indicates we do not need to execute bind and postFailAction. In case of error we have additional log there.",
+      "parentUuid": "21f844d6_ceda27a9",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 564,
+        "endChar": 21
+      },
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65b5d339_706e9760",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 11
@@ -53,6 +77,24 @@
       "writtenOn": "2021-09-07T04:59:14Z",
       "side": 1,
       "message": "An indication of error will be good, as in below?",
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74c413bd_18f1b3cf",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-08T05:06:53Z",
+      "side": 1,
+      "message": "This is not an error.",
+      "parentUuid": "65b5d339_706e9760",
       "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -93,6 +135,24 @@
       "writtenOn": "2021-09-07T04:59:14Z",
       "side": 1,
       "message": "Won\u0027t this be costly, than checking using file operators?",
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a00711ef_7a69a06c",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-08T05:06:53Z",
+      "side": 1,
+      "message": "I did not get that. Could you please give some detail.",
+      "parentUuid": "dfcb3771_9a79b824",
       "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -157,6 +217,24 @@
       "writtenOn": "2021-09-07T04:59:14Z",
       "side": 1,
       "message": "Can it/name be changed for Single FRUVPD?",
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beb97369_eb8f6115",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-08T05:06:53Z",
+      "side": 1,
+      "message": "This is the name coming from interface file. Changing here will lead to change there. Ac costly deal. 😊\nLets see if there is majority who thinks we need to change than we can take a call.",
+      "parentUuid": "4c98e411_a99f655f",
       "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
