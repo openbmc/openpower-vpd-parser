@@ -23,7 +23,7 @@ namespace inventory
 
 using Path = std::string;
 using Property = std::string;
-using Value = std::variant<bool, int64_t, std::string, Binary>;
+using Value = std::variant<bool, int64_t, std::string, Binary, size_t>;
 using PropertyMap = std::map<Property, Value>;
 
 using Interface = std::string;

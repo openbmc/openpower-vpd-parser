@@ -266,6 +266,12 @@ static void populateInterfaces(const nlohmann::json& js,
                     }
                 }
             }
+            else if (itr.value().is_number())
+            {
+                // The properties on the I2CDevice interface are size_t.
+                // TODO: How to know the actual type.
+                props.emplace(busProp, itr.value().get<size_t>());
+            }
         }
         interfaces.emplace(inf, move(props));
     }
