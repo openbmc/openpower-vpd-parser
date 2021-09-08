@@ -46,6 +46,30 @@
       "revId": "32b97ae1ba54ad0c381026c2998c8402280ce14a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a7165cf_f32e79b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-08T08:54:50Z",
+      "side": 1,
+      "message": "I don\u0027t follow - We don\u0027t have 32MByte DIMMs. I think the value you have here is actually 32768 MBytes and needs to converted (* 1024) before publishing it on D-Bus",
+      "parentUuid": "048d4b3a_1ed4bd06",
+      "range": {
+        "startLine": 27,
+        "startChar": 66,
+        "endLine": 27,
+        "endChar": 71
+      },
+      "revId": "32b97ae1ba54ad0c381026c2998c8402280ce14a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
