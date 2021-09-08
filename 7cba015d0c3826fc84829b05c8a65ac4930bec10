@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07405c2d_1e6834c6",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-08T15:16:59Z",
+      "side": 1,
+      "message": "This comment seems a little out-of-place (calling out the interface explicitly). Maybe just say that we assume any number is a size_t and we need to figure out a way to specify the exact D-Bus data type in the JSON.",
+      "range": {
+        "startLine": 271,
+        "startChar": 41,
+        "endLine": 271,
+        "endChar": 50
+      },
+      "revId": "7cba015d0c3826fc84829b05c8a65ac4930bec10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
