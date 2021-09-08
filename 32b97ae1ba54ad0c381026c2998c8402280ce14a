@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33f84604_3ad7f6a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-08T07:41:53Z",
+      "side": 1,
+      "message": "This seems wrong. We don\u0027t make 64 MB DIMMs anymore :) This should be in MBytes and needs to be converted to KBytes before putting it on D-Bus.",
+      "range": {
+        "startLine": 27,
+        "startChar": 66,
+        "endLine": 27,
+        "endChar": 71
+      },
+      "revId": "32b97ae1ba54ad0c381026c2998c8402280ce14a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
