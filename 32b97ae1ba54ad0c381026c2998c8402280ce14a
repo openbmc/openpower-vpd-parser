@@ -22,6 +22,30 @@
       "revId": "32b97ae1ba54ad0c381026c2998c8402280ce14a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "048d4b3a_1ed4bd06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-08T08:32:55Z",
+      "side": 1,
+      "message": "This was manually done. please check below on original dimm-\n\nroot@rain135c:/tmp# busctl introspect  xyz.openbmc_project.Inventory.Manager  /xyz/openbmc_project/inventory/system/chassis/motherboard/dimm22| grep -e MemorySizeInKB \n    \n.MemorySizeInKB   property  u   32768                                    emits-change writable",
+      "parentUuid": "33f84604_3ad7f6a8",
+      "range": {
+        "startLine": 27,
+        "startChar": 66,
+        "endLine": 27,
+        "endChar": 71
+      },
+      "revId": "32b97ae1ba54ad0c381026c2998c8402280ce14a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
