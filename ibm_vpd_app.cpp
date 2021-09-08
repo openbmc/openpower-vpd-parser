@@ -298,6 +298,12 @@ static void populateInterfaces(const nlohmann::json& js,
                     }
                 }
             }
+            else if (itr.value().is_number())
+            {
+                // For now assume the value is a size_t.  In the future it would
+                // be nice to come up with a way to get the type from the JSON.
+                props.emplace(busProp, itr.value().get<size_t>());
+            }
         }
         interfaces.emplace(inf, move(props));
     }
