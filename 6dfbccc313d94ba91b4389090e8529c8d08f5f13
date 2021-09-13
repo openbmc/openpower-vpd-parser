@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f04e927e_9495e778",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-13T07:44:38Z",
+      "side": 0,
+      "message": "Please avoid adding whitespace changes unrelated to your commit.",
+      "revId": "6dfbccc313d94ba91b4389090e8529c8d08f5f13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}

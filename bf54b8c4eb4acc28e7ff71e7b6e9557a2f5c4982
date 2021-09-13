@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a621317_3d5738ad",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-13T07:44:38Z",
+      "side": 1,
+      "message": "You don\u0027t need this here. It is already in the header file.",
+      "range": {
+        "startLine": 548,
+        "startChar": 0,
+        "endLine": 557,
+        "endChar": 3
+      },
+      "revId": "bf54b8c4eb4acc28e7ff71e7b6e9557a2f5c4982",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d83a8f0_c85a6381",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-13T07:44:38Z",
+      "side": 1,
+      "message": "Nit: fetches",
+      "range": {
+        "startLine": 214,
+        "startChar": 24,
+        "endLine": 214,
+        "endChar": 29
+      },
+      "revId": "bf54b8c4eb4acc28e7ff71e7b6e9557a2f5c4982",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e7b0e0f_a4f3e838",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-13T07:44:38Z",
+      "side": 1,
+      "message": "Empty string if record/keyword combination is not found.",
+      "range": {
+        "startLine": 221,
+        "startChar": 12,
+        "endLine": 221,
+        "endChar": 25
+      },
+      "revId": "bf54b8c4eb4acc28e7ff71e7b6e9557a2f5c4982",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2031e188_536d902f",
+        "filename": "types.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-13T07:44:38Z",
+      "side": 1,
+      "message": "Why was this needed?",
+      "revId": "bf54b8c4eb4acc28e7ff71e7b6e9557a2f5c4982",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f190b76b_2ba2b45c",
+        "filename": "types.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-13T07:44:38Z",
+      "side": 1,
+      "message": "Why have these been rearranged?",
+      "revId": "bf54b8c4eb4acc28e7ff71e7b6e9557a2f5c4982",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
