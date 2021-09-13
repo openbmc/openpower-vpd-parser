@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8204089d_3d572dc2",
+        "filename": "types.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-13T06:01:00Z",
+      "side": 1,
+      "message": "this change is already done with this commit- \nhttps://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/41875/16/types.hpp\nand it is ready to merge.",
+      "range": {
+        "startLine": 26,
+        "startChar": 1,
+        "endLine": 26,
+        "endChar": 71
+      },
+      "revId": "a6eb698fe6db4817b76ad3b5a08752b89e416455",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
