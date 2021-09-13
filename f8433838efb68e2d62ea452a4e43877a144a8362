@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0970dabb_46665522",
+        "filename": "types.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-13T08:14:45Z",
+      "side": 1,
+      "message": "Why the SVPD prefix? Please remove",
+      "range": {
+        "startLine": 63,
+        "startChar": 6,
+        "endLine": 63,
+        "endChar": 24
+      },
+      "revId": "f8433838efb68e2d62ea452a4e43877a144a8362",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
