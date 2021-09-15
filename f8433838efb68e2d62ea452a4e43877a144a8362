@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "bb97c04f_4bca88d1",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2021-09-15T04:29:46Z",
+      "side": 1,
+      "message": "is this needed as this map is itself used on BR keyword.",
+      "revId": "f8433838efb68e2d62ea452a4e43877a144a8362",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c3a788d_fdfca468",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2021-09-15T04:29:46Z",
+      "side": 1,
+      "message": "is T needed ? or only S ?\n.1 “D” - IBM SSD\n.2 “I” - IBM iSeries\n.3 “N” - OEM iSeries only.\n.4 “O” - OEM pSeries only.\n.5 “P” - IBM pSeries\n.6 “B” - IBM P6 Blade\n.7 “C” - OEM P6 Blades\n.8 ”S” - IBM Power Systems platforms\n.9 “T” - OEM Power Systems platforms",
+      "revId": "f8433838efb68e2d62ea452a4e43877a144a8362",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66eb5eb8_6becf562",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2021-09-15T04:29:46Z",
+      "side": 1,
+      "message": "do not agree to this validation of RB",
+      "revId": "f8433838efb68e2d62ea452a4e43877a144a8362",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0970dabb_46665522",
         "filename": "types.hpp",
         "patchSetId": 12
