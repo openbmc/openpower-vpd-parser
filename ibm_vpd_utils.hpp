@@ -272,11 +272,20 @@ bool executePreAction(const nlohmann::json& json, const string& file);
 
 /**
  * @brief This API will be called at the end of VPD collection to perform any
- * post actions.
+ *        post actions.
  *
  * @param[in] json - json object
  * @param[in] file - eeprom file path
  */
 void executePostFailAction(const nlohmann::json& json, const string& file);
+
+/** @brief This API will be called at the end of VPD collection to perform
+ *         success post actions.
+ *
+ * @param[in] json - json object
+ * @param[in] file - eeprom file path
+ */
+void executePostSuccessAction(const nlohmann::json& json, const string& file);
+
 } // namespace vpd
 } // namespace openpower
