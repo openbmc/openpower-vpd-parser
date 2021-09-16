@@ -779,5 +779,65 @@ void insertOrMerge(inventory::InterfaceMap& map,
         map.emplace(interface, property);
     }
 }
+
+void executePostFailAction(const nlohmann::json& json, const string& file)
+{
+    if ((json["frus"][file].at(0)).find("postActionFail") ==
+        json["frus"][file].at(0).end())
+    {
+        return;
+    }
+
+    uint8_t pinValue = 0;
+    string pinName;
+
+    for (const auto& postAction :
+         (json["frus"][file].at(0))["postActionFail"].items())
+    {
+        if (postAction.key() == "pin")
+        {
+            pinName = postAction.value();
+        }
+        else if (postAction.key() == "value")
+        {
+            // Get the value to set
+            pinValue = postAction.value();
+        }
+    }
+
+    cout << "Setting GPIO: " << pinName << " to " << (int)pinValue << endl;
+
+    try
+    {
+        gpiod::line outputLine = gpiod::find_line(pinName);
+
+        if (!outputLine)
+        {
+            cout << "Couldn't find output line:" << pinName
+                 << " on GPIO. Skipping...\n";
+
+            return;
+        }
+        outputLine.request(
+            {"Disable line", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
+            pinValue);
+    }
+    catch (system_error&)
+    {
+        cerr << "Failed to set post-action GPIO" << endl;
+    }
+}
+
+void executePostSuccessAction(const nlohmann::json& json, const string& file)
+{
+    // bind the LED driver
+    string chipAddr = json["frus"][file].at(0).value("pcaChipAddress", "");
+
+    string bindCmd = string("echo \"") + chipAddr +
+                     string("\" > /sys/bus/i2c/drivers/leds-pca955x/bind");
+    cout << "Binding device- " << bindCmd << endl;
+    executeCmd(bindCmd);
+}
+
 } // namespace vpd
 } // namespace openpower
