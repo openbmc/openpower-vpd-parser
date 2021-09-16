@@ -283,6 +283,23 @@ static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
     return vpdVector;
 }
 
+/** This API will be called at the end of VPD collection to perform succes
+ *  post actions.
+ *
+ * @param[in] json - json object
+ * @param[in] file - eeprom file path
+ */
+static void postSuccesAction(const nlohmann::json& json, const string& file)
+{
+    // bind the LED driver
+    string bind = json["frus"][file].at(0).value("pcaChipAddress", "");
+
+    string bindCmd = string("echo \"") + bind +
+                     string("\" > /sys/bus/i2c/drivers/leds-pca9551/bind");
+    cout << "Binding device- " << bindCmd << endl;
+    executeCmd(bindCmd);
+}
+
 /** Performs any pre-action needed to get the FRU setup for collection.
  *
  * @param[in] json - json object
@@ -293,7 +310,7 @@ static void preAction(const nlohmann::json& json, const string& file)
     if (executePreAction(json, file))
     {
         // Now bind the device
-        string bind = json["frus"][file].at(0).value("bind", "");
+        string bind = json["frus"][file].at(0).value("devAddress", "");
         cout << "Binding device " << bind << endl;
         string bindCmd = string("echo \"") + bind +
                          string("\" > /sys/bus/i2c/drivers/at24/bind");
@@ -307,6 +324,10 @@ static void preAction(const nlohmann::json& json, const string& file)
                  << endl;
             // If not, then take failure postAction
             exeutePostFailAction(json, file);
+        }
+        else
+        {
+            postSuccesAction(json, file);
         }
     }
 }
