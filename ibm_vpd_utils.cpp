@@ -779,5 +779,17 @@ void insertOrMerge(inventory::InterfaceMap& map,
         map.emplace(interface, property);
     }
 }
+
+void executePostSuccessAction(const nlohmann::json& json, const string& file)
+{
+    // bind the LED driver
+    string chipAddr = json["frus"][file].at(0).value("pcaChipAddress", "");
+
+    string bindCmd = string("echo \"") + chipAddr +
+                     string("\" > /sys/bus/i2c/drivers/leds-pca955x/bind");
+    cout << "Binding device- " << bindCmd << endl;
+    executeCmd(bindCmd);
+}
+
 } // namespace vpd
 } // namespace openpower
