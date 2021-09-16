@@ -365,6 +365,17 @@ void Manager::collectFRUVPD(const sdbusplus::message::object_path path)
                 // If not, then take failure postAction
                 executePostFailAction(jsonFile, vpdFilePath);
             }
+            else
+            {
+                // bind the LED driver
+                string chipAddr = jsonFile["frus"][vpdFilePath].at(0).value(
+                    "pcaChipAddress", "");
+                cout << "Executing driver binding for chip address - "
+                     << chipAddr << endl;
+
+                executeCmd(createBindUnbindDriverCmnd(chipAddr, "i2c",
+                                                      "leds-pca955x", "/bind"));
+            }
         }
         return;
     }
@@ -452,6 +463,19 @@ void Manager::deleteFRUVPD(const sdbusplus::message::object_path path)
             Argument::ARGUMENT_NAME("Object Path"),
             Argument::ARGUMENT_VALUE(std::string(path).c_str()));
     }
+
+    inventory::Path vpdFilePath = std::get<0>(frus.find(path)->second);
+
+    const std::vector<nlohmann::json>& groupEEPROM =
+        jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
+
+    const nlohmann::json& singleFru = groupEEPROM[0];
+    string chipAddress = singleFru["pcaChipAddress"];
+
+    // Unbind the LED driver for this FRU
+    cout << "Unbinding device- " << chipAddress << endl;
+    executeCmd(createBindUnbindDriverCmnd(chipAddress, "i2c", "leds-pca955x",
+                                          "/unbind"));
 
     // if the FRU is not present then log error
     if (readBusProperty(path, "xyz.openbmc_project.Inventory.Item",
