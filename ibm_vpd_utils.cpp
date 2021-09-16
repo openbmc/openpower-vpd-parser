@@ -653,5 +653,17 @@ void exeutePostFailAction(const nlohmann::json& json, const string& file)
         cerr << "Failed to set post-action GPIO" << endl;
     }
 }
+
+void executePostSuccesAction(const nlohmann::json& json, const string& file)
+{
+    // bind the LED driver
+    string bind = json["frus"][file].at(0).value("pcaChipAddress", "");
+
+    string bindCmd = string("echo \"") + bind +
+                     string("\" > /sys/bus/i2c/drivers/leds-pca955x/bind");
+    cout << "Binding device- " << bindCmd << endl;
+    executeCmd(bindCmd);
+}
+
 } // namespace vpd
 } // namespace openpower

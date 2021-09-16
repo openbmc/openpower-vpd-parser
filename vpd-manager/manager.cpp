@@ -226,6 +226,10 @@ void Manager::collectFRUVPD(const sdbusplus::message::object_path path)
                 // If not, then take failure postAction
                 exeutePostFailAction(jsonFile, vpdFilePath);
             }
+            else
+            {
+                executePostSuccesAction(jsonFile, vpdFilePath);
+            }
         }
         return;
     }
@@ -240,7 +244,7 @@ void Manager::collectFRUVPD(const sdbusplus::message::object_path path)
 void Manager::triggerVpdCollection(const nlohmann::json& singleFru,
                                    const std::string& path)
 {
-    if ((singleFru.find("bind") == singleFru.end()) ||
+    if ((singleFru.find("devAddress") == singleFru.end()) ||
         (singleFru.find("driverType") == singleFru.end()) ||
         (singleFru.find("busType") == singleFru.end()))
     {
@@ -254,7 +258,7 @@ void Manager::triggerVpdCollection(const nlohmann::json& singleFru,
     }
 
     string str = "echo ";
-    string deviceAddress = singleFru["bind"];
+    string deviceAddress = singleFru["devAddress"];
     const string& driverType = singleFru["driverType"];
     const string& busType = singleFru["busType"];
 
@@ -315,6 +319,20 @@ void Manager::deleteFRUVPD(const sdbusplus::message::object_path path)
             Argument::ARGUMENT_NAME("Object Path"),
             Argument::ARGUMENT_VALUE(std::string(path).c_str()));
     }
+
+    inventory::Path vpdFilePath = frus.find(path)->second.first;
+
+    const std::vector<nlohmann::json>& groupEEPROM =
+        jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
+
+    const nlohmann::json& singleFru = groupEEPROM[0];
+    string deviceAddress = singleFru["devAddress"];
+
+    // Unbind the LED driver for this FRU
+    string unbindCmd = string("echo \"") + deviceAddress +
+                       string("\" > /sys/bus/i2c/drivers/leds-pca955x/unbind");
+    cout << "Unbinding device- " << unbindCmd << endl;
+    executeCmd(unbindCmd);
 
     // if the FRU is not present then log error
     if (readBusProperty(path, "xyz.openbmc_project.Inventory.Item",

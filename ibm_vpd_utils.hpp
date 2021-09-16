@@ -220,11 +220,20 @@ void dumpBadVpd(const std::string& file, const Binary& vpdVector);
 bool executePreAction(const nlohmann::json& json, const string& file);
 
 /** This API will be called at the end of VPD collection to perform any post
- * actions.
+ *  actions.
  *
  * @param[in] json - json object
  * @param[in] file - eeprom file path
  */
 void exeutePostFailAction(const nlohmann::json& json, const string& file);
+
+/** This API will be called at the end of VPD collection to perform succes
+ *  post actions.
+ *
+ * @param[in] json - json object
+ * @param[in] file - eeprom file path
+ */
+void executePostSuccesAction(const nlohmann::json& json, const string& file);
+
 } // namespace vpd
 } // namespace openpower
