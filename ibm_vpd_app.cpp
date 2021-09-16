@@ -391,7 +391,7 @@ static void preAction(const nlohmann::json& json, const string& file)
     }
 
     // Now bind the device
-    string bind = json["frus"][file].at(0).value("bind", "");
+    string bind = json["frus"][file].at(0).value("devAddress", "");
     cout << "Binding device " << bind << endl;
     string bindCmd = string("echo \"") + bind +
                      string("\" > /sys/bus/i2c/drivers/at24/bind");
