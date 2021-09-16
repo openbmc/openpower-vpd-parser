@@ -240,7 +240,7 @@ void Manager::collectFRUVPD(const sdbusplus::message::object_path path)
 void Manager::triggerVpdCollection(const nlohmann::json& singleFru,
                                    const std::string& path)
 {
-    if ((singleFru.find("bind") == singleFru.end()) ||
+    if ((singleFru.find("devAddress") == singleFru.end()) ||
         (singleFru.find("driverType") == singleFru.end()) ||
         (singleFru.find("busType") == singleFru.end()))
     {
@@ -254,7 +254,7 @@ void Manager::triggerVpdCollection(const nlohmann::json& singleFru,
     }
 
     string str = "echo ";
-    string deviceAddress = singleFru["bind"];
+    string deviceAddress = singleFru["devAddress"];
     const string& driverType = singleFru["driverType"];
     const string& busType = singleFru["busType"];
 
@@ -323,6 +323,15 @@ void Manager::deleteFRUVPD(const sdbusplus::message::object_path path)
         elog<InvalidArgument>(
             Argument::ARGUMENT_NAME("FRU not preset"),
             Argument::ARGUMENT_VALUE(std::string(path).c_str()));
+
+        // Unbind the LED driver for this FRU
+        string bind = json["frus"][file].at(0).value("devAddress", "");
+
+        string unbindCmd =
+            string("echo \"") + bind +
+            string("\" > /sys/bus/i2c/drivers/leds-pca9551/unbind");
+        cout << "Unbinding device- " << unbindCmd << endl;
+        executeCmd(unbindCmd);
     }
     else
     {
