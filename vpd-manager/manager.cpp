@@ -242,6 +242,10 @@ void Manager::collectFRUVPD(const sdbusplus::message::object_path path)
                 // If not, then take failure postAction
                 executePostFailAction(jsonFile, vpdFilePath);
             }
+            else
+            {
+                executePostSuccessAction(jsonFile, vpdFilePath);
+            }
         }
         return;
     }
@@ -329,6 +333,20 @@ void Manager::deleteFRUVPD(const sdbusplus::message::object_path path)
             Argument::ARGUMENT_NAME("Object Path"),
             Argument::ARGUMENT_VALUE(std::string(path).c_str()));
     }
+
+    inventory::Path vpdFilePath = frus.find(path)->second.first;
+
+    const std::vector<nlohmann::json>& groupEEPROM =
+        jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
+
+    const nlohmann::json& singleFru = groupEEPROM[0];
+    string deviceAddress = singleFru["devAddress"];
+
+    // Unbind the LED driver for this FRU
+    string unbindCmd = string("echo \"") + deviceAddress +
+                       string("\" > /sys/bus/i2c/drivers/leds-pca955x/unbind");
+    cout << "Unbinding device- " << unbindCmd << endl;
+    executeCmd(unbindCmd);
 
     // if the FRU is not present then log error
     if (readBusProperty(path, "xyz.openbmc_project.Inventory.Item",
