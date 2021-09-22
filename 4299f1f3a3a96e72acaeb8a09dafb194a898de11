@@ -66,6 +66,29 @@
     },
     {
       "key": {
+        "uuid": "24363186_16d4d3f6",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-22T18:51:54Z",
+      "side": 1,
+      "message": "executePost?",
+      "range": {
+        "startLine": 609,
+        "startChar": 5,
+        "endLine": 609,
+        "endChar": 15
+      },
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65b5d339_706e9760",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 11
@@ -199,6 +222,29 @@
         "startChar": 8,
         "endLine": 217,
         "endChar": 59
+      },
+      "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1ce3dd8_3c57f265",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-22T18:51:54Z",
+      "side": 1,
+      "message": "please change this to devAddress, to sync with json and other files.\nLine 257 also",
+      "range": {
+        "startLine": 243,
+        "startChar": 25,
+        "endLine": 243,
+        "endChar": 29
       },
       "revId": "4299f1f3a3a96e72acaeb8a09dafb194a898de11",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d6aa9a3_0fec6871",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-22T18:51:54Z",
+      "side": 1,
+      "message": "You have segregated pre-Action code(GPIO setup + binding) and executing only GPIO setting here. Is that the requirement?",
+      "range": {
+        "startLine": 214,
+        "startChar": 37,
+        "endLine": 214,
+        "endChar": 53
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84b44d10_356e082e",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-22T18:51:54Z",
+      "side": 1,
+      "message": "as of now, for all PCIe  we have same data in\n\"concurrentMantainable\" \u003d true,\n\"driverType\" \u003d at24,\n\"busType\" \u003d i2c\nWhy can\u0027t we take it as default if it is PCIe_cards ? This is making json file bigger with non-unique data.",
+      "range": {
+        "startLine": 243,
+        "startChar": 4,
+        "endLine": 245,
+        "endChar": 55
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
