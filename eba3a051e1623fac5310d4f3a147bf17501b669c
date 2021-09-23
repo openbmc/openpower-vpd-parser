@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "c21c84b7_226c6c5d",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-23T07:54:18Z",
+      "side": 1,
+      "message": "Just a suggestion-\nwe can have this flag as \"CMable\"\n\nAlso, we can omit this flag and check if item is PCIe_card",
+      "range": {
+        "startLine": 212,
+        "startChar": 25,
+        "endLine": 212,
+        "endChar": 49
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d6aa9a3_0fec6871",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 12
@@ -25,6 +48,75 @@
     },
     {
       "key": {
+        "uuid": "a02baa9d_03bbc768",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-23T07:54:18Z",
+      "side": 1,
+      "message": "bool prePostActionRequired \u003d executePreAction\ni think this will tell you -\n1. if preAction flag set for this FRU?\n2. If set , then take action on it. is successfull OR Not?\n\nso we can name it something relevant like- \n  bool isPreActionDone \u003d executePreAction",
+      "range": {
+        "startLine": 214,
+        "startChar": 12,
+        "endLine": 214,
+        "endChar": 34
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc1d1861_22659332",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-23T07:54:18Z",
+      "side": 1,
+      "message": "don\u0027t you think // unbind, bind the driver to trigger parser. should be based on the result of\nexecutePreAction(jsonFile, vpdFilePath);",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 59
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65347b4f_24717b24",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-23T07:54:18Z",
+      "side": 1,
+      "message": "execute?",
+      "range": {
+        "startLine": 227,
+        "startChar": 16,
+        "endLine": 227,
+        "endChar": 22
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "84b44d10_356e082e",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 12
@@ -41,6 +133,121 @@
         "startChar": 4,
         "endLine": 245,
         "endChar": 55
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47ebaab1_c36291ab",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-23T07:54:18Z",
+      "side": 1,
+      "message": "you can remove this line. as you already have hardcoded strings in 273, 278.",
+      "range": {
+        "startLine": 256,
+        "startChar": 1,
+        "endLine": 256,
+        "endChar": 25
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b84f760_7067cb24",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-23T07:54:18Z",
+      "side": 1,
+      "message": "this \"bind\" is modified as \"devAddress\" in json, for appropriate name.",
+      "range": {
+        "startLine": 257,
+        "startChar": 27,
+        "endLine": 257,
+        "endChar": 44
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85c50823_d91fd1dc",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-23T07:54:18Z",
+      "side": 1,
+      "message": "instead of reading \"busType\" from json and appending here, we can make it as simple-\n\nstring deleteDeviceCmd \u003d \"echo \" + deviceAddress + \" \u003e /sys/bus/i2c/devices/i2c-\" + busNum + \"/delete_device\";\n\nexecuteCmd(deleteDeviceCmd);",
+      "range": {
+        "startLine": 273,
+        "startChar": 1,
+        "endLine": 275,
+        "endChar": 60
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee92ad8f_d59b566e",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-23T07:54:18Z",
+      "side": 1,
+      "message": "instead of reading \"busType\" and driverType from json and appending here(which we are going to omit in future), we can make it as simple-\n\nstring newDeviceCmd \u003d \"echo 24c32 \" + deviceAddress + \" \u003e /sys/bus/i2c/devices/i2c-\" + busNum + \"/new_device\";\n\nexecuteCmd(newDeviceCmd );\n\nI am handling delete/new device also as part of createBindUnbindDriverCmnd(), that will make it more simpler.",
+      "range": {
+        "startLine": 278,
+        "startChar": 1,
+        "endLine": 281,
+        "endChar": 34
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cb72897_2c294d56",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-23T07:54:18Z",
+      "side": 1,
+      "message": "once you will fix this merge conflict, you will have \ncreateBindUnbindDriverCmnd in util.hpp.\n\nplease make use of it as-\n\n300    executeCmd(createBindUnbindDriverCmnd(deviceAddress, busType, driverType, \"unbind\"));\n301    executeCmd(createBindUnbindDriverCmnd(deviceAddress, busType, driverType, \"bind\"));\n\nI am working on a commit where I am making createBindUnbindDriverCmnd more independent i.e. independent of busType, driverType.\nSo need to send only 2 params in future-\ncreateBindUnbindDriverCmnd(YOUR_UNIQUE_DEV_ADDR, YOUR_ACTION);",
+      "range": {
+        "startLine": 297,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 34
       },
       "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
