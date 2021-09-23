@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c3a8be19_a5f1e786",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-23T09:54:16Z",
+      "side": 1,
+      "message": "Lets keep the code as generic as possible and when it is Json driven then Json should have the info if a FRU is CMable. Just like Json has info about system fru via a flag.\n\nIf the Json change is not in yet, We can modify the flag name.",
+      "parentUuid": "c21c84b7_226c6c5d",
+      "range": {
+        "startLine": 212,
+        "startChar": 25,
+        "endLine": 212,
+        "endChar": 49
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d6aa9a3_0fec6871",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 12
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "13827c13_df170bb7",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-23T09:54:16Z",
+      "side": 1,
+      "message": "Binding is taken care below. The execution part has been shifted to a new api though.",
+      "parentUuid": "0d6aa9a3_0fec6871",
+      "range": {
+        "startLine": 214,
+        "startChar": 37,
+        "endLine": 214,
+        "endChar": 53
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aa0194e_53dd4bfa",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-23T09:54:16Z",
+      "side": 1,
+      "message": "The flag is more of to check if I need post action or not.",
+      "parentUuid": "a02baa9d_03bbc768",
+      "range": {
+        "startLine": 214,
+        "startChar": 12,
+        "endLine": 214,
+        "endChar": 34
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc1d1861_22659332",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 12
@@ -82,6 +154,30 @@
       "writtenOn": "2021-09-23T07:54:18Z",
       "side": 1,
       "message": "don\u0027t you think // unbind, bind the driver to trigger parser. should be based on the result of\nexecutePreAction(jsonFile, vpdFilePath);",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 59
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "885b4408_56189ca8",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-23T09:54:16Z",
+      "side": 1,
+      "message": "I did not get your point here. \nIf you mean to say we should only triggerVpdCollection if executePreAction passes then we will be limiting this api to frus which has preaction defined in Json.\nBTW the code should be modified to not bind/unbind for frus which has preaction defined and it fails.",
+      "parentUuid": "bc1d1861_22659332",
       "range": {
         "startLine": 216,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "59f74c6e_b029de70",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-23T09:54:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65347b4f_24717b24",
+      "range": {
+        "startLine": 227,
+        "startChar": 16,
+        "endLine": 227,
+        "endChar": 22
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84b44d10_356e082e",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 12
@@ -128,6 +248,30 @@
       "writtenOn": "2021-09-22T18:51:54Z",
       "side": 1,
       "message": "as of now, for all PCIe  we have same data in\n\"concurrentMantainable\" \u003d true,\n\"driverType\" \u003d at24,\n\"busType\" \u003d i2c\nWhy can\u0027t we take it as default if it is PCIe_cards ? This is making json file bigger with non-unique data.",
+      "range": {
+        "startLine": 243,
+        "startChar": 4,
+        "endLine": 245,
+        "endChar": 55
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebce382a_ac1c9798",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-23T09:54:16Z",
+      "side": 1,
+      "message": "As discussed, we will take this change later. Also this is getting called both in case of CM and also from collection of VPD at standby. So hardcoding just for PCIe might not make sense.\n\ndriverType and busType can be extracted from path but \"concurrentMantainable\" falg i would still like to keep in Json so that Json can give the info which FRUs are CMable. \nJust like we have isSystem flag in Json.",
+      "parentUuid": "84b44d10_356e082e",
       "range": {
         "startLine": 243,
         "startChar": 4,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "75653d1c_a59a2e2c",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-23T09:54:16Z",
+      "side": 1,
+      "message": "It was here as it was being used in bth if and else part line 273-278 and 297. But now since else is also getting modified. I can remove it.",
+      "parentUuid": "47ebaab1_c36291ab",
+      "range": {
+        "startLine": 256,
+        "startChar": 1,
+        "endLine": 256,
+        "endChar": 25
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b84f760_7067cb24",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 12
@@ -174,6 +342,30 @@
       "writtenOn": "2021-09-23T07:54:18Z",
       "side": 1,
       "message": "this \"bind\" is modified as \"devAddress\" in json, for appropriate name.",
+      "range": {
+        "startLine": 257,
+        "startChar": 27,
+        "endLine": 257,
+        "endChar": 44
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e8b48a1_e9c48101",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-23T09:54:16Z",
+      "side": 1,
+      "message": "That change is in? Last time when I tested it was bind.",
+      "parentUuid": "0b84f760_7067cb24",
       "range": {
         "startLine": 257,
         "startChar": 27,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "e79882b3_35356380",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-23T09:54:16Z",
+      "side": 1,
+      "message": "Will do the change once we update out json.",
+      "parentUuid": "85c50823_d91fd1dc",
+      "range": {
+        "startLine": 273,
+        "startChar": 1,
+        "endLine": 275,
+        "endChar": 60
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee92ad8f_d59b566e",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 12
@@ -220,6 +436,30 @@
       "writtenOn": "2021-09-23T07:54:18Z",
       "side": 1,
       "message": "instead of reading \"busType\" and driverType from json and appending here(which we are going to omit in future), we can make it as simple-\n\nstring newDeviceCmd \u003d \"echo 24c32 \" + deviceAddress + \" \u003e /sys/bus/i2c/devices/i2c-\" + busNum + \"/new_device\";\n\nexecuteCmd(newDeviceCmd );\n\nI am handling delete/new device also as part of createBindUnbindDriverCmnd(), that will make it more simpler.",
+      "range": {
+        "startLine": 278,
+        "startChar": 1,
+        "endLine": 281,
+        "endChar": 34
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6949d066_e6cf1a0b",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-23T09:54:16Z",
+      "side": 1,
+      "message": "Will update once we come up with the Json changes.",
+      "parentUuid": "ee92ad8f_d59b566e",
       "range": {
         "startLine": 278,
         "startChar": 1,
@@ -252,6 +492,30 @@
       "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bf26d93_31e681f6",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-23T09:54:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1cb72897_2c294d56",
+      "range": {
+        "startLine": 297,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 34
+      },
+      "revId": "eba3a051e1623fac5310d4f3a147bf17501b669c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
