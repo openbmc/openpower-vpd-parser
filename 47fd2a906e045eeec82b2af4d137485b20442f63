@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9e7a3648_2e92925d",
+        "filename": "examples/sample_vpd_inventory_for_recollcetion.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-24T16:13:28Z",
+      "side": 1,
+      "message": "No, I am not mentioning file name here. I have just put a comment that it is sample json file.",
+      "parentUuid": "8ef4370d_bb3c7a6b",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5bb5423d_d1ac5325",
         "filename": "examples/sample_vpd_inventory_for_recollcetion.json",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2021-09-24T08:41:30Z",
       "side": 1,
       "message": "please make it \"devAddress\", as it is more appropriate name.\nAnd this address can be used for bind/unbind both, so..",
+      "range": {
+        "startLine": 476,
+        "startChar": 9,
+        "endLine": 476,
+        "endChar": 13
+      },
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdf5b174_114d1e53",
+        "filename": "examples/sample_vpd_inventory_for_recollcetion.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-24T16:13:28Z",
+      "side": 1,
+      "message": "This is already in the json(in the image, running in test systems) and not a part of my change.",
+      "parentUuid": "5bb5423d_d1ac5325",
       "range": {
         "startLine": 476,
         "startChar": 9,
@@ -134,6 +182,30 @@
     },
     {
       "key": {
+        "uuid": "7c2bc0ef_fcd1d6fc",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-24T16:13:28Z",
+      "side": 1,
+      "message": "The current json (in the images running on test systems) already has bind for this data. that is why I modified \"devAddress\" to bind. Why do you want me to change the existing item? Any specific reason?",
+      "parentUuid": "061ff834_5819e23a",
+      "range": {
+        "startLine": 226,
+        "startChar": 29,
+        "endLine": 226,
+        "endChar": 33
+      },
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aaad8403_3334a15b",
         "filename": "vpd-manager/manager.hpp",
         "patchSetId": 5
@@ -145,6 +217,30 @@
       "writtenOn": "2021-09-24T08:41:30Z",
       "side": 1,
       "message": "please take care of indentation",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 20
+      },
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14832d97_16280570",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-09-24T16:13:28Z",
+      "side": 1,
+      "message": "It is same as being used in this file before. line 121 and 122.",
+      "parentUuid": "aaad8403_3334a15b",
       "range": {
         "startLine": 132,
         "startChar": 0,
