@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ef4370d_bb3c7a6b",
+        "filename": "examples/sample_vpd_inventory_for_recollcetion.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-24T08:41:30Z",
+      "side": 1,
+      "message": "want to correct the file name- sample_vpd_inventory_for_recollcetion.json ?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bb5423d_d1ac5325",
+        "filename": "examples/sample_vpd_inventory_for_recollcetion.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-24T08:41:30Z",
+      "side": 1,
+      "message": "please make it \"devAddress\", as it is more appropriate name.\nAnd this address can be used for bind/unbind both, so..",
+      "range": {
+        "startLine": 476,
+        "startChar": 9,
+        "endLine": 476,
+        "endChar": 13
+      },
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ddcc554_8da907b1",
+        "filename": "examples/sample_vpd_inventory_for_recollcetion.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-24T08:41:30Z",
+      "side": 1,
+      "message": "All FRUs are replaceable I guess, as FRU stands for - Field Replaceable Unit.\nSo we can have something specific like replaceableAtStandby ?",
+      "range": {
+        "startLine": 477,
+        "startChar": 3,
+        "endLine": 477,
+        "endChar": 15
+      },
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd83a4bb_2ca7490f",
+        "filename": "examples/sample_vpd_inventory_for_recollcetion.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-24T08:41:30Z",
+      "side": 1,
+      "message": "Missed out \"isReplaceable \"?",
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86066471_51566fb8",
+        "filename": "examples/sample_vpd_inventory_for_recollcetion.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-24T08:41:30Z",
+      "side": 1,
+      "message": "As I see this is for all PCIe_cards\n\"isReplaceable\" : true,\n\"busType\" : \"i2c\",\n\"driverType\" : \"at24\",\n\nAnd it\u0027s common for all.\nSO my suggestion is to check for- if Item is PCIeDevice(Item.PCIeDevice)\nand take action based on it.\nAdding 3 flags will simply make json bigger.",
+      "range": {
+        "startLine": 798,
+        "startChar": 1,
+        "endLine": 801,
+        "endChar": 23
+      },
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "061ff834_5819e23a",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-24T08:41:30Z",
+      "side": 1,
+      "message": "this will cause problem leter on as json get mergged. please keep it devAddress",
+      "range": {
+        "startLine": 226,
+        "startChar": 29,
+        "endLine": 226,
+        "endChar": 33
+      },
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaad8403_3334a15b",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-09-24T08:41:30Z",
+      "side": 1,
+      "message": "please take care of indentation",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 20
+      },
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
