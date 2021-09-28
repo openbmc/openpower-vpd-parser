@@ -123,6 +123,14 @@ class VpdTool
      */
     openpower::vpd::Binary toBinary(const std::string& value);
 
+    /**
+     * @brief Get the json which has Present property value of the given fru.
+     * @param[in] invPath - inventory path of the fru.
+     * @param[out] parentPresence - Update the parent fru's present property.
+     * @return output json which has the Present property value.
+     */
+    json getPresentPropJson(const std::string& invPath, std::string& parentPresence);
+
   public:
     /**
      * @brief Dump the complete inventory in JSON format
