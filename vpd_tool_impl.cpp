@@ -203,6 +203,32 @@ void VpdTool::getExtraInterfaceProperties(const string& invPath,
     }
 }
 
+static string getFruPresence(const string& objPath)
+{
+    string retVal{};
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto properties =
+            bus.new_method_call(INVENTORY_MANAGER_SERVICE, objPath.c_str(),
+                                "org.freedesktop.DBus.Properties", "Get");
+        properties.append("xyz.openbmc_project.Inventory.Item");
+        properties.append("Present");
+        auto result = bus.call(properties);
+        variant<bool> val;
+        result.read(val);
+        if (auto pVal = get_if<bool>(&val))
+        {
+            retVal = *pVal ? "true" : "false";
+        }
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        retVal = "null";
+    }
+    return retVal;
+}
+
 json VpdTool::interfaceDecider(json& itemEEPROM)
 {
     if (itemEEPROM.find("inventoryPath") == itemEEPROM.end())
@@ -243,6 +269,10 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
         {
             js.emplace("type", FAN_INTERFACE);
         }
+
+        // emplace Present property into output.
+        js.emplace("Present",
+                   getFruPresence("/xyz/openbmc_project/inventory" + invPath));
 
         for (const auto& ex : itemEEPROM["extraInterfaces"].items())
         {
