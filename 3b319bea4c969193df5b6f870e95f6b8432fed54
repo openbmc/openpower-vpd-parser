@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce1f0a93_e9c4227b",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-09-29T03:40:52Z",
+      "side": 1,
+      "message": "For sub-frus, please make this as present if the parent FRU is present. For example, /system should be shown as present if the main FRU entry \"/system/chassis/motherboard\" is present.",
+      "revId": "3b319bea4c969193df5b6f870e95f6b8432fed54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
