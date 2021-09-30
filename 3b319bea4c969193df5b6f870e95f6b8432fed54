@@ -16,6 +16,24 @@
       "revId": "3b319bea4c969193df5b6f870e95f6b8432fed54",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80af6b76_2075f810",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-09-30T09:28:45Z",
+      "side": 1,
+      "message": "Do we need this Present Property when using vpd-tool -o option as well?\nwhere if \"vpd-tool -o -O /system\" is given, I need to keep track of its parent fru\u0027s present property and update \"/system\" Present prop.\nIs that too a requirement?",
+      "parentUuid": "ce1f0a93_e9c4227b",
+      "revId": "3b319bea4c969193df5b6f870e95f6b8432fed54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
