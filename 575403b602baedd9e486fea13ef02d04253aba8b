@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6edc1d01_e2794bf4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-10-04T07:01:58Z",
+      "side": 1,
+      "message": "As per the code change, we are performing both bind and un-bind. Please change the commit message accordingly.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 25
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54183ae4_8cc3f78c",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-10-04T07:01:58Z",
+      "side": 1,
+      "message": "Why we are not using \"createBindUnbindDriverCmnd\" here?.",
+      "range": {
+        "startLine": 677,
+        "startChar": 4,
+        "endLine": 678,
+        "endChar": 75
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e7eb08f_fa9fdf26",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-10-04T07:01:58Z",
+      "side": 1,
+      "message": "I don\u0027t think yo need to put spaces explicitly. Please refer doxygen documentation.",
+      "range": {
+        "startLine": 256,
+        "startChar": 3,
+        "endLine": 256,
+        "endChar": 16
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de4eb97c_bb9e60a5",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-10-04T07:01:58Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 264,
+        "startChar": 1,
+        "endLine": 264,
+        "endChar": 13
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5df60ab2_fb6f48d1",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-10-04T07:01:58Z",
+      "side": 1,
+      "message": "Any specific reason we are not making use of api \"createBindUnbindDriverCmnd\" for this?",
+      "range": {
+        "startLine": 346,
+        "startChar": 4,
+        "endLine": 349,
+        "endChar": 25
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
