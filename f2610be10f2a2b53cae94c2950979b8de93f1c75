@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "18bd44e2_e89b2f94",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-05T10:13:13Z",
+      "side": 1,
+      "message": "please ignore this..i was comparing with patch set 5 and thought it\u0027s wrong.",
+      "parentUuid": "303c97dd_29610ccf",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "f2610be10f2a2b53cae94c2950979b8de93f1c75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "822b3a8d_33cec588",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 8
@@ -59,6 +83,30 @@
       "writtenOn": "2021-10-05T10:11:22Z",
       "side": 1,
       "message": "same here",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 5
+      },
+      "revId": "f2610be10f2a2b53cae94c2950979b8de93f1c75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5824506f_1e90da0e",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-05T10:13:13Z",
+      "side": 1,
+      "message": "please ignore this..i was comparing with patch set 5 and thought it\u0027s wrong.",
+      "parentUuid": "822b3a8d_33cec588",
       "range": {
         "startLine": 55,
         "startChar": 2,
