@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87700bce_9b86e2ca",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-05T05:42:04Z",
+      "side": 1,
+      "message": "instead of 3 calls, this can be done in 1 call.\nplease see details",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 21
+      },
+      "revId": "3c3429d5a62534756f7785cd03011be22c673a91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1fc8ce2_3025210b",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-05T05:42:04Z",
+      "side": 1,
+      "message": "this call at 324\n                            json js \u003d getPresentPropJson(\n                                \"/xyz/openbmc_project/inventory\" + fruPath,\n                                parentPresence);\nand this call 334\n                             json js \u003d getPresentPropJson(\n                                \"/xyz/openbmc_project/inventory\" +\n                                    string(itemEEPROM.at(\"inventoryPath\")),\n                                parentPresence);\nis basically same call.\n\nIf itemEEPROM.at(\"inventoryPath\")  and fruPath is same then you are passing fruPath\nelse you are passing itemEEPROM.at(\"inventoryPath\")\n\nThat means in both of these cases, you are passing itemEEPROM.at(\"inventoryPath\") only.\nso why not to keep it 1 call with itemEEPROM.at(\"inventoryPath\").",
+      "range": {
+        "startLine": 325,
+        "startChar": 1,
+        "endLine": 337,
+        "endChar": 48
+      },
+      "revId": "3c3429d5a62534756f7785cd03011be22c673a91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9b5986f_1ef9b465",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-05T05:42:04Z",
+      "side": 1,
+      "message": "why is this else for?\nif flag !\u003d \u0027O\u0027\n\nthis call also can be cover up in above call.\nonly difference i see in if and else is\nif()\n{\n    check for itemEEPROM  has (\"inventoryPath\")?\n\n     take action{}\n}\nelse\n{\n    take action\n}\n\nso you can make it as simpler-\nif(flag \u003d\u003d \u0027O\u0027)\n{\n    check for itemEEPROM  has (\"inventoryPath\")?\n    If NO, then return\n}\n\nTake action{}",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 350,
+        "endChar": 21
+      },
+      "revId": "3c3429d5a62534756f7785cd03011be22c673a91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8138872d_4dbbda99",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-05T05:42:04Z",
+      "side": 1,
+      "message": "you can make it simple as-\n                    if ((e.name() \u003d\u003d std::string(\"org.freedesktop.DBus.Error.UnknownProperty\")  \n                         \u0026\u0026\n                        ( ((flag \u003d\u003d \u0027O\u0027) \u0026\u0026 validObject) || (flag \u003d\u003d \u0027I\u0027) ) )",
+      "range": {
+        "startLine": 356,
+        "startChar": 20,
+        "endLine": 361,
+        "endChar": 40
+      },
+      "revId": "3c3429d5a62534756f7785cd03011be22c673a91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98fda356_b0e01ade",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-05T05:42:04Z",
+      "side": 1,
+      "message": "are you sure this is initialised at this point?",
+      "range": {
+        "startLine": 364,
+        "startChar": 45,
+        "endLine": 364,
+        "endChar": 60
+      },
+      "revId": "3c3429d5a62534756f7785cd03011be22c673a91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
