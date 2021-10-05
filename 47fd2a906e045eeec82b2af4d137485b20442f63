@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "bba96852_e662e04e",
+        "filename": "examples/sample_vpd_inventory_for_recollcetion.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-05T10:11:22Z",
+      "side": 1,
+      "message": "I meant this- \nrecollcetion --\u003e recollection",
+      "parentUuid": "9e7a3648_2e92925d",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5bb5423d_d1ac5325",
         "filename": "examples/sample_vpd_inventory_for_recollcetion.json",
         "patchSetId": 5
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "35605170_48776755",
+        "filename": "examples/sample_vpd_inventory_for_recollcetion.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-05T10:11:22Z",
+      "side": 1,
+      "message": "this example/json file will be merged with this commit?\nIf yes, then we will have to give correct keyword i guess, what we have in our inventory json.",
+      "parentUuid": "fdf5b174_114d1e53",
+      "range": {
+        "startLine": 476,
+        "startChar": 9,
+        "endLine": 476,
+        "endChar": 13
+      },
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ddcc554_8da907b1",
         "filename": "examples/sample_vpd_inventory_for_recollcetion.json",
         "patchSetId": 5
@@ -107,6 +155,30 @@
       "writtenOn": "2021-09-24T08:41:30Z",
       "side": 1,
       "message": "All FRUs are replaceable I guess, as FRU stands for - Field Replaceable Unit.\nSo we can have something specific like replaceableAtStandby ?",
+      "range": {
+        "startLine": 477,
+        "startChar": 3,
+        "endLine": 477,
+        "endChar": 15
+      },
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03045543_5736f977",
+        "filename": "examples/sample_vpd_inventory_for_recollcetion.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-05T10:11:22Z",
+      "side": 1,
+      "message": "again, this should match with our inventory json.\nwhich is-     \nvpd/ibm-vpd-parser/50001000.json\n   \"replaceableAtStandby\" : true,",
+      "parentUuid": "2ddcc554_8da907b1",
       "range": {
         "startLine": 477,
         "startChar": 3,
@@ -265,6 +337,30 @@
       "side": 1,
       "message": "It is same as being used in this file before. line 121 and 122.",
       "parentUuid": "aaad8403_3334a15b",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 20
+      },
+      "revId": "47fd2a906e045eeec82b2af4d137485b20442f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7442a420_2c13226d",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-05T10:11:22Z",
+      "side": 1,
+      "message": "I know, it is individual\u0027s choice. \nAnd this we are seeing because of clang.\nIt was just a suggestion of cosmetic change if we can maintain it like a paragraph, will look clean.\n    /** @brief Api to register host state callback.          \u003c---Heading\n     *         This api will register callback to listen for \u003c---description\n\nWhy I suggest this because P8, P9 code(HWSV) I used to follow this design, which I prefer now also.\nBut still, not a rule.",
+      "parentUuid": "14832d97_16280570",
       "range": {
         "startLine": 132,
         "startChar": 0,
