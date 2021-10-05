@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "bd3c1bdc_4efba591",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-05T12:18:58Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "54183ae4_8cc3f78c",
+      "range": {
+        "startLine": 677,
+        "startChar": 4,
+        "endLine": 678,
+        "endChar": 75
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e7eb08f_fa9fdf26",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 7
@@ -87,6 +111,52 @@
         "startChar": 1,
         "endLine": 264,
         "endChar": 13
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebbc0f86_d80c214b",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-05T12:18:58Z",
+      "side": 1,
+      "message": "success spelling",
+      "range": {
+        "startLine": 269,
+        "startChar": 5,
+        "endLine": 269,
+        "endChar": 28
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1204d4e_6b78607e",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-05T12:18:58Z",
+      "side": 1,
+      "message": "query:  what happens when the device is not present. and you are trying to unbind it.",
+      "range": {
+        "startLine": 345,
+        "startChar": 4,
+        "endLine": 347,
+        "endChar": 62
       },
       "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
