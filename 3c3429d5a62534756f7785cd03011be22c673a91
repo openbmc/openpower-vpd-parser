@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "c4ca3f3c_f8005b1f",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-05T12:01:50Z",
+      "side": 1,
+      "message": "I have tried to have in common place. but we aren\u0027t getting the expected output. so need to have it separately only.",
+      "parentUuid": "e1fc8ce2_3025210b",
+      "range": {
+        "startLine": 325,
+        "startChar": 1,
+        "endLine": 337,
+        "endChar": 48
+      },
+      "revId": "3c3429d5a62534756f7785cd03011be22c673a91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b9b5986f_1ef9b465",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 2
@@ -59,6 +83,30 @@
       "writtenOn": "2021-10-05T05:42:04Z",
       "side": 1,
       "message": "why is this else for?\nif flag !\u003d \u0027O\u0027\n\nthis call also can be cover up in above call.\nonly difference i see in if and else is\nif()\n{\n    check for itemEEPROM  has (\"inventoryPath\")?\n\n     take action{}\n}\nelse\n{\n    take action\n}\n\nso you can make it as simpler-\nif(flag \u003d\u003d \u0027O\u0027)\n{\n    check for itemEEPROM  has (\"inventoryPath\")?\n    If NO, then return\n}\n\nTake action{}",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 350,
+        "endChar": 21
+      },
+      "revId": "3c3429d5a62534756f7785cd03011be22c673a91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a0f94da_c4cb2d5a",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-05T12:01:50Z",
+      "side": 1,
+      "message": "sorry am not getting you.",
+      "parentUuid": "b9b5986f_1ef9b465",
       "range": {
         "startLine": 340,
         "startChar": 0,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "71490f15_d7550bc7",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-05T12:01:50Z",
+      "side": 1,
+      "message": "right. will update this",
+      "parentUuid": "8138872d_4dbbda99",
+      "range": {
+        "startLine": 356,
+        "startChar": 20,
+        "endLine": 361,
+        "endChar": 40
+      },
+      "revId": "3c3429d5a62534756f7785cd03011be22c673a91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "98fda356_b0e01ade",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 2
@@ -105,6 +177,30 @@
       "writtenOn": "2021-10-05T05:42:04Z",
       "side": 1,
       "message": "are you sure this is initialised at this point?",
+      "range": {
+        "startLine": 364,
+        "startChar": 45,
+        "endLine": 364,
+        "endChar": 60
+      },
+      "revId": "3c3429d5a62534756f7785cd03011be22c673a91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5832e48f_5e747c19",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-05T12:01:50Z",
+      "side": 1,
+      "message": "yup",
+      "parentUuid": "98fda356_b0e01ade",
       "range": {
         "startLine": 364,
         "startChar": 45,
