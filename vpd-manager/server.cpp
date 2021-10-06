@@ -42,19 +42,21 @@ int Manager::_callback_WriteKeyword(sd_bus_message* msg, void* context,
                 return o->writeKeyword(path, record, keyword, value);
             }));
     }
-    catch (sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument& e)
+    catch (
+        const sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument&
+            e)
     {
         return o->_intf->sd_bus_error_set(error, e.name(), e.description());
     }
-    catch (sdbusplus::com::ibm::VPD::Error::PathNotFound& e)
+    catch (const sdbusplus::com::ibm::VPD::Error::PathNotFound& e)
     {
         return o->_intf->sd_bus_error_set(error, e.name(), e.description());
     }
-    catch (sdbusplus::com::ibm::VPD::Error::RecordNotFound& e)
+    catch (const sdbusplus::com::ibm::VPD::Error::RecordNotFound& e)
     {
         return o->_intf->sd_bus_error_set(error, e.name(), e.description());
     }
-    catch (sdbusplus::com::ibm::VPD::Error::KeywordNotFound& e)
+    catch (const sdbusplus::com::ibm::VPD::Error::KeywordNotFound& e)
     {
         return o->_intf->sd_bus_error_set(error, e.name(), e.description());
     }
@@ -90,15 +92,17 @@ int Manager::_callback_GetFRUsByUnexpandedLocationCode(sd_bus_message* msg,
                                                               nodeNumber);
                 }));
     }
-    catch (sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument& e)
+    catch (
+        const sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument&
+            e)
     {
         return o->_intf->sd_bus_error_set(error, e.name(), e.description());
     }
-    catch (sdbusplus::com::ibm::VPD::Error::LocationNotFound& e)
+    catch (const sdbusplus::com::ibm::VPD::Error::LocationNotFound& e)
     {
         return o->_intf->sd_bus_error_set(error, e.name(), e.description());
     }
-    catch (sdbusplus::com::ibm::VPD::Error::NodeNotFound& e)
+    catch (const sdbusplus::com::ibm::VPD::Error::NodeNotFound& e)
     {
         return o->_intf->sd_bus_error_set(error, e.name(), e.description());
     }
@@ -132,15 +136,17 @@ int Manager::_callback_GetFRUsByExpandedLocationCode(sd_bus_message* msg,
                 return o->getFRUsByExpandedLocationCode(locationCode);
             }));
     }
-    catch (sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument& e)
+    catch (
+        const sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument&
+            e)
     {
         return o->_intf->sd_bus_error_set(error, e.name(), e.description());
     }
-    catch (sdbusplus::com::ibm::VPD::Error::LocationNotFound& e)
+    catch (const sdbusplus::com::ibm::VPD::Error::LocationNotFound& e)
     {
         return o->_intf->sd_bus_error_set(error, e.name(), e.description());
     }
-    catch (sdbusplus::com::ibm::VPD::Error::NodeNotFound& e)
+    catch (const sdbusplus::com::ibm::VPD::Error::NodeNotFound& e)
     {
         return o->_intf->sd_bus_error_set(error, e.name(), e.description());
     }
@@ -175,15 +181,17 @@ int Manager::_callback_GetExpandedLocationCode(sd_bus_message* msg,
                     return o->getExpandedLocationCode(locationCode, nodeNumber);
                 }));
     }
-    catch (sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument& e)
+    catch (
+        const sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument&
+            e)
     {
         return o->_intf->sd_bus_error_set(error, e.name(), e.description());
     }
-    catch (sdbusplus::com::ibm::VPD::Error::LocationNotFound& e)
+    catch (const sdbusplus::com::ibm::VPD::Error::LocationNotFound& e)
     {
         return o->_intf->sd_bus_error_set(error, e.name(), e.description());
     }
-    catch (sdbusplus::com::ibm::VPD::Error::NodeNotFound& e)
+    catch (const sdbusplus::com::ibm::VPD::Error::NodeNotFound& e)
     {
         return o->_intf->sd_bus_error_set(error, e.name(), e.description());
     }
@@ -214,7 +222,9 @@ int Manager::_callback_PerformVPDRecollection(sd_bus_message* msg,
             msg, o->_intf, error,
             std::function([=]() { return o->performVPDRecollection(); }));
     }
-    catch (sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument& e)
+    catch (
+        const sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument&
+            e)
     {
         return o->_intf->sd_bus_error_set(error, e.name(), e.description());
     }

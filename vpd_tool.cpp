@@ -138,7 +138,7 @@ int main(int argc, char** argv)
         }
     }
 
-    catch (exception& e)
+    catch (const exception& e)
     {
         cerr << e.what();
     }
