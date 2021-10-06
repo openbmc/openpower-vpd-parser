@@ -239,7 +239,7 @@ bool isPathInJson(const std::string& eepromPath)
             present = true;
         }
     }
-    catch (json::parse_error& ex)
+    catch (const json::parse_error& ex)
     {
         throw(VpdJsonException("Json Parsing failed", INVENTORY_JSON_SYM_LINK));
     }
@@ -277,7 +277,7 @@ bool isRecKwInDbusJson(const std::string& recordName,
                 }
             }
         }
-        catch (json::parse_error& ex)
+        catch (const json::parse_error& ex)
         {
             throw(VpdJsonException("Json Parsing failed", DBUS_PROP_JSON));
         }
@@ -416,7 +416,7 @@ string getSystemsJson(const Parsed& vpdMap)
         jsonPath += jsonName;
     }
 
-    catch (json::parse_error& ex)
+    catch (const json::parse_error& ex)
     {
         throw(VpdJsonException("Json Parsing failed", SYSTEM_JSON));
     }

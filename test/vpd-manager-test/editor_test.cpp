@@ -146,7 +146,7 @@ TEST_F(vpdManagerEditorTest, InvalidKWdName)
         EditorImpl edit("VINI", "Sn", std::move(vpd));
         edit.updateKeyword(dataToUodate, true);
     }
-    catch (std::runtime_error& e)
+    catch (const std::runtime_error& e)
     {
         EXPECT_EQ(std::string(e.what()), std::string("Keyword not found"));
     }
@@ -165,7 +165,7 @@ TEST_F(vpdManagerEditorTest, UpdateKwd_Success)
         EditorImpl edit("VINI", "SN", std::move(vpd));
         edit.updateKeyword(dataToUodate, true);
     }
-    catch (std::runtime_error& e)
+    catch (const std::runtime_error& e)
     {
         EXPECT_EQ(std::string(e.what()),
                   std::string("Data updated successfully"));

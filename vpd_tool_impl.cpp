@@ -301,7 +301,7 @@ json VpdTool::parseInvJson(const json& jsObject, char flag, string fruPath)
                         output.insert(j.begin(), j.end());
                     }
                 }
-                catch (exception& e)
+                catch (const exception& e)
                 {
                     cerr << e.what();
                 }
@@ -355,7 +355,7 @@ void VpdTool::readKeyword()
 
         debugger(output);
     }
-    catch (json::exception& e)
+    catch (const json::exception& e)
     {
         json output = json::object({});
         json kwVal = json::object({});
@@ -445,7 +445,7 @@ int VpdTool::updateHardware()
         }
         edit.updateKeyword(val, updCache);
     }
-    catch (json::parse_error& ex)
+    catch (const json::parse_error& ex)
     {
         throw(VpdJsonException("Json Parsing failed", INVENTORY_JSON_SYM_LINK));
     }
