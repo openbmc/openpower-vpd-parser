@@ -134,7 +134,7 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
             }
         }
     }
-    catch (exception& e)
+    catch (const exception& e)
     {
         cerr << "Failed to expand location code with exception: " << e.what()
              << "\n";
@@ -266,7 +266,7 @@ static void populateInterfaces(const nlohmann::json& js,
                 {
                     props.emplace(busProp, itr.value().get<Binary>());
                 }
-                catch (nlohmann::detail::type_error& e)
+                catch (const nlohmann::detail::type_error& e)
                 {
                     std::cerr << "Type exception: " << e.what() << "\n";
                     // Ignore any type errors
@@ -395,7 +395,7 @@ static void postFailAction(const nlohmann::json& json, const string& file)
             {"Disable line", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
             pinValue);
     }
-    catch (system_error&)
+    catch (const system_error&)
     {
         cerr << "Failed to set post-action GPIO" << endl;
     }
@@ -447,7 +447,7 @@ static void preAction(const nlohmann::json& json, const string& file)
             {"FRU pre-action", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
             pinValue);
     }
-    catch (system_error&)
+    catch (const system_error&)
     {
         cerr << "Failed to set pre-action GPIO" << endl;
         return;
@@ -1132,7 +1132,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
                     }
                 }
             }
-            catch (json::parse_error& ex)
+            catch (const json::parse_error& ex)
             {
                 throw((VpdJsonException("System Json parsing failed",
                                         SYSTEM_JSON)));
@@ -1200,7 +1200,7 @@ int main(int argc, char** argv)
         {
             js = json::parse(inventoryJson);
         }
-        catch (json::parse_error& ex)
+        catch (const json::parse_error& ex)
         {
             throw(VpdJsonException("Json parsing failed", jsonToParse));
         }
@@ -1275,7 +1275,7 @@ int main(int argc, char** argv)
             // release the parser object
             ParserFactory::freeParser(parser);
         }
-        catch (exception& e)
+        catch (const exception& e)
         {
             postFailAction(js, file);
             throw;
@@ -1310,7 +1310,7 @@ int main(int argc, char** argv)
         cerr << ex.what() << "\n";
         rc = -1;
     }
-    catch (exception& e)
+    catch (const exception& e)
     {
         dumpBadVpd(file, vpdVector);
         cerr << e.what() << "\n";
