@@ -104,7 +104,7 @@ int main(int argc, char** argv)
             vpdToolObj.dumpInventory(jsObject);
         }
 
-        else if (*readFlag)
+        else if (*readFlag && !*Hardware)
         {
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword));
@@ -130,7 +130,12 @@ int main(int argc, char** argv)
                                move(keyword), move(val));
             rc = vpdToolObj.updateHardware();
         }
-
+        else if (*readFlag && *Hardware)
+        {
+            VpdTool vpdToolObj(move(objectPath), move(recordName),
+                               move(keyword));
+            vpdToolObj.readKwFromHw();
+        }
         else
         {
             throw runtime_error("One of the valid options is required. Refer "
