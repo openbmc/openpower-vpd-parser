@@ -241,5 +241,17 @@ inline string createBindUnbindDriverCmnd(const string& devNameAddr,
             driverType + "/" + bindOrUnbind);
 }
 
+/**
+ * @brief Get Printable Value
+ *
+ * Checks if the vector value has non printable characters.
+ * Returns hex value if non printable char is found else
+ * returns ascii value.
+ *
+ * @param[in] vector - Reference of the Binary vector
+ * @return printable value - either in hex or in ascii.
+ */
+string getPrintableValue(const vector<unsigned char>& vec);
+
 } // namespace vpd
 } // namespace openpower
