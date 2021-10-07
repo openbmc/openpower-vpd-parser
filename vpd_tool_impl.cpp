@@ -248,7 +248,20 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
         {
             if (!(ex.value().is_null()))
             {
-                getExtraInterfaceProperties(invPath, ex.key(), ex.value(), js);
+                // TODO: Remove this if condition check once inventory json is
+                // updated with xyz location code interface.
+                if (ex.key() == "com.ibm.ipzvpd.Location")
+                {
+                    getExtraInterfaceProperties(
+                        invPath,
+                        "xyz.openbmc_project.Inventory.Decorator.LocationCode",
+                        ex.value(), js);
+                }
+                else
+                {
+                    getExtraInterfaceProperties(invPath, ex.key(), ex.value(),
+                                                js);
+                }
             }
             if ((ex.key().find("Item") != string::npos) &&
                 (ex.value().is_null()))
