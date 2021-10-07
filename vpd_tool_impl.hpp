@@ -183,6 +183,14 @@ class VpdTool
     int updateHardware();
 
     /**
+     * @brief Read Keyword from Hardware
+     * This api is to read a keyword directly from the hardware. The hardware
+     * path, record name and keyword name are received at the time of
+     * initialising the constructor.
+     */
+    void readKwFromHw();
+
+    /**
      * @brief Constructor
      * Constructor is called during the
      * object instantiation for dumpInventory option and
