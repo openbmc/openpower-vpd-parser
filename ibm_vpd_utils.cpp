@@ -570,5 +570,39 @@ const string getKwVal(const Parsed& vpdMap, const string& rec,
     return kwVal;
 }
 
+string getPrintableValue(const vector<unsigned char>& vec)
+{
+    string str{};
+    bool printableChar = true;
+    for (auto i : vec)
+    {
+        if (!isprint(i))
+        {
+            printableChar = false;
+            break;
+        }
+    }
+
+    if (!printableChar)
+    {
+        stringstream ss;
+        string hexRep = "0x";
+        ss << hexRep;
+        str = ss.str();
+
+        // convert Decimal to Hex
+        for (auto& v : vec)
+        {
+            ss << setfill('0') << setw(2) << hex << (int)v;
+            str = ss.str();
+        }
+    }
+    else
+    {
+        str = string(vec.begin(), vec.end());
+    }
+    return str;
+}
+
 } // namespace vpd
 } // namespace openpower
