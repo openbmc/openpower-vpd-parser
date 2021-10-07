@@ -165,18 +165,6 @@ class VpdTool
     void forceReset(const nlohmann::basic_json<>& jsObject);
 
     /**
-     * @brief Get Printable Value
-     *
-     * Checks if the vector value has non printable characters.
-     * Returns hex value if non printable char is found else
-     * returns ascii value.
-     *
-     * @param[in] vector - Reference of the Binary vector
-     * @return printable value - either in hex or in ascii.
-     */
-    std::string getPrintableValue(const std::vector<unsigned char>& vector);
-
-    /**
      * @brief Update Hardware
      * If the given record-keyword pair is present in dbus_properties.json,
      * then will update the given data in both dbus and hardware.
