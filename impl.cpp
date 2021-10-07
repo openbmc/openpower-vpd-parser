@@ -511,6 +511,57 @@ void Impl::checkVPDHeader()
     checkHeader();
 }
 
+std::string Impl::readKwFromHw(const std::string& record,
+                               const std::string& keyword)
+{
+    // Check if the VHDR record is present
+    checkHeader();
+
+    auto iterator = vpd.cbegin();
+
+    // Read the table of contents record
+    std::size_t ptLen = readTOC(iterator);
+
+    // Read the table of contents record, to get offsets
+    // to other records.
+    auto offsets = readPT(iterator, ptLen);
+    for (const auto& offset : offsets)
+    {
+        // Jump to record name
+        auto nameOffset = offset + sizeof(RecordId) + sizeof(RecordSize) +
+                          // Skip past the RT keyword, which contains
+                          // the record name.
+                          lengths::KW_NAME + sizeof(KwSize);
+        // Get record name
+        auto iterator = vpd.cbegin();
+        std::advance(iterator, nameOffset);
+
+        std::string name(iterator, iterator + lengths::RECORD_NAME);
+        if (name != record)
+        {
+            continue;
+        }
+        else
+        {
+            processRecord(offset);
+            const auto& itr = out.find(record);
+            if (itr != out.end())
+            {
+                const auto& kwValItr = (itr->second).find(keyword);
+                if (kwValItr != (itr->second).end())
+                {
+                    return kwValItr->second;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
+    }
+    return "";
+}
+
 } // namespace parser
 } // namespace vpd
 } // namespace openpower
