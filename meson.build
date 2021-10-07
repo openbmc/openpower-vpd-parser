@@ -134,7 +134,8 @@ if get_option('ibm-parser').enabled()
                                    sdbusplus
                                    ],
                                  install: true,
-                                 include_directories : vpd_tool_INCLUDE
+                                 include_directories : vpd_tool_INCLUDE,
+                                 cpp_args : '-DIPZ_PARSER'
                                  )
 if get_option('vpd-manager').enabled()
     subdir('vpd-manager')
