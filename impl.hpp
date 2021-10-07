@@ -82,6 +82,16 @@ class Impl
      */
     void checkVPDHeader();
 
+    /** @brief Read a specific keyword from hardware.
+     * This api is used by the vpd-tool to read a specific keyword directly from
+     * the vpd.
+     * @param[in] record - record name.
+     * @param[in] keyword - keyword name.
+     * @return keyword value.
+     */
+    std::string readKwFromHw(const std::string& record,
+                             const std::string& keyword);
+
   private:
     /** @brief Process the table of contents record
      *
