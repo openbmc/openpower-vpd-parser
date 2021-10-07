@@ -300,6 +300,11 @@ void Impl::processRecord(std::size_t recordOffset)
 
     std::string name(iterator, iterator + lengths::RECORD_NAME);
 
+    if (toolRead && name != record)
+    {
+        return;
+    }
+
 #ifndef IPZ_PARSER
     if (supportedRecords.end() != supportedRecords.find(name))
     {
@@ -315,6 +320,12 @@ void Impl::processRecord(std::size_t recordOffset)
                                  lengths::RECORD_NAME));
 #endif
         auto kwMap = readKeywords(iterator);
+
+        if (toolRead)
+        {
+            toolRead = false;
+            return;
+        }
         // Add entry for this record (and contained keyword:value pairs)
         // to the parsed vpd output.
         out.emplace(std::move(name), std::move(kwMap));
@@ -459,6 +470,12 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
             std::advance(iterator, sizeof(KwSize));
         }
 
+        if (toolRead && kw != keyword)
+        {
+            std::advance(iterator, length);
+            continue;
+        }
+
         // Pointing to keyword data now
 #ifndef IPZ_PARSER
         if (supportedKeywords.end() != supportedKeywords.find(kw))
@@ -468,11 +485,17 @@ internal::KeywordMap Impl::readKeywords(Binary::const_iterator iterator)
                                           length, iterator);
             map.emplace(std::move(kw), std::move(data));
         }
-
 #else
         // support all the Keywords
         auto stop = std::next(iterator, length);
         std::string kwdata(iterator, stop);
+
+        if (toolRead && kw == keyword)
+        {
+            std::vector vec(iterator, stop);
+            keywordVal = getPrintableValue(vec);
+            return map;
+        }
         map.emplace(std::move(kw), std::move(kwdata));
 
 #endif
@@ -509,6 +532,32 @@ void Impl::checkVPDHeader()
 {
     // Check if the VHDR record is present and is valid
     checkHeader();
+}
+
+std::string Impl::readKwFromHw()
+{
+    // Check if the VHDR record is present
+    checkHeader();
+
+    auto iterator = vpd.cbegin();
+
+    // Read the table of contents record
+    std::size_t ptLen = readTOC(iterator);
+
+    // Read the table of contents record, to get offsets
+    // to other records.
+    auto offsets = readPT(iterator, ptLen);
+
+    for (const auto& offset : offsets)
+    {
+        processRecord(offset);
+
+        if (!toolRead)
+        {
+            break;
+        }
+    }
+    return keywordVal;
 }
 
 } // namespace parser
