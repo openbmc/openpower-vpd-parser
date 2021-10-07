@@ -1,5 +1,6 @@
 #include "vpd_tool_impl.hpp"
 
+#include "impl.hpp"
 #include "vpd_exceptions.hpp"
 
 #include <cstdlib>
@@ -16,6 +17,7 @@ using namespace openpower::vpd::manager::editor;
 namespace fs = std::filesystem;
 using json = nlohmann::json;
 using namespace openpower::vpd::exceptions;
+using namespace openpower::vpd::parser;
 
 Binary VpdTool::toBinary(const std::string& value)
 {
@@ -515,4 +517,53 @@ int VpdTool::updateHardware()
         throw(VpdJsonException("Json Parsing failed", INVENTORY_JSON_SYM_LINK));
     }
     return rc;
+}
+
+void VpdTool::readKwFromHw()
+{
+    uint32_t startOffset = 0;
+
+    ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
+    auto jsonFile = nlohmann::json::parse(inventoryJson);
+
+    for (const auto& item : jsonFile["frus"][fruPath])
+    {
+        if (item.find("offset") != item.end())
+        {
+            startOffset = item["offset"];
+        }
+    }
+
+    Binary completeVPDFile;
+    completeVPDFile.resize(65504);
+    fstream vpdFileStream;
+    vpdFileStream.open(fruPath,
+                       std::ios::in | std::ios::out | std::ios::binary);
+
+    vpdFileStream.seekg(startOffset, ios_base::cur);
+    vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]), 65504);
+    completeVPDFile.resize(vpdFileStream.gcount());
+    vpdFileStream.clear(std::ios_base::eofbit);
+
+    if (completeVPDFile.empty())
+    {
+        throw std::runtime_error("Invalid File");
+    }
+    Impl obj(completeVPDFile);
+    std::string keywordVal = obj.readKwFromHw(recordName, keyword);
+
+    if (!keywordVal.empty())
+    {
+        json output = json::object({});
+        json kwVal = json::object({});
+        kwVal.emplace(keyword, keywordVal);
+
+        output.emplace(fruPath, kwVal);
+
+        debugger(output);
+    }
+    else
+    {
+        std::cerr << fruPath << std::endl;
+    }
 }
