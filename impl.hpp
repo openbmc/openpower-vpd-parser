@@ -72,6 +72,19 @@ class Impl
     {
     }
 
+    /** @brief Construct an Impl
+     *
+     * @param[in] vpdBuffer - Binary VPD.
+     * @param[in] record - record name.
+     * @param[in] keyword - keyword name.
+     */
+    Impl(const Binary& vpdBuffer, std::string record, std::string kw,
+         bool toolRead) :
+        vpd(vpdBuffer),
+        out{}, record(record), keyword(kw), toolRead(toolRead)
+    {
+    }
+
     /** @brief Run the parser on binary VPD
      *
      *  @returns openpower::vpd::Store object
@@ -81,6 +94,14 @@ class Impl
     /** @brief check if VPD header is valid
      */
     void checkVPDHeader();
+
+    /** @brief Read a specific keyword from hardware path.
+     * This api is used by the vpd-tool to read a specific keyword directly from
+     * the hardware path. The vpd data, record name and keyword name should be
+     * given at the time of object construction.
+     * @return keyword value.
+     */
+    std::string readKwFromHw();
 
   private:
     /** @brief Process the table of contents record
@@ -161,6 +182,21 @@ class Impl
 
     /** @brief parser output */
     Parsed out;
+
+    /** @brief Record name */
+    std::string record{};
+
+    /** @brief Keyword name */
+    std::string keyword{};
+
+    /** @brief Flag that is used by vpd-tool read from hardware.
+     * Flag is set when the Impl class is constructed from vpd-tool read from
+     * hardware option. Flag is unset once the keyword data is read.
+     */
+    bool toolRead = false;
+
+    /** @brief Output keyword data value. */
+    std::string keywordVal{};
 };
 
 } // namespace parser
