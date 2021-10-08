@@ -570,32 +570,41 @@ const string getKwVal(const Parsed& vpdMap, const string& rec,
     return kwVal;
 }
 
-string getPrintableValue(const vector<unsigned char>& vec)
+string byteArrayToHexString(const Binary& vec)
+{
+    stringstream ss;
+    string hexRep = "0x";
+    ss << hexRep;
+    string str = ss.str();
+
+    // convert Decimal to Hex string
+    for (auto& v : vec)
+    {
+        ss << setfill('0') << setw(2) << hex << (int)v;
+        str = ss.str();
+    }
+    return str;
+}
+
+string getPrintableValue(const Binary& vec)
 {
     string str{};
-    bool printableChar = true;
-    for (auto i : vec)
-    {
-        if (!isprint(i))
-        {
-            printableChar = false;
-            break;
-        }
-    }
 
-    if (!printableChar)
-    {
-        stringstream ss;
-        string hexRep = "0x";
-        ss << hexRep;
-        str = ss.str();
+    // find for a non printable value in the vector
+    const auto it = std::find_if(vec.begin(), vec.end(),
+                                 [](const auto& ele) { return !isprint(ele); });
 
-        // convert Decimal to Hex
-        for (auto& v : vec)
+    if (it != vec.end()) // if the given vector has any non printable value
+    {
+        for (auto itr = it; itr != vec.end(); itr++)
         {
-            ss << setfill('0') << setw(2) << hex << (int)v;
-            str = ss.str();
+            if (*itr != 0x00)
+            {
+                str = byteArrayToHexString(vec);
+                return str;
+            }
         }
+        str = string(vec.begin(), it);
     }
     else
     {
