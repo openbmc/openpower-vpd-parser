@@ -22,6 +22,30 @@
       "revId": "abc974768247f43cf6a3b429246c0527fca7d6f9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18e9c19a_59cabd06",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1250,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-10-08T11:24:14Z",
+      "side": 1,
+      "message": "Because it is not technically true - we can still read the system VPD even if the power is ON, we just want to avoid the side-effects that result due to that. Moreover, I think we has previously decided that we will use the system VPD path to make decisions wrt system VPD.",
+      "parentUuid": "313fad8f_1cc5cb02",
+      "range": {
+        "startLine": 1250,
+        "startChar": 11,
+        "endLine": 1250,
+        "endChar": 39
+      },
+      "revId": "abc974768247f43cf6a3b429246c0527fca7d6f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
