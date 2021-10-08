@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95c5a4ba_be18a660",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2021-10-08T07:33:21Z",
+      "side": 1,
+      "message": "If possible let\u0027s try to have a meaningful name. Just a letter reduces the readability later in the code.\n\nThis was there before as well but now that we are changing this complete portion of code, lets use something meaningful.",
+      "range": {
+        "startLine": 306,
+        "startChar": 21,
+        "endLine": 306,
+        "endChar": 22
+      },
+      "revId": "ac8865ee27c255a177def6cf75a165de7cd2c0bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
