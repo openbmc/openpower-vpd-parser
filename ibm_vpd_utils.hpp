@@ -253,5 +253,12 @@ inline string createBindUnbindDriverCmnd(const string& devNameAddr,
  */
 string getPrintableValue(const vector<unsigned char>& vec);
 
+/**
+ * @brief Convert byte array to hex string.
+ * @param[in] vec - byte array
+ * @return hexadecimal string of bytes.
+ */
+string byteArrayToHexString(const vector<uint8_t>& vec);
+
 } // namespace vpd
 } // namespace openpower
