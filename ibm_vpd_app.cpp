@@ -1172,8 +1172,6 @@ int main(int argc, char** argv)
 
         CLI11_PARSE(app, argc, argv);
 
-        cout << "Parser launched with file: " << file << "\n";
-
         // PEL severity should be ERROR in case of any system VPD failure
         if (file == systemVpdFilePath)
         {
@@ -1217,7 +1215,6 @@ int main(int argc, char** argv)
         {
             // Translate udev path to a generic /sys/bus/.. file path.
             udevToGenericPath(file);
-            cout << "Path after translation: " << file << "\n";
 
             if ((js["frus"].find(file) != js["frus"].end()) &&
                 (file == systemVpdFilePath))
@@ -1233,7 +1230,6 @@ int main(int argc, char** argv)
         }
         if (js["frus"].find(file) == js["frus"].end())
         {
-            cout << "Device path not in JSON, ignoring" << endl;
             return 0;
         }
 
