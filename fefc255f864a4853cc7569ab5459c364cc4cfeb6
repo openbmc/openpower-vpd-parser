@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05aab6d5_0086fefb",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-13T12:17:31Z",
+      "side": 1,
+      "message": "can it be Binary type?",
+      "range": {
+        "startLine": 568,
+        "startChar": 31,
+        "endLine": 568,
+        "endChar": 52
+      },
+      "revId": "fefc255f864a4853cc7569ab5459c364cc4cfeb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac7d8cd4_84c668d5",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-13T12:17:31Z",
+      "side": 1,
+      "message": "you are breaking on this check. what about next char check?",
+      "range": {
+        "startLine": 574,
+        "startChar": 1,
+        "endLine": 577,
+        "endChar": 18
+      },
+      "revId": "fefc255f864a4853cc7569ab5459c364cc4cfeb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8097f2e7_64e60ab1",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-13T12:17:31Z",
+      "side": 1,
+      "message": "can we do this in 1 line as-\nstr \u003d \"0x\";",
+      "range": {
+        "startLine": 583,
+        "startChar": 2,
+        "endLine": 586,
+        "endChar": 23
+      },
+      "revId": "fefc255f864a4853cc7569ab5459c364cc4cfeb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62e7640c_a4c83840",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-13T12:17:31Z",
+      "side": 1,
+      "message": "move it to return section",
+      "range": {
+        "startLine": 248,
+        "startChar": 2,
+        "endLine": 249,
+        "endChar": 23
+      },
+      "revId": "fefc255f864a4853cc7569ab5459c364cc4cfeb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
