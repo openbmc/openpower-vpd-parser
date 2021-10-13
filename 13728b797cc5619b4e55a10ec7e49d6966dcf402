@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b7ee507b_04f236c1",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-13T12:11:16Z",
+      "side": 1,
+      "message": "byteArrayToString - can mean decimal str or octal str or binary string.\nthis method converts the data to hex string. thats why I named like that.\n\nif some other user wants to convert a byte array to binary string(0s\u0027 \u0026 1s\u0027), they can\u0027t use this method. and that will be easily noticeable by seeing the method name itself.",
+      "parentUuid": "01a6aa66_fba4855b",
+      "range": {
+        "startLine": 568,
+        "startChar": 7,
+        "endLine": 568,
+        "endChar": 28
+      },
+      "revId": "13728b797cc5619b4e55a10ec7e49d6966dcf402",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d5aa3ed_ff19c9a1",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2021-10-13T10:37:50Z",
       "side": 1,
       "message": "why can\u0027t we take it as-\n string str \u003d \"0x\"",
+      "range": {
+        "startLine": 573,
+        "startChar": 3,
+        "endLine": 573,
+        "endChar": 17
+      },
+      "revId": "13728b797cc5619b4e55a10ec7e49d6966dcf402",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81042d16_608ecb59",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-13T12:11:16Z",
+      "side": 1,
+      "message": "if I do\nstring str \u003d \"0x\";\nstr \u003d ss.str();\n\nthen \"0x\" is overwritten by ss.str(); as stringstream::str() returns a string object.",
+      "parentUuid": "0d5aa3ed_ff19c9a1",
       "range": {
         "startLine": 573,
         "startChar": 3,
@@ -68,6 +116,30 @@
       "revId": "13728b797cc5619b4e55a10ec7e49d6966dcf402",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94effc0e_b08cbe3b",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-13T12:11:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20bd3375_6963dfce",
+      "range": {
+        "startLine": 575,
+        "startChar": 5,
+        "endLine": 575,
+        "endChar": 29
+      },
+      "revId": "13728b797cc5619b4e55a10ec7e49d6966dcf402",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "5451dcf3_9150bc1b",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-13T12:11:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6489fc3_18e8f57c",
+      "revId": "13728b797cc5619b4e55a10ec7e49d6966dcf402",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a41b2293_068b661e",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 1
@@ -131,6 +221,30 @@
       "revId": "13728b797cc5619b4e55a10ec7e49d6966dcf402",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9536037_9f5ccb35",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-13T12:11:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a41b2293_068b661e",
+      "range": {
+        "startLine": 261,
+        "startChar": 34,
+        "endLine": 261,
+        "endChar": 49
+      },
+      "revId": "13728b797cc5619b4e55a10ec7e49d6966dcf402",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
