@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "01a6aa66_fba4855b",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-13T10:37:50Z",
+      "side": 1,
+      "message": "binaryToStr ?  all data in vpd is hex only. do we need hi-light that here.",
+      "range": {
+        "startLine": 568,
+        "startChar": 7,
+        "endLine": 568,
+        "endChar": 28
+      },
+      "revId": "13728b797cc5619b4e55a10ec7e49d6966dcf402",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d5aa3ed_ff19c9a1",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-13T10:37:50Z",
+      "side": 1,
+      "message": "why can\u0027t we take it as-\n string str \u003d \"0x\"",
+      "range": {
+        "startLine": 573,
+        "startChar": 3,
+        "endLine": 573,
+        "endChar": 17
+      },
+      "revId": "13728b797cc5619b4e55a10ec7e49d6966dcf402",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20bd3375_6963dfce",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-13T10:37:50Z",
+      "side": 1,
+      "message": "you are converting to string also",
+      "range": {
+        "startLine": 575,
+        "startChar": 5,
+        "endLine": 575,
+        "endChar": 29
+      },
+      "revId": "13728b797cc5619b4e55a10ec7e49d6966dcf402",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e611c48a_c75ec944",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-13T10:37:50Z",
+      "side": 1,
+      "message": "you can put a check here, that after this nothing is printable till end.\nThat will cover multtiple-zero case",
+      "range": {
+        "startLine": 594,
+        "startChar": 8,
+        "endLine": 594,
+        "endChar": 33
+      },
+      "revId": "13728b797cc5619b4e55a10ec7e49d6966dcf402",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6489fc3_18e8f57c",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 1
@@ -13,6 +105,29 @@
       "writtenOn": "2021-10-08T11:30:51Z",
       "side": 1,
       "message": "What if there are multiple 0\u0027s at the end? I think I saw at least one example like that from the Power supply VPD. Please handle that case too.",
+      "revId": "13728b797cc5619b4e55a10ec7e49d6966dcf402",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a41b2293_068b661e",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-13T10:37:50Z",
+      "side": 1,
+      "message": "Binary ?",
+      "range": {
+        "startLine": 261,
+        "startChar": 34,
+        "endLine": 261,
+        "endChar": 49
+      },
       "revId": "13728b797cc5619b4e55a10ec7e49d6966dcf402",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
