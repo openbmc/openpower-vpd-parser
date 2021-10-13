@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0a7826c8_9594b93f",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-13T15:24:12Z",
+      "side": 1,
+      "message": "modified in this commit ( https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/47672/2/ibm_vpd_utils.cpp ).  the current commit is to just move the apis from vpd_tool_impl.cpp to ibm_vpd_utils.cpp.",
+      "parentUuid": "05aab6d5_0086fefb",
+      "range": {
+        "startLine": 568,
+        "startChar": 31,
+        "endLine": 568,
+        "endChar": 52
+      },
+      "revId": "fefc255f864a4853cc7569ab5459c364cc4cfeb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac7d8cd4_84c668d5",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2021-10-13T12:17:31Z",
       "side": 1,
       "message": "you are breaking on this check. what about next char check?",
+      "range": {
+        "startLine": 574,
+        "startChar": 1,
+        "endLine": 577,
+        "endChar": 18
+      },
+      "revId": "fefc255f864a4853cc7569ab5459c364cc4cfeb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d0d33bc_2c86b174",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-13T15:24:12Z",
+      "side": 1,
+      "message": "this method\u0027s implementation is modified here (https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/47672/2/ibm_vpd_utils.cpp ).\n\nthis commit just moves these methods from vpd_tool_impl.cpp to ibm_vpd_utils.cpp without any modifications.",
+      "parentUuid": "ac7d8cd4_84c668d5",
       "range": {
         "startLine": 574,
         "startChar": 1,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f6747056_50cd85bc",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-13T15:24:12Z",
+      "side": 1,
+      "message": "as I replied in another commit, stringstream::str() returns a string object. so if I have something like string str \u003d \"0x\"; and then do str \u003d ss.str(); the 0x is overwritten by stringstream::str();",
+      "parentUuid": "8097f2e7_64e60ab1",
+      "range": {
+        "startLine": 583,
+        "startChar": 2,
+        "endLine": 586,
+        "endChar": 23
+      },
+      "revId": "fefc255f864a4853cc7569ab5459c364cc4cfeb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "62e7640c_a4c83840",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2021-10-13T12:17:31Z",
       "side": 1,
       "message": "move it to return section",
+      "range": {
+        "startLine": 248,
+        "startChar": 2,
+        "endLine": 249,
+        "endChar": 23
+      },
+      "revId": "fefc255f864a4853cc7569ab5459c364cc4cfeb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e59e7ac3_371ec2b6",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-10-13T15:24:12Z",
+      "side": 1,
+      "message": "this is a statement about - what the api does. line 247 and 248 holds a flow.\n\n@return says what this api returns in short. so let this be unchanged.",
+      "parentUuid": "62e7640c_a4c83840",
       "range": {
         "startLine": 248,
         "startChar": 2,
