@@ -225,21 +225,13 @@ const string getKwVal(const Parsed& vpdMap, const string& rec,
                       const string& kwd);
 
 /** @brief This creates a complete command using all it's input parameters,
- *         to bind or unbind the driver.
- *  @param[in] devNameAddr - device address on that bus
- *  @param[in] busType - i2c, spi
- *  @param[in] driverType - type of driver like at24
- *  @param[in] bindOrUnbind - either bind or unbind
- *  @returns  Command to bind or unbind the driver.
+ *         to bind or unbind the driver, or create new device or delete the
+ * device.
+ *  @param[in] devAddr - device address on that bus
+ *  @param[in] command - either bind or unbind or new_device or delete_device
+ *  @returns  complete command to bind or unbind or new_device or delete_device.
  */
-inline string createBindUnbindDriverCmnd(const string& devNameAddr,
-                                         const string& busType,
-                                         const string& driverType,
-                                         const string& bindOrUnbind)
-{
-    return ("echo " + devNameAddr + " > /sys/bus/" + busType + "/drivers/" +
-            driverType + "/" + bindOrUnbind);
-}
+string createDriverCmnd(const string& devAddr, const string& command);
 
 } // namespace vpd
 } // namespace openpower

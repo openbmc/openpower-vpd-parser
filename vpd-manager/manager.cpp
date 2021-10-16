@@ -194,10 +194,7 @@ void Manager::performVPDRecollection()
             continue;
         }
 
-        string str = "echo ";
         string deviceAddress = singleFru["devAddress"];
-        const string& driverType = singleFru["driverType"];
-        const string& busType = singleFru["busType"];
 
         // devTreeStatus flag is present in json as false to mention
         // that the EEPROM is not mentioned in device tree. If this flag
@@ -205,39 +202,13 @@ void Manager::performVPDRecollection()
         // mentioned in device tree
         if (!singleFru.value("devTreeStatus", true))
         {
-            auto pos = deviceAddress.find('-');
-            if (pos != string::npos)
-            {
-                string busNum = deviceAddress.substr(0, pos);
-                deviceAddress =
-                    "0x" + deviceAddress.substr(pos + 1, string::npos);
-
-                string deleteDevice = str + deviceAddress + " > /sys/bus/" +
-                                      busType + "/devices/" + busType + "-" +
-                                      busNum + "/delete_device";
-                executeCmd(deleteDevice);
-
-                string addDevice = str + driverType + " " + deviceAddress +
-                                   " > /sys/bus/" + busType + "/devices/" +
-                                   busType + "-" + busNum + "/new_device";
-                executeCmd(addDevice);
-            }
-            else
-            {
-                log<level::ERR>(
-                    "Wrong format of device address in Json",
-                    entry(
-                        "ERROR=%s",
-                        ("Recollection failed for " + inventoryPath).c_str()));
-                continue;
-            }
+            executeCmd(createDriverCmnd(deviceAddress, "delete_device"));
+            executeCmd(createDriverCmnd(deviceAddress, "new_device"));
         }
         else
         {
-            executeCmd(createBindUnbindDriverCmnd(deviceAddress, busType,
-                                                  driverType, "/unbind"));
-            executeCmd(createBindUnbindDriverCmnd(deviceAddress, busType,
-                                                  driverType, "/bind"));
+            executeCmd(createDriverCmnd(deviceAddress, "/unbind"));
+            executeCmd(createDriverCmnd(deviceAddress, "/bind"));
         }
     }
 }
