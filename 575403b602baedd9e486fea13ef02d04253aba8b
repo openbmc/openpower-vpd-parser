@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "51e2b548_507db738",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-16T11:59:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6edc1d01_e2794bf4",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 25
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54183ae4_8cc3f78c",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 7
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "c5e39bdd_4a65b0a2",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-16T11:59:41Z",
+      "side": 1,
+      "message": "yeah. createBindUnbindDriverCmnd expects 4 parameter which we get from inventory json in all other cases.\n\nIn current case, I have not put those info to json, and so direct using -\n /sys/bus/i2c/drivers/leds-pca955x/unbind\"\n\nwon\u0027t look good to send \"i2c\" and \"leds-pca955x\" and then get this command",
+      "parentUuid": "bd3c1bdc_4efba591",
+      "range": {
+        "startLine": 677,
+        "startChar": 4,
+        "endLine": 678,
+        "endChar": 75
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e7eb08f_fa9fdf26",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 7
@@ -83,6 +131,30 @@
       "writtenOn": "2021-10-04T07:01:58Z",
       "side": 1,
       "message": "I don\u0027t think yo need to put spaces explicitly. Please refer doxygen documentation.",
+      "range": {
+        "startLine": 256,
+        "startChar": 3,
+        "endLine": 256,
+        "endChar": 16
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bef9f709_4a2a1ad0",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-16T11:59:41Z",
+      "side": 1,
+      "message": "yes. This is not needed. but I do this to keep it clean, following this-\n\nhttps://www.doxygen.nl/manual/docblocks.html\n\nHere is an example:\n\n/*! \\brief Brief description.\n *         Brief description continued.",
+      "parentUuid": "8e7eb08f_fa9fdf26",
       "range": {
         "startLine": 256,
         "startChar": 3,
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "55588b60_281346b2",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-16T11:59:41Z",
+      "side": 1,
+      "message": "yes. This is not needed. but I do this to keep it clean, following this-\n\nhttps://www.doxygen.nl/manual/docblocks.html\n\nHere is an example:\n\n/*! \\brief Brief description.\n *         Brief description continued.",
+      "parentUuid": "de4eb97c_bb9e60a5",
+      "range": {
+        "startLine": 264,
+        "startChar": 1,
+        "endLine": 264,
+        "endChar": 13
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ebbc0f86_d80c214b",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 7
@@ -138,6 +234,30 @@
       "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f34ddaae_ed79be5a",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-16T11:59:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebbc0f86_d80c214b",
+      "range": {
+        "startLine": 269,
+        "startChar": 5,
+        "endLine": 269,
+        "endChar": 28
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -164,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "c459d3df_f1a9157f",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-16T11:59:41Z",
+      "side": 1,
+      "message": "this call comes from hi level, when fru is removed, pldm calls this code.\nso not expecting that case",
+      "parentUuid": "c1204d4e_6b78607e",
+      "range": {
+        "startLine": 345,
+        "startChar": 4,
+        "endLine": 347,
+        "endChar": 62
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5df60ab2_fb6f48d1",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 7
@@ -175,6 +319,30 @@
       "writtenOn": "2021-10-04T07:01:58Z",
       "side": 1,
       "message": "Any specific reason we are not making use of api \"createBindUnbindDriverCmnd\" for this?",
+      "range": {
+        "startLine": 346,
+        "startChar": 4,
+        "endLine": 349,
+        "endChar": 25
+      },
+      "revId": "575403b602baedd9e486fea13ef02d04253aba8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7721ed14_54284953",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-16T11:59:41Z",
+      "side": 1,
+      "message": "yeah. createBindUnbindDriverCmnd expects 4 parameter which we get from inventory json in all other cases.\n\nIn current case, I have not put those info to json, and so direct using -\n /sys/bus/i2c/drivers/leds-pca955x/unbind\"\n\nwon\u0027t look good to send \"i2c\" and \"leds-pca955x\" and then get this command",
+      "parentUuid": "5df60ab2_fb6f48d1",
       "range": {
         "startLine": 346,
         "startChar": 4,
