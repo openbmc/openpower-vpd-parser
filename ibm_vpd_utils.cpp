@@ -6,6 +6,7 @@
 #include "defines.hpp"
 #include "vpd_exceptions.hpp"
 
+#include <boost/algorithm/string.hpp>
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
@@ -563,6 +564,47 @@ const string getKwVal(const Parsed& vpdMap, const string& rec,
     }
 
     return kwVal;
+}
+
+string createDriverCmnd(const string& devAddr, const string& command)
+{
+    string i2cBus, i2cReg;
+    vector<string> result;
+    boost::split(result, devAddr, boost::is_any_of("-"));
+    if (result.size())
+    {
+        i2cBus = result[0];
+        i2cReg = result[1];
+
+        // remove 0s from begining
+        const regex pattern("^0+(?!$)");
+        i2cReg = regex_replace(i2cReg, pattern, "");
+    }
+    else
+    {
+        log<level::ERR>(
+            "Wrong format of device address in Json",
+            entry("ERROR=%s",
+                  ("device-driver command can't be created for - " + devAddr)
+                      .c_str()));
+
+        exit(-1);
+    }
+
+    if (command == "bind" || command == "unbind")
+    {
+        return ("echo " + devAddr + " > /sys/bus/i2c/drivers/at24/" + command);
+    }
+    else if (command == "new_device")
+    {
+        return ("echo 24c32 0x" + i2cReg + " > /sys/bus/i2c/devices/i2c-" +
+                i2cBus + "/" + command);
+    }
+    else
+    {
+        return ("echo 0x" + i2cReg + " > /sys/bus/i2c/devices/i2c-" + i2cBus +
+                "/" + command);
+    }
 }
 
 } // namespace vpd

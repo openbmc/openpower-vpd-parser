@@ -143,8 +143,7 @@ void GpioEventHandler::toggleGpio()
                         gpiod::line_request::DIRECTION_OUTPUT, 0},
                        isPresent ? outputValue : (!outputValue));
 
-    string cmnd = createBindUnbindDriverCmnd(devNameAddr, busType, driverType,
-                                             isPresent ? "bind" : "unbind");
+    string cmnd = createDriverCmnd(devNameAddr, isPresent ? "bind" : "unbind");
 
     cout << cmnd << endl;
     executeCmd(cmnd);

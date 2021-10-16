@@ -14,7 +14,6 @@
 
 #include <CLI/CLI.hpp>
 #include <algorithm>
-#include <boost/algorithm/string.hpp>
 #include <cstdarg>
 #include <exception>
 #include <filesystem>
@@ -454,10 +453,9 @@ static void preAction(const nlohmann::json& json, const string& file)
     }
 
     // Now bind the device
-    string bind = json["frus"][file].at(0).value("devAddress", "");
-    cout << "Binding device " << bind << endl;
-    string bindCmd = string("echo \"") + bind +
-                     string("\" > /sys/bus/i2c/drivers/at24/bind");
+    string devAddr = json["frus"][file].at(0).value("devAddress", "");
+    cout << "Binding device " << devAddr << endl;
+    string bindCmd = createDriverCmnd(devAddr, "bind");
     cout << bindCmd << endl;
     executeCmd(bindCmd);
 
@@ -905,27 +903,8 @@ void doEnableAllDimms(nlohmann::json& js)
                         smatch matchFound;
                         if (regex_search(dimmVpd, matchFound, matchPatern))
                         {
-                            vector<string> i2cReg;
-                            boost::split(i2cReg, matchFound.str(0),
-                                         boost::is_any_of("-"));
-
-                            // remove 0s from begining
-                            const regex pattern("^0+(?!$)");
-                            for (auto& i : i2cReg)
-                            {
-                                i = regex_replace(i, pattern, "");
-                            }
-
-                            if (i2cReg.size() == 2)
-                            {
-                                // echo 24c32 0x50 >
-                                // /sys/bus/i2c/devices/i2c-16/new_device
-                                string cmnd = "echo 24c32 0x" + i2cReg[1] +
-                                              " > /sys/bus/i2c/devices/i2c-" +
-                                              i2cReg[0] + "/new_device";
-
-                                executeCmd(cmnd);
-                            }
+                            executeCmd(createDriverCmnd(matchFound.str(0),
+                                                        "new_device"));
                         }
                     }
                 }
