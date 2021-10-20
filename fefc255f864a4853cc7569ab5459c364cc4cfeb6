@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "329e650f_3c6171ae",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-20T08:58:58Z",
+      "side": 1,
+      "message": "if you are agreed with the comment and taking action(may be in another commit), please click on resolve button. for better acknowledgement.",
+      "parentUuid": "0a7826c8_9594b93f",
+      "range": {
+        "startLine": 568,
+        "startChar": 31,
+        "endLine": 568,
+        "endChar": 52
+      },
+      "revId": "fefc255f864a4853cc7569ab5459c364cc4cfeb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac7d8cd4_84c668d5",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 2
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "this method\u0027s implementation is modified here (https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/47672/2/ibm_vpd_utils.cpp ).\n\nthis commit just moves these methods from vpd_tool_impl.cpp to ibm_vpd_utils.cpp without any modifications.",
       "parentUuid": "ac7d8cd4_84c668d5",
+      "range": {
+        "startLine": 574,
+        "startChar": 1,
+        "endLine": 577,
+        "endChar": 18
+      },
+      "revId": "fefc255f864a4853cc7569ab5459c364cc4cfeb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "054c7065_9f2239e2",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-20T08:58:58Z",
+      "side": 1,
+      "message": "if you are agreed with the comment and taking action(may be in another commit), please click on resolve button. for better acknowledgement.",
+      "parentUuid": "5d0d33bc_2c86b174",
       "range": {
         "startLine": 574,
         "startChar": 1,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "996c154b_87fe977b",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-20T08:58:58Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "f6747056_50cd85bc",
+      "range": {
+        "startLine": 583,
+        "startChar": 2,
+        "endLine": 586,
+        "endChar": 23
+      },
+      "revId": "fefc255f864a4853cc7569ab5459c364cc4cfeb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "62e7640c_a4c83840",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 2
@@ -178,6 +250,30 @@
       "side": 1,
       "message": "this is a statement about - what the api does. line 247 and 248 holds a flow.\n\n@return says what this api returns in short. so let this be unchanged.",
       "parentUuid": "62e7640c_a4c83840",
+      "range": {
+        "startLine": 248,
+        "startChar": 2,
+        "endLine": 249,
+        "endChar": 23
+      },
+      "revId": "fefc255f864a4853cc7569ab5459c364cc4cfeb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3630a41c_8d20a393",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-10-20T08:58:58Z",
+      "side": 1,
+      "message": "right. in detail description just say- what it does, 248 \u0026 249 doesn\u0027t add value to that\nwhatever it returns(conditional or unconditional) should be part of @return",
+      "parentUuid": "e59e7ac3_371ec2b6",
       "range": {
         "startLine": 248,
         "startChar": 2,
