@@ -433,6 +433,25 @@ void EditorImpl::updateCache()
                                singleInventory["inventoryPath"]
                                    .get_ref<const nlohmann::json::string_t&>());
         }
+
+        // check if we need to copy some specific records in this case.
+        if (singleInventory.find("copyRecords") != singleInventory.end())
+        {
+
+            if (find(singleInventory["copyRecords"].begin(),
+                     singleInventory["copyRecords"].end(),
+                     thisRecord.recName) !=
+                singleInventory["copyRecords"].end())
+            {
+                prop.emplace(thisRecord.recKWd, thisRecord.kwdUpdatedData);
+                interfaces.emplace(
+                    (IPZ_INTERFACE + std::string{"."} + thisRecord.recName),
+                    move(prop));
+                objects.emplace(
+                    (singleInventory["inventoryPath"].get<std::string>()),
+                    move(interfaces));
+            }
+        }
     }
     // Notify PIM
     common::utility::callPIM(move(objects));
