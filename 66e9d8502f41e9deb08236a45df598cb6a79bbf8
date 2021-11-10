@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d5a26be_3d62ce33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-11-10T09:39:44Z",
+      "side": 1,
+      "message": "Please remove SW numbers from this commit.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "66e9d8502f41e9deb08236a45df598cb6a79bbf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45dfbf51_74a14046",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-11-10T09:39:44Z",
+      "side": 1,
+      "message": "This line needs to be split up",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 81
+      },
+      "revId": "66e9d8502f41e9deb08236a45df598cb6a79bbf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "604630e8_4f01f573",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-11-10T09:39:44Z",
+      "side": 1,
+      "message": "Please avoid system IP address details",
+      "range": {
+        "startLine": 14,
+        "startChar": 19,
+        "endLine": 14,
+        "endChar": 41
+      },
+      "revId": "66e9d8502f41e9deb08236a45df598cb6a79bbf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fda1e853_a18c509d",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-11-10T09:39:44Z",
+      "side": 1,
+      "message": "You could have simply done: hwVal[0] \u003d 0x00;",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 368,
+        "endChar": 28
+      },
+      "revId": "66e9d8502f41e9deb08236a45df598cb6a79bbf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
