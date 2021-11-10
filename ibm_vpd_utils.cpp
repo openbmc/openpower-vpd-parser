@@ -356,6 +356,11 @@ const string getHW(const Parsed& vpdMap)
         }
     }
 
+    // The planar pass only comes from the LSB of the HW keyword,
+    // where as the MSB is used for other purposes such as signifying clock
+    // termination.
+    hwVal[0] = 0x00;
+
     ostringstream hwString;
     for (auto& i : hwVal)
     {
