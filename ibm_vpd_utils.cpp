@@ -356,6 +356,8 @@ const string getHW(const Parsed& vpdMap)
         }
     }
 
+    hwVal[0] = 0x00;
+
     ostringstream hwString;
     for (auto& i : hwVal)
     {
