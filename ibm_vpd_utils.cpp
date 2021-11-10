@@ -356,6 +356,17 @@ const string getHW(const Parsed& vpdMap)
         }
     }
 
+    // convert this binary to 16 bit data
+    uint16_t hwVal16 = hwVal[0] << 8 | hwVal[1];
+
+    // mask the HW value by 00XX
+    uint16_t mask = 0x00FF;
+    hwVal16 = hwVal16 & mask;
+
+    // put the new data back to the buffer
+    hwVal[1] = hwVal16;
+    hwVal[0] = hwVal16 >> 8;
+
     ostringstream hwString;
     for (auto& i : hwVal)
     {
