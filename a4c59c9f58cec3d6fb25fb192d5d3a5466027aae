@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4cd9bbfc_b3451c7a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-11-10T09:55:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d0cb846_50c5d291",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 81
+      },
+      "revId": "a4c59c9f58cec3d6fb25fb192d5d3a5466027aae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "451d083b_52e2bc79",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2021-11-10T09:51:03Z",
       "side": 1,
       "message": "A little comment on why we are doing this would help. Please mention that the planar pass only comes from the LSB of the HW keyword, where as the MSB is used for other purposes such as signifying clock termination.\n\nPlease also change the doxygen of getHW to indicate that we are making off the MSB.",
+      "revId": "a4c59c9f58cec3d6fb25fb192d5d3a5466027aae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebc88885_431f078c",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2021-11-10T09:55:27Z",
+      "side": 1,
+      "message": "okay",
+      "parentUuid": "451d083b_52e2bc79",
       "revId": "a4c59c9f58cec3d6fb25fb192d5d3a5466027aae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
