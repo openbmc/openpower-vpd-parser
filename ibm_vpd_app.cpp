@@ -311,6 +311,12 @@ static void populateInterfaces(const nlohmann::json& js,
                     }
                 }
             }
+            else if (itr.value().is_number())
+            {
+                // For now assume the value is a size_t.  In the future it would
+                // be nice to come up with a way to get the type from the JSON.
+                props.emplace(busProp, itr.value().get<size_t>());
+            }
         }
         interfaces.emplace(inf, move(props));
     }
@@ -944,6 +950,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     inventory::InterfaceMap interfaces;
     inventory::ObjectMap objects;
     inventory::PropertyMap prop;
+    string thisCcValue;
 
     // map to hold all the keywords whose value has been changed at standby
     vector<RestoredEeproms> updatedEeproms = {};
@@ -951,6 +958,9 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     bool isSystemVpd = (filePath == systemVpdFilePath);
     if constexpr (is_same<T, Parsed>::value)
     {
+        // read this eeprom file ccin (vini,cc)
+        thisCcValue = getKwVal(vpdMap, "VINI", "CC");
+
         if (isSystemVpd)
         {
             std::vector<std::string> interfaces = {motherBoardInterface};
@@ -1052,8 +1062,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         }
         if (item.value("inheritEI", true))
         {
-            // Populate interfaces and properties that are common to every FRU
-            // and additional interface that might be defined on a per-FRU
+            // Populate additional interface that might be defined on a per-FRU
             // basis.
             if (item.find("extraInterfaces") != item.end())
             {
@@ -1062,6 +1071,20 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             }
         }
         objects.emplace(move(object), move(interfaces));
+
+        cout << "DBG: " << thisCcValue << "\n";
+        // check if it's CCIN is found in pre set of ccins
+        if (find(CCIN_SET.begin(), CCIN_SET.end(), thisCcValue) ==
+            CCIN_SET.end())
+        {
+            cout << "Exiting the eeprom execution loop, as ccin not found as "
+                    "expected\n";
+            cout << thisCcValue << "\n";
+            // exit this for loop after it executed once.
+            // it is other than FRUs mentioned in inventory json, like flett
+            // card
+            break;
+        }
     }
 
     if (isSystemVpd)

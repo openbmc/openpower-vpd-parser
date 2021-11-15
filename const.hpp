@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
 namespace openpower
 {
@@ -69,6 +70,8 @@ static constexpr auto PART_NUM_LEN = 7;
 static constexpr auto SERIAL_NUM_LEN = 12;
 static constexpr auto CCIN_LEN = 4;
 static constexpr auto CONVERT_MB_TO_KB = 1024;
+static std::vector<std::string> CCIN_SET = {"2CE2", "6B8B", "6B99",
+                                            "58FF", "6B8C", "6B92"};
 
 using namespace std::string_literals;
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
