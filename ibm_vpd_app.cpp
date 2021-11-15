@@ -950,6 +950,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     inventory::InterfaceMap interfaces;
     inventory::ObjectMap objects;
     inventory::PropertyMap prop;
+    string thisCcValue;
 
     // map to hold all the keywords whose value has been changed at standby
     vector<RestoredEeproms> updatedEeproms = {};
@@ -957,6 +958,9 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     bool isSystemVpd = (filePath == systemVpdFilePath);
     if constexpr (is_same<T, Parsed>::value)
     {
+        // read this eeprom file ccin (vini,cc)
+        thisCcValue = getKwVal(vpdMap, "VINI", "CC");
+
         if (isSystemVpd)
         {
             std::vector<std::string> interfaces = {motherBoardInterface};
@@ -1002,6 +1006,24 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         const auto& objectPath = item["inventoryPath"];
         sdbusplus::message::object_path object(objectPath);
 
+        vector<string> CcSet{"0"};
+        if (item.find("ccin") != item.end())
+        {
+            for (const auto& cc : item["ccin"])
+                CcSet.push_back(cc);
+        }
+        cout << "DBG: Executing FRU [ccin]- " << thisCcValue << "\n";
+        // check if ccin set is present for this FRU in json &&
+        // if it's CCIN is found in pre set of ccins
+        if (CcSet.size() &&
+            find(CcSet.begin(), CcSet.end(), thisCcValue) == CcSet.end())
+        {
+            cout << "Exiting the eeprom execution loop, as ccin not found as "
+                    "expected\n";
+            cout << thisCcValue << "\n";
+            // skip this subFRU, continue to the next.
+            continue;
+        }
         if (isSystemVpd)
         {
             // Populate one time properties for the system VPD and its sub-frus.
@@ -1058,8 +1080,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         }
         if (item.value("inheritEI", true))
         {
-            // Populate interfaces and properties that are common to every FRU
-            // and additional interface that might be defined on a per-FRU
+            // Populate additional interface that might be defined on a per-FRU
             // basis.
             if (item.find("extraInterfaces") != item.end())
             {
