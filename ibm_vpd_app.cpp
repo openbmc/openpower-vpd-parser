@@ -641,12 +641,25 @@ void setEnvAndReboot(const string& key, const string& value)
  * */
 void setDevTreeEnv(const string& systemType)
 {
-    string newDeviceTree;
+    // Init with default dtb
+    string newDeviceTree = "conf-aspeed-bmc-ibm-rainier-p1.dtb";
 
     if (deviceTreeSystemTypeMap.find(systemType) !=
         deviceTreeSystemTypeMap.end())
     {
         newDeviceTree = deviceTreeSystemTypeMap.at(systemType);
+    }
+    else
+    {
+        // System type not supported
+        std::string err =
+            "This System type not found/supported in dtb table " + systemType;
+
+        // map to hold additional data in case of logging pel
+        PelAdditionalData additionalData{};
+        additionalData.emplace("DESCRIPTION", err);
+        createPEL(additionalData, PelSeverity::WARNING,
+                  errIntfForInvalidSystemType);
     }
 
     string readVarValue;
