@@ -641,7 +641,8 @@ void setEnvAndReboot(const string& key, const string& value)
  * */
 void setDevTreeEnv(const string& systemType)
 {
-    string newDeviceTree;
+    // Init with default dtb
+    string newDeviceTree = "conf-aspeed-bmc-ibm-rainier-p1.dtb";
 
     if (deviceTreeSystemTypeMap.find(systemType) !=
         deviceTreeSystemTypeMap.end())
