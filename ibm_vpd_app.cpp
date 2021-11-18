@@ -641,12 +641,19 @@ void setEnvAndReboot(const string& key, const string& value)
  * */
 void setDevTreeEnv(const string& systemType)
 {
-    string newDeviceTree;
+    // Init with default dtb
+    string newDeviceTree = "conf-aspeed-bmc-ibm-rainier-p1.dtb";
 
     if (deviceTreeSystemTypeMap.find(systemType) !=
         deviceTreeSystemTypeMap.end())
     {
         newDeviceTree = deviceTreeSystemTypeMap.at(systemType);
+    }
+    else
+    {
+        // System type not supported
+        cerr << "This System type not found/supported in dtb table "
+             << systemType << ". so system will be booted with default dtb.\n";
     }
 
     string readVarValue;
