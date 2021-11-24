@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a98412d1_7089c00c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-11-24T05:26:18Z",
+      "side": 1,
+      "message": "Please add an else clause here and do a std::cerr to indicate that we did not find a match for the device tree (trace the systemType too), and that a default will be loaded.",
+      "revId": "1082d92e81a005db342e5f1dd6939e71f547a26c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
