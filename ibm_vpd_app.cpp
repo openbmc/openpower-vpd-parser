@@ -682,8 +682,17 @@ void setDevTreeEnv(const string& systemType)
     else
     {
         // System type not supported
-        cerr << "This System type not found/supported in dtb table "
-             << systemType << ". so system will be booted with default dtb.\n";
+        string err = "This System type not found/supported in dtb table " +
+                     systemType +
+                     ".Please check the HW and IM keywords in the system "
+                     "VPD.Breaking...";
+
+        // map to hold additional data in case of logging pel
+        PelAdditionalData additionalData{};
+        additionalData.emplace("DESCRIPTION", err);
+        createPEL(additionalData, PelSeverity::WARNING,
+                  errIntfForInvalidSystemType);
+        exit(-1);
     }
 
     string readVarValue;
