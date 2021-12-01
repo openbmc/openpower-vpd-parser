@@ -113,19 +113,26 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
 {
     try
     {
-        if (frus.find(path) == frus.end())
+        std::string objPath{path};
+        // Strip any inventory prefix in path
+        if (objPath.find(INVENTORY_PATH) == 0)
+        {
+            objPath = objPath.substr(sizeof(INVENTORY_PATH) - 1);
+        }
+
+        if (frus.find(objPath) == frus.end())
         {
             throw std::runtime_error("Inventory path not found");
         }
 
-        inventory::Path vpdFilePath = frus.find(path)->second.first;
+        inventory::Path vpdFilePath = frus.find(objPath)->second.first;
 
         // instantiate editor class to update the data
-        EditorImpl edit(vpdFilePath, jsonFile, recordName, keyword, path);
+        EditorImpl edit(vpdFilePath, jsonFile, recordName, keyword, objPath);
         edit.updateKeyword(value, true);
 
         // if it is a motehrboard FRU need to check for location expansion
-        if (frus.find(path)->second.second)
+        if (frus.find(objPath)->second.second)
         {
             if (recordName == "VCEN" && (keyword == "FC" || keyword == "SE"))
             {
