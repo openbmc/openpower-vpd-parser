@@ -118,6 +118,12 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
             throw std::runtime_error("Inventory path not found");
         }
 
+        // Strip any inventory prefix in path
+        if (objPath.find(INVENTORY_PATH) == 0)
+        {
+            objPath = objPath.substr(sizeof(INVENTORY_PATH) - 1);
+        }
+
         inventory::Path vpdFilePath = frus.find(path)->second.first;
 
         // instantiate editor class to update the data
