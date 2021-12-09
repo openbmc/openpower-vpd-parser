@@ -323,6 +323,31 @@ static void populateInterfaces(const nlohmann::json& js,
     }
 }
 
+/*API to reset EEPROM pointer to a safe position to avoid VPD corruption.
+ * Currently do reset only for DIMM VPD.*/
+static void resetEEPROMPointer(const nlohmann::json& js, const string& file,
+                               ifstream& vpdFile)
+{
+    for (const auto& item : js["frus"][file])
+    {
+        if (item.find("extraInterfaces") != item.end())
+        {
+            if (item["extraInterfaces"].find(
+                    "xyz.openbmc_project.Inventory.Item.Dimm") !=
+                item["extraInterfaces"].end())
+            {
+                // moves the EEPROM pointer to 2048 'th byte.
+                vpdFile.seekg(2047, std::ios::beg);
+                // Read that byte and discard - to affirm the move
+                // operation.
+                char ch;
+                vpdFile.read(&ch, sizeof(ch));
+            }
+            return;
+        }
+    }
+}
+
 static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
 {
     uint32_t offset = 0;
@@ -347,6 +372,8 @@ static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
     vpdFile.seekg(offset, ios_base::cur);
     vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), maxVPDSize);
     vpdVector.resize(vpdFile.gcount());
+
+    resetEEPROMPointer(js, file, vpdFile);
 
     return vpdVector;
 }
