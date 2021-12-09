@@ -957,6 +957,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     inventory::InterfaceMap interfaces;
     inventory::ObjectMap objects;
     inventory::PropertyMap prop;
+    string ccinFromVpd;
 
     // map to hold all the keywords whose value has been changed at standby
     vector<RestoredEeproms> updatedEeproms = {};
@@ -964,6 +965,10 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     bool isSystemVpd = (filePath == systemVpdFilePath);
     if constexpr (is_same<T, Parsed>::value)
     {
+        ccinFromVpd = getKwVal(vpdMap, "VINI", "CC");
+        transform(ccinFromVpd.begin(), ccinFromVpd.end(), ccinFromVpd.begin(),
+                  ::toupper);
+
         if (isSystemVpd)
         {
             std::vector<std::string> interfaces = {motherBoardInterface};
@@ -1008,6 +1013,24 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     {
         const auto& objectPath = item["inventoryPath"];
         sdbusplus::message::object_path object(objectPath);
+
+        vector<string> ccinList;
+        if (item.find("ccin") != item.end())
+        {
+            for (const auto& cc : item["ccin"])
+            {
+                string ccin = cc;
+                transform(ccin.begin(), ccin.end(), ccin.begin(), ::toupper);
+                ccinList.push_back(ccin);
+            }
+        }
+
+        if (!ccinFromVpd.empty() && !ccinList.empty() &&
+            (find(ccinList.begin(), ccinList.end(), ccinFromVpd) ==
+             ccinList.end()))
+        {
+            continue;
+        }
 
         if (isSystemVpd)
         {
