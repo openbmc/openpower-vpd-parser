@@ -322,6 +322,37 @@ static void populateInterfaces(const nlohmann::json& js,
     }
 }
 
+/*API to reset EEPROM pointer to a safe position to avoid VPD corruption.
+ * Currently do reset only for DIMM VPD.*/
+static void resetEEPROMPointer(const nlohmann::json& js, const string& file,
+                               ifstream& vpdFile)
+{
+    const auto dimmIntf = "xyz.openbmc_project.Inventory.Item.Dimm";
+
+    for (const auto& item : js["frus"][file])
+    {
+        if (item.find("extraInterfaces") != item.end())
+        {
+            for (const auto& eI : item["extraInterfaces"].items())
+            {
+                if (eI.key().find("Inventory.Item.") != string::npos)
+                {
+                    if (eI.key() == dimmIntf)
+                    {
+                        // moves the EEPROM pointer to 2048 'th byte.
+                        vpdFile.seekg(2047, std::ios::beg);
+                        // Read that byte and discard - to affirm the move
+                        // operation.
+                        char* ch = new char[1];
+                        vpdFile.read(ch, 1);
+                    }
+                    return;
+                }
+            }
+        }
+    }
+}
+
 static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
 {
     uint32_t offset = 0;
@@ -334,15 +365,25 @@ static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
         }
     }
 
-    // TODO: Figure out a better way to get max possible VPD size.
+    // Get max possible vpd size
+    std::filesystem::path filePath = file;
+    size_t maxVPDSize = std::filesystem::file_size(filePath);
+    if (maxVPDSize > 65504)
+    {
+        maxVPDSize = 65504;
+    }
+
     Binary vpdVector;
-    vpdVector.resize(65504);
+    vpdVector.resize(maxVPDSize);
     ifstream vpdFile;
-    vpdFile.open(file, ios::binary);
+    vpdFile.open(file, ios::binary | ios::in);
 
     vpdFile.seekg(offset, ios_base::cur);
-    vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), 65504);
+
+    vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), maxVPDSize);
     vpdVector.resize(vpdFile.gcount());
+
+    resetEEPROMPointer(js, file, vpdFile);
 
     return vpdVector;
 }
