@@ -216,11 +216,12 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
             {
                 // TODO: Remove this if condition check once inventory json is
                 // updated with xyz location code interface.
-                if (ex.key() == "com.ibm.ipzvpd.Location")
+                if (ex.key() ==
+                    openpower::vpd::constants::XYZ_LOCATION_CODE_INF)
                 {
                     getExtraInterfaceProperties(
                         invPath,
-                        "xyz.openbmc_project.Inventory.Decorator.LocationCode",
+                        openpower::vpd::constants::XYZ_LOCATION_CODE_INF,
                         ex.value(), js);
                 }
                 else

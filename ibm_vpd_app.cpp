@@ -242,9 +242,8 @@ static void populateInterfaces(const nlohmann::json& js,
                 if constexpr (is_same<T, Parsed>::value)
                 {
                     if (busProp == "LocationCode" &&
-                        inf == IBM_LOCATION_CODE_INF)
+                        inf == XYZ_LOCATION_CODE_INF)
                     {
-                        // TODO deprecate the com.ibm interface later
                         auto prop = expandLocationCode(
                             itr.value().get<string>(), vpdMap, isSystemVpd);
                         props.emplace(busProp, prop);
@@ -564,7 +563,7 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                     for (const auto& eI : itemEEPROM["extraInterfaces"].items())
                     {
                         inventory::PropertyMap props;
-                        if (eI.key() == IBM_LOCATION_CODE_INF)
+                        if (eI.key() == XYZ_LOCATION_CODE_INF)
                         {
                             if constexpr (std::is_same<T, Parsed>::value)
                             {

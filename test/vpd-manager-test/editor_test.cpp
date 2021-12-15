@@ -69,7 +69,7 @@ void vpdManagerEditorTest::processJson()
         for (const auto& itemEEPROM : groupEEPROM)
         {
             fruLocationCode.emplace(
-                itemEEPROM["extraInterfaces"][IBM_LOCATION_CODE_INF]
+                itemEEPROM["extraInterfaces"][XYZ_LOCATION_CODE_INF]
                           ["LocationCode"]
                               .get_ref<const nlohmann::json::string_t&>(),
                 itemEEPROM["inventoryPath"]

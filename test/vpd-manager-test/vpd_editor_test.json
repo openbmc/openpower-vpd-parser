@@ -1,36 +1,28 @@
 {
-  "commonInterfaces": {
-    "xyz.openbmc_project.Inventory.Decorator.Asset": {
-      "PartNumber": {
-        "recordName": "VINI",
-        "keywordName": "PN"
-      },
-      "SerialNumber": {
-        "recordName": "VINI",
-        "keywordName": "SN"
-      },
-      "BuildDate": {
-        "recordName": "VR10",
-        "keywordName": "DC",
-        "encoding": "DATE"
-      }
+    "commonInterfaces" : {
+        "xyz.openbmc_project.Inventory.Decorator.Asset" : {
+            "PartNumber" : {"recordName" : "VINI", "keywordName" : "PN"},
+            "SerialNumber" : {"recordName" : "VINI", "keywordName" : "SN"},
+            "BuildDate" : {
+                "recordName" : "VR10",
+                "keywordName" : "DC",
+                "encoding" : "DATE"
+            }
+        },
+        "xyz.openbmc_project.Inventory.Item" : {
+            "PrettyName" : {"recordName" : "VINI", "keywordName" : "DR"},
+            "Present" : true
+        }
     },
-    "xyz.openbmc_project.Inventory.Item": {
-      "PrettyName": {
-        "recordName": "VINI",
-        "keywordName": "DR"
-      },
-     "Present": true
-    }
-  },
-  "frus": {
-    "/sys/bus/i2c/drivers/at24/8-0050/eeprom": [
+                         "frus":
+    {
+        "/sys/bus/i2c/drivers/at24/8-0050/eeprom": [
       {
         "inventoryPath": "/system/chassis/motherboard",
         "isSystemVpd": true,
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.Board.Motherboard": null,
-          "com.ibm.ipzvpd.Location" : {
+          "xyz.openbmc_project.Inventory.Decorator.LocationCode" : {
               "LocationCode" : "Ufcs-P0"
           }
         }
@@ -51,7 +43,7 @@
               "keywordName": "TM"
             }
           },
-          "com.ibm.ipzvpd.Location" : {
+          "xyz.openbmc_project.Inventory.Decorator.LocationCode" : {
               "LocationCode" : "Umts"
           }
         }
@@ -62,7 +54,7 @@
         "isSystemVpd": true,
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.Chassis": null,
-          "com.ibm.ipzvpd.Location" : {
+          "xyz.openbmc_project.Inventory.Decorator.LocationCode" : {
               "LocationCode" : "Ufcs"
           }
         }
@@ -73,7 +65,7 @@
         "inventoryPath": "/system/chassis/motherboard/ebmc_card_bmc",
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.Bmc": null,
-          "com.ibm.ipzvpd.Location" : {
+          "xyz.openbmc_project.Inventory.Decorator.LocationCode" : {
               "LocationCode" : "Ufcs-P0-C5"
           }
         }
@@ -83,7 +75,7 @@
         "inherit": false,
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.Ethernet": null,
-          "com.ibm.ipzvpd.Location" : {
+          "xyz.openbmc_project.Inventory.Decorator.LocationCode" : {
               "LocationCode" : "Ufcs-P0-C5-T0"
           },
           "xyz.openbmc_project.Inventory.Item.NetworkInterface": {
@@ -100,7 +92,7 @@
         "inherit": false,
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.Ethernet": null,
-          "com.ibm.ipzvpd.Location" : {
+          "xyz.openbmc_project.Inventory.Decorator.LocationCode" : {
               "LocationCode" : "Ufcs-P0-C5-T1"
           },
           "xyz.openbmc_project.Inventory.Item.NetworkInterface": {
@@ -118,7 +110,7 @@
         "inventoryPath": "/system/chassis/motherboard/tpm_wilson",
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.Tpm": null,
-          "com.ibm.ipzvpd.Location" : {
+          "xyz.openbmc_project.Inventory.Decorator.LocationCode" : {
               "LocationCode" : "Ufcs-P0-C22"
           }
         }
@@ -129,7 +121,7 @@
         "inventoryPath": "/system/chassis/motherboard/base_op_panel_blyth",
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.Panel": null,
-          "com.ibm.ipzvpd.Location" : {
+          "xyz.openbmc_project.Inventory.Decorator.LocationCode" : {
               "LocationCode" : "Ufcs-D0"
           }
         }
@@ -140,7 +132,7 @@
         "inventoryPath": "/system/chassis/motherboard/lcd_op_panel_hill",
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.Panel": null,
-          "com.ibm.ipzvpd.Location" : {
+          "xyz.openbmc_project.Inventory.Decorator.LocationCode" : {
               "LocationCode" : "Ufcs-D1"
           }
         }
@@ -151,7 +143,7 @@
         "inventoryPath": "/system/chassis/motherboard/vdd_vrm0",
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.Vrm": null,
-          "com.ibm.ipzvpd.Location" : {
+          "xyz.openbmc_project.Inventory.Decorator.LocationCode" : {
               "LocationCode" : "Ufcs-P0-C14"
           }
         }
@@ -162,11 +154,11 @@
         "inventoryPath": "/system/chassis/motherboard/vdd_vrm1",
         "extraInterfaces": {
           "xyz.openbmc_project.Inventory.Item.Vrm": null,
-          "com.ibm.ipzvpd.Location" : {
+          "xyz.openbmc_project.Inventory.Decorator.LocationCode" : {
               "LocationCode" : "Ufcs-P0-C23"
           }
         }
       }
     ]
-  }
+    }
 }

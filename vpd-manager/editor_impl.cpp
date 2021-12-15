@@ -474,11 +474,11 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
             sdbusplus::message::object_path object(objectPath);
 
             // check if the given item implements location code interface
-            if (itemEEPROM["extraInterfaces"].find(IBM_LOCATION_CODE_INF) !=
+            if (itemEEPROM["extraInterfaces"].find(XYZ_LOCATION_CODE_INF) !=
                 itemEEPROM["extraInterfaces"].end())
             {
                 const std::string& unexpandedLocationCode =
-                    itemEEPROM["extraInterfaces"][IBM_LOCATION_CODE_INF]
+                    itemEEPROM["extraInterfaces"][XYZ_LOCATION_CODE_INF]
                               ["LocationCode"]
                                   .get_ref<const nlohmann::json::string_t&>();
                 std::size_t idx = unexpandedLocationCode.find(locationCodeType);
@@ -500,10 +500,8 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
                             idx, 3, propertyFCorTM + "." + propertySE);
                     }
 
-                    // update the DBUS interface COM as well as XYZ path
+                    // update the xyz location code interface
                     prop.emplace("LocationCode", expandedLocationCode);
-                    // TODO depricate this com.ibm interface later
-                    interfaces.emplace(IBM_LOCATION_CODE_INF, prop);
                     interfaces.emplace(XYZ_LOCATION_CODE_INF, move(prop));
                 }
             }

@@ -75,7 +75,7 @@ LocationCode ReaderImpl::getExpandedLocationCode(
     utility utilObj;
 #endif
     expandedLocationCode = utilObj.readBusProperty(
-        iterator->second, IBM_LOCATION_CODE_INF, "LocationCode");
+        iterator->second, XYZ_LOCATION_CODE_INF, "LocationCode");
     return expandedLocationCode;
 }
 
