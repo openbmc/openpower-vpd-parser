@@ -30,9 +30,21 @@ Binary VpdTool::toBinary(const std::string& value)
         ss.str(value.substr(2));
         string byteStr{};
 
-        while (!ss.eof())
+        if (value.length() % 2 != 0)
         {
-            ss >> setw(2) >> byteStr;
+            throw runtime_error(
+                "VPD-TOOL write option accepts 2 digit hex numbers. (Eg. 0x1 "
+                "should be given as 0x01). Aborting the write operation.");
+        }
+
+        if (value.find_first_not_of("0123456789abcdefABCDEF", 2) !=
+            std::string::npos)
+        {
+            throw runtime_error("Provide a valid hexadecimal input.");
+        }
+
+        while (ss >> setw(2) >> byteStr)
+        {
             uint8_t byte = strtoul(byteStr.c_str(), nullptr, 16);
 
             val.push_back(byte);
