@@ -350,6 +350,56 @@ static void resetEEPROMPointer(const nlohmann::json& js, const string& file,
     }
 }
 
+/**
+ * @brief This API checks if this FRU is pcie_devices. If yes then it further
+ *        checks whether it is PASS1 planar.
+ */
+static bool isThisPcieOnPass1planar(const nlohmann::json& js,
+                                    const string& file)
+{
+    auto isThisPCIeDev = false;
+    auto isPASS1 = false;
+
+    // Check if it is a PCIE device
+    if (js["frus"].find(file) != js["frus"].end())
+    {
+        if ((js["frus"][file].find("extraInterfaces") !=
+             js["frus"][file].end()))
+        {
+            if (js["frus"][file]["extraInterfaces"].find(
+                    "xyz.openbmc_project.Inventory.Item.PCIeDevice") !=
+                js["frus"][file]["extraInterfaces"].end())
+            {
+                isThisPCIeDev = true;
+            }
+        }
+    }
+
+    if (isThisPCIeDev)
+    {
+        // Collect SystemType to know if it is PASS1 planar.
+        auto bus = sdbusplus::bus::new_default();
+        auto properties = bus.new_method_call(
+            INVENTORY_MANAGER_SERVICE,
+            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+            "org.freedesktop.DBus.Properties", "Get");
+        properties.append("com.ibm.ipzvpd.VINI");
+        properties.append("HW");
+        auto result = bus.call(properties);
+
+        inventory::Value val;
+        result.read(val);
+        if (auto pVal = get_if<Binary>(&val))
+        {
+            auto hwVersion = *pVal;
+            if (hwVersion[1] < 2)
+                isPASS1 = true;
+        }
+    }
+
+    return (isThisPCIeDev && isPASS1);
+}
+
 static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
 {
     uint32_t offset = 0;
@@ -1472,13 +1522,26 @@ int main(int argc, char** argv)
     }
     catch (const VpdDataException& ex)
     {
-        additionalData.emplace("DESCRIPTION", "Invalid VPD data");
-        additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                               INVENTORY_PATH + baseFruInventoryPath);
-        createPEL(additionalData, pelSeverity, errIntfForInvalidVPD);
-        dumpBadVpd(file, vpdVector);
-        cerr << ex.what() << "\n";
-        rc = -1;
+        if (isThisPcieOnPass1planar(js, file))
+        {
+            cout << "Pcie_device  [" << file
+                 << "]'s VPD is not valid on PASS1 planar.Ignoring.\n";
+            rc = 0;
+        }
+        else
+        {
+            string errorMsg =
+                "VPD file is either empty or invalid. Parser failed for [";
+            errorMsg += file;
+            errorMsg += "], with error = " + std::string(ex.what());
+
+            additionalData.emplace("DESCRIPTION", errorMsg);
+            additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                   INVENTORY_PATH + baseFruInventoryPath);
+            createPEL(additionalData, pelSeverity, errIntfForInvalidVPD);
+
+            rc = -1;
+        }
     }
     catch (const exception& e)
     {
