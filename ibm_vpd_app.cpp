@@ -322,6 +322,50 @@ static void populateInterfaces(const nlohmann::json& js,
     }
 }
 
+bool isThisPcieOnPass1planar(const nlohmann::json& js, const string& file)
+{
+    auto isThisPCIeDev = false;
+    auto isPASS1 = false;
+
+    // Check if it is a PCIE device
+    if (js["frus"].find(file) != js["frus"].end())
+    {
+        if ((js["frus"][file].find("extraInterfaces") !=
+             js["frus"][file].end()))
+        {
+            if (js["frus"][file]["extraInterfaces"].find(
+                    "xyz.openbmc_project.Inventory.Item.PCIeDevice") !=
+                js["frus"][file]["extraInterfaces"].end())
+            {
+                isThisPCIeDev = true;
+            }
+        }
+    }
+
+    // collect SystemType if it is PASS1 planar?
+    auto bus = sdbusplus::bus::new_default();
+    auto properties = bus.new_method_call(
+        "xyz.openbmc_project.Inventory.Manager",
+        "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+        "org.freedesktop.DBus.Properties", "Get");
+    properties.append("com.ibm.ipzvpd.VINI");
+    properties.append("HW");
+    auto result = bus.call(properties);
+    if (!result.is_method_error())
+    {
+        inventory::Value val;
+        result.read(val);
+        if (auto pVal = get_if<Binary>(&val))
+        {
+            auto hwVersion = *pVal;
+            if (hwVersion[1] < 2)
+                isPASS1 = true;
+        }
+    }
+
+    return (isThisPCIeDev && isPASS1);
+}
+
 static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
 {
     uint32_t offset = 0;
@@ -340,9 +384,34 @@ static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
     ifstream vpdFile;
     vpdFile.open(file, ios::binary);
 
-    vpdFile.seekg(offset, ios_base::cur);
-    vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), 65504);
-    vpdVector.resize(vpdFile.gcount());
+    if (vpdFile.peek() == std::ifstream::traits_type::eof())
+    {
+        if (isThisPcieOnPass1planar(js, file))
+        {
+            cout << "This pcie_device eeprom- <" << file
+                 << "> is not present on PASS1 planar.";
+            exit(0);
+        }
+        else
+        {
+            // logging pel
+            string errMsg =
+                "The EEPROM path <" + file + "> is not valid. File is empty";
+            PelAdditionalData additionalData{};
+            additionalData.emplace("DESCRIPTION", errMsg);
+            createPEL(additionalData, PelSeverity::WARNING,
+                      errIntfForInvalidVPD);
+            exit(-1);
+        }
+    }
+    else
+    {
+        vpdFile.seekg(offset, ios_base::cur);
+        vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), maxVPDSize);
+        vpdVector.resize(vpdFile.gcount());
+
+        resetEEPROMPointer(js, file, vpdFile);
+    }
 
     return vpdVector;
 }
@@ -1228,8 +1297,10 @@ int main(int argc, char** argv)
             cerr << "The EEPROM path <" << file << "> is not valid.";
             return 0;
         }
+
         if (js["frus"].find(file) == js["frus"].end())
         {
+            cerr << "This eeprom path <" << file << "> is not defined in json";
             return 0;
         }
 
@@ -1303,13 +1374,22 @@ int main(int argc, char** argv)
     }
     catch (const VpdDataException& ex)
     {
-        additionalData.emplace("DESCRIPTION", "Invalid VPD data");
-        additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                               INVENTORY_PATH + baseFruInventoryPath);
-        createPEL(additionalData, pelSeverity, errIntfForInvalidVPD);
-        dumpBadVpd(file, vpdVector);
-        cerr << ex.what() << "\n";
-        rc = -1;
+        if (isThisPcieOnPass1planar(js, file))
+        {
+            cout << "Pcie_device - <" << file
+                 << ">'s vpd data is not valid on PASS1 planar.";
+            exit(0);
+        }
+        else
+        {
+            additionalData.emplace("DESCRIPTION", "Invalid VPD data");
+            additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                   INVENTORY_PATH + baseFruInventoryPath);
+            createPEL(additionalData, pelSeverity, errIntfForInvalidVPD);
+            dumpBadVpd(file, vpdVector);
+            cerr << ex.what() << "\n";
+            rc = -1;
+        }
     }
     catch (const exception& e)
     {
