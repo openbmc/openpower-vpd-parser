@@ -20,6 +20,7 @@ using namespace openpower::vpd::exceptions;
 Binary VpdTool::toBinary(const std::string& value)
 {
     Binary val{};
+
     if (value.find("0x") == string::npos)
     {
         val.assign(value.begin(), value.end());
@@ -30,20 +31,18 @@ Binary VpdTool::toBinary(const std::string& value)
         ss.str(value.substr(2));
         string byteStr{};
 
-        while (!ss.eof())
+        while (ss >> setw(2) >> byteStr)
         {
-            ss >> setw(2) >> byteStr;
             uint8_t byte = strtoul(byteStr.c_str(), nullptr, 16);
-
             val.push_back(byte);
         }
     }
-
     else
     {
         throw runtime_error("The value to be updated should be either in ascii "
                             "or in hex. Refer --help option");
     }
+
     return val;
 }
 
