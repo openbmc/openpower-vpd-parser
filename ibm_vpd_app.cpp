@@ -369,11 +369,74 @@ static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
     ifstream vpdFile;
     vpdFile.open(file, ios::binary);
 
-    vpdFile.seekg(offset, ios_base::cur);
-    vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), maxVPDSize);
-    vpdVector.resize(vpdFile.gcount());
+    // Check if it is a PCIE device
+    auto isThisPCIeDev = false;
+    if (js["frus"].find(file) != js["frus"].end())
+    {
+        if ((js["frus"][file].find("extraInterfaces") !=
+             js["frus"][file].end()))
+        {
+            if (js["frus"][file]["extraInterfaces"].find(
+                    "xyz.openbmc_project.Inventory.Item.PCIeDevice") !=
+                js["frus"][file]["extraInterfaces"].end())
+            {
+                isThisPCIeDev = true;
+            }
+        }
+    }
 
-    resetEEPROMPointer(js, file, vpdFile);
+    // collect SystemType if it is PASS1 planar?
+    auto itIsPASS1 = false;
+
+    auto bus = sdbusplus::bus::new_default();
+    auto properties = bus.new_method_call(
+        "xyz.openbmc_project.Inventory.Manager",
+        "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+        "org.freedesktop.DBus.Properties", "Get");
+    properties.append("com.ibm.ipzvpd.VINI");
+    properties.append("HW");
+    auto result = bus.call(properties);
+    if (!result.is_method_error())
+    {
+        inventory::Value val;
+        result.read(val);
+        if (auto pVal = get_if<Binary>(&val))
+        {
+            auto hwVersion = *pVal;
+            uint16_t hw = (0x00 << 8) | hwVersion[1];
+            if (hw < 2)
+                itIsPASS1 = true;
+        }
+    }
+
+    if (vpdFile.peek() == std::ifstream::traits_type::eof())
+    {
+        if ((isThisPCIeDev) && (itIsPASS1))
+        {
+            cout << "This pcie_device eeprom- <" << file
+                 << "> is not present on PASS1 planar.";
+            exit(0);
+        }
+        else
+        {
+            // logging pel
+            string errMsg =
+                "The EEPROM path <" + file + "> is not valid. File is empty";
+            PelAdditionalData additionalData{};
+            additionalData.emplace("DESCRIPTION", errMsg);
+            createPEL(additionalData, PelSeverity::WARNING,
+                      errIntfForInvalidVPD);
+            exit(-1);
+        }
+    }
+    else
+    {
+        vpdFile.seekg(offset, ios_base::cur);
+        vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), maxVPDSize);
+        vpdVector.resize(vpdFile.gcount());
+
+        resetEEPROMPointer(js, file, vpdFile);
+    }
 
     return vpdVector;
 }
@@ -1292,8 +1355,10 @@ int main(int argc, char** argv)
             cerr << "The EEPROM path <" << file << "> is not valid.";
             return 0;
         }
+
         if (js["frus"].find(file) == js["frus"].end())
         {
+            cerr << "This eeprom path <" << file << "> is not defined in json";
             return 0;
         }
 
