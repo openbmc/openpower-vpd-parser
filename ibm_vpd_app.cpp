@@ -338,6 +338,57 @@ static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
     Binary vpdVector;
     vpdVector.resize(65504);
     ifstream vpdFile;
+
+    // collect FRU TYPE ,if it PCIE device? process json
+    auto isThisPCIeDev = false;
+    if (js["frus"].find(file) != js["frus"].end())
+    {
+        if ((js["frus"][file].find("extraInterfaces") !=
+             js["frus"][file].end()))
+        {
+            if (js["frus"][file]["extraInterfaces"].find(
+                    "xyz.openbmc_project.Inventory.Item.PCIeDevice") !=
+                js["frus"][file]["extraInterfaces"].end())
+            {
+                isThisPCIeDev = true;
+            }
+        }
+    }
+
+    // collect SystemType if it is PASS1 planar?
+    auto itIsPASS1 = false;
+#if 0
+	string interface = ipzVpdInf;
+	interface += "CRP0"; // TODO : CRP0 not populating on dbus, so can't read
+        const string& ddVersion = readBusProperty(
+                        "/system", interface, "DD");
+	if(!ddVersion.empty())
+	{
+	    auto planerType = atoi(ddVersion.substr(1, 2).c_str());
+	    if (planerType < 2)
+ 	        itIsPASS1 = true;
+	}
+#endif
+
+    if (vpdFile.peek() == std::ifstream::traits_type::eof())
+    {
+        if ((isThisPCIeDev) && (itIsPASS1))
+        {
+            cerr << "This pcie_device eeprom- <" << file
+                 << "> is not present on PASS1.";
+            exit(0);
+        }
+        else
+        {
+            // logging pel
+            string errMsg =
+                "The EEPROM path <" + file + "> is not valid. File is empty";
+            PelAdditionalData additionalData{};
+            additionalData.emplace("DESCRIPTION", errMsg);
+            createPEL(additionalData, PelSeverity::ERROR, errIntfForInvalidVPD);
+            exit(-1);
+        }
+    }
     vpdFile.open(file, ios::binary);
 
     vpdFile.seekg(offset, ios_base::cur);
@@ -1223,13 +1274,57 @@ int main(int argc, char** argv)
             }
         }
 
+        // collect FRU TYPE ,if it PCIE device? process json
+        auto isThisPCIeDev = false;
+        if (js["frus"].find(file) != js["frus"].end())
+        {
+            if ((js["frus"][file].find("extraInterfaces") !=
+                 js["frus"][file].end()))
+            {
+                if (js["frus"][file]["extraInterfaces"].find(
+                        "xyz.openbmc_project.Inventory.Item.PCIeDevice") !=
+                    js["frus"][file]["extraInterfaces"].end())
+                {
+                    isThisPCIeDev = true;
+                }
+            }
+        }
+
+        // collect SystemType if it is PASS1 planar? from system vpd
+        auto itIsPASS1 = false;
+        string interface = ipzVpdInf;
+        interface += "CRP0";
+        const string& ddVersion = readBusProperty("/system", interface, "DD");
+        if (!ddVersion.empty())
+        {
+            auto planerType = atoi(ddVersion.substr(1, 2).c_str());
+            if (planerType < 2)
+                itIsPASS1 = true;
+        }
+
         if (file.empty())
         {
-            cerr << "The EEPROM path <" << file << "> is not valid.";
-            return 0;
+            if ((isThisPCIeDev) && (itIsPASS1))
+            {
+                cerr << "This pcie_device eeprom- <" << file
+                     << "> is not present on PASS1.";
+                return 0;
+            }
+            else
+            {
+                // logging pel
+                string errMsg = "The EEPROM path <" + file +
+                                "> is not valid. File is empty";
+                PelAdditionalData additionalData{};
+                additionalData.emplace("DESCRIPTION", errMsg);
+                createPEL(additionalData, PelSeverity::ERROR,
+                          errIntfForInvalidVPD);
+                return -1;
+            }
         }
         if (js["frus"].find(file) == js["frus"].end())
         {
+            cerr << "This eeprom path <" << file << "> is not defined in json";
             return 0;
         }
 
