@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09b2a319_1590a679",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-12-17T09:55:13Z",
+      "side": 1,
+      "message": "Please change the severity to Predictive.\nPlease add a callout (by inventory path) since every predictive PEL must have a callout.",
+      "revId": "30899c141a7bbd03a44e908e74fb39213e7f492f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bab978e0_ffe5060a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-12-17T09:55:13Z",
+      "side": 1,
+      "message": "Please remove this and read the HW keyword off of the planar. DD level of the processor does not tell us about the planar pass.",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 371,
+        "endChar": 6
+      },
+      "revId": "30899c141a7bbd03a44e908e74fb39213e7f492f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20e80903_1c2287f7",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-12-17T09:55:13Z",
+      "side": 1,
+      "message": "Please remove and revert to what we had before.",
+      "range": {
+        "startLine": 1307,
+        "startChar": 0,
+        "endLine": 1323,
+        "endChar": 13
+      },
+      "revId": "30899c141a7bbd03a44e908e74fb39213e7f492f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
