@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "fd2d0bec_b379f4b6",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2021-12-21T13:56:39Z",
+      "side": 1,
+      "message": "This is not enough explanation. Please explain why either in the commit message or in a comment.",
+      "parentUuid": "05ed60e1_a07f6e96",
+      "range": {
+        "startLine": 368,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 5
+      },
+      "revId": "8953ae3ed438208898f951d9b0a083d647b8a8ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2b767e94_19ce1a85",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 1
