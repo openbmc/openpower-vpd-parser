@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fdb8c5ca_da011f97",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-12-21T11:45:13Z",
+      "side": 1,
+      "message": "changed it to char ch.",
+      "parentUuid": "ddb134d3_abbd2442",
+      "revId": "8953ae3ed438208898f951d9b0a083d647b8a8ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "523e0d60_6002831b",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "05ed60e1_a07f6e96",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-12-21T11:45:13Z",
+      "side": 1,
+      "message": "yes.. needed.",
+      "parentUuid": "523e0d60_6002831b",
+      "range": {
+        "startLine": 368,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 5
+      },
+      "revId": "8953ae3ed438208898f951d9b0a083d647b8a8ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2b767e94_19ce1a85",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 1
@@ -53,6 +95,30 @@
       "writtenOn": "2021-12-21T06:47:42Z",
       "side": 1,
       "message": "Why was this changed?",
+      "range": {
+        "startLine": 379,
+        "startChar": 37,
+        "endLine": 379,
+        "endChar": 44
+      },
+      "revId": "8953ae3ed438208898f951d9b0a083d647b8a8ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dda3d11d_fd4cdacf",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-12-21T11:45:13Z",
+      "side": 1,
+      "message": "reverted back",
+      "parentUuid": "2b767e94_19ce1a85",
       "range": {
         "startLine": 379,
         "startChar": 37,
