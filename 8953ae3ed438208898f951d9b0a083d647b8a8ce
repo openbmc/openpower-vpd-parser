@@ -108,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "db538a21_fd3b8590",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2021-12-22T05:49:34Z",
+      "side": 1,
+      "message": "The fail bit is getting set - when we try to read 65504 bytes from dimm vpd ( dimm actually has only 4096 bytes). This affects my testing, when I try to use tellg() which returns -1 rather than sending the current offset.",
+      "parentUuid": "fd2d0bec_b379f4b6",
+      "range": {
+        "startLine": 368,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 5
+      },
+      "revId": "8953ae3ed438208898f951d9b0a083d647b8a8ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2b767e94_19ce1a85",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 1
