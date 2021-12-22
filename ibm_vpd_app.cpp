@@ -334,14 +334,21 @@ static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
         }
     }
 
-    // TODO: Figure out a better way to get max possible VPD size.
+    // Get max possible vpd size
+    std::filesystem::path filePath = file;
+    size_t maxVPDSize = std::filesystem::file_size(filePath);
+    if (maxVPDSize > 65504)
+    {
+        maxVPDSize = 65504;
+    }
+
     Binary vpdVector;
-    vpdVector.resize(65504);
+    vpdVector.resize(maxVPDSize);
     ifstream vpdFile;
     vpdFile.open(file, ios::binary);
 
     vpdFile.seekg(offset, ios_base::cur);
-    vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), 65504);
+    vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), maxVPDSize);
     vpdVector.resize(vpdFile.gcount());
 
     return vpdVector;
