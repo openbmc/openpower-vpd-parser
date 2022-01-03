@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "ca533a7f_e5cc807f",
         "filename": "ibm_vpd_app.cpp",
@@ -14,8 +15,30 @@
       "side": 1,
       "message": "I know I can make use of readBusProperty(), which I did. but it\u0027s returning me empty string (it returns everything in form of string)\nafter doing it here, it worked fine.",
       "revId": "d7ef9233166a3082f8d0cd333a611fb02e6e127b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62999b9f_61241fc8",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-03T05:36:42Z",
+      "side": 1,
+      "message": "Why is this DD level checking code still here?",
+      "range": {
+        "startLine": 1304,
+        "startChar": 1,
+        "endLine": 1314,
+        "endChar": 9
+      },
+      "revId": "d7ef9233166a3082f8d0cd333a611fb02e6e127b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
