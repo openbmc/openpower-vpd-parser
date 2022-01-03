@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1754a92f_04c175fd",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-03T09:15:03Z",
+      "side": 0,
+      "message": "This TODO should still stay. It was referring to the 65504 number.",
+      "revId": "26d6c146d265de6f0b6b66baf3951298c0418a67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

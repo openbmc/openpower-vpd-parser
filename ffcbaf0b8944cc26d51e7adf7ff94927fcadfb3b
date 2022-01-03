@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e4db9f5_740138fd",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-03T09:15:03Z",
+      "side": 1,
+      "message": "This can be more succinctly written as:\n`std::min(std::filesystem::file_size(file), 64404)`",
+      "range": {
+        "startLine": 338,
+        "startChar": 1,
+        "endLine": 343,
+        "endChar": 5
+      },
+      "revId": "ffcbaf0b8944cc26d51e7adf7ff94927fcadfb3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
