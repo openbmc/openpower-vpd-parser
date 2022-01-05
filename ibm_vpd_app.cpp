@@ -1010,6 +1010,31 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         }
     }
 
+    if (isSystemVpd)
+    {
+        string systemJsonName{};
+        if constexpr (is_same<T, Parsed>::value)
+        {
+            // pick the right system json
+            systemJsonName = getSystemsJson(vpdMap);
+        }
+
+        fs::path target = systemJsonName;
+        fs::path link = INVENTORY_JSON_SYM_LINK;
+
+        // Create the directory for hosting the symlink
+        fs::create_directories(VPD_FILES_PATH);
+        // unlink the symlink previously created (if any)
+        remove(INVENTORY_JSON_SYM_LINK);
+        // create a new symlink based on the system
+        fs::create_symlink(target, link);
+
+        // Reloading the json
+        ifstream inventoryJson(link);
+        js = json::parse(inventoryJson);
+        inventoryJson.close();
+    }
+
     for (const auto& item : js["frus"][filePath])
     {
         const auto& objectPath = item["inventoryPath"];
@@ -1103,28 +1128,6 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 
     if (isSystemVpd)
     {
-        string systemJsonName{};
-        if constexpr (is_same<T, Parsed>::value)
-        {
-            // pick the right system json
-            systemJsonName = getSystemsJson(vpdMap);
-        }
-
-        fs::path target = systemJsonName;
-        fs::path link = INVENTORY_JSON_SYM_LINK;
-
-        // Create the directory for hosting the symlink
-        fs::create_directories(VPD_FILES_PATH);
-        // unlink the symlink previously created (if any)
-        remove(INVENTORY_JSON_SYM_LINK);
-        // create a new symlink based on the system
-        fs::create_symlink(target, link);
-
-        // Reloading the json
-        ifstream inventoryJson(link);
-        auto js = json::parse(inventoryJson);
-        inventoryJson.close();
-
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
 
