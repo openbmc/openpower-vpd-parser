@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ec0c60d_e57b8e26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-05T09:14:52Z",
+      "side": 1,
+      "message": "reorders**",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "0e22cb66c041ecfe1b51ca934f90e23a093d7cb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05277841_2f4a825a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-05T09:14:52Z",
+      "side": 1,
+      "message": "Please split these lines",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 73
+      },
+      "revId": "0e22cb66c041ecfe1b51ca934f90e23a093d7cb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a71c751_d0e129cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-05T09:14:52Z",
+      "side": 1,
+      "message": "Looks good, just a couple nits",
+      "revId": "0e22cb66c041ecfe1b51ca934f90e23a093d7cb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
