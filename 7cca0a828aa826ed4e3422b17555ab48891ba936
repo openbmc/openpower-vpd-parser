@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e271f301_b3799522",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-01-05T09:11:42Z",
+      "side": 1,
+      "message": "please mention the PCIE device and PASS 1 planar override",
+      "revId": "7cca0a828aa826ed4e3422b17555ab48891ba936",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c5b0797_c4589aa3",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-01-05T09:11:42Z",
+      "side": 1,
+      "message": "is this an error ?",
+      "range": {
+        "startLine": 387,
+        "startChar": 12,
+        "endLine": 387,
+        "endChar": 17
+      },
+      "revId": "7cca0a828aa826ed4e3422b17555ab48891ba936",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
