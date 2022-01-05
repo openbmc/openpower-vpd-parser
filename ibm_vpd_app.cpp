@@ -249,6 +249,7 @@ static void populateInterfaces(const nlohmann::json& js,
                             itr.value().get<string>(), vpdMap, isSystemVpd);
                         props.emplace(busProp, prop);
                         interfaces.emplace(XYZ_LOCATION_CODE_INF, props);
+                        interfaces.emplace(IBM_LOCATION_CODE_INF, props);
                     }
                     else
                     {
