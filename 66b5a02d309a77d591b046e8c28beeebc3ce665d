@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06fddb9b_121495db",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-01-06T13:06:22Z",
+      "side": 1,
+      "message": "Suggestion:\nEven though it is a CPP file, If we are describing about the api, why not follow the standard doxygen way? That looks neat.",
+      "range": {
+        "startLine": 325,
+        "startChar": 0,
+        "endLine": 326,
+        "endChar": 42
+      },
+      "revId": "66b5a02d309a77d591b046e8c28beeebc3ce665d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
