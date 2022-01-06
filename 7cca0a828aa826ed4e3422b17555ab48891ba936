@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df3bf3b8_16b6f69f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-06T11:08:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e271f301_b3799522",
+      "revId": "7cca0a828aa826ed4e3422b17555ab48891ba936",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27b771d5_8fd1c00b",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-01-05T11:58:59Z",
       "side": 1,
       "message": "We should be ignoring the MSB - If you recall, we did the same when setting the right dev tree too.",
+      "range": {
+        "startLine": 377,
+        "startChar": 12,
+        "endLine": 379,
+        "endChar": 33
+      },
+      "revId": "7cca0a828aa826ed4e3422b17555ab48891ba936",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "834e2c14_dffb753e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-06T11:08:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "27b771d5_8fd1c00b",
       "range": {
         "startLine": 377,
         "startChar": 12,
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ce39f969_680c1c2a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-06T11:08:28Z",
+      "side": 1,
+      "message": "All other cases are logging PEL as part of catch",
+      "parentUuid": "c2d953f2_ba64b583",
+      "revId": "7cca0a828aa826ed4e3422b17555ab48891ba936",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c5b0797_c4589aa3",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 4
@@ -71,6 +131,30 @@
       "writtenOn": "2022-01-05T09:11:42Z",
       "side": 1,
       "message": "is this an error ?",
+      "range": {
+        "startLine": 387,
+        "startChar": 12,
+        "endLine": 387,
+        "endChar": 17
+      },
+      "revId": "7cca0a828aa826ed4e3422b17555ab48891ba936",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b949742f_0b1ef1e2",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-06T11:08:28Z",
+      "side": 1,
+      "message": "nope. will correct it.",
+      "parentUuid": "3c5b0797_c4589aa3",
       "range": {
         "startLine": 387,
         "startChar": 12,
