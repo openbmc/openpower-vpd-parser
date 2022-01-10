@@ -992,6 +992,34 @@ void doEnableAllDimms(nlohmann::json& js)
 }
 
 /**
+ * @brief Check if the given CPU is an IO only chip.
+ * The CPU is termed as IO, whose all of the cores are bad and can never be
+ * used. Those CPU chips can be used for IO purpose like connecting PCIe devices
+ * etc., The CPU whose every cores are bad, can be identified from the CP00
+ * record's PG keyword, only if all of the 8 EQs' value equals 0xE7F9FF. (1EQ
+ * has 4 cores grouped together by sharing its cache memory.)
+ * @param [in] pgKeyword - PG Keyword of CPU.
+ * @return true if the given cpu is an IO, false otherwise.
+ */
+static bool isCPUIOGoodOnly(const string& pgKeyword)
+{
+    const unsigned char io[] = {0xE7, 0xF9, 0xFF, 0xE7, 0xF9, 0xFF, 0xE7, 0xF9,
+                                0xFF, 0xE7, 0xF9, 0xFF, 0xE7, 0xF9, 0xFF, 0xE7,
+                                0xF9, 0xFF, 0xE7, 0xF9, 0xFF, 0xE7, 0xF9, 0xFF};
+    // EQ0 index (in PG keyword) starts at 97 (with offset starting from 0).
+    // Each EQ carries 3 bytes of data. Totally there are 8 EQs. If all EQs'
+    // value equals 0xE7F9FF, then the cpu has no good cores and its treated as
+    // IO.
+    if (memcmp(io, pgKeyword.data() + 97, 24) == 0)
+    {
+        return true;
+    }
+
+    // The CPU is not an IO
+    return false;
+}
+
+/**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
  * and notifies PIM about dbus object.
@@ -1167,6 +1195,18 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         {
             populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
                                isSystemVpd);
+            if constexpr (is_same<T, Parsed>::value)
+            {
+                if (item["extraInterfaces"].find(
+                        "xyz.openbmc_project.Inventory.Item.Cpu") !=
+                    item["extraInterfaces"].end())
+                {
+                    if (isCPUIOGoodOnly(getKwVal(vpdMap, "CP00", "PG")))
+                    {
+                        interfaces[invItemIntf]["PrettyName"] = "IO";
+                    }
+                }
+            }
         }
         inventory::PropertyMap presProp;
         presProp.emplace("Present", true);
