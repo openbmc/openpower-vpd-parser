@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "858796ff_2ca5c631",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-01-10T04:21:00Z",
+      "side": 1,
+      "message": "I think max size mayn\u0027t be in need, except for checking",
+      "revId": "923216e7d9931f474d535e0769e73f3ec37243c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d622c779_0487c3b5",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-01-10T04:21:00Z",
+      "side": 1,
+      "message": "Only file size should be good, I think and of more than max size then may be an error should be good?",
+      "range": {
+        "startLine": 338,
+        "startChar": 4,
+        "endLine": 338,
+        "endChar": 63
+      },
+      "revId": "923216e7d9931f474d535e0769e73f3ec37243c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
