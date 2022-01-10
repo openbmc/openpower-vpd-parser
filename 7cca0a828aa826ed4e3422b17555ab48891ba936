@@ -120,6 +120,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "61be4597_a72c29c8",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-10T11:42:26Z",
+      "side": 1,
+      "message": "Those cases need to be handled too. AT least in one case, I saw a non IBM pcie card show up with all FF\u0027s in its VPD.",
+      "parentUuid": "ce39f969_680c1c2a",
+      "revId": "7cca0a828aa826ed4e3422b17555ab48891ba936",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c5b0797_c4589aa3",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 4
