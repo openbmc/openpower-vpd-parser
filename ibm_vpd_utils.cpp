@@ -157,6 +157,25 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
     return propVal;
 }
 
+variant<Binary> getBusProperty(const string& object, const string& inf,
+                               const string& prop)
+{
+    auto bus = sdbusplus::bus::new_default();
+    auto properties = bus.new_method_call(
+        "xyz.openbmc_project.Inventory.Manager", object.c_str(),
+        "org.freedesktop.DBus.Properties", "Get");
+    properties.append(inf);
+    properties.append(prop);
+    auto result = bus.call(properties);
+    if (result.is_method_error())
+    {
+        throw runtime_error("Get Api failed.");
+    }
+    variant<Binary> response;
+    result.read(response);
+    return response;
+}
+
 void createPEL(const std::map<std::string, std::string>& additionalData,
                const Severity& sev, const std::string& errIntf)
 {
