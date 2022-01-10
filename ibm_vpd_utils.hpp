@@ -260,5 +260,17 @@ string getPrintableValue(const Binary& vec);
  */
 string byteArrayToHexString(const Binary& vec);
 
+/**
+ * @brief Reads a property from the inventory manager given object path,
+ * interface and property.
+ * @param[in] object - object path
+ * @param[in] inf - interface
+ * @param[in] prop - property whose value is fetched
+ *
+ * @return result of the read operation.
+ */
+std::variant<Binary> getBusProperty(const string& object, const string& inf,
+                                    const string& prop);
+
 } // namespace vpd
 } // namespace openpower

@@ -973,6 +973,39 @@ void doEnableAllDimms(nlohmann::json& js)
 }
 
 /**
+ * @brief Check if the given CPU is an IO only chip.
+ * The CPU is termed as IO, whose all of the cores are bad and can never be
+ * used. Those CPU chips can be used for IO purpose like connecting PCIe devices
+ * etc., The CPU whose every cores are bad, can be identified from the CP00
+ * record's PG keyword, only if all of the 8 EQs' value equals 0xE7F9FF. (1EQ
+ * has 4 cores grouped together by sharing its cache memory.)
+ * @param [in] pgKeyword - PG Keyword of CPU.
+ * @return true if the given cpu is an IO, false otherwise.
+ */
+bool isCPUAnIO(const string& pgKeyword)
+{
+    constexpr std::string ioVal{0xE7, 0xF9, 0xFF};
+    // EQ0 index (in PG keyword) starts at 97 (with offset starting from 0).
+    // Each EQ carries 3 bytes of data. Totally there are 8 EQs. If all EQs'
+    // value equals 0xE7F9FF, then the cpu has no good cores and its treated as
+    // IO.
+    if ((pgKeyword.substr(97, 3) == ioVal) &&
+        (pgKeyword.substr(100, 3) == ioVal) &&
+        (pgKeyword.substr(103, 3) == ioVal) &&
+        (pgKeyword.substr(106, 3) == ioVal) &&
+        (pgKeyword.substr(109, 3) == ioVal) &&
+        (pgKeyword.substr(112, 3) == ioVal) &&
+        (pgKeyword.substr(115, 3) == ioVal) &&
+        (pgKeyword.substr(118, 3) == ioVal))
+    {
+        return true;
+    }
+
+    // The CPU is not an IO
+    return false;
+}
+
+/**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
  * and notifies PIM about dbus object.
@@ -1151,6 +1184,20 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             {
                 populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
                                    isSystemVpd);
+                if constexpr (is_same<T, Parsed>::value)
+                {
+                    for (const auto& eiItems : item["extraInterfaces"].items())
+                    {
+                        if (eiItems.key() ==
+                            "xyz.openbmc_project.Inventory.Item.Cpu")
+                        {
+                            if (isCPUAnIO(getKwVal(vpdMap, "CP00", "PG")))
+                            {
+                                interfaces[invItemIntf]["PrettyName"] = "IO";
+                            }
+                        }
+                    }
+                }
             }
         }
         objects.emplace(move(object), move(interfaces));
