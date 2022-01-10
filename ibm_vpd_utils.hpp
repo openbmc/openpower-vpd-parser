@@ -260,5 +260,35 @@ string getPrintableValue(const Binary& vec);
  */
 string byteArrayToHexString(const Binary& vec);
 
+/**
+ * @brief Performs any pre-action needed to get the FRU setup for collection.
+ *
+ * @param[in] json - json object
+ * @param[in] file - eeprom file path
+ * @return - success or failure
+ */
+bool executePreAction(const nlohmann::json& json, const string& file);
+
+/**
+ * @brief This API will be called at the end of VPD collection to perform any
+ * post actions.
+ *
+ * @param[in] json - json object
+ * @param[in] file - eeprom file path
+ */
+void executePostFailAction(const nlohmann::json& json, const string& file);
+
+/**
+ * @brief Reads a property from the inventory manager given object path,
+ * interface and property.
+ * @param[in] object - object path
+ * @param[in] inf - interface
+ * @param[in] prop - property whose value is fetched
+ *
+ * @return result of the read operation.
+ */
+std::variant<Binary> getBusProperty(const string& object, const string& inf,
+                                    const string& prop);
+
 } // namespace vpd
 } // namespace openpower
