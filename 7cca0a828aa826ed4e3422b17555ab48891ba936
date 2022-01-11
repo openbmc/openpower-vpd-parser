@@ -138,6 +138,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "816fc5cc_b8888249",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-11T05:49:15Z",
+      "side": 1,
+      "message": "Yes, I have seen that all FF vpd data so many times.\nWill that not be handled as part of line- 1400-1406??",
+      "parentUuid": "61be4597_a72c29c8",
+      "revId": "7cca0a828aa826ed4e3422b17555ab48891ba936",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c5b0797_c4589aa3",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 4
