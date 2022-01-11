@@ -1088,9 +1088,11 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             continue;
         }
 
-        if (isSystemVpd)
+        if ((isSystemVpd) || (item.value("noprime", false)))
         {
-            // Populate one time properties for the system VPD and its sub-frus.
+
+            // Populate one time properties for the system VPD and its sub-frus
+            // and for other non-primeable frus.
             // For the remaining FRUs, this will get handled as a part of
             // priming the inventory.
             setOneTimeProperties(objectPath, interfaces);
