@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b964648_6b85aeb7",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-11T08:21:26Z",
+      "side": 1,
+      "message": "Please retrieve this from the VPD map instead of making a D-Bus call.",
+      "revId": "6d6a8718a2c6f797e5662a082637b48994b879d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a19a0c01_1a716429",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-11T08:21:26Z",
+      "side": 1,
+      "message": "constexpr?",
+      "revId": "6d6a8718a2c6f797e5662a082637b48994b879d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f66ccf4_2abea00a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-11T08:21:26Z",
+      "side": 1,
+      "message": "We shouldn\u0027t need this temporary eq variable. You should be able to directly index into vec\u0027s data()",
+      "revId": "6d6a8718a2c6f797e5662a082637b48994b879d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ca21fc2_d6b88658",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-11T08:21:26Z",
+      "side": 1,
+      "message": "Please follow this up with a JSON change that removes the PrettyName from the commonInterfaces section, and adds a PrettyName to all of our FRUs.",
+      "revId": "6d6a8718a2c6f797e5662a082637b48994b879d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
