@@ -48,6 +48,14 @@ static const deviceTreeMap deviceTreeSystemTypeMap = {
     {RAINIER_1S4U, "conf-aspeed-bmc-ibm-rainier-1s4u.dtb"},
     {EVEREST, "conf-aspeed-bmc-ibm-everest.dtb"}};
 
+// Map to hold record, kwd pair which can be re-stored at standby.
+// The list of keywords for VSYS record is as per the S0 system. Should
+// be updated for another type of systems
+static std::unordered_map<std::string, std::vector<std::string>> svpdKwdMap{
+    {"VSYS", {"BR", "TM", "SE", "SU", "RB"}},
+    {"VCEN", {"FC", "SE"}},
+    {"LXR0", {"LX"}}};
+
 /**
  * @brief Returns the power state for chassis0
  */
@@ -762,25 +770,63 @@ void updateHardware(const string& objectName, const string& recName,
 }
 
 /**
+ * @brief An api to get list of blank system VPD properties.
+ * @param[in] vpdMap - IPZ vpd map.
+ * @param[in] objectPath - Object path for the FRU.
+ * @param[out] updatedEeproms - records and keywords which are blank in System
+ * VPD and needs to be updated as standby.
+ */
+void getListOfBlankSystemVpd(Parsed& vpdMap, const string& objectPath,
+                             std::vector<RestoredEeproms>& blankPropertyList)
+{
+    for (const auto& systemRecKwdPair : svpdKwdMap)
+    {
+        auto it = vpdMap.find(systemRecKwdPair.first);
+
+        // check if record is found in map we got by parser
+        if (it != vpdMap.end())
+        {
+            const auto& kwdListForRecord = systemRecKwdPair.second;
+            for (const auto& keyword : kwdListForRecord)
+            {
+                DbusPropertyMap& kwdValMap = it->second;
+                auto iterator = kwdValMap.find(keyword);
+
+                if (iterator != kwdValMap.end())
+                {
+                    string& kwdValue = iterator->second;
+
+                    // check bus data
+                    const string& recordName = systemRecKwdPair.first;
+                    const string& busValue = readBusProperty(
+                        objectPath, ipzVpdInf + recordName, keyword);
+
+                    if (busValue.find_first_not_of(' ') != string::npos)
+                    {
+                        if (kwdValue.find_first_not_of(' ') == string::npos)
+                        {
+                            // implies data is blank on EEPROM but not on cache.
+                            // So EEPROM vpd update is required.
+                            Binary busData(busValue.begin(), busValue.end());
+
+                            blankPropertyList.push_back(std::make_tuple(
+                                objectPath, recordName, keyword, busData));
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
  * @brief API to check if we need to restore system VPD
  * This functionality is only applicable for IPZ VPD data.
  * @param[in] vpdMap - IPZ vpd map
  * @param[in] objectPath - Object path for the FRU
- * @return EEPROMs with records and keywords updated at standby
  */
-std::vector<RestoredEeproms> restoreSystemVPD(Parsed& vpdMap,
-                                              const string& objectPath)
+void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
 {
-    // the list of keywords for VSYS record is as per the S0 system. Should be
-    // updated for another type of systems
-    static std::unordered_map<std::string, std::vector<std::string>> svpdKwdMap{
-        {"VSYS", {"BR", "TM", "SE", "SU", "RB"}},
-        {"VCEN", {"FC", "SE"}},
-        {"LXR0", {"LX"}}};
-
-    // vector to hold all the EEPROMs updated at standby
-    std::vector<RestoredEeproms> updatedEeproms = {};
-
     for (const auto& systemRecKwdPair : svpdKwdMap)
     {
         auto it = vpdMap.find(systemRecKwdPair.first);
@@ -833,12 +879,9 @@ std::vector<RestoredEeproms> restoreSystemVPD(Parsed& vpdMap,
                             // update the map
                             Binary busData(busValue.begin(), busValue.end());
 
-                            updatedEeproms.push_back(std::make_tuple(
-                                objectPath, recordName, keyword, busData));
-
-                            // update the map as well, so that cache data is not
-                            // updated as blank while populating VPD map on Dbus
-                            // in populateDBus Api
+                            // update the map as well, so that cache data is
+                            // not updated as blank while populating VPD map
+                            // on Dbus in populateDBus Api
                             kwdValue = busValue;
                         }
                     }
@@ -867,8 +910,6 @@ std::vector<RestoredEeproms> restoreSystemVPD(Parsed& vpdMap,
             }
         }
     }
-
-    return updatedEeproms;
 }
 
 /**
@@ -912,8 +953,8 @@ bool isThisPrimaryProcessor(nlohmann::json& js, const string& filePath)
 }
 
 /**
- * @brief This finds DIMM vpd in vpd json and enables them by binding the device
- *        driver
+ * @brief This finds DIMM vpd in vpd json and enables them by binding the
+ * device driver
  * @param[in] js- vpd json to iterate through and take action if it is DIMM
  */
 void doEnableAllDimms(nlohmann::json& js)
@@ -990,9 +1031,6 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     inventory::PropertyMap prop;
     string ccinFromVpd;
 
-    // map to hold all the keywords whose value has been changed at standby
-    vector<RestoredEeproms> updatedEeproms = {};
-
     bool isSystemVpd = (filePath == systemVpdFilePath);
     if constexpr (is_same<T, Parsed>::value)
     {
@@ -1014,7 +1052,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             if ((subTree.size() != 0) &&
                 (subTree.find(pimPath + mboardPath) != subTree.end()))
             {
-                updatedEeproms = restoreSystemVPD(vpdMap, mboardPath);
+                restoreSystemVPD(vpdMap, mboardPath);
             }
             else
             {
@@ -1090,9 +1128,9 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 
         if (isSystemVpd)
         {
-            // Populate one time properties for the system VPD and its sub-frus.
-            // For the remaining FRUs, this will get handled as a part of
-            // priming the inventory.
+            // Populate one time properties for the system VPD and its
+            // sub-frus. For the remaining FRUs, this will get handled as a
+            // part of priming the inventory.
             setOneTimeProperties(objectPath, interfaces);
         }
 
@@ -1144,9 +1182,9 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         }
         if (item.value("inheritEI", true))
         {
-            // Populate interfaces and properties that are common to every FRU
-            // and additional interface that might be defined on a per-FRU
-            // basis.
+            // Populate interfaces and properties that are common to every
+            // FRU and additional interface that might be defined on a
+            // per-FRU basis.
             if (item.find("extraInterfaces") != item.end())
             {
                 populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
@@ -1160,13 +1198,6 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     {
         inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
-
-        // if system VPD has been restored at standby, update the EEPROM
-        for (const auto& item : updatedEeproms)
-        {
-            updateHardware(get<0>(item), get<1>(item), get<2>(item),
-                           get<3>(item));
-        }
 
         // set the U-boot environment variable for device-tree
         if constexpr (is_same<T, Parsed>::value)
@@ -1219,8 +1250,8 @@ int main(int argc, char** argv)
     // map to hold additional data in case of logging pel
     PelAdditionalData additionalData{};
 
-    // this is needed to hold base fru inventory path in case there is ECC or
-    // vpd exception while parsing the file
+    // this is needed to hold base fru inventory path in case there is ECC
+    // or vpd exception while parsing the file
     std::string baseFruInventoryPath = {};
 
     // severity for PEL
@@ -1244,8 +1275,8 @@ int main(int argc, char** argv)
 
         auto jsonToParse = INVENTORY_JSON_DEFAULT;
 
-        // If the symlink exists, it means it has been setup for us, switch the
-        // path
+        // If the symlink exists, it means it has been setup for us, switch
+        // the path
         if (fs::exists(INVENTORY_JSON_SYM_LINK))
         {
             jsonToParse = INVENTORY_JSON_SYM_LINK;
@@ -1274,7 +1305,8 @@ int main(int argc, char** argv)
                                    jsonToParse));
         }
 
-        // Check if it's a udev path - patterned as(/ahb/ahb:apb/ahb:apb:bus@)
+        // Check if it's a udev path - patterned
+        // as(/ahb/ahb:apb/ahb:apb:bus@)
         if (file.find("/ahb:apb") != string::npos)
         {
             // Translate udev path to a generic /sys/bus/.. file path.
@@ -1283,6 +1315,58 @@ int main(int argc, char** argv)
             if ((js["frus"].find(file) != js["frus"].end()) &&
                 (file == systemVpdFilePath))
             {
+                // We need manager service active to process restoring of
+                // system VPD on hardware. So in case any system restore is
+                // required, update hardware in the second trigger of parser
+                // code for system vpd file path.
+
+                std::vector<std::string> interfaces{motherBoardInterface};
+
+                // call mapper to check for object path creation
+                MapperResponse subTree =
+                    getObjectSubtreeForInterfaces(pimPath, 0, interfaces);
+                string mboardPath =
+                    js["frus"][file].at(0).value("inventoryPath", "");
+
+                // Attempt system VPD restore if we have a motherboard
+                // object in the inventory.
+                if ((subTree.size() != 0) &&
+                    (subTree.find(pimPath + mboardPath) != subTree.end()))
+                {
+                    vpdVector = getVpdDataInVector(js, file);
+                    ParserInterface* parser =
+                        ParserFactory::getParser(vpdVector);
+                    variant<KeywordVpdMap, Store> parseResult;
+                    parseResult = parser->parse();
+
+                    if (auto pVal = get_if<Store>(&parseResult))
+                    {
+                        // map to hold all the keywords whose value is blank and
+                        // needs to be updated at standby.
+                        vector<RestoredEeproms> blankSystemVpdProperties{};
+                        getListOfBlankSystemVpd(pVal->getVpdMap(), mboardPath,
+                                                blankSystemVpdProperties);
+
+                        // if system VPD restore is required, update the
+                        // EEPROM
+                        for (const auto& item : blankSystemVpdProperties)
+                        {
+                            updateHardware(get<0>(item), get<1>(item),
+                                           get<2>(item), get<3>(item));
+                        }
+                    }
+                    else
+                    {
+                        std::cout << "Not a valid format to restore system VPD"
+                                  << std::endl;
+                    }
+                    // release the parser object
+                    ParserFactory::freeParser(parser);
+                }
+                else
+                {
+                    log<level::ERR>("No object path found");
+                }
                 return 0;
             }
         }
