@@ -93,6 +93,30 @@
       },
       "revId": "468b690e0108854aab61b2e9bd31e3069b304020",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f79e5a2d_5aeb93b1",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-12T12:20:41Z",
+      "side": 1,
+      "message": "You\u0027ll get that anyway by just doing if(hwVersion[1] \u003c 2). The two line above that if are unnecessary.",
+      "parentUuid": "4a7d1ffc_8acb7f61",
+      "range": {
+        "startLine": 387,
+        "startChar": 26,
+        "endLine": 387,
+        "endChar": 37
+      },
+      "revId": "468b690e0108854aab61b2e9bd31e3069b304020",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
