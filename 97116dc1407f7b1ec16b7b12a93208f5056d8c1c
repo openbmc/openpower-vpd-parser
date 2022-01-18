@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "646dff8b_82a15f52",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1189,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-18T06:29:12Z",
+      "side": 1,
+      "message": "Why do we need a for loop here when you could just index into extra interfaces using the key?",
+      "revId": "97116dc1407f7b1ec16b7b12a93208f5056d8c1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36e5d22e_934827e4",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1194,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-18T06:29:12Z",
+      "side": 1,
+      "message": "This copies the keyword into a string. This is unnecessary. Please directly index into the vpdMap to pull out a reference to the vec\u003cuint8\u003e.",
+      "range": {
+        "startLine": 1194,
+        "startChar": 42,
+        "endLine": 1194,
+        "endChar": 72
+      },
+      "revId": "97116dc1407f7b1ec16b7b12a93208f5056d8c1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d572d89_75e9846e",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-18T06:29:12Z",
+      "side": 1,
+      "message": "This function isn\u0027t needed anymore, right? Please remove from here as well as the cpp.",
+      "revId": "97116dc1407f7b1ec16b7b12a93208f5056d8c1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
