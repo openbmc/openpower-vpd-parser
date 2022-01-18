@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e97c61bc_32ec2d7f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-01-18T05:09:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b964648_6b85aeb7",
+      "revId": "6d6a8718a2c6f797e5662a082637b48994b879d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a19a0c01_1a716429",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-01-11T08:21:26Z",
       "side": 1,
       "message": "constexpr?",
+      "revId": "6d6a8718a2c6f797e5662a082637b48994b879d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de838e16_f66555bc",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-01-18T05:09:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a19a0c01_1a716429",
       "revId": "6d6a8718a2c6f797e5662a082637b48994b879d1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d1d1919_794b117d",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-01-18T05:09:02Z",
+      "side": 1,
+      "message": "removed.",
+      "parentUuid": "2f66ccf4_2abea00a",
+      "revId": "6d6a8718a2c6f797e5662a082637b48994b879d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2ca21fc2_d6b88658",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 2
@@ -65,6 +119,24 @@
       "writtenOn": "2022-01-11T08:21:26Z",
       "side": 1,
       "message": "Please follow this up with a JSON change that removes the PrettyName from the commonInterfaces section, and adds a PrettyName to all of our FRUs.",
+      "revId": "6d6a8718a2c6f797e5662a082637b48994b879d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce03f400_0d83e2e4",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-01-18T05:09:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2ca21fc2_d6b88658",
       "revId": "6d6a8718a2c6f797e5662a082637b48994b879d1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
