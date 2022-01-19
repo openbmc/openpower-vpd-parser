@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5d3eafb_842456e3",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-19T05:53:35Z",
+      "side": 1,
+      "message": "This whole section can be avoided if it is not a pcie device, please do so.",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 390,
+        "endChar": 5
+      },
+      "revId": "a898313ddb05e17e8af3031876160869216daaf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b834d7d_2113ca10",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1362,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-19T05:53:35Z",
+      "side": 1,
+      "message": "Please remove this whitespace change",
+      "revId": "a898313ddb05e17e8af3031876160869216daaf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63f143cc_668b189b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1365,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-19T05:53:35Z",
+      "side": 1,
+      "message": "Please remove this. We had this print earlier and it\u0027d cause a bunch of journal thrashing.",
+      "revId": "a898313ddb05e17e8af3031876160869216daaf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
