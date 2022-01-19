@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24baa9b4_b0e2092b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-19T19:10:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5d3eafb_842456e3",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 390,
+        "endChar": 5
+      },
+      "revId": "a898313ddb05e17e8af3031876160869216daaf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b834d7d_2113ca10",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61feca78_5b340d83",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1362,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-19T19:10:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b834d7d_2113ca10",
+      "revId": "a898313ddb05e17e8af3031876160869216daaf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63f143cc_668b189b",
@@ -54,6 +96,24 @@
       "writtenOn": "2022-01-19T05:53:35Z",
       "side": 1,
       "message": "Please remove this. We had this print earlier and it\u0027d cause a bunch of journal thrashing.",
+      "revId": "a898313ddb05e17e8af3031876160869216daaf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d90a0fef_4f4587a1",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1365,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-19T19:10:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63f143cc_668b189b",
       "revId": "a898313ddb05e17e8af3031876160869216daaf3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
