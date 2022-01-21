@@ -239,22 +239,24 @@ static void populateInterfaces(const nlohmann::json& js,
             }
             else if (itr.value().is_string())
             {
-                if constexpr (is_same<T, Parsed>::value)
+                if (busProp == "LocationCode" && inf == IBM_LOCATION_CODE_INF)
                 {
-                    if (busProp == "LocationCode" &&
-                        inf == IBM_LOCATION_CODE_INF)
+                    std::string prop;
+                    if constexpr (is_same<T, Parsed>::value)
                     {
                         // TODO deprecate the com.ibm interface later
-                        auto prop = expandLocationCode(
-                            itr.value().get<string>(), vpdMap, isSystemVpd);
-                        props.emplace(busProp, prop);
-                        interfaces.emplace(XYZ_LOCATION_CODE_INF, props);
-                        interfaces.emplace(IBM_LOCATION_CODE_INF, props);
+                        prop = expandLocationCode(itr.value().get<string>(),
+                                                  vpdMap, isSystemVpd);
                     }
-                    else
+                    else if constexpr (is_same<T, KeywordVpdMap>::value)
                     {
-                        props.emplace(busProp, itr.value().get<string>());
+                        // Send empty Parsed object to expandLocationCode api.
+                        prop = expandLocationCode(itr.value().get<string>(),
+                                                  Parsed{}, false);
                     }
+                    props.emplace(busProp, prop);
+                    interfaces.emplace(XYZ_LOCATION_CODE_INF, props);
+                    interfaces.emplace(IBM_LOCATION_CODE_INF, props);
                 }
                 else
                 {
