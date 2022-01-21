@@ -1142,15 +1142,21 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
                 }
             }
         }
-        if (item.value("inheritEI", true))
+        // Only for system-vpd file and for non-primeable frus, the extra
+        // interfaces might not get populated as part of priming the inventory.
+        // So populate the extra interfaces only for those two kinds.
+        if ((objectPath == SYSTEM_OBJECT) || (item.value("noprime", false)))
         {
-            // Populate interfaces and properties that are common to every FRU
-            // and additional interface that might be defined on a per-FRU
-            // basis.
-            if (item.find("extraInterfaces") != item.end())
+            if (item.value("inheritEI", true))
             {
-                populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
-                                   isSystemVpd);
+                // Populate interfaces and properties that are common to every
+                // FRU and additional interface that might be defined on a
+                // per-FRU basis.
+                if (item.find("extraInterfaces") != item.end())
+                {
+                    populateInterfaces(item["extraInterfaces"], interfaces,
+                                       vpdMap, isSystemVpd);
+                }
             }
         }
         objects.emplace(move(object), move(interfaces));
