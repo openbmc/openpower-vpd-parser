@@ -47,6 +47,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ff10b2f_0c5f7748",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-01-24T06:48:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b77e2d1_63c4cf7f",
+      "range": {
+        "startLine": 11,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 11
+      },
+      "revId": "df92af061f54e178d9168ae45a51f0679fd37e42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f1a660c_dd128597",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-01-24T06:48:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a349c992_3704e690",
+      "range": {
+        "startLine": 11,
+        "startChar": 45,
+        "endLine": 11,
+        "endChar": 52
+      },
+      "revId": "df92af061f54e178d9168ae45a51f0679fd37e42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eff630c5_43e815ee",
@@ -60,6 +108,24 @@
       "writtenOn": "2022-01-24T05:29:35Z",
       "side": 1,
       "message": "static const or even a constexpr?",
+      "revId": "df92af061f54e178d9168ae45a51f0679fd37e42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00484524_a8fd69dc",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-01-24T06:48:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eff630c5_43e815ee",
       "revId": "df92af061f54e178d9168ae45a51f0679fd37e42",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -89,6 +155,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81386ec4_144e29e0",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-01-24T06:48:10Z",
+      "side": 1,
+      "message": "This still restores the data in Map before populating on Dbus. So kept it as it. \nLet me know if the reason is good enough.",
+      "parentUuid": "438bdabe_09a7fa51",
+      "range": {
+        "startLine": 828,
+        "startChar": 5,
+        "endLine": 828,
+        "endChar": 21
+      },
+      "revId": "df92af061f54e178d9168ae45a51f0679fd37e42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a701e570_5dd9384a",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 3
@@ -100,6 +190,30 @@
       "writtenOn": "2022-01-24T05:42:51Z",
       "side": 1,
       "message": "Some of these comments about \"updating a map\" are no longer valid.",
+      "range": {
+        "startLine": 877,
+        "startChar": 25,
+        "endLine": 884,
+        "endChar": 50
+      },
+      "revId": "df92af061f54e178d9168ae45a51f0679fd37e42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e40dddbc_5fc797f7",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-01-24T06:48:10Z",
+      "side": 1,
+      "message": "We are updating the map here by copying the busValue to kwdValue. That is still required so that bus does not get populated with blank data in first pass.",
+      "parentUuid": "a701e570_5dd9384a",
       "range": {
         "startLine": 877,
         "startChar": 25,
