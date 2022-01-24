@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a349c992_3704e690",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-24T05:29:35Z",
+      "side": 1,
+      "message": "service**",
+      "range": {
+        "startLine": 11,
+        "startChar": 45,
+        "endLine": 11,
+        "endChar": 52
+      },
+      "revId": "df92af061f54e178d9168ae45a51f0679fd37e42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b77e2d1_63c4cf7f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-24T05:29:35Z",
+      "side": 1,
+      "message": "when**",
+      "range": {
+        "startLine": 11,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 11
+      },
+      "revId": "df92af061f54e178d9168ae45a51f0679fd37e42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eff630c5_43e815ee",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-24T05:29:35Z",
+      "side": 1,
+      "message": "static const or even a constexpr?",
+      "revId": "df92af061f54e178d9168ae45a51f0679fd37e42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "438bdabe_09a7fa51",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-24T05:29:35Z",
+      "side": 1,
+      "message": "This function should be renamed now. It isn\u0027t really restoring VPD anymore. How about checkSystemVPD?",
+      "range": {
+        "startLine": 828,
+        "startChar": 5,
+        "endLine": 828,
+        "endChar": 21
+      },
+      "revId": "df92af061f54e178d9168ae45a51f0679fd37e42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
