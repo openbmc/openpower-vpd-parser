@@ -40,14 +40,6 @@ using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::exceptions;
 using namespace phosphor::logging;
 
-static const deviceTreeMap deviceTreeSystemTypeMap = {
-    {RAINIER_2U, "conf-aspeed-bmc-ibm-rainier-p1.dtb"},
-    {RAINIER_2U_V2, "conf-aspeed-bmc-ibm-rainier.dtb"},
-    {RAINIER_4U, "conf-aspeed-bmc-ibm-rainier-4u-p1.dtb"},
-    {RAINIER_4U_V2, "conf-aspeed-bmc-ibm-rainier-4u.dtb"},
-    {RAINIER_1S4U, "conf-aspeed-bmc-ibm-rainier-1s4u.dtb"},
-    {EVEREST, "conf-aspeed-bmc-ibm-everest.dtb"}};
-
 /**
  * @brief Returns the power state for chassis0
  */
@@ -674,6 +666,13 @@ void setDevTreeEnv(const string& systemType)
 {
     // Init with default dtb
     string newDeviceTree = "conf-aspeed-bmc-ibm-rainier-p1.dtb";
+    static const deviceTreeMap deviceTreeSystemTypeMap = {
+        {RAINIER_2U, "conf-aspeed-bmc-ibm-rainier-p1.dtb"},
+        {RAINIER_2U_V2, "conf-aspeed-bmc-ibm-rainier.dtb"},
+        {RAINIER_4U, "conf-aspeed-bmc-ibm-rainier-4u-p1.dtb"},
+        {RAINIER_4U_V2, "conf-aspeed-bmc-ibm-rainier-4u.dtb"},
+        {RAINIER_1S4U, "conf-aspeed-bmc-ibm-rainier-1s4u.dtb"},
+        {EVEREST, "conf-aspeed-bmc-ibm-everest.dtb"}};
 
     if (deviceTreeSystemTypeMap.find(systemType) !=
         deviceTreeSystemTypeMap.end())
@@ -1171,38 +1170,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         // set the U-boot environment variable for device-tree
         if constexpr (is_same<T, Parsed>::value)
         {
-            const string imKeyword = getIM(vpdMap);
-            const string hwKeyword = getHW(vpdMap);
-            string systemType = imKeyword;
-
-            // check If system has constraint then append HW version to it.
-            ifstream sysJson(SYSTEM_JSON);
-            if (!sysJson)
-            {
-                throw((VpdJsonException("Failed to access Json path",
-                                        SYSTEM_JSON)));
-            }
-
-            try
-            {
-                auto systemJson = json::parse(sysJson);
-                if (systemJson["system"].find(imKeyword) !=
-                    systemJson["system"].end())
-                {
-                    if (systemJson["system"][imKeyword].find("constraint") !=
-                        systemJson["system"][imKeyword].end())
-                    {
-                        systemType += "_" + hwKeyword;
-                    }
-                }
-            }
-            catch (const json::parse_error& ex)
-            {
-                throw((VpdJsonException("System Json parsing failed",
-                                        SYSTEM_JSON)));
-            }
-
-            setDevTreeEnv(systemType);
+            setDevTreeEnv(fs::path(getSystemsJson(vpdMap)).filename());
         }
     }
 
