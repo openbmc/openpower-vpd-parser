@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fa72c59_76ca55d8",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1355,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-01-25T05:48:12Z",
+      "side": 1,
+      "message": "Extra line.",
+      "revId": "760e24d30927589686051e784f7fc3129c6db3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
