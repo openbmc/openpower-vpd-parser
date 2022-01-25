@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7627a23e_cab6cfa6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-25T14:30:47Z",
+      "side": 1,
+      "message": "Right.",
+      "parentUuid": "f0cb8dbe_7b8d2339",
+      "revId": "760e24d30927589686051e784f7fc3129c6db3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da542b08_00108fe7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -95,6 +113,30 @@
       "side": 1,
       "message": "@alpana\n2. Santosh has edited the values in const.hpp (not deleted it)\n1. I think, no use in having the map as global. thats why he moved.",
       "parentUuid": "97af80c7_3ac07e8d",
+      "range": {
+        "startLine": 669,
+        "startChar": 1,
+        "endLine": 676,
+        "endChar": 0
+      },
+      "revId": "760e24d30927589686051e784f7fc3129c6db3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc7e60fe_ba296c16",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-25T14:30:47Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "89aa88de_725bd4b5",
       "range": {
         "startLine": 669,
         "startChar": 1,
