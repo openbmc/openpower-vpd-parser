@@ -1055,6 +1055,10 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             (find(ccinList.begin(), ccinList.end(), ccinFromVpd) ==
              ccinList.end()))
         {
+            // remove it from dbus tree
+            // Emplace object with empty interfaces, notify call will take care
+            // of it..
+            objects.emplace(move(object), move(interfaces));
             continue;
         }
 
