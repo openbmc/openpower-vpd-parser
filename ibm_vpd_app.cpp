@@ -1101,6 +1101,16 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             (find(ccinList.begin(), ccinList.end(), ccinFromVpd) ==
              ccinList.end()))
         {
+            // This FRU's ccin not found in the list of ccin from the inventory
+            // JSON, that means it is not present on the system, so remove it
+            // from the dbus tree as well as system's persistancy path. Emplace
+            // this object with empty interfaces, notify call will take care of
+            // it.
+
+            // Clear the interface map, in case it got initialised somewhere
+            // before.
+            interfaces.clear();
+            objects.emplace(move(object), move(interfaces));
             continue;
         }
 
