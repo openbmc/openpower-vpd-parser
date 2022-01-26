@@ -522,6 +522,20 @@ static void preAction(const nlohmann::json& json, const string& file)
 
                 if (gpioData != presPinValue)
                 {
+                    // GPIO data says FRU not present, so clear this FRU and
+                    // it's sub-FRU from the dbus tree and persistency path
+                    inventory::ObjectMap objects;
+
+                    for (const auto& item : json["frus"][file])
+                    {
+                        sdbusplus::message::object_path object(item["inventoryPath"]);
+                        inventory::InterfaceMap interfaces;
+
+                        objects.emplace(move(object), move(interfaces));
+                    }
+
+                    // Notify PIM for these objects with empty interface
+                    common::utility::callPIM(move(objects));
                     return;
                 }
             }
@@ -1227,6 +1241,16 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             (find(ccinList.begin(), ccinList.end(), ccinFromVpd) ==
              ccinList.end()))
         {
+            // This FRU's ccin not found in the list of ccin from the inventory
+            // JSON, that means it is not present on the system, so remove it
+            // from the dbus tree as well as system's persistancy path. Emplace
+            // this object with empty interfaces, notify call will take care of
+            // it.
+
+            // Clear the interface map, in case it got initialised somewhere
+            // before.
+            interfaces.clear();
+            objects.emplace(move(object), move(interfaces));
             continue;
         }
 
