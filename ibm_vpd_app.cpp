@@ -259,6 +259,10 @@ static void populateInterfaces(const nlohmann::json& js,
                 {
                     props.emplace(busProp, itr.value().get<string>());
                 }
+                if (busProp == "PrettyName")
+                {
+                    interfaces.insert_or_assign(inf, props);
+                }
             }
             else if (itr.value().is_array())
             {
