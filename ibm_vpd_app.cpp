@@ -188,7 +188,7 @@ static void populateFruSpecificInterfaces(const T& map,
                     {
                         memProp.emplace(move(kw),
                                         ((*memVal) * CONVERT_MB_TO_KB));
-                        interfaces.emplace(
+                        interfaces.insert_or_assign(
                             "xyz.openbmc_project.Inventory.Item.Dimm",
                             move(memProp));
                     }
@@ -206,7 +206,7 @@ static void populateFruSpecificInterfaces(const T& map,
         }
     }
 
-    interfaces.emplace(preIntrStr, move(prop));
+    interfaces.insert_or_assign(preIntrStr, move(prop));
 }
 
 /**
@@ -247,8 +247,10 @@ static void populateInterfaces(const nlohmann::json& js,
                         auto prop = expandLocationCode(
                             itr.value().get<string>(), vpdMap, isSystemVpd);
                         props.emplace(busProp, prop);
-                        interfaces.emplace(XYZ_LOCATION_CODE_INF, props);
-                        interfaces.emplace(IBM_LOCATION_CODE_INF, props);
+                        interfaces.insert_or_assign(XYZ_LOCATION_CODE_INF,
+                                                    props);
+                        interfaces.insert_or_assign(IBM_LOCATION_CODE_INF,
+                                                    props);
                     }
                     else
                     {
@@ -318,7 +320,7 @@ static void populateInterfaces(const nlohmann::json& js,
                 props.emplace(busProp, itr.value().get<size_t>());
             }
         }
-        interfaces.emplace(inf, move(props));
+        interfaces.insert_or_assign(inf, move(props));
     }
 }
 
@@ -443,7 +445,7 @@ static void setOneTimeProperties(const std::string& object,
         // Treat as property unavailable
         inventory::PropertyMap prop;
         prop.emplace("Functional", true);
-        interfaces.emplace(
+        interfaces.insert_or_assign(
             "xyz.openbmc_project.State.Decorator.OperationalStatus",
             move(prop));
     }
@@ -461,7 +463,8 @@ static void setOneTimeProperties(const std::string& object,
         // Treat as property unavailable
         inventory::PropertyMap prop;
         prop.emplace("Enabled", false);
-        interfaces.emplace("xyz.openbmc_project.Object.Enable", move(prop));
+        interfaces.insert_or_assign("xyz.openbmc_project.Object.Enable",
+                                    move(prop));
     }
 }
 
@@ -496,8 +499,8 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
             {
                 inventory::PropertyMap presProp;
                 presProp.emplace("Present", false);
-                interfaces.emplace("xyz.openbmc_project.Inventory.Item",
-                                   presProp);
+                interfaces.insert_or_assign(
+                    "xyz.openbmc_project.Inventory.Item", presProp);
                 setOneTimeProperties(object, interfaces);
                 if (itemEEPROM.find("extraInterfaces") != itemEEPROM.end())
                 {
@@ -515,17 +518,18 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
 
                                     props.emplace(move(lC.key()),
                                                   move(propVal));
-                                    interfaces.emplace(XYZ_LOCATION_CODE_INF,
-                                                       props);
-                                    interfaces.emplace(move(eI.key()),
-                                                       move(props));
+                                    interfaces.insert_or_assign(
+                                        XYZ_LOCATION_CODE_INF, props);
+                                    interfaces.insert_or_assign(move(eI.key()),
+                                                                move(props));
                                 }
                             }
                         }
                         else if (eI.key().find("Inventory.Item.") !=
                                  string::npos)
                         {
-                            interfaces.emplace(move(eI.key()), move(props));
+                            interfaces.insert_or_assign(move(eI.key()),
+                                                        move(props));
                         }
                         else if (eI.key() ==
                                  "xyz.openbmc_project.Inventory.Item")
@@ -546,7 +550,7 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                         }
                     }
                 }
-                objects.emplace(move(object), move(interfaces));
+                objects.insert_or_assign(move(object), move(interfaces));
             }
         }
     }
@@ -1062,7 +1066,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
                                    isSystemVpd);
             }
         }
-        objects.emplace(move(object), move(interfaces));
+        objects.insert_or_assign(move(object), move(interfaces));
     }
 
     if (isSystemVpd)
