@@ -319,7 +319,7 @@ static void populateInterfaces(const nlohmann::json& js,
                 props.emplace(busProp, itr.value().get<size_t>());
             }
         }
-        interfaces.emplace(inf, move(props));
+        insertOrMerge(interfaces, inf, move(props));
     }
 }
 
@@ -1198,6 +1198,10 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
                                isSystemVpd);
         }
+        inventory::PropertyMap presProp;
+        presProp.emplace("Present", true);
+        insertOrMerge(interfaces, invItemIntf, move(presProp));
+
         objects.emplace(move(object), move(interfaces));
     }
 

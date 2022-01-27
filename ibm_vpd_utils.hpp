@@ -260,5 +260,16 @@ string getPrintableValue(const Binary& vec);
  */
 string byteArrayToHexString(const Binary& vec);
 
+/**
+ * @brief Helper function to insert or merge the given key-value in object of
+ * type inventory::InterfaceMap.
+ * @param[in,out] map - map object of type inventory::InterfaceMap only.
+ * @param[in] interface - the duplicate interface key.
+ * @param[in] property - new property map that needs to be emplaced.
+ */
+void insertOrMerge(inventory::InterfaceMap& map,
+                   const inventory::Interface& interface,
+                   inventory::PropertyMap&& property);
+
 } // namespace vpd
 } // namespace openpower
