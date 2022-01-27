@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2115d551_137254d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-27T11:17:47Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "7627a23e_cab6cfa6",
+      "revId": "760e24d30927589686051e784f7fc3129c6db3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da542b08_00108fe7",
@@ -49,6 +67,30 @@
       "writtenOn": "2022-01-25T13:51:39Z",
       "side": 1,
       "message": "Query: In what case we\u0027ll get a new pass planar without a need for device tree?\nWhat kind of change has happened in that planar?",
+      "range": {
+        "startLine": 14,
+        "startChar": 45,
+        "endLine": 15,
+        "endChar": 33
+      },
+      "revId": "760e24d30927589686051e784f7fc3129c6db3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce100f29_35505a78",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-27T11:17:47Z",
+      "side": 1,
+      "message": "Could be several things, such as the systems team replacing a chip with another without it causing any wiring/address changes on the board. Or it could simply be things the BMC does not control and hence its device treed does not care about.",
+      "parentUuid": "da542b08_00108fe7",
       "range": {
         "startLine": 14,
         "startChar": 45,
@@ -147,6 +189,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b40980d3_a45a7eb3",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-27T11:17:47Z",
+      "side": 1,
+      "message": "Whatever Priyanga said.",
+      "parentUuid": "dc7e60fe_ba296c16",
+      "range": {
+        "startLine": 669,
+        "startChar": 1,
+        "endLine": 676,
+        "endChar": 0
+      },
+      "revId": "760e24d30927589686051e784f7fc3129c6db3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fa72c59_76ca55d8",
@@ -178,6 +244,24 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "9fa72c59_76ca55d8",
+      "revId": "760e24d30927589686051e784f7fc3129c6db3ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d205238_0cd6b5cc",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1355,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-27T11:17:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c2ddfb7_7f28a5b7",
       "revId": "760e24d30927589686051e784f7fc3129c6db3ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
