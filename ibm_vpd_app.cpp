@@ -318,7 +318,7 @@ static void populateInterfaces(const nlohmann::json& js,
                 props.emplace(busProp, itr.value().get<size_t>());
             }
         }
-        interfaces.emplace(inf, move(props));
+        interfaces.insert_or_assign(inf, move(props));
     }
 }
 
