@@ -260,5 +260,23 @@ string getPrintableValue(const Binary& vec);
  */
 string byteArrayToHexString(const Binary& vec);
 
+/**
+ * @brief Helper function to insert or merge in map.
+ *
+ * This method checks in the given inventory::InterfaceMap if the given
+ * interface key is existing or not. If the interface key already exists, given
+ * property map is inserted into it. If the key does'nt exist then given
+ * interface and property map pair is newly created. If the property present in
+ * propertymap already exist in the InterfaceMap, then the new property value is
+ * ignored.
+ *
+ * @param[in,out] map - map object of type inventory::InterfaceMap only.
+ * @param[in] interface - Interface name.
+ * @param[in] property - new property map that needs to be emplaced.
+ */
+void insertOrMerge(inventory::InterfaceMap& map,
+                   const inventory::Interface& interface,
+                   inventory::PropertyMap&& property);
+
 } // namespace vpd
 } // namespace openpower

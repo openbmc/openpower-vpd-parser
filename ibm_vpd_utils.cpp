@@ -613,5 +613,19 @@ string getPrintableValue(const Binary& vec)
     return str;
 }
 
+void insertOrMerge(inventory::InterfaceMap& map,
+                   const inventory::Interface& interface,
+                   inventory::PropertyMap&& property)
+{
+    if (map.find(interface) != map.end())
+    {
+        auto& prop = map.at(interface);
+        prop.insert(property.begin(), property.end());
+    }
+    else
+    {
+        map.emplace(interface, property);
+    }
+}
 } // namespace vpd
 } // namespace openpower
