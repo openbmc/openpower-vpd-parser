@@ -22,6 +22,30 @@
       },
       "revId": "e05cb06fcf57eed4783e36111c8c488a1457d37a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dc04c7f_bbd7a875",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-01-27T04:58:17Z",
+      "side": 1,
+      "message": "This is system brand value, S0 means it is power systems.",
+      "parentUuid": "7727a859_c5a41ab8",
+      "range": {
+        "startLine": 52,
+        "startChar": 54,
+        "endLine": 52,
+        "endChar": 56
+      },
+      "revId": "e05cb06fcf57eed4783e36111c8c488a1457d37a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
