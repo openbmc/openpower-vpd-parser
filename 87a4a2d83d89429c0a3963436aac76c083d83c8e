@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdcee8ed_89f604f7",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-27T05:47:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "96889cc7_48b6680e",
+      "revId": "87a4a2d83d89429c0a3963436aac76c083d83c8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72c8c0bc_57e415a4",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ee674ae_4eda8e1e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-27T05:47:46Z",
+      "side": 1,
+      "message": "I\u0027m also not very sure, but I think it will get caught in next exception as it is generic exception.\nWill look more and confirm.",
+      "parentUuid": "72c8c0bc_57e415a4",
+      "revId": "87a4a2d83d89429c0a3963436aac76c083d83c8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "396d26e9_011f5819",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 9
@@ -48,6 +84,30 @@
       "writtenOn": "2022-01-21T18:32:04Z",
       "side": 1,
       "message": "Suggestion: \"call\" methohd will throw in all cases. So we can get rid of this check?\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-virtual-sensor/+/38244",
+      "range": {
+        "startLine": 382,
+        "startChar": 8,
+        "endLine": 392,
+        "endChar": 9
+      },
+      "revId": "87a4a2d83d89429c0a3963436aac76c083d83c8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "feb49145_877875d7",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-27T05:47:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "396d26e9_011f5819",
       "range": {
         "startLine": 382,
         "startChar": 8,
@@ -83,6 +143,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bccc5646_d0a04d50",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-27T05:47:46Z",
+      "side": 1,
+      "message": "okay. Not contradicting but need to make it clear.\nThis cout is to say- PCIE_device vpd is not valid on PASS1 planar, so No action will be taken.",
+      "parentUuid": "2fbecc98_3fdaabae",
+      "range": {
+        "startLine": 421,
+        "startChar": 8,
+        "endLine": 421,
+        "endChar": 46
+      },
+      "revId": "87a4a2d83d89429c0a3963436aac76c083d83c8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe702349_5a430268",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 9
@@ -106,6 +190,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb0c40fd_c1e42fc7",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-27T05:47:46Z",
+      "side": 1,
+      "message": "yes. we need to have this as WARNING",
+      "parentUuid": "fe702349_5a430268",
+      "range": {
+        "startLine": 434,
+        "startChar": 38,
+        "endLine": 434,
+        "endChar": 58
+      },
+      "revId": "87a4a2d83d89429c0a3963436aac76c083d83c8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7788157a_98e0f217",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 9
@@ -117,6 +225,30 @@
       "writtenOn": "2022-01-24T05:21:42Z",
       "side": 1,
       "message": "same here. your cout statement is contradicting with the condition",
+      "range": {
+        "startLine": 1440,
+        "startChar": 8,
+        "endLine": 1440,
+        "endChar": 46
+      },
+      "revId": "87a4a2d83d89429c0a3963436aac76c083d83c8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5671b82_aaabeb2c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-27T05:47:46Z",
+      "side": 1,
+      "message": "this condition checks for it the service running for one of the PCIE_device on PASS1 planar.\nIF that is the case, we can\u0027t do anything. vpd would be all ffffs.\nSo this msg says that and returns.",
+      "parentUuid": "7788157a_98e0f217",
       "range": {
         "startLine": 1440,
         "startChar": 8,
