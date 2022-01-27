@@ -260,5 +260,17 @@ string getPrintableValue(const Binary& vec);
  */
 string byteArrayToHexString(const Binary& vec);
 
+/**
+ * @brief Helper function to emplace duplicate key in interfaces map.
+ * Helper function to emplace/insert values into already existing key in map
+ * object of type inventory::InterfaceMap.
+ * @param[in,out] map - map object of type inventory::InterfaceMap only.
+ * @param[in] interface - the duplicate interface key.
+ * @param[in] property - new property map that needs to be emplaced.
+ */
+void emplaceDuplicateKey(inventory::InterfaceMap& map,
+                         inventory::Interface interface,
+                         inventory::PropertyMap property);
+
 } // namespace vpd
 } // namespace openpower

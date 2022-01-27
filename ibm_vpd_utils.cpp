@@ -613,5 +613,20 @@ string getPrintableValue(const Binary& vec)
     return str;
 }
 
+void emplaceDuplicateKey(inventory::InterfaceMap& map,
+                         inventory::Interface interface,
+                         inventory::PropertyMap property)
+{
+    if (map.find(interface) != map.end())
+    {
+        auto prop = map.at(interface);
+        property.insert(prop.begin(), prop.end());
+        map.at(interface) = property;
+    }
+    else
+    {
+        map.emplace(interface, property);
+    }
+}
 } // namespace vpd
 } // namespace openpower

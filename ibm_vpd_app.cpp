@@ -319,7 +319,7 @@ static void populateInterfaces(const nlohmann::json& js,
                 props.emplace(busProp, itr.value().get<size_t>());
             }
         }
-        interfaces.emplace(inf, move(props));
+        emplaceDuplicateKey(interfaces, inf, move(props));
     }
 }
 
@@ -1198,6 +1198,11 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
                                isSystemVpd);
         }
+        inventory::PropertyMap presProp;
+        presProp.emplace("Present", true);
+        emplaceDuplicateKey(interfaces,
+                            "xyz.openbmc_project.Inventory.Item", presProp);
+
         objects.emplace(move(object), move(interfaces));
     }
 
@@ -1212,7 +1217,6 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             setDevTreeEnv(fs::path(getSystemsJson(vpdMap)).filename());
         }
     }
-
     // Notify PIM
     common::utility::callPIM(move(objects));
 }
