@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31845aeb_6ba531c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-01-28T05:49:57Z",
+      "side": 1,
+      "message": "patchset 9 was pushed by mistake. patchset 10 - is the replica of patchset 8. \nso patchset 10 can be considered as latest. ",
+      "revId": "1c1fa8a6e6c23cd90363dd795fe42b5bd76f8fa3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
