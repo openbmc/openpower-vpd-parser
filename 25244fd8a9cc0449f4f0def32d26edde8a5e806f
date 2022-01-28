@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b020c5a_dab3de4f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-28T06:25:51Z",
+      "side": 1,
+      "message": "Please revert this change",
+      "revId": "25244fd8a9cc0449f4f0def32d26edde8a5e806f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87b5a2a8_3842a410",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-28T06:25:51Z",
+      "side": 1,
+      "message": "A little more explanation here would be good.",
+      "revId": "25244fd8a9cc0449f4f0def32d26edde8a5e806f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe070b74_50890f38",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-28T06:25:51Z",
+      "side": 1,
+      "message": "You should check if pin and value keys exist",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 449,
+        "endChar": 69
+      },
+      "revId": "25244fd8a9cc0449f4f0def32d26edde8a5e806f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "905754e2_269cf0c4",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1416,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-28T06:25:51Z",
+      "side": 1,
+      "message": "New line change",
+      "revId": "25244fd8a9cc0449f4f0def32d26edde8a5e806f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
