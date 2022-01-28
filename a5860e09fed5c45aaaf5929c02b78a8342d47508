@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a17c7151_eb2bf859",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-01-28T10:14:17Z",
+      "side": 1,
+      "message": "To cover possible future cases like these, why don\u0027t we always employ insert_or_assign?",
+      "revId": "a5860e09fed5c45aaaf5929c02b78a8342d47508",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
