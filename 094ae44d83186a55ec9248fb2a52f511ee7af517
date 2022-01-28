@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "901d96b0_644c96b8",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-01-28T05:36:58Z",
+      "side": 1,
+      "message": "Suggestion: If we are putting comments about functions, better put it doxygen way. It looks neat and easy to read.",
+      "range": {
+        "startLine": 351,
+        "startChar": 1,
+        "endLine": 352,
+        "endChar": 32
+      },
+      "revId": "094ae44d83186a55ec9248fb2a52f511ee7af517",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

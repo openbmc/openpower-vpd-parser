@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e65fb5a0_518933f0",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-01-28T05:36:58Z",
+      "side": 1,
+      "message": "Hmm, in that case do you want to dump vpdvector in case there is bus failure?",
+      "parentUuid": "5ee674ae_4eda8e1e",
+      "revId": "87a4a2d83d89429c0a3963436aac76c083d83c8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "396d26e9_011f5819",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 9
