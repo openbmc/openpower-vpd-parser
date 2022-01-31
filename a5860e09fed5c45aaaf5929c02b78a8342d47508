@@ -16,6 +16,24 @@
       "message": "To cover possible future cases like these, why don\u0027t we always employ insert_or_assign?",
       "revId": "a5860e09fed5c45aaaf5929c02b78a8342d47508",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccf47888_fe004867",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-01-31T12:27:11Z",
+      "side": 1,
+      "message": "in this commit, I\u0027ll make the change( insert_or_assign ) only in one place - at line 325.\n\nFor changes needed at other places, I can create a new commit",
+      "parentUuid": "a17c7151_eb2bf859",
+      "revId": "a5860e09fed5c45aaaf5929c02b78a8342d47508",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
