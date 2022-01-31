@@ -125,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74dc6af1_c69ad38a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-01-31T17:27:03Z",
+      "side": 1,
+      "message": "I thinks it\u0027s okay to have basic data, in case of any failure.",
+      "parentUuid": "9669dd14_bf865d53",
+      "revId": "87a4a2d83d89429c0a3963436aac76c083d83c8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "396d26e9_011f5819",
