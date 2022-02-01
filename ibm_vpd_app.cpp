@@ -189,7 +189,8 @@ static void populateFruSpecificInterfaces(const T& map,
                     {
                         memProp.emplace(move(kw),
                                         ((*memVal) * CONVERT_MB_TO_KB));
-                        interfaces.emplace(
+                        emplaceDuplicateKey(
+                            interfaces,
                             "xyz.openbmc_project.Inventory.Item.Dimm",
                             move(memProp));
                     }
@@ -207,7 +208,7 @@ static void populateFruSpecificInterfaces(const T& map,
         }
     }
 
-    interfaces.emplace(preIntrStr, move(prop));
+    emplaceDuplicateKey(interfaces, preIntrStr, move(prop));
 }
 
 /**
@@ -248,8 +249,10 @@ static void populateInterfaces(const nlohmann::json& js,
                         auto prop = expandLocationCode(
                             itr.value().get<string>(), vpdMap, isSystemVpd);
                         props.emplace(busProp, prop);
-                        interfaces.emplace(XYZ_LOCATION_CODE_INF, props);
-                        interfaces.emplace(IBM_LOCATION_CODE_INF, props);
+                        emplaceDuplicate(interfaces, XYZ_LOCATION_CODE_INF,
+                                         props);
+                        emplaceDuplicate(interfaces, IBM_LOCATION_CODE_INF,
+                                         props);
                     }
                     else
                     {
@@ -534,8 +537,8 @@ static void setOneTimeProperties(const std::string& object,
         // Treat as property unavailable
         inventory::PropertyMap prop;
         prop.emplace("Functional", true);
-        interfaces.emplace(
-            "xyz.openbmc_project.State.Decorator.OperationalStatus",
+        emplaceDuplicateKey(
+            interfaces, "xyz.openbmc_project.State.Decorator.OperationalStatus",
             move(prop));
     }
     prop = bus.new_method_call("xyz.openbmc_project.Inventory.Manager",
@@ -552,7 +555,8 @@ static void setOneTimeProperties(const std::string& object,
         // Treat as property unavailable
         inventory::PropertyMap prop;
         prop.emplace("Enabled", false);
-        interfaces.emplace("xyz.openbmc_project.Object.Enable", move(prop));
+        emplaceDuplicateKey(interfaces, "xyz.openbmc_project.Object.Enable",
+                            move(prop));
     }
 }
 
@@ -587,8 +591,8 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
             {
                 inventory::PropertyMap presProp;
                 presProp.emplace("Present", false);
-                interfaces.emplace("xyz.openbmc_project.Inventory.Item",
-                                   presProp);
+                emplaceDuplicateKey(
+                    interfaces, "xyz.openbmc_project.Inventory.Item", presProp);
                 setOneTimeProperties(object, interfaces);
                 if (itemEEPROM.find("extraInterfaces") != itemEEPROM.end())
                 {
@@ -606,17 +610,20 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
 
                                     props.emplace(move(lC.key()),
                                                   move(propVal));
-                                    interfaces.emplace(XYZ_LOCATION_CODE_INF,
-                                                       props);
-                                    interfaces.emplace(move(eI.key()),
-                                                       move(props));
+                                    emplaceDuplicateKey(interfaces,
+                                                        XYZ_LOCATION_CODE_INF,
+                                                        props);
+                                    emplaceDuplicateKey(interfaces,
+                                                        move(eI.key()),
+                                                        move(props));
                                 }
                             }
                         }
                         else if (eI.key().find("Inventory.Item.") !=
                                  string::npos)
                         {
-                            interfaces.emplace(move(eI.key()), move(props));
+                            emplaceDuplicateKey(interfaces, move(eI.key()),
+                                                move(props));
                         }
                         else if (eI.key() ==
                                  "xyz.openbmc_project.Inventory.Item")
