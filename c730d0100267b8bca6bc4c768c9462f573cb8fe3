@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48ca65dc_26277f0b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-02-02T15:04:13Z",
+      "side": 1,
+      "message": "This is the standard definition of std::emplace and std::insert_or_assign. Why do we need to capture this info in commit msg?\nInstead could you please include, why we had to make this change now and what problem it addresses and fix.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 57
+      },
+      "revId": "c730d0100267b8bca6bc4c768c9462f573cb8fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "916277b9_280f64cc",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-02-02T15:04:13Z",
+      "side": 1,
+      "message": "Extra line.",
+      "revId": "c730d0100267b8bca6bc4c768c9462f573cb8fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
