@@ -24,8 +24,6 @@ vpd_test = ['store/store.cpp',
 ]
 
 application_src =['../impl.cpp',
-                   '../vpdecc/vpdecc.c',
-                   '../vpdecc/vpdecc_support.c',
                    '../vpd-parser/ipz_parser.cpp',
                    '../ibm_vpd_utils.cpp',
                    '../common_utility.cpp',
@@ -45,7 +43,8 @@ foreach t : vpd_test
     c_args: ['-Wno-unused-parameter',
       '-Wno-unused-variable'],
     dependencies: dependecy_list,
-    include_directories: configuration_inc
+    include_directories: configuration_inc,
+    link_with : libvpdecc,
     ),
     workdir: meson.current_source_dir())
 endforeach

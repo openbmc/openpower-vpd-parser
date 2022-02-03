@@ -60,6 +60,18 @@ phosphor_logging = dependency('phosphor-logging',
 
 sdbusplus = dependency('sdbusplus', fallback: [ 'sdbusplus', 'sdbusplus_dep' ])
 
+libvpdecc_src = files(
+    'vpdecc/vpdecc.c',
+    'vpdecc/vpdecc_support.c'
+)
+
+libvpdecc = shared_library(
+    'vpdecc',
+    libvpdecc_src,
+    version: meson.project_version(),
+    install: true,
+)
+
 if not build_tests.disabled()
     subdir('test')
 endif
@@ -100,7 +112,6 @@ common_SOURCES =['common_utility.cpp',
                  'vpd-parser/memory_vpd_parser.cpp',
                  'vpd-parser/keyword_vpd_parser.cpp',
                  'vpd-parser/ipz_parser.cpp', 'impl.cpp', 'ibm_vpd_utils.cpp',
-                 'vpdecc/vpdecc.c', 'vpdecc/vpdecc_support.c'
 ]
 
 if get_option('ibm-parser').enabled()
@@ -116,6 +127,7 @@ if get_option('ibm-parser').enabled()
                                         phosphor_logging,
                                         libgpiodcxx,
                                 ],
+                                link_with : libvpdecc,
                                 include_directories : 'vpd-parser/',
                                 install: true,
                                 cpp_args : '-DIPZ_PARSER'
@@ -135,6 +147,7 @@ if get_option('ibm-parser').enabled()
                                    sdbusplus,
                                    libgpiodcxx
                                    ],
+                                 link_with : libvpdecc,
                                  install: true,
                                  include_directories : vpd_tool_INCLUDE
                                  )
