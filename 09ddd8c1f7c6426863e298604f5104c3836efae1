@@ -70,6 +70,24 @@
       "parentUuid": "4aaac766_9615eab3",
       "revId": "09ddd8c1f7c6426863e298604f5104c3836efae1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ebd25e7_0eaba972",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-03T14:33:46Z",
+      "side": 1,
+      "message": "yes. am also expecting it to \"assign/merge\" over the old value.\n\nthe above example which I sent might be confusing. ignore that.\n\nam expecting the result like this:\n\n(\"xyz.openbmc_project.Inventory.Item\", {{Present : \u003cvalue\u003e} , {PrettyName : \u003cvalue\u003e} } )\nand we achieve the above result with insert_or_assign.",
+      "parentUuid": "34b43dc4_35f67edb",
+      "revId": "09ddd8c1f7c6426863e298604f5104c3836efae1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
