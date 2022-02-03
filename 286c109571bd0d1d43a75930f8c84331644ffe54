@@ -33,6 +33,24 @@
       "message": "If you can remove the merge conflict. \nI am ok with this change.",
       "revId": "286c109571bd0d1d43a75930f8c84331644ffe54",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18bd57fd_a922e457",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-03T14:38:15Z",
+      "side": 1,
+      "message": "yes it does as claimed.\nso say - we insert Present:true to Item interface while parsing common interfaces.\n\nsecond time - we need to insert PrettyName: \u003cname\u003e to Item interface while parsing extra interfaces.\n\nnow as expected PrettyName gets inserted/assigned/merged to the existing Inventory.Item interface in the map.",
+      "parentUuid": "28f63750_fb875885",
+      "revId": "286c109571bd0d1d43a75930f8c84331644ffe54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
