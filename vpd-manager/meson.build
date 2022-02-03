@@ -15,8 +15,6 @@ vpd_manager_SOURCES =['manager_main.cpp',
                       '../vpd-parser/ipz_parser.cpp',
                       '../ibm_vpd_utils.cpp',
                       '../common_utility.cpp',
-                      '../vpdecc/vpdecc.c',
-                      '../vpdecc/vpdecc_support.c',
                       '../vpd-parser//keyword_vpd_parser.cpp',
                       '../vpd-parser/memory_vpd_parser.cpp',
                       '../vpd-parser/parser_factory.cpp'
@@ -37,5 +35,6 @@ vpd_manager_exe = executable(
                  dependencies : [
                                 vpd_manager_dependencies,
                                 ],
+                 link_with : libvpdecc,
                  install : true
                 )
