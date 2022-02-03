@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28f63750_fb875885",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-03T14:15:55Z",
+      "side": 1,
+      "message": "I am not convinced insert_or_assign is doing what is being claimed in this commit (and its parent)",
+      "revId": "286c109571bd0d1d43a75930f8c84331644ffe54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
