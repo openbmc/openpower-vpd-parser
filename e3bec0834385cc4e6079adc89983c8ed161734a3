@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5fbbee3_e6a6a53b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-07T05:39:29Z",
+      "side": 1,
+      "message": "This is a little risky - What if the FRU is not primed, but its extra interfaces contains data that is supposed to come from its VPD?\n\nAll of that would then be skipped. Instead, can we make sure we expand location codes only for FRUs that haven\u0027t been primed?",
+      "range": {
+        "startLine": 1157,
+        "startChar": 11,
+        "endLine": 1157,
+        "endChar": 69
+      },
+      "revId": "e3bec0834385cc4e6079adc89983c8ed161734a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
