@@ -22,6 +22,30 @@
       },
       "revId": "e3bec0834385cc4e6079adc89983c8ed161734a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6760c487_fe4b876c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-08T08:54:17Z",
+      "side": 1,
+      "message": "why that would get skipped?\n\nyou are saying for ethernet fru where noprime\u003dtrue and we are collecting MAC address from its vpd. in this case the below condition check will pass and will enter into populateInterfaces api. and the MAC address will get colected from vpdMap at line 268.",
+      "parentUuid": "f5fbbee3_e6a6a53b",
+      "range": {
+        "startLine": 1157,
+        "startChar": 11,
+        "endLine": 1157,
+        "endChar": 69
+      },
+      "revId": "e3bec0834385cc4e6079adc89983c8ed161734a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
