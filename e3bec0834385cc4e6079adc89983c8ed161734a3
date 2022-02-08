@@ -46,6 +46,30 @@
       },
       "revId": "e3bec0834385cc4e6079adc89983c8ed161734a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc6c46ce_ec41fa54",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-08T09:31:57Z",
+      "side": 1,
+      "message": "What if there was an entry in the JSON that does not have noprime set, and yet we need some of its extraInterfaces to come from the parent VPD?",
+      "parentUuid": "6760c487_fe4b876c",
+      "range": {
+        "startLine": 1157,
+        "startChar": 11,
+        "endLine": 1157,
+        "endChar": 69
+      },
+      "revId": "e3bec0834385cc4e6079adc89983c8ed161734a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
