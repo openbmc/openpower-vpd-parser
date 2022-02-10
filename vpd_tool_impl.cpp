@@ -495,13 +495,20 @@ int VpdTool::updateHardware()
     try
     {
         auto json = nlohmann::json::parse(inventoryJson);
+        uint32_t offset = 0;
         EditorImpl edit(fruPath, json, recordName, keyword);
         if (!((isPathInJson(fruPath)) &&
               (isRecKwInDbusJson(recordName, keyword))))
         {
             updCache = false;
         }
-        edit.updateKeyword(val, updCache);
+        if (fruPath.starts_with("/sys/bus/spi"))
+        {
+            // TODO: Figure out a better way to get this, SPI eeproms
+            // start at offset 0x30000
+            offset = 0x30000;
+        }
+        edit.updateKeyword(val, offset, updCache);
     }
     catch (const json::parse_error& ex)
     {

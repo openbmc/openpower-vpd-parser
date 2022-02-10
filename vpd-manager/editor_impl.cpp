@@ -497,20 +497,11 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
     common::utility::callPIM(move(objects));
 }
 
-void EditorImpl::updateKeyword(const Binary& kwdData, const bool& updCache)
+void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
+                               const bool& updCache)
 {
-    startOffset = 0;
+    startOffset = offset;
 #ifndef ManagerTest
-
-    // check if offset present?
-    for (const auto& item : jsonFile["frus"][vpdFilePath])
-    {
-        if (item.find("offset") != item.end())
-        {
-            startOffset = item["offset"];
-        }
-    }
-
     // TODO: Figure out a better way to get max possible VPD size.
     Binary completeVPDFile;
     completeVPDFile.resize(65504);
