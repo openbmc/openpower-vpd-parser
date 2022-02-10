@@ -93,9 +93,11 @@ class EditorImpl
      * 3) update the data for that keyword with the new data
      *
      * @param[in] kwdData - data to update
+     * @param[in] offset - offset at which the VPD starts
      * @param[in] updCache - Flag which tells whether to update Cache or not.
      */
-    void updateKeyword(const Binary& kwdData, const bool& updCache);
+    void updateKeyword(const Binary& kwdData, uint32_t offset,
+                       const bool& updCache);
 
     /** @brief Expands location code on DBUS
      *  @param[in] locationCodeType - "fcs" or "mts"
