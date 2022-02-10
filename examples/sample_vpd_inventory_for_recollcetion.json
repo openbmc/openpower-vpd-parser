@@ -389,18 +389,6 @@
           "powerOffOnly" : true,
           "offset": 196608,
           "size": 65504,
-          "type": "fruAndModule",
-          "extraInterfaces": {
-              "xyz.openbmc_project.Inventory.Item.Cpu": null,
-              "com.ibm.ipzvpd.Location" : {
-                  "LocationCode" : "Ufcs-P0-C15"
-              }
-          }
-      },
-      {
-          "inventoryPath": "/system/chassis/motherboard/cpu1",
-          "inheritEI": false,
-          "type": "moduleOnly",
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item.Cpu": null,
               "com.ibm.ipzvpd.Location" : {
@@ -416,7 +404,6 @@
           "offset": 196608,
           "size": 65504,
           "inherit": false,
-          "type": "moduleOnly",
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item.Cpu": null,
               "com.ibm.ipzvpd.Location" : {
@@ -431,18 +418,6 @@
           "powerOffOnly" : true,
           "offset": 196608,
           "size": 65504,
-          "type": "fruAndModule",
-          "extraInterfaces": {
-              "xyz.openbmc_project.Inventory.Item.Cpu": null,
-              "com.ibm.ipzvpd.Location" : {
-                  "LocationCode" : "Ufcs-P0-C24"
-              }
-          }
-      },
-      {
-          "inventoryPath": "/system/chassis/motherboard/cpu3",
-          "inheritEI": false,
-          "type": "moduleOnly",
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item.Cpu": null,
               "com.ibm.ipzvpd.Location" : {
@@ -458,7 +433,6 @@
           "offset": 196608,
           "size": 65504,
           "inherit": false,
-          "type": "moduleOnly",
           "extraInterfaces": {
               "xyz.openbmc_project.Inventory.Item.Cpu": null,
               "com.ibm.ipzvpd.Location" : {

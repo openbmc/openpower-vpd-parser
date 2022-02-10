@@ -208,23 +208,6 @@ class EditorImpl
 
     // If requested Interface is common Interface
     bool isCI;
-
-    /** @brief This API will be used to find out Parent FRU of Module/CPU
-     *
-     * @param[in] - moduleObjPath, object path of that FRU
-     * @param[in] - fruType, Type of Parent FRU
-     *              for Module/CPU Parent Type- FruAndModule
-     *
-     * @return returns vpd file path of Parent Fru of that Module
-     */
-    std::string getSysPathForThisFruType(const std::string& moduleObjPath,
-                                         const std::string& fruType);
-
-    /** @brief This API will search for correct EEPROM path for asked CPU
-     *         and will init vpdFilePath
-     */
-    void getVpdPathForCpu();
-
 }; // class EditorImpl
 
 } // namespace editor

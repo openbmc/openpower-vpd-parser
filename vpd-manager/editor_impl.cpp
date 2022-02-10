@@ -373,66 +373,31 @@ void EditorImpl::updateCache()
         inventory::InterfaceMap interfaces;
         // by default inherit property is true
         bool isInherit = true;
-        bool isInheritEI = true;
-        bool isCpuModuleOnly = false;
 
         if (singleInventory.find("inherit") != singleInventory.end())
         {
             isInherit = singleInventory["inherit"].get<bool>();
         }
 
-        if (singleInventory.find("inheritEI") != singleInventory.end())
-        {
-            isInheritEI = singleInventory["inheritEI"].get<bool>();
-        }
-
-        // "type" exists only in CPU module and FRU
-        if (singleInventory.find("type") != singleInventory.end())
-        {
-            if (singleInventory["type"] == "moduleOnly")
-            {
-                isCpuModuleOnly = true;
-            }
-        }
-
         if (isInherit)
         {
-            // update com interface
-            // For CPU- update  com interface only when isCI true
-            if ((!isCpuModuleOnly) || (isCpuModuleOnly && isCI))
-            {
-                prop.emplace(thisRecord.recKWd, thisRecord.kwdUpdatedData);
-                interfaces.emplace(
-                    (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
-                    move(prop));
-                objects.emplace(
-                    (singleInventory["inventoryPath"].get<std::string>()),
-                    move(interfaces));
-            }
+            prop.emplace(thisRecord.recKWd, thisRecord.kwdUpdatedData);
+            interfaces.emplace(
+                (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
+                move(prop));
+            objects.emplace(
+                (singleInventory["inventoryPath"].get<std::string>()),
+                move(interfaces));
 
             // process Common interface
             processAndUpdateCI(singleInventory["inventoryPath"]
                                    .get_ref<const nlohmann::json::string_t&>());
         }
 
-        if (isInheritEI)
-        {
-            if (isCpuModuleOnly)
-            {
-                prop.emplace(thisRecord.recKWd, thisRecord.kwdUpdatedData);
-                interfaces.emplace(
-                    (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
-                    move(prop));
-                objects.emplace(
-                    (singleInventory["inventoryPath"].get<std::string>()),
-                    move(interfaces));
-            }
-
-            // process extra interfaces
-            processAndUpdateEI(singleInventory,
-                               singleInventory["inventoryPath"]
-                                   .get_ref<const nlohmann::json::string_t&>());
-        }
+        // process extra interfaces
+        processAndUpdateEI(singleInventory,
+                           singleInventory["inventoryPath"]
+                               .get_ref<const nlohmann::json::string_t&>());
 
         // check if we need to copy some specific records in this case.
         if (singleInventory.find("copyRecords") != singleInventory.end())
@@ -532,106 +497,10 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
     common::utility::callPIM(move(objects));
 }
 
-string EditorImpl::getSysPathForThisFruType(const string& moduleObjPath,
-                                            const string& fruType)
-{
-    string fruVpdPath;
-
-    // get all FRUs list
-    for (const auto& eachFru : jsonFile["frus"].items())
-    {
-        bool moduleObjPathMatched = false;
-        bool expectedFruFound = false;
-
-        for (const auto& eachInventory : eachFru.value())
-        {
-            const auto& thisObjectPath = eachInventory["inventoryPath"];
-
-            // "type" exists only in CPU module and FRU
-            if (eachInventory.find("type") != eachInventory.end())
-            {
-                // If inventory type is fruAndModule then set flag
-                if (eachInventory["type"] == fruType)
-                {
-                    expectedFruFound = true;
-                }
-            }
-
-            if (thisObjectPath == moduleObjPath)
-            {
-                moduleObjPathMatched = true;
-            }
-        }
-
-        // If condition satisfies then collect this sys path and exit
-        if (expectedFruFound && moduleObjPathMatched)
-        {
-            fruVpdPath = eachFru.key();
-            break;
-        }
-    }
-
-    return fruVpdPath;
-}
-
-void EditorImpl::getVpdPathForCpu()
-{
-    isCI = false;
-    // keep a backup In case we need it later
-    inventory::Path vpdFilePathBackup = vpdFilePath;
-
-    // TODO 1:Temp hardcoded list. create it dynamically.
-    std::vector<std::string> commonIntVINIKwds = {"PN", "SN", "DR"};
-    std::vector<std::string> commonIntVR10Kwds = {"DC"};
-    std::unordered_map<std::string, std::vector<std::string>>
-        commonIntRecordsList = {{"VINI", commonIntVINIKwds},
-                                {"VR10", commonIntVR10Kwds}};
-
-    // If requested Record&Kw is one among CI, then update 'FRU' type sys
-    // path, SPI2
-    unordered_map<std::string, vector<string>>::const_iterator isCommonInt =
-        commonIntRecordsList.find(thisRecord.recName);
-
-    if ((isCommonInt != commonIntRecordsList.end()) &&
-        (find(isCommonInt->second.begin(), isCommonInt->second.end(),
-              thisRecord.recKWd) != isCommonInt->second.end()))
-    {
-        isCI = true;
-        vpdFilePath = getSysPathForThisFruType(objPath, "fruAndModule");
-    }
-    else
-    {
-        for (const auto& eachFru : jsonFile["frus"].items())
-        {
-            for (const auto& eachInventory : eachFru.value())
-            {
-                if (eachInventory.find("type") != eachInventory.end())
-                {
-                    const auto& thisObjectPath = eachInventory["inventoryPath"];
-                    if ((eachInventory["type"] == "moduleOnly") &&
-                        (eachInventory.value("inheritEI", true)) &&
-                        (thisObjectPath == static_cast<string>(objPath)))
-                    {
-                        vpdFilePath = eachFru.key();
-                    }
-                }
-            }
-        }
-    }
-    // If it is not a CPU fru then go ahead with default vpdFilePath from
-    // fruMap
-    if (vpdFilePath.empty())
-    {
-        vpdFilePath = vpdFilePathBackup;
-    }
-}
-
 void EditorImpl::updateKeyword(const Binary& kwdData, const bool& updCache)
 {
     startOffset = 0;
 #ifndef ManagerTest
-
-    getVpdPathForCpu();
 
     // check if offset present?
     for (const auto& item : jsonFile["frus"][vpdFilePath])
