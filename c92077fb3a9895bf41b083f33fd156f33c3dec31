@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "264469a2_6b2cfc1f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-02-11T05:43:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07c48930_edba4093",
+      "range": {
+        "startLine": 447,
+        "startChar": 8,
+        "endLine": 448,
+        "endChar": 27
+      },
+      "revId": "c92077fb3a9895bf41b083f33fd156f33c3dec31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af4da750_3f1bf383",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a900966d_25d21734",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-02-11T05:43:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af4da750_3f1bf383",
+      "range": {
+        "startLine": 458,
+        "startChar": 17,
+        "endLine": 458,
+        "endChar": 25
+      },
+      "revId": "c92077fb3a9895bf41b083f33fd156f33c3dec31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32ee7a29_8a19c5f8",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-02-02T15:11:54Z",
       "side": 1,
       "message": "Scope needs to be fixed here as well.",
+      "range": {
+        "startLine": 492,
+        "startChar": 8,
+        "endLine": 493,
+        "endChar": 23
+      },
+      "revId": "c92077fb3a9895bf41b083f33fd156f33c3dec31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ff77b1e_31674ad6",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-02-11T05:43:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32ee7a29_8a19c5f8",
       "range": {
         "startLine": 492,
         "startChar": 8,
