@@ -60,6 +60,13 @@ void GpioMonitor::initGpioInfos(Event& event)
             if ((eachInventory.find("presence") != eachInventory.end()) &&
                 (eachInventory.find("preAction") != eachInventory.end()))
             {
+                if (eachInventory["presence"].find("pollingRequired") ==
+                    eachInventory["presence"].end())
+                {
+                    // This FRU is not to look up for presence, skip it.
+                    return;
+                }
+
                 for (const auto& presStatus : eachInventory["presence"].items())
                 {
                     if (presStatus.key() == "pin")
