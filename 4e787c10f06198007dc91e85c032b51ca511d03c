@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84a99b53_cfc68489",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-11T12:25:48Z",
+      "side": 1,
+      "message": "Please remove references to internal IBM links.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 48
+      },
+      "revId": "4e787c10f06198007dc91e85c032b51ca511d03c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d064a0b6_8d738810",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-11T12:25:48Z",
+      "side": 1,
+      "message": "This comment is unnecessary. If you wish to keep it, please reword:\n\n\"polling not required for FRU, skip.\"",
+      "range": {
+        "startLine": 65,
+        "startChar": 23,
+        "endLine": 65,
+        "endChar": 72
+      },
+      "revId": "4e787c10f06198007dc91e85c032b51ca511d03c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
