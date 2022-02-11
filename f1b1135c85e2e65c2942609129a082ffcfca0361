@@ -22,6 +22,30 @@
       },
       "revId": "f1b1135c85e2e65c2942609129a082ffcfca0361",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1785ba07_a787510e",
+        "filename": "vpd-manager/gpioMonitor.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-02-11T06:56:51Z",
+      "side": 1,
+      "message": "Now, when I m checking for the value -\n                if (eachInventory[\"presence\"].find(\"pollingRequired\") !\u003d\n                    eachInventory[\"presence\"].end())\n                {\n                    if (eachInventory[\"presence\"][\"pollingRequired\"] !\u003d true)\n                    {\n                        // This FRU is not to look up for presence, skip it.\n                        continue; ###\n                    }.   #\n                }.       #\n                         #\n                         # To execute this by PCIE, needed pollingRequired \u003d false to all the PCIE. \n\nNow, I am forced to add pollingRequired \u003d false to all the pcie-presence section. Do you want that?",
+      "parentUuid": "0dcf4090_6de19bd8",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 17
+      },
+      "revId": "f1b1135c85e2e65c2942609129a082ffcfca0361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
