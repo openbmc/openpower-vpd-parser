@@ -1,12 +1,10 @@
 systemd = dependency('libsystemd', version: '>= 221')
-phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
 sdeventplus = dependency('sdeventplus')
 
 configuration_inc = include_directories('.', '../', '../vpd-parser/')
 
 vpd_manager_SOURCES =['manager_main.cpp',
                       'manager.cpp',
-                      'server.cpp',
                       'error.cpp',
                       'editor_impl.cpp',
                       'reader_impl.cpp',
@@ -21,10 +19,8 @@ vpd_manager_SOURCES =['manager_main.cpp',
                       '../vpd-parser/parser_factory.cpp'
                      ]
 
-vpd_manager_dependencies =[sdbusplus,
-                           phosphor_logging,
+vpd_manager_dependencies =[phosphor_logging,
                            systemd,
-                           phosphor_dbus_interfaces,
                            libgpiodcxx,
                            sdeventplus,
                           ]
