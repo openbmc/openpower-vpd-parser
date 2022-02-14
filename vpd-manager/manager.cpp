@@ -5,7 +5,6 @@
 #include "bios_handler.hpp"
 #include "common_utility.hpp"
 #include "editor_impl.hpp"
-#include "gpioMonitor.hpp"
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "parser_factory.hpp"
@@ -15,7 +14,6 @@
 #include <filesystem>
 #include <phosphor-logging/elog-errors.hpp>
 
-using namespace openpower::vpd::manager;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::manager::editor;
@@ -33,15 +31,50 @@ namespace vpd
 {
 namespace manager
 {
-Manager::Manager(sdbusplus::bus_t&& bus, const char* busName,
-                 const char* objPath, const char* /*iFace*/) :
-    ServerObject<ManagerIface>(bus, objPath),
-    _bus(std::move(bus)), _manager(_bus, objPath)
+Manager::Manager(std::shared_ptr<boost::asio::io_context>& ioCon,
+                 std::shared_ptr<sdbusplus::asio::dbus_interface>& iFace,
+                 std::shared_ptr<sdbusplus::asio::connection>& connection) :
+    ioContext(ioCon),
+    interface(iFace), conn(connection)
 {
-    _bus.request_name(busName);
+    interface->register_method(
+        "writeKeyword", [this](const sdbusplus::message::object_path& path,
+                               const std::string& recordName,
+                               const std::string& keyword, const Binary value) {
+            this->writeKeyword(path, recordName, keyword, value);
+        });
+
+    interface->register_method(
+        "getFRUsByUnexpandedLocationCode",
+        [this](const std::string& locationCode,
+               const uint16_t nodeNumber) -> inventory::ListOfPaths {
+            return this->getFRUsByUnexpandedLocationCode(locationCode,
+                                                         nodeNumber);
+        });
+
+    interface->register_method(
+        "getFRUsByExpandedLocationCode",
+        [this](const std::string& locationCode) -> inventory::ListOfPaths {
+            return this->getFRUsByExpandedLocationCode(locationCode);
+        });
+
+    interface->register_method(
+        "getExpandedLocationCode",
+        [this](const std::string& locationCode,
+               const uint16_t nodeNumber) -> std::string {
+            return this->getExpandedLocationCode(locationCode, nodeNumber);
+        });
+
+    interface->register_method(
+        "performVPDRecollection",
+        [this](const std::string& locationCode, const uint16_t nodeNumber) {
+            this->getExpandedLocationCode(locationCode, nodeNumber);
+        });
+
+    initManager();
 }
 
-void Manager::run()
+void Manager::initManager()
 {
     try
     {
@@ -50,15 +83,8 @@ void Manager::run()
         listenHostState();
         listenAssetTag();
 
-        // Create an instance of the BIOS handler
-        BiosHandler biosHandler{_bus, *this};
-
-        auto event = sdeventplus::Event::get_default();
-        GpioMonitor gpioMon1(jsonFile, event);
-
-        _bus.attach_event(event.get(), SD_EVENT_PRIORITY_IMPORTANT);
-        cout << "VPD manager event loop started\n";
-        event.loop();
+        // instantiate gpioMonitor class
+        gpioMon = std::make_shared<GpioMonitor>(jsonFile, ioContext);
     }
     catch (const std::exception& e)
     {
@@ -162,9 +188,9 @@ void Manager::restoreSystemVpd()
 
 void Manager::listenHostState()
 {
-    static std::shared_ptr<sdbusplus::bus::match_t> hostState =
-        std::make_shared<sdbusplus::bus::match_t>(
-            _bus,
+    static std::shared_ptr<sdbusplus::bus::match::match> hostState =
+        std::make_shared<sdbusplus::bus::match::match>(
+            *conn,
             sdbusplus::bus::match::rules::propertiesChanged(
                 "/xyz/openbmc_project/state/host0",
                 "xyz.openbmc_project.State.Host"),
@@ -204,7 +230,7 @@ void Manager::listenAssetTag()
 {
     static std::shared_ptr<sdbusplus::bus::match_t> assetMatcher =
         std::make_shared<sdbusplus::bus::match_t>(
-            _bus,
+            *conn,
             sdbusplus::bus::match::rules::propertiesChanged(
                 "/xyz/openbmc_project/inventory/system",
                 "xyz.openbmc_project.Inventory.Decorator.AssetTag"),
