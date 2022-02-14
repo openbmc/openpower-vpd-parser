@@ -3,19 +3,11 @@
 #include "common_utility.hpp"
 #include "ibm_vpd_utils.hpp"
 
-#include <systemd/sd-event.h>
-
-#include <chrono>
+#include <boost/asio/steady_timer.hpp>
 #include <gpiod.hpp>
-#include <sdeventplus/clock.hpp>
-#include <sdeventplus/utility/timer.hpp>
 
 using namespace std;
 using namespace openpower::vpd::constants;
-using sdeventplus::ClockId;
-using sdeventplus::Event;
-using Timer = sdeventplus::utility::Timer<ClockId::Monotonic>;
-using namespace std::chrono_literals;
 
 namespace openpower
 {
@@ -44,7 +36,8 @@ bool GpioEventHandler::getPresencePinValue()
     return gpioData;
 }
 
-void GpioMonitor::initGpioInfos(Event& event)
+void GpioMonitor::initGpioInfos(
+    std::shared_ptr<boost::asio::io_context>& ioContext)
 {
     Byte outputValue = 0;
     Byte presenceValue = 0;
@@ -95,7 +88,7 @@ void GpioMonitor::initGpioInfos(Event& event)
                     make_shared<GpioEventHandler>(
                         presencePinName, presenceValue, outputPinName,
                         outputValue, devNameAddr, driverType, busType,
-                        objectPath, event);
+                        objectPath, ioContext);
 
                 gpioObjects.push_back(gpioObj);
             }
@@ -150,22 +143,36 @@ void GpioEventHandler::toggleGpio()
     executeCmd(cmnd);
 }
 
-void GpioEventHandler::doEventAndTimerSetup(sdeventplus::Event& event)
+void GpioEventHandler::doEventAndTimerSetup(
+    std::shared_ptr<boost::asio::io_context>& ioContext)
 {
     prevPresPinValue = getPresencePinValue();
 
-    static vector<shared_ptr<Timer>> timers;
-    shared_ptr<Timer> timer = make_shared<Timer>(
-        event,
-        [this](Timer&) {
-            if (hasEventOccurred())
-            {
-                toggleGpio();
-            }
-        },
-        std::chrono::seconds{5s});
+    static vector<boost::asio::steady_timer> timers;
 
-    timers.push_back(timer);
+    boost::asio::steady_timer timer(*ioContext);
+
+    // timer for 5 seconds
+    timer.expires_after(std::chrono::seconds(5));
+    timer.async_wait([this](const boost::system::error_code& ec) {
+        if (ec == boost::asio::error::operation_aborted)
+        {
+            return;
+        }
+
+        if (ec)
+        {
+            std::cerr << "Timer wait failed for gpio pin" << ec.message();
+            return;
+        }
+
+        if (hasEventOccurred())
+        {
+            toggleGpio();
+        }
+    });
+
+    timers.push_back(std::move(timer));
 }
 
 } // namespace manager
