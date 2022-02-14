@@ -4,23 +4,8 @@
 
 #include <stdint.h>
 
+#include <sdbusplus/asio/connection.hpp>
 #include <string>
-
-namespace sdbusplus
-{
-namespace bus
-{
-class bus;
-} // namespace bus
-} // namespace sdbusplus
-
-namespace sdbusplus
-{
-namespace message
-{
-class message;
-} // namespace message
-} // namespace sdbusplus
 
 namespace openpower
 {
@@ -55,8 +40,10 @@ class BiosHandler
     BiosHandler& operator=(BiosHandler&&) = delete;
     ~BiosHandler() = default;
 
-    BiosHandler(sdbusplus::bus_t& bus, Manager& manager) :
-        bus(bus), manager(manager)
+    BiosHandler(std::shared_ptr<sdbusplus::asio::connection>& conn,
+                Manager& manager) :
+        conn(conn),
+        manager(manager)
     {
         checkAndListenPLDMService();
     }
@@ -159,9 +146,9 @@ class BiosHandler
     void restoreBIOSAttribs();
 
     /**
-     * @brief Reference to the bus.
+     * @brief Reference to the connection.
      */
-    sdbusplus::bus_t& bus;
+    std::shared_ptr<sdbusplus::asio::connection>& conn;
 
     /**
      * @brief Reference to the manager.
