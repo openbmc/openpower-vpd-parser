@@ -3,19 +3,12 @@
 #include "common_utility.hpp"
 #include "ibm_vpd_utils.hpp"
 
-#include <systemd/sd-event.h>
-
-#include <chrono>
+#include <boost/asio.hpp>
+#include <boost/bind/bind.hpp>
 #include <gpiod.hpp>
-#include <sdeventplus/clock.hpp>
-#include <sdeventplus/utility/timer.hpp>
 
 using namespace std;
 using namespace openpower::vpd::constants;
-using sdeventplus::ClockId;
-using sdeventplus::Event;
-using Timer = sdeventplus::utility::Timer<ClockId::Monotonic>;
-using namespace std::chrono_literals;
 
 namespace openpower
 {
@@ -44,13 +37,15 @@ bool GpioEventHandler::getPresencePinValue()
     return gpioData;
 }
 
-void GpioMonitor::initGpioInfos(Event& event)
+void GpioMonitor::initGpioInfos(
+    std::shared_ptr<boost::asio::io_context>& ioContext)
 {
     Byte outputValue = 0;
     Byte presenceValue = 0;
     string presencePinName{}, outputPinName{};
     string devNameAddr{}, driverType{}, busType{}, objectPath{};
 
+    std::cout << "init gpio1" << std::endl;
     for (const auto& eachFRU : jsonFile["frus"].items())
     {
         for (const auto& eachInventory : eachFRU.value())
@@ -60,6 +55,7 @@ void GpioMonitor::initGpioInfos(Event& event)
             if ((eachInventory.find("presence") != eachInventory.end()) &&
                 (eachInventory.find("preAction") != eachInventory.end()))
             {
+                std::cout << "init gpio2" << std::endl;
                 for (const auto& presStatus : eachInventory["presence"].items())
                 {
                     if (presStatus.key() == "pin")
@@ -90,12 +86,13 @@ void GpioMonitor::initGpioInfos(Event& event)
                 driverType = eachInventory["driverType"];
                 busType = eachInventory["busType"];
 
+                std::cout << "init gpio3" << std::endl;
                 // Init all Gpio info variables
                 std::shared_ptr<GpioEventHandler> gpioObj =
                     make_shared<GpioEventHandler>(
                         presencePinName, presenceValue, outputPinName,
                         outputValue, devNameAddr, driverType, busType,
-                        objectPath, event);
+                        objectPath, ioContext);
 
                 gpioObjects.push_back(gpioObj);
             }
@@ -150,20 +147,42 @@ void GpioEventHandler::toggleGpio()
     executeCmd(cmnd);
 }
 
-void GpioEventHandler::doEventAndTimerSetup(sdeventplus::Event& event)
+void GpioEventHandler::handleTimerExpiry(
+    const boost::system::error_code& ec,
+    std::shared_ptr<boost::asio::steady_timer>& timer)
+{
+    if (ec == boost::asio::error::operation_aborted)
+    {
+        return;
+    }
+
+    if (ec)
+    {
+        std::cerr << "Timer wait failed for gpio pin" << ec.message();
+        return;
+    }
+
+    if (hasEventOccurred())
+    {
+        toggleGpio();
+    }
+    timer->expires_at(timer->expiry() + std::chrono::seconds(5));
+    timer->async_wait(boost::bind(&GpioEventHandler::handleTimerExpiry, this,
+                                  boost::asio::placeholders::error, timer));
+}
+
+void GpioEventHandler::doEventAndTimerSetup(
+    std::shared_ptr<boost::asio::io_context>& ioContext)
 {
     prevPresPinValue = getPresencePinValue();
 
-    static vector<shared_ptr<Timer>> timers;
-    shared_ptr<Timer> timer = make_shared<Timer>(
-        event,
-        [this](Timer&) {
-            if (hasEventOccurred())
-            {
-                toggleGpio();
-            }
-        },
-        std::chrono::seconds{5s});
+    static vector<std::shared_ptr<boost::asio::steady_timer>> timers;
+
+    auto timer = make_shared<boost::asio::steady_timer>(
+        *ioContext, std::chrono::seconds(5));
+
+    timer->async_wait(boost::bind(&GpioEventHandler::handleTimerExpiry, this,
+                                  boost::asio::placeholders::error, timer));
 
     timers.push_back(timer);
 }
