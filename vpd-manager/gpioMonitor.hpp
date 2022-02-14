@@ -1,8 +1,9 @@
 #pragma once
+#include "types.hpp"
 
-#include "manager.hpp"
-
-#include <sdeventplus/event.hpp>
+#include <boost/asio/steady_timer.hpp>
+#include <nlohmann/json.hpp>
+#include <sdbusplus/asio/connection.hpp>
 
 namespace openpower
 {
@@ -29,13 +30,13 @@ class GpioEventHandler
     GpioEventHandler(std::string& presPin, Byte& presValue, std::string& outPin,
                      Byte& outValue, std::string& devAddr, std::string& driver,
                      std::string& bus, std::string& objPath,
-                     sdeventplus::Event& event) :
+                     std::shared_ptr<boost::asio::io_context>& ioCon) :
         presencePin(presPin),
         presenceValue(presValue), outputPin(outPin), outputValue(outValue),
         devNameAddr(devAddr), driverType(driver), busType(bus),
         objectPath(objPath)
     {
-        doEventAndTimerSetup(event);
+        doEventAndTimerSetup(ioCon);
     }
 
   private:
@@ -88,11 +89,20 @@ class GpioEventHandler
 
     /** @brief This function runs a timer , which keeps checking for if an event
      *         happened, if event occured then takes action.
-     *  @param[in] timer- Shared pointer of Timer to do event setup for each
-     *                    object.
-     *  @param[in] event- Event which needs to be tagged with the timer.
+     *
+     *  @param[in] ioContext - Pointer to io context object.
      */
-    void doEventAndTimerSetup(sdeventplus::Event& event);
+    void doEventAndTimerSetup(
+        std::shared_ptr<boost::asio::io_context>& ioContext);
+
+    /**
+     * @brief Api to handle timer expiry.
+     *
+     * @param ec - Error code.
+     * @param timer - Pointer to timer object.
+     */
+    void handleTimerExpiry(const boost::system::error_code& ec,
+                           std::shared_ptr<boost::asio::steady_timer>& timer);
 };
 
 /** @class GpioMonitor
@@ -109,9 +119,11 @@ class GpioMonitor
     GpioMonitor(GpioMonitor&&) = delete;
     GpioMonitor& operator=(GpioMonitor&&) = delete;
 
-    GpioMonitor(nlohmann::json& js, sdeventplus::Event& event) : jsonFile(js)
+    GpioMonitor(nlohmann::json& js,
+                std::shared_ptr<boost::asio::io_context>& ioCon) :
+        jsonFile(js)
     {
-        initGpioInfos(event);
+        initGpioInfos(ioCon);
     }
 
   private:
@@ -122,14 +134,10 @@ class GpioMonitor
 
     /** @brief This function will extract the gpio informations from vpd json
      * and store it in GpioEventHandler's private variables
-     *  @param[in] gpioObj - shared object to initialise it's data and it's
-     * Timer setup
-     *  @param[in] requestedGpioPin - Which GPIO's informations need to be
-     * stored
-     *  @param[in] timer - shared object of timer to do the event setup
-     *  @param[in] event - event to be tagged with timer.
+     *
+     * @param[in] ioContext - Pointer to io context object.
      */
-    void initGpioInfos(sdeventplus::Event& event);
+    void initGpioInfos(std::shared_ptr<boost::asio::io_context>& ioContext);
 };
 
 } // namespace manager

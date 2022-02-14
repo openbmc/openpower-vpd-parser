@@ -1,19 +1,12 @@
 #pragma once
 
 #include "editor_impl.hpp"
-#include "types.hpp"
+#include "gpioMonitor.hpp"
 
 #include <com/ibm/VPD/Manager/server.hpp>
 #include <map>
-#include <nlohmann/json.hpp>
-
-namespace sdbusplus
-{
-namespace bus
-{
-class bus;
-}
-} // namespace sdbusplus
+#include <sdbusplus/asio/object_server.hpp>
+#include <sdbusplus/exception.hpp>
 
 namespace openpower
 {
@@ -22,18 +15,12 @@ namespace vpd
 namespace manager
 {
 
-template <typename T>
-using ServerObject = T;
-
-using ManagerIface = sdbusplus::com::ibm::VPD::server::Manager;
-
 /** @class Manager
  *  @brief OpenBMC VPD Manager implementation.
  *
- *  A concrete implementation for the
- *  com.ibm.vpd.Manager
+ *  Implements methods under interface com.ibm.vpd.Manager.
  */
-class Manager : public ServerObject<ManagerIface>
+class Manager
 {
   public:
     /* Define all of the basic class operations:
@@ -51,14 +38,14 @@ class Manager : public ServerObject<ManagerIface>
     Manager(Manager&&) = delete;
     ~Manager() = default;
 
-    /** @brief Constructor to put object onto bus at a dbus path.
-     *  @param[in] bus - Bus connection.
-     *  @param[in] busName - Name to be requested on Bus
-     *  @param[in] objPath - Path to attach at.
-     *  @param[in] iFace - interface to implement
+    /** @brief Constructor.
+     *  @param[in] ioCon - IO context.
+     *  @param[in] iFace - interface to implement.
+     *  @param[in] connection - Dbus Connection.
      */
-    Manager(sdbusplus::bus_t&& bus, const char* busName, const char* objPath,
-            const char* iFace);
+    Manager(std::shared_ptr<boost::asio::io_context>& ioCon,
+            std::shared_ptr<sdbusplus::asio::dbus_interface>& iFace,
+            std::shared_ptr<sdbusplus::asio::connection>& connection);
 
     /** @brief Implementation for WriteKeyword
      *  Api to update the keyword value for a given inventory.
@@ -115,8 +102,10 @@ class Manager : public ServerObject<ManagerIface>
     std::string getExpandedLocationCode(const std::string locationCode,
                                         const uint16_t nodeNumber);
 
-    /** @brief Start processing DBus messages. */
-    void run();
+    /**
+     * @brief An api to process some initial requiremets.
+     */
+    void initManager();
 
     /** @brief Api to perform VPD recollection.
      * This api will trigger parser to perform VPD recollection for FRUs that
@@ -159,11 +148,14 @@ class Manager : public ServerObject<ManagerIface>
      */
     void restoreSystemVpd();
 
-    /** @brief Persistent sdbusplus DBus bus connection. */
-    sdbusplus::bus_t _bus;
+    // Shared pointer to asio context object.
+    std::shared_ptr<boost::asio::io_context>& ioContext;
 
-    /** @brief sdbusplus org.freedesktop.DBus.ObjectManager reference. */
-    sdbusplus::server::manager_t _manager;
+    // Shared prt to Dbus interface class.
+    std::shared_ptr<sdbusplus::asio::dbus_interface>& interface;
+
+    // Bus connection.
+    std::shared_ptr<sdbusplus::asio::connection>& conn;
 
     // file to store parsed json
     nlohmann::json jsonFile;
@@ -177,6 +169,9 @@ class Manager : public ServerObject<ManagerIface>
 
     // map to hold FRUs which can be replaced at standby
     inventory::ReplaceableFrus replaceableFrus;
+
+    // Shared pointer to gpio monitor object.
+    std::shared_ptr<GpioMonitor> gpioMon;
 };
 
 } // namespace manager
