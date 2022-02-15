@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29e0eb5b_622649c2",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1219,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-15T10:11:29Z",
+      "side": 1,
+      "message": "Please revert this line change",
+      "revId": "45db87fb3950bb11a4d2c1f2817d5ea60e52caad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ad00828_e0bc546d",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-15T10:11:29Z",
+      "side": 1,
+      "message": "See if you can get a reference to the underlying property map from \"map\" and update it inline:\n\nSomething like:\n```\nauto \u0026prop \u003d map.at(interface);\nprop.insert(property.begin(), property.end());\n```",
+      "range": {
+        "startLine": 622,
+        "startChar": 0,
+        "endLine": 624,
+        "endChar": 37
+      },
+      "revId": "45db87fb3950bb11a4d2c1f2817d5ea60e52caad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "001389da_dfd13d5b",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-15T10:11:29Z",
+      "side": 1,
+      "message": "Please rephrase this when you change the function name too",
+      "range": {
+        "startLine": 264,
+        "startChar": 10,
+        "endLine": 264,
+        "endChar": 50
+      },
+      "revId": "45db87fb3950bb11a4d2c1f2817d5ea60e52caad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "770150a0_d08d3d83",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-15T10:11:29Z",
+      "side": 1,
+      "message": "Please rename this to something like: insertOrMerge",
+      "range": {
+        "startLine": 271,
+        "startChar": 5,
+        "endLine": 271,
+        "endChar": 24
+      },
+      "revId": "45db87fb3950bb11a4d2c1f2817d5ea60e52caad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2de3f9a_87418bc5",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-15T10:11:29Z",
+      "side": 1,
+      "message": "Please take the interface by const ref and property by a ref ref",
+      "revId": "45db87fb3950bb11a4d2c1f2817d5ea60e52caad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
