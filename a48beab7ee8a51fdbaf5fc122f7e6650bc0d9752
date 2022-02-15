@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85eabf49_b3f7b761",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-15T10:30:15Z",
+      "side": 1,
+      "message": "Please do not reference IBM internal links in the commit message",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 97
+      },
+      "revId": "a48beab7ee8a51fdbaf5fc122f7e6650bc0d9752",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f57efd66_ab1f4a70",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-15T10:30:15Z",
+      "side": 1,
+      "message": "Should be a static fn",
+      "revId": "a48beab7ee8a51fdbaf5fc122f7e6650bc0d9752",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c1251a5_f59c9418",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-15T10:30:15Z",
+      "side": 1,
+      "message": "This will create several temp string objects. Please use the std::string::data() method to get a pointer to the underlying string storage and the memcmp against a statically defined pattern of 0xE7F9FF (repeated 8 times)",
+      "range": {
+        "startLine": 992,
+        "startChar": 4,
+        "endLine": 999,
+        "endChar": 44
+      },
+      "revId": "a48beab7ee8a51fdbaf5fc122f7e6650bc0d9752",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0df9dd29_4fbb6fbd",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-15T10:30:15Z",
+      "side": 1,
+      "message": "Nit: How about renaming this? isCPUIOGoodOnly()",
+      "range": {
+        "startLine": 1193,
+        "startChar": 28,
+        "endLine": 1193,
+        "endChar": 37
+      },
+      "revId": "a48beab7ee8a51fdbaf5fc122f7e6650bc0d9752",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
