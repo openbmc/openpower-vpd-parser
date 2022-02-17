@@ -329,6 +329,30 @@
       },
       "revId": "87a4a2d83d89429c0a3963436aac76c083d83c8e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41cba386_c1c05ef0",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-17T05:50:20Z",
+      "side": 1,
+      "message": "ok. understood. Please include this in the api\u0027s (isThisPcieOnPass1planar()) doxygen - answering why we need this api.",
+      "parentUuid": "e5671b82_aaabeb2c",
+      "range": {
+        "startLine": 1440,
+        "startChar": 8,
+        "endLine": 1440,
+        "endChar": 46
+      },
+      "revId": "87a4a2d83d89429c0a3963436aac76c083d83c8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

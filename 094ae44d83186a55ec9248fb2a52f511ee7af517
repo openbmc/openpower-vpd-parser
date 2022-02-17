@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "382eeace_7a2a7982",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-17T05:50:20Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "88e9b282_18014084",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 55
+      },
+      "revId": "094ae44d83186a55ec9248fb2a52f511ee7af517",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "901d96b0_644c96b8",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 10
@@ -42,6 +66,75 @@
         "startChar": 1,
         "endLine": 352,
         "endChar": 32
+      },
+      "revId": "094ae44d83186a55ec9248fb2a52f511ee7af517",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58df90fe_16ef6fe1",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-17T05:50:20Z",
+      "side": 1,
+      "message": "yes. can you give a better doxygen by adding what HW keyword actually describes and why this method is required.",
+      "range": {
+        "startLine": 351,
+        "startChar": 2,
+        "endLine": 352,
+        "endChar": 32
+      },
+      "revId": "094ae44d83186a55ec9248fb2a52f511ee7af517",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b4d3d70_fbe959f2",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-17T05:50:20Z",
+      "side": 1,
+      "message": "you can make this a static function if its used only within this file.",
+      "range": {
+        "startLine": 353,
+        "startChar": 0,
+        "endLine": 353,
+        "endChar": 52
+      },
+      "revId": "094ae44d83186a55ec9248fb2a52f511ee7af517",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18c16233_1103f87e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-17T05:50:20Z",
+      "side": 1,
+      "message": "why - \"?\"",
+      "range": {
+        "startLine": 375,
+        "startChar": 50,
+        "endLine": 375,
+        "endChar": 52
       },
       "revId": "094ae44d83186a55ec9248fb2a52f511ee7af517",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
