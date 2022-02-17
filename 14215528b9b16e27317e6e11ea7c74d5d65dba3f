@@ -3,6 +3,121 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c063e8f0_86a8ba40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-17T06:49:10Z",
+      "side": 1,
+      "message": "\" if not present on the system \" -\u003e do you mean if the actual fru is not present on the system?",
+      "range": {
+        "startLine": 10,
+        "startChar": 2,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "14215528b9b16e27317e6e11ea7c74d5d65dba3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7196cb49_c2ac2692",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-17T06:49:10Z",
+      "side": 1,
+      "message": "can you also mention how you do this. ( statement like - by checking the vpd\u0027s ccin with the ccin list from json).",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "14215528b9b16e27317e6e11ea7c74d5d65dba3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "818f0308_629efe52",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-17T06:49:10Z",
+      "side": 1,
+      "message": "you can remove these ibm only github links from commit message.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 72
+      },
+      "revId": "14215528b9b16e27317e6e11ea7c74d5d65dba3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a2e7bb2_44c96ac2",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-17T06:49:10Z",
+      "side": 1,
+      "message": "nit: Can you give a detailed comment?",
+      "range": {
+        "startLine": 1058,
+        "startChar": 12,
+        "endLine": 1058,
+        "endChar": 39
+      },
+      "revId": "14215528b9b16e27317e6e11ea7c74d5d65dba3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38e232fd_5e0a2a4c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-17T06:49:10Z",
+      "side": 1,
+      "message": "For the safer side can you move a dummyInterface map rather than moving the function scoped \"interfaces\" map variable.\n\nWhy because what if someone adds up the logic to emplace something in \"interfaces\" map before reaching the if condition at line 1054. In that case when you reach line 1061, you will be not be emplacing an empty map.\nThat will also mess up the objects map.",
+      "range": {
+        "startLine": 1061,
+        "startChar": 42,
+        "endLine": 1061,
+        "endChar": 58
+      },
+      "revId": "14215528b9b16e27317e6e11ea7c74d5d65dba3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "352f04e6_64e6d440",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 1
