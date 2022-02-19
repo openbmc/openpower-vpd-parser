@@ -487,12 +487,16 @@ static void preAction(const nlohmann::json& json, const string& file)
     }
 
     // Now bind the device
-    string bind = json["frus"][file].at(0).value("devAddress", "");
-    cout << "Binding device " << bind << endl;
-    string bindCmd = string("echo \"") + bind +
-                     string("\" > /sys/bus/i2c/drivers/at24/bind");
-    cout << bindCmd << endl;
-    executeCmd(bindCmd);
+    if (json["frus"][file].at(0).find("devAddress") !=
+        json["frus"][file].at(0).end())
+    {
+        string bind = json["frus"][file].at(0).value("devAddress", "");
+        cout << "Binding device " << bind << endl;
+        string bindCmd = string("echo \"") + bind +
+                         string("\" > /sys/bus/i2c/drivers/at24/bind");
+        cout << bindCmd << endl;
+        executeCmd(bindCmd);
+    }
 
     // Check if device showed up (test for file)
     if (!fs::exists(file))
