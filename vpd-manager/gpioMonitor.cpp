@@ -92,18 +92,23 @@ void GpioMonitor::initGpioInfos(Event& event)
                     }
                 }
 
-                devNameAddr = eachInventory["devAddress"];
-                driverType = eachInventory["driverType"];
-                busType = eachInventory["busType"];
+                if ((eachInventory.find("devAddress") != eachInventory.end()) &&
+                    (eachInventory.find("driverType") != eachInventory.end()) &&
+                    (eachInventory.find("busType") != eachInventory.end()))
+                {
+                    devNameAddr = eachInventory["devAddress"];
+                    driverType = eachInventory["driverType"];
+                    busType = eachInventory["busType"];
 
-                // Init all Gpio info variables
-                std::shared_ptr<GpioEventHandler> gpioObj =
-                    make_shared<GpioEventHandler>(
-                        presencePinName, presenceValue, outputPinName,
-                        outputValue, devNameAddr, driverType, busType,
-                        objectPath, event);
+                    // Init all Gpio info variables
+                    std::shared_ptr<GpioEventHandler> gpioObj =
+                        make_shared<GpioEventHandler>(
+                            presencePinName, presenceValue, outputPinName,
+                            outputValue, devNameAddr, driverType, busType,
+                            objectPath, event);
 
-                gpioObjects.push_back(gpioObj);
+                    gpioObjects.push_back(gpioObj);
+                }
             }
         }
     }
