@@ -331,6 +331,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a4fd05c_8917eb72",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-02-21T10:26:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4330ea4e_fff77d15",
+      "range": {
+        "startLine": 378,
+        "startChar": 0,
+        "endLine": 379,
+        "endChar": 72
+      },
+      "revId": "094ae44d83186a55ec9248fb2a52f511ee7af517",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1bd6f54_1e469ef2",
@@ -380,6 +404,24 @@
       "side": 1,
       "message": "That is probably another bug that needs to be fixed. But please remove this code that explicitly checks for an empty file.",
       "parentUuid": "ae59a8ac_73274adb",
+      "revId": "094ae44d83186a55ec9248fb2a52f511ee7af517",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "525fb92e_eb917145",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-02-21T10:26:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5af19f11_4b2304d9",
       "revId": "094ae44d83186a55ec9248fb2a52f511ee7af517",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
