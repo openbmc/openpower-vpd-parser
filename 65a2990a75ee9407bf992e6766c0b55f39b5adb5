@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7c14c01_f5ac8c1e",
+        "filename": "test/vpd-manager-test/vpd_editor_test.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-22T10:17:33Z",
+      "side": 1,
+      "message": "Please clean up this formatting.",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 32
+      },
+      "revId": "65a2990a75ee9407bf992e6766c0b55f39b5adb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b66cbdd0_e95943f7",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-22T10:17:33Z",
+      "side": 1,
+      "message": "Since we are going to need the JSON change anyway, could you remove this if clause altogether?",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 20
+      },
+      "revId": "65a2990a75ee9407bf992e6766c0b55f39b5adb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
