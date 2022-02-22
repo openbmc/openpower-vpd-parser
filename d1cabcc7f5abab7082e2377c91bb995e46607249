@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dab3567b_98427687",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-22T10:05:09Z",
+      "side": 1,
+      "message": "Some nits",
+      "revId": "d1cabcc7f5abab7082e2377c91bb995e46607249",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89ab59fb_ced665dd",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-22T10:05:09Z",
+      "side": 1,
+      "message": "Please add a few lines to clarify how existing keys in the property map are handled (They are skipped)",
+      "range": {
+        "startLine": 264,
+        "startChar": 10,
+        "endLine": 265,
+        "endChar": 32
+      },
+      "revId": "d1cabcc7f5abab7082e2377c91bb995e46607249",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52c2ee87_a8503347",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-02-22T10:05:09Z",
+      "side": 1,
+      "message": "Nit: Just \"The interface name\" is OK.",
+      "range": {
+        "startLine": 267,
+        "startChar": 26,
+        "endLine": 267,
+        "endChar": 54
+      },
+      "revId": "d1cabcc7f5abab7082e2377c91bb995e46607249",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
