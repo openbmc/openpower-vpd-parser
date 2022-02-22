@@ -70,6 +70,30 @@
       },
       "revId": "2e14789fe85fa48106baf6c1a205a169f484c71b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad72db91_f0a9b055",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-02-22T08:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1402ccf7_f44e27fd",
+      "range": {
+        "startLine": 471,
+        "startChar": 16,
+        "endLine": 471,
+        "endChar": 20
+      },
+      "revId": "2e14789fe85fa48106baf6c1a205a169f484c71b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
