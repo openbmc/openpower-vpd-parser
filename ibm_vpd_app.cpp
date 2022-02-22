@@ -451,8 +451,8 @@ static void preAction(const nlohmann::json& json, const string& file)
             ((json["frus"][file].at(0)["presence"]).find("value") !=
              json["frus"][file].at(0)["presence"].end()))
         {
-            Byte presPinName = json["frus"][file].at(0)["presence"]["pin"];
-            string presPinValue = json["frus"][file].at(0)["presence"]["value"];
+            string presPinName = json["frus"][file].at(0)["presence"]["pin"];
+            Byte presPinValue = json["frus"][file].at(0)["presence"]["value"];
 
             try
             {
