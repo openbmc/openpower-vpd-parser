@@ -19,7 +19,6 @@
 #include <exception>
 #include <filesystem>
 #include <fstream>
-#include <gpiod.hpp>
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
