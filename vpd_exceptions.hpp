@@ -134,6 +134,44 @@ class VpdJsonException : public VPDException
 
 }; // class VpdJSonException
 
+/** @class VpdGpioException
+ *  @brief This class extends Exceptions class and define
+ *  type for GPIO related exception in VPD
+ */
+class VpdGpioException : public VPDException
+{
+  public:
+    // deleted methods
+    VpdGpioException() = delete;
+    VpdGpioException(const VpdGpioException&) = delete;
+    VpdGpioException(VpdGpioException&&) = delete;
+    VpdGpioException& operator=(const VpdGpioException&) = delete;
+
+    // default destructor
+    ~VpdGpioException() = default;
+
+    /** @brief constructor
+     *  @param[in] - string to define exception
+     */
+    explicit VpdGpioException(const std::string& msg, const std::string& iic) :
+        VPDException(msg), iicBusAddr(iic)
+    {
+    }
+
+    /** @brief IIC details getter method.
+     *  @return - iic bus address
+     */
+    inline std::string getIICPath() const
+    {
+        return iicBusAddr;
+    }
+
+  private:
+    /** To hold the iic details that failed for gpio operation*/
+    std::string iicBusAddr;
+
+}; // class VpdGpioException
+
 } // namespace exceptions
 } // namespace vpd
 } // namespace openpower
