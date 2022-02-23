@@ -6,6 +6,7 @@
 #include "defines.hpp"
 #include "vpd_exceptions.hpp"
 
+#include <boost/algorithm/string.hpp>
 #include <filesystem>
 #include <fstream>
 #include <gpiod.hpp>
@@ -614,6 +615,29 @@ string getPrintableValue(const Binary& vec)
     return str;
 }
 
+/*
+ * @brief Log PEL for GPIO exception
+ *
+ * @param[in] gpioErr gpioError type exception
+ * @param[in] i2cBusAddr I2C bus and address
+ */
+void logGpioPel(const string& gpioErr, const string& i2cBusAddr)
+{
+    // Get the IIC details
+    vector<string> i2cReg;
+    boost::split(i2cReg, i2cBusAddr, boost::is_any_of("-"));
+
+    PelAdditionalData additionalData{};
+    if (i2cReg.size() == 2)
+    {
+        additionalData.emplace("CALLOUT_IIC_BUS", i2cReg[0]);
+        additionalData.emplace("CALLOUT_IIC_ADDR", "0x" + i2cReg[1]);
+    }
+
+    additionalData.emplace("DESCRIPTION", gpioErr);
+    createPEL(additionalData, PelSeverity::WARNING, errIntfForGpioError);
+}
+
 void executePostFailAction(const nlohmann::json& json, const string& file)
 {
     if ((json["frus"][file].at(0)).find("postActionFail") ==
@@ -640,26 +664,38 @@ void executePostFailAction(const nlohmann::json& json, const string& file)
     }
 
     cout << "Setting GPIO: " << pinName << " to " << (int)pinValue << endl;
-
     try
     {
         gpiod::line outputLine = gpiod::find_line(pinName);
 
         if (!outputLine)
         {
-            cout << "Couldn't find output line:" << pinName
-                 << " on GPIO. Skipping...\n";
-
-            return;
+            throw runtime_error(
+                "Couldn't find output line for the GPIO. Skipping "
+                "this GPIO action.");
         }
         outputLine.request(
             {"Disable line", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
             pinValue);
     }
-    catch (const system_error&)
+    catch (const exception& e)
     {
-        cerr << "Failed to set post-action GPIO" << endl;
+        string i2cBusAddr;
+        string errMsg = e.what();
+        errMsg += "\nGPIO: " + pinName;
+
+        if ((json["frus"][file].at(0)["postActionFail"].find(
+                "gpioI2CAddress")) !=
+            json["frus"][file].at(0)["postActionFail"].end())
+        {
+            i2cBusAddr =
+                json["frus"][file].at(0)["postActionFail"]["gpioI2CAddress"];
+        }
+
+        logGpioPel(errMsg, i2cBusAddr);
     }
+
+    return;
 }
 
 std::optional<bool> isPresent(const nlohmann::json& json, const string& file)
@@ -682,9 +718,9 @@ std::optional<bool> isPresent(const nlohmann::json& json, const string& file)
 
                 if (!presenceLine)
                 {
-                    cerr << "couldn't find presence line:" << presPinName
-                         << "\n";
-                    return false;
+                    throw runtime_error(
+                        "Couldn't find the presence line for the "
+                        "GPIO. Skipping this GPIO action.");
                 }
 
                 presenceLine.request({"Read the presence line",
@@ -694,10 +730,21 @@ std::optional<bool> isPresent(const nlohmann::json& json, const string& file)
 
                 return (gpioData == presPinValue);
             }
-            catch (system_error&)
+            catch (const exception& e)
             {
-                cerr << "Failed to get the presence GPIO for - " << presPinName
-                     << endl;
+                string i2cBusAddr;
+                string errMsg = e.what();
+                errMsg += " GPIO : " + presPinName;
+
+                if ((json["frus"][file].at(0)["presence"])
+                        .find("gpioI2CAddress") !=
+                    json["frus"][file].at(0)["presence"].end())
+                {
+                    i2cBusAddr =
+                        json["frus"][file].at(0)["presence"]["gpioI2CAddress"];
+                }
+
+                logGpioPel(errMsg, i2cBusAddr);
                 return false;
             }
         }
@@ -734,19 +781,29 @@ bool executePreAction(const nlohmann::json& json, const string& file)
 
                 if (!outputLine)
                 {
-                    cout << "Couldn't find output line:" << pinName
-                         << " on GPIO. Skipping...\n";
-
-                    return false;
+                    throw runtime_error(
+                        "Couldn't find output line for the GPIO. "
+                        "Skipping this GPIO action.");
                 }
                 outputLine.request({"FRU pre-action",
                                     ::gpiod::line_request::DIRECTION_OUTPUT, 0},
                                    pinValue);
             }
-            catch (system_error&)
+            catch (const exception& e)
             {
-                cerr << "Failed to set pre-action for GPIO - " << pinName
-                     << endl;
+                string i2cBusAddr;
+                string errMsg = e.what();
+                errMsg += " GPIO : " + pinName;
+
+                if ((json["frus"][file].at(0)["preAction"])
+                        .find("gpioI2CAddress") !=
+                    json["frus"][file].at(0)["preAction"].end())
+                {
+                    i2cBusAddr =
+                        json["frus"][file].at(0)["preAction"]["gpioI2CAddress"];
+                }
+
+                logGpioPel(errMsg, i2cBusAddr);
                 return false;
             }
         }
