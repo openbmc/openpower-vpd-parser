@@ -279,8 +279,9 @@ string byteArrayToHexString(const Binary& vec);
 std::optional<bool> isPresent(const nlohmann::json& json, const string& file);
 
 /**
- * @brief Performs any pre-action needed to get the FRU setup for
- * collection.
+ * @brief This sets the appropriate value to presence GPIO based on device
+ *        attached or not on expander GPIO, which enables that FRU's VPD
+ *        collection.
  *
  * @param[in] json - json object
  * @param[in] file - eeprom file path
@@ -289,8 +290,8 @@ std::optional<bool> isPresent(const nlohmann::json& json, const string& file);
 bool executePreAction(const nlohmann::json& json, const string& file);
 
 /**
- * @brief This API will be called at the end of VPD collection to perform any
- * post actions.
+ * @brief This API will be called to perform any post fail actions, if
+ *        pre action failed or couldn't perform.
  *
  * @param[in] json - json object
  * @param[in] file - eeprom file path
