@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1228862_507b382c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-02-24T08:07:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec159f78_8e652db3",
+      "range": {
+        "startLine": 490,
+        "startChar": 0,
+        "endLine": 492,
+        "endChar": 27
+      },
+      "revId": "2fbf66d5edf9a83665d6df634079a6118ee506a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1f84f44_d6bbdfa2",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-24T06:21:00Z",
       "side": 1,
       "message": "after merge conflict, got this new code.\nNeed to add PEL support here also.",
+      "range": {
+        "startLine": 507,
+        "startChar": 1,
+        "endLine": 508,
+        "endChar": 29
+      },
+      "revId": "2fbf66d5edf9a83665d6df634079a6118ee506a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "542b3d02_0b2cef70",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-02-24T08:07:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1f84f44_d6bbdfa2",
       "range": {
         "startLine": 507,
         "startChar": 1,
