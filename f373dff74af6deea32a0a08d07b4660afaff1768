@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6a2e6cf_0a71fff4",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-02-24T14:51:13Z",
+      "side": 1,
+      "message": "could you try to get the oxygen correct. I do not see the parameters in and return mentioned.",
+      "range": {
+        "startLine": 351,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 3
+      },
+      "revId": "f373dff74af6deea32a0a08d07b4660afaff1768",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4093d892_997fd4ef",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-02-24T14:51:13Z",
+      "side": 1,
+      "message": "is this the vpd file?",
+      "range": {
+        "startLine": 356,
+        "startChar": 50,
+        "endLine": 356,
+        "endChar": 54
+      },
+      "revId": "f373dff74af6deea32a0a08d07b4660afaff1768",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
