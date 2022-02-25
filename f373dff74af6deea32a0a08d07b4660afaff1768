@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "428e234d_1bd5faab",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-02-25T05:37:13Z",
+      "side": 1,
+      "message": "I heard in cpp file we just need some description, and not complete doxygen.\nwe have so many functions like this, like just above function - line 326",
+      "parentUuid": "e6a2e6cf_0a71fff4",
+      "range": {
+        "startLine": 351,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 3
+      },
+      "revId": "f373dff74af6deea32a0a08d07b4660afaff1768",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4093d892_997fd4ef",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-24T14:51:13Z",
       "side": 1,
       "message": "is this the vpd file?",
+      "range": {
+        "startLine": 356,
+        "startChar": 50,
+        "endLine": 356,
+        "endChar": 54
+      },
+      "revId": "f373dff74af6deea32a0a08d07b4660afaff1768",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff8ce942_5025e712",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-02-25T05:37:13Z",
+      "side": 1,
+      "message": "yes, it is vpd eeprom file path.",
+      "parentUuid": "4093d892_997fd4ef",
       "range": {
         "startLine": 356,
         "startChar": 50,
