@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d635d16_bff23b04",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-25T05:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89ab59fb_ced665dd",
+      "range": {
+        "startLine": 264,
+        "startChar": 10,
+        "endLine": 265,
+        "endChar": 32
+      },
+      "revId": "d1cabcc7f5abab7082e2377c91bb995e46607249",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52c2ee87_a8503347",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-02-22T10:05:09Z",
       "side": 1,
       "message": "Nit: Just \"The interface name\" is OK.",
+      "range": {
+        "startLine": 267,
+        "startChar": 26,
+        "endLine": 267,
+        "endChar": 54
+      },
+      "revId": "d1cabcc7f5abab7082e2377c91bb995e46607249",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e188180_1d78413d",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-02-25T05:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52c2ee87_a8503347",
       "range": {
         "startLine": 267,
         "startChar": 26,
