@@ -72,7 +72,7 @@ void VpdTool::eraseInventoryPath(string& fru)
 {
     // Power supply frupath comes with INVENTORY_PATH appended in prefix.
     // Stripping it off inorder to avoid INVENTORY_PATH duplication
-    // during getVINIProperties() execution.
+    // during getCIProperties() execution.
     fru.erase(0, sizeof(INVENTORY_PATH) - 1);
 }
 
@@ -99,13 +99,40 @@ auto VpdTool::makeDBusCall(const string& objectName, const string& interface,
     return result;
 }
 
-json VpdTool::getVINIProperties(string invPath)
+string VpdTool::getPropValue(const string& objectName, const string& interface,
+                             const string& keyword)
 {
-    variant<Binary> response;
+    try
+    {
+        if (objFound)
+        {
+            variant<Binary, string> response;
+            makeDBusCall(objectName, interface, keyword).read(response);
+            if (auto vec = get_if<Binary>(&response))
+            {
+                return getPrintableValue(*vec);
+            }
+            else if (auto vec = get_if<string>(&response))
+            {
+                return *vec;
+            }
+        }
+    }
+    catch (const sdbusplus::exception::exception& e)
+    {
+        if (string(e.name()) ==
+            string("org.freedesktop.DBus.Error.UnknownObject"))
+        {
+            objFound = false;
+        }
+    }
+    return "";
+}
+
+json VpdTool::getCIProperties(string invPath)
+{
     json kwVal = json::object({});
 
-    vector<string> keyword{"CC", "SN", "PN", "FN", "DR"};
-    string interface = "com.ibm.ipzvpd.VINI";
     string objectName = {};
 
     if (invPath.find(INVENTORY_PATH) != string::npos)
@@ -117,30 +144,31 @@ json VpdTool::getVINIProperties(string invPath)
     {
         objectName = INVENTORY_PATH + invPath;
     }
-    for (string kw : keyword)
+
+    kwVal.emplace("DR", getPropValue(objectName, "com.ibm.ipzvpd.VINI", "DR"));
+    kwVal.emplace("CC",
+                  getPropValue(objectName,
+                               "xyz.openbmc_project.Inventory.Decorator.Asset",
+                               "Model"));
+    kwVal.emplace("FN",
+                  getPropValue(objectName,
+                               "xyz.openbmc_project.Inventory.Decorator.Asset",
+                               "SparePartNumber"));
+    kwVal.emplace("SN",
+                  getPropValue(objectName,
+                               "xyz.openbmc_project.Inventory.Decorator.Asset",
+                               "SerialNumber"));
+    kwVal.emplace("PN",
+                  getPropValue(objectName,
+                               "xyz.openbmc_project.Inventory.Decorator.Asset",
+                               "PartNumber"));
+    kwVal.emplace("PrettyName",
+                  getPropValue(objectName, "xyz.openbmc_project.Inventory.Item",
+                               "PrettyName"));
+    if (!objFound)
     {
-        try
-        {
-            makeDBusCall(objectName, interface, kw).read(response);
-
-            if (auto vec = get_if<Binary>(&response))
-            {
-                string printableVal = getPrintableValue(*vec);
-                kwVal.emplace(kw, printableVal);
-            }
-        }
-        catch (const sdbusplus::exception::exception& e)
-        {
-            if (string(e.name()) ==
-                string("org.freedesktop.DBus.Error.UnknownObject"))
-            {
-                kwVal.emplace(invPath, json::object({}));
-                objFound = false;
-                break;
-            }
-        }
+        return json::object({});
     }
-
     return kwVal;
 }
 
@@ -200,7 +228,7 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
     objFound = true;
     string invPath = itemEEPROM.at("inventoryPath");
 
-    j = getVINIProperties(invPath);
+    j = getCIProperties(invPath);
 
     if (objFound)
     {

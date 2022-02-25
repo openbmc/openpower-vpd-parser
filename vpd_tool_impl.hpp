@@ -42,16 +42,19 @@ class VpdTool
                       const std::string& interface, const std::string& kw);
 
     /**
-     * @brief Get VINI properties
-     * Making a dbus call for properties [SN, PN, CC, FN, DR]
-     * under VINI interface.
+     * @brief Get properties of common interfaces.
+     * This method is to get common interfaces property value from dbus and
+     * return the key-values in json format. Properties like [SerialNumber,
+     * PartNumber, Model, SparePartNumber] are queried from standard
+     * Decorator.Asset interface; [PrettyName] property from Inventory.Item
+     * interface; and [DR] keyword value from VPD VINI interface. If the object
+     * is not found, an empty json is returned.
      *
      * @param[in] invPath - Value of inventory Path
      *
-     * @return json output which gives the properties under invPath's VINI
-     * interface
+     * @return json output which gives the common interfaces properties.
      */
-    json getVINIProperties(std::string invPath);
+    json getCIProperties(std::string invPath);
 
     /**
      * @brief Get ExtraInterface Properties
@@ -131,6 +134,21 @@ class VpdTool
      */
     json getPresentPropJson(const std::string& invPath,
                             std::string& parentPresence);
+
+    /**
+     * @brief Helper function to get dbus property.
+     *
+     * This helper method is to get dbus property and handle dbus exception
+     * accordingly. If any of interfacee/property is not found, an empty value
+     * is returned.
+     * @param[in] objectName - Dbus object name.
+     * @param[in] interface - Dbus interface name.
+     * @param[in] keyword - Keyword.
+     *
+     * @return property value.
+     */
+    string getPropValue(const string& objectName, const string& interface,
+                        const string& keyword);
 
   public:
     /**
