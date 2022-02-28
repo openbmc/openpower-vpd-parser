@@ -33,6 +33,24 @@
       "message": "Does this also need the CALLOUT_IIC stuff?",
       "revId": "480d9d252459fe25b579f22eb9c60093c71795c9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84d0eafa_e43d0c8c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-02-28T17:07:48Z",
+      "side": 1,
+      "message": "yes, callout iic is part of all PELs.\nbut instead of writing same line at multiple places I \u0027m trying to make it common.\nthat is coming with vpd-parser new patch set.",
+      "parentUuid": "983689b9_9158cb19",
+      "revId": "480d9d252459fe25b579f22eb9c60093c71795c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
