@@ -44,7 +44,7 @@ using namespace phosphor::logging;
 // The list of keywords for VSYS record is as per the S0 system. Should
 // be updated for another type of systems
 static const std::unordered_map<std::string, std::vector<std::string>>
-    svpdKwdMap{{"VSYS", {"BR", "TM", "SE", "SU", "RB"}},
+    svpdKwdMap{{"VSYS", {"BR", "TM", "SE", "SU", "RB", "WN"}},
                {"VCEN", {"FC", "SE"}},
                {"LXR0", {"LX"}}};
 
