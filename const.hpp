@@ -55,6 +55,7 @@ static constexpr auto RAINIER_4U = "50001000.json";
 static constexpr auto RAINIER_4U_V2 = "50001000_v2.json";
 static constexpr auto RAINIER_1S4U = "50001002.json";
 static constexpr auto EVEREST = "50003000.json";
+static constexpr auto EVEREST_V2 = "50003000_v2.json";
 
 constexpr uint8_t KW_VPD_START_TAG = 0x82;
 constexpr uint8_t KW_VPD_END_TAG = 0x78;
