@@ -385,9 +385,11 @@ string getSystemsJson(const Parsed& vpdMap)
     {
         auto js = json::parse(systemJson);
 
-        const string hwKeyword = getHW(vpdMap);
+        string hwKeyword = getHW(vpdMap);
         const string imKeyword = getIM(vpdMap);
 
+        transform(hwKeyword.begin(), hwKeyword.end(), hwKeyword.begin(),
+                  ::toupper);
         if (js.find("system") == js.end())
         {
             throw runtime_error("Invalid systems Json");
@@ -403,9 +405,33 @@ string getSystemsJson(const Parsed& vpdMap)
 
         if ((js["system"][imKeyword].find("constraint") !=
              js["system"][imKeyword].end()) &&
-            (hwKeyword == js["system"][imKeyword]["constraint"]["HW"]))
+            js["system"][imKeyword]["constraint"].find("HW") !=
+                js["system"][imKeyword]["constraint"].end())
+        // (hwKeyword == js["system"][imKeyword]["constraint"]["HW"]))
         {
-            jsonName = js["system"][imKeyword]["constraint"]["json"];
+            // collect hw versions from json, and check hwKeyword  is part of it
+	    // if hwKeyword is found there then load respective json
+	    // otherwise load default one.
+            vector<string> hwVersions;
+            for (const auto& hwVersion :
+                 js["system"][imKeyword]["constraint"]["HW"])
+            {
+                string hw = hwVersion;
+                transform(hw.begin(), hw.end(), hw.begin(), ::toupper);
+                hwVersions.push_back(hw);
+            }
+
+            if (!hwVersions.empty() && !hwKeyword.empty() &&
+                (find(hwVersions.begin(), hwVersions.end(), hwKeyword) !=
+                 hwVersions.end()))
+            {
+                jsonName = js["system"][imKeyword]["constraint"]["json"];
+            }
+            else if (js["system"][imKeyword].find("default") !=
+                     js["system"][imKeyword].end())
+            {
+                jsonName = js["system"][imKeyword]["default"];
+            }
         }
         else if (js["system"][imKeyword].find("default") !=
                  js["system"][imKeyword].end())
