@@ -22,6 +22,30 @@
       },
       "revId": "187bc274184969959dfb3f337bbb13eb9ea6d387",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd133389_dd7ba101",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-04T06:37:26Z",
+      "side": 0,
+      "message": "No, this place will not crash as you said.\nChecking the keyword here is to avoid executeCmd, which will not do anything without i2c line and address. 491-495 will be executed for nothing.\n\nAnd for best practice we should always check existence of any keyword before fetching it\u0027s value.",
+      "parentUuid": "9bd47e32_31c8865f",
+      "range": {
+        "startLine": 490,
+        "startChar": 0,
+        "endLine": 490,
+        "endChar": 67
+      },
+      "revId": "187bc274184969959dfb3f337bbb13eb9ea6d387",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
