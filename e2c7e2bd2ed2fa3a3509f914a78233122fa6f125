@@ -118,6 +118,30 @@
       },
       "revId": "e2c7e2bd2ed2fa3a3509f914a78233122fa6f125",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adf7db7f_59d4d2f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-03-04T11:26:35Z",
+      "side": 1,
+      "message": "devNameAddr \u003d eachInventory[\"devAddress\"];\n   driverType \u003d eachInventory[\"driverType\"];\n   busType \u003d eachInventory[\"busType\"];\n\nThese are direct access these can crash. \n\nWhere as the code that you have changed in this commit is json[\"frus\"][file].at(0).value(\"devAddress\", \"\"); \nWhich is not a direct access, it will not crash. \n\nHence what I am trying to say is that your code change is not to fix any crash as reflected by the commit message.",
+      "parentUuid": "b9b12d56_72adffaf",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "e2c7e2bd2ed2fa3a3509f914a78233122fa6f125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
