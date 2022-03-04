@@ -142,6 +142,30 @@
       },
       "revId": "e2c7e2bd2ed2fa3a3509f914a78233122fa6f125",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddeb86a9_88c9af88",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-04T11:37:37Z",
+      "side": 1,
+      "message": "Where as the code that you have changed in this commit is json[\"frus\"][file].at(0).value(\"devAddress\", \"\"); \nWhich is not a direct access, it will not crash. \n\nI agree with your statement but that is just a half part of this commit.\n\nIf you see there are 2 file changes-\n1. ibm_vpd_app.cpp \n2. vpd-manager/gpioMonitor.cpp \n\none is for-  json[\"frus\"][file].at(0).value(\"devAddress\", \"\"); \n2nd one is for - devNameAddr \u003d eachInventory[\"devAddress\"];\n               These are direct access these can crash. \n\nAnd hence I have that msg in commit msg.",
+      "parentUuid": "adf7db7f_59d4d2f2",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "e2c7e2bd2ed2fa3a3509f914a78233122fa6f125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
