@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "276bd33c_4746ec8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-03-04T10:46:44Z",
+      "side": 1,
+      "message": "I still don\u0027t understand this. \nThe code that was before will not crash because that was defaulting it to \"\".\nThe code that you added is to check before executing driver binding command.\n\nSo why this is there in the commit message?",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "e2c7e2bd2ed2fa3a3509f914a78233122fa6f125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
