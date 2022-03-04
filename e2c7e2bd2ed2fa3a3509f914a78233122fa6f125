@@ -22,6 +22,30 @@
       },
       "revId": "e2c7e2bd2ed2fa3a3509f914a78233122fa6f125",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f56182b2_7eee276e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-04T10:49:51Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/51398/5/vpd-manager/gpioMonitor.cpp#99\nThis was crashing for Everest system, in one of our simics Jenkins",
+      "parentUuid": "276bd33c_4746ec8a",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "e2c7e2bd2ed2fa3a3509f914a78233122fa6f125",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
