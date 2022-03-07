@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f9bf388_5c68174e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-03-07T04:08:57Z",
+      "side": 1,
+      "message": "We\u0027ll also need to handle the PCIe pass 1 planar stuff here now (That is do not log PELs if the Everest planar is the one pointing to certain passes)",
+      "revId": "367d8c02e0ed3ba63c34ba62f3cd60667ab05cae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a16db67e_8bfe5969",
