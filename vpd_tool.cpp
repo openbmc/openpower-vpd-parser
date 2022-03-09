@@ -141,6 +141,7 @@ int main(int argc, char** argv)
     catch (const exception& e)
     {
         cerr << e.what();
+        rc = -1;
     }
 
     return rc;

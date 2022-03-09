@@ -477,8 +477,8 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
     returnCode = system(invManagerRestart.c_str());
     printReturnCode(returnCode);
 
-    string sysVpdStop = "systemctl stop system-vpd.service";
-    returnCode = system(sysVpdStop.c_str());
+    string sysVpdRestart = "systemctl restart system-vpd.service";
+    returnCode = system(sysVpdRestart.c_str());
     printReturnCode(returnCode);
 
     string udevAdd = "udevadm trigger -c add -s \"*nvmem*\" -v";
