@@ -84,6 +84,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "86ea595d_166ac023",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-09T08:30:41Z",
+      "side": 1,
+      "message": "We don\u0027t need that. If it is empty we will have empty value with CALLOUT_IIC_BUS and CALLOUT_IIC_ADDR, but it will not fail here.",
+      "parentUuid": "899e3f62_c8edfefa",
+      "revId": "395e6ef94e787ce884e08d05da9c863c4c29bda3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "984214c8_96c150a4",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 9
