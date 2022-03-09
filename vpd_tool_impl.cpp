@@ -477,7 +477,7 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
     returnCode = system(invManagerRestart.c_str());
     printReturnCode(returnCode);
 
-    string sysVpdStop = "systemctl stop system-vpd.service";
+    string sysVpdStop = "systemctl restart system-vpd.service";
     returnCode = system(sysVpdStop.c_str());
     printReturnCode(returnCode);
 
