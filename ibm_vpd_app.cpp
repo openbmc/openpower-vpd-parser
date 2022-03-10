@@ -464,6 +464,18 @@ static void preAction(const nlohmann::json& json, const string& file)
             // If not, then take failure postAction
             executePostFailAction(json, file);
         }
+        else
+        {
+            // missing required informations
+            cout
+                << "VPD inventory JSON missing basic informations of preAction "
+                   "for this FRU : ["
+                << file << "]. Executing executePostFailAction." << endl;
+
+	    // Take failure postAction
+            executePostFailAction(json, file);
+            return;
+        }
     }
 }
 
