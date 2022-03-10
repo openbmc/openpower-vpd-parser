@@ -719,6 +719,9 @@ std::optional<bool> isPresent(const nlohmann::json& json, const string& file)
 
                 if (!presenceLine)
                 {
+                    cerr << "Couldn't find the presence line for - "
+                         << presPinName << endl;
+
                     throw runtime_error(
                         "Couldn't find the presence line for the "
                         "GPIO. Skipping this GPIO action.");
@@ -746,8 +749,22 @@ std::optional<bool> isPresent(const nlohmann::json& json, const string& file)
                 }
 
                 logGpioPel(errMsg, i2cBusAddr);
+                // Take failure postAction
+                executePostFailAction(json, file);
                 return false;
             }
+        }
+        else
+        {
+            // missing required informations
+            cerr << "VPD inventory JSON missing basic informations of presence "
+                    "for this FRU : ["
+                 << file << "]. Executing executePostFailAction." << endl;
+
+            // Take failure postAction
+            executePostFailAction(json, file);
+
+            return false;
         }
     }
     return std::optional<bool>{};
@@ -782,6 +799,8 @@ bool executePreAction(const nlohmann::json& json, const string& file)
 
                 if (!outputLine)
                 {
+                    cerr << "Couldn't find the line for output pin - "
+                         << pinName << endl;
                     throw runtime_error(
                         "Couldn't find output line for the GPIO. "
                         "Skipping this GPIO action.");
@@ -805,8 +824,25 @@ bool executePreAction(const nlohmann::json& json, const string& file)
                 }
 
                 logGpioPel(errMsg, i2cBusAddr);
+
+                // Take failure postAction
+                executePostFailAction(json, file);
+
                 return false;
             }
+        }
+        else
+        {
+            // missing required informations
+            cerr
+                << "VPD inventory JSON missing basic informations of preAction "
+                   "for this FRU : ["
+                << file << "]. Executing executePostFailAction." << endl;
+
+            // Take failure postAction
+            executePostFailAction(json, file);
+
+            return false;
         }
     }
     return true;
