@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7d2b278_d17bcce0",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-10T04:18:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a16db67e_8bfe5969",
+      "range": {
+        "startLine": 410,
+        "startChar": 8,
+        "endLine": 410,
+        "endChar": 70
+      },
+      "revId": "367d8c02e0ed3ba63c34ba62f3cd60667ab05cae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "198a6c4e_65110e94",
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d24faa0c_e6a9cfd8",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-10T04:18:46Z",
+      "side": 1,
+      "message": "right. we can avoid this all.",
+      "parentUuid": "198a6c4e_65110e94",
+      "range": {
+        "startLine": 424,
+        "startChar": 0,
+        "endLine": 429,
+        "endChar": 13
+      },
+      "revId": "367d8c02e0ed3ba63c34ba62f3cd60667ab05cae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63338378_fc754e03",
@@ -77,6 +125,24 @@
       "writtenOn": "2022-03-04T09:16:51Z",
       "side": 1,
       "message": "Please revert the change here",
+      "revId": "367d8c02e0ed3ba63c34ba62f3cd60667ab05cae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a02ca27_ffa303db",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-10T04:18:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63338378_fc754e03",
       "revId": "367d8c02e0ed3ba63c34ba62f3cd60667ab05cae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
