@@ -722,6 +722,12 @@ bool executePreAction(const nlohmann::json& json, const string& file)
 
                 if (!presenceLine)
                 {
+                    cout << "Couldn't find the presence line for - "
+                         << presPinName << endl;
+
+                    // Take failure postAction
+                    executePostFailAction(json, file);
+
                     throw runtime_error(
                         "Couldn't find the presence line for the "
                         "GPIO. Skipping this GPIO action.");
@@ -734,6 +740,12 @@ bool executePreAction(const nlohmann::json& json, const string& file)
 
                 if (gpioData != presPinValue)
                 {
+                    cout << presPinName << "'s data- " << unsigned(gpioData)
+                         << " does not match with presence value - "
+                         << unsigned(presPinValue) << endl;
+
+                    // Take failure postAction
+                    executePostFailAction(json, file);
                     return false;
                 }
             }
@@ -742,8 +754,22 @@ bool executePreAction(const nlohmann::json& json, const string& file)
                 string errMsg = e.what();
                 errMsg += " GPIO : " + presPinName;
                 logGpioPel(errMsg, i2cBusAddr);
+                // Take failure postAction
+                executePostFailAction(json, file);
                 return false;
             }
+        }
+        else
+        {
+            // missing required informations
+            cout << "VPD inventory JSON missing basic informations of presence "
+                    "for this FRU : ["
+                 << file << "]. Executing executePostFailAction." << endl;
+
+            // Take failure postAction
+            executePostFailAction(json, file);
+
+            return false;
         }
     }
 
@@ -771,6 +797,10 @@ bool executePreAction(const nlohmann::json& json, const string& file)
 
                 if (!outputLine)
                 {
+                    cout << "Couldn't find the line for output pin - "
+                         << pinName << endl;
+                    // Take failure postAction
+                    executePostFailAction(json, file);
                     throw runtime_error(
                         "Couldn't find output line for the GPIO. "
                         "Skipping this GPIO action.");
@@ -784,8 +814,25 @@ bool executePreAction(const nlohmann::json& json, const string& file)
                 string errMsg = e.what();
                 errMsg += " GPIO : " + pinName;
                 logGpioPel(errMsg, i2cBusAddr);
+
+                // Take failure postAction
+                executePostFailAction(json, file);
+
                 return false;
             }
+        }
+        else
+        {
+            // missing required informations
+            cout
+                << "VPD inventory JSON missing basic informations of preAction "
+                   "for this FRU : ["
+                << file << "]. Executing executePostFailAction." << endl;
+
+            // Take failure postAction
+            executePostFailAction(json, file);
+
+            return false;
         }
     }
     return true;
