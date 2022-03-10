@@ -22,6 +22,30 @@
       },
       "revId": "460817e1bbb33cfa5d5856baa4fab7d6de3f340e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17066cd7_37109d96",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-03-10T07:56:20Z",
+      "side": 1,
+      "message": "I don\u0027t know why we even have that temp string there, but that is best left for another day. Done.",
+      "parentUuid": "998a53b0_e303c077",
+      "range": {
+        "startLine": 480,
+        "startChar": 11,
+        "endLine": 480,
+        "endChar": 21
+      },
+      "revId": "460817e1bbb33cfa5d5856baa4fab7d6de3f340e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
