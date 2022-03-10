@@ -117,6 +117,30 @@
       },
       "revId": "b136f9557e39636a0c648b9e9316faf22ff0cb15",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aafd628b_b2ff9452",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-10T07:30:13Z",
+      "side": 1,
+      "message": "ohh,, Now I got why had that change.\n\nThis vpd_create_ecc will be called from updateEcc and it will return -1, without doing any modification, and so updateData won\u0027t be executed.\n\nIf we have function\u0027s implementation(and not the dummy one), this code will do create ecc and return success, but won\u0027t make any change actually .\n\nThis call will be treated as a PASS/block to update the data",
+      "parentUuid": "dd35ead7_0ff1b8bb",
+      "range": {
+        "startLine": 677,
+        "startChar": 12,
+        "endLine": 678,
+        "endChar": 30
+      },
+      "revId": "b136f9557e39636a0c648b9e9316faf22ff0cb15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
