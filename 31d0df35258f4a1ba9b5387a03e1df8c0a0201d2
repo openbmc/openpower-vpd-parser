@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "669f6f2c_0a591c3a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-03-10T06:39:56Z",
+      "side": 1,
+      "message": "Spelling.",
+      "range": {
+        "startLine": 7,
+        "startChar": 11,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "31d0df35258f4a1ba9b5387a03e1df8c0a0201d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e46e80b6_48d15c36",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-03-10T06:39:56Z",
+      "side": 1,
+      "message": "Nit: It is good to have an empty line between blocks of code. Makes it more readable.",
+      "revId": "31d0df35258f4a1ba9b5387a03e1df8c0a0201d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1d80a5f_3edac208",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-03-10T06:39:56Z",
+      "side": 1,
+      "message": "It you run the for loop with copy, you could have avoided this local variable. Anyways you are doing a coy here so taking reference above is not adding any value.",
+      "range": {
+        "startLine": 417,
+        "startChar": 16,
+        "endLine": 417,
+        "endChar": 38
+      },
+      "revId": "31d0df35258f4a1ba9b5387a03e1df8c0a0201d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c169f20c_32f2160b",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-03-10T06:39:56Z",
+      "side": 1,
+      "message": "Suggestion: If you are using transform twice just to ignore the case while comparison. you can try \"strcasecmp\"\nhttps://linux.die.net/man/3/strcasecmp",
+      "range": {
+        "startLine": 418,
+        "startChar": 16,
+        "endLine": 418,
+        "endChar": 25
+      },
+      "revId": "31d0df35258f4a1ba9b5387a03e1df8c0a0201d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
