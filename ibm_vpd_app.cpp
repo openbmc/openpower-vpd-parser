@@ -1482,6 +1482,27 @@ int main(int argc, char** argv)
 
         try
         {
+            for (auto i = 0; i < 5; i++)
+            {
+                // If the file exist and size is zero, retry 5 times(before
+                // throwing exception). If the file is not empty, break the loop
+                // and proceed with the normal execution. This logic is needed
+                // in some exceptional cases where after many ac cycles, during
+                // the time of VPD collection, empty VPD is received by the
+                // parser. But able to see the valid vpd in the system after
+                // sometime. There seems to be a delay in VPD generation (at HW
+                // level) exactly at the time when the udev detects the FRU
+                // presence.
+                std::filesystem::path p = file;
+                if (std::filesystem::file_size(p) != 0)
+                {
+                    break;
+                }
+                std::cout << "\n Given VPD " << file << " size is "
+                          << std::filesystem::file_size(p)
+                          << ". Retry VPD collection " << i << std::endl;
+                std::this_thread::sleep_for(1000ms);
+            }
             vpdVector = getVpdDataInVector(js, file);
             ParserInterface* parser = ParserFactory::getParser(vpdVector);
             variant<KeywordVpdMap, Store> parseResult;
