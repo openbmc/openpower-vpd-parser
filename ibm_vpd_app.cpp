@@ -558,15 +558,27 @@ static void preAction(const nlohmann::json& json, const string& file)
                              string("\" > /sys/bus/i2c/drivers/at24/bind");
             cout << bindCmd << endl;
             executeCmd(bindCmd);
-        }
 
-        // Check if device showed up (test for file)
-        if (!fs::exists(file))
+            // Check if device showed up (test for file)
+            if (!fs::exists(file))
+            {
+                cout << "EEPROM " << file
+                     << " does not exist. Take failure action" << endl;
+                // If not, then take failure postAction
+                executePostFailAction(json, file);
+            }
+        }
+        else
         {
-            cout << "EEPROM " << file << " does not exist. Take failure action"
-                 << endl;
-            // If not, then take failure postAction
+            // missing required informations
+            cout
+                << "VPD inventory JSON missing basic informations of preAction "
+                   "for this FRU : ["
+                << file << "]. Executing executePostFailAction." << endl;
+
+            // Take failure postAction
             executePostFailAction(json, file);
+            return;
         }
     }
 }
