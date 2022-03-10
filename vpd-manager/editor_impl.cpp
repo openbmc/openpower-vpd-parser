@@ -188,6 +188,10 @@ void EditorImpl::updateRecordECC()
     {
         throw std::runtime_error("Ecc update failed");
     }
+    if (l_status == VPD_ECC_CORRECTABLE_DATA)
+    {
+        std::cout <<"Corrected Data";
+    }
 
     auto end = itrToRecordECC;
     std::advance(end, thisRecord.recECCLength);
