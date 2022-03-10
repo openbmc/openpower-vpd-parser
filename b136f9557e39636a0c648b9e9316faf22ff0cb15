@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ff8e350_22e591f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-03-10T05:09:44Z",
+      "side": 1,
+      "message": "nit: Can we re-phrase the word original here. It makes the code with dummy implementation look as \"duplicate\" code. Which does not make sense.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 14
+      },
+      "revId": "b136f9557e39636a0c648b9e9316faf22ff0cb15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d7c0acd_e636b245",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-03-10T05:09:44Z",
+      "side": 1,
+      "message": "The ecc data is being updated here. Whereas the comment says that you are verifying. \nI am not understanding this.\n\nAlso why we need to update ECC before and after updateData?",
+      "range": {
+        "startLine": 677,
+        "startChar": 12,
+        "endLine": 678,
+        "endChar": 30
+      },
+      "revId": "b136f9557e39636a0c648b9e9316faf22ff0cb15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
