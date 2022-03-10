@@ -93,6 +93,30 @@
       },
       "revId": "b136f9557e39636a0c648b9e9316faf22ff0cb15",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd35ead7_0ff1b8bb",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-03-10T06:59:58Z",
+      "side": 1,
+      "message": "\u003eYou are right. I don\u0027t remember why we thought of adding it again that day in team meeting. though this change was removed earlier, then added again.\n\nIn that case lets keep this point open till we know why we need it here again and once we know that we should mention that in comment so that it can be recollected in future.\n\nAlso readVTOC will not throw error for ECC with dummy implementation. As check ecc will always return 0.",
+      "parentUuid": "3ba0475c_3a337335",
+      "range": {
+        "startLine": 677,
+        "startChar": 12,
+        "endLine": 678,
+        "endChar": 30
+      },
+      "revId": "b136f9557e39636a0c648b9e9316faf22ff0cb15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
