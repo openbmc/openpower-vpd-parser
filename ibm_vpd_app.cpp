@@ -510,6 +510,11 @@ static void preAction(const nlohmann::json& json, const string& file)
 
                 if (gpioData != presPinValue)
                 {
+                    cout << presPinNam << "'s data- " << unsigned(gpioData)
+                         << " does not match with presence value - "
+                         << unsigned(presPinValu) << endl;
+                    // Take failure postAction
+                    postFailAction(json, file);
                     return;
                 }
             }
@@ -518,8 +523,20 @@ static void preAction(const nlohmann::json& json, const string& file)
                 string errMsg = e.what();
                 errMsg += " GPIO : " + pinName;
                 logGpioPel(errMsg, i2cBusAddr);
+                // Take failure postAction
+                postFailAction(json, file);
                 return;
             }
+        }
+        else
+        {
+            // missing required informations
+            cout << "VPD inventory JSON missing basic informations of presence "
+                    "for this FRU : ["
+                 << file << "]. Executing postFailAction." << endl();
+            // Take failure postAction
+            postFailAction(json, file);
+            return;
         }
     }
 
@@ -560,8 +577,20 @@ static void preAction(const nlohmann::json& json, const string& file)
                 string errMsg = e.what();
                 errMsg += " GPIO : " + pinName;
                 logGpioPel(errMsg, i2cBusAddr);
+                // Take failure postAction
+                postFailAction(json, file);
                 return;
             }
+        }
+        else
+        {
+            // missing required informations
+            cout << "VPD inventory JSON missing basic informations of preAction "
+                    "for this FRU : ["
+                 << file << "]. Executing postFailAction." << endl();
+            // Take failure postAction
+            postFailAction(json, file);
+            return;
         }
     }
 
