@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd377b2f_0a202a0a",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-03-11T05:30:45Z",
+      "side": 1,
+      "message": "This is not a std C/C++ library function, please don\u0027t use this.",
+      "range": {
+        "startLine": 415,
+        "startChar": 20,
+        "endLine": 415,
+        "endChar": 30
+      },
+      "revId": "d8352a29af9438efe3f18d65c11cd906e789c075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a44dbff_df88ad32",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-03-11T05:30:45Z",
+      "side": 1,
+      "message": "Newline added",
+      "revId": "d8352a29af9438efe3f18d65c11cd906e789c075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
