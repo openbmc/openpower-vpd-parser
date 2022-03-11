@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2095977e_fd1029eb",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-03-11T05:59:36Z",
+      "side": 1,
+      "message": "It isn\u0027t portable.",
+      "parentUuid": "49be9e9c_c03981a0",
+      "range": {
+        "startLine": 415,
+        "startChar": 20,
+        "endLine": 415,
+        "endChar": 30
+      },
+      "revId": "d8352a29af9438efe3f18d65c11cd906e789c075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6a44dbff_df88ad32",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 4
