@@ -5,6 +5,7 @@
 #include "bios_handler.hpp"
 #include "common_utility.hpp"
 #include "editor_impl.hpp"
+#include "error.hpp"
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "parser_factory.hpp"
@@ -334,6 +335,10 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
 {
     try
     {
+        // just as an example to show how it will be used for functions exposed
+        // on Dbus.
+        // throw DbusFailure();
+
         std::string objPath{path};
         // Strip any inventory prefix in path
         if (objPath.find(INVENTORY_PATH) == 0)
