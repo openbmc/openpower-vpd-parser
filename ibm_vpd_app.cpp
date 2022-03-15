@@ -77,6 +77,109 @@ static auto getPowerState()
 }
 
 /**
+ * @brief Returns the BMC state
+ */
+static auto getBMCState()
+{
+    std::string bmcState;
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto properties = bus.new_method_call(
+            "xyz.openbmc_project.State.BMC", "/xyz/openbmc_project/state/bmc0",
+            "org.freedesktop.DBus.Properties", "Get");
+        properties.append("xyz.openbmc_project.State.BMC");
+        properties.append("CurrentBMCState");
+        auto result = bus.call(properties);
+        std::variant<std::string> val;
+        result.read(val);
+        if (auto pVal = std::get_if<std::string>(&val))
+        {
+            bmcState = *pVal;
+        }
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        // Ignore any error
+        std::cerr << "Failed to get BMC state: " << e.what() << "\n";
+    }
+    return bmcState;
+}
+
+/**
+ * @brief Check if the FRU is in the cache
+ *
+ * Checks if the FRU associated with the supplied D-Bus object path is already
+ * on D-Bus. This can be used to test if a VPD collection is required for this
+ * FRU. It uses the "xyz.openbmc_project.Inventory.Item, Present" property to
+ * determine the presence of a FRU in the cache.
+ *
+ * @param objectPath - The D-Bus object path without the PIM prefix.
+ * @return true if the object exists on D-Bus, false otherwise.
+ */
+static auto isFruInVpdCache(const std::string& objectPath)
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto invPath = std::string{pimPath} + objectPath;
+        auto props = bus.new_method_call(
+            "xyz.openbmc_project.Inventory.Manager", invPath.c_str(),
+            "org.freedesktop.DBus.Properties", "Get");
+        props.append("xyz.openbmc_project.Inventory.Item");
+        props.append("Present");
+        auto result = bus.call(props);
+        std::variant<bool> present;
+        result.read(present);
+        if (auto pVal = std::get_if<bool>(&present))
+        {
+            return *pVal;
+        }
+        return false;
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        std::cout << "FRU: " << objectPath << " not in D-Bus\n";
+        // Assume not present in case of an error
+        return false;
+    }
+}
+
+/**
+ * @brief Check if VPD recollection is needed for the given EEPROM
+ *
+ * Not all FRUs can be swapped at BMC ready state. This function does the
+ * following:
+ * -- Check if the FRU is marked as "pluggableAtStandby" OR
+ *    "concurrentlyMaintainable". If so, return true.
+ * -- Check if we are at BMC NotReady state. If we are, then return true.
+ * -- Else check if the FRU is not present in the VPD cache (to cover for VPD
+ *    force collection). If not found in the cache, return true.
+ * -- Else return false.
+ *
+ * @param js - JSON Object.
+ * @param filePath - The EEPROM file.
+ * @return true if collection should be attempted, false otherwise.
+ */
+static auto needsRecollection(const nlohmann::json& js, const string& filePath)
+{
+    if (js["frus"][filePath].at(0).value("pluggableAtStandby", false) ||
+        js["frus"][filePath].at(0).value("concurrentlyMaintainable", false))
+    {
+        return true;
+    }
+    if (getBMCState() == "xyz.openbmc_project.State.BMC.BMCState.NotReady")
+    {
+        return true;
+    }
+    if (!isFruInVpdCache(js["frus"][filePath].at(0).value("inventoryPath", "")))
+    {
+        return true;
+    }
+    return false;
+}
+
+/**
  * @brief Expands location codes
  */
 static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
@@ -1478,6 +1581,13 @@ int main(int argc, char** argv)
                 cout << "This VPD cannot be read when power is ON" << endl;
                 return 0;
             }
+        }
+
+        // Check if this VPD should be recollected at all
+        if (!needsRecollection(js, file))
+        {
+            cout << "Skip VPD recollection for: " << file << endl;
+            return 0;
         }
 
         try
