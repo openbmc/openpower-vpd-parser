@@ -56,6 +56,24 @@
       "message": "Please put the exit() back with success/failure as appropriate",
       "revId": "98d2a29baf6338bdb56e9db31e6f8f03e98c7771",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2f5f7f9_fcba17be",
+        "filename": "vpd-manager/manager_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-03-15T10:18:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1841b049_b54c44d7",
+      "revId": "98d2a29baf6338bdb56e9db31e6f8f03e98c7771",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
