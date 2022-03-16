@@ -10,8 +10,8 @@
 #include <fstream>
 #include <iomanip>
 #include <nlohmann/json.hpp>
-#include <phosphor-logging/elog-errors.hpp>
-#include <phosphor-logging/log.hpp>
+//#include <phosphor-logging/elog-errors.hpp>
+#include <phosphor-logging/lg2.hpp>
 #include <regex>
 #include <sdbusplus/server.hpp>
 #include <sstream>
@@ -26,7 +26,7 @@ namespace vpd
 {
 using namespace openpower::vpd::constants;
 using namespace inventory;
-using namespace phosphor::logging;
+// using namespace phosphor::logging;
 using namespace sdbusplus::xyz::openbmc_project::Common::Error;
 using namespace record;
 using namespace openpower::vpd::exceptions;
@@ -70,8 +70,7 @@ MapperResponse
     }
     catch (const sdbusplus::exception::exception& e)
     {
-        log<level::ERR>("Error in mapper GetSubTree",
-                        entry("ERROR=%s", e.what()));
+        lg2::error("Error in mapper GetSubTree : {ERROR}", "ERROR", e.what());
     }
 
     return result;
