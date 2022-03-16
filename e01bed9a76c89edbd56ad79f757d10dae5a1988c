@@ -47,6 +47,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee3b4604_80c9d970",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-16T16:01:01Z",
+      "side": 1,
+      "message": "I guess you understood this after our discussion.\nThere is No VPD data update till this point.",
+      "parentUuid": "448bedb3_5c37ff37",
+      "range": {
+        "startLine": 678,
+        "startChar": 47,
+        "endLine": 678,
+        "endChar": 80
+      },
+      "revId": "e01bed9a76c89edbd56ad79f757d10dae5a1988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e818214e_d75e4637",
@@ -72,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41a65fbf_bdfb145f",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-16T16:01:01Z",
+      "side": 1,
+      "message": "yeah, I didn\u0027t know you have a commit for this change.\nThen I don\u0027t see anything for me to do here, as your commit is doing what you said.\nIf everyone is agree I\u0027ll remove this file change from this commit.\nAnd will have only vpdecc change.",
+      "parentUuid": "e818214e_d75e4637",
+      "range": {
+        "startLine": 681,
+        "startChar": 13,
+        "endLine": 681,
+        "endChar": 27
+      },
+      "revId": "e01bed9a76c89edbd56ad79f757d10dae5a1988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f4478541_3ec4c107",
         "filename": "vpdecc/vpdecc.c",
         "patchSetId": 14
@@ -83,6 +131,30 @@
       "writtenOn": "2022-03-16T13:01:41Z",
       "side": 1,
       "message": "can we return -1 while checking the ecc with dummy vpdecc_check_data() implementation?\n\nIt doesn\u0027t make sense to return failure in vpdecc_create_ecc() and success in vpdecc_check_data(), if there is a dummy ecc implementation.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "e01bed9a76c89edbd56ad79f757d10dae5a1988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76236717_059e66ef",
+        "filename": "vpdecc/vpdecc.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-16T16:01:01Z",
+      "side": 1,
+      "message": "yeah. We can break as early as found it is dummy ecc code.\nIf vpdecc_check_data dummy code returns -1, we can catch it inside readVTOC only (much before).\nlet\u0027s check with the team about their opinion.",
+      "parentUuid": "f4478541_3ec4c107",
       "range": {
         "startLine": 16,
         "startChar": 0,
