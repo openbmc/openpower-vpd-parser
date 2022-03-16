@@ -133,7 +133,8 @@ if get_option('ibm-parser').enabled()
                                  vpd_tool_SOURCES,
                                  dependencies: [
                                    sdbusplus,
-                                   libgpiodcxx
+                                   libgpiodcxx,
+                                   phosphor_logging
                                    ],
                                  install: true,
                                  include_directories : vpd_tool_INCLUDE
