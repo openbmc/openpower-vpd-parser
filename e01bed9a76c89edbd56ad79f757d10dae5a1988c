@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26a7fe5f_01dd54dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-03-16T13:01:41Z",
+      "side": 1,
+      "message": "this line exceeds the max allowed length",
+      "range": {
+        "startLine": 13,
+        "startChar": 70,
+        "endLine": 13,
+        "endChar": 75
+      },
+      "revId": "e01bed9a76c89edbd56ad79f757d10dae5a1988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "448bedb3_5c37ff37",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-03-16T13:01:41Z",
+      "side": 1,
+      "message": "what do you exactly mean by `as we have no update on VPD data` ?",
+      "range": {
+        "startLine": 678,
+        "startChar": 47,
+        "endLine": 678,
+        "endChar": 80
+      },
+      "revId": "e01bed9a76c89edbd56ad79f757d10dae5a1988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e818214e_d75e4637",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-03-16T13:01:41Z",
+      "side": 1,
+      "message": "here the motive is to check the record\u0027s ecc before updating it and block further execution if you have dummy ecc implementation.\n\nbut the given logic is to update the records ecc (and since you return -1 from vpd_create_ecc() - you are achieving the motive.) What if actual ecc algorithm is present? in that case we will update the record\u0027s ecc twice (at line 681 and 687)\n\nWhat I would suggest is, return -1 from vpdecc_check_data() and use vpdecc_check_data() at line 681 instead of updateRecordECC().\n\nI have a commit for the same case which has the implementation to check the record\u0027s ecc before updating. https://gerrit.openbmc-project.xyz/c/openbmc/openpower-vpd-parser/+/42006 . I would say lets club my commit and this commit together and achieve the motive (where in this commit we have to remove the changes from vpd-manager/editor_impl.cpp)",
+      "range": {
+        "startLine": 681,
+        "startChar": 13,
+        "endLine": 681,
+        "endChar": 27
+      },
+      "revId": "e01bed9a76c89edbd56ad79f757d10dae5a1988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4478541_3ec4c107",
+        "filename": "vpdecc/vpdecc.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-03-16T13:01:41Z",
+      "side": 1,
+      "message": "can we return -1 while checking the ecc with dummy vpdecc_check_data() implementation?\n\nIt doesn\u0027t make sense to return failure in vpdecc_create_ecc() and success in vpdecc_check_data(), if there is a dummy ecc implementation.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "e01bed9a76c89edbd56ad79f757d10dae5a1988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
