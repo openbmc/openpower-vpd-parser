@@ -3,7 +3,7 @@
 #include "const.hpp"
 
 #include <iostream>
-#include <phosphor-logging/log.hpp>
+#include <phosphor-logging/lg2.hpp>
 
 namespace openpower
 {
@@ -15,7 +15,6 @@ namespace utility
 {
 using namespace constants;
 using namespace inventory;
-using namespace phosphor::logging;
 
 std::string getService(sdbusplus::bus::bus& bus, const std::string& path,
                        const std::string& interface)
@@ -32,10 +31,9 @@ std::string getService(sdbusplus::bus::bus& bus, const std::string& path,
     }
     catch (const sdbusplus::exception::exception& e)
     {
-        log<level::ERR>("D-Bus call exception",
-                        entry("OBJPATH=%s", mapperObjectPath),
-                        entry("INTERFACE=%s", mapperInterface),
-                        entry("EXCEPTION=%s", e.what()));
+        lg2::error("D-Bus call exception : {OBJPATH}, {INTERFACE}, {EXCEPTION}",
+                   "OBJPATH", mapperObjectPath, "INTERFACE", mapperInterface,
+                   "EXCEPTION", e.what());
 
         throw std::runtime_error("Service name is not found");
     }
@@ -65,7 +63,7 @@ void callPIM(ObjectMap&& objects)
     }
     catch (const std::runtime_error& e)
     {
-        log<level::ERR>(e.what());
+        lg2::error("Failed due to : {ERROR}", "ERROR", e.what());
     }
 }
 
