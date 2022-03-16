@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "670987f5_26ed0367",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-03-16T18:51:50Z",
+      "side": 1,
+      "message": "Have some queries related to this.\nLike,\nShouldn\u0027t check for present should be the first criteria to check if we need to collect VPD for any EEPROM? Or should we have some nested cases?\n\nLets say, the BMC has not reached ready state and we get event for an EEPROM which already has \"present\u003d\u003dtrue\".\nThis flow will allow recollection in that case but should that happen?\n \nAlso, Even for CM-able EEPROMS we first set the present as false before collcting VPD data  for them again.",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 5
+      },
+      "revId": "6502414119de82a31de0364e37caf7db07826754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da23f339_f3b0a43d",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1587,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-03-16T18:51:50Z",
+      "side": 1,
+      "message": "This function will also execute at the time of collecting data for the first time for any EEPROM. Should we rephrase it? Like needVPDCollection.",
+      "range": {
+        "startLine": 1587,
+        "startChar": 13,
+        "endLine": 1587,
+        "endChar": 30
+      },
+      "revId": "6502414119de82a31de0364e37caf7db07826754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
