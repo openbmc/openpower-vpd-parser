@@ -23,7 +23,7 @@
 #include <iostream>
 #include <iterator>
 #include <nlohmann/json.hpp>
-#include <phosphor-logging/log.hpp>
+#include <phosphor-logging/lg2.hpp>
 #include <regex>
 
 using namespace std;
@@ -38,7 +38,6 @@ using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::exceptions;
-using namespace phosphor::logging;
 
 // Map to hold record, kwd pair which can be re-stored at standby.
 // The list of keywords for VSYS record is as per the S0 system. Should
@@ -624,7 +623,7 @@ void setEnvAndReboot(const string& key, const string& value)
 {
     // set env and reboot and break.
     executeCmd("/sbin/fw_setenv", key, value);
-    log<level::INFO>("Rebooting BMC to pick up new device tree");
+    lg2::info("Rebooting BMC to pick up new device tree");
     // make dbus call to reboot
     auto bus = sdbusplus::bus::new_default_system();
     auto method = bus.new_method_call(
@@ -1034,7 +1033,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             }
             else
             {
-                log<level::ERR>("No object path found");
+                lg2::error("No object path found");
             }
         }
         else
@@ -1314,7 +1313,7 @@ int main(int argc, char** argv)
                 }
                 else
                 {
-                    log<level::ERR>("No object path found");
+                    lg2::error("No object path found");
                 }
                 return 0;
             }
