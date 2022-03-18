@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29fcbc04_b271a3ae",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-03-18T02:56:33Z",
+      "side": 1,
+      "message": "As discussed, my aim was to keep it simple. Nested clauses just make the code harder to follow. Plus a check for presence will not cover FRUs that are pluggableAtStandby and not concurrentlyMaintainable.\n\nThe flow here is easier to follow:\n\nIf the FRU is either of concurrently maintainable or pluggable at standby, we return true\n\nIf the BMC state is not ready, we return true\n\nBoth of these are done irrespective of the presence check.",
+      "parentUuid": "670987f5_26ed0367",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 5
+      },
+      "revId": "6502414119de82a31de0364e37caf7db07826754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da23f339_f3b0a43d",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-16T18:51:50Z",
       "side": 1,
       "message": "This function will also execute at the time of collecting data for the first time for any EEPROM. Should we rephrase it? Like needVPDCollection.",
+      "range": {
+        "startLine": 1587,
+        "startChar": 13,
+        "endLine": 1587,
+        "endChar": 30
+      },
+      "revId": "6502414119de82a31de0364e37caf7db07826754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a311f9f_c8d61edf",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1587,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-03-18T02:56:33Z",
+      "side": 1,
+      "message": "I think this name makes it clearer as to the intent of the function, which is to determine if recollection is needed.",
+      "parentUuid": "da23f339_f3b0a43d",
       "range": {
         "startLine": 1587,
         "startChar": 13,
