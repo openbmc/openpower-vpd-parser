@@ -682,9 +682,12 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                 !itemEEPROM.value("noprime", false))
             {
                 inventory::PropertyMap presProp;
-                presProp.emplace("Present", false);
-                interfaces.emplace("xyz.openbmc_project.Inventory.Item",
-                                   presProp);
+                if (itemEEPROM.value("embedded", true))
+                {
+                    presProp.emplace("Present", false);
+                    interfaces.emplace("xyz.openbmc_project.Inventory.Item",
+                                       presProp);
+                }
                 setOneTimeProperties(object, interfaces);
                 if (itemEEPROM.find("extraInterfaces") != itemEEPROM.end())
                 {
@@ -1294,9 +1297,17 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
                                isSystemVpd);
         }
-        inventory::PropertyMap presProp;
-        presProp.emplace("Present", true);
-        insertOrMerge(interfaces, invItemIntf, move(presProp));
+
+        // If the subfru is not an embedded FRU, the subfru may or may not be
+        // physically present. So don't display Present property for such FRUs.
+        // Eg: nvme drive in nvme slot is not an embedded FRU. So skip
+        // populating Present property for such FRUs.
+        if (item.value("embedded", true))
+        {
+            inventory::PropertyMap presProp;
+            presProp.emplace("Present", true);
+            insertOrMerge(interfaces, invItemIntf, move(presProp));
+        }
 
         objects.emplace(move(object), move(interfaces));
     }
