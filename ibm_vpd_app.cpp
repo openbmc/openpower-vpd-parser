@@ -556,9 +556,16 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                 !itemEEPROM.value("noprime", false))
             {
                 inventory::PropertyMap presProp;
-                presProp.emplace("Present", false);
-                interfaces.emplace("xyz.openbmc_project.Inventory.Item",
-                                   presProp);
+
+                // Do not populate Present property for frus whose
+                // synthesised=true. synthesised=true says the fru is owned by
+                // some other component and not by vpd.
+                if (!itemEEPROM.value("synthesised", false))
+                {
+                    presProp.emplace("Present", false);
+                    interfaces.emplace("xyz.openbmc_project.Inventory.Item",
+                                       presProp);
+                }
                 setOneTimeProperties(object, interfaces);
                 if (itemEEPROM.find("extraInterfaces") != itemEEPROM.end())
                 {
@@ -1168,9 +1175,25 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
                                isSystemVpd);
         }
-        inventory::PropertyMap presProp;
-        presProp.emplace("Present", true);
-        insertOrMerge(interfaces, invItemIntf, move(presProp));
+
+        // embedded property(true or false) says whether the subfru is embedded
+        // into the parent fru (or) not. VPD sets Present property only for
+        // embedded frus. If the subfru is not an embedded FRU, the subfru may
+        // or may not be physically present. Those non embedded frus will always
+        // have Present=false irrespective of its physical presence or absence.
+        // Eg: nvme drive in nvme slot is not an embedded FRU. So don't set
+        // Present to true for such sub frus.
+        // Eg: ethernet port is embedded into bmc card. So set Present to true
+        // for such sub frus. Also donot populate present property for embedded
+        // subfru which is synthesised. Currently there is no subfru which are
+        // both embedded and synthesised. But still the case is handled here.
+        if ((item.value("embedded", true)) &&
+            (!item.value("synthesised", false)))
+        {
+            inventory::PropertyMap presProp;
+            presProp.emplace("Present", true);
+            insertOrMerge(interfaces, invItemIntf, move(presProp));
+        }
 
         objects.emplace(move(object), move(interfaces));
     }
