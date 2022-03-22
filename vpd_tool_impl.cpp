@@ -90,13 +90,16 @@ auto VpdTool::makeDBusCall(const string& objectName, const string& interface,
                             "org.freedesktop.DBus.Properties", "Get");
     properties.append(interface);
     properties.append(kw);
-    auto result = bus.call(properties);
-
-    if (result.is_method_error())
+    try
     {
-        throw runtime_error("Get api failed");
+        auto result = bus.call(properties);
+        return result;
     }
-    return result;
+    catch (const sdbusplus::exception::exception& ex)
+    {
+        throw runtime_error("makeDBusCall: Get api failed, what(): " +
+                            string(ex.what()));
+    }
 }
 
 json VpdTool::getVINIProperties(string invPath)
@@ -430,11 +433,15 @@ int VpdTool::updateKeyword()
     properties.append(recordName);
     properties.append(keyword);
     properties.append(val);
-    auto result = bus.call(properties);
-
-    if (result.is_method_error())
+    try
     {
-        throw runtime_error("Get api failed");
+        auto result = bus.call(properties);
+    }
+
+    catch (const sdbusplus::exception::exception& ex)
+    {
+        throw runtime_error("updateKeyword: Get api failed, what(): " +
+                            string(ex.what()));
     }
     return 0;
 }

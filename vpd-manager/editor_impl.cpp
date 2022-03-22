@@ -284,11 +284,14 @@ void EditorImpl::makeDbusCall(const std::string& object,
     properties.append(property);
     properties.append(data);
 
-    auto result = bus.call(properties);
-
-    if (result.is_method_error())
+    try
     {
-        throw std::runtime_error("bus call failed");
+        auto result = bus.call(properties);
+    }
+
+    catch (const sdbusplus::exception::exception& ex)
+    {
+        throw std::runtime_error("bus call failed, what():", ex.what());
     }
 }
 
