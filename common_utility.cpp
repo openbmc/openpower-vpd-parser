@@ -55,15 +55,20 @@ void callPIM(ObjectMap&& objects)
         auto pimMsg =
             bus.new_method_call(service.c_str(), pimPath, pimIntf, "Notify");
         pimMsg.append(std::move(objects));
-        auto result = bus.call(pimMsg);
-        if (result.is_method_error())
+
+        try
         {
-            std::cerr << "PIM Notify() failed\n";
+            auto result = bus.call(pimMsg);
+        }
+        catch (const sdbusplus::exception::exception& ex)
+        {
+            lg2::error("PIM Notify() failed, what() : {ERROR}", "ERROR",
+                       ex.what());
         }
     }
     catch (const std::runtime_error& e)
     {
-        lg2::error("Failed due to : {ERROR}", "ERROR", e.what());
+        lg2::error("callPIM failed due to : {ERROR}", "ERROR", e.what());
     }
 }
 

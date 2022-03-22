@@ -61,15 +61,22 @@ static auto getPowerState()
                             "org.freedesktop.DBus.Properties", "Get");
     properties.append("xyz.openbmc_project.State.Chassis");
     properties.append("CurrentPowerState");
-    auto result = bus.call(properties);
-    if (!result.is_method_error())
+
+    try
     {
+        auto result = bus.call(properties);
+
         variant<string> val;
         result.read(val);
         if (auto pVal = get_if<string>(&val))
         {
             powerState = *pVal;
         }
+    }
+    catch (const sdbusplus::exception::exception& ex)
+    {
+        lg2::error("getPowerState() failed, what() : {ERROR}", "ERROR",
+                   ex.what());
     }
     cout << "Power state is: " << powerState << endl;
     return powerState;
@@ -485,8 +492,7 @@ static void setOneTimeProperties(const std::string& object,
 {
     auto bus = sdbusplus::bus::new_default();
     auto objectPath = INVENTORY_PATH + object;
-    auto prop = bus.new_method_call("xyz.openbmc_project.Inventory.Manager",
-                                    objectPath.c_str(),
+    auto prop = bus.new_method_call(pimIntf, objectPath.c_str(),
                                     "org.freedesktop.DBus.Properties", "Get");
     prop.append("xyz.openbmc_project.State.Decorator.OperationalStatus");
     prop.append("Functional");
@@ -503,8 +509,7 @@ static void setOneTimeProperties(const std::string& object,
             "xyz.openbmc_project.State.Decorator.OperationalStatus",
             move(prop));
     }
-    prop = bus.new_method_call("xyz.openbmc_project.Inventory.Manager",
-                               objectPath.c_str(),
+    prop = bus.new_method_call(pimIntf, objectPath.c_str(),
                                "org.freedesktop.DBus.Properties", "Get");
     prop.append("xyz.openbmc_project.Object.Enable");
     prop.append("Enabled");
