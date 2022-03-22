@@ -626,8 +626,7 @@ static void setOneTimeProperties(const std::string& object,
 {
     auto bus = sdbusplus::bus::new_default();
     auto objectPath = INVENTORY_PATH + object;
-    auto prop = bus.new_method_call("xyz.openbmc_project.Inventory.Manager",
-                                    objectPath.c_str(),
+    auto prop = bus.new_method_call(pimIntf, objectPath.c_str(),
                                     "org.freedesktop.DBus.Properties", "Get");
     prop.append("xyz.openbmc_project.State.Decorator.OperationalStatus");
     prop.append("Functional");
@@ -644,8 +643,7 @@ static void setOneTimeProperties(const std::string& object,
             "xyz.openbmc_project.State.Decorator.OperationalStatus",
             move(prop));
     }
-    prop = bus.new_method_call("xyz.openbmc_project.Inventory.Manager",
-                               objectPath.c_str(),
+    prop = bus.new_method_call(pimIntf, objectPath.c_str(),
                                "org.freedesktop.DBus.Properties", "Get");
     prop.append("xyz.openbmc_project.Object.Enable");
     prop.append("Enabled");

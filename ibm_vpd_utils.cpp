@@ -134,13 +134,13 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
     std::string object = INVENTORY_PATH + obj;
     auto bus = sdbusplus::bus::new_default();
     auto properties = bus.new_method_call(
-        "xyz.openbmc_project.Inventory.Manager", object.c_str(),
-        "org.freedesktop.DBus.Properties", "Get");
+        pimIntf, object.c_str(), "org.freedesktop.DBus.Properties", "Get");
     properties.append(inf);
     properties.append(prop);
-    auto result = bus.call(properties);
-    if (!result.is_method_error())
+
+    try
     {
+        auto result = bus.call(properties);
         variant<Binary, string> val;
         result.read(val);
         if (auto pVal = get_if<Binary>(&val))
@@ -153,6 +153,12 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
             propVal.assign(pVal->data(), pVal->size());
         }
     }
+    catch (const sdbusplus::exception::exception& ex)
+    {
+        lg2::error("readBusProperty() failed, what() : {ERROR}", "ERROR",
+                   ex.what());
+    }
+
     return propVal;
 }
 
