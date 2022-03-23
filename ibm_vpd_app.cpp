@@ -493,104 +493,34 @@ static void postFailAction(const nlohmann::json& json, const string& file)
  */
 static void preAction(const nlohmann::json& json, const string& file)
 {
-    if ((json["frus"][file].at(0)).find("presence") !=
+    if ((json["frus"][file].at(0)).find("preAction") ==
         json["frus"][file].at(0).end())
     {
-        if (((json["frus"][file].at(0)["presence"]).find("pin") !=
-             json["frus"][file].at(0)["presence"].end()) &&
-            ((json["frus"][file].at(0)["presence"]).find("value") !=
-             json["frus"][file].at(0)["presence"].end()))
-        {
-            string presPinName = json["frus"][file].at(0)["presence"]["pin"];
-            Byte presPinValue = json["frus"][file].at(0)["presence"]["value"];
-
-            try
-            {
-                gpiod::line presenceLine = gpiod::find_line(presPinName);
-
-                if (!presenceLine)
-                {
-                    cerr << "couldn't find presence line:" << presPinName
-                         << "\n";
-                    return;
-                }
-
-                presenceLine.request({"Read the presence line",
-                                      gpiod::line_request::DIRECTION_INPUT, 0});
-
-                Byte gpioData = presenceLine.get_value();
-
-                if (gpioData != presPinValue)
-                {
-                    return;
-                }
-            }
-            catch (system_error&)
-            {
-                cerr << "Failed to get the presence GPIO for - " << presPinName
-                     << endl;
-                return;
-            }
-        }
+        return;
     }
 
-    if ((json["frus"][file].at(0)).find("preAction") !=
-        json["frus"][file].at(0).end())
+    if (executePreAction(json, file))
     {
-        if (((json["frus"][file].at(0)["preAction"]).find("pin") !=
-             json["frus"][file].at(0)["preAction"].end()) &&
-            ((json["frus"][file].at(0)["preAction"]).find("value") !=
-             json["frus"][file].at(0)["preAction"].end()))
+        if (json["frus"][file].at(0).find("devAddress") !=
+            json["frus"][file].at(0).end())
         {
-            string pinName = json["frus"][file].at(0)["preAction"]["pin"];
-            // Get the value to set
-            Byte pinValue = json["frus"][file].at(0)["preAction"]["value"];
+            // Now bind the device
+            string bind = json["frus"][file].at(0).value("devAddress", "");
+            cout << "Binding device " << bind << endl;
+            string bindCmd = string("echo \"") + bind +
+                             string("\" > /sys/bus/i2c/drivers/at24/bind");
+            cout << bindCmd << endl;
+            executeCmd(bindCmd);
+        }
 
-            cout << "Setting GPIO: " << pinName << " to " << (int)pinValue
+        // Check if device showed up (test for file)
+        if (!fs::exists(file))
+        {
+            cout << "EEPROM " << file << " does not exist. Take failure action"
                  << endl;
-            try
-            {
-                gpiod::line outputLine = gpiod::find_line(pinName);
-
-                if (!outputLine)
-                {
-                    cout << "Couldn't find output line:" << pinName
-                         << " on GPIO. Skipping...\n";
-
-                    return;
-                }
-                outputLine.request({"FRU pre-action",
-                                    ::gpiod::line_request::DIRECTION_OUTPUT, 0},
-                                   pinValue);
-            }
-            catch (system_error&)
-            {
-                cerr << "Failed to set pre-action for GPIO - " << pinName
-                     << endl;
-                return;
-            }
+            // If not, then take failure postAction
+            executePostFailAction(json, file);
         }
-    }
-
-    // Now bind the device
-    if (json["frus"][file].at(0).find("devAddress") !=
-        json["frus"][file].at(0).end())
-    {
-        string bind = json["frus"][file].at(0).value("devAddress", "");
-        cout << "Binding device " << bind << endl;
-        string bindCmd = string("echo \"") + bind +
-                         string("\" > /sys/bus/i2c/drivers/at24/bind");
-        cout << bindCmd << endl;
-        executeCmd(bindCmd);
-    }
-
-    // Check if device showed up (test for file)
-    if (!fs::exists(file))
-    {
-        cout << "EEPROM " << file << " does not exist. Take failure action"
-             << endl;
-        // If not, then take failure postAction
-        postFailAction(json, file);
     }
 }
 
