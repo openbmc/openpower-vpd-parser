@@ -9,6 +9,7 @@
 #include "reader_impl.hpp"
 #include "vpd_exceptions.hpp"
 
+#include <filesystem>
 #include <phosphor-logging/elog-errors.hpp>
 
 using namespace openpower::vpd::manager;
@@ -260,6 +261,25 @@ void Manager::performVPDRecollection()
             singleFru["inventoryPath"]
                 .get_ref<const nlohmann::json::string_t&>();
 
+        bool prePostActionRequired = false;
+
+        if ((jsonFile["frus"][item].at(0)).find("preAction") !=
+            jsonFile["frus"][item].at(0).end())
+        {
+            if (!executePreAction(jsonFile, item))
+            {
+                // if the FRU has preAction defined then its execution should
+                // pass to ensure bind/unbind of data.
+                // preAction execution failed. should not call bind/unbind.
+                log<level::ERR>(
+                    "Pre-Action execution failed for the FRU",
+                    entry("ERROR=%s",
+                          ("Inventory path: " + inventoryPath).c_str()));
+                continue;
+            }
+            prePostActionRequired = true;
+        }
+
         if ((singleFru.find("devAddress") == singleFru.end()) ||
             (singleFru.find("driverType") == singleFru.end()) ||
             (singleFru.find("busType") == singleFru.end()))
@@ -317,6 +337,18 @@ void Manager::performVPDRecollection()
                                                   driverType, "/unbind"));
             executeCmd(createBindUnbindDriverCmnd(deviceAddress, busType,
                                                   driverType, "/bind"));
+        }
+
+        // this check is added to avoid file system expensive call in case not
+        // required.
+        if (prePostActionRequired)
+        {
+            // Check if device showed up (test for file)
+            if (!filesystem::exists(item))
+            {
+                // If not, then take failure postAction
+                executePostFailAction(jsonFile, item);
+            }
         }
     }
 }
