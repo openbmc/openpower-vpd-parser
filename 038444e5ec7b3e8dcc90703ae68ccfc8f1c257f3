@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "820c8ef5_f8d9d55f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-03-23T10:02:37Z",
+      "side": 1,
+      "message": "Populate/Set is a better term",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "038444e5ec7b3e8dcc90703ae68ccfc8f1c257f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1e4c69b_bfe29193",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-03-23T10:02:37Z",
+      "side": 1,
+      "message": "reword",
+      "range": {
+        "startLine": 9,
+        "startChar": 40,
+        "endLine": 9,
+        "endChar": 48
+      },
+      "revId": "038444e5ec7b3e8dcc90703ae68ccfc8f1c257f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebde5959_ce423fac",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-03-23T10:02:37Z",
+      "side": 1,
+      "message": "Could you revert this change? PLDM will need the Present property on D-Bus in order to apply a value to it when PHYP send that information down.",
+      "range": {
+        "startLine": 685,
+        "startChar": 0,
+        "endLine": 685,
+        "endChar": 55
+      },
+      "revId": "038444e5ec7b3e8dcc90703ae68ccfc8f1c257f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eb9a8fa_82f1badc",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1302,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-03-23T10:02:37Z",
+      "side": 1,
+      "message": "reword",
+      "range": {
+        "startLine": 1302,
+        "startChar": 40,
+        "endLine": 1302,
+        "endChar": 47
+      },
+      "revId": "038444e5ec7b3e8dcc90703ae68ccfc8f1c257f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
