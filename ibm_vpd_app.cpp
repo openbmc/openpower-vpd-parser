@@ -975,12 +975,33 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                                 errMsg += " and keyword: ";
                                 errMsg += keyword;
 
+                                std::ostringstream busStream;
+                                for (uint16_t byte : busValue)
+                                {
+                                    busStream << std::setfill('0')
+                                              << std::setw(2) << std::hex
+                                              << "0x" << byte << " ";
+                                }
+
+                                std::ostringstream vpdStream;
+                                for (uint16_t byte : kwdValue)
+                                {
+                                    vpdStream << std::setfill('0')
+                                              << std::setw(2) << std::hex
+                                              << "0x" << byte << " ";
+                                }
+
                                 // data mismatch
                                 PelAdditionalData additionalData;
                                 additionalData.emplace("CALLOUT_INVENTORY_PATH",
                                                        objectPath);
 
                                 additionalData.emplace("DESCRIPTION", errMsg);
+                                additionalData.emplace("Value on Cache: ",
+                                                       busStream.str());
+                                additionalData.emplace(
+                                    "Value read from EEPROM: ",
+                                    vpdStream.str());
 
                                 createPEL(additionalData, PelSeverity::WARNING,
                                           errIntfForInvalidVPD);
