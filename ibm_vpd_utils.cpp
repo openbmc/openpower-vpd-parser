@@ -656,7 +656,7 @@ void executePostFailAction(const nlohmann::json& json, const string& file)
             {"Disable line", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
             pinValue);
     }
-    catch (const system_error&)
+    catch (system_error&)
     {
         cerr << "Failed to set post-action GPIO" << endl;
     }
