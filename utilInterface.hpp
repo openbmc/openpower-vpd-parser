@@ -19,9 +19,9 @@ class UtilityInterface
     {
     }
 
-    virtual std::string readBusProperty(const std::string& obj,
-                                        const std::string& inf,
-                                        const std::string& prop) = 0;
+    virtual inventory::Value readBusProperty(const std::string& obj,
+                                             const std::string& inf,
+                                             const std::string& prop) = 0;
 };
 
 class utility : public UtilityInterface
@@ -31,8 +31,9 @@ class utility : public UtilityInterface
     {
     }
 
-    std::string readBusProperty(const std::string& obj, const std::string& inf,
-                                const std::string& prop) override
+    inventory::Value readBusProperty(const std::string& obj,
+                                     const std::string& inf,
+                                     const std::string& prop) override
     {
         return openpower::vpd::readBusProperty(obj, inf, prop);
     }
