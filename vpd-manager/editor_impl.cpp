@@ -431,17 +431,17 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
 
     if (locationCodeType == "fcs")
     {
-        propertyFCorTM =
-            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "FC");
-        propertySE =
-            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "SE");
+        propertyFCorTM = readBusProperty<std::string>(
+            SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "FC");
+        propertySE = readBusProperty<std::string>(SYSTEM_OBJECT,
+                                                  "com.ibm.ipzvpd.VCEN", "SE");
     }
     else if (locationCodeType == "mts")
     {
-        propertyFCorTM =
-            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "TM");
-        propertySE =
-            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "SE");
+        propertyFCorTM = readBusProperty<std::string>(
+            SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "TM");
+        propertySE = readBusProperty<std::string>(SYSTEM_OBJECT,
+                                                  "com.ibm.ipzvpd.VSYS", "SE");
     }
 
     const nlohmann::json& groupFRUS =
