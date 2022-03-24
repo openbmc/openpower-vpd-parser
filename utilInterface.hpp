@@ -12,6 +12,7 @@ namespace utils
 namespace interface
 {
 
+template <typename T>
 class UtilityInterface
 {
   public:
@@ -19,22 +20,22 @@ class UtilityInterface
     {
     }
 
-    virtual std::string readBusProperty(const std::string& obj,
-                                        const std::string& inf,
-                                        const std::string& prop) = 0;
+    virtual T readBusProperty(const std::string& obj, const std::string& inf,
+                              const std::string& prop) = 0;
 };
 
-class utility : public UtilityInterface
+template <typename T>
+class utility : public UtilityInterface<T>
 {
   public:
     virtual ~utility()
     {
     }
 
-    std::string readBusProperty(const std::string& obj, const std::string& inf,
-                                const std::string& prop) override
+    T readBusProperty(const std::string& obj, const std::string& inf,
+                      const std::string& prop) override
     {
-        return openpower::vpd::readBusProperty(obj, inf, prop);
+        return openpower::vpd::readBusProperty<std::string>(obj, inf, prop);
     }
 };
 

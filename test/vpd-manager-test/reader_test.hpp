@@ -6,10 +6,12 @@
 
 using namespace openpower::vpd::utils::interface;
 
-class MockUtilCalls : public UtilityInterface
+template <typename T>
+class MockUtilCalls : public UtilityInterface<T>
 {
+
   public:
-    MOCK_METHOD(std::string, readBusProperty,
+    MOCK_METHOD(T, readBusProperty,
                 (const string& obj, const string& inf, const string& prop),
                 (override));
 };

@@ -64,8 +64,8 @@ string encodeKeyword(const string& kw, const string& encoding);
  *  @param[in] prop - property whose value is fetched
  *  @return [out] - value of the property
  */
-string readBusProperty(const string& obj, const string& inf,
-                       const string& prop);
+template <typename T>
+T readBusProperty(const string& obj, const string& inf, const string& prop);
 
 /**
  * @brief API to create PEL entry
@@ -368,3 +368,5 @@ std::variant<int64_t, std::string>
 std::string getPowerState();
 } // namespace vpd
 } // namespace openpower
+
+#include "ibm_vpd_utils_impl.hpp"
