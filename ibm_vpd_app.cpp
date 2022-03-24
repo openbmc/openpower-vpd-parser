@@ -177,8 +177,8 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
             }
             else
             {
-                fc = readBusProperty(SYSTEM_OBJECT, VCEN_IF, "FC");
-                se = readBusProperty(SYSTEM_OBJECT, VCEN_IF, "SE");
+                fc = readBusProperty<string>(SYSTEM_OBJECT, VCEN_IF, "FC");
+                se = readBusProperty<string>(SYSTEM_OBJECT, VCEN_IF, "SE");
             }
 
             // TODO: See if ND0 can be placed in the JSON
@@ -189,8 +189,8 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
             idx = expanded.find("mts");
             if (idx != string::npos)
             {
-                string mt{};
-                string se{};
+                string mt;
+                string se;
                 if (isSystemVpd)
                 {
                     const auto& mtData = vpdMap.at("VSYS").at("TM");
@@ -200,8 +200,8 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
                 }
                 else
                 {
-                    mt = readBusProperty(SYSTEM_OBJECT, VSYS_IF, "TM");
-                    se = readBusProperty(SYSTEM_OBJECT, VSYS_IF, "SE");
+                    mt = readBusProperty<string>(SYSTEM_OBJECT, VSYS_IF, "TM");
+                    se = readBusProperty<string>(SYSTEM_OBJECT, VSYS_IF, "SE");
                 }
 
                 replace(mt.begin(), mt.end(), '-', '.');
@@ -922,15 +922,15 @@ void getListOfBlankSystemVpd(Parsed& vpdMap, const string& objectPath,
 
                     // check bus data
                     const string& recordName = systemRecKwdPair.first;
-                    const string& busValue = readBusProperty(
+                    string busValue = readBusProperty<string>(
                         objectPath, ipzVpdInf + recordName, keyword);
 
                     if (busValue.find_first_not_of(' ') != string::npos)
                     {
                         if (kwdValue.find_first_not_of(' ') == string::npos)
                         {
-                            // implies data is blank on EEPROM but not on cache.
-                            // So EEPROM vpd update is required.
+                            // implies data is blank on EEPROM but not on
+                            // cache. So EEPROM vpd update is required.
                             Binary busData(busValue.begin(), busValue.end());
 
                             blankPropertyList.push_back(std::make_tuple(
@@ -970,7 +970,7 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
 
                     // check bus data
                     const string& recordName = systemRecKwdPair.first;
-                    const string& busValue = readBusProperty(
+                    string busValue = readBusProperty<string>(
                         objectPath, ipzVpdInf + recordName, keyword);
 
                     std::string defaultValue{' '};
@@ -1017,9 +1017,9 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                             // update the map
                             Binary busData(busValue.begin(), busValue.end());
 
-                            // update the map as well, so that cache data is not
-                            // updated as blank while populating VPD map on Dbus
-                            // in populateDBus Api
+                            // update the map as well, so that cache data is
+                            // not updated as blank while populating VPD map
+                            // on Dbus in populateDBus Api
                             kwdValue = busValue;
                         }
                     }
