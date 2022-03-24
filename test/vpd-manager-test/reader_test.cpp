@@ -79,7 +79,7 @@ TEST_F(vpdManagerReaderTest, isValidLocationCode_invalid)
     // No MTS or FCS in the collapsed location code
     std::string unexpandedLocationCode_Invalid = "Uabc-X0";
 
-    MockUtilCalls uCalls;
+    MockUtilCalls<string> uCalls;
     ReaderImpl read(uCalls);
     EXPECT_ANY_THROW({
         read.getExpandedLocationCode(unexpandedLocationCode_Invalid, nodeNumber,
@@ -98,7 +98,7 @@ TEST_F(vpdManagerReaderTest, getExpandedLocationCode_Invalid)
 {
     std::string unexpandedLocationCode_Invalid = "Uabc-X0";
 
-    MockUtilCalls uCalls;
+    MockUtilCalls<string> uCalls;
     ReaderImpl read(uCalls);
     EXPECT_ANY_THROW({
         read.getExpandedLocationCode(unexpandedLocationCode_Invalid, nodeNumber,
@@ -109,7 +109,7 @@ TEST_F(vpdManagerReaderTest, getExpandedLocationCode_Invalid)
 TEST_F(vpdManagerReaderTest, getExpandedLocationCode_Valid)
 {
     // mock the call to read bus property
-    MockUtilCalls uCalls;
+    MockUtilCalls<string> uCalls;
     EXPECT_CALL(uCalls, readBusProperty(SYSTEM_OBJECT, IBM_LOCATION_CODE_INF,
                                         "LocationCode"))
         .Times(1)
@@ -128,7 +128,7 @@ TEST_F(vpdManagerReaderTest, getFrusAtLocation_Invalid)
     // invalid lication code
     std::string unexpandedLocationCode = "Uabc-X0";
 
-    MockUtilCalls uCalls;
+    MockUtilCalls<string> uCalls;
     ReaderImpl read(uCalls);
     EXPECT_ANY_THROW({
         read.getFrusAtLocation(unexpandedLocationCode, nodeNumber,
@@ -149,7 +149,7 @@ TEST_F(vpdManagerReaderTest, getFrusAtLocation_Valid)
 {
     std::string LocationCode = "Ufcs-P0";
 
-    MockUtilCalls uCalls;
+    MockUtilCalls<string> uCalls;
     ReaderImpl read(uCalls);
     ListOfPaths paths =
         read.getFrusAtLocation(LocationCode, nodeNumber, fruLocationCode);
@@ -163,7 +163,7 @@ TEST_F(vpdManagerReaderTest, getFRUsByExpandedLocationCode_invalid)
     // not starting from U
     std::string locationCode = "9105.22A.SIMP10R";
 
-    MockUtilCalls uCalls;
+    MockUtilCalls<string> uCalls;
     ReaderImpl read(uCalls);
     ListOfPaths paths;
     EXPECT_ANY_THROW({
@@ -205,7 +205,7 @@ TEST_F(vpdManagerReaderTest, getFRUsByExpandedLocationCode_Valid_FC)
     std::string validLocationCode = "U78DA.ND1.1234567-P0";
 
     // Mock readBUsproperty call
-    MockUtilCalls uCalls;
+    MockUtilCalls<string> uCalls;
     EXPECT_CALL(uCalls,
                 readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "FC"))
         .WillRepeatedly(
@@ -226,7 +226,7 @@ TEST_F(vpdManagerReaderTest, getFRUsByExpandedLocationCode_Valid_TM)
     std::string validLocationCode = "U9105.22A.SIMP10R";
 
     // Mock readBUsproperty call
-    MockUtilCalls uCalls;
+    MockUtilCalls<string> uCalls;
     EXPECT_CALL(uCalls,
                 readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "FC"))
         .Times(1)

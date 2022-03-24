@@ -70,12 +70,12 @@ LocationCode ReaderImpl::getExpandedLocationCode(
                               Argument::ARGUMENT_VALUE(locationCode.c_str()));
     }
 
-    std::string expandedLocationCode{};
 #ifndef ManagerTest
-    utility utilObj;
+    utility<std::string> utilObj;
 #endif
-    expandedLocationCode = utilObj.readBusProperty(
+    std::string expandedLocationCode = utilObj.readBusProperty(
         iterator->second, IBM_LOCATION_CODE_INF, "LocationCode");
+
     return expandedLocationCode;
 }
 
@@ -129,12 +129,12 @@ std::tuple<LocationCode, NodeNumber>
                               Argument::ARGUMENT_VALUE(locationCode.c_str()));
     }
 
-    std::string fc{};
 #ifndef ManagerTest
-    utility utilObj;
+    utility<std::string> utilObj;
 #endif
 
-    fc = utilObj.readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "FC");
+    std::string fc =
+        utilObj.readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "FC");
 
     // get the first part of expanded location code to check for FC or TM
     std::string firstKeyword = locationCode.substr(1, 4);
@@ -186,11 +186,9 @@ std::tuple<LocationCode, NodeNumber>
     }
     else
     {
-        std::string tm{};
         // read TM kwd value
-        tm =
+        std::string tm =
             utilObj.readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "TM");
-        ;
 
         // check if the substr matches to TM kwd
         if (tm.substr(0, 4) ==

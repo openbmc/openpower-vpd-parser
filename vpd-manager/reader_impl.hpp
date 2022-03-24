@@ -12,7 +12,8 @@ namespace manager
 namespace reader
 {
 
-using IUtil = openpower::vpd::utils::interface::UtilityInterface;
+template <typename T>
+using IUtil = openpower::vpd::utils::interface::UtilityInterface<T>;
 /** @class ReaderImpl
  *  @brief Implements functionalities related to reading of VPD related data
  *  from the system.
@@ -28,7 +29,7 @@ class ReaderImpl
     ~ReaderImpl() = default;
 
 #ifdef ManagerTest
-    explicit ReaderImpl(IUtil& obj) : utilObj(obj)
+    explicit ReaderImpl(IUtil<std::string>& obj) : utilObj(obj)
     {
     }
 #endif
@@ -81,7 +82,7 @@ class ReaderImpl
         getCollapsedLocationCode(
             const inventory::LocationCode& locationCode) const;
 #ifdef ManagerTest
-    IUtil& utilObj;
+    IUtil<std::string>& utilObj;
 #endif
 
 }; // class ReaderImpl
