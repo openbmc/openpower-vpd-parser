@@ -108,8 +108,19 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
             }
             else
             {
-                fc = readBusProperty(SYSTEM_OBJECT, VCEN_IF, "FC");
-                se = readBusProperty(SYSTEM_OBJECT, VCEN_IF, "SE");
+                Value pVal = readBusProperty(SYSTEM_OBJECT, VCEN_IF, "FC");
+                auto val = get_if<string>(&pVal);
+                if (val)
+                {
+                    fc = *val;
+                }
+
+                pVal = readBusProperty(SYSTEM_OBJECT, VCEN_IF, "SE");
+                val = get_if<string>(&pVal);
+                if (val)
+                {
+                    se = *val;
+                }
             }
 
             // TODO: See if ND0 can be placed in the JSON
@@ -120,8 +131,8 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
             idx = expanded.find("mts");
             if (idx != string::npos)
             {
-                string mt{};
-                string se{};
+                string mt;
+                string se;
                 if (isSystemVpd)
                 {
                     const auto& mtData = vpdMap.at("VSYS").at("TM");
@@ -131,8 +142,19 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
                 }
                 else
                 {
-                    mt = readBusProperty(SYSTEM_OBJECT, VSYS_IF, "TM");
-                    se = readBusProperty(SYSTEM_OBJECT, VSYS_IF, "SE");
+                    Value pVal = readBusProperty(SYSTEM_OBJECT, VSYS_IF, "TM");
+                    auto val = get_if<string>(&pVal);
+                    if (val)
+                    {
+                        mt = *val;
+                    }
+
+                    pVal = readBusProperty(SYSTEM_OBJECT, VSYS_IF, "SE");
+                    val = get_if<string>(&pVal);
+                    if (val)
+                    {
+                        se = *val;
+                    }
                 }
 
                 replace(mt.begin(), mt.end(), '-', '.');
@@ -906,19 +928,25 @@ void getListOfBlankSystemVpd(Parsed& vpdMap, const string& objectPath,
 
                     // check bus data
                     const string& recordName = systemRecKwdPair.first;
-                    const string& busValue = readBusProperty(
+                    Value pVal = readBusProperty(
                         objectPath, ipzVpdInf + recordName, keyword);
 
-                    if (busValue.find_first_not_of(' ') != string::npos)
+                    auto bValue = get_if<string>(&pVal);
+                    if (bValue)
                     {
-                        if (kwdValue.find_first_not_of(' ') == string::npos)
+                        const auto& busValue = (*bValue);
+                        if (busValue.find_first_not_of(' ') != string::npos)
                         {
-                            // implies data is blank on EEPROM but not on cache.
-                            // So EEPROM vpd update is required.
-                            Binary busData(busValue.begin(), busValue.end());
+                            if (kwdValue.find_first_not_of(' ') == string::npos)
+                            {
+                                // implies data is blank on EEPROM but not on
+                                // cache. So EEPROM vpd update is required.
+                                Binary busData(busValue.begin(),
+                                               busValue.end());
 
-                            blankPropertyList.push_back(std::make_tuple(
-                                objectPath, recordName, keyword, busData));
+                                blankPropertyList.push_back(std::make_tuple(
+                                    objectPath, recordName, keyword, busData));
+                            }
                         }
                     }
                 }
@@ -954,43 +982,52 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
 
                     // check bus data
                     const string& recordName = systemRecKwdPair.first;
-                    const string& busValue = readBusProperty(
+                    Value pVal = readBusProperty(
                         objectPath, ipzVpdInf + recordName, keyword);
 
-                    if (busValue.find_first_not_of(' ') != string::npos)
+                    auto bValue = get_if<string>(&pVal);
+                    if (bValue)
                     {
-                        if (kwdValue.find_first_not_of(' ') != string::npos)
+                        const auto& busValue = (*bValue);
+                        if (busValue.find_first_not_of(' ') != string::npos)
                         {
-                            // both the data are present, check for mismatch
-                            if (busValue != kwdValue)
+                            if (kwdValue.find_first_not_of(' ') != string::npos)
                             {
-                                string errMsg = "VPD data mismatch on cache "
-                                                "and hardware for record: ";
-                                errMsg += (*it).first;
-                                errMsg += " and keyword: ";
-                                errMsg += keyword;
+                                // both the data are present, check for mismatch
+                                if (busValue != kwdValue)
+                                {
+                                    string errMsg =
+                                        "VPD data mismatch on cache "
+                                        "and hardware for record: ";
+                                    errMsg += (*it).first;
+                                    errMsg += " and keyword: ";
+                                    errMsg += keyword;
 
-                                // data mismatch
-                                PelAdditionalData additionalData;
-                                additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                                                       objectPath);
+                                    // data mismatch
+                                    PelAdditionalData additionalData;
+                                    additionalData.emplace(
+                                        "CALLOUT_INVENTORY_PATH", objectPath);
 
-                                additionalData.emplace("DESCRIPTION", errMsg);
+                                    additionalData.emplace("DESCRIPTION",
+                                                           errMsg);
 
-                                createPEL(additionalData, PelSeverity::WARNING,
-                                          errIntfForInvalidVPD);
+                                    createPEL(additionalData,
+                                              PelSeverity::WARNING,
+                                              errIntfForInvalidVPD);
+                                }
                             }
-                        }
-                        else
-                        {
-                            // implies hardware data is blank
-                            // update the map
-                            Binary busData(busValue.begin(), busValue.end());
+                            else
+                            {
+                                // implies hardware data is blank
+                                // update the map
+                                Binary busData(busValue.begin(),
+                                               busValue.end());
 
-                            // update the map as well, so that cache data is not
-                            // updated as blank while populating VPD map on Dbus
-                            // in populateDBus Api
-                            kwdValue = busValue;
+                                // update the map as well, so that cache data is
+                                // not updated as blank while populating VPD map
+                                // on Dbus in populateDBus Api
+                                kwdValue = busValue;
+                            }
                         }
                     }
                     else if (kwdValue.find_first_not_of(' ') == string::npos)
