@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1365768_63d46d3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-25T07:12:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26a7fe5f_01dd54dd",
+      "range": {
+        "startLine": 13,
+        "startChar": 70,
+        "endLine": 13,
+        "endChar": 75
+      },
+      "revId": "e01bed9a76c89edbd56ad79f757d10dae5a1988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "448bedb3_5c37ff37",
@@ -118,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82e492fa_48af850d",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-25T07:12:40Z",
+      "side": 1,
+      "message": "you can go ahead with this change in your commit.",
+      "parentUuid": "41a65fbf_bdfb145f",
+      "range": {
+        "startLine": 681,
+        "startChar": 13,
+        "endLine": 681,
+        "endChar": 27
+      },
+      "revId": "e01bed9a76c89edbd56ad79f757d10dae5a1988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4478541_3ec4c107",
@@ -155,6 +203,30 @@
       "side": 1,
       "message": "yeah. We can break as early as found it is dummy ecc code.\nIf vpdecc_check_data dummy code returns -1, we can catch it inside readVTOC only (much before).\nlet\u0027s check with the team about their opinion.",
       "parentUuid": "f4478541_3ec4c107",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "e01bed9a76c89edbd56ad79f757d10dae5a1988c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66dd1d78_0899a5d6",
+        "filename": "vpdecc/vpdecc.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-25T07:12:40Z",
+      "side": 1,
+      "message": "as we discussed before, you can make this change in your commit.",
+      "parentUuid": "76236717_059e66ef",
       "range": {
         "startLine": 16,
         "startChar": 0,
