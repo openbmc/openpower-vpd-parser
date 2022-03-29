@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9bca9b2f_f28bae1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-29T05:37:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d24e1b3_a52a4966",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 14
+      },
+      "revId": "a1e9eba75a0994bcf6be9daa8ff997f51ae69cf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a41335ef_3db50317",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -54,6 +78,24 @@
       "writtenOn": "2022-03-23T11:45:39Z",
       "side": 1,
       "message": "At the very least we need to also do this when we detect a FRU is not present.\n\nWhen a FRU is not present, we need to remove the existing stale VPD data for the FRU and subfrus, and recreate with just the information needed for priming.",
+      "revId": "a1e9eba75a0994bcf6be9daa8ff997f51ae69cf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3533ae49_b0638309",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-03-29T05:37:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "877dfcac_5a13251b",
       "revId": "a1e9eba75a0994bcf6be9daa8ff997f51ae69cf7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
