@@ -469,6 +469,31 @@ static void preAction(const nlohmann::json& json, const string& file)
 }
 
 /**
+ * @brief Fills the Decorator.AssetTag property into the interfaces map
+ *
+ * This function should only be called in cases where we did not find a JSON
+ * symlink. A missing symlink in /var/lib will be considered as a factory reset
+ * and this function will be used to default the AssetTag property.
+ *
+ * @param interfaces A possibly pre-populated map of inetrfaces to properties.
+ * @param vpdMap A VPD map of the system VPD data.
+ */
+static void fillAssetTag(inventory::InterfaceMap& interfaces,
+                         const Parsed& vpdMap)
+{
+    // Read the system serial number and MTM
+    // Default asset tag is Server-MTM-System Serial
+    inventory::Interface assetIntf{
+        "xyz.openbmc_project.Inventory.Decorator.AssetTag"};
+    inventory::PropertyMap assetTagProps;
+    std::string defaultAssetTag =
+        std::string{"Server-"} + getKwVal(vpdMap, "VSYS", "TM") +
+        std::string{"-"} + getKwVal(vpdMap, "VSYS", "SE");
+    assetTagProps.emplace("AssetTag", defaultAssetTag);
+    insertOrMerge(interfaces, assetIntf, std::move(assetTagProps));
+}
+
+/**
  * @brief Set certain one time properties in the inventory
  * Use this function to insert the Functional and Enabled properties into the
  * inventory map. This function first checks if the object in question already
@@ -1056,6 +1081,8 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         }
     }
 
+    auto processFactoryReset = false;
+
     if (isSystemVpd)
     {
         string systemJsonName{};
@@ -1067,6 +1094,9 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 
         fs::path target = systemJsonName;
         fs::path link = INVENTORY_JSON_SYM_LINK;
+
+        // If the symlink does not exist, we treat that as a factory reset
+        processFactoryReset = !fs::exists(INVENTORY_JSON_SYM_LINK);
 
         // Create the directory for hosting the symlink
         fs::create_directories(VPD_FILES_PATH);
@@ -1171,6 +1201,15 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         inventory::PropertyMap presProp;
         presProp.emplace("Present", true);
         insertOrMerge(interfaces, invItemIntf, move(presProp));
+
+        if constexpr (is_same<T, Parsed>::value)
+        {
+            // Restore asset tag, if needed
+            if (processFactoryReset && objectPath == "/system")
+            {
+                fillAssetTag(interfaces, vpdMap);
+            }
+        }
 
         objects.emplace(move(object), move(interfaces));
     }
