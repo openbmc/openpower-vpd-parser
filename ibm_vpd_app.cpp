@@ -1340,11 +1340,13 @@ int main(int argc, char** argv)
         baseFruInventoryPath = js["frus"][file][0]["inventoryPath"];
         // Check if we can read the VPD file based on the power state
         // We skip reading VPD when the power is ON in two scenarios:
-        // 1) The eeprom we are trying to read is that of the system VPD
-        // 2) The JSON tells us that the FRU EEPROM cannot be read when
-        // we are powered ON.
+        // 1) The eeprom we are trying to read is that of the system VPD and the
+        // JSON symlink is already setup (the symlink's existence tells us we
+        // are not coming out of a factory reset)
+        // 2) The JSON tells us that the FRU EEPROM cannot be
+        // read when we are powered ON.
         if (js["frus"][file].at(0).value("powerOffOnly", false) ||
-            (file == systemVpdFilePath))
+            (file == systemVpdFilePath && fs::exists(INVENTORY_JSON_SYM_LINK)))
         {
             if ("xyz.openbmc_project.State.Chassis.PowerState.On" ==
                 getPowerState())
