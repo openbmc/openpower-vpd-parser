@@ -42,6 +42,7 @@ void Manager::run()
     {
         processJSON();
         listenHostState();
+        listenAssetTag();
 
         auto event = sdeventplus::Event::get_default();
         GpioMonitor gpioMon1(jsonFile, event);
@@ -95,6 +96,49 @@ void Manager::hostStateCallBack(sdbusplus::message::message& msg)
             }
         }
         std::cerr << "Failed to read Host state" << std::endl;
+    }
+}
+
+void Manager::listenAssetTag()
+{
+    static std::shared_ptr<sdbusplus::bus::match::match> assetMatcher =
+        std::make_shared<sdbusplus::bus::match::match>(
+            _bus,
+            sdbusplus::bus::match::rules::propertiesChanged(
+                "/xyz/openbmc_project/inventory/system",
+                "xyz.openbmc_project.Inventory.Decorator.AssetTag"),
+            [this](sdbusplus::message::message& msg) {
+                assetTagCallback(msg);
+            });
+}
+
+void Manager::assetTagCallback(sdbusplus::message::message& msg)
+{
+    if (msg.is_method_error())
+    {
+        std::cerr << "Error in reading signal " << std::endl;
+    }
+
+    Path object;
+    PropertyMap propMap;
+    msg.read(object, propMap);
+    const auto itr = propMap.find("AssetTag");
+    if (itr != propMap.end())
+    {
+        if (auto assetTag = std::get_if<std::string>(&(itr->second)))
+        {
+            // Call Notify to persist the AssetTag
+            inventory::ObjectMap objectMap = {
+                {std::string{"/system"},
+                 {{"xyz.openbmc_project.Inventory.Decorator.AssetTag",
+                   {{"AssetTag", *assetTag}}}}}};
+
+            common::utility::callPIM(std::move(objectMap));
+        }
+        else
+        {
+            std::cerr << "Failed to read asset tag" << std::endl;
+        }
     }
 }
 

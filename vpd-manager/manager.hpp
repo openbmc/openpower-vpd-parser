@@ -139,6 +139,16 @@ class Manager : public ServerObject<ManagerIface>
      */
     void hostStateCallBack(sdbusplus::message::message& msg);
 
+    /** @brief Api to register AssetTag property change.
+     * This api will register callback to listen for asset tag property change.
+     */
+    void listenAssetTag();
+
+    /** @brief Callback to listen for Asset tag change
+     *  @param[in] msg - callback message.
+     */
+    void assetTagCallback(sdbusplus::message::message& msg);
+
     /** @brief Persistent sdbusplus DBus bus connection. */
     sdbusplus::bus::bus _bus;
 
