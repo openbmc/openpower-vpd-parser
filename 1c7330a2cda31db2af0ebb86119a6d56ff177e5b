@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5e5560f_6654873a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1356,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-04-06T11:47:25Z",
+      "side": 1,
+      "message": "during a factory reset (having host in powered on state), we lose cpu vpd as well right?\nIn that case after a factory reset, if we get udev event for spi eeproms, we skip reading cpu vpd as the host power is on.\n\nIs that right?",
+      "range": {
+        "startLine": 1351,
+        "startChar": 9,
+        "endLine": 1356,
+        "endChar": 13
+      },
+      "revId": "1c7330a2cda31db2af0ebb86119a6d56ff177e5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
