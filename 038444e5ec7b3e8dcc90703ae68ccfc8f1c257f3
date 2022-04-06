@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a54e492_1572903b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-04-06T11:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "820c8ef5_f8d9d55f",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "038444e5ec7b3e8dcc90703ae68ccfc8f1c257f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1e4c69b_bfe29193",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-23T10:02:37Z",
       "side": 1,
       "message": "reword",
+      "range": {
+        "startLine": 9,
+        "startChar": 40,
+        "endLine": 9,
+        "endChar": 48
+      },
+      "revId": "038444e5ec7b3e8dcc90703ae68ccfc8f1c257f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c74e91c_a9c46f2a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-04-06T11:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1e4c69b_bfe29193",
       "range": {
         "startLine": 9,
         "startChar": 40,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f854994_cc5397b8",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-04-06T11:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebde5959_ce423fac",
+      "range": {
+        "startLine": 685,
+        "startChar": 0,
+        "endLine": 685,
+        "endChar": 55
+      },
+      "revId": "038444e5ec7b3e8dcc90703ae68ccfc8f1c257f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3eb9a8fa_82f1badc",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-03-23T10:02:37Z",
       "side": 1,
       "message": "reword",
+      "range": {
+        "startLine": 1302,
+        "startChar": 40,
+        "endLine": 1302,
+        "endChar": 47
+      },
+      "revId": "038444e5ec7b3e8dcc90703ae68ccfc8f1c257f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7344ee91_3af75cf1",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1302,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-04-06T11:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3eb9a8fa_82f1badc",
       "range": {
         "startLine": 1302,
         "startChar": 40,
