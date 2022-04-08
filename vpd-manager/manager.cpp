@@ -33,6 +33,9 @@ Manager::Manager(sdbusplus::bus::bus&& bus, const char* busName,
     ServerObject<ManagerIface>(bus, objPath),
     _bus(std::move(bus)), _manager(_bus, objPath)
 {
+    // TODO:
+    // check for the presence of backup file?
+    // if present then call write
     _bus.request_name(busName);
 }
 
