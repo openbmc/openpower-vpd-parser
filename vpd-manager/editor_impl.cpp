@@ -7,6 +7,8 @@
 #include "ipz_parser.hpp"
 #include "parser_factory.hpp"
 
+#include <filesystem>
+
 #include "vpdecc/vpdecc.h"
 
 using namespace openpower::vpd::parser::interface;
@@ -71,6 +73,40 @@ void EditorImpl::checkPTForRecord(Binary::const_iterator& iterator,
     throw std::runtime_error("Record not found");
 }
 
+// It does create a file and store the data to be updated in that file as a
+// backup
+void EditorImpl::backupTheData(const Binary& kwdData)
+{
+    std::filesystem::path path{"/tmp/vpdBackup"};
+    std::filesystem::create_directories(path);
+
+    if (std::filesystem::exists(path))
+    {
+        path += "/updateVpdDataBackup.txt";
+        ofstream vpdFileStream(path);
+        if (!vpdFileStream)
+        {
+            throw runtime_error(
+                "Failed to open vpd file path in /tmp/vpdBackup. "
+                "Unable to store the backup for update vpd.");
+        }
+
+        // Put all the user data there
+        vpdFileStream << vpdFilePath << endl;
+        vpdFileStream << objPath << endl;
+        vpdFileStream << thisRecord.recName << endl;
+        vpdFileStream << thisRecord.recKWd << endl;
+
+        for (auto& eachByte : kwdData)
+        {
+            vpdFileStream << eachByte;
+        }
+        vpdFileStream << endl;
+
+	vpdFileStream.close();
+    }
+}
+
 void EditorImpl::updateData(const Binary& kwdData)
 {
     std::size_t lengthToUpdate = kwdData.size() <= thisRecord.kwdDataLength
@@ -87,6 +123,18 @@ void EditorImpl::updateData(const Binary& kwdData)
     std::advance(iteratorToKWdData, thisRecord.kwDataOffset);
     std::copy(iteratorToNewdata, end, iteratorToKWdData);
 
+    // delete the backup of vpd data as updated successfully
+    if (std::filesystem::exists("/tmp/vpdBackup/updateVpdDataBackup.txt"))
+    {
+        if (std::filesystem::remove("/tmp/vpdBackup/updateVpdDataBackup.txt"))
+        {
+            std::cout << "updateVpdDataBackup file deleted successfully \n";
+        }
+        else
+        {
+            std::cerr << "updateVpdDataBackup : Error deleting this file\n";
+        }
+    }
 #ifdef ManagerTest
     auto startItr = vpdFile.begin();
     std::advance(iteratorToKWdData, thisRecord.kwDataOffset);
@@ -100,7 +148,8 @@ void EditorImpl::updateData(const Binary& kwdData)
     }
 #else
 
-    // update data in EEPROM as well. As we will not write complete file back
+    // update data in EEPROM as well. As we will not write complete file
+    // back
     vpdFileStream.seekp(startOffset + thisRecord.kwDataOffset, std::ios::beg);
 
     iteratorToNewdata = kwdData.cbegin();
@@ -249,8 +298,8 @@ void EditorImpl::readVTOC()
 
     // to get to the record name.
     std::advance(itrToRecord, sizeof(RecordId) + sizeof(RecordSize) +
-                                  // Skip past the RT keyword, which contains
-                                  // the record name.
+                                  // Skip past the RT keyword, which
+                                  // contains the record name.
                                   lengths::KW_NAME + sizeof(KwSize));
 
     std::string recordName(itrToRecord, itrToRecord + lengths::RECORD_NAME);
@@ -550,6 +599,9 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
 
             // check record for keywrod
             checkRecordForKwd();
+
+            // Have a backup of data going to update
+            backupTheData(kwdData);
 
             // update the data to the file
             updateData(kwdData);
