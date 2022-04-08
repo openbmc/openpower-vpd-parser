@@ -1203,7 +1203,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
                 {
                     if (isCPUIOGoodOnly(getKwVal(vpdMap, "CP00", "PG")))
                     {
-                        interfaces[invItemIntf]["PrettyName"] = "IO";
+                        interfaces[invItemIntf]["PrettyName"] = "IO Module";
                     }
                 }
             }
