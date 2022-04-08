@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77aa1736_f03d2147",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-08T06:26:32Z",
+      "side": 1,
+      "message": "don\u0027t use tmp path. use /var/lib",
+      "range": {
+        "startLine": 80,
+        "startChar": 32,
+        "endLine": 80,
+        "endChar": 46
+      },
+      "revId": "255ff76ccefc8da3803ea34ac895841de4d33c99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d7cedef_0ba68b90",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-08T06:26:32Z",
+      "side": 1,
+      "message": "don\u0027t use tmp path. use /var/lib",
+      "range": {
+        "startLine": 127,
+        "startChar": 33,
+        "endLine": 127,
+        "endChar": 72
+      },
+      "revId": "255ff76ccefc8da3803ea34ac895841de4d33c99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7768375_b72567cc",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-08T06:26:32Z",
+      "side": 1,
+      "message": "delete backup after eprom update done",
+      "range": {
+        "startLine": 165,
+        "startChar": 3,
+        "endLine": 166,
+        "endChar": 6
+      },
+      "revId": "255ff76ccefc8da3803ea34ac895841de4d33c99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bf0f807_065bdf80",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-08T06:26:32Z",
+      "side": 1,
+      "message": "bus call not required, update the hardware if file found here",
+      "range": {
+        "startLine": 38,
+        "startChar": 1,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "255ff76ccefc8da3803ea34ac895841de4d33c99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8720a19e_c26565af",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-08T06:26:32Z",
+      "side": 1,
+      "message": "move it to at last. just before event loop triggered.",
+      "range": {
+        "startLine": 39,
+        "startChar": 3,
+        "endLine": 39,
+        "endChar": 30
+      },
+      "revId": "255ff76ccefc8da3803ea34ac895841de4d33c99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
