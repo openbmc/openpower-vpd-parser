@@ -24,3 +24,4 @@ option('DBUS_PROP_JSON',type: 'string', value: '/usr/share/vpd/dbus_properties.j
 option('SYSTEM_JSON',type: 'string', value: '/usr/share/vpd/systems.json',  description: 'JSON file used to pick the right system json')
 option('BAD_VPD_DIR',type: 'string', value: '/tmp/bad-vpd/', description: 'Directory which contains the bad vpd file - which needs to be included in bmc dump.')
 option('FAN_INTERFACE', type: 'string', value: 'xyz.openbmc_project.Inventory.Item.Fan', description: 'Fan type interface.')
+option('BACKUP_VPD_DIR',type: 'string', value: '/var/lib/vpdBackup/', description: 'Directory will have backup vpd file which will be created while updating the vpd.')

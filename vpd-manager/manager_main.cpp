@@ -12,8 +12,8 @@ int main(int /*argc*/, char** /*argv*/)
     try
     {
         openpower::vpd::manager::Manager vpdManager(
-            sdbusplus::bus::new_system(), BUSNAME, OBJPATH, IFACE);
-        vpdManager.run();
+            sdbusplus::bus::new_system(), OBJPATH, IFACE);
+        vpdManager.run(BUSNAME);
         exit(EXIT_SUCCESS);
     }
     catch (const std::exception& e)

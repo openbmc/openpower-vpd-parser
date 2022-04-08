@@ -28,25 +28,70 @@ namespace vpd
 {
 namespace manager
 {
-Manager::Manager(sdbusplus::bus::bus&& bus, const char* busName,
-                 const char* objPath, const char* /*iFace*/) :
+Manager::Manager(sdbusplus::bus::bus&& bus, const char* objPath,
+                 const char* /*iFace*/) :
     ServerObject<ManagerIface>(bus, objPath),
     _bus(std::move(bus)), _manager(_bus, objPath)
 {
-    _bus.request_name(busName);
+    // Process the json before write call.
+    processJSON();
+    // Check the presence of backup vpd file if yes then try to write it.
+    if (std::filesystem::exists("/var/lib/vpdBackup/updateVpdDataBackup.txt"))
+    {
+        sdbusplus::message::object_path path;
+        string recordName;
+        string keyword;
+        Binary value;
+        uint8_t lineCount = 0;
+        ifstream vpdBckpFile("/var/lib/vpdBackup/updateVpdDataBackup.txt");
+        if (vpdBckpFile.is_open())
+        {
+            string line;
+            while (getline(vpdBckpFile, line))
+            {
+                if (1 == lineCount)
+                {
+                    path = line;
+                }
+                else if (2 == lineCount)
+                {
+                    recordName = line;
+                }
+                else if (3 == lineCount)
+                {
+                    keyword = line;
+                }
+                else if (4 == lineCount)
+                {
+                    value.assign(line.begin(), line.end());
+                }
+
+                lineCount++;
+            }
+            vpdBckpFile.close();
+        }
+        else
+        {
+            cout << "Unable to open file "
+                    "[/var/lib/vpdBackup/updateVpdDataBackup.txt] \n";
+        }
+
+        writeKeyword(path, recordName, keyword, value);
+    }
 }
 
-void Manager::run()
+void Manager::run(const char* busName)
 {
     try
     {
-        processJSON();
         listenHostState();
 
         auto event = sdeventplus::Event::get_default();
         GpioMonitor gpioMon1(jsonFile, event);
 
         _bus.attach_event(event.get(), SD_EVENT_PRIORITY_IMPORTANT);
+        _bus.request_name(busName);
+
         cout << "VPD manager event loop started\n";
         event.loop();
     }
