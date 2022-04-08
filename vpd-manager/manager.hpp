@@ -53,12 +53,10 @@ class Manager : public ServerObject<ManagerIface>
 
     /** @brief Constructor to put object onto bus at a dbus path.
      *  @param[in] bus - Bus connection.
-     *  @param[in] busName - Name to be requested on Bus
      *  @param[in] objPath - Path to attach at.
      *  @param[in] iFace - interface to implement
      */
-    Manager(sdbusplus::bus::bus&& bus, const char* busName, const char* objPath,
-            const char* iFace);
+    Manager(sdbusplus::bus::bus&& bus, const char* objPath, const char* iFace);
 
     /** @brief Implementation for WriteKeyword
      *  Api to update the keyword value for a given inventory.
@@ -115,8 +113,10 @@ class Manager : public ServerObject<ManagerIface>
     std::string getExpandedLocationCode(const std::string locationCode,
                                         const uint16_t nodeNumber);
 
-    /** @brief Start processing DBus messages. */
-    void run();
+    /** @brief Start processing DBus messages.
+     *  @param[in] busName - Name to be requested on Bus
+     */
+    void run(const char* busName);
 
     /** @brief Api to perform VPD recollection.
      * This api will trigger parser to perform VPD recollection for FRUs that

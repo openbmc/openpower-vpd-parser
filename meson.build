@@ -91,7 +91,8 @@ configure_file(output: 'config.h',
                        'DBUS_PROP_JSON': '"'+get_option('DBUS_PROP_JSON')+'"',
                        'SYSTEM_JSON' : '"'+get_option('SYSTEM_JSON')+'"',
                        'BAD_VPD_DIR': '"'+get_option('BAD_VPD_DIR')+'"',
-                       'FAN_INTERFACE': '"'+get_option('FAN_INTERFACE')+'"'
+                       'FAN_INTERFACE': '"'+get_option('FAN_INTERFACE')+'"',
+                       'BACKUP_VPD_DIR': '"'+get_option('BACKUP_VPD_DIR')+'"'
                        }
   )
 

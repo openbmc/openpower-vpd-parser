@@ -135,6 +135,11 @@ class EditorImpl
     /** @brief Checks for required keyword in the record */
     void checkRecordForKwd();
 
+    /** @brief This creates a system file and stores the user data provided to
+     * update the vpd data
+     */
+    void backupTheData(const Binary& kwdData);
+
     /** @brief update data for given keyword
      *  @param[in] kwdData- data to be updated
      */
