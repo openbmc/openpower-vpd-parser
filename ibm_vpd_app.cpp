@@ -1446,6 +1446,12 @@ int main(int argc, char** argv)
                  << "]'s VPD is not valid on PASS1 planar.Ignoring.\n";
             rc = 0;
         }
+        else if (!(isPresent(js, file).value_or(true)))
+        {
+            cout << "FRU at: " << file
+                 << " is not detected present. Ignore parser error.\n";
+            rc = 0;
+        }
         else
         {
             string errorMsg =
