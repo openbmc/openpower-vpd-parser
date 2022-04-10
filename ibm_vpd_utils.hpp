@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <optional>
 
 using namespace std;
 
@@ -262,7 +263,24 @@ string getPrintableValue(const Binary& vec);
 string byteArrayToHexString(const Binary& vec);
 
 /**
- * @brief Performs any pre-action needed to get the FRU setup for collection.
+ * @brief Return presence of the FRU.
+ *
+ * This API returns the presence information of the FRU corresponding to the
+ * given EEPROM. If the JSON contains no information about presence detect, this
+ * will return an empty optional. Else it will get the presence GPIO information
+ * from the JSON and return the appropriate present status.
+ * In case of GPIO find/read errors, it will return false.
+ *
+ * @param[in] json - The VPD JSON
+ * @param[in] file - EEPROM file path
+ * @return Empty optional if there is no presence info. Else returns presence
+ * based on the GPIO read.
+ */
+std::optional<bool> isPresent(const nlohmann::json& json, const string& file);
+
+/**
+ * @brief Performs any pre-action needed to get the FRU setup for
+ * collection.
  *
  * @param[in] json - json object
  * @param[in] file - eeprom file path
