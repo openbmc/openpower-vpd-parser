@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67542099_2b02d585",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-12T05:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77aa1736_f03d2147",
+      "range": {
+        "startLine": 80,
+        "startChar": 32,
+        "endLine": 80,
+        "endChar": 46
+      },
+      "revId": "255ff76ccefc8da3803ea34ac895841de4d33c99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d7cedef_0ba68b90",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ed972ce_7d0cd61d",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-12T05:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d7cedef_0ba68b90",
+      "range": {
+        "startLine": 127,
+        "startChar": 33,
+        "endLine": 127,
+        "endChar": 72
+      },
+      "revId": "255ff76ccefc8da3803ea34ac895841de4d33c99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7768375_b72567cc",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-04-08T06:26:32Z",
       "side": 1,
       "message": "delete backup after eprom update done",
+      "range": {
+        "startLine": 165,
+        "startChar": 3,
+        "endLine": 166,
+        "endChar": 6
+      },
+      "revId": "255ff76ccefc8da3803ea34ac895841de4d33c99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1eb6fe9_3339170f",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-12T05:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7768375_b72567cc",
       "range": {
         "startLine": 165,
         "startChar": 3,
@@ -106,6 +178,30 @@
       "writtenOn": "2022-04-08T06:26:32Z",
       "side": 1,
       "message": "move it to at last. just before event loop triggered.",
+      "range": {
+        "startLine": 39,
+        "startChar": 3,
+        "endLine": 39,
+        "endChar": 30
+      },
+      "revId": "255ff76ccefc8da3803ea34ac895841de4d33c99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b314ca7_af0b2fe2",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-12T05:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8720a19e_c26565af",
       "range": {
         "startLine": 39,
         "startChar": 3,
