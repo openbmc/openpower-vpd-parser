@@ -363,12 +363,12 @@ static bool isThisPcieOnPass1planar(const nlohmann::json& js,
     // Check if it is a PCIE device
     if (js["frus"].find(file) != js["frus"].end())
     {
-        if ((js["frus"][file].find("extraInterfaces") !=
-             js["frus"][file].end()))
+        if ((js["frus"][file].at(0).find("extraInterfaces") !=
+             js["frus"][file].at(0).end()))
         {
-            if (js["frus"][file]["extraInterfaces"].find(
+            if (js["frus"][file].at(0)["extraInterfaces"].find(
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice") !=
-                js["frus"][file]["extraInterfaces"].end())
+                js["frus"][file].at(0)["extraInterfaces"].end())
             {
                 isThisPCIeDev = true;
             }
