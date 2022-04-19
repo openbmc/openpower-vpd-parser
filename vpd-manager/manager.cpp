@@ -2,6 +2,7 @@
 
 #include "manager.hpp"
 
+#include "bios_handler.hpp"
 #include "common_utility.hpp"
 #include "editor_impl.hpp"
 #include "gpioMonitor.hpp"
@@ -44,6 +45,9 @@ void Manager::run()
         processJSON();
         listenHostState();
         listenAssetTag();
+
+        // Create an instance of the BIOS handler
+        BiosHandler biosHandler{_bus, *this};
 
         auto event = sdeventplus::Event::get_default();
         GpioMonitor gpioMon1(jsonFile, event);
