@@ -17,6 +17,10 @@ namespace vpd
 static_assert((8 == CHAR_BIT), "A byte is not 8 bits!");
 using Byte = uint8_t;
 using Binary = std::vector<Byte>;
+using BIOSAttrValueType = std::variant<int64_t, std::string>;
+using PendingBIOSAttrItemType =
+    std::pair<std::string, std::tuple<std::string, BIOSAttrValueType>>;
+using PendingBIOSAttrsType = std::vector<PendingBIOSAttrItemType>;
 
 namespace inventory
 {
