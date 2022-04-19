@@ -315,5 +315,50 @@ void insertOrMerge(inventory::InterfaceMap& map,
                    const inventory::Interface& interface,
                    inventory::PropertyMap&& property);
 
+/**
+ * @brief Utility API to set a D-Bus property
+ *
+ * This calls org.freedesktop.DBus.Properties;Set method with the supplied
+ * arguments
+ *
+ * @tparam T Template type of the D-Bus property
+ * @param service[in] - The D-Bus service name.
+ * @param object[in] - The D-Bus object on which the property is to be set.
+ * @param interface[in] - The D-Bus interface to which the property belongs.
+ * @param propertyName[in] - The name of the property to set.
+ * @param propertyValue[in] - The value of the property.
+ */
+template <typename T>
+void setBusProperty(const std::string& service, const std::string& object,
+                    const std::string& interface,
+                    const std::string& propertyName,
+                    const std::variant<T>& propertyValue)
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto method =
+            bus.new_method_call(service.c_str(), object.c_str(),
+                                "org.freedesktop.DBus.Properties", "Set");
+        method.append(interface);
+        method.append(propertyName);
+        method.append(propertyValue);
+
+        bus.call(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+}
+
+/**
+ * @brief Reads BIOS Attribute by name.
+ *
+ * @param attrName[in] - The BIOS attribute name.
+ * @return std::variant<int64_t, std::string> - The BIOS attribute value.
+ */
+std::variant<int64_t, std::string>
+    readBIOSAttribute(const std::string& attrName);
 } // namespace vpd
 } // namespace openpower

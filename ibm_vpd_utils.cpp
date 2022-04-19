@@ -886,5 +886,28 @@ void insertOrMerge(inventory::InterfaceMap& map,
         map.emplace(interface, property);
     }
 }
+
+BIOSAttrValueType readBIOSAttribute(const std::string& attrName)
+{
+    std::tuple<std::string, BIOSAttrValueType, BIOSAttrValueType> attrVal;
+    auto bus = sdbusplus::bus::new_default();
+    auto method = bus.new_method_call(
+        "xyz.openbmc_project.BIOSConfigManager",
+        "/xyz/openbmc_project/bios_config/manager",
+        "xyz.openbmc_project.BIOSConfig.Manager", "GetAttribute");
+    method.append(attrName);
+    try
+    {
+        auto result = bus.call(method);
+        result.read(std::get<0>(attrVal), std::get<1>(attrVal),
+                    std::get<2>(attrVal));
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        std::cerr << "Failed to read BIOS Attribute: " << attrName << std::endl;
+        std::cerr << e.what() << std::endl;
+    }
+    return std::get<1>(attrVal);
+}
 } // namespace vpd
 } // namespace openpower
