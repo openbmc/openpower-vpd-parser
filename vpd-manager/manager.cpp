@@ -2,6 +2,7 @@
 
 #include "manager.hpp"
 
+#include "common_utility.hpp"
 #include "editor_impl.hpp"
 #include "gpioMonitor.hpp"
 #include "ibm_vpd_utils.hpp"
