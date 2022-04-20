@@ -84,6 +84,8 @@ constexpr auto loggerObjectPath = "/xyz/openbmc_project/logging";
 constexpr auto loggerCreateInterface = "xyz.openbmc_project.Logging.Create";
 constexpr auto errIntfForBlankSystemVPD = "com.ibm.VPD.Error.BlankSystemVPD";
 constexpr auto errIntfForInvalidVPD = "com.ibm.VPD.Error.InvalidVPD";
+constexpr auto errIntfForSystemVPDMismatch =
+    "com.ibm.VPD.Error.SystemVPDMismatch";
 constexpr auto errIntfForStreamFail = "com.ibm.VPD.Error.InavlidEepromPath";
 constexpr auto errIntfForEccCheckFail = "com.ibm.VPD.Error.EccCheckFailed";
 constexpr auto errIntfForJsonFailure = "com.ibm.VPD.Error.InvalidJson";

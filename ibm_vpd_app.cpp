@@ -1004,20 +1004,17 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                                     vpdStream.str());
 
                                 createPEL(additionalData, PelSeverity::WARNING,
-                                          errIntfForInvalidVPD);
+                                          errIntfForSystemVPDMismatch);
                             }
                         }
-                        else
-                        {
-                            // implies hardware data is blank
-                            // update the map
-                            Binary busData(busValue.begin(), busValue.end());
 
-                            // update the map as well, so that cache data is not
-                            // updated as blank while populating VPD map on Dbus
-                            // in populateDBus Api
-                            kwdValue = busValue;
-                        }
+                        // If cache data is not blank, then irrespective of
+                        // hardware data(blank or other than cache), copy the
+                        // cache data to vpd map as we don't need to change the
+                        // cache data in either case in the process of
+                        // restoring system vpd.
+                        Binary busData(busValue.begin(), busValue.end());
+                        kwdValue = busValue;
                     }
                     else if (kwdValue.find_first_not_of(' ') == string::npos)
                     {
