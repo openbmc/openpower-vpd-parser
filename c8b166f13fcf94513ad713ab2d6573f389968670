@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa8f2890_ddfff2ef",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-04-21T17:59:48Z",
+      "side": 1,
+      "message": "can make use of this api here?\n\"createBindUnbindDriverCmnd\"\n\nBasically uou don\u0027t need this function at all. You can replace the call to this function by calling \"createBindUnbindDriverCmnd\" and \"executeCmd\"",
+      "range": {
+        "startLine": 788,
+        "startChar": 3,
+        "endLine": 788,
+        "endChar": 51
+      },
+      "revId": "c8b166f13fcf94513ad713ab2d6573f389968670",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f1a02bc_d0ec42e1",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-04-21T17:59:48Z",
+      "side": 1,
+      "message": "Why was this required? Anyways as per doxygen documentation brief should fit in a line. \nSo if you are correcting this, you should correct the length as well or ideally you should not change any code that is not relevant to your commit.",
+      "revId": "c8b166f13fcf94513ad713ab2d6573f389968670",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1196eb0f_b0a0000a",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-04-21T17:59:48Z",
+      "side": 1,
+      "message": "Brief should fit in a line as per doxygen manual.",
+      "range": {
+        "startLine": 318,
+        "startChar": 3,
+        "endLine": 319,
+        "endChar": 32
+      },
+      "revId": "c8b166f13fcf94513ad713ab2d6573f389968670",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30a0a2d5_ce65444e",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-04-21T17:59:48Z",
+      "side": 1,
+      "message": "Ideally you don\u0027t need to define a new api. Extract the value from json and just make use of \"createBindUnbindDriverCmnd\" api from ibm_vpd_utils.hpp.",
+      "range": {
+        "startLine": 370,
+        "startChar": 15,
+        "endLine": 370,
+        "endChar": 40
+      },
+      "revId": "c8b166f13fcf94513ad713ab2d6573f389968670",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fc6933c_66b9e7da",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-04-21T17:59:48Z",
+      "side": 1,
+      "message": "Same here, if you want you can make use of api \"createBindUnbindDriverCmnd\". Though at this place it is ok either way.",
+      "range": {
+        "startLine": 469,
+        "startChar": 4,
+        "endLine": 470,
+        "endChar": 79
+      },
+      "revId": "c8b166f13fcf94513ad713ab2d6573f389968670",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
