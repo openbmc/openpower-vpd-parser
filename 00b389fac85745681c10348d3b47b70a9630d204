@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c42b5a59_acabbb07",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-27T03:58:15Z",
+      "side": 1,
+      "message": "Is this else in the right place? Why are we executing postFail action when the file did show up?",
+      "range": {
+        "startLine": 570,
+        "startChar": 7,
+        "endLine": 571,
+        "endChar": 9
+      },
+      "revId": "00b389fac85745681c10348d3b47b70a9630d204",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64f3db1a_9147dbf1",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-27T03:58:15Z",
+      "side": 1,
+      "message": "Same here, isn\u0027t this already done in the catch block?",
+      "revId": "00b389fac85745681c10348d3b47b70a9630d204",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
