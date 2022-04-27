@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70ec855d_1905c373",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-27T04:04:57Z",
+      "side": 1,
+      "message": "yes, that is the actual use case.\nBut I kept it here thought of having blank(default) data in case we don\u0027t get these values.",
+      "parentUuid": "59d0c67c_3b44cc52",
+      "range": {
+        "startLine": 640,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 56
+      },
+      "revId": "6da9bd7b1f8f3f1670c557303363fed917b4af4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e9dcc74e_0751c588",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 12
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-27T03:54:42Z",
       "side": 1,
       "message": "This (and the code that fetches it) is only needed in teh catch block, please move them there.",
+      "range": {
+        "startLine": 655,
+        "startChar": 0,
+        "endLine": 655,
+        "endChar": 22
+      },
+      "revId": "6da9bd7b1f8f3f1670c557303363fed917b4af4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aec53cb_cddff555",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-27T04:04:57Z",
+      "side": 1,
+      "message": "okay.",
+      "parentUuid": "e9dcc74e_0751c588",
       "range": {
         "startLine": 655,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "693569d1_4ef073b9",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-27T04:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e61c4e4a_8622bb2e",
+      "range": {
+        "startLine": 715,
+        "startChar": 0,
+        "endLine": 716,
+        "endChar": 71
+      },
+      "revId": "6da9bd7b1f8f3f1670c557303363fed917b4af4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "463fa1c3_f012745a",
@@ -93,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ec48084_3d3ec02b",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-27T04:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "463fa1c3_f012745a",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 2
+      },
+      "revId": "6da9bd7b1f8f3f1670c557303363fed917b4af4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eaa7e83f_0aca3441",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-04-27T03:54:42Z",
       "side": 1,
       "message": "Please revert this too",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 48
+      },
+      "revId": "6da9bd7b1f8f3f1670c557303363fed917b4af4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f1efd09_bf69db66",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-27T04:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaa7e83f_0aca3441",
       "range": {
         "startLine": 293,
         "startChar": 0,
