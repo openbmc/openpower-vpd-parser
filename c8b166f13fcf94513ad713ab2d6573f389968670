@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e029c2f_f6d62c1b",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-27T18:43:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa8f2890_ddfff2ef",
+      "range": {
+        "startLine": 788,
+        "startChar": 3,
+        "endLine": 788,
+        "endChar": 51
+      },
+      "revId": "c8b166f13fcf94513ad713ab2d6573f389968670",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f1a02bc_d0ec42e1",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-04-21T17:59:48Z",
       "side": 1,
       "message": "Why was this required? Anyways as per doxygen documentation brief should fit in a line. \nSo if you are correcting this, you should correct the length as well or ideally you should not change any code that is not relevant to your commit.",
+      "revId": "c8b166f13fcf94513ad713ab2d6573f389968670",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1130cdc3_a2e7bf27",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-27T18:43:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f1a02bc_d0ec42e1",
       "revId": "c8b166f13fcf94513ad713ab2d6573f389968670",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30e93295_b5ed04bc",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-27T18:43:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1196eb0f_b0a0000a",
+      "range": {
+        "startLine": 318,
+        "startChar": 3,
+        "endLine": 319,
+        "endChar": 32
+      },
+      "revId": "c8b166f13fcf94513ad713ab2d6573f389968670",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30a0a2d5_ce65444e",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-04-21T17:59:48Z",
       "side": 1,
       "message": "Ideally you don\u0027t need to define a new api. Extract the value from json and just make use of \"createBindUnbindDriverCmnd\" api from ibm_vpd_utils.hpp.",
+      "range": {
+        "startLine": 370,
+        "startChar": 15,
+        "endLine": 370,
+        "endChar": 40
+      },
+      "revId": "c8b166f13fcf94513ad713ab2d6573f389968670",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bf8b8da_291c72aa",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-27T18:43:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30a0a2d5_ce65444e",
       "range": {
         "startLine": 370,
         "startChar": 15,
