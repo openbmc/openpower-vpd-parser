@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59d0c67c_3b44cc52",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-27T03:54:42Z",
+      "side": 1,
+      "message": "These should be added only if the if check at 632 passes",
+      "range": {
+        "startLine": 640,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 56
+      },
+      "revId": "6da9bd7b1f8f3f1670c557303363fed917b4af4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9dcc74e_0751c588",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-27T03:54:42Z",
+      "side": 1,
+      "message": "This (and the code that fetches it) is only needed in teh catch block, please move them there.",
+      "range": {
+        "startLine": 655,
+        "startChar": 0,
+        "endLine": 655,
+        "endChar": 22
+      },
+      "revId": "6da9bd7b1f8f3f1670c557303363fed917b4af4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e61c4e4a_8622bb2e",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-27T03:54:42Z",
+      "side": 1,
+      "message": "This is only really needed when we get the exception, right? Can you move this to the catch block so taht we don\u0027t unnecessarily keep accessing it?",
+      "range": {
+        "startLine": 715,
+        "startChar": 0,
+        "endLine": 716,
+        "endChar": 71
+      },
+      "revId": "6da9bd7b1f8f3f1670c557303363fed917b4af4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "463fa1c3_f012745a",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-27T03:54:42Z",
+      "side": 1,
+      "message": "These changes are unnecessary, please remove them from this commit.",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 2
+      },
+      "revId": "6da9bd7b1f8f3f1670c557303363fed917b4af4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaa7e83f_0aca3441",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-27T03:54:42Z",
+      "side": 1,
+      "message": "Please revert this too",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 48
+      },
+      "revId": "6da9bd7b1f8f3f1670c557303363fed917b4af4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
