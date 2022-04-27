@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c2a33073_065b208e",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-27T04:35:20Z",
+      "side": 1,
+      "message": "That is not going to add any benefit. Please add these only if we get data",
+      "parentUuid": "70ec855d_1905c373",
+      "range": {
+        "startLine": 640,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 56
+      },
+      "revId": "6da9bd7b1f8f3f1670c557303363fed917b4af4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e9dcc74e_0751c588",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 12

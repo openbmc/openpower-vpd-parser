@@ -34,6 +34,24 @@
       "parentUuid": "bf5f4008_2d8ff2a5",
       "revId": "bf78ed8883a067d6f297860ceb54dbd6148b2d25",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "782f9095_4979a973",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-27T04:35:20Z",
+      "side": 0,
+      "message": "Please don\u0027t do it as a part of this commit.",
+      "parentUuid": "6d8fed54_14871e41",
+      "revId": "bf78ed8883a067d6f297860ceb54dbd6148b2d25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
