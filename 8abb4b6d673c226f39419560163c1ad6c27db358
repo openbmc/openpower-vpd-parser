@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a49de8b3_dc43955c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-27T13:29:14Z",
+      "side": 1,
+      "message": "Earlier we were checking for file existence independent of ( (\"devAddress\" found and bind action taken)  or Not ),  \nbut now will check only if driver binding done.\n\nIf \"devAddress\" not found will intimate that and will take fail action.",
+      "range": {
+        "startLine": 562,
+        "startChar": 1,
+        "endLine": 564,
+        "endChar": 13
+      },
+      "revId": "8abb4b6d673c226f39419560163c1ad6c27db358",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "123851f9_f30b0132",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-04-27T13:29:14Z",
+      "side": 1,
+      "message": "this is to inform that \"devAddress\" couldn\u0027t be found, and will take action accordingly.",
+      "range": {
+        "startLine": 571,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 19
+      },
+      "revId": "8abb4b6d673c226f39419560163c1ad6c27db358",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
