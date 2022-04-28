@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc079bba_f1297da0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-28T04:15:39Z",
+      "side": 1,
+      "message": "Please revert the unnecessary line change that Sunny pointed out. Else this looks OK to me too",
+      "revId": "67ef1f414d67f97084012cbc13374f28d6912e5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f60b9bc2_67ecd0f1",
