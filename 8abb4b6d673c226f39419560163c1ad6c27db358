@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15779ef0_eb4da8d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-28T04:27:57Z",
+      "side": 1,
+      "message": "Some minor nits",
+      "revId": "8abb4b6d673c226f39419560163c1ad6c27db358",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a49de8b3_dc43955c",
@@ -14,6 +31,30 @@
       "writtenOn": "2022-04-27T13:29:14Z",
       "side": 1,
       "message": "Earlier we were checking for file existence independent of ( (\"devAddress\" found and bind action taken)  or Not ),  \nbut now will check only if driver binding done.\n\nIf \"devAddress\" not found will intimate that and will take fail action.",
+      "range": {
+        "startLine": 562,
+        "startChar": 1,
+        "endLine": 564,
+        "endChar": 13
+      },
+      "revId": "8abb4b6d673c226f39419560163c1ad6c27db358",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2cf364d_6da2189a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-28T04:27:57Z",
+      "side": 1,
+      "message": "I am not following - Are you trying to document something here or responding to a comment somewhere?",
+      "parentUuid": "a49de8b3_dc43955c",
       "range": {
         "startLine": 562,
         "startChar": 1,
@@ -42,6 +83,115 @@
         "startChar": 0,
         "endLine": 581,
         "endChar": 19
+      },
+      "revId": "8abb4b6d673c226f39419560163c1ad6c27db358",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10976e42_e08ef896",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-28T04:27:57Z",
+      "side": 1,
+      "message": "Please avoid adding these whitespace changes",
+      "revId": "8abb4b6d673c226f39419560163c1ad6c27db358",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dba0b49_a0db1288",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-28T04:27:57Z",
+      "side": 1,
+      "message": "cerr",
+      "range": {
+        "startLine": 721,
+        "startChar": 20,
+        "endLine": 721,
+        "endChar": 24
+      },
+      "revId": "8abb4b6d673c226f39419560163c1ad6c27db358",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16b55add_30c29bce",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-28T04:27:57Z",
+      "side": 1,
+      "message": "cerr",
+      "range": {
+        "startLine": 759,
+        "startChar": 12,
+        "endLine": 759,
+        "endChar": 16
+      },
+      "revId": "8abb4b6d673c226f39419560163c1ad6c27db358",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f74401e_6afca845",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-28T04:27:57Z",
+      "side": 1,
+      "message": "cerr",
+      "range": {
+        "startLine": 801,
+        "startChar": 20,
+        "endLine": 801,
+        "endChar": 24
+      },
+      "revId": "8abb4b6d673c226f39419560163c1ad6c27db358",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1db9452_338fcd5e",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-04-28T04:27:57Z",
+      "side": 1,
+      "message": "cerr",
+      "range": {
+        "startLine": 836,
+        "startChar": 12,
+        "endLine": 836,
+        "endChar": 16
       },
       "revId": "8abb4b6d673c226f39419560163c1ad6c27db358",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
