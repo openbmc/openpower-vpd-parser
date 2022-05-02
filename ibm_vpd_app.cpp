@@ -44,9 +44,10 @@ using namespace phosphor::logging;
 // The list of keywords for VSYS record is as per the S0 system. Should
 // be updated for another type of systems
 static const std::unordered_map<std::string, std::vector<std::string>>
-    svpdKwdMap{{"VSYS", {"BR", "TM", "SE", "SU", "RB", "WN"}},
+    svpdKwdMap{{"VSYS", {"BR", "TM", "SE", "SU", "RB", "WN", "RG"}},
                {"VCEN", {"FC", "SE"}},
-               {"LXR0", {"LX"}}};
+               {"LXR0", {"LX"}},
+               {"UTIL", {"D0"}}};
 
 /**
  * @brief Returns the power state for chassis0
@@ -962,9 +963,23 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                     const string& busValue = readBusProperty(
                         objectPath, ipzVpdInf + recordName, keyword);
 
-                    if (busValue.find_first_not_of(' ') != string::npos)
+                    std::string defaultValue{' '};
+
+                    // Explicit check for D0 is required as this keyword will
+                    // never be blank and 0x00 should be treated as no value in
+                    // this case.
+                    if (recordName == "UTIL" && keyword == "D0")
                     {
-                        if (kwdValue.find_first_not_of(' ') != string::npos)
+                        // default value of kwd D0 is 0x00. This kwd will never
+                        // be blank.
+                        defaultValue = '\0';
+                    }
+
+                    if (busValue.find_first_not_of(defaultValue) !=
+                        string::npos)
+                    {
+                        if (kwdValue.find_first_not_of(defaultValue) !=
+                            string::npos)
                         {
                             // both the data are present, check for mismatch
                             if (busValue != kwdValue)
@@ -992,13 +1007,14 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                             // update the map
                             Binary busData(busValue.begin(), busValue.end());
 
-                            // update the map as well, so that cache data is not
-                            // updated as blank while populating VPD map on Dbus
-                            // in populateDBus Api
+                            // update the map as well, so that cache data is
+                            // not updated as blank while populating VPD map
+                            // on Dbus in populateDBus Api
                             kwdValue = busValue;
                         }
                     }
-                    else if (kwdValue.find_first_not_of(' ') == string::npos)
+                    else if (kwdValue.find_first_not_of(defaultValue) !=
+                             string::npos)
                     {
                         string errMsg = "VPD is blank on both cache and "
                                         "hardware for record: ";
