@@ -1469,6 +1469,8 @@ int main(int argc, char** argv)
             if ((js["frus"].find(file) != js["frus"].end()) &&
                 (file == systemVpdFilePath))
             {
+                baseFruInventoryPath = js["frus"][file][0]["inventoryPath"];
+
                 // We need manager service active to process restoring of
                 // system VPD on hardware. So in case any system restore is
                 // required, update hardware in the second trigger of parser
@@ -1542,7 +1544,13 @@ int main(int argc, char** argv)
             return 0;
         }
 
-        baseFruInventoryPath = js["frus"][file][0]["inventoryPath"];
+        // In case of system VPD it will already be filled, Don't have to
+        // overwrite that.
+        if (baseFruInventoryPath.empty())
+        {
+            baseFruInventoryPath = js["frus"][file][0]["inventoryPath"];
+        }
+
         // Check if we can read the VPD file based on the power state
         // We skip reading VPD when the power is ON in two scenarios:
         // 1) The eeprom we are trying to read is that of the system VPD and the
