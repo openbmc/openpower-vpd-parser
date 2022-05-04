@@ -45,6 +45,30 @@
       },
       "revId": "d9a66dee90e84ef6a1739cb53c1e0c5ff0433d77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1cd33c7_86c1c3a1",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-04T10:50:52Z",
+      "side": 1,
+      "message": "I am not able to follow here. You want to me to add default value for all the keywords in \"svpdKwdMap\" and look for a match here?",
+      "parentUuid": "bc649cce_1f7a1ce3",
+      "range": {
+        "startLine": 968,
+        "startChar": 0,
+        "endLine": 980,
+        "endChar": 47
+      },
+      "revId": "d9a66dee90e84ef6a1739cb53c1e0c5ff0433d77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
