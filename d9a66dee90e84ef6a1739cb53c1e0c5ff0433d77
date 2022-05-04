@@ -69,6 +69,30 @@
       },
       "revId": "d9a66dee90e84ef6a1739cb53c1e0c5ff0433d77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c99e49d_0ef753e3",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-05-04T12:44:37Z",
+      "side": 1,
+      "message": "Yeah, either that or even a default character, for ex: for keywords other than D0, that would be \u0027 \u0027. For D0 it\u0027d be \u0027\\0\u0027. And then the existing code of find_first_not_of(\u003cdefault_char\u003e) will work in all cases.",
+      "parentUuid": "c1cd33c7_86c1c3a1",
+      "range": {
+        "startLine": 968,
+        "startChar": 0,
+        "endLine": 980,
+        "endChar": 47
+      },
+      "revId": "d9a66dee90e84ef6a1739cb53c1e0c5ff0433d77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
