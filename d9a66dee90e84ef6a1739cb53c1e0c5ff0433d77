@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eed6d86e_3623dce1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-05-04T09:29:41Z",
+      "side": 1,
+      "message": "typo. This explanation of what the field is irrelevant, btw.",
+      "range": {
+        "startLine": 16,
+        "startChar": 34,
+        "endLine": 16,
+        "endChar": 45
+      },
+      "revId": "d9a66dee90e84ef6a1739cb53c1e0c5ff0433d77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc649cce_1f7a1ce3",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-05-04T09:29:41Z",
+      "side": 1,
+      "message": "Instead of this, I would recommend that we add a \"default\" char to the map and then simply doa  find_first_not_of(char) - that will keep the code cleaner and extendable.",
+      "range": {
+        "startLine": 968,
+        "startChar": 0,
+        "endLine": 980,
+        "endChar": 47
+      },
+      "revId": "d9a66dee90e84ef6a1739cb53c1e0c5ff0433d77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
