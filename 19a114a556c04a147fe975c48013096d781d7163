@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8df67be9_ba5051ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-04T05:56:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a38381bb_74e449cb",
+      "revId": "19a114a556c04a147fe975c48013096d781d7163",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d73b5753_a1696c4d",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-05-04T05:36:04Z",
       "side": 1,
       "message": "what\u0027s the difference between these two booleans? In bool nonEmptyKWdValue -\u003e you are again checking if the \"busValue\" is empty or not.\nCan you add a comment in the code regarding these changes? and also state why are you specifically checking for D0 keyword?",
+      "range": {
+        "startLine": 966,
+        "startChar": 20,
+        "endLine": 978,
+        "endChar": 47
+      },
+      "revId": "19a114a556c04a147fe975c48013096d781d7163",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a1df190_5e7f7f94",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-04T05:56:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d73b5753_a1696c4d",
       "range": {
         "startLine": 966,
         "startChar": 20,
