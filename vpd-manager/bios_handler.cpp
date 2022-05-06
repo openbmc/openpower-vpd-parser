@@ -240,13 +240,22 @@ std::string BiosHandler::readBIOSAMM()
     return ammVal;
 }
 
-void BiosHandler::saveFCOToBIOS(const std::string& fcoVal)
+void BiosHandler::saveFCOToBIOS(const std::string& fcoVal, int64_t fcoInBIOS)
 {
     if (fcoVal.size() != 4)
     {
         std::cerr << "Bad size for FCO in VPD: " << fcoVal.size() << std::endl;
         return;
     }
+
+    // Need to write?
+    if (fcoInBIOS == static_cast<int64_t>(fcoVal.at(3)))
+    {
+        std::cout << "Skip FCO BIOS write, value is already: " << fcoInBIOS
+                  << std::endl;
+        return;
+    }
+
     PendingBIOSAttrsType biosAttrs;
     biosAttrs.push_back(
         std::make_pair("hb_field_core_override",
@@ -264,7 +273,8 @@ void BiosHandler::saveFCOToBIOS(const std::string& fcoVal)
         biosAttrs);
 }
 
-void BiosHandler::saveAMMToBIOS(const std::string& ammVal)
+void BiosHandler::saveAMMToBIOS(const std::string& ammVal,
+                                const std::string& ammInBIOS)
 {
     if (ammVal.size() != 1)
     {
@@ -279,15 +289,24 @@ void BiosHandler::saveAMMToBIOS(const std::string& ammVal)
                   << static_cast<int>(ammVal.at(0)) << std::endl;
         return;
     }
-    PendingBIOSAttrsType biosAttrs;
-    biosAttrs.push_back(std::make_pair(
-        "hb_memory_mirror_mode",
-        std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
-                        "AttributeType.Enumeration",
-                        (ammVal.at(0) == 2) ? "Enabled" : "Disabled")));
 
-    std::cout << "Set hb_memory_mirror_mode to: "
-              << ((ammVal.at(0) == 2) ? "Enabled" : "Disabled") << std::endl;
+    // Need to write?
+    std::string toWrite = (ammVal.at(0) == 2) ? "Enabled" : "Disabled";
+    if (ammInBIOS == toWrite)
+    {
+        std::cout << "Skip AMM BIOS write, value is already: " << toWrite
+                  << std::endl;
+        return;
+    }
+
+    PendingBIOSAttrsType biosAttrs;
+    biosAttrs.push_back(
+        std::make_pair("hb_memory_mirror_mode",
+                       std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
+                                       "AttributeType.Enumeration",
+                                       toWrite)));
+
+    std::cout << "Set hb_memory_mirror_mode to: " << toWrite << std::endl;
 
     setBusProperty<PendingBIOSAttrsType>(
         "xyz.openbmc_project.BIOSConfigManager",
@@ -318,7 +337,7 @@ void BiosHandler::restoreBIOSAttribs()
     }
     else
     {
-        saveFCOToBIOS(fcoInVPD);
+        saveFCOToBIOS(fcoInVPD, fcoInBIOS);
     }
 
     if (ammInVPD.at(0) == 0)
@@ -327,7 +346,7 @@ void BiosHandler::restoreBIOSAttribs()
     }
     else
     {
-        saveAMMToBIOS(ammInVPD);
+        saveAMMToBIOS(ammInVPD, ammInBIOS);
     }
 
     // Start listener now that we have done the restore
