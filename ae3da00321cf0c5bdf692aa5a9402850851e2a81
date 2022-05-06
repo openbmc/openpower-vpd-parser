@@ -16,6 +16,24 @@
       "message": "Actually, how does this work? The same code is used to get the device tree name. Did you not test this?",
       "revId": "ae3da00321cf0c5bdf692aa5a9402850851e2a81",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2d8b61b_a04d55d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-05-06T09:06:48Z",
+      "side": 1,
+      "message": "Tested Result is shared in gerrit commit.\nIt was tested on Everest PASS1(forced to pickup pass2 json), so didn\u0027t fail for dev tree.\nI\u0027ll add missing things here.",
+      "parentUuid": "b8b907c6_4397408e",
+      "revId": "ae3da00321cf0c5bdf692aa5a9402850851e2a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
