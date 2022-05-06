@@ -115,20 +115,24 @@ class BiosHandler
     /**
      * @brief Writes Memory mirror mode to BIOS
      *
-     * Writes to the hb_memory_mirror_mode BIOS attribute.
+     * Writes to the hb_memory_mirror_mode BIOS attribute, if the value is not
+     * already the same as we are trying to write.
      *
      * @param[in] ammVal - The mirror mode as read from VPD.
+     * @param[in] ammInBIOS - The mirror more in the BIOS table.
      */
-    void saveAMMToBIOS(const std::string& ammVal);
+    void saveAMMToBIOS(const std::string& ammVal, const std::string& ammInBIOS);
 
     /**
      * @brief Writes Field Core Override to BIOS
      *
-     * Writes to the hb_field_core_override BIOS attribute.
+     * Writes to the hb_field_core_override BIOS attribute, if the value is not
+     * already the same as we are trying to write.
      *
      * @param[in] fcoVal - The FCO value as read from VPD.
+     * @param[in] fcoInBIOS - The FCO value already in the BIOS table.
      */
-    void saveFCOToBIOS(const std::string& fcoVal);
+    void saveFCOToBIOS(const std::string& fcoVal, int64_t fcoInBIOS);
 
     /**
      * @brief Reads the hb_memory_mirror_mode attribute
