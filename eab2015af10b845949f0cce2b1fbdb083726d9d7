@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c39b0b24_72e0e0fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-11T04:57:43Z",
+      "side": 1,
+      "message": "Just a typo that needs to be fixed, Few suggestions, but I am ok with that.",
+      "revId": "eab2015af10b845949f0cce2b1fbdb083726d9d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "147139ea_f72dfbf9",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-11T04:57:43Z",
+      "side": 1,
+      "message": "Suggestion: We can use \"BIOSAttrValueType\" as you have already defined that?",
+      "range": {
+        "startLine": 869,
+        "startChar": 28,
+        "endLine": 869,
+        "endChar": 62
+      },
+      "revId": "eab2015af10b845949f0cce2b1fbdb083726d9d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "473c7c92_92ae4fe1",
+        "filename": "vpd-manager/bios_handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-11T04:57:43Z",
+      "side": 1,
+      "message": "Suggestion: its more readable and also looks cleaner if there is a blank line between blocks of code. 😊",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 76,
+        "endChar": 22
+      },
+      "revId": "eab2015af10b845949f0cce2b1fbdb083726d9d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57e649fd_9ee0f8db",
+        "filename": "vpd-manager/bios_handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-11T04:57:43Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 273,
+        "startChar": 32,
+        "endLine": 273,
+        "endChar": 36
+      },
+      "revId": "eab2015af10b845949f0cce2b1fbdb083726d9d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
