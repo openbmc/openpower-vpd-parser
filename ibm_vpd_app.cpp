@@ -480,23 +480,51 @@ static bool isThisPcieOnPass1planar(const nlohmann::json& js,
 
     if (isThisPCIeDev)
     {
-        // Collect SystemType to know if it is PASS1 planar.
+        // Collect HW version and SystemType to know if it is PASS1 planar.
         auto bus = sdbusplus::bus::new_default();
-        auto properties = bus.new_method_call(
+        auto property1 = bus.new_method_call(
             INVENTORY_MANAGER_SERVICE,
             "/xyz/openbmc_project/inventory/system/chassis/motherboard",
             "org.freedesktop.DBus.Properties", "Get");
-        properties.append("com.ibm.ipzvpd.VINI");
-        properties.append("HW");
-        auto result = bus.call(properties);
+        property1.append("com.ibm.ipzvpd.VINI");
+        property1.append("HW");
+        auto result1 = bus.call(property1);
+        inventory::Value hwVal;
+        result1.read(hwVal);
 
-        inventory::Value val;
-        result.read(val);
-        if (auto pVal = get_if<Binary>(&val))
+        // SystemType
+        auto property2 = bus.new_method_call(
+            INVENTORY_MANAGER_SERVICE,
+            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+            "org.freedesktop.DBus.Properties", "Get");
+        property2.append("com.ibm.ipzvpd.VSBP");
+        property2.append("IM");
+        auto result2 = bus.call(property2);
+        inventory::Value imVal;
+        result2.read(imVal);
+
+        auto pVal1 = get_if<Binary>(&hwVal);
+        auto pVal2 = get_if<Binary>(&imVal);
+
+        if (pVal1 && pVal2)
         {
-            auto hwVersion = *pVal;
-            if (hwVersion[1] < 2)
+            auto hwVersion = *pVal1;
+            auto systemType = *pVal2;
+
+            // IM kw for Everest
+            Binary everestSystem{80, 00, 48, 00};
+
+            if (systemType == everestSystem)
+            {
+                if (hwVersion[1] < 21)
+                {
+                    isPASS1 = true;
+                }
+            }
+            else if (hwVersion[1] < 2)
+            {
                 isPASS1 = true;
+            }
         }
     }
 
