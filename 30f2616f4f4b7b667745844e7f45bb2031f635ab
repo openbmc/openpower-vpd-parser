@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03864d5f_eb1c6f8b",
+        "filename": "meson.build",
+        "patchSetId": 38
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-05-13T04:47:19Z",
+      "side": 1,
+      "message": "Don\u0027t remove new line",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 47
+      },
+      "revId": "30f2616f4f4b7b667745844e7f45bb2031f635ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d057631d_44115324",
+        "filename": "meson.build",
+        "patchSetId": 38
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-05-13T04:47:19Z",
+      "side": 1,
+      "message": "remove extra line",
+      "revId": "30f2616f4f4b7b667745844e7f45bb2031f635ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
