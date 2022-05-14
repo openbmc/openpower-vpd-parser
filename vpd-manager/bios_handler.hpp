@@ -113,10 +113,32 @@ class BiosHandler
     void saveFCOToVPD(int64_t fcoVal);
 
     /**
+     * @brief Persistently saves the Keep and Clear setting
+     *
+     * Keep and clear setting is saved to the UTIL/D1 keyword's 0th bit in the
+     * motherboard VPD. If the keep and clear in BIOS is "Disabled", set D1:0 to
+     * 0, if "Enabled" set D1:0 to 1
+     *
+     * @param[in] keepAndClear - The keep and clear BIOS attribute.
+     */
+    void saveKeepAndClearToVPD(const std::string& keepAndClear);
+
+    /**
+     * @brief Persistently saves the Create default LPAR setting
+     *
+     * Create default LPAR setting is saved to the UTIL/D1 keyword's 1st bit in
+     * the motherboard VPD. If the create default LPAR in BIOS is "Disabled",
+     * set D1:1 to 0, if "Enabled" set D1:1 to 1
+     *
+     * @param[in] createDefaultLpar - The mirror mode BIOS attribute.
+     */
+    void saveCreateDefaultLparToVPD(const std::string& createDefaultLpar);
+
+    /**
      * @brief Writes Memory mirror mode to BIOS
      *
-     * Writes to the hb_memory_mirror_mode BIOS attribute, if the value is not
-     * already the same as we are trying to write.
+     * Writes to the hb_memory_mirror_mode BIOS attribute, if the value is
+     * not already the same as we are trying to write.
      *
      * @param[in] ammVal - The mirror mode as read from VPD.
      * @param[in] ammInBIOS - The mirror more in the BIOS table.
@@ -135,18 +157,59 @@ class BiosHandler
     void saveFCOToBIOS(const std::string& fcoVal, int64_t fcoInBIOS);
 
     /**
+     * @brief Writes Keep and clear setting to BIOS
+     *
+     * Writes to the pvm_keep_and_clear BIOS attribute, if the value is
+     * not already the same as we are trying to write.
+     *
+     * @param[in] keepAndClear - The mirror mode as read from VPD.
+     * @param[in] keepAndClearInBIOS - The mirror more in the BIOS table.
+     */
+    void saveKeepAndClearToBIOS(const std::string& keepAndClear,
+                                const std::string& keepAndClearInBIOS);
+
+    /**
+     * @brief Writes Create default LPAR setting to BIOS
+     *
+     * Writes to the pvm_create_default_lpar BIOS attribute, if the value is
+     * not already the same as we are trying to write.
+     *
+     * @param[in] createDefaultLpar - The mirror mode as read from VPD.
+     * @param[in] createDefaultLparInBIOS - The mirror more in the BIOS table.
+     */
+    void
+        saveCreateDefaultLparToBIOS(const std::string& createDefaultLpar,
+                                    const std::string& createDefaultLparInBIOS);
+
+    /**
      * @brief Reads the hb_memory_mirror_mode attribute
      *
-     * @return int64_t - The AMM BIOS attribute. -1 on failure.
+     * @return std::string - The AMM BIOS attribute. Empty string on failure.
      */
     std::string readBIOSAMM();
 
     /**
      * @brief Reads the hb_field_core_override attribute
      *
-     * @return std::string - The FCO BIOS attribute. Empty string on failure.
+     * @return int64_t - The FCO BIOS attribute.  -1 on failure.
      */
     int64_t readBIOSFCO();
+
+    /**
+     * @brief Reads the pvm_keep_and_clear attribute
+     *
+     * @return std::string - The Keep and clear BIOS attribute. Empty string on
+     * failure.
+     */
+    std::string readBIOSKeepAndClear();
+
+    /**
+     * @brief Reads the pvm_create_default_lpar attribute
+     *
+     * @return std::string - The Create default LPAR BIOS attribute. Empty
+     * string on failure.
+     */
+    std::string readBIOSCreateDefaultLpar();
 
     /**
      * @brief Restore BIOS attributes
