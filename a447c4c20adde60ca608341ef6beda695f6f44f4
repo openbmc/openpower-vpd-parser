@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "279102a9_4e66f7e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-05-17T12:02:30Z",
+      "side": 1,
+      "message": "Please remove this internal link",
+      "revId": "a447c4c20adde60ca608341ef6beda695f6f44f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c2ce5d3_b2580ac4",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-05-17T12:02:30Z",
+      "side": 1,
+      "message": "How about objectGroup? Just to avoid confusion with EEPROM.",
+      "range": {
+        "startLine": 469,
+        "startChar": 39,
+        "endLine": 469,
+        "endChar": 50
+      },
+      "revId": "a447c4c20adde60ca608341ef6beda695f6f44f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33979810_128c649c",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-05-17T12:02:30Z",
+      "side": 1,
+      "message": "Please remove this",
+      "revId": "a447c4c20adde60ca608341ef6beda695f6f44f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
