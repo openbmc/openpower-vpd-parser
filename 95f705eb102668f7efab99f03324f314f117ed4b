@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e2dce73_77a2f6c9",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-17T13:55:56Z",
+      "side": 1,
+      "message": "W.R.T my comment on the base commit if we agree with that, we need a change here.",
+      "range": {
+        "startLine": 553,
+        "startChar": 4,
+        "endLine": 554,
+        "endChar": 48
+      },
+      "revId": "95f705eb102668f7efab99f03324f314f117ed4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
