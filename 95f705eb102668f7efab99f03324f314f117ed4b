@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "78beeca8_ce9938d8",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-05-18T04:58:19Z",
+      "side": 1,
+      "message": "This is repeat code of getVpdDataInVector()\n\nHow it would be if we call this function to do the same?\n\nFor that you\u0027ll have to move \ngetVpdDataInVector(const nlohmann::json\u0026 js, const string\u0026 file) to IBM_UTIL",
+      "range": {
+        "startLine": 527,
+        "startChar": 4,
+        "endLine": 547,
+        "endChar": 0
+      },
+      "revId": "95f705eb102668f7efab99f03324f314f117ed4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e2dce73_77a2f6c9",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 2
