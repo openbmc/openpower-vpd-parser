@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc5edde2_382a1c49",
+        "filename": "impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-05-18T04:46:27Z",
+      "side": 1,
+      "message": "+1\nI was suggesting this same yesterday. point b + c\n\nDo everything required in the caller function only (readKwFromHw) and this way no need to modify processRecord and you\u0027ll get rid of flag \"toolRead\".",
+      "parentUuid": "2a6fb85b_bbfe5e6c",
+      "range": {
+        "startLine": 537,
+        "startChar": 0,
+        "endLine": 537,
+        "endChar": 32
+      },
+      "revId": "7524ecdc60c998b74051524863e3e4c9efb001b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "39223d48_2dcc5ced",
         "filename": "impl.hpp",
         "patchSetId": 3
