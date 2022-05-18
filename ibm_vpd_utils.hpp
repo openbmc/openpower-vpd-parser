@@ -360,5 +360,11 @@ void setBusProperty(const std::string& service, const std::string& object,
  */
 std::variant<int64_t, std::string>
     readBIOSAttribute(const std::string& attrName);
+
+/**
+ * @brief Returns the power state for chassis0
+ * @return The chassis power state.
+ */
+std::string getPowerState();
 } // namespace vpd
 } // namespace openpower

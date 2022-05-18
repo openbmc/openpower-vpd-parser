@@ -120,6 +120,14 @@ int main(int argc, char** argv)
 
         else if (*forceResetFlag)
         {
+            // Do not force reset the BMC if the CEC is powered ON
+            if (getPowerState() ==
+                "xyz.openbmc_project.State.Chassis.PowerState.On")
+            {
+                std::cout << "The chassis power state is ON. Force reset "
+                             "operation is not allowed.";
+                return 0;
+            }
             VpdTool vpdToolObj;
             vpdToolObj.forceReset(jsObject);
         }
