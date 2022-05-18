@@ -50,34 +50,6 @@ static const std::unordered_map<std::string, std::vector<std::string>>
                {"UTIL", {"D0"}}};
 
 /**
- * @brief Returns the power state for chassis0
- */
-static auto getPowerState()
-{
-    // TODO: How do we handle multiple chassis?
-    string powerState{};
-    auto bus = sdbusplus::bus::new_default();
-    auto properties =
-        bus.new_method_call("xyz.openbmc_project.State.Chassis",
-                            "/xyz/openbmc_project/state/chassis0",
-                            "org.freedesktop.DBus.Properties", "Get");
-    properties.append("xyz.openbmc_project.State.Chassis");
-    properties.append("CurrentPowerState");
-    auto result = bus.call(properties);
-    if (!result.is_method_error())
-    {
-        variant<string> val;
-        result.read(val);
-        if (auto pVal = get_if<string>(&val))
-        {
-            powerState = *pVal;
-        }
-    }
-    cout << "Power state is: " << powerState << endl;
-    return powerState;
-}
-
-/**
  * @brief Returns the BMC state
  */
 static auto getBMCState()
