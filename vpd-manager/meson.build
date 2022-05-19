@@ -16,7 +16,7 @@ vpd_manager_SOURCES =['manager_main.cpp',
                       '../vpd-parser/ipz_parser.cpp',
                       '../ibm_vpd_utils.cpp',
                       '../common_utility.cpp',
-                      '../vpd-parser//keyword_vpd_parser.cpp',
+                      '../vpd-parser/keyword_vpd_parser.cpp',
                       '../vpd-parser/memory_vpd_parser.cpp',
                       '../vpd-parser/parser_factory.cpp'
                      ]

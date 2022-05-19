@@ -167,7 +167,7 @@ TEST_F(vpdManagerEditorTest, UpdateKwd_Success)
     }
     catch (const std::runtime_error& e)
     {
-        EXPECT_EQ(std::string(e.what()), std::string("Ecc update failed"));
+        EXPECT_EQ(std::string(e.what()), std::string("Ecc update failed for the given record VINI , present in the given object vpd-manager-test/vpdFile.dat."));
     }
 }
 
