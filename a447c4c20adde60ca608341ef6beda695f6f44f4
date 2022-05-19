@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d511432_e51ba45a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-05-19T17:46:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "279102a9_4e66f7e3",
+      "revId": "a447c4c20adde60ca608341ef6beda695f6f44f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c2ce5d3_b2580ac4",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "523f3ea8_3b6b1e26",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-05-19T17:46:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c2ce5d3_b2580ac4",
+      "range": {
+        "startLine": 469,
+        "startChar": 39,
+        "endLine": 469,
+        "endChar": 50
+      },
+      "revId": "a447c4c20adde60ca608341ef6beda695f6f44f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33979810_128c649c",
@@ -54,6 +96,24 @@
       "writtenOn": "2022-05-17T12:02:30Z",
       "side": 1,
       "message": "Please remove this",
+      "revId": "a447c4c20adde60ca608341ef6beda695f6f44f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf00eaa1_a5374d04",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-05-19T17:46:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33979810_128c649c",
       "revId": "a447c4c20adde60ca608341ef6beda695f6f44f4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
