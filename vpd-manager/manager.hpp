@@ -149,6 +149,21 @@ class Manager : public ServerObject<ManagerIface>
      */
     void assetTagCallback(sdbusplus::message::message& msg);
 
+    /** @brief get the vector of frus which are replaceable at standby
+     * @param[out] replaceableFrus - Holds all replaceable FRU path.
+     * @param[in] jsonFile - VPD inventory JSON.
+     */
+    void getReplaceableFruVector(inventory::ReplaceableFrus& replaceableFrus,
+                                 const nlohmann::json jsonFile);
+
+    /**
+     * @brief Get map of inventory path to its corresponding location code.
+     * @param[out] fruLocationCode - Map of Location code and inventory path.
+     * @param[in] jsonFile - Parsed inventory json object.
+     */
+    void getLocationCodeToInvMap(inventory::LocationCodeMap& fruLocationCode,
+                                 const nlohmann::json& jsonFile);
+
     /** @brief Persistent sdbusplus DBus bus connection. */
     sdbusplus::bus::bus _bus;
 
