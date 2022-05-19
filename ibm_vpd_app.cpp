@@ -1611,7 +1611,8 @@ int main(int argc, char** argv)
 
         try
         {
-            vpdVector = getVpdDataInVector(js, file);
+            uint32_t offset = 0;
+            getVpdDataInVector(js, file, offset, vpdVector);
             ParserInterface* parser = ParserFactory::getParser(vpdVector);
             variant<KeywordVpdMap, Store> parseResult;
             parseResult = parser->parse();
