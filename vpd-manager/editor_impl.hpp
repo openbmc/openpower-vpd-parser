@@ -74,6 +74,13 @@ class EditorImpl
     {
     }
 
+    EditorImpl(const inventory::Path& invPath, const std::string& record,
+               const nlohmann::json& json) :
+        objPath(invPath),
+        startOffset(0), jsonFile(json), thisRecord(record), isCI(false)
+    {
+    }
+
     /**
      * @brief Update data for keyword
      * The method looks for the record name to update in VTOC and then
@@ -103,6 +110,14 @@ class EditorImpl
      *  @param[in] locationCodeType - "fcs" or "mts"
      */
     void expandLocationCode(const std::string& locationCodeType);
+
+    /** @brief Fix the broken ECC if the given record data is modified
+     * An editor object is constructed to fix ecc for the given record under
+     *  the given inventory path. The Fix ECC implementation assumes the record
+     * data is correct and updates the record's ECC accordingly.
+     * @return return code which indicates success or failure of execution.
+     */
+    int fixBrokenEcc();
 
   private:
     /** @brief read VTOC record from the vpd file

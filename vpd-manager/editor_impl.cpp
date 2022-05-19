@@ -682,6 +682,47 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
         return;
     }
 }
+
+int EditorImpl::fixBrokenEcc()
+{
+    int rc = 0;
+    try
+    {
+        getParsedInventoryJsonObject(jsonFile);
+        inventory::FrusMap frus{};
+        getInvToEepromMap(frus, jsonFile);
+        if (frus.find(objPath) == frus.end())
+        {
+            throw std::runtime_error("Inventory path not found");
+        }
+        vpdFilePath = std::get<0>(frus.find(objPath)->second);
+        getVpdPathForCpu(false);
+        getVpdDataInVector(jsonFile, vpdFilePath, startOffset, vpdFile);
+
+        ParserInterface* iParser = ParserFactory::getParser(vpdFile);
+        unique_ptr<IpzVpdParser> ipzParser(
+            dynamic_cast<IpzVpdParser*>(iParser));
+
+        if (ipzParser == nullptr)
+        {
+            throw std::runtime_error("Invalid cast");
+        }
+
+        ipzParser->processHeader();
+        readVTOC();
+        updateRecordECC();
+    }
+    catch (const VpdEccException& e)
+    {
+        cerr << e.what() << endl;
+    }
+    catch (exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+        rc = -1;
+    }
+    return rc;
+}
 } // namespace editor
 } // namespace manager
 } // namespace vpd
