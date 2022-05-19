@@ -1,5 +1,7 @@
 #include "vpd_tool_impl.hpp"
 
+#include "const.hpp"
+#include "editor_impl.hpp"
 #include "vpd_exceptions.hpp"
 
 #include <cstdlib>
@@ -13,6 +15,7 @@ using namespace std;
 using namespace openpower::vpd;
 using namespace inventory;
 using namespace openpower::vpd::manager::editor;
+using namespace openpower::vpd::constants;
 namespace fs = std::filesystem;
 using json = nlohmann::json;
 using namespace openpower::vpd::exceptions;
@@ -415,8 +418,7 @@ void VpdTool::readKeyword()
     }
     catch (const json::exception& e)
     {
-        json output = json::object({});
-        json kwVal = json::object({});
+        cerr << e.what() << endl;
     }
 }
 
@@ -514,5 +516,15 @@ int VpdTool::updateHardware()
     {
         throw(VpdJsonException("Json Parsing failed", INVENTORY_JSON_SYM_LINK));
     }
+    return rc;
+}
+
+int VpdTool::fixEcc()
+{
+    int rc = 0;
+    json jsonObject;
+    getParsedInventoryJsonObject(jsonObject);
+    EditorImpl editor(fruPath, recordName, jsonObject);
+    rc = editor.fixBrokenEcc();
     return rc;
 }
