@@ -6,6 +6,7 @@
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "parser_factory.hpp"
+#include "vpd_exceptions.hpp"
 
 #include "vpdecc/vpdecc.h"
 
@@ -13,6 +14,8 @@ using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::parser::factory;
 using namespace openpower::vpd::ipz::parser;
+using namespace openpower::vpd::exceptions;
+using namespace std;
 
 namespace openpower
 {
@@ -22,7 +25,6 @@ namespace manager
 {
 namespace editor
 {
-
 void EditorImpl::checkPTForRecord(Binary::const_iterator& iterator,
                                   Byte ptLength)
 {
@@ -100,12 +102,20 @@ void EditorImpl::updateData(const Binary& kwdData)
     }
 #else
 
+#ifndef ManagerTest
     // update data in EEPROM as well. As we will not write complete file back
+    vpdFileStream.open(vpdFilePath, ios::in | ios::out | ios::binary);
+    if (!vpdFileStream)
+    {
+        throw runtime_error("Unable to open vpd file");
+    }
     vpdFileStream.seekp(startOffset + thisRecord.kwDataOffset, std::ios::beg);
 
     iteratorToNewdata = kwdData.cbegin();
     std::copy(iteratorToNewdata, end,
               std::ostreambuf_iterator<char>(vpdFileStream));
+    vpdFileStream.close();
+#endif
 
     // get a hold to new data in case encoding is needed
     thisRecord.kwdUpdatedData.resize(thisRecord.kwdDataLength);
@@ -186,16 +196,33 @@ void EditorImpl::updateRecordECC()
         const_cast<uint8_t*>(&itrToRecordECC[0]), &thisRecord.recECCLength);
     if (l_status != VPD_ECC_OK)
     {
-        throw std::runtime_error("Ecc update failed");
+        string str = "Ecc update failed for the given record ";
+        str += thisRecord.recName;
+        str += " , present in the given object ";
+        str += objPath;
+        str += ".";
+        throw VpdEccException(str);
+    }
+    else
+    {
+        cout << "\n ECC updation successfull for the given record "
+             << thisRecord.recName << " ,present in the given object "
+             << objPath << "." << endl;
     }
 
     auto end = itrToRecordECC;
     std::advance(end, thisRecord.recECCLength);
 
 #ifndef ManagerTest
+    vpdFileStream.open(vpdFilePath, ios::in | ios::out | ios::binary);
+    if (!vpdFileStream)
+    {
+        throw runtime_error("Unable to open vpd file");
+    }
     vpdFileStream.seekp(startOffset + thisRecord.recECCoffset, std::ios::beg);
     std::copy(itrToRecordECC, end,
               std::ostreambuf_iterator<char>(vpdFileStream));
+    vpdFileStream.close();
 #endif
 }
 
@@ -497,28 +524,110 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
     common::utility::callPIM(move(objects));
 }
 
+string EditorImpl::getSysPathForThisFruType(const string& moduleObjPath,
+                                            const string& fruType)
+{
+    string fruVpdPath{};
+    // get all FRUs list
+    for (const auto& eachFru : jsonFile["frus"].items())
+    {
+        bool moduleObjPathMatched = false;
+        bool expectedFruFound = false;
+
+        for (const auto& eachInventory : eachFru.value())
+        {
+            const auto& thisObjectPath = eachInventory["inventoryPath"];
+
+            // "type" exists only in CPU module and FRU
+            if (eachInventory.find("type") != eachInventory.end())
+            {
+                // If inventory type is fruAndModule then set flag
+                if (eachInventory["type"] == fruType)
+                {
+                    expectedFruFound = true;
+                }
+            }
+
+            if (thisObjectPath == moduleObjPath)
+            {
+                moduleObjPathMatched = true;
+            }
+        }
+
+        // If condition satisfies then collect this sys path and exit
+        if (expectedFruFound && moduleObjPathMatched)
+        {
+            fruVpdPath = eachFru.key();
+            break;
+        }
+    }
+    return fruVpdPath;
+}
+
+void EditorImpl::getVpdPathForCpu(bool checkCIRecordList)
+{
+    isCI = false;
+    inventory::Path vpdFilePathLocal{};
+    // TODO 1:Temp hardcoded list. create it dynamically.
+    std::vector<std::string> commonIntVINIKwds = {"PN", "SN", "DR"};
+    std::vector<std::string> commonIntVR10Kwds = {"DC"};
+    std::unordered_map<std::string, std::vector<std::string>>
+        commonIntRecordsList = {{"VINI", commonIntVINIKwds},
+                                {"VR10", commonIntVR10Kwds}};
+
+    // If requested Record&Kw is one among CI, then update 'FRU' type sys
+    // path, SPI2
+    unordered_map<std::string, vector<string>>::const_iterator isCommonInt =
+        commonIntRecordsList.find(thisRecord.recName);
+
+    // if checkCIRecordList flag is set to true and the given record-keyword
+    // pair is a part of common interface record list, then for the given
+    // inventory path pick its corresponding "fruAndModule" EEPROM path only.
+    // (That is even when "moduleOnly" inventory path is given, pick its
+    // corresponding "fru&Module" path only).
+    if ((isCommonInt != commonIntRecordsList.end()) &&
+        (find(isCommonInt->second.begin(), isCommonInt->second.end(),
+              thisRecord.recKWd) != isCommonInt->second.end()) &&
+        (checkCIRecordList))
+    {
+        isCI = true;
+        vpdFilePathLocal = getSysPathForThisFruType(objPath, "fruAndModule");
+    }
+    else
+    {
+        for (const auto& eachFru : jsonFile["frus"].items())
+        {
+            for (const auto& eachInventory : eachFru.value())
+            {
+                if (eachInventory.find("type") != eachInventory.end())
+                {
+                    const auto& thisObjectPath = eachInventory["inventoryPath"];
+                    if ((eachInventory["type"] == "moduleOnly") &&
+                        (eachInventory.value("inheritEI", true)) &&
+                        (thisObjectPath == objPath))
+                    {
+                        vpdFilePathLocal = eachFru.key();
+                        break;
+                    }
+                }
+            }
+            if (!vpdFilePathLocal.empty())
+            {
+                vpdFilePath = vpdFilePathLocal;
+                break;
+            }
+        }
+    }
+}
+
 void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
                                const bool& updCache)
 {
     startOffset = offset;
 #ifndef ManagerTest
-    // TODO: Figure out a better way to get max possible VPD size.
-    Binary completeVPDFile;
-    completeVPDFile.resize(65504);
-    vpdFileStream.open(vpdFilePath,
-                       std::ios::in | std::ios::out | std::ios::binary);
-
-    vpdFileStream.seekg(startOffset, ios_base::cur);
-    vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]), 65504);
-    completeVPDFile.resize(vpdFileStream.gcount());
-    vpdFileStream.clear(std::ios_base::eofbit);
-
-    vpdFile = completeVPDFile;
-
-#else
-
-    Binary completeVPDFile = vpdFile;
-
+    getParsedInventoryJsonObject(jsonFile);
+    getVpdPathForCpu(true);
+    getVpdDataInVector(jsonFile, vpdFilePath, startOffset, vpdFile);
 #endif
     if (vpdFile.empty())
     {
@@ -530,9 +639,8 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
     Byte vpdType = *iterator;
     if (vpdType == KW_VAL_PAIR_START_TAG)
     {
-        ParserInterface* Iparser = ParserFactory::getParser(completeVPDFile);
+        ParserInterface* Iparser = ParserFactory::getParser(vpdFile);
         IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
-
         try
         {
             if (ipzParser == nullptr)

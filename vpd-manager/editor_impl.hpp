@@ -184,24 +184,29 @@ class EditorImpl
     uint32_t startOffset;
 
     // file to store parsed json
-    const nlohmann::json jsonFile;
+    nlohmann::json jsonFile;
 
     // structure to hold info about record to edit
     struct RecInfo
     {
         Binary kwdUpdatedData; // need access to it in case encoding is needed
-        const std::string recName;
-        const std::string recKWd;
-        openpower::vpd::constants::RecordOffset recOffset;
-        openpower::vpd::constants::ECCOffset recECCoffset;
-        std::size_t recECCLength;
-        std::size_t kwdDataLength;
-        openpower::vpd::constants::RecordSize recSize;
-        openpower::vpd::constants::DataOffset kwDataOffset;
-        // constructor
+        const std::string recName{};
+        const std::string recKWd{};
+        openpower::vpd::constants::RecordOffset recOffset = 0;
+        openpower::vpd::constants::ECCOffset recECCoffset = 0;
+        std::size_t recECCLength = 0;
+        std::size_t kwdDataLength = 0;
+        openpower::vpd::constants::RecordSize recSize = 0;
+        openpower::vpd::constants::DataOffset kwDataOffset = 0;
+
+        /** @brief
+         *  Default constructor for record info.
+         */
+        explicit RecInfo(const std::string& rec) : recName(rec)
+        {
+        }
         RecInfo(const std::string& rec, const std::string& kwd) :
-            recName(rec), recKWd(kwd), recOffset(0), recECCoffset(0),
-            recECCLength(0), kwdDataLength(0), recSize(0), kwDataOffset(0)
+            recName(rec), recKWd(kwd)
         {
         }
     } thisRecord;
@@ -210,6 +215,27 @@ class EditorImpl
 
     // If requested Interface is common Interface
     bool isCI;
+
+    /** @brief This API will be used to find out Parent FRU of Module/CPU
+     *
+     * @param[in] - moduleObjPath, object path of that FRU
+     * @param[in] - fruType, Type of Parent FRU
+     *              for Module/CPU Parent Type- FruAndModule
+     *
+     * @return returns vpd file path of Parent Fru of that Module
+     */
+    std::string getSysPathForThisFruType(const std::string& moduleObjPath,
+                                         const std::string& fruType);
+
+    /** @brief This API will search for correct EEPROM path for asked CPU
+     *         and will init vpdFilePath
+     *
+     *  @param[in] - checkCIRecordList flag is set true when there is a need to
+     * select "fru&Module" vpd path based on the common interface record list.
+     * Flase otherwise.
+     */
+    void getVpdPathForCpu(bool checkCIRecordList);
+
 }; // class EditorImpl
 
 } // namespace editor
