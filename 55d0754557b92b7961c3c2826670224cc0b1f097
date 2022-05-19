@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8302f3a3_8a6af1e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-05-19T14:24:06Z",
+      "side": 1,
+      "message": "Nit: Would be good if these were aligned like the point above. Also some lines are too long, could you reformat?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 56
+      },
+      "revId": "55d0754557b92b7961c3c2826670224cc0b1f097",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33492235_13631686",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-05-19T14:24:06Z",
+      "side": 1,
+      "message": "Just some minor nits, looks good otherwise",
+      "revId": "55d0754557b92b7961c3c2826670224cc0b1f097",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e75c5da_e3471097",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1694,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-05-19T14:24:06Z",
+      "side": 1,
+      "message": "Could you clean up this whitespace change?",
+      "revId": "55d0754557b92b7961c3c2826670224cc0b1f097",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
