@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b662067_40d0b63e",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-19T08:43:15Z",
+      "side": 1,
+      "message": "readKeyword() api makes dbus calls and returns the value.\nreadKwFromHw() api parses the vpd and returns the value.\nI don\u0027t see any common codes between these two apis and neither a benifit in collaging two apis into one (by given the Hardware flag as an argument).\nso having separate api s\u0027 will be readable and will be able to debug easily when there is an issue.",
+      "parentUuid": "d341f0ef_771201b3",
+      "range": {
+        "startLine": 107,
+        "startChar": 31,
+        "endLine": 107,
+        "endChar": 40
+      },
+      "revId": "95f705eb102668f7efab99f03324f314f117ed4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf25f8cd_03324c51",
         "filename": "vpd_tool.cpp",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "37b25679_f09c0bf8",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-19T08:43:15Z",
+      "side": 1,
+      "message": "ok. I\u0027ll address this comment in a separate commit.",
+      "parentUuid": "78beeca8_ce9938d8",
+      "range": {
+        "startLine": 527,
+        "startChar": 4,
+        "endLine": 547,
+        "endChar": 0
+      },
+      "revId": "95f705eb102668f7efab99f03324f314f117ed4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e2dce73_77a2f6c9",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 2
@@ -83,6 +131,30 @@
       "writtenOn": "2022-05-17T13:55:56Z",
       "side": 1,
       "message": "W.R.T my comment on the base commit if we agree with that, we need a change here.",
+      "range": {
+        "startLine": 553,
+        "startChar": 4,
+        "endLine": 554,
+        "endChar": 48
+      },
+      "revId": "95f705eb102668f7efab99f03324f314f117ed4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6b28bf1_5ff0f1be",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-19T08:43:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e2dce73_77a2f6c9",
       "range": {
         "startLine": 553,
         "startChar": 4,
@@ -106,6 +178,30 @@
       "writtenOn": "2022-05-19T05:00:52Z",
       "side": 1,
       "message": "From the suggestion in previous file, try catch and common code use can be addressed.",
+      "range": {
+        "startLine": 556,
+        "startChar": 4,
+        "endLine": 562,
+        "endChar": 21
+      },
+      "revId": "95f705eb102668f7efab99f03324f314f117ed4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7ef3cd6_c11907c0",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-19T08:43:15Z",
+      "side": 1,
+      "message": "am not understanding exactly. Can you elaborate your comment ?",
+      "parentUuid": "a969cb86_9e78f8c6",
       "range": {
         "startLine": 556,
         "startChar": 4,
