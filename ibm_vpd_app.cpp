@@ -643,7 +643,7 @@ static void fillAssetTag(inventory::InterfaceMap& interfaces,
  * has these properties hosted on D-Bus, if the property is already there, it is
  * not modified, hence the name "one time". If the property is not already
  * present, it will be added to the map with a suitable default value (true for
- * Functional and false for Enabled)
+ * Functional and Enabled)
  *
  * @param[in] object - The inventory D-Bus obejct without the inventory prefix.
  * @param[inout] interfaces - Reference to a map of inventory interfaces to
@@ -685,7 +685,7 @@ static void setOneTimeProperties(const std::string& object,
     {
         // Treat as property unavailable
         inventory::PropertyMap prop;
-        prop.emplace("Enabled", false);
+        prop.emplace("Enabled", true);
         interfaces.emplace("xyz.openbmc_project.Object.Enable", move(prop));
     }
 }
