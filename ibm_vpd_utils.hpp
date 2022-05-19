@@ -360,5 +360,30 @@ void setBusProperty(const std::string& service, const std::string& object,
  */
 std::variant<int64_t, std::string>
     readBIOSAttribute(const std::string& attrName);
+
+/*
+ * @brief Method to parse the inventory json
+ * @param [out] jsonFile - Reference to the parsed inventory json object
+ */
+void getParsedInventoryJsonObject(nlohmann::json& jsonFile);
+
+/**
+ * @brief Get map of Inventory path to its corresponding eeprom Path.
+ * @param[out] frus - Map of inventory path and eeprom path.
+ * @param[in] jsonFile - Parsed inventory json object.
+ */
+void getInvToEepromMap(inventory::FrusMap& frus,
+                       const nlohmann::json& jsonFile);
+
+/**
+ * @brief Copy vpd data from the eeprom path to the vector
+ * @param[in] js - Inventory Json Object
+ * @param[in] file - eeprom path
+ * @param[out] offset - offset to the vpd.
+ * @param[out] vpdVector - vpd as vector object
+ */
+void getVpdDataInVector(const nlohmann::json& js, const std::string& file,
+                        uint32_t& offset, Binary& vpdVector);
+
 } // namespace vpd
 } // namespace openpower
