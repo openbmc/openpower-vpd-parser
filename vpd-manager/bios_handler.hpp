@@ -135,13 +135,24 @@ class BiosHandler
     void saveCreateDefaultLparToVPD(const std::string& createDefaultLpar);
 
     /**
+     * @brief Persistently saves the Clear NVRAM setting
+     *
+     * Create default LPAR setting is saved to the UTIL/D1 keyword's 2nd bit in
+     * the motherboard VPD. If the clear NVRAM in BIOS is "Disabled",
+     * set D1:2 to 0, if "Enabled" set D1:2 to 1
+     *
+     * @param[in] createDefaultLpar - The mirror mode BIOS attribute.
+     */
+    void saveClearNVRAMToVPD(const std::string& clearNVRAM);
+
+    /**
      * @brief Writes Memory mirror mode to BIOS
      *
      * Writes to the hb_memory_mirror_mode BIOS attribute, if the value is
      * not already the same as we are trying to write.
      *
      * @param[in] ammVal - The mirror mode as read from VPD.
-     * @param[in] ammInBIOS - The mirror more in the BIOS table.
+     * @param[in] ammInBIOS - The mirror mode in the BIOS table.
      */
     void saveAMMToBIOS(const std::string& ammVal, const std::string& ammInBIOS);
 
@@ -162,8 +173,8 @@ class BiosHandler
      * Writes to the pvm_keep_and_clear BIOS attribute, if the value is
      * not already the same as we are trying to write.
      *
-     * @param[in] keepAndClear - The mirror mode as read from VPD.
-     * @param[in] keepAndClearInBIOS - The mirror more in the BIOS table.
+     * @param[in] keepAndClear - The keep and clear as read from VPD.
+     * @param[in] keepAndClearInBIOS - The keep and clear in the BIOS table.
      */
     void saveKeepAndClearToBIOS(const std::string& keepAndClear,
                                 const std::string& keepAndClearInBIOS);
@@ -174,12 +185,25 @@ class BiosHandler
      * Writes to the pvm_create_default_lpar BIOS attribute, if the value is
      * not already the same as we are trying to write.
      *
-     * @param[in] createDefaultLpar - The mirror mode as read from VPD.
-     * @param[in] createDefaultLparInBIOS - The mirror more in the BIOS table.
+     * @param[in] createDefaultLpar - The create default LPAR as read from VPD.
+     * @param[in] createDefaultLparInBIOS - The create default LPAR in the BIOS
+     * table.
      */
     void
         saveCreateDefaultLparToBIOS(const std::string& createDefaultLpar,
                                     const std::string& createDefaultLparInBIOS);
+
+    /**
+     * @brief Writes Clear NVRAM setting to BIOS
+     *
+     * Writes to the pvm_clear_nvram BIOS attribute, if the value is
+     * not already the same as we are trying to write.
+     *
+     * @param[in] clearNVRAM - The clear NVRAM as read from VPD.
+     * @param[in] clearNVRAMInBIOS - The clear NVRAM in the BIOS table.
+     */
+    void saveClearNVRAMToBIOS(const std::string& clearNVRAM,
+                              const std::string& clearNVRAMInBIOS);
 
     /**
      * @brief Reads the hb_memory_mirror_mode attribute
@@ -212,10 +236,18 @@ class BiosHandler
     std::string readBIOSCreateDefaultLpar();
 
     /**
+     * @brief Reads the pvm_clear_nvram attribute
+     *
+     * @return std::string - The Clear NVRAM BIOS attribute. Empty
+     * string on failure.
+     */
+    std::string readBIOSClearNVRAM();
+
+    /**
      * @brief Restore BIOS attributes
      *
      * This function checks if we are coming out of a factory reset. If yes,
-     * it checks the VPD cache for valid backed up copy of the FCO and AMM
+     * it checks the VPD cache for valid backed up copy of the applicable
      * BIOS attributes. If valid values are found in the VPD, it will apply
      * those to the BIOS attributes.
      */
