@@ -155,6 +155,15 @@ void BiosHandler::biosAttribsCallback(sdbusplus::message_t& msg)
                         saveCreateDefaultLparToVPD(*val);
                     }
                 }
+                else if (attributeName == "pvm_clear_nvram")
+                {
+                    auto attrValue = std::get<5>(std::get<1>(item));
+                    auto val = std::get_if<std::string>(&attrValue);
+                    if (val)
+                    {
+                        saveClearNVRAMToVPD(*val);
+                    }
+                }
             }
         }
     }
@@ -200,7 +209,7 @@ void BiosHandler::saveAMMToVPD(const std::string& mirrorMode)
 
     if (mirrorMode != "Enabled" && mirrorMode != "Disabled")
     {
-        std::cerr << "Bad value for Mirror mode BIOS arttribute: " << mirrorMode
+        std::cerr << "Bad value for Mirror mode BIOS attribute: " << mirrorMode
                   << std::endl;
         return;
     }
@@ -238,7 +247,7 @@ void BiosHandler::saveKeepAndClearToVPD(const std::string& keepAndClear)
 
     if (keepAndClear != "Enabled" && keepAndClear != "Disabled")
     {
-        std::cerr << "Bad value for keep and clear BIOS arttribute: "
+        std::cerr << "Bad value for keep and clear BIOS attribute: "
                   << keepAndClear << std::endl;
         return;
     }
@@ -277,7 +286,7 @@ void BiosHandler::saveCreateDefaultLparToVPD(
 
     if (createDefaultLpar != "Enabled" && createDefaultLpar != "Disabled")
     {
-        std::cerr << "Bad value for create default lpar BIOS arttribute: "
+        std::cerr << "Bad value for create default lpar BIOS attribute: "
                   << createDefaultLpar << std::endl;
         return;
     }
@@ -295,6 +304,44 @@ void BiosHandler::saveCreateDefaultLparToVPD(
     if (!vpdVal.empty())
     {
         std::cout << "Writing create default lpar to VPD: "
+                  << static_cast<int>(vpdVal.at(0)) << std::endl;
+        manager.writeKeyword(sdbusplus::message::object_path{SYSTEM_OBJECT},
+                             "UTIL", "D1", vpdVal);
+    }
+}
+
+void BiosHandler::saveClearNVRAMToVPD(const std::string& clearNVRAM)
+{
+    Binary vpdVal;
+    auto valInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
+
+    if (valInVPD.size() != 1)
+    {
+        std::cerr << "Read bad size for UTIL/D1: " << valInVPD.size()
+                  << std::endl;
+        return;
+    }
+
+    if (clearNVRAM != "Enabled" && clearNVRAM != "Disabled")
+    {
+        std::cerr << "Bad value for clear NVRAM BIOS attribute: " << clearNVRAM
+                  << std::endl;
+        return;
+    }
+
+    // Write to VPD only if the value is not already what we want to write.
+    if (clearNVRAM == "Enabled" && ((valInVPD.at(0) & 0x04) != 0x04))
+    {
+        vpdVal.emplace_back(valInVPD.at(0) | 0x04);
+    }
+    else if (clearNVRAM == "Disabled" && ((valInVPD.at(0) & 0x04) != 0))
+    {
+        vpdVal.emplace_back(valInVPD.at(0) & ~(0x04));
+    }
+
+    if (!vpdVal.empty())
+    {
+        std::cout << "Writing clear NVRAM to VPD: "
                   << static_cast<int>(vpdVal.at(0)) << std::endl;
         manager.writeKeyword(sdbusplus::message::object_path{SYSTEM_OBJECT},
                              "UTIL", "D1", vpdVal);
@@ -363,6 +410,22 @@ std::string BiosHandler::readBIOSCreateDefaultLpar()
         std::cerr << "Create default LPAR is not a string" << std::endl;
     }
     return createDefaultLpar;
+}
+
+std::string BiosHandler::readBIOSClearNVRAM()
+{
+    std::string clearNVRAM{};
+    auto val = readBIOSAttribute("pvm_clear_nvram");
+
+    if (auto pVal = std::get_if<std::string>(&val))
+    {
+        clearNVRAM = *pVal;
+    }
+    else
+    {
+        std::cerr << "Clear NVRAM is not a string" << std::endl;
+    }
+    return clearNVRAM;
 }
 
 void BiosHandler::saveFCOToBIOS(const std::string& fcoVal, int64_t fcoInBIOS)
@@ -512,17 +575,52 @@ void BiosHandler::saveCreateDefaultLparToBIOS(
         biosAttrs);
 }
 
+void BiosHandler::saveClearNVRAMToBIOS(const std::string& clearNVRAM,
+                                       const std::string& clearNVRAMInBIOS)
+{
+    if (clearNVRAM.size() != 1)
+    {
+        std::cerr << "Bad size for Clear NVRAM in VPD: " << clearNVRAM.size()
+                  << std::endl;
+        return;
+    }
+
+    // Need to write?
+    std::string toWrite = (clearNVRAM.at(0) & 0x04) ? "Enabled" : "Disabled";
+    if (clearNVRAMInBIOS == toWrite)
+    {
+        std::cout << "Skip Clear NVRAM BIOS write, value is already: "
+                  << toWrite << std::endl;
+        return;
+    }
+
+    PendingBIOSAttrsType biosAttrs;
+    biosAttrs.push_back(
+        std::make_pair("pvm_clear_nvram",
+                       std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
+                                       "AttributeType.Enumeration",
+                                       toWrite)));
+
+    std::cout << "Set pvm_clear_nvram to: " << toWrite << std::endl;
+
+    setBusProperty<PendingBIOSAttrsType>(
+        "xyz.openbmc_project.BIOSConfigManager",
+        "/xyz/openbmc_project/bios_config/manager",
+        "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes",
+        biosAttrs);
+}
+
 void BiosHandler::restoreBIOSAttribs()
 {
     // TODO: We could make this slightly more scalable by defining a table of
     // attributes and their corresponding VPD keywords. However, that needs much
     // more thought.
     std::cout << "Attempting BIOS attribute reset" << std::endl;
-    // Check if the VPD contains valid data for FCO, AMM, Keep and Clear and
-    // Create default LPAR *and* that it differs from the data already in the
-    // attributes. If so, set the BIOS attributes as per the value in the VPD.
-    // If the VPD contains default data, then initialize the VPD keywords with
-    // data taken from the BIOS.
+    // Check if the VPD contains valid data for FCO, AMM, Keep and Clear,
+    // Create default LPAR and Clear NVRAM *and* that it differs from the data
+    // already in the attributes. If so, set the BIOS attributes as per the
+    // value in the VPD. If the VPD contains default data, then initialize the
+    // VPD keywords with data taken from the BIOS.
     auto fcoInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "RG");
     auto ammInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D0");
     auto keepAndClearInVPD =
@@ -531,6 +629,7 @@ void BiosHandler::restoreBIOSAttribs()
     auto ammInBIOS = readBIOSAMM();
     auto keepAndClearInBIOS = readBIOSKeepAndClear();
     auto createDefaultLparInBIOS = readBIOSCreateDefaultLpar();
+    auto clearNVRAMInBIOS = readBIOSClearNVRAM();
 
     if (fcoInVPD == "    ")
     {
@@ -550,8 +649,9 @@ void BiosHandler::restoreBIOSAttribs()
         saveAMMToBIOS(ammInVPD, ammInBIOS);
     }
 
-    // No uninitialized handling needed for keep and clear and create default
-    // lpar attributes. Their defaults in VPD are 0's which is what we want.
+    // No uninitialized handling needed for keep and clear, create default
+    // lpar and clear nvram attributes. Their defaults in VPD are 0's which is
+    // what we want.
     saveKeepAndClearToBIOS(keepAndClearInVPD, keepAndClearInBIOS);
     // Have to read D1 again because two attributes are stored in the same
     // keyword.
@@ -559,6 +659,10 @@ void BiosHandler::restoreBIOSAttribs()
         readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
     saveCreateDefaultLparToBIOS(createDefaultLparInVPD,
                                 createDefaultLparInBIOS);
+
+    auto clearNVRAMInVPD =
+        readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
+    saveClearNVRAMToBIOS(clearNVRAMInVPD, clearNVRAMInBIOS);
 
     // Start listener now that we have done the restore
     listenBiosAttribs();
