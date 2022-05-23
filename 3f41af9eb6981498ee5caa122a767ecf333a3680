@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dc15a98_1328676a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1614,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:20:09Z",
+      "side": 1,
+      "message": "Why we need a variable for this? why can\u0027t we send 0 directly to the function?",
+      "range": {
+        "startLine": 1614,
+        "startChar": 12,
+        "endLine": 1614,
+        "endChar": 32
+      },
+      "revId": "3f41af9eb6981498ee5caa122a767ecf333a3680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67d55a92_704b168e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1695,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:20:09Z",
+      "side": 1,
+      "message": "Extra line",
+      "revId": "3f41af9eb6981498ee5caa122a767ecf333a3680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "643a1c28_a783cf2a",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:20:09Z",
+      "side": 1,
+      "message": "extra change.",
+      "revId": "3f41af9eb6981498ee5caa122a767ecf333a3680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82dc0306_a4871422",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:20:09Z",
+      "side": 1,
+      "message": "Please give a blank space between blocks.",
+      "range": {
+        "startLine": 361,
+        "startChar": 3,
+        "endLine": 362,
+        "endChar": 2
+      },
+      "revId": "3f41af9eb6981498ee5caa122a767ecf333a3680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a93bd24a_80a83b50",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:20:09Z",
+      "side": 1,
+      "message": "Restrict brief to one line.",
+      "range": {
+        "startLine": 369,
+        "startChar": 3,
+        "endLine": 370,
+        "endChar": 7
+      },
+      "revId": "3f41af9eb6981498ee5caa122a767ecf333a3680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7d02cd5_d52b6448",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:20:09Z",
+      "side": 1,
+      "message": "Offset to what?",
+      "range": {
+        "startLine": 381,
+        "startChar": 14,
+        "endLine": 381,
+        "endChar": 36
+      },
+      "revId": "3f41af9eb6981498ee5caa122a767ecf333a3680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
