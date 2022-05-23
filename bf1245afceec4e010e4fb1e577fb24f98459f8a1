@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0b880c8_a7037ee1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:09:43Z",
+      "side": 1,
+      "message": "So If I read a kwd data from Bus, can\u0027t I say that is also reading VPD?\nVPD means \"vital product data\". How it implicitly implies from where it is being read?",
+      "parentUuid": "6c95c4f9_029cfcf7",
+      "range": {
+        "startLine": 10,
+        "startChar": 3,
+        "endLine": 10,
+        "endChar": 41
+      },
+      "revId": "bf1245afceec4e010e4fb1e577fb24f98459f8a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "dcb342ab_f8bb4d14",
