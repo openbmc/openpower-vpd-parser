@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "30218a22_f6e817c5",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-23T18:10:20Z",
+      "side": 1,
+      "message": "using namespace std; is getting pulled in from ibm_vpd_utils.hpp . removing it here.",
+      "parentUuid": "0b2cebe3_d6a25586",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5920063_bb1b5d4f",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 4
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "10e28507_5bab75d7",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-23T18:10:20Z",
+      "side": 1,
+      "message": "vpdFileStream is opened only in two places - in api updateData() and updateRecordECC(). The fix broken ecc is using only updateRecordECC() api. so we need to open the vpdFileStream again here.",
+      "parentUuid": "8c33b7ab_49909764",
+      "range": {
+        "startLine": 217,
+        "startChar": 4,
+        "endLine": 217,
+        "endChar": 17
+      },
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d098b40b_de05a785",
         "filename": "vpd-manager/editor_impl.cpp",
         "patchSetId": 4
@@ -77,6 +125,30 @@
       "writtenOn": "2022-05-23T07:59:14Z",
       "side": 1,
       "message": "Why we need to define these separately As you are not using them anywhere else apart from initialization of commonIntRecordsList map? Why not,\n\n    std::unordered_map\u003cstd::string, std::vector\u003cstd::string\u003e\u003e\n        commonIntRecordsList \u003d {{\"VINI\",  {\"PN\", \"SN\", \"DR\"}},\n                                {\"VR10\", {\"DC\"}}};",
+      "range": {
+        "startLine": 572,
+        "startChar": 4,
+        "endLine": 573,
+        "endChar": 56
+      },
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbc9d3d8_ea55c4f4",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-23T18:10:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d098b40b_de05a785",
       "range": {
         "startLine": 572,
         "startChar": 4,
@@ -104,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afe0d3ea_b2307949",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-23T18:10:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7293e448_c9448c6f",
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "629af885_78b4d183",
@@ -121,6 +211,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bec20498_001c964b",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-23T18:10:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "629af885_78b4d183",
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b645ea9_c4a17dbc",
@@ -134,6 +242,30 @@
       "writtenOn": "2022-05-23T07:59:14Z",
       "side": 1,
       "message": "Blank space.",
+      "range": {
+        "startLine": 207,
+        "startChar": 8,
+        "endLine": 208,
+        "endChar": 12
+      },
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a575fa4b_66f7a827",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-23T18:10:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b645ea9_c4a17dbc",
       "range": {
         "startLine": 207,
         "startChar": 8,
@@ -167,6 +299,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1675ed58_a17c55e6",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-23T18:10:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4b58695_54929f59",
+      "range": {
+        "startLine": 225,
+        "startChar": 15,
+        "endLine": 225,
+        "endChar": 22
+      },
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d1fd073_3a0c0fd2",
@@ -190,6 +346,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c46c6363_2e3b9015",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-23T18:10:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d1fd073_3a0c0fd2",
+      "range": {
+        "startLine": 230,
+        "startChar": 15,
+        "endLine": 231,
+        "endChar": 40
+      },
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60650443_eb803c76",
@@ -203,6 +383,24 @@
       "writtenOn": "2022-05-23T07:59:14Z",
       "side": 1,
       "message": "Extra line.",
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "962fba79_321655cb",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-23T18:10:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60650443_eb803c76",
       "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -258,6 +456,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b6dc569_af9ddd3d",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-23T18:10:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0585df82_12743950",
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1ac4d73_ba1031db",
@@ -271,6 +487,30 @@
       "writtenOn": "2022-05-23T07:59:14Z",
       "side": 1,
       "message": "Wrap brief in one line.",
+      "range": {
+        "startLine": 157,
+        "startChar": 6,
+        "endLine": 158,
+        "endChar": 20
+      },
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5c6dbd0_2994baf7",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-23T18:10:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1ac4d73_ba1031db",
       "range": {
         "startLine": 157,
         "startChar": 6,
