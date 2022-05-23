@@ -1,0 +1,284 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b2cebe3_d6a25586",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:59:14Z",
+      "side": 1,
+      "message": "It is already being used in-place in other functions. defining in this scope will require changes all over there as well. Better use it in place.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5920063_bb1b5d4f",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:59:14Z",
+      "side": 1,
+      "message": "Why this change?",
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c33b7ab_49909764",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:59:14Z",
+      "side": 1,
+      "message": "This variable has class scope, so you don\u0027t have to execute open and check it validity again and again in respective methods. This can be optimized.",
+      "range": {
+        "startLine": 217,
+        "startChar": 4,
+        "endLine": 217,
+        "endChar": 17
+      },
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d098b40b_de05a785",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:59:14Z",
+      "side": 1,
+      "message": "Why we need to define these separately As you are not using them anywhere else apart from initialization of commonIntRecordsList map? Why not,\n\n    std::unordered_map\u003cstd::string, std::vector\u003cstd::string\u003e\u003e\n        commonIntRecordsList \u003d {{\"VINI\",  {\"PN\", \"SN\", \"DR\"}},\n                                {\"VR10\", {\"DC\"}}};",
+      "range": {
+        "startLine": 572,
+        "startChar": 4,
+        "endLine": 573,
+        "endChar": 56
+      },
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7293e448_c9448c6f",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:59:14Z",
+      "side": 1,
+      "message": "Why this change? Removing blank line.",
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "629af885_78b4d183",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:59:14Z",
+      "side": 1,
+      "message": "Extra line",
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b645ea9_c4a17dbc",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:59:14Z",
+      "side": 1,
+      "message": "Blank space.",
+      "range": {
+        "startLine": 207,
+        "startChar": 8,
+        "endLine": 208,
+        "endChar": 12
+      },
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4b58695_54929f59",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:59:14Z",
+      "side": 1,
+      "message": "@return itself implies this.",
+      "range": {
+        "startLine": 225,
+        "startChar": 15,
+        "endLine": 225,
+        "endChar": 22
+      },
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d1fd073_3a0c0fd2",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:59:14Z",
+      "side": 1,
+      "message": "Restrict brief to one line.",
+      "range": {
+        "startLine": 230,
+        "startChar": 15,
+        "endLine": 231,
+        "endChar": 40
+      },
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60650443_eb803c76",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:59:14Z",
+      "side": 1,
+      "message": "Extra line.",
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cdb75f7_620ff7d2",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:59:14Z",
+      "side": 1,
+      "message": "Line removed?",
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f89e41c_d50482b8",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:59:14Z",
+      "side": 1,
+      "message": "Line added 😊",
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0585df82_12743950",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:59:14Z",
+      "side": 1,
+      "message": "You need to list down parameters as well?",
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1ac4d73_ba1031db",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-23T07:59:14Z",
+      "side": 1,
+      "message": "Wrap brief in one line.",
+      "range": {
+        "startLine": 157,
+        "startChar": 6,
+        "endLine": 158,
+        "endChar": 20
+      },
+      "revId": "49ef6ef2a95f2b3ed02dd6895c6cf8bc384611ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
