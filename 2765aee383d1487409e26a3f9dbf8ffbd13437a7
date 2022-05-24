@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07d5457d_39b44c6e",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-05-24T09:49:42Z",
+      "side": 1,
+      "message": "we could have avoided a new variable here too.\nBut will not touch this piece of code with this commit.",
+      "range": {
+        "startLine": 333,
+        "startChar": 2,
+        "endLine": 336,
+        "endChar": 18
+      },
+      "revId": "2765aee383d1487409e26a3f9dbf8ffbd13437a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14f984f4_78f6e292",
@@ -38,6 +61,30 @@
       "side": 1,
       "message": "actually I should do it this way-\n\nstring chipAddr \u003d jsonFile[\"frus\"][vpdFilePath].at(0).value(\n                    \"pcaChipAddress\", \"\");\n                    \nto handle it better(null case).",
       "parentUuid": "14f984f4_78f6e292",
+      "range": {
+        "startLine": 473,
+        "startChar": 4,
+        "endLine": 473,
+        "endChar": 56
+      },
+      "revId": "2765aee383d1487409e26a3f9dbf8ffbd13437a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf7fefd4_3298da9a",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-05-24T09:49:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc5d6690_3f874668",
       "range": {
         "startLine": 473,
         "startChar": 4,
