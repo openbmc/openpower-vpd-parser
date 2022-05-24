@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fdf0ca6_40569b9f",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-05-24T05:44:31Z",
+      "side": 1,
+      "message": "What is this trying to output and how is it useful?",
+      "range": {
+        "startLine": 567,
+        "startChar": 7,
+        "endLine": 567,
+        "endChar": 42
+      },
+      "revId": "74b1ff89d055448a26fcbef4d22fa412c0c647c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
