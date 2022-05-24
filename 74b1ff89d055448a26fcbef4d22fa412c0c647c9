@@ -22,6 +22,30 @@
       },
       "revId": "74b1ff89d055448a26fcbef4d22fa412c0c647c9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6081e70d_7b628701",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-05-24T09:17:49Z",
+      "side": 1,
+      "message": "Printing error statement here at\nhttps://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/47666/6/impl.cpp#562 \u0026\nhttps://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/47666/6/impl.cpp#569\n\nwhen an error say invalid record or invalid keyword is encountered, I return empty keyword value. so this else case will be called and this just joins the print statements.\n\nEg: The given keyword BD is not present in the given record VR10 in the given vpd path /sys/bus/i2c/drivers/at24/7-0050/eeprom",
+      "parentUuid": "9fdf0ca6_40569b9f",
+      "range": {
+        "startLine": 567,
+        "startChar": 7,
+        "endLine": 567,
+        "endChar": 42
+      },
+      "revId": "74b1ff89d055448a26fcbef4d22fa412c0c647c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
