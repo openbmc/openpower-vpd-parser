@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd32feb5_f13c774e",
+        "filename": "impl.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-05-24T05:41:50Z",
+      "side": 1,
+      "message": "Why?",
+      "range": {
+        "startLine": 553,
+        "startChar": 20,
+        "endLine": 553,
+        "endChar": 69
+      },
+      "revId": "ff96ce9b86c02893bf886431a3c8cfb4cc51d696",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f756d719_7732778b",
+        "filename": "impl.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-05-24T05:41:50Z",
+      "side": 1,
+      "message": "I don\u0027t understand why we should mention who calls this API in the doxygen.\n\nIt is just an API that can read keyword from an EEPROM file. The fact that the tool uses it is immaterial to this documentation.",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 86,
+        "endChar": 39
+      },
+      "revId": "ff96ce9b86c02893bf886431a3c8cfb4cc51d696",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
