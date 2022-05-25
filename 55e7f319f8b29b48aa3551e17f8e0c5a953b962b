@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b41aa3e_c5d244e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-25T16:32:08Z",
+      "side": 1,
+      "message": "Minor changes else looks ok to me.",
+      "revId": "55e7f319f8b29b48aa3551e17f8e0c5a953b962b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "459daea7_0bcb3065",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-25T16:32:08Z",
+      "side": 1,
+      "message": "Suggestion: Reference will be better.",
+      "revId": "55e7f319f8b29b48aa3551e17f8e0c5a953b962b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d86e30b8_b3082575",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-05-25T16:32:08Z",
+      "side": 1,
+      "message": "Extra line. Please fix this",
+      "revId": "55e7f319f8b29b48aa3551e17f8e0c5a953b962b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
