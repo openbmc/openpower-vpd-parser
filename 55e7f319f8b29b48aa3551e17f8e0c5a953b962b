@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c06dd853_35e7cd49",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-05-26T05:09:01Z",
+      "side": 1,
+      "message": "We have same code inn writeKeyword also.Line 230. do you want me to update that also?",
+      "parentUuid": "459daea7_0bcb3065",
+      "revId": "55e7f319f8b29b48aa3551e17f8e0c5a953b962b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d86e30b8_b3082575",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-05-25T16:32:08Z",
       "side": 1,
       "message": "Extra line. Please fix this",
+      "revId": "55e7f319f8b29b48aa3551e17f8e0c5a953b962b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "268e7e2a_3821c9b7",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-05-26T05:09:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d86e30b8_b3082575",
       "revId": "55e7f319f8b29b48aa3551e17f8e0c5a953b962b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
