@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08ded170_cd3615dd",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-05-27T05:27:53Z",
+      "side": 1,
+      "message": "What is this commented for? Rather than returning a variant, I would want this function to get templated, and then the caller can pass in the type of property they want to read, please change it accordingly.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 24
+      },
+      "revId": "72a307140afce9743b52ae2569ff1a5bca7e9f41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
