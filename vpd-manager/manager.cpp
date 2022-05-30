@@ -318,9 +318,9 @@ void Manager::performVPDRecollection()
         {
             if (!executePreAction(jsonFile, item))
             {
-                // if the FRU has preAction defined then its execution should
-                // pass to ensure bind/unbind of data.
-                // preAction execution failed. should not call bind/unbind.
+                // if the FRU has preAction defined then its execution
+                // should pass to ensure bind/unbind of data. preAction
+                // execution failed. should not call bind/unbind.
                 log<level::ERR>("Pre-Action execution failed for the FRU");
                 continue;
             }
@@ -330,8 +330,8 @@ void Manager::performVPDRecollection()
         // unbind, bind the driver to trigger parser.
         triggerVpdCollection(singleFru, inventoryPath);
 
-        // this check is added to avoid file system expensive call in case not
-        // required.
+        // this check is added to avoid file system expensive call in case
+        // not required.
         if (prePostActionRequired)
         {
             // Check if device showed up (test for file)
@@ -375,9 +375,9 @@ void Manager::collectFRUVPD(const sdbusplus::message::object_path path)
         {
             if (!executePreAction(jsonFile, vpdFilePath))
             {
-                // if the FRU has preAction defined then its execution should
-                // pass to ensure bind/unbind of data.
-                // preAction execution failed. should not call bind/unbind.
+                // if the FRU has preAction defined then its execution
+                // should pass to ensure bind/unbind of data. preAction
+                // execution failed. should not call bind/unbind.
                 log<level::ERR>("Pre-Action execution failed for the FRU");
                 return;
             }
@@ -388,8 +388,8 @@ void Manager::collectFRUVPD(const sdbusplus::message::object_path path)
         // unbind, bind the driver to trigger parser.
         triggerVpdCollection(singleFru, std::string(path));
 
-        // this check is added to avoid file system expensive call in case not
-        // required.
+        // this check is added to avoid file system expensive call in case
+        // not required.
         if (prePostActionRequired)
         {
             // Check if device showed up (test for file)
