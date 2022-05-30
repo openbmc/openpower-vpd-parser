@@ -313,33 +313,41 @@ void Manager::performVPDRecollection()
 
         bool prePostActionRequired = false;
 
-        if ((jsonFile["frus"][item].at(0)).find("preAction") !=
-            jsonFile["frus"][item].at(0).end())
+        try
         {
-            if (!executePreAction(jsonFile, item))
+            if ((jsonFile["frus"][item].at(0)).find("preAction") !=
+                jsonFile["frus"][item].at(0).end())
             {
-                // if the FRU has preAction defined then its execution should
-                // pass to ensure bind/unbind of data.
-                // preAction execution failed. should not call bind/unbind.
-                log<level::ERR>("Pre-Action execution failed for the FRU");
-                continue;
+                if (!executePreAction(jsonFile, item))
+                {
+                    // if the FRU has preAction defined then its execution
+                    // should pass to ensure bind/unbind of data. preAction
+                    // execution failed. should not call bind/unbind.
+                    log<level::ERR>("Pre-Action execution failed for the FRU");
+                    continue;
+                }
+                prePostActionRequired = true;
             }
-            prePostActionRequired = true;
+
+            // unbind, bind the driver to trigger parser.
+            triggerVpdCollection(singleFru, inventoryPath);
+
+            // this check is added to avoid file system expensive call in case
+            // not required.
+            if (prePostActionRequired)
+            {
+                // Check if device showed up (test for file)
+                if (!filesystem::exists(item))
+                {
+                    // If not, then take failure postAction
+                    executePostFailAction(jsonFile, item);
+                }
+            }
         }
-
-        // unbind, bind the driver to trigger parser.
-        triggerVpdCollection(singleFru, inventoryPath);
-
-        // this check is added to avoid file system expensive call in case not
-        // required.
-        if (prePostActionRequired)
+        catch (const std::exception& e)
         {
-            // Check if device showed up (test for file)
-            if (!filesystem::exists(item))
-            {
-                // If not, then take failure postAction
-                executePostFailAction(jsonFile, item);
-            }
+            std::cerr << "Failed to log PEL for GPIO read fail. Fru - "
+                      << inventoryPath << std::endl;
         }
     }
 }
@@ -365,47 +373,55 @@ void Manager::collectFRUVPD(const sdbusplus::message::object_path path)
 
     const nlohmann::json& singleFru = groupEEPROM[0];
 
-    // check if the device qualifies for CM.
-    if (singleFru.value("concurrentlyMaintainable", false))
+    try
     {
-        bool prePostActionRequired = false;
-
-        if ((jsonFile["frus"][vpdFilePath].at(0)).find("preAction") !=
-            jsonFile["frus"][vpdFilePath].at(0).end())
+        // check if the device qualifies for CM.
+        if (singleFru.value("concurrentlyMaintainable", false))
         {
-            if (!executePreAction(jsonFile, vpdFilePath))
+            bool prePostActionRequired = false;
+
+            if ((jsonFile["frus"][vpdFilePath].at(0)).find("preAction") !=
+                jsonFile["frus"][vpdFilePath].at(0).end())
             {
-                // if the FRU has preAction defined then its execution should
-                // pass to ensure bind/unbind of data.
-                // preAction execution failed. should not call bind/unbind.
-                log<level::ERR>("Pre-Action execution failed for the FRU");
-                return;
+                if (!executePreAction(jsonFile, vpdFilePath))
+                {
+                    // if the FRU has preAction defined then its execution
+                    // should pass to ensure bind/unbind of data. preAction
+                    // execution failed. should not call bind/unbind.
+                    log<level::ERR>("Pre-Action execution failed for the FRU");
+                    return;
+                }
+
+                prePostActionRequired = true;
             }
 
-            prePostActionRequired = true;
-        }
+            // unbind, bind the driver to trigger parser.
+            triggerVpdCollection(singleFru, std::string(path));
 
-        // unbind, bind the driver to trigger parser.
-        triggerVpdCollection(singleFru, std::string(path));
-
-        // this check is added to avoid file system expensive call in case not
-        // required.
-        if (prePostActionRequired)
-        {
-            // Check if device showed up (test for file)
-            if (!filesystem::exists(vpdFilePath))
+            // this check is added to avoid file system expensive call in case
+            // not required.
+            if (prePostActionRequired)
             {
-                // If not, then take failure postAction
-                executePostFailAction(jsonFile, vpdFilePath);
+                // Check if device showed up (test for file)
+                if (!filesystem::exists(vpdFilePath))
+                {
+                    // If not, then take failure postAction
+                    executePostFailAction(jsonFile, vpdFilePath);
+                }
             }
+            return;
         }
-        return;
+        else
+        {
+            elog<InvalidArgument>(
+                Argument::ARGUMENT_NAME("Object Path"),
+                Argument::ARGUMENT_VALUE(std::string(path).c_str()));
+        }
     }
-    else
+    catch (const std::exception& e)
     {
-        elog<InvalidArgument>(
-            Argument::ARGUMENT_NAME("Object Path"),
-            Argument::ARGUMENT_VALUE(std::string(path).c_str()));
+        std::cerr << "Failed to log PEL for GPIO read fail. Fru - "
+                  << singleFru["inventoryPath"] << std::endl;
     }
 }
 
