@@ -346,6 +346,9 @@ void Manager::performVPDRecollection()
 
 void Manager::collectFRUVPD(const sdbusplus::message::object_path path)
 {
+    std::cout << "Manager called to collect vpd for fru: " << (std::string)path
+              << std::endl;
+
     using InvalidArgument =
         sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
     using Argument = xyz::openbmc_project::Common::InvalidArgument;
@@ -474,6 +477,9 @@ void Manager::triggerVpdCollection(const nlohmann::json& singleFru,
 
 void Manager::deleteFRUVPD(const sdbusplus::message::object_path path)
 {
+    std::cout << "Manager called to delete vpd for fru: " << (std::string)path
+              << std::endl;
+
     using InvalidArgument =
         sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
     using Argument = xyz::openbmc_project::Common::InvalidArgument;

@@ -193,8 +193,8 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
     }
     catch (const sdbusplus::exception::exception& e)
     {
-        throw std::runtime_error(
-            "Error in invoking D-Bus logging create interface to register PEL");
+        std::cerr << "Dbus call to phosphor-logging Create failed. Reason:"
+                  << e.what();
     }
 }
 
