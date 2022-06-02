@@ -8,6 +8,7 @@
 #include "gpioMonitor.hpp"
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
+#include "parser_factory.hpp"
 #include "reader_impl.hpp"
 #include "vpd_exceptions.hpp"
 
@@ -21,6 +22,8 @@ using namespace openpower::vpd::manager::editor;
 using namespace openpower::vpd::manager::reader;
 using namespace std;
 using namespace openpower::vpd::parser;
+using namespace openpower::vpd::parser::factory;
+using namespace openpower::vpd::ipz::parser;
 using namespace openpower::vpd::exceptions;
 using namespace phosphor::logging;
 
@@ -43,6 +46,7 @@ void Manager::run()
     try
     {
         processJSON();
+        restoreSystemVpd();
         listenHostState();
         listenAssetTag();
 
@@ -60,6 +64,100 @@ void Manager::run()
     {
         std::cerr << e.what() << "\n";
     }
+}
+
+/**
+ * @brief An api to get list of blank system VPD properties.
+ * @param[in] vpdMap - IPZ vpd map.
+ * @param[in] objectPath - Object path for the FRU.
+ * @param[out] blankPropertyList - Properties which are blank in System VPD and
+ * needs to be updated as standby.
+ */
+static void
+    getListOfBlankSystemVpd(Parsed& vpdMap, const string& objectPath,
+                            std::vector<RestoredEeproms>& blankPropertyList)
+{
+    for (const auto& systemRecKwdPair : svpdKwdMap)
+    {
+        auto it = vpdMap.find(systemRecKwdPair.first);
+
+        // check if record is found in map we got by parser
+        if (it != vpdMap.end())
+        {
+            const auto& kwdListForRecord = systemRecKwdPair.second;
+            for (const auto& keyword : kwdListForRecord)
+            {
+                DbusPropertyMap& kwdValMap = it->second;
+                auto iterator = kwdValMap.find(keyword);
+
+                if (iterator != kwdValMap.end())
+                {
+                    string& kwdValue = iterator->second;
+
+                    // check bus data
+                    const string& recordName = systemRecKwdPair.first;
+                    const string& busValue = readBusProperty(
+                        objectPath, ipzVpdInf + recordName, keyword);
+
+                    if (busValue.find_first_not_of(' ') != string::npos)
+                    {
+                        if (kwdValue.find_first_not_of(' ') == string::npos)
+                        {
+                            // implies data is blank on EEPROM but not on cache.
+                            // So EEPROM vpd update is required.
+                            Binary busData(busValue.begin(), busValue.end());
+
+                            blankPropertyList.push_back(std::make_tuple(
+                                objectPath, recordName, keyword, busData));
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+void Manager::restoreSystemVpd()
+{
+    std::cout << "Attempting system VPD restore" << std::endl;
+    ParserInterface* parser = nullptr;
+    try
+    {
+        auto vpdVector = getVpdDataInVector(jsonFile, systemVpdFilePath);
+        parser = ParserFactory::getParser(vpdVector);
+        auto parseResult = parser->parse();
+
+        if (auto pVal = std::get_if<Store>(&parseResult))
+        {
+            // map to hold all the keywords whose value is blank and
+            // needs to be updated at standby.
+            std::vector<RestoredEeproms> blankSystemVpdProperties{};
+            getListOfBlankSystemVpd(pVal->getVpdMap(), SYSTEM_OBJECT,
+                                    blankSystemVpdProperties);
+
+            // if system VPD restore is required, update the
+            // EEPROM
+            for (const auto& item : blankSystemVpdProperties)
+            {
+                std::cout << "Restoring keyword: " << std::get<2>(item)
+                          << std::endl;
+                writeKeyword(std::get<0>(item), std::get<1>(item),
+                             std::get<2>(item), std::get<3>(item));
+            }
+        }
+        else
+        {
+            std::cerr << "Not a valid format to restore system VPD"
+                      << std::endl;
+        }
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "Failed to restore system VPD due to exception: "
+                  << e.what() << std::endl;
+    }
+    // release the parser object
+    ParserFactory::freeParser(parser);
 }
 
 void Manager::listenHostState()

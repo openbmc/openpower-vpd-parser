@@ -934,5 +934,54 @@ std::string getPowerState()
     cout << "Power state is: " << powerState << endl;
     return powerState;
 }
+
+Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
+{
+    uint32_t offset = 0;
+    // check if offset present?
+    for (const auto& item : js["frus"][file])
+    {
+        if (item.find("offset") != item.end())
+        {
+            offset = item["offset"];
+        }
+    }
+
+    // TODO: Figure out a better way to get max possible VPD size.
+    auto maxVPDSize = std::min(std::filesystem::file_size(file),
+                               static_cast<uintmax_t>(65504));
+
+    Binary vpdVector;
+    vpdVector.resize(maxVPDSize);
+    ifstream vpdFile;
+    vpdFile.open(file, ios::binary);
+
+    vpdFile.seekg(offset, ios_base::cur);
+    vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), maxVPDSize);
+    vpdVector.resize(vpdFile.gcount());
+
+    // Make sure we reset the EEPROM pointer to a "safe" location if it was DIMM
+    // SPD that we just read.
+    for (const auto& item : js["frus"][file])
+    {
+        if (item.find("extraInterfaces") != item.end())
+        {
+            if (item["extraInterfaces"].find(
+                    "xyz.openbmc_project.Inventory.Item.Dimm") !=
+                item["extraInterfaces"].end())
+            {
+                // moves the EEPROM pointer to 2048 'th byte.
+                vpdFile.seekg(2047, std::ios::beg);
+                // Read that byte and discard - to affirm the move
+                // operation.
+                char ch;
+                vpdFile.read(&ch, sizeof(ch));
+                break;
+            }
+        }
+    }
+
+    return vpdVector;
+}
 } // namespace vpd
 } // namespace openpower

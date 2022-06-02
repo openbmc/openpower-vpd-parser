@@ -15,6 +15,15 @@ namespace openpower
 namespace vpd
 {
 
+// Map to hold record, kwd pair which can be re-stored at standby.
+// The list of keywords for VSYS record is as per the S0 system. Should
+// be updated for another type of systems
+static const std::unordered_map<std::string, std::vector<std::string>>
+    svpdKwdMap{{"VSYS", {"BR", "TM", "SE", "SU", "RB", "WN", "RG"}},
+               {"VCEN", {"FC", "SE"}},
+               {"LXR0", {"LX"}},
+               {"UTIL", {"D0"}}};
+
 /** @brief Return the hex representation of the incoming byte
  *
  * @param [in] c - The input byte
@@ -366,5 +375,18 @@ std::variant<int64_t, std::string>
  * @return The chassis power state.
  */
 std::string getPowerState();
+
+/**
+ * @brief Reads VPD from the supplied EEPROM
+ *
+ * This function reads the given VPD EEPROM file and returns its contents as a
+ * byte array. It handles any offsets into the file that need to be taken care
+ * of by looking up the VPD JSON for a possible offset key.
+ *
+ * @param js[in] - The VPD JSON Object
+ * @param file[in] - The path to the EEPROM to read
+ * @return A byte array containing the raw VPD.
+ */
+Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file);
 } // namespace vpd
 } // namespace openpower

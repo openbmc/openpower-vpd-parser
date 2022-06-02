@@ -37,5 +37,6 @@ vpd_manager_exe = executable(
                                 vpd_manager_dependencies,
                                 ],
                  link_with : libvpdecc,
-                 install : true
+                 install : true,
+                 cpp_args : '-DIPZ_PARSER'
                 )

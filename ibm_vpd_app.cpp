@@ -40,15 +40,6 @@ using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::exceptions;
 using namespace phosphor::logging;
 
-// Map to hold record, kwd pair which can be re-stored at standby.
-// The list of keywords for VSYS record is as per the S0 system. Should
-// be updated for another type of systems
-static const std::unordered_map<std::string, std::vector<std::string>>
-    svpdKwdMap{{"VSYS", {"BR", "TM", "SE", "SU", "RB", "WN", "RG"}},
-               {"VCEN", {"FC", "SE"}},
-               {"LXR0", {"LX"}},
-               {"UTIL", {"D0"}}};
-
 /**
  * @brief Returns the BMC state
  */
@@ -401,31 +392,6 @@ static void populateInterfaces(const nlohmann::json& js,
     }
 }
 
-/*API to reset EEPROM pointer to a safe position to avoid VPD corruption.
- * Currently do reset only for DIMM VPD.*/
-static void resetEEPROMPointer(const nlohmann::json& js, const string& file,
-                               ifstream& vpdFile)
-{
-    for (const auto& item : js["frus"][file])
-    {
-        if (item.find("extraInterfaces") != item.end())
-        {
-            if (item["extraInterfaces"].find(
-                    "xyz.openbmc_project.Inventory.Item.Dimm") !=
-                item["extraInterfaces"].end())
-            {
-                // moves the EEPROM pointer to 2048 'th byte.
-                vpdFile.seekg(2047, std::ios::beg);
-                // Read that byte and discard - to affirm the move
-                // operation.
-                char ch;
-                vpdFile.read(&ch, sizeof(ch));
-            }
-            return;
-        }
-    }
-}
-
 /**
  * @brief This API checks if this FRU is pcie_devices. If yes then it further
  *        checks whether it is PASS1 planar.
@@ -502,36 +468,6 @@ static bool isThisPcieOnPass1planar(const nlohmann::json& js,
     }
 
     return (isThisPCIeDev && isPASS1);
-}
-
-static Binary getVpdDataInVector(const nlohmann::json& js, const string& file)
-{
-    uint32_t offset = 0;
-    // check if offset present?
-    for (const auto& item : js["frus"][file])
-    {
-        if (item.find("offset") != item.end())
-        {
-            offset = item["offset"];
-        }
-    }
-
-    // TODO: Figure out a better way to get max possible VPD size.
-    auto maxVPDSize = std::min(std::filesystem::file_size(file),
-                               static_cast<uintmax_t>(65504));
-
-    Binary vpdVector;
-    vpdVector.resize(maxVPDSize);
-    ifstream vpdFile;
-    vpdFile.open(file, ios::binary);
-
-    vpdFile.seekg(offset, ios_base::cur);
-    vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), maxVPDSize);
-    vpdVector.resize(vpdFile.gcount());
-
-    resetEEPROMPointer(js, file, vpdFile);
-
-    return vpdVector;
 }
 
 /** Performs any pre-action needed to get the FRU setup for collection.
@@ -854,95 +790,6 @@ void setDevTreeEnv(const string& systemType)
     if (!envVarFound)
     {
         setEnvAndReboot("fitconfig", newDeviceTree);
-    }
-}
-
-/**
- * @brief API to call VPD manager to write VPD to EEPROM.
- * @param[in] Object path.
- * @param[in] record to be updated.
- * @param[in] keyword to be updated.
- * @param[in] keyword data to be updated
- */
-void updateHardware(const string& objectName, const string& recName,
-                    const string& kwdName, const Binary& data)
-{
-    try
-    {
-        auto bus = sdbusplus::bus::new_default();
-        auto properties =
-            bus.new_method_call(BUSNAME, OBJPATH, IFACE, "WriteKeyword");
-        properties.append(
-            static_cast<sdbusplus::message::object_path>(objectName));
-        properties.append(recName);
-        properties.append(kwdName);
-        properties.append(data);
-        bus.call(properties);
-    }
-    catch (const sdbusplus::exception::exception& e)
-    {
-        std::string what =
-            "VPDManager WriteKeyword api failed for inventory path " +
-            objectName;
-        what += " record " + recName;
-        what += " keyword " + kwdName;
-        what += " with bus error = " + std::string(e.what());
-
-        // map to hold additional data in case of logging pel
-        PelAdditionalData additionalData{};
-        additionalData.emplace("CALLOUT_INVENTORY_PATH", objectName);
-        additionalData.emplace("DESCRIPTION", what);
-        createPEL(additionalData, PelSeverity::WARNING, errIntfForBusFailure);
-    }
-}
-
-/**
- * @brief An api to get list of blank system VPD properties.
- * @param[in] vpdMap - IPZ vpd map.
- * @param[in] objectPath - Object path for the FRU.
- * @param[out] blankPropertyList - Properties which are blank in System VPD and
- * needs to be updated as standby.
- */
-void getListOfBlankSystemVpd(Parsed& vpdMap, const string& objectPath,
-                             std::vector<RestoredEeproms>& blankPropertyList)
-{
-    for (const auto& systemRecKwdPair : svpdKwdMap)
-    {
-        auto it = vpdMap.find(systemRecKwdPair.first);
-
-        // check if record is found in map we got by parser
-        if (it != vpdMap.end())
-        {
-            const auto& kwdListForRecord = systemRecKwdPair.second;
-            for (const auto& keyword : kwdListForRecord)
-            {
-                DbusPropertyMap& kwdValMap = it->second;
-                auto iterator = kwdValMap.find(keyword);
-
-                if (iterator != kwdValMap.end())
-                {
-                    string& kwdValue = iterator->second;
-
-                    // check bus data
-                    const string& recordName = systemRecKwdPair.first;
-                    const string& busValue = readBusProperty(
-                        objectPath, ipzVpdInf + recordName, keyword);
-
-                    if (busValue.find_first_not_of(' ') != string::npos)
-                    {
-                        if (kwdValue.find_first_not_of(' ') == string::npos)
-                        {
-                            // implies data is blank on EEPROM but not on cache.
-                            // So EEPROM vpd update is required.
-                            Binary busData(busValue.begin(), busValue.end());
-
-                            blankPropertyList.push_back(std::make_tuple(
-                                objectPath, recordName, keyword, busData));
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 
@@ -1498,58 +1345,7 @@ int main(int argc, char** argv)
             if ((js["frus"].find(file) != js["frus"].end()) &&
                 (file == systemVpdFilePath))
             {
-                // We need manager service active to process restoring of
-                // system VPD on hardware. So in case any system restore is
-                // required, update hardware in the second trigger of parser
-                // code for system vpd file path.
-
-                std::vector<std::string> interfaces{motherBoardInterface};
-
-                // call mapper to check for object path creation
-                MapperResponse subTree =
-                    getObjectSubtreeForInterfaces(pimPath, 0, interfaces);
-                string mboardPath =
-                    js["frus"][file].at(0).value("inventoryPath", "");
-
-                // Attempt system VPD restore if we have a motherboard
-                // object in the inventory.
-                if ((subTree.size() != 0) &&
-                    (subTree.find(pimPath + mboardPath) != subTree.end()))
-                {
-                    vpdVector = getVpdDataInVector(js, file);
-                    ParserInterface* parser =
-                        ParserFactory::getParser(vpdVector);
-                    variant<KeywordVpdMap, Store> parseResult;
-                    parseResult = parser->parse();
-
-                    if (auto pVal = get_if<Store>(&parseResult))
-                    {
-                        // map to hold all the keywords whose value is blank and
-                        // needs to be updated at standby.
-                        vector<RestoredEeproms> blankSystemVpdProperties{};
-                        getListOfBlankSystemVpd(pVal->getVpdMap(), mboardPath,
-                                                blankSystemVpdProperties);
-
-                        // if system VPD restore is required, update the
-                        // EEPROM
-                        for (const auto& item : blankSystemVpdProperties)
-                        {
-                            updateHardware(get<0>(item), get<1>(item),
-                                           get<2>(item), get<3>(item));
-                        }
-                    }
-                    else
-                    {
-                        std::cout << "Not a valid format to restore system VPD"
-                                  << std::endl;
-                    }
-                    // release the parser object
-                    ParserFactory::freeParser(parser);
-                }
-                else
-                {
-                    log<level::ERR>("No object path found");
-                }
+                // We have already collected system VPD, skip.
                 return 0;
             }
         }
