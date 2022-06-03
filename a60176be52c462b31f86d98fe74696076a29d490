@@ -16,6 +16,52 @@
       "message": "@santosh, I added those logs.",
       "revId": "a60176be52c462b31f86d98fe74696076a29d490",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c3f065f_4552d591",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-06-03T08:58:52Z",
+      "side": 1,
+      "message": "Could you use: std::string{path}? C-style casts are generally not recommended.",
+      "range": {
+        "startLine": 349,
+        "startChar": 62,
+        "endLine": 349,
+        "endChar": 79
+      },
+      "revId": "a60176be52c462b31f86d98fe74696076a29d490",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0c7f433_e9e4117b",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-06-03T08:58:52Z",
+      "side": 1,
+      "message": "Same comment about the cast",
+      "range": {
+        "startLine": 480,
+        "startChar": 61,
+        "endLine": 480,
+        "endChar": 78
+      },
+      "revId": "a60176be52c462b31f86d98fe74696076a29d490",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
