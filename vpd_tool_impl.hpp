@@ -132,6 +132,36 @@ class VpdTool
     json getPresentPropJson(const std::string& invPath,
                             std::string& parentPresence);
 
+    /** @brief A templated function to read D-Bus properties.
+     * @param[in] service - Dbus service name
+     * @param[in] obj - Dbus object to query for the property.
+     * @param[in] inf - Interface in which the property is present.
+     * @param[in] prop - Property to be queried.
+     * @return The property value of its own type.
+     */
+    template <typename T>
+    T readDBusProperty(const std::string& service, const std::string& object,
+                       const std::string& inf, const std::string& prop)
+    {
+        T retVal{};
+        try
+        {
+            auto bus = sdbusplus::bus::new_default();
+            auto properties =
+                bus.new_method_call(service.c_str(), object.c_str(),
+                                    "org.freedesktop.DBus.Properties", "Get");
+            properties.append(inf);
+            properties.append(prop);
+            auto result = bus.call(properties);
+            result.read(retVal);
+        }
+        catch (const sdbusplus::exception::SdBusError& e)
+        {
+            std::cerr << e.what();
+        }
+        return retVal;
+    }
+
   public:
     /**
      * @brief Dump the complete inventory in JSON format
@@ -189,6 +219,16 @@ class VpdTool
      * initialising the constructor.
      */
     void readKwFromHw();
+
+    /**
+     * @brief Fix System VPD keyword.
+     * This API provides an interactive way to fix system VPD keywords that are
+     * part of restorable record-keyword pairs. The user can use this option to
+     * restore the restorable keywords in cache or in hardware or in both cache
+     * and hardware.
+     * @return returncode (success/failure).
+     */
+    int fixSystemVPD();
 
     /**
      * @brief Constructor
