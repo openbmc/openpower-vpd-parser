@@ -6,6 +6,7 @@
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "parser_factory.hpp"
+#include "vpd_exceptions.hpp"
 
 #include "vpdecc/vpdecc.h"
 
@@ -574,6 +575,11 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
             throw std::runtime_error(e.what());
         }
         return;
+    }
+    else
+    {
+        throw openpower::vpd::exceptions::VpdDataException(
+            "Could not find start tag in VPD " + vpdFilePath);
     }
 }
 } // namespace editor
