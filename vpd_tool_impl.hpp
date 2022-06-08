@@ -191,6 +191,16 @@ class VpdTool
     void readKwFromHw();
 
     /**
+     * @brief Fix System VPD keyword.
+     * This API provides an interactive way to fix system VPD keywords that are
+     * part of restorable record-keyword pairs. The user can use this option to
+     * restore the restorable keywords in cache or in hardware or in both cache
+     * and hardware.
+     * @return returncode (success/failure).
+     */
+    int fixSystemVPD();
+
+    /**
      * @brief Constructor
      * Constructor is called during the
      * object instantiation for dumpInventory option and

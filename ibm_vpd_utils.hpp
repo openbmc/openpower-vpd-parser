@@ -15,6 +15,15 @@ namespace openpower
 namespace vpd
 {
 
+// Map to hold record, kwd pair which can be re-stored at standby.
+// The list of keywords for VSYS record is as per the S0 system. Should
+// be updated for another type of systems
+static const std::unordered_map<std::string, std::vector<std::string>>
+    svpdKwdMap{{"VSYS", {"BR", "TM", "SE", "SU", "RB", "WN", "RG"}},
+               {"VCEN", {"FC", "SE"}},
+               {"LXR0", {"LX"}},
+               {"UTIL", {"D0"}}};
+
 /** @brief Return the hex representation of the incoming byte
  *
  * @param [in] c - The input byte

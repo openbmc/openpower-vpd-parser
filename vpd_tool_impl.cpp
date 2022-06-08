@@ -570,3 +570,82 @@ void VpdTool::readKwFromHw()
                   << fruPath << std::endl;
     }
 }
+
+int VpdTool::fixSystemVPD()
+{
+    std::string keyword, record, value;
+    int destination;
+
+    std::cout << "\nSystem VPD EEPROM path is "
+              << openpower::vpd::constants::systemVpdFilePath;
+
+    std::cout << "\n\nEnter the keyword to be restored : ";
+    std::cin >> keyword;
+
+    std::cout << "\nEnter the record under which the keyword is present : ";
+    std::cin >> record;
+
+    auto result = svpdKwdMap.find(record);
+    if (result == svpdKwdMap.end())
+    {
+        std::cout << "\nThe given record is not a part of system VPD "
+                     "restorable records. Please check for the valid system "
+                     "VPD restorable record-keyword pairs. Exiting.\n";
+        return -1;
+    }
+
+    if (std::find(result->second.begin(), result->second.end(), keyword) ==
+        result->second.end())
+    {
+        std::cout << "\nThe given keyword is not present in the given record. "
+                     "Enter a valid record keyword pair. Exiting.\n";
+        return -1;
+    }
+
+    std::cout << "\nEnter the correct value that needs to be restored in the "
+                 "given keyword. Value should either be in ASCII or in HEX : ";
+    std::cin >> value;
+    const auto& kwVal = toBinary(value);
+
+    std::cout
+        << "\nWhere do you want to update the value? In cache (Enter 0) or In "
+           "hardware (Enter 1) or In both cache and hardware (Enter 2) : ";
+    std::cin >> destination;
+
+    if (destination == 0)
+    {
+        const std::variant<Binary> kwValVariant = kwVal;
+        setBusProperty<Binary>(
+            openpower::vpd::constants::pimIntf,
+            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+            "com.ibm.ipzvpd." + record, keyword, kwValVariant);
+    }
+    else if (destination == 1)
+    {
+        ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
+        auto json = nlohmann::json::parse(inventoryJson);
+
+        EditorImpl edit(openpower::vpd::constants::systemVpdFilePath, json,
+                        record, keyword);
+        edit.updateKeyword(kwVal, 0, false);
+    }
+    else if (destination == 2)
+    {
+        ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
+        auto json = nlohmann::json::parse(inventoryJson);
+
+        EditorImpl edit(openpower::vpd::constants::systemVpdFilePath, json,
+                        record, keyword);
+        edit.updateKeyword(kwVal, 0, true);
+    }
+    else
+    {
+        std::cerr << "\nEnter a valid number. To update in cache(0), in "
+                     "hardware(1), in both cache and hardware(2). Exiting.\n";
+        return -1;
+    }
+
+    std::cout << "\nData updated successfully.\n";
+
+    return 0;
+}
