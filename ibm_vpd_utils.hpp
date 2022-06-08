@@ -107,6 +107,37 @@ T readDBusProperty(const string& service, const string& object,
     return retVal;
 }
 
+/** @brief A templated method to get all D-Bus properties
+ *
+ * @param[in] service - Service path
+ * @param[in] object - Object path
+ * @param[in] inf - Interface
+ *
+ * @return All properties under the given interface.
+ */
+template <typename T>
+T getAllDBusProperty(const string& service, const string& object,
+                     const string& inf)
+{
+    T retVal{};
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto allProperties =
+            bus.new_method_call(service.c_str(), object.c_str(),
+                                "org.freedesktop.DBus.Properties", "GetAll");
+        allProperties.append(inf);
+
+        auto result = bus.call(allProperties);
+        result.read(retVal);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        std::cerr << e.what();
+    }
+    return retVal;
+}
+
 /**
  * @brief API to create PEL entry
  * @param[in] additionalData - Map holding the additional data
