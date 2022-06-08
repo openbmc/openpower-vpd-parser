@@ -175,20 +175,28 @@ class VpdTool
 
     /**
      * @brief Update Hardware
-     * If the given record-keyword pair is present in dbus_properties.json,
-     * then will update the given data in both dbus and hardware.
-     * Else update the given data only in hardware.
+     * The given data is updated only on the given hardware path and not on dbus
+     * for the given record-keyword pair. The user can now update record-keyword
+     * value for any hardware path irrespective of whether its present or not in
+     * VPD JSON, by providing a valid offset. By default offset takes 0.
+     *
+     * @param[in] offset - VPD offset.
      * @return returncode (success/failure).
      */
-    int updateHardware();
+    int updateHardware(const uint32_t& offset);
 
     /**
      * @brief Read Keyword from Hardware
      * This api is to read a keyword directly from the hardware. The hardware
      * path, record name and keyword name are received at the time of
      * initialising the constructor.
+     * The user can now read keyword from any hardware path irrespective of
+     * whether its present or not in VPD JSON, by providing a valid offset. By
+     * default offset takes 0.
+     *
+     * @param[in] startOffset - VPD offset.
      */
-    void readKwFromHw();
+    void readKwFromHw(const uint32_t& startOffset);
 
     /**
      * @brief Constructor
