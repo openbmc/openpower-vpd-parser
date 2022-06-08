@@ -68,7 +68,8 @@ int main(int argc, char** argv)
                                 "--forceReset/-f/-F }");
     auto Hardware = app.add_flag(
         "--Hardware, -H",
-        "This is a supplementary flag to write directly to hardware. When the "
+        "This is a supplementary flag to read/write directly from/to hardware. "
+        "When the "
         "-H flag is given, User should provide valid hardware/eeprom path (and "
         "not dbus object path) in the -O/--object path.");
 

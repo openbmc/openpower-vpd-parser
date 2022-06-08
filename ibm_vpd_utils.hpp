@@ -95,18 +95,6 @@ inventory::VPDfilepath getVpdFilePath(const string& jsonFile,
 bool isPathInJson(const std::string& eepromPath);
 
 /**
- * @brief isRecKwInDbusJson
- * API which checks whether the given keyword under the given record is to be
- * published on dbus or not. Checks against the keywords present in
- * dbus_property.json.
- * @param[in] - record name
- * @param[in] - keyword name
- * @return - true if the record-keyword pair is present in dbus_property.json;
- * false otherwise.
- */
-bool isRecKwInDbusJson(const std::string& record, const std::string& keyword);
-
-/**
  * @brief Check the type of VPD.
  *
  * Checks the type of vpd based on the start tag.

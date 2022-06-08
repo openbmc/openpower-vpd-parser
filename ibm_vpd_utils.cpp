@@ -248,52 +248,6 @@ bool isPathInJson(const std::string& eepromPath)
     return present;
 }
 
-bool isRecKwInDbusJson(const std::string& recordName,
-                       const std::string& keyword)
-{
-    ifstream propertyJson(DBUS_PROP_JSON);
-    json dbusProperty;
-    bool present = false;
-
-    if (propertyJson.is_open())
-    {
-        try
-        {
-            auto dbusPropertyJson = json::parse(propertyJson);
-            if (dbusPropertyJson.find("dbusProperties") ==
-                dbusPropertyJson.end())
-            {
-                throw(VpdJsonException("dbusProperties{} object not found in "
-                                       "DbusProperties json : ",
-                                       DBUS_PROP_JSON));
-            }
-
-            dbusProperty = dbusPropertyJson["dbusProperties"];
-            if (dbusProperty.contains(recordName))
-            {
-                const vector<string>& kwdsToPublish = dbusProperty[recordName];
-                if (find(kwdsToPublish.begin(), kwdsToPublish.end(), keyword) !=
-                    kwdsToPublish.end()) // present
-                {
-                    present = true;
-                }
-            }
-        }
-        catch (const json::parse_error& ex)
-        {
-            throw(VpdJsonException("Json Parsing failed", DBUS_PROP_JSON));
-        }
-    }
-    else
-    {
-        // If dbus properties json is not available, we assume the given
-        // record-keyword is part of dbus-properties json. So setting the bool
-        // variable to true.
-        present = true;
-    }
-    return present;
-}
-
 vpdType vpdTypeCheck(const Binary& vpdVector)
 {
     // Read first 3 Bytes to check the 11S bar code format

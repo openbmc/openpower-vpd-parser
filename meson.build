@@ -100,7 +100,6 @@ configure_file(output: 'config.h',
                        'INVENTORY_JSON_2U': '"'+get_option('INVENTORY_JSON_2U')+'"',
                        'INVENTORY_JSON_4U': '"'+get_option('INVENTORY_JSON_4U')+'"',
                        'INVENTORY_JSON_EVEREST': '"'+get_option('INVENTORY_JSON_EVEREST')+'"',
-                       'DBUS_PROP_JSON': '"'+get_option('DBUS_PROP_JSON')+'"',
                        'SYSTEM_JSON' : '"'+get_option('SYSTEM_JSON')+'"',
                        'BAD_VPD_DIR': '"'+get_option('BAD_VPD_DIR')+'"',
                        'FAN_INTERFACE': '"'+get_option('FAN_INTERFACE')+'"'

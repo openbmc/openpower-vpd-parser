@@ -491,7 +491,6 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
 int VpdTool::updateHardware()
 {
     int rc = 0;
-    bool updCache = true;
     const Binary& val = static_cast<const Binary&>(toBinary(value));
     ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
     try
@@ -499,18 +498,23 @@ int VpdTool::updateHardware()
         auto json = nlohmann::json::parse(inventoryJson);
         uint32_t offset = 0;
         EditorImpl edit(fruPath, json, recordName, keyword);
-        if (!((isPathInJson(fruPath)) &&
-              (isRecKwInDbusJson(recordName, keyword))))
+
+        if (!isPathInJson(fruPath))
         {
-            updCache = false;
+            std::cerr << "\nThe given EEPROM path " << fruPath
+                      << " is not found in the VPD JSON. Provide a valid path. "
+                         "Exiting.";
+            return -1;
         }
+
         if (fruPath.starts_with("/sys/bus/spi"))
         {
             // TODO: Figure out a better way to get this, SPI eeproms
             // start at offset 0x30000
             offset = 0x30000;
         }
-        edit.updateKeyword(val, offset, updCache);
+
+        edit.updateKeyword(val, offset, false);
     }
     catch (const json::parse_error& ex)
     {

@@ -20,7 +20,6 @@ option('INVENTORY_JSON_SYM_LINK',type: 'string', value: '/var/lib/vpd/vpd_invent
 option('INVENTORY_JSON_2U',type: 'string', value: '/usr/share/vpd/50001001.json',  description: 'Inventory JSON for 2U system.')
 option('INVENTORY_JSON_4U',type: 'string', value: '/usr/share/vpd/50001000.json',  description: 'Inventory JSON for 4U system.')
 option('INVENTORY_JSON_EVEREST',type: 'string', value: '/usr/share/vpd/50003000.json',  description: 'Inventory JSON for Everest system.')
-option('DBUS_PROP_JSON',type: 'string', value: '/usr/share/vpd/dbus_properties.json',  description: 'Json which contains properties specific to dbus.')
 option('SYSTEM_JSON',type: 'string', value: '/usr/share/vpd/systems.json',  description: 'JSON file used to pick the right system json')
 option('BAD_VPD_DIR',type: 'string', value: '/tmp/bad-vpd/', description: 'Directory which contains the bad vpd file - which needs to be included in bmc dump.')
 option('FAN_INTERFACE', type: 'string', value: 'xyz.openbmc_project.Inventory.Item.Fan', description: 'Fan type interface.')
