@@ -64,13 +64,15 @@ int main(int argc, char** argv)
             ->needs(valOption);
 
     auto forceResetFlag = app.add_flag(
-        "--forceReset, -f, -F", "Force Collect for Hardware. { vpd-tool-exe "
-                                "--forceReset/-f/-F }");
+        "--forceReset, -f, -F",
+        "Force Collect for Hardware. CAUTION: Do not use this option anywhere "
+        "out of LAB. { vpd-tool-exe --forceReset/-f/-F }");
     auto Hardware = app.add_flag(
         "--Hardware, -H",
-        "This is a supplementary flag to write directly to hardware. When the "
-        "-H flag is given, User should provide valid hardware/eeprom path (and "
-        "not dbus object path) in the -O/--object path.");
+        "This is a supplementary flag to read/write directly from/to hardware. "
+        "CAUTION: Do not use hardware write option anywhere out of LAB. User "
+        "should provide valid hardware/eeprom path (and not dbus object path) "
+        "in the -O/--object path.");
 
     CLI11_PARSE(app, argc, argv);
 
