@@ -21,6 +21,7 @@ int main(int argc, char** argv)
     string recordName{};
     string keyword{};
     string val{};
+    uint32_t offset = 0;
 
     auto object =
         app.add_option("--object, -O", objectPath, "Enter the Object Path");
@@ -31,6 +32,11 @@ int main(int argc, char** argv)
         "--value, -V", val,
         "Enter the value. The value to be updated should be either in ascii or "
         "in hex. ascii eg: 01234; hex eg: 0x30313233");
+    app.add_option("--offset", offset,
+                   "User can provide VPD offset using this option. Default "
+                   "offset value is 0. Using --offset is optional and is valid "
+                   "only while using --Hardware/-H option.");
+
     auto dumpObjFlag =
         app.add_flag("--dumpObject, -o",
                      "Dump the given object from the inventory. { "
@@ -64,13 +70,15 @@ int main(int argc, char** argv)
             ->needs(valOption);
 
     auto forceResetFlag = app.add_flag(
-        "--forceReset, -f, -F", "Force Collect for Hardware. { vpd-tool-exe "
-                                "--forceReset/-f/-F }");
+        "--forceReset, -f, -F",
+        "Force Collect for Hardware. CAUTION: Do not use this option anywhere "
+        "out of LAB. { vpd-tool-exe --forceReset/-f/-F }");
     auto Hardware = app.add_flag(
         "--Hardware, -H",
-        "This is a supplementary flag to write directly to hardware. When the "
-        "-H flag is given, User should provide valid hardware/eeprom path (and "
-        "not dbus object path) in the -O/--object path.");
+        "This is a supplementary flag to read/write directly from/to hardware. "
+        "CAUTION: Do not use hardware write option anywhere out of LAB. User "
+        "should provide valid hardware/eeprom path (and not dbus object path) "
+        "in the -O/--object path.");
 
     CLI11_PARSE(app, argc, argv);
 
@@ -139,13 +147,13 @@ int main(int argc, char** argv)
         {
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword), move(val));
-            rc = vpdToolObj.updateHardware();
+            rc = vpdToolObj.updateHardware(offset);
         }
         else if (*readFlag && *Hardware)
         {
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword));
-            vpdToolObj.readKwFromHw();
+            vpdToolObj.readKwFromHw(offset);
         }
         else
         {
@@ -157,6 +165,13 @@ int main(int argc, char** argv)
     catch (const exception& e)
     {
         cerr << e.what();
+
+        if (*Hardware)
+        {
+            std::cerr << "\nDid you provide a valid offset? By default VPD "
+                         "offset is taken as 0. To input offset, use --offset. "
+                         "Refer vpd-tool help.";
+        }
         rc = -1;
     }
 

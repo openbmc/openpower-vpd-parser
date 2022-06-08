@@ -488,29 +488,17 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
     printReturnCode(returnCode);
 }
 
-int VpdTool::updateHardware()
+int VpdTool::updateHardware(uint32_t offset)
 {
     int rc = 0;
-    bool updCache = true;
     const Binary& val = static_cast<const Binary&>(toBinary(value));
     ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
     try
     {
         auto json = nlohmann::json::parse(inventoryJson);
-        uint32_t offset = 0;
         EditorImpl edit(fruPath, json, recordName, keyword);
-        if (!((isPathInJson(fruPath)) &&
-              (isRecKwInDbusJson(recordName, keyword))))
-        {
-            updCache = false;
-        }
-        if (fruPath.starts_with("/sys/bus/spi"))
-        {
-            // TODO: Figure out a better way to get this, SPI eeproms
-            // start at offset 0x30000
-            offset = 0x30000;
-        }
-        edit.updateKeyword(val, offset, updCache);
+
+        edit.updateKeyword(val, offset, false);
     }
     catch (const json::parse_error& ex)
     {
@@ -519,20 +507,10 @@ int VpdTool::updateHardware()
     return rc;
 }
 
-void VpdTool::readKwFromHw()
+void VpdTool::readKwFromHw(uint32_t startOffset)
 {
-    uint32_t startOffset = 0;
-
     ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
     auto jsonFile = nlohmann::json::parse(inventoryJson);
-
-    for (const auto& item : jsonFile["frus"][fruPath])
-    {
-        if (item.find("offset") != item.end())
-        {
-            startOffset = item["offset"];
-        }
-    }
 
     Binary completeVPDFile;
     completeVPDFile.resize(65504);

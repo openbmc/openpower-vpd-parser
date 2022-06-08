@@ -575,6 +575,11 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
         }
         return;
     }
+    else
+    {
+        std::string str = "Error parsing the given VPD file " + vpdFilePath;
+        throw std::runtime_error(str);
+    }
 }
 } // namespace editor
 } // namespace manager
