@@ -180,7 +180,7 @@ class VpdTool
      * Else update the given data only in hardware.
      * @return returncode (success/failure).
      */
-    int updateHardware();
+    int updateHardware(uint32_t offset);
 
     /**
      * @brief Read Keyword from Hardware
@@ -188,7 +188,7 @@ class VpdTool
      * path, record name and keyword name are received at the time of
      * initialising the constructor.
      */
-    void readKwFromHw();
+    void readKwFromHw(uint32_t startOffset);
 
     /**
      * @brief Constructor
