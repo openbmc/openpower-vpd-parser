@@ -9,6 +9,11 @@
 
 using json = nlohmann::json;
 
+// <S.no, Record, Keyword, D-Bus value, HW value, Data mismatch>
+using SystemCriticalData =
+    std::vector<std::tuple<int, std::string, std::string, std::string,
+                           std::string, std::string>>;
+
 class VpdTool
 {
   private:
@@ -17,6 +22,7 @@ class VpdTool
     const std::string keyword;
     const std::string value;
     bool objFound = true;
+    SystemCriticalData recKwData;
 
     // Store Type of FRU
     std::string fruType;
@@ -132,6 +138,34 @@ class VpdTool
     json getPresentPropJson(const std::string& invPath,
                             std::string& parentPresence);
 
+    /**
+     * @brief Parse through the options to fix system VPD
+     *
+     * @param[in] json - Inventory JSON
+     */
+    void parseSVPDOptions(const nlohmann::json& json);
+
+    /**
+     * @brief List of user options that can be used to fix system VPD keywords.
+     */
+    enum UserOption
+    {
+        EXIT = 0,
+        BMC_DATA_FOR_ALL = 1,
+        SYSTEM_BACKPLANE_DATA_FOR_ALL = 2,
+        MORE_OPTIONS = 3,
+        BMC_DATA_FOR_CURRENT = 4,
+        SYSTEM_BACKPLANE_DATA_FOR_CURRENT = 5,
+        NEW_VALUE_ON_BOTH = 6,
+        SKIP_CURRENT = 7
+    };
+
+    /**
+     * @brief Print options to fix system VPD.
+     * @param[in] option - Option to use.
+     */
+    void printFixSystemVPDOption(UserOption option);
+
   public:
     /**
      * @brief Dump the complete inventory in JSON format
@@ -197,6 +231,16 @@ class VpdTool
      * @param[in] startOffset - VPD offset.
      */
     void readKwFromHw(const uint32_t& startOffset);
+
+    /**
+     * @brief Fix System VPD keyword.
+     * This API provides an interactive way to fix system VPD keywords that are
+     * part of restorable record-keyword pairs. The user can use this option to
+     * restore the restorable keywords in cache or in hardware or in both cache
+     * and hardware.
+     * @return returncode (success/failure).
+     */
+    int fixSystemVPD();
 
     /**
      * @brief Constructor
