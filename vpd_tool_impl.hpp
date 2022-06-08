@@ -133,6 +133,18 @@ class VpdTool
                             std::string& parentPresence);
 
   public:
+    enum UserOption
+    {
+        EXIT,
+        BMC_DATA_FOR_ALL,
+        SYSTEM_BACKPLANE_DATA_FOR_ALL,
+        MORE_OPTIONS,
+        BMC_DATA_FOR_CURRENT,
+        SYSTEM_BACKPLANE_DATA_FOR_CURRENT,
+        NEW_VALUE_ON_BOTH,
+        SKIP_CURRENT
+    };
+
     /**
      * @brief Dump the complete inventory in JSON format
      *
@@ -189,6 +201,16 @@ class VpdTool
      * initialising the constructor.
      */
     void readKwFromHw();
+
+    /**
+     * @brief Fix System VPD keyword.
+     * This API provides an interactive way to fix system VPD keywords that are
+     * part of restorable record-keyword pairs. The user can use this option to
+     * restore the restorable keywords in cache or in hardware or in both cache
+     * and hardware.
+     * @return returncode (success/failure).
+     */
+    int fixSystemVPD();
 
     /**
      * @brief Constructor
