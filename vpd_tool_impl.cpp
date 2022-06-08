@@ -519,7 +519,9 @@ int VpdTool::updateHardware()
     return rc;
 }
 
-void VpdTool::readKwFromHw()
+static std::string getKwFromHw(const std::string& fruPath,
+                               const std::string& recordName,
+                               const std::string& keyword)
 {
     uint32_t startOffset = 0;
 
@@ -549,8 +551,14 @@ void VpdTool::readKwFromHw()
     {
         throw std::runtime_error("Invalid File");
     }
+
     Impl obj(completeVPDFile);
-    std::string keywordVal = obj.readKwFromHw(recordName, keyword);
+    return (obj.readKwFromHw(recordName, keyword));
+}
+
+void VpdTool::readKwFromHw()
+{
+    std::string keywordVal = getKwFromHw(fruPath, recordName, keyword);
 
     if (!keywordVal.empty())
     {
@@ -569,4 +577,250 @@ void VpdTool::readKwFromHw()
                   << " or both are not present in the given FRU path "
                   << fruPath << std::endl;
     }
+}
+
+int VpdTool::fixSystemVPD()
+{
+    std::cout << "\nRestorable record-keyword pairs and their data on cache & "
+                 "hardware.\n";
+
+    std::cout << "\n|=========================================================="
+                 "============================================|"
+              << std::endl;
+
+    std::cout << left << setw(6) << "S.No" << left << setw(8) << "Record"
+              << left << setw(9) << "Keyword" << left << setw(30)
+              << "Data On Cache" << left << setw(30) << "Data On Hardware"
+              << left << setw(14) << "Data Mismatch";
+
+    std::cout << "\n|=========================================================="
+                 "============================================|"
+              << std::endl;
+
+    int num = 0;
+    std::vector<std::tuple<int, std::string, std::string, std::string,
+                           std::string, std::string>>
+        recKwData;
+
+    for (const auto& recordKw : svpdKwdMap)
+    {
+        std::string record = recordKw.first;
+        for (const auto& keyword : recordKw.second)
+        {
+            const auto busValue = readDBusProperty<std::variant<Binary>>(
+                openpower::vpd::constants::pimIntf,
+                "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                openpower::vpd::constants::ipzVpdInf + record, keyword);
+
+            const auto& hardwareValue = getKwFromHw(
+                openpower::vpd::constants::systemVpdFilePath, record, keyword);
+
+            std::ostringstream hwValStream;
+            hwValStream << "0x";
+            std::string hwValStr = hwValStream.str();
+
+            for (uint16_t byte : hardwareValue)
+            {
+                hwValStream << std::setfill('0') << std::setw(2) << std::hex
+                            << byte;
+                hwValStr = hwValStream.str();
+            }
+
+            const auto busData = std::get_if<Binary>(&busValue);
+
+            std::string mismatch = "NO"; // no mismatch
+
+            if (busData != nullptr)
+            {
+                const auto busStr = byteArrayToHexString(*busData);
+                if (busStr != hwValStr)
+                {
+                    mismatch = "YES";
+                }
+                recKwData.push_back(std::make_tuple(
+                    ++num, record, keyword, busStr, hwValStr, mismatch));
+                std::cout << left << setw(6) << num << left << setw(8) << record
+                          << left << setw(9) << keyword << left << setw(30)
+                          << setfill(' ') << busStr << left << setw(30)
+                          << setfill(' ') << hwValStr << left << setw(14)
+                          << mismatch;
+
+                std::cout << "\n|----------------------------------------------"
+                             "------------"
+                             "--------------------------------------------|"
+                          << std::endl;
+            }
+        }
+    }
+
+RETRY1:
+    std::cout << "\n\nEnter 1 => If you choose cache data of all mismatching "
+                 "record-keyword pairs\nEnter 2 => If you choose hardware data "
+                 "of all mismatching record-keyword pairs\nEnter 3 => If you "
+                 "wish to explore more options\nEnter 0 to exit  ";
+
+    int option;
+    std::cin >> option;
+
+    std::cout << "\n|=========================================================="
+                 "=============|"
+              << std::endl;
+
+    ifstream inventoryJson(INVENTORY_JSON_SYM_LINK, std::ios::binary);
+
+    if (!inventoryJson)
+    {
+        throw std::runtime_error("json file not found");
+    }
+
+    auto json = nlohmann::json::parse(inventoryJson);
+
+    if (json.find("frus") == json.end())
+    {
+        std::cerr << "\nfrus not found in json";
+    }
+    if (option == 1)
+    {
+        for (const auto& data : recKwData)
+        {
+            if (std::get<5>(data) == "YES")
+            {
+                EditorImpl edit(openpower::vpd::constants::systemVpdFilePath,
+                                json, std::get<1>(data), std::get<2>(data));
+                edit.updateKeyword(toBinary(std::get<3>(data)), 0, true);
+            }
+        }
+        std::cout
+            << "\nData updated successfully for all mismatching record-keyword "
+               "pairs by chosing their corresponding cache data.\n"
+            << std::endl;
+
+        return 0;
+    }
+    else if (option == 2)
+    {
+        for (const auto& data : recKwData)
+        {
+            if (std::get<5>(data) == "YES")
+            {
+                EditorImpl edit(openpower::vpd::constants::systemVpdFilePath,
+                                json, std::get<1>(data), std::get<2>(data));
+                edit.updateKeyword(toBinary(std::get<4>(data)), 0, true);
+            }
+        }
+        std::cout
+            << "\nData updated successfully for all mismatching record-keyword "
+               "pairs by chosing their corresponding hardware data.\n"
+            << std::endl;
+
+        return 0;
+    }
+    else if (option == 3)
+    {
+        std::cout << "\nIterate through all restorable record-keyword pairs\n";
+
+        for (const auto& data : recKwData)
+        {
+        RETRY2:
+            std::cout << "\n|=================================================="
+                         "========"
+                         "============================================|"
+                      << std::endl;
+
+            std::cout << left << setw(6) << "S.No" << left << setw(8)
+                      << "Record" << left << setw(9) << "Keyword" << left
+                      << setw(30) << setfill(' ') << "Data On Cache" << left
+                      << setw(30) << setfill(' ') << "Data On Hardware" << left
+                      << setw(14) << "Data Mismatch" << std::endl;
+
+            std::cout << left << setw(6) << std::get<0>(data) << left << setw(8)
+                      << std::get<1>(data) << left << setw(9)
+                      << std::get<2>(data) << left << setw(30) << setfill(' ')
+                      << std::get<3>(data) << left << setw(30) << setfill(' ')
+                      << std::get<4>(data) << left << setw(14)
+                      << std::get<5>(data) << std::endl;
+
+            std::cout << "\n|=================================================="
+                         "========"
+                         "============================================|"
+                      << std::endl;
+
+            if (std::get<5>(data) == "NO")
+            {
+                std::cout
+                    << "No mismatch found. Skip this record-keyword pair.\n";
+                continue;
+            }
+
+            std::cout << "\nEnter 4 => If you choose the cache value as the "
+                         "right value\nEnter 5 => If you choose hardware value "
+                         "as the right value\nEnter 6 => If you wish to enter "
+                         "a new value to update both cache and hardware\nEnter "
+                         "7 => If you wish to skip the above record-keyword "
+                         "pair\nEnter 0 => To exit successfully  ";
+
+            std::cin >> option;
+
+            std::cout << "\n|=================================================="
+                         "========"
+                         "=============|"
+                      << std::endl;
+
+            EditorImpl edit(openpower::vpd::constants::systemVpdFilePath, json,
+                            std::get<1>(data), std::get<2>(data));
+
+            if (option == 4)
+            {
+                edit.updateKeyword(toBinary(std::get<3>(data)), 0, true);
+            }
+            else if (option == 5)
+            {
+                edit.updateKeyword(toBinary(std::get<4>(data)), 0, true);
+            }
+            else if (option == 6)
+            {
+                std::string value;
+                std::cout << "\nEnter the new value to update both in cache & "
+                             "hardware (Value should be in ASCII or in "
+                             "HEX(prefixed with 0x)) : ";
+                std::cin >> value;
+
+                std::cout << "\n|=============================================="
+                             "=========================|"
+                          << std::endl;
+
+                edit.updateKeyword(toBinary(value), 0, true);
+            }
+            else if (option == 7)
+            {
+                std::cout << "\nSkipped the above record-keyword pair. "
+                             "Continueing to the next pair if available.\n";
+                continue;
+            }
+            else if (option == 0)
+            {
+                std::cout << "\nExited successfully\n";
+                exit(0);
+            }
+            else
+            {
+                std::cout << "\nProvide a valid option. Retrying for the "
+                             "current record-keyword pair\n";
+                goto RETRY2;
+            }
+
+            std::cout << "\nData updated successfully.\n";
+        }
+    }
+    else if (option == 0)
+    {
+        std::cout << "\nExit successfully";
+        exit(0);
+    }
+    else
+    {
+        std::cout << "\nProvide a valid option. Retry.";
+        goto RETRY1;
+    }
+    return 0;
 }

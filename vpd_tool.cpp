@@ -72,6 +72,10 @@ int main(int argc, char** argv)
         "-H flag is given, User should provide valid hardware/eeprom path (and "
         "not dbus object path) in the -O/--object path.");
 
+    auto fixSystemVPDFlag = app.add_flag(
+        "--fixSystemVPD", "Use this flag to restore system VPD restorable "
+                          "keywords {vpd-tool-exe --fixSystemVPD}");
+
     CLI11_PARSE(app, argc, argv);
 
     ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
@@ -146,6 +150,11 @@ int main(int argc, char** argv)
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword));
             vpdToolObj.readKwFromHw();
+        }
+        else if (*fixSystemVPDFlag)
+        {
+            VpdTool vpdToolObj;
+            rc = vpdToolObj.fixSystemVPD();
         }
         else
         {
