@@ -48,7 +48,7 @@ int main(int argc, char** argv)
                    std::istreambuf_iterator<char>());
 
         // Parse VPD
-        IpzVpdParser ipzParser(std::move(vpd));
+        IpzVpdParser ipzParser(std::move(vpd), std::string{});
         auto vpdStore = std::move(std::get<Store>(ipzParser.parse()));
 
         if (doDump)
