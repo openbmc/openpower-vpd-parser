@@ -515,6 +515,21 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
 
     vpdFile = completeVPDFile;
 
+    if (objPath.empty())
+    {
+        // this should not fail as we have already read the vpdFilePath above.
+        if (jsonFile.contains(vpdFilePath))
+        {
+            objPath = jsonFile[vpdFilePath][0]["inventoryPath"]
+                          .get_ref<const nlohmann::json::string_t&>();
+        }
+        else
+        {
+            throw std::runtime_error(
+                "Json does not contain given vpd file path");
+        }
+    }
+
 #else
 
     Binary completeVPDFile = vpdFile;
@@ -530,7 +545,9 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
     Byte vpdType = *iterator;
     if (vpdType == KW_VAL_PAIR_START_TAG)
     {
-        ParserInterface* Iparser = ParserFactory::getParser(completeVPDFile);
+        // objPath should be empty only in case of test run.
+        ParserInterface* Iparser =
+            ParserFactory::getParser(completeVPDFile, objPath);
         IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
 
         try

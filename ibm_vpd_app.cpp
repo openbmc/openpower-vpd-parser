@@ -1517,8 +1517,8 @@ int main(int argc, char** argv)
                     (subTree.find(pimPath + mboardPath) != subTree.end()))
                 {
                     vpdVector = getVpdDataInVector(js, file);
-                    ParserInterface* parser =
-                        ParserFactory::getParser(vpdVector);
+                    ParserInterface* parser = ParserFactory::getParser(
+                        vpdVector, (pimPath + mboardPath));
                     variant<KeywordVpdMap, Store> parseResult;
                     parseResult = parser->parse();
 
@@ -1600,7 +1600,8 @@ int main(int argc, char** argv)
         try
         {
             vpdVector = getVpdDataInVector(js, file);
-            ParserInterface* parser = ParserFactory::getParser(vpdVector);
+            ParserInterface* parser = ParserFactory::getParser(
+                vpdVector, INVENTORY_PATH + baseFruInventoryPath);
             variant<KeywordVpdMap, Store> parseResult;
             parseResult = parser->parse();
 
