@@ -175,7 +175,7 @@ class EditorImpl
     inventory::Path vpdFilePath;
 
     // inventory path of the vpd fru to update keyword
-    const inventory::Path objPath;
+    inventory::Path objPath{};
 
     // stream to perform operation on file
     std::fstream vpdFileStream;
