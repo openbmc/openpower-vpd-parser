@@ -30,9 +30,11 @@ class ParserFactory
     /**
      * @brief A method to get object of concrete parser class.
      * @param[in] - vpd file to check for the type.
+     * @param[in] - InventoryPath to call out FRU in case PEL is logged.
      * @return - Pointer to concrete parser class object.
      */
-    static interface::ParserInterface* getParser(const Binary& vpdVector);
+    static interface::ParserInterface*
+        getParser(const Binary& vpdVector, const std::string& inventoryPath);
 
     /**
      * @brief A method to delete the parser object.

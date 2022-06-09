@@ -1396,7 +1396,8 @@ int main(int argc, char** argv)
         try
         {
             vpdVector = getVpdDataInVector(js, file);
-            ParserInterface* parser = ParserFactory::getParser(vpdVector);
+            ParserInterface* parser = ParserFactory::getParser(
+                vpdVector, (pimPath + baseFruInventoryPath));
             variant<KeywordVpdMap, Store> parseResult;
             parseResult = parser->parse();
 

@@ -124,7 +124,11 @@ void Manager::restoreSystemVpd()
     try
     {
         auto vpdVector = getVpdDataInVector(jsonFile, systemVpdFilePath);
-        parser = ParserFactory::getParser(vpdVector);
+        const auto& inventoryPath =
+            jsonFile["frus"][systemVpdFilePath][0]["inventoryPath"]
+                .get_ref<const nlohmann::json::string_t&>();
+
+        parser = ParserFactory::getParser(vpdVector, (pimPath + inventoryPath));
         auto parseResult = parser->parse();
 
         if (auto pVal = std::get_if<Store>(&parseResult))
@@ -347,7 +351,7 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
         if (!std::get<1>(frus.find(objPath)->second).empty())
         {
             EditorImpl edit(std::get<1>(frus.find(objPath)->second), jsonFile,
-                            recordName, keyword);
+                            recordName, keyword, objPath);
             edit.updateKeyword(value, offset, false);
         }
 

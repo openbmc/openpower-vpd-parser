@@ -549,7 +549,11 @@ void VpdTool::readKwFromHw()
     {
         throw std::runtime_error("Invalid File");
     }
-    Impl obj(completeVPDFile);
+
+    const std::string& inventoryPath =
+        jsonFile["frus"][fruPath][0]["inventoryPath"];
+
+    Impl obj(completeVPDFile, (constants::pimPath + inventoryPath));
     std::string keywordVal = obj.readKwFromHw(recordName, keyword);
 
     if (!keywordVal.empty())
