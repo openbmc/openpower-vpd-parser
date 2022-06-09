@@ -67,8 +67,10 @@ class Impl
     /** @brief Construct an Impl
      *
      *  @param[in] vpdBuffer - Binary VPD
+     *  @param[in] path - To call out FRU in case of any PEL.
      */
-    explicit Impl(const Binary& vpdBuffer) : vpd(vpdBuffer), out{}
+    Impl(const Binary& vpdBuffer, const std::string& path) :
+        vpd(vpdBuffer), inventoryPath(path), out{}
     {
     }
 
@@ -167,6 +169,9 @@ class Impl
 
     /** @brief VPD in binary format */
     const Binary& vpd;
+
+    /** Inventory path to call out FRU if required */
+    const std::string inventoryPath;
 
     /** @brief parser output */
     Parsed out;

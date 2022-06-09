@@ -145,6 +145,7 @@ if get_option('ibm-parser').enabled()
                                  vpd_tool_SOURCES,
                                  dependencies: [
                                    sdbusplus,
+                                   phosphor_logging,
                                    libgpiodcxx
                                    ],
                                  link_with : libvpdecc,

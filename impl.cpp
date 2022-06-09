@@ -3,6 +3,7 @@
 #include "const.hpp"
 #include "defines.hpp"
 #include "ibm_vpd_utils.hpp"
+#include "types.hpp"
 #include "vpd_exceptions.hpp"
 
 #include <algorithm>
@@ -147,13 +148,13 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
 
     if (eccLength == 0 || eccOffset == 0)
     {
-        throw(VpdEccException("Could not find ECC's offset or Length"));
+        throw(VpdEccException("Could not find ECC's offset or Length."));
     }
 
     if (recordOffset == 0 || recordLength == 0)
     {
-        throw(VpdDataException(
-            "Could not find VPD record offset or VPD record length"));
+        throw(VpdDataException("Could not find VPD record offset or VPD record "
+                               "length."));
     }
 
     auto vpdPtr = vpd.cbegin();
@@ -264,19 +265,44 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
         offsets.push_back(offset);
 
 #ifdef IPZ_PARSER
-        // Verify the ECC for this Record
-        int rc = recordEccCheck(iterator);
+        std::string recordName(iteratorToRecName,
+                               iteratorToRecName + lengths::RECORD_NAME);
 
-        if (rc != eccStatus::SUCCESS)
+        try
         {
-            std::string recordName(iteratorToRecName,
-                                   iteratorToRecName + lengths::RECORD_NAME);
+            // Verify the ECC for this Record
+            int rc = recordEccCheck(iterator);
 
-            std::string errorMsg =
-                std::string("ERROR: ECC check did not pass for the Record:") +
-                recordName;
-            throw(VpdEccException(errorMsg));
+            if (rc != eccStatus::SUCCESS)
+            {
+                std::string errorMsg =
+                    std::string("ERROR: ECC check did not pass.");
+                throw(VpdEccException(errorMsg));
+            }
         }
+        catch (const VpdEccException& ex)
+        {
+            std::string errMsg =
+                std::string{ex.what()} + " Record: " + recordName;
+
+            inventory::PelAdditionalData additionalData{};
+            additionalData.emplace("DESCRIPTION", errMsg);
+            additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
+            createPEL(additionalData, PelSeverity::WARNING,
+                      errIntfForEccCheckFail);
+        }
+        catch (const VpdDataException& ex)
+        {
+            std::string errMsg =
+                std::string{ex.what()} + " Record: " + recordName;
+
+            inventory::PelAdditionalData additionalData{};
+            additionalData.emplace("DESCRIPTION", errMsg);
+            additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
+            createPEL(additionalData, PelSeverity::WARNING,
+                      errIntfForInvalidVPD);
+        }
+
 #endif
 
         // Jump record size, record length, ECC offset and ECC length
