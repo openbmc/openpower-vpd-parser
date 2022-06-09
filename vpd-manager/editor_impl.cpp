@@ -497,83 +497,160 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
     common::utility::callPIM(move(objects));
 }
 
+static void enableRebootGuard()
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto method = bus.new_method_call(
+            "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+            "org.freedesktop.systemd1.Manager", "StartUnit");
+        method.append("reboot-guard-enable.service", "replace");
+        bus.call_noreply(method);
+    }
+    catch (const sdbusplus::exception::exception& e)
+    {
+        std::string errMsg =
+            "Bus call to enable BMC reboot failed for reason: ";
+        errMsg += e.what();
+
+        throw std::runtime_error(errMsg);
+    }
+}
+
+static void disableRebootGuard()
+{
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto method = bus.new_method_call(
+            "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+            "org.freedesktop.systemd1.Manager", "StartUnit");
+        method.append("reboot-guard-disable.service", "replace");
+        bus.call_noreply(method);
+    }
+    catch (const sdbusplus::exception::exception& e)
+    {
+        std::string errMsg =
+            "Bus call to disable BMC reboot failed for reason: ";
+        errMsg += e.what();
+
+        throw std::runtime_error(errMsg);
+    }
+}
+
 void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
                                const bool& updCache)
 {
-    startOffset = offset;
+    try
+    {
+        // Restric BMC from rebooting when VPD is being written. This will
+        // prevent any data/ECC corruption in case BMC reboots while VPD update.
+        enableRebootGuard();
+
+        startOffset = offset;
 #ifndef ManagerTest
-    // TODO: Figure out a better way to get max possible VPD size.
-    Binary completeVPDFile;
-    completeVPDFile.resize(65504);
-    vpdFileStream.open(vpdFilePath,
-                       std::ios::in | std::ios::out | std::ios::binary);
+        // TODO: Figure out a better way to get max possible VPD size.
+        Binary completeVPDFile;
+        completeVPDFile.resize(65504);
+        vpdFileStream.open(vpdFilePath,
+                           std::ios::in | std::ios::out | std::ios::binary);
 
-    vpdFileStream.seekg(startOffset, ios_base::cur);
-    vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]), 65504);
-    completeVPDFile.resize(vpdFileStream.gcount());
-    vpdFileStream.clear(std::ios_base::eofbit);
+        vpdFileStream.seekg(startOffset, ios_base::cur);
+        vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]), 65504);
+        completeVPDFile.resize(vpdFileStream.gcount());
+        vpdFileStream.clear(std::ios_base::eofbit);
 
-    vpdFile = completeVPDFile;
+        vpdFile = completeVPDFile;
+
+        if (objPath.empty())
+        {
+            // this should not fail as we have already read the vpdFilePath
+            // above.
+            if (jsonFile.contains(vpdFilePath))
+            {
+                objPath = jsonFile[vpdFilePath][0]["inventoryPath"]
+                              .get_ref<const nlohmann::json::string_t&>();
+            }
+            else
+            {
+                throw std::runtime_error(
+                    "Json does not contain given vpd file path");
+            }
+        }
 
 #else
 
-    Binary completeVPDFile = vpdFile;
+        Binary completeVPDFile = vpdFile;
 
 #endif
-    if (vpdFile.empty())
-    {
-        throw std::runtime_error("Invalid File");
-    }
-    auto iterator = vpdFile.cbegin();
-    std::advance(iterator, IPZ_DATA_START);
-
-    Byte vpdType = *iterator;
-    if (vpdType == KW_VAL_PAIR_START_TAG)
-    {
-        ParserInterface* Iparser = ParserFactory::getParser(completeVPDFile);
-        IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
-
-        try
+        if (vpdFile.empty())
         {
-            if (ipzParser == nullptr)
-            {
-                throw std::runtime_error("Invalid cast");
-            }
-
-            ipzParser->processHeader();
-            delete ipzParser;
-            ipzParser = nullptr;
-            // ParserFactory::freeParser(Iparser);
-
-            // process VTOC for PTT rkwd
-            readVTOC();
-
-            // check record for keywrod
-            checkRecordForKwd();
-
-            // update the data to the file
-            updateData(kwdData);
-
-            // update the ECC data for the record once data has been updated
-            updateRecordECC();
-
-            if (updCache)
-            {
-#ifndef ManagerTest
-                // update the cache once data has been updated
-                updateCache();
-#endif
-            }
+            throw std::runtime_error("Invalid File");
         }
-        catch (const std::exception& e)
+        auto iterator = vpdFile.cbegin();
+        std::advance(iterator, IPZ_DATA_START);
+
+        Byte vpdType = *iterator;
+        if (vpdType == KW_VAL_PAIR_START_TAG)
         {
-            if (ipzParser != nullptr)
+            // objPath should be empty only in case of test run.
+            ParserInterface* Iparser =
+                ParserFactory::getParser(completeVPDFile, objPath);
+            IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
+
+            try
             {
+                if (ipzParser == nullptr)
+                {
+                    throw std::runtime_error("Invalid cast");
+                }
+
+                ipzParser->processHeader();
                 delete ipzParser;
+                ipzParser = nullptr;
+                // ParserFactory::freeParser(Iparser);
+
+                // process VTOC for PTT rkwd
+                readVTOC();
+
+                // check record for keywrod
+                checkRecordForKwd();
+
+                // update the data to the file
+                updateData(kwdData);
+
+                // update the ECC data for the record once data has been updated
+                updateRecordECC();
+
+                if (updCache)
+                {
+#ifndef ManagerTest
+                    // update the cache once data has been updated
+                    updateCache();
+#endif
+                }
             }
-            throw std::runtime_error(e.what());
+            catch (const std::exception& e)
+            {
+                if (ipzParser != nullptr)
+                {
+                    delete ipzParser;
+                }
+                throw std::runtime_error(e.what());
+            }
+            // Once VPD data and Ecc update is done, disable BMC boot guard.
+            disableRebootGuard();
+
+            return;
         }
-        return;
+    }
+    catch (const std::exception& e)
+    {
+        // Disable reboot guard.
+        disableRebootGuard();
+
+        throw std::runtime_error(e.what());
     }
 }
 } // namespace editor
