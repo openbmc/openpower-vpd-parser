@@ -483,21 +483,35 @@ static bool isThisPcieOnPass1planar(const nlohmann::json& js,
         {
             auto hwVersion = *pVal1;
             auto systemType = *pVal2;
-
-            // IM kw for Everest
-            Binary everestSystem{80, 00, 48, 00};
-
-            if (systemType == everestSystem)
+            ostringstream hwVersionString;
+            for (auto& i : hwVersion)
             {
-                if (hwVersion[1] < 21)
-                {
-                    isPASS1 = true;
-                }
+                hwVersionString << setw(2) << setfill('0') << hex
+                                << static_cast<int>(i);
             }
-            else if (hwVersion[1] < 2)
+            ostringstream systemTypeString;
+            for (auto& i : systemType)
             {
-                isPASS1 = true;
+                systemTypeString << setw(2) << setfill('0') << hex
+                                 << static_cast<int>(i);
             }
+            isPASS1 =
+                getPlanarVersion(hwVersionString.str(), systemTypeString.str());
+            /*
+                        // IM kw for Everest
+                        Binary everestSystem{80, 00, 48, 00};
+
+                        if (systemType == everestSystem)
+                        {
+                            if (hwVersion[1] < 21)
+                            {
+                                isPASS1 = true;
+                            }
+                        }
+                        else if (hwVersion[1] < 2)
+                        {
+                            isPASS1 = true;
+                        }*/
         }
     }
 

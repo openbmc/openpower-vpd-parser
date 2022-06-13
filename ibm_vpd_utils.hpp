@@ -165,8 +165,16 @@ inline vector<string> executeCmd(T&& path, Types... args)
     return stdOutput;
 }
 
-/** @brief This API checks for IM and HW keywords, and based
- *         on these values decides which system json to be used.
+/** @brief This API processes system json for IM and HW keywords.
+ *  @param[in] hwKeyword HW keyword value
+ *  @param[in] imKeyword IM keyword value
+ *  @returns if PASS1- true
+ *           otherwise - false
+ */
+bool getPlanarVersion(const string& hwKeyword, const string& imKeyword);
+
+/** @brief This API decides which system json to be used,
+ *         based on planar type (Low/High).
  *  @param[in] vpdMap -  parsed vpd
  *  @returns System json path
  */

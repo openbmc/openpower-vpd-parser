@@ -372,26 +372,13 @@ const string getHW(const Parsed& vpdMap)
     return hwString.str();
 }
 
-string getSystemsJson(const Parsed& vpdMap)
+bool getPlanarVersion(const string& hwKeyword, const string& imKeyword)
 {
-    string jsonPath = "/usr/share/vpd/";
-    string jsonName{};
-
     ifstream systemJson(SYSTEM_JSON);
-    if (!systemJson)
-    {
-        throw((VpdJsonException("Failed to access Json path", SYSTEM_JSON)));
-    }
 
     try
     {
         auto js = json::parse(systemJson);
-
-        string hwKeyword = getHW(vpdMap);
-        const string imKeyword = getIM(vpdMap);
-
-        transform(hwKeyword.begin(), hwKeyword.end(), hwKeyword.begin(),
-                  ::toupper);
 
         if (js.find("system") == js.end())
         {
@@ -422,35 +409,54 @@ string getSystemsJson(const Parsed& vpdMap)
 
                 if (hw == hwKeyword)
                 {
-                    jsonName = js["system"][imKeyword]["constraint"]["json"];
-                    break;
+                    return true;
                 }
             }
-
-            if (jsonName.empty() && js["system"][imKeyword].find("default") !=
-                                        js["system"][imKeyword].end())
-            {
-                jsonName = js["system"][imKeyword]["default"];
-            }
+            return false;
         }
         else if (js["system"][imKeyword].find("default") !=
                  js["system"][imKeyword].end())
         {
-            jsonName = js["system"][imKeyword]["default"];
+            return false;
         }
         else
         {
             throw runtime_error(
                 "Bad System json. Neither constraint nor default found");
         }
-
-        jsonPath += jsonName;
     }
-
     catch (const json::parse_error& ex)
     {
         throw(VpdJsonException("Json Parsing failed", SYSTEM_JSON));
     }
+}
+
+string getSystemsJson(const Parsed& vpdMap)
+{
+    string jsonPath = "/usr/share/vpd/";
+    string jsonName{};
+
+    ifstream systemJson(SYSTEM_JSON);
+    if (!systemJson)
+    {
+        throw((VpdJsonException("Failed to access Json path", SYSTEM_JSON)));
+    }
+
+    auto js = json::parse(systemJson);
+
+    string hwKeyword = getHW(vpdMap);
+    const string imKeyword = getIM(vpdMap);
+
+    transform(hwKeyword.begin(), hwKeyword.end(), hwKeyword.begin(), ::toupper);
+
+    auto isPass1 = getPlanarVersion(hwKeyword, imKeyword);
+    if (isPass1)
+        jsonName = js["system"][imKeyword]["constraint"]["json"];
+    else
+        jsonName = js["system"][imKeyword]["default"];
+
+    jsonPath += jsonName;
+
     return jsonPath;
 }
 
