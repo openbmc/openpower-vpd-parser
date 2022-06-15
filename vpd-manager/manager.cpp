@@ -39,6 +39,7 @@ Manager::Manager(sdbusplus::bus::bus&& bus, const char* busName,
     _bus(std::move(bus)), _manager(_bus, objPath)
 {
     _bus.request_name(busName);
+    sd_bus_default(&sdBus);
 }
 
 void Manager::run()
@@ -173,6 +174,33 @@ void Manager::listenHostState()
             });
 }
 
+void Manager::checkEssentialFrus()
+{
+    for (const auto& invPath : essentialFrus)
+    {
+        const auto res = readBusProperty(invPath, invItemIntf, "Present");
+
+        // implies the essential FRU is missing. Log PEL.
+        if (res == "false")
+        {
+            auto rc = sd_bus_call_method_async(
+                sdBus, NULL, loggerService, loggerObjectPath,
+                loggerCreateInterface, "Create", NULL, NULL, "ssa{ss}",
+                errIntfForEssentialFru,
+                "xyz.openbmc_project.Logging.Entry.Level.Warning", 2,
+                "DESCRIPTION", "Essential fru missing from the system.",
+                "CALLOUT_INVENTORY_PATH", (pimPath + invPath).c_str());
+
+            if (rc < 0)
+            {
+                log<level::ERR>("Error calling sd_bus_call_method_async",
+                                entry("RC=%d", rc),
+                                entry("MSG=%s", strerror(-rc)));
+            }
+        }
+    }
+}
+
 void Manager::hostStateCallBack(sdbusplus::message::message& msg)
 {
     if (msg.is_method_error())
@@ -192,6 +220,9 @@ void Manager::hostStateCallBack(sdbusplus::message::message& msg)
             if (*hostState == "xyz.openbmc_project.State.Host.HostState."
                               "TransitioningToRunning")
             {
+                // detect if essential frus are present in the system.
+                checkEssentialFrus();
+
                 // check and perfrom recollection for FRUs replaceable at
                 // standby.
                 performVPDRecollection();
@@ -301,6 +332,11 @@ void Manager::processJSON()
             if (itemEEPROM.value("replaceableAtStandby", false))
             {
                 replaceableFrus.emplace_back(itemFRUS.key());
+            }
+
+            if (itemEEPROM.value("essentialFru", false))
+            {
+                essentialFrus.emplace_back(itemEEPROM["inventoryPath"]);
             }
         }
     }
