@@ -49,7 +49,10 @@ class Manager : public ServerObject<ManagerIface>
     Manager(const Manager&) = delete;
     Manager& operator=(const Manager&) = delete;
     Manager(Manager&&) = delete;
-    ~Manager() = default;
+    ~Manager()
+    {
+        sd_bus_unref(sdBus);
+    }
 
     /** @brief Constructor to put object onto bus at a dbus path.
      *  @param[in] bus - Bus connection.
@@ -159,6 +162,13 @@ class Manager : public ServerObject<ManagerIface>
      */
     void restoreSystemVpd();
 
+    /**
+     * @brief Check for essential fru in the system.
+     * The api check for the presence of FRUs marked as essential and logs PEL
+     * in case they are missing.
+     */
+    void checkEssentialFrus();
+
     /** @brief Persistent sdbusplus DBus bus connection. */
     sdbusplus::bus::bus _bus;
 
@@ -177,6 +187,12 @@ class Manager : public ServerObject<ManagerIface>
 
     // map to hold FRUs which can be replaced at standby
     inventory::ReplaceableFrus replaceableFrus;
+
+    // List of FRUs marked as essential in the system.
+    inventory::EssentialFrus essentialFrus;
+
+    // sd-bus
+    sd_bus* sdBus = nullptr;
 };
 
 } // namespace manager
