@@ -91,6 +91,7 @@ constexpr auto errIntfForJsonFailure = "com.ibm.VPD.Error.InvalidJson";
 constexpr auto errIntfForBusFailure = "com.ibm.VPD.Error.DbusFailure";
 constexpr auto errIntfForInvalidSystemType =
     "com.ibm.VPD.Error.UnknownSytemType";
+constexpr auto errIntfForEssentialFru = "com.ibm.VPD.Error.RequiredFRUMissing";
 constexpr auto errIntfForGpioError = "com.ibm.VPD.Error.GPIOError";
 constexpr auto motherBoardInterface =
     "xyz.openbmc_project.Inventory.Item.Board.Motherboard";

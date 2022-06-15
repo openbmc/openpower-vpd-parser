@@ -639,29 +639,6 @@ string getPrintableValue(const Binary& vec)
     return str;
 }
 
-/*
- * @brief Log PEL for GPIO exception
- *
- * @param[in] gpioErr gpioError type exception
- * @param[in] i2cBusAddr I2C bus and address
- */
-void logGpioPel(const string& gpioErr, const string& i2cBusAddr)
-{
-    // Get the IIC details
-    vector<string> i2cReg;
-    boost::split(i2cReg, i2cBusAddr, boost::is_any_of("-"));
-
-    PelAdditionalData additionalData{};
-    if (i2cReg.size() == 2)
-    {
-        additionalData.emplace("CALLOUT_IIC_BUS", i2cReg[0]);
-        additionalData.emplace("CALLOUT_IIC_ADDR", "0x" + i2cReg[1]);
-    }
-
-    additionalData.emplace("DESCRIPTION", gpioErr);
-    createPEL(additionalData, PelSeverity::WARNING, errIntfForGpioError);
-}
-
 void executePostFailAction(const nlohmann::json& json, const string& file)
 {
     if ((json["frus"][file].at(0)).find("postActionFail") ==
@@ -715,9 +692,12 @@ void executePostFailAction(const nlohmann::json& json, const string& file)
         {
             i2cBusAddr =
                 json["frus"][file].at(0)["postActionFail"]["gpioI2CAddress"];
+            errMsg += " i2cBusAddress: " + i2cBusAddr;
         }
 
-        logGpioPel(errMsg, i2cBusAddr);
+        PelAdditionalData additionalData{};
+        additionalData.emplace("DESCRIPTION", errMsg);
+        createPEL(additionalData, PelSeverity::WARNING, errIntfForGpioError);
     }
 
     return;
@@ -770,9 +750,14 @@ std::optional<bool> isPresent(const nlohmann::json& json, const string& file)
                 {
                     i2cBusAddr =
                         json["frus"][file].at(0)["presence"]["gpioI2CAddress"];
+                    errMsg += " i2cBusAddress: " + i2cBusAddr;
                 }
 
-                logGpioPel(errMsg, i2cBusAddr);
+                PelAdditionalData additionalData{};
+                additionalData.emplace("DESCRIPTION", errMsg);
+                createPEL(additionalData, PelSeverity::WARNING,
+                          errIntfForGpioError);
+
                 // Take failure postAction
                 executePostFailAction(json, file);
                 return false;
@@ -845,9 +830,13 @@ bool executePreAction(const nlohmann::json& json, const string& file)
                 {
                     i2cBusAddr =
                         json["frus"][file].at(0)["preAction"]["gpioI2CAddress"];
+                    errMsg += " i2cBusAddress: " + i2cBusAddr;
                 }
 
-                logGpioPel(errMsg, i2cBusAddr);
+                PelAdditionalData additionalData{};
+                additionalData.emplace("DESCRIPTION", errMsg);
+                createPEL(additionalData, PelSeverity::WARNING,
+                          errIntfForGpioError);
 
                 // Take failure postAction
                 executePostFailAction(json, file);
