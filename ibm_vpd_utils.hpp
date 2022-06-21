@@ -15,6 +15,25 @@ namespace openpower
 namespace vpd
 {
 
+// mapping of severity enum to severity interface
+static std::unordered_map<constants::PelSeverity, std::string> sevMap = {
+    {constants::PelSeverity::INFORMATIONAL,
+     "xyz.openbmc_project.Logging.Entry.Level.Informational"},
+    {constants::PelSeverity::DEBUG,
+     "xyz.openbmc_project.Logging.Entry.Level.Debug"},
+    {constants::PelSeverity::NOTICE,
+     "xyz.openbmc_project.Logging.Entry.Level.Notice"},
+    {constants::PelSeverity::WARNING,
+     "xyz.openbmc_project.Logging.Entry.Level.Warning"},
+    {constants::PelSeverity::CRITICAL,
+     "xyz.openbmc_project.Logging.Entry.Level.Critical"},
+    {constants::PelSeverity::EMERGENCY,
+     "xyz.openbmc_project.Logging.Entry.Level.Emergency"},
+    {constants::PelSeverity::ERROR,
+     "xyz.openbmc_project.Logging.Entry.Level.Error"},
+    {constants::PelSeverity::ALERT,
+     "xyz.openbmc_project.Logging.Entry.Level.Alert"}};
+
 // Map to hold record, kwd pair which can be re-stored at standby.
 // The list of keywords for VSYS record is as per the S0 system. Should
 // be updated for another type of systems

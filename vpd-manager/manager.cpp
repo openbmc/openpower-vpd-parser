@@ -229,7 +229,6 @@ void Manager::hostStateCallBack(sdbusplus::message::message& msg)
                 return;
             }
         }
-        std::cerr << "Failed to read Host state" << std::endl;
     }
 }
 
