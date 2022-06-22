@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2502937a_b6fce71d",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-06-22T11:39:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b88aadf_f1d7fb43",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 19
+      },
+      "revId": "d1c249443da742a998db3d54f737aa91d7dbc6db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39a0ff08_b5e5a303",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73237cb9_85f0cc74",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-06-22T11:39:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39a0ff08_b5e5a303",
+      "range": {
+        "startLine": 73,
+        "startChar": 9,
+        "endLine": 73,
+        "endChar": 24
+      },
+      "revId": "d1c249443da742a998db3d54f737aa91d7dbc6db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "faefe150_77c1c593",
@@ -60,6 +108,24 @@
       "writtenOn": "2022-06-22T11:12:55Z",
       "side": 1,
       "message": "Remove this check",
+      "revId": "d1c249443da742a998db3d54f737aa91d7dbc6db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8214831_9c502ca2",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-06-22T11:39:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faefe150_77c1c593",
       "revId": "d1c249443da742a998db3d54f737aa91d7dbc6db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
