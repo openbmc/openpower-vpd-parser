@@ -161,7 +161,52 @@ std::string readBusProperty(const std::string& obj, const std::string& inf,
 }
 
 void createPEL(const std::map<std::string, std::string>& additionalData,
-               const Severity& sev, const std::string& errIntf)
+               const Severity& sev, const std::string& errIntf, sd_bus* sdBus)
+{
+    // This pointer will be NULL in case the call is made from ibm-read-vpd. In
+    // that case a sync call will do.
+    if (sdBus == nullptr)
+    {
+        createSyncPEL(additionalData, sev, errIntf);
+    }
+    else
+    {
+        std::string errDescription{};
+        auto pos = additionalData.find("DESCRIPTION");
+        if (pos != additionalData.end())
+        {
+            errDescription = pos->second;
+        }
+        else
+        {
+            errDescription = "Description field missing in additional data";
+        }
+
+        std::string pelSeverity =
+            "xyz.openbmc_project.Logging.Entry.Level.Error";
+        auto itr = sevMap.find(sev);
+        if (itr != sevMap.end())
+        {
+            pelSeverity = itr->second;
+        }
+
+        // Implies this is a call from Manager. Hence we need to make an async
+        // call to avoid deadlock with Phosphor-logging.
+        auto rc = sd_bus_call_method_async(
+            sdBus, NULL, loggerService, loggerObjectPath, loggerCreateInterface,
+            "Create", NULL, NULL, "ssa{ss}", errIntf.c_str(),
+            pelSeverity.c_str(), 1, "DESCRIPTION", errDescription.c_str());
+
+        if (rc < 0)
+        {
+            log<level::ERR>("Error calling sd_bus_call_method_async",
+                            entry("RC=%d", rc), entry("MSG=%s", strerror(-rc)));
+        }
+    }
+}
+
+void createSyncPEL(const std::map<std::string, std::string>& additionalData,
+                   const Severity& sev, const std::string& errIntf)
 {
     try
     {
@@ -678,7 +723,7 @@ void executePostFailAction(const nlohmann::json& json, const std::string& file)
 
         if (!outputLine)
         {
-            throw std::runtime_error(
+            throw GpioException(
                 "Couldn't find output line for the GPIO. Skipping "
                 "this GPIO action.");
         }
@@ -701,9 +746,7 @@ void executePostFailAction(const nlohmann::json& json, const std::string& file)
             errMsg += " i2cBusAddress: " + i2cBusAddr;
         }
 
-        PelAdditionalData additionalData{};
-        additionalData.emplace("DESCRIPTION", errMsg);
-        createPEL(additionalData, PelSeverity::WARNING, errIntfForGpioError);
+        throw GpioException(e.what());
     }
 
     return;
@@ -734,7 +777,7 @@ std::optional<bool> isPresent(const nlohmann::json& json,
                     std::cerr << "Couldn't find the presence line for - "
                               << presPinName << std::endl;
 
-                    throw std::runtime_error(
+                    throw GpioException(
                         "Couldn't find the presence line for the "
                         "GPIO. Skipping this GPIO action.");
                 }
@@ -761,14 +804,9 @@ std::optional<bool> isPresent(const nlohmann::json& json,
                     errMsg += " i2cBusAddress: " + i2cBusAddr;
                 }
 
-                PelAdditionalData additionalData{};
-                additionalData.emplace("DESCRIPTION", errMsg);
-                createPEL(additionalData, PelSeverity::WARNING,
-                          errIntfForGpioError);
-
                 // Take failure postAction
                 executePostFailAction(json, file);
-                return false;
+                throw GpioException(errMsg);
             }
         }
         else
@@ -819,7 +857,7 @@ bool executePreAction(const nlohmann::json& json, const std::string& file)
                 {
                     std::cerr << "Couldn't find the line for output pin - "
                               << pinName << std::endl;
-                    throw std::runtime_error(
+                    throw GpioException(
                         "Couldn't find output line for the GPIO. "
                         "Skipping this GPIO action.");
                 }
@@ -842,15 +880,9 @@ bool executePreAction(const nlohmann::json& json, const std::string& file)
                     errMsg += " i2cBusAddress: " + i2cBusAddr;
                 }
 
-                PelAdditionalData additionalData{};
-                additionalData.emplace("DESCRIPTION", errMsg);
-                createPEL(additionalData, PelSeverity::WARNING,
-                          errIntfForGpioError);
-
                 // Take failure postAction
                 executePostFailAction(json, file);
-
-                return false;
+                throw GpioException(errMsg);
             }
         }
         else
@@ -863,7 +895,6 @@ bool executePreAction(const nlohmann::json& json, const std::string& file)
 
             // Take failure postAction
             executePostFailAction(json, file);
-
             return false;
         }
     }
