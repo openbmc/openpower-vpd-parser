@@ -134,6 +134,30 @@ class VpdJsonException : public VPDException
 
 }; // class VpdJSonException
 
+/** @class GpioException
+ *  @brief This class extends Exceptions class and define
+ *  type for GPIO related exception in VPD
+ */
+class GpioException : public VPDException
+{
+  public:
+    // deleted methods
+    GpioException() = delete;
+    GpioException(const GpioException&) = delete;
+    GpioException(GpioException&&) = delete;
+    GpioException& operator=(const GpioException&) = delete;
+
+    // default destructor
+    ~GpioException() = default;
+
+    /** @brief constructor
+     *  @param[in] msg - string to define exception
+     */
+    explicit GpioException(const std::string& msg) : VPDException(msg)
+    {
+    }
+};
+
 } // namespace exceptions
 } // namespace vpd
 } // namespace openpower
