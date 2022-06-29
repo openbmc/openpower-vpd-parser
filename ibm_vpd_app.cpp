@@ -483,40 +483,50 @@ static void preAction(const nlohmann::json& json, const string& file)
         return;
     }
 
-    if (executePreAction(json, file))
+    try
     {
-        if (json["frus"][file].at(0).find("devAddress") !=
-            json["frus"][file].at(0).end())
+        if (executePreAction(json, file))
         {
-            // Now bind the device
-            string bind = json["frus"][file].at(0).value("devAddress", "");
-            cout << "Binding device " << bind << endl;
-            string bindCmd = string("echo \"") + bind +
-                             string("\" > /sys/bus/i2c/drivers/at24/bind");
-            cout << bindCmd << endl;
-            executeCmd(bindCmd);
-
-            // Check if device showed up (test for file)
-            if (!fs::exists(file))
+            if (json["frus"][file].at(0).find("devAddress") !=
+                json["frus"][file].at(0).end())
             {
-                cerr << "EEPROM " << file
-                     << " does not exist. Take failure action" << endl;
-                // If not, then take failure postAction
+                // Now bind the device
+                string bind = json["frus"][file].at(0).value("devAddress", "");
+                cout << "Binding device " << bind << endl;
+                string bindCmd = string("echo \"") + bind +
+                                 string("\" > /sys/bus/i2c/drivers/at24/bind");
+                cout << bindCmd << endl;
+                executeCmd(bindCmd);
+
+                // Check if device showed up (test for file)
+                if (!fs::exists(file))
+                {
+                    cerr << "EEPROM " << file
+                         << " does not exist. Take failure action" << endl;
+                    // If not, then take failure postAction
+                    executePostFailAction(json, file);
+                }
+            }
+            else
+            {
+                // missing required informations
+                cerr << "VPD inventory JSON missing basic informations of "
+                        "preAction "
+                        "for this FRU : ["
+                     << file << "]. Executing executePostFailAction." << endl;
+
+                // Take failure postAction
                 executePostFailAction(json, file);
+                return;
             }
         }
-        else
-        {
-            // missing required informations
-            cerr
-                << "VPD inventory JSON missing basic informations of preAction "
-                   "for this FRU : ["
-                << file << "]. Executing executePostFailAction." << endl;
-
-            // Take failure postAction
-            executePostFailAction(json, file);
-            return;
-        }
+    }
+    catch (const GpioException& e)
+    {
+        PelAdditionalData additionalData{};
+        additionalData.emplace("DESCRIPTION", e.what());
+        createPel(additionalData, PelSeverity::WARNING, errIntfForGpioError,
+                  nullptr);
     }
 }
 
@@ -753,8 +763,8 @@ void setDevTreeEnv(const string& systemType)
         // map to hold additional data in case of logging pel
         PelAdditionalData additionalData{};
         additionalData.emplace("DESCRIPTION", err);
-        createPEL(additionalData, PelSeverity::WARNING,
-                  errIntfForInvalidSystemType);
+        createSyncPEL(additionalData, PelSeverity::WARNING,
+                      errIntfForInvalidSystemType);
         exit(-1);
     }
 
@@ -857,8 +867,9 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
 
                                 additionalData.emplace("DESCRIPTION", errMsg);
 
-                                createPEL(additionalData, PelSeverity::WARNING,
-                                          errIntfForInvalidVPD);
+                                createSyncPEL(additionalData,
+                                              PelSeverity::WARNING,
+                                              errIntfForInvalidVPD);
                             }
                         }
                         else
@@ -891,8 +902,8 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                         additionalData.emplace("DESCRIPTION", errMsg);
 
                         // log PEL TODO: Block IPL
-                        createPEL(additionalData, PelSeverity::ERROR,
-                                  errIntfForBlankSystemVPD);
+                        createSyncPEL(additionalData, PelSeverity::ERROR,
+                                      errIntfForBlankSystemVPD);
                         continue;
                     }
                 }
@@ -1422,7 +1433,7 @@ int main(int argc, char** argv)
     {
         additionalData.emplace("JSON_PATH", ex.getJsonPath());
         additionalData.emplace("DESCRIPTION", ex.what());
-        createPEL(additionalData, pelSeverity, errIntfForJsonFailure);
+        createSyncPEL(additionalData, pelSeverity, errIntfForJsonFailure);
 
         cerr << ex.what() << "\n";
         rc = -1;
@@ -1432,7 +1443,7 @@ int main(int argc, char** argv)
         additionalData.emplace("DESCRIPTION", "ECC check failed");
         additionalData.emplace("CALLOUT_INVENTORY_PATH",
                                INVENTORY_PATH + baseFruInventoryPath);
-        createPEL(additionalData, pelSeverity, errIntfForEccCheckFail);
+        createSyncPEL(additionalData, pelSeverity, errIntfForEccCheckFail);
         dumpBadVpd(file, vpdVector);
         cerr << ex.what() << "\n";
         rc = -1;
@@ -1461,7 +1472,7 @@ int main(int argc, char** argv)
             additionalData.emplace("DESCRIPTION", errorMsg);
             additionalData.emplace("CALLOUT_INVENTORY_PATH",
                                    INVENTORY_PATH + baseFruInventoryPath);
-            createPEL(additionalData, pelSeverity, errIntfForInvalidVPD);
+            createSyncPEL(additionalData, pelSeverity, errIntfForInvalidVPD);
 
             rc = -1;
         }
