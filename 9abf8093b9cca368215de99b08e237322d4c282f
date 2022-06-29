@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c66ba4b_2544a3d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-06-29T16:54:52Z",
+      "side": 1,
+      "message": "Just minor comments.",
+      "revId": "9abf8093b9cca368215de99b08e237322d4c282f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3230b7f_4d8d2fd4",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-06-29T16:54:52Z",
+      "side": 1,
+      "message": "May not be required if inside VpdTool Class. As it will adhere to OO too. Any reason for it be outside Class?",
+      "range": {
+        "startLine": 522,
+        "startChar": 31,
+        "endLine": 522,
+        "endChar": 57
+      },
+      "revId": "9abf8093b9cca368215de99b08e237322d4c282f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07f99078_9c92637c",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-06-29T16:54:52Z",
+      "side": 1,
+      "message": "Can we have implementation elsewhere in cpp file?",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 161,
+        "endChar": 9
+      },
+      "revId": "9abf8093b9cca368215de99b08e237322d4c282f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
