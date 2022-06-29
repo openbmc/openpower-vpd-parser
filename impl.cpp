@@ -289,7 +289,7 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
             additionalData.emplace("DESCRIPTION", errMsg);
             additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
             createPEL(additionalData, PelSeverity::WARNING,
-                      errIntfForEccCheckFail);
+                      errIntfForEccCheckFail, nullptr);
         }
         catch (const VpdDataException& ex)
         {
@@ -300,7 +300,7 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
             additionalData.emplace("DESCRIPTION", errMsg);
             additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
             createPEL(additionalData, PelSeverity::WARNING,
-                      errIntfForInvalidVPD);
+                      errIntfForInvalidVPD, nullptr);
         }
 
 #endif
