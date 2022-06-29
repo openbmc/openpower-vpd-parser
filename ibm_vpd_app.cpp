@@ -483,40 +483,50 @@ static void preAction(const nlohmann::json& json, const string& file)
         return;
     }
 
-    if (executePreAction(json, file))
+    try
     {
-        if (json["frus"][file].at(0).find("devAddress") !=
-            json["frus"][file].at(0).end())
+        if (executePreAction(json, file))
         {
-            // Now bind the device
-            string bind = json["frus"][file].at(0).value("devAddress", "");
-            cout << "Binding device " << bind << endl;
-            string bindCmd = string("echo \"") + bind +
-                             string("\" > /sys/bus/i2c/drivers/at24/bind");
-            cout << bindCmd << endl;
-            executeCmd(bindCmd);
-
-            // Check if device showed up (test for file)
-            if (!fs::exists(file))
+            if (json["frus"][file].at(0).find("devAddress") !=
+                json["frus"][file].at(0).end())
             {
-                cerr << "EEPROM " << file
-                     << " does not exist. Take failure action" << endl;
-                // If not, then take failure postAction
+                // Now bind the device
+                string bind = json["frus"][file].at(0).value("devAddress", "");
+                cout << "Binding device " << bind << endl;
+                string bindCmd = string("echo \"") + bind +
+                                 string("\" > /sys/bus/i2c/drivers/at24/bind");
+                cout << bindCmd << endl;
+                executeCmd(bindCmd);
+
+                // Check if device showed up (test for file)
+                if (!fs::exists(file))
+                {
+                    cerr << "EEPROM " << file
+                         << " does not exist. Take failure action" << endl;
+                    // If not, then take failure postAction
+                    executePostFailAction(json, file);
+                }
+            }
+            else
+            {
+                // missing required informations
+                cerr << "VPD inventory JSON missing basic informations of "
+                        "preAction "
+                        "for this FRU : ["
+                     << file << "]. Executing executePostFailAction." << endl;
+
+                // Take failure postAction
                 executePostFailAction(json, file);
+                return;
             }
         }
-        else
-        {
-            // missing required informations
-            cerr
-                << "VPD inventory JSON missing basic informations of preAction "
-                   "for this FRU : ["
-                << file << "]. Executing executePostFailAction." << endl;
-
-            // Take failure postAction
-            executePostFailAction(json, file);
-            return;
-        }
+    }
+    catch (const GpioException& e)
+    {
+        PelAdditionalData additionalData{};
+        additionalData.emplace("DESCRIPTION", e.what());
+        createGPIOPel(additionalData, PelSeverity::WARNING, errIntfForGpioError,
+                      nullptr);
     }
 }
 
@@ -524,10 +534,11 @@ static void preAction(const nlohmann::json& json, const string& file)
  * @brief Fills the Decorator.AssetTag property into the interfaces map
  *
  * This function should only be called in cases where we did not find a JSON
- * symlink. A missing symlink in /var/lib will be considered as a factory reset
- * and this function will be used to default the AssetTag property.
+ * symlink. A missing symlink in /var/lib will be considered as a factory
+ * reset and this function will be used to default the AssetTag property.
  *
- * @param interfaces A possibly pre-populated map of inetrfaces to properties.
+ * @param interfaces A possibly pre-populated map of inetrfaces to
+ * properties.
  * @param vpdMap A VPD map of the system VPD data.
  */
 static void fillAssetTag(inventory::InterfaceMap& interfaces,
@@ -547,14 +558,15 @@ static void fillAssetTag(inventory::InterfaceMap& interfaces,
 
 /**
  * @brief Set certain one time properties in the inventory
- * Use this function to insert the Functional and Enabled properties into the
- * inventory map. This function first checks if the object in question already
- * has these properties hosted on D-Bus, if the property is already there, it is
- * not modified, hence the name "one time". If the property is not already
- * present, it will be added to the map with a suitable default value (true for
- * Functional and false for Enabled)
+ * Use this function to insert the Functional and Enabled properties into
+ * the inventory map. This function first checks if the object in question
+ * already has these properties hosted on D-Bus, if the property is already
+ * there, it is not modified, hence the name "one time". If the property is
+ * not already present, it will be added to the map with a suitable default
+ * value (true for Functional and false for Enabled)
  *
- * @param[in] object - The inventory D-Bus obejct without the inventory prefix.
+ * @param[in] object - The inventory D-Bus obejct without the inventory
+ * prefix.
  * @param[inout] interfaces - Reference to a map of inventory interfaces to
  * which the properties will be attached.
  */
@@ -635,8 +647,8 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                 inventory::PropertyMap presProp;
 
                 // Do not populate Present property for frus whose
-                // synthesized=true. synthesized=true says the fru is owned by
-                // some other component and not by vpd.
+                // synthesized=true. synthesized=true says the fru is owned
+                // by some other component and not by vpd.
                 if (!itemEEPROM.value("synthesized", false))
                 {
                     presProp.emplace("Present", false);
@@ -683,9 +695,10 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                                                      val.value().get<string>());
                                 }
                             }
-                            // Use insert_or_assign here as we may already have
-                            // inserted the present property only earlier in
-                            // this function under this same interface.
+                            // Use insert_or_assign here as we may already
+                            // have inserted the present property only
+                            // earlier in this function under this same
+                            // interface.
                             interfaces.insert_or_assign(eI.key(),
                                                         move(presProp));
                         }
@@ -825,13 +838,13 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
 
                     std::string defaultValue{' '};
 
-                    // Explicit check for D0 is required as this keyword will
-                    // never be blank and 0x00 should be treated as no value in
-                    // this case.
+                    // Explicit check for D0 is required as this keyword
+                    // will never be blank and 0x00 should be treated as no
+                    // value in this case.
                     if (recordName == "UTIL" && keyword == "D0")
                     {
-                        // default value of kwd D0 is 0x00. This kwd will never
-                        // be blank.
+                        // default value of kwd D0 is 0x00. This kwd will
+                        // never be blank.
                         defaultValue = '\0';
                     }
 
@@ -867,9 +880,9 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                             // update the map
                             Binary busData(busValue.begin(), busValue.end());
 
-                            // update the map as well, so that cache data is not
-                            // updated as blank while populating VPD map on Dbus
-                            // in populateDBus Api
+                            // update the map as well, so that cache data is
+                            // not updated as blank while populating VPD map
+                            // on Dbus in populateDBus Api
                             kwdValue = busValue;
                         }
                     }
@@ -942,8 +955,8 @@ bool isThisPrimaryProcessor(nlohmann::json& js, const string& filePath)
 }
 
 /**
- * @brief This finds DIMM vpd in vpd json and enables them by binding the device
- *        driver
+ * @brief This finds DIMM vpd in vpd json and enables them by binding the
+ * device driver
  * @param[in] js- vpd json to iterate through and take action if it is DIMM
  */
 void doEnableAllDimms(nlohmann::json& js)
@@ -1005,10 +1018,10 @@ void doEnableAllDimms(nlohmann::json& js)
 /**
  * @brief Check if the given CPU is an IO only chip.
  * The CPU is termed as IO, whose all of the cores are bad and can never be
- * used. Those CPU chips can be used for IO purpose like connecting PCIe devices
- * etc., The CPU whose every cores are bad, can be identified from the CP00
- * record's PG keyword, only if all of the 8 EQs' value equals 0xE7F9FF. (1EQ
- * has 4 cores grouped together by sharing its cache memory.)
+ * used. Those CPU chips can be used for IO purpose like connecting PCIe
+ * devices etc., The CPU whose every cores are bad, can be identified from
+ * the CP00 record's PG keyword, only if all of the 8 EQs' value equals
+ * 0xE7F9FF. (1EQ has 4 cores grouped together by sharing its cache memory.)
  * @param [in] pgKeyword - PG Keyword of CPU.
  * @return true if the given cpu is an IO, false otherwise.
  */
@@ -1019,8 +1032,8 @@ static bool isCPUIOGoodOnly(const string& pgKeyword)
                                 0xF9, 0xFF, 0xE7, 0xF9, 0xFF, 0xE7, 0xF9, 0xFF};
     // EQ0 index (in PG keyword) starts at 97 (with offset starting from 0).
     // Each EQ carries 3 bytes of data. Totally there are 8 EQs. If all EQs'
-    // value equals 0xE7F9FF, then the cpu has no good cores and its treated as
-    // IO.
+    // value equals 0xE7F9FF, then the cpu has no good cores and its treated
+    // as IO.
     if (memcmp(io, pgKeyword.data() + 97, 24) == 0)
     {
         return true;
@@ -1151,10 +1164,10 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         if ((isSystemVpd) || (item.value("noprime", false)))
         {
 
-            // Populate one time properties for the system VPD and its sub-frus
-            // and for other non-primeable frus.
-            // For the remaining FRUs, this will get handled as a part of
-            // priming the inventory.
+            // Populate one time properties for the system VPD and its
+            // sub-frus and for other non-primeable frus. For the remaining
+            // FRUs, this will get handled as a part of priming the
+            // inventory.
             setOneTimeProperties(objectPath, interfaces);
         }
 
@@ -1225,17 +1238,18 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             }
         }
 
-        // embedded property(true or false) says whether the subfru is embedded
-        // into the parent fru (or) not. VPD sets Present property only for
-        // embedded frus. If the subfru is not an embedded FRU, the subfru may
-        // or may not be physically present. Those non embedded frus will always
-        // have Present=false irrespective of its physical presence or absence.
-        // Eg: nvme drive in nvme slot is not an embedded FRU. So don't set
-        // Present to true for such sub frus.
-        // Eg: ethernet port is embedded into bmc card. So set Present to true
-        // for such sub frus. Also donot populate present property for embedded
-        // subfru which is synthesized. Currently there is no subfru which are
-        // both embedded and synthesized. But still the case is handled here.
+        // embedded property(true or false) says whether the subfru is
+        // embedded into the parent fru (or) not. VPD sets Present property
+        // only for embedded frus. If the subfru is not an embedded FRU, the
+        // subfru may or may not be physically present. Those non embedded
+        // frus will always have Present=false irrespective of its physical
+        // presence or absence. Eg: nvme drive in nvme slot is not an
+        // embedded FRU. So don't set Present to true for such sub frus. Eg:
+        // ethernet port is embedded into bmc card. So set Present to true
+        // for such sub frus. Also donot populate present property for
+        // embedded subfru which is synthesized. Currently there is no
+        // subfru which are both embedded and synthesized. But still the
+        // case is handled here.
         if ((item.value("embedded", true)) &&
             (!item.value("synthesized", false)))
         {
@@ -1278,11 +1292,12 @@ int main(int argc, char** argv)
     json js{};
     Binary vpdVector{};
     string file{};
+
     // map to hold additional data in case of logging pel
     PelAdditionalData additionalData{};
 
-    // this is needed to hold base fru inventory path in case there is ECC or
-    // vpd exception while parsing the file
+    // this is needed to hold base fru inventory path in case there is ECC
+    // or vpd exception while parsing the file
     std::string baseFruInventoryPath = {};
 
     // severity for PEL
@@ -1306,8 +1321,8 @@ int main(int argc, char** argv)
 
         auto jsonToParse = INVENTORY_JSON_DEFAULT;
 
-        // If the symlink exists, it means it has been setup for us, switch the
-        // path
+        // If the symlink exists, it means it has been setup for us, switch
+        // the path
         if (fs::exists(INVENTORY_JSON_SYM_LINK))
         {
             jsonToParse = INVENTORY_JSON_SYM_LINK;
@@ -1336,7 +1351,8 @@ int main(int argc, char** argv)
                                    jsonToParse));
         }
 
-        // Check if it's a udev path - patterned as(/ahb/ahb:apb/ahb:apb:bus@)
+        // Check if it's a udev path - patterned
+        // as(/ahb/ahb:apb/ahb:apb:bus@)
         if (file.find("/ahb:apb") != string::npos)
         {
             // Translate udev path to a generic /sys/bus/.. file path.
@@ -1370,11 +1386,10 @@ int main(int argc, char** argv)
         baseFruInventoryPath = js["frus"][file][0]["inventoryPath"];
         // Check if we can read the VPD file based on the power state
         // We skip reading VPD when the power is ON in two scenarios:
-        // 1) The eeprom we are trying to read is that of the system VPD and the
-        // JSON symlink is already setup (the symlink's existence tells us we
-        // are not coming out of a factory reset)
-        // 2) The JSON tells us that the FRU EEPROM cannot be
-        // read when we are powered ON.
+        // 1) The eeprom we are trying to read is that of the system VPD and
+        // the JSON symlink is already setup (the symlink's existence tells
+        // us we are not coming out of a factory reset) 2) The JSON tells us
+        // that the FRU EEPROM cannot be read when we are powered ON.
         if (js["frus"][file].at(0).value("powerOffOnly", false) ||
             (file == systemVpdFilePath && fs::exists(INVENTORY_JSON_SYM_LINK)))
         {

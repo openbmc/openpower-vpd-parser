@@ -86,6 +86,22 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
                const constants::PelSeverity& sev, const std::string& errIntf);
 
 /**
+ * @brief Api to create GPIO related PEL.
+ * PEL created from VPD-Manager service needs async call to phosphor-logging to
+ * avoid deadlock. Where as ibm-read-vpd need not make async call to create PEL.
+ * To log GPIO related PELs both the services were calling common api. Hence, to
+ * differentiate the caller and corresponding call this wrapper api is created.
+ *
+ * @param[in] additionalData - Map of additional data.
+ * @param[in] sev - severity of the PEL.
+ * @param[in] errIntf - Error interface to be used in PEL.
+ * @param[in] sdBus - Pointer to Sd-Bus
+ */
+void createGPIOPel(const std::map<std::string, std::string>& additionalData,
+                   const constants::PelSeverity& sev,
+                   const std::string& errIntf, sd_bus* sdBus = nullptr);
+
+/**
  * @brief getVpdFilePath
  * Get vpd file path corresponding to the given object path.
  * @param[in] - json file path
