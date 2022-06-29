@@ -78,12 +78,32 @@ string readBusProperty(const string& obj, const string& inf,
 
 /**
  * @brief API to create PEL entry
+ * The api makes synchronous call to phosphor-logging create api.
  * @param[in] additionalData - Map holding the additional data
  * @param[in] sev - Severity
  * @param[in] errIntf - error interface
  */
+void createSyncPEL(const std::map<std::string, std::string>& additionalData,
+                   const constants::PelSeverity& sev,
+                   const std::string& errIntf);
+
+/**
+ * @brief Api to create PEL.
+ * A wrapper api through which sync/async call to phosphor-logging create api
+ * can be made as and when required.
+ * sdBus as nullptr will result in sync call else async call will be made with
+ * just "DESCRIPTION" key/value pair in additional data.
+ * To make asyn call with more fields in additional data call
+ * "sd_bus_call_method_async" in place.
+ *
+ * @param[in] additionalData - Map of additional data.
+ * @param[in] sev - severity of the PEL.
+ * @param[in] errIntf - Error interface to be used in PEL.
+ * @param[in] sdBus - Pointer to Sd-Bus
+ */
 void createPEL(const std::map<std::string, std::string>& additionalData,
-               const constants::PelSeverity& sev, const std::string& errIntf);
+               const constants::PelSeverity& sev, const std::string& errIntf,
+               sd_bus* sdBus);
 
 /**
  * @brief getVpdFilePath
