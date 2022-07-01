@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da5a2994_497e14bf",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:38:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "12a61d46_4e9b0441",
+      "range": {
+        "startLine": 766,
+        "startChar": 8,
+        "endLine": 766,
+        "endChar": 21
+      },
+      "revId": "1e1d3deb7669b9ffebb4b45ca10fc41b345d5283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86955c70_b8296406",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-07-01T11:15:34Z",
       "side": 1,
       "message": "Why did you change the exception type here?",
+      "range": {
+        "startLine": 765,
+        "startChar": 26,
+        "endLine": 765,
+        "endChar": 39
+      },
+      "revId": "1e1d3deb7669b9ffebb4b45ca10fc41b345d5283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "191cd969_ce68fa07",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:38:28Z",
+      "side": 1,
+      "message": "Now that we have a specific exception for GPIO, changes it for consistency across all the GPIO related exception being thrown.",
+      "parentUuid": "86955c70_b8296406",
       "range": {
         "startLine": 765,
         "startChar": 26,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6dee407_f2cd7e4e",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:38:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d61723ba_d2e52525",
+      "range": {
+        "startLine": 94,
+        "startChar": 56,
+        "endLine": 94,
+        "endChar": 66
+      },
+      "revId": "1e1d3deb7669b9ffebb4b45ca10fc41b345d5283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad8514aa_89dda20f",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-07-01T11:15:34Z",
       "side": 1,
       "message": "What happened here?",
+      "range": {
+        "startLine": 96,
+        "startChar": 11,
+        "endLine": 96,
+        "endChar": 24
+      },
+      "revId": "1e1d3deb7669b9ffebb4b45ca10fc41b345d5283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06128e28_cc529520",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:38:28Z",
+      "side": 1,
+      "message": "Absolutely no idea 😄",
+      "parentUuid": "ad8514aa_89dda20f",
       "range": {
         "startLine": 96,
         "startChar": 11,
