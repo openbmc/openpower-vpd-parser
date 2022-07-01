@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3767087_c91047ef",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-01T12:05:36Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this also come from the input severity parameter?",
+      "range": {
+        "startLine": 189,
+        "startChar": 11,
+        "endLine": 189,
+        "endChar": 61
+      },
+      "revId": "982fb072c6cc4285d1b6d4257721dfc875aa1e83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
