@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b714149_3f7d7097",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T12:13:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bf5c049a_2c39391c",
+      "range": {
+        "startLine": 188,
+        "startChar": 45,
+        "endLine": 188,
+        "endChar": 64
+      },
+      "revId": "982fb072c6cc4285d1b6d4257721dfc875aa1e83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3767087_c91047ef",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-01T12:05:36Z",
       "side": 1,
       "message": "Shouldn\u0027t this also come from the input severity parameter?",
+      "range": {
+        "startLine": 189,
+        "startChar": 11,
+        "endLine": 189,
+        "endChar": 61
+      },
+      "revId": "982fb072c6cc4285d1b6d4257721dfc875aa1e83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c365be9_8ab03889",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T12:13:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b3767087_c91047ef",
       "range": {
         "startLine": 189,
         "startChar": 11,
