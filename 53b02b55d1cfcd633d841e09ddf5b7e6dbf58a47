@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7ea96d1_abe5e6c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T06:25:27Z",
+      "side": 1,
+      "message": "There was some limitations on making the calls async.\nexecutePreAction and postfailActionis being called via both manager and vpd service as and when required.\nNow to change the calls to async for all,  in place,  inside \"preAction\" and \"PostFailAction\", the main challenge was to keep sdBus in scope as without which no PEL was getting logged.\nIn case of ibm-vpd-read sdBus was going out of scope instantly after making the async call resulting in no PEL logged.\nSO we needed a way to differentiate the caller and have sync and async call both here.",
+      "parentUuid": "7e30d4b2_0eccb50f",
+      "revId": "53b02b55d1cfcd633d841e09ddf5b7e6dbf58a47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "017ec721_ef3147ad",
