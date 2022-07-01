@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90541f0c_5bec03e0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-07-01T05:28:20Z",
+      "side": 1,
+      "message": "nit",
+      "range": {
+        "startLine": 11,
+        "startChar": 18,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "7c35383c9ac5d5a3ed76d48c8713a2c106fc3200",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20e1b334_b8585ced",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-07-01T05:28:20Z",
+      "side": 1,
+      "message": "this could be inside the executePreAction check",
+      "range": {
+        "startLine": 486,
+        "startChar": 3,
+        "endLine": 487,
+        "endChar": 5
+      },
+      "revId": "7c35383c9ac5d5a3ed76d48c8713a2c106fc3200",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7b7b77b_3606c452",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-07-01T05:28:20Z",
+      "side": 1,
+      "message": "nit",
+      "range": {
+        "startLine": 91,
+        "startChar": 19,
+        "endLine": 91,
+        "endChar": 27
+      },
+      "revId": "7c35383c9ac5d5a3ed76d48c8713a2c106fc3200",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
