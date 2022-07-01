@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6535a908_8149d51e",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-07-01T12:54:09Z",
+      "side": 1,
+      "message": "we are not  covering \"all the GPIO related exception being thrown\" with this.\nOther than find_line, all the gpio line request will also throw error(system_error) and (exception e ) can catch both of them(runtime_error and system_error).\n\nlike Line 770 -   presenceLine.request({\"Read the presence line\",\n gpiod::line_request::DIRECTION_INPUT, 0});",
+      "parentUuid": "191cd969_ce68fa07",
+      "range": {
+        "startLine": 765,
+        "startChar": 26,
+        "endLine": 765,
+        "endChar": 39
+      },
+      "revId": "1e1d3deb7669b9ffebb4b45ca10fc41b345d5283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d61723ba_d2e52525",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 8

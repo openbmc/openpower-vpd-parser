@@ -333,6 +333,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c40f58f_7ce7e898",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-07-01T12:54:09Z",
+      "side": 1,
+      "message": "\"in case of any other exception \" - I see gpio related exceptions are getting handled as part of pre/post. and I don\u0027t see anything else in preACtion(), please point me to that.\n\nAnd \"PEL should be logged only if there is a GPIO related issue.\"- Im still not clear how moving createPEL outside is helping here. Let\u0027s take a call",
+      "parentUuid": "a10101b1_a0ce4d5f",
+      "range": {
+        "startLine": 844,
+        "startChar": 1,
+        "endLine": 846,
+        "endChar": 54
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "77c36be2_f5f74ae0",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 7
