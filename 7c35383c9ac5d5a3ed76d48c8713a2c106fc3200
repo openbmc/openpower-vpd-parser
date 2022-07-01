@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8948dbc_46ce1893",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T06:12:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "90541f0c_5bec03e0",
+      "range": {
+        "startLine": 11,
+        "startChar": 18,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "7c35383c9ac5d5a3ed76d48c8713a2c106fc3200",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20e1b334_b8585ced",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "96a6590b_67649e19",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T06:12:00Z",
+      "side": 1,
+      "message": "We are throwing from executePreAction api as well.",
+      "parentUuid": "20e1b334_b8585ced",
+      "range": {
+        "startLine": 486,
+        "startChar": 3,
+        "endLine": 487,
+        "endChar": 5
+      },
+      "revId": "7c35383c9ac5d5a3ed76d48c8713a2c106fc3200",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7b7b77b_3606c452",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 4
@@ -60,6 +108,30 @@
       "writtenOn": "2022-07-01T05:28:20Z",
       "side": 1,
       "message": "nit",
+      "range": {
+        "startLine": 91,
+        "startChar": 19,
+        "endLine": 91,
+        "endChar": 27
+      },
+      "revId": "7c35383c9ac5d5a3ed76d48c8713a2c106fc3200",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6d3ec5a_1a1ff0ff",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T06:12:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b7b7b77b_3606c452",
       "range": {
         "startLine": 91,
         "startChar": 19,

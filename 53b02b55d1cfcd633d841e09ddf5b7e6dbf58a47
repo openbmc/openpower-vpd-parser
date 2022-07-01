@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7b981731_c53eb057",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T06:12:00Z",
+      "side": 1,
+      "message": "This is GPIO specific as we are only logging GPIO related PEL from manager, but yes we can make it generic, will be convenient for future.",
+      "parentUuid": "017ec721_ef3147ad",
+      "revId": "53b02b55d1cfcd633d841e09ddf5b7e6dbf58a47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "98e0172b_9b82991b",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 5
@@ -60,6 +78,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b39ff0e6_e99cd72a",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T06:12:00Z",
+      "side": 1,
+      "message": "Well, description is not a mandatory field and need not required while making sync call to createPEL.",
+      "parentUuid": "98e0172b_9b82991b",
+      "range": {
+        "startLine": 170,
+        "startChar": 8,
+        "endLine": 170,
+        "endChar": 48
+      },
+      "revId": "53b02b55d1cfcd633d841e09ddf5b7e6dbf58a47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb96992a_c18976d0",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 5
@@ -71,6 +113,30 @@
       "writtenOn": "2022-07-01T05:28:20Z",
       "side": 1,
       "message": "concerned about this description",
+      "range": {
+        "startLine": 182,
+        "startChar": 11,
+        "endLine": 182,
+        "endChar": 51
+      },
+      "revId": "53b02b55d1cfcd633d841e09ddf5b7e6dbf58a47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ccea0d2_23120c7b",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T06:12:00Z",
+      "side": 1,
+      "message": "This was hardcoded as only gpio pels are logged from manager and are made async but yes can have generic info like \"Description is missing\" if we make this api generic.",
+      "parentUuid": "eb96992a_c18976d0",
       "range": {
         "startLine": 182,
         "startChar": 11,
