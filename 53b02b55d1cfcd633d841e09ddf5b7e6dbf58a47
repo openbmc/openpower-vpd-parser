@@ -168,6 +168,30 @@
       },
       "revId": "53b02b55d1cfcd633d841e09ddf5b7e6dbf58a47",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25e6beec_796d2dc6",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T06:17:25Z",
+      "side": 1,
+      "message": "Well, be the return true or false in case of no pel logged, we are not altering that flow. Its just that if there was a PEL logged earlier we are making it throw an exception instead of logging pel and returning false.\nSo it will not alter the flow where only false was being returned.",
+      "parentUuid": "2d1588f4_9a45b181",
+      "range": {
+        "startLine": 795,
+        "startChar": 16,
+        "endLine": 795,
+        "endChar": 44
+      },
+      "revId": "53b02b55d1cfcd633d841e09ddf5b7e6dbf58a47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
