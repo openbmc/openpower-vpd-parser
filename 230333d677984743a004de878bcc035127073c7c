@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfaa2857_fae295d5",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:01:35Z",
+      "side": 1,
+      "message": "One is name of the function.",
+      "parentUuid": "7a22b889_dc47d98b",
+      "range": {
+        "startLine": 516,
+        "startChar": 36,
+        "endLine": 516,
+        "endChar": 53
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7b00694_c937b3c5",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-01T08:38:53Z",
       "side": 1,
       "message": "why are we throwing again(from executePreAction() )  \nand creating PEL here (moved out of executePreAction())?\n\nBecause I see we are handling all the exceptions inside pre and post action execution, now by moving it outside, every caller has to handle it.\nSO any specific reason for that?",
+      "range": {
+        "startLine": 524,
+        "startChar": 2,
+        "endLine": 529,
+        "endChar": 27
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b3ab059_2f7522ef",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:01:35Z",
+      "side": 1,
+      "message": "Yes the reason is this complete commit itself. 😊\nWe need to make sync or asyn PEL to phosphor-logging based on the caller to avoid the deadlock, which can only be done by the caller as it knows which way the PEL needs to be logged. \nSo we need some signalling in caller to trigger logging PEL.",
+      "parentUuid": "f7b00694_c937b3c5",
       "range": {
         "startLine": 524,
         "startChar": 2,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d3ff87c_b3c3b7b1",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:01:35Z",
+      "side": 1,
+      "message": "As already mentioned in the description for this api, in case of async call only \"DESCRIPTION\" field will be supported.\nReason, sd_bus_call_method_async is a \"variadic function\" and deciding the number of parameters is not possible at runtime. Hence it has been limited to description only.",
+      "parentUuid": "1a7a69ca_f5629701",
+      "range": {
+        "startLine": 174,
+        "startChar": 19,
+        "endLine": 174,
+        "endChar": 54
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25f5f92a_96bcc318",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-07-01T10:32:38Z",
       "side": 1,
       "message": "Don\u0027t we need to log PEL severity in the PEL created using async calls?",
+      "range": {
+        "startLine": 186,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 36
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a64b2d51_28ae4ed6",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:01:35Z",
+      "side": 1,
+      "message": "Already doing that using \"xyz.openbmc_project.Logging.Entry.Level.Warning\".",
+      "parentUuid": "25f5f92a_96bcc318",
       "range": {
         "startLine": 186,
         "startChar": 8,
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1fd67e4d_aab03b0e",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:01:35Z",
+      "side": 1,
+      "message": "Not changing the code unless it is required by this commit.\nThough those informations are already being added inside catch.",
+      "parentUuid": "2b3da2cc_f350cc9e",
+      "range": {
+        "startLine": 714,
+        "startChar": 23,
+        "endLine": 714,
+        "endChar": 55
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dd3e1182_0e82448d",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 7
@@ -129,6 +249,30 @@
       "writtenOn": "2022-07-01T08:38:53Z",
       "side": 1,
       "message": "I understand the wrapper code to handle sync and async method call, but\nby changing it from runtime to special type of exceptions, then throwing it outside and logging PEL there. I didn\u0027t understand why we are doing this. Please explain.",
+      "range": {
+        "startLine": 844,
+        "startChar": 1,
+        "endLine": 846,
+        "endChar": 54
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a10101b1_a0ce4d5f",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:01:35Z",
+      "side": 1,
+      "message": "Inside \"preAction\" api, defined in ibm_vpd_app, in case of any other exception we don\u0027t want to log a PEL. PEL should be logged only if there is a GPIO related issue. Hence catching very specific exception.\n\nSee the same api in downstream code where we are throwing another exception from \"preAction\" api. So we want those exceptions to bypass pel route.",
+      "parentUuid": "dd3e1182_0e82448d",
       "range": {
         "startLine": 844,
         "startChar": 1,
@@ -185,6 +329,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb401518_7fc3247b",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:01:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "77c36be2_f5f74ae0",
+      "range": {
+        "startLine": 81,
+        "startChar": 37,
+        "endLine": 81,
+        "endChar": 46
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7de45eee_b1c0651d",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:01:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "352676e0_2eeb591d",
+      "range": {
+        "startLine": 81,
+        "startChar": 37,
+        "endLine": 81,
+        "endChar": 45
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c839723a_d467490a",
@@ -231,6 +423,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9d6a53a_5f3450ab",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:01:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c839723a_d467490a",
+      "range": {
+        "startLine": 460,
+        "startChar": 36,
+        "endLine": 460,
+        "endChar": 76
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fcc3505_afa15684",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:01:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "93bb14b0_a2c859a7",
+      "range": {
+        "startLine": 460,
+        "startChar": 37,
+        "endLine": 460,
+        "endChar": 76
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ed4129d_ca099dff",
@@ -248,6 +488,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cb32c3d_62412f9c",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:01:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5ed4129d_ca099dff",
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1560549_927c0a55",
@@ -261,6 +519,30 @@
       "writtenOn": "2022-07-01T10:32:38Z",
       "side": 1,
       "message": "this can be removed",
+      "range": {
+        "startLine": 155,
+        "startChar": 3,
+        "endLine": 155,
+        "endChar": 28
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a8c3259_4c8d419b",
+        "filename": "vpd_exceptions.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T11:01:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c1560549_927c0a55",
       "range": {
         "startLine": 155,
         "startChar": 3,
