@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86baa27d_5c92cd42",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-01T12:31:51Z",
+      "side": 1,
+      "message": "Well, maybe, but these are part of previous implementation and I am not comfortable changing code in the areas which does not related to this commit. \nYou are seeing this as a change just because I have added try catch around which shifts them one tab right else the code remain the same.\n\nStill if you want me that change in this commit let you can reply we can take a call.",
+      "parentUuid": "a051e17d_321f334c",
+      "range": {
+        "startLine": 516,
+        "startChar": 36,
+        "endLine": 516,
+        "endChar": 53
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7b00694_c937b3c5",
