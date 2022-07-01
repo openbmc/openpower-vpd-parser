@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8feb05f_4d5a82c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-01T11:15:34Z",
+      "side": 1,
+      "message": "Looks good mostly",
+      "revId": "1e1d3deb7669b9ffebb4b45ca10fc41b345d5283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12a61d46_4e9b0441",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-01T11:15:34Z",
+      "side": 1,
+      "message": "Why not just call createPel with the nullptr passed in for sdbus here? That will keep the call sites consistent.",
+      "range": {
+        "startLine": 766,
+        "startChar": 8,
+        "endLine": 766,
+        "endChar": 21
+      },
+      "revId": "1e1d3deb7669b9ffebb4b45ca10fc41b345d5283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86955c70_b8296406",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-01T11:15:34Z",
+      "side": 1,
+      "message": "Why did you change the exception type here?",
+      "range": {
+        "startLine": 765,
+        "startChar": 26,
+        "endLine": 765,
+        "endChar": 39
+      },
+      "revId": "1e1d3deb7669b9ffebb4b45ca10fc41b345d5283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d61723ba_d2e52525",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-01T11:15:34Z",
+      "side": 1,
+      "message": "Nit: double spaces between call and will",
+      "range": {
+        "startLine": 94,
+        "startChar": 56,
+        "endLine": 94,
+        "endChar": 66
+      },
+      "revId": "1e1d3deb7669b9ffebb4b45ca10fc41b345d5283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad8514aa_89dda20f",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-01T11:15:34Z",
+      "side": 1,
+      "message": "What happened here?",
+      "range": {
+        "startLine": 96,
+        "startChar": 11,
+        "endLine": 96,
+        "endChar": 24
+      },
+      "revId": "1e1d3deb7669b9ffebb4b45ca10fc41b345d5283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
