@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7b00694_c937b3c5",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-07-01T08:38:53Z",
+      "side": 1,
+      "message": "why are we throwing again(from executePreAction() )  \nand creating PEL here (moved out of executePreAction())?\n\nBecause I see we are handling all the exceptions inside pre and post action execution, now by moving it outside, every caller has to handle it.\nSO any specific reason for that?",
+      "range": {
+        "startLine": 524,
+        "startChar": 2,
+        "endLine": 529,
+        "endChar": 27
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd3e1182_0e82448d",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-07-01T08:38:53Z",
+      "side": 1,
+      "message": "I understand the wrapper code to handle sync and async method call, but\nby changing it from runtime to special type of exceptions, then throwing it outside and logging PEL there. I didn\u0027t understand why we are doing this. Please explain.",
+      "range": {
+        "startLine": 844,
+        "startChar": 1,
+        "endLine": 846,
+        "endChar": 54
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77c36be2_f5f74ae0",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-07-01T08:38:53Z",
+      "side": 1,
+      "message": "you means phosphor?",
+      "range": {
+        "startLine": 81,
+        "startChar": 37,
+        "endLine": 81,
+        "endChar": 46
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c839723a_d467490a",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2022-07-01T08:38:53Z",
+      "side": 1,
+      "message": "Don\u0027t want to mention fru Details like inventoryPath?",
+      "range": {
+        "startLine": 460,
+        "startChar": 36,
+        "endLine": 460,
+        "endChar": 76
+      },
+      "revId": "230333d677984743a004de878bcc035127073c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
