@@ -16,6 +16,24 @@
       "message": "We already have a function to readBusProperty in ibm_vpd_utils.cpp.\nvpd tool is already including that file in its compilation.\n\nWhy not make that api templated, instead of defining a new function?",
       "revId": "029e67b1cff7c012203395615ba487cb410fe6f3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "672f2b89_7c0237ae",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-07-07T14:57:12Z",
+      "side": 1,
+      "message": "if I templatise the one in ibm_vpd_utils.cpp now, I need to change the code in many places in ibm_vpd_app.cpp and in vpd-manager. And that needs testing on almost all cases of VPD functionality. So had one separately for vpd-tool.",
+      "parentUuid": "a41c46a9_5a653cec",
+      "revId": "029e67b1cff7c012203395615ba487cb410fe6f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
