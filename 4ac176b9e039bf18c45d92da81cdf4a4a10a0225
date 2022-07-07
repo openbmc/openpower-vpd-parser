@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b77cd13_7aa84a1d",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-07T06:26:16Z",
+      "side": 1,
+      "message": "Can get rid of this variable. Could be done in-place.",
+      "revId": "4ac176b9e039bf18c45d92da81cdf4a4a10a0225",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ec4c47a_b999c6f1",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-07T06:26:16Z",
+      "side": 1,
+      "message": "Please update the description accordingly.",
+      "range": {
+        "startLine": 183,
+        "startChar": 4,
+        "endLine": 183,
+        "endChar": 40
+      },
+      "revId": "4ac176b9e039bf18c45d92da81cdf4a4a10a0225",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bdc3652_8c0e7d87",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-07T06:26:16Z",
+      "side": 1,
+      "message": "Please update the description accordingly.",
+      "range": {
+        "startLine": 191,
+        "startChar": 3,
+        "endLine": 191,
+        "endChar": 44
+      },
+      "revId": "4ac176b9e039bf18c45d92da81cdf4a4a10a0225",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
