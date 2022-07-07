@@ -34,6 +34,24 @@
       "parentUuid": "a41c46a9_5a653cec",
       "revId": "029e67b1cff7c012203395615ba487cb410fe6f3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0f7c501_08568c59",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-07T16:47:37Z",
+      "side": 1,
+      "message": "Well, that does not make sense at least to me.\nIMO, in order to reduce our effort we should not be pushing duplicate code.",
+      "parentUuid": "672f2b89_7c0237ae",
+      "revId": "029e67b1cff7c012203395615ba487cb410fe6f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
