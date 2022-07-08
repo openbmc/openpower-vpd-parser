@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2c03478_2f99068e",
+        "filename": "app.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-08T04:07:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17dbedec_2364a27f",
+      "range": {
+        "startLine": 51,
+        "startChar": 47,
+        "endLine": 51,
+        "endChar": 74
+      },
+      "revId": "74bf76872b635ef0a38cc868a136bf872ae054e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce288c56_323eb436",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-08T03:01:45Z",
       "side": 1,
       "message": "This seems unnecessary to do inside this function and adds an undesirable dependency on the format of the exception string. Please revert this change here and instead add it at the call site as needed.",
+      "range": {
+        "startLine": 152,
+        "startChar": 51,
+        "endLine": 152,
+        "endChar": 62
+      },
+      "revId": "74bf76872b635ef0a38cc868a136bf872ae054e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "647ce353_7a674f5e",
+        "filename": "impl.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-08T04:07:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ce288c56_323eb436",
       "range": {
         "startLine": 152,
         "startChar": 51,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de55b124_8cec7205",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-08T04:07:43Z",
+      "side": 1,
+      "message": "We can have a TBD or I can log an issue to track in our downstream repo.",
+      "parentUuid": "6c8de819_bb956938",
+      "range": {
+        "startLine": 503,
+        "startChar": 0,
+        "endLine": 503,
+        "endChar": 19
+      },
+      "revId": "74bf76872b635ef0a38cc868a136bf872ae054e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "284ec609_f00bf31a",
         "filename": "vpd-manager/editor_impl.hpp",
         "patchSetId": 11
@@ -83,6 +155,24 @@
       "writtenOn": "2022-07-08T03:01:45Z",
       "side": 1,
       "message": "Why did the const qualifier need to be removed?",
+      "revId": "74bf76872b635ef0a38cc868a136bf872ae054e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5edef68b_2844838a",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-08T04:07:43Z",
+      "side": 1,
+      "message": "As in some cases we are modifying objPath in updateKeyword api.",
+      "parentUuid": "284ec609_f00bf31a",
       "revId": "74bf76872b635ef0a38cc868a136bf872ae054e7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
