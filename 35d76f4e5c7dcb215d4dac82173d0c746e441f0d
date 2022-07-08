@@ -16,6 +16,24 @@
       "message": "The commit message does not match the actual changes in the commit. Please fix.",
       "revId": "35d76f4e5c7dcb215d4dac82173d0c746e441f0d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45a35b0d_8d4e1319",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-08T04:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e59a50d_96b627c1",
+      "revId": "35d76f4e5c7dcb215d4dac82173d0c746e441f0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
