@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fd3a979_fbbec789",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-08T03:59:29Z",
+      "side": 1,
+      "message": "This needs far more explanation. Please describe why are we doing it and how does it help the user.\n\nI would also trim down the Tested section, it is unnecessarily long and unreadable anyway.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 23
+      },
+      "revId": "b42ee9b46c143a722053f24862b12244a9c56e8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d22fbe3_8620f741",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-08T03:59:29Z",
+      "side": 1,
+      "message": "This does not read well - How about: \"Use this option to interactively fix critical system VPD keywords\"?",
+      "range": {
+        "startLine": 76,
+        "startChar": 45,
+        "endLine": 77,
+        "endChar": 35
+      },
+      "revId": "b42ee9b46c143a722053f24862b12244a9c56e8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5074cee_10156136",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-08T03:59:29Z",
+      "side": 1,
+      "message": "This is kind of inefficient - You are reading HW for every single keyword repeatedly - Which is why it is so slow to print the table.\n\nPlease look into doing this just once (outside the outer for loop) and then caching all the necessary rec/kw pairs.",
+      "range": {
+        "startLine": 653,
+        "startChar": 0,
+        "endLine": 654,
+        "endChar": 79
+      },
+      "revId": "b42ee9b46c143a722053f24862b12244a9c56e8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccbc4810_1ec94d53",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-08T03:59:29Z",
+      "side": 1,
+      "message": "These magic numbers are hard to follow - Please define an enumeration.",
+      "range": {
+        "startLine": 708,
+        "startChar": 0,
+        "endLine": 711,
+        "endChar": 31
+      },
+      "revId": "b42ee9b46c143a722053f24862b12244a9c56e8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf986c9c_0db3a0da",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-08T03:59:29Z",
+      "side": 1,
+      "message": "Please init all local variables.",
+      "range": {
+        "startLine": 713,
+        "startChar": 4,
+        "endLine": 713,
+        "endChar": 15
+      },
+      "revId": "b42ee9b46c143a722053f24862b12244a9c56e8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61d05003_f45471c0",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-08T03:59:29Z",
+      "side": 1,
+      "message": "I would ask that you use a loop with a counter and retry the last count instead of a goto.",
+      "range": {
+        "startLine": 885,
+        "startChar": 16,
+        "endLine": 885,
+        "endChar": 28
+      },
+      "revId": "b42ee9b46c143a722053f24862b12244a9c56e8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b2e990d_4830a91d",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-08T03:59:29Z",
+      "side": 1,
+      "message": "Please do this with an infinite loop and continue instead of a goto",
+      "range": {
+        "startLine": 899,
+        "startChar": 8,
+        "endLine": 899,
+        "endChar": 20
+      },
+      "revId": "b42ee9b46c143a722053f24862b12244a9c56e8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
