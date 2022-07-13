@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52e8c0ca_7e683589",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-07-13T08:07:26Z",
+      "side": 1,
+      "message": "The return type of VCEN FC is ay ( array of bytes ). If you expect std::string, it errors out. This is happening in almost all changes that you\u0027ve made in this commit. You\u0027ll have to rework completely.",
+      "range": {
+        "startLine": 180,
+        "startChar": 37,
+        "endLine": 180,
+        "endChar": 43
+      },
+      "revId": "bf8275948e2b058286347115a19f94e12d182e9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d87898ae_e0eefc35",
         "filename": "ibm_vpd_utils_impl.hpp",
         "patchSetId": 6
