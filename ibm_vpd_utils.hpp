@@ -76,6 +76,37 @@ string encodeKeyword(const string& kw, const string& encoding);
 string readBusProperty(const string& obj, const string& inf,
                        const string& prop);
 
+/** @brief A templated function to read D-Bus properties.
+ *
+ *  @param[in] service - Service path
+ *  @param[in] object - object path
+ *  @param[in] inf - interface
+ *  @param[in] prop - property whose value is fetched
+ *  @return The property value of its own type.
+ */
+template <typename T>
+T readDBusProperty(const string& service, const string& object,
+                   const string& inf, const string& prop)
+{
+    T retVal{};
+    try
+    {
+        auto bus = sdbusplus::bus::new_default();
+        auto properties =
+            bus.new_method_call(service.c_str(), object.c_str(),
+                                "org.freedesktop.DBus.Properties", "Get");
+        properties.append(inf);
+        properties.append(prop);
+        auto result = bus.call(properties);
+        result.read(retVal);
+    }
+    catch (const sdbusplus::exception::SdBusError& e)
+    {
+        std::cerr << e.what();
+    }
+    return retVal;
+}
+
 /**
  * @brief API to create PEL entry
  * @param[in] additionalData - Map holding the additional data
