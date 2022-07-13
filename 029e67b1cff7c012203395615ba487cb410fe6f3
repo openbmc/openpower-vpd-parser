@@ -70,6 +70,24 @@
       "parentUuid": "c0f7c501_08568c59",
       "revId": "029e67b1cff7c012203395615ba487cb410fe6f3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fe08a26_3f12f6b2",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-07-13T15:30:44Z",
+      "side": 1,
+      "message": "Since Alpana\u0027s commit needs complete rework, for time being, I\u0027ll add a new commit that just has a templated API to read from dbus(with no modification in existing VPD code to use my templated API).\n\nIf Alpana revises her commit, I can rebase on her\u0027s. Else I can create another new commit, where I\u0027ll modify the existing VPD code to use my templated API.\n\u003cAlpana\u0027s commit - https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/52336 \u003e",
+      "parentUuid": "fd7e55b1_6fbe9cab",
+      "revId": "029e67b1cff7c012203395615ba487cb410fe6f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
