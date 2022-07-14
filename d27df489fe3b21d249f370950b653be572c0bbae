@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6d68059_a132409c",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-14T14:06:57Z",
+      "side": 1,
+      "message": "using namespace std is already defined at the top.\nAt-least get rid of one of them.",
+      "range": {
+        "startLine": 590,
+        "startChar": 12,
+        "endLine": 590,
+        "endChar": 15
+      },
+      "revId": "d27df489fe3b21d249f370950b653be572c0bbae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69142810_6e79f012",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-14T14:06:57Z",
+      "side": 1,
+      "message": "Same with this. This s also defined at the top.",
+      "range": {
+        "startLine": 659,
+        "startChar": 31,
+        "endLine": 659,
+        "endChar": 45
+      },
+      "revId": "d27df489fe3b21d249f370950b653be572c0bbae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9103fd0c_6f7534a0",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-14T14:06:57Z",
+      "side": 1,
+      "message": "scope can be reduced.",
+      "revId": "d27df489fe3b21d249f370950b653be572c0bbae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90bc2fc5_6974bad6",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-14T14:06:57Z",
+      "side": 1,
+      "message": "You can get rid of these as it has already been declared at the top.",
+      "range": {
+        "startLine": 679,
+        "startChar": 16,
+        "endLine": 679,
+        "endChar": 30
+      },
+      "revId": "d27df489fe3b21d249f370950b653be572c0bbae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0613cc4_60f90afd",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-14T14:06:57Z",
+      "side": 1,
+      "message": "Why are you extracting it here when you are using at line 714. \nget the value where needed. It makes code difficult to read.",
+      "revId": "d27df489fe3b21d249f370950b653be572c0bbae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "730d893c_5c84df0a",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-14T14:06:57Z",
+      "side": 1,
+      "message": "These kind of naming makes code difficult to read. Please give meaningful names.",
+      "range": {
+        "startLine": 691,
+        "startChar": 21,
+        "endLine": 691,
+        "endChar": 24
+      },
+      "revId": "d27df489fe3b21d249f370950b653be572c0bbae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10d685a7_a277a6e6",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-14T14:06:57Z",
+      "side": 1,
+      "message": "Do we need to continue further if \"frus\" is missing in JSON?",
+      "revId": "d27df489fe3b21d249f370950b653be572c0bbae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a49226f_5d4a122d",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-07-14T14:06:57Z",
+      "side": 1,
+      "message": "Why do you need two variables for retries. \nYou can break the loop from all the if/else block and in the last else where you are assigning maxRetry to retry, just use the maxRetry after decrementing and run the while using maxRetry.\ndo\n{\n//break the loop for all if else block other than the last one.\n}while(maxRetry)",
+      "range": {
+        "startLine": 850,
+        "startChar": 16,
+        "endLine": 851,
+        "endChar": 55
+      },
+      "revId": "d27df489fe3b21d249f370950b653be572c0bbae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
