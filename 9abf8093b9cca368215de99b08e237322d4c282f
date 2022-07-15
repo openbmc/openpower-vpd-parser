@@ -134,6 +134,30 @@
       },
       "revId": "9abf8093b9cca368215de99b08e237322d4c282f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d0e6e71_5c01e4e9",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-07-15T06:33:44Z",
+      "side": 1,
+      "message": "I added a template API in utils in this commit https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/55363",
+      "parentUuid": "dca5ac14_3af72a2d",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 161,
+        "endChar": 9
+      },
+      "revId": "9abf8093b9cca368215de99b08e237322d4c282f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
