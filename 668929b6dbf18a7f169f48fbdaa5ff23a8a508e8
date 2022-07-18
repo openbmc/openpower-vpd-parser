@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67a9046a_12be497d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-18T05:51:16Z",
+      "side": 1,
+      "message": "Nit: This line has wrapped",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 75
+      },
+      "revId": "668929b6dbf18a7f169f48fbdaa5ff23a8a508e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4eae39be_ed9afc46",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-18T05:51:16Z",
+      "side": 1,
+      "message": "else? Exit with error?",
+      "range": {
+        "startLine": 663,
+        "startChar": 0,
+        "endLine": 666,
+        "endChar": 5
+      },
+      "revId": "668929b6dbf18a7f169f48fbdaa5ff23a8a508e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "361858dd_fb679fbe",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-18T05:51:16Z",
+      "side": 1,
+      "message": "To reduce repeated D-Bus calls, you could also consider calling getAll properties to just read everything in one shot. Could you give that a try to see if it helps performance any?",
+      "range": {
+        "startLine": 675,
+        "startChar": 0,
+        "endLine": 678,
+        "endChar": 56
+      },
+      "revId": "668929b6dbf18a7f169f48fbdaa5ff23a8a508e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca18c3cc_61cba729",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-18T05:51:16Z",
+      "side": 1,
+      "message": "The code from hereon is better moved to a separate function for readability and review",
+      "revId": "668929b6dbf18a7f169f48fbdaa5ff23a8a508e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7169df28_eef89be5",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-18T05:51:16Z",
+      "side": 1,
+      "message": "Haven\u0027t we parsed the JSON already at the beginning of the function? Why is it repeated here?",
+      "revId": "668929b6dbf18a7f169f48fbdaa5ff23a8a508e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8287de12_8e42429a",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-18T05:51:16Z",
+      "side": 1,
+      "message": "I don\u0027t understand why we need this retry complexity? Let the user continue for ever or skip manually.",
+      "range": {
+        "startLine": 838,
+        "startChar": 15,
+        "endLine": 838,
+        "endChar": 55
+      },
+      "revId": "668929b6dbf18a7f169f48fbdaa5ff23a8a508e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ee2f5b0_cbc7e1c0",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-18T05:51:16Z",
+      "side": 1,
+      "message": "Why is this enum public?",
+      "range": {
+        "startLine": 136,
+        "startChar": 3,
+        "endLine": 136,
+        "endChar": 19
+      },
+      "revId": "668929b6dbf18a7f169f48fbdaa5ff23a8a508e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad601b9f_bd4228cc",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-18T05:51:16Z",
+      "side": 1,
+      "message": "Please give these explicit values.",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 20
+      },
+      "revId": "668929b6dbf18a7f169f48fbdaa5ff23a8a508e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
