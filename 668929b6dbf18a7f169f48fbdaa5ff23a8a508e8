@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1816bd92_a81d8a5c",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-07-22T10:25:58Z",
+      "side": 1,
+      "message": "On an average of 13.5ms when we use GetAll() 4 times ( for 4 records )\nand 5.5 ms when we use Get() 11 times (for 11 keywords).",
+      "parentUuid": "361858dd_fb679fbe",
+      "range": {
+        "startLine": 675,
+        "startChar": 0,
+        "endLine": 678,
+        "endChar": 56
+      },
+      "revId": "668929b6dbf18a7f169f48fbdaa5ff23a8a508e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca18c3cc_61cba729",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 6
