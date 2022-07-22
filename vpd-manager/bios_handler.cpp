@@ -187,7 +187,7 @@ void BiosHandler::saveFCOToVPD(int64_t fcoVal)
         return;
     }
 
-    if (valInVPD.at(3) != fcoVal)
+    if (std::memcmp(vpdVal.data(), valInVPD.data(), 4) != 0)
     {
         std::cout << "Writing FCO to VPD: " << fcoVal << std::endl;
         manager.writeKeyword(sdbusplus::message::object_path{SYSTEM_OBJECT},
