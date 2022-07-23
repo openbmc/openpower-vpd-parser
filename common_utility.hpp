@@ -16,7 +16,7 @@ namespace utility
  *  @param[in] interface - interface under the object path
  *  @return service name
  */
-std::string getService(sdbusplus::bus::bus& bus, const std::string& path,
+std::string getService(sdbusplus::bus_t& bus, const std::string& path,
                        const std::string& interface);
 
 /** @brief Call inventory-manager to add objects

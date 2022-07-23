@@ -27,12 +27,12 @@ void BiosHandler::checkAndListenPLDMService()
 {
     // Setup a match on NameOwnerChanged to determine when PLDM is up. In
     // the signal handler, call restoreBIOSAttribs
-    static std::shared_ptr<sdbusplus::bus::match::match> nameOwnerMatch =
-        std::make_shared<sdbusplus::bus::match::match>(
+    static std::shared_ptr<sdbusplus::bus::match_t> nameOwnerMatch =
+        std::make_shared<sdbusplus::bus::match_t>(
             bus,
             sdbusplus::bus::match::rules::nameOwnerChanged(
                 "xyz.openbmc_project.PLDM"),
-            [this](sdbusplus::message::message& msg) {
+            [this](sdbusplus::message_t& msg) {
                 if (msg.is_method_error())
                 {
                     std::cerr << "Error in reading name owner signal "
@@ -84,18 +84,16 @@ void BiosHandler::checkAndListenPLDMService()
 
 void BiosHandler::listenBiosAttribs()
 {
-    static std::shared_ptr<sdbusplus::bus::match::match> biosMatcher =
-        std::make_shared<sdbusplus::bus::match::match>(
+    static std::shared_ptr<sdbusplus::bus::match_t> biosMatcher =
+        std::make_shared<sdbusplus::bus::match_t>(
             bus,
             sdbusplus::bus::match::rules::propertiesChanged(
                 "/xyz/openbmc_project/bios_config/manager",
                 "xyz.openbmc_project.BIOSConfig.Manager"),
-            [this](sdbusplus::message::message& msg) {
-                biosAttribsCallback(msg);
-            });
+            [this](sdbusplus::message_t& msg) { biosAttribsCallback(msg); });
 }
 
-void BiosHandler::biosAttribsCallback(sdbusplus::message::message& msg)
+void BiosHandler::biosAttribsCallback(sdbusplus::message_t& msg)
 {
     if (msg.is_method_error())
     {

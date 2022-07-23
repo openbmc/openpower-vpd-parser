@@ -57,7 +57,7 @@ class Manager : public ServerObject<ManagerIface>
      *  @param[in] objPath - Path to attach at.
      *  @param[in] iFace - interface to implement
      */
-    Manager(sdbusplus::bus::bus&& bus, const char* busName, const char* objPath,
+    Manager(sdbusplus::bus_t&& bus, const char* busName, const char* objPath,
             const char* iFace);
 
     /** @brief Implementation for WriteKeyword
@@ -137,7 +137,7 @@ class Manager : public ServerObject<ManagerIface>
     /** @brief Callback to listen for Host state change
      *  @param[in] msg - callback message.
      */
-    void hostStateCallBack(sdbusplus::message::message& msg);
+    void hostStateCallBack(sdbusplus::message_t& msg);
 
     /** @brief Api to register AssetTag property change.
      * This api will register callback to listen for asset tag property change.
@@ -147,7 +147,7 @@ class Manager : public ServerObject<ManagerIface>
     /** @brief Callback to listen for Asset tag change
      *  @param[in] msg - callback message.
      */
-    void assetTagCallback(sdbusplus::message::message& msg);
+    void assetTagCallback(sdbusplus::message_t& msg);
 
     /**
      * @brief Restores and defaulted VPD on the system VPD EEPROM.
@@ -160,10 +160,10 @@ class Manager : public ServerObject<ManagerIface>
     void restoreSystemVpd();
 
     /** @brief Persistent sdbusplus DBus bus connection. */
-    sdbusplus::bus::bus _bus;
+    sdbusplus::bus_t _bus;
 
     /** @brief sdbusplus org.freedesktop.DBus.ObjectManager reference. */
-    sdbusplus::server::manager::manager _manager;
+    sdbusplus::server::manager_t _manager;
 
     // file to store parsed json
     nlohmann::json jsonFile;

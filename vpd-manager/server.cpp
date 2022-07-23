@@ -21,7 +21,7 @@ namespace VPD
 namespace server
 {
 
-Manager::Manager(bus::bus& bus, const char* path) :
+Manager::Manager(bus_t& bus, const char* path) :
     _com_ibm_VPD_Manager_interface(bus, path, interface, _vtable, this),
     _intf(bus.getInterface())
 {

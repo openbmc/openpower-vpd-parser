@@ -33,7 +33,7 @@ namespace vpd
 {
 namespace manager
 {
-Manager::Manager(sdbusplus::bus::bus&& bus, const char* busName,
+Manager::Manager(sdbusplus::bus_t&& bus, const char* busName,
                  const char* objPath, const char* /*iFace*/) :
     ServerObject<ManagerIface>(bus, objPath),
     _bus(std::move(bus)), _manager(_bus, objPath)
@@ -162,18 +162,16 @@ void Manager::restoreSystemVpd()
 
 void Manager::listenHostState()
 {
-    static std::shared_ptr<sdbusplus::bus::match::match> hostState =
-        std::make_shared<sdbusplus::bus::match::match>(
+    static std::shared_ptr<sdbusplus::bus::match_t> hostState =
+        std::make_shared<sdbusplus::bus::match_t>(
             _bus,
             sdbusplus::bus::match::rules::propertiesChanged(
                 "/xyz/openbmc_project/state/host0",
                 "xyz.openbmc_project.State.Host"),
-            [this](sdbusplus::message::message& msg) {
-                hostStateCallBack(msg);
-            });
+            [this](sdbusplus::message_t& msg) { hostStateCallBack(msg); });
 }
 
-void Manager::hostStateCallBack(sdbusplus::message::message& msg)
+void Manager::hostStateCallBack(sdbusplus::message_t& msg)
 {
     if (msg.is_method_error())
     {
@@ -204,18 +202,16 @@ void Manager::hostStateCallBack(sdbusplus::message::message& msg)
 
 void Manager::listenAssetTag()
 {
-    static std::shared_ptr<sdbusplus::bus::match::match> assetMatcher =
-        std::make_shared<sdbusplus::bus::match::match>(
+    static std::shared_ptr<sdbusplus::bus::match_t> assetMatcher =
+        std::make_shared<sdbusplus::bus::match_t>(
             _bus,
             sdbusplus::bus::match::rules::propertiesChanged(
                 "/xyz/openbmc_project/inventory/system",
                 "xyz.openbmc_project.Inventory.Decorator.AssetTag"),
-            [this](sdbusplus::message::message& msg) {
-                assetTagCallback(msg);
-            });
+            [this](sdbusplus::message_t& msg) { assetTagCallback(msg); });
 }
 
-void Manager::assetTagCallback(sdbusplus::message::message& msg)
+void Manager::assetTagCallback(sdbusplus::message_t& msg)
 {
     if (msg.is_method_error())
     {
