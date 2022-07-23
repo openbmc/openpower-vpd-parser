@@ -131,7 +131,7 @@ json VpdTool::getVINIProperties(string invPath)
                 kwVal.emplace(kw, printableVal);
             }
         }
-        catch (const sdbusplus::exception::exception& e)
+        catch (const sdbusplus::exception_t& e)
         {
             if (string(e.name()) ==
                 string("org.freedesktop.DBus.Error.UnknownObject"))
@@ -166,7 +166,7 @@ void VpdTool::getExtraInterfaceProperties(const string& invPath,
                 output.emplace(kw, *str);
             }
         }
-        catch (const sdbusplus::exception::exception& e)
+        catch (const sdbusplus::exception_t& e)
         {
             if (std::string(e.name()) ==
                 std::string("org.freedesktop.DBus.Error.UnknownObject"))

@@ -17,7 +17,7 @@ using namespace constants;
 using namespace inventory;
 using namespace phosphor::logging;
 
-std::string getService(sdbusplus::bus::bus& bus, const std::string& path,
+std::string getService(sdbusplus::bus_t& bus, const std::string& path,
                        const std::string& interface)
 {
     auto mapper = bus.new_method_call(mapperDestination, mapperObjectPath,
@@ -30,7 +30,7 @@ std::string getService(sdbusplus::bus::bus& bus, const std::string& path,
         auto reply = bus.call(mapper);
         reply.read(response);
     }
-    catch (const sdbusplus::exception::exception& e)
+    catch (const sdbusplus::exception_t& e)
     {
         log<level::ERR>("D-Bus call exception",
                         entry("OBJPATH=%s", mapperObjectPath),

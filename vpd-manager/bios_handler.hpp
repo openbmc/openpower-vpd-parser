@@ -55,7 +55,7 @@ class BiosHandler
     BiosHandler& operator=(BiosHandler&&) = delete;
     ~BiosHandler() = default;
 
-    BiosHandler(sdbusplus::bus::bus& bus, Manager& manager) :
+    BiosHandler(sdbusplus::bus_t& bus, Manager& manager) :
         bus(bus), manager(manager)
     {
         checkAndListenPLDMService();
@@ -89,7 +89,7 @@ class BiosHandler
      * yes, it will update the VPD with the new attribute value.
      * @param[in] msg - The callback message.
      */
-    void biosAttribsCallback(sdbusplus::message::message& msg);
+    void biosAttribsCallback(sdbusplus::message_t& msg);
 
     /**
      * @brief Persistently saves the Memory mirror mode
@@ -161,7 +161,7 @@ class BiosHandler
     /**
      * @brief Reference to the bus.
      */
-    sdbusplus::bus::bus& bus;
+    sdbusplus::bus_t& bus;
 
     /**
      * @brief Reference to the manager.
