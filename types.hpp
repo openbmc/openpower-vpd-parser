@@ -22,6 +22,21 @@ using PendingBIOSAttrItemType =
     std::pair<std::string, std::tuple<std::string, BIOSAttrValueType>>;
 using PendingBIOSAttrsType = std::vector<PendingBIOSAttrItemType>;
 
+using BIOSAttribute = std::string;
+using RecordName = std::string;
+using KeywordName = std::string;
+using Bitmask = uint8_t;
+using BIOSAttributeTable =
+    std::unordered_map<BIOSAttribute,
+                       std::tuple<RecordName, KeywordName, Bitmask>>;
+
+using BiosProperty = std::tuple<
+    std::string, bool, std::string, std::string, std::string,
+    std::variant<int64_t, std::string>, std::variant<int64_t, std::string>,
+    std::vector<std::tuple<std::string, std::variant<int64_t, std::string>>>>;
+using BiosBaseTable = std::variant<std::map<std::string, BiosProperty>>;
+using BiosBaseTableType = std::map<std::string, BiosBaseTable>;
+
 namespace inventory
 {
 

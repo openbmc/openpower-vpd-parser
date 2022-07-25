@@ -100,13 +100,6 @@ void BiosHandler::biosAttribsCallback(sdbusplus::message_t& msg)
         std::cerr << "Error in reading BIOS attribute signal " << std::endl;
         return;
     }
-    using BiosProperty = std::tuple<
-        std::string, bool, std::string, std::string, std::string,
-        std::variant<int64_t, std::string>, std::variant<int64_t, std::string>,
-        std::vector<
-            std::tuple<std::string, std::variant<int64_t, std::string>>>>;
-    using BiosBaseTable = std::variant<std::map<std::string, BiosProperty>>;
-    using BiosBaseTableType = std::map<std::string, BiosBaseTable>;
 
     std::string object;
     BiosBaseTableType propMap;
@@ -119,489 +112,221 @@ void BiosHandler::biosAttribsCallback(sdbusplus::message_t& msg)
             for (const auto& item : list)
             {
                 std::string attributeName = std::get<0>(item);
-                if (attributeName == "hb_memory_mirror_mode")
+                auto attrValue = std::get<5>(std::get<1>(item));
+
+                auto attrData = attributeTable.find(attributeName);
+                if (attrData == attributeTable.end())
                 {
-                    auto attrValue = std::get<5>(std::get<1>(item));
-                    auto val = std::get_if<std::string>(&attrValue);
-                    if (val)
-                    {
-                        saveAMMToVPD(*val);
-                    }
+                    continue;
                 }
-                else if (attributeName == "hb_field_core_override")
+
+                auto valueFromVPD = readBusProperty(
+                    SYSTEM_OBJECT, "com.ibm.ipzvpd." + get<0>(attrData->second),
+                    get<1>(attrData->second));
+
+                if (auto val = std::get_if<std::string>(&attrValue))
                 {
-                    auto attrValue = std::get<5>(std::get<1>(item));
-                    auto val = std::get_if<int64_t>(&attrValue);
-                    if (val)
-                    {
-                        saveFCOToVPD(*val);
-                    }
+                    saveBiosAttrToVPD(attributeName, *val, valueFromVPD);
                 }
-                else if (attributeName == "pvm_keep_and_clear")
+                else if (auto val = std::get_if<int64_t>(&attrValue))
                 {
-                    auto attrValue = std::get<5>(std::get<1>(item));
-                    auto val = std::get_if<std::string>(&attrValue);
-                    if (val)
-                    {
-                        saveKeepAndClearToVPD(*val);
-                    }
-                }
-                else if (attributeName == "pvm_create_default_lpar")
-                {
-                    auto attrValue = std::get<5>(std::get<1>(item));
-                    auto val = std::get_if<std::string>(&attrValue);
-                    if (val)
-                    {
-                        saveCreateDefaultLparToVPD(*val);
-                    }
-                }
-                else if (attributeName == "pvm_clear_nvram")
-                {
-                    auto attrValue = std::get<5>(std::get<1>(item));
-                    auto val = std::get_if<std::string>(&attrValue);
-                    if (val)
-                    {
-                        saveClearNVRAMToVPD(*val);
-                    }
+                    saveBiosAttrToVPD(attributeName, *val, valueFromVPD);
                 }
             }
         }
     }
 }
 
-void BiosHandler::saveFCOToVPD(int64_t fcoVal)
+void BiosHandler::saveBiosAttrToVPD(const BIOSAttribute& attrName,
+                                    const BIOSAttrValueType& attrValInBios,
+                                    const std::string& attrValInVPD)
 {
-    if (fcoVal == -1)
+    Binary vpdNewVal;
+
+    auto attrData = attributeTable.find(attrName);
+    if (attrData == attributeTable.end())
     {
-        std::cerr << "Invalid FCO value from BIOS: " << fcoVal << std::endl;
         return;
     }
 
-    Binary vpdVal = {0, 0, 0, static_cast<uint8_t>(fcoVal)};
-    auto valInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "RG");
+    auto record = get<0>(attrData->second);
+    auto keyword = get<1>(attrData->second);
 
-    if (valInVPD.size() != 4)
+    if (auto val = get_if<int64_t>(&attrValInBios))
     {
-        std::cerr << "Read bad size for VSYS/RG: " << valInVPD.size()
-                  << std::endl;
-        return;
+        if (*val == -1)
+        {
+            std::cerr << "Invalid attribute's value from BIOS- [ " << attrName
+                      << " : " << *val << " ]" << std::endl;
+            return;
+        }
+
+        vpdNewVal = {0, 0, 0, static_cast<uint8_t>(*val)};
+
+        if (attrValInVPD.size() != 4)
+        {
+            std::cerr << "Read bad size from VPD for the record keyword pair "
+                      << record << " " << keyword << " for the attribute "
+                      << attrName << ". Size read = " << attrValInVPD.size()
+                      << std::endl;
+            return;
+        }
+
+        if (attrValInVPD.at(3) == *val)
+        {
+            std::cout << "Skip updating " << attrName
+                      << " to VPD. No mismatch found. Value = " << *val
+                      << std::endl;
+            return;
+        }
+    }
+    else if (auto attrBiosValue = get_if<std::string>(&attrValInBios))
+    {
+        if (attrValInVPD.size() != 1)
+        {
+            std::cerr << "Read bad size from VPD for the record keyword pair "
+                      << record << " " << keyword << " for the attribute "
+                      << attrName << ". Size read = " << attrValInVPD.size()
+                      << std::endl;
+            return;
+        }
+
+        auto bitmask = get<2>(attrData->second);
+
+        // Update corresponding record keyword on VPD, if there is a value
+        // mismatch in BIOS and VPD.
+        if (*attrBiosValue == "Enabled")
+        {
+            if ((attrName == "hb_memory_mirror_mode") &&
+                (attrValInVPD.at(0) != 2))
+            {
+                vpdNewVal.emplace_back(2);
+            }
+            else if ((attrValInVPD.at(0) & bitmask) != bitmask)
+            {
+                vpdNewVal.emplace_back(attrValInVPD.at(0) | bitmask);
+            }
+        }
+        else if (*attrBiosValue == "Disabled")
+        {
+            if ((attrName == "hb_memory_mirror_mode") &&
+                attrValInVPD.at(0) != 1)
+            {
+                vpdNewVal.emplace_back(1);
+            }
+            else if ((attrValInVPD.at(0) & bitmask) != 0)
+            {
+                vpdNewVal.emplace_back(attrValInVPD.at(0) & ~bitmask);
+            }
+        }
+        else
+        {
+            std::cerr << "Read bad " << attrName
+                      << " value from BIOS. Value = " << *attrBiosValue
+                      << std::endl;
+            return;
+        }
+
+        if (vpdNewVal.empty())
+        {
+            std::cout << "Skip updating " << attrName << "  to VPD "
+                      << std::endl;
+            return;
+        }
     }
 
-    if (std::memcmp(vpdVal.data(), valInVPD.data(), 4) != 0)
-    {
-        std::cout << "Writing FCO to VPD: " << fcoVal << std::endl;
-        manager.writeKeyword(sdbusplus::message::object_path{SYSTEM_OBJECT},
-                             "VSYS", "RG", vpdVal);
-    }
+    manager.writeKeyword(sdbusplus::message::object_path{SYSTEM_OBJECT}, record,
+                         keyword, vpdNewVal);
+    std::cout << "\nUpdated " << attrName << "  to VPD with the value = "
+              << static_cast<int>(vpdNewVal.at(0)) << std::endl;
 }
 
-void BiosHandler::saveAMMToVPD(const std::string& mirrorMode)
+void BiosHandler::saveAttrToBIOS(const BIOSAttribute& attrName,
+                                 const std::string& attrVpdVal,
+                                 const BIOSAttrValueType& attrInBIOS)
 {
-    Binary vpdVal;
-    auto valInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D0");
-
-    if (valInVPD.size() != 1)
-    {
-        std::cerr << "Read bad size for UTIL/D0: " << valInVPD.size()
-                  << std::endl;
-        return;
-    }
-
-    if (mirrorMode != "Enabled" && mirrorMode != "Disabled")
-    {
-        std::cerr << "Bad value for Mirror mode BIOS attribute: " << mirrorMode
-                  << std::endl;
-        return;
-    }
-
-    // Write to VPD only if the value is not already what we want to write.
-    if (mirrorMode == "Enabled" && valInVPD.at(0) != 2)
-    {
-        vpdVal.emplace_back(2);
-    }
-    else if (mirrorMode == "Disabled" && valInVPD.at(0) != 1)
-    {
-        vpdVal.emplace_back(1);
-    }
-
-    if (!vpdVal.empty())
-    {
-        std::cout << "Writing AMM to VPD: " << static_cast<int>(vpdVal.at(0))
-                  << std::endl;
-        manager.writeKeyword(sdbusplus::message::object_path{SYSTEM_OBJECT},
-                             "UTIL", "D0", vpdVal);
-    }
-}
-
-void BiosHandler::saveKeepAndClearToVPD(const std::string& keepAndClear)
-{
-    Binary vpdVal;
-    auto valInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
-
-    if (valInVPD.size() != 1)
-    {
-        std::cerr << "Read bad size for UTIL/D1: " << valInVPD.size()
-                  << std::endl;
-        return;
-    }
-
-    if (keepAndClear != "Enabled" && keepAndClear != "Disabled")
-    {
-        std::cerr << "Bad value for keep and clear BIOS attribute: "
-                  << keepAndClear << std::endl;
-        return;
-    }
-
-    // Write to VPD only if the value is not already what we want to write.
-    if (keepAndClear == "Enabled" && ((valInVPD.at(0) & 0x01) != 0x01))
-    {
-        vpdVal.emplace_back(valInVPD.at(0) | 0x01);
-    }
-    else if (keepAndClear == "Disabled" && ((valInVPD.at(0) & 0x01) != 0))
-    {
-        vpdVal.emplace_back(valInVPD.at(0) & ~(0x01));
-    }
-
-    if (!vpdVal.empty())
-    {
-        std::cout << "Writing Keep and Clear to VPD: "
-                  << static_cast<int>(vpdVal.at(0)) << std::endl;
-        manager.writeKeyword(sdbusplus::message::object_path{SYSTEM_OBJECT},
-                             "UTIL", "D1", vpdVal);
-    }
-}
-
-void BiosHandler::saveCreateDefaultLparToVPD(
-    const std::string& createDefaultLpar)
-{
-    Binary vpdVal;
-    auto valInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
-
-    if (valInVPD.size() != 1)
-    {
-        std::cerr << "Read bad size for UTIL/D1: " << valInVPD.size()
-                  << std::endl;
-        return;
-    }
-
-    if (createDefaultLpar != "Enabled" && createDefaultLpar != "Disabled")
-    {
-        std::cerr << "Bad value for create default lpar BIOS attribute: "
-                  << createDefaultLpar << std::endl;
-        return;
-    }
-
-    // Write to VPD only if the value is not already what we want to write.
-    if (createDefaultLpar == "Enabled" && ((valInVPD.at(0) & 0x02) != 0x02))
-    {
-        vpdVal.emplace_back(valInVPD.at(0) | 0x02);
-    }
-    else if (createDefaultLpar == "Disabled" && ((valInVPD.at(0) & 0x02) != 0))
-    {
-        vpdVal.emplace_back(valInVPD.at(0) & ~(0x02));
-    }
-
-    if (!vpdVal.empty())
-    {
-        std::cout << "Writing create default lpar to VPD: "
-                  << static_cast<int>(vpdVal.at(0)) << std::endl;
-        manager.writeKeyword(sdbusplus::message::object_path{SYSTEM_OBJECT},
-                             "UTIL", "D1", vpdVal);
-    }
-}
-
-void BiosHandler::saveClearNVRAMToVPD(const std::string& clearNVRAM)
-{
-    Binary vpdVal;
-    auto valInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
-
-    if (valInVPD.size() != 1)
-    {
-        std::cerr << "Read bad size for UTIL/D1: " << valInVPD.size()
-                  << std::endl;
-        return;
-    }
-
-    if (clearNVRAM != "Enabled" && clearNVRAM != "Disabled")
-    {
-        std::cerr << "Bad value for clear NVRAM BIOS attribute: " << clearNVRAM
-                  << std::endl;
-        return;
-    }
-
-    // Write to VPD only if the value is not already what we want to write.
-    if (clearNVRAM == "Enabled" && ((valInVPD.at(0) & 0x04) != 0x04))
-    {
-        vpdVal.emplace_back(valInVPD.at(0) | 0x04);
-    }
-    else if (clearNVRAM == "Disabled" && ((valInVPD.at(0) & 0x04) != 0))
-    {
-        vpdVal.emplace_back(valInVPD.at(0) & ~(0x04));
-    }
-
-    if (!vpdVal.empty())
-    {
-        std::cout << "Writing clear NVRAM to VPD: "
-                  << static_cast<int>(vpdVal.at(0)) << std::endl;
-        manager.writeKeyword(sdbusplus::message::object_path{SYSTEM_OBJECT},
-                             "UTIL", "D1", vpdVal);
-    }
-}
-
-int64_t BiosHandler::readBIOSFCO()
-{
-    int64_t fcoVal = -1;
-    auto val = readBIOSAttribute("hb_field_core_override");
-
-    if (auto pVal = std::get_if<int64_t>(&val))
-    {
-        fcoVal = *pVal;
-    }
-    else
-    {
-        std::cerr << "FCO is not an int" << std::endl;
-    }
-    return fcoVal;
-}
-
-std::string BiosHandler::readBIOSAMM()
-{
-    std::string ammVal{};
-    auto val = readBIOSAttribute("hb_memory_mirror_mode");
-
-    if (auto pVal = std::get_if<std::string>(&val))
-    {
-        ammVal = *pVal;
-    }
-    else
-    {
-        std::cerr << "AMM is not a string" << std::endl;
-    }
-    return ammVal;
-}
-
-std::string BiosHandler::readBIOSKeepAndClear()
-{
-    std::string keepAndClear{};
-    auto val = readBIOSAttribute("pvm_keep_and_clear");
-
-    if (auto pVal = std::get_if<std::string>(&val))
-    {
-        keepAndClear = *pVal;
-    }
-    else
-    {
-        std::cerr << "Keep and clear is not a string" << std::endl;
-    }
-    return keepAndClear;
-}
-
-std::string BiosHandler::readBIOSCreateDefaultLpar()
-{
-    std::string createDefaultLpar{};
-    auto val = readBIOSAttribute("pvm_create_default_lpar");
-
-    if (auto pVal = std::get_if<std::string>(&val))
-    {
-        createDefaultLpar = *pVal;
-    }
-    else
-    {
-        std::cerr << "Create default LPAR is not a string" << std::endl;
-    }
-    return createDefaultLpar;
-}
-
-std::string BiosHandler::readBIOSClearNVRAM()
-{
-    std::string clearNVRAM{};
-    auto val = readBIOSAttribute("pvm_clear_nvram");
-
-    if (auto pVal = std::get_if<std::string>(&val))
-    {
-        clearNVRAM = *pVal;
-    }
-    else
-    {
-        std::cerr << "Clear NVRAM is not a string" << std::endl;
-    }
-    return clearNVRAM;
-}
-
-void BiosHandler::saveFCOToBIOS(const std::string& fcoVal, int64_t fcoInBIOS)
-{
-    if (fcoVal.size() != 4)
-    {
-        std::cerr << "Bad size for FCO in VPD: " << fcoVal.size() << std::endl;
-        return;
-    }
-
-    // Need to write?
-    if (fcoInBIOS == static_cast<int64_t>(fcoVal.at(3)))
-    {
-        std::cout << "Skip FCO BIOS write, value is already: " << fcoInBIOS
-                  << std::endl;
-        return;
-    }
-
     PendingBIOSAttrsType biosAttrs;
-    biosAttrs.push_back(
-        std::make_pair("hb_field_core_override",
-                       std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
-                                       "AttributeType.Integer",
-                                       fcoVal.at(3))));
 
-    std::cout << "Set hb_field_core_override to: "
-              << static_cast<int>(fcoVal.at(3)) << std::endl;
-
-    setBusProperty<PendingBIOSAttrsType>(
-        "xyz.openbmc_project.BIOSConfigManager",
-        "/xyz/openbmc_project/bios_config/manager",
-        "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes",
-        biosAttrs);
-}
-
-void BiosHandler::saveAMMToBIOS(const std::string& ammVal,
-                                const std::string& ammInBIOS)
-{
-    if (ammVal.size() != 1)
+    auto attrData = attributeTable.find(attrName);
+    if (attrData == attributeTable.end())
     {
-        std::cerr << "Bad size for AMM in VPD: " << ammVal.size() << std::endl;
         return;
     }
 
-    // Make sure data in VPD is sane
-    if (ammVal.at(0) != 1 && ammVal.at(0) != 2)
-    {
-        std::cerr << "Bad value for AMM read from VPD: "
-                  << static_cast<int>(ammVal.at(0)) << std::endl;
-        return;
-    }
+    auto record = get<0>(attrData->second);
+    auto keyword = get<1>(attrData->second);
 
-    // Need to write?
-    std::string toWrite = (ammVal.at(0) == 2) ? "Enabled" : "Disabled";
-    if (ammInBIOS == toWrite)
+    if (auto pVal = get_if<int64_t>(&attrInBIOS))
     {
-        std::cout << "Skip AMM BIOS write, value is already: " << toWrite
+        if (attrVpdVal.size() != 4)
+        {
+            std::cerr << "Read bad size from VPD for the record keyword pair "
+                      << record << " " << keyword << " for the attribute "
+                      << attrName << ". Size read = " << attrVpdVal.size()
+                      << std::endl;
+            return;
+        }
+
+        if (*pVal == static_cast<int64_t>(attrVpdVal.at(3)))
+        {
+            std::cout << "Skip updating " << attrName
+                      << " to BIOS. No mismatch found. Value = " << *pVal
+                      << std::endl;
+            return;
+        }
+        biosAttrs.push_back(std::make_pair(
+            attrName, std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
+                                      "AttributeType.Integer",
+                                      attrVpdVal.at(3))));
+
+        std::cout << "Set " << attrName << " to: " << attrVpdVal.at(3)
                   << std::endl;
-        return;
     }
-
-    PendingBIOSAttrsType biosAttrs;
-    biosAttrs.push_back(
-        std::make_pair("hb_memory_mirror_mode",
-                       std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
-                                       "AttributeType.Enumeration",
-                                       toWrite)));
-
-    std::cout << "Set hb_memory_mirror_mode to: " << toWrite << std::endl;
-
-    setBusProperty<PendingBIOSAttrsType>(
-        "xyz.openbmc_project.BIOSConfigManager",
-        "/xyz/openbmc_project/bios_config/manager",
-        "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes",
-        biosAttrs);
-}
-
-void BiosHandler::saveKeepAndClearToBIOS(const std::string& keepAndClear,
-                                         const std::string& keepAndClearInBIOS)
-{
-    if (keepAndClear.size() != 1)
+    else if (auto attrBiosVal = get_if<std::string>(&attrInBIOS))
     {
-        std::cerr << "Bad size for Keep and Clear in VPD: "
-                  << keepAndClear.size() << std::endl;
-        return;
+        if (attrVpdVal.size() != 1)
+        {
+            std::cerr << "Read bad size from VPD for the record keyword pair "
+                      << record << " " << keyword << " for the attribute "
+                      << attrName << ". Size read = " << attrVpdVal.size()
+                      << std::endl;
+            return;
+        }
+
+        auto bitmask = get<2>(attrData->second);
+
+        std::string toWrite;
+        if (attrName == "hb_memory_mirror_mode")
+        {
+            if (attrVpdVal.at(0) != 1 && attrVpdVal.at(0) != 2)
+            {
+                std::cerr << "Read bad " << attrName
+                          << " value from VPD. Value = "
+                          << static_cast<int>(attrVpdVal.at(0)) << std::endl;
+                return;
+            }
+
+            toWrite = (attrVpdVal.at(0) == 2) ? "Enabled" : "Disabled";
+        }
+        else
+        {
+            toWrite = (attrVpdVal.at(0) & bitmask) ? "Enabled" : "Disabled";
+        }
+
+        if (*attrBiosVal == toWrite)
+        {
+            std::cout << "Skip updating " << attrName
+                      << " to BIOS. No mismatch found. Value = " << toWrite
+                      << std::endl;
+            return;
+        }
+        biosAttrs.push_back(std::make_pair(
+            attrName, std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
+                                      "AttributeType.Enumeration",
+                                      toWrite)));
+
+        std::cout << "Set " << attrName << " to: " << toWrite << std::endl;
     }
-
-    // Need to write?
-    std::string toWrite = (keepAndClear.at(0) & 0x01) ? "Enabled" : "Disabled";
-    if (keepAndClearInBIOS == toWrite)
-    {
-        std::cout << "Skip Keep and Clear BIOS write, value is already: "
-                  << toWrite << std::endl;
-        return;
-    }
-
-    PendingBIOSAttrsType biosAttrs;
-    biosAttrs.push_back(
-        std::make_pair("pvm_keep_and_clear",
-                       std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
-                                       "AttributeType.Enumeration",
-                                       toWrite)));
-
-    std::cout << "Set pvm_keep_and_clear to: " << toWrite << std::endl;
-
-    setBusProperty<PendingBIOSAttrsType>(
-        "xyz.openbmc_project.BIOSConfigManager",
-        "/xyz/openbmc_project/bios_config/manager",
-        "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes",
-        biosAttrs);
-}
-
-void BiosHandler::saveCreateDefaultLparToBIOS(
-    const std::string& createDefaultLpar,
-    const std::string& createDefaultLparInBIOS)
-{
-    if (createDefaultLpar.size() != 1)
-    {
-        std::cerr << "Bad size for Create default LPAR in VPD: "
-                  << createDefaultLpar.size() << std::endl;
-        return;
-    }
-
-    // Need to write?
-    std::string toWrite =
-        (createDefaultLpar.at(0) & 0x02) ? "Enabled" : "Disabled";
-    if (createDefaultLparInBIOS == toWrite)
-    {
-        std::cout << "Skip Create default LPAR BIOS write, value is already: "
-                  << toWrite << std::endl;
-        return;
-    }
-
-    PendingBIOSAttrsType biosAttrs;
-    biosAttrs.push_back(
-        std::make_pair("pvm_create_default_lpar",
-                       std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
-                                       "AttributeType.Enumeration",
-                                       toWrite)));
-
-    std::cout << "Set pvm_create_default_lpar to: " << toWrite << std::endl;
-
-    setBusProperty<PendingBIOSAttrsType>(
-        "xyz.openbmc_project.BIOSConfigManager",
-        "/xyz/openbmc_project/bios_config/manager",
-        "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes",
-        biosAttrs);
-}
-
-void BiosHandler::saveClearNVRAMToBIOS(const std::string& clearNVRAM,
-                                       const std::string& clearNVRAMInBIOS)
-{
-    if (clearNVRAM.size() != 1)
-    {
-        std::cerr << "Bad size for Clear NVRAM in VPD: " << clearNVRAM.size()
-                  << std::endl;
-        return;
-    }
-
-    // Need to write?
-    std::string toWrite = (clearNVRAM.at(0) & 0x04) ? "Enabled" : "Disabled";
-    if (clearNVRAMInBIOS == toWrite)
-    {
-        std::cout << "Skip Clear NVRAM BIOS write, value is already: "
-                  << toWrite << std::endl;
-        return;
-    }
-
-    PendingBIOSAttrsType biosAttrs;
-    biosAttrs.push_back(
-        std::make_pair("pvm_clear_nvram",
-                       std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
-                                       "AttributeType.Enumeration",
-                                       toWrite)));
-
-    std::cout << "Set pvm_clear_nvram to: " << toWrite << std::endl;
 
     setBusProperty<PendingBIOSAttrsType>(
         "xyz.openbmc_project.BIOSConfigManager",
@@ -612,57 +337,46 @@ void BiosHandler::saveClearNVRAMToBIOS(const std::string& clearNVRAM,
 
 void BiosHandler::restoreBIOSAttribs()
 {
-    // TODO: We could make this slightly more scalable by defining a table of
-    // attributes and their corresponding VPD keywords. However, that needs much
-    // more thought.
     std::cout << "Attempting BIOS attribute reset" << std::endl;
     // Check if the VPD contains valid data for FCO, AMM, Keep and Clear,
     // Create default LPAR and Clear NVRAM *and* that it differs from the data
     // already in the attributes. If so, set the BIOS attributes as per the
     // value in the VPD. If the VPD contains default data, then initialize the
     // VPD keywords with data taken from the BIOS.
-    auto fcoInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "RG");
-    auto ammInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D0");
-    auto keepAndClearInVPD =
-        readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
-    auto fcoInBIOS = readBIOSFCO();
-    auto ammInBIOS = readBIOSAMM();
-    auto keepAndClearInBIOS = readBIOSKeepAndClear();
-    auto createDefaultLparInBIOS = readBIOSCreateDefaultLpar();
-    auto clearNVRAMInBIOS = readBIOSClearNVRAM();
 
-    if (fcoInVPD == "    ")
+    for (auto& biosAttrMap : attributeTable)
     {
-        saveFCOToVPD(fcoInBIOS);
-    }
-    else
-    {
-        saveFCOToBIOS(fcoInVPD, fcoInBIOS);
-    }
+        auto attributeName = biosAttrMap.first;
 
-    if (ammInVPD.at(0) == 0)
-    {
-        saveAMMToVPD(ammInBIOS);
-    }
-    else
-    {
-        saveAMMToBIOS(ammInVPD, ammInBIOS);
-    }
+        auto valFromVPD = readBusProperty(
+            SYSTEM_OBJECT, "com.ibm.ipzvpd." + get<0>(biosAttrMap.second),
+            get<1>(biosAttrMap.second));
 
-    // No uninitialized handling needed for keep and clear, create default
-    // lpar and clear nvram attributes. Their defaults in VPD are 0's which is
-    // what we want.
-    saveKeepAndClearToBIOS(keepAndClearInVPD, keepAndClearInBIOS);
-    // Have to read D1 again because two attributes are stored in the same
-    // keyword.
-    auto createDefaultLparInVPD =
-        readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
-    saveCreateDefaultLparToBIOS(createDefaultLparInVPD,
-                                createDefaultLparInBIOS);
+        auto valFromBios = readBIOSAttribute(attributeName);
 
-    auto clearNVRAMInVPD =
-        readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
-    saveClearNVRAMToBIOS(clearNVRAMInVPD, clearNVRAMInBIOS);
+        if (auto pVal = get_if<int64_t>(&valFromBios))
+        {
+            if (valFromVPD.at(0) == 0)
+            {
+                saveBiosAttrToVPD(attributeName, *pVal, valFromVPD);
+            }
+            else
+            {
+                saveAttrToBIOS(attributeName, valFromVPD, *pVal);
+            }
+        }
+        else if (auto pVal = get_if<std::string>(&valFromBios))
+        {
+            if (valFromVPD == "    ")
+            {
+                saveBiosAttrToVPD(attributeName, *pVal, valFromVPD);
+            }
+            else
+            {
+                saveAttrToBIOS(attributeName, valFromVPD, *pVal);
+            }
+        }
+    }
 
     // Start listener now that we have done the restore
     listenBiosAttribs();

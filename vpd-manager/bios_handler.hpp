@@ -92,156 +92,31 @@ class BiosHandler
     void biosAttribsCallback(sdbusplus::message_t& msg);
 
     /**
-     * @brief Persistently saves the Memory mirror mode
+     * @brief Save BIOS attributes to system backplane VPD
      *
-     * Memory mirror mode setting is saved to the UTIL/D0 keyword in the
-     * motherboard VPD. If the mirror mode in BIOS is "Disabled", set D0 to 1,
-     * if "Enabled" set D0 to 2
+     * Attributes from attribute table are updated on VPD with the value taken
+     * from BIOS manager.
      *
-     * @param[in] mirrorMode - The mirror mode BIOS attribute.
+     * @param[in] attrName - attribute name
+     * @param[in] attrValInBios - The attribute's value in BIOS
+     * @param[in] attrValInVPD  - The attribute's value in VPD
      */
-    void saveAMMToVPD(const std::string& mirrorMode);
-
+    void saveBiosAttrToVPD(const BIOSAttribute& attrName,
+                           const BIOSAttrValueType& attrValInBios,
+                           const std::string& attrValInVPD);
     /**
-     * @brief Persistently saves the Field Core Override setting
+     * @brief Update the BIOS attributes based on its corresponding VPD value
      *
-     * Saves the field core override value (FCO) into the VSYS/RG keyword in
-     * the motherboard VPD.
+     * Attributes from attribute table are updated to BIOS manager with the
+     * value taken from VPD.
      *
-     * @param[in] fcoVal - The FCO value as an integer.
+     * @param[in] attrName - attribute name
+     * @param[in] attrVpdVal - The attribute value as read from VPD.
+     * @param[in] attrInBIOS - The attribute's value in the BIOS table.
      */
-    void saveFCOToVPD(int64_t fcoVal);
-
-    /**
-     * @brief Persistently saves the Keep and Clear setting
-     *
-     * Keep and clear setting is saved to the UTIL/D1 keyword's 0th bit in the
-     * motherboard VPD. If the keep and clear in BIOS is "Disabled", set D1:0 to
-     * 0, if "Enabled" set D1:0 to 1
-     *
-     * @param[in] keepAndClear - The keep and clear BIOS attribute.
-     */
-    void saveKeepAndClearToVPD(const std::string& keepAndClear);
-
-    /**
-     * @brief Persistently saves the Create default LPAR setting
-     *
-     * Create default LPAR setting is saved to the UTIL/D1 keyword's 1st bit in
-     * the motherboard VPD. If the create default LPAR in BIOS is "Disabled",
-     * set D1:1 to 0, if "Enabled" set D1:1 to 1
-     *
-     * @param[in] createDefaultLpar - The mirror mode BIOS attribute.
-     */
-    void saveCreateDefaultLparToVPD(const std::string& createDefaultLpar);
-
-    /**
-     * @brief Persistently saves the Clear NVRAM setting
-     *
-     * Create default LPAR setting is saved to the UTIL/D1 keyword's 2nd bit in
-     * the motherboard VPD. If the clear NVRAM in BIOS is "Disabled",
-     * set D1:2 to 0, if "Enabled" set D1:2 to 1
-     *
-     * @param[in] createDefaultLpar - The mirror mode BIOS attribute.
-     */
-    void saveClearNVRAMToVPD(const std::string& clearNVRAM);
-
-    /**
-     * @brief Writes Memory mirror mode to BIOS
-     *
-     * Writes to the hb_memory_mirror_mode BIOS attribute, if the value is
-     * not already the same as we are trying to write.
-     *
-     * @param[in] ammVal - The mirror mode as read from VPD.
-     * @param[in] ammInBIOS - The mirror mode in the BIOS table.
-     */
-    void saveAMMToBIOS(const std::string& ammVal, const std::string& ammInBIOS);
-
-    /**
-     * @brief Writes Field Core Override to BIOS
-     *
-     * Writes to the hb_field_core_override BIOS attribute, if the value is not
-     * already the same as we are trying to write.
-     *
-     * @param[in] fcoVal - The FCO value as read from VPD.
-     * @param[in] fcoInBIOS - The FCO value already in the BIOS table.
-     */
-    void saveFCOToBIOS(const std::string& fcoVal, int64_t fcoInBIOS);
-
-    /**
-     * @brief Writes Keep and clear setting to BIOS
-     *
-     * Writes to the pvm_keep_and_clear BIOS attribute, if the value is
-     * not already the same as we are trying to write.
-     *
-     * @param[in] keepAndClear - The keep and clear as read from VPD.
-     * @param[in] keepAndClearInBIOS - The keep and clear in the BIOS table.
-     */
-    void saveKeepAndClearToBIOS(const std::string& keepAndClear,
-                                const std::string& keepAndClearInBIOS);
-
-    /**
-     * @brief Writes Create default LPAR setting to BIOS
-     *
-     * Writes to the pvm_create_default_lpar BIOS attribute, if the value is
-     * not already the same as we are trying to write.
-     *
-     * @param[in] createDefaultLpar - The create default LPAR as read from VPD.
-     * @param[in] createDefaultLparInBIOS - The create default LPAR in the BIOS
-     * table.
-     */
-    void
-        saveCreateDefaultLparToBIOS(const std::string& createDefaultLpar,
-                                    const std::string& createDefaultLparInBIOS);
-
-    /**
-     * @brief Writes Clear NVRAM setting to BIOS
-     *
-     * Writes to the pvm_clear_nvram BIOS attribute, if the value is
-     * not already the same as we are trying to write.
-     *
-     * @param[in] clearNVRAM - The clear NVRAM as read from VPD.
-     * @param[in] clearNVRAMInBIOS - The clear NVRAM in the BIOS table.
-     */
-    void saveClearNVRAMToBIOS(const std::string& clearNVRAM,
-                              const std::string& clearNVRAMInBIOS);
-
-    /**
-     * @brief Reads the hb_memory_mirror_mode attribute
-     *
-     * @return std::string - The AMM BIOS attribute. Empty string on failure.
-     */
-    std::string readBIOSAMM();
-
-    /**
-     * @brief Reads the hb_field_core_override attribute
-     *
-     * @return int64_t - The FCO BIOS attribute.  -1 on failure.
-     */
-    int64_t readBIOSFCO();
-
-    /**
-     * @brief Reads the pvm_keep_and_clear attribute
-     *
-     * @return std::string - The Keep and clear BIOS attribute. Empty string on
-     * failure.
-     */
-    std::string readBIOSKeepAndClear();
-
-    /**
-     * @brief Reads the pvm_create_default_lpar attribute
-     *
-     * @return std::string - The Create default LPAR BIOS attribute. Empty
-     * string on failure.
-     */
-    std::string readBIOSCreateDefaultLpar();
-
-    /**
-     * @brief Reads the pvm_clear_nvram attribute
-     *
-     * @return std::string - The Clear NVRAM BIOS attribute. Empty
-     * string on failure.
-     */
-    std::string readBIOSClearNVRAM();
+    void saveAttrToBIOS(const BIOSAttribute& attrName,
+                        const std::string& attrVpdVal,
+                        const BIOSAttrValueType& attrInBIOS);
 
     /**
      * @brief Restore BIOS attributes
@@ -262,6 +137,20 @@ class BiosHandler
      * @brief Reference to the manager.
      */
     Manager& manager;
+
+    /**
+     * @brief BIOS attribute table
+     * A table which maps attributes to its corresponding VPD record-keyword and
+     * bitmask if its required to access specific bit. If an attribute doesn't
+     * hold any bitmask, then 0x0 is stored as dummy bitmask value in the table.
+     */
+    BIOSAttributeTable attributeTable = {
+        {"hb_field_core_override", std::make_tuple("VSYS", "RG", 0x0)},
+        {"hb_memory_mirror_mode", std::make_tuple("UTIL", "D0", 0x0)},
+        {"pvm_keep_and_clear", std::make_tuple("UTIL", "D1", 0x01)},
+        {"pvm_create_default_lpar", std::make_tuple("UTIL", "D1", 0x02)},
+        {"pvm_clear_nvram", std::make_tuple("UTIL", "D1", 0x04)}};
+
 }; // class BiosHandler
 } // namespace manager
 } // namespace vpd
