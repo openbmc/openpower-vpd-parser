@@ -92,67 +92,44 @@ class BiosHandler
     void biosAttribsCallback(sdbusplus::message::message& msg);
 
     /**
-     * @brief Persistently saves the Memory mirror mode
+     * @brief Saves the BIOS attribbutes into the corresponding record/keyword
+     * in the motherboard VPD. hb_memory_mirror_mode   - UTIL/D0
+     * hb_field_core_override  - VSYS/RG
+     * pvm_keep_and_clear      - UTIL/D1,bit0
+     * pvm_create_default_lpar - UTIL/D1,bit1
+     * pvm_clear_nvram         - UTIL/D1,bit2
      *
-     * Memory mirror mode setting is saved to the UTIL/D0 keyword in the
-     * motherboard VPD. If the mirror mode in BIOS is "Disabled", set D0 to 1,
-     * if "Enabled" set D0 to 2
-     *
-     * @param[in] mirrorMode - The mirror mode BIOS attribute.
+     * @param[in] attrName - attribute name
+     * @param[in] attrValInBios - The attribute's value in BIOS
+     * @param[in] attrValInVPD  - The attribute's value in VPD
      */
-    void saveAMMToVPD(const std::string& mirrorMode);
-
+    void saveBiosAttrToVPD(const std::string& attrName,
+                           const biosAttrValue& attrValInBios,
+                           const std::string& attrValInVPD);
     /**
-     * @brief Persistently saves the Field Core Override setting
+     * @brief Writes these attributes to the BIOS
+     * hb_memory_mirror_mode
+     * hb_field_core_override
+     * pvm_keep_and_clear
+     * pvm_create_default_lpar
+     * pvm_clear_nvram
      *
-     * Saves the field core override value (FCO) into the VSYS/RG keyword in
-     * the motherboard VPD.
+     * Writes to the BIOS attribute, if the value is
+     * not already the same as we are trying to write.
      *
-     * @param[in] fcoVal - The FCO value as an integer.
+     * @param[in] attrName - attribute name
+     * @param[in] attrVpdVal - The attribute value as read from VPD.
+     * @param[in] attrInBIOS - The attribute's value in the BIOS table.
      */
-    void saveFCOToVPD(int64_t fcoVal);
-
-    /**
-     * @brief Writes Memory mirror mode to BIOS
-     *
-     * Writes to the hb_memory_mirror_mode BIOS attribute, if the value is not
-     * already the same as we are trying to write.
-     *
-     * @param[in] ammVal - The mirror mode as read from VPD.
-     * @param[in] ammInBIOS - The mirror more in the BIOS table.
-     */
-    void saveAMMToBIOS(const std::string& ammVal, const std::string& ammInBIOS);
-
-    /**
-     * @brief Writes Field Core Override to BIOS
-     *
-     * Writes to the hb_field_core_override BIOS attribute, if the value is not
-     * already the same as we are trying to write.
-     *
-     * @param[in] fcoVal - The FCO value as read from VPD.
-     * @param[in] fcoInBIOS - The FCO value already in the BIOS table.
-     */
-    void saveFCOToBIOS(const std::string& fcoVal, int64_t fcoInBIOS);
-
-    /**
-     * @brief Reads the hb_memory_mirror_mode attribute
-     *
-     * @return int64_t - The AMM BIOS attribute. -1 on failure.
-     */
-    std::string readBIOSAMM();
-
-    /**
-     * @brief Reads the hb_field_core_override attribute
-     *
-     * @return std::string - The FCO BIOS attribute. Empty string on failure.
-     */
-    int64_t readBIOSFCO();
+    void saveAttrToBIOS(const std::string& attrName,
+                        const std::string& attrVpdVal,
+                        const biosAttrValue& attrInBIOS);
 
     /**
      * @brief Restore BIOS attributes
      *
      * This function checks if we are coming out of a factory reset. If yes,
-     * it checks the VPD cache for valid backed up copy of the FCO and AMM
+     * it checks the VPD cache for valid backed up copy of the applicable
      * BIOS attributes. If valid values are found in the VPD, it will apply
      * those to the BIOS attributes.
      */

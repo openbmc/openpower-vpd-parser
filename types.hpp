@@ -22,6 +22,19 @@ using PendingBIOSAttrItemType =
     std::pair<std::string, std::tuple<std::string, BIOSAttrValueType>>;
 using PendingBIOSAttrsType = std::vector<PendingBIOSAttrItemType>;
 
+using biosAttrName = std::string;
+using biosAttrValType = std::string;
+using recordName = std::string;
+using keywordName = std::string;
+using biosAttrTable =
+    std::map<biosAttrName,
+             std::tuple<biosAttrValType, recordName, keywordName>>;
+
+using biosAttrValue = std::variant<int64_t, std::string>;
+using biosAttrVpdValue = std::string;
+using attributeValues =
+    std::map<biosAttrName, std::pair<biosAttrValue, biosAttrVpdValue>>;
+
 namespace inventory
 {
 
@@ -61,6 +74,8 @@ using MapperResponse =
     std::map<Path, std::map<Service, std::vector<Interface>>>;
 using RestoredEeproms = std::tuple<Path, std::string, Keyword, Binary>;
 using ReplaceableFrus = std::vector<VPDfilepath>;
+using EssentialFrus = std::vector<Path>;
+
 } // namespace inventory
 
 } // namespace vpd
