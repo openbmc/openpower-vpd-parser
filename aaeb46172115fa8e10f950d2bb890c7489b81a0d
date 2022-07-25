@@ -39,6 +39,30 @@
       },
       "revId": "aaeb46172115fa8e10f950d2bb890c7489b81a0d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79a9b65d_09905caa",
+        "filename": "vpd-manager/bios_handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-07-25T11:47:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d1240ff_fca51c9d",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 43
+      },
+      "revId": "aaeb46172115fa8e10f950d2bb890c7489b81a0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
