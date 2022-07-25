@@ -96,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "32598fef_5f770666",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-07-25T06:46:54Z",
+      "side": 1,
+      "message": "sorry. I\u0027ve updated the data vice versa. It\u0027s 5.5ms for 4 dbus calls \u0026 13.5ms for 11 dbus calls.\nmaking 4 dbus calls is an optimised solution than having 11 dbus calls.",
+      "parentUuid": "1816bd92_a81d8a5c",
+      "range": {
+        "startLine": 675,
+        "startChar": 0,
+        "endLine": 678,
+        "endChar": 56
+      },
+      "revId": "668929b6dbf18a7f169f48fbdaa5ff23a8a508e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca18c3cc_61cba729",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 6
