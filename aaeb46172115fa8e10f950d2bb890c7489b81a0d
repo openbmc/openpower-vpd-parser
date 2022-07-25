@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2970c28_6eeb9d99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-25T03:35:27Z",
+      "side": 1,
+      "message": "This hasn\u0027t been tested enough - Please test cases where the value is something other than 32 too.",
+      "revId": "aaeb46172115fa8e10f950d2bb890c7489b81a0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d1240ff_fca51c9d",
+        "filename": "vpd-manager/bios_handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-07-25T03:35:27Z",
+      "side": 1,
+      "message": "This translation is incorrect. The RG keyword (like all other VPD keywords) is big endian. It\u0027d be best if you memcmp vpdVal and valInVPD.data()",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 43
+      },
+      "revId": "aaeb46172115fa8e10f950d2bb890c7489b81a0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
