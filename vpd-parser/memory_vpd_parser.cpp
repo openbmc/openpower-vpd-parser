@@ -126,6 +126,7 @@ kwdVpdMap memoryVpdParser::readKeywords(Binary::const_iterator iterator)
     advance(iterator, SERIAL_NUM_LEN);
     Binary ccin(iterator, iterator + CCIN_LEN);
 
+    map.emplace("FN", partNumber);
     map.emplace("PN", move(partNumber));
     map.emplace("SN", move(serialNumber));
     map.emplace("CC", move(ccin));
