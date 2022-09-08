@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a0423306_a678e8f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-09-08T12:27:08Z",
+      "side": 1,
+      "message": "right. will rephrase it.",
+      "parentUuid": "e91a1feb_62d800b7",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 75
+      },
+      "revId": "ffb6fdb70a62f93db992aa54c4fd8f037a7cdd49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "82675bf4_511e2c36",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 7
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-07T13:19:51Z",
       "side": 1,
       "message": "Missing Doxygen comments here?",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 3
+      },
+      "revId": "ffb6fdb70a62f93db992aa54c4fd8f037a7cdd49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bdd05ae_ca2a21b2",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-09-08T12:27:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82675bf4_511e2c36",
       "range": {
         "startLine": 110,
         "startChar": 0,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ca24205c_3f4cd2bf",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-09-08T12:27:08Z",
+      "side": 1,
+      "message": "modified",
+      "parentUuid": "141ff75a_377ba348",
+      "range": {
+        "startLine": 675,
+        "startChar": 6,
+        "endLine": 675,
+        "endChar": 16
+      },
+      "revId": "ffb6fdb70a62f93db992aa54c4fd8f037a7cdd49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "769c2a08_0e7f1e1a",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 7
@@ -83,6 +155,30 @@
       "writtenOn": "2022-09-07T13:19:51Z",
       "side": 1,
       "message": "Why empty line here?",
+      "range": {
+        "startLine": 680,
+        "startChar": 4,
+        "endLine": 682,
+        "endChar": 28
+      },
+      "revId": "ffb6fdb70a62f93db992aa54c4fd8f037a7cdd49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eabca87_605024fb",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-09-08T12:27:08Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "769c2a08_0e7f1e1a",
       "range": {
         "startLine": 680,
         "startChar": 4,
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0fc52271_f19beac2",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-09-08T12:27:08Z",
+      "side": 1,
+      "message": "PropertyMap in types.hpp supports variant\u003cmultiple types\u003e, which is not required in this case as of now. Leaving it as it is",
+      "parentUuid": "5fe5087c_be919cfc",
+      "range": {
+        "startLine": 683,
+        "startChar": 30,
+        "endLine": 683,
+        "endChar": 63
+      },
+      "revId": "ffb6fdb70a62f93db992aa54c4fd8f037a7cdd49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8078bc51_aee80f53",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 7
@@ -141,6 +261,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20c9f8ba_cf2fbc6f",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-09-08T12:27:08Z",
+      "side": 1,
+      "message": "yes will not have any issues.\nif there is a dbus call failure and empty map is returned then \u0027recData\u0027 will be empty and this for loop (at line 738) will not get executed.",
+      "parentUuid": "8078bc51_aee80f53",
+      "range": {
+        "startLine": 742,
+        "startChar": 20,
+        "endLine": 742,
+        "endChar": 44
+      },
+      "revId": "ffb6fdb70a62f93db992aa54c4fd8f037a7cdd49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be8fdbfe_a25b26ed",
         "filename": "vpd_tool_impl.hpp",
         "patchSetId": 7
@@ -152,6 +296,30 @@
       "writtenOn": "2022-09-07T13:19:51Z",
       "side": 1,
       "message": "Please define this as something readable in types.hpp.",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 62
+      },
+      "revId": "ffb6fdb70a62f93db992aa54c4fd8f037a7cdd49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56b51ef3_2ea21e63",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-09-08T12:27:08Z",
+      "side": 1,
+      "message": "this is required only in vpd-tool. so will have it here itself.",
+      "parentUuid": "be8fdbfe_a25b26ed",
       "range": {
         "startLine": 20,
         "startChar": 4,
