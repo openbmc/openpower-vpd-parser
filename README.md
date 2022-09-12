@@ -39,3 +39,15 @@ parser applications into a single runtime JSON driven application.
  4. Support for more IBM VPD formats.
  5. VPD Write and tool documentation.
 
+## Redundant DIMM VPD handling
+As CPU gets detected, vpd-parser kicks-off binding DIMM EEPROMs, both primary and
+secondary. Secondary DIMM EEPROM is bound first so that if primary EEPROM is broken,
+vpd-parser can use the secondary EEPROM by trusting its presence.
+
+If primary EEPROM fails with a read error or CRC error, informational PEL is logged
+and vpd-parser tries to parse secondary EEPROM. If secondary EEPROM also fails with
+a read error or CRC error, a predictive PEL is logged that calls out DIMM.
+
+If CRC doesn't match between the primary and secondary EEPROM, and there are no CRC
+errors for the respective EEPROMs, then vpd-parser populates primary VPD on D-Bus
+(assuming primary is good) and logs a predictive PEL that calls out DIMM.
