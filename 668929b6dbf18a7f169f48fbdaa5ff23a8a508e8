@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4206c5ef_75154b01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-09-13T07:28:14Z",
+      "side": 1,
+      "message": "This still needs to be handled, so does Sunny\u0027s comment below.",
+      "parentUuid": "67a9046a_12be497d",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 75
+      },
+      "revId": "668929b6dbf18a7f169f48fbdaa5ff23a8a508e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4eae39be_ed9afc46",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 6
@@ -296,6 +320,30 @@
       "writtenOn": "2022-07-18T05:51:16Z",
       "side": 1,
       "message": "Why is this enum public?",
+      "range": {
+        "startLine": 136,
+        "startChar": 3,
+        "endLine": 136,
+        "endChar": 19
+      },
+      "revId": "668929b6dbf18a7f169f48fbdaa5ff23a8a508e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "816ed1f2_ad592402",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-09-13T07:28:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ee2f5b0_cbc7e1c0",
       "range": {
         "startLine": 136,
         "startChar": 3,
