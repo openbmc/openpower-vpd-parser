@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ed27b43_637ccd86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-09-16T12:58:28Z",
+      "side": 1,
+      "message": "This change has gone through reviews and got approved in downstream. Let\u0027s merge this upstream as well.",
+      "revId": "85bc07fc858c605c8d24cf4897a43888c7700a46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
