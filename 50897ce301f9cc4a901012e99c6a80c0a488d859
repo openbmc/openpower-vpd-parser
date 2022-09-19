@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecd8208e_fcbd7cd3",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-09-19T12:14:40Z",
+      "side": 1,
+      "message": "either add a period instead of comma or rephrase it like \"which keeps checking if an event happened and takes necessary action.\"",
+      "range": {
+        "startLine": 91,
+        "startChar": 23,
+        "endLine": 91,
+        "endChar": 46
+      },
+      "revId": "50897ce301f9cc4a901012e99c6a80c0a488d859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4acda3b_0c4d2066",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-09-19T12:14:40Z",
+      "side": 1,
+      "message": "nit: there is no use in holding reference to a shared pointer.",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 96,
+        "endChar": 59
+      },
+      "revId": "50897ce301f9cc4a901012e99c6a80c0a488d859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd541967_546eb581",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-09-19T12:14:40Z",
+      "side": 1,
+      "message": "param[in]/[out] missing",
+      "range": {
+        "startLine": 101,
+        "startChar": 7,
+        "endLine": 102,
+        "endChar": 19
+      },
+      "revId": "50897ce301f9cc4a901012e99c6a80c0a488d859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ace6db0_1b7e8903",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-09-19T12:14:40Z",
+      "side": 1,
+      "message": "Can you please remove reference to these variables.",
+      "range": {
+        "startLine": 152,
+        "startChar": 4,
+        "endLine": 158,
+        "endChar": 55
+      },
+      "revId": "50897ce301f9cc4a901012e99c6a80c0a488d859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ba0d68d_f44114cd",
+        "filename": "vpd-manager/manager_main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-09-19T12:14:40Z",
+      "side": 1,
+      "message": "this is included in manager.hpp. you can remove here",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 40
+      },
+      "revId": "50897ce301f9cc4a901012e99c6a80c0a488d859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
