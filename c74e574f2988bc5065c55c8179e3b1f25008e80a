@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbc61149_83ed79c4",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-09-19T18:14:40Z",
+      "side": 1,
+      "message": "I\u0027d prefer we do it with this changeset - a separate commit is fine, but I would like to get this in.",
+      "parentUuid": "17c39ed0_bde8500b",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 20
+      },
+      "revId": "c74e574f2988bc5065c55c8179e3b1f25008e80a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f41ae3ea_724b969d",
