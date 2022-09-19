@@ -72,6 +72,11 @@ Manager::Manager(std::shared_ptr<boost::asio::io_context>& ioCon,
             this->getExpandedLocationCode(locationCode, nodeNumber);
         });
 
+    interface->register_method("notifyVPDManager",
+                               [this](const inventory::ObjectMap& objectMap) {
+                                   this->getExpandedLocationCode(objectMap);
+                               });
+
     initManager();
 }
 
