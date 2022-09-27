@@ -91,11 +91,11 @@ LE2ByteData readUInt16LE(Binary::const_iterator iterator)
 
 /** @brief Encodes a keyword for D-Bus.
  */
-string encodeKeyword(const string& kw, const string& encoding)
+std::string encodeKeyword(const std::string& kw, const std::string& encoding)
 {
     if (encoding == "MAC")
     {
-        string res{};
+        std::string res{};
         size_t first = kw[0];
         res += toHex(first >> 4);
         res += toHex(first & 0x0f);
@@ -111,7 +111,7 @@ string encodeKeyword(const string& kw, const string& encoding)
     {
         // Date, represent as
         // <year>-<month>-<day> <hour>:<min>
-        string res{};
+        std::string res{};
         static constexpr uint8_t skipPrefix = 3;
 
         auto strItr = kw.begin();
@@ -127,11 +127,12 @@ string encodeKeyword(const string& kw, const string& encoding)
     }
     else // default to string encoding
     {
-        return string(kw.begin(), kw.end());
+        return std::string(kw.begin(), kw.end());
     }
 }
 
-string readBusProperty(const string& obj, const string& inf, const string& prop)
+std::string readBusProperty(const std::string& obj, const std::string& inf,
+                            const std::string& prop)
 {
     std::string propVal{};
     std::string object = INVENTORY_PATH + obj;
@@ -144,14 +145,14 @@ string readBusProperty(const string& obj, const string& inf, const string& prop)
     auto result = bus.call(properties);
     if (!result.is_method_error())
     {
-        variant<Binary, string> val;
+        std::variant<Binary, std::string> val;
         result.read(val);
-        if (auto pVal = get_if<Binary>(&val))
+        if (auto pVal = std::get_if<Binary>(&val))
         {
             propVal.assign(reinterpret_cast<const char*>(pVal->data()),
                            pVal->size());
         }
-        else if (auto pVal = get_if<string>(&val))
+        else if (auto pVal = std::get_if<std::string>(&val))
         {
             propVal.assign(pVal->data(), pVal->size());
         }
@@ -187,10 +188,10 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
     }
 }
 
-inventory::VPDfilepath getVpdFilePath(const string& jsonFile,
+inventory::VPDfilepath getVpdFilePath(const std::string& jsonFile,
                                       const std::string& ObjPath)
 {
-    ifstream inventoryJson(jsonFile);
+    std::ifstream inventoryJson(jsonFile);
     const auto& jsonObject = json::parse(inventoryJson);
     inventory::VPDfilepath filePath{};
 
@@ -223,7 +224,7 @@ inventory::VPDfilepath getVpdFilePath(const string& jsonFile,
 bool isPathInJson(const std::string& eepromPath)
 {
     bool present = false;
-    ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
+    std::ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
 
     try
     {
@@ -251,7 +252,7 @@ bool isPathInJson(const std::string& eepromPath)
 bool isRecKwInDbusJson(const std::string& recordName,
                        const std::string& keyword)
 {
-    ifstream propertyJson(DBUS_PROP_JSON);
+    std::ifstream propertyJson(DBUS_PROP_JSON);
     json dbusProperty;
     bool present = false;
 
@@ -271,7 +272,8 @@ bool isRecKwInDbusJson(const std::string& recordName,
             dbusProperty = dbusPropertyJson["dbusProperties"];
             if (dbusProperty.contains(recordName))
             {
-                const vector<string>& kwdsToPublish = dbusProperty[recordName];
+                const std::vector<std::string>& kwdsToPublish =
+                    dbusProperty[recordName];
                 if (find(kwdsToPublish.begin(), kwdsToPublish.end(), keyword) !=
                     kwdsToPublish.end()) // present
                 {
@@ -323,7 +325,7 @@ vpdType vpdTypeCheck(const Binary& vpdVector)
     return vpdType::INVALID_VPD_FORMAT;
 }
 
-const string getIM(const Parsed& vpdMap)
+const std::string getIM(const Parsed& vpdMap)
 {
     Binary imVal;
     auto property = vpdMap.find("VSBP");
@@ -336,16 +338,17 @@ const string getIM(const Parsed& vpdMap)
         }
     }
 
-    ostringstream oss;
+    std::ostringstream oss;
     for (auto& i : imVal)
     {
-        oss << setw(2) << setfill('0') << hex << static_cast<int>(i);
+        oss << std::setw(2) << std::setfill('0') << std::hex
+            << static_cast<int>(i);
     }
 
     return oss.str();
 }
 
-const string getHW(const Parsed& vpdMap)
+const std::string getHW(const Parsed& vpdMap)
 {
     Binary hwVal;
     auto prop = vpdMap.find("VINI");
@@ -363,21 +366,22 @@ const string getHW(const Parsed& vpdMap)
     // termination.
     hwVal[0] = 0x00;
 
-    ostringstream hwString;
+    std::ostringstream hwString;
     for (auto& i : hwVal)
     {
-        hwString << setw(2) << setfill('0') << hex << static_cast<int>(i);
+        hwString << std::setw(2) << std::setfill('0') << std::hex
+                 << static_cast<int>(i);
     }
 
     return hwString.str();
 }
 
-string getSystemsJson(const Parsed& vpdMap)
+std::string getSystemsJson(const Parsed& vpdMap)
 {
-    string jsonPath = "/usr/share/vpd/";
-    string jsonName{};
+    std::string jsonPath = "/usr/share/vpd/";
+    std::string jsonName{};
 
-    ifstream systemJson(SYSTEM_JSON);
+    std::ifstream systemJson(SYSTEM_JSON);
     if (!systemJson)
     {
         throw((VpdJsonException("Failed to access Json path", SYSTEM_JSON)));
@@ -387,20 +391,20 @@ string getSystemsJson(const Parsed& vpdMap)
     {
         auto js = json::parse(systemJson);
 
-        string hwKeyword = getHW(vpdMap);
-        const string imKeyword = getIM(vpdMap);
+        std::string hwKeyword = getHW(vpdMap);
+        const std::string imKeyword = getIM(vpdMap);
 
         transform(hwKeyword.begin(), hwKeyword.end(), hwKeyword.begin(),
                   ::toupper);
 
         if (js.find("system") == js.end())
         {
-            throw runtime_error("Invalid systems Json");
+            throw std::runtime_error("Invalid systems Json");
         }
 
         if (js["system"].find(imKeyword) == js["system"].end())
         {
-            throw runtime_error(
+            throw std::runtime_error(
                 "Invalid system. This system type is not present "
                 "in the systemsJson. IM: " +
                 imKeyword);
@@ -417,7 +421,7 @@ string getSystemsJson(const Parsed& vpdMap)
             for (const auto& hwVersion :
                  js["system"][imKeyword]["constraint"]["HW"])
             {
-                string hw = hwVersion;
+                std::string hw = hwVersion;
                 transform(hw.begin(), hw.end(), hw.begin(), ::toupper);
 
                 if (hw == hwKeyword)
@@ -440,7 +444,7 @@ string getSystemsJson(const Parsed& vpdMap)
         }
         else
         {
-            throw runtime_error(
+            throw std::runtime_error(
                 "Bad System json. Neither constraint nor default found");
         }
 
@@ -454,30 +458,30 @@ string getSystemsJson(const Parsed& vpdMap)
     return jsonPath;
 }
 
-void udevToGenericPath(string& file)
+void udevToGenericPath(std::string& file)
 {
     // Sample udevEvent i2c path :
     // "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a480.i2c-bus/i2c-8/8-0051/8-00510/nvmem"
     // find if the path contains the word i2c in it.
-    if (file.find("i2c") != string::npos)
+    if (file.find("i2c") != std::string::npos)
     {
-        string i2cBusAddr{};
+        std::string i2cBusAddr{};
 
         // Every udev i2c path should have the common pattern
         // "i2c-bus_number/bus_number-vpd_address". Search for
         // "bus_number-vpd_address".
-        regex i2cPattern("((i2c)-[0-9]+\\/)([0-9]+-[0-9]{4})");
-        smatch match;
-        if (regex_search(file, match, i2cPattern))
+        std::regex i2cPattern("((i2c)-[0-9]+\\/)([0-9]+-[0-9]{4})");
+        std::smatch match;
+        if (std::regex_search(file, match, i2cPattern))
         {
             i2cBusAddr = match.str(3);
         }
         else
         {
-            cerr << "The given udev path < " << file
-                 << " > doesn't match the required pattern. Skipping VPD "
-                    "collection."
-                 << endl;
+            std::cerr << "The given udev path < " << file
+                      << " > doesn't match the required pattern. Skipping VPD "
+                         "collection."
+                      << std::endl;
             exit(EXIT_SUCCESS);
         }
         // Forming the generic file path
@@ -486,26 +490,26 @@ void udevToGenericPath(string& file)
     // Sample udevEvent spi path :
     // "/sys/devices/platform/ahb/ahb:apb/1e79b000.fsi/fsi-master/fsi0/slave@00:00/00:00:00:04/spi_master/spi2/spi2.0/spi2.00/nvmem"
     // find if the path contains the word spi in it.
-    else if (file.find("spi") != string::npos)
+    else if (file.find("spi") != std::string::npos)
     {
         // Every udev spi path will have common pattern "spi<Digit>/", which
         // describes the spi bus number at which the fru is connected; Followed
         // by a slash following the vpd address of the fru. Taking the above
         // input as a common key, we try to search for the pattern "spi<Digit>/"
         // using regular expression.
-        regex spiPattern("((spi)[0-9]+)(\\/)");
-        string spiBus{};
-        smatch match;
-        if (regex_search(file, match, spiPattern))
+        std::regex spiPattern("((spi)[0-9]+)(\\/)");
+        std::string spiBus{};
+        std::smatch match;
+        if (std::regex_search(file, match, spiPattern))
         {
             spiBus = match.str(1);
         }
         else
         {
-            cerr << "The given udev path < " << file
-                 << " > doesn't match the required pattern. Skipping VPD "
-                    "collection."
-                 << endl;
+            std::cerr << "The given udev path < " << file
+                      << " > doesn't match the required pattern. Skipping VPD "
+                         "collection."
+                      << std::endl;
             exit(EXIT_SUCCESS);
         }
         // Forming the generic path
@@ -513,31 +517,31 @@ void udevToGenericPath(string& file)
     }
     else
     {
-        cerr << "\n The given EEPROM path < " << file
-             << " > is not valid. It's neither I2C nor "
-                "SPI path. Skipping VPD collection.."
-             << endl;
+        std::cerr << "\n The given EEPROM path < " << file
+                  << " > is not valid. It's neither I2C nor "
+                     "SPI path. Skipping VPD collection.."
+                  << std::endl;
         exit(EXIT_SUCCESS);
     }
 }
-string getBadVpdName(const string& file)
+std::string getBadVpdName(const std::string& file)
 {
-    string badVpd = BAD_VPD_DIR;
-    if (file.find("i2c") != string::npos)
+    std::string badVpd = BAD_VPD_DIR;
+    if (file.find("i2c") != std::string::npos)
     {
         badVpd += "i2c-";
-        regex i2cPattern("(at24/)([0-9]+-[0-9]+)\\/");
-        smatch match;
-        if (regex_search(file, match, i2cPattern))
+        std::regex i2cPattern("(at24/)([0-9]+-[0-9]+)\\/");
+        std::smatch match;
+        if (std::regex_search(file, match, i2cPattern))
         {
             badVpd += match.str(2);
         }
     }
-    else if (file.find("spi") != string::npos)
+    else if (file.find("spi") != std::string::npos)
     {
-        regex spiPattern("((spi)[0-9]+)(.0)");
-        smatch match;
-        if (regex_search(file, match, spiPattern))
+        std::regex spiPattern("((spi)[0-9]+)(.0)");
+        std::smatch match;
+        if (std::regex_search(file, match, spiPattern))
         {
             badVpd += match.str(1);
         }
@@ -545,40 +549,41 @@ string getBadVpdName(const string& file)
     return badVpd;
 }
 
-void dumpBadVpd(const string& file, const Binary& vpdVector)
+void dumpBadVpd(const std::string& file, const Binary& vpdVector)
 {
     fs::path badVpdDir = BAD_VPD_DIR;
     fs::create_directory(badVpdDir);
-    string badVpdPath = getBadVpdName(file);
+    std::string badVpdPath = getBadVpdName(file);
     if (fs::exists(badVpdPath))
     {
         std::error_code ec;
         fs::remove(badVpdPath, ec);
         if (ec) // error code
         {
-            string error = "Error removing the existing broken vpd in ";
+            std::string error = "Error removing the existing broken vpd in ";
             error += badVpdPath;
             error += ". Error code : ";
             error += ec.value();
             error += ". Error message : ";
             error += ec.message();
-            throw runtime_error(error);
+            throw std::runtime_error(error);
         }
     }
-    ofstream badVpdFileStream(badVpdPath, ofstream::binary);
+    std::ofstream badVpdFileStream(badVpdPath, std::ofstream::binary);
     if (!badVpdFileStream)
     {
-        throw runtime_error("Failed to open bad vpd file path in /tmp/bad-vpd. "
-                            "Unable to dump the broken/bad vpd file.");
+        throw std::runtime_error(
+            "Failed to open bad vpd file path in /tmp/bad-vpd. "
+            "Unable to dump the broken/bad vpd file.");
     }
     badVpdFileStream.write(reinterpret_cast<const char*>(vpdVector.data()),
                            vpdVector.size());
 }
 
-const string getKwVal(const Parsed& vpdMap, const string& rec,
-                      const string& kwd)
+const std::string getKwVal(const Parsed& vpdMap, const std::string& rec,
+                           const std::string& kwd)
 {
-    string kwVal{};
+    std::string kwVal{};
 
     auto findRec = vpdMap.find(rec);
 
@@ -596,25 +601,25 @@ const string getKwVal(const Parsed& vpdMap, const string& rec,
     return kwVal;
 }
 
-string byteArrayToHexString(const Binary& vec)
+std::string byteArrayToHexString(const Binary& vec)
 {
-    stringstream ss;
-    string hexRep = "0x";
+    std::stringstream ss;
+    std::string hexRep = "0x";
     ss << hexRep;
-    string str = ss.str();
+    std::string str = ss.str();
 
     // convert Decimal to Hex string
     for (auto& v : vec)
     {
-        ss << setfill('0') << setw(2) << hex << (int)v;
+        ss << std::setfill('0') << std::setw(2) << std::hex << (int)v;
         str = ss.str();
     }
     return str;
 }
 
-string getPrintableValue(const Binary& vec)
+std::string getPrintableValue(const Binary& vec)
 {
-    string str{};
+    std::string str{};
 
     // find for a non printable value in the vector
     const auto it = std::find_if(vec.begin(), vec.end(),
@@ -630,11 +635,11 @@ string getPrintableValue(const Binary& vec)
                 return str;
             }
         }
-        str = string(vec.begin(), it);
+        str = std::string(vec.begin(), it);
     }
     else
     {
-        str = string(vec.begin(), vec.end());
+        str = std::string(vec.begin(), vec.end());
     }
     return str;
 }
@@ -645,10 +650,10 @@ string getPrintableValue(const Binary& vec)
  * @param[in] gpioErr gpioError type exception
  * @param[in] i2cBusAddr I2C bus and address
  */
-void logGpioPel(const string& gpioErr, const string& i2cBusAddr)
+void logGpioPel(const std::string& gpioErr, const std::string& i2cBusAddr)
 {
     // Get the IIC details
-    vector<string> i2cReg;
+    std::vector<std::string> i2cReg;
     boost::split(i2cReg, i2cBusAddr, boost::is_any_of("-"));
 
     PelAdditionalData additionalData{};
@@ -662,7 +667,7 @@ void logGpioPel(const string& gpioErr, const string& i2cBusAddr)
     createPEL(additionalData, PelSeverity::WARNING, errIntfForGpioError);
 }
 
-void executePostFailAction(const nlohmann::json& json, const string& file)
+void executePostFailAction(const nlohmann::json& json, const std::string& file)
 {
     if ((json["frus"][file].at(0)).find("postActionFail") ==
         json["frus"][file].at(0).end())
@@ -671,7 +676,7 @@ void executePostFailAction(const nlohmann::json& json, const string& file)
     }
 
     uint8_t pinValue = 0;
-    string pinName;
+    std::string pinName;
 
     for (const auto& postAction :
          (json["frus"][file].at(0))["postActionFail"].items())
@@ -687,7 +692,8 @@ void executePostFailAction(const nlohmann::json& json, const string& file)
         }
     }
 
-    cout << "Setting GPIO: " << pinName << " to " << (int)pinValue << endl;
+    std::cout << "Setting GPIO: " << pinName << " to " << (int)pinValue
+              << std::endl;
 
     try
     {
@@ -695,7 +701,7 @@ void executePostFailAction(const nlohmann::json& json, const string& file)
 
         if (!outputLine)
         {
-            throw runtime_error(
+            throw std::runtime_error(
                 "Couldn't find output line for the GPIO. Skipping "
                 "this GPIO action.");
         }
@@ -703,10 +709,10 @@ void executePostFailAction(const nlohmann::json& json, const string& file)
             {"Disable line", ::gpiod::line_request::DIRECTION_OUTPUT, 0},
             pinValue);
     }
-    catch (const exception& e)
+    catch (const std::exception& e)
     {
-        string i2cBusAddr;
-        string errMsg = e.what();
+        std::string i2cBusAddr;
+        std::string errMsg = e.what();
         errMsg += "\nGPIO: " + pinName;
 
         if ((json["frus"][file].at(0)["postActionFail"].find(
@@ -723,7 +729,8 @@ void executePostFailAction(const nlohmann::json& json, const string& file)
     return;
 }
 
-std::optional<bool> isPresent(const nlohmann::json& json, const string& file)
+std::optional<bool> isPresent(const nlohmann::json& json,
+                              const std::string& file)
 
 {
     if ((json["frus"][file].at(0)).find("presence") !=
@@ -734,7 +741,8 @@ std::optional<bool> isPresent(const nlohmann::json& json, const string& file)
             ((json["frus"][file].at(0)["presence"]).find("value") !=
              json["frus"][file].at(0)["presence"].end()))
         {
-            string presPinName = json["frus"][file].at(0)["presence"]["pin"];
+            std::string presPinName =
+                json["frus"][file].at(0)["presence"]["pin"];
             Byte presPinValue = json["frus"][file].at(0)["presence"]["value"];
 
             try
@@ -743,10 +751,10 @@ std::optional<bool> isPresent(const nlohmann::json& json, const string& file)
 
                 if (!presenceLine)
                 {
-                    cerr << "Couldn't find the presence line for - "
-                         << presPinName << endl;
+                    std::cerr << "Couldn't find the presence line for - "
+                              << presPinName << std::endl;
 
-                    throw runtime_error(
+                    throw std::runtime_error(
                         "Couldn't find the presence line for the "
                         "GPIO. Skipping this GPIO action.");
                 }
@@ -758,10 +766,10 @@ std::optional<bool> isPresent(const nlohmann::json& json, const string& file)
 
                 return (gpioData == presPinValue);
             }
-            catch (const exception& e)
+            catch (const std::exception& e)
             {
-                string i2cBusAddr;
-                string errMsg = e.what();
+                std::string i2cBusAddr;
+                std::string errMsg = e.what();
                 errMsg += " GPIO : " + presPinName;
 
                 if ((json["frus"][file].at(0)["presence"])
@@ -781,9 +789,10 @@ std::optional<bool> isPresent(const nlohmann::json& json, const string& file)
         else
         {
             // missing required informations
-            cerr << "VPD inventory JSON missing basic informations of presence "
-                    "for this FRU : ["
-                 << file << "]. Executing executePostFailAction." << endl;
+            std::cerr
+                << "VPD inventory JSON missing basic informations of presence "
+                   "for this FRU : ["
+                << file << "]. Executing executePostFailAction." << std::endl;
 
             // Take failure postAction
             executePostFailAction(json, file);
@@ -794,7 +803,7 @@ std::optional<bool> isPresent(const nlohmann::json& json, const string& file)
     return std::optional<bool>{};
 }
 
-bool executePreAction(const nlohmann::json& json, const string& file)
+bool executePreAction(const nlohmann::json& json, const std::string& file)
 {
     auto present = isPresent(json, file);
     if (present && !present.value())
@@ -811,21 +820,21 @@ bool executePreAction(const nlohmann::json& json, const string& file)
             ((json["frus"][file].at(0)["preAction"]).find("value") !=
              json["frus"][file].at(0)["preAction"].end()))
         {
-            string pinName = json["frus"][file].at(0)["preAction"]["pin"];
+            std::string pinName = json["frus"][file].at(0)["preAction"]["pin"];
             // Get the value to set
             Byte pinValue = json["frus"][file].at(0)["preAction"]["value"];
 
-            cout << "Setting GPIO: " << pinName << " to " << (int)pinValue
-                 << endl;
+            std::cout << "Setting GPIO: " << pinName << " to " << (int)pinValue
+                      << std::endl;
             try
             {
                 gpiod::line outputLine = gpiod::find_line(pinName);
 
                 if (!outputLine)
                 {
-                    cerr << "Couldn't find the line for output pin - "
-                         << pinName << endl;
-                    throw runtime_error(
+                    std::cerr << "Couldn't find the line for output pin - "
+                              << pinName << std::endl;
+                    throw std::runtime_error(
                         "Couldn't find output line for the GPIO. "
                         "Skipping this GPIO action.");
                 }
@@ -833,10 +842,10 @@ bool executePreAction(const nlohmann::json& json, const string& file)
                                     ::gpiod::line_request::DIRECTION_OUTPUT, 0},
                                    pinValue);
             }
-            catch (const exception& e)
+            catch (const std::exception& e)
             {
-                string i2cBusAddr;
-                string errMsg = e.what();
+                std::string i2cBusAddr;
+                std::string errMsg = e.what();
                 errMsg += " GPIO : " + pinName;
 
                 if ((json["frus"][file].at(0)["preAction"])
@@ -858,10 +867,10 @@ bool executePreAction(const nlohmann::json& json, const string& file)
         else
         {
             // missing required informations
-            cerr
+            std::cerr
                 << "VPD inventory JSON missing basic informations of preAction "
                    "for this FRU : ["
-                << file << "]. Executing executePostFailAction." << endl;
+                << file << "]. Executing executePostFailAction." << std::endl;
 
             // Take failure postAction
             executePostFailAction(json, file);
@@ -913,7 +922,7 @@ BIOSAttrValueType readBIOSAttribute(const std::string& attrName)
 std::string getPowerState()
 {
     // TODO: How do we handle multiple chassis?
-    string powerState{};
+    std::string powerState{};
     auto bus = sdbusplus::bus::new_default();
     auto properties =
         bus.new_method_call("xyz.openbmc_project.State.Chassis",
@@ -924,14 +933,14 @@ std::string getPowerState()
     auto result = bus.call(properties);
     if (!result.is_method_error())
     {
-        variant<string> val;
+        std::variant<std::string> val;
         result.read(val);
-        if (auto pVal = get_if<string>(&val))
+        if (auto pVal = std::get_if<std::string>(&val))
         {
             powerState = *pVal;
         }
     }
-    cout << "Power state is: " << powerState << endl;
+    std::cout << "Power state is: " << powerState << std::endl;
     return powerState;
 }
 
@@ -953,10 +962,10 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
 
     Binary vpdVector;
     vpdVector.resize(maxVPDSize);
-    ifstream vpdFile;
-    vpdFile.open(file, ios::binary);
+    std::ifstream vpdFile;
+    vpdFile.open(file, std::ios::binary);
 
-    vpdFile.seekg(offset, ios_base::cur);
+    vpdFile.seekg(offset, std::ios_base::cur);
     vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), maxVPDSize);
     vpdVector.resize(vpdFile.gcount());
 

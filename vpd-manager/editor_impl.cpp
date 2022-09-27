@@ -313,15 +313,15 @@ void EditorImpl::processAndUpdateCI(const std::string& objectPath)
                     std::string kwdData(thisRecord.kwdUpdatedData.begin(),
                                         thisRecord.kwdUpdatedData.end());
 
-                    prop.emplace(ciPropertyList.key(), move(kwdData));
-                    interfaces.emplace(commonInterface.key(), move(prop));
-                    objects.emplace(objectPath, move(interfaces));
+                    prop.emplace(ciPropertyList.key(), std::move(kwdData));
+                    interfaces.emplace(commonInterface.key(), std::move(prop));
+                    objects.emplace(objectPath, std::move(interfaces));
                 }
             }
         }
     }
     // Notify PIM
-    common::utility::callPIM(move(objects));
+    common::utility::callPIM(std::move(objects));
 }
 
 void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
@@ -349,16 +349,17 @@ void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
                         encodeKeyword(kwdData, eiPropertyList.value().value(
                                                    "encoding", ""));
 
-                        prop.emplace(eiPropertyList.key(), move(kwdData));
-                        interfaces.emplace(extraInterface.key(), move(prop));
-                        objects.emplace(objPath, move(interfaces));
+                        prop.emplace(eiPropertyList.key(), std::move(kwdData));
+                        interfaces.emplace(extraInterface.key(),
+                                           std::move(prop));
+                        objects.emplace(objPath, std::move(interfaces));
                     }
                 }
             }
         }
     }
     // Notify PIM
-    common::utility::callPIM(move(objects));
+    common::utility::callPIM(std::move(objects));
 }
 
 void EditorImpl::updateCache()
@@ -385,10 +386,10 @@ void EditorImpl::updateCache()
             prop.emplace(thisRecord.recKWd, thisRecord.kwdUpdatedData);
             interfaces.emplace(
                 (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
-                move(prop));
+                std::move(prop));
             objects.emplace(
                 (singleInventory["inventoryPath"].get<std::string>()),
-                move(interfaces));
+                std::move(interfaces));
 
             // process Common interface
             processAndUpdateCI(singleInventory["inventoryPath"]
@@ -411,15 +412,15 @@ void EditorImpl::updateCache()
                 prop.emplace(thisRecord.recKWd, thisRecord.kwdUpdatedData);
                 interfaces.emplace(
                     (IPZ_INTERFACE + std::string{"."} + thisRecord.recName),
-                    move(prop));
+                    std::move(prop));
                 objects.emplace(
                     (singleInventory["inventoryPath"].get<std::string>()),
-                    move(interfaces));
+                    std::move(interfaces));
             }
         }
     }
     // Notify PIM
-    common::utility::callPIM(move(objects));
+    common::utility::callPIM(std::move(objects));
 }
 
 void EditorImpl::expandLocationCode(const std::string& locationCodeType)
@@ -488,14 +489,14 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
                     prop.emplace("LocationCode", expandedLocationCode);
                     // TODO depricate this com.ibm interface later
                     interfaces.emplace(IBM_LOCATION_CODE_INF, prop);
-                    interfaces.emplace(XYZ_LOCATION_CODE_INF, move(prop));
+                    interfaces.emplace(XYZ_LOCATION_CODE_INF, std::move(prop));
                 }
             }
-            objects.emplace(move(object), move(interfaces));
+            objects.emplace(std::move(object), std::move(interfaces));
         }
     }
     // Notify PIM
-    common::utility::callPIM(move(objects));
+    common::utility::callPIM(std::move(objects));
 }
 
 void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
@@ -509,7 +510,7 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
     vpdFileStream.open(vpdFilePath,
                        std::ios::in | std::ios::out | std::ios::binary);
 
-    vpdFileStream.seekg(startOffset, ios_base::cur);
+    vpdFileStream.seekg(startOffset, std::ios_base::cur);
     vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]), 65504);
     completeVPDFile.resize(vpdFileStream.gcount());
     vpdFileStream.clear(std::ios_base::eofbit);
