@@ -45,7 +45,6 @@ using LocationCode = std::string;
 using LocationCodeMap = std::unordered_multimap<LocationCode, Path>;
 using ListOfPaths = std::vector<sdbusplus::message::object_path>;
 using NodeNumber = uint16_t;
-using namespace std::string_literals;
 using KeywordVpdMap = std::unordered_map<std::string, kwdVpdValueTypes>;
 
 using systemType = std::string;
