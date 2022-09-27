@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1400a9bb_5857e7c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-09-27T11:50:01Z",
+      "side": 1,
+      "message": "We agreed to handle the comment about the std namespace in a separate commit.",
+      "revId": "e71056730b1aca5500aac43db8cf519557418ceb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
