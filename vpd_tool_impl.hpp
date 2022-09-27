@@ -70,8 +70,8 @@ class VpdTool
      * @param[out] output - output json which has the properties under invPath's
      * extra interface.
      */
-    void getExtraInterfaceProperties(const string& invPath,
-                                     const string& extraInterface,
+    void getExtraInterfaceProperties(const std::string& invPath,
+                                     const std::string& extraInterface,
                                      const json& prop, json& output);
 
     /**

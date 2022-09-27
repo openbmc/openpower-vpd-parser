@@ -71,7 +71,6 @@ static constexpr auto SERIAL_NUM_LEN = 12;
 static constexpr auto CCIN_LEN = 4;
 static constexpr auto CONVERT_MB_TO_KB = 1024;
 
-using namespace std::string_literals;
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
 constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
 constexpr auto kwdVpdInf = "com.ibm.ipzvpd.VINI";
