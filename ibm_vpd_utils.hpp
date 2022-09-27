@@ -8,8 +8,6 @@
 #include <nlohmann/json.hpp>
 #include <optional>
 
-using namespace std;
-
 namespace openpower
 {
 namespace vpd
@@ -64,7 +62,7 @@ openpower::vpd::constants::LE2ByteData
  *  @param[in] kw - kwd data in string format
  *  @param[in] encoding - required for kwd data
  */
-string encodeKeyword(const string& kw, const string& encoding);
+std::string encodeKeyword(const std::string& kw, const std::string& encoding);
 
 /** @brief Reads a property from the inventory manager given object path,
  *         intreface and property.
@@ -73,8 +71,8 @@ string encodeKeyword(const string& kw, const string& encoding);
  *  @param[in] prop - property whose value is fetched
  *  @return [out] - value of the property
  */
-string readBusProperty(const string& obj, const string& inf,
-                       const string& prop);
+std::string readBusProperty(const std::string& obj, const std::string& inf,
+                            const std::string& prop);
 
 /** @brief A templated function to read D-Bus properties.
  *
@@ -85,8 +83,8 @@ string readBusProperty(const string& obj, const string& inf,
  *  @return The property value of its own type.
  */
 template <typename T>
-T readDBusProperty(const string& service, const string& object,
-                   const string& inf, const string& prop)
+T readDBusProperty(const std::string& service, const std::string& object,
+                   const std::string& inf, const std::string& prop)
 {
     T retVal{};
     try
@@ -154,7 +152,7 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
  * @param[in] - Object path
  * @return - Vpd file path
  */
-inventory::VPDfilepath getVpdFilePath(const string& jsonFile,
+inventory::VPDfilepath getVpdFilePath(const std::string& jsonFile,
                                       const std::string& ObjPath);
 
 /**
@@ -191,7 +189,7 @@ constants::vpdType vpdTypeCheck(const Binary& vector);
  * @brief This method does nothing. Just an empty function to return null
  * at the end of variadic template args
  */
-inline string getCommand()
+inline std::string getCommand()
 {
     return "";
 }
@@ -202,9 +200,9 @@ inline string getCommand()
  * @return cmd - command string
  */
 template <typename T, typename... Types>
-inline string getCommand(T arg1, Types... args)
+inline std::string getCommand(T arg1, Types... args)
 {
-    string cmd = " " + arg1 + getCommand(args...);
+    std::string cmd = " " + arg1 + getCommand(args...);
 
     return cmd;
 }
@@ -216,17 +214,18 @@ inline string getCommand(T arg1, Types... args)
  * @returns output of that command
  */
 template <typename T, typename... Types>
-inline vector<string> executeCmd(T&& path, Types... args)
+inline std::vector<std::string> executeCmd(T&& path, Types... args)
 {
-    vector<string> stdOutput;
-    array<char, 128> buffer;
+    std::vector<std::string> stdOutput;
+    std::array<char, 128> buffer;
 
-    string cmd = path + getCommand(args...);
+    std::string cmd = path + getCommand(args...);
 
-    unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"),
+                                                  pclose);
     if (!pipe)
     {
-        throw runtime_error("popen() failed!");
+        throw std::runtime_error("popen() failed!");
     }
     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
     {
@@ -241,24 +240,24 @@ inline vector<string> executeCmd(T&& path, Types... args)
  *  @param[in] vpdMap -  parsed vpd
  *  @returns System json path
  */
-string getSystemsJson(const Parsed& vpdMap);
+std::string getSystemsJson(const Parsed& vpdMap);
 
 /** @brief Reads HW Keyword from the vpd
  *  @param[in] vpdMap -  parsed vpd
  *  @returns value of HW Keyword
  */
-const string getHW(const Parsed& vpdMap);
+const std::string getHW(const Parsed& vpdMap);
 
 /** @brief Reads IM Keyword from the vpd
  *  @param[in] vpdMap -  parsed vpd
  *  @returns value of IM Keyword
  */
-const string getIM(const Parsed& vpdMap);
+const std::string getIM(const Parsed& vpdMap);
 
 /** @brief Translate udev event generated path to a generic /sys/bus eeprom path
  *  @param[io] file - path generated from udev event.
  */
-void udevToGenericPath(string& file);
+void udevToGenericPath(std::string& file);
 
 /**
  * @brief API to generate a vpd name in some pattern.
@@ -270,7 +269,7 @@ void udevToGenericPath(string& file);
  * @param[in] file - file path of the vpd
  * @return the vpd-name.
  */
-string getBadVpdName(const string& file);
+std::string getBadVpdName(const std::string& file);
 
 /**
  * @brief API which dumps the broken/bad vpd in a directory
@@ -294,8 +293,8 @@ void dumpBadVpd(const std::string& file, const Binary& vpdVector);
  * @returns keyword value if record/keyword combination found
  *          empty string if record or keyword is not found.
  */
-const string getKwVal(const Parsed& vpdMap, const string& rec,
-                      const string& kwd);
+const std::string getKwVal(const Parsed& vpdMap, const std::string& rec,
+                           const std::string& kwd);
 
 /** @brief This creates a complete command using all it's input parameters,
  *         to bind or unbind the driver.
@@ -305,10 +304,10 @@ const string getKwVal(const Parsed& vpdMap, const string& rec,
  *  @param[in] bindOrUnbind - either bind or unbind
  *  @returns  Command to bind or unbind the driver.
  */
-inline string createBindUnbindDriverCmnd(const string& devNameAddr,
-                                         const string& busType,
-                                         const string& driverType,
-                                         const string& bindOrUnbind)
+inline std::string createBindUnbindDriverCmnd(const std::string& devNameAddr,
+                                              const std::string& busType,
+                                              const std::string& driverType,
+                                              const std::string& bindOrUnbind)
 {
     return ("echo " + devNameAddr + " > /sys/bus/" + busType + "/drivers/" +
             driverType + "/" + bindOrUnbind);
@@ -324,14 +323,14 @@ inline string createBindUnbindDriverCmnd(const string& devNameAddr,
  * @param[in] vector - Reference of the Binary vector
  * @return printable value - either in hex or in ascii.
  */
-string getPrintableValue(const Binary& vec);
+std::string getPrintableValue(const Binary& vec);
 
 /**
  * @brief Convert byte array to hex string.
  * @param[in] vec - byte array
  * @return hexadecimal string of bytes.
  */
-string byteArrayToHexString(const Binary& vec);
+std::string byteArrayToHexString(const Binary& vec);
 
 /**
  * @brief Return presence of the FRU.
@@ -347,7 +346,8 @@ string byteArrayToHexString(const Binary& vec);
  * @return Empty optional if there is no presence info. Else returns presence
  * based on the GPIO read.
  */
-std::optional<bool> isPresent(const nlohmann::json& json, const string& file);
+std::optional<bool> isPresent(const nlohmann::json& json,
+                              const std::string& file);
 
 /**
  * @brief Performs any pre-action needed to get the FRU setup for
@@ -357,7 +357,7 @@ std::optional<bool> isPresent(const nlohmann::json& json, const string& file);
  * @param[in] file - eeprom file path
  * @return - success or failure
  */
-bool executePreAction(const nlohmann::json& json, const string& file);
+bool executePreAction(const nlohmann::json& json, const std::string& file);
 
 /**
  * @brief This API will be called at the end of VPD collection to perform any
@@ -366,7 +366,7 @@ bool executePreAction(const nlohmann::json& json, const string& file);
  * @param[in] json - json object
  * @param[in] file - eeprom file path
  */
-void executePostFailAction(const nlohmann::json& json, const string& file);
+void executePostFailAction(const nlohmann::json& json, const std::string& file);
 
 /**
  * @brief Helper function to insert or merge in map.
