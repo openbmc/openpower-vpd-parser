@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca205cb6_e92ae20a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-09-28T10:46:25Z",
+      "side": 1,
+      "message": "Santosh: More generic statement required. Also add tested section.",
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "019d96b7_8f539b33",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-09-28T10:46:25Z",
+      "side": 1,
+      "message": "Match the function name case w.r.t PDI.",
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1829ddb1_229152a5",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-09-28T10:46:25Z",
+      "side": 1,
+      "message": "call back needs to be corrected.",
+      "range": {
+        "startLine": 71,
+        "startChar": 18,
+        "endLine": 71,
+        "endChar": 41
+      },
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "089e1236_51e02480",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-09-28T10:46:25Z",
+      "side": 1,
+      "message": "go back to match_t",
+      "range": {
+        "startLine": 191,
+        "startChar": 50,
+        "endLine": 191,
+        "endChar": 55
+      },
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ba0b936_4d78a76d",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-09-28T10:46:25Z",
+      "side": 1,
+      "message": "Use \"conn\"",
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6d99bf5_c2cfe6c9",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-09-28T10:46:25Z",
+      "side": 1,
+      "message": "Need not be a public api.",
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73e85660_0fe985bf",
+        "filename": "vpd-manager/manager_main.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-09-28T10:46:25Z",
+      "side": 1,
+      "message": "Santosh: use std:: inplace.",
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ab45e79_9b5d5055",
+        "filename": "vpd-manager/meson.build",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-09-28T10:46:25Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "range": {
+        "startLine": 22,
+        "startChar": 27,
+        "endLine": 22,
+        "endChar": 36
+      },
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

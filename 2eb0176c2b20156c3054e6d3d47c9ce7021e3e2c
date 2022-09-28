@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08cf314d_1b0e0d76",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-09-28T10:46:25Z",
+      "side": 0,
+      "message": "BiosHandler is missing in boost commit",
+      "revId": "2eb0176c2b20156c3054e6d3d47c9ce7021e3e2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9bfa52d_15f2df2c",
         "filename": "vpd-manager/meson.build",
         "patchSetId": 7
