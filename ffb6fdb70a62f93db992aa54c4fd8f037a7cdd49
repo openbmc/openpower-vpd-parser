@@ -166,6 +166,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f6ceb38_b6efc039",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-09-28T12:51:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca24205c_3f4cd2bf",
+      "range": {
+        "startLine": 675,
+        "startChar": 6,
+        "endLine": 675,
+        "endChar": 16
+      },
+      "revId": "ffb6fdb70a62f93db992aa54c4fd8f037a7cdd49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "769c2a08_0e7f1e1a",
@@ -297,6 +321,30 @@
       "side": 1,
       "message": "yes will not have any issues.\nif there is a dbus call failure and empty map is returned then \u0027recData\u0027 will be empty and this for loop (at line 738) will not get executed.",
       "parentUuid": "8078bc51_aee80f53",
+      "range": {
+        "startLine": 742,
+        "startChar": 20,
+        "endLine": 742,
+        "endChar": 44
+      },
+      "revId": "ffb6fdb70a62f93db992aa54c4fd8f037a7cdd49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49bc1a64_93d71a15",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-09-28T12:51:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "20c9f8ba_cf2fbc6f",
       "range": {
         "startLine": 742,
         "startChar": 20,
