@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8641aa0c_fa88e0db",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-10-03T16:38:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6795b814_71fa031f",
+      "range": {
+        "startLine": 91,
+        "startChar": 23,
+        "endLine": 91,
+        "endChar": 46
+      },
+      "revId": "50897ce301f9cc4a901012e99c6a80c0a488d859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4acda3b_0c4d2066",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Well these are not out parameters, means I am not intending to return anything using these variables from this api.",
       "parentUuid": "bd541967_546eb581",
+      "range": {
+        "startLine": 101,
+        "startChar": 7,
+        "endLine": 102,
+        "endChar": 19
+      },
+      "revId": "50897ce301f9cc4a901012e99c6a80c0a488d859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "230f6961_4c2e8e5d",
+        "filename": "vpd-manager/gpioMonitor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-10-03T16:38:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d434764_6a4a1269",
       "range": {
         "startLine": 101,
         "startChar": 7,

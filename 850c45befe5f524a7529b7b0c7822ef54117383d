@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "adfe5272_db34e6f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-10-03T16:38:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ca205cb6_e92ae20a",
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "019d96b7_8f539b33",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd85a0be_3cbba9ba",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-10-03T16:38:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "019d96b7_8f539b33",
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1829ddb1_229152a5",
@@ -48,6 +84,30 @@
       "writtenOn": "2022-09-28T10:46:25Z",
       "side": 1,
       "message": "call back needs to be corrected.",
+      "range": {
+        "startLine": 71,
+        "startChar": 18,
+        "endLine": 71,
+        "endChar": 41
+      },
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b37440ce_69b9164c",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-10-03T16:38:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1829ddb1_229152a5",
       "range": {
         "startLine": 71,
         "startChar": 18,
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea7d66b1_d9d60c87",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-10-03T16:38:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "089e1236_51e02480",
+      "range": {
+        "startLine": 191,
+        "startChar": 50,
+        "endLine": 191,
+        "endChar": 55
+      },
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ba0b936_4d78a76d",
@@ -94,6 +178,24 @@
       "writtenOn": "2022-09-28T10:46:25Z",
       "side": 1,
       "message": "Use \"conn\"",
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51d5d89f_f51f139f",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-10-03T16:38:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ba0b936_4d78a76d",
       "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -115,6 +217,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac3e415a_bbd86b30",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-10-03T16:38:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f6d99bf5_c2cfe6c9",
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73e85660_0fe985bf",
@@ -132,6 +252,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cda73f4_43d10700",
+        "filename": "vpd-manager/manager_main.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-10-03T16:38:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "73e85660_0fe985bf",
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ab45e79_9b5d5055",
@@ -145,6 +283,30 @@
       "writtenOn": "2022-09-28T10:46:25Z",
       "side": 1,
       "message": "Do we need this?",
+      "range": {
+        "startLine": 22,
+        "startChar": 27,
+        "endLine": 22,
+        "endChar": 36
+      },
+      "revId": "850c45befe5f524a7529b7b0c7822ef54117383d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0c2310e_de444cda",
+        "filename": "vpd-manager/meson.build",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-10-03T16:38:46Z",
+      "side": 1,
+      "message": "No, so removed.",
+      "parentUuid": "3ab45e79_9b5d5055",
       "range": {
         "startLine": 22,
         "startChar": 27,
