@@ -1,0 +1,192 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a87bdc2_0d0d984d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-10-07T15:28:36Z",
+      "side": 1,
+      "message": "Please add a lot more detail to this commit message.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 37
+      },
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af20bc85_f3b090bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-10-07T15:28:36Z",
+      "side": 1,
+      "message": "I don\u0027t think this code actually works. What testing have you done to make sure it does?",
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e22426e5_4c8a4bb2",
+        "filename": "impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-10-07T15:28:36Z",
+      "side": 1,
+      "message": "How do you expect this will ever work? The check at line 87 will override this and we\u0027ll never get here.",
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14da2e78_bc2ce140",
+        "filename": "impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-10-07T15:28:36Z",
+      "side": 1,
+      "message": "I am confused - you are calculating a 2\u0027s complement checksum here? For what?",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 5
+      },
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb6ddc73_c96f5afd",
+        "filename": "impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-10-07T15:28:36Z",
+      "side": 1,
+      "message": "Same issue with the is check here.",
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09c5410a_56f038d8",
+        "filename": "impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-10-07T15:28:36Z",
+      "side": 1,
+      "message": "And here ...",
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f07bb7fc_de6828fd",
+        "filename": "impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-10-07T15:28:36Z",
+      "side": 1,
+      "message": "Please fix there unnecessary line end of file line changes.",
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db32686d_cc5e5634",
+        "filename": "impl.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-10-07T15:28:36Z",
+      "side": 1,
+      "message": "More details needed. What exactly does this fix? Is the data the complete VPD data or just the record data?",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 34
+      },
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4286eaf2_d8476ba1",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-10-07T15:28:36Z",
+      "side": 1,
+      "message": "Why does this have to be duplicated here (notwithstanding the fact that the implementation looks incorrect to me)",
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b4c1439_cbcfb4e3",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-10-07T15:28:36Z",
+      "side": 1,
+      "message": "Same comments as before - more details needed here",
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
