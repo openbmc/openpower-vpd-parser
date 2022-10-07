@@ -88,8 +88,29 @@ int Impl::vhdrEccCheck() const
     {
         rc = eccStatus::FAILED;
     }
+    if (l_status == VPD_ECC_CORRECTABLE_DATA)
+    {
+        fixECC(const_cast<uint8_t*>(&vpdPtr));
+    }
 
     return rc;
+}
+
+void Impl::fixECC(uint8_t* data)
+{
+    int offset = data[1] + data[TWO_BYTES]*256 + TWO_BYTES;
+    while ( offset != RECORD_END_TAG && (offset < sizeof(vpdFile)))
+    {
+       uint8_t chkSum = 0x00;
+       int blockLength = data[offset+1] +data[offset+TWO_BYTES]*256;
+       for( auto it = 0; it < blockLength+KW_NAME_LENGTH; it++ )
+       {
+          chkSum += data[it];
+       }
+       offset += blockLength + 2*TWO_BYTES;
+       data[offset]  = (uint8_t)(~chkSum + 0x01);
+       offset++;
+    }
 }
 
 int Impl::vtocEccCheck() const
@@ -125,6 +146,10 @@ int Impl::vtocEccCheck() const
     if (l_status != VPD_ECC_OK)
     {
         rc = eccStatus::FAILED;
+    }
+    if (l_status == VPD_ECC_CORRECTABLE_DATA)
+    {
+        fixECC(const_cast<uint8_t*>(&vpdPtr));
     }
 
     return rc;
@@ -164,6 +189,10 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
     if (l_status != VPD_ECC_OK)
     {
         rc = eccStatus::FAILED;
+    }
+    if(l_status == VPD_ECC_CORRECTABLE_DATA)
+    {
+        fixECC(const_cast<uint8_t*>(&vpdPtr));
     }
 
     return rc;

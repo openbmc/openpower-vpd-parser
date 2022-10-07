@@ -120,6 +120,11 @@ class EditorImpl
                   openpower::vpd::constants::RecordLength recLength,
                   openpower::vpd::constants::ECCLength eccLength);
 
+    /** @brief fix ECC
+     *  @param[in] data - VPD data
+     */
+    void fixECC(uint8_t* data);
+
     /** @brief reads value at the given offset
      *  @param[in] offset - offset value
      *  @return  value at that offset in bigendian

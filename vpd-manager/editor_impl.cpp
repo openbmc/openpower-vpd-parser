@@ -188,6 +188,10 @@ void EditorImpl::updateRecordECC()
     {
         throw std::runtime_error("Ecc update failed");
     }
+    if (l_status == VPD_ECC_CORRECTABLE_DATA)
+    {
+        fixECC(const_cast<uint8_t*>(&vpdFile));
+    }
 
     auto end = itrToRecordECC;
     std::advance(end, thisRecord.recECCLength);
@@ -199,7 +203,25 @@ void EditorImpl::updateRecordECC()
 #endif
 }
 
+auto EditorImpl::fixECC(uint8_t* data)
+{
+    int offset = data[1] + data[TWO_BYTES]*256 + TWO_BYTES;
+    while ( offset != RECORD_END_TAG && (offset < sizeof(vpdFile)))
+    { 
+       uint8_t chkSum = 0x00;
+       int blockLength = data[offset+1] +data[offset+TWO_BYTES]*256;
+       for( auto it = 0; it < blockLength+KW_NAME_LENGTH; it++ )
+       {
+          chkSum += data[it];
+       }
+       offset += blockLength + 2*TWO_BYTES;
+       data[offset]  = (uint8_t)(~chkSum + 0x01);
+       offset++;
+    }
+}
+
 auto EditorImpl::getValue(offsets::Offsets offset)
+
 {
     auto itr = vpdFile.cbegin();
     std::advance(itr, offset);
@@ -221,6 +243,10 @@ void EditorImpl::checkECC(Binary::const_iterator& itrToRecData,
     if (l_status != VPD_ECC_OK)
     {
         throw std::runtime_error("Ecc check failed for VTOC");
+    }
+    if (l_status == VPD_ECC_CORRECTABLE_DATA)
+    {
+       fixECC(const_cast<uint8_t*>(&vpdFile));
     }
 }
 

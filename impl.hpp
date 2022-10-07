@@ -117,6 +117,11 @@ class Impl
      */
     void processRecord(std::size_t recordOffset);
 
+    /** @brief fix ECC
+     *  @param[in] data - VPD data
+     */
+    void fixECC(uint8_t* data);
+
     /** @brief Read keyword data
      *
      *  @param[in] keyword - VPD keyword
