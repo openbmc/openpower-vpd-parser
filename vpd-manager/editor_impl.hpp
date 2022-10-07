@@ -58,6 +58,8 @@ class EditorImpl
         objPath(inventoryPath), startOffset(0), jsonFile(json),
         thisRecord(record, kwd)
     {
+       vpdDataFileStream.open(vpdFilePath, std::ios::in | std::ios::out | std::ios::binary);
+        
     }
 
     /** @brief Construct EditorImpl class
@@ -72,6 +74,7 @@ class EditorImpl
         vpdFilePath(path),
         jsonFile(json), thisRecord(record, kwd)
     {
+       vpdDataFileStream.open(vpdFilePath, std::ios::in | std::ios::out | std::ios::binary);
     }
 
     /**
@@ -171,14 +174,20 @@ class EditorImpl
     void makeDbusCall(const std::string& object, const std::string& interface,
                       const std::string& property, const std::variant<T>& data);
 
+    /** @brief Method to check the record's Data before updating */
+    void checkRecordECC();
+
     // path to the VPD file to edit
     inventory::Path vpdFilePath;
 
     // inventory path of the vpd fru to update keyword
-    const inventory::Path objPath;
+    inventory::Path objPath{};
 
     // stream to perform operation on file
     std::fstream vpdFileStream;
+
+    // stream to operate on VPD data
+    std::fstream vpdDataFileStream;
 
     // offset to get vpd data from EEPROM
     uint32_t startOffset;

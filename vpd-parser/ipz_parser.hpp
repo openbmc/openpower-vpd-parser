@@ -32,7 +32,9 @@ class IpzVpdParser : public ParserInterface
     /**
      * @brief Constructor
      */
-    IpzVpdParser(const Binary& VpdVector) : vpd(VpdVector)
+    IpzVpdParser(const Binary& VpdVector, const std::string& path,
+                 const std::string& vpdPath, uint32_t offset) :
+        vpd(VpdVector), inventoryPath(path), vpdPath(vpdPath), offset(offset)
     {
     }
 
@@ -59,6 +61,16 @@ class IpzVpdParser : public ParserInterface
 
   private:
     const Binary& vpd;
+
+    /*Inventory path of the FRU */
+    const std::string inventoryPath;
+
+    /* VPD Path */
+    const std::string vpdPath;
+
+    /* Offset */
+    uint32_t offset;
+ 
 }; // class IpzVpdParser
 
 } // namespace parser
