@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9a05e014_069687a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-10-09T16:26:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6a87bdc2_0d0d984d",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 37
+      },
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "af20bc85_f3b090bb",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -71,6 +95,24 @@
       "writtenOn": "2022-10-07T15:28:36Z",
       "side": 1,
       "message": "How do you expect this will ever work? The check at line 87 will override this and we\u0027ll never get here.",
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e9adaf6_65be6590",
+        "filename": "impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-10-09T16:26:40Z",
+      "side": 1,
+      "message": "It isn\u0027t else if so we may get here, hence executes.",
+      "parentUuid": "e22426e5_4c8a4bb2",
       "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -149,6 +191,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bfdd03e_7875f792",
+        "filename": "impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-10-09T16:26:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f07bb7fc_de6828fd",
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db32686d_cc5e5634",
@@ -162,6 +222,30 @@
       "writtenOn": "2022-10-07T15:28:36Z",
       "side": 1,
       "message": "More details needed. What exactly does this fix? Is the data the complete VPD data or just the record data?",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 34
+      },
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37640eb3_e3e15f10",
+        "filename": "impl.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-10-09T16:26:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "db32686d_cc5e5634",
       "range": {
         "startLine": 120,
         "startChar": 0,
@@ -202,6 +286,24 @@
       "writtenOn": "2022-10-07T15:28:36Z",
       "side": 1,
       "message": "Same comments as before - more details needed here",
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbeab541_fb0e5250",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-10-09T16:26:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0b4c1439_cbcfb4e3",
       "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
