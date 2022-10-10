@@ -137,6 +137,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66fa428e_065a7598",
+        "filename": "impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-10-10T05:45:09Z",
+      "side": 1,
+      "message": "To know there was ECC error and fixed, may be PEL logged with informational severity as in FSP instead of throwing as exception. If not required can change rc.",
+      "parentUuid": "413d855b_c2251283",
+      "revId": "59e205428ce366e62fe5dcf4508ee3c5f1bf2233",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14da2e78_bc2ce140",
         "filename": "impl.cpp",
         "patchSetId": 1
