@@ -74,6 +74,9 @@ using SystemKeywordInfo =
  * reset required }} **/
 using SystemKeywordsMap =
     std::unordered_map<RecordName, std::vector<SystemKeywordInfo>>;
+
+using GetAllResultType = std::vector<std::pair<Keyword, Value>>;
+using IntfPropMap = std::map<RecordName, GetAllResultType>;
 } // namespace inventory
 
 } // namespace vpd
