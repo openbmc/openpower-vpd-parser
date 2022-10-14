@@ -166,6 +166,14 @@ class VpdTool
      */
     void printFixSystemVPDOption(UserOption option);
 
+    /**
+     * @brief Get System VPD data stored in cache
+     *
+     * @param[in] svpdBusData - Map of system VPD record data.
+     */
+    void getSystemDataFromCache(
+        openpower::vpd::inventory::IntfPropMap& svpdBusData);
+
   public:
     /**
      * @brief Dump the complete inventory in JSON format

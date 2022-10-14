@@ -34,7 +34,8 @@ static const inventory::SystemKeywordsMap svpdKwdMap{
      {inventory::SystemKeywordInfo("FC", Binary(), true, false),
       inventory::SystemKeywordInfo("SE", Binary(7, 0x20), true, true)}},
     {"LXR0", {inventory::SystemKeywordInfo("LX", Binary(), true, false)}},
-    {"UTIL", {inventory::SystemKeywordInfo("D0", Binary(1, 0x00), true, true)}}};
+    {"UTIL",
+     {inventory::SystemKeywordInfo("D0", Binary(1, 0x00), true, true)}}};
 
 /** @brief Return the hex representation of the incoming byte
  *
@@ -484,5 +485,18 @@ std::string getPowerState();
  * @return A byte array containing the raw VPD.
  */
 Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file);
+
+/**
+ * @brief Get VPD in map
+ *
+ * @param[in] vpdPath - VPD file path
+ * @param[out] vpdMap - VPD keywords stored in map
+ * @param[out] js - Parsed inventory json object
+ */
+void getVPDInMap(
+    const std::string& vpdPath,
+    std::unordered_map<std::string, openpower::vpd::inventory::DbusPropertyMap>&
+        vpdMap,
+    nlohmann::json& js, const std::string& invPath);
 } // namespace vpd
 } // namespace openpower
