@@ -22,6 +22,51 @@ using namespace openpower::vpd::parser;
 using namespace openpower::vpd::parser::factory;
 using namespace openpower::vpd::parser::interface;
 
+static void
+    getVPDInMap(const std::string& vpdPath,
+                std::unordered_map<std::string, DbusPropertyMap>& vpdMap,
+                json& js, const std::string& invPath)
+{
+    auto jsonToParse = INVENTORY_JSON_DEFAULT;
+    if (fs::exists(INVENTORY_JSON_SYM_LINK))
+    {
+        jsonToParse = INVENTORY_JSON_SYM_LINK;
+    }
+
+    std::ifstream inventoryJson(jsonToParse);
+    if (!inventoryJson)
+    {
+        throw std::runtime_error("VPD JSON file not found");
+    }
+
+    try
+    {
+        js = json::parse(inventoryJson);
+    }
+    catch (const json::parse_error& ex)
+    {
+        throw std::runtime_error("VPD JSON parsing failed");
+    }
+
+    Binary vpdVector{};
+
+    vpdVector = getVpdDataInVector(js, constants::systemVpdFilePath);
+    ParserInterface* parser = ParserFactory::getParser(vpdVector, invPath);
+    auto parseResult = parser->parse();
+    ParserFactory::freeParser(parser);
+
+    if (auto pVal = std::get_if<Store>(&parseResult))
+    {
+        vpdMap = pVal->getVpdMap();
+    }
+    else
+    {
+        std::string err =
+            vpdPath + " is not of type IPZ VPD. Unable to parse the VPD.";
+        throw std::runtime_error(err);
+    }
+}
+
 Binary VpdTool::toBinary(const std::string& value)
 {
     Binary val{};
@@ -593,66 +638,8 @@ void VpdTool::printFixSystemVPDOption(UserOption option)
     }
 }
 
-int VpdTool::fixSystemVPD()
+void VpdTool::getSystemDataFromCache(IntfPropMap& svpdBusData)
 {
-    std::string outline(191, '=');
-    cout << "\nRestorable record-keyword pairs and their data on BMC & "
-            "System Backplane.\n\n"
-         << outline << std::endl;
-
-    cout << left << setw(6) << "S.No" << left << setw(8) << "Record" << left
-         << setw(9) << "Keyword" << left << setw(75) << "Data On BMC" << left
-         << setw(75) << "Data On System Backplane" << left << setw(14)
-         << "Data Mismatch\n"
-         << outline << std::endl;
-
-    int num = 0;
-
-    // Get system VPD data in map
-    Binary vpdVector{};
-    json js{};
-
-    auto jsonToParse = INVENTORY_JSON_DEFAULT;
-    if (fs::exists(INVENTORY_JSON_SYM_LINK))
-    {
-        jsonToParse = INVENTORY_JSON_SYM_LINK;
-    }
-
-    ifstream inventoryJson(jsonToParse);
-    if (!inventoryJson)
-    {
-        throw runtime_error("VPD JSON file not found");
-    }
-    js = json::parse(inventoryJson);
-
-    vpdVector = getVpdDataInVector(js, constants::systemVpdFilePath);
-    ParserInterface* parser = ParserFactory::getParser(
-        vpdVector, constants::pimPath + std::string(constants::SYSTEM_OBJECT));
-    auto parseResult = parser->parse();
-    ParserFactory::freeParser(parser);
-
-    unordered_map<string, DbusPropertyMap> vpdMap;
-
-    if (auto pVal = get_if<Store>(&parseResult))
-    {
-        vpdMap = pVal->getVpdMap();
-    }
-    else
-    {
-        std::cerr << "\n System backplane VPD is not of type IPZ. Unable to "
-                     "parse the VPD "
-                  << constants::systemVpdFilePath << " . Exit with error."
-                  << std::endl;
-        exit(1);
-    }
-
-    // Get system VPD D-Bus Data and store it in a map
-    using GetAllResultType =
-        std::vector<std::pair<std::string, std::variant<Binary>>>;
-    using IntfPropMap = std::map<std::string, GetAllResultType>;
-
-    IntfPropMap svpdBusData;
-
     const auto vsys = getAllDBusProperty<GetAllResultType>(
         constants::pimIntf,
         "/xyz/openbmc_project/inventory/system/chassis/motherboard",
@@ -676,6 +663,33 @@ int VpdTool::fixSystemVPD()
         "/xyz/openbmc_project/inventory/system/chassis/motherboard",
         "com.ibm.ipzvpd.UTIL");
     svpdBusData.emplace("UTIL", util);
+}
+
+int VpdTool::fixSystemVPD()
+{
+    std::string outline(191, '=');
+    cout << "\nRestorable record-keyword pairs and their data on BMC & "
+            "System Backplane.\n\n"
+         << outline << std::endl;
+
+    cout << left << setw(6) << "S.No" << left << setw(8) << "Record" << left
+         << setw(9) << "Keyword" << left << setw(75) << "Data On BMC" << left
+         << setw(75) << "Data On System Backplane" << left << setw(14)
+         << "Data Mismatch\n"
+         << outline << std::endl;
+
+    int num = 0;
+
+    // Get system VPD data in map
+    unordered_map<string, DbusPropertyMap> vpdMap;
+    json js;
+    getVPDInMap(constants::systemVpdFilePath, vpdMap, js,
+                constants::pimPath +
+                    static_cast<std::string>(constants::SYSTEM_OBJECT));
+
+    // Get system VPD D-Bus Data in a map
+    IntfPropMap svpdBusData;
+    getSystemDataFromCache(svpdBusData);
 
     for (const auto& recordKw : svpdKwdMap)
     {
@@ -694,12 +708,11 @@ int VpdTool::fixSystemVPD()
         const auto& recData = svpdBusData.find(record)->second;
 
         string busStr{}, hwValStr{};
-        string mismatch = "NO"; // no mismatch
 
         for (const auto& keywordInfo : recordKw.second)
         {
             const auto& keyword = get<0>(keywordInfo);
-
+            string mismatch = "NO"; // no mismatch
             string hardwareValue{};
             auto recItr = vpdMap.find(record);
 
@@ -713,7 +726,7 @@ int VpdTool::fixSystemVPD()
                 }
             }
 
-            std::variant<Binary> kwValue;
+            inventory::Value kwValue;
             for (auto& kwData : recData)
             {
                 if (kwData.first == keyword)
