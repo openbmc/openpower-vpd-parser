@@ -282,6 +282,30 @@
       },
       "revId": "50897ce301f9cc4a901012e99c6a80c0a488d859",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a26213f8_10d40e32",
+        "filename": "vpd-manager/manager_main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2022-10-14T05:56:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b9db52d_00ab4761",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 40
+      },
+      "revId": "50897ce301f9cc4a901012e99c6a80c0a488d859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
