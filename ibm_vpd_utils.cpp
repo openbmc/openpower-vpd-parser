@@ -4,6 +4,7 @@
 
 #include "common_utility.hpp"
 #include "defines.hpp"
+#include "parser_factory.hpp"
 #include "vpd_exceptions.hpp"
 
 #include <boost/algorithm/string.hpp>
@@ -35,6 +36,8 @@ using namespace openpower::vpd::exceptions;
 using namespace common::utility;
 using Severity = openpower::vpd::constants::PelSeverity;
 namespace fs = std::filesystem;
+using ParserInterface = openpower::vpd::parser::interface::ParserInterface;
+using ParserFactory = openpower::vpd::parser::factory::ParserFactory;
 
 // mapping of severity enum to severity interface
 static std::unordered_map<Severity, std::string> sevMap = {
@@ -991,6 +994,44 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
     }
 
     return vpdVector;
+}
+
+void getVPDInMap(const std::string& vpdPath,
+                 std::unordered_map<std::string, DbusPropertyMap>& vpdMap,
+                 json& js)
+{
+    auto jsonToParse = INVENTORY_JSON_DEFAULT;
+    if (fs::exists(INVENTORY_JSON_SYM_LINK))
+    {
+        jsonToParse = INVENTORY_JSON_SYM_LINK;
+    }
+
+    std::ifstream inventoryJson(jsonToParse);
+    if (!inventoryJson)
+    {
+        throw std::runtime_error("VPD JSON file not found");
+    }
+
+    js = json::parse(inventoryJson);
+    Binary vpdVector{};
+
+    vpdVector = getVpdDataInVector(js, constants::systemVpdFilePath);
+    ParserInterface* parser = ParserFactory::getParser(vpdVector);
+    auto parseResult = parser->parse();
+    ParserFactory::freeParser(parser);
+
+    if (auto pVal = std::get_if<Store>(&parseResult))
+    {
+        vpdMap = pVal->getVpdMap();
+    }
+    else
+    {
+        std::cerr << vpdPath
+                  << " is not of type IPZ VPD. Unable to parse the VPD. Exit "
+                     "with error."
+                  << std::endl;
+        exit(1);
+    }
 }
 } // namespace vpd
 } // namespace openpower

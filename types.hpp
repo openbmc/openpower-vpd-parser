@@ -60,6 +60,9 @@ using MapperResponse =
     std::map<Path, std::map<Service, std::vector<Interface>>>;
 using RestoredEeproms = std::tuple<Path, std::string, Keyword, Binary>;
 using ReplaceableFrus = std::vector<VPDfilepath>;
+using GetAllResultType =
+    std::vector<std::pair<std::string, std::variant<Binary>>>;
+using IntfPropMap = std::map<std::string, GetAllResultType>;
 } // namespace inventory
 
 } // namespace vpd
