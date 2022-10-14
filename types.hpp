@@ -68,12 +68,17 @@ using isMFGResetRequired = bool;
 using SystemKeywordInfo =
     std::tuple<Keyword, KeywordDefault, isPELReqOnRestoreFailure,
                isMFGResetRequired>;
+using Parsed = std::unordered_map<std::string,
+                                  std::unordered_map<std::string, std::string>>;
 
 /** Map of system backplane records to list of keywords and its related data. {
  * Record : { Keyword, Default value, Is PEL required on restore failure, Is MFG
  * reset required }} **/
 using SystemKeywordsMap =
     std::unordered_map<RecordName, std::vector<SystemKeywordInfo>>;
+
+using GetAllResultType = std::vector<std::pair<Keyword, Value>>;
+using IntfPropMap = std::map<RecordName, GetAllResultType>;
 } // namespace inventory
 
 } // namespace vpd

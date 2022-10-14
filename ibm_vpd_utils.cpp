@@ -4,6 +4,7 @@
 
 #include "common_utility.hpp"
 #include "defines.hpp"
+#include "parser_factory.hpp"
 #include "vpd_exceptions.hpp"
 
 #include <boost/algorithm/string.hpp>
@@ -35,6 +36,8 @@ using namespace openpower::vpd::exceptions;
 using namespace common::utility;
 using Severity = openpower::vpd::constants::PelSeverity;
 namespace fs = std::filesystem;
+using ParserInterface = parser::interface::ParserInterface;
+using ParserFactory = parser::factory::ParserFactory;
 
 // mapping of severity enum to severity interface
 static std::unordered_map<Severity, std::string> sevMap = {
@@ -1023,5 +1026,28 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
 
     return vpdVector;
 }
+
+std::variant<KeywordVpdMap, Store> getVPDInMap(const std::string& vpdPath,
+                                               json& js,
+                                               const std::string& invPath,
+                                               Binary& vpdVector)
+{
+    try
+    {
+        vpdVector = getVpdDataInVector(js, vpdPath);
+        ParserInterface* parser =
+            ParserFactory::getParser(vpdVector, (pimPath + invPath));
+        std::variant<KeywordVpdMap, Store> parseResult = parser->parse();
+
+        // release the parser object
+        ParserFactory::freeParser(parser);
+        return parseResult;
+    }
+    catch (const std::exception& e)
+    {
+        throw;
+    }
+}
+
 } // namespace vpd
 } // namespace openpower
