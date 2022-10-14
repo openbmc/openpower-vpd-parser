@@ -74,6 +74,10 @@ using SystemVPDKwData = std::tuple<Keyword, KeywordDefault, IsKwdRestorable,
  * RESET REQUIRED }} **/
 using SystemVPDList =
     std::unordered_map<RecordName, std::vector<SystemVPDKwData>>;
+
+using GetAllResultType =
+    std::vector<std::pair<std::string, std::variant<Binary>>>;
+using IntfPropMap = std::map<std::string, GetAllResultType>;
 } // namespace inventory
 
 } // namespace vpd
