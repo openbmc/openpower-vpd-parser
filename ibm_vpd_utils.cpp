@@ -4,6 +4,7 @@
 
 #include "common_utility.hpp"
 #include "defines.hpp"
+#include "parser_factory.hpp"
 #include "vpd_exceptions.hpp"
 
 #include <boost/algorithm/string.hpp>
@@ -35,6 +36,8 @@ using namespace openpower::vpd::exceptions;
 using namespace common::utility;
 using Severity = openpower::vpd::constants::PelSeverity;
 namespace fs = std::filesystem;
+using ParserInterface = parser::interface::ParserInterface;
+using ParserFactory = parser::factory::ParserFactory;
 
 // mapping of severity enum to severity interface
 static std::unordered_map<Severity, std::string> sevMap = {
@@ -1023,5 +1026,51 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
 
     return vpdVector;
 }
+
+void getVPDJSONParserObj(json& js)
+{
+    auto jsonToParse = INVENTORY_JSON_DEFAULT;
+
+    // If the symbolic link to the JSON exists, switch the path else use default
+    // JSON. Default JSON will be used only during a genesis boot where the
+    // symbolic link to the JSON might not have created.
+    if (fs::exists(INVENTORY_JSON_SYM_LINK))
+    {
+        jsonToParse = INVENTORY_JSON_SYM_LINK;
+    }
+
+    std::ifstream inventoryJson(jsonToParse);
+    if (!inventoryJson)
+    {
+        throw(VpdJsonException("Failed to access JSON path", jsonToParse));
+    }
+
+    try
+    {
+        js = json::parse(inventoryJson);
+    }
+    catch (const json::parse_error& ex)
+    {
+        throw(VpdJsonException("Json parsing failed", jsonToParse));
+    }
+
+    if (js.find("frus") == js.end())
+    {
+        throw(VpdJsonException("FRUs section not found in JSON", jsonToParse));
+    }
+}
+
+std::variant<KeywordVpdMap, Store> getVPDParserObj(const std::string& vpdPath,
+                                                   Binary& vpdVector,
+                                                   const json& js,
+                                                   const std::string& invPath)
+{
+    vpdVector = getVpdDataInVector(js, vpdPath);
+    ParserInterface* parser = ParserFactory::getParser(vpdVector, invPath);
+    auto parseResult = parser->parse();
+    ParserFactory::freeParser(parser);
+    return parseResult;
+}
+
 } // namespace vpd
 } // namespace openpower

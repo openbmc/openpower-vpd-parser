@@ -1350,37 +1350,7 @@ int main(int argc, char** argv)
             pelSeverity = PelSeverity::ERROR;
         }
 
-        auto jsonToParse = INVENTORY_JSON_DEFAULT;
-
-        // If the symlink exists, it means it has been setup for us, switch the
-        // path
-        if (fs::exists(INVENTORY_JSON_SYM_LINK))
-        {
-            jsonToParse = INVENTORY_JSON_SYM_LINK;
-        }
-
-        // Make sure that the file path we get is for a supported EEPROM
-        ifstream inventoryJson(jsonToParse);
-        if (!inventoryJson)
-        {
-            throw(VpdJsonException("Failed to access Json path", jsonToParse));
-        }
-
-        try
-        {
-            js = json::parse(inventoryJson);
-        }
-        catch (const json::parse_error& ex)
-        {
-            throw(VpdJsonException("Json parsing failed", jsonToParse));
-        }
-
-        // Do we have the mandatory "frus" section?
-        if (js.find("frus") == js.end())
-        {
-            throw(VpdJsonException("FRUs section not found in JSON",
-                                   jsonToParse));
-        }
+        getVPDJSONParserObj(js);
 
         // Check if it's a udev path - patterned as(/ahb/ahb:apb/ahb:apb:bus@)
         if (file.find("/ahb:apb") != string::npos)
@@ -1447,13 +1417,10 @@ int main(int argc, char** argv)
 
         try
         {
-            vpdVector = getVpdDataInVector(js, file);
-            ParserInterface* parser = ParserFactory::getParser(
-                vpdVector, (pimPath + baseFruInventoryPath));
-            variant<KeywordVpdMap, Store> parseResult;
-            parseResult = parser->parse();
+            auto parseResult = getVPDParserObj(file, vpdVector, js,
+                                               pimPath + baseFruInventoryPath);
 
-            if (auto pVal = get_if<Store>(&parseResult))
+            if (auto pVal = std::get_if<Store>(&parseResult))
             {
                 populateDbus(pVal->getVpdMap(), js, file);
             }
@@ -1461,9 +1428,13 @@ int main(int argc, char** argv)
             {
                 populateDbus(*pVal, js, file);
             }
-
-            // release the parser object
-            ParserFactory::freeParser(parser);
+            else
+            {
+                std::string err =
+                    file +
+                    ", VPD is not of valid type. Unable to parse the VPD.";
+                throw VpdDataException(err);
+            }
         }
         catch (const exception& e)
         {
