@@ -1447,12 +1447,8 @@ int main(int argc, char** argv)
 
         try
         {
-            vpdVector = getVpdDataInVector(js, file);
-            ParserInterface* parser = ParserFactory::getParser(
-                vpdVector, (pimPath + baseFruInventoryPath));
-            variant<KeywordVpdMap, Store> parseResult;
-            parseResult = parser->parse();
-
+            auto parseResult =
+                getVPDInMap(file, js, baseFruInventoryPath, vpdVector);
             if (auto pVal = get_if<Store>(&parseResult))
             {
                 populateDbus(pVal->getVpdMap(), js, file);
@@ -1461,9 +1457,6 @@ int main(int argc, char** argv)
             {
                 populateDbus(*pVal, js, file);
             }
-
-            // release the parser object
-            ParserFactory::freeParser(parser);
         }
         catch (const exception& e)
         {

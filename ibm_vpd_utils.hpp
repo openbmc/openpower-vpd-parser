@@ -485,5 +485,18 @@ std::string getPowerState();
  * @return A byte array containing the raw VPD.
  */
 Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file);
+
+/**
+ * @brief Get VPD in map
+ *
+ * @param[in] vpdPath - VPD file path
+ * @param[out] vpdMap - VPD keywords stored in map
+ * @param[in] js - Parsed inventory json object
+ * @param[in] invPath - inventory path of the FRU.
+ * @param[out] vpdVector - vector of VPD data.
+ */
+std::variant<inventory::KeywordVpdMap, Store>
+    getVPDInMap(const std::string& vpdPath, nlohmann::json& js,
+                const std::string& invPath, Binary& vpdVector);
 } // namespace vpd
 } // namespace openpower
