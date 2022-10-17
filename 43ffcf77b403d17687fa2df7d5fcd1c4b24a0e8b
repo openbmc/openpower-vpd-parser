@@ -1,0 +1,9 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: <giridharikrishnan@gmail.com>
+Code-Review+1: Jinu Joy Thomas <jinu.joy.thomas@in.ibm.com>
+Code-Review+2: Santosh Puranik <santosh.puranik@in.ibm.com>
+Submitted-by: Santosh Puranik <santosh.puranik@in.ibm.com>
+Submitted-at: Mon, 17 Oct 2022 10:19:23 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/54397
+Project: openbmc/openpower-vpd-parser
+Branch: refs/heads/master
