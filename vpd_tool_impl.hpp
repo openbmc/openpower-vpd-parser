@@ -251,6 +251,13 @@ class VpdTool
     int fixSystemVPD();
 
     /**
+     * @brief Clean specific keywords in system backplane VPD
+     *
+     * @return return code (success/failure)
+     */
+    int cleanSystemVPD();
+
+    /**
      * @brief Constructor
      * Constructor is called during the
      * object instantiation for dumpInventory option and

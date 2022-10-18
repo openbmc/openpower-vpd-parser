@@ -84,6 +84,14 @@ int main(int argc, char** argv)
         "--fixSystemVPD", "Use this option to interactively fix critical "
                           "system VPD keywords {vpd-tool-exe --fixSystemVPD}");
 
+    auto mfgClean =
+        app.add_flag("--mfgClean", "Flag to clean and reset specific keywords "
+                                   "on system VPD to its default value.");
+
+    auto confirm =
+        app.add_flag("--yes", "Using this flag with --mfgClean option, assumes "
+                              "yes to proceed without confirmation.");
+
     CLI11_PARSE(app, argc, argv);
 
     ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
@@ -163,6 +171,24 @@ int main(int argc, char** argv)
         {
             VpdTool vpdToolObj;
             rc = vpdToolObj.fixSystemVPD();
+        }
+        else if (*mfgClean)
+        {
+            if (!*confirm)
+            {
+                std::string confirmation{};
+                std::cout << "\nThis option resets some of the system VPD "
+                             "keywords to their default values. Do you really "
+                             "wish to proceed further?[yes/no]: ";
+                std::cin >> confirmation;
+
+                if (confirmation != "yes")
+                {
+                    return 0;
+                }
+            }
+            VpdTool vpdToolObj;
+            rc = vpdToolObj.cleanSystemVPD();
         }
         else
         {
