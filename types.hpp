@@ -77,6 +77,8 @@ using SystemKeywordsMap =
 
 using GetAllResultType = std::vector<std::pair<Keyword, Value>>;
 using IntfPropMap = std::map<RecordName, GetAllResultType>;
+using RecKwValMap =
+    std::unordered_map<RecordName, std::unordered_map<Keyword, Binary>>;
 } // namespace inventory
 
 } // namespace vpd
