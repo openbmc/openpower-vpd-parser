@@ -925,3 +925,64 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
 
     } while (true);
 }
+
+int VpdTool::cleanSystemVPD()
+{
+    // Get system VPD hardware data in map
+    unordered_map<string, DbusPropertyMap> vpdMap;
+    json js;
+    getVPDInMap(constants::systemVpdFilePath, vpdMap, js);
+
+    RecKwValMap kwdsToBeUpdated;
+
+    for (auto recordMap : svpdKwdMap)
+    {
+        std::string record = recordMap.first;
+        std::unordered_map<std::string, Binary> kwDefault;
+        for (auto keywordMap : recordMap.second)
+        {
+            std::cout << "Keyword " << get<0>(keywordMap) << '\n';
+            // Skip those keywords which are cannot be reset at manufacturing
+            if (!get<4>(keywordMap))
+            {
+                continue;
+            }
+            std::string keyword = get<0>(keywordMap);
+
+            // Get hardware value for this keyword from vpdMap
+            Binary hardwareValue;
+
+            auto recItr = vpdMap.find(record);
+
+            if (recItr != vpdMap.end())
+            {
+                DbusPropertyMap& kwValMap = recItr->second;
+                auto kwItr = kwValMap.find(keyword);
+                if (kwItr != kwValMap.end())
+                {
+                    hardwareValue = toBinary(kwItr->second);
+                }
+            }
+
+            // compare hardware value with the keyword's default value
+            auto defaultValue = get<1>(keywordMap);
+            if (hardwareValue != defaultValue)
+            {
+                kwDefault.emplace(keyword, defaultValue);
+            }
+        }
+
+        if (kwDefault.size() != 0)
+        {
+            kwdsToBeUpdated.emplace(record, kwDefault);
+        }
+    }
+
+    EditorImpl edit(constants::systemVpdFilePath, js, 0);
+    edit.updateKeywordsAtOnce(kwdsToBeUpdated);
+
+    std::cout << "\n The critical keywords from system backplane VPD has been "
+                 "reset successfully."
+              << std::endl;
+    return 0;
+}

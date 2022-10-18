@@ -78,6 +78,8 @@ using SystemVPDList =
 using GetAllResultType =
     std::vector<std::pair<std::string, std::variant<Binary>>>;
 using IntfPropMap = std::map<std::string, GetAllResultType>;
+using RecKwValMap =
+    std::unordered_map<std::string, std::unordered_map<std::string, Binary>>;
 } // namespace inventory
 
 } // namespace vpd

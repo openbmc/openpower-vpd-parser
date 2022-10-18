@@ -603,6 +603,57 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
         throw std::runtime_error(e.what());
     }
 }
+
+void EditorImpl::updateKeywordsAtOnce(
+    openpower::vpd::inventory::RecKwValMap inputMap)
+{
+    try
+    {
+        preProcessingToUpdateKw();
+
+        for (const auto& recordItr : inputMap)
+        {
+            const auto record = recordItr.first;
+            thisRecord.recName = record;
+
+            if (checkPTForRecord())
+            {
+                std::cerr
+                    << record
+                    << " not found. Skipping it from resetting to default."
+                    << std::endl;
+                continue;
+            }
+            for (const auto& keywordItr : recordItr.second)
+            {
+                const auto keyword = keywordItr.first;
+                thisRecord.recKWd = keyword;
+
+                // check record for keyword
+                if (checkRecordForKwd())
+                {
+                    std::cerr
+                        << keyword
+                        << " not found. Skipping it from resetting to default."
+                        << std::endl;
+                    continue;
+                }
+
+                // update data on hardware
+                updateData(keywordItr.second);
+
+                // update data on cache
+                updateCache();
+            }
+            // update the ECC data for the record once data has been updated
+            updateRecordECC();
+        }
+    }
+    catch (const std::exception& e)
+    {
+        throw std::runtime_error(e.what());
+    }
+}
 } // namespace editor
 } // namespace manager
 } // namespace vpd
