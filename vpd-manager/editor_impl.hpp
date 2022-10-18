@@ -127,13 +127,14 @@ class EditorImpl
     auto getValue(openpower::vpd::constants::offsets::Offsets offset);
 
     /** @brief Checks if required record name exist in the VPD file
-     *  @param[in] iterator - pointing to start of PT kwd
-     *  @param[in] ptLength - length of the PT kwd
+     * @return Record found/not (0/1).
      */
-    void checkPTForRecord(Binary::const_iterator& iterator, Byte ptLength);
+    int checkPTForRecord();
 
-    /** @brief Checks for required keyword in the record */
-    void checkRecordForKwd();
+    /** @brief Checks for required keyword in the record
+     * @return Keyword found/not (0/1).
+     */
+    int checkRecordForKwd();
 
     /** @brief update data for given keyword
      *  @param[in] kwdData- data to be updated
@@ -171,6 +172,9 @@ class EditorImpl
     void makeDbusCall(const std::string& object, const std::string& interface,
                       const std::string& property, const std::variant<T>& data);
 
+    /** @brief Pre-processing required to update keyword */
+    void preProcessingToUpdateKw();
+
     // path to the VPD file to edit
     inventory::Path vpdFilePath;
 
@@ -190,8 +194,8 @@ class EditorImpl
     struct RecInfo
     {
         Binary kwdUpdatedData; // need access to it in case encoding is needed
-        const std::string recName;
-        const std::string recKWd;
+        std::string recName;
+        std::string recKWd;
         openpower::vpd::constants::RecordOffset recOffset;
         openpower::vpd::constants::ECCOffset recECCoffset;
         std::size_t recECCLength;
@@ -210,6 +214,12 @@ class EditorImpl
 
     // If requested Interface is common Interface
     bool isCI;
+
+    // Iterator to Records under PT keyword
+    Binary::const_iterator itrToPTRecords;
+
+    // Size of PT keyword
+    Byte PTLength = 0;
 }; // class EditorImpl
 
 } // namespace editor

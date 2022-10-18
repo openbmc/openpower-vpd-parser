@@ -24,9 +24,11 @@ namespace manager
 namespace editor
 {
 
-void EditorImpl::checkPTForRecord(Binary::const_iterator& iterator,
-                                  Byte ptLength)
+int EditorImpl::checkPTForRecord()
 {
+    Binary::const_iterator iterator = itrToPTRecords;
+    Byte ptLength = PTLength;
+
     // auto iterator = ptRecord.cbegin();
     auto end = std::next(iterator, ptLength + 1);
 
@@ -57,7 +59,7 @@ void EditorImpl::checkPTForRecord(Binary::const_iterator& iterator,
             thisRecord.recECCLength = len;
 
             // once we find the record we don't need to look further
-            return;
+            return 0;
         }
         else
         {
@@ -68,8 +70,7 @@ void EditorImpl::checkPTForRecord(Binary::const_iterator& iterator,
                                        sizeof(ECCOffset) + sizeof(ECCLength));
         }
     }
-    // imples the record was not found
-    throw std::runtime_error("Record not found");
+    return 1;
 }
 
 void EditorImpl::updateData(const Binary& kwdData)
@@ -118,7 +119,7 @@ void EditorImpl::updateData(const Binary& kwdData)
 #endif
 }
 
-void EditorImpl::checkRecordForKwd()
+int EditorImpl::checkRecordForKwd()
 {
     RecordOffset recOffset = thisRecord.recOffset;
 
@@ -164,14 +165,13 @@ void EditorImpl::checkRecordForKwd()
         {
             thisRecord.kwDataOffset = std::distance(vpdFile.cbegin(), iterator);
             thisRecord.kwdDataLength = dataLength;
-            return;
+            return 0;
         }
 
         // jump the data of current kwd to point to next kwd name
         std::advance(iterator, dataLength);
     }
-
-    throw std::runtime_error("Keyword not found");
+    return 1;
 }
 
 void EditorImpl::updateRecordECC()
@@ -239,22 +239,23 @@ void EditorImpl::readVTOC()
     // read TOC ecc length
     ECCLength tocECCLength = getValue(offsets::VTOC_ECC_LEN);
 
-    auto itrToRecord = vpdFile.cbegin();
-    std::advance(itrToRecord, tocOffset);
+    itrToPTRecords = vpdFile.cbegin();
+    std::advance(itrToPTRecords, tocOffset);
 
     auto iteratorToECC = vpdFile.cbegin();
     std::advance(iteratorToECC, tocECCOffset);
 
     // validate ecc for the record
-    checkECC(itrToRecord, iteratorToECC, tocLength, tocECCLength);
+    checkECC(itrToPTRecords, iteratorToECC, tocLength, tocECCLength);
 
     // to get to the record name.
-    std::advance(itrToRecord, sizeof(RecordId) + sizeof(RecordSize) +
-                                  // Skip past the RT keyword, which contains
-                                  // the record name.
-                                  lengths::KW_NAME + sizeof(KwSize));
+    std::advance(itrToPTRecords, sizeof(RecordId) + sizeof(RecordSize) +
+                                     // Skip past the RT keyword, which contains
+                                     // the record name.
+                                     lengths::KW_NAME + sizeof(KwSize));
 
-    std::string recordName(itrToRecord, itrToRecord + lengths::RECORD_NAME);
+    std::string recordName(itrToPTRecords,
+                           itrToPTRecords + lengths::RECORD_NAME);
 
     if ("VTOC" != recordName)
     {
@@ -262,13 +263,11 @@ void EditorImpl::readVTOC()
     }
 
     // jump to length of PT kwd
-    std::advance(itrToRecord, lengths::RECORD_NAME + lengths::KW_NAME);
+    std::advance(itrToPTRecords, lengths::RECORD_NAME + lengths::KW_NAME);
 
     // Note size of PT
-    Byte ptLen = *itrToRecord;
-    std::advance(itrToRecord, 1);
-
-    checkPTForRecord(itrToRecord, ptLen);
+    PTLength = *itrToPTRecords;
+    std::advance(itrToPTRecords, 1);
 }
 
 template <typename T>
@@ -499,10 +498,8 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
     common::utility::callPIM(std::move(objects));
 }
 
-void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
-                               const bool& updCache)
+void EditorImpl::preProcessingToUpdateKw()
 {
-    startOffset = offset;
 #ifndef ManagerTest
     // TODO: Figure out a better way to get max possible VPD size.
     Binary completeVPDFile;
@@ -549,23 +546,6 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
 
             // process VTOC for PTT rkwd
             readVTOC();
-
-            // check record for keywrod
-            checkRecordForKwd();
-
-            // update the data to the file
-            updateData(kwdData);
-
-            // update the ECC data for the record once data has been updated
-            updateRecordECC();
-
-            if (updCache)
-            {
-#ifndef ManagerTest
-                // update the cache once data has been updated
-                updateCache();
-#endif
-            }
         }
         catch (const std::exception& e)
         {
@@ -575,12 +555,52 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
             }
             throw std::runtime_error(e.what());
         }
-        return;
     }
     else
     {
         throw openpower::vpd::exceptions::VpdDataException(
             "Could not find start tag in VPD " + vpdFilePath);
+    }
+}
+
+void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
+                               const bool& updCache)
+{
+    try
+    {
+        startOffset = offset;
+
+        preProcessingToUpdateKw();
+
+        if (checkPTForRecord())
+        {
+            throw std::runtime_error("Record not found");
+        }
+
+        // check record for keywrod
+        if (checkRecordForKwd())
+        {
+            throw std::runtime_error("Keyword not found");
+        }
+
+        // update the data to the file
+        updateData(kwdData);
+
+        // update the ECC data for the record once data has been updated
+        updateRecordECC();
+
+        if (updCache)
+        {
+#ifndef ManagerTest
+            // update the cache once data has been updated
+            updateCache();
+#endif
+        }
+        return;
+    }
+    catch (const std::exception& e)
+    {
+        throw std::runtime_error(e.what());
     }
 }
 } // namespace editor
