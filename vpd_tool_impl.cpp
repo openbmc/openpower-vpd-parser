@@ -21,6 +21,7 @@ using namespace openpower::vpd::exceptions;
 using namespace openpower::vpd::parser;
 using namespace openpower::vpd::parser::factory;
 using namespace openpower::vpd::parser::interface;
+using namespace openpower::vpd::constants;
 
 Binary VpdTool::toBinary(const std::string& value)
 {
@@ -935,4 +936,62 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
         }
 
     } while (true);
+}
+
+int VpdTool::cleanSystemVPD()
+{
+    // Get system VPD hardware data in map
+    unordered_map<string, DbusPropertyMap> vpdMap;
+    json js;
+    getVPDInMap(constants::systemVpdFilePath, vpdMap, js);
+
+    RecKwValMap kwdsToBeUpdated = systemVPDDefaults;
+
+    for (auto recordMap : systemVPDDefaults)
+    {
+        std::string record = recordMap.first;
+        auto recToBeUpdated = kwdsToBeUpdated.find(record);
+
+        for (auto keywordMap : recordMap.second)
+        {
+            std::string keyword = keywordMap.first;
+
+            // Get hardware value for this keyword from vpdMap
+            Binary hardwareValue;
+
+            auto recItr = vpdMap.find(record);
+
+            if (recItr != vpdMap.end())
+            {
+                DbusPropertyMap& kwValMap = recItr->second;
+                auto kwItr = kwValMap.find(keyword);
+                if (kwItr != kwValMap.end())
+                {
+                    hardwareValue = toBinary(kwItr->second);
+                }
+            }
+
+            // compare hardware value with the keyword's default value
+            auto defaultValue = keywordMap.second;
+            if (hardwareValue == defaultValue)
+            {
+                // remove the pair which has its default value
+                auto kwItr = recToBeUpdated->second.find(keyword);
+                (recToBeUpdated->second).erase(kwItr);
+            }
+        }
+        // If there are no keywords left under the record, delete the record
+        if (recToBeUpdated->second.size() == 0)
+        {
+            kwdsToBeUpdated.erase(recToBeUpdated);
+        }
+    }
+
+    EditorImpl edit(constants::systemVpdFilePath, js, 0);
+    edit.updateKeywordsAtOnce(kwdsToBeUpdated);
+
+    std::cout << "\n The critical keywords from system backplane VPD has been "
+                 "reset successfully."
+              << std::endl;
+    return 0;
 }
