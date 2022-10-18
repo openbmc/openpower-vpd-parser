@@ -932,3 +932,78 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
 
     } while (true);
 }
+
+int VpdTool::cleanSystemVPD()
+{
+    try
+    {
+        // Get system VPD hardware data in map
+        unordered_map<string, DbusPropertyMap> vpdMap;
+        json js;
+        getVPDJSONParserObj(js);
+
+        Binary vpdVector;
+        auto parseResult =
+            getVPDParserObj(constants::systemVpdFilePath, vpdVector, js,
+                            constants::pimPath + static_cast<std::string>(
+                                                     constants::SYSTEM_OBJECT));
+
+        if (auto pVal = std::get_if<Store>(&parseResult))
+        {
+            vpdMap = pVal->getVpdMap();
+        }
+
+        RecKwValMap kwdsToBeUpdated;
+
+        for (auto recordMap : svpdKwdMap)
+        {
+            const std::string& record = recordMap.first;
+            std::unordered_map<std::string, Binary> kwDefault;
+            for (auto keywordMap : recordMap.second)
+            {
+                // Skip those keywords which cannot be reset at manufacturing
+                if (!std::get<3>(keywordMap))
+                {
+                    continue;
+                }
+                const std::string& keyword = std::get<0>(keywordMap);
+
+                // Get hardware value for this keyword from vpdMap
+                Binary hardwareValue;
+
+                auto recItr = vpdMap.find(record);
+
+                if (recItr != vpdMap.end())
+                {
+                    DbusPropertyMap& kwValMap = recItr->second;
+                    auto kwItr = kwValMap.find(keyword);
+                    if (kwItr != kwValMap.end())
+                    {
+                        hardwareValue = toBinary(kwItr->second);
+                    }
+                }
+
+                // compare hardware value with the keyword's default value
+                auto defaultValue = std::get<1>(keywordMap);
+                if (hardwareValue != defaultValue)
+                {
+                    EditorImpl edit(constants::systemVpdFilePath, js, record,
+                                    keyword);
+                    edit.updateKeyword(defaultValue, 0, true);
+                }
+            }
+        }
+
+        std::cout
+            << "\n The critical keywords from system backplane VPD has been "
+               "reset successfully."
+            << std::endl;
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << e.what();
+        std::cerr
+            << "\nManufacturing reset on system vpd keywords is unsuccessful";
+    }
+    return 0;
+}
