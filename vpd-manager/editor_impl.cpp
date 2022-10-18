@@ -668,6 +668,7 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
         throw std::runtime_error(e.what());
     }
 }
+
 } // namespace editor
 } // namespace manager
 } // namespace vpd
