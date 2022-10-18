@@ -74,6 +74,19 @@ class EditorImpl
     {
     }
 
+    /** @brief Construct EditorImpl class
+     * @param[in] path - EEPROM Path
+     * @param[in] json - Parsed inventory json object
+     * @param[in] offset - Start offset of EEPROM path
+     */
+    EditorImpl(const inventory::Path& path, const nlohmann::json& json,
+               const uint8_t offset) :
+        vpdFilePath(path),
+        startOffset(offset), jsonFile(json),
+        thisRecord(std::string(), std::string())
+    {
+    }
+
     /**
      * @brief Update data for keyword
      * The method looks for the record name to update in VTOC and then
@@ -103,6 +116,17 @@ class EditorImpl
      *  @param[in] locationCodeType - "fcs" or "mts"
      */
     void expandLocationCode(const std::string& locationCodeType);
+
+    /** Update data on multiple keywords under a record
+     *
+     * This method is to update multiple keywords belonging to a single record
+     * at once. In this way, the record's ECC is calculated only once after
+     * updating the keywords.
+     *
+     * @param[in] inputMap - Map of record-keyword-value pairs that needs to be
+     * updated.
+     */
+    void updateKeywordsAtOnce(openpower::vpd::inventory::RecKwValMap inputMap);
 
   private:
     /** @brief read VTOC record from the vpd file
