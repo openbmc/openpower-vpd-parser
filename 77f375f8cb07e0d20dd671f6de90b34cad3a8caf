@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3df475cf_491eafa4",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-10-26T09:58:07Z",
+      "side": 1,
+      "message": "Please move these changes out of this commit.",
+      "revId": "77f375f8cb07e0d20dd671f6de90b34cad3a8caf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
