@@ -86,6 +86,42 @@
       "parentUuid": "7e1e3b80_3b1216dd",
       "revId": "18f0f9dae609040f6c57773ef5ca145eef166e38",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95cc416c_7327714f",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-10-27T11:54:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e57f4ba_42d23776",
+      "revId": "18f0f9dae609040f6c57773ef5ca145eef166e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b14dec95_c31694db",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-10-27T11:54:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85dd1631_d6dd56eb",
+      "revId": "18f0f9dae609040f6c57773ef5ca145eef166e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
