@@ -50,6 +50,42 @@
       "message": "196 seems to be big, will that many be required, and is there a need for \u0027|\u0027?",
       "revId": "18f0f9dae609040f6c57773ef5ca145eef166e38",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85dd1631_d6dd56eb",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-10-27T11:49:51Z",
+      "side": 1,
+      "message": "modified according to bmc console in GUI in ps 2",
+      "parentUuid": "ed365459_9e4d9fa3",
+      "revId": "18f0f9dae609040f6c57773ef5ca145eef166e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e57f4ba_42d23776",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-10-27T11:49:51Z",
+      "side": 1,
+      "message": "modified according to bmc console in GUI in ps 2.",
+      "parentUuid": "7e1e3b80_3b1216dd",
+      "revId": "18f0f9dae609040f6c57773ef5ca145eef166e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
