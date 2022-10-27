@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dca90d9f_13148795",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-10-27T08:00:49Z",
+      "side": 1,
+      "message": "Please check if the formatting appears right on the in-GUI BMC console.",
+      "revId": "18f0f9dae609040f6c57773ef5ca145eef166e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e1e3b80_3b1216dd",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-10-27T08:00:49Z",
+      "side": 1,
+      "message": "Have you checked if this shows up correctly in the console within the BMC GUI?",
+      "revId": "18f0f9dae609040f6c57773ef5ca145eef166e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
