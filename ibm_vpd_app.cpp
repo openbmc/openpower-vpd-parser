@@ -877,6 +877,15 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                     else if (kwdValue.find_first_not_of(defaultValue) ==
                              string::npos)
                     {
+                        if (recordName == "VSYS" && keyword == "FV")
+                        {
+                            // Continue to the next keyword without logging +PEL
+                            // for VSYS FV(stores min version of BMC firmware).
+                            // Reason:There is a requirement to support blank FV
+                            // so that customer can use the system without
+                            // upgrading BMC to the minimum required version.
+                            continue;
+                        }
                         string errMsg = "VPD is blank on both cache and "
                                         "hardware for record: ";
                         errMsg += (*it).first;
