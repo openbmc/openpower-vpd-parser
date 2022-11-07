@@ -696,8 +696,10 @@ int VpdTool::fixSystemVPD()
         string busStr{}, hwValStr{};
         string mismatch = "NO"; // no mismatch
 
-        for (const auto& keyword : recordKw.second)
+        for (const auto& keywordInfo : recordKw.second)
         {
+            const auto& keyword = get<0>(keywordInfo);
+
             string hardwareValue{};
             auto recItr = vpdMap.find(record);
 
