@@ -60,6 +60,20 @@ using MapperResponse =
     std::map<Path, std::map<Service, std::vector<Interface>>>;
 using RestoredEeproms = std::tuple<Path, std::string, Keyword, Binary>;
 using ReplaceableFrus = std::vector<VPDfilepath>;
+
+using RecordName = std::string;
+using KeywordDefault = Binary;
+using IsKwdRestorable = bool;
+using IsPELRequired = bool;
+using IsMFGResetRequired = bool;
+using SystemVPDKwData = std::tuple<Keyword, KeywordDefault, IsKwdRestorable,
+                                   IsPELRequired, IsMFGResetRequired>;
+
+/** Map of system backplane records to list of keywords and its related data. {
+ * RECORD : { KEYWORD, DEFAULT VALUE, IS RESTORABLE, IS PEL REQUIRED, IS MFG
+ * RESET REQUIRED }} **/
+using SystemVPDList =
+    std::unordered_map<RecordName, std::vector<SystemVPDKwData>>;
 } // namespace inventory
 
 } // namespace vpd

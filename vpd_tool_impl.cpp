@@ -691,8 +691,17 @@ int VpdTool::fixSystemVPD()
         string busStr{}, hwValStr{};
         string mismatch = "NO"; // no mismatch
 
-        for (const auto& keyword : recordKw.second)
+        for (const auto& keywordInfo : recordKw.second)
         {
+            // If the keyword is not restorable continue to the next keyword
+            if (!get<2>(keywordInfo))
+            {
+                continue;
+            }
+
+            const auto keyword = get<0>(keywordInfo);
+            std::cout << "\nkeyword = " << keyword << std::endl;
+
             string hardwareValue{};
             auto recItr = vpdMap.find(record);
 

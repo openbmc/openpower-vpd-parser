@@ -13,14 +13,29 @@ namespace openpower
 namespace vpd
 {
 
-// Map to hold record, kwd pair which can be re-stored at standby.
-// The list of keywords for VSYS record is as per the S0 system. Should
-// be updated for another type of systems
-static const std::unordered_map<std::string, std::vector<std::string>>
-    svpdKwdMap{{"VSYS", {"BR", "TM", "SE", "SU", "RB", "WN", "RG", "FV"}},
-               {"VCEN", {"FC", "SE"}},
-               {"LXR0", {"LX"}},
-               {"UTIL", {"D0"}}};
+// Map which holds system vpd data which can be restored at standby and via
+// vpd-tool and also can be used reset keywords to its defaults at
+// manufacturing. The list of keywords for VSYS record is as per the S0 system.
+// Should be updated for another type of systems For those keywords whose
+// default value is system specific, the default value field is left empty.
+// RECORD : {KEYWORD, DEFAULT VALUE, IS RESTORABLE, IS PEL REQUIRED, IS MFG
+// RESET REQUIRED}
+static const inventory::SystemVPDList svpdKwdMap{
+    {"VSYS",
+     {inventory::SystemVPDKwData("BR", Binary(2, 0x20), true, true, true),
+      inventory::SystemVPDKwData("TM", Binary(8, 0x20), true, true, true),
+      inventory::SystemVPDKwData("SE", Binary(7, 0x20), true, true, true),
+      inventory::SystemVPDKwData("SU", Binary(6, 0x20), true, true, true),
+      inventory::SystemVPDKwData("RB", Binary(4, 0x20), true, true, true),
+      inventory::SystemVPDKwData("WN", Binary(12, 0x20), true, true, true),
+      inventory::SystemVPDKwData("RG", Binary(4, 0x20), true, true, true),
+      inventory::SystemVPDKwData("FV", Binary(32, 0x20), true, false, true)}},
+    {"VCEN",
+     {inventory::SystemVPDKwData("FC", Binary(), true, true, false),
+      inventory::SystemVPDKwData("SE", Binary(7, 0x20), true, true, true)}},
+    {"LXR0", {inventory::SystemVPDKwData("LX", Binary(), true, true, false)}},
+    {"UTIL",
+     {inventory::SystemVPDKwData("D0", Binary(1, 0x00), true, true, true)}}};
 
 /** @brief Return the hex representation of the incoming byte
  *

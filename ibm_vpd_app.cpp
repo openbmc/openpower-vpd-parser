@@ -810,8 +810,17 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
         if (it != vpdMap.end())
         {
             const auto& kwdListForRecord = systemRecKwdPair.second;
-            for (const auto& keyword : kwdListForRecord)
+            for (const auto& keywordInfo : kwdListForRecord)
             {
+                // If the keyword is not restorable continue to the next keyword
+                if (!get<2>(keywordInfo))
+                {
+                    continue;
+                }
+
+                const auto keyword = get<0>(keywordInfo);
+                std::cout << "\nkeyword = " << keyword << std::endl;
+
                 DbusPropertyMap& kwdValMap = it->second;
                 auto iterator = kwdValMap.find(keyword);
 
@@ -824,23 +833,13 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                     const string& busValue = readBusProperty(
                         objectPath, ipzVpdInf + recordName, keyword);
 
-                    std::string defaultValue{' '};
+                    const auto defaultValue = get<1>(keywordInfo);
+                    Binary busDataInBinary(busValue.begin(), busValue.end());
+                    Binary kwdDataInBinary(kwdValue.begin(), kwdValue.end());
 
-                    // Explicit check for D0 is required as this keyword will
-                    // never be blank and 0x00 should be treated as no value in
-                    // this case.
-                    if (recordName == "UTIL" && keyword == "D0")
+                    if (busDataInBinary != defaultValue)
                     {
-                        // default value of kwd D0 is 0x00. This kwd will never
-                        // be blank.
-                        defaultValue = '\0';
-                    }
-
-                    if (busValue.find_first_not_of(defaultValue) !=
-                        string::npos)
-                    {
-                        if (kwdValue.find_first_not_of(defaultValue) !=
-                            string::npos)
+                        if (kwdDataInBinary != defaultValue)
                         {
                             // both the data are present, check for mismatch
                             if (busValue != kwdValue)
@@ -865,27 +864,16 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                         else
                         {
                             // implies hardware data is blank
-                            // update the map
-                            Binary busData(busValue.begin(), busValue.end());
-
                             // update the map as well, so that cache data is not
                             // updated as blank while populating VPD map on Dbus
-                            // in populateDBus Api
+                            // in populateDBus Api and the hardware data is
+                            // updated by vpd-manager via restoreSystemVpd API.
                             kwdValue = busValue;
                         }
                     }
-                    else if (kwdValue.find_first_not_of(defaultValue) ==
-                             string::npos)
+                    else if (kwdDataInBinary == defaultValue &&
+                             get<3>(keywordInfo))
                     {
-                        if (recordName == "VSYS" && keyword == "FV")
-                        {
-                            // Continue to the next keyword without logging +PEL
-                            // for VSYS FV(stores min version of BMC firmware).
-                            // Reason:There is a requirement to support blank FV
-                            // so that customer can use the system without
-                            // upgrading BMC to the minimum required version.
-                            continue;
-                        }
                         string errMsg = "VPD is blank on both cache and "
                                         "hardware for record: ";
                         errMsg += (*it).first;

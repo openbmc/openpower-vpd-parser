@@ -85,8 +85,17 @@ static void
         if (it != vpdMap.end())
         {
             const auto& kwdListForRecord = systemRecKwdPair.second;
-            for (const auto& keyword : kwdListForRecord)
+            for (const auto& keywordInfo : kwdListForRecord)
             {
+                // If the keyword is not restorable continue to the next keyword
+                if (!get<2>(keywordInfo))
+                {
+                    continue;
+                }
+
+                const auto keyword = get<0>(keywordInfo);
+                std::cout << "\nkeyword = " << keyword << std::endl;
+
                 DbusPropertyMap& kwdValMap = it->second;
                 auto iterator = kwdValMap.find(keyword);
 
