@@ -123,8 +123,10 @@ static void
         if (it != vpdMap.end())
         {
             const auto& kwdListForRecord = systemRecKwdPair.second;
-            for (const auto& keyword : kwdListForRecord)
+            for (const auto& keywordInfo : kwdListForRecord)
             {
+                const auto& keyword = get<0>(keywordInfo);
+
                 DbusPropertyMap& kwdValMap = it->second;
                 auto iterator = kwdValMap.find(keyword);
 
