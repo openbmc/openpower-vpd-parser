@@ -842,8 +842,10 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
         if (it != vpdMap.end())
         {
             const auto& kwdListForRecord = systemRecKwdPair.second;
-            for (const auto& keyword : kwdListForRecord)
+            for (const auto& keywordInfo : kwdListForRecord)
             {
+                const auto keyword = get<0>(keywordInfo);
+
                 DbusPropertyMap& kwdValMap = it->second;
                 auto iterator = kwdValMap.find(keyword);
 
@@ -856,23 +858,13 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                     const string& busValue = readBusProperty(
                         objectPath, ipzVpdInf + recordName, keyword);
 
-                    std::string defaultValue{' '};
+                    const auto& defaultValue = get<1>(keywordInfo);
+                    Binary busDataInBinary(busValue.begin(), busValue.end());
+                    Binary kwdDataInBinary(kwdValue.begin(), kwdValue.end());
 
-                    // Explicit check for D0 is required as this keyword will
-                    // never be blank and 0x00 should be treated as no value in
-                    // this case.
-                    if (recordName == "UTIL" && keyword == "D0")
+                    if (busDataInBinary != defaultValue)
                     {
-                        // default value of kwd D0 is 0x00. This kwd will never
-                        // be blank.
-                        defaultValue = '\0';
-                    }
-
-                    if (busValue.find_first_not_of(defaultValue) !=
-                        string::npos)
-                    {
-                        if (kwdValue.find_first_not_of(defaultValue) !=
-                            string::npos)
+                        if (kwdDataInBinary != defaultValue)
                         {
                             // both the data are present, check for mismatch
                             if (busValue != kwdValue)
@@ -917,26 +909,16 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                             }
                         }
 
-                        // If cache data is not blank, then irrespective of
-                        // hardware data(blank or other than cache), copy the
+                        // If cache data is not default, then irrespective of
+                        // hardware data(default or other than cache), copy the
                         // cache data to vpd map as we don't need to change the
                         // cache data in either case in the process of
                         // restoring system vpd.
-                        Binary busData(busValue.begin(), busValue.end());
                         kwdValue = busValue;
                     }
-                    else if (kwdValue.find_first_not_of(defaultValue) ==
-                             string::npos)
+                    else if (kwdDataInBinary == defaultValue &&
+                             get<2>(keywordInfo)) // Check isPELRequired is true
                     {
-                        if (recordName == "VSYS" && keyword == "FV")
-                        {
-                            // Continue to the next keyword without logging +PEL
-                            // for VSYS FV(stores min version of BMC firmware).
-                            // Reason:There is a requirement to support blank FV
-                            // so that customer can use the system without
-                            // upgrading BMC to the minimum required version.
-                            continue;
-                        }
                         string errMsg = "VPD is blank on both cache and "
                                         "hardware for record: ";
                         errMsg += (*it).first;
