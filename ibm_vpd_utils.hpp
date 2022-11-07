@@ -13,14 +13,29 @@ namespace openpower
 namespace vpd
 {
 
-// Map to hold record, kwd pair which can be re-stored at standby.
-// The list of keywords for VSYS record is as per the S0 system. Should
-// be updated for another type of systems
-static const std::unordered_map<std::string, std::vector<std::string>>
-    svpdKwdMap{{"VSYS", {"BR", "TM", "SE", "SU", "RB", "WN", "RG", "FV"}},
-               {"VCEN", {"FC", "SE"}},
-               {"LXR0", {"LX"}},
-               {"UTIL", {"D0"}}};
+// Map which holds system vpd keywords which can be restored at standby and via
+// vpd-tool and also can be used to reset keywords to its defaults at
+// manufacturing. The list of keywords for VSYS record is as per the S0 system.
+// Should be updated for another type of systems For those keywords whose
+// default value is system specific, the default value field is left empty.
+// Record : {Keyword, Default value, Is PEL required on restore failure, Is MFG
+// reset required}
+static const inventory::SystemKeywordsMap svpdKwdMap{
+    {"VSYS",
+     {inventory::SystemKeywordInfo("BR", Binary(2, 0x20), true, true),
+      inventory::SystemKeywordInfo("TM", Binary(8, 0x20), true, true),
+      inventory::SystemKeywordInfo("SE", Binary(7, 0x20), true, true),
+      inventory::SystemKeywordInfo("SU", Binary(6, 0x20), true, true),
+      inventory::SystemKeywordInfo("RB", Binary(4, 0x20), true, true),
+      inventory::SystemKeywordInfo("WN", Binary(12, 0x20), true, true),
+      inventory::SystemKeywordInfo("RG", Binary(4, 0x20), true, true),
+      inventory::SystemKeywordInfo("FV", Binary(32, 0x20), false, true)}},
+    {"VCEN",
+     {inventory::SystemKeywordInfo("FC", Binary(), true, false),
+      inventory::SystemKeywordInfo("SE", Binary(7, 0x20), true, true)}},
+    {"LXR0", {inventory::SystemKeywordInfo("LX", Binary(), true, false)}},
+    {"UTIL",
+     {inventory::SystemKeywordInfo("D0", Binary(1, 0x00), true, true)}}};
 
 /** @brief Return the hex representation of the incoming byte
  *
