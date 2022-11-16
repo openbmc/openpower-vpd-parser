@@ -171,6 +171,9 @@ class EditorImpl
     void makeDbusCall(const std::string& object, const std::string& interface,
                       const std::string& property, const std::variant<T>& data);
 
+    /** @brief Method to check the record's Data before updating */
+    void checkRecordECC();
+
     // path to the VPD file to edit
     inventory::Path vpdFilePath;
 
@@ -179,6 +182,9 @@ class EditorImpl
 
     // stream to perform operation on file
     std::fstream vpdFileStream;
+
+    // stream to operate on VPD data
+    std::fstream vpdDataFileStream;
 
     // offset to get vpd data from EEPROM
     uint32_t startOffset;

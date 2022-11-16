@@ -530,7 +530,19 @@ void VpdTool::readKwFromHw(const uint32_t& startOffset)
     {
         throw std::runtime_error("Invalid File");
     }
-    Impl obj(completeVPDFile);
+    const std::string& inventoryPath =
+        jsonFile["frus"][fruPath][0]["inventoryPath"];
+
+    uint32_t offset = 0;
+    for (const auto& item : jsonFile["frus"][fruPath])
+    {
+        if (item.find("offset") != item.end())
+        {
+            offset = item["offset"];
+        }
+    }
+    Impl obj(completeVPDFile, (constants::pimPath + inventoryPath),
+             fruPath, offset);
     std::string keywordVal = obj.readKwFromHw(recordName, keyword);
 
     if (!keywordVal.empty())
@@ -603,6 +615,7 @@ int VpdTool::fixSystemVPD()
          << outline << std::endl;
 
     int num = 0;
+    int systemOffset = 0;
 
     // Get system VPD data in map
     Binary vpdVector{};
@@ -622,7 +635,9 @@ int VpdTool::fixSystemVPD()
     js = json::parse(inventoryJson);
 
     vpdVector = getVpdDataInVector(js, constants::systemVpdFilePath);
-    ParserInterface* parser = ParserFactory::getParser(vpdVector);
+    ParserInterface* parser = ParserFactory::getParser(
+        vpdVector, constants::pimPath + std::string(constants::SYSTEM_OBJECT),
+        constants::systemVpdFilePath, systemOffset);
     auto parseResult = parser->parse();
     ParserFactory::freeParser(parser);
 
