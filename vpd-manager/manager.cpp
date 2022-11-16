@@ -168,11 +168,13 @@ void Manager::restoreSystemVpd()
     try
     {
         auto vpdVector = getVpdDataInVector(jsonFile, systemVpdFilePath);
+        uint32_t vpdStartOffset = 0;
         const auto& inventoryPath =
             jsonFile["frus"][systemVpdFilePath][0]["inventoryPath"]
                 .get_ref<const nlohmann::json::string_t&>();
 
-        parser = ParserFactory::getParser(vpdVector, (pimPath + inventoryPath));
+        parser = ParserFactory::getParser(vpdVector, (pimPath + inventoryPath),
+                                          systemVpdFilePath, vpdStartOffset);
         auto parseResult = parser->parse();
 
         if (auto pVal = std::get_if<Store>(&parseResult))
