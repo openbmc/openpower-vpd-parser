@@ -164,11 +164,13 @@ void Manager::restoreSystemVpd()
     try
     {
         auto vpdVector = getVpdDataInVector(jsonFile, systemVpdFilePath);
+        auto vpdStartOffset = 0;
         const auto& inventoryPath =
             jsonFile["frus"][systemVpdFilePath][0]["inventoryPath"]
                 .get_ref<const nlohmann::json::string_t&>();
 
-        parser = ParserFactory::getParser(vpdVector, (pimPath + inventoryPath));
+        parser = ParserFactory::getParser(vpdVector, (pimPath + inventoryPath),
+                                          systemVpdFilePath, vpdStartOffset);
         auto parseResult = parser->parse();
 
         if (auto pVal = std::get_if<Store>(&parseResult))
@@ -281,10 +283,10 @@ void Manager::listenAssetTag()
             sdbusplus::bus::match::rules::propertiesChanged(
                 "/xyz/openbmc_project/inventory/system",
                 "xyz.openbmc_project.Inventory.Decorator.AssetTag"),
-            [this](sdbusplus::message_t& msg) { assetTagCallback(msg); });
+            [this](sdbusplus::message_t& msg) { hostStateCallBack(msg); });
 }
 
-void Manager::assetTagCallback(sdbusplus::message_t& msg)
+void Manager::assetTagCallback(sdbusplus::message::message& msg)
 {
     if (msg.is_method_error())
     {

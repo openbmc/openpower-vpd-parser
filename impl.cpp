@@ -74,7 +74,7 @@ RecordOffset Impl::getVtocOffset() const
 }
 
 #ifdef IPZ_PARSER
-int Impl::vhdrEccCheck() const
+int Impl::vhdrEccCheck()
 {
     int rc = eccStatus::SUCCESS;
     auto vpdPtr = vpd.cbegin();
@@ -84,8 +84,24 @@ int Impl::vhdrEccCheck() const
                           lengths::VHDR_RECORD_LENGTH,
                           const_cast<uint8_t*>(&vpdPtr[offsets::VHDR_ECC]),
                           lengths::VHDR_ECC_LENGTH);
-
-    if (l_status != VPD_ECC_OK)
+    if (l_status == VPD_ECC_CORRECTABLE_DATA)
+    {
+        try
+        {
+            vpdFileStream.seekg(vpdStartOffset + offsets::VHDR_RECORD,
+                                std::ios::beg);
+            vpdFileStream.write(
+                reinterpret_cast<const char*>(&vpd[offsets::VHDR_RECORD]),
+                lengths::VHDR_RECORD_LENGTH);
+        }
+        catch (const std::fstream::failure& e)
+        {
+            std::cout << "Error while operating on file with exception:"
+                      << e.what();
+            rc = eccStatus::FAILED;
+        }
+    }
+    else if (l_status != VPD_ECC_OK)
     {
         rc = eccStatus::FAILED;
     }
@@ -93,7 +109,7 @@ int Impl::vhdrEccCheck() const
     return rc;
 }
 
-int Impl::vtocEccCheck() const
+int Impl::vtocEccCheck()
 {
     int rc = eccStatus::SUCCESS;
     // Use another pointer to get ECC information from VHDR,
@@ -122,8 +138,22 @@ int Impl::vtocEccCheck() const
     auto l_status = vpdecc_check_data(
         const_cast<uint8_t*>(&vpdPtr[vtocOffset]), vtocLength,
         const_cast<uint8_t*>(&vpdPtr[vtocECCOffset]), vtocECCLength);
-
-    if (l_status != VPD_ECC_OK)
+    if (l_status == VPD_ECC_CORRECTABLE_DATA)
+    {
+        try
+        {
+            vpdFileStream.seekg(vpdStartOffset + vtocOffset, std::ios::beg);
+            vpdFileStream.write(
+                reinterpret_cast<const char*>(&vpdPtr[vtocOffset]), vtocLength);
+        }
+        catch (const std::fstream::failure& e)
+        {
+            std::cout << "Error while operating on file with exception "
+                      << e.what();
+            rc = eccStatus::FAILED;
+        }
+    }
+    else if (l_status != VPD_ECC_OK)
     {
         rc = eccStatus::FAILED;
     }
@@ -131,7 +161,7 @@ int Impl::vtocEccCheck() const
     return rc;
 }
 
-int Impl::recordEccCheck(Binary::const_iterator iterator) const
+int Impl::recordEccCheck(Binary::const_iterator iterator)
 {
     int rc = eccStatus::SUCCESS;
 
@@ -163,7 +193,23 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
     auto l_status = vpdecc_check_data(
         const_cast<uint8_t*>(&vpdPtr[recordOffset]), recordLength,
         const_cast<uint8_t*>(&vpdPtr[eccOffset]), eccLength);
-    if (l_status != VPD_ECC_OK)
+    if (l_status == VPD_ECC_CORRECTABLE_DATA)
+    {
+        try
+        {
+            vpdFileStream.seekp(vpdStartOffset + recordOffset, std::ios::beg);
+            vpdFileStream.write(
+                reinterpret_cast<const char*>(&vpdPtr[recordOffset]),
+                recordLength);
+        }
+        catch (const std::fstream::failure& e)
+        {
+            std::cout << "Error while operating on file with exception "
+                      << e.what();
+            rc = eccStatus::FAILED;
+        }
+    }
+    else if (l_status != VPD_ECC_OK)
     {
         rc = eccStatus::FAILED;
     }
@@ -172,7 +218,7 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
 }
 #endif
 
-void Impl::checkHeader() const
+void Impl::checkHeader()
 {
     if (vpd.empty() || (lengths::RECORD_MIN > vpd.size()))
     {
@@ -201,7 +247,7 @@ void Impl::checkHeader() const
     }
 }
 
-std::size_t Impl::readTOC(Binary::const_iterator& iterator) const
+std::size_t Impl::readTOC(Binary::const_iterator& iterator)
 {
     // The offset to VTOC could be 1 or 2 bytes long
     RecordOffset vtocOffset = getVtocOffset();
@@ -244,7 +290,7 @@ std::size_t Impl::readTOC(Binary::const_iterator& iterator) const
 }
 
 internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
-                                  std::size_t ptLength) const
+                                  std::size_t ptLength)
 {
     internal::OffsetList offsets{};
 
