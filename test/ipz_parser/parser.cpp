@@ -11,6 +11,9 @@
 
 using namespace openpower::vpd;
 
+constexpr auto systemVpdFilePath = "/sys/bus/i2c/drivers/at24/8-0050/eeprom";
+constexpr uint32_t vpdOffset = 0;
+
 TEST(IpzVpdParserApp, vpdGoodPath)
 {
     // Create a vpd
@@ -37,7 +40,7 @@ TEST(IpzVpdParserApp, vpdGoodPath)
         0x00, 0x52, 0x54, 0x04};
 
     // call app for this vpd
-    parser::Impl p(std::move(vpd), std::string{});
+    parser::Impl p(std::move(vpd), std::string{}, systemVpdFilePath, vpdOffset);
     Store vpdStore = p.run();
 
     static const std::string record = "VINI";
@@ -65,7 +68,7 @@ TEST(IpzVpdParserApp, vpdBadPathEmptyVPD)
     Binary vpd = {};
 
     // VPD is empty
-    parser::Impl p(std::move(vpd), std::string{});
+    parser::Impl p(std::move(vpd), std::string{}, systemVpdFilePath, vpdOffset);
 
     // Expecting a throw here
     EXPECT_THROW(p.run(), std::runtime_error);
@@ -98,7 +101,7 @@ TEST(IpzVpdParserApp, vpdBadPathMissingHeader)
     // corrupt the VHDR
     vpd[17] = 0x00;
 
-    parser::Impl p(std::move(vpd), std::string{});
+    parser::Impl p(std::move(vpd), std::string{}, systemVpdFilePath, vpdOffset);
 
     // Expecting a throw here
     EXPECT_THROW(p.run(), std::runtime_error);
@@ -131,7 +134,7 @@ TEST(IpzVpdParserApp, vpdBadPathMissingVTOC)
     // corrupt the VTOC
     vpd[61] = 0x00;
 
-    parser::Impl p(std::move(vpd), std::string{});
+    parser::Impl p(std::move(vpd), std::string{}, systemVpdFilePath, vpdOffset);
 
     // Expecting a throw here
     EXPECT_THROW(p.run(), std::runtime_error);
