@@ -211,6 +211,18 @@ auto EditorImpl::getValue(offsets::Offsets offset)
     return lowByte;
 }
 
+void EditorImpl::checkRecordECC()
+{
+    auto itrToRecordData = vpdFile.cbegin();
+    std::advance(itrToRecordData, thisRecord.recOffset);
+
+    auto itrToRecordECC = vpdFile.cbegin();
+    std::advance(itrToRecordECC, thisRecord.recECCoffset);
+
+    checkECC(itrToRecordData, itrToRecordECC, thisRecord.recSize,
+             thisRecord.recECCLength);
+}
+
 void EditorImpl::checkECC(Binary::const_iterator& itrToRecData,
                           Binary::const_iterator& itrToECCData,
                           RecordLength recLength, ECCLength eccLength)
@@ -219,9 +231,26 @@ void EditorImpl::checkECC(Binary::const_iterator& itrToRecData,
         vpdecc_check_data(const_cast<uint8_t*>(&itrToRecData[0]), recLength,
                           const_cast<uint8_t*>(&itrToECCData[0]), eccLength);
 
-    if (l_status != VPD_ECC_OK)
+    if (l_status == VPD_ECC_CORRECTABLE_DATA)
     {
-        throw std::runtime_error("Ecc check failed for VTOC");
+       try
+       {
+           vpdFileStream.seekp(startOffset + thisRecord.recOffset,
+                                   std::ios::beg);
+           auto end = itrToRecData;
+           std::advance(end, recLength);
+           std::copy(itrToRecData, end,
+              std::ostreambuf_iterator<char>(vpdFileStream));
+       }
+       catch(const std::fstream::failure& e)
+       {
+           std::cout<< "Error while operating on file with exception: "
+                    << e.what();
+       }
+    }
+    else if (l_status != VPD_ECC_OK)
+    {
+        throw std::runtime_error("Ecc check failed");
     }
 }
 
@@ -532,7 +561,11 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
     Byte vpdType = *iterator;
     if (vpdType == KW_VAL_PAIR_START_TAG)
     {
-        ParserInterface* Iparser = ParserFactory::getParser(completeVPDFile);
+        // objPath should be empty only in case of test run.
+        ParserInterface* Iparser =
+             ParserFactory::getParser(completeVPDFile, objPath,
+                                         vpdFilePath, startOffset);
+
         IpzVpdParser* ipzParser = dynamic_cast<IpzVpdParser*>(Iparser);
 
         try
@@ -550,7 +583,10 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
             // process VTOC for PTT rkwd
             readVTOC();
 
-            // check record for keywrod
+            // Check Data using ECC before updating
+            checkRecordECC();
+
+            // check record for keyword
             checkRecordForKwd();
 
             // update the data to the file
