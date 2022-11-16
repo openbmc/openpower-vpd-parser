@@ -14,7 +14,7 @@ namespace factory
  *  @brief Factory calss to instantiate concrete parser class.
  *
  *  This class should be used to instantiate an instance of parser class based
- *  on the typeof vpd file.
+ *  on the typeof vpd vpdFilePath.
  */
 
 class ParserFactory
@@ -31,10 +31,13 @@ class ParserFactory
      * @brief A method to get object of concrete parser class.
      * @param[in] - vpd file to check for the type.
      * @param[in] - InventoryPath to call out FRU in case PEL is logged.
+     * @param[in] - vpdFilePath for VPD HW path.
+     * @param[in] - vpdStartOffset for starting offset of VPD.
      * @return - Pointer to concrete parser class object.
      */
     static interface::ParserInterface*
-        getParser(const Binary& vpdVector, const std::string& inventoryPath);
+        getParser(const Binary& vpdVector, const std::string& inventoryPath,
+                  const std::string& vpdFilePath, uint32_t vpdStartOffset);
 
     /**
      * @brief A method to delete the parser object.
