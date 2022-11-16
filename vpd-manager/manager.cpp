@@ -124,7 +124,9 @@ void Manager::restoreSystemVpd()
     try
     {
         auto vpdVector = getVpdDataInVector(jsonFile, systemVpdFilePath);
-        parser = ParserFactory::getParser(vpdVector);
+
+        parser = ParserFactory::getParser(vpdVector, (pimPath + inventoryPath),
+                                          systemVpdFilePath, 0);
         auto parseResult = parser->parse();
 
         if (auto pVal = std::get_if<Store>(&parseResult))

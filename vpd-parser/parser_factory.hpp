@@ -32,7 +32,9 @@ class ParserFactory
      * @param[in] - vpd file to check for the type.
      * @return - Pointer to concrete parser class object.
      */
-    static interface::ParserInterface* getParser(const Binary& vpdVector);
+    static interface::ParserInterface*
+        getParser(const Binary& vpdVector, const std::string& inventoryPath,
+                  const std::string& file, uint32_t offset);
 
     /**
      * @brief A method to delete the parser object.
