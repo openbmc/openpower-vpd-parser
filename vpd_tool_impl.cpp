@@ -28,6 +28,7 @@ static void
                 json& js, const std::string& invPath)
 {
     auto jsonToParse = INVENTORY_JSON_DEFAULT;
+    int  vpdStartOffset = 0;
     if (fs::exists(INVENTORY_JSON_SYM_LINK))
     {
         jsonToParse = INVENTORY_JSON_SYM_LINK;
@@ -51,7 +52,8 @@ static void
     Binary vpdVector{};
 
     vpdVector = getVpdDataInVector(js, constants::systemVpdFilePath);
-    ParserInterface* parser = ParserFactory::getParser(vpdVector, invPath);
+    ParserInterface* parser = ParserFactory::getParser(vpdVector, invPath,
+        constants::systemVpdFilePath, vpdStartOffset);
     auto parseResult = parser->parse();
     ParserFactory::freeParser(parser);
 
@@ -579,7 +581,16 @@ void VpdTool::readKwFromHw(const uint32_t& startOffset)
     const std::string& inventoryPath =
         jsonFile["frus"][fruPath][0]["inventoryPath"];
 
-    Impl obj(completeVPDFile, (constants::pimPath + inventoryPath));
+    uint32_t vpdStartOffset = 0;
+    for (const auto& item : jsonFile["frus"][fruPath])
+    {
+        if (item.find("offset") != item.end())
+        {
+            vpdStartOffset = item["offset"];
+        }
+    }
+    Impl obj(completeVPDFile, (constants::pimPath + inventoryPath),
+             fruPath, vpdStartOffset);
     std::string keywordVal = obj.readKwFromHw(recordName, keyword);
 
     if (!keywordVal.empty())

@@ -4,6 +4,7 @@
 #include "store.hpp"
 
 #include <cstddef>
+#include <fstream>
 
 namespace openpower
 {
@@ -68,6 +69,30 @@ class Impl
      *
      *  @param[in] vpdBuffer - Binary VPD
      *  @param[in] path - To call out FRU in case of any PEL.
+     *  @param[in] vpdFilePath - VPD File Path
+     *  @param[in] vpdStartOffset - Offset
+     */
+    Impl(const Binary& vpdBuffer, const std::string& path,
+         const std::string& vpdFilePath, uint32_t vpdStartOffset) :
+        vpd(vpdBuffer),
+        inventoryPath(path), vpdFilePath(vpdFilePath),
+        vpdStartOffset(vpdStartOffset), out{}
+    {
+        try
+        {
+            vpdFileStream.open(vpdFilePath,
+                               std::ios::in | std::ios::out | std::ios::binary);
+        }
+        catch (const std::fstream::failure& e)
+        {
+            std::cout << e.what();
+        }
+    }
+
+    /** @brief Construct an Impl
+     *
+     * @param[in] vpdBuffer - Binary VPD
+     * @param[in] path - To call out FRU in case of any PEL.
      */
     Impl(const Binary& vpdBuffer, const std::string& path) :
         vpd(vpdBuffer), inventoryPath(path), out{}
@@ -99,7 +124,7 @@ class Impl
      *  @param[in] iterator - iterator to buffer containing VPD
      *  @returns Size of the PT keyword in VTOC
      */
-    std::size_t readTOC(Binary::const_iterator& iterator) const;
+    std::size_t readTOC(Binary::const_iterator& iterator);
 
     /** @brief Read the PT keyword contained in the VHDR record,
      *         to obtain offsets to other records in the VPD.
@@ -110,7 +135,7 @@ class Impl
      *  @returns List of offsets to records in VPD
      */
     internal::OffsetList readPT(Binary::const_iterator iterator,
-                                std::size_t ptLen) const;
+                                std::size_t ptLen);
 
     /** @brief Read VPD information contained within a record
      *
@@ -143,24 +168,24 @@ class Impl
     internal::KeywordMap readKeywords(Binary::const_iterator iterator);
 
     /** @brief Checks if the VHDR record is present in the VPD */
-    void checkHeader() const;
+    void checkHeader();
 
     /** @brief Checks the ECC for VHDR Record.
      *  @returns Success(0) OR corrupted data(-1)
      */
-    int vhdrEccCheck() const;
+    int vhdrEccCheck();
 
     /** @brief Checks the ECC for VTOC Record.
      *  @returns Success(0) OR corrupted data(-1)
      */
-    int vtocEccCheck() const;
+    int vtocEccCheck();
 
     /** @brief Checks the ECC for the given record.
      *
      * @param[in] iterator - iterator pointing to a record in the VPD
      * @returns Success(0) OR corrupted data(-1)
      */
-    int recordEccCheck(Binary::const_iterator iterator) const;
+    int recordEccCheck(Binary::const_iterator iterator);
 
     /** @brief This interface collects Offset of VTOC
      *  @returns VTOC Offset
@@ -172,6 +197,15 @@ class Impl
 
     /** Inventory path to call out FRU if required */
     const std::string inventoryPath;
+
+    /** Eeprom hardware path */
+    inventory::Path vpdFilePath;
+
+    /** VPD Offset **/
+    uint32_t vpdStartOffset;
+
+    /** File stream for VPD */
+    std::fstream vpdFileStream;
 
     /** @brief parser output */
     Parsed out;
