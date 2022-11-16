@@ -1447,9 +1447,18 @@ int main(int argc, char** argv)
 
         try
         {
+            uint32_t vpdStartOffset = 0;
+            for (const auto& item : js["frus"][file])
+            {
+                if (item.find("offset") != item.end())
+                {
+                    vpdStartOffset = item["offset"];
+                }
+            }
             vpdVector = getVpdDataInVector(js, file);
             ParserInterface* parser = ParserFactory::getParser(
-                vpdVector, (pimPath + baseFruInventoryPath));
+                vpdVector, (pimPath + baseFruInventoryPath), file,
+                vpdStartOffset);
             variant<KeywordVpdMap, Store> parseResult;
             parseResult = parser->parse();
 
