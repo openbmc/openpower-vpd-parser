@@ -15,14 +15,14 @@ using namespace openpower::vpd::constants;
 
 std::variant<kwdVpdMap, Store> IpzVpdParser::parse()
 {
-    Impl p(vpd);
+    Impl p(vpd, inventoryPath, vpdPath, offset);
     Store s = p.run();
     return s;
 }
 
 void IpzVpdParser::processHeader()
 {
-    Impl p(vpd);
+    Impl p(vpd, inventoryPath, vpdPath, offset);
     p.checkVPDHeader();
 }
 
