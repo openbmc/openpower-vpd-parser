@@ -1,0 +1,513 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2712ac6b_7b9f97c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "why do you get two signatures?\ncan you remove 1.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 56
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "801b99ec_06d757ea",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1499,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "can you please remove this new line change",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "560fb3e8_6c44447b",
+        "filename": "impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "missed printing e.what() here",
+      "range": {
+        "startLine": 97,
+        "startChar": 67,
+        "endLine": 97,
+        "endChar": 73
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79e8b39a_e26a5e01",
+        "filename": "impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "missed printing e.what() here",
+      "range": {
+        "startLine": 148,
+        "startChar": 60,
+        "endLine": 148,
+        "endChar": 71
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e46a581e_1f950b24",
+        "filename": "impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "missed printing e.what()",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a01ae5e9_d7088d18",
+        "filename": "impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44752991_83f3b983",
+        "filename": "impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "store.hpp includes types.hpp. can you please remove line 5",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3934a93_3e170f02",
+        "filename": "impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "can you please check if line7 is required? as the exisitng code compiled even without this line.",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fe7424e_465e5dcf",
+        "filename": "impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "where do you make use of inventoryPath in impl.cpp?",
+      "range": {
+        "startLine": 78,
+        "startChar": 24,
+        "endLine": 78,
+        "endChar": 37
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d09747a_ebbb549a",
+        "filename": "impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "can you close this file stream in destructor?",
+      "range": {
+        "startLine": 81,
+        "startChar": 7,
+        "endLine": 82,
+        "endChar": 76
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc05f62c_8a5a1902",
+        "filename": "impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "can you remove this new line change",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa846d6c_57a7b7dd",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "tab space. please remove",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 4
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fff39f8_c9b8bf97",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "print e.what()?",
+      "range": {
+        "startLine": 247,
+        "startChar": 59,
+        "endLine": 247,
+        "endChar": 68
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "996e8f2f_82e983f7",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "am not sure how it even compiled, as you have changed the header of getParser() api",
+      "range": {
+        "startLine": 563,
+        "startChar": 8,
+        "endLine": 563,
+        "endChar": 77
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "151f9791_824981df",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "this variable *Iparser isn\u0027t used anywhere after line 566. Do you mean to replace line 563 with 566?",
+      "range": {
+        "startLine": 566,
+        "startChar": 8,
+        "endLine": 568,
+        "endChar": 67
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e141112b_e6eed94f",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "check ecc?",
+      "range": {
+        "startLine": 585,
+        "startChar": 16,
+        "endLine": 585,
+        "endChar": 41
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd01db59_583179bd",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "spelling: keyword*",
+      "range": {
+        "startLine": 588,
+        "startChar": 36,
+        "endLine": 588,
+        "endChar": 43
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "384401e3_af11c2e9",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4c2b7a5_99668ad3",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "to check record\u0027s data or ecc? the description and api name contradicts",
+      "range": {
+        "startLine": 174,
+        "startChar": 44,
+        "endLine": 174,
+        "endChar": 48
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eae2017_9f03ef85",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "please remove",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aed2da15_b44c35bb",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bf31c05_45c93bf7",
+        "filename": "vpd-parser/ipz_parser.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "tab",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 1
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84d1c879_d4104c05",
+        "filename": "vpd-parser/parser_factory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d243fe82_dd4a97c0",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "Please take offset from json rather than hardcoding.",
+      "range": {
+        "startLine": 639,
+        "startChar": 38,
+        "endLine": 639,
+        "endChar": 39
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4bf4f2d_17150416",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-18T17:07:19Z",
+      "side": 1,
+      "message": "change not needed",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
