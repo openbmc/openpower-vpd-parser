@@ -41,6 +41,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42bbf5a1_2e047117",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1499,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T08:03:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "801b99ec_06d757ea",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "560fb3e8_6c44447b",
@@ -180,6 +198,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6cb8cbb_f58ef3be",
+        "filename": "impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T08:03:48Z",
+      "side": 1,
+      "message": "Yes, in 1030 code",
+      "parentUuid": "6fe7424e_465e5dcf",
+      "range": {
+        "startLine": 78,
+        "startChar": 24,
+        "endLine": 78,
+        "endChar": 37
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9d09747a_ebbb549a",
         "filename": "impl.hpp",
         "patchSetId": 2
@@ -191,6 +233,30 @@
       "writtenOn": "2022-11-18T17:07:19Z",
       "side": 1,
       "message": "can you close this file stream in destructor?",
+      "range": {
+        "startLine": 81,
+        "startChar": 7,
+        "endLine": 82,
+        "endChar": 76
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9da7ae3_18c25a4d",
+        "filename": "impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T08:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d09747a_ebbb549a",
       "range": {
         "startLine": 81,
         "startChar": 7,
@@ -495,6 +561,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e9319e7_8195b2d4",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T08:03:48Z",
+      "side": 1,
+      "message": "Reading Json is time consuming and it\u0027s constant path so a constant should suffice.",
+      "parentUuid": "d243fe82_dd4a97c0",
+      "range": {
+        "startLine": 639,
+        "startChar": 38,
+        "endLine": 639,
+        "endChar": 39
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4bf4f2d_17150416",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 2
@@ -506,6 +596,24 @@
       "writtenOn": "2022-11-18T17:07:19Z",
       "side": 1,
       "message": "change not needed",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60d02dd3_eaf391f3",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T08:03:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d4bf4f2d_17150416",
       "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
