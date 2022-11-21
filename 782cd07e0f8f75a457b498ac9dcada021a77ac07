@@ -82,6 +82,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6321757f_75a7a545",
+        "filename": "impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "560fb3e8_6c44447b",
+      "range": {
+        "startLine": 97,
+        "startChar": 67,
+        "endLine": 97,
+        "endChar": 73
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79e8b39a_e26a5e01",
@@ -95,6 +119,30 @@
       "writtenOn": "2022-11-18T17:07:19Z",
       "side": 1,
       "message": "missed printing e.what() here",
+      "range": {
+        "startLine": 148,
+        "startChar": 60,
+        "endLine": 148,
+        "endChar": 71
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1273675f_1fb37349",
+        "filename": "impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "79e8b39a_e26a5e01",
       "range": {
         "startLine": 148,
         "startChar": 60,
@@ -122,6 +170,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d7425dd_f583a783",
+        "filename": "impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e46a581e_1f950b24",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a01ae5e9_d7088d18",
@@ -135,6 +201,24 @@
       "writtenOn": "2022-11-18T17:07:19Z",
       "side": 1,
       "message": "remove",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffc10a81_e9f4b1bd",
+        "filename": "impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a01ae5e9_d7088d18",
       "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -156,6 +240,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c51275e_b2651312",
+        "filename": "impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "44752991_83f3b983",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3934a93_3e170f02",
@@ -169,6 +271,24 @@
       "writtenOn": "2022-11-18T17:07:19Z",
       "side": 1,
       "message": "can you please check if line7 is required? as the exisitng code compiled even without this line.",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c22fe9a2_b8233ecc",
+        "filename": "impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a3934a93_3e170f02",
       "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -284,6 +404,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77cfc036_fdcabdf2",
+        "filename": "impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cc05f62c_8a5a1902",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa846d6c_57a7b7dd",
@@ -307,6 +445,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca5abea2_0f0119c5",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "aa846d6c_57a7b7dd",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 4
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0fff39f8_c9b8bf97",
@@ -320,6 +482,30 @@
       "writtenOn": "2022-11-18T17:07:19Z",
       "side": 1,
       "message": "print e.what()?",
+      "range": {
+        "startLine": 247,
+        "startChar": 59,
+        "endLine": 247,
+        "endChar": 68
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a27848fb_c3a46c0b",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0fff39f8_c9b8bf97",
       "range": {
         "startLine": 247,
         "startChar": 59,
@@ -422,6 +608,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fbf7678_757c4776",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fd01db59_583179bd",
+      "range": {
+        "startLine": 588,
+        "startChar": 36,
+        "endLine": 588,
+        "endChar": 43
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "384401e3_af11c2e9",
@@ -435,6 +645,24 @@
       "writtenOn": "2022-11-18T17:07:19Z",
       "side": 1,
       "message": "remove",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "997df557_d38b9410",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "384401e3_af11c2e9",
       "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -479,6 +707,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "531da103_07597e64",
+        "filename": "vpd-manager/editor_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5eae2017_9f03ef85",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aed2da15_b44c35bb",
@@ -519,6 +765,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ad97dd9_c316b061",
+        "filename": "vpd-parser/ipz_parser.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2bf31c05_45c93bf7",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 1
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84d1c879_d4104c05",
@@ -532,6 +802,24 @@
       "writtenOn": "2022-11-18T17:07:19Z",
       "side": 1,
       "message": "remove",
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f57aed74_fd44c45a",
+        "filename": "vpd-parser/parser_factory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-21T09:23:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "84d1c879_d4104c05",
       "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
