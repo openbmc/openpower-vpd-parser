@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f945b47_3d129b4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-28T11:10:53Z",
+      "side": 1,
+      "message": "Can you please add the tested portion",
+      "revId": "7977f7c8f532dd41456523cac859b488b12c0d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f54c452b_e0fb46ae",
+        "filename": "impl.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-28T11:10:53Z",
+      "side": 1,
+      "message": "it is not a best practice to keep vpd file buffer open throughout the program lifetime.\nand also I could see you changing const APIs to non const APIs in this class, as because you modify vpdFileStream member. \nTo handle these two things, its better to have an API that does the following:\nfunc(recordOffset, recordLength)\n{\nopen filestream-\u003eseek to the right offset-\u003eupdate the filestream buffer-\u003eclose filestream. (by having vpdFileStream as private class member)\n}\nand call this func() whereever required by sending the right record offset and record length.",
+      "revId": "7977f7c8f532dd41456523cac859b488b12c0d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c836f5a_880ff6e4",
+        "filename": "impl.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-28T11:10:53Z",
+      "side": 1,
+      "message": "we don\u0027t call out FRU in upstream code.\n\nthough we need to modify upstream code to match it with 1030 code, can you please take these 1030 changes in a separate commit and not here.",
+      "range": {
+        "startLine": 87,
+        "startChar": 25,
+        "endLine": 87,
+        "endChar": 59
+      },
+      "revId": "7977f7c8f532dd41456523cac859b488b12c0d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "228ffcb8_6002d689",
+        "filename": "impl.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-28T11:10:53Z",
+      "side": 1,
+      "message": "have the destructor doxygen in single line like\n/** @brief Destruct Impl */",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 7
+      },
+      "revId": "7977f7c8f532dd41456523cac859b488b12c0d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3f923a7_9fc5e210",
+        "filename": "impl.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-28T11:10:53Z",
+      "side": 1,
+      "message": "this is not required in upstream code. please remove here.",
+      "range": {
+        "startLine": 199,
+        "startChar": 4,
+        "endLine": 199,
+        "endChar": 36
+      },
+      "revId": "7977f7c8f532dd41456523cac859b488b12c0d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5033e447_f752576f",
+        "filename": "impl.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-28T11:10:53Z",
+      "side": 1,
+      "message": "can you make offset and filePath as constants",
+      "range": {
+        "startLine": 201,
+        "startChar": 3,
+        "endLine": 205,
+        "endChar": 20
+      },
+      "revId": "7977f7c8f532dd41456523cac859b488b12c0d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80d544b8_4696e00f",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-28T11:10:53Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 589,
+        "startChar": 36,
+        "endLine": 589,
+        "endChar": 43
+      },
+      "revId": "7977f7c8f532dd41456523cac859b488b12c0d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6297cdd_42413cfa",
+        "filename": "vpd-parser/ipz_parser.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-28T11:10:53Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 72,
+        "startChar": 3,
+        "endLine": 72,
+        "endChar": 20
+      },
+      "revId": "7977f7c8f532dd41456523cac859b488b12c0d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12c48a47_db0eb603",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-28T11:10:53Z",
+      "side": 1,
+      "message": "this change is not a part of ECC change. can you please move these 1030 changes into a separate commit.",
+      "range": {
+        "startLine": 532,
+        "startChar": 5,
+        "endLine": 545,
+        "endChar": 30
+      },
+      "revId": "7977f7c8f532dd41456523cac859b488b12c0d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

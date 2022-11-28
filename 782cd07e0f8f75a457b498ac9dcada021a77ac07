@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63974a3b_081f55a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-28T11:10:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2712ac6b_7b9f97c0",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 56
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "801b99ec_06d757ea",
@@ -330,6 +354,30 @@
       "side": 1,
       "message": "Yes, in 1030 code",
       "parentUuid": "6fe7424e_465e5dcf",
+      "range": {
+        "startLine": 78,
+        "startChar": 24,
+        "endLine": 78,
+        "endChar": 37
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1cebe84_6652958b",
+        "filename": "impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-28T11:10:53Z",
+      "side": 1,
+      "message": "can you please take these 1030 changes in a separate commit? \n\nHere for your ECC change, you just need offset and vpdFilePath parameters as a new change. Also can you make offset and filePath as constants.",
+      "parentUuid": "d6cb8cbb_f58ef3be",
       "range": {
         "startLine": 78,
         "startChar": 24,
@@ -861,6 +909,30 @@
       "side": 1,
       "message": "Reading Json is time consuming and it\u0027s constant path so a constant should suffice.",
       "parentUuid": "d243fe82_dd4a97c0",
+      "range": {
+        "startLine": 639,
+        "startChar": 38,
+        "endLine": 639,
+        "endChar": 39
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b45c044_b9ae5a63",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-11-28T11:10:53Z",
+      "side": 1,
+      "message": "in case if the offset changes for future systems, this code breaks.\n\nTo avoid such things we have jsons for each flavours of systems and we hardcode values there.\nso please have a check here, to see if the json has any offset hardcoded for this FRU.",
+      "parentUuid": "1e9319e7_8195b2d4",
       "range": {
         "startLine": 639,
         "startChar": 38,
