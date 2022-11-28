@@ -127,6 +127,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55b716da_181fd34e",
+        "filename": "impl.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-28T12:02:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5033e447_f752576f",
+      "range": {
+        "startLine": 201,
+        "startChar": 3,
+        "endLine": 205,
+        "endChar": 20
+      },
+      "revId": "7977f7c8f532dd41456523cac859b488b12c0d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80d544b8_4696e00f",
@@ -173,6 +197,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6261d889_537a2813",
+        "filename": "vpd-parser/ipz_parser.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-28T12:02:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a6297cdd_42413cfa",
+      "range": {
+        "startLine": 72,
+        "startChar": 3,
+        "endLine": 72,
+        "endChar": 20
+      },
+      "revId": "7977f7c8f532dd41456523cac859b488b12c0d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12c48a47_db0eb603",
@@ -186,6 +234,30 @@
       "writtenOn": "2022-11-28T11:10:53Z",
       "side": 1,
       "message": "this change is not a part of ECC change. can you please move these 1030 changes into a separate commit.",
+      "range": {
+        "startLine": 532,
+        "startChar": 5,
+        "endLine": 545,
+        "endChar": 30
+      },
+      "revId": "7977f7c8f532dd41456523cac859b488b12c0d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "113fb021_b522a448",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-28T12:02:17Z",
+      "side": 1,
+      "message": "This is part of ECC change, as we need to pass offset.",
+      "parentUuid": "12c48a47_db0eb603",
       "range": {
         "startLine": 532,
         "startChar": 5,

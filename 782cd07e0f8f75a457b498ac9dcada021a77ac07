@@ -945,6 +945,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7493495b_47978684",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-11-28T12:02:17Z",
+      "side": 1,
+      "message": "It doesn\u0027t stand to change, as is used in similar way in other parts, I\u0027ll add a const variable instead as used elsewhere.",
+      "parentUuid": "9b45c044_b9ae5a63",
+      "range": {
+        "startLine": 639,
+        "startChar": 38,
+        "endLine": 639,
+        "endChar": 39
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4bf4f2d_17150416",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 2
