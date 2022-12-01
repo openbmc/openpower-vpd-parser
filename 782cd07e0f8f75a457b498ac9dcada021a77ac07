@@ -388,6 +388,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78b8be25_18cc4ecc",
+        "filename": "impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-12-01T06:02:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b1cebe84_6652958b",
+      "range": {
+        "startLine": 78,
+        "startChar": 24,
+        "endLine": 78,
+        "endChar": 37
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d09747a_ebbb549a",
@@ -600,6 +624,30 @@
       "writtenOn": "2022-11-18T17:07:19Z",
       "side": 1,
       "message": "this variable *Iparser isn\u0027t used anywhere after line 566. Do you mean to replace line 563 with 566?",
+      "range": {
+        "startLine": 566,
+        "startChar": 8,
+        "endLine": 568,
+        "endChar": 67
+      },
+      "revId": "782cd07e0f8f75a457b498ac9dcada021a77ac07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85a4af76_e80b424d",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-12-01T06:02:38Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "151f9791_824981df",
       "range": {
         "startLine": 566,
         "startChar": 8,

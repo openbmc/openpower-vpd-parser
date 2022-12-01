@@ -174,6 +174,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f9532f9_bec09bb7",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-12-01T06:02:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80d544b8_4696e00f",
+      "range": {
+        "startLine": 589,
+        "startChar": 36,
+        "endLine": 589,
+        "endChar": 43
+      },
+      "revId": "7977f7c8f532dd41456523cac859b488b12c0d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6297cdd_42413cfa",
@@ -258,6 +282,30 @@
       "side": 1,
       "message": "This is part of ECC change, as we need to pass offset.",
       "parentUuid": "12c48a47_db0eb603",
+      "range": {
+        "startLine": 532,
+        "startChar": 5,
+        "endLine": 545,
+        "endChar": 30
+      },
+      "revId": "7977f7c8f532dd41456523cac859b488b12c0d83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64b4d6b5_cf483a8c",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2022-12-01T06:02:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "113fb021_b522a448",
       "range": {
         "startLine": 532,
         "startChar": 5,
