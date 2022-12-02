@@ -854,12 +854,13 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                                 // data mismatch
                                 PelAdditionalData additionalData;
                                 additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                                                       objectPath);
+                                                       INVENTORY_PATH +
+                                                           objectPath);
 
                                 additionalData.emplace("DESCRIPTION", errMsg);
 
                                 createPEL(additionalData, PelSeverity::WARNING,
-                                          errIntfForInvalidVPD);
+                                          errIntfForSysVPDMismatch);
                             }
                         }
                         else
@@ -896,7 +897,7 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                         // both the data are blanks, log PEL
                         PelAdditionalData additionalData;
                         additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                                               objectPath);
+                                               INVENTORY_PATH + objectPath);
 
                         additionalData.emplace("DESCRIPTION", errMsg);
 
