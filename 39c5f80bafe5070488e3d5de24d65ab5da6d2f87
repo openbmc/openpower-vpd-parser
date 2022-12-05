@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "673818bd_517750ba",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-05T12:52:47Z",
+      "side": 1,
+      "message": "We should change this one too to keep it a single SRC.",
+      "range": {
+        "startLine": 906,
+        "startChar": 34,
+        "endLine": 906,
+        "endChar": 58
+      },
+      "revId": "39c5f80bafe5070488e3d5de24d65ab5da6d2f87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
