@@ -46,7 +46,7 @@ using namespace phosphor::logging;
  */
 static auto getBMCState()
 {
-    std::string bmcState;
+    std::string bmcState = "";
     try
     {
         auto bus = sdbusplus::bus::new_default();
@@ -66,7 +66,7 @@ static auto getBMCState()
     catch (const sdbusplus::exception::SdBusError& e)
     {
         // Ignore any error
-        std::cerr << "Failed to get BMC state: " << e.what() << "\n";
+        std::cerr << "Failed to get BMC state    : " << e.what() << "\n";
     }
     return bmcState;
 }
