@@ -46,7 +46,7 @@ using namespace phosphor::logging;
  */
 static auto getBMCState()
 {
-    std::string bmcState;
+    std::string bmcState = "";
     try
     {
         auto bus = sdbusplus::bus::new_default();
