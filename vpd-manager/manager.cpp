@@ -203,7 +203,7 @@ void Manager::checkEssentialFrus()
     }
 }
 
-void Manager::hostStateCallBack(sdbusplus::message::message& msg)
+void Manager::hostStateCallBack(sdbusplus::message_t& msg)
 {
     if (msg.is_method_error())
     {

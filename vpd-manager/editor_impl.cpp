@@ -514,7 +514,7 @@ static void enableRebootGuard()
         method.append("reboot-guard-enable.service", "replace");
         bus.call_noreply(method);
     }
-    catch (const sdbusplus::exception::exception& e)
+    catch (const sdbusplus::exception_t& e)
     {
         std::string errMsg =
             "Bus call to enable BMC reboot failed for reason: ";
@@ -535,7 +535,7 @@ static void disableRebootGuard()
         method.append("reboot-guard-disable.service", "replace");
         bus.call_noreply(method);
     }
-    catch (const sdbusplus::exception::exception& e)
+    catch (const sdbusplus::exception_t& e)
     {
         using namespace phosphor::logging;
         using InternalFailure =
