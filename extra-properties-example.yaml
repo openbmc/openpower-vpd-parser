@@ -1,7 +1,7 @@
 /system/bmc:
     xyz.openbmc_project.Inventory.Decorator.Replaceable:
-        FieldReplaceable: 'false'
+        FieldReplaceable: "false"
 
 /system/bmc/ethernet:
     xyz.openbmc_project.Inventory.Decorator.Replaceable:
-        FieldReplaceable: 'false'
+        FieldReplaceable: "false"
