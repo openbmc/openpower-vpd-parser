@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
+import argparse
 import os
+
 import yaml
 from mako.template import Template
-import argparse
 
 
 def main():
