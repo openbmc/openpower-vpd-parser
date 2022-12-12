@@ -49,7 +49,7 @@ class KeywordVpdParser : public ParserInterface
      *
      * Move kwVpdVector to parser object's kwVpdVector
      */
-    KeywordVpdParser(const openpower::vpd::Binary& kwVpdVector) :
+    explicit  KeywordVpdParser(const openpower::vpd::Binary& kwVpdVector) :
         keywordVpdVector(kwVpdVector)
     {
     }
@@ -70,7 +70,7 @@ class KeywordVpdParser : public ParserInterface
      *
      * @return - Interface name for that vpd type.
      */
-    std::string getInterfaceName() const;
+    std::string getInterfaceName() const override;
 
   private:
     openpower::vpd::Binary::const_iterator
