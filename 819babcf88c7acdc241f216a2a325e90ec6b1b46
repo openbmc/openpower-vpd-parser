@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38673399_78d2409a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T10:05:03Z",
+      "side": 1,
+      "message": "Maybe just say for future re-use. Let us not reference changes that are a part of a future commit.",
+      "range": {
+        "startLine": 10,
+        "startChar": 29,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "819babcf88c7acdc241f216a2a325e90ec6b1b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8159ea79_3ffff914",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T10:05:03Z",
+      "side": 1,
+      "message": "I don\u0027t think this is a good idea to call exit from a function that is in a utility file. Please throw an exception that can be properly handled. That makes me think if this function should even be defined here in this file?",
+      "range": {
+        "startLine": 1033,
+        "startChar": 0,
+        "endLine": 1033,
+        "endChar": 16
+      },
+      "revId": "819babcf88c7acdc241f216a2a325e90ec6b1b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c6caad2_79b4c139",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T10:05:03Z",
+      "side": 1,
+      "message": "Surely there is type alias for this?",
+      "range": {
+        "startLine": 478,
+        "startChar": 4,
+        "endLine": 478,
+        "endChar": 79
+      },
+      "revId": "819babcf88c7acdc241f216a2a325e90ec6b1b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a304f6ef_e1e3ad3e",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T10:05:03Z",
+      "side": 1,
+      "message": "This can be a constexpr",
+      "revId": "819babcf88c7acdc241f216a2a325e90ec6b1b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
