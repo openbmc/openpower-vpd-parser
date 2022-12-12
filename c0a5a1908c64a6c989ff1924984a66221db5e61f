@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e60b1f4_69364bfc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T10:05:39Z",
+      "side": 1,
+      "message": "This needs to be reworded. This option will be used to ensure that the VPD is properly defaulted in the FRU stock, not used after the fact that the backplane has stale VPD.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 80
+      },
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65d7207a_4cc727e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T10:05:39Z",
+      "side": 1,
+      "message": "A lot of lines are wrapped here, please fix. Also, please remove things like system names from the commit message.",
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c45861e_a77f9e01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T10:05:39Z",
+      "side": 1,
+      "message": "FAB test",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 25
+      },
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23a65a04_a1123927",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T10:05:39Z",
+      "side": 1,
+      "message": "It isn\u0027t clear to me what --force does. Why would a user want to use force? Just to not get that y/n option? Then I think the option needs to be renamed, maybe -y to say assume yes to answers.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 27
+      },
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b66e580_e9a8f5bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T10:05:39Z",
+      "side": 1,
+      "message": "The parent commit needs to go away I think and this needs to be reworked.",
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84138ced_afc0f2e1",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T10:05:39Z",
+      "side": 1,
+      "message": "system VPD keywords",
+      "range": {
+        "startLine": 181,
+        "startChar": 30,
+        "endLine": 181,
+        "endChar": 62
+      },
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9a9f343_89711156",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T10:05:39Z",
+      "side": 1,
+      "message": "their default values",
+      "range": {
+        "startLine": 181,
+        "startChar": 66,
+        "endLine": 182,
+        "endChar": 35
+      },
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9df32085_2cdb0ede",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T10:05:39Z",
+      "side": 1,
+      "message": "Please don\u0027t do checks like these. Let us pick one, say \"yes\" and stick with that.",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 42
+      },
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
