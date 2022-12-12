@@ -43,7 +43,7 @@ class IpzVpdParser : public ParserInterface
      *
      * @return map of keyword:value
      */
-    std::variant<kwdVpdMap, Store> parse();
+    std::variant<kwdVpdMap, Store> parse() override;
 
     /**
      * @brief An api to return interface name with respect to
@@ -51,7 +51,7 @@ class IpzVpdParser : public ParserInterface
      *
      * @return - Interface name for that vpd type.
      */
-    std::string getInterfaceName() const;
+    std::string getInterfaceName() const override;
 
     /** @brief API to check vpd header
      *  @param [in] vpd - VPDheader in binary format
