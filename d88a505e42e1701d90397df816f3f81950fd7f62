@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e274bac6_7ff91f0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T10:03:51Z",
+      "side": 1,
+      "message": "I don\u0027t think we need this commit. The commit above this can be rewritten to handle the looping over multiple keywords outside of the editor IMPL.",
+      "revId": "d88a505e42e1701d90397df816f3f81950fd7f62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
