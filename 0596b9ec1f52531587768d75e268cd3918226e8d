@@ -1,0 +1,216 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a54825c0_9d92dcf0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T09:56:50Z",
+      "side": 1,
+      "message": "scalable is not really the word - Maybe say enhance system VPD map",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 33
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05baae43_555482f2",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T09:56:50Z",
+      "side": 1,
+      "message": "Please use std::get",
+      "range": {
+        "startLine": 816,
+        "startChar": 21,
+        "endLine": 816,
+        "endChar": 24
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6733cd4d_c6c391b3",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T09:56:50Z",
+      "side": 1,
+      "message": "Please remove the cout",
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bf93e47_9160f76f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T09:56:50Z",
+      "side": 1,
+      "message": "Use const ref",
+      "range": {
+        "startLine": 836,
+        "startChar": 20,
+        "endLine": 836,
+        "endChar": 30
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8034c8b_d7a93800",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T09:56:50Z",
+      "side": 1,
+      "message": "Please prefix with std::",
+      "range": {
+        "startLine": 91,
+        "startChar": 21,
+        "endLine": 91,
+        "endChar": 24
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eadc151_1b0b742d",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T09:56:50Z",
+      "side": 1,
+      "message": "get by const ref",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 35
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96717ce0_48a89112",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T09:56:50Z",
+      "side": 1,
+      "message": "Please remove the cout",
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "626043ee_d72ffb7d",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T09:56:50Z",
+      "side": 1,
+      "message": "For consistency, please prefix with std::",
+      "range": {
+        "startLine": 697,
+        "startChar": 17,
+        "endLine": 697,
+        "endChar": 20
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06d71db1_f48b89ec",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T09:56:50Z",
+      "side": 1,
+      "message": "Please get by const ref",
+      "range": {
+        "startLine": 702,
+        "startChar": 12,
+        "endLine": 702,
+        "endChar": 31
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0dd07fa_6f31d70c",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-12T09:56:50Z",
+      "side": 1,
+      "message": "Please remove this cout",
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
