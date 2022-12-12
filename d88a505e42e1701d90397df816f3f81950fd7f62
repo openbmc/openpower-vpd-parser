@@ -16,6 +16,24 @@
       "message": "I don\u0027t think we need this commit. The commit above this can be rewritten to handle the looping over multiple keywords outside of the editor IMPL.",
       "revId": "d88a505e42e1701d90397df816f3f81950fd7f62",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89198cb8_8d441f76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2022-12-12T10:34:23Z",
+      "side": 1,
+      "message": "looping over multiple keywords is handled outside of editor impl here \u003chttps://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/58017/4/vpd_tool_impl.cpp#938\u003e\n\n\nThe existing editor impl\u0027s updateKeyword() updates one keyword at a time along with calculating ecc after the update.\n\nIn --mfgReset, we need to reset 11 keywords to its default. Rather than updating 11 keywords individually and calculating ecc 11 times, I made an api which updates n keywords from a record and calculates ecc on the whole for that record. Now we calculate ecc only 4times ( as we have 4 records ).\n\nTo avoid duplicates I created sub functions in this commit. and also kept a copy of PT record\u0027s offset in private variable. Those two are the changes present in this commit.",
+      "parentUuid": "e274bac6_7ff91f0d",
+      "revId": "d88a505e42e1701d90397df816f3f81950fd7f62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
