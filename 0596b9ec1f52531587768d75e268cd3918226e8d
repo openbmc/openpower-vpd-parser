@@ -49,6 +49,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f87de83b_3b033eab",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-12-13T04:48:19Z",
+      "side": 1,
+      "message": "why do we need this ?",
+      "range": {
+        "startLine": 816,
+        "startChar": 15,
+        "endLine": 816,
+        "endChar": 41
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6733cd4d_c6c391b3",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 1
@@ -82,6 +105,75 @@
         "startChar": 20,
         "endLine": 836,
         "endChar": 30
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "981eb125_3e0c0e10",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-12-13T04:48:19Z",
+      "side": 1,
+      "message": "default or blank ?",
+      "range": {
+        "startLine": 866,
+        "startChar": 56,
+        "endLine": 866,
+        "endChar": 61
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02eecdf6_aabb2b47",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-12-13T04:48:19Z",
+      "side": 1,
+      "message": "why do we need this parameter?",
+      "range": {
+        "startLine": 21,
+        "startChar": 37,
+        "endLine": 21,
+        "endChar": 50
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4437fd66_d4bd0dcc",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-12-13T04:48:19Z",
+      "side": 1,
+      "message": "where is this used ?",
+      "range": {
+        "startLine": 21,
+        "startChar": 52,
+        "endLine": 21,
+        "endChar": 67
       },
       "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
