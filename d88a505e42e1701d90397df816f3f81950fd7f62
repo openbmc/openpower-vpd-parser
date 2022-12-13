@@ -52,6 +52,23 @@
       "parentUuid": "89198cb8_8d441f76",
       "revId": "d88a505e42e1701d90397df816f3f81950fd7f62",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0419f8e2_4c721b0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-12-13T05:28:50Z",
+      "side": 1,
+      "message": "too much changes , I am not comfortable to change the flow for a service pack.",
+      "revId": "d88a505e42e1701d90397df816f3f81950fd7f62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
