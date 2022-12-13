@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da1cdc7d_c23a5bf4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-12-13T08:23:03Z",
+      "side": 1,
+      "message": "looks fine from a high level",
+      "revId": "209186bae43fdcf29358f81bfa8f02f78a61d1c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ba6a267_6f295fea",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-12-13T08:23:03Z",
+      "side": 1,
+      "message": "nit : requirements",
+      "range": {
+        "startLine": 115,
+        "startChar": 45,
+        "endLine": 115,
+        "endChar": 56
+      },
+      "revId": "209186bae43fdcf29358f81bfa8f02f78a61d1c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9dea5ce_f3962eb8",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-12-13T08:23:03Z",
+      "side": 1,
+      "message": "nit: pointer / ptr",
+      "range": {
+        "startLine": 163,
+        "startChar": 14,
+        "endLine": 163,
+        "endChar": 17
+      },
+      "revId": "209186bae43fdcf29358f81bfa8f02f78a61d1c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17161c94_ec0d12e0",
+        "filename": "vpd-manager/manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2022-12-13T08:23:03Z",
+      "side": 1,
+      "message": "nit: shared pointer to bus connection",
+      "range": {
+        "startLine": 166,
+        "startChar": 7,
+        "endLine": 166,
+        "endChar": 21
+      },
+      "revId": "209186bae43fdcf29358f81bfa8f02f78a61d1c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
