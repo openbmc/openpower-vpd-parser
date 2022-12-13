@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f8a15fb_5f780788",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-13T05:24:00Z",
+      "side": 1,
+      "message": "Please follow the guidelines here on how to write commit messages:\n\nhttps://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#formatting-commit-messages",
+      "revId": "8a0de58aed5935fe39002716ffa59992ad7b8ec3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fcc402b_973689cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-13T05:24:00Z",
+      "side": 1,
+      "message": "Good start! Could you look into the CI failure? Please make sure the code is formatted using clang-format before submitting.",
+      "revId": "8a0de58aed5935fe39002716ffa59992ad7b8ec3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1756190d_4ef73aa6",
+        "filename": "vpd-parser/memory_vpd_parser.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-13T05:24:00Z",
+      "side": 1,
+      "message": "Please avoid introducing whitespace change that is unrelated to your commit.",
+      "revId": "8a0de58aed5935fe39002716ffa59992ad7b8ec3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8be52b3_ea3ee18f",
+        "filename": "vpdecc/vpdecc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000338
+      },
+      "writtenOn": "2022-12-13T05:24:00Z",
+      "side": 1,
+      "message": "I think we want to leave this alone, please revert this chage. I can explain why later :) We have a patch file that supplies the actual implementation and we\u0027d have to change that as well. That is better done separately.",
+      "revId": "8a0de58aed5935fe39002716ffa59992ad7b8ec3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
