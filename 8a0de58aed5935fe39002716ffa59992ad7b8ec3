@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "82c738b1_16d59ef7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2022-12-13T07:47:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f8a15fb_5f780788",
+      "revId": "8a0de58aed5935fe39002716ffa59992ad7b8ec3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2fcc402b_973689cc",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2891b2a_1b8215a1",
+        "filename": "vpd-parser/memory_vpd_parser.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2022-12-13T07:47:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1756190d_4ef73aa6",
+      "revId": "8a0de58aed5935fe39002716ffa59992ad7b8ec3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8be52b3_ea3ee18f",
@@ -65,6 +101,24 @@
       "writtenOn": "2022-12-13T05:24:00Z",
       "side": 1,
       "message": "I think we want to leave this alone, please revert this chage. I can explain why later :) We have a patch file that supplies the actual implementation and we\u0027d have to change that as well. That is better done separately.",
+      "revId": "8a0de58aed5935fe39002716ffa59992ad7b8ec3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f14c0893_392719c2",
+        "filename": "vpdecc/vpdecc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2022-12-13T07:47:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8be52b3_ea3ee18f",
       "revId": "8a0de58aed5935fe39002716ffa59992ad7b8ec3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
