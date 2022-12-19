@@ -520,6 +520,28 @@ static void preAction(const nlohmann::json& json, const string& file)
                 return;
             }
         }
+        else
+        {
+            // If the FRU is not there, clear the VINI/CCIN data.
+            // Enity manager probes for this keyword to look for this
+            // FRU, now if the data is persistent on BMC and FRU is
+            // removed this can lead to ambiguity. Hence clearing this
+            // Keyword if FRU is absent.
+            const auto& invPath =
+                json["frus"][file].at(0).value("inventoryPath", "");
+
+            if (!invPath.empty())
+            {
+                inventory::ObjectMap pimObjMap{
+                    {invPath, {{"com.ibm.ipzvpd.VINI", {{"CC", Binary{}}}}}}};
+
+                common::utility::callPIM(move(pimObjMap));
+            }
+            else
+            {
+                throw std::runtime_error("Path empty in Json");
+            }
+        }
     }
     catch (const GpioException& e)
     {
@@ -562,7 +584,7 @@ static void fillAssetTag(inventory::InterfaceMap& interfaces,
  * has these properties hosted on D-Bus, if the property is already there, it is
  * not modified, hence the name "one time". If the property is not already
  * present, it will be added to the map with a suitable default value (true for
- * Functional and false for Enabled)
+ * Functional and Enabled)
  *
  * @param[in] object - The inventory D-Bus obejct without the inventory prefix.
  * @param[inout] interfaces - Reference to a map of inventory interfaces to
@@ -604,7 +626,7 @@ static void setOneTimeProperties(const std::string& object,
     {
         // Treat as property unavailable
         inventory::PropertyMap prop;
-        prop.emplace("Enabled", false);
+        prop.emplace("Enabled", true);
         interfaces.emplace("xyz.openbmc_project.Object.Enable", move(prop));
     }
 }
@@ -745,7 +767,8 @@ void setDevTreeEnv(const string& systemType)
         {RAINIER_4U_V2, "conf-aspeed-bmc-ibm-rainier-4u.dtb"},
         {RAINIER_1S4U, "conf-aspeed-bmc-ibm-rainier-1s4u.dtb"},
         {EVEREST, "conf-aspeed-bmc-ibm-everest.dtb"},
-        {EVEREST_V2, "conf-aspeed-bmc-ibm-everest.dtb"}};
+        {EVEREST_V2, "conf-aspeed-bmc-ibm-everest.dtb"},
+        {BONNELL, "conf-aspeed-bmc-ibm-bonnell.dtb"}};
 
     if (deviceTreeSystemTypeMap.find(systemType) !=
         deviceTreeSystemTypeMap.end())
@@ -860,28 +883,46 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                                 errMsg += " and keyword: ";
                                 errMsg += keyword;
 
+                                std::ostringstream busStream;
+                                for (uint16_t byte : busValue)
+                                {
+                                    busStream << std::setfill('0')
+                                              << std::setw(2) << std::hex
+                                              << "0x" << byte << " ";
+                                }
+
+                                std::ostringstream vpdStream;
+                                for (uint16_t byte : kwdValue)
+                                {
+                                    vpdStream << std::setfill('0')
+                                              << std::setw(2) << std::hex
+                                              << "0x" << byte << " ";
+                                }
+
                                 // data mismatch
                                 PelAdditionalData additionalData;
                                 additionalData.emplace("CALLOUT_INVENTORY_PATH",
                                                        objectPath);
 
                                 additionalData.emplace("DESCRIPTION", errMsg);
+                                additionalData.emplace("Value on Cache: ",
+                                                       busStream.str());
+                                additionalData.emplace(
+                                    "Value read from EEPROM: ",
+                                    vpdStream.str());
 
                                 createPEL(additionalData, PelSeverity::WARNING,
                                           errIntfForInvalidVPD, nullptr);
                             }
                         }
-                        else
-                        {
-                            // implies hardware data is blank
-                            // update the map
-                            Binary busData(busValue.begin(), busValue.end());
 
-                            // update the map as well, so that cache data is not
-                            // updated as blank while populating VPD map on Dbus
-                            // in populateDBus Api
-                            kwdValue = busValue;
-                        }
+                        // If cache data is not blank, then irrespective of
+                        // hardware data(blank or other than cache), copy the
+                        // cache data to vpd map as we don't need to change the
+                        // cache data in either case in the process of
+                        // restoring system vpd.
+                        Binary busData(busValue.begin(), busValue.end());
+                        kwdValue = busValue;
                     }
                     else if (kwdValue.find_first_not_of(defaultValue) ==
                              string::npos)
@@ -1389,7 +1430,13 @@ int main(int argc, char** argv)
             return 0;
         }
 
-        baseFruInventoryPath = js["frus"][file][0]["inventoryPath"];
+        // In case of system VPD it will already be filled, Don't have to
+        // overwrite that.
+        if (baseFruInventoryPath.empty())
+        {
+            baseFruInventoryPath = js["frus"][file][0]["inventoryPath"];
+        }
+
         // Check if we can read the VPD file based on the power state
         // We skip reading VPD when the power is ON in two scenarios:
         // 1) The eeprom we are trying to read is that of the system VPD and the
