@@ -56,6 +56,7 @@ static constexpr auto RAINIER_4U_V2 = "50001000_v2.json";
 static constexpr auto RAINIER_1S4U = "50001002.json";
 static constexpr auto EVEREST = "50003000.json";
 static constexpr auto EVEREST_V2 = "50003000_v2.json";
+static constexpr auto BONNELL = "50004000.json";
 
 constexpr uint8_t KW_VPD_START_TAG = 0x82;
 constexpr uint8_t KW_VPD_END_TAG = 0x78;
@@ -85,6 +86,8 @@ constexpr auto loggerObjectPath = "/xyz/openbmc_project/logging";
 constexpr auto loggerCreateInterface = "xyz.openbmc_project.Logging.Create";
 constexpr auto errIntfForBlankSystemVPD = "com.ibm.VPD.Error.BlankSystemVPD";
 constexpr auto errIntfForInvalidVPD = "com.ibm.VPD.Error.InvalidVPD";
+constexpr auto errIntfForSystemVPDMismatch =
+    "com.ibm.VPD.Error.SystemVPDMismatch";
 constexpr auto errIntfForStreamFail = "com.ibm.VPD.Error.InavlidEepromPath";
 constexpr auto errIntfForEccCheckFail = "com.ibm.VPD.Error.EccCheckFailed";
 constexpr auto errIntfForJsonFailure = "com.ibm.VPD.Error.InvalidJson";
