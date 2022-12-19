@@ -268,7 +268,6 @@ void Manager::hostStateCallBack(sdbusplus::message_t& msg)
                 return;
             }
         }
-        std::cerr << "Failed to read Host state" << std::endl;
     }
 }
 
@@ -561,15 +560,22 @@ void Manager::collectFRUVPD(const sdbusplus::message::object_path& path)
         sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
     using Argument = xyz::openbmc_project::Common::InvalidArgument;
 
-    // if path not found in Json.
-    if (frus.find(path) == frus.end())
+    std::string objPath{path};
+
+    // Strip any inventory prefix in path
+    if (objPath.find(INVENTORY_PATH) == 0)
     {
-        elog<InvalidArgument>(
-            Argument::ARGUMENT_NAME("Object Path"),
-            Argument::ARGUMENT_VALUE(std::string(path).c_str()));
+        objPath = objPath.substr(sizeof(INVENTORY_PATH) - 1);
     }
 
-    inventory::Path vpdFilePath = std::get<0>(frus.find(path)->second);
+    // if path not found in Json.
+    if (frus.find(objPath) == frus.end())
+    {
+        elog<InvalidArgument>(Argument::ARGUMENT_NAME("Object Path"),
+                              Argument::ARGUMENT_VALUE(objPath.c_str()));
+    }
+
+    inventory::Path vpdFilePath = std::get<0>(frus.find(objPath)->second);
 
     const std::vector<nlohmann::json>& groupEEPROM =
         jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
@@ -597,7 +603,7 @@ void Manager::collectFRUVPD(const sdbusplus::message::object_path& path)
         }
 
         // unbind, bind the driver to trigger parser.
-        triggerVpdCollection(singleFru, std::string(path));
+        triggerVpdCollection(singleFru, objPath);
 
         // this check is added to avoid file system expensive call in case not
         // required.
@@ -606,8 +612,18 @@ void Manager::collectFRUVPD(const sdbusplus::message::object_path& path)
             // Check if device showed up (test for file)
             if (!filesystem::exists(vpdFilePath))
             {
-                // If not, then take failure postAction
-                executePostFailAction(jsonFile, vpdFilePath);
+                try
+                {
+                    // If not, then take failure postAction
+                    executePostFailAction(jsonFile, vpdFilePath);
+                }
+                catch (const GpioException& e)
+                {
+                    PelAdditionalData additionalData{};
+                    additionalData.emplace("DESCRIPTION", e.what());
+                    createPEL(additionalData, PelSeverity::WARNING,
+                              errIntfForGpioError, sdBus);
+                }
             }
             else
             {
@@ -625,9 +641,8 @@ void Manager::collectFRUVPD(const sdbusplus::message::object_path& path)
     }
     else
     {
-        elog<InvalidArgument>(
-            Argument::ARGUMENT_NAME("Object Path"),
-            Argument::ARGUMENT_VALUE(std::string(path).c_str()));
+        elog<InvalidArgument>(Argument::ARGUMENT_NAME("Object Path"),
+                              Argument::ARGUMENT_VALUE(objPath.c_str()));
     }
 }
 
@@ -703,15 +718,22 @@ void Manager::deleteFRUVPD(const sdbusplus::message::object_path& path)
         sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
     using Argument = xyz::openbmc_project::Common::InvalidArgument;
 
-    // if path not found in Json.
-    if (frus.find(path) == frus.end())
+    std::string objPath{path};
+
+    // Strip any inventory prefix in path
+    if (objPath.find(INVENTORY_PATH) == 0)
     {
-        elog<InvalidArgument>(
-            Argument::ARGUMENT_NAME("Object Path"),
-            Argument::ARGUMENT_VALUE(std::string(path).c_str()));
+        objPath = objPath.substr(sizeof(INVENTORY_PATH) - 1);
     }
 
-    inventory::Path& vpdFilePath = std::get<0>(frus.find(path)->second);
+    // if path not found in Json.
+    if (frus.find(objPath) == frus.end())
+    {
+        elog<InvalidArgument>(Argument::ARGUMENT_NAME("Object Path"),
+                              Argument::ARGUMENT_VALUE(objPath.c_str()));
+    }
+
+    inventory::Path& vpdFilePath = std::get<0>(frus.find(objPath)->second);
 
     string chipAddress =
         jsonFile["frus"][vpdFilePath].at(0).value("pcaChipAddress", "");
@@ -722,18 +744,24 @@ void Manager::deleteFRUVPD(const sdbusplus::message::object_path& path)
                                           "/unbind"));
 
     // if the FRU is not present then log error
-    if (readBusProperty(path, "xyz.openbmc_project.Inventory.Item",
+    if (readBusProperty(objPath, "xyz.openbmc_project.Inventory.Item",
                         "Present") == "false")
     {
-        elog<InvalidArgument>(
-            Argument::ARGUMENT_NAME("FRU not preset"),
-            Argument::ARGUMENT_VALUE(std::string(path).c_str()));
+        elog<InvalidArgument>(Argument::ARGUMENT_NAME("FRU not preset"),
+                              Argument::ARGUMENT_VALUE(objPath.c_str()));
     }
     else
     {
-        inventory::ObjectMap objectMap = {
-            {path,
-             {{"xyz.openbmc_project.Inventory.Item", {{"Present", false}}}}}};
+        // Set present property of FRU as false as it has been removed.
+        // CC data for FRU is also removed as
+        // a) FRU is not there so CC does not make sense.
+        // b) Sensors dependent on Panel uses CC data.
+        inventory::InterfaceMap interfaces{
+            {"xyz.openbmc_project.Inventory.Item", {{"Present", false}}},
+            {"com.ibm.ipzvpd.VINI", {{"CC", Binary{}}}}};
+
+        inventory::ObjectMap objectMap;
+        objectMap.emplace(objPath, move(interfaces));
 
         common::utility::callPIM(move(objectMap));
     }
