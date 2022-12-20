@@ -148,13 +148,14 @@ int Impl::recordEccCheck(Binary::const_iterator iterator) const
 
     if (eccLength == 0 || eccOffset == 0)
     {
-        throw(VpdEccException("Could not find ECC's offset or Length."));
+        throw(VpdEccException(
+            "Could not find ECC's offset or Length for Record:"));
     }
 
     if (recordOffset == 0 || recordLength == 0)
     {
         throw(VpdDataException("Could not find VPD record offset or VPD record "
-                               "length."));
+                               "length for Record:"));
     }
 
     auto vpdPtr = vpd.cbegin();
@@ -276,28 +277,25 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
             if (rc != eccStatus::SUCCESS)
             {
                 std::string errorMsg =
-                    std::string("ERROR: ECC check did not pass.");
+                    std::string("ERROR: ECC check did not pass for the "
+                                "Record:");
                 throw(VpdEccException(errorMsg));
             }
         }
         catch (const VpdEccException& ex)
         {
-            std::string errMsg =
-                std::string{ex.what()} + " Record: " + recordName;
-
             inventory::PelAdditionalData additionalData{};
-            additionalData.emplace("DESCRIPTION", errMsg);
+            additionalData.emplace("DESCRIPTION",
+                                   std::string{ex.what()} + recordName);
             additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
             createPEL(additionalData, PelSeverity::WARNING,
                       errIntfForEccCheckFail, nullptr);
         }
         catch (const VpdDataException& ex)
         {
-            std::string errMsg =
-                std::string{ex.what()} + " Record: " + recordName;
-
             inventory::PelAdditionalData additionalData{};
-            additionalData.emplace("DESCRIPTION", errMsg);
+            additionalData.emplace("DESCRIPTION",
+                                   std::string{ex.what()} + recordName);
             additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
             createPEL(additionalData, PelSeverity::WARNING,
                       errIntfForInvalidVPD, nullptr);
