@@ -27,7 +27,7 @@ namespace openpower
 namespace vpd
 {
 using namespace openpower::vpd::constants;
-using namespace inventory;
+using namespace types;
 using namespace phosphor::logging;
 using namespace sdbusplus::xyz::openbmc_project::Common::Error;
 using namespace record;
@@ -47,9 +47,6 @@ static std::unordered_map<Severity, std::string> sevMap = {
     {Severity::EMERGENCY, "xyz.openbmc_project.Logging.Entry.Level.Emergency"},
     {Severity::ERROR, "xyz.openbmc_project.Logging.Entry.Level.Error"},
     {Severity::ALERT, "xyz.openbmc_project.Logging.Entry.Level.Alert"}};
-
-namespace inventory
-{
 
 MapperResponse
     getObjectSubtreeForInterfaces(const std::string& root, const int32_t depth,
@@ -78,8 +75,6 @@ MapperResponse
 
     return result;
 }
-
-} // namespace inventory
 
 LE2ByteData readUInt16LE(Binary::const_iterator iterator)
 {
@@ -145,7 +140,7 @@ std::string readBusProperty(const std::string& obj, const std::string& inf,
     auto result = bus.call(properties);
     if (!result.is_method_error())
     {
-        inventory::Value val;
+        Value val;
         result.read(val);
         if (auto pVal = std::get_if<Binary>(&val))
         {
@@ -244,12 +239,12 @@ void createSyncPEL(const std::map<std::string, std::string>& additionalData,
     }
 }
 
-inventory::VPDfilepath getVpdFilePath(const std::string& jsonFile,
-                                      const std::string& ObjPath)
+VPDfilepath getVpdFilePath(const std::string& jsonFile,
+                           const std::string& ObjPath)
 {
     std::ifstream inventoryJson(jsonFile);
     const auto& jsonObject = json::parse(inventoryJson);
-    inventory::VPDfilepath filePath{};
+    VPDfilepath filePath{};
 
     if (jsonObject.find("frus") == jsonObject.end())
     {
@@ -912,9 +907,8 @@ bool executePreAction(const nlohmann::json& json, const std::string& file)
     return true;
 }
 
-void insertOrMerge(inventory::InterfaceMap& map,
-                   const inventory::Interface& interface,
-                   inventory::PropertyMap&& property)
+void insertOrMerge(InterfaceMap& map, const Interface& interface,
+                   PropertyMap&& property)
 {
     if (map.find(interface) != map.end())
     {

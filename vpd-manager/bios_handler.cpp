@@ -177,7 +177,7 @@ void BiosHandler::saveFCOToVPD(int64_t fcoVal)
         return;
     }
 
-    Binary vpdVal = {0, 0, 0, static_cast<uint8_t>(fcoVal)};
+    types::Binary vpdVal = {0, 0, 0, static_cast<uint8_t>(fcoVal)};
     auto valInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "RG");
 
     if (valInVPD.size() != 4)
@@ -197,7 +197,7 @@ void BiosHandler::saveFCOToVPD(int64_t fcoVal)
 
 void BiosHandler::saveAMMToVPD(const std::string& mirrorMode)
 {
-    Binary vpdVal;
+    types::Binary vpdVal;
     auto valInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D0");
 
     if (valInVPD.size() != 1)
@@ -235,7 +235,7 @@ void BiosHandler::saveAMMToVPD(const std::string& mirrorMode)
 
 void BiosHandler::saveKeepAndClearToVPD(const std::string& keepAndClear)
 {
-    Binary vpdVal;
+    types::Binary vpdVal;
     auto valInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
 
     if (valInVPD.size() != 1)
@@ -274,7 +274,7 @@ void BiosHandler::saveKeepAndClearToVPD(const std::string& keepAndClear)
 void BiosHandler::saveCreateDefaultLparToVPD(
     const std::string& createDefaultLpar)
 {
-    Binary vpdVal;
+    types::Binary vpdVal;
     auto valInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
 
     if (valInVPD.size() != 1)
@@ -312,7 +312,7 @@ void BiosHandler::saveCreateDefaultLparToVPD(
 
 void BiosHandler::saveClearNVRAMToVPD(const std::string& clearNVRAM)
 {
-    Binary vpdVal;
+    types::Binary vpdVal;
     auto valInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
 
     if (valInVPD.size() != 1)
@@ -444,7 +444,7 @@ void BiosHandler::saveFCOToBIOS(const std::string& fcoVal, int64_t fcoInBIOS)
         return;
     }
 
-    PendingBIOSAttrsType biosAttrs;
+    types::PendingBIOSAttrsType biosAttrs;
     biosAttrs.push_back(
         std::make_pair("hb_field_core_override",
                        std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
@@ -454,7 +454,7 @@ void BiosHandler::saveFCOToBIOS(const std::string& fcoVal, int64_t fcoInBIOS)
     std::cout << "Set hb_field_core_override to: "
               << static_cast<int>(fcoVal.at(3)) << std::endl;
 
-    setBusProperty<PendingBIOSAttrsType>(
+    setBusProperty<types::PendingBIOSAttrsType>(
         "xyz.openbmc_project.BIOSConfigManager",
         "/xyz/openbmc_project/bios_config/manager",
         "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes",
@@ -487,7 +487,7 @@ void BiosHandler::saveAMMToBIOS(const std::string& ammVal,
         return;
     }
 
-    PendingBIOSAttrsType biosAttrs;
+    types::PendingBIOSAttrsType biosAttrs;
     biosAttrs.push_back(
         std::make_pair("hb_memory_mirror_mode",
                        std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
@@ -496,7 +496,7 @@ void BiosHandler::saveAMMToBIOS(const std::string& ammVal,
 
     std::cout << "Set hb_memory_mirror_mode to: " << toWrite << std::endl;
 
-    setBusProperty<PendingBIOSAttrsType>(
+    setBusProperty<types::PendingBIOSAttrsType>(
         "xyz.openbmc_project.BIOSConfigManager",
         "/xyz/openbmc_project/bios_config/manager",
         "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes",
@@ -522,7 +522,7 @@ void BiosHandler::saveKeepAndClearToBIOS(const std::string& keepAndClear,
         return;
     }
 
-    PendingBIOSAttrsType biosAttrs;
+    types::PendingBIOSAttrsType biosAttrs;
     biosAttrs.push_back(
         std::make_pair("pvm_keep_and_clear",
                        std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
@@ -531,7 +531,7 @@ void BiosHandler::saveKeepAndClearToBIOS(const std::string& keepAndClear,
 
     std::cout << "Set pvm_keep_and_clear to: " << toWrite << std::endl;
 
-    setBusProperty<PendingBIOSAttrsType>(
+    setBusProperty<types::PendingBIOSAttrsType>(
         "xyz.openbmc_project.BIOSConfigManager",
         "/xyz/openbmc_project/bios_config/manager",
         "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes",
@@ -559,7 +559,7 @@ void BiosHandler::saveCreateDefaultLparToBIOS(
         return;
     }
 
-    PendingBIOSAttrsType biosAttrs;
+    types::PendingBIOSAttrsType biosAttrs;
     biosAttrs.push_back(
         std::make_pair("pvm_create_default_lpar",
                        std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
@@ -568,7 +568,7 @@ void BiosHandler::saveCreateDefaultLparToBIOS(
 
     std::cout << "Set pvm_create_default_lpar to: " << toWrite << std::endl;
 
-    setBusProperty<PendingBIOSAttrsType>(
+    setBusProperty<types::PendingBIOSAttrsType>(
         "xyz.openbmc_project.BIOSConfigManager",
         "/xyz/openbmc_project/bios_config/manager",
         "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes",
@@ -594,7 +594,7 @@ void BiosHandler::saveClearNVRAMToBIOS(const std::string& clearNVRAM,
         return;
     }
 
-    PendingBIOSAttrsType biosAttrs;
+    types::PendingBIOSAttrsType biosAttrs;
     biosAttrs.push_back(
         std::make_pair("pvm_clear_nvram",
                        std::make_tuple("xyz.openbmc_project.BIOSConfig.Manager."
@@ -603,7 +603,7 @@ void BiosHandler::saveClearNVRAMToBIOS(const std::string& clearNVRAM,
 
     std::cout << "Set pvm_clear_nvram to: " << toWrite << std::endl;
 
-    setBusProperty<PendingBIOSAttrsType>(
+    setBusProperty<types::PendingBIOSAttrsType>(
         "xyz.openbmc_project.BIOSConfigManager",
         "/xyz/openbmc_project/bios_config/manager",
         "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes",

@@ -14,8 +14,6 @@ namespace vpd
 {
 namespace manager
 {
-namespace editor
-{
 
 /** @class EditorImpl */
 class EditorImpl
@@ -37,7 +35,7 @@ class EditorImpl
      *  @param[in] vpd - Vpd Vector
      */
     EditorImpl(const std::string& record, const std::string& kwd,
-               Binary&& vpd) :
+               types::Binary&& vpd) :
         startOffset(0),
         thisRecord(record, kwd), vpdFile(std::move(vpd))
     {
@@ -51,7 +49,7 @@ class EditorImpl
      *  @param[in] kwd - Keyword
      *  @param[in] inventoryPath - Inventory path of the vpd
      */
-    EditorImpl(const inventory::Path& path, const nlohmann::json& json,
+    EditorImpl(const types::Path& path, const nlohmann::json& json,
                const std::string& record, const std::string& kwd,
                const sdbusplus::message::object_path& inventoryPath) :
         vpdFilePath(path),
@@ -67,7 +65,7 @@ class EditorImpl
      * @param[in] record - Record name
      * @param[in] kwd - Keyword name
      */
-    EditorImpl(const inventory::Path& path, const nlohmann::json& json,
+    EditorImpl(const types::Path& path, const nlohmann::json& json,
                const std::string& record, const std::string& kwd) :
         vpdFilePath(path),
         jsonFile(json), thisRecord(record, kwd)
@@ -96,7 +94,7 @@ class EditorImpl
      * @param[in] offset - offset at which the VPD starts
      * @param[in] updCache - Flag which tells whether to update Cache or not.
      */
-    void updateKeyword(const Binary& kwdData, uint32_t offset,
+    void updateKeyword(const types::Binary& kwdData, uint32_t offset,
                        const bool& updCache);
 
     /** @brief Expands location code on DBUS
@@ -115,8 +113,8 @@ class EditorImpl
      *  @param[in] recLength - Length of the record
      *  @param[in] eccLength - Length of the record's ECC
      */
-    void checkECC(Binary::const_iterator& itrToRecData,
-                  Binary::const_iterator& itrToECCData,
+    void checkECC(types::Binary::const_iterator& itrToRecData,
+                  types::Binary::const_iterator& itrToECCData,
                   openpower::vpd::constants::RecordLength recLength,
                   openpower::vpd::constants::ECCLength eccLength);
 
@@ -130,7 +128,8 @@ class EditorImpl
      *  @param[in] iterator - pointing to start of PT kwd
      *  @param[in] ptLength - length of the PT kwd
      */
-    void checkPTForRecord(Binary::const_iterator& iterator, Byte ptLength);
+    void checkPTForRecord(types::Binary::const_iterator& iterator,
+                          types::Byte ptLength);
 
     /** @brief Checks for required keyword in the record */
     void checkRecordForKwd();
@@ -138,7 +137,7 @@ class EditorImpl
     /** @brief update data for given keyword
      *  @param[in] kwdData- data to be updated
      */
-    void updateData(const Binary& kwdData);
+    void updateData(const types::Binary& kwdData);
 
     /** @brief update record ECC */
     void updateRecordECC();
@@ -157,7 +156,7 @@ class EditorImpl
      *  @param[in] objPath - path of the object to introspect
      */
     void processAndUpdateEI(const nlohmann::json& Inventory,
-                            const inventory::Path& objPath);
+                            const types::Path& objPath);
 
     /** @brief method to make busctl call
      *
@@ -172,10 +171,10 @@ class EditorImpl
                       const std::string& property, const std::variant<T>& data);
 
     // path to the VPD file to edit
-    inventory::Path vpdFilePath;
+    types::Path vpdFilePath;
 
     // inventory path of the vpd fru to update keyword
-    inventory::Path objPath{};
+    types::Path objPath{};
 
     // stream to perform operation on file
     std::fstream vpdFileStream;
@@ -189,7 +188,8 @@ class EditorImpl
     // structure to hold info about record to edit
     struct RecInfo
     {
-        Binary kwdUpdatedData; // need access to it in case encoding is needed
+        types::Binary
+            kwdUpdatedData; // need access to it in case encoding is needed
         const std::string recName;
         const std::string recKWd;
         openpower::vpd::constants::RecordOffset recOffset;
@@ -206,13 +206,12 @@ class EditorImpl
         }
     } thisRecord;
 
-    Binary vpdFile;
+    types::Binary vpdFile;
 
     // If requested Interface is common Interface
     bool isCI;
 }; // class EditorImpl
 
-} // namespace editor
 } // namespace manager
 } // namespace vpd
 } // namespace openpower

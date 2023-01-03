@@ -6,14 +6,11 @@ namespace openpower
 {
 namespace vpd
 {
-namespace ipz
-{
-namespace parser
-{
+
 using namespace openpower::vpd::parser;
 using namespace openpower::vpd::constants;
 
-std::variant<kwdVpdMap, Store> IpzVpdParser::parse()
+std::variant<types::KeywordVpdMap, Store> IpzVpdParser::parse()
 {
     Impl p(vpd, inventoryPath);
     Store s = p.run();
@@ -31,7 +28,5 @@ std::string IpzVpdParser::getInterfaceName() const
     return ipzVpdInf;
 }
 
-} // namespace parser
-} // namespace ipz
 } // namespace vpd
 } // namespace openpower

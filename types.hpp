@@ -11,6 +11,8 @@ namespace openpower
 {
 namespace vpd
 {
+namespace types
+{
 
 /** @brief The OpenPOWER VPD, in binary, is specified as a
  *         sequence of characters */
@@ -21,9 +23,6 @@ using BIOSAttrValueType = std::variant<int64_t, std::string>;
 using PendingBIOSAttrItemType =
     std::pair<std::string, std::tuple<std::string, BIOSAttrValueType>>;
 using PendingBIOSAttrsType = std::vector<PendingBIOSAttrItemType>;
-
-namespace inventory
-{
 
 using Path = std::string;
 using Property = std::string;
@@ -61,7 +60,7 @@ using MapperResponse =
 using RestoredEeproms = std::tuple<Path, std::string, Keyword, Binary>;
 using ReplaceableFrus = std::vector<VPDfilepath>;
 using EssentialFrus = std::vector<Path>;
-} // namespace inventory
 
+} // namespace types
 } // namespace vpd
 } // namespace openpower

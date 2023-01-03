@@ -7,15 +7,11 @@
 #include <string>
 
 using namespace openpower::vpd::constants;
-using namespace openpower::vpd::inventory;
+using namespace openpower::vpd::types;
 using namespace std;
 using namespace openpower::vpd;
 
 namespace vpd
-{
-namespace keyword
-{
-namespace parser
 {
 
 variant<KeywordVpdMap, store> KeywordVpdParser::parse()
@@ -212,6 +208,4 @@ std::string KeywordVpdParser::getInterfaceName() const
     return kwdVpdInf;
 }
 
-} // namespace parser
-} // namespace keyword
 } // namespace vpd

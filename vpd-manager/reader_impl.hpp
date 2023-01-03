@@ -9,8 +9,6 @@ namespace vpd
 {
 namespace manager
 {
-namespace reader
-{
 
 using IUtil = openpower::vpd::utils::interface::UtilityInterface;
 /** @class ReaderImpl
@@ -40,10 +38,10 @@ class ReaderImpl
      * code.
      *  @return Expanded location code.
      */
-    inventory::LocationCode getExpandedLocationCode(
-        const inventory::LocationCode& locationCode,
-        const inventory::NodeNumber& nodeNumber,
-        const inventory::LocationCodeMap& frusLocationCode) const;
+    types::LocationCode getExpandedLocationCode(
+        const types::LocationCode& locationCode,
+        const types::NodeNumber& nodeNumber,
+        const types::LocationCodeMap& frusLocationCode) const;
 
     /** @brief An API to get list of all the FRUs at the given location code
      *  @param[in] - location code in unexpanded format
@@ -51,42 +49,40 @@ class ReaderImpl
      *  @param[in] - mapping of location code and Inventory path
      *  @return list of Inventory paths at the given location
      */
-    inventory::ListOfPaths getFrusAtLocation(
-        const inventory::LocationCode& locationCode,
-        const inventory::NodeNumber& nodeNumber,
-        const inventory::LocationCodeMap& frusLocationCode) const;
+    types::ListOfPaths
+        getFrusAtLocation(const types::LocationCode& locationCode,
+                          const types::NodeNumber& nodeNumber,
+                          const types::LocationCodeMap& frusLocationCode) const;
 
     /** @brief An API to get list of all the FRUs at the given location code
      *  @param[in] - location code in unexpanded format
      *  @param[in] - mapping of location code and Inventory path
      *  @return list of Inventory paths at the given location
      */
-    inventory::ListOfPaths getFRUsByExpandedLocationCode(
-        const inventory::LocationCode& locationCode,
-        const inventory::LocationCodeMap& frusLocationCode) const;
+    types::ListOfPaths getFRUsByExpandedLocationCode(
+        const types::LocationCode& locationCode,
+        const types::LocationCodeMap& frusLocationCode) const;
 
   private:
     /** @brief An api to check validity of location code
      *  @param[in] - location code
      *  @return true/false based on validity check
      */
-    bool isValidLocationCode(const inventory::LocationCode& locationCode) const;
+    bool isValidLocationCode(const types::LocationCode& locationCode) const;
 
     /** @brief An API to split expanded location code to its un-expanded
      *  format as represented in VPD JSON and the node number.
      *  @param[in] Location code in expanded format.
      *  @return Location code in un-expanded format and its node number.
      */
-    std::tuple<inventory::LocationCode, inventory::NodeNumber>
-        getCollapsedLocationCode(
-            const inventory::LocationCode& locationCode) const;
+    std::tuple<types::LocationCode, types::NodeNumber>
+        getCollapsedLocationCode(const types::LocationCode& locationCode) const;
 #ifdef ManagerTest
     IUtil& utilObj;
 #endif
 
 }; // class ReaderImpl
 
-} // namespace reader
 } // namespace manager
 } // namespace vpd
 } // namespace openpower

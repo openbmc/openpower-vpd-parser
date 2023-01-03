@@ -19,7 +19,7 @@ namespace manager
 
 bool GpioEventHandler::getPresencePinValue()
 {
-    Byte gpioData = 1;
+    types::Byte gpioData = 1;
     gpiod::line presenceLine = gpiod::find_line(presencePin);
     if (!presenceLine)
     {
@@ -40,8 +40,8 @@ bool GpioEventHandler::getPresencePinValue()
 void GpioMonitor::initGpioInfos(
     std::shared_ptr<boost::asio::io_context>& ioContext)
 {
-    Byte outputValue = 0;
-    Byte presenceValue = 0;
+    types::Byte outputValue = 0;
+    types::Byte presenceValue = 0;
     string presencePinName{}, outputPinName{};
     string devNameAddr{}, driverType{}, busType{}, objectPath{};
 
@@ -124,9 +124,9 @@ void GpioEventHandler::toggleGpio()
     // if FRU went away set the present property to false
     if (!isPresent)
     {
-        inventory::ObjectMap objects;
-        inventory::InterfaceMap interfaces;
-        inventory::PropertyMap presProp;
+        types::ObjectMap objects;
+        types::InterfaceMap interfaces;
+        types::PropertyMap presProp;
 
         presProp.emplace("Present", false);
         interfaces.emplace("xyz.openbmc_project.Inventory.Item", presProp);

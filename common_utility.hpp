@@ -23,7 +23,7 @@ std::string getService(sdbusplus::bus_t& bus, const std::string& path,
  *
  *  @param [in] objects - Map of inventory object paths
  */
-void callPIM(inventory::ObjectMap&& objects);
+void callPIM(types::ObjectMap&& objects);
 
 } // namespace utility
 } // namespace common

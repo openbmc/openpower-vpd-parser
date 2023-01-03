@@ -27,8 +27,9 @@ class GpioEventHandler
     GpioEventHandler(GpioEventHandler&&) = delete;
     GpioEventHandler& operator=(GpioEventHandler&&) = delete;
 
-    GpioEventHandler(std::string& presPin, Byte& presValue, std::string& outPin,
-                     Byte& outValue, std::string& devAddr, std::string& driver,
+    GpioEventHandler(std::string& presPin, types::Byte& presValue,
+                     std::string& outPin, types::Byte& outValue,
+                     std::string& devAddr, std::string& driver,
                      std::string& bus, std::string& objPath,
                      std::shared_ptr<boost::asio::io_context>& ioCon) :
         presencePin(presPin),
@@ -45,11 +46,11 @@ class GpioEventHandler
     // gpio pin indicates presence/absence of fru
     const std::string presencePin;
     // value which means fru is present
-    const Byte presenceValue;
+    const types::Byte presenceValue;
     // gpio pin to enable If fru is present
     const std::string outputPin;
     // Value to set, to enable the output pin
-    const Byte outputValue;
+    const types::Byte outputValue;
 
     // FRU address on bus
     const std::string devNameAddr;

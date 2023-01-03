@@ -8,12 +8,7 @@ namespace openpower
 {
 namespace vpd
 {
-namespace memory
-{
-namespace parser
-{
-using ParserInterface = openpower::vpd::parser::interface::ParserInterface;
-using kwdVpdMap = openpower::vpd::inventory::KeywordVpdMap;
+using ParserInterface = openpower::vpd::ParserInterface;
 
 class memoryVpdParser : public ParserInterface
 {
@@ -30,7 +25,7 @@ class memoryVpdParser : public ParserInterface
      *
      * Move memVpdVector to parser object's memVpdVector
      */
-    memoryVpdParser(const Binary& VpdVector) : memVpd(VpdVector)
+    memoryVpdParser(const types::Binary& VpdVector) : memVpd(VpdVector)
     {
     }
 
@@ -40,7 +35,7 @@ class memoryVpdParser : public ParserInterface
      *
      * @return map of keyword:value
      */
-    std::variant<kwdVpdMap, Store> parse();
+    std::variant<types::KeywordVpdMap, Store> parse();
 
     /**
      * @brief An api to return interface name with respect to
@@ -56,7 +51,7 @@ class memoryVpdParser : public ParserInterface
      *
      * @return- map of kwd:value
      */
-    kwdVpdMap readKeywords(Binary::const_iterator iterator);
+    types::KeywordVpdMap readKeywords(types::Binary::const_iterator iterator);
 
     /**
      * @brief This function calculates dimm size from DIMM VPD
@@ -64,12 +59,10 @@ class memoryVpdParser : public ParserInterface
      * @param[in] iterator - iterator to buffer containing VPD
      * @return calculated data or 0 in case of any error.
      */
-    auto getDimmSize(Binary::const_iterator iterator);
+    auto getDimmSize(types::Binary::const_iterator iterator);
 
     // vdp file to be parsed
-    const Binary& memVpd;
+    const types::Binary& memVpd;
 };
-} // namespace parser
-} // namespace memory
 } // namespace vpd
 } // namespace openpower

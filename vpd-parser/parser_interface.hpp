@@ -9,11 +9,6 @@ namespace openpower
 {
 namespace vpd
 {
-namespace parser
-{
-namespace interface
-{
-using kwdVpdMap = openpower::vpd::inventory::KeywordVpdMap;
 
 /** @class ParserInterface
  *  @brief Interface class for vpd parsers.
@@ -33,7 +28,7 @@ class ParserInterface
      * @return parsed format for vpd data, depending upon the
      * parsing logic.
      */
-    virtual std::variant<kwdVpdMap, Store> parse() = 0;
+    virtual std::variant<types::KeywordVpdMap, Store> parse() = 0;
 
     /**
      * @brief An api to return interface name which will hold the
@@ -54,7 +49,5 @@ class ParserInterface
     }
 
 }; // class Parserinterface
-} // namespace interface
-} // namespace parser
 } // namespace vpd
 } // namespace openpower

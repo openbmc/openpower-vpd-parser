@@ -7,10 +7,7 @@
 #include "memory_vpd_parser.hpp"
 #include "vpd_exceptions.hpp"
 
-using namespace vpd::keyword::parser;
-using namespace openpower::vpd::memory::parser;
-using namespace openpower::vpd::parser::interface;
-using namespace openpower::vpd::ipz::parser;
+using namespace vpd;
 using namespace openpower::vpd::exceptions;
 using namespace openpower::vpd::constants;
 
@@ -18,13 +15,8 @@ namespace openpower
 {
 namespace vpd
 {
-namespace parser
-{
-namespace factory
-{
-interface::ParserInterface*
-    ParserFactory::getParser(const Binary& vpdVector,
-                             const std::string& inventoryPath)
+ParserInterface* ParserFactory::getParser(const types::Binary& vpdVector,
+                                          const std::string& inventoryPath)
 {
     vpdType type = vpdTypeCheck(vpdVector);
 
@@ -50,7 +42,7 @@ interface::ParserInterface*
     }
 }
 
-void ParserFactory::freeParser(interface::ParserInterface* parser)
+void ParserFactory::freeParser(ParserInterface* parser)
 {
     if (parser)
     {
@@ -59,7 +51,5 @@ void ParserFactory::freeParser(interface::ParserInterface* parser)
     }
 }
 
-} // namespace factory
-} // namespace parser
 } // namespace vpd
 } // namespace openpower

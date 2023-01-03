@@ -60,7 +60,7 @@ class Manager
      */
     void writeKeyword(const sdbusplus::message::object_path& path,
                       const std::string& recordName, const std::string& keyword,
-                      const Binary& value);
+                      const types::Binary& value);
 
     /** @brief Implementation for GetFRUsByUnexpandedLocationCode
      *  A method to get list of FRU D-BUS object paths for a given unexpanded
@@ -74,7 +74,7 @@ class Manager
      *  @return inventoryList[std::vector<sdbusplus::message::object_path>] -
      *  List of all the FRUs D-Bus object paths for the given location code.
      */
-    inventory::ListOfPaths
+    types::ListOfPaths
         getFRUsByUnexpandedLocationCode(const std::string& locationCode,
                                         const uint16_t nodeNumber);
 
@@ -88,7 +88,7 @@ class Manager
      *  @return inventoryList[std::vector<sdbusplus::message::object_path>] -
      *  List of all the FRUs D-Bus object path for the given location code.
      */
-    inventory::ListOfPaths
+    types::ListOfPaths
         getFRUsByExpandedLocationCode(const std::string& locationCode);
 
     /** @brief Implementation for GetExpandedLocationCode
@@ -192,13 +192,13 @@ class Manager
 
     // map to hold mapping to inventory path to vpd file path
     // we need as map here as it is in reverse order to that of json
-    inventory::FrusMap frus;
+    types::FrusMap frus;
 
     // map to hold the mapping of location code and inventory path
-    inventory::LocationCodeMap fruLocationCode;
+    types::LocationCodeMap fruLocationCode;
 
     // map to hold FRUs which can be replaced at standby
-    inventory::ReplaceableFrus replaceableFrus;
+    types::ReplaceableFrus replaceableFrus;
 
     // Shared pointer to gpio monitor object.
     std::shared_ptr<GpioMonitor> gpioMon;
@@ -207,7 +207,7 @@ class Manager
     std::shared_ptr<BiosHandler> biosHandler;
 
     // List of FRUs marked as essential in the system.
-    inventory::EssentialFrus essentialFrus;
+    types::EssentialFrus essentialFrus;
 
     // sd-bus
     sd_bus* sdBus = nullptr;

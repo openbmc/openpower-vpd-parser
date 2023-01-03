@@ -10,6 +10,7 @@
 #include <gtest/gtest.h>
 
 using namespace openpower::vpd;
+using namespace openpower::vpd::types;
 
 TEST(IpzVpdParserApp, vpdGoodPath)
 {

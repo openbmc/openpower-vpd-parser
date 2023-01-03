@@ -14,7 +14,7 @@ namespace common
 namespace utility
 {
 using namespace constants;
-using namespace inventory;
+using namespace types;
 using namespace phosphor::logging;
 
 std::string getService(sdbusplus::bus_t& bus, const std::string& path,
