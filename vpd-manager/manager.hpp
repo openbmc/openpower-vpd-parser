@@ -128,6 +128,12 @@ class Manager
      */
     void initManager();
 
+    /**
+     * @brief API to process system VPD.
+     *
+     */
+    void processSystemVPD();
+
     /** @brief process the given JSON file
      */
     void processJSON();
