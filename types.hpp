@@ -31,6 +31,7 @@ using PropertyMap = std::map<Property, Value>;
 using kwdVpdValueTypes = std::variant<size_t, Binary>;
 
 using Interface = std::string;
+using InterfaceList = std::vector<Interface>;
 using InterfaceMap = std::map<Interface, PropertyMap>;
 
 using Object = sdbusplus::message::object_path;

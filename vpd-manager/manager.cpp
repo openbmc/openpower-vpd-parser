@@ -6,6 +6,7 @@
 #include "editor_impl.hpp"
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
+#include "parser.hpp"
 #include "parser_factory.hpp"
 #include "reader_impl.hpp"
 #include "vpd_exceptions.hpp"
@@ -79,10 +80,71 @@ Manager::Manager(std::shared_ptr<boost::asio::io_context>& ioCon,
     initManager();
 }
 
+void Manager::processSystemVPD()
+{
+    // severity for PEL needs to be ERROR for system VPD.
+    // PelSeverity pelSeverity = PelSeverity::ERROR;
+    nlohmann::json js{};
+
+    // If the symlink exists, it means it has been setup for us, use symlink
+    // path.
+    auto jsonToParse = filesystem::exists(INVENTORY_JSON_SYM_LINK)
+                           ? INVENTORY_JSON_SYM_LINK
+                           : INVENTORY_JSON_DEFAULT;
+
+    ifstream inventoryJson(jsonToParse);
+    if (!inventoryJson)
+    {
+        throw(VpdJsonException("Failed to access Json path", jsonToParse));
+    }
+
+    try
+    {
+        js = nlohmann::json::parse(inventoryJson);
+    }
+    catch (const nlohmann::json::parse_error& ex)
+    {
+        throw(VpdJsonException("Json parsing failed", jsonToParse));
+    }
+
+    // Do we have the mandatory "frus" section?
+    if (js.find("frus") == js.end())
+    {
+        throw(VpdJsonException("FRUs section not found in JSON", jsonToParse));
+    }
+
+    if (js["frus"].find(systemVPDFilePath) == js["frus"].end())
+    {
+        throw(VpdJsonException("System VPD path is not found in JSON",
+                               jsonToParse));
+    }
+
+    if (!filesystem::exists(systemVPDFilePath))
+    {
+        cout << "System VPD EEPROM path: " << systemVPDFilePath
+             << " does not exist, not an ideal case" << endl;
+        return;
+    }
+
+    if (jsonToParse == std::string(INVENTORY_JSON_SYM_LINK))
+    {
+        if ("xyz.openbmc_project.State.Chassis.PowerState.On" ==
+            getPowerState())
+        {
+            cout << "System VPD cannot be read when power is ON" << endl;
+            return;
+        }
+    }
+
+    Parser parse;
+    parse.parseVPDData(systemVPDFilePath, js);
+}
+
 void Manager::initManager()
 {
     try
     {
+        processSystemVPD();
         processJSON();
         restoreSystemVpd();
         listenHostState();
