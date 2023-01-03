@@ -16,6 +16,7 @@ namespace inventory
 {
 namespace extra
 {
+using namespace openpower::vpd::types;
 
 const std::map<Path, InterfaceMap> objects = {
 % for path in dict.keys():

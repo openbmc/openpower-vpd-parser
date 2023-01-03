@@ -127,7 +127,7 @@ class VpdTool
      * @param[in] - value in hex/ascii.
      * @param[out] - value in binary.
      */
-    openpower::vpd::Binary toBinary(const std::string& value);
+    openpower::vpd::types::Binary toBinary(const std::string& value);
 
     /**
      * @brief Get the json which has Present property value of the given fru.

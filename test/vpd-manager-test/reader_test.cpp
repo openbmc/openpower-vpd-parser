@@ -11,8 +11,8 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-using namespace openpower::vpd::manager::reader;
-using namespace openpower::vpd::inventory;
+using namespace openpower::vpd::manager;
+using namespace openpower::vpd::types;
 using namespace openpower::vpd::constants;
 
 class vpdManagerReaderTest : public ::testing::Test

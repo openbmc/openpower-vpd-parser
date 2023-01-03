@@ -29,14 +29,11 @@
 using namespace std;
 using namespace openpower::vpd;
 using namespace CLI;
-using namespace vpd::keyword::parser;
+using namespace vpd;
 using namespace openpower::vpd::constants;
 namespace fs = filesystem;
 using json = nlohmann::json;
-using namespace openpower::vpd::parser::factory;
-using namespace openpower::vpd::inventory;
-using namespace openpower::vpd::memory::parser;
-using namespace openpower::vpd::parser::interface;
+using namespace openpower::vpd::types;
 using namespace openpower::vpd::exceptions;
 using namespace phosphor::logging;
 
@@ -222,9 +219,9 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
 template <typename T>
 static void populateFruSpecificInterfaces(const T& map,
                                           const string& preIntrStr,
-                                          inventory::InterfaceMap& interfaces)
+                                          InterfaceMap& interfaces)
 {
-    inventory::PropertyMap prop;
+    PropertyMap prop;
 
     for (const auto& kwVal : map)
     {
@@ -250,7 +247,7 @@ static void populateFruSpecificInterfaces(const T& map,
             {
                 if (kw == "MemorySizeInKB")
                 {
-                    inventory::PropertyMap memProp;
+                    PropertyMap memProp;
                     auto memVal = get_if<size_t>(&kwVal.second);
                     if (memVal)
                     {
@@ -288,13 +285,13 @@ static void populateFruSpecificInterfaces(const T& map,
  */
 template <typename T>
 static void populateInterfaces(const nlohmann::json& js,
-                               inventory::InterfaceMap& interfaces,
-                               const T& vpdMap, bool isSystemVpd)
+                               InterfaceMap& interfaces, const T& vpdMap,
+                               bool isSystemVpd)
 {
     for (const auto& ifs : js.items())
     {
         string inf = ifs.key();
-        inventory::PropertyMap props;
+        PropertyMap props;
 
         for (const auto& itr : ifs.value().items())
         {
@@ -428,7 +425,7 @@ static bool isThisPcieOnPass1planar(const nlohmann::json& js,
         property1.append("com.ibm.ipzvpd.VINI");
         property1.append("HW");
         auto result1 = bus.call(property1);
-        inventory::Value hwVal;
+        Value hwVal;
         result1.read(hwVal);
 
         // SystemType
@@ -439,7 +436,7 @@ static bool isThisPcieOnPass1planar(const nlohmann::json& js,
         property2.append("com.ibm.ipzvpd.VSBP");
         property2.append("IM");
         auto result2 = bus.call(property2);
-        inventory::Value imVal;
+        Value imVal;
         result2.read(imVal);
 
         auto pVal1 = get_if<Binary>(&hwVal);
@@ -532,7 +529,7 @@ static void preAction(const nlohmann::json& json, const string& file)
 
             if (!invPath.empty())
             {
-                inventory::ObjectMap pimObjMap{
+                ObjectMap pimObjMap{
                     {invPath, {{"com.ibm.ipzvpd.VINI", {{"CC", Binary{}}}}}}};
 
                 common::utility::callPIM(move(pimObjMap));
@@ -562,14 +559,12 @@ static void preAction(const nlohmann::json& json, const string& file)
  * @param interfaces A possibly pre-populated map of inetrfaces to properties.
  * @param vpdMap A VPD map of the system VPD data.
  */
-static void fillAssetTag(inventory::InterfaceMap& interfaces,
-                         const Parsed& vpdMap)
+static void fillAssetTag(InterfaceMap& interfaces, const Parsed& vpdMap)
 {
     // Read the system serial number and MTM
     // Default asset tag is Server-MTM-System Serial
-    inventory::Interface assetIntf{
-        "xyz.openbmc_project.Inventory.Decorator.AssetTag"};
-    inventory::PropertyMap assetTagProps;
+    Interface assetIntf{"xyz.openbmc_project.Inventory.Decorator.AssetTag"};
+    PropertyMap assetTagProps;
     std::string defaultAssetTag =
         std::string{"Server-"} + getKwVal(vpdMap, "VSYS", "TM") +
         std::string{"-"} + getKwVal(vpdMap, "VSYS", "SE");
@@ -591,7 +586,7 @@ static void fillAssetTag(inventory::InterfaceMap& interfaces,
  * which the properties will be attached.
  */
 static void setOneTimeProperties(const std::string& object,
-                                 inventory::InterfaceMap& interfaces)
+                                 InterfaceMap& interfaces)
 {
     auto bus = sdbusplus::bus::new_default();
     auto objectPath = INVENTORY_PATH + object;
@@ -607,7 +602,7 @@ static void setOneTimeProperties(const std::string& object,
     catch (const sdbusplus::exception::SdBusError& e)
     {
         // Treat as property unavailable
-        inventory::PropertyMap prop;
+        PropertyMap prop;
         prop.emplace("Functional", true);
         interfaces.emplace(
             "xyz.openbmc_project.State.Decorator.OperationalStatus",
@@ -625,7 +620,7 @@ static void setOneTimeProperties(const std::string& object,
     catch (const sdbusplus::exception::SdBusError& e)
     {
         // Treat as property unavailable
-        inventory::PropertyMap prop;
+        PropertyMap prop;
         prop.emplace("Enabled", true);
         interfaces.emplace("xyz.openbmc_project.Object.Enable", move(prop));
     }
@@ -643,10 +638,9 @@ static void setOneTimeProperties(const std::string& object,
  * @returns Map of items in extraInterface.
  */
 template <typename T>
-inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
-                                    const T& vpdMap)
+ObjectMap primeInventory(const nlohmann::json& jsObject, const T& vpdMap)
 {
-    inventory::ObjectMap objects;
+    ObjectMap objects;
 
     for (auto& itemFRUS : jsObject["frus"].items())
     {
@@ -658,13 +652,13 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                 preAction(jsObject, itemFRUS.key());
             }
 
-            inventory::InterfaceMap interfaces;
-            inventory::Object object(itemEEPROM.at("inventoryPath"));
+            InterfaceMap interfaces;
+            Object object(itemEEPROM.at("inventoryPath"));
 
             if ((itemFRUS.key() != systemVpdFilePath) &&
                 !itemEEPROM.value("noprime", false))
             {
-                inventory::PropertyMap presProp;
+                PropertyMap presProp;
 
                 // Do not populate Present property for frus whose
                 // synthesized=true. synthesized=true says the fru is owned by
@@ -680,7 +674,7 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                 {
                     for (const auto& eI : itemEEPROM["extraInterfaces"].items())
                     {
-                        inventory::PropertyMap props;
+                        PropertyMap props;
                         if (eI.key() == IBM_LOCATION_CODE_INF)
                         {
                             if constexpr (std::is_same<T, Parsed>::value)
@@ -1103,9 +1097,9 @@ static bool isCPUIOGoodOnly(const string& pgKeyword)
 template <typename T>
 static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 {
-    inventory::InterfaceMap interfaces;
-    inventory::ObjectMap objects;
-    inventory::PropertyMap prop;
+    InterfaceMap interfaces;
+    ObjectMap objects;
+    PropertyMap prop;
     string ccinFromVpd;
 
     bool isSystemVpd = (filePath == systemVpdFilePath);
@@ -1302,7 +1296,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         if ((item.value("embedded", true)) &&
             (!item.value("synthesized", false)))
         {
-            inventory::PropertyMap presProp;
+            PropertyMap presProp;
             presProp.emplace("Present", true);
             insertOrMerge(interfaces, invItemIntf, move(presProp));
         }
@@ -1321,7 +1315,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 
     if (isSystemVpd)
     {
-        inventory::ObjectMap primeObject = primeInventory(js, vpdMap);
+        ObjectMap primeObject = primeInventory(js, vpdMap);
         objects.insert(primeObject.begin(), primeObject.end());
 
         // set the U-boot environment variable for device-tree

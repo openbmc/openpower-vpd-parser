@@ -8,11 +8,7 @@ namespace openpower
 {
 namespace vpd
 {
-namespace memory
-{
-namespace parser
-{
-using namespace inventory;
+using namespace types;
 using namespace constants;
 using namespace std;
 using namespace openpower::vpd::parser;
@@ -104,7 +100,7 @@ auto memoryVpdParser::getDimmSize(Binary::const_iterator iterator)
     return dimmSize;
 }
 
-kwdVpdMap memoryVpdParser::readKeywords(Binary::const_iterator iterator)
+KeywordVpdMap memoryVpdParser::readKeywords(Binary::const_iterator iterator)
 {
     KeywordVpdMap map{};
 
@@ -134,7 +130,7 @@ kwdVpdMap memoryVpdParser::readKeywords(Binary::const_iterator iterator)
     return map;
 }
 
-variant<kwdVpdMap, Store> memoryVpdParser::parse()
+variant<KeywordVpdMap, Store> memoryVpdParser::parse()
 {
     // Read the data and return the map
     auto iterator = memVpd.cbegin();
@@ -148,7 +144,5 @@ std::string memoryVpdParser::getInterfaceName() const
     return memVpdInf;
 }
 
-} // namespace parser
-} // namespace memory
 } // namespace vpd
 } // namespace openpower

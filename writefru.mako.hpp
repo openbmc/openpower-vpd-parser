@@ -20,6 +20,7 @@ namespace vpd
 namespace inventory
 {
 using namespace openpower::vpd::common::utility;
+using namespace openpower::vpd::types;
 
 /** @brief API to write parsed VPD to inventory,
  *      for a specific FRU

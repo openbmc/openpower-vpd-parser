@@ -18,7 +18,7 @@ int main(int argc, char** argv)
     try
     {
         using namespace openpower::vpd;
-        using namespace openpower::vpd::ipz::parser;
+        using namespace openpower::vpd::types;
 
         args::Args arguments = args::parse(argc, argv);
 

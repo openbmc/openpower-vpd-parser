@@ -5,13 +5,8 @@
 
 namespace vpd
 {
-namespace keyword
-{
-namespace parser
-{
 
-using ParserInterface = openpower::vpd::parser::interface::ParserInterface;
-using kwdVpdMap = openpower::vpd::inventory::KeywordVpdMap;
+using ParserInterface = openpower::vpd::ParserInterface;
 using store = openpower::vpd::Store;
 
 /**
@@ -49,7 +44,7 @@ class KeywordVpdParser : public ParserInterface
      *
      * Move kwVpdVector to parser object's kwVpdVector
      */
-    KeywordVpdParser(const openpower::vpd::Binary& kwVpdVector) :
+    KeywordVpdParser(const openpower::vpd::types::Binary& kwVpdVector) :
         keywordVpdVector(kwVpdVector)
     {
     }
@@ -62,7 +57,7 @@ class KeywordVpdParser : public ParserInterface
      *
      * @return map of keyword:value
      */
-    std::variant<kwdVpdMap, store> parse();
+    std::variant<openpower::vpd::types::KeywordVpdMap, store> parse();
 
     /**
      * @brief An api to return interface name with respect to
@@ -73,15 +68,15 @@ class KeywordVpdParser : public ParserInterface
     std::string getInterfaceName() const;
 
   private:
-    openpower::vpd::Binary::const_iterator
+    openpower::vpd::types::Binary::const_iterator
         checkSumStart; //!< Pointer to the start byte from where
                        //!< the checksum need to be calculated
-    openpower::vpd::Binary::const_iterator
+    openpower::vpd::types::Binary::const_iterator
         checkSumEnd; //!< Pointer to the end byte until which the
                      //!< checksum need to be calculated
-    openpower::vpd::Binary::const_iterator
+    openpower::vpd::types::Binary::const_iterator
         kwVpdIterator; //!< Iterator to parse the vector
-    const openpower::vpd::Binary&
+    const openpower::vpd::types::Binary&
         keywordVpdVector; //!< Vector which stores keyword VPD data
 
     /**
@@ -101,7 +96,7 @@ class KeywordVpdParser : public ParserInterface
      *
      * @return map of keyword:value
      */
-    openpower::vpd::inventory::KeywordVpdMap kwValParser();
+    openpower::vpd::types::KeywordVpdMap kwValParser();
 
     /**
      * @brief Validate small resource type end tag
@@ -139,6 +134,4 @@ class KeywordVpdParser : public ParserInterface
      */
     void itrOutOfBoundCheck(uint8_t incVar);
 };
-} // namespace parser
-} // namespace keyword
 } // namespace vpd

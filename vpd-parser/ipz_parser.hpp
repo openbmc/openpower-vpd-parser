@@ -11,13 +11,8 @@ namespace openpower
 {
 namespace vpd
 {
-namespace ipz
-{
-namespace parser
-{
 
-using ParserInterface = openpower::vpd::parser::interface::ParserInterface;
-using kwdVpdMap = openpower::vpd::inventory::KeywordVpdMap;
+using ParserInterface = openpower::vpd::ParserInterface;
 
 class IpzVpdParser : public ParserInterface
 {
@@ -32,7 +27,7 @@ class IpzVpdParser : public ParserInterface
     /**
      * @brief Constructor
      */
-    IpzVpdParser(const Binary& VpdVector, const std::string& path) :
+    IpzVpdParser(const types::Binary& VpdVector, const std::string& path) :
         vpd(VpdVector), inventoryPath(path)
     {
     }
@@ -43,7 +38,7 @@ class IpzVpdParser : public ParserInterface
      *
      * @return map of keyword:value
      */
-    std::variant<kwdVpdMap, Store> parse();
+    std::variant<types::KeywordVpdMap, Store> parse();
 
     /**
      * @brief An api to return interface name with respect to
@@ -59,13 +54,11 @@ class IpzVpdParser : public ParserInterface
     void processHeader();
 
   private:
-    const Binary& vpd;
+    const types::Binary& vpd;
 
     /*Inventory path of the FRU */
     const std::string inventoryPath;
 }; // class IpzVpdParser
 
-} // namespace parser
-} // namespace ipz
 } // namespace vpd
 } // namespace openpower

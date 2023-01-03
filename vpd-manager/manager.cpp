@@ -15,13 +15,9 @@
 #include <xyz/openbmc_project/Common/error.hpp>
 
 using namespace openpower::vpd::constants;
-using namespace openpower::vpd::inventory;
-using namespace openpower::vpd::manager::editor;
-using namespace openpower::vpd::manager::reader;
+using namespace openpower::vpd::types;
 using namespace std;
-using namespace openpower::vpd::parser;
-using namespace openpower::vpd::parser::factory;
-using namespace openpower::vpd::ipz::parser;
+using namespace openpower::vpd;
 using namespace openpower::vpd::exceptions;
 using namespace phosphor::logging;
 
@@ -41,21 +37,21 @@ Manager::Manager(std::shared_ptr<boost::asio::io_context>& ioCon,
         "WriteKeyword",
         [this](const sdbusplus::message::object_path& path,
                const std::string& recordName, const std::string& keyword,
-               const Binary& value) {
+               const types::Binary& value) {
             this->writeKeyword(path, recordName, keyword, value);
         });
 
     interface->register_method(
         "GetFRUsByUnexpandedLocationCode",
         [this](const std::string& locationCode,
-               const uint16_t nodeNumber) -> inventory::ListOfPaths {
+               const uint16_t nodeNumber) -> types::ListOfPaths {
             return this->getFRUsByUnexpandedLocationCode(locationCode,
                                                          nodeNumber);
         });
 
     interface->register_method(
         "GetFRUsByExpandedLocationCode",
-        [this](const std::string& locationCode) -> inventory::ListOfPaths {
+        [this](const std::string& locationCode) -> types::ListOfPaths {
             return this->getFRUsByExpandedLocationCode(locationCode);
         });
 
@@ -143,7 +139,8 @@ static void
                         {
                             // implies data is blank on EEPROM but not on cache.
                             // So EEPROM vpd update is required.
-                            Binary busData(busValue.begin(), busValue.end());
+                            types::Binary busData(busValue.begin(),
+                                                  busValue.end());
 
                             blankPropertyList.push_back(std::make_tuple(
                                 objectPath, recordName, keyword, busData));
@@ -298,7 +295,7 @@ void Manager::assetTagCallback(sdbusplus::message_t& msg)
         if (auto assetTag = std::get_if<std::string>(&(itr->second)))
         {
             // Call Notify to persist the AssetTag
-            inventory::ObjectMap objectMap = {
+            types::ObjectMap objectMap = {
                 {std::string{"/system"},
                  {{"xyz.openbmc_project.Inventory.Decorator.AssetTag",
                    {{"AssetTag", *assetTag}}}}}};
@@ -380,7 +377,8 @@ void Manager::processJSON()
 
 void Manager::writeKeyword(const sdbusplus::message::object_path& path,
                            const std::string& recordName,
-                           const std::string& keyword, const Binary& value)
+                           const std::string& keyword,
+                           const types::Binary& value)
 {
     try
     {
@@ -396,7 +394,7 @@ void Manager::writeKeyword(const sdbusplus::message::object_path& path,
             throw std::runtime_error("Inventory path not found");
         }
 
-        inventory::Path vpdFilePath = std::get<0>(frus.find(objPath)->second);
+        types::Path vpdFilePath = std::get<0>(frus.find(objPath)->second);
 
         // instantiate editor class to update the data
         EditorImpl edit(vpdFilePath, jsonFile, recordName, keyword, objPath);
@@ -575,7 +573,7 @@ void Manager::collectFRUVPD(const sdbusplus::message::object_path& path)
                               Argument::ARGUMENT_VALUE(objPath.c_str()));
     }
 
-    inventory::Path vpdFilePath = std::get<0>(frus.find(objPath)->second);
+    types::Path vpdFilePath = std::get<0>(frus.find(objPath)->second);
 
     const std::vector<nlohmann::json>& groupEEPROM =
         jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
@@ -733,7 +731,7 @@ void Manager::deleteFRUVPD(const sdbusplus::message::object_path& path)
                               Argument::ARGUMENT_VALUE(objPath.c_str()));
     }
 
-    inventory::Path& vpdFilePath = std::get<0>(frus.find(objPath)->second);
+    types::Path& vpdFilePath = std::get<0>(frus.find(objPath)->second);
 
     string chipAddress =
         jsonFile["frus"][vpdFilePath].at(0).value("pcaChipAddress", "");
@@ -756,11 +754,11 @@ void Manager::deleteFRUVPD(const sdbusplus::message::object_path& path)
         // CC data for FRU is also removed as
         // a) FRU is not there so CC does not make sense.
         // b) Sensors dependent on Panel uses CC data.
-        inventory::InterfaceMap interfaces{
+        types::InterfaceMap interfaces{
             {"xyz.openbmc_project.Inventory.Item", {{"Present", false}}},
-            {"com.ibm.ipzvpd.VINI", {{"CC", Binary{}}}}};
+            {"com.ibm.ipzvpd.VINI", {{"CC", types::Binary{}}}}};
 
-        inventory::ObjectMap objectMap;
+        types::ObjectMap objectMap;
         objectMap.emplace(objPath, move(interfaces));
 
         common::utility::callPIM(move(objectMap));

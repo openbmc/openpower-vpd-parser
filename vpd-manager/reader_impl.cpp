@@ -21,11 +21,9 @@ namespace vpd
 {
 namespace manager
 {
-namespace reader
-{
 
 using namespace phosphor::logging;
-using namespace openpower::vpd::inventory;
+using namespace openpower::vpd::types;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::utils::interface;
 
@@ -110,8 +108,7 @@ ListOfPaths
     ListOfPaths inventoryPaths;
 
     for_each(range.first, range.second,
-             [&inventoryPaths](
-                 const inventory::LocationCodeMap::value_type& mappedItem) {
+             [&inventoryPaths](const LocationCodeMap::value_type& mappedItem) {
                  inventoryPaths.push_back(INVENTORY_PATH + mappedItem.second);
              });
     return inventoryPaths;
@@ -213,8 +210,8 @@ std::tuple<LocationCode, NodeNumber>
 }
 
 ListOfPaths ReaderImpl::getFRUsByExpandedLocationCode(
-    const inventory::LocationCode& locationCode,
-    const inventory::LocationCodeMap& frusLocationCode) const
+    const LocationCode& locationCode,
+    const LocationCodeMap& frusLocationCode) const
 {
     std::tuple<LocationCode, NodeNumber> locationAndNodePair =
         getCollapsedLocationCode(locationCode);
@@ -223,7 +220,6 @@ ListOfPaths ReaderImpl::getFRUsByExpandedLocationCode(
                              std::get<1>(locationAndNodePair),
                              frusLocationCode);
 }
-} // namespace reader
 } // namespace manager
 } // namespace vpd
 } // namespace openpower

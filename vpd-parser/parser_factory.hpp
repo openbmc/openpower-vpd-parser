@@ -6,10 +6,6 @@ namespace openpower
 {
 namespace vpd
 {
-namespace parser
-{
-namespace factory
-{
 /** @class ParserFactory
  *  @brief Factory calss to instantiate concrete parser class.
  *
@@ -33,17 +29,15 @@ class ParserFactory
      * @param[in] - InventoryPath to call out FRU in case PEL is logged.
      * @return - Pointer to concrete parser class object.
      */
-    static interface::ParserInterface*
-        getParser(const Binary& vpdVector, const std::string& inventoryPath);
+    static ParserInterface* getParser(const types::Binary& vpdVector,
+                                      const std::string& inventoryPath);
 
     /**
      * @brief A method to delete the parser object.
      * @param[in] - Pointer to the parser object.
      */
-    static void freeParser(interface::ParserInterface* parser);
+    static void freeParser(ParserInterface* parser);
 }; // ParserFactory
 
-} // namespace factory
-} // namespace parser
 } // namespace vpd
 } // namespace openpower

@@ -7,9 +7,9 @@
 
 #include <gtest/gtest.h>
 
-using namespace vpd::keyword::parser;
+using namespace vpd;
 using namespace openpower::vpd;
-using namespace openpower::vpd::inventory;
+using namespace openpower::vpd::types;
 using namespace std;
 
 class KeywordVpdParserTest : public ::testing::Test

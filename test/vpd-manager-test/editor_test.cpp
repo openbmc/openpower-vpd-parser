@@ -8,8 +8,8 @@
 #include <gtest/gtest.h>
 
 using namespace openpower::vpd;
-using namespace openpower::vpd::manager::editor;
-using namespace openpower::vpd::inventory;
+using namespace openpower::vpd::manager;
+using namespace openpower::vpd::types;
 using namespace openpower::vpd::constants;
 
 class vpdManagerEditorTest : public ::testing::Test
@@ -20,7 +20,7 @@ class vpdManagerEditorTest : public ::testing::Test
     nlohmann::json jsonFile;
 
     // map to hold the mapping of location code and inventory path
-    inventory::LocationCodeMap fruLocationCode;
+    LocationCodeMap fruLocationCode;
 
   public:
     // constructor

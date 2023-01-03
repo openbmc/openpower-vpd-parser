@@ -33,8 +33,6 @@ constexpr auto toHex(size_t c)
     return map[c];
 }
 
-namespace inventory
-{
 /** @brief API to obtain a dictionary of path -> services
  * where path is in subtree and services is of the type
  * returned by the GetObject method.
@@ -45,18 +43,16 @@ namespace inventory
  * result is required.
  * @return A dictionary of Path -> services
  */
-MapperResponse
+types::MapperResponse
     getObjectSubtreeForInterfaces(const std::string& root, const int32_t depth,
                                   const std::vector<std::string>& interfaces);
-
-} // namespace inventory
 
 /**@brief This API reads 2 Bytes of data and swap the read data
  * @param[in] iterator- Pointer pointing to the data to be read
  * @return returns 2 Byte data read at the given pointer
  */
 openpower::vpd::constants::LE2ByteData
-    readUInt16LE(Binary::const_iterator iterator);
+    readUInt16LE(types::Binary::const_iterator iterator);
 
 /** @brief Encodes a keyword for D-Bus.
  *  @param[in] kw - kwd data in string format
@@ -172,8 +168,8 @@ void createPEL(const std::map<std::string, std::string>& additionalData,
  * @param[in] - Object path
  * @return - Vpd file path
  */
-inventory::VPDfilepath getVpdFilePath(const std::string& jsonFile,
-                                      const std::string& ObjPath);
+types::VPDfilepath getVpdFilePath(const std::string& jsonFile,
+                                  const std::string& ObjPath);
 
 /**
  * @brief isPathInJson
@@ -203,7 +199,7 @@ bool isRecKwInDbusJson(const std::string& record, const std::string& keyword);
  *
  * @return enum of type vpdType
  */
-constants::vpdType vpdTypeCheck(const Binary& vector);
+constants::vpdType vpdTypeCheck(const types::Binary& vector);
 
 /*
  * @brief This method does nothing. Just an empty function to return null
@@ -300,7 +296,7 @@ std::string getBadVpdName(const std::string& file);
  * @param[in] file - bad vpd file path
  * @param[in] vpdVector - bad vpd vector
  */
-void dumpBadVpd(const std::string& file, const Binary& vpdVector);
+void dumpBadVpd(const std::string& file, const types::Binary& vpdVector);
 
 /*
  * @brief This function fetches the value for given keyword in the given record
@@ -343,14 +339,14 @@ inline std::string createBindUnbindDriverCmnd(const std::string& devNameAddr,
  * @param[in] vector - Reference of the Binary vector
  * @return printable value - either in hex or in ascii.
  */
-std::string getPrintableValue(const Binary& vec);
+std::string getPrintableValue(const types::Binary& vec);
 
 /**
  * @brief Convert byte array to hex string.
  * @param[in] vec - byte array
  * @return hexadecimal string of bytes.
  */
-std::string byteArrayToHexString(const Binary& vec);
+std::string byteArrayToHexString(const types::Binary& vec);
 
 /**
  * @brief Return presence of the FRU.
@@ -402,9 +398,8 @@ void executePostFailAction(const nlohmann::json& json, const std::string& file);
  * @param[in] interface - Interface name.
  * @param[in] property - new property map that needs to be emplaced.
  */
-void insertOrMerge(inventory::InterfaceMap& map,
-                   const inventory::Interface& interface,
-                   inventory::PropertyMap&& property);
+void insertOrMerge(types::InterfaceMap& map, const types::Interface& interface,
+                   types::PropertyMap&& property);
 
 /**
  * @brief Utility API to set a D-Bus property
@@ -469,6 +464,7 @@ std::string getPowerState();
  * @param file[in] - The path to the EEPROM to read
  * @return A byte array containing the raw VPD.
  */
-Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file);
+types::Binary getVpdDataInVector(const nlohmann::json& js,
+                                 const std::string& file);
 } // namespace vpd
 } // namespace openpower

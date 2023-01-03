@@ -69,7 +69,7 @@ class Impl
      *  @param[in] vpdBuffer - Binary VPD
      *  @param[in] path - To call out FRU in case of any PEL.
      */
-    Impl(const Binary& vpdBuffer, const std::string& path) :
+    Impl(const types::Binary& vpdBuffer, const std::string& path) :
         vpd(vpdBuffer), inventoryPath(path), out{}
     {
     }
@@ -99,7 +99,7 @@ class Impl
      *  @param[in] iterator - iterator to buffer containing VPD
      *  @returns Size of the PT keyword in VTOC
      */
-    std::size_t readTOC(Binary::const_iterator& iterator) const;
+    std::size_t readTOC(types::Binary::const_iterator& iterator) const;
 
     /** @brief Read the PT keyword contained in the VHDR record,
      *         to obtain offsets to other records in the VPD.
@@ -109,7 +109,7 @@ class Impl
      *
      *  @returns List of offsets to records in VPD
      */
-    internal::OffsetList readPT(Binary::const_iterator iterator,
+    internal::OffsetList readPT(types::Binary::const_iterator iterator,
                                 std::size_t ptLen) const;
 
     /** @brief Read VPD information contained within a record
@@ -130,7 +130,7 @@ class Impl
      */
     std::string readKwData(const internal::KeywordInfo& keyword,
                            std::size_t dataLength,
-                           Binary::const_iterator iterator);
+                           types::Binary::const_iterator iterator);
 
     /** @brief While we're pointing at the keyword section of
      *     a record in the VPD, this will read all contained
@@ -140,7 +140,7 @@ class Impl
      *
      *  @returns map of keyword:data
      */
-    internal::KeywordMap readKeywords(Binary::const_iterator iterator);
+    internal::KeywordMap readKeywords(types::Binary::const_iterator iterator);
 
     /** @brief Checks if the VHDR record is present in the VPD */
     void checkHeader() const;
@@ -160,7 +160,7 @@ class Impl
      * @param[in] iterator - iterator pointing to a record in the VPD
      * @returns Success(0) OR corrupted data(-1)
      */
-    int recordEccCheck(Binary::const_iterator iterator) const;
+    int recordEccCheck(types::Binary::const_iterator iterator) const;
 
     /** @brief This interface collects Offset of VTOC
      *  @returns VTOC Offset
@@ -168,7 +168,7 @@ class Impl
     openpower::vpd::constants::RecordOffset getVtocOffset() const;
 
     /** @brief VPD in binary format */
-    const Binary& vpd;
+    const types::Binary& vpd;
 
     /** Inventory path to call out FRU if required */
     const std::string inventoryPath;

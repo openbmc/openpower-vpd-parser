@@ -25,6 +25,7 @@ namespace parser
 {
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::exceptions;
+using namespace openpower::vpd::types;
 
 static const std::unordered_map<std::string, Record> supportedRecords = {
     {"VINI", Record::VINI}, {"OPFR", Record::OPFR}, {"OSYS", Record::OSYS}};
@@ -284,7 +285,7 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
         }
         catch (const VpdEccException& ex)
         {
-            inventory::PelAdditionalData additionalData{};
+            types::PelAdditionalData additionalData{};
             additionalData.emplace("DESCRIPTION",
                                    std::string{ex.what()} + recordName);
             additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
@@ -293,7 +294,7 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
         }
         catch (const VpdDataException& ex)
         {
-            inventory::PelAdditionalData additionalData{};
+            types::PelAdditionalData additionalData{};
             additionalData.emplace("DESCRIPTION",
                                    std::string{ex.what()} + recordName);
             additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);

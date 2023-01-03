@@ -13,14 +13,12 @@
 
 using namespace std;
 using namespace openpower::vpd;
-using namespace inventory;
-using namespace openpower::vpd::manager::editor;
+using namespace types;
+using namespace openpower::vpd::manager;
 namespace fs = std::filesystem;
 using json = nlohmann::json;
 using namespace openpower::vpd::exceptions;
 using namespace openpower::vpd::parser;
-using namespace openpower::vpd::parser::factory;
-using namespace openpower::vpd::parser::interface;
 
 Binary VpdTool::toBinary(const std::string& value)
 {

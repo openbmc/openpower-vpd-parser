@@ -13,10 +13,7 @@
 
 #include "vpdecc/vpdecc.h"
 
-using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::constants;
-using namespace openpower::vpd::parser::factory;
-using namespace openpower::vpd::ipz::parser;
 
 namespace openpower
 {
@@ -24,11 +21,9 @@ namespace vpd
 {
 namespace manager
 {
-namespace editor
-{
 
-void EditorImpl::checkPTForRecord(Binary::const_iterator& iterator,
-                                  Byte ptLength)
+void EditorImpl::checkPTForRecord(types::Binary::const_iterator& iterator,
+                                  types::Byte ptLength)
 {
     // auto iterator = ptRecord.cbegin();
     auto end = std::next(iterator, ptLength + 1);
@@ -75,7 +70,7 @@ void EditorImpl::checkPTForRecord(Binary::const_iterator& iterator,
     throw std::runtime_error("Record not found");
 }
 
-void EditorImpl::updateData(const Binary& kwdData)
+void EditorImpl::updateData(const types::Binary& kwdData)
 {
     std::size_t lengthToUpdate = kwdData.size() <= thisRecord.kwdDataLength
                                      ? kwdData.size()
@@ -97,7 +92,7 @@ void EditorImpl::updateData(const Binary& kwdData)
     auto endItr = startItr;
     std::advance(endItr, thisRecord.kwdDataLength);
 
-    Binary updatedData(startItr, endItr);
+    types::Binary updatedData(startItr, endItr);
     if (updatedData == kwdData)
     {
         throw std::runtime_error("Data updated successfully");
@@ -214,8 +209,8 @@ auto EditorImpl::getValue(offsets::Offsets offset)
     return lowByte;
 }
 
-void EditorImpl::checkECC(Binary::const_iterator& itrToRecData,
-                          Binary::const_iterator& itrToECCData,
+void EditorImpl::checkECC(types::Binary::const_iterator& itrToRecData,
+                          types::Binary::const_iterator& itrToECCData,
                           RecordLength recLength, ECCLength eccLength)
 {
     auto l_status =
@@ -268,7 +263,7 @@ void EditorImpl::readVTOC()
     std::advance(itrToRecord, lengths::RECORD_NAME + lengths::KW_NAME);
 
     // Note size of PT
-    Byte ptLen = *itrToRecord;
+    types::Byte ptLen = *itrToRecord;
     std::advance(itrToRecord, 1);
 
     checkPTForRecord(itrToRecord, ptLen);
@@ -298,7 +293,7 @@ void EditorImpl::makeDbusCall(const std::string& object,
 
 void EditorImpl::processAndUpdateCI(const std::string& objectPath)
 {
-    inventory::ObjectMap objects;
+    types::ObjectMap objects;
     for (auto& commonInterface : jsonFile["commonInterfaces"].items())
     {
         for (auto& ciPropertyList : commonInterface.value().items())
@@ -311,8 +306,8 @@ void EditorImpl::processAndUpdateCI(const std::string& objectPath)
                     (ciPropertyList.value().value("keywordName", "") ==
                      thisRecord.recKWd))
                 {
-                    inventory::PropertyMap prop;
-                    inventory::InterfaceMap interfaces;
+                    types::PropertyMap prop;
+                    types::InterfaceMap interfaces;
                     std::string kwdData(thisRecord.kwdUpdatedData.begin(),
                                         thisRecord.kwdUpdatedData.end());
 
@@ -328,9 +323,9 @@ void EditorImpl::processAndUpdateCI(const std::string& objectPath)
 }
 
 void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
-                                    const inventory::Path& objPath)
+                                    const types::Path& objPath)
 {
-    inventory::ObjectMap objects;
+    types::ObjectMap objects;
     for (const auto& extraInterface : Inventory["extraInterfaces"].items())
     {
         if (extraInterface.value() != NULL)
@@ -345,8 +340,8 @@ void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
                         ((eiPropertyList.value().value("keywordName", "") ==
                           thisRecord.recKWd)))
                     {
-                        inventory::PropertyMap prop;
-                        inventory::InterfaceMap interfaces;
+                        types::PropertyMap prop;
+                        types::InterfaceMap interfaces;
                         std::string kwdData(thisRecord.kwdUpdatedData.begin(),
                                             thisRecord.kwdUpdatedData.end());
                         encodeKeyword(kwdData, eiPropertyList.value().value(
@@ -370,12 +365,12 @@ void EditorImpl::updateCache()
     const std::vector<nlohmann::json>& groupEEPROM =
         jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
 
-    inventory::ObjectMap objects;
+    types::ObjectMap objects;
     // iterate through all the inventories for this file path
     for (const auto& singleInventory : groupEEPROM)
     {
-        inventory::PropertyMap prop;
-        inventory::InterfaceMap interfaces;
+        types::PropertyMap prop;
+        types::InterfaceMap interfaces;
         // by default inherit property is true
         bool isInherit = true;
 
@@ -448,7 +443,7 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
 
     const nlohmann::json& groupFRUS =
         jsonFile["frus"].get_ref<const nlohmann::json::object_t&>();
-    inventory::ObjectMap objects;
+    types::ObjectMap objects;
 
     for (const auto& itemFRUS : groupFRUS.items())
     {
@@ -456,8 +451,8 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
             itemFRUS.value().get_ref<const nlohmann::json::array_t&>();
         for (const auto& itemEEPROM : groupEEPROM)
         {
-            inventory::PropertyMap prop;
-            inventory::InterfaceMap interfaces;
+            types::PropertyMap prop;
+            types::InterfaceMap interfaces;
             const auto& objectPath = itemEEPROM["inventoryPath"];
             sdbusplus::message::object_path object(objectPath);
 
@@ -553,7 +548,7 @@ static void disableRebootGuard()
 }
 #endif
 
-void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
+void EditorImpl::updateKeyword(const types::Binary& kwdData, uint32_t offset,
                                const bool& updCache)
 {
     try
@@ -565,7 +560,7 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
         enableRebootGuard();
 
         // TODO: Figure out a better way to get max possible VPD size.
-        Binary completeVPDFile;
+        types::Binary completeVPDFile;
         completeVPDFile.resize(65504);
         vpdFileStream.open(vpdFilePath,
                            std::ios::in | std::ios::out | std::ios::binary);
@@ -586,7 +581,7 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
 
 #else
 
-        Binary completeVPDFile = vpdFile;
+        types::Binary completeVPDFile = vpdFile;
 
 #endif
         if (vpdFile.empty())
@@ -596,7 +591,7 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
         auto iterator = vpdFile.cbegin();
         std::advance(iterator, IPZ_DATA_START);
 
-        Byte vpdType = *iterator;
+        types::Byte vpdType = *iterator;
         if (vpdType == KW_VAL_PAIR_START_TAG)
         {
             // objPath should be empty only in case of test run.
@@ -668,7 +663,6 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
         throw std::runtime_error(e.what());
     }
 }
-} // namespace editor
 } // namespace manager
 } // namespace vpd
 } // namespace openpower
