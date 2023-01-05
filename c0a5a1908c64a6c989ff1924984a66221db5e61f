@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "584372dd_ef632c39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:53:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8e60b1f4_69364bfc",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 80
+      },
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65d7207a_4cc727e1",
@@ -64,6 +88,48 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ada53795_6451604e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:53:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c45861e_a77f9e01",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 25
+      },
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "953b3439_e9d8665f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:53:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65d7207a_4cc727e1",
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23a65a04_a1123927",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-12-12T10:05:39Z",
       "side": 1,
       "message": "It isn\u0027t clear to me what --force does. Why would a user want to use force? Just to not get that y/n option? Then I think the option needs to be renamed, maybe -y to say assume yes to answers.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 27
+      },
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57d4cecb_0e27aaf8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:53:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23a65a04_a1123927",
       "range": {
         "startLine": 18,
         "startChar": 0,
@@ -127,6 +217,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51e3c975_12ab92ed",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:53:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84138ced_afc0f2e1",
+      "range": {
+        "startLine": 181,
+        "startChar": 30,
+        "endLine": 181,
+        "endChar": 62
+      },
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9a9f343_89711156",
@@ -150,6 +264,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "055e04f1_b826b9e6",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:53:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9a9f343_89711156",
+      "range": {
+        "startLine": 181,
+        "startChar": 66,
+        "endLine": 182,
+        "endChar": 35
+      },
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9df32085_2cdb0ede",
@@ -163,6 +301,30 @@
       "writtenOn": "2022-12-12T10:05:39Z",
       "side": 1,
       "message": "Please don\u0027t do checks like these. Let us pick one, say \"yes\" and stick with that.",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 42
+      },
+      "revId": "c0a5a1908c64a6c989ff1924984a66221db5e61f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc40a98b_26fa8c1c",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:53:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9df32085_2cdb0ede",
       "range": {
         "startLine": 186,
         "startChar": 0,
