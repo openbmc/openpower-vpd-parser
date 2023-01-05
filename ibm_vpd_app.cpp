@@ -869,8 +869,8 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                             // both the data are present, check for mismatch
                             if (busValue != kwdValue)
                             {
-                                string errMsg = "VPD data mismatch on cache "
-                                                "and hardware for record: ";
+                                string errMsg = "Mismatch found between backup "
+                                                "and primary VPD for record: ";
                                 errMsg += (*it).first;
                                 errMsg += " and keyword: ";
                                 errMsg += keyword;
@@ -898,35 +898,36 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                                                            objectPath);
 
                                 additionalData.emplace("DESCRIPTION", errMsg);
-                                additionalData.emplace("Value on Cache: ",
-                                                       busStream.str());
+                                additionalData.emplace(
+                                    "Value read from Backup: ",
+                                    busStream.str());
                                 additionalData.emplace(
                                     "Value read from EEPROM: ",
                                     vpdStream.str());
 
                                 createPEL(additionalData, PelSeverity::WARNING,
-                                          errIntfForSysVPDMismatch, nullptr);
+                                          errIntfForVPDMismatch, nullptr);
                             }
                         }
 
-                        // If cache data is not default, then irrespective of
-                        // hardware data(default or other than cache), copy the
-                        // cache data to vpd map as we don't need to change the
-                        // cache data in either case in the process of
+                        // If backup data is not default, then irrespective of
+                        // hardware data(default or other than backup), copy the
+                        // backup data to vpd map as we don't need to change the
+                        // backup data in either case in the process of
                         // restoring system vpd.
                         kwdValue = busValue;
                     }
                     else if (kwdDataInBinary == defaultValue &&
                              get<2>(keywordInfo)) // Check isPELRequired is true
                     {
-                        string errMsg = "VPD is blank on both cache and "
-                                        "hardware for record: ";
+                        string errMsg = "Found default value on both backup "
+                                        "and primary VPD for record: ";
                         errMsg += (*it).first;
                         errMsg += " and keyword: ";
                         errMsg += keyword;
-                        errMsg += ". SSR need to update hardware VPD.";
+                        errMsg += ". SSR need to update primary VPD.";
 
-                        // both the data are blanks, log PEL
+                        // mfg default on both backup and hardware, log PEL
                         PelAdditionalData additionalData;
                         additionalData.emplace("CALLOUT_INVENTORY_PATH",
                                                INVENTORY_PATH + objectPath);
@@ -935,7 +936,7 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
 
                         // log PEL TODO: Block IPL
                         createPEL(additionalData, PelSeverity::ERROR,
-                                  errIntfForBlankSystemVPD, nullptr);
+                                  errIntfForVPDDefault, nullptr);
                         continue;
                     }
                 }
