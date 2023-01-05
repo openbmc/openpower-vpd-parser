@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1fc61d43_cc7b8475",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "38673399_78d2409a",
+      "range": {
+        "startLine": 10,
+        "startChar": 29,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "819babcf88c7acdc241f216a2a325e90ec6b1b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0922d922_1f7e3fd3",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -37,6 +61,24 @@
       "writtenOn": "2022-12-13T05:28:03Z",
       "side": 1,
       "message": "too much changes , I am not comfortable to change the flow for a service pack.\n",
+      "revId": "819babcf88c7acdc241f216a2a325e90ec6b1b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e8d2559_524e5ba6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:08Z",
+      "side": 1,
+      "message": "As discussed earlier, this commit has vpd-tool api restructuring(api specific to system VPD processing), to avoid redundant code.\nThus can make use of these apis for both options, --fixSystemVPD and system VPD --mfgClean.",
+      "parentUuid": "0922d922_1f7e3fd3",
       "revId": "819babcf88c7acdc241f216a2a325e90ec6b1b46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +96,30 @@
       "writtenOn": "2022-12-12T10:05:03Z",
       "side": 1,
       "message": "I don\u0027t think this is a good idea to call exit from a function that is in a utility file. Please throw an exception that can be properly handled. That makes me think if this function should even be defined here in this file?",
+      "range": {
+        "startLine": 1033,
+        "startChar": 0,
+        "endLine": 1033,
+        "endChar": 16
+      },
+      "revId": "819babcf88c7acdc241f216a2a325e90ec6b1b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31f9c67d_d86660a0",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:08Z",
+      "side": 1,
+      "message": "I agree. Modified it by throwing run time error.",
+      "parentUuid": "8159ea79_3ffff914",
       "range": {
         "startLine": 1033,
         "startChar": 0,
@@ -87,6 +153,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f94612b1_52e4c563",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:08Z",
+      "side": 1,
+      "message": "nope, there is no existing type alias for this structure",
+      "parentUuid": "6c6caad2_79b4c139",
+      "range": {
+        "startLine": 478,
+        "startChar": 4,
+        "endLine": 478,
+        "endChar": 79
+      },
+      "revId": "819babcf88c7acdc241f216a2a325e90ec6b1b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a304f6ef_e1e3ad3e",
@@ -100,6 +190,24 @@
       "writtenOn": "2022-12-12T10:05:03Z",
       "side": 1,
       "message": "This can be a constexpr",
+      "revId": "819babcf88c7acdc241f216a2a325e90ec6b1b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "275d03ed_ec7a8ccd",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:08Z",
+      "side": 1,
+      "message": "cannot make it constexpr as am overwriting the variable as needed in this for loop.",
+      "parentUuid": "a304f6ef_e1e3ad3e",
       "revId": "819babcf88c7acdc241f216a2a325e90ec6b1b46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
