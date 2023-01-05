@@ -97,10 +97,9 @@ constexpr auto mapperDestination = "xyz.openbmc_project.ObjectMapper";
 constexpr auto loggerService = "xyz.openbmc_project.Logging";
 constexpr auto loggerObjectPath = "/xyz/openbmc_project/logging";
 constexpr auto loggerCreateInterface = "xyz.openbmc_project.Logging.Create";
-constexpr auto errIntfForBlankSystemVPD = "com.ibm.VPD.Error.BlankSystemVPD";
+constexpr auto errIntfForVPDDefault = "com.ibm.VPD.Error.DefaultValue";
 constexpr auto errIntfForInvalidVPD = "com.ibm.VPD.Error.InvalidVPD";
-constexpr auto errIntfForSystemVPDMismatch =
-    "com.ibm.VPD.Error.SystemVPDMismatch";
+constexpr auto errIntfForVPDMismatch = "com.ibm.VPD.Error.Mismatch";
 constexpr auto errIntfForStreamFail = "com.ibm.VPD.Error.InavlidEepromPath";
 constexpr auto errIntfForEccCheckFail = "com.ibm.VPD.Error.EccCheckFailed";
 constexpr auto errIntfForJsonFailure = "com.ibm.VPD.Error.InvalidJson";
@@ -115,7 +114,6 @@ constexpr auto systemVpdFilePath = "/sys/bus/i2c/drivers/at24/8-0050/eeprom";
 constexpr auto i2cPathPrefix = "/sys/bus/i2c/drivers/at24/";
 constexpr auto spiPathPrefix = "/sys/bus/spi/drivers/at25/";
 constexpr auto invItemIntf = "xyz.openbmc_project.Inventory.Item";
-constexpr auto errIntfForSysVPDMismatch = "com.ibm.VPD.Error.SystemVPDMismatch";
 
 namespace lengths
 {

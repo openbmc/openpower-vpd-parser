@@ -151,10 +151,10 @@ class VpdTool
     enum UserOption
     {
         EXIT = 0,
-        BMC_DATA_FOR_ALL = 1,
+        BACKUP_DATA_FOR_ALL = 1,
         SYSTEM_BACKPLANE_DATA_FOR_ALL = 2,
         MORE_OPTIONS = 3,
-        BMC_DATA_FOR_CURRENT = 4,
+        BACKUP_DATA_FOR_CURRENT = 4,
         SYSTEM_BACKPLANE_DATA_FOR_CURRENT = 5,
         NEW_VALUE_ON_BOTH = 6,
         SKIP_CURRENT = 7
