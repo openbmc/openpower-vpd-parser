@@ -608,28 +608,28 @@ void VpdTool::printFixSystemVPDOption(UserOption option)
         case VpdTool::EXIT:
             cout << "\nEnter 0 => To exit successfully : ";
             break;
-        case VpdTool::BMC_DATA_FOR_ALL:
-            cout << "\n\nEnter 1 => If you choose the data on BMC for all "
+        case VpdTool::BACKUP_DATA_FOR_ALL:
+            cout << "\n\nEnter 1 => If you choose the data on backup for all "
                     "mismatching record-keyword pairs";
             break;
         case VpdTool::SYSTEM_BACKPLANE_DATA_FOR_ALL:
-            cout << "\nEnter 2 => If you choose the data on System "
-                    "Backplane for all mismatching record-keyword pairs";
+            cout << "\nEnter 2 => If you choose the data on primary for all "
+                    "mismatching record-keyword pairs";
             break;
         case VpdTool::MORE_OPTIONS:
             cout << "\nEnter 3 => If you wish to explore more options";
             break;
-        case VpdTool::BMC_DATA_FOR_CURRENT:
-            cout << "\nEnter 4 => If you choose the data on BMC as the "
+        case VpdTool::BACKUP_DATA_FOR_CURRENT:
+            cout << "\nEnter 4 => If you choose the data on backup as the "
                     "right value";
             break;
         case VpdTool::SYSTEM_BACKPLANE_DATA_FOR_CURRENT:
-            cout << "\nEnter 5 => If you choose the data on System "
-                    "Backplane as the right value";
+            cout << "\nEnter 5 => If you choose the data on primary as the "
+                    "right value";
             break;
         case VpdTool::NEW_VALUE_ON_BOTH:
-            cout << "\nEnter 6 => If you wish to enter a new value to "
-                    "update both on BMC and System Backplane";
+            cout << "\nEnter 6 => If you wish to enter a new value to update "
+                    "both on backup and primary";
             break;
         case VpdTool::SKIP_CURRENT:
             cout << "\nEnter 7 => If you wish to skip the above "
@@ -668,13 +668,13 @@ void VpdTool::getSystemDataFromCache(IntfPropMap& svpdBusData)
 int VpdTool::fixSystemVPD()
 {
     std::string outline(191, '=');
-    cout << "\nRestorable record-keyword pairs and their data on BMC & "
-            "System Backplane.\n\n"
+    cout << "\nRestorable record-keyword pairs and their data on backup & "
+            "primary.\n\n"
          << outline << std::endl;
 
     cout << left << setw(6) << "S.No" << left << setw(8) << "Record" << left
-         << setw(9) << "Keyword" << left << setw(75) << "Data On BMC" << left
-         << setw(75) << "Data On System Backplane" << left << setw(14)
+         << setw(9) << "Keyword" << left << setw(75) << "Data On Backup" << left
+         << setw(75) << "Data On Primary" << left << setw(14)
          << "Data Mismatch\n"
          << outline << std::endl;
 
@@ -788,7 +788,7 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
 {
     do
     {
-        printFixSystemVPDOption(VpdTool::BMC_DATA_FOR_ALL);
+        printFixSystemVPDOption(VpdTool::BACKUP_DATA_FOR_ALL);
         printFixSystemVPDOption(VpdTool::SYSTEM_BACKPLANE_DATA_FOR_ALL);
         printFixSystemVPDOption(VpdTool::MORE_OPTIONS);
         printFixSystemVPDOption(VpdTool::EXIT);
@@ -806,7 +806,7 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
 
         bool mismatchFound = false;
 
-        if (option == VpdTool::BMC_DATA_FOR_ALL)
+        if (option == VpdTool::BACKUP_DATA_FOR_ALL)
         {
             for (const auto& data : recKwData)
             {
@@ -823,7 +823,7 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
             {
                 cout << "\nData updated successfully for all mismatching "
                         "record-keyword pairs by choosing their corresponding "
-                        "data on BMC. Exit successfully.\n"
+                        "data from backup. Exit successfully.\n"
                      << endl;
             }
             else
@@ -851,7 +851,7 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
             {
                 cout << "\nData updated successfully for all mismatching "
                         "record-keyword pairs by choosing their corresponding "
-                        "data on System Backplane.\n"
+                        "data from primary VPD.\n"
                      << endl;
             }
             else
@@ -874,10 +874,9 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
 
                     cout << left << setw(6) << "S.No" << left << setw(8)
                          << "Record" << left << setw(9) << "Keyword" << left
-                         << setw(75) << setfill(' ') << "Data On BMC" << left
-                         << setw(75) << setfill(' ')
-                         << "Data On System Backplane" << left << setw(14)
-                         << "Data Mismatch" << endl;
+                         << setw(75) << setfill(' ') << "Backup Data" << left
+                         << setw(75) << setfill(' ') << "Primary Data" << left
+                         << setw(14) << "Data Mismatch" << endl;
 
                     cout << left << setw(6) << get<0>(data) << left << setw(8)
                          << get<1>(data) << left << setw(9) << get<2>(data)
@@ -896,7 +895,8 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
                     }
                     else
                     {
-                        printFixSystemVPDOption(VpdTool::BMC_DATA_FOR_CURRENT);
+                        printFixSystemVPDOption(
+                            VpdTool::BACKUP_DATA_FOR_CURRENT);
                         printFixSystemVPDOption(
                             VpdTool::SYSTEM_BACKPLANE_DATA_FOR_CURRENT);
                         printFixSystemVPDOption(VpdTool::NEW_VALUE_ON_BOTH);
@@ -910,7 +910,7 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
                     EditorImpl edit(constants::systemVpdFilePath, json,
                                     get<1>(data), get<2>(data));
 
-                    if (option == VpdTool::BMC_DATA_FOR_CURRENT)
+                    if (option == VpdTool::BACKUP_DATA_FOR_CURRENT)
                     {
                         edit.updateKeyword(toBinary(get<3>(data)), 0, true);
                         cout << "\nData updated successfully.\n";
@@ -926,9 +926,9 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
                     else if (option == VpdTool::NEW_VALUE_ON_BOTH)
                     {
                         string value;
-                        cout << "\nEnter the new value to update both on BMC & "
-                                "System Backplane (Value should be in ASCII or "
-                                "in HEX(prefixed with 0x)) : ";
+                        cout << "\nEnter the new value to update on both "
+                                "primary & backup. Value should be in ASCII or "
+                                "in HEX(prefixed with 0x) : ";
                         cin >> value;
                         cout << '\n' << outline << endl;
 
