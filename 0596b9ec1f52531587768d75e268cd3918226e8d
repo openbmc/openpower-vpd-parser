@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "134d1e29_14adf1b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a54825c0_9d92dcf0",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 33
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05baae43_555482f2",
@@ -70,6 +94,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64582afc_d8dd1229",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "05baae43_555482f2",
+      "range": {
+        "startLine": 816,
+        "startChar": 21,
+        "endLine": 816,
+        "endChar": 24
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fdfc720_87221430",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:19Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "f87de83b_3b033eab",
+      "range": {
+        "startLine": 816,
+        "startChar": 15,
+        "endLine": 816,
+        "endChar": 41
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6733cd4d_c6c391b3",
@@ -83,6 +155,24 @@
       "writtenOn": "2022-12-12T09:56:50Z",
       "side": 1,
       "message": "Please remove the cout",
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b8fce57_f1acf237",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6733cd4d_c6c391b3",
       "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -110,6 +200,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d895fedb_e5f3a55e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bf93e47_9160f76f",
+      "range": {
+        "startLine": 836,
+        "startChar": 20,
+        "endLine": 836,
+        "endChar": 30
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "981eb125_3e0c0e10",
@@ -123,6 +237,30 @@
       "writtenOn": "2022-12-13T04:48:19Z",
       "side": 1,
       "message": "default or blank ?",
+      "range": {
+        "startLine": 866,
+        "startChar": 56,
+        "endLine": 866,
+        "endChar": 61
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fbc94e7_92ab0ab1",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "981eb125_3e0c0e10",
       "range": {
         "startLine": 866,
         "startChar": 56,
@@ -179,6 +317,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "baed3841_57979be2",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:19Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "4437fd66_d4bd0dcc",
+      "range": {
+        "startLine": 21,
+        "startChar": 52,
+        "endLine": 21,
+        "endChar": 67
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c95c67_2329f56e",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:19Z",
+      "side": 1,
+      "message": "As discussed, for keyword like VSYS FV(Firmware version), we don\u0027t need to log PEL if it has default value. So we need \"Is PEL Required\" boolean.",
+      "parentUuid": "02eecdf6_aabb2b47",
+      "range": {
+        "startLine": 21,
+        "startChar": 37,
+        "endLine": 21,
+        "endChar": 50
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8034c8b_d7a93800",
@@ -192,6 +378,30 @@
       "writtenOn": "2022-12-12T09:56:50Z",
       "side": 1,
       "message": "Please prefix with std::",
+      "range": {
+        "startLine": 91,
+        "startChar": 21,
+        "endLine": 91,
+        "endChar": 24
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84dcba84_08ac090f",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:19Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "a8034c8b_d7a93800",
       "range": {
         "startLine": 91,
         "startChar": 21,
@@ -225,6 +435,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93621244_8df2e0ff",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1eadc151_1b0b742d",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 35
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96717ce0_48a89112",
@@ -242,6 +476,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d4113fb_41459d00",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96717ce0_48a89112",
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "626043ee_d72ffb7d",
@@ -255,6 +507,30 @@
       "writtenOn": "2022-12-12T09:56:50Z",
       "side": 1,
       "message": "For consistency, please prefix with std::",
+      "range": {
+        "startLine": 697,
+        "startChar": 17,
+        "endLine": 697,
+        "endChar": 20
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09d6013c_a330a71b",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:19Z",
+      "side": 1,
+      "message": "this check not needed",
+      "parentUuid": "626043ee_d72ffb7d",
       "range": {
         "startLine": 697,
         "startChar": 17,
@@ -288,6 +564,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e44fcb1_6530d36a",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06d71db1_f48b89ec",
+      "range": {
+        "startLine": 702,
+        "startChar": 12,
+        "endLine": 702,
+        "endChar": 31
+      },
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0dd07fa_6f31d70c",
@@ -301,6 +601,24 @@
       "writtenOn": "2022-12-12T09:56:50Z",
       "side": 1,
       "message": "Please remove this cout",
+      "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be3bb7e8_fe1566d1",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-05T13:54:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0dd07fa_6f31d70c",
       "revId": "0596b9ec1f52531587768d75e268cd3918226e8d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
