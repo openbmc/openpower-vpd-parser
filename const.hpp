@@ -84,7 +84,8 @@ constexpr auto mapperDestination = "xyz.openbmc_project.ObjectMapper";
 constexpr auto loggerService = "xyz.openbmc_project.Logging";
 constexpr auto loggerObjectPath = "/xyz/openbmc_project/logging";
 constexpr auto loggerCreateInterface = "xyz.openbmc_project.Logging.Create";
-constexpr auto errIntfForBlankSystemVPD = "com.ibm.VPD.Error.BlankSystemVPD";
+constexpr auto errIntfForSystemVPDDefault =
+    "com.ibm.VPD.Error.SystemVPDDefault";
 constexpr auto errIntfForInvalidVPD = "com.ibm.VPD.Error.InvalidVPD";
 constexpr auto errIntfForSystemVPDMismatch =
     "com.ibm.VPD.Error.SystemVPDMismatch";
