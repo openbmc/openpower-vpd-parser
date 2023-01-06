@@ -60,6 +60,9 @@ using MapperResponse =
 using RestoredEeproms = std::tuple<Path, std::string, Keyword, Binary>;
 using ReplaceableFrus = std::vector<VPDfilepath>;
 using EssentialFrus = std::vector<Path>;
+using Parsed = std::unordered_map<std::string,
+                                  std::unordered_map<std::string, std::string>>;
+using parsedVPDMap = std::variant<Parsed, KeywordVpdMap>;
 
 } // namespace types
 } // namespace vpd
