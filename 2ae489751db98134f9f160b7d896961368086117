@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36cfac14_146f62db",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-01-06T12:58:58Z",
+      "side": 1,
+      "message": "a) Map is not holding VPD data that can be restored.\nb) used \"to\" reset.\n\nPlease rephrase.",
+      "range": {
+        "startLine": 17,
+        "startChar": 21,
+        "endLine": 17,
+        "endChar": 41
+      },
+      "revId": "2ae489751db98134f9f160b7d896961368086117",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9127b8a8_d8fafd1f",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-01-06T12:58:58Z",
+      "side": 1,
+      "message": "Type says it is a list, list is ok for array or vector or queue which internally a list but here  it is a map. Please use appropriate naming.",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 49
+      },
+      "revId": "2ae489751db98134f9f160b7d896961368086117",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d46e5257_58c23daa",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-01-06T12:58:58Z",
+      "side": 1,
+      "message": "Also what you are holding here is not actually just kwd data.\nSystemVPDKwdInfo?",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 32
+      },
+      "revId": "2ae489751db98134f9f160b7d896961368086117",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3629066e_6dbb312c",
+        "filename": "types.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-01-06T12:58:58Z",
+      "side": 1,
+      "message": "Should start from capital. Also \"Req\" can be read as \"required\" or \"requested\".\nYou can also get rid of \"is\" at the beginning generally we use that king of naming when we are using that in some conditional statement to make it more readable.\n\nYou can just use \"PelRequiredOnRestoreFailure\"",
+      "range": {
+        "startLine": 66,
+        "startChar": 6,
+        "endLine": 66,
+        "endChar": 30
+      },
+      "revId": "2ae489751db98134f9f160b7d896961368086117",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b8637cf_9f5cd803",
+        "filename": "types.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-01-06T12:58:58Z",
+      "side": 1,
+      "message": "Same here, get rid of IS.",
+      "range": {
+        "startLine": 67,
+        "startChar": 6,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "2ae489751db98134f9f160b7d896961368086117",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36e813bf_d3759cd7",
+        "filename": "types.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-01-06T12:58:58Z",
+      "side": 1,
+      "message": "Use a better name, it is not holding just the VPD data.",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 68,
+        "endChar": 21
+      },
+      "revId": "2ae489751db98134f9f160b7d896961368086117",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
