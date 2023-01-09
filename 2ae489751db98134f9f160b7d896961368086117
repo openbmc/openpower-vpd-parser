@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f441fcf4_ef689a32",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-09T19:00:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36cfac14_146f62db",
+      "range": {
+        "startLine": 17,
+        "startChar": 21,
+        "endLine": 17,
+        "endChar": 41
+      },
+      "revId": "2ae489751db98134f9f160b7d896961368086117",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9127b8a8_d8fafd1f",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-06T12:58:58Z",
       "side": 1,
       "message": "Type says it is a list, list is ok for array or vector or queue which internally a list but here  it is a map. Please use appropriate naming.",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 49
+      },
+      "revId": "2ae489751db98134f9f160b7d896961368086117",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "913d5795_36981978",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-09T19:00:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9127b8a8_d8fafd1f",
       "range": {
         "startLine": 23,
         "startChar": 13,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73ecea9b_87c14b43",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-09T19:00:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d46e5257_58c23daa",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 32
+      },
+      "revId": "2ae489751db98134f9f160b7d896961368086117",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3629066e_6dbb312c",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-01-06T12:58:58Z",
       "side": 1,
       "message": "Should start from capital. Also \"Req\" can be read as \"required\" or \"requested\".\nYou can also get rid of \"is\" at the beginning generally we use that king of naming when we are using that in some conditional statement to make it more readable.\n\nYou can just use \"PelRequiredOnRestoreFailure\"",
+      "range": {
+        "startLine": 66,
+        "startChar": 6,
+        "endLine": 66,
+        "endChar": 30
+      },
+      "revId": "2ae489751db98134f9f160b7d896961368086117",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ce1b4f0_f7db2796",
+        "filename": "types.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-09T19:00:29Z",
+      "side": 1,
+      "message": "since its value is either true or false, having such naming makes sense for me.",
+      "parentUuid": "3629066e_6dbb312c",
       "range": {
         "startLine": 66,
         "startChar": 6,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63b126e3_cb55f134",
+        "filename": "types.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-09T19:00:29Z",
+      "side": 1,
+      "message": "since its value is either true or false, having such naming makes sense for me.",
+      "parentUuid": "8b8637cf_9f5cd803",
+      "range": {
+        "startLine": 67,
+        "startChar": 6,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "2ae489751db98134f9f160b7d896961368086117",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36e813bf_d3759cd7",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-01-06T12:58:58Z",
       "side": 1,
       "message": "Use a better name, it is not holding just the VPD data.",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 68,
+        "endChar": 21
+      },
+      "revId": "2ae489751db98134f9f160b7d896961368086117",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0bdce3c_d6695854",
+        "filename": "types.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-09T19:00:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36e813bf_d3759cd7",
       "range": {
         "startLine": 68,
         "startChar": 6,
