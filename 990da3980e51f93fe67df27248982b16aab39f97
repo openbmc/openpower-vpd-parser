@@ -191,6 +191,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8175a59a_32c716b0",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-10T08:14:39Z",
+      "side": 1,
+      "message": "ok. I\u0027ll handle this case by spilting this into two util apis, jsonParse() and vpdIntoMap(). and will handle the redundancy in ibm_vpd_app too.",
+      "parentUuid": "66c3b6f1_4f28ea9f",
+      "range": {
+        "startLine": 1030,
+        "startChar": 0,
+        "endLine": 1064,
+        "endChar": 1
+      },
+      "revId": "990da3980e51f93fe67df27248982b16aab39f97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f1961dc_49c9e240",
