@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20fffe1f_fecd06b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-01-10T08:27:26Z",
+      "side": 1,
+      "message": "Please wrap the line",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 3
+      },
+      "revId": "63b38710b06c772129824c1dd6fec962dd597857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4b647ea_5a4e0f42",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-01-10T08:27:26Z",
+      "side": 1,
+      "message": "Please revert this change",
+      "revId": "63b38710b06c772129824c1dd6fec962dd597857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d5ced14_8357e55a",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-01-10T08:27:26Z",
+      "side": 1,
+      "message": "is string copy actually required here?",
+      "revId": "63b38710b06c772129824c1dd6fec962dd597857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b1bd84b_5dd3a2ac",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-01-10T08:27:26Z",
+      "side": 1,
+      "message": "Same here, is copy actually required.",
+      "revId": "63b38710b06c772129824c1dd6fec962dd597857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
