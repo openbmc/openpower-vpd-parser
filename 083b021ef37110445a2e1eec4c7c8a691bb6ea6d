@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4503078_9ea65c8c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-01-10T05:21:31Z",
+      "side": 1,
+      "message": "nit: For these kid of checks please try to add a comment so that it becomes readable that what are we checking here else there will be a need to go to the declaration to see that.",
+      "range": {
+        "startLine": 919,
+        "startChar": 29,
+        "endLine": 919,
+        "endChar": 48
+      },
+      "revId": "083b021ef37110445a2e1eec4c7c8a691bb6ea6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
