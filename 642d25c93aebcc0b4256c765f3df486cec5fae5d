@@ -85,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a457a376_caa1efed",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-01-11T12:55:49Z",
+      "side": 1,
+      "message": "How you will use void to return something.",
+      "parentUuid": "11590fbf_7d2111a5",
+      "revId": "642d25c93aebcc0b4256c765f3df486cec5fae5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4dc9594_88019ff8",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 10
@@ -120,6 +138,30 @@
       "side": 1,
       "message": "I don\u0027t prefer making vpd-tool depend on store.hpp file just for this alias. If Parsed moved to const file, then we can take a call. For now leaving it as it is.",
       "parentUuid": "a4dc9594_88019ff8",
+      "range": {
+        "startLine": 970,
+        "startChar": 8,
+        "endLine": 970,
+        "endChar": 46
+      },
+      "revId": "642d25c93aebcc0b4256c765f3df486cec5fae5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b2e5ea2_79feb260",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-01-11T12:55:49Z",
+      "side": 1,
+      "message": "It is already dependent on Store.hpp as it has impl.hpp which in-turn depends on Store.hpp. But ok.",
+      "parentUuid": "21e19317_27c12888",
       "range": {
         "startLine": 970,
         "startChar": 8,
