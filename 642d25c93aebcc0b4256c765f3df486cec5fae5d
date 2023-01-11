@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f853712f_e0265ff0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-11T10:55:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e26d8188_dbadb375",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 64
+      },
+      "revId": "642d25c93aebcc0b4256c765f3df486cec5fae5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94fb3e23_2f8b7e90",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-11T10:22:34Z",
       "side": 1,
       "message": "This is actually equal to \"Parsed\" type whichis defined in Store.hpp which is actually included in your code via impl.hpp. \nYou can use \"Parsed\" here. Makes the code more readable. Anyways your call.",
+      "range": {
+        "startLine": 970,
+        "startChar": 8,
+        "endLine": 970,
+        "endChar": 46
+      },
+      "revId": "642d25c93aebcc0b4256c765f3df486cec5fae5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21e19317_27c12888",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-11T10:55:42Z",
+      "side": 1,
+      "message": "I don\u0027t prefer making vpd-tool depend on store.hpp file just for this alias. If Parsed moved to const file, then we can take a call. For now leaving it as it is.",
+      "parentUuid": "a4dc9594_88019ff8",
       "range": {
         "startLine": 970,
         "startChar": 8,
