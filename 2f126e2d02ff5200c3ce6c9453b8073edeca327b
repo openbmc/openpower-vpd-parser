@@ -16,6 +16,24 @@
       "message": "Handle parse exception?",
       "revId": "2f126e2d02ff5200c3ce6c9453b8073edeca327b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2388ee60_f08e9186",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-11T10:55:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31531c01_5fde3098",
+      "revId": "2f126e2d02ff5200c3ce6c9453b8073edeca327b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
