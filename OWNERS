@@ -33,7 +33,7 @@
 
 owners:
 - jinu.joy.thomas@in.ibm.com
-- santosh.puranik@in.ibm.com
+- sunnsr25@in.ibm.com
 
 reviewers:
 
@@ -43,6 +43,6 @@ openbmc:
 - name: Jinu Joy Thomas
   email: jinu.joy.thomas@in.ibm.com
   discord: Jinu Joy
-- name: Santosh Puranik
-  email: santosh.puranik@in.ibm.com
-  discord: puranik
+- name: Sunny Srivastava
+  email: sunnsr25@in.ibm.com
+  discord: sunnysr
