@@ -580,7 +580,16 @@ void Manager::collectFRUVPD(const sdbusplus::message::object_path& path)
     const std::vector<nlohmann::json>& groupEEPROM =
         jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
 
-    const nlohmann::json& singleFru = groupEEPROM[0];
+    nlohmann::json singleFru{};
+    for (const auto& item : groupEEPROM)
+    {
+        if (item["inventoryPath"] == objPath)
+        {
+            // this is the inventory we are looking for
+            singleFru = item;
+            break;
+        }
+    }
 
     // check if the device qualifies for CM.
     if (singleFru.value("concurrentlyMaintainable", false))
