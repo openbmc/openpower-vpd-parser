@@ -22,6 +22,30 @@
       },
       "revId": "083b021ef37110445a2e1eec4c7c8a691bb6ea6d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "548b2036_8ef7ab05",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-11T09:12:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4503078_9ea65c8c",
+      "range": {
+        "startLine": 919,
+        "startChar": 29,
+        "endLine": 919,
+        "endChar": 48
+      },
+      "revId": "083b021ef37110445a2e1eec4c7c8a691bb6ea6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
