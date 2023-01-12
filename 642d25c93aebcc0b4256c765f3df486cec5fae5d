@@ -103,6 +103,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "da783ff6_e55e8093",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-01-12T04:13:52Z",
+      "side": 1,
+      "message": "Why to return at all. Mayn\u0027t be required.",
+      "parentUuid": "a457a376_caa1efed",
+      "revId": "642d25c93aebcc0b4256c765f3df486cec5fae5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4dc9594_88019ff8",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 10
