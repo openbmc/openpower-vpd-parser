@@ -754,6 +754,13 @@ void Manager::deleteFRUVPD(const sdbusplus::message::object_path& path)
     executeCmd(createBindUnbindDriverCmnd(chipAddress, "i2c", "leds-pca955x",
                                           "/unbind"));
 
+    if (!jsonFile["frus"][vpdFilePath].at(0).value("handlePresence", true))
+    {
+        std::cout << "Cannot delete the FRU " << objPath
+                  << " as its presence is not handled by VPD applications.";
+        return;
+    }
+
     // if the FRU is not present then log error
     if (readBusProperty(objPath, "xyz.openbmc_project.Inventory.Item",
                         "Present") == "false")
