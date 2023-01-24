@@ -2440,6 +2440,7 @@
                 "devAddress": "31-0050",
                 "driverType": "at24",
                 "busType": "i2c",
+                "handlePresence": false,
                 "concurrentlyMaintainable": true,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Fan": null,
@@ -2455,6 +2456,7 @@
                 "devAddress": "32-0050",
                 "driverType": "at24",
                 "busType": "i2c",
+                "handlePresence": false,
                 "concurrentlyMaintainable": true,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Fan": null,
@@ -2470,6 +2472,7 @@
                 "devAddress": "33-0050",
                 "driverType": "at24",
                 "busType": "i2c",
+                "handlePresence": false,
                 "concurrentlyMaintainable": true,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Fan": null,
@@ -2485,6 +2488,7 @@
                 "devAddress": "34-0050",
                 "driverType": "at24",
                 "busType": "i2c",
+                "handlePresence": false,
                 "concurrentlyMaintainable": true,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Fan": null,
