@@ -667,14 +667,22 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                 inventory::PropertyMap presProp;
 
                 // Do not populate Present property for frus whose
-                // synthesized=true. synthesized=true says the fru is owned by
-                // some other component and not by vpd.
-                if (!itemEEPROM.value("synthesized", false))
+                // synthesized=true. synthesized=true says the fru VPD is
+                // synthesized and owned by a separate component.
+                // In some cases, the FRU has its own VPD, but still a separate
+                // application handles the FRU's presence. In such cases, VPD
+                // parser skips populating Present property by checking the key,
+                // "handlePresence".
+                if (itemEEPROM.value("handlePresence", true))
                 {
-                    presProp.emplace("Present", false);
-                    interfaces.emplace("xyz.openbmc_project.Inventory.Item",
-                                       presProp);
+                    if (!itemEEPROM.value("synthesized", false))
+                    {
+                        presProp.emplace("Present", false);
+                        interfaces.emplace("xyz.openbmc_project.Inventory.Item",
+                                           presProp);
+                    }
                 }
+
                 setOneTimeProperties(object, interfaces);
                 if (itemEEPROM.find("extraInterfaces") != itemEEPROM.end())
                 {
@@ -1282,12 +1290,17 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         // for such sub frus. Also donot populate present property for embedded
         // subfru which is synthesized. Currently there is no subfru which are
         // both embedded and synthesized. But still the case is handled here.
-        if ((item.value("embedded", true)) &&
-            (!item.value("synthesized", false)))
+
+        // Check if its required to handle presence for this FRU.
+        if (item.value("handlePresence", true))
         {
-            inventory::PropertyMap presProp;
-            presProp.emplace("Present", true);
-            insertOrMerge(interfaces, invItemIntf, move(presProp));
+            if ((item.value("embedded", true)) &&
+                (!item.value("synthesized", false)))
+            {
+                inventory::PropertyMap presProp;
+                presProp.emplace("Present", true);
+                insertOrMerge(interfaces, invItemIntf, move(presProp));
+            }
         }
 
         if constexpr (is_same<T, Parsed>::value)
