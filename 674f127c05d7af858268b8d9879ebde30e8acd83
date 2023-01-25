@@ -116,6 +116,30 @@
       },
       "revId": "674f127c05d7af858268b8d9879ebde30e8acd83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13a61f5a_1b442837",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-01-25T11:53:14Z",
+      "side": 1,
+      "message": "this looks correct to me.\nWe have synthesized VPD for powersupply fru (in rainier and everest) and fan frus (in rainier). Which means the power supply and fans doesn\u0027t have its own VPD, yet its VPD is formulated by powersupply \u0026 fan teams respectively. \n\nBut in everest fan fru has its own VPD. so Matt asked to use a different flag to handle present prop.\n\nIn both these cases - synthesized\u003dtrue and handlePresence\u003dfalse - we don\u0027t handle present property.",
+      "parentUuid": "a4638dfb_86f6e6d8",
+      "range": {
+        "startLine": 670,
+        "startChar": 17,
+        "endLine": 670,
+        "endChar": 58
+      },
+      "revId": "674f127c05d7af858268b8d9879ebde30e8acd83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
