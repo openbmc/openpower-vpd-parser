@@ -35,7 +35,9 @@ static const inventory::SystemKeywordsMap svpdKwdMap{
       inventory::SystemKeywordInfo("SE", Binary(7, 0x20), true, true)}},
     {"LXR0", {inventory::SystemKeywordInfo("LX", Binary(), true, false)}},
     {"UTIL",
-     {inventory::SystemKeywordInfo("D0", Binary(1, 0x00), true, true)}}};
+     {inventory::SystemKeywordInfo("D0", Binary(1, 0x00), true, true),
+      inventory::SystemKeywordInfo("F5", Binary(16, 0x00), false, true),
+      inventory::SystemKeywordInfo("F6", Binary(16, 0x00), false, true)}}};
 
 /** @brief Return the hex representation of the incoming byte
  *
