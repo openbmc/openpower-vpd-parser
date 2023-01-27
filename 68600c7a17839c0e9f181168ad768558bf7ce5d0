@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fd0a04b_973f320a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-01-27T14:56:39Z",
+      "side": 1,
+      "message": "This flag has nothing to do with the fact that FRU has its own VPD or not.\nThe flag only tells that the presence will not be handled by parser code.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 56
+      },
+      "revId": "68600c7a17839c0e9f181168ad768558bf7ce5d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8974075a_532880f6",
