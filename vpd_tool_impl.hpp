@@ -166,6 +166,14 @@ class VpdTool
      */
     void printFixSystemVPDOption(UserOption option);
 
+    /**
+     * @brief Get System VPD data stored in cache
+     *
+     * @param[in] svpdBusData - Map of system VPD record data.
+     */
+    void getSystemDataFromCache(
+        openpower::vpd::inventory::IntfPropMap& svpdBusData);
+
   public:
     /**
      * @brief Dump the complete inventory in JSON format
@@ -241,6 +249,13 @@ class VpdTool
      * @return returncode (success/failure).
      */
     int fixSystemVPD();
+
+    /**
+     * @brief Clean specific keywords in system backplane VPD
+     *
+     * @return return code (success/failure)
+     */
+    int cleanSystemVPD();
 
     /**
      * @brief Constructor

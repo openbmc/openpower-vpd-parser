@@ -145,6 +145,7 @@ if get_option('ibm-parser').enabled()
                                  vpd_tool_SOURCES,
                                  dependencies: [
                                    sdbusplus,
+                                   phosphor_logging,
                                    libgpiodcxx
                                    ],
                                  link_with : libvpdecc,
@@ -155,6 +156,40 @@ if get_option('ibm-parser').enabled()
 if get_option('vpd-manager').enabled()
     subdir('vpd-manager')
 endif
+
+systemd_system_unit_dir = dependency('systemd').get_variable(
+        pkgconfig: 'systemdsystemunitdir')
+
+udev_dir = dependency('udev').get_variable(
+        pkgconfig: 'udev_dir')
+
+install_data(
+    'ibm_vpd/system-vpd.service',
+    install_dir: systemd_system_unit_dir)
+
+install_data(
+    'ibm_vpd/ibm-vpd-parser@.service',
+    install_dir: systemd_system_unit_dir)
+
+install_data(
+    'ibm_vpd/com.ibm.VPD.Manager.service',
+    install_dir: systemd_system_unit_dir)
+
+install_data(
+    'ibm_vpd/wait-vpd-parsers.service',
+    install_dir: systemd_system_unit_dir)
+
+install_data(
+    'ibm_vpd/wait-vpd-parsers.sh',
+    install_mode: 'rwxr-xr-x',
+    install_dir: get_option('bindir'))
+
+install_data(
+    ['ibm_vpd/70-ibm-vpd-parser.rules'],
+    install_dir: udev_dir / 'rules.d')
+
+package_datadir = join_paths('share', 'vpd')
+install_subdir('ibm_vpd/fru/', install_dir: package_datadir, strip_directory: true)
 
 else
         FRUGEN = '$srcdir/extra-properties.py -e' + get_option('FRU_YAML')

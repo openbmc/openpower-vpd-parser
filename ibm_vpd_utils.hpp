@@ -13,14 +13,31 @@ namespace openpower
 namespace vpd
 {
 
-// Map to hold record, kwd pair which can be re-stored at standby.
-// The list of keywords for VSYS record is as per the S0 system. Should
-// be updated for another type of systems
-static const std::unordered_map<std::string, std::vector<std::string>>
-    svpdKwdMap{{"VSYS", {"BR", "TM", "SE", "SU", "RB", "WN", "RG", "FV"}},
-               {"VCEN", {"FC", "SE"}},
-               {"LXR0", {"LX"}},
-               {"UTIL", {"D0"}}};
+// Map which holds system vpd keywords which can be restored at standby and via
+// vpd-tool and also can be used to reset keywords to its defaults at
+// manufacturing. The list of keywords for VSYS record is as per the S0 system.
+// Should be updated for another type of systems For those keywords whose
+// default value is system specific, the default value field is left empty.
+// Record : {Keyword, Default value, Is PEL required on restore failure, Is MFG
+// reset required}
+static const inventory::SystemKeywordsMap svpdKwdMap{
+    {"VSYS",
+     {inventory::SystemKeywordInfo("BR", Binary(2, 0x20), true, true),
+      inventory::SystemKeywordInfo("TM", Binary(8, 0x20), true, true),
+      inventory::SystemKeywordInfo("SE", Binary(7, 0x20), true, true),
+      inventory::SystemKeywordInfo("SU", Binary(6, 0x20), true, true),
+      inventory::SystemKeywordInfo("RB", Binary(4, 0x20), true, true),
+      inventory::SystemKeywordInfo("WN", Binary(12, 0x20), true, true),
+      inventory::SystemKeywordInfo("RG", Binary(4, 0x20), true, true),
+      inventory::SystemKeywordInfo("FV", Binary(32, 0x20), false, true)}},
+    {"VCEN",
+     {inventory::SystemKeywordInfo("FC", Binary(), true, false),
+      inventory::SystemKeywordInfo("SE", Binary(7, 0x20), true, true)}},
+    {"LXR0", {inventory::SystemKeywordInfo("LX", Binary(), true, false)}},
+    {"UTIL",
+     {inventory::SystemKeywordInfo("D0", Binary(1, 0x00), true, true),
+      inventory::SystemKeywordInfo("F5", Binary(16, 0x00), false, true),
+      inventory::SystemKeywordInfo("F6", Binary(16, 0x00), false, true)}}};
 
 /** @brief Return the hex representation of the incoming byte
  *
@@ -138,12 +155,32 @@ T getAllDBusProperty(const std::string& service, const std::string& object,
 
 /**
  * @brief API to create PEL entry
+ * The api makes synchronous call to phosphor-logging create api.
  * @param[in] additionalData - Map holding the additional data
  * @param[in] sev - Severity
  * @param[in] errIntf - error interface
  */
+void createSyncPEL(const std::map<std::string, std::string>& additionalData,
+                   const constants::PelSeverity& sev,
+                   const std::string& errIntf);
+
+/**
+ * @brief Api to create PEL.
+ * A wrapper api through which sync/async call to phosphor-logging create api
+ * can be made as and when required.
+ * sdBus as nullptr will result in sync call else async call will be made with
+ * just "DESCRIPTION" key/value pair in additional data.
+ * To make asyn call with more fields in additional data call
+ * "sd_bus_call_method_async" in place.
+ *
+ * @param[in] additionalData - Map of additional data.
+ * @param[in] sev - severity of the PEL.
+ * @param[in] errIntf - Error interface to be used in PEL.
+ * @param[in] sdBus - Pointer to Sd-Bus
+ */
 void createPEL(const std::map<std::string, std::string>& additionalData,
-               const constants::PelSeverity& sev, const std::string& errIntf);
+               const constants::PelSeverity& sev, const std::string& errIntf,
+               sd_bus* sdBus);
 
 /**
  * @brief getVpdFilePath

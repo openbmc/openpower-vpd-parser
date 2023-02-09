@@ -2,10 +2,8 @@
 
 #include "manager.hpp"
 
-#include "bios_handler.hpp"
 #include "common_utility.hpp"
 #include "editor_impl.hpp"
-#include "gpioMonitor.hpp"
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "parser_factory.hpp"
@@ -14,8 +12,8 @@
 
 #include <filesystem>
 #include <phosphor-logging/elog-errors.hpp>
+#include <xyz/openbmc_project/Common/error.hpp>
 
-using namespace openpower::vpd::manager;
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
 using namespace openpower::vpd::manager::editor;
@@ -33,15 +31,59 @@ namespace vpd
 {
 namespace manager
 {
-Manager::Manager(sdbusplus::bus_t&& bus, const char* busName,
-                 const char* objPath, const char* /*iFace*/) :
-    ServerObject<ManagerIface>(bus, objPath),
-    _bus(std::move(bus)), _manager(_bus, objPath)
+Manager::Manager(std::shared_ptr<boost::asio::io_context>& ioCon,
+                 std::shared_ptr<sdbusplus::asio::dbus_interface>& iFace,
+                 std::shared_ptr<sdbusplus::asio::connection>& conn) :
+    ioContext(ioCon),
+    interface(iFace), conn(conn)
 {
-    _bus.request_name(busName);
+    interface->register_method(
+        "WriteKeyword",
+        [this](const sdbusplus::message::object_path& path,
+               const std::string& recordName, const std::string& keyword,
+               const Binary& value) {
+            this->writeKeyword(path, recordName, keyword, value);
+        });
+
+    interface->register_method(
+        "GetFRUsByUnexpandedLocationCode",
+        [this](const std::string& locationCode,
+               const uint16_t nodeNumber) -> inventory::ListOfPaths {
+            return this->getFRUsByUnexpandedLocationCode(locationCode,
+                                                         nodeNumber);
+        });
+
+    interface->register_method(
+        "GetFRUsByExpandedLocationCode",
+        [this](const std::string& locationCode) -> inventory::ListOfPaths {
+            return this->getFRUsByExpandedLocationCode(locationCode);
+        });
+
+    interface->register_method(
+        "GetExpandedLocationCode",
+        [this](const std::string& locationCode,
+               const uint16_t nodeNumber) -> std::string {
+            return this->getExpandedLocationCode(locationCode, nodeNumber);
+        });
+
+    interface->register_method("PerformVPDRecollection",
+                               [this]() { this->performVPDRecollection(); });
+
+    interface->register_method(
+        "deleteFRUVPD", [this](const sdbusplus::message::object_path& path) {
+            this->deleteFRUVPD(path);
+        });
+
+    interface->register_method(
+        "CollectFRUVPD", [this](const sdbusplus::message::object_path& path) {
+            this->collectFRUVPD(path);
+        });
+
+    sd_bus_default(&sdBus);
+    initManager();
 }
 
-void Manager::run()
+void Manager::initManager()
 {
     try
     {
@@ -51,14 +93,10 @@ void Manager::run()
         listenAssetTag();
 
         // Create an instance of the BIOS handler
-        BiosHandler biosHandler{_bus, *this};
+        biosHandler = std::make_shared<BiosHandler>(conn, *this);
 
-        auto event = sdeventplus::Event::get_default();
-        GpioMonitor gpioMon1(jsonFile, event);
-
-        _bus.attach_event(event.get(), SD_EVENT_PRIORITY_IMPORTANT);
-        cout << "VPD manager event loop started\n";
-        event.loop();
+        // instantiate gpioMonitor class
+        gpioMon = std::make_shared<GpioMonitor>(jsonFile, ioContext);
     }
     catch (const std::exception& e)
     {
@@ -85,8 +123,10 @@ static void
         if (it != vpdMap.end())
         {
             const auto& kwdListForRecord = systemRecKwdPair.second;
-            for (const auto& keyword : kwdListForRecord)
+            for (const auto& keywordInfo : kwdListForRecord)
             {
+                const auto& keyword = get<0>(keywordInfo);
+
                 DbusPropertyMap& kwdValMap = it->second;
                 auto iterator = kwdValMap.find(keyword);
 
@@ -124,7 +164,11 @@ void Manager::restoreSystemVpd()
     try
     {
         auto vpdVector = getVpdDataInVector(jsonFile, systemVpdFilePath);
-        parser = ParserFactory::getParser(vpdVector);
+        const auto& inventoryPath =
+            jsonFile["frus"][systemVpdFilePath][0]["inventoryPath"]
+                .get_ref<const nlohmann::json::string_t&>();
+
+        parser = ParserFactory::getParser(vpdVector, (pimPath + inventoryPath));
         auto parseResult = parser->parse();
 
         if (auto pVal = std::get_if<Store>(&parseResult))
@@ -164,11 +208,38 @@ void Manager::listenHostState()
 {
     static std::shared_ptr<sdbusplus::bus::match_t> hostState =
         std::make_shared<sdbusplus::bus::match_t>(
-            _bus,
+            *conn,
             sdbusplus::bus::match::rules::propertiesChanged(
                 "/xyz/openbmc_project/state/host0",
                 "xyz.openbmc_project.State.Host"),
             [this](sdbusplus::message_t& msg) { hostStateCallBack(msg); });
+}
+
+void Manager::checkEssentialFrus()
+{
+    for (const auto& invPath : essentialFrus)
+    {
+        const auto res = readBusProperty(invPath, invItemIntf, "Present");
+
+        // implies the essential FRU is missing. Log PEL.
+        if (res == "false")
+        {
+            auto rc = sd_bus_call_method_async(
+                sdBus, NULL, loggerService, loggerObjectPath,
+                loggerCreateInterface, "Create", NULL, NULL, "ssa{ss}",
+                errIntfForEssentialFru,
+                "xyz.openbmc_project.Logging.Entry.Level.Warning", 2,
+                "DESCRIPTION", "Essential fru missing from the system.",
+                "CALLOUT_INVENTORY_PATH", (pimPath + invPath).c_str());
+
+            if (rc < 0)
+            {
+                log<level::ERR>("Error calling sd_bus_call_method_async",
+                                entry("RC=%d", rc),
+                                entry("MSG=%s", strerror(-rc)));
+            }
+        }
+    }
 }
 
 void Manager::hostStateCallBack(sdbusplus::message_t& msg)
@@ -190,13 +261,15 @@ void Manager::hostStateCallBack(sdbusplus::message_t& msg)
             if (*hostState == "xyz.openbmc_project.State.Host.HostState."
                               "TransitioningToRunning")
             {
+                // detect if essential frus are present in the system.
+                checkEssentialFrus();
+
                 // check and perfrom recollection for FRUs replaceable at
                 // standby.
                 performVPDRecollection();
                 return;
             }
         }
-        std::cerr << "Failed to read Host state" << std::endl;
     }
 }
 
@@ -204,7 +277,7 @@ void Manager::listenAssetTag()
 {
     static std::shared_ptr<sdbusplus::bus::match_t> assetMatcher =
         std::make_shared<sdbusplus::bus::match_t>(
-            _bus,
+            *conn,
             sdbusplus::bus::match::rules::propertiesChanged(
                 "/xyz/openbmc_project/inventory/system",
                 "xyz.openbmc_project.Inventory.Decorator.AssetTag"),
@@ -298,13 +371,18 @@ void Manager::processJSON()
             {
                 replaceableFrus.emplace_back(itemFRUS.key());
             }
+
+            if (itemEEPROM.value("essentialFru", false))
+            {
+                essentialFrus.emplace_back(itemEEPROM["inventoryPath"]);
+            }
         }
     }
 }
 
-void Manager::writeKeyword(const sdbusplus::message::object_path path,
-                           const std::string recordName,
-                           const std::string keyword, const Binary value)
+void Manager::writeKeyword(const sdbusplus::message::object_path& path,
+                           const std::string& recordName,
+                           const std::string& keyword, const Binary& value)
 {
     try
     {
@@ -343,7 +421,7 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
         if (!std::get<1>(frus.find(objPath)->second).empty())
         {
             EditorImpl edit(std::get<1>(frus.find(objPath)->second), jsonFile,
-                            recordName, keyword);
+                            recordName, keyword, objPath);
             edit.updateKeyword(value, offset, false);
         }
 
@@ -370,7 +448,7 @@ void Manager::writeKeyword(const sdbusplus::message::object_path path,
 }
 
 ListOfPaths
-    Manager::getFRUsByUnexpandedLocationCode(const LocationCode locationCode,
+    Manager::getFRUsByUnexpandedLocationCode(const LocationCode& locationCode,
                                              const NodeNumber nodeNumber)
 {
     ReaderImpl read;
@@ -378,13 +456,13 @@ ListOfPaths
 }
 
 ListOfPaths
-    Manager::getFRUsByExpandedLocationCode(const LocationCode locationCode)
+    Manager::getFRUsByExpandedLocationCode(const LocationCode& locationCode)
 {
     ReaderImpl read;
     return read.getFRUsByExpandedLocationCode(locationCode, fruLocationCode);
 }
 
-LocationCode Manager::getExpandedLocationCode(const LocationCode locationCode,
+LocationCode Manager::getExpandedLocationCode(const LocationCode& locationCode,
                                               const NodeNumber nodeNumber)
 {
     ReaderImpl read;
@@ -409,78 +487,35 @@ void Manager::performVPDRecollection()
         if ((jsonFile["frus"][item].at(0)).find("preAction") !=
             jsonFile["frus"][item].at(0).end())
         {
-            if (!executePreAction(jsonFile, item))
+            try
             {
-                // if the FRU has preAction defined then its execution should
-                // pass to ensure bind/unbind of data.
-                // preAction execution failed. should not call bind/unbind.
-                log<level::ERR>(
-                    "Pre-Action execution failed for the FRU",
-                    entry("ERROR=%s",
-                          ("Inventory path: " + inventoryPath).c_str()));
+                if (!executePreAction(jsonFile, item))
+                {
+                    // if the FRU has preAction defined then its execution
+                    // should pass to ensure bind/unbind of data.
+                    // preAction execution failed. should not call
+                    // bind/unbind.
+                    log<level::ERR>(
+                        "Pre-Action execution failed for the FRU",
+                        entry("ERROR=%s",
+                              ("Inventory path: " + inventoryPath).c_str()));
+                    continue;
+                }
+            }
+            catch (const GpioException& e)
+            {
+                log<level::ERR>(e.what());
+                PelAdditionalData additionalData{};
+                additionalData.emplace("DESCRIPTION", e.what());
+                createPEL(additionalData, PelSeverity::WARNING,
+                          errIntfForGpioError, sdBus);
                 continue;
             }
             prePostActionRequired = true;
         }
 
-        if ((singleFru.find("devAddress") == singleFru.end()) ||
-            (singleFru.find("driverType") == singleFru.end()) ||
-            (singleFru.find("busType") == singleFru.end()))
-        {
-            // The FRUs is marked for replacement but missing mandatory
-            // fields for recollection. Skip to another replaceable fru.
-            log<level::ERR>(
-                "Recollection Failed as mandatory field missing in Json",
-                entry("ERROR=%s",
-                      ("Recollection failed for " + inventoryPath).c_str()));
-            continue;
-        }
-
-        string str = "echo ";
-        string deviceAddress = singleFru["devAddress"];
-        const string& driverType = singleFru["driverType"];
-        const string& busType = singleFru["busType"];
-
-        // devTreeStatus flag is present in json as false to mention
-        // that the EEPROM is not mentioned in device tree. If this flag
-        // is absent consider the value to be true, i.e EEPROM is
-        // mentioned in device tree
-        if (!singleFru.value("devTreeStatus", true))
-        {
-            auto pos = deviceAddress.find('-');
-            if (pos != string::npos)
-            {
-                string busNum = deviceAddress.substr(0, pos);
-                deviceAddress =
-                    "0x" + deviceAddress.substr(pos + 1, string::npos);
-
-                string deleteDevice = str + deviceAddress + " > /sys/bus/" +
-                                      busType + "/devices/" + busType + "-" +
-                                      busNum + "/delete_device";
-                executeCmd(deleteDevice);
-
-                string addDevice = str + driverType + " " + deviceAddress +
-                                   " > /sys/bus/" + busType + "/devices/" +
-                                   busType + "-" + busNum + "/new_device";
-                executeCmd(addDevice);
-            }
-            else
-            {
-                log<level::ERR>(
-                    "Wrong format of device address in Json",
-                    entry(
-                        "ERROR=%s",
-                        ("Recollection failed for " + inventoryPath).c_str()));
-                continue;
-            }
-        }
-        else
-        {
-            executeCmd(createBindUnbindDriverCmnd(deviceAddress, busType,
-                                                  driverType, "/unbind"));
-            executeCmd(createBindUnbindDriverCmnd(deviceAddress, busType,
-                                                  driverType, "/bind"));
-        }
+        // unbind, bind the driver to trigger parser.
+        triggerVpdCollection(singleFru, inventoryPath);
 
         // this check is added to avoid file system expensive call in case not
         // required.
@@ -489,10 +524,257 @@ void Manager::performVPDRecollection()
             // Check if device showed up (test for file)
             if (!filesystem::exists(item))
             {
-                // If not, then take failure postAction
-                executePostFailAction(jsonFile, item);
+                try
+                {
+                    // If not, then take failure postAction
+                    executePostFailAction(jsonFile, item);
+                }
+                catch (const GpioException& e)
+                {
+                    PelAdditionalData additionalData{};
+                    additionalData.emplace("DESCRIPTION", e.what());
+                    createPEL(additionalData, PelSeverity::WARNING,
+                              errIntfForGpioError, sdBus);
+                }
+            }
+            else
+            {
+                // bind the LED driver
+                string chipAddr = singleFru.value("pcaChipAddress", "");
+                cout << "performVPDRecollection: Executing driver binding for "
+                        "chip "
+                        "address - "
+                     << chipAddr << endl;
+
+                executeCmd(createBindUnbindDriverCmnd(chipAddr, "i2c",
+                                                      "leds-pca955x", "/bind"));
             }
         }
+    }
+}
+
+void Manager::collectFRUVPD(const sdbusplus::message::object_path& path)
+{
+    std::cout << "Manager called to collect vpd for fru: " << std::string{path}
+              << std::endl;
+
+    using InvalidArgument =
+        sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
+    using Argument = xyz::openbmc_project::Common::InvalidArgument;
+
+    std::string objPath{path};
+
+    // Strip any inventory prefix in path
+    if (objPath.find(INVENTORY_PATH) == 0)
+    {
+        objPath = objPath.substr(sizeof(INVENTORY_PATH) - 1);
+    }
+
+    // if path not found in Json.
+    if (frus.find(objPath) == frus.end())
+    {
+        elog<InvalidArgument>(Argument::ARGUMENT_NAME("Object Path"),
+                              Argument::ARGUMENT_VALUE(objPath.c_str()));
+    }
+
+    inventory::Path vpdFilePath = std::get<0>(frus.find(objPath)->second);
+
+    const std::vector<nlohmann::json>& groupEEPROM =
+        jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
+
+    nlohmann::json singleFru{};
+    for (const auto& item : groupEEPROM)
+    {
+        if (item["inventoryPath"] == objPath)
+        {
+            // this is the inventory we are looking for
+            singleFru = item;
+            break;
+        }
+    }
+
+    // check if the device qualifies for CM.
+    if (singleFru.value("concurrentlyMaintainable", false))
+    {
+        bool prePostActionRequired = false;
+
+        if ((jsonFile["frus"][vpdFilePath].at(0)).find("preAction") !=
+            jsonFile["frus"][vpdFilePath].at(0).end())
+        {
+            if (!executePreAction(jsonFile, vpdFilePath))
+            {
+                // if the FRU has preAction defined then its execution should
+                // pass to ensure bind/unbind of data.
+                // preAction execution failed. should not call bind/unbind.
+                log<level::ERR>("Pre-Action execution failed for the FRU");
+                return;
+            }
+
+            prePostActionRequired = true;
+        }
+
+        // unbind, bind the driver to trigger parser.
+        triggerVpdCollection(singleFru, objPath);
+
+        // this check is added to avoid file system expensive call in case not
+        // required.
+        if (prePostActionRequired)
+        {
+            // Check if device showed up (test for file)
+            if (!filesystem::exists(vpdFilePath))
+            {
+                try
+                {
+                    // If not, then take failure postAction
+                    executePostFailAction(jsonFile, vpdFilePath);
+                }
+                catch (const GpioException& e)
+                {
+                    PelAdditionalData additionalData{};
+                    additionalData.emplace("DESCRIPTION", e.what());
+                    createPEL(additionalData, PelSeverity::WARNING,
+                              errIntfForGpioError, sdBus);
+                }
+            }
+            else
+            {
+                // bind the LED driver
+                string chipAddr = jsonFile["frus"][vpdFilePath].at(0).value(
+                    "pcaChipAddress", "");
+                cout << "Executing driver binding for chip address - "
+                     << chipAddr << endl;
+
+                executeCmd(createBindUnbindDriverCmnd(chipAddr, "i2c",
+                                                      "leds-pca955x", "/bind"));
+            }
+        }
+        return;
+    }
+    else
+    {
+        elog<InvalidArgument>(Argument::ARGUMENT_NAME("Object Path"),
+                              Argument::ARGUMENT_VALUE(objPath.c_str()));
+    }
+}
+
+void Manager::triggerVpdCollection(const nlohmann::json& singleFru,
+                                   const std::string& path)
+{
+    if ((singleFru.find("devAddress") == singleFru.end()) ||
+        (singleFru.find("driverType") == singleFru.end()) ||
+        (singleFru.find("busType") == singleFru.end()))
+    {
+        // The FRUs is marked for collection but missing mandatory
+        // fields for collection. Log error and return.
+        log<level::ERR>(
+            "Collection Failed as mandatory field missing in Json",
+            entry("ERROR=%s", ("Recollection failed for " + (path)).c_str()));
+
+        return;
+    }
+
+    string deviceAddress = singleFru["devAddress"];
+    const string& driverType = singleFru["driverType"];
+    const string& busType = singleFru["busType"];
+
+    // devTreeStatus flag is present in json as false to mention
+    // that the EEPROM is not mentioned in device tree. If this flag
+    // is absent consider the value to be true, i.e EEPROM is
+    // mentioned in device tree
+    if (!singleFru.value("devTreeStatus", true))
+    {
+        auto pos = deviceAddress.find('-');
+        if (pos != string::npos)
+        {
+            string busNum = deviceAddress.substr(0, pos);
+            deviceAddress = "0x" + deviceAddress.substr(pos + 1, string::npos);
+
+            string deleteDevice = "echo" + deviceAddress + " > /sys/bus/" +
+                                  busType + "/devices/" + busType + "-" +
+                                  busNum + "/delete_device";
+            executeCmd(deleteDevice);
+
+            string addDevice = "echo" + driverType + " " + deviceAddress +
+                               " > /sys/bus/" + busType + "/devices/" +
+                               busType + "-" + busNum + "/new_device";
+            executeCmd(addDevice);
+        }
+        else
+        {
+            const string& inventoryPath =
+                singleFru["inventoryPath"]
+                    .get_ref<const nlohmann::json::string_t&>();
+
+            log<level::ERR>(
+                "Wrong format of device address in Json",
+                entry("ERROR=%s",
+                      ("Recollection failed for " + inventoryPath).c_str()));
+        }
+    }
+    else
+    {
+        executeCmd(createBindUnbindDriverCmnd(deviceAddress, busType,
+                                              driverType, "/unbind"));
+        executeCmd(createBindUnbindDriverCmnd(deviceAddress, busType,
+                                              driverType, "/bind"));
+    }
+}
+
+void Manager::deleteFRUVPD(const sdbusplus::message::object_path& path)
+{
+    std::cout << "Manager called to delete vpd for fru: " << std::string{path}
+              << std::endl;
+
+    using InvalidArgument =
+        sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
+    using Argument = xyz::openbmc_project::Common::InvalidArgument;
+
+    std::string objPath{path};
+
+    // Strip any inventory prefix in path
+    if (objPath.find(INVENTORY_PATH) == 0)
+    {
+        objPath = objPath.substr(sizeof(INVENTORY_PATH) - 1);
+    }
+
+    // if path not found in Json.
+    if (frus.find(objPath) == frus.end())
+    {
+        elog<InvalidArgument>(Argument::ARGUMENT_NAME("Object Path"),
+                              Argument::ARGUMENT_VALUE(objPath.c_str()));
+    }
+
+    inventory::Path& vpdFilePath = std::get<0>(frus.find(objPath)->second);
+
+    string chipAddress =
+        jsonFile["frus"][vpdFilePath].at(0).value("pcaChipAddress", "");
+
+    // Unbind the LED driver for this FRU
+    cout << "Unbinding device- " << chipAddress << endl;
+    executeCmd(createBindUnbindDriverCmnd(chipAddress, "i2c", "leds-pca955x",
+                                          "/unbind"));
+
+    // if the FRU is not present then log error
+    if (readBusProperty(objPath, "xyz.openbmc_project.Inventory.Item",
+                        "Present") == "false")
+    {
+        elog<InvalidArgument>(Argument::ARGUMENT_NAME("FRU not preset"),
+                              Argument::ARGUMENT_VALUE(objPath.c_str()));
+    }
+    else
+    {
+        // Set present property of FRU as false as it has been removed.
+        // CC data for FRU is also removed as
+        // a) FRU is not there so CC does not make sense.
+        // b) Sensors dependent on Panel uses CC data.
+        inventory::InterfaceMap interfaces{
+            {"xyz.openbmc_project.Inventory.Item", {{"Present", false}}},
+            {"com.ibm.ipzvpd.VINI", {{"CC", Binary{}}}}};
+
+        inventory::ObjectMap objectMap;
+        objectMap.emplace(objPath, move(interfaces));
+
+        common::utility::callPIM(move(objectMap));
     }
 }
 

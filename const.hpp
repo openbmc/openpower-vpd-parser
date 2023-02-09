@@ -56,6 +56,7 @@ static constexpr auto RAINIER_4U_V2 = "50001000_v2.json";
 static constexpr auto RAINIER_1S4U = "50001002.json";
 static constexpr auto EVEREST = "50003000.json";
 static constexpr auto EVEREST_V2 = "50003000_v2.json";
+static constexpr auto BONNELL = "50004000.json";
 
 constexpr uint8_t KW_VPD_START_TAG = 0x82;
 constexpr uint8_t KW_VPD_END_TAG = 0x78;
@@ -80,16 +81,20 @@ constexpr auto offsetJsonDirectory = "/var/lib/vpd/";
 constexpr auto mapperObjectPath = "/xyz/openbmc_project/object_mapper";
 constexpr auto mapperInterface = "xyz.openbmc_project.ObjectMapper";
 constexpr auto mapperDestination = "xyz.openbmc_project.ObjectMapper";
+constexpr auto loggerService = "xyz.openbmc_project.Logging";
 constexpr auto loggerObjectPath = "/xyz/openbmc_project/logging";
 constexpr auto loggerCreateInterface = "xyz.openbmc_project.Logging.Create";
 constexpr auto errIntfForBlankSystemVPD = "com.ibm.VPD.Error.BlankSystemVPD";
 constexpr auto errIntfForInvalidVPD = "com.ibm.VPD.Error.InvalidVPD";
+constexpr auto errIntfForSystemVPDMismatch =
+    "com.ibm.VPD.Error.SystemVPDMismatch";
 constexpr auto errIntfForStreamFail = "com.ibm.VPD.Error.InavlidEepromPath";
 constexpr auto errIntfForEccCheckFail = "com.ibm.VPD.Error.EccCheckFailed";
 constexpr auto errIntfForJsonFailure = "com.ibm.VPD.Error.InvalidJson";
 constexpr auto errIntfForBusFailure = "com.ibm.VPD.Error.DbusFailure";
 constexpr auto errIntfForInvalidSystemType =
     "com.ibm.VPD.Error.UnknownSytemType";
+constexpr auto errIntfForEssentialFru = "com.ibm.VPD.Error.RequiredFRUMissing";
 constexpr auto errIntfForGpioError = "com.ibm.VPD.Error.GPIOError";
 constexpr auto motherBoardInterface =
     "xyz.openbmc_project.Inventory.Item.Board.Motherboard";
@@ -97,6 +102,7 @@ constexpr auto systemVpdFilePath = "/sys/bus/i2c/drivers/at24/8-0050/eeprom";
 constexpr auto i2cPathPrefix = "/sys/bus/i2c/drivers/at24/";
 constexpr auto spiPathPrefix = "/sys/bus/spi/drivers/at25/";
 constexpr auto invItemIntf = "xyz.openbmc_project.Inventory.Item";
+constexpr auto errIntfForSysVPDMismatch = "com.ibm.VPD.Error.SystemVPDMismatch";
 
 namespace lengths
 {
