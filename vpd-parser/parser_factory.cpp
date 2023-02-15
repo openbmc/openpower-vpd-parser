@@ -3,6 +3,7 @@
 #include "const.hpp"
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
+#include "isdimm_vpd_parser.hpp"
 #include "keyword_vpd_parser.hpp"
 #include "memory_vpd_parser.hpp"
 #include "vpd_exceptions.hpp"
@@ -40,9 +41,16 @@ interface::ParserInterface*
             return new KeywordVpdParser(vpdVector);
         }
 
-        case MEMORY_VPD:
+        case DDR4_DDIMM_MEMORY_VPD:
+        case DDR5_DDIMM_MEMORY_VPD:
         {
             return new memoryVpdParser(vpdVector);
+        }
+
+        case DDR4_ISDIMM_MEMORY_VPD:
+        case DDR5_ISDIMM_MEMORY_VPD:
+        {
+            return new isdimmVpdParser(vpdVector);
         }
 
         default:
