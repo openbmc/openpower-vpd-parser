@@ -68,6 +68,22 @@ class memoryVpdParser : public ParserInterface
 
     // vdp file to be parsed
     const Binary& memVpd;
+
+    /**
+     * @brief This function calculates DDR5 dimm size from DIMM VPD
+     *
+     * @param[in] iterator - iterator to buffer containing VPD
+     * @return calculated data or 0 in case of any error.
+     */
+    auto getDDR5DimmSize(Binary::const_iterator& iterator);
+
+    /**
+     * @brief This API calls the relevant APIs based on SDRAM type
+     *
+     * @param[in] iterator - iterator to buffer containing VPD
+     * @return dimm size.
+     */
+    auto getDDRXDimmSize(Binary::const_iterator& iterator);
 };
 } // namespace parser
 } // namespace memory
