@@ -46,6 +46,30 @@
       },
       "revId": "4311549e0cdfede99c3a5f338fb15672d537bba0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2f8e05e_47177667",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-15T09:56:11Z",
+      "side": 1,
+      "message": "I know it is under 72 chars only. I am saying we need to wrap near to 72 not very far from it.\nEg: you can wrap at around 70, 68 etc. where the last word end not not at 56 or 50.",
+      "parentUuid": "893fb8b0_cdc0707f",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 50
+      },
+      "revId": "4311549e0cdfede99c3a5f338fb15672d537bba0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
