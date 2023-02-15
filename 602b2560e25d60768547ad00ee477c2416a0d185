@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36146775_621ec52b",
+        "filename": "vpd-parser/isdimm_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-15T05:26:29Z",
+      "side": 1,
+      "message": "const refence?",
+      "range": {
+        "startLine": 211,
+        "startChar": 34,
+        "endLine": 211,
+        "endChar": 56
+      },
+      "revId": "602b2560e25d60768547ad00ee477c2416a0d185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92c94da0_f4c35c9a",
+        "filename": "vpd-parser/isdimm_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-15T05:26:29Z",
+      "side": 1,
+      "message": "Can we avoid \"using namespaces\" in header file as it can lead to ambiguities.\nAlthough it is under another namespace but as a general practice.",
+      "revId": "602b2560e25d60768547ad00ee477c2416a0d185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "142023c6_27cb05e8",
+        "filename": "vpd-parser/isdimm_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-15T05:26:29Z",
+      "side": 1,
+      "message": "nit:published? Also brief needs to be wrapped under one line?",
+      "range": {
+        "startLine": 47,
+        "startChar": 7,
+        "endLine": 47,
+        "endChar": 14
+      },
+      "revId": "602b2560e25d60768547ad00ee477c2416a0d185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcbf4840_0ba52da1",
+        "filename": "vpd-parser/isdimm_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-15T05:26:29Z",
+      "side": 1,
+      "message": "const ref.",
+      "range": {
+        "startLine": 91,
+        "startChar": 21,
+        "endLine": 91,
+        "endChar": 43
+      },
+      "revId": "602b2560e25d60768547ad00ee477c2416a0d185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
