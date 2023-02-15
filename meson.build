@@ -110,6 +110,7 @@ configure_file(output: 'config.h',
 common_SOURCES =['common_utility.cpp',
 'vpd-parser/parser_factory.cpp',
                  'vpd-parser/memory_vpd_parser.cpp',
+                 'vpd-parser/isdimm_vpd_parser.cpp',
                  'vpd-parser/keyword_vpd_parser.cpp',
                  'vpd-parser/ipz_parser.cpp', 'impl.cpp', 'ibm_vpd_utils.cpp',
 ]

@@ -29,7 +29,7 @@ using Path = std::string;
 using Property = std::string;
 using Value = std::variant<bool, size_t, int64_t, std::string, Binary>;
 using PropertyMap = std::map<Property, Value>;
-using kwdVpdValueTypes = std::variant<size_t, Binary>;
+using kwdVpdValueTypes = std::variant<size_t, Binary, std::string>;
 
 using Interface = std::string;
 using InterfaceMap = std::map<Interface, PropertyMap>;
