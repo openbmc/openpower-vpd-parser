@@ -33,7 +33,8 @@ application_src =['../impl.cpp',
                    '../vpd-parser/keyword_vpd_parser.cpp',
                    '../vpd-manager/editor_impl.cpp',
                    '../vpd-parser/parser_factory.cpp',
-                   '../vpd-parser/memory_vpd_parser.cpp'
+                   '../vpd-parser/memory_vpd_parser.cpp',
+                   '../vpd-parser/isdimm_vpd_parser.cpp'
                   ]
 
 foreach t : vpd_test
