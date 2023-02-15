@@ -117,6 +117,11 @@ constexpr auto spiPathPrefix = "/sys/bus/spi/drivers/at25/";
 constexpr auto invItemIntf = "xyz.openbmc_project.Inventory.Item";
 constexpr auto errIntfForSysVPDMismatch = "com.ibm.VPD.Error.SystemVPDMismatch";
 
+static constexpr auto SPD_JEDEC_DDR5_PRI_BUS_WIDTH_PER_CHANNEL_MASK = 0x07;
+static constexpr auto SPD_JEDEC_DDR5_SDRAM_DENSITY_PER_DIE_MASK = 0x1F;
+static constexpr auto SPD_JEDEC_DDR5_SDRAM_IO_WIDTH_MASK = 0xE0;
+static constexpr auto SPD_JEDEC_DDR5_DIE_PER_PKG_MASK = 0xE0;
+
 namespace lengths
 {
 enum Lengths
