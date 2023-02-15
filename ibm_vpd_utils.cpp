@@ -1023,5 +1023,22 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
 
     return vpdVector;
 }
+
+void getNumOfEvenAndOddNumbrsInGivenNum(int& num, uint8_t& numOfEvenNumbrs,
+                                        uint8_t& numOfOddNumbrs)
+{
+    uint8_t evenNumCount = 0;
+    uint8_t oddNumCount = 0;
+    while (num >= 0)
+    {
+        if (num % 2 == 0)
+            evenNumCount++;
+        else
+            oddNumCount++;
+        num = num - 1;
+    }
+    numOfEvenNumbrs = evenNumCount;
+    numOfOddNumbrs = oddNumCount;
+}
 } // namespace vpd
 } // namespace openpower

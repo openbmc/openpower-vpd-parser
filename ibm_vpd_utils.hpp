@@ -487,5 +487,15 @@ std::string getPowerState();
  * @return A byte array containing the raw VPD.
  */
 Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file);
+
+/**
+ * @brief Finds number of even and odd numbers in a given number range
+ *
+ * @param num[in] - The given number
+ * @param numOfEvenNumbrs[out] - The number of even numbers count
+ * @param numOfOddNumbrs[out] - The number of odd numbers count
+ */
+void getNumOfEvenAndOddNumbrsInGivenNum(int& num, uint8_t& numOfEvenNumbrs,
+                                        uint8_t& numOfOddNumbrs);
 } // namespace vpd
 } // namespace openpower
