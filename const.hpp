@@ -72,6 +72,13 @@ static constexpr auto SERIAL_NUM_LEN = 12;
 static constexpr auto CCIN_LEN = 4;
 static constexpr auto CONVERT_MB_TO_KB = 1024;
 
+static constexpr auto SPD_BYTE_2 = 2;
+static constexpr auto SPD_BYTE_3 = 3;
+static constexpr auto SPD_BYTE_4 = 4;
+static constexpr auto SPD_BYTE_6 = 6;
+static constexpr auto SPD_BYTE_12 = 12;
+static constexpr auto SPD_BYTE_13 = 13;
+
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
 constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
 constexpr auto kwdVpdInf = "com.ibm.ipzvpd.VINI";
@@ -149,10 +156,13 @@ enum Status
  */
 enum vpdType
 {
-    IPZ_VPD,           /**< IPZ VPD type */
-    KEYWORD_VPD,       /**< Keyword VPD type */
-    MEMORY_VPD,        /**< Memory VPD type */
-    INVALID_VPD_FORMAT /**< Invalid VPD type */
+    IPZ_VPD,                /**< IPZ VPD type */
+    KEYWORD_VPD,            /**< Keyword VPD type */
+    DDR4_DDIMM_MEMORY_VPD,  /**< DDR4 DDIMM Memory VPD type */
+    DDR5_DDIMM_MEMORY_VPD,  /**< DDR5 DDIMM Memory VPD type */
+    DDR4_ISDIMM_MEMORY_VPD, /**< DDR4 ISDIMM Memory VPD type */
+    DDR5_ISDIMM_MEMORY_VPD, /**< DDR5 ISDIMM Memory VPD type */
+    INVALID_VPD_FORMAT      /**< Invalid VPD type */
 };
 
 enum PelSeverity
