@@ -371,10 +371,29 @@ vpdType vpdTypeCheck(const Binary& vpdVector)
         // KEYWORD VPD FORMAT
         return vpdType::KEYWORD_VPD;
     }
-    else if (is11SFormat.compare(MEMORY_VPD_START_TAG) == 0)
+    else if (((vpdVector[SPD_BYTE_3] & SPD_BYTE_BIT_0_3_MASK) ==
+              SPD_MODULE_TYPE_DDIMM) &&
+             (is11SFormat.compare(MEMORY_VPD_START_TAG)))
     {
-        // Memory VPD format
-        return vpdType::MEMORY_VPD;
+        // DDIMM Memory VPD format
+        if ((vpdVector[SPD_BYTE_2] & SPD_BYTE_MASK) == SPD_DRAM_TYPE_DDR5)
+        {
+            return vpdType::DDR5_DDIMM_MEMORY_VPD;
+        }
+        else if ((vpdVector[SPD_BYTE_2] & SPD_BYTE_MASK) == SPD_DRAM_TYPE_DDR4)
+        {
+            return vpdType::DDR4_DDIMM_MEMORY_VPD;
+        }
+    }
+    else if ((vpdVector[SPD_BYTE_2] & SPD_BYTE_MASK) == SPD_DRAM_TYPE_DDR5)
+    {
+        // ISDIMM Memory VPD format
+        return vpdType::DDR5_ISDIMM_MEMORY_VPD;
+    }
+    else if ((vpdVector[SPD_BYTE_2] & SPD_BYTE_MASK) == SPD_DRAM_TYPE_DDR4)
+    {
+        // ISDIMM Memory VPD format
+        return vpdType::DDR4_ISDIMM_MEMORY_VPD;
     }
 
     // INVALID VPD FORMAT
