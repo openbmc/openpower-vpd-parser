@@ -78,9 +78,13 @@ static constexpr auto SPD_BYTE_2 = 2;
 static constexpr auto SPD_BYTE_3 = 3;
 static constexpr auto SPD_BYTE_4 = 4;
 static constexpr auto SPD_BYTE_6 = 6;
+static constexpr auto SPD_BYTE_8 = 8;
+static constexpr auto SPD_BYTE_10 = 10;
 static constexpr auto SPD_BYTE_12 = 12;
 static constexpr auto SPD_BYTE_13 = 13;
 static constexpr auto SPD_BYTE_18 = 18;
+static constexpr auto SPD_BYTE_234 = 234;
+static constexpr auto SPD_BYTE_235 = 235;
 static constexpr auto SPD_BYTE_BIT_0_3_MASK = 0x0F;
 static constexpr auto SPD_BYTE_MASK = 0xFF;
 
