@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a20f7f06_9529c35a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-15T08:23:35Z",
+      "side": 1,
+      "message": "\u003eThis flag has nothing to do with the fact that FRU has its own VPD or not.\n thats right. I didn\u0027t mention that anywhere.\n\n\u003eThis is required in cases where the FRU has its own VPD ...\n \"This\" in this statement refers to the commit and I have given the reason for this \n change to happen.",
+      "parentUuid": "2fd0a04b_973f320a",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 56
+      },
+      "revId": "68600c7a17839c0e9f181168ad768558bf7ce5d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8974075a_532880f6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
