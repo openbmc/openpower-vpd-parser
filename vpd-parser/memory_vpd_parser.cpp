@@ -17,10 +17,16 @@ using namespace constants;
 using namespace std;
 using namespace openpower::vpd::parser;
 
+static constexpr auto MEM_BYTE_2 = 2;
 static constexpr auto MEM_BYTE_4 = 4;
 static constexpr auto MEM_BYTE_6 = 6;
+static constexpr auto MEM_BYTE_8 = 8;
+static constexpr auto MEM_BYTE_10 = 10;
 static constexpr auto MEM_BYTE_12 = 12;
 static constexpr auto MEM_BYTE_13 = 13;
+static constexpr auto MEM_BYTE_234 = 234;
+static constexpr auto MEM_BYTE_235 = 235;
+
 static constexpr auto JEDEC_SDRAM_CAP_MASK = 0x0F;
 static constexpr auto JEDEC_PRI_BUS_WIDTH_MASK = 0x07;
 static constexpr auto JEDEC_SDRAM_WIDTH_MASK = 0x07;
@@ -35,6 +41,47 @@ static constexpr auto JEDEC_SDRAM_WIDTH_MULTIPLIER = 4;
 static constexpr auto JEDEC_SDRAMCAP_RESERVED = 6;
 static constexpr auto JEDEC_RESERVED_BITS = 3;
 static constexpr auto JEDEC_DIE_COUNT_RIGHT_SHIFT = 4;
+
+static constexpr auto JEDEC_SDRAM_NUM_OF_CHNLS_PER_DIMM_MASK = 0x60;
+static constexpr auto JEDEC_PRI_BUS_WIDTH_PER_CHNL_MASK = 0x07;
+static constexpr auto JDEC_SDRAM_IO_WIDTH_MASK = 0xE0;
+static constexpr auto JDEC_SDRAM_DIE_PER_PKG_MASK = 0xE0;
+static constexpr auto JDEC_SDRAM_DENSITY_PER_DIE_MASK = 0x1F;
+static constexpr auto JDEC_NUM_OF_PKG_RANK_PER_CHNL_MASK = 0x38;
+static constexpr auto JDEC_SDRAM_RANK_MIX_TYPE_MASK = 0x40;
+
+static constexpr auto RIGHT_SHIFT_BY_FIVE_POSN = 5;
+static constexpr auto RIGHT_SHIFT_BY_THREE_POSN = 3;
+static constexpr auto JEDEC_SDRAM_RANK_MIX_TYPE_BIT_POSITION = 6;
+
+static constexpr auto JEDEC_NUM_OF_CHNL_PER_DIMM_RESERVED_BITS = 1;
+static constexpr auto JEDEC_PRI_BUS_WIDTH_PER_CHNL_RESERVED_BITS = 3;
+static constexpr auto JEDEC_NUM_OF_PKG_RANKS_PER_CHNL_RESERVED_BITS = 7;
+static constexpr auto JEDEC_SDRAM_IO_WIDTH_RESERVED_BITS = 3;
+static constexpr auto JEDEC_DIE_PER_PKG_RESERVED_BIT_001 = 1;
+static constexpr auto JEDEC_DIE_PER_PKG_RESERVED_BITS = 5;
+static constexpr auto JEDEC_SDRAM_DENSITY_PER_DIE_RESERVED_BITS = 8;
+
+static constexpr auto JEDEC_PRI_BUS_WIDTH_PER_CHNL_MULTIPLIER = 8;
+
+static const std::unordered_map<size_t, size_t> diePerPkgMap = {
+    {0, 1}, {2, 2}, {3, 4}, {4, 8}, {5, 16}};
+
+static const std::unordered_map<size_t, size_t> sdramDnstyPerDieMap = {
+    {0, 0},  {1, 4},  {2, 8},  {3, 12}, {4, 16},
+    {5, 24}, {6, 32}, {7, 48}, {8, 64}};
+
+enum SdRamType
+{
+    EN_DDR4 = 0x0C,
+    EN_DDR5 = 0x12
+};
+
+enum SdRamMixType
+{
+    EN_SYMMETRICAL = 0,
+    EN_ASYMMETRICAL = 1
+};
 
 auto memoryVpdParser::getDimmSize(Binary::const_iterator iterator)
 {
@@ -104,12 +151,299 @@ auto memoryVpdParser::getDimmSize(Binary::const_iterator iterator)
     return dimmSize;
 }
 
+/**
+ * @brief Find number of even and odd numbers in a given number range
+ *
+ * @param num[in] - The given number
+ * @param numOfEvenNumbrs[out] - The even numbers count
+ * @param numOfOddNumbrs[out] - The odd numbers count
+ */
+static void getNumOfEvenAndOddNumbrsInGivenNum(size_t& num,
+                                               size_t& numOfEvenNumbrs,
+                                               size_t& numOfOddNumbrs)
+{
+    numOfOddNumbrs = num / 2;
+
+    if (num % 2 != 0)
+        numOfOddNumbrs += 1;
+
+    numOfEvenNumbrs = (num + 1) - numOfOddNumbrs;
+}
+
+/**
+ * @brief Get the SDRAM parameters from the SPD
+ *
+ * @param iterator[in] - iterator - iterator to buffer containing SPD
+ * @param sdramIoWid[in,out] - The SDRAM I/O Width
+ * @param diePerPkg[out] - The Die per Package
+ * @param dramDnstyPerDie[out] - The SDRAM Density Per Die
+ */
+static auto getSdramParamsFromSPDData(Binary::const_iterator& iterator,
+                                      size_t& sdramIoWid, size_t& diePerPkg,
+                                      size_t& sdramDnstyPerDie)
+{
+    bool isErrOccurd = false;
+    size_t tmp = 0;
+
+    // Calculate SDRAM I/O Width
+    tmp = iterator[MEM_BYTE_6] & JDEC_SDRAM_IO_WIDTH_MASK;
+    tmp = tmp >> RIGHT_SHIFT_BY_FIVE_POSN;
+    if (tmp > JEDEC_SDRAM_IO_WIDTH_RESERVED_BITS)
+    {
+        cerr << "Bad data in vpd byte 6. Can't calculate SDRAM i/o "
+                "width and so "
+                "dimm size.\n ";
+
+        isErrOccurd = true;
+    }
+    else
+    {
+        sdramIoWid = (sdramIoWid << tmp) * JEDEC_SDRAM_WIDTH_MULTIPLIER;
+    }
+
+    // Calculate Die per Package
+    tmp = iterator[MEM_BYTE_4] & JDEC_SDRAM_DIE_PER_PKG_MASK;
+    tmp = tmp >> RIGHT_SHIFT_BY_FIVE_POSN;
+
+    if ((tmp == JEDEC_DIE_PER_PKG_RESERVED_BIT_001) ||
+        (tmp > JEDEC_DIE_PER_PKG_RESERVED_BITS))
+    {
+        cerr << "Bad data in vpd byte 4. Can't calculate Die Per "
+                "Package and so "
+                "dimm size.\n ";
+
+        isErrOccurd = true;
+    }
+    else
+    {
+        if (diePerPkgMap.find(tmp) != diePerPkgMap.end())
+        {
+            diePerPkg = diePerPkgMap.find(tmp)->second;
+        }
+    }
+
+    // Calculate SDRAM Density Per Die
+    tmp = iterator[MEM_BYTE_4] & JDEC_SDRAM_DENSITY_PER_DIE_MASK;
+    if (tmp > JEDEC_SDRAM_DENSITY_PER_DIE_RESERVED_BITS)
+    {
+        cerr << "Bad data in vpd byte 4. Can't calculate SDRAM Density "
+                "Per Die and so "
+                "dimm size.\n ";
+
+        isErrOccurd = true;
+    }
+    else
+    {
+        if (sdramDnstyPerDieMap.find(tmp) != sdramDnstyPerDieMap.end())
+        {
+            sdramDnstyPerDie = sdramDnstyPerDieMap.find(tmp)->second;
+        }
+    }
+
+    return isErrOccurd;
+}
+
+auto memoryVpdParser::getDDR5DimmSize(Binary::const_iterator& iterator)
+{
+    size_t tmp = 0, dimmSize = 0;
+
+    size_t noOfChanlPerDimm = 0, priBusWidPerChanl = 1, noOfPkgRankPerChnl = 1;
+
+    // Calculate number of channels per DIMM
+    tmp = iterator[MEM_BYTE_235] & JEDEC_SDRAM_NUM_OF_CHNLS_PER_DIMM_MASK;
+    tmp = tmp >> RIGHT_SHIFT_BY_FIVE_POSN;
+    if (tmp > JEDEC_NUM_OF_CHNL_PER_DIMM_RESERVED_BITS)
+    {
+        cerr << "Bad data in vpd byte 235. Can't calculate number of "
+                "channel per DIMM so "
+                "dimm size.\n ";
+        return dimmSize;
+    }
+    noOfChanlPerDimm = tmp;
+
+    // Calculate Primary bus width per Channel
+    tmp = iterator[MEM_BYTE_235] & JEDEC_PRI_BUS_WIDTH_PER_CHNL_MASK;
+
+    if (tmp > JEDEC_PRI_BUS_WIDTH_PER_CHNL_RESERVED_BITS)
+    {
+        cerr << "Bad data in vpd byte 235. Can't calculate primary bus "
+                "width "
+                "and so dimm size.\n ";
+        return dimmSize;
+    }
+    priBusWidPerChanl =
+        (priBusWidPerChanl << tmp) * JEDEC_PRI_BUS_WIDTH_PER_CHNL_MULTIPLIER;
+
+    // Calculate Number of Package Ranks per Channel
+    tmp = iterator[MEM_BYTE_234] & JDEC_NUM_OF_PKG_RANK_PER_CHNL_MASK;
+    tmp = tmp >> RIGHT_SHIFT_BY_THREE_POSN;
+    if (tmp > JEDEC_NUM_OF_PKG_RANKS_PER_CHNL_RESERVED_BITS)
+    {
+        cerr << "Bad data in vpd byte 234. Can't calculate number of "
+                "package ranks per channel "
+                "and so dimm size.\n ";
+        return dimmSize;
+    }
+    noOfPkgRankPerChnl += tmp;
+
+    // Calculate Rank Mix Type(Symmetrical or Asymmetrical)
+    size_t sdramRankMixType = SdRamMixType::EN_SYMMETRICAL;
+    tmp = iterator[MEM_BYTE_234] & JDEC_SDRAM_RANK_MIX_TYPE_MASK;
+
+    tmp &= (1 << JEDEC_SDRAM_RANK_MIX_TYPE_BIT_POSITION);
+
+    if (tmp == 1)
+    {
+        sdramRankMixType = SdRamMixType::EN_ASYMMETRICAL;
+    }
+
+    if (sdramRankMixType == SdRamMixType::EN_SYMMETRICAL)
+    {
+        size_t sdramIoWid = 1;
+        size_t diePerPkg = 0, sdramDnstyPerDie = 0;
+
+        auto retVal = getSdramParamsFromSPDData(iterator, sdramIoWid, diePerPkg,
+                                                sdramDnstyPerDie);
+        if (!retVal)
+        {
+            // returning dimmSize as 0
+            return dimmSize;
+        }
+
+        dimmSize = (noOfChanlPerDimm * (priBusWidPerChanl / sdramIoWid) *
+                    diePerPkg * (sdramDnstyPerDie / 8) * noOfPkgRankPerChnl);
+    }
+    else
+    {
+        size_t priSdramIoWid = 1;
+        size_t priSdramDiePerPkg = 0, priSdramDnstyPerDie = 0;
+
+        bool isErrOccurdForEvenRanks = false;
+        bool isErrOccurdForOddRanks = false;
+
+        isErrOccurdForEvenRanks = getSdramParamsFromSPDData(
+            iterator, priSdramIoWid, priSdramDiePerPkg, priSdramDnstyPerDie);
+
+        size_t secSdramIoWid = 1;
+        size_t secSdramDiePerPkg = 0, secSdramDnstyPerDie = 0;
+
+        // Calculate Second SDRAM/Odd Ranks I/O Width
+        tmp = iterator[MEM_BYTE_10] & JDEC_SDRAM_IO_WIDTH_MASK;
+        tmp = tmp >> RIGHT_SHIFT_BY_FIVE_POSN;
+        if (tmp > JEDEC_SDRAM_IO_WIDTH_RESERVED_BITS)
+        {
+            cerr << "Bad data in vpd byte 10. Can't calculate SDRAM "
+                    "i/o width of Asymmetrical odd ranks so "
+                    "dimm size.\n ";
+
+            isErrOccurdForOddRanks = true;
+        }
+        else
+        {
+            secSdramIoWid =
+                (secSdramIoWid << tmp) * JEDEC_SDRAM_WIDTH_MULTIPLIER;
+        }
+
+        // Calculate Die per Package
+        tmp = iterator[MEM_BYTE_8] & JDEC_SDRAM_DIE_PER_PKG_MASK;
+        tmp = tmp >> RIGHT_SHIFT_BY_FIVE_POSN;
+
+        if ((tmp == JEDEC_DIE_PER_PKG_RESERVED_BIT_001) ||
+            (tmp > JEDEC_DIE_PER_PKG_RESERVED_BITS))
+        {
+            cerr << "Bad data in vpd byte 8. Can't calculate Die Per "
+                    "Package of Asymmetrical odd ranks and so "
+                    "dimm size.\n ";
+
+            isErrOccurdForOddRanks = true;
+        }
+        else
+        {
+            if (diePerPkgMap.find(tmp) != diePerPkgMap.end())
+            {
+                secSdramDiePerPkg = diePerPkgMap.find(tmp)->second;
+            }
+        }
+
+        // Calculate SDRAM Density Per Die
+        tmp = iterator[MEM_BYTE_8] & JDEC_SDRAM_DENSITY_PER_DIE_MASK;
+        if (tmp > JEDEC_SDRAM_DENSITY_PER_DIE_RESERVED_BITS)
+        {
+            cerr << "Bad data in vpd byte 8. Can't calculate SDRAM Density "
+                    "Per Die of Asymmetrical odd ranks and so "
+                    "dimm size.\n ";
+
+            isErrOccurdForOddRanks = true;
+        }
+        else
+        {
+            if (sdramDnstyPerDieMap.find(tmp) != sdramDnstyPerDieMap.end())
+            {
+                secSdramDnstyPerDie = sdramDnstyPerDieMap.find(tmp)->second;
+            }
+        }
+
+        if ((isErrOccurdForEvenRanks) || (isErrOccurdForOddRanks))
+        {
+            // returning dimmSize as 0
+            return dimmSize;
+        }
+
+        size_t evenRanksCount = 0;
+        size_t oddRanksCount = 0;
+        getNumOfEvenAndOddNumbrsInGivenNum(noOfPkgRankPerChnl, evenRanksCount,
+                                           oddRanksCount);
+
+        size_t noOfPkgRankPerChnlForPriSdRam = evenRanksCount;
+        size_t noOfPkgRankPerChnlForSecSdRam = oddRanksCount;
+
+        size_t capacityOfPrimSdRam =
+            (noOfChanlPerDimm * (priBusWidPerChanl / priSdramIoWid) *
+             priSdramDiePerPkg * (priSdramDnstyPerDie / 8) *
+             noOfPkgRankPerChnlForPriSdRam);
+
+        size_t capacityOfSecSdram =
+            (noOfChanlPerDimm * (priBusWidPerChanl / secSdramIoWid) *
+             secSdramDiePerPkg * (secSdramDnstyPerDie / 8) *
+             noOfPkgRankPerChnlForSecSdRam);
+
+        dimmSize = capacityOfPrimSdRam + capacityOfSecSdram;
+    }
+
+    return dimmSize;
+}
+
+auto memoryVpdParser::getDDRXDimmSize(Binary::const_iterator& iterator)
+{
+    size_t dimmSize = 0;
+    size_t sdramType = iterator[MEM_BYTE_2];
+
+    if (sdramType == SdRamType::EN_DDR4)
+    {
+        // collect Dimm size value
+        dimmSize = getDimmSize(iterator);
+    }
+    else if (sdramType == SdRamType::EN_DDR5)
+    {
+        // collect DDR5 Dimm size value
+        dimmSize = getDDR5DimmSize(iterator);
+    }
+    else
+    {
+        cerr << "Error: unknown SDRAM type: " << sdramType << endl;
+    }
+    return dimmSize;
+}
+
 kwdVpdMap memoryVpdParser::readKeywords(Binary::const_iterator iterator)
 {
     KeywordVpdMap map{};
 
-    // collect Dimm size value
-    auto dimmSize = getDimmSize(iterator);
+    size_t dimmSize = 0;
+
+    // get the Dimm size value value based on the SDRAM types
+    dimmSize = getDDRXDimmSize(iterator);
+
     if (!dimmSize)
     {
         cerr << "Error: Calculated dimm size is 0.";
