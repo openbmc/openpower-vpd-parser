@@ -3,6 +3,121 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4dddca72_955505a7",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-16T10:03:48Z",
+      "side": 1,
+      "message": "Correct the value. It should be 0x0F instead of 0x0A.",
+      "range": {
+        "startLine": 374,
+        "startChar": 40,
+        "endLine": 374,
+        "endChar": 44
+      },
+      "revId": "602b2560e25d60768547ad00ee477c2416a0d185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f1ebdb4_2d25eab9",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-16T10:03:48Z",
+      "side": 1,
+      "message": "The AND value needs to be corrected.",
+      "range": {
+        "startLine": 379,
+        "startChar": 8,
+        "endLine": 386,
+        "endChar": 9
+      },
+      "revId": "602b2560e25d60768547ad00ee477c2416a0d185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "861c6845_87c8b96c",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-16T10:03:48Z",
+      "side": 1,
+      "message": "Please define in const. Avoid using magic numbers",
+      "range": {
+        "startLine": 388,
+        "startChar": 47,
+        "endLine": 388,
+        "endChar": 51
+      },
+      "revId": "602b2560e25d60768547ad00ee477c2416a0d185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ffe2644_333d3a2b",
+        "filename": "vpd-parser/isdimm_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-16T10:03:48Z",
+      "side": 1,
+      "message": "Lets avoid using namespace at top. It reduces readability and difficult to locate the root of any variable.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 39
+      },
+      "revId": "602b2560e25d60768547ad00ee477c2416a0d185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "864e92bb_7714aa0e",
+        "filename": "vpd-parser/isdimm_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-16T10:03:48Z",
+      "side": 1,
+      "message": "This should be 3",
+      "range": {
+        "startLine": 122,
+        "startChar": 12,
+        "endLine": 122,
+        "endChar": 40
+      },
+      "revId": "602b2560e25d60768547ad00ee477c2416a0d185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36146775_621ec52b",
         "filename": "vpd-parser/isdimm_vpd_parser.cpp",
         "patchSetId": 4
@@ -43,6 +158,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "16605902_6611e96c",
+        "filename": "vpd-parser/isdimm_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-16T10:03:48Z",
+      "side": 1,
+      "message": "Ignore the comment as these are not \"using namespaces\"",
+      "parentUuid": "92c94da0_f4c35c9a",
+      "revId": "602b2560e25d60768547ad00ee477c2416a0d185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fb1e070_0f2bda2f",
+        "filename": "vpd-parser/isdimm_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-16T10:03:48Z",
+      "side": 1,
+      "message": "nit: You can get rid of these levels.",
+      "range": {
+        "startLine": 15,
+        "startChar": 24,
+        "endLine": 15,
+        "endChar": 40
+      },
+      "revId": "602b2560e25d60768547ad00ee477c2416a0d185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "142023c6_27cb05e8",
         "filename": "vpd-parser/isdimm_vpd_parser.hpp",
         "patchSetId": 4
@@ -59,6 +215,52 @@
         "startChar": 7,
         "endLine": 47,
         "endChar": 14
+      },
+      "revId": "602b2560e25d60768547ad00ee477c2416a0d185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eda27a6_6fb2623b",
+        "filename": "vpd-parser/isdimm_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-16T10:03:48Z",
+      "side": 1,
+      "message": "Please use reference here as well.",
+      "range": {
+        "startLine": 59,
+        "startChar": 27,
+        "endLine": 59,
+        "endChar": 50
+      },
+      "revId": "602b2560e25d60768547ad00ee477c2416a0d185",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "564fe5b6_3cc9a46e",
+        "filename": "vpd-parser/isdimm_vpd_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-16T10:03:48Z",
+      "side": 1,
+      "message": "It is an abbreviation. Should be in caps.",
+      "range": {
+        "startLine": 88,
+        "startChar": 50,
+        "endLine": 88,
+        "endChar": 54
       },
       "revId": "602b2560e25d60768547ad00ee477c2416a0d185",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
