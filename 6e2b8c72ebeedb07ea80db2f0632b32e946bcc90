@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3711aaff_92992e2d",
+        "filename": "vpd-parser/isdimm_vpd_parser.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-21T10:17:00Z",
+      "side": 1,
+      "message": "We can have it as const as we are not modifying this value.",
+      "range": {
+        "startLine": 160,
+        "startChar": 39,
+        "endLine": 160,
+        "endChar": 51
+      },
+      "revId": "6e2b8c72ebeedb07ea80db2f0632b32e946bcc90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a4857c7_378ddb6a",
+        "filename": "vpd-parser/isdimm_vpd_parser.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-21T10:17:00Z",
+      "side": 1,
+      "message": "Very generic name, can we have a specific name for this map.",
+      "revId": "6e2b8c72ebeedb07ea80db2f0632b32e946bcc90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7008fac_4228dea1",
+        "filename": "vpd-parser/isdimm_vpd_parser.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-21T10:17:00Z",
+      "side": 1,
+      "message": "Please make it inline method.",
+      "range": {
+        "startLine": 335,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 1
+      },
+      "revId": "6e2b8c72ebeedb07ea80db2f0632b32e946bcc90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e783bbf3_80e70f87",
+        "filename": "vpd-parser/isdimm_vpd_parser.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-02-21T10:17:00Z",
+      "side": 1,
+      "message": "Is there a chance we will be modifying this value in the implementation?",
+      "range": {
+        "startLine": 99,
+        "startChar": 21,
+        "endLine": 99,
+        "endChar": 33
+      },
+      "revId": "6e2b8c72ebeedb07ea80db2f0632b32e946bcc90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
