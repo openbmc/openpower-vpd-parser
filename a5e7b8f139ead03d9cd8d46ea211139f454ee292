@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "67bce8dd_8fb442b3",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-21T04:37:33Z",
+      "side": 1,
+      "message": "For better readability I have added for individual parameters instead of having generic constant definitions for all. should be fine I feel.",
+      "parentUuid": "2c0e874d_fa964e2e",
+      "range": {
+        "startLine": 53,
+        "startChar": 22,
+        "endLine": 53,
+        "endChar": 67
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b4de6da_fc2779af",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 17
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a43948ea_6fb21037",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-21T04:37:33Z",
+      "side": 1,
+      "message": "Can be done, but for better clarity and better readability I thought of defining the individual names for each parameters instead of defining one constant and reusing it for every where. I think this should be ok.",
+      "parentUuid": "5b4de6da_fc2779af",
+      "range": {
+        "startLine": 54,
+        "startChar": 22,
+        "endLine": 54,
+        "endChar": 65
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4c530e1_7e804b93",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 17
@@ -60,6 +108,30 @@
       "writtenOn": "2023-02-20T17:58:13Z",
       "side": 1,
       "message": "Both can be covered in SVPD_JEDEC_DDR5_RESVD_BYTE.",
+      "range": {
+        "startLine": 55,
+        "startChar": 1,
+        "endLine": 56,
+        "endChar": 65
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5594e28_b6c3fd19",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-21T04:37:33Z",
+      "side": 1,
+      "message": "For better readability I have added for individual parameters instead of having generic constant definitions for all. should be fine I feel.",
+      "parentUuid": "e4c530e1_7e804b93",
       "range": {
         "startLine": 55,
         "startChar": 1,
