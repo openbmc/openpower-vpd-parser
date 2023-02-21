@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc927c98_c75f2446",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-21T12:17:37Z",
+      "side": 1,
+      "message": "Please consider the comments for changes required. Thanks.",
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c0e874d_fa964e2e",
@@ -38,6 +55,30 @@
       "side": 1,
       "message": "For better readability I have added for individual parameters instead of having generic constant definitions for all. should be fine I feel.",
       "parentUuid": "2c0e874d_fa964e2e",
+      "range": {
+        "startLine": 53,
+        "startChar": 22,
+        "endLine": 53,
+        "endChar": 67
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1386c132_7523fc2c",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-21T12:17:37Z",
+      "side": 1,
+      "message": "Already MASK has the readable name so shifting may need right names described in SPEc.",
+      "parentUuid": "67bce8dd_8fb442b3",
       "range": {
         "startLine": 53,
         "startChar": 22,
@@ -97,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a9ab1fd7_e08d96cc",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-21T12:17:37Z",
+      "side": 1,
+      "message": "If you feel this gives better clarity then replace other constant name instead, but having two for same purpose doesn\u0027t serve the purpose.",
+      "parentUuid": "a43948ea_6fb21037",
+      "range": {
+        "startLine": 54,
+        "startChar": 22,
+        "endLine": 54,
+        "endChar": 65
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4c530e1_7e804b93",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 17
@@ -137,6 +202,191 @@
         "startChar": 1,
         "endLine": 56,
         "endChar": 65
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55a225bc_a95c05c1",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-21T12:17:37Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "d5594e28_b6c3fd19",
+      "range": {
+        "startLine": 55,
+        "startChar": 1,
+        "endLine": 56,
+        "endChar": 65
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4008a21b_8811ea65",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-21T12:17:37Z",
+      "side": 1,
+      "message": "Many of the if checks, all including below seems invalid on the basis of the MASK as tmp can\u0027t exceed the value after right shift. Also, it\u0027s unnecessary, as it can\u0027t happen due to MASKING.",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 55
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d443466c_3b28e948",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-21T12:17:37Z",
+      "side": 1,
+      "message": "Except package RANK others are same with Asymmetric Even so can have it common.",
+      "range": {
+        "startLine": 232,
+        "startChar": 7,
+        "endLine": 276,
+        "endChar": 9
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38cbd221_7667190d",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-21T12:17:37Z",
+      "side": 1,
+      "message": "Please refer DDR4 calculation as reference if confused for alignment of \u0027*\u0027 and \u0027/\u0027 operators.",
+      "range": {
+        "startLine": 278,
+        "startChar": 19,
+        "endLine": 280,
+        "endChar": 44
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69311752_84b69863",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-21T12:17:37Z",
+      "side": 1,
+      "message": "Above comment applies here.",
+      "range": {
+        "startLine": 287,
+        "startChar": 7,
+        "endLine": 297,
+        "endChar": 18
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ad4a027_9a266fb0",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-21T12:17:37Z",
+      "side": 1,
+      "message": "These should be suffice for even rank calculation.",
+      "range": {
+        "startLine": 330,
+        "startChar": 7,
+        "endLine": 335,
+        "endChar": 63
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9804dd0b_1e355472",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-21T12:17:37Z",
+      "side": 1,
+      "message": "The calculation should be for \u0027*\u0027 based than \u0027/\u0027 please refer DDr4 for calculation.",
+      "range": {
+        "startLine": 338,
+        "startChar": 12,
+        "endLine": 341,
+        "endChar": 0
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b832ddb3_4e862f7e",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-21T12:17:37Z",
+      "side": 1,
+      "message": "Same as above comment refer DDR4 for calculation.",
+      "range": {
+        "startLine": 390,
+        "startChar": 12,
+        "endLine": 392,
+        "endChar": 47
       },
       "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
