@@ -1,0 +1,354 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60f4a5f6_e75413cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "Reviewed thoroughly. arithmetic calculation in most of the places looks ok, except the ones commented.",
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f88c6a4_0736fef1",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "you can reuse the existing JEDEC_PRI_BUS_WIDTH_MASK.",
+      "range": {
+        "startLine": 46,
+        "startChar": 22,
+        "endLine": 46,
+        "endChar": 55
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54e98520_c5d36db6",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "in your change, whatever variable you mentioned as reserved_value, are actually not the reserved values. they are the max possible values. \neg: JEDEC_NUM_OF_CHNL_PER_DIMM_RESERVED_VALUE\u003d1 -\u003e 1 isn\u0027t the reserved value here. 2 and 3 are the reserved values. you can reword it as JEDEC_NUM_OF_CHNL_PER_DIMM_MAX_POSSIBLE OR any meaningful name of your choice.\n\nyou can make this change wherever required",
+      "range": {
+        "startLine": 59,
+        "startChar": 22,
+        "endLine": 59,
+        "endChar": 63
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7521b216_8a13ea7c",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "can you please try to reuse the existing constexpr. here you can make use of JEDEC_RESERVED_BITS. Please avoid polluting const expressions.  Try to reuse as much as possible.",
+      "range": {
+        "startLine": 60,
+        "startChar": 22,
+        "endLine": 60,
+        "endChar": 65
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68fa9cb2_1158368a",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "these three parameters will be both [in, out], as we are using its value[as input] in this api and updating [output]",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 182,
+        "endChar": 3
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d67de0f2_9d4fe965",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "why do we need this check? can you point me such condtions in spec?",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 206,
+        "endChar": 47
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2efdc66_8f6886b8",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "you can return 1 directly without line 231",
+      "range": {
+        "startLine": 231,
+        "startChar": 4,
+        "endLine": 232,
+        "endChar": 18
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9732aa77_1bc3c03d",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "where are you calculating die per package and sdram density per die for asymmetric odd case.\nie, die per package-\u003e for asymm odd case -\u003e taken from Byte 8 (bits 7~5)\nand sdram density per die -\u003e for asymm odd case -\u003e taken from Byte 8 (4~0)",
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e65d2212_ad39370b",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "In cerr can you please mention the dimm eeprom path for which the failure happened.\nplease update every cerr statements (wrt your changes only)with eeprom path.",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 249,
+        "endChar": 32
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76e6e145_b20112c6",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "can you please change type of noOfChanlPerDimm to size_t? this might create issue.\nOn a 64-bit system, the size_t will be 64-bit, but unsigned int will be 32 bit. So we cannot use them interchangeably.",
+      "range": {
+        "startLine": 252,
+        "startChar": 4,
+        "endLine": 252,
+        "endChar": 27
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9df5b522_0f72f4f8",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "can you please add for which dimm eeprom the calculation failed..",
+      "range": {
+        "startLine": 259,
+        "startChar": 9,
+        "endLine": 262,
+        "endChar": 24
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcb66dff_e65750ce",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "can you please add a comment before line 264, like \"you are calculating primary bus width [in terms of bits] based on the value obtained\".",
+      "range": {
+        "startLine": 264,
+        "startChar": 4,
+        "endLine": 267,
+        "endChar": 0
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1893abed_f0e24054",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "can you please explain why you need this line 283? when I manually calculate, this is not giving the result.\n\nas per my calc,\ntmp \u003d iterator[MEM_BYTE_234] \u0026 JDEC_SDRAM_RANK_MIX_TYPE_MASK; \nand then\ntmp \u003e\u003e 6\nwill give the right sdramType.",
+      "range": {
+        "startLine": 283,
+        "startChar": 4,
+        "endLine": 283,
+        "endChar": 57
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f34caf8e_64fb4796",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "why are you sending same input twice to getSdramParamsFromSPDData(), just in the name of primary and secondary? [lines 310 and 321 ]\n\nanyways gonna get same output right?",
+      "range": {
+        "startLine": 318,
+        "startChar": 8,
+        "endLine": 322,
+        "endChar": 19
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11b0d1a3_3c451973",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "can you print for what eeprom path this failed.\nand also print the value of sdramtype obtained.",
+      "range": {
+        "startLine": 372,
+        "startChar": 8,
+        "endLine": 372,
+        "endChar": 45
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94a16fc4_ffbf5b77",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-22T17:25:04Z",
+      "side": 1,
+      "message": "why did you remove this line? can you avoid such changes please?",
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
