@@ -184,6 +184,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21a1d427_927233d7",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-22T09:01:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a9ab1fd7_e08d96cc",
+      "range": {
+        "startLine": 54,
+        "startChar": 22,
+        "endLine": 54,
+        "endChar": 65
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4c530e1_7e804b93",
@@ -420,6 +444,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "708563eb_c9022e52",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-22T09:01:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9ab91d5_083ba9cf",
+      "range": {
+        "startLine": 278,
+        "startChar": 19,
+        "endLine": 280,
+        "endChar": 44
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69311752_84b69863",
@@ -551,6 +599,30 @@
       "side": 1,
       "message": "changed as discussed.",
       "parentUuid": "9804dd0b_1e355472",
+      "range": {
+        "startLine": 338,
+        "startChar": 12,
+        "endLine": 341,
+        "endChar": 0
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fd64587_249e9fdf",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-22T09:01:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8f9fa3d9_369e6100",
       "range": {
         "startLine": 338,
         "startChar": 12,
