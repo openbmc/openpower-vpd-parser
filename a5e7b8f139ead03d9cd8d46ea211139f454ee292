@@ -89,6 +89,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e75b47e_bfaaf865",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-22T09:00:23Z",
+      "side": 1,
+      "message": "I have taken reference of existing constant name i.e JEDEC_DIE_COUNT_RIGHT_SHIFT to define the name for shifting so the name suggested by you won\u0027t sounds good here so will keep this name only.",
+      "parentUuid": "1386c132_7523fc2c",
+      "range": {
+        "startLine": 53,
+        "startChar": 22,
+        "endLine": 53,
+        "endChar": 67
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b4de6da_fc2779af",
@@ -231,6 +255,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f167e761_b714562c",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-22T09:00:23Z",
+      "side": 1,
+      "message": "I have taken reference of existing constant name i.e JEDEC_DIE_COUNT_RIGHT_SHIFT to define the name for shifting so the name suggested by you won\u0027t sounds good here so will keep this name only.",
+      "parentUuid": "55a225bc_a95c05c1",
+      "range": {
+        "startLine": 55,
+        "startChar": 1,
+        "endLine": 56,
+        "endChar": 65
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4008a21b_8811ea65",
@@ -254,6 +302,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "213bc568_959e2bab",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-22T09:00:23Z",
+      "side": 1,
+      "message": "It can happen, what if we get the value 10 or 11 after masking and shifting. so to handle the invalid range this if check is necessary. allowed values are 00 \u0026 01 so to handle invalid values (10 \u0026 11) this check has been added.",
+      "parentUuid": "4008a21b_8811ea65",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 55
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d443466c_3b28e948",
@@ -267,6 +339,30 @@
       "writtenOn": "2023-02-21T12:17:37Z",
       "side": 1,
       "message": "Except package RANK others are same with Asymmetric Even so can have it common.",
+      "range": {
+        "startLine": 232,
+        "startChar": 7,
+        "endLine": 276,
+        "endChar": 9
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2020e733_077fa70e",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-22T09:00:23Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "d443466c_3b28e948",
       "range": {
         "startLine": 232,
         "startChar": 7,
@@ -302,6 +398,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e9ab91d5_083ba9cf",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-22T09:00:23Z",
+      "side": 1,
+      "message": "changed as discussed.",
+      "parentUuid": "38cbd221_7667190d",
+      "range": {
+        "startLine": 278,
+        "startChar": 19,
+        "endLine": 280,
+        "endChar": 44
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "69311752_84b69863",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 17
@@ -313,6 +433,30 @@
       "writtenOn": "2023-02-21T12:17:37Z",
       "side": 1,
       "message": "Above comment applies here.",
+      "range": {
+        "startLine": 287,
+        "startChar": 7,
+        "endLine": 297,
+        "endChar": 18
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4ef33cb_e94e85f4",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-22T09:00:23Z",
+      "side": 1,
+      "message": "It can happen, what if we get the values 100, 101, 110, 111 after masking and shifting. so to handle the invalid range this if check is necessary. allowed values are 000, 001, 010 \u0026 011 so to handle invalid values (100, 101, 110 \u0026 111) this check has been added.",
+      "parentUuid": "69311752_84b69863",
       "range": {
         "startLine": 287,
         "startChar": 7,
@@ -336,6 +480,30 @@
       "writtenOn": "2023-02-21T12:17:37Z",
       "side": 1,
       "message": "These should be suffice for even rank calculation.",
+      "range": {
+        "startLine": 330,
+        "startChar": 7,
+        "endLine": 335,
+        "endChar": 63
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff3cf926_2ccdc1b9",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-22T09:00:23Z",
+      "side": 1,
+      "message": "changed as discussed.",
+      "parentUuid": "6ad4a027_9a266fb0",
       "range": {
         "startLine": 330,
         "startChar": 7,
@@ -371,6 +539,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f9fa3d9_369e6100",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-22T09:00:23Z",
+      "side": 1,
+      "message": "changed as discussed.",
+      "parentUuid": "9804dd0b_1e355472",
+      "range": {
+        "startLine": 338,
+        "startChar": 12,
+        "endLine": 341,
+        "endChar": 0
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b832ddb3_4e862f7e",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 17
@@ -382,6 +574,30 @@
       "writtenOn": "2023-02-21T12:17:37Z",
       "side": 1,
       "message": "Same as above comment refer DDR4 for calculation.",
+      "range": {
+        "startLine": 390,
+        "startChar": 12,
+        "endLine": 392,
+        "endChar": 47
+      },
+      "revId": "a5e7b8f139ead03d9cd8d46ea211139f454ee292",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d23bced_1d7f2907",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-22T09:00:23Z",
+      "side": 1,
+      "message": "changed as discussed.",
+      "parentUuid": "b832ddb3_4e862f7e",
       "range": {
         "startLine": 390,
         "startChar": 12,
