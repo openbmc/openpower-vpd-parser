@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "194bcdce_f4efe44f",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "can be done, but using existing name will mislead though values are same, hence I have defined new names for readability purpose. This is done by Jinu too in ISDMM code as well he has defined new name for DDR5 with same values. we will keep it as it is.",
+      "parentUuid": "6f88c6a4_0736fef1",
+      "range": {
+        "startLine": 46,
+        "startChar": 22,
+        "endLine": 46,
+        "endChar": 55
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54e98520_c5d36db6",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-02-22T17:25:04Z",
       "side": 1,
       "message": "in your change, whatever variable you mentioned as reserved_value, are actually not the reserved values. they are the max possible values. \neg: JEDEC_NUM_OF_CHNL_PER_DIMM_RESERVED_VALUE\u003d1 -\u003e 1 isn\u0027t the reserved value here. 2 and 3 are the reserved values. you can reword it as JEDEC_NUM_OF_CHNL_PER_DIMM_MAX_POSSIBLE OR any meaningful name of your choice.\n\nyou can make this change wherever required",
+      "range": {
+        "startLine": 59,
+        "startChar": 22,
+        "endLine": 59,
+        "endChar": 63
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b60cf2dd_02ad0c76",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "Modified and used the names as per the existing code for DDR4 .",
+      "parentUuid": "54e98520_c5d36db6",
       "range": {
         "startLine": 59,
         "startChar": 22,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97f4d7b4_bb7f6b44",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "can be done, but using existing name will mislead though values are same, hence I have defined new names for readability purpose. This is done by Jinu too in ISDMM code as well he has defined new name for DDR5 with same values. we will keep it as it is.",
+      "parentUuid": "7521b216_8a13ea7c",
+      "range": {
+        "startLine": 60,
+        "startChar": 22,
+        "endLine": 60,
+        "endChar": 65
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68fa9cb2_1158368a",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-02-22T17:25:04Z",
       "side": 1,
       "message": "these three parameters will be both [in, out], as we are using its value[as input] in this api and updating [output]",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 182,
+        "endChar": 3
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e056822_1e84d93b",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "These parameters description is specific to this function arguments, for this function the mentioned parameters are output parameters only since the values for these are getting filled inside this function.",
+      "parentUuid": "68fa9cb2_1158368a",
       "range": {
         "startLine": 179,
         "startChar": 4,
@@ -133,6 +229,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9460bc1_0b646320",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "if you see in the spec, actually value 1 (001) is reserved and value 5(101) onwards all values are reserved hence 2 checks have been added here. Please check Byte 4 in spec for reference.",
+      "parentUuid": "d67de0f2_9d4fe965",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 206,
+        "endChar": 47
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2efdc66_8f6886b8",
@@ -146,6 +266,30 @@
       "writtenOn": "2023-02-22T17:25:04Z",
       "side": 1,
       "message": "you can return 1 directly without line 231",
+      "range": {
+        "startLine": 231,
+        "startChar": 4,
+        "endLine": 232,
+        "endChar": 18
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0044beb4_5d47a357",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "ok, did in other way, i.e changed the default value of retVal\u003d1 and returning 0 directly in failure scenarios",
+      "parentUuid": "f2efdc66_8f6886b8",
       "range": {
         "startLine": 231,
         "startChar": 4,
@@ -173,6 +317,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e076630e_95fdb2b0",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "while making the common function for symmetrical module \u0026 asymmetric even rank mistakenly I removed and used the common function here too, will revert the parameter extraction part for asymmetric odd rank.",
+      "parentUuid": "9732aa77_1bc3c03d",
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e65d2212_ad39370b",
@@ -186,6 +348,30 @@
       "writtenOn": "2023-02-22T17:25:04Z",
       "side": 1,
       "message": "In cerr can you please mention the dimm eeprom path for which the failure happened.\nplease update every cerr statements (wrt your changes only)with eeprom path.",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 249,
+        "endChar": 32
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7adaf4d9_cc5c7ac8",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "we don\u0027t get the dimm eeprom path to print, we just log an error as like DDR4 code",
+      "parentUuid": "e65d2212_ad39370b",
       "range": {
         "startLine": 247,
         "startChar": 8,
@@ -219,6 +405,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6a9515b_186d05ab",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "changed for all parameters of type uint8_t to size_t  for safer side.",
+      "parentUuid": "76e6e145_b20112c6",
+      "range": {
+        "startLine": 252,
+        "startChar": 4,
+        "endLine": 252,
+        "endChar": 27
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9df5b522_0f72f4f8",
@@ -232,6 +442,30 @@
       "writtenOn": "2023-02-22T17:25:04Z",
       "side": 1,
       "message": "can you please add for which dimm eeprom the calculation failed..",
+      "range": {
+        "startLine": 259,
+        "startChar": 9,
+        "endLine": 262,
+        "endChar": 24
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7edae534_68f08897",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "we don\u0027t get the dimm eeprom path to print, we just log an error as like DDR4 code",
+      "parentUuid": "9df5b522_0f72f4f8",
       "range": {
         "startLine": 259,
         "startChar": 9,
@@ -265,6 +499,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b102c130_6ed55051",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "All parameters we are calculating in terms of bits only as per SPEC, so no need add the comment specifically for this.",
+      "parentUuid": "fcb66dff_e65750ce",
+      "range": {
+        "startLine": 264,
+        "startChar": 4,
+        "endLine": 267,
+        "endChar": 0
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1893abed_f0e24054",
@@ -278,6 +536,30 @@
       "writtenOn": "2023-02-22T17:25:04Z",
       "side": 1,
       "message": "can you please explain why you need this line 283? when I manually calculate, this is not giving the result.\n\nas per my calc,\ntmp \u003d iterator[MEM_BYTE_234] \u0026 JDEC_SDRAM_RANK_MIX_TYPE_MASK; \nand then\ntmp \u003e\u003e 6\nwill give the right sdramType.",
+      "range": {
+        "startLine": 283,
+        "startChar": 4,
+        "endLine": 283,
+        "endChar": 57
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72d7f8ed_e4830816",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "This is to check the 6th bit is enabled or not below is the explanation:\ndoing left shift of number 1 by 6 position and doing AND operation with the value of tmp. if 6th bit is set means asymmetrical else symmetrical.",
+      "parentUuid": "1893abed_f0e24054",
       "range": {
         "startLine": 283,
         "startChar": 4,
@@ -311,6 +593,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeb421a9_393984c7",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "the calculation is different for second SDRAM, as part of one of the above comments its been addressed, I mean the calculation of second SDRAM parameters separated from the common function.",
+      "parentUuid": "f34caf8e_64fb4796",
+      "range": {
+        "startLine": 318,
+        "startChar": 8,
+        "endLine": 322,
+        "endChar": 19
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11b0d1a3_3c451973",
@@ -334,6 +640,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "650b7d26_fd07d1ba",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "we don\u0027t get the dimm eeprom path to print, we just log an error as like DDR4 code.\nwe can print the value of sdramRamType so will print that.",
+      "parentUuid": "11b0d1a3_3c451973",
+      "range": {
+        "startLine": 372,
+        "startChar": 8,
+        "endLine": 372,
+        "endChar": 45
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94a16fc4_ffbf5b77",
@@ -347,6 +677,24 @@
       "writtenOn": "2023-02-22T17:25:04Z",
       "side": 1,
       "message": "why did you remove this line? can you avoid such changes please?",
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c94be76b_9b5874e3",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-23T08:46:54Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "94a16fc4_ffbf5b77",
       "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
