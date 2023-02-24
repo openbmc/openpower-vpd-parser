@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d6510b1_2c530cc1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-24T09:57:10Z",
+      "side": 1,
+      "message": "Please take the note of following comments. Thanks.",
+      "revId": "398d336f8066b122939da382e8e383bf9f03827b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb1224a8_0024f881",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-24T09:57:10Z",
+      "side": 1,
+      "message": "Can be clubbed together",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 57
+      },
+      "revId": "398d336f8066b122939da382e8e383bf9f03827b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32e04120_d5f195a6",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-24T09:57:10Z",
+      "side": 1,
+      "message": "Original name from SPEc should be good here, will reduce the constants too.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 68
+      },
+      "revId": "398d336f8066b122939da382e8e383bf9f03827b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06a1a8b4_b3fc339e",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-24T09:57:10Z",
+      "side": 1,
+      "message": "Please see the comment below.",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 48
+      },
+      "revId": "398d336f8066b122939da382e8e383bf9f03827b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f17bb39d_cf89ef3d",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-24T09:57:10Z",
+      "side": 1,
+      "message": "These are invalid as it\u0027s masked as mentioned in previous review.\nthis comment is valid for some of the other ifs too.",
+      "range": {
+        "startLine": 257,
+        "startChar": 8,
+        "endLine": 257,
+        "endChar": 56
+      },
+      "revId": "398d336f8066b122939da382e8e383bf9f03827b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
