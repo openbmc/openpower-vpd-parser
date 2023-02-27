@@ -59,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5856c5a4_70a37af3",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-27T14:45:07Z",
+      "side": 1,
+      "message": "I have taken the reference of existing functions, in which also we are having the auto return type instead of specific return type though we know the exact return type. will keep as auto only.",
+      "parentUuid": "5024091e_827bcea2",
+      "range": {
+        "startLine": 181,
+        "startChar": 7,
+        "endLine": 181,
+        "endChar": 11
+      },
+      "revId": "ce61becb99a8ddc3a61b7d1c9662a2e3e305a0c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb41fb0b_9acbfb1e",
@@ -72,6 +96,30 @@
       "writtenOn": "2023-02-27T11:25:51Z",
       "side": 1,
       "message": "please use JEDEC_RESERVED_BITS instead of this JEDEC_SDRAM_IO_WIDTH_RESERVED_BITS and add a comment if req.",
+      "range": {
+        "startLine": 191,
+        "startChar": 14,
+        "endLine": 191,
+        "endChar": 48
+      },
+      "revId": "ce61becb99a8ddc3a61b7d1c9662a2e3e305a0c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd99f259_ce6eb0f0",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-27T14:45:07Z",
+      "side": 1,
+      "message": "JEDEC_RESERVED_BITS it is giving generic meaning, so we will not use it as mentioned earlier we will keep this for better readability (parameter specific reserved bits).",
+      "parentUuid": "fb41fb0b_9acbfb1e",
       "range": {
         "startLine": 191,
         "startChar": 14,
@@ -105,6 +153,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "153b5d5f_2610859f",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-27T14:45:07Z",
+      "side": 1,
+      "message": "I have taken the reference of already existing name JEDEC_DIE_COUNT_RIGHT_SHIFT so instead of hardcoding we will use this name. same has been discussed with Giri and changed the names accordingly.",
+      "parentUuid": "d580f314_a8f2e2be",
+      "range": {
+        "startLine": 206,
+        "startChar": 17,
+        "endLine": 206,
+        "endChar": 42
+      },
+      "revId": "ce61becb99a8ddc3a61b7d1c9662a2e3e305a0c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88c6a7b9_653ae8a0",
@@ -118,6 +190,30 @@
       "writtenOn": "2023-02-27T11:25:51Z",
       "side": 1,
       "message": "the const variables you provided for each and every value is not making sense to me. This is polluting this file and confusing.\n\nEg: here instead of JEDEC_DIE_PER_PKG_RESERVED_BITS_VALUE\u003d1 , just give a name as BIT_001_RESERVED\u003d1. and make use of this generic variable at other places too.\n\nIf in future DDR6 comes, this file will become clumsy with ddr4, ddr5 and ddr6 const expr.",
+      "range": {
+        "startLine": 208,
+        "startChar": 16,
+        "endLine": 209,
+        "endChar": 46
+      },
+      "revId": "ce61becb99a8ddc3a61b7d1c9662a2e3e305a0c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fb23e3a_95405971",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-27T14:45:07Z",
+      "side": 1,
+      "message": "As mentioned earlier, I have referred the ISDMM code from Jinu, he has kept the different const exprn for DDR4, DDR5 and different const exprn names though we already had the same values for better readability. so we will keep these as it is.\nJEDEC_DIE_PER_PKG_RESERVED_BITS_VALUE --\u003e this I will be changing to JEDEC_DIE_PER_PKG_RESERVED_BIT_001",
+      "parentUuid": "88c6a7b9_653ae8a0",
       "range": {
         "startLine": 208,
         "startChar": 16,
@@ -188,6 +284,30 @@
       "writtenOn": "2023-02-27T11:25:51Z",
       "side": 1,
       "message": "I would suggest to have an api called\nsize_t getDDRXDimmSize(sdramType, iterator)\n{\nif (sdramType \u003d\u003d SdRamType::EN_DDR4)\n    {\n        // collect Dimm size value\n        dimmSize \u003d getDimmSize(iterator);\n    }\n    else if (sdramType \u003d\u003d SdRamType::EN_DDR5)\n    {\n        // collect DDR5 Dimm size value\n        dimmSize \u003d getDDR5DimmSize(iterator);\n    }\n    else\n    {\n        cerr \u003c\u003c \"Error: unknown SDRAM type: \" \u003c\u003c sdramType \u003c\u003c endl;\n    }\n\n}\n\nand call this api from readKeywords();",
+      "range": {
+        "startLine": 423,
+        "startChar": 4,
+        "endLine": 437,
+        "endChar": 0
+      },
+      "revId": "ce61becb99a8ddc3a61b7d1c9662a2e3e305a0c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0389e73a_970a9868",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-02-27T14:45:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fb74c556_559876aa",
       "range": {
         "startLine": 423,
         "startChar": 4,
