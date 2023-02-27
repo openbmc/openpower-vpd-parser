@@ -206,6 +206,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e473c167_6cdc070d",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-27T11:25:51Z",
+      "side": 1,
+      "message": "sdramIoWid parameter should be [in,out] as you are utilising it as input at line201.\ncheck this https://stackoverflow.com/questions/47732665/is-that-an-in-or-in-out-parameter-doxygen-c",
+      "parentUuid": "3e056822_1e84d93b",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 182,
+        "endChar": 3
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d67de0f2_9d4fe965",
@@ -243,6 +267,30 @@
       "side": 1,
       "message": "if you see in the spec, actually value 1 (001) is reserved and value 5(101) onwards all values are reserved hence 2 checks have been added here. Please check Byte 4 in spec for reference.",
       "parentUuid": "d67de0f2_9d4fe965",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 206,
+        "endChar": 47
+      },
+      "revId": "948d575461f3fcdb3cd4d577fd562b286990095f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d37e4b5f_cc990ea9",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-02-27T11:25:51Z",
+      "side": 1,
+      "message": "ok.",
+      "parentUuid": "b9460bc1_0b646320",
       "range": {
         "startLine": 205,
         "startChar": 4,
