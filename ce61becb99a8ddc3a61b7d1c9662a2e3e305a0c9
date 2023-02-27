@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c95eaac4_37c39150",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-27T10:54:11Z",
+      "side": 1,
+      "message": "Otherwise seems good.",
+      "revId": "ce61becb99a8ddc3a61b7d1c9662a2e3e305a0c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12b30ec9_a22c3451",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-27T10:54:11Z",
+      "side": 1,
+      "message": "cout or some trace should be good here.",
+      "range": {
+        "startLine": 387,
+        "startChar": 8,
+        "endLine": 387,
+        "endChar": 9
+      },
+      "revId": "ce61becb99a8ddc3a61b7d1c9662a2e3e305a0c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
