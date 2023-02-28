@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b2556e2_01bbb269",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-02-28T09:18:01Z",
+      "side": 1,
+      "message": "A suggestion, contains() could have prevented addition in json files, rest seems good. Thanks.",
+      "revId": "9cd8d04433293692d015f24ad132e3e66a26d097",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
