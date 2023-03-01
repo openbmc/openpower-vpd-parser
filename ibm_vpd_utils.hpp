@@ -489,5 +489,16 @@ std::string getPowerState();
  * @return A byte array containing the raw VPD.
  */
 Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file);
+
+/**
+ * @brief Get D-bus name for the keyword
+ * Some of the VPD keywords has different name in PIM when compared with its
+ * name from hardware. This method returns the D-bus name for the given keyword.
+ *
+ * @param[in] keyword - Keyword name
+ * @return D-bus name for the keyword
+ */
+std::string getDbusNameForThisKw(const std::string& keyword);
+
 } // namespace vpd
 } // namespace openpower
