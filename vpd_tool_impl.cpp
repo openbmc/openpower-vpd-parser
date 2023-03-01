@@ -22,6 +22,105 @@ using namespace openpower::vpd::parser;
 using namespace openpower::vpd::parser::factory;
 using namespace openpower::vpd::parser::interface;
 
+void VpdTool::checkForKwNameSupport()
+{
+    if (keyword.substr(0, 3) == constants::POUND_KW_PREFIX)
+    {
+        throw std::runtime_error(
+            "Please input #keywords directly without prefixing with PD_");
+    }
+    else if (keyword.substr(0, 2) == constants::NUMERIC_KW_PREFIX)
+    {
+        throw std::runtime_error(
+            "Please input numeric keyword without prefixing with N_");
+    }
+}
+
+std::string VpdTool::getOutputFilePath()
+{
+    std::string file{};
+    if (size_t eepromPos = fruPath.find("/eeprom") != std::string::npos)
+    {
+        size_t i2cDetails = fruPath.rfind('/', eepromPos - 1);
+        file = fruPath.substr(i2cDetails + 1, eepromPos - i2cDetails - 1);
+    }
+    else // D-bus obj path
+    {
+        size_t fruName = fruPath.rfind('/');
+        file = fruPath.substr(fruName + 1);
+    }
+
+    file += "_" + recordName + "_" + keyword + ".txt";
+    return ("/tmp/" + file);
+}
+
+bool VpdTool::fileToVector(Binary& data)
+{
+    try
+    {
+        std::ifstream file(value, std::ifstream::in);
+
+        if (file)
+        {
+            std::string line;
+            while (std::getline(file, line))
+            {
+                std::istringstream iss(line);
+                std::string byteStr;
+                while (iss >> std::setw(2) >> std::hex >> byteStr)
+                {
+                    uint8_t byte = strtoul(byteStr.c_str(), nullptr, 16);
+                    data.emplace(data.end(), byte);
+                }
+            }
+            return true;
+        }
+        else
+        {
+            std::cerr << "\nUnable to open the given file " << value
+                      << std::endl;
+        }
+    }
+    catch (std::exception& e)
+    {
+        std::cerr << e.what();
+    }
+    return false;
+}
+
+bool VpdTool::copyStringToFile(const std::string& input,
+                               const std::string& filePath)
+{
+    try
+    {
+        std::ofstream outFile(filePath, std::ofstream::out);
+
+        if (outFile.is_open())
+        {
+            std::string hexString = input;
+            if (input.substr(0, 2) == "0x")
+            {
+                // truncating prefix 0x
+                hexString = input.substr(2);
+            }
+            outFile.write(hexString.c_str(), hexString.length());
+        }
+        else
+        {
+            std::cerr << "Error opening output file " << filePath << std::endl;
+            return false;
+        }
+
+        outFile.close();
+    }
+    catch (std::exception& e)
+    {
+        std::cerr << e.what();
+        return false;
+    }
+    return true;
+}
+
 static void
     getVPDInMap(const std::string& vpdPath,
                 std::unordered_map<std::string, DbusPropertyMap>& vpdMap,
@@ -85,7 +184,7 @@ Binary VpdTool::toBinary(const std::string& value)
         if (value.length() % 2 != 0)
         {
             throw runtime_error(
-                "VPD-TOOL write option accepts 2 digit hex numbers. (Eg. 0x1 "
+                "VPD-TOOL write option accepts 2 digit hex numbers. (Eg.0x1 "
                 "should be given as 0x01). Aborting the write operation.");
         }
 
@@ -277,8 +376,8 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
         {
             if (!(ex.value().is_null()))
             {
-                // TODO: Remove this if condition check once inventory json is
-                // updated with xyz location code interface.
+                // TODO: Remove this if condition check once inventory json
+                // is updated with xyz location code interface.
                 if (ex.key() == "com.ibm.ipzvpd.Location")
                 {
                     getExtraInterfaceProperties(
@@ -391,8 +490,8 @@ json VpdTool::parseInvJson(const json& jsObject, char flag, string fruPath)
                 }
                 catch (const sdbusplus::exception::SdBusError& e)
                 {
-                    // if any of frupath doesn't have Present property of its
-                    // own, emplace its parent's present property value.
+                    // if any of frupath doesn't have Present property of
+                    // its own, emplace its parent's present property value.
                     if (e.name() == std::string("org.freedesktop.DBus.Error."
                                                 "UnknownProperty") &&
                         (((flag == 'O') && validObject) || flag == 'I'))
@@ -442,16 +541,19 @@ void VpdTool::dumpObject(const nlohmann::basic_json<>& jsObject)
     debugger(output);
 }
 
-void VpdTool::readKeyword()
+void VpdTool::readKeyword(const bool& readIntoAFile)
 {
+    checkForKwNameSupport();
+
+    const std::string& kw = getDbusNameForThisKw(keyword);
+
     string interface = "com.ibm.ipzvpd.";
     variant<Binary> response;
 
     try
     {
-        json output = json::object({});
-        json kwVal = json::object({});
-        makeDBusCall(INVENTORY_PATH + fruPath, interface + recordName, keyword)
+        std::cout << "\nReading the given keyword from D-bus ... " << std::endl;
+        makeDBusCall(INVENTORY_PATH + fruPath, interface + recordName, kw)
             .read(response);
 
         string printableVal{};
@@ -459,6 +561,28 @@ void VpdTool::readKeyword()
         {
             printableVal = getPrintableValue(*vec);
         }
+
+        if (readIntoAFile)
+        {
+            const std::string& filePath = getOutputFilePath();
+
+            if (copyStringToFile(printableVal, filePath))
+            {
+                std::cout << "\nValue read is piped to the file " << filePath
+                          << std::endl;
+                return;
+            }
+            else
+            {
+                std::cerr
+                    << "\nError while piping the read value to file. Hence "
+                       "displaying the read value on console"
+                    << std::endl;
+            }
+        }
+
+        json output = json::object({});
+        json kwVal = json::object({});
         kwVal.emplace(keyword, printableVal);
 
         output.emplace(fruPath, kwVal);
@@ -474,7 +598,25 @@ void VpdTool::readKeyword()
 
 int VpdTool::updateKeyword()
 {
-    Binary val = toBinary(value);
+    checkForKwNameSupport();
+
+    Binary val;
+
+    if (std::filesystem::exists(value))
+    {
+        if (!fileToVector(val))
+        {
+            std::cout << "\nKeyword " << keyword << " update failed."
+                      << std::endl;
+            return 1;
+        }
+    }
+    else
+    {
+        val = toBinary(value);
+    }
+
+    std::cout << "\nUpdating the given keyword ... " << std::endl;
     auto bus = sdbusplus::bus::new_default();
     auto properties =
         bus.new_method_call(BUSNAME, OBJPATH, IFACE, "WriteKeyword");
@@ -483,11 +625,11 @@ int VpdTool::updateKeyword()
     properties.append(keyword);
     properties.append(val);
     auto result = bus.call(properties);
-
     if (result.is_method_error())
     {
         throw runtime_error("Get api failed");
     }
+    std::cout << "\nData updated successfully " << std::endl;
     return 0;
 }
 
@@ -540,25 +682,46 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
 
 int VpdTool::updateHardware(const uint32_t offset)
 {
+    checkForKwNameSupport();
+
     int rc = 0;
-    const Binary& val = static_cast<const Binary&>(toBinary(value));
+    Binary val;
+    if (std::filesystem::exists(value))
+    {
+        if (!fileToVector(val))
+        {
+            std::cout << "\nKeyword " << keyword << " update failed."
+                      << std::endl;
+            return 1;
+        }
+    }
+    else
+    {
+        val = toBinary(value);
+    }
+
     ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
     try
     {
         auto json = nlohmann::json::parse(inventoryJson);
         EditorImpl edit(fruPath, json, recordName, keyword);
 
+        std::cout << "\nUpdating the given keyword ... " << std::endl;
         edit.updateKeyword(val, offset, false);
     }
     catch (const json::parse_error& ex)
     {
         throw(VpdJsonException("Json Parsing failed", INVENTORY_JSON_SYM_LINK));
     }
+    std::cout << "\nData updated successfully " << std::endl;
     return rc;
 }
 
-void VpdTool::readKwFromHw(const uint32_t& startOffset)
+void VpdTool::readKwFromHw(const uint32_t& startOffset,
+                           const bool& readIntoAFile)
 {
+    checkForKwNameSupport();
+
     ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
     auto jsonFile = nlohmann::json::parse(inventoryJson);
 
@@ -592,25 +755,41 @@ void VpdTool::readKwFromHw(const uint32_t& startOffset)
 
     Impl obj(completeVPDFile, (constants::pimPath + inventoryPath), fruPath,
              vpdStartOffset);
+    std::cout << "\nReading the given keyword from hardware ..." << std::endl;
     std::string keywordVal = obj.readKwFromHw(recordName, keyword);
 
-    if (!keywordVal.empty())
-    {
-        json output = json::object({});
-        json kwVal = json::object({});
-        kwVal.emplace(keyword, keywordVal);
-
-        output.emplace(fruPath, kwVal);
-
-        debugger(output);
-    }
-    else
+    if (keywordVal.empty())
     {
         std::cerr << "The given keyword " << keyword << " or record "
                   << recordName
                   << " or both are not present in the given FRU path "
                   << fruPath << std::endl;
+        return;
     }
+
+    if (readIntoAFile)
+    {
+        const std::string& filePath = getOutputFilePath();
+
+        if (copyStringToFile(keywordVal, filePath))
+        {
+            std::cout << "\nValue read is piped to the file " << filePath
+                      << std::endl;
+            return;
+        }
+        else
+        {
+            std::cerr << "\nError while piping the read value to file. Hence "
+                         "displaying the read value on console"
+                      << std::endl;
+        }
+    }
+
+    json output = json::object({});
+    json kwVal = json::object({});
+    kwVal.emplace(keyword, keywordVal);
+    output.emplace(fruPath, kwVal);
+    debugger(output);
 }
 
 void VpdTool::printFixSystemVPDOption(UserOption option)
@@ -869,14 +1048,16 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
             else
             {
                 cout << "\nNo mismatch found for any of the above mentioned "
-                        "record-keyword pair. Exit successfully.\n";
+                        "record-keyword pair. Exit successfully."
+                     << std::endl;
             }
 
             exit(0);
         }
         else if (option == VpdTool::MORE_OPTIONS)
         {
-            cout << "\nIterate through all restorable record-keyword pairs\n";
+            cout << "\nIterate through all restorable record-keyword "
+                    "pairs\n";
 
             for (const auto& data : recKwData)
             {
@@ -1001,7 +1182,8 @@ int VpdTool::cleanSystemVPD()
             std::unordered_map<std::string, Binary> kwDefault;
             for (auto keywordMap : recordMap.second)
             {
-                // Skip those keywords which cannot be reset at manufacturing
+                // Skip those keywords which cannot be reset at
+                // manufacturing
                 if (!std::get<3>(keywordMap))
                 {
                     continue;
@@ -1034,16 +1216,15 @@ int VpdTool::cleanSystemVPD()
             }
         }
 
-        std::cout
-            << "\n The critical keywords from system backplane VPD has been "
-               "reset successfully."
-            << std::endl;
+        std::cout << "\n The critical keywords from system backplane VPD has "
+                     "been reset successfully."
+                  << std::endl;
     }
     catch (const std::exception& e)
     {
         std::cerr << e.what();
-        std::cerr
-            << "\nManufacturing reset on system vpd keywords is unsuccessful";
+        std::cerr << "\nManufacturing reset on system vpd keywords is "
+                     "unsuccessful";
     }
     return 0;
 }
