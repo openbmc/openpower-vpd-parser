@@ -22,6 +22,7 @@ int main(int argc, char** argv)
     string keyword{};
     string val{};
     uint32_t offset = 0;
+    enum constants::FileType fileType = constants::FileType::UNKNOWN;
 
     auto object =
         app.add_option("--object, -O", objectPath, "Enter the Object Path");
@@ -34,7 +35,7 @@ int main(int argc, char** argv)
         "in hex. ascii eg: 01234; hex eg: 0x30313233");
     app.add_option("--seek, -s", offset,
                    "User can provide VPD offset using this option. Default "
-                   "offset value is 0. Using --offset is optional and is valid "
+                   "offset value is 0. Using --seek is optional and is valid "
                    "only while using --Hardware/-H option.");
 
     auto dumpObjFlag =
@@ -92,6 +93,15 @@ int main(int argc, char** argv)
         app.add_flag("--yes", "Using this flag with --mfgClean option, assumes "
                               "yes to proceed without confirmation.");
 
+    auto textFileFlag = app.add_flag(
+        "--textInHex, -t",
+        "This flag can be used with read and write options. In read option, "
+        "the read data is dumped into a text file (in 2 digit hex format)."
+        "In write option, the user has to provide the text file path in "
+        "--value and provite -t flag to indicate that the value given in "
+        "--value is of type text. The text file given under --value should be "
+        "in 2 digit hex format.");
+
     CLI11_PARSE(app, argc, argv);
 
     ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
@@ -99,6 +109,11 @@ int main(int argc, char** argv)
 
     try
     {
+        if (*textFileFlag)
+        {
+            fileType = constants::FileType::TEXT_IN_HEX;
+        }
+
         if (*Hardware)
         {
             if (!fs::exists(objectPath)) // if dbus object path is given or
@@ -128,14 +143,14 @@ int main(int argc, char** argv)
         {
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword));
-            vpdToolObj.readKeyword();
+            vpdToolObj.readKeyword(fileType);
         }
 
         else if (*writeFlag && !*Hardware)
         {
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword), move(val));
-            rc = vpdToolObj.updateKeyword();
+            rc = vpdToolObj.updateKeyword(fileType);
         }
 
         else if (*forceResetFlag)
@@ -159,13 +174,13 @@ int main(int argc, char** argv)
         {
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword), move(val));
-            rc = vpdToolObj.updateHardware(offset);
+            rc = vpdToolObj.updateHardware(offset, fileType);
         }
         else if (*readFlag && *Hardware)
         {
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword));
-            vpdToolObj.readKwFromHw(offset);
+            vpdToolObj.readKwFromHw(offset, fileType);
         }
         else if (*fixSystemVPDFlag)
         {
@@ -204,7 +219,7 @@ int main(int argc, char** argv)
         if (*Hardware)
         {
             std::cerr << "\nDid you provide a valid offset? By default VPD "
-                         "offset is taken as 0. To input offset, use --offset. "
+                         "offset is taken as 0. To input offset, use --seek. "
                          "Refer vpd-tool help.";
         }
         rc = -1;

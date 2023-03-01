@@ -422,7 +422,7 @@ void EditorImpl::updateCache()
 
         if (isInherit)
         {
-            prop.emplace(thisRecord.recKWd, thisRecord.kwdUpdatedData);
+            prop.emplace(getDbusNameForThisKw(thisRecord.recKWd), thisRecord.kwdUpdatedData);
             interfaces.emplace(
                 (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
                 std::move(prop));
