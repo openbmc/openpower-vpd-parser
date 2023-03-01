@@ -172,6 +172,26 @@ class VpdTool
     void getSystemDataFromCache(
         openpower::vpd::inventory::IntfPropMap& svpdBusData);
 
+    /**
+     * @brief Get data from file and store in binary format
+     *
+     * @param[out] data - The resulting binary data
+     *
+     * @return If operation is success return true, else on failure return
+     * false.
+     */
+    bool fileToVector(openpower::vpd::Binary& data);
+
+    /**
+     * @brief Copy string data to file.
+     *
+     * @param[in] input - input string
+     *
+     * @return If operation is success return true, else on failure return
+     * false.
+     */
+    bool copyStringToFile(const std::string& input);
+
   public:
     /**
      * @brief Dump the complete inventory in JSON format
@@ -191,7 +211,8 @@ class VpdTool
      * @brief Read keyword
      * Read the given object path, record name and keyword
      * from the inventory and display the value of the keyword
-     * in JSON format.
+     * in JSON format. The read value will be piped to file if --file is given
+     * by the user. Else the value read will be displayed on console.
      */
     void readKeyword();
 
@@ -232,7 +253,8 @@ class VpdTool
      * initialising the constructor.
      * The user can now read keyword from any hardware path irrespective of
      * whether its present or not in VPD JSON, by providing a valid offset. By
-     * default offset takes 0.
+     * default offset takes 0. The read value can be either saved in a
+     * file/displayed on console.
      *
      * @param[in] startOffset - VPD offset.
      */
@@ -271,18 +293,6 @@ class VpdTool
      * object instantiation for dumpObject option.
      */
     VpdTool(const std::string&& fru) : fruPath(std::move(fru))
-    {
-    }
-
-    /**
-     * @brief Constructor
-     * Constructor is called during the
-     * object instantiation for readKeyword option.
-     */
-    VpdTool(const std::string&& fru, const std::string&& recName,
-            const std::string&& kw) :
-        fruPath(std::move(fru)),
-        recordName(std::move(recName)), keyword(std::move(kw))
     {
     }
 
