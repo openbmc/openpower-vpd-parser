@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "988ebb45_35c72e07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 31
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-01T17:55:16Z",
+      "side": 1,
+      "message": "Missed some comments, which are added now. Thanks.",
+      "revId": "445a7379667f15885809ca7cc3dd5ff8111690e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "601fbef5_2479ecdc",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-01T17:55:16Z",
+      "side": 1,
+      "message": "Sorry, should have mentioned earlier, can be included in below else if.",
+      "range": {
+        "startLine": 215,
+        "startChar": 3,
+        "endLine": 223,
+        "endChar": 5
+      },
+      "revId": "445a7379667f15885809ca7cc3dd5ff8111690e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4df22f6e_35be16f0",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-01T17:55:16Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 235,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 5
+      },
+      "revId": "445a7379667f15885809ca7cc3dd5ff8111690e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57620dee_23423f63",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-01T17:55:16Z",
+      "side": 1,
+      "message": "Can be checked in below else if, same as comment below.",
+      "range": {
+        "startLine": 366,
+        "startChar": 8,
+        "endLine": 374,
+        "endChar": 9
+      },
+      "revId": "445a7379667f15885809ca7cc3dd5ff8111690e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60c19c38_6cb2b518",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-01T17:55:16Z",
+      "side": 1,
+      "message": "Sorry, should have mentioned earlier. This check should be enough with else for error. The above if mayn\u0027t be required.",
+      "range": {
+        "startLine": 396,
+        "startChar": 3,
+        "endLine": 399,
+        "endChar": 13
+      },
+      "revId": "445a7379667f15885809ca7cc3dd5ff8111690e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
