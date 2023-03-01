@@ -172,6 +172,36 @@ class VpdTool
     void getSystemDataFromCache(
         openpower::vpd::inventory::IntfPropMap& svpdBusData);
 
+    /**
+     * @brief Get data from file and store in binary format
+     * @param[out] data - The resulting binary data
+     * @return operation success/failure (true/false)
+     */
+    bool fileToVector(openpower::vpd::Binary& data);
+
+    /**
+     * @brief Get output file path
+     * @return Output filesystem path that has the read value.
+     */
+    std::string getOutputFilePath();
+
+    /**
+     * @brief Copy string data to file.
+     * @param[in] input - input string
+     * @param[in] filePath - output file path
+     *
+     * @return true/false (success/failure)
+     */
+    bool copyStringToFile(const std::string& input,
+                          const std::string& filePath);
+
+    /** @brief Check if the given keyword name is supportable.
+     * Some keywords has its name different in D-bus when compared with
+     * hardware. For consistency across the tool, user should provide the
+     * keyword name taken from hardware. This method checks for the same.
+     */
+    void checkForKwNameSupport();
+
   public:
     /**
      * @brief Dump the complete inventory in JSON format
@@ -191,9 +221,13 @@ class VpdTool
      * @brief Read keyword
      * Read the given object path, record name and keyword
      * from the inventory and display the value of the keyword
-     * in JSON format.
+     * in JSON format. The read value will be piped to file if --rf is given by
+     the user. Else the value read will be displayed on console.
+
+     * @param[in] readIntoAFile - Flag tells whether to output the read value
+     into a file (true) or display it on console(false).
      */
-    void readKeyword();
+    void readKeyword(const bool& readIntoAFile);
 
     /**
      * @brief Update Keyword
@@ -232,11 +266,14 @@ class VpdTool
      * initialising the constructor.
      * The user can now read keyword from any hardware path irrespective of
      * whether its present or not in VPD JSON, by providing a valid offset. By
-     * default offset takes 0.
+     * default offset takes 0. The read value can be either piped to
+     * file/display it on console. Supported file types are binary and text.
      *
      * @param[in] startOffset - VPD offset.
+     * @param[in] readIntoAFile - Flag tells whether to output the read value
+     * into a file (true) or display it on console(false).
      */
-    void readKwFromHw(const uint32_t& startOffset);
+    void readKwFromHw(const uint32_t& startOffset, const bool& readIntoAFile);
 
     /**
      * @brief Fix System VPD keyword.
