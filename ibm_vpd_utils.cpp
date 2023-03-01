@@ -1042,5 +1042,19 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
 
     return vpdVector;
 }
+
+std::string getDbusNameForThisKw(const std::string& keyword)
+{
+    if (keyword[0] == '#')
+    {
+        return (std::string("PD_") + keyword[1]);
+    }
+    else if (isdigit(keyword[0]))
+    {
+        return (std::string("N_") + keyword);
+    }
+    return keyword;
+}
+
 } // namespace vpd
 } // namespace openpower

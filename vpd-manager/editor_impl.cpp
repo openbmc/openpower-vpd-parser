@@ -367,6 +367,12 @@ void EditorImpl::processAndUpdateEI(const nlohmann::json& Inventory,
 
 void EditorImpl::updateCache()
 {
+    std::string keywordNameOnDbus = thisRecord.recKWd;
+    if (thisRecord.recKWd[0] == POUND_KW)
+    {
+        keywordNameOnDbus = POUND_KW_PREFIX + thisRecord.recKWd.substr(1);
+    }
+
     const std::vector<nlohmann::json>& groupEEPROM =
         jsonFile["frus"][vpdFilePath].get_ref<const nlohmann::json::array_t&>();
 
@@ -386,7 +392,7 @@ void EditorImpl::updateCache()
 
         if (isInherit)
         {
-            prop.emplace(thisRecord.recKWd, thisRecord.kwdUpdatedData);
+            prop.emplace(keywordNameOnDbus, thisRecord.kwdUpdatedData);
             interfaces.emplace(
                 (IPZ_INTERFACE + (std::string) "." + thisRecord.recName),
                 std::move(prop));
