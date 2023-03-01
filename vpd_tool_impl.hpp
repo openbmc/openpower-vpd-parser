@@ -174,6 +174,36 @@ class VpdTool
     void getSystemDataFromCache(
         openpower::vpd::inventory::IntfPropMap& svpdBusData);
 
+    /**
+     * @brief Get data from file and store in binary format
+     * @param[out] data - The resulting binary data
+     * @param[in] offset - Keyword offset
+     * @param[in] fileType - Type of the file if input is given in file
+     * @return returncode 0/1 (success/failure)
+     */
+    int fileToVector(openpower::vpd::Binary& data,
+                     const enum openpower::vpd::constants::FileType& fileType);
+
+    /**
+     * @brief Get output file path
+     * @param[in] fileType - Supported file types (binary/text).
+     * @return filesystem path
+     */
+    std::filesystem::path getOutputFilePath(
+        const enum openpower::vpd::constants::FileType& fileType);
+
+    /**
+     * @brief Copy string data to file.
+     * @param[in] input - input string
+     * @param[in] fileType - File type
+     * @param[o] filePath - The output file
+     *
+     * @return 0/1
+     */
+    int stringToFile(const std::string& input,
+                     const enum openpower::vpd::constants::FileType& fileType,
+                     std::filesystem::path& filePath);
+
   public:
     /**
      * @brief Dump the complete inventory in JSON format
@@ -193,17 +223,21 @@ class VpdTool
      * @brief Read keyword
      * Read the given object path, record name and keyword
      * from the inventory and display the value of the keyword
-     * in JSON format.
+     * in JSON format. The read value can either be piped to file/display on
+     * console if fileType is UNKNOWN.
+     * @param[in] fileType = Type of file in which the read value needs to be
+     * piped out.
      */
-    void readKeyword();
+    void readKeyword(const enum openpower::vpd::constants::FileType& fileType);
 
     /**
      * @brief Update Keyword
      * Update the given keyword with the given value.
+     * @param[in] fileType - Type of file
      *
      * @return return code (Success(0)/Failure(-1))
      */
-    int updateKeyword();
+    int updateKeyword(const enum openpower::vpd::constants::FileType& fileType);
 
     /**
      * @brief Force Reset
@@ -223,9 +257,12 @@ class VpdTool
      * VPD JSON, by providing a valid offset. By default offset takes 0.
      *
      * @param[in] offset - VPD offset.
+     * @param[in] fileType - Type of the file if input is given in file.
      * @return returncode (success/failure).
      */
-    int updateHardware(const uint32_t offset);
+    int updateHardware(
+        const uint32_t offset,
+        const enum openpower::vpd::constants::FileType& fileType);
 
     /**
      * @brief Read Keyword from Hardware
@@ -234,11 +271,15 @@ class VpdTool
      * initialising the constructor.
      * The user can now read keyword from any hardware path irrespective of
      * whether its present or not in VPD JSON, by providing a valid offset. By
-     * default offset takes 0.
+     * default offset takes 0. The read value can be either piped to
+     * file/display it on console. Supported file types are binary and text.
      *
      * @param[in] startOffset - VPD offset.
+     * @param[in] fileType - File type in which the read value needs to be piped
+     * out.
      */
-    void readKwFromHw(const uint32_t& startOffset);
+    void readKwFromHw(const uint32_t& startOffset,
+                      const enum openpower::vpd::constants::FileType& fileType);
 
     /**
      * @brief Fix System VPD keyword.
