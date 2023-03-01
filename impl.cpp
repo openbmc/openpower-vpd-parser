@@ -646,6 +646,7 @@ std::string Impl::readKwFromHw(const std::string& record,
                 const auto& kwValItr = (itr->second).find(keyword);
                 if (kwValItr != (itr->second).end())
                 {
+                    std::string str = kwValItr->second;
                     return kwValItr->second;
                 }
                 else

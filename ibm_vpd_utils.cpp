@@ -678,7 +678,7 @@ const std::string getKwVal(const Parsed& vpdMap, const std::string& rec,
 
 std::string hexString(const std::variant<Binary, std::string>& kw)
 {
-    std::string hexString;
+    std::string hexString{};
     std::visit(
         [&hexString](auto&& kw) {
             std::stringstream ss;
@@ -1054,5 +1054,19 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
 
     return vpdVector;
 }
+
+std::string getDbusNameForThisKw(const std::string& keyword)
+{
+    if (keyword[0] == constants::POUND_KW)
+    {
+        return (std::string(constants::POUND_KW_PREFIX) + keyword[1]);
+    }
+    else if (isdigit(keyword[0]))
+    {
+        return (std::string(constants::NUMERIC_KW_PREFIX) + keyword);
+    }
+    return keyword;
+}
+
 } // namespace vpd
 } // namespace openpower
