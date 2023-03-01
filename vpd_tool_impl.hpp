@@ -174,6 +174,22 @@ class VpdTool
     void getSystemDataFromCache(
         openpower::vpd::inventory::IntfPropMap& svpdBusData);
 
+    /**
+     * @brief Get data from file and store in binary format
+     * @param[out] data - The resulting binary data
+     * @return returncode 0/1 (success/failure)
+     */
+    int dataFileToBinary(openpower::vpd::Binary& data);
+
+    /**
+     * @brief Pipe string to binary file
+     * @param[in] inputStr - Input string
+     * @return returncode (0/1) (success/failure)
+     */
+    int byteStringToFile(const std::string& inputStr);
+
+    std::string getKwName();
+
   public:
     /**
      * @brief Dump the complete inventory in JSON format
