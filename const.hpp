@@ -25,6 +25,8 @@ static constexpr auto NEXT_64_KB = 65536;
 static constexpr auto MAC_ADDRESS_LEN_BYTES = 6;
 static constexpr auto LAST_KW = "PF";
 static constexpr auto POUND_KW = '#';
+static constexpr auto POUND_KW_PREFIX = "PD_";
+static constexpr auto NUMERIC_KW_PREFIX = "N_";
 static constexpr auto UUID_LEN_BYTES = 16;
 static constexpr auto UUID_TIME_LOW_END = 8;
 static constexpr auto UUID_TIME_MID_END = 13;
@@ -179,6 +181,12 @@ enum PelSeverity
     EMERGENCY,
     ALERT,
     ERROR
+};
+
+enum FileType
+{
+    UNKNOWN = -1,
+    TEXT_IN_HEX,
 };
 
 } // namespace constants

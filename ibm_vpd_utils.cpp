@@ -17,6 +17,7 @@
 #include <regex>
 #include <sdbusplus/server.hpp>
 #include <sstream>
+#include <string_view>
 #include <vector>
 #include <xyz/openbmc_project/Common/error.hpp>
 
@@ -1042,5 +1043,19 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
 
     return vpdVector;
 }
+
+std::string getDbusNameForThisKw(const std::string& keyword)
+{
+    if (keyword[0] == '#')
+    {
+        return (std::string(constants::POUND_KW_PREFIX) + keyword[1]);
+    }
+    else if (isdigit(keyword[0]))
+    {
+        return (std::string(constants::NUMERIC_KW_PREFIX) + keyword);
+    }
+    return keyword;
+}
+
 } // namespace vpd
 } // namespace openpower
