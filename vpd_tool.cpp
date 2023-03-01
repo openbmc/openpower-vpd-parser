@@ -34,7 +34,7 @@ int main(int argc, char** argv)
         "in hex. ascii eg: 01234; hex eg: 0x30313233");
     app.add_option("--seek, -s", offset,
                    "User can provide VPD offset using this option. Default "
-                   "offset value is 0. Using --offset is optional and is valid "
+                   "offset value is 0. Using --seek is optional and is valid "
                    "only while using --Hardware/-H option.");
 
     auto dumpObjFlag =
@@ -57,6 +57,11 @@ int main(int argc, char** argv)
             ->needs(record)
             ->needs(kw);
 
+    auto readFileOption =
+        app.add_flag("--rf", "Flag which tells vpd-tool to output the read "
+                             "value into a file.")
+            ->needs(readFlag);
+
     auto writeFlag =
         app.add_flag(
                "--writeKeyword, -w, --updateKeyword, -u",
@@ -66,8 +71,12 @@ int main(int argc, char** argv)
                "keyword-name --value/-V value-to-be-updated }")
             ->needs(object)
             ->needs(record)
-            ->needs(kw)
-            ->needs(valOption);
+            ->needs(kw);
+
+    auto fileOption =
+        app.add_option("--file", val,
+                       "Enter the .txt file path which has the data to write.")
+            ->needs(writeFlag);
 
     auto forceResetFlag =
         app.add_flag("--forceReset, -f, -F",
@@ -112,6 +121,29 @@ int main(int argc, char** argv)
                 throw runtime_error(errorMsg);
             }
         }
+
+        if ((*fileOption) && (!fs::exists(val)))
+        {
+            throw runtime_error(
+                "Please provide a valid file system path in --file.");
+        }
+
+        if (*writeFlag)
+        {
+            if ((!*fileOption) && (!*valOption))
+            {
+                throw runtime_error("Please provide the data that needs to be "
+                                    "updated. Use --value/--file to "
+                                    "input data. Refer --help.");
+            }
+        }
+
+        bool readIntoAFile = false;
+        if (*readFileOption)
+        {
+            readIntoAFile = true;
+        }
+
         if (*dumpObjFlag)
         {
             VpdTool vpdToolObj(move(objectPath));
@@ -128,7 +160,7 @@ int main(int argc, char** argv)
         {
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword));
-            vpdToolObj.readKeyword();
+            vpdToolObj.readKeyword(readIntoAFile);
         }
 
         else if (*writeFlag && !*Hardware)
@@ -165,7 +197,7 @@ int main(int argc, char** argv)
         {
             VpdTool vpdToolObj(move(objectPath), move(recordName),
                                move(keyword));
-            vpdToolObj.readKwFromHw(offset);
+            vpdToolObj.readKwFromHw(offset, readIntoAFile);
         }
         else if (*fixSystemVPDFlag)
         {
@@ -203,9 +235,10 @@ int main(int argc, char** argv)
 
         if (*Hardware)
         {
-            std::cerr << "\nDid you provide a valid offset? By default VPD "
-                         "offset is taken as 0. To input offset, use --offset. "
-                         "Refer vpd-tool help.";
+            std::cerr << "Did you provide a valid offset? By default VPD "
+                         "offset is taken as 0. To input offset, use --seek. "
+                         "Refer vpd-tool help."
+                      << std::endl;
         }
         rc = -1;
     }
