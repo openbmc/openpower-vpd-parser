@@ -7,6 +7,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <optional>
+#include <variant>
 
 namespace openpower
 {
@@ -353,21 +354,21 @@ inline std::string createBindUnbindDriverCmnd(const std::string& devNameAddr,
 /**
  * @brief Get Printable Value
  *
- * Checks if the vector value has non printable characters.
+ * Checks if the value has non printable characters.
  * Returns hex value if non printable char is found else
  * returns ascii value.
  *
- * @param[in] vector - Reference of the Binary vector
+ * @param[in] kwVal - Reference of the input data, Keyword value
  * @return printable value - either in hex or in ascii.
  */
-std::string getPrintableValue(const Binary& vec);
+std::string getPrintableValue(const std::variant<Binary, std::string>& kwVal);
 
 /**
- * @brief Convert byte array to hex string.
- * @param[in] vec - byte array
+ * @brief Convert array to hex string.
+ * @param[in] kwVal - input data, Keyword value
  * @return hexadecimal string of bytes.
  */
-std::string byteArrayToHexString(const Binary& vec);
+std::string hexString(const std::variant<Binary, std::string>& kwVal);
 
 /**
  * @brief Return presence of the FRU.
