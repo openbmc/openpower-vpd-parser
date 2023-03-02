@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13777830_b21f26b5",
+        "filename": "const.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-02T04:50:16Z",
+      "side": 1,
+      "message": "should be 0F.",
+      "revId": "445a7379667f15885809ca7cc3dd5ff8111690e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "601fbef5_2479ecdc",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 31
