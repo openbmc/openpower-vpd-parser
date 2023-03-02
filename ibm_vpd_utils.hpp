@@ -7,12 +7,14 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <optional>
+#include <variant>
 
 namespace openpower
 {
 namespace vpd
 {
 
+using Vec = std::variant<Binary, std::string>;
 // Map which holds system vpd keywords which can be restored at standby and via
 // vpd-tool and also can be used to reset keywords to its defaults at
 // manufacturing. The list of keywords for VSYS record is as per the S0 system.
@@ -357,17 +359,17 @@ inline std::string createBindUnbindDriverCmnd(const std::string& devNameAddr,
  * Returns hex value if non printable char is found else
  * returns ascii value.
  *
- * @param[in] vector - Reference of the Binary vector
+ * @param[in] vector - Reference of the input data
  * @return printable value - either in hex or in ascii.
  */
-std::string getPrintableValue(const Binary& vec);
+std::string getPrintableValue(const Vec& vec);
 
 /**
- * @brief Convert byte array to hex string.
- * @param[in] vec - byte array
+ * @brief Convert array to hex string.
+ * @param[in] vec - input data
  * @return hexadecimal string of bytes.
  */
-std::string byteArrayToHexString(const Binary& vec);
+std::string arrayToHexString(const Vec& vec);
 
 /**
  * @brief Return presence of the FRU.
