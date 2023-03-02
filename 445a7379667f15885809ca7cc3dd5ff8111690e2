@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0855fc7d_cf19faaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 31
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-03-02T06:46:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "988ebb45_35c72e07",
+      "revId": "445a7379667f15885809ca7cc3dd5ff8111690e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13777830_b21f26b5",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c8159e0_a8b5e6bc",
+        "filename": "const.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-03-02T06:46:34Z",
+      "side": 1,
+      "message": "As per spec this should be 0x1F (0 ~ 4). As discussed in the scrum Jinu mentioned it should be 0X1F so we will have 0x1F.",
+      "parentUuid": "13777830_b21f26b5",
+      "revId": "445a7379667f15885809ca7cc3dd5ff8111690e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "601fbef5_2479ecdc",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 31
@@ -48,6 +84,30 @@
       "writtenOn": "2023-03-01T17:55:16Z",
       "side": 1,
       "message": "Sorry, should have mentioned earlier, can be included in below else if.",
+      "range": {
+        "startLine": 215,
+        "startChar": 3,
+        "endLine": 223,
+        "endChar": 5
+      },
+      "revId": "445a7379667f15885809ca7cc3dd5ff8111690e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c448565f_abacdf71",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-03-02T06:46:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "601fbef5_2479ecdc",
       "range": {
         "startLine": 215,
         "startChar": 3,
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e34c3f69_98aa36a7",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-03-02T06:46:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4df22f6e_35be16f0",
+      "range": {
+        "startLine": 235,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 5
+      },
+      "revId": "445a7379667f15885809ca7cc3dd5ff8111690e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57620dee_23423f63",
@@ -104,6 +188,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cb135e7_35150b8a",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-03-02T06:46:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "57620dee_23423f63",
+      "range": {
+        "startLine": 366,
+        "startChar": 8,
+        "endLine": 374,
+        "endChar": 9
+      },
+      "revId": "445a7379667f15885809ca7cc3dd5ff8111690e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60c19c38_6cb2b518",
@@ -117,6 +225,30 @@
       "writtenOn": "2023-03-01T17:55:16Z",
       "side": 1,
       "message": "Sorry, should have mentioned earlier. This check should be enough with else for error. The above if mayn\u0027t be required.",
+      "range": {
+        "startLine": 396,
+        "startChar": 3,
+        "endLine": 399,
+        "endChar": 13
+      },
+      "revId": "445a7379667f15885809ca7cc3dd5ff8111690e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a3ecf8c_56596921",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-03-02T06:46:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "60c19c38_6cb2b518",
       "range": {
         "startLine": 396,
         "startChar": 3,
