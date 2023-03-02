@@ -692,6 +692,22 @@ std::string byteArrayToHexString(const Binary& vec)
     return str;
 }
 
+std::string arrayToHexString(const std::string& vec)
+{
+    std::stringstream ss;
+    std::string hexRep = "0x";
+    ss << hexRep;
+    std::string str = ss.str();
+
+    // convert Decimal to Hex string
+    for (auto& v : vec)
+    {
+        ss << std::setfill('0') << std::setw(2) << std::hex << (int)v;
+        str = ss.str();
+    }
+    return str;
+}
+
 std::string getPrintableValue(const Binary& vec)
 {
     std::string str{};
@@ -707,6 +723,33 @@ std::string getPrintableValue(const Binary& vec)
             if (*itr != 0x00)
             {
                 str = byteArrayToHexString(vec);
+                return str;
+            }
+        }
+        str = std::string(vec.begin(), it);
+    }
+    else
+    {
+        str = std::string(vec.begin(), vec.end());
+    }
+    return str;
+}
+
+std::string getPrintableValue(const std::string& vec)
+{
+    std::string str{};
+
+    // find for a non printable value in the vector
+    const auto it = std::find_if(vec.begin(), vec.end(),
+                                 [](const auto& ele) { return !isprint(ele); });
+
+    if (it != vec.end()) // if the given vector has any non printable value
+    {
+        for (auto itr = it; itr != vec.end(); itr++)
+        {
+            if (*itr != 0x00)
+            {
+                str = arrayToHexString(vec);
                 return str;
             }
         }

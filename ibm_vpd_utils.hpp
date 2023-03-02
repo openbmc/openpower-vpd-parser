@@ -363,11 +363,30 @@ inline std::string createBindUnbindDriverCmnd(const std::string& devNameAddr,
 std::string getPrintableValue(const Binary& vec);
 
 /**
+ * @brief Get Printable Value
+ *
+ * Checks if the vector value has non printable characters.
+ * Returns hex value if non printable char is found else
+ * returns ascii value.
+ *
+ * @param[in] vector - Reference of the string vector
+ * @return printable value - either in hex or in ascii.
+ */
+std::string getPrintableValue(const std::string& vec);
+
+/**
  * @brief Convert byte array to hex string.
  * @param[in] vec - byte array
  * @return hexadecimal string of bytes.
  */
 std::string byteArrayToHexString(const Binary& vec);
+
+/**
+ * @brief Convert string array to hex string.
+ * @param[in] vec - array
+ * @return hexadecimal string of bytes.
+ */
+std::string arrayToHexString(const std::string& vec);
 
 /**
  * @brief Return presence of the FRU.
