@@ -4,15 +4,16 @@
 #include "store.hpp"
 #include "types.hpp"
 
+#include <iomanip>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <optional>
+#include <sstream>
 
 namespace openpower
 {
 namespace vpd
 {
-
 // Map which holds system vpd keywords which can be restored at standby and via
 // vpd-tool and also can be used to reset keywords to its defaults at
 // manufacturing. The list of keywords for VSYS record is as per the S0 system.
@@ -351,6 +352,28 @@ inline std::string createBindUnbindDriverCmnd(const std::string& devNameAddr,
 }
 
 /**
+ * @brief Convert byte array to hex string.
+ * @param[in] vec - byte array
+ * @return hexadecimal string of bytes.
+ */
+template<typename T>
+std::string byteArrayToHexString(const T& vec)
+{
+    std::stringstream ss;
+    std::string hexRep = "0x";
+    ss << hexRep;
+    std::string str = ss.str();
+
+    // convert Decimal to Hex string
+    for (auto& v : vec)
+    {
+        ss << std::setfill('0') << std::setw(2) << std::hex << (int)v;
+        str = ss.str();
+    }
+    return str;
+}
+
+/**
  * @brief Get Printable Value
  *
  * Checks if the vector value has non printable characters.
@@ -360,14 +383,33 @@ inline std::string createBindUnbindDriverCmnd(const std::string& devNameAddr,
  * @param[in] vector - Reference of the Binary vector
  * @return printable value - either in hex or in ascii.
  */
-std::string getPrintableValue(const Binary& vec);
+template<typename T>
+std::string getPrintableValue(const T& vec)
+{
+    std::string str{};
 
-/**
- * @brief Convert byte array to hex string.
- * @param[in] vec - byte array
- * @return hexadecimal string of bytes.
- */
-std::string byteArrayToHexString(const Binary& vec);
+    // find for a non printable value in the vector
+    const auto it = std::find_if(vec.begin(), vec.end(),
+                                 [](const auto& ele) { return !isprint(ele); });
+
+    if (it != vec.end()) // if the given vector has any non printable value
+    {
+        for (auto itr = it; itr != vec.end(); itr++)
+        {
+            if (*itr != 0x00)
+            {
+                str = byteArrayToHexString<T>(vec);
+                return str;
+            }
+        }
+        str = std::string(vec.begin(), it);
+    }
+    else
+    {
+        str = std::string(vec.begin(), vec.end());
+    }
+    return str;
+}
 
 /**
  * @brief Return presence of the FRU.
