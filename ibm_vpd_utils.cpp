@@ -10,13 +10,11 @@
 #include <filesystem>
 #include <fstream>
 #include <gpiod.hpp>
-#include <iomanip>
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
 #include <regex>
 #include <sdbusplus/server.hpp>
-#include <sstream>
 #include <vector>
 #include <xyz/openbmc_project/Common/error.hpp>
 
@@ -371,29 +369,10 @@ vpdType vpdTypeCheck(const Binary& vpdVector)
         // KEYWORD VPD FORMAT
         return vpdType::KEYWORD_VPD;
     }
-    else if (((vpdVector[SPD_BYTE_3] & SPD_BYTE_BIT_0_3_MASK) ==
-              SPD_MODULE_TYPE_DDIMM) &&
-             (is11SFormat.compare(MEMORY_VPD_START_TAG)))
+    else if (is11SFormat.compare(MEMORY_VPD_START_TAG) == 0)
     {
-        // DDIMM Memory VPD format
-        if ((vpdVector[SPD_BYTE_2] & SPD_BYTE_MASK) == SPD_DRAM_TYPE_DDR5)
-        {
-            return vpdType::DDR5_DDIMM_MEMORY_VPD;
-        }
-        else if ((vpdVector[SPD_BYTE_2] & SPD_BYTE_MASK) == SPD_DRAM_TYPE_DDR4)
-        {
-            return vpdType::DDR4_DDIMM_MEMORY_VPD;
-        }
-    }
-    else if ((vpdVector[SPD_BYTE_2] & SPD_BYTE_MASK) == SPD_DRAM_TYPE_DDR5)
-    {
-        // ISDIMM Memory VPD format
-        return vpdType::DDR5_ISDIMM_MEMORY_VPD;
-    }
-    else if ((vpdVector[SPD_BYTE_2] & SPD_BYTE_MASK) == SPD_DRAM_TYPE_DDR4)
-    {
-        // ISDIMM Memory VPD format
-        return vpdType::DDR4_ISDIMM_MEMORY_VPD;
+        // Memory VPD format
+        return vpdType::MEMORY_VPD;
     }
 
     // INVALID VPD FORMAT
@@ -674,49 +653,6 @@ const std::string getKwVal(const Parsed& vpdMap, const std::string& rec,
     }
 
     return kwVal;
-}
-
-std::string byteArrayToHexString(const Binary& vec)
-{
-    std::stringstream ss;
-    std::string hexRep = "0x";
-    ss << hexRep;
-    std::string str = ss.str();
-
-    // convert Decimal to Hex string
-    for (auto& v : vec)
-    {
-        ss << std::setfill('0') << std::setw(2) << std::hex << (int)v;
-        str = ss.str();
-    }
-    return str;
-}
-
-std::string getPrintableValue(const Binary& vec)
-{
-    std::string str{};
-
-    // find for a non printable value in the vector
-    const auto it = std::find_if(vec.begin(), vec.end(),
-                                 [](const auto& ele) { return !isprint(ele); });
-
-    if (it != vec.end()) // if the given vector has any non printable value
-    {
-        for (auto itr = it; itr != vec.end(); itr++)
-        {
-            if (*itr != 0x00)
-            {
-                str = byteArrayToHexString(vec);
-                return str;
-            }
-        }
-        str = std::string(vec.begin(), it);
-    }
-    else
-    {
-        str = std::string(vec.begin(), vec.end());
-    }
-    return str;
 }
 
 void executePostFailAction(const nlohmann::json& json, const std::string& file)
