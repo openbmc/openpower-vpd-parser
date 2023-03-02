@@ -451,7 +451,6 @@ void VpdTool::readKeyword()
         json kwVal = json::object({});
         makeDBusCall(INVENTORY_PATH + fruPath, interface + recordName, keyword)
             .read(response);
-
         string printableVal{};
         if (auto vec = get_if<Binary>(&response))
         {
@@ -467,6 +466,7 @@ void VpdTool::readKeyword()
     {
         json output = json::object({});
         json kwVal = json::object({});
+        std::cout <<e.what()<< std::endl;
     }
 }
 
@@ -586,7 +586,7 @@ void VpdTool::readKwFromHw(const uint32_t& startOffset)
     {
         json output = json::object({});
         json kwVal = json::object({});
-        kwVal.emplace(keyword, keywordVal);
+        kwVal.emplace(keyword, getPrintableValue(keywordVal));
 
         output.emplace(fruPath, kwVal);
 
@@ -750,7 +750,8 @@ int VpdTool::fixSystemVPD()
 
                 if (const auto value = get_if<Binary>(&kwValue))
                 {
-                    busStr = byteArrayToHexString(*value);
+                    busStr =
+                        getPrintableValue(*value);
                 }
                 if (busStr != hwValStr)
                 {
