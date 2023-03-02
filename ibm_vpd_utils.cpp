@@ -676,46 +676,53 @@ const std::string getKwVal(const Parsed& vpdMap, const std::string& rec,
     return kwVal;
 }
 
-std::string byteArrayToHexString(const Binary& vec)
+std::string hexString(const Variant& var)
 {
-    std::stringstream ss;
-    std::string hexRep = "0x";
-    ss << hexRep;
-    std::string str = ss.str();
-
-    // convert Decimal to Hex string
-    for (auto& v : vec)
-    {
-        ss << std::setfill('0') << std::setw(2) << std::hex << (int)v;
-        str = ss.str();
-    }
+    std::string str;
+    std::visit(
+        [&str](auto&& vec) {
+            for (auto& v : vec)
+            {
+                std::stringstream ss;
+                std::string hexRep = "0x";
+                ss << hexRep;
+                ss << std::setfill('0') << std::setw(2) << std::hex << (int)v;
+                str = ss.str();
+            }
+        },
+        var);
     return str;
 }
 
-std::string getPrintableValue(const Binary& vec)
+std::string getPrintableValue(const Variant& var)
 {
     std::string str{};
-
-    // find for a non printable value in the vector
-    const auto it = std::find_if(vec.begin(), vec.end(),
-                                 [](const auto& ele) { return !isprint(ele); });
-
-    if (it != vec.end()) // if the given vector has any non printable value
-    {
-        for (auto itr = it; itr != vec.end(); itr++)
-        {
-            if (*itr != 0x00)
+    bool printable = true;
+    std::visit(
+        [&str, &printable](auto&& elem) {
+            const auto it =
+                std::find_if(elem.begin(), elem.end(),
+                             [](const auto& ele) { return !isprint(ele); });
+            if (it != elem.end())
             {
-                str = byteArrayToHexString(vec);
-                return str;
+                for (auto itr = it; itr != elem.end(); itr++)
+                {
+                    if (*itr != 0x00)
+                    {
+                        str = hexString(elem);
+                        printable = false;
+                    }
+                }
             }
+        },
+        var);
+        if (!printable)
+        {
+            return str;
         }
-        str = std::string(vec.begin(), it);
-    }
-    else
-    {
-        str = std::string(vec.begin(), vec.end());
-    }
+    std::visit(
+        [&str](auto&& elem) { str = std::string(elem.begin(), elem.end()); },
+        var);
     return str;
 }
 
