@@ -586,7 +586,7 @@ void VpdTool::readKwFromHw(const uint32_t& startOffset)
     {
         json output = json::object({});
         json kwVal = json::object({});
-        kwVal.emplace(keyword, keywordVal);
+        kwVal.emplace(keyword, getPrintableValue(keywordVal));
 
         output.emplace(fruPath, kwVal);
 
