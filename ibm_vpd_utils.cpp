@@ -676,45 +676,85 @@ const std::string getKwVal(const Parsed& vpdMap, const std::string& rec,
     return kwVal;
 }
 
-std::string byteArrayToHexString(const Binary& vec)
+std::string hexString(const Val& var)
 {
     std::stringstream ss;
     std::string hexRep = "0x";
     ss << hexRep;
     std::string str = ss.str();
-
-    // convert Decimal to Hex string
-    for (auto& v : vec)
+    if (var.index() == 0)
     {
-        ss << std::setfill('0') << std::setw(2) << std::hex << (int)v;
-        str = ss.str();
+        auto vec = *(get_if<Binary>(&var));
+        // convert Decimal to Hex string
+        for (auto& v : vec)
+        {
+            ss << std::setfill('0') << std::setw(2) << std::hex << (int)v;
+            str = ss.str();
+        }
+    }
+    else
+    {
+        auto vec = *(get_if<std::string>(&var));
+        for (auto& v : vec)
+        {
+            ss << std::setfill('0') << std::setw(2) << std::hex << (int)v;
+            str = ss.str();
+        }
     }
     return str;
 }
 
-std::string getPrintableValue(const Binary& vec)
+std::string getPrintableValue(const Val& var)
 {
     std::string str{};
 
-    // find for a non printable value in the vector
-    const auto it = std::find_if(vec.begin(), vec.end(),
-                                 [](const auto& ele) { return !isprint(ele); });
-
-    if (it != vec.end()) // if the given vector has any non printable value
+    if (var.index() == 0)
     {
-        for (auto itr = it; itr != vec.end(); itr++)
+        auto vec = *(get_if<Binary>(&var));
+        // find for a non printable value in the vector
+        const auto it =
+            std::find_if(vec.begin(), vec.end(),
+                         [](const auto& ele) { return !isprint(ele); });
+        if (it != vec.end()) // if the given vector has any non printable value
         {
-            if (*itr != 0x00)
+            for (auto itr = it; itr != vec.end(); itr++)
             {
-                str = byteArrayToHexString(vec);
-                return str;
+                if (*itr != 0x00)
+                {
+                    str = hexString(vec);
+                    return str;
+                }
             }
+            str = std::string(vec.begin(), it);
         }
-        str = std::string(vec.begin(), it);
+        else
+        {
+            str = std::string(vec.begin(), vec.end());
+        }
     }
     else
     {
-        str = std::string(vec.begin(), vec.end());
+        auto vec = *(get_if<std::string>(&var));
+        // find for a non printable value in the vector
+        const auto it =
+            std::find_if(vec.begin(), vec.end(),
+                         [](const auto& ele) { return !isprint(ele); });
+        if (it != vec.end()) // if the given vector has any non printable value
+        {
+            for (auto itr = it; itr != vec.end(); itr++)
+            {
+                if (*itr != 0x00)
+                {
+                    str = hexString(vec);
+                    return str;
+                }
+            }
+            str = std::string(vec.begin(), it);
+        }
+        else
+        {
+            str = std::string(vec.begin(), vec.end());
+        }
     }
     return str;
 }
