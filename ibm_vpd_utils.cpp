@@ -676,45 +676,92 @@ const std::string getKwVal(const Parsed& vpdMap, const std::string& rec,
     return kwVal;
 }
 
-std::string byteArrayToHexString(const Binary& vec)
+std::string hexString(const std::variant<Binary, std::string>& var)
 {
     std::stringstream ss;
     std::string hexRep = "0x";
     ss << hexRep;
     std::string str = ss.str();
-
-    // convert Decimal to Hex string
-    for (auto& v : vec)
+    if (auto binaryVar = (get_if<Binary>(&var)))
     {
-        ss << std::setfill('0') << std::setw(2) << std::hex << (int)v;
-        str = ss.str();
+        // convert Decimal to Hex string
+        for (auto& kwVal : *(binaryVar))
+        {
+            ss << std::setfill('0') << std::setw(2) << std::hex
+               << static_cast<int>(kwVal);
+            str = ss.str();
+        }
+    }
+    else if (auto stringVar = get_if<std::string>(&var))
+    {
+        for (auto& kwVal : *(stringVar))
+        {
+            ss << std::setfill('0') << std::setw(2) << std::hex
+               << static_cast<int>(kwVal);
+            str = ss.str();
+        }
+    }
+    else
+    {
+        std::cerr << "Parameter to the function is unrecognisable";
     }
     return str;
 }
 
-std::string getPrintableValue(const Binary& vec)
+std::string getPrintableValue(const std::variant<Binary, std::string>& var)
 {
     std::string str{};
 
-    // find for a non printable value in the vector
-    const auto it = std::find_if(vec.begin(), vec.end(),
-                                 [](const auto& ele) { return !isprint(ele); });
-
-    if (it != vec.end()) // if the given vector has any non printable value
+    if (auto kw = get_if<Binary>(&var))
     {
-        for (auto itr = it; itr != vec.end(); itr++)
-        {
-            if (*itr != 0x00)
+        auto kwVal = *kw;
+        // find for a non printable value in the vector
+        const auto it =
+            std::find_if(kwVal.begin(), kwVal.end(),
+                         [](const auto& val) { return !isprint(val); });
+        if (it != kwVal.end()) // if the given vector has any non printable
+        {                      // value
+            for (auto itr = it; itr != kwVal.end(); itr++)
             {
-                str = byteArrayToHexString(vec);
-                return str;
+                if (*itr != 0x00)
+                {
+                    return hexString(kwVal);
+                }
             }
+            str = std::string(kwVal.begin(), it);
         }
-        str = std::string(vec.begin(), it);
+        else
+        {
+            str = std::string(kwVal.begin(), kwVal.end());
+        }
+    }
+    else if (auto kw = get_if<std::string>(&var))
+    {
+        auto kwVal = *kw;
+        // find for a non printable value in the vector
+        const auto it =
+            std::find_if(kwVal.begin(), kwVal.end(),
+                         [](const auto& val) { return !isprint(val); });
+        if (it !=
+            kwVal.end()) // if the given vector has any non printable value
+        {
+            for (auto itr = it; itr != kwVal.end(); itr++)
+            {
+                if (*itr != 0x00)
+                {
+                    return hexString(kwVal);
+                }
+            }
+            str = std::string(kwVal.begin(), it);
+        }
+        else
+        {
+            str = std::string(kwVal.begin(), kwVal.end());
+        }
     }
     else
     {
-        str = std::string(vec.begin(), vec.end());
+        std::cerr << "Parameter to the function is unrecognisable";
     }
     return str;
 }
