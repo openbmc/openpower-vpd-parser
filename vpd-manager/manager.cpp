@@ -139,9 +139,13 @@ static void
                     const string& busValue = readBusProperty(
                         objectPath, ipzVpdInf + recordName, keyword);
 
-                    if (busValue.find_first_not_of(' ') != string::npos)
+                    const auto& defaultValue = get<1>(keywordInfo);
+
+                    if (Binary(busValue.begin(), busValue.end()) !=
+                        defaultValue)
                     {
-                        if (kwdValue.find_first_not_of(' ') == string::npos)
+                        if (Binary(kwdValue.begin(), kwdValue.end()) ==
+                            defaultValue)
                         {
                             // implies data is blank on EEPROM but not on cache.
                             // So EEPROM vpd update is required.
