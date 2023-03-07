@@ -8,7 +8,7 @@ namespace openpower
 {
 namespace vpd
 {
-namespace memory
+namespace isdimm
 {
 namespace parser
 {
