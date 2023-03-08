@@ -10,6 +10,7 @@
 
 using namespace vpd::keyword::parser;
 using namespace openpower::vpd::memory::parser;
+using namespace openpower::vpd::isdimm::parser;
 using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::ipz::parser;
 using namespace openpower::vpd::exceptions;
