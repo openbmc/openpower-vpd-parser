@@ -16,6 +16,7 @@ vpd_manager_SOURCES =['manager_main.cpp',
                       '../common_utility.cpp',
                       '../vpd-parser//keyword_vpd_parser.cpp',
                       '../vpd-parser/memory_vpd_parser.cpp',
+                      '../vpd-parser/isdimm_vpd_parser.cpp',
                       '../vpd-parser/parser_factory.cpp'
                      ]
 
