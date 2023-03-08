@@ -334,6 +334,6 @@ std::variant<kwdVpdMap, Store> isdimmVpdParser::parse()
 }
 
 } // namespace parser
-} // namespace memory
+} // namespace isdimm
 } // namespace vpd
 } // namespace openpower

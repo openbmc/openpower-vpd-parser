@@ -148,6 +148,6 @@ inline std::string isdimmVpdParser::getInterfaceName() const
 }
 
 } // namespace parser
-} // namespace memory
+} // namespace isdimm
 } // namespace vpd
 } // namespace openpower
