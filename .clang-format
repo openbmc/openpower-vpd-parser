@@ -87,7 +87,7 @@ IndentWidth:     4
 IndentWrappedFunctionNames: true
 InsertNewlineAtEOF: true
 KeepEmptyLinesAtTheStartOfBlocks: false
-LambdaBodyIndentation: Signature
+LambdaBodyIndentation: OuterScope
 LineEnding: LF
 MacroBlockBegin: ''
 MacroBlockEnd:   ''
@@ -98,14 +98,13 @@ ObjCSpaceAfterProperty: false
 ObjCSpaceBeforeProtocolList: true
 PackConstructorInitializers: BinPack
 PenaltyBreakAssignment: 25
-PenaltyBreakBeforeFirstCallParameter: 50
+PenaltyBreakBeforeFirstCallParameter: 19
 PenaltyBreakComment: 300
 PenaltyBreakFirstLessLess: 120
 PenaltyBreakString: 1000
-PenaltyBreakTemplateDeclaration: 10
 PenaltyExcessCharacter: 1000000
 PenaltyReturnTypeOnItsOwnLine: 60
-PenaltyIndentedWhitespace: 1
+PenaltyIndentedWhitespace: 0
 PointerAlignment: Left
 QualifierAlignment: Left
 ReferenceAlignment: Left
@@ -132,5 +131,3 @@ SpacesInSquareBrackets: false
 Standard:        Latest
 TabWidth:        4
 UseTab:          Never
-...
-
