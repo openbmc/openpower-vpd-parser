@@ -1,53 +1,70 @@
-if get_option('oe-sdk').allowed()
-  # Setup OE SYSROOT
-  OECORE_TARGET_SYSROOT = run_command('sh', '-c', 'echo $OECORE_TARGET_SYSROOT').stdout().strip()
-  if OECORE_TARGET_SYSROOT == ''
-      error('Unable to get $OECORE_TARGET_SYSROOT, check your environment.')
+gtest_dep = dependency('gtest', main: true, disabler: true, required: false)
+gmock_dep = dependency('gmock', disabler: true, required: false)
+libgpiodcxx = dependency(
+            'libgpiodcxx',
+            default_options: ['bindings=cxx'],
+        )
+if not gtest_dep.found() or not gmock_dep.found()
+    cmake = import('cmake')
+    gtest_opts = cmake.subproject_options()
+    gtest_opts.set_override_option('warning_level', '1')
+    gtest_opts.set_override_option('werror', 'false')
+    gtest_proj = cmake.subproject('googletest',
+                                  options: gtest_opts,
+                                  required: false)
+    if gtest_proj.found()
+        gtest_dep = declare_dependency(
+            dependencies: [
+                dependency('threads'),
+                gtest_proj.dependency('gtest'),
+                gtest_proj.dependency('gtest_main'),
+            ]
+        )
+        gmock_dep = gtest_proj.dependency('gmock')
+  else
+        assert(
+            not get_option('tests').allowed(),
+            'Googletest is required if tests are enabled'
+        )
   endif
-  message('OE_SYSROOT: ' + OECORE_TARGET_SYSROOT)
-  rpath = ':'.join([OECORE_TARGET_SYSROOT + '/lib', OECORE_TARGET_SYSROOT + '/usr/lib'])
-  ld_so = run_command('sh', '-c', 'find ' + OECORE_TARGET_SYSROOT + '/lib/ld-*.so | sort -r -n | head -n1').stdout().strip()
-  dynamic_linker = ['-Wl,-dynamic-linker,' + ld_so]
-else
-  dynamic_linker = []
 endif
-gmock = dependency('gmock', disabler: true, required: build_tests)
-gtest = dependency('gtest', main: true, disabler: true, required: build_tests)
-libgpiodcxx = dependency('libgpiodcxx', default_options: ['bindings=cxx'])
-dependecy_list = [gtest, gmock, sdbusplus, phosphor_logging, phosphor_dbus_interfaces, libgpiodcxx, nlohmann_json_dep]
 
-configuration_inc = include_directories('..', '../vpd-manager', 'vpd-manager-test', '../vpd-parser')
+parser_build_arguments = []
+if get_option('ipz_ecc_check').enabled()
+    parser_build_arguments += ['-DIPZ_ECC_CHECK']
+endif
 
-vpd_test = ['store/store.cpp',
-            'ipz_parser/parser.cpp',
-            'keyword_vpd_parser_test/kw_vpd_test.cpp',
-            'vpd-manager-test/reader_test.cpp',
-            'vpd-manager-test/editor_test.cpp'
+dependency_list = [gtest_dep, gmock_dep, sdbusplus, libgpiodcxx]
+
+configuration_inc = include_directories('..', '../vpd-manager/include', '../vpdecc')
+
+test_sources = [
+  '../vpd-manager/src/logger.cpp',
+  '../vpd-manager/src/ddimm_parser.cpp',
+  '../vpd-manager/src/parser.cpp',
+  '../vpd-manager/src/parser_factory.cpp',
+  '../vpd-manager/src/isdimm_parser.cpp',
+  '../vpd-manager/src/ipz_parser.cpp',
+  '../vpd-manager/src/keyword_vpd_parser.cpp',
+  '../vpd-manager/src/event_logger.cpp',
+  '../vpdecc/vpdecc.c'
 ]
 
-application_src =['../impl.cpp',
-                   '../vpd-parser/ipz_parser.cpp',
-                   '../ibm_vpd_utils.cpp',
-                   '../common_utility.cpp',
-                   '../vpd-manager/reader_impl.cpp',
-                   '../vpd-parser/keyword_vpd_parser.cpp',
-                   '../vpd-manager/editor_impl.cpp',
-                   '../vpd-parser/parser_factory.cpp',
-                   '../vpd-parser/memory_vpd_parser.cpp',
-                   '../vpd-parser/isdimm_vpd_parser.cpp'
-                  ]
+tests = [
+  'utest_utils.cpp',
+  'utest_keyword_parser.cpp',
+  'utest_ddimm_parser.cpp',
+  'utest_ipz_parser.cpp',
+  'utest_json_utility.cpp'
+]
 
-foreach t : vpd_test
-    test(t, executable(t.underscorify(),
-            [t, application_src],
-    build_rpath: get_option('oe-sdk').allowed() ? rpath : '',
-    link_args: dynamic_linker,
-    cpp_args: ['-DIPZ_PARSER', '-DManagerTest'],
-    c_args: ['-Wno-unused-parameter',
-      '-Wno-unused-variable'],
-    dependencies: dependecy_list,
-    include_directories: configuration_inc,
-    link_with : libvpdecc,
-    ),
-    workdir: meson.current_source_dir())
+foreach test_file : tests
+  test(test_file, executable(test_file.underscorify(),
+                     test_file,
+                     test_sources,
+                     include_directories: configuration_inc,
+                     dependencies: dependency_list,
+                     cpp_args: parser_build_arguments
+                     ),
+       workdir: meson.current_source_dir())
 endforeach

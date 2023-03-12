@@ -1,12 +1,15 @@
+#currently these services are added just for backward compatibility.
+#It will perform no task in the system and will be eventually removed.
+
 [Unit]
 Description=Wait for VPD Collection Services to complete
-After=system-vpd.service
+Wants=vpd-manager.service
+After=vpd-manager.service
 After=set-spi-mux.service
 
 [Service]
-ExecStart=/usr/bin/wait-vpd-parsers.sh
+ExecStart=/usr/bin/wait-vpd-status.sh
 Type=oneshot
 
 [Install]
 WantedBy=multi-user.target
-#WantedBy=obmc-chassis-poweroff@0.target
