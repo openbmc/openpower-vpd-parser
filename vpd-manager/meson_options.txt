@@ -1,5 +1,0 @@
-option('BUSNAME', type : 'string', value : 'com.ibm.VPD.Manager', description : 'BUS NAME FOR THE SERVICE')
-option('OBJPATH', type : 'string', value : '/com/ibm/VPD/Manager', description : 'OBJECT PATH FOR THE SERVICE')
-option('IFACE', type : 'string', value : 'com.ibm.VPD.Manager', description : 'INTERFACE NAME')
-option('oe-sdk', type : 'feature', description : 'ENABLE OE SDK FOR VPD KEYWORD EDITOR')
-option('INVENTORY_JSON', type : 'string', value : '/var/lib/vpd/vpd_inventory.json', description : 'PATH TO INVENTORY JSON FILE')
