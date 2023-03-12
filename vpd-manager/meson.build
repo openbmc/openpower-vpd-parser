@@ -1,42 +1,47 @@
-systemd = dependency('libsystemd', version: '>= 221')
-sdeventplus = dependency('sdeventplus')
+common_SOURCES = ['src/logger.cpp',
+                  'src/parser_factory.cpp',
+                  'src/ipz_parser.cpp',
+                  'src/keyword_vpd_parser.cpp',
+                  'src/ddimm_parser.cpp',
+                  'src/isdimm_parser.cpp',
+                  'src/parser.cpp',
+                  'src/worker.cpp',
+                  'src/backup_restore.cpp',
+                  'src/gpio_monitor.cpp',
+                  'src/event_logger.cpp']
 
-configuration_inc = include_directories('.', '../', '../vpd-parser/')
+vpd_manager_SOURCES = ['src/manager_main.cpp',
+                    'src/manager.cpp',
+                    'src/bios_handler.cpp',
+                    ] + common_SOURCES
 
-vpd_manager_SOURCES = [
-    'manager_main.cpp',
-    'manager.cpp',
-    'editor_impl.cpp',
-    'reader_impl.cpp',
-    'gpioMonitor.cpp',
-    'bios_handler.cpp',
-    '../impl.cpp',
-    '../vpd-parser/ipz_parser.cpp',
-    '../ibm_vpd_utils.cpp',
-    '../common_utility.cpp',
-    '../vpd-parser//keyword_vpd_parser.cpp',
-    '../vpd-parser/memory_vpd_parser.cpp',
-    '../vpd-parser/isdimm_vpd_parser.cpp',
-    '../vpd-parser/parser_factory.cpp'
-]
+parser_dependencies = [sdbusplus, libgpiodcxx, phosphor_logging, phosphor_dbus_interfaces]
 
-vpd_manager_dependencies = [
-    CLI11_dep,
-    libgpiodcxx,
-    phosphor_logging,
-    sdeventplus,
-    systemd,
-    nlohmann_json_dep,
-]
+parser_build_arguments = []
+if get_option('ibm_system').enabled()
+    parser_build_arguments += ['-DIBM_SYSTEM']
+endif
 
 vpd_manager_exe = executable(
-                 'vpd-manager',
-                 vpd_manager_SOURCES,
-                 include_directories : configuration_inc,
-                 dependencies : [
-                                vpd_manager_dependencies,
+                'vpd-manager',
+                vpd_manager_SOURCES,
+                include_directories : ['../', 'include/', '../configuration/'],
+                link_with : libvpdecc,
+                dependencies : [
+                                parser_dependencies,
                                 ],
-                 link_with : libvpdecc,
-                 install : true,
-                 cpp_args : '-DIPZ_PARSER'
+                install : true,
+                cpp_args : parser_build_arguments,
+                )
+
+vpd_parser_SOURCES = ['src/vpd_parser_main.cpp',
+                     ]+ common_SOURCES
+
+vpd_parser_exe = executable(
+                'vpd-parser',
+                vpd_parser_SOURCES,
+                include_directories : ['../', 'include/', '../configuration/'],
+                link_with : libvpdecc,
+                dependencies : parser_dependencies,
+                install : true,
                 )
