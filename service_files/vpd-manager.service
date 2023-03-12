@@ -1,0 +1,22 @@
+[Unit]
+Description=VPD Manager
+StopWhenUnneeded=false
+Wants=mapper-wait@-xyz-openbmc_project-inventory.service
+After=mapper-wait@-xyz-openbmc_project-inventory.service
+Wants=obmc-power-reset-on@0.target
+After=obmc-power-reset-on@0.target
+Wants=mapper-wait@-xyz-openbmc_project-state-chassis0.service
+After=mapper-wait@-xyz-openbmc_project-state-chassis0.service
+After=set-spi-mux.service
+Before=phosphor-discover-system-state@0.service
+
+[Service]
+BusName=com.ibm.VPD.Manager
+SyslogIdentifier=vpd-manager
+Type=dbus
+Restart=always
+RestartSec=5
+ExecStart=/usr/bin/vpd-manager
+
+[Install]
+WantedBy=multi-user.target
