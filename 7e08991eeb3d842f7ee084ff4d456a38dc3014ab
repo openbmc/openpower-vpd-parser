@@ -58,6 +58,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa8d449d_9ae925f0",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-13T09:47:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2c73d92e_24bbd5db",
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa6332cb_c95310f6",
@@ -177,6 +195,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e226609b_782d6cea",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-13T09:47:14Z",
+      "side": 1,
+      "message": "Other types shouldn\u0027t be there, but will check whether this check is required. Thanks.",
+      "parentUuid": "b3b386b9_60faa679",
+      "range": {
+        "startLine": 367,
+        "startChar": 4,
+        "endLine": 372,
+        "endChar": 5
+      },
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "09639e14_f6115d8c",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 4
@@ -188,6 +230,30 @@
       "writtenOn": "2023-03-13T09:24:16Z",
       "side": 1,
       "message": "this logic works if T is of type vector or string. what if T is of type int/uint8_t? this will break. so have an explicit check to apply this logic only if T is vector or string.",
+      "range": {
+        "startLine": 391,
+        "startChar": 4,
+        "endLine": 410,
+        "endChar": 5
+      },
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daec1cc2_9d9e7add",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-13T09:47:14Z",
+      "side": 1,
+      "message": "There is no chance for that, as it will be array of one element even if it\u0027s there.",
+      "parentUuid": "09639e14_f6115d8c",
       "range": {
         "startLine": 391,
         "startChar": 4,
