@@ -1,0 +1,210 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e0f8415_725e89f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-13T09:24:16Z",
+      "side": 1,
+      "message": "commit heading looks incomplete. make sure you have an heading with 50 characters.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 0
+      },
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47a64f47_56e273b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-13T09:24:16Z",
+      "side": 1,
+      "message": "Need details on what this commit is about and what changes have been made.\n\nTested portion for this change is required.\n\nAlso provide the tested section which tells existing code isn\u0027t affected with this change",
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c73d92e_24bbd5db",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-13T09:24:16Z",
+      "side": 1,
+      "message": "why did you remove blank line 15",
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa6332cb_c95310f6",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-13T09:24:16Z",
+      "side": 1,
+      "message": "please change the api names. now its to convert any type to string",
+      "range": {
+        "startLine": 355,
+        "startChar": 17,
+        "endLine": 355,
+        "endChar": 28
+      },
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be192c7e_7363d944",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-13T09:24:16Z",
+      "side": 1,
+      "message": "please change the argument name and argument description",
+      "range": {
+        "startLine": 356,
+        "startChar": 13,
+        "endLine": 356,
+        "endChar": 30
+      },
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3b386b9_60faa679",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-13T09:24:16Z",
+      "side": 1,
+      "message": "you need to check if T is of type vector/string and then proceed with this calculation. For other types, we can add the logic whenever required",
+      "range": {
+        "startLine": 367,
+        "startChar": 4,
+        "endLine": 372,
+        "endChar": 5
+      },
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09639e14_f6115d8c",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-13T09:24:16Z",
+      "side": 1,
+      "message": "this logic works if T is of type vector or string. what if T is of type int/uint8_t? this will break. so have an explicit check to apply this logic only if T is vector or string.",
+      "range": {
+        "startLine": 391,
+        "startChar": 4,
+        "endLine": 410,
+        "endChar": 5
+      },
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cff21ffb_a28155f8",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-13T09:24:16Z",
+      "side": 1,
+      "message": "please undo this change",
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19ce49c1_694b06bd",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-13T09:24:16Z",
+      "side": 1,
+      "message": "you can directly call this api getPrintableValue\u003cstring\u003e(keywordVal); while emplacing",
+      "range": {
+        "startLine": 591,
+        "startChar": 31,
+        "endLine": 591,
+        "endChar": 34
+      },
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db65c57d_623afb40",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-13T09:24:16Z",
+      "side": 1,
+      "message": "undo this change please",
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
