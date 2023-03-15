@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76fa803f_5f6b183f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-15T15:10:06Z",
+      "side": 1,
+      "message": "Some small suggestions are pinned. Thank you.",
+      "revId": "98a66ce3ad68b90041d357e7ad75a8aaea662acd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "349fd15d_4f69786b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-15T15:10:06Z",
+      "side": 1,
+      "message": "Here change mayn\u0027t required,but fine.",
+      "range": {
+        "startLine": 913,
+        "startChar": 27,
+        "endLine": 916,
+        "endChar": 33
+      },
+      "revId": "98a66ce3ad68b90041d357e7ad75a8aaea662acd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f26354a2_c1e57954",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-15T15:10:06Z",
+      "side": 1,
+      "message": "For consistency can have primary or hardware elsewhere.",
+      "range": {
+        "startLine": 930,
+        "startChar": 58,
+        "endLine": 930,
+        "endChar": 66
+      },
+      "revId": "98a66ce3ad68b90041d357e7ad75a8aaea662acd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
