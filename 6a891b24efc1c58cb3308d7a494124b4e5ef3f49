@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba950303_326eb36e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-15T10:19:05Z",
+      "side": 1,
+      "message": "This is continuing from FSP system. ECC algorithm/ ECC is used. As ECC is Error correction code, will change though.",
+      "parentUuid": "79cf4aac_e3a6cf85",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "480f2ab6_edf8a82c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -31,6 +49,30 @@
       "writtenOn": "2023-03-15T09:05:27Z",
       "side": 1,
       "message": "Same here, please replace ECC with ECC algorithm.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dc6df47_c04e4d15",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-15T10:19:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "480f2ab6_edf8a82c",
       "range": {
         "startLine": 9,
         "startChar": 0,
@@ -54,6 +96,24 @@
       "writtenOn": "2023-03-15T09:05:27Z",
       "side": 1,
       "message": "Please have a check for valid stream before entering try catch.\nSame at other places as well that you have changed.",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7df5beeb_e38c34ae",
+        "filename": "impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-15T10:19:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bb6ec23f_525456d1",
       "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -94,6 +154,30 @@
       "writtenOn": "2023-03-15T09:05:27Z",
       "side": 1,
       "message": "Does not add any value. We know it is offset just by the variable name. Please add a reasonable description.",
+      "range": {
+        "startLine": 73,
+        "startChar": 36,
+        "endLine": 73,
+        "endChar": 42
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04a6737e_caed0dd6",
+        "filename": "impl.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-15T10:19:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "61b3f4a4_f78508f7",
       "range": {
         "startLine": 73,
         "startChar": 36,
@@ -152,6 +236,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3cc8323c_b39f2bb0",
+        "filename": "impl.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-15T10:19:05Z",
+      "side": 1,
+      "message": "Checked already before and is required.",
+      "parentUuid": "efab3ea1_48db0a15",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 5
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6725c65_e929bfc9",
         "filename": "impl.hpp",
         "patchSetId": 7
@@ -163,6 +271,24 @@
       "writtenOn": "2023-03-15T09:05:27Z",
       "side": 1,
       "message": "Why not const?",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad3ae274_dafc5af3",
+        "filename": "impl.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-15T10:19:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d6725c65_e929bfc9",
       "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -184,6 +310,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e30e4c82_57f49891",
+        "filename": "impl.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-15T10:19:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8d1b5826_cbf98c98",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25b32238_675739e9",
@@ -201,6 +345,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee905991_453ab81f",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-15T10:19:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "25b32238_675739e9",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1db6677_bcd003be",
@@ -214,6 +376,30 @@
       "writtenOn": "2023-03-15T09:05:27Z",
       "side": 1,
       "message": "Name of the function and the comment above seems contradicting.\nPlease update.",
+      "range": {
+        "startLine": 654,
+        "startChar": 17,
+        "endLine": 655,
+        "endChar": 33
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39e886d7_7d45f092",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-15T10:19:05Z",
+      "side": 1,
+      "message": "\u003e Name of the function and the comment above seems contradicting.\n\u003e Please update.\n\nOkay",
+      "parentUuid": "e1db6677_bcd003be",
       "range": {
         "startLine": 654,
         "startChar": 17,
@@ -270,6 +456,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "231b641d_a739293a",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-15T10:19:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2935d2be_5f2041ec",
+      "range": {
+        "startLine": 286,
+        "startChar": 12,
+        "endLine": 286,
+        "endChar": 75
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e926ab5_69df79ae",
@@ -283,6 +493,24 @@
       "writtenOn": "2023-03-15T09:05:27Z",
       "side": 1,
       "message": "Though it was missing before, could you please add parameters details above?",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f09c6e35_50738541",
+        "filename": "vpd-parser/ipz_parser.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-15T10:19:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5e926ab5_69df79ae",
       "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
