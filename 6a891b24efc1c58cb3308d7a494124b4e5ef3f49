@@ -1,0 +1,347 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79cf4aac_e3a6cf85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "ECC is not correcting the VPD here. The heading seems misleading.",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "480f2ab6_edf8a82c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "Same here, please replace ECC with ECC algorithm.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb6ec23f_525456d1",
+        "filename": "impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "Please have a check for valid stream before entering try catch.\nSame at other places as well that you have changed.",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "075af87e_0dd521eb",
+        "filename": "impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "seekp here but seekg above. Just for consistency can we have same at all the places.",
+      "range": {
+        "startLine": 200,
+        "startChar": 26,
+        "endLine": 200,
+        "endChar": 31
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61b3f4a4_f78508f7",
+        "filename": "impl.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "Does not add any value. We know it is offset just by the variable name. Please add a reasonable description.",
+      "range": {
+        "startLine": 73,
+        "startChar": 36,
+        "endLine": 73,
+        "endChar": 42
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dbb065a_a808846a",
+        "filename": "impl.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "Please check for failure before calling seek. Just having a cout in catch will not solve the purpose.",
+      "range": {
+        "startLine": 83,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 80
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efab3ea1_48db0a15",
+        "filename": "impl.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "Please check if this constructor is still required, else no point having two.",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 5
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6725c65_e929bfc9",
+        "filename": "impl.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "Why not const?",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d1b5826_cbf98c98",
+        "filename": "impl.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "We can have this as const as well.",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25b32238_675739e9",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "Please check for failure before calling seek.",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1db6677_bcd003be",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "Name of the function and the comment above seems contradicting.\nPlease update.",
+      "range": {
+        "startLine": 654,
+        "startChar": 17,
+        "endLine": 655,
+        "endChar": 33
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "385f1092_9328b7cd",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "It will create a uint8_t here. Could you please check that. If so we will need uint32_t explicitly.",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 12
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2935d2be_5f2041ec",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "Why this change is required?",
+      "range": {
+        "startLine": 286,
+        "startChar": 12,
+        "endLine": 286,
+        "endChar": 75
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e926ab5_69df79ae",
+        "filename": "vpd-parser/ipz_parser.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "Though it was missing before, could you please add parameters details above?",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "414197be_c21e697f",
+        "filename": "vpd-parser/parser_factory.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "I am not understanding this, why the parser will depend on vpdFilePath.",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa83a1e1_259d738f",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "Suggestion: Its easy to read code if you declare variable at the place where it is used.\nAlso as you are using uint32_t below, use the same here for consistency.",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41ac5f50_13c2a02c",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-15T09:05:27Z",
+      "side": 1,
+      "message": "Please add a blank line between blocks of code.",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
