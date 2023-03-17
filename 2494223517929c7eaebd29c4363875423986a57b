@@ -22,6 +22,30 @@
       },
       "revId": "2494223517929c7eaebd29c4363875423986a57b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f1e74f0_3ebf9db6",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-17T10:01:14Z",
+      "side": 1,
+      "message": "when we log PEL, we use the terms primary and backup. and the SSR knows they are fixing system vpd only. So the terms primary and backup should be fine.",
+      "parentUuid": "b26c7e99_4cb272d5",
+      "range": {
+        "startLine": 615,
+        "startChar": 8,
+        "endLine": 617,
+        "endChar": 55
+      },
+      "revId": "2494223517929c7eaebd29c4363875423986a57b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
