@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5a895dd_92af6eba",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-17T06:51:40Z",
+      "side": 1,
+      "message": "just to avoid confusion in future, I updated the comment accordingly.",
+      "parentUuid": "349fd15d_4f69786b",
+      "range": {
+        "startLine": 913,
+        "startChar": 27,
+        "endLine": 916,
+        "endChar": 33
+      },
+      "revId": "98a66ce3ad68b90041d357e7ad75a8aaea662acd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f26354a2_c1e57954",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 5
@@ -54,6 +78,30 @@
       "writtenOn": "2023-03-15T15:10:06Z",
       "side": 1,
       "message": "For consistency can have primary or hardware elsewhere.",
+      "range": {
+        "startLine": 930,
+        "startChar": 58,
+        "endLine": 930,
+        "endChar": 66
+      },
+      "revId": "98a66ce3ad68b90041d357e7ad75a8aaea662acd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a53ecb1_7e09f7f7",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-17T06:51:40Z",
+      "side": 1,
+      "message": "sure. will go with the word \"primary\"",
+      "parentUuid": "f26354a2_c1e57954",
       "range": {
         "startLine": 930,
         "startChar": 58,
