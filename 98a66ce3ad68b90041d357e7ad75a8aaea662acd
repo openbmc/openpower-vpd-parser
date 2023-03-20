@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "115b9a4b_1e87d29f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-20T06:10:43Z",
+      "side": 1,
+      "message": "OH OKAY.",
+      "parentUuid": "e5a895dd_92af6eba",
+      "range": {
+        "startLine": 913,
+        "startChar": 27,
+        "endLine": 916,
+        "endChar": 33
+      },
+      "revId": "98a66ce3ad68b90041d357e7ad75a8aaea662acd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f26354a2_c1e57954",
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "sure. will go with the word \"primary\"",
       "parentUuid": "f26354a2_c1e57954",
+      "range": {
+        "startLine": 930,
+        "startChar": 58,
+        "endLine": 930,
+        "endChar": 66
+      },
+      "revId": "98a66ce3ad68b90041d357e7ad75a8aaea662acd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74f18771_e85f5b41",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-20T06:10:43Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "6a53ecb1_7e09f7f7",
       "range": {
         "startLine": 930,
         "startChar": 58,
