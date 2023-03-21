@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a3f2a8d_7803dc47",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-21T10:43:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12004d5b_3affa918",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 33
+      },
+      "revId": "9bdd635b9d95075bce88fece196b1fd780e971a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c79abd7c_70868628",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-21T08:14:23Z",
       "side": 1,
       "message": "data from H to readable format? can you specify what H is?",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "9bdd635b9d95075bce88fece196b1fd780e971a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7346ac1_d118ed2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-21T10:43:12Z",
+      "side": 1,
+      "message": "Sure, I think \u0027W\" got out, will add that.",
+      "parentUuid": "c79abd7c_70868628",
       "range": {
         "startLine": 10,
         "startChar": 23,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f731563a_118197c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-21T10:43:12Z",
+      "side": 1,
+      "message": "Okay, will change.",
+      "parentUuid": "f5925d71_3f9884e0",
+      "range": {
+        "startLine": 10,
+        "startChar": 51,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "9bdd635b9d95075bce88fece196b1fd780e971a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a9fcca1_410c4e33",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -83,6 +155,24 @@
       "writtenOn": "2023-03-21T08:14:23Z",
       "side": 1,
       "message": "can you also test read from dbus case and add the tested section here.",
+      "revId": "9bdd635b9d95075bce88fece196b1fd780e971a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc858dbb_80e679b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-21T10:43:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a9fcca1_410c4e33",
       "revId": "9bdd635b9d95075bce88fece196b1fd780e971a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -123,6 +213,30 @@
       "writtenOn": "2023-03-21T10:09:58Z",
       "side": 1,
       "message": "Please use std::variant having type checks is not elegant.",
+      "parentUuid": "04773ac6_6e38ed98",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 763,
+        "endChar": 1
+      },
+      "revId": "9bdd635b9d95075bce88fece196b1fd780e971a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cf6df52_95d82c1d",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-21T10:43:12Z",
+      "side": 1,
+      "message": "Oh Okay, thanks. I\u0027m okay with either of them, but we decided to have variant function, so did overloading. I\u0027ll check on std::variant, too.",
       "parentUuid": "04773ac6_6e38ed98",
       "range": {
         "startLine": 679,
