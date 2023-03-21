@@ -108,6 +108,87 @@
       },
       "revId": "9bdd635b9d95075bce88fece196b1fd780e971a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffea0627_581dc605",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-21T10:09:58Z",
+      "side": 1,
+      "message": "Please use std::variant having type checks is not elegant.",
+      "parentUuid": "04773ac6_6e38ed98",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 763,
+        "endChar": 1
+      },
+      "revId": "9bdd635b9d95075bce88fece196b1fd780e971a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d4f45ad_38448226",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-21T10:09:58Z",
+      "side": 1,
+      "message": "We discussed that std::variant should be used then why two API\u0027s?",
+      "range": {
+        "startLine": 366,
+        "startChar": 1,
+        "endLine": 375,
+        "endChar": 54
+      },
+      "revId": "9bdd635b9d95075bce88fece196b1fd780e971a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1281e82_efadd306",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-21T10:09:58Z",
+      "side": 1,
+      "message": "Same here, extra line. Please have a look yourself once you push a commit, these can be avoided.",
+      "revId": "9bdd635b9d95075bce88fece196b1fd780e971a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c2472b4_209acb9a",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-21T10:09:58Z",
+      "side": 1,
+      "message": "Extra lines, please have a look around files after you push. At least these issue should not appear.",
+      "revId": "9bdd635b9d95075bce88fece196b1fd780e971a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
