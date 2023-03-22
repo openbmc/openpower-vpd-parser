@@ -288,6 +288,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85e4830e_97f40ffb",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-22T07:44:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d1281e82_efadd306",
+      "revId": "9bdd635b9d95075bce88fece196b1fd780e971a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c2472b4_209acb9a",
@@ -301,6 +319,24 @@
       "writtenOn": "2023-03-21T10:09:58Z",
       "side": 1,
       "message": "Extra lines, please have a look around files after you push. At least these issue should not appear.",
+      "revId": "9bdd635b9d95075bce88fece196b1fd780e971a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b77fe2b_0c393305",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-22T07:44:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2c2472b4_209acb9a",
       "revId": "9bdd635b9d95075bce88fece196b1fd780e971a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
