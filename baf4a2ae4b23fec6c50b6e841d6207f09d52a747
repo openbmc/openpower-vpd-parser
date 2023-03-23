@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37182fbb_39b9901a",
+        "filename": "impl.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-23T08:24:02Z",
+      "side": 1,
+      "message": "Extra line.",
+      "revId": "baf4a2ae4b23fec6c50b6e841d6207f09d52a747",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "885f92f8_45d80888",
+        "filename": "vpd-parser/ipz_parser.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-23T08:24:02Z",
+      "side": 1,
+      "message": "Nit, please see how this is written for other functions, lets keep it consistent at least in a file.",
+      "range": {
+        "startLine": 35,
+        "startChar": 5,
+        "endLine": 35,
+        "endChar": 46
+      },
+      "revId": "baf4a2ae4b23fec6c50b6e841d6207f09d52a747",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

@@ -231,6 +231,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5859c6a8_4377ebde",
+        "filename": "impl.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-23T08:24:02Z",
+      "side": 1,
+      "message": "It is being checked at the time seek is getting called.",
+      "parentUuid": "5dbb065a_a808846a",
+      "range": {
+        "startLine": 83,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 80
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "efab3ea1_48db0a15",
         "filename": "impl.hpp",
         "patchSetId": 7
@@ -553,6 +577,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2de11da8_582232ad",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-23T08:24:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "385f1092_9328b7cd",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 12
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2935d2be_5f2041ec",
@@ -658,6 +706,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e91f30e_1efbf895",
+        "filename": "vpd-parser/parser_factory.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-23T08:24:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "414197be_c21e697f",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa83a1e1_259d738f",
@@ -688,6 +760,24 @@
       "writtenOn": "2023-03-15T09:05:27Z",
       "side": 1,
       "message": "Please add a blank line between blocks of code.",
+      "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fd78cf4_66138978",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-03-23T08:24:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41ac5f50_13c2a02c",
       "revId": "6a891b24efc1c58cb3308d7a494124b4e5ef3f49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
