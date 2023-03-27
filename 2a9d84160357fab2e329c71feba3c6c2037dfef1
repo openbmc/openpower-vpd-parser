@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1bab12e0_a3e48bcb",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-27T09:26:23Z",
+      "side": 1,
+      "message": "change the name from vec to something which is apt.",
+      "range": {
+        "startLine": 697,
+        "startChar": 41,
+        "endLine": 697,
+        "endChar": 44
+      },
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "395ad6a3_e313e575",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 11
