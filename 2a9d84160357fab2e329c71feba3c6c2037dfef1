@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "395ad6a3_e313e575",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-27T08:50:09Z",
+      "side": 1,
+      "message": "whats the purpose of having line 712?",
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "405e4204_8f37dab4",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-27T08:50:09Z",
+      "side": 1,
+      "message": "If the given element is printable, at line 729, you take care of converting it to a string. thats fine, but whats the purpose of line 719?",
+      "range": {
+        "startLine": 729,
+        "startChar": 4,
+        "endLine": 731,
+        "endChar": 13
+      },
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43f0724f_cbf96a88",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-27T08:50:09Z",
+      "side": 1,
+      "message": "the name \u0027Vec\u0027 doesn\u0027t give a meaning to the variant you have created. can you please specify a meaningful alias name here.",
+      "range": {
+        "startLine": 17,
+        "startChar": 5,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fecf9770_08e6e454",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-27T08:50:09Z",
+      "side": 1,
+      "message": "please change the doxygen description according to your changes",
+      "range": {
+        "startLine": 358,
+        "startChar": 10,
+        "endLine": 358,
+        "endChar": 29
+      },
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57b52860_a3e229ef",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-27T08:50:09Z",
+      "side": 1,
+      "message": "can you give a generic api name now? like toHexString().\nand please change the doxygen description accordingly",
+      "range": {
+        "startLine": 372,
+        "startChar": 12,
+        "endLine": 372,
+        "endChar": 28
+      },
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0f5ae70_508f3449",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-27T08:50:09Z",
+      "side": 1,
+      "message": "can you please undo removing line 454",
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "053a930b_c2b18e11",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-27T08:50:09Z",
+      "side": 1,
+      "message": "you can remove lines 467 and 468.\n\nIf there are any json exceptions, we don\u0027t need to stop displaying the value read from dbus. we still can display the value via std::cout. can you please add that change here?\n\nwe can keep e.what() in cout.",
+      "range": {
+        "startLine": 467,
+        "startChar": 7,
+        "endLine": 468,
+        "endChar": 38
+      },
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eb56fb2_057ee54a",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-03-27T08:50:09Z",
+      "side": 1,
+      "message": "except for the kw SE, vpd-tool --fixSystemVPD is going to display all values in hex string only(even if it is printable). that\u0027s the reason I was using byteArrayToHexString() in line 753.\n\nwhy do you want to change now?",
+      "range": {
+        "startLine": 753,
+        "startChar": 29,
+        "endLine": 753,
+        "endChar": 54
+      },
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
