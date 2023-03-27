@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5917ed87_8c70ce75",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-27T11:07:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1bab12e0_a3e48bcb",
+      "range": {
+        "startLine": 697,
+        "startChar": 41,
+        "endLine": 697,
+        "endChar": 44
+      },
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "395ad6a3_e313e575",
@@ -43,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "61192132_6fd92ac9",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-27T11:07:49Z",
+      "side": 1,
+      "message": "ACK, but for return may need value for visit so have it outside.",
+      "parentUuid": "395ad6a3_e313e575",
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "405e4204_8f37dab4",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 11
@@ -54,6 +96,30 @@
       "writtenOn": "2023-03-27T08:50:09Z",
       "side": 1,
       "message": "If the given element is printable, at line 729, you take care of converting it to a string. thats fine, but whats the purpose of line 719?",
+      "range": {
+        "startLine": 729,
+        "startChar": 4,
+        "endLine": 731,
+        "endChar": 13
+      },
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66066dbc_c4574dad",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-27T11:07:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "405e4204_8f37dab4",
       "range": {
         "startLine": 729,
         "startChar": 4,
@@ -87,6 +153,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c94cf734_3132fc10",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-27T11:07:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "43f0724f_cbf96a88",
+      "range": {
+        "startLine": 17,
+        "startChar": 5,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fecf9770_08e6e454",
@@ -100,6 +190,30 @@
       "writtenOn": "2023-03-27T08:50:09Z",
       "side": 1,
       "message": "please change the doxygen description according to your changes",
+      "range": {
+        "startLine": 358,
+        "startChar": 10,
+        "endLine": 358,
+        "endChar": 29
+      },
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a023a70e_d52037e7",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-27T11:07:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fecf9770_08e6e454",
       "range": {
         "startLine": 358,
         "startChar": 10,
@@ -133,6 +247,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8d394a1_af9a544b",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-27T11:07:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "57b52860_a3e229ef",
+      "range": {
+        "startLine": 372,
+        "startChar": 12,
+        "endLine": 372,
+        "endChar": 28
+      },
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0f5ae70_508f3449",
@@ -146,6 +284,24 @@
       "writtenOn": "2023-03-27T08:50:09Z",
       "side": 1,
       "message": "can you please undo removing line 454",
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f1f9c1f_820fb93f",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-27T11:07:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f0f5ae70_508f3449",
       "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -173,6 +329,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cefd8681_c4fa1f87",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-27T11:07:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "053a930b_c2b18e11",
+      "range": {
+        "startLine": 467,
+        "startChar": 7,
+        "endLine": 468,
+        "endChar": 38
+      },
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7eb56fb2_057ee54a",
@@ -186,6 +366,30 @@
       "writtenOn": "2023-03-27T08:50:09Z",
       "side": 1,
       "message": "except for the kw SE, vpd-tool --fixSystemVPD is going to display all values in hex string only(even if it is printable). that\u0027s the reason I was using byteArrayToHexString() in line 753.\n\nwhy do you want to change now?",
+      "range": {
+        "startLine": 753,
+        "startChar": 29,
+        "endLine": 753,
+        "endChar": 54
+      },
+      "revId": "2a9d84160357fab2e329c71feba3c6c2037dfef1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a56cff5f_ab5c3160",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-03-27T11:07:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7eb56fb2_057ee54a",
       "range": {
         "startLine": 753,
         "startChar": 29,
