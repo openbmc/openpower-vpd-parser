@@ -132,11 +132,9 @@ class VpdTool
     /**
      * @brief Get the json which has Present property value of the given fru.
      * @param[in] invPath - inventory path of the fru.
-     * @param[out] parentPresence - Update the parent fru's present property.
      * @return output json which has the Present property value.
      */
-    json getPresentPropJson(const std::string& invPath,
-                            std::string& parentPresence);
+    json getPresentPropJson(const std::string& invPath);
 
     /**
      * @brief Parse through the options to fix system VPD
@@ -173,6 +171,16 @@ class VpdTool
      */
     void getSystemDataFromCache(
         openpower::vpd::inventory::IntfPropMap& svpdBusData);
+
+    /**
+     * @brief Whether or not to handle Presence for the given FRU
+     * This method checks if its required to handle Presence for the given FRU,
+     * by checking the flags embedded/synthesized/handlePresence from JSON.
+     *
+     * @param[in] itemEEPROM - The current FRU's JSON object
+     * @return true if presence can be handled for this FRU, false otherwise.
+     */
+    bool handlePresence(const nlohmann::json& itemEEPROM);
 
   public:
     /**
