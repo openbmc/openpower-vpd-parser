@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1c2ee62_11dbd4df",
+        "filename": "impl.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-03-28T10:19:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "37182fbb_39b9901a",
+      "revId": "baf4a2ae4b23fec6c50b6e841d6207f09d52a747",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "885f92f8_45d80888",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-03-23T08:24:02Z",
       "side": 1,
       "message": "Nit, please see how this is written for other functions, lets keep it consistent at least in a file.",
+      "range": {
+        "startLine": 35,
+        "startChar": 5,
+        "endLine": 35,
+        "endChar": 46
+      },
+      "revId": "baf4a2ae4b23fec6c50b6e841d6207f09d52a747",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8264ec98_1ca666e0",
+        "filename": "vpd-parser/ipz_parser.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-03-28T10:19:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "885f92f8_45d80888",
       "range": {
         "startLine": 35,
         "startChar": 5,

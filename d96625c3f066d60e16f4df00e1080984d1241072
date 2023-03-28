@@ -100,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cca6c8e3_14c8d359",
+        "filename": "test/ipz_parser/parser.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-03-28T10:19:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5314a819_bbf7f7d2",
+      "revId": "d96625c3f066d60e16f4df00e1080984d1241072",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "222fa15c_e78aa2b6",
