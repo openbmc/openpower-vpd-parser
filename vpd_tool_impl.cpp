@@ -303,28 +303,25 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
     return subOutput;
 }
 
-json VpdTool::getPresentPropJson(const std::string& invPath,
-                                 std::string& parentPresence)
+json VpdTool::getPresentPropJson(const std::string& invPath)
 {
     std::variant<bool> response;
-    makeDBusCall(invPath, "xyz.openbmc_project.Inventory.Item", "Present")
-        .read(response);
+    std::string presence = "Unknown";
 
-    std::string presence{};
-
-    if (auto pVal = get_if<bool>(&response))
+    try
     {
-        presence = *pVal ? "true" : "false";
-        if (parentPresence.empty())
+        makeDBusCall(invPath, "xyz.openbmc_project.Inventory.Item", "Present")
+            .read(response);
+
+        if (auto pVal = get_if<bool>(&response))
         {
-            parentPresence = presence;
+            presence = *pVal ? "true" : "false";
         }
     }
-    else
+    catch (const sdbusplus::exception::SdBusError& e)
     {
-        presence = parentPresence;
+        // not required to handle the exception. Present will be set to Unknown
     }
-
     json js;
     js.emplace("Present", presence);
     return js;
@@ -343,7 +340,6 @@ json VpdTool::parseInvJson(const json& jsObject, char flag, string fruPath)
     {
         for (const auto& itemFRUS : jsObject["frus"].items())
         {
-            string parentPresence{};
             for (auto itemEEPROM : itemFRUS.value())
             {
                 json subOutput = json::object({});
@@ -361,20 +357,11 @@ json VpdTool::parseInvJson(const json& jsObject, char flag, string fruPath)
                             validObject = true;
                             subOutput = interfaceDecider(itemEEPROM);
                             json presentJs = getPresentPropJson(
-                                "/xyz/openbmc_project/inventory" + fruPath,
-                                parentPresence);
+                                "/xyz/openbmc_project/inventory" + fruPath);
                             subOutput.insert(presentJs.begin(),
                                              presentJs.end());
                             output.emplace(fruPath, subOutput);
                             return output;
-                        }
-                        else // this else is to keep track of parent present
-                             // property.
-                        {
-                            json presentJs = getPresentPropJson(
-                                "/xyz/openbmc_project/inventory" +
-                                    string(itemEEPROM.at("inventoryPath")),
-                                parentPresence);
                         }
                     }
                     else
@@ -382,33 +369,10 @@ json VpdTool::parseInvJson(const json& jsObject, char flag, string fruPath)
                         subOutput = interfaceDecider(itemEEPROM);
                         json presentJs = getPresentPropJson(
                             "/xyz/openbmc_project/inventory" +
-                                string(itemEEPROM.at("inventoryPath")),
-                            parentPresence);
+                            string(itemEEPROM.at("inventoryPath")));
                         subOutput.insert(presentJs.begin(), presentJs.end());
                         output.emplace(string(itemEEPROM.at("inventoryPath")),
                                        subOutput);
-                    }
-                }
-                catch (const sdbusplus::exception::SdBusError& e)
-                {
-                    // if any of frupath doesn't have Present property of its
-                    // own, emplace its parent's present property value.
-                    if (e.name() == std::string("org.freedesktop.DBus.Error."
-                                                "UnknownProperty") &&
-                        (((flag == 'O') && validObject) || flag == 'I'))
-                    {
-                        json presentJs;
-                        presentJs.emplace("Present", parentPresence);
-                        subOutput.insert(presentJs.begin(), presentJs.end());
-                        output.emplace(string(itemEEPROM.at("inventoryPath")),
-                                       subOutput);
-                    }
-
-                    // for the user given child frupath which doesn't have
-                    // Present prop (vpd-tool -o).
-                    if ((flag == 'O') && validObject)
-                    {
-                        return output;
                     }
                 }
                 catch (const exception& e)
