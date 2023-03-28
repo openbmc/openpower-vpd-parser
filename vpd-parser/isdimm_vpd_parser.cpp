@@ -139,7 +139,7 @@ auto isdimmVpdParser::getDDR4PartNumber(Binary::const_iterator& iterator)
             iterator[SPD_JEDEC_DDR4_SDRAM_ADDR_OFFSET],
             iterator[SPD_JEDEC_DDR4_DRAM_PRI_PACKAGE_OFFSET],
             iterator[SPD_JEDEC_DDR4_DRAM_MODULE_ORG_OFFSET] & 0x0F);
-    std::string partNumber(tmpPN, sizeof(tmpPN));
+    std::string partNumber(tmpPN, sizeof(tmpPN) - 1);
     return partNumber;
 }
 
@@ -153,7 +153,7 @@ auto isdimmVpdParser::getDDR4SerialNumber(Binary::const_iterator& iterator)
             iterator[SPD_JEDEC_DDR4_SN_BYTE1_OFFSET],
             iterator[SPD_JEDEC_DDR4_SN_BYTE2_OFFSET],
             iterator[SPD_JEDEC_DDR4_SN_BYTE3_OFFSET]);
-    std::string serialNumber(tmpSN, sizeof(tmpSN));
+    std::string serialNumber(tmpSN, sizeof(tmpSN) - 1);
     return serialNumber;
 }
 
@@ -270,55 +270,45 @@ kwdVpdMap isdimmVpdParser::readKeywords(Binary::const_iterator& iterator)
     if ((iterator[constants::SPD_BYTE_2] & constants::SPD_BYTE_MASK) ==
         constants::SPD_DRAM_TYPE_DDR5)
     {
-        auto dimmSize = getDDR5DimmCapacity(iterator);
+        size_t dimmSize = getDDR5DimmCapacity(iterator);
         if (!dimmSize)
         {
             std::cerr << "Error: Calculated dimm size is 0.";
         }
-        else if (dimmSize < constants::CONVERT_MB_TO_KB)
-        {
-            keywordValueMap.emplace("MemorySizeInMB", dimmSize);
-        }
         else
         {
-            size_t dimmCapacityInGB = dimmSize / constants::CONVERT_MB_TO_KB;
-            keywordValueMap.emplace("MemorySizeInGB", dimmCapacityInGB);
+            keywordValueMap.emplace("MemorySizeInKB", dimmSize);
         }
         auto partNumber = getDDR5PartNumber(iterator);
-        keywordValueMap.emplace("PN", move(partNumber));
         auto fruNumber = getDDR5FruNumber(partNumber);
         keywordValueMap.emplace("FN", move(fruNumber));
         auto serialNumber = getDDR5SerialNumber(iterator);
         keywordValueMap.emplace("SN", move(serialNumber));
         auto ccin = getDDR5CCIN(partNumber);
         keywordValueMap.emplace("CC", move(ccin));
+        keywordValueMap.emplace("PN", move(partNumber));
     }
     else if ((iterator[constants::SPD_BYTE_2] & constants::SPD_BYTE_MASK) ==
              constants::SPD_DRAM_TYPE_DDR4)
     {
-        auto dimmSize = getDDR4DimmCapacity(iterator);
+        size_t dimmSize = getDDR4DimmCapacity(iterator);
         if (!dimmSize)
         {
             std::cerr << "Error: Calculated dimm size is 0.";
         }
-        else if (dimmSize < constants::CONVERT_MB_TO_KB)
-        {
-            keywordValueMap.emplace("MemorySizeInMB", dimmSize);
-        }
         else
         {
-            size_t dimmCapacityInGB = dimmSize / constants::CONVERT_MB_TO_KB;
-            keywordValueMap.emplace("MemorySizeInGB", dimmCapacityInGB);
+            keywordValueMap.emplace("MemorySizeInKB",
+                                    (dimmSize * constants::CONVERT_MB_TO_KB));
         }
-        size_t dimmCapacityInGB = dimmSize / constants::CONVERT_MB_TO_KB;
-        keywordValueMap.emplace("MemorySizeInGB", dimmCapacityInGB);
+
         auto partNumber = getDDR4PartNumber(iterator);
-        keywordValueMap.emplace("PN", move(partNumber));
         auto fruNumber = getDDR4FruNumber(partNumber);
-        keywordValueMap.emplace("FN", move(fruNumber));
         auto serialNumber = getDDR4SerialNumber(iterator);
-        keywordValueMap.emplace("SN", move(serialNumber));
         auto ccin = getDDR4CCIN(partNumber);
+        keywordValueMap.emplace("PN", move(partNumber));
+        keywordValueMap.emplace("FN", move(fruNumber));
+        keywordValueMap.emplace("SN", move(serialNumber));
         keywordValueMap.emplace("CC", move(ccin));
     }
     return keywordValueMap;
