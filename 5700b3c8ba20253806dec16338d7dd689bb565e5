@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db41b38a_e4d9c454",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 0,
+      "message": "Why was this removed?\nThis was not mentioned in commit message.",
+      "range": {
+        "startLine": 468,
+        "startChar": 0,
+        "endLine": 469,
+        "endChar": 38
+      },
+      "revId": "5700b3c8ba20253806dec16338d7dd689bb565e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

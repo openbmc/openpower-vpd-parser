@@ -1,0 +1,366 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61fdeedb_3e302c81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "Clean up required to make code more readable. \nMay the old code was also less readable, but when a change is made it is good to make the code more readable.",
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6ec299c_36c37c2a",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "Suggestion:\nbool getHexString(const Val\u0026 var, std::string result)",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 679,
+        "endChar": 37
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2ac7a41_942d67a8",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "Make the function return bool and pass string to be filled as argument. \nAs function can return false also.",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 679,
+        "endChar": 37
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b922cf91_a32aebdd",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "Use better names. \nWhat does vec mean here?",
+      "range": {
+        "startLine": 687,
+        "startChar": 13,
+        "endLine": 687,
+        "endChar": 17
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "539ec235_617866ae",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "Suggestion:\n\nBinary binaryVar \u003d get_if\u003cBinary\u003e(\u0026var);\nif (!binaryVar)\n{\n    //return with null string\n}",
+      "range": {
+        "startLine": 687,
+        "startChar": 7,
+        "endLine": 687,
+        "endChar": 43
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1919b6a8_be071f04",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "This is not proper way to use get_if \n\nWe need to check if the output is null pointer.",
+      "range": {
+        "startLine": 687,
+        "startChar": 8,
+        "endLine": 687,
+        "endChar": 43
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f9e2141_b88db73b",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "Use better names.\nIt helps make code more readable.",
+      "range": {
+        "startLine": 689,
+        "startChar": 19,
+        "endLine": 689,
+        "endChar": 20
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "714dd337_e7f9195b",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "Use static cast\n\nstatic_cast\u003cint\u003e(v)",
+      "range": {
+        "startLine": 691,
+        "startChar": 67,
+        "endLine": 691,
+        "endChar": 72
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c271a5a_de6e8cc4",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "Like mentioned above we need to check if get_if is null before we de-refer the pointer. Because if get_if return null then we will be de-referring a null pointer.",
+      "range": {
+        "startLine": 697,
+        "startChar": 19,
+        "endLine": 697,
+        "endChar": 20
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0144ba4_313961b7",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "Use static cast",
+      "range": {
+        "startLine": 700,
+        "startChar": 67,
+        "endLine": 700,
+        "endChar": 72
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2f057fd_ad1177df",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "Null check for get_if",
+      "range": {
+        "startLine": 713,
+        "startChar": 19,
+        "endLine": 713,
+        "endChar": 20
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1daa45fd_74231cee",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "Use meaningful names",
+      "range": {
+        "startLine": 713,
+        "startChar": 13,
+        "endLine": 713,
+        "endChar": 17
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18108ad2_9276eab4",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "Use meaningful names",
+      "range": {
+        "startLine": 717,
+        "startChar": 40,
+        "endLine": 717,
+        "endChar": 43
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20bcff45_51a21445",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "Can we just do \n\nreturn hexString(vec);",
+      "range": {
+        "startLine": 724,
+        "startChar": 20,
+        "endLine": 725,
+        "endChar": 31
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06eaefa5_bfcb382a",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "null check for get_if",
+      "range": {
+        "startLine": 737,
+        "startChar": 19,
+        "endLine": 737,
+        "endChar": 20
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f127fb7_5385b167",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-03-31T15:43:18Z",
+      "side": 1,
+      "message": "Use more meaningful name.",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 10
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
