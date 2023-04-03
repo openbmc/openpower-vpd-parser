@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec77b665_759c0410",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2023-04-03T06:17:20Z",
+      "side": 1,
+      "message": "few comments, please check",
+      "revId": "3d4aaa38ef5afc10f12f8131f4258340c63d9351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f0f714e_3e5af2f9",
+        "filename": "const.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2023-04-03T06:17:20Z",
+      "side": 1,
+      "message": "can we say it as HEX_FILE?",
+      "range": {
+        "startLine": 189,
+        "startChar": 4,
+        "endLine": 189,
+        "endChar": 16
+      },
+      "revId": "3d4aaa38ef5afc10f12f8131f4258340c63d9351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6de68f7_17ac9164",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2023-04-03T06:17:20Z",
+      "side": 1,
+      "message": "do we still want user to provide us offset value??\nWe decided to take care of this internally.",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 52
+      },
+      "revId": "3d4aaa38ef5afc10f12f8131f4258340c63d9351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45470bf7_8f4e352e",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2023-04-03T06:17:20Z",
+      "side": 1,
+      "message": "can we call it hexFile? if yes, we can provide the same name as a flag",
+      "range": {
+        "startLine": 98,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 20
+      },
+      "revId": "3d4aaa38ef5afc10f12f8131f4258340c63d9351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "649eb9fc_076bcf37",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2023-04-03T06:17:20Z",
+      "side": 1,
+      "message": "we are checking in  multiple API, can we move it to another interface, like verifyKeyword().\nAnd may be execute it verifyKeyword() first, independent of what operation we are going to do.",
+      "range": {
+        "startLine": 761,
+        "startChar": 4,
+        "endLine": 771,
+        "endChar": 5
+      },
+      "revId": "3d4aaa38ef5afc10f12f8131f4258340c63d9351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
