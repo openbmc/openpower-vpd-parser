@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c6a687f5_cb1b0c72",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-04T00:49:32Z",
+      "side": 1,
+      "message": "Thank you. It was iterative change, so didn\u0027t want to change the function itself.Same for above",
+      "parentUuid": "f6ec299c_36c37c2a",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 679,
+        "endChar": 37
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b922cf91_a32aebdd",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 14
@@ -151,6 +175,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6622c4de_60406570",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-04T00:49:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1919b6a8_be071f04",
+      "range": {
+        "startLine": 687,
+        "startChar": 8,
+        "endLine": 687,
+        "endChar": 43
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3eb993b2_63a637fb",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-04T00:49:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "539ec235_617866ae",
+      "range": {
+        "startLine": 687,
+        "startChar": 7,
+        "endLine": 687,
+        "endChar": 43
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f9e2141_b88db73b",
@@ -187,6 +259,30 @@
       "writtenOn": "2023-03-31T15:43:18Z",
       "side": 1,
       "message": "Use static cast\n\nstatic_cast\u003cint\u003e(v)",
+      "range": {
+        "startLine": 691,
+        "startChar": 67,
+        "endLine": 691,
+        "endChar": 72
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce85a1fd_aa353c2d",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-04T00:49:32Z",
+      "side": 1,
+      "message": "For these comments, it\u0027s been inherited from previous code, so didn\u0027t change, please check previous reviewed patch, if it\u0027s good.",
+      "parentUuid": "714dd337_e7f9195b",
       "range": {
         "startLine": 691,
         "startChar": 67,
