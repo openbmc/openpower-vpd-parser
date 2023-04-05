@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bac2ce4_9d38ac73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-05T11:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b4fe578_31c61966",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "02641160d00ec18b3fdc9e668cf63dc61f80a987",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bea39560_6599733e",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-04T16:45:20Z",
       "side": 1,
       "message": "What is \"Current\" with respect to this api? Current maybe relevant to one of the flow where this function is getting called, but for this api the parameter is just a JSON object of a FRU.",
+      "range": {
+        "startLine": 180,
+        "startChar": 31,
+        "endLine": 180,
+        "endChar": 42
+      },
+      "revId": "02641160d00ec18b3fdc9e668cf63dc61f80a987",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2822a50_03b6f4e6",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-05T11:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bea39560_6599733e",
       "range": {
         "startLine": 180,
         "startChar": 31,
