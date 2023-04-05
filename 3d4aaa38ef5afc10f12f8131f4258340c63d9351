@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "589f08ed_4a3f6a1a",
+        "filename": "const.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-05T07:11:23Z",
+      "side": 1,
+      "message": "enum says as file type, currently its text file. we might get a req in future to have TEXT_IN_ASCII,a binary file etc,. so I need the word TEXT to avoid confusion.\nTEXT_IN_HEX says the file type is text and its contents are in hex.",
+      "parentUuid": "8f0f714e_3e5af2f9",
+      "range": {
+        "startLine": 189,
+        "startChar": 4,
+        "endLine": 189,
+        "endChar": 16
+      },
+      "revId": "3d4aaa38ef5afc10f12f8131f4258340c63d9351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6de68f7_17ac9164",
         "filename": "vpd_tool.cpp",
         "patchSetId": 8
@@ -54,6 +78,30 @@
       "writtenOn": "2023-04-03T06:17:20Z",
       "side": 1,
       "message": "do we still want user to provide us offset value??\nWe decided to take care of this internally.",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 52
+      },
+      "revId": "3d4aaa38ef5afc10f12f8131f4258340c63d9351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f77899a_369dff9b",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-05T07:11:23Z",
+      "side": 1,
+      "message": "we can\u0027t remove offset now. it might break the existing user. we have an issue to track https://github.com/openbmc/openpower-vpd-parser/issues/10 . we need to fix vpd-manager, vpd-parser code to get offset from json for redundant eeprom",
+      "parentUuid": "b6de68f7_17ac9164",
       "range": {
         "startLine": 37,
         "startChar": 2,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ef18384_d55e2438",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-05T07:11:23Z",
+      "side": 1,
+      "message": "its a text file, its extension is .txt and not .hex. so I gave like this. \nIn what way you think it will be confusing to the user?",
+      "parentUuid": "45470bf7_8f4e352e",
+      "range": {
+        "startLine": 98,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 20
+      },
+      "revId": "3d4aaa38ef5afc10f12f8131f4258340c63d9351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "649eb9fc_076bcf37",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 8
@@ -100,6 +172,30 @@
       "writtenOn": "2023-04-03T06:17:20Z",
       "side": 1,
       "message": "we are checking in  multiple API, can we move it to another interface, like verifyKeyword().\nAnd may be execute it verifyKeyword() first, independent of what operation we are going to do.",
+      "range": {
+        "startLine": 761,
+        "startChar": 4,
+        "endLine": 771,
+        "endChar": 5
+      },
+      "revId": "3d4aaa38ef5afc10f12f8131f4258340c63d9351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c5c802b_afe63eff",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-05T07:11:23Z",
+      "side": 1,
+      "message": "yeah that can be done",
+      "parentUuid": "649eb9fc_076bcf37",
       "range": {
         "startLine": 761,
         "startChar": 4,
