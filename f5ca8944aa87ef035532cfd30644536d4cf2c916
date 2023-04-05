@@ -1,0 +1,400 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13cf3cd4_b21c5d82",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "What if the string is empty?",
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73f3beac_86053560",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "nit: d should be capital.",
+      "range": {
+        "startLine": 492,
+        "startChar": 28,
+        "endLine": 492,
+        "endChar": 29
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1817df3d_704de36a",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "lets start using string_view in place of const std::string\u0026.",
+      "range": {
+        "startLine": 499,
+        "startChar": 33,
+        "endLine": 499,
+        "endChar": 52
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6a821c7_0d926a3d",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "Do we need to have this copy?",
+      "range": {
+        "startLine": 406,
+        "startChar": 4,
+        "endLine": 406,
+        "endChar": 34
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65c81c8d_723d8d33",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "for new addition atleast lets avoid including namespace at the top..",
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6462f375_4f3d5acc",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "A bit curious here. why do we need to convert the value to fs::path when string used initially and suffice the requirement for this flow.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 9
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d64fe406_2c9c7ebb",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "Please avoid these kind of string copies. Since its a r-value, you can always use a const reference.",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6555912c_e2a1b87d",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "I am a bit curious here. If the string is not found std::string::npos will be returned which is (-1) in that case I assume it will enter the if block.\nPlease verify.\n\nsuggestion:\nFor simplicity always compare with string::npos.",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 50
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6736a084_9effc3e4",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "Please provide an empty line between blocks of code.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 7
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b42a54da_a80cb3cd",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "Query: If this fails do you need to have any cout?",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 17
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23ce867d_facc75ef",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "Ideally \"1\" should be returned for success and \"0\" should be returned as failure (apart from main function) so that the function can be evaluated in a \"if\" condition.\nIf there is no specific need please switch the values.",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 119,
+        "endChar": 21
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8c63a80_a2e89059",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "Use const reference as this value is not suppose to change in the function.",
+      "range": {
+        "startLine": 555,
+        "startChar": 4,
+        "endLine": 555,
+        "endChar": 18
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a475c7e7_a45ecad4",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "Why this copy is required? please have this check in place.",
+      "range": {
+        "startLine": 576,
+        "startChar": 12,
+        "endLine": 576,
+        "endChar": 68
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "feef09af_2eb38182",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "I am curious why this function needs to return fs::path and the function needs fs::path as parameter. Why can\u0027t we use standard string?",
+      "range": {
+        "startLine": 797,
+        "startChar": 28,
+        "endLine": 797,
+        "endChar": 45
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f18fcc8b_e3fe6858",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "Please avoid unnecessary copy.",
+      "range": {
+        "startLine": 799,
+        "startChar": 8,
+        "endLine": 799,
+        "endChar": 62
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57212cda_6371a3f9",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1247,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "These are unnecessary noise. Please check.",
+      "range": {
+        "startLine": 1244,
+        "startChar": 7,
+        "endLine": 1247,
+        "endChar": 31
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56d18d5b_e3e7b545",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "For consistency across file, please use out.",
+      "range": {
+        "startLine": 199,
+        "startChar": 14,
+        "endLine": 199,
+        "endChar": 15
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b048f4ac_6365181b",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-05T13:26:24Z",
+      "side": 1,
+      "message": "Will need more information here.\nFor what the keyword is being verified or why it is being verified.",
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
