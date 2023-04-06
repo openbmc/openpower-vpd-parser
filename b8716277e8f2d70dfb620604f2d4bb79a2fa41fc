@@ -223,6 +223,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a5b03f9_8987690d",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-06T05:28:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b922cf91_a32aebdd",
+      "range": {
+        "startLine": 687,
+        "startChar": 13,
+        "endLine": 687,
+        "endChar": 17
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f9e2141_b88db73b",
@@ -236,6 +260,30 @@
       "writtenOn": "2023-03-31T15:43:18Z",
       "side": 1,
       "message": "Use better names.\nIt helps make code more readable.",
+      "range": {
+        "startLine": 689,
+        "startChar": 19,
+        "endLine": 689,
+        "endChar": 20
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9197b87e_cc8b676a",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-06T05:28:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3f9e2141_b88db73b",
       "range": {
         "startLine": 689,
         "startChar": 19,
@@ -283,6 +331,30 @@
       "side": 1,
       "message": "For these comments, it\u0027s been inherited from previous code, so didn\u0027t change, please check previous reviewed patch, if it\u0027s good.",
       "parentUuid": "714dd337_e7f9195b",
+      "range": {
+        "startLine": 691,
+        "startChar": 67,
+        "endLine": 691,
+        "endChar": 72
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d164277c_2912a2b7",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-06T05:28:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ce85a1fd_aa353c2d",
       "range": {
         "startLine": 691,
         "startChar": 67,
@@ -385,6 +457,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4fedbd7_23086cf2",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-06T05:28:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1daa45fd_74231cee",
+      "range": {
+        "startLine": 713,
+        "startChar": 13,
+        "endLine": 713,
+        "endChar": 17
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9743749_3dfd1f8f",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-06T05:28:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c2f057fd_ad1177df",
+      "range": {
+        "startLine": 713,
+        "startChar": 19,
+        "endLine": 713,
+        "endChar": 20
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18108ad2_9276eab4",
@@ -398,6 +518,30 @@
       "writtenOn": "2023-03-31T15:43:18Z",
       "side": 1,
       "message": "Use meaningful names",
+      "range": {
+        "startLine": 717,
+        "startChar": 40,
+        "endLine": 717,
+        "endChar": 43
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0711a54_4d0f1ec2",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-06T05:28:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "18108ad2_9276eab4",
       "range": {
         "startLine": 717,
         "startChar": 40,
@@ -431,6 +575,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae0ab0ed_8d89b630",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-06T05:28:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "20bcff45_51a21445",
+      "range": {
+        "startLine": 724,
+        "startChar": 20,
+        "endLine": 725,
+        "endChar": 31
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06eaefa5_bfcb382a",
@@ -444,6 +612,30 @@
       "writtenOn": "2023-03-31T15:43:18Z",
       "side": 1,
       "message": "null check for get_if",
+      "range": {
+        "startLine": 737,
+        "startChar": 19,
+        "endLine": 737,
+        "endChar": 20
+      },
+      "revId": "b8716277e8f2d70dfb620604f2d4bb79a2fa41fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99294e48_af069d7d",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-06T05:28:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "06eaefa5_bfcb382a",
       "range": {
         "startLine": 737,
         "startChar": 19,
