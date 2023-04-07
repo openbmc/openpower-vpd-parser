@@ -241,6 +241,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d90ea520_06f4be4d",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-07T06:29:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d398c137_50b55d39",
+      "range": {
+        "startLine": 367,
+        "startChar": 4,
+        "endLine": 372,
+        "endChar": 5
+      },
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09639e14_f6115d8c",
@@ -302,6 +326,30 @@
       "side": 1,
       "message": "I agree with priyanga here. Who is going to ensure what value will be passed to the api.\nIn case on int it will break.",
       "parentUuid": "daec1cc2_9d9e7add",
+      "range": {
+        "startLine": 391,
+        "startChar": 4,
+        "endLine": 410,
+        "endChar": 5
+      },
+      "revId": "7e08991eeb3d842f7ee084ff4d456a38dc3014ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e224b4a_ba5d0443",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-07T06:29:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dcc00636_f15b22a1",
       "range": {
         "startLine": 391,
         "startChar": 4,
