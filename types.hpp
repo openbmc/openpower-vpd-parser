@@ -67,7 +67,7 @@ using isPELReqOnRestoreFailure = bool;
 using isMFGResetRequired = bool;
 using SystemKeywordInfo =
     std::tuple<Keyword, KeywordDefault, isPELReqOnRestoreFailure,
-               isMFGResetRequired>;
+               isMFGResetRequired, RecordName, Keyword>;
 
 /** Map of system backplane records to list of keywords and its related data. {
  * Record : { Keyword, Default value, Is PEL required on restore failure, Is MFG
@@ -79,6 +79,7 @@ using GetAllResultType = std::vector<std::pair<Keyword, Value>>;
 using IntfPropMap = std::map<RecordName, GetAllResultType>;
 using RecKwValMap =
     std::unordered_map<RecordName, std::unordered_map<Keyword, Binary>>;
+
 } // namespace inventory
 
 } // namespace vpd
