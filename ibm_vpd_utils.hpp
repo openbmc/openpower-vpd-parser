@@ -21,25 +21,38 @@ namespace vpd
 // Should be updated for another type of systems For those keywords whose
 // default value is system specific, the default value field is left empty.
 // Record : {Keyword, Default value, Is PEL required on restore failure, Is MFG
-// reset required}
+// reset required, backupVpdRecName, backupVpdKwName}
 static const inventory::SystemKeywordsMap svpdKwdMap{
     {"VSYS",
-     {inventory::SystemKeywordInfo("BR", Binary(2, 0x20), true, true),
-      inventory::SystemKeywordInfo("TM", Binary(8, 0x20), true, true),
-      inventory::SystemKeywordInfo("SE", Binary(7, 0x20), true, true),
-      inventory::SystemKeywordInfo("SU", Binary(6, 0x20), true, true),
-      inventory::SystemKeywordInfo("RB", Binary(4, 0x20), true, true),
-      inventory::SystemKeywordInfo("WN", Binary(12, 0x20), true, true),
-      inventory::SystemKeywordInfo("RG", Binary(4, 0x20), true, true),
-      inventory::SystemKeywordInfo("FV", Binary(32, 0x20), false, true)}},
+     {inventory::SystemKeywordInfo("BR", Binary(2, 0x20), true, true, "VSBK",
+                                   "BR"),
+      inventory::SystemKeywordInfo("TM", Binary(8, 0x20), true, true, "VSBK",
+                                   "TM"),
+      inventory::SystemKeywordInfo("SE", Binary(7, 0x20), true, true, "VSBK",
+                                   "SE"),
+      inventory::SystemKeywordInfo("SU", Binary(6, 0x20), true, true, "VSBK",
+                                   "SU"),
+      inventory::SystemKeywordInfo("RB", Binary(4, 0x20), true, true, "VSBK",
+                                   "RB"),
+      inventory::SystemKeywordInfo("WN", Binary(12, 0x20), true, true, "VSBK",
+                                   "WN"),
+      inventory::SystemKeywordInfo("RG", Binary(4, 0x20), true, true, "VSBK",
+                                   "RG"),
+      inventory::SystemKeywordInfo("FV", Binary(32, 0x20), false, true, "VSBK",
+                                   "FV")}},
     {"VCEN",
-     {inventory::SystemKeywordInfo("FC", Binary(), true, false),
-      inventory::SystemKeywordInfo("SE", Binary(7, 0x20), true, true)}},
-    {"LXR0", {inventory::SystemKeywordInfo("LX", Binary(), true, false)}},
+     {inventory::SystemKeywordInfo("FC", Binary(), true, false, "VSBK", "FC"),
+      inventory::SystemKeywordInfo("SE", Binary(7, 0x20), true, true, "VSBK",
+                                   "ES")}},
+    {"LXR0",
+     {inventory::SystemKeywordInfo("LX", Binary(), true, false, "VSBK", "LX")}},
     {"UTIL",
-     {inventory::SystemKeywordInfo("D0", Binary(1, 0x00), true, true),
-      inventory::SystemKeywordInfo("F5", Binary(16, 0x00), false, true),
-      inventory::SystemKeywordInfo("F6", Binary(16, 0x00), false, true)}}};
+     {inventory::SystemKeywordInfo("D0", Binary(1, 0x00), true, true, "VSBK",
+                                   "D0"),
+      inventory::SystemKeywordInfo("F5", Binary(16, 0x00), false, true, "VSBK",
+                                   "F5"),
+      inventory::SystemKeywordInfo("F6", Binary(16, 0x00), false, true, "VSBK",
+                                   "F6")}}};
 
 /** @brief Return the hex representation of the incoming byte
  *
