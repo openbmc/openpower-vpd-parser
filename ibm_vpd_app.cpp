@@ -2,6 +2,7 @@
 
 #include "common_utility.hpp"
 #include "defines.hpp"
+#include "editor_impl.hpp"
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "keyword_vpd_parser.hpp"
@@ -39,6 +40,7 @@ using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::exceptions;
 using namespace phosphor::logging;
+using namespace openpower::vpd::manager::editor;
 
 /**
  * @brief Returns the BMC state
@@ -857,8 +859,127 @@ void setDevTreeEnv(const string& systemType)
  * @param[in] vpdMap - IPZ vpd map
  * @param[in] objectPath - Object path for the FRU
  */
-void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
+void restoreSystemVPD(Parsed& vpdMap, const string& objectPath,
+                      nlohmann::json& jsonFile)
 {
+    // Get the value of systemVPDBackupPath field from json
+    const std::string& systemVpdBckupPath =
+        jsonFile["frus"][systemVpdFilePath].at(0).value("systemVpdBckupPath",
+                                                        "");
+    std::string backupVpdInvPath{};
+    Parsed hwVpdMap{};
+
+    if (!systemVpdBckupPath.empty())
+    {
+        PelAdditionalData additionalData{};
+
+        backupVpdInvPath =
+            jsonFile["frus"][systemVpdBckupPath][0]["inventoryPath"]
+                .get_ref<const nlohmann::json::string_t&>();
+
+        if (!fs::exists(systemVpdBckupPath))
+        {
+            string errorMsg = "Device path ";
+            errorMsg += systemVpdBckupPath;
+            errorMsg += " does not exist";
+
+            additionalData.emplace("DESCRIPTION", errorMsg);
+
+            additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                   INVENTORY_PATH + backupVpdInvPath);
+
+            createPEL(additionalData, PelSeverity::ERROR, errIntfForVPDDefault,
+                      nullptr);
+
+            std::cout << "restoreSystemVPD() " << errorMsg << std::endl;
+
+            return;
+        }
+        else
+        {
+            try
+            {
+                uint32_t vpdStartOffset = 0;
+                for (const auto& item : jsonFile["frus"][systemVpdBckupPath])
+                {
+                    if (item.find("offset") != item.end())
+                    {
+                        vpdStartOffset = item["offset"];
+                    }
+                }
+
+                auto hwVpdVector =
+                    getVpdDataInVector(jsonFile, systemVpdBckupPath);
+
+                ParserInterface* parser = ParserFactory::getParser(
+                    hwVpdVector, (pimPath + backupVpdInvPath), backupVpdInvPath,
+                    vpdStartOffset);
+
+                auto hwVpdParseResult = parser->parse();
+
+                if (auto pVal = get_if<Store>(&hwVpdParseResult))
+                {
+                    hwVpdMap = pVal->getVpdMap();
+                }
+                else
+                {
+                    std::cout << "Invalid VPD format" << std::endl;
+                    return;
+                }
+            }
+            catch (const VpdEccException& ex)
+            {
+                additionalData.emplace("DESCRIPTION", "ECC check failed");
+
+                additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                       INVENTORY_PATH + backupVpdInvPath);
+
+                createPEL(additionalData, PelSeverity::ERROR,
+                          errIntfForEccCheckFail, nullptr);
+
+                cerr << ex.what() << "\n";
+                return;
+            }
+            catch (const VpdDataException& ex)
+            {
+                if (isThisPcieOnPass1planar(jsonFile, systemVpdBckupPath))
+                {
+                    cout << "Pcie_device  [" << systemVpdBckupPath
+                         << "]'s VPD is not valid on PASS1 planar.Ignoring.\n";
+
+                    return;
+                }
+                else if (!(isPresent(jsonFile, systemVpdBckupPath)
+                               .value_or(true)))
+                {
+                    cout << "FRU at: " << systemVpdBckupPath
+                         << " is not detected present. Ignore parser error.\n";
+
+                    return;
+                }
+                else
+                {
+                    string errorMsg = "VPD file is either empty or invalid. "
+                                      "Parser failed for [";
+
+                    errorMsg += systemVpdBckupPath;
+
+                    errorMsg += "], with error = " + std::string(ex.what());
+
+                    additionalData.emplace("DESCRIPTION", errorMsg);
+
+                    additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                           INVENTORY_PATH + backupVpdInvPath);
+
+                    createPEL(additionalData, PelSeverity::WARNING,
+                              errIntfForInvalidVPD, nullptr);
+
+                    return;
+                }
+            }
+        }
+    }
+
     for (const auto& systemRecKwdPair : svpdKwdMap)
     {
         auto it = vpdMap.find(systemRecKwdPair.first);
@@ -878,21 +999,82 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                 {
                     string& kwdValue = iterator->second;
 
-                    // check bus data
-                    const string& recordName = systemRecKwdPair.first;
-                    const string& busValue = readBusProperty(
-                        objectPath, ipzVpdInf + recordName, keyword);
-
+                    std::string backupValue{};
                     const auto& defaultValue = get<1>(keywordInfo);
-                    Binary busDataInBinary(busValue.begin(), busValue.end());
+                    const auto& hwRecName = get<4>(keywordInfo);
+                    const auto& hwKwName = get<5>(keywordInfo);
+                    bool backupOrRestoreFromHw = false;
+
+                    // If the 'systemVpdBckupPath'field is non empty, we need to
+                    // backup the systemVPD on the specified fru's eeprom path
+                    // or restore it from the specified fru's eeprom path.
+                    if (systemVpdBckupPath.empty())
+                    {
+                        // check bus data
+                        const string& recordName = systemRecKwdPair.first;
+                        backupValue = readBusProperty(
+                            objectPath, ipzVpdInf + recordName, keyword);
+                    }
+                    else
+                    {
+                        backupOrRestoreFromHw = true;
+                        auto recItr = hwVpdMap.find(hwRecName);
+
+                        if (recItr != hwVpdMap.end())
+                        {
+                            backupVpdRecKwdValMap& hwRecKwdValMap =
+                                recItr->second;
+
+                            iterator = hwRecKwdValMap.find(hwKwName);
+
+                            if (iterator != hwRecKwdValMap.end())
+                            {
+                                backupValue = iterator->second;
+                            }
+                            else
+                            {
+                                std::cout << "Keyword " << hwKwName
+                                          << " not found in the Backup VPD"
+                                          << endl;
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            PelAdditionalData additionalData;
+                            string errorMsg = hwRecName +
+                                              " Record does not exist in "
+                                              "the EEPROM file ";
+
+                            errorMsg += systemVpdBckupPath;
+
+                            additionalData.emplace("DESCRIPTION", errorMsg);
+
+                            additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                                   INVENTORY_PATH +
+                                                       backupVpdInvPath);
+
+                            createPEL(additionalData, PelSeverity::ERROR,
+                                      errIntfForVPDDefault, nullptr);
+
+                            std::cerr << "restoreSystemVPD() " << errorMsg
+                                      << std::endl;
+
+                            continue;
+                        }
+                    }
+
+                    Binary backupDataInBinary(backupValue.begin(),
+                                              backupValue.end());
+
                     Binary kwdDataInBinary(kwdValue.begin(), kwdValue.end());
 
-                    if (busDataInBinary != defaultValue)
+                    if (backupDataInBinary != defaultValue)
                     {
                         if (kwdDataInBinary != defaultValue)
                         {
                             // both the data are present, check for mismatch
-                            if (busValue != kwdValue)
+                            if (backupValue != kwdValue)
                             {
                                 string errMsg = "Mismatch found between backup "
                                                 "and primary VPD for record: ";
@@ -901,7 +1083,7 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                                 errMsg += keyword;
 
                                 std::ostringstream busStream;
-                                for (uint16_t byte : busValue)
+                                for (uint16_t byte : backupValue)
                                 {
                                     busStream << std::setfill('0')
                                               << std::setw(2) << std::hex
@@ -932,6 +1114,18 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
 
                                 createPEL(additionalData, PelSeverity::WARNING,
                                           errIntfForVPDMismatch, nullptr);
+
+                                std::cout << errMsg << std::endl;
+
+                                if (backupOrRestoreFromHw)
+                                {
+                                    // Backing up or restoring from a hardware
+                                    // path does not require copying the backup
+                                    // data to the VPD map, as this will result
+                                    // in a mismatch between the primary VPD and
+                                    // its cache.
+                                    continue;
+                                }
                             }
                         }
 
@@ -940,7 +1134,7 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                         // backup data to vpd map as we don't need to change the
                         // backup data in either case in the process of
                         // restoring system vpd.
-                        kwdValue = busValue;
+                        kwdValue = backupValue;
                     }
                     else if (kwdDataInBinary == defaultValue &&
                              get<2>(keywordInfo)) // Check isPELRequired is true
@@ -962,7 +1156,32 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath)
                         // log PEL TODO: Block IPL
                         createPEL(additionalData, PelSeverity::ERROR,
                                   errIntfForVPDDefault, nullptr);
+
+                        cout << errMsg << endl;
                         continue;
+                    }
+                    else if ((kwdDataInBinary != defaultValue) &&
+                             (!systemVpdBckupPath.empty()))
+                    {
+                        // copy primary VPD data on to backup VPD
+                        backupValue = kwdValue;
+
+                        EditorImpl edit(systemVpdBckupPath, jsonFile, hwRecName,
+                                        hwKwName, backupVpdInvPath);
+
+                        uint32_t offset = 0;
+                        // Setup offset, if any
+                        for (const auto& item :
+                             jsonFile["frus"][backupVpdInvPath])
+                        {
+                            if (item.find("offset") != item.end())
+                            {
+                                offset = item["offset"];
+                                break;
+                            }
+                        }
+
+                        edit.updateKeyword(kwdDataInBinary, offset, true);
                     }
                 }
             }
@@ -1138,7 +1357,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             if ((subTree.size() != 0) &&
                 (subTree.find(pimPath + mboardPath) != subTree.end()))
             {
-                restoreSystemVPD(vpdMap, mboardPath);
+                restoreSystemVPD(vpdMap, mboardPath, js);
             }
             else
             {
@@ -1501,7 +1720,6 @@ int main(int argc, char** argv)
             {
                 populateDbus(*pVal, js, file);
             }
-
             // release the parser object
             ParserFactory::freeParser(parser);
         }
