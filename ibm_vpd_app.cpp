@@ -2,6 +2,7 @@
 
 #include "common_utility.hpp"
 #include "defines.hpp"
+#include "editor_impl.hpp"
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
 #include "keyword_vpd_parser.hpp"
@@ -39,6 +40,7 @@ using namespace openpower::vpd::memory::parser;
 using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::exceptions;
 using namespace phosphor::logging;
+using namespace openpower::vpd::manager::editor;
 
 /**
  * @brief Returns the BMC state
@@ -1348,6 +1350,475 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
     common::utility::callPIM(move(objects));
 }
 
+/**
+ * @brief Publish VPD data on to Dbus.
+ * This method invokes all the populateInterface functions
+ * and notifies PIM about dbus object.
+ * @param[in] vpdMap - IPZ vpd map
+ * @param[in] jsonFile - Inventory json object
+ * @param[in] vpdFilePath - Path of the vpd file
+ */
+void publishVpdDataOntoDbus(Parsed& vpdMap, nlohmann::json& jsonFile,
+                            const string& vpdFilePath)
+{
+    inventory::InterfaceMap interfaces;
+    inventory::ObjectMap objects;
+    string ccinFromVpd;
+
+    auto processFactoryReset = false;
+    bool isSystemVpd = (vpdFilePath == systemVpdFilePath);
+
+    ccinFromVpd = getKwVal(vpdMap, "VINI", "CC");
+    transform(ccinFromVpd.begin(), ccinFromVpd.end(), ccinFromVpd.begin(),
+              ::toupper);
+
+    if (isSystemVpd)
+    {
+        string systemJsonName{};
+
+        // pick the right system json
+        systemJsonName = getSystemsJson(vpdMap);
+
+        fs::path target = systemJsonName;
+        fs::path link = INVENTORY_JSON_SYM_LINK;
+
+        // If the symlink does not exist, we treat that as a factory reset
+        processFactoryReset = !fs::exists(INVENTORY_JSON_SYM_LINK);
+
+        // Create the directory for hosting the symlink
+        fs::create_directories(VPD_FILES_PATH);
+        // unlink the symlink previously created (if any)
+        remove(INVENTORY_JSON_SYM_LINK);
+        // create a new symlink based on the system
+        fs::create_symlink(target, link);
+
+        // Reloading the json
+        ifstream inventoryJson(link);
+        jsonFile = json::parse(inventoryJson);
+        inventoryJson.close();
+    }
+    else
+    {
+        // check if it is processor vpd.
+        auto isPrimaryCpu = isThisPrimaryProcessor(jsonFile, vpdFilePath);
+
+        if (isPrimaryCpu)
+        {
+            auto ddVersion = getKwVal(vpdMap, "CRP0", "DD");
+
+            auto chipVersion = atoi(ddVersion.substr(1, 2).c_str());
+
+            if (chipVersion >= 2)
+            {
+                doEnableAllDimms(jsonFile);
+                // Sleep for a few seconds to let the DIMM parses start
+                using namespace std::chrono_literals;
+                std::this_thread::sleep_for(5s);
+            }
+        }
+    }
+
+    for (const auto& item : jsonFile["frus"][vpdFilePath])
+    {
+        const auto& objectPath = item["inventoryPath"];
+        sdbusplus::message::object_path object(objectPath);
+
+        vector<string> ccinList;
+        if (item.find("ccin") != item.end())
+        {
+            for (const auto& cc : item["ccin"])
+            {
+                string ccin = cc;
+                transform(ccin.begin(), ccin.end(), ccin.begin(), ::toupper);
+                ccinList.push_back(ccin);
+            }
+        }
+
+        if (!ccinFromVpd.empty() && !ccinList.empty() &&
+            (find(ccinList.begin(), ccinList.end(), ccinFromVpd) ==
+             ccinList.end()))
+        {
+            continue;
+        }
+
+        if ((isSystemVpd) || (item.value("noprime", false)))
+        {
+
+            // Populate one time properties for the system VPD and its sub-frus
+            // and for other non-primeable frus.
+            // For the remaining FRUs, this will get handled as a part of
+            // priming the inventory.
+            setOneTimeProperties(objectPath, interfaces);
+        }
+
+        // Populate the VPD keywords and the common interfaces only if we
+        // are asked to inherit that data from the VPD, else only add the
+        // extraInterfaces.
+        if (item.value("inherit", true))
+        {
+            // Each record in the VPD becomes an interface and all
+            // keyword within the record are properties under that
+            // interface.
+            for (const auto& record : vpdMap)
+            {
+                populateFruSpecificInterfaces(
+                    record.second, ipzVpdInf + record.first, interfaces);
+            }
+
+            if (jsonFile.find("commonInterfaces") != jsonFile.end())
+            {
+                populateInterfaces(jsonFile["commonInterfaces"], interfaces,
+                                   vpdMap, isSystemVpd);
+            }
+        }
+        else
+        {
+            // Check if we have been asked to inherit specific record(s)
+            if (item.find("copyRecords") != item.end())
+            {
+                for (const auto& record : item["copyRecords"])
+                {
+                    const string& recordName = record;
+                    if (vpdMap.find(recordName) != vpdMap.end())
+                    {
+                        populateFruSpecificInterfaces(vpdMap.at(recordName),
+                                                      ipzVpdInf + recordName,
+                                                      interfaces);
+                    }
+                }
+            }
+        }
+        // Populate interfaces and properties that are common to every FRU
+        // and additional interface that might be defined on a per-FRU
+        // basis.
+        if (item.find("extraInterfaces") != item.end())
+        {
+            populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
+                               isSystemVpd);
+
+            if (item["extraInterfaces"].find(
+                    "xyz.openbmc_project.Inventory.Item.Cpu") !=
+                item["extraInterfaces"].end())
+            {
+                if (isCPUIOGoodOnly(getKwVal(vpdMap, "CP00", "PG")))
+                {
+                    interfaces[invItemIntf]["PrettyName"] = "IO Module";
+                }
+            }
+        }
+
+        // embedded property(true or false) says whether the subfru is embedded
+        // into the parent fru (or) not. VPD sets Present property only for
+        // embedded frus. If the subfru is not an embedded FRU, the subfru may
+        // or may not be physically present. Those non embedded frus will always
+        // have Present=false irrespective of its physical presence or absence.
+        // Eg: nvme drive in nvme slot is not an embedded FRU. So don't set
+        // Present to true for such sub frus.
+        // Eg: ethernet port is embedded into bmc card. So set Present to true
+        // for such sub frus. Also donot populate present property for embedded
+        // subfru which is synthesized. Currently there is no subfru which are
+        // both embedded and synthesized. But still the case is handled here.
+        if ((item.value("embedded", true)) &&
+            (!item.value("synthesized", false)))
+        {
+            inventory::PropertyMap presProp;
+            presProp.emplace("Present", true);
+            insertOrMerge(interfaces, invItemIntf, move(presProp));
+        }
+
+        // Restore asset tag, if needed
+        if (processFactoryReset && objectPath == "/system")
+        {
+            fillAssetTag(interfaces, vpdMap);
+        }
+        objects.emplace(move(object), move(interfaces));
+    }
+
+    if (isSystemVpd)
+    {
+        inventory::ObjectMap primeObject = primeInventory(jsonFile, vpdMap);
+        objects.insert(primeObject.begin(), primeObject.end());
+
+        // set the U-boot environment variable for device-tree
+        setDevTreeEnv(fs::path(getSystemsJson(vpdMap)).filename());
+    }
+
+    // Notify PIM
+    common::utility::callPIM(move(objects));
+}
+
+/**
+ * @brief An API for checking whether we need to back up the system VPD
+ * onto the base panel or restore it from the base panel.
+ * This functionality is only applicable for IPZ VPD data.
+ * @param[in,out] systemVpdMap - system VPD in IPZ format.
+ * @param[in,out] basePanelVpdMap - base panel VPD in IPZ format.
+ * @param[in] jsonFile - Inventory json object
+ */
+void backupOrRestoreSystemVPD(Parsed& systemVpdMap, Parsed& basePanelVpdMap,
+                              nlohmann::json& jsonFile)
+{
+    BasePanelVsbkRecKwdValMap& vsbkRecKwdValMap =
+        basePanelVpdMap.find("VSBK")->second;
+
+    for (const auto& systemRecKwdPair : bonnelSvpdKwdMap)
+    {
+        std::string recordName = systemRecKwdPair.first;
+        auto recItr = systemVpdMap.find(recordName);
+
+        // check if the record is found in the system backplane vpd map we got
+        // by parser
+        if (recItr != systemVpdMap.end())
+        {
+            const auto& kwdListForRecord = systemRecKwdPair.second;
+            for (const auto& keywordInfo : kwdListForRecord)
+            {
+                auto keyword = get<0>(keywordInfo);
+
+                DbusPropertyMap& systemVpdKwdValMap = recItr->second;
+                auto iterator = systemVpdKwdValMap.find(keyword);
+
+                if (iterator != systemVpdKwdValMap.end())
+                {
+                    std::string& systemVpdKwdValue = iterator->second;
+
+                    std::string newKeywordName{};
+                    if ((recordName == "VCEN") && (keyword == "SE"))
+                    {
+                        // Under VSBK record the VCEN record's 'SE' keyowrd name
+                        // will have new name i.e 'ES' to differentiate between
+                        // the 'SE' keyword of VSYS record, hence overwriting
+                        // the VCEN's 'SE' keyword name as 'ES' to find it in
+                        // the VSBK record.
+                        newKeywordName = "ES";
+                    }
+
+                    if (newKeywordName.empty() == false)
+                    {
+                        iterator = vsbkRecKwdValMap.find(newKeywordName);
+                    }
+                    else
+                    {
+                        iterator = vsbkRecKwdValMap.find(keyword);
+                    }
+
+                    if (iterator != vsbkRecKwdValMap.end())
+                    {
+                        std::string& vsbkRecKwdValue = iterator->second;
+
+                        Binary basePanelVsbkKwDataInBinary(
+                            vsbkRecKwdValue.begin(), vsbkRecKwdValue.end());
+
+                        Binary systemVpdKwdDataInBinary(
+                            systemVpdKwdValue.begin(), systemVpdKwdValue.end());
+
+                        std::string systemBackPlanePath =
+                            jsonFile
+                                ["frus"][systemVpdFilePath][0]["inventoryPath"]
+                                    .get_ref<const nlohmann::json::string_t&>();
+
+                        auto defaultValue = get<1>(keywordInfo);
+                        auto isKwRestorable = get<2>(keywordInfo);
+                        auto isPelRequired = get<3>(keywordInfo);
+
+                        if (systemVpdKwdDataInBinary != defaultValue)
+                        {
+                            if (basePanelVsbkKwDataInBinary == defaultValue)
+                            {
+                                if (isKwRestorable)
+                                {
+                                    // copy systemVPD data to base panel VPD
+                                    vsbkRecKwdValue = systemVpdKwdValue;
+
+                                    if (newKeywordName.empty() == false)
+                                    {
+                                        keyword = newKeywordName;
+                                    }
+
+                                    std::string basePanelInvPath =
+                                        jsonFile["frus"][basePanelVpdFilePath]
+                                                [0]["inventoryPath"]
+                                                    .get_ref<
+                                                        const nlohmann::json::
+                                                            string_t&>();
+
+                                    EditorImpl edit(basePanelVpdFilePath,
+                                                    jsonFile, "VSBK", keyword,
+                                                    basePanelInvPath);
+
+                                    uint32_t offset = 0;
+                                    // Setup offset, if any
+                                    for (const auto& item :
+                                         jsonFile["frus"][basePanelVpdFilePath])
+                                    {
+                                        if (item.find("offset") != item.end())
+                                        {
+                                            offset = item["offset"];
+                                            break;
+                                        }
+                                    }
+
+                                    edit.updateKeyword(systemVpdKwdDataInBinary,
+                                                       offset, false);
+                                }
+                                else
+                                {
+                                    std::cerr
+                                        << recordName << ":" << keyword
+                                        << " is not restorable,"
+                                           " hence not backing up on Base Panel"
+                                        << endl;
+                                }
+                            }
+                            else
+                            {
+                                // both the data are present, check for
+                                // mismatch
+                                if (vsbkRecKwdValue != systemVpdKwdValue)
+                                {
+                                    std::string errMsg =
+                                        "VPD data mismatch in base panel "
+                                        "VPD "
+                                        "and system VPD for record: ";
+
+                                    errMsg += recordName;
+                                    errMsg += " and keyword: ";
+                                    errMsg += keyword;
+
+                                    std::cerr << errMsg << endl;
+
+                                    if (isPelRequired)
+                                    {
+                                        std::ostringstream vsbkRecStream;
+                                        for (uint16_t byte : vsbkRecKwdValue)
+                                        {
+                                            vsbkRecStream << std::setfill('0')
+                                                          << std::setw(2)
+                                                          << std::hex << "0x"
+                                                          << byte << " ";
+                                        }
+
+                                        std::ostringstream svpdStream;
+                                        for (uint16_t byte : systemVpdKwdValue)
+                                        {
+                                            svpdStream << std::setfill('0')
+                                                       << std::setw(2)
+                                                       << std::hex << "0x"
+                                                       << byte << " ";
+                                        }
+
+                                        // data mismatch
+                                        PelAdditionalData additionalData;
+
+                                        additionalData.emplace(
+                                            "CALLOUT_INVENTORY_PATH",
+                                            INVENTORY_PATH +
+                                                systemBackPlanePath);
+
+                                        additionalData.emplace("DESCRIPTION",
+                                                               errMsg);
+
+                                        additionalData.emplace(
+                                            "Value read from base panel "
+                                            "EEPROM: ",
+                                            vsbkRecStream.str());
+
+                                        additionalData.emplace(
+                                            "Value read from system "
+                                            "backplane "
+                                            "EEPROM: ",
+                                            svpdStream.str());
+
+                                        createPEL(additionalData,
+                                                  PelSeverity::WARNING,
+                                                  errIntfForVPDDefault,
+                                                  nullptr);
+                                    }
+                                }
+                            }
+                        }
+                        else if (basePanelVsbkKwDataInBinary != defaultValue)
+                        {
+                            if (isKwRestorable)
+                            {
+                                systemVpdKwdValue = vsbkRecKwdValue;
+
+                                EditorImpl edit(systemVpdFilePath, jsonFile,
+                                                recordName, keyword,
+                                                systemBackPlanePath);
+
+                                uint32_t offset = 0;
+                                // Setup offset, if any
+                                for (const auto& item :
+                                     jsonFile["frus"][basePanelVpdFilePath])
+                                {
+                                    if (item.find("offset") != item.end())
+                                    {
+                                        offset = item["offset"];
+                                        break;
+                                    }
+                                }
+
+                                edit.updateKeyword(basePanelVsbkKwDataInBinary,
+                                                   offset, false);
+                            }
+                            else
+                            {
+                                std::cerr
+                                    << recordName << ":" << keyword
+                                    << " is not restorable,"
+                                       " hence not restored from Base Panel"
+                                    << endl;
+                            }
+                        }
+                        else if (isPelRequired)
+                        {
+                            std::string errMsg =
+                                "VPD is blank on both base panel and "
+                                "system backplane for record: ";
+
+                            errMsg += recordName;
+                            errMsg += " and keyword: ";
+                            errMsg += keyword;
+                            errMsg += ". SSR need to update hardware VPDs.";
+
+                            // both the data are blanks, log PEL
+                            PelAdditionalData additionalData;
+                            additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                                   INVENTORY_PATH +
+                                                       systemBackPlanePath);
+
+                            additionalData.emplace("DESCRIPTION", errMsg);
+
+                            // log PEL TODO: Block IPL
+                            createPEL(additionalData, PelSeverity::ERROR,
+                                      errIntfForVPDDefault, nullptr);
+
+                            std::cerr << errMsg << endl;
+                        }
+                    }
+                    else
+                    {
+                        std::cerr << "Keyword " << keyword
+                                  << " not found in the basePanel VPD"
+                                  << std::endl;
+                    }
+                }
+                else
+                {
+                    std::cerr << "Keyword " << keyword
+                              << " not found in the systemVPD" << std::endl;
+                }
+            }
+        }
+        else
+        {
+            std::cerr << "Record Name " << recordName
+                      << " Not Found in the system VPD" << endl;
+        }
+    }
+}
+
 int main(int argc, char** argv)
 {
     int rc = 0;
@@ -1363,6 +1834,10 @@ int main(int argc, char** argv)
 
     // severity for PEL
     PelSeverity pelSeverity = PelSeverity::WARNING;
+
+    std::string systemType{};
+    std::string basePanelInvPath{};
+    Binary basePanelVpdVector{};
 
     try
     {
@@ -1423,6 +1898,20 @@ int main(int argc, char** argv)
             {
                 // We have already collected system VPD, skip.
                 return 0;
+            }
+
+            systemType = std::filesystem::read_symlink(INVENTORY_JSON_SYM_LINK)
+                             .filename()
+                             .string();
+
+            if (systemType == BONNELL)
+            {
+                if ((js["frus"].find(file) != js["frus"].end()) &&
+                    (file == basePanelVpdFilePath))
+                {
+                    // We have already collected base panel VPD, skip.
+                    return 0;
+                }
             }
         }
 
@@ -1493,15 +1982,144 @@ int main(int argc, char** argv)
             variant<KeywordVpdMap, Store> parseResult;
             parseResult = parser->parse();
 
-            if (auto pVal = get_if<Store>(&parseResult))
+            // pick the right system json
+            Parsed systemVpdMap{};
+            Parsed basePanelVpdMap{};
+
+            bool isSystemVpd = (file == systemVpdFilePath);
+            if (isSystemVpd)
             {
-                populateDbus(pVal->getVpdMap(), js, file);
-            }
-            else if (auto pVal = get_if<KeywordVpdMap>(&parseResult))
-            {
-                populateDbus(*pVal, js, file);
+                if (auto pVal = get_if<Store>(&parseResult))
+                {
+                    systemType =
+                        fs::path(getSystemsJson(pVal->getVpdMap())).filename();
+
+                    systemVpdMap = pVal->getVpdMap();
+                }
+                else
+                {
+                    std::cerr << "Invalid system VPD format" << std::endl;
+                }
             }
 
+            if (systemType != BONNELL)
+            {
+                if (auto pVal = get_if<Store>(&parseResult))
+                {
+                    populateDbus(pVal->getVpdMap(), js, file);
+                }
+                else if (auto pVal = get_if<KeywordVpdMap>(&parseResult))
+                {
+                    populateDbus(*pVal, js, file);
+                }
+            }
+            else
+            {
+                if (isSystemVpd)
+                {
+                    PelAdditionalData additionalData{};
+
+                    basePanelInvPath =
+                        js["frus"][basePanelVpdFilePath].at(0).value(
+                            "inventoryPath", "");
+
+                    if (!fs::exists(basePanelVpdFilePath))
+                    {
+                        string errorMsg = "Device path ";
+                        errorMsg += basePanelVpdFilePath;
+                        errorMsg += " does not exist";
+
+                        additionalData.emplace("DESCRIPTION", errorMsg);
+
+                        additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                               INVENTORY_PATH +
+                                                   basePanelInvPath);
+
+                        createPEL(additionalData, PelSeverity::CRITICAL,
+                                  errIntfForEssentialFru, nullptr);
+
+                        std::cerr << errorMsg << std::endl;
+                    }
+                    else
+                    {
+                        baseFruInventoryPath = basePanelInvPath;
+
+                        uint32_t vpdStartOffset = 0;
+                        for (const auto& item :
+                             js["frus"][basePanelVpdFilePath])
+                        {
+                            if (item.find("offset") != item.end())
+                            {
+                                vpdStartOffset = item["offset"];
+                            }
+                        }
+
+                        basePanelVpdVector =
+                            getVpdDataInVector(js, basePanelVpdFilePath);
+
+                        parser = ParserFactory::getParser(
+                            basePanelVpdVector, (pimPath + basePanelInvPath),
+                            basePanelInvPath, vpdStartOffset);
+
+                        variant<KeywordVpdMap, Store> basePanelVpdParseResult;
+                        basePanelVpdParseResult = parser->parse();
+
+                        if (auto pVal = get_if<Store>(&basePanelVpdParseResult))
+                        {
+                            basePanelVpdMap = pVal->getVpdMap();
+
+                            auto it = basePanelVpdMap.find("VSBK");
+
+                            if (it != basePanelVpdMap.end())
+                            {
+                                backupOrRestoreSystemVPD(systemVpdMap,
+                                                         basePanelVpdMap, js);
+
+                                publishVpdDataOntoDbus(systemVpdMap, js,
+                                                       systemVpdFilePath);
+
+                                publishVpdDataOntoDbus(basePanelVpdMap, js,
+                                                       basePanelVpdFilePath);
+                            }
+                            else
+                            {
+                                string errorMsg =
+                                    "VSBK Record does not exist in "
+                                    "the EEPROM file ";
+
+                                errorMsg += basePanelVpdFilePath;
+
+                                additionalData.emplace("DESCRIPTION", errorMsg);
+
+                                additionalData.emplace("CALLOUT_INVENTORY_PATH",
+                                                       INVENTORY_PATH +
+                                                           basePanelInvPath);
+
+                                createPEL(additionalData, PelSeverity::CRITICAL,
+                                          errIntfForEssentialFru, nullptr);
+
+                                std::cerr << errorMsg << std::endl;
+                            }
+                        }
+                        else
+                        {
+                            std::cerr << "Invalid basePanel VPD format"
+                                      << std::endl;
+                        }
+                    }
+                }
+                else
+                {
+                    if (auto pVal = get_if<Store>(&parseResult))
+                    {
+                        publishVpdDataOntoDbus(pVal->getVpdMap(), js, file);
+                    }
+                    else
+                    {
+                        std::cerr << "Invalid VPD format" << std::endl;
+                    }
+                }
+            }
             // release the parser object
             ParserFactory::freeParser(parser);
         }
@@ -1522,6 +2140,13 @@ int main(int argc, char** argv)
     }
     catch (const VpdEccException& ex)
     {
+        if ((systemType == BONNELL) &&
+            (baseFruInventoryPath == basePanelInvPath))
+        {
+            pelSeverity = PelSeverity::CRITICAL;
+            file = basePanelInvPath;
+            vpdVector = basePanelVpdVector;
+        }
         additionalData.emplace("DESCRIPTION", "ECC check failed");
         additionalData.emplace("CALLOUT_INVENTORY_PATH",
                                INVENTORY_PATH + baseFruInventoryPath);
