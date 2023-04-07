@@ -74,13 +74,13 @@ class KeywordVpdParser : public ParserInterface
 
   private:
     openpower::vpd::Binary::const_iterator
-        checkSumStart; //!< Pointer to the start byte from where
-                       //!< the checksum need to be calculated
+        checkSumStart;    //!< Pointer to the start byte from where
+                          //!< the checksum need to be calculated
     openpower::vpd::Binary::const_iterator
-        checkSumEnd; //!< Pointer to the end byte until which the
-                     //!< checksum need to be calculated
+        checkSumEnd;    //!< Pointer to the end byte until which the
+                        //!< checksum need to be calculated
     openpower::vpd::Binary::const_iterator
-        kwVpdIterator; //!< Iterator to parse the vector
+        kwVpdIterator;    //!< Iterator to parse the vector
     const openpower::vpd::Binary&
         keywordVpdVector; //!< Vector which stores keyword VPD data
 
