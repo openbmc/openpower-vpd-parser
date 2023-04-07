@@ -1042,5 +1042,31 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
 
     return vpdVector;
 }
+
+std::variant<KeywordVpdMap, Store> parseVpdFile(const std::string& vpdFilePath,
+                                                const std::string& invPath,
+                                                const nlohmann::json& jsonFile,
+                                                ParserInterface*& parserObj)
+{
+    uint32_t vpdStartOffset = 0;
+    for (const auto& item : jsonFile["frus"][vpdFilePath])
+    {
+        if (item.find("offset") != item.end())
+        {
+            vpdStartOffset = item["offset"];
+        }
+    }
+
+    Binary vpdVector = getVpdDataInVector(jsonFile, vpdFilePath);
+
+    parserObj = ParserFactory::getParser(vpdVector, (pimPath + invPath),
+                                         vpdFilePath, vpdStartOffset);
+
+    std::variant<KeywordVpdMap, Store> parseResult;
+
+    parseResult = parserObj->parse();
+
+    return parseResult;
+}
 } // namespace vpd
 } // namespace openpower
