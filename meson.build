@@ -14,14 +14,14 @@ project(
 
 add_global_arguments('-Wno-psabi', language : ['c', 'cpp'])
 
-# Disable FORTIFY_SOURCE when compiling with no optimization
+#Disable FORTIFY_SOURCE when compiling with no optimization
 if(get_option('optimization') == '0')
   add_project_arguments('-U_FORTIFY_SOURCE',language:['cpp','c'])
   message('Disabling FORTIFY_SOURCE as optimization is set to 0')
 endif
 
-# Setup googletest before we import any projects that also depend on it to make
-# sure we have control over its configuration
+#Setup googletest before we import any projects that also depend on it to make
+#sure we have control over its configuration
 build_tests = get_option('tests')
 if not build_tests.disabled()
     gtest_dep = dependency('gtest', main: true, disabler: true, required: false)
@@ -117,8 +117,11 @@ common_SOURCES =['common_utility.cpp',
 
 if get_option('ibm-parser').enabled()
         libgpiodcxx = dependency('libgpiodcxx')
-        ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp'
+        ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',
+								'vpd-manager/editor_impl.cpp',
                                ]+common_SOURCES
+
+        vpd_tool_INCLUDE = include_directories('vpd-parser/', 'vpd-manager')
 
         ibm_vpd_exe = executable(
                                 'ibm-read-vpd',
@@ -129,7 +132,7 @@ if get_option('ibm-parser').enabled()
                                         libgpiodcxx,
                                 ],
                                 link_with : libvpdecc,
-                                include_directories : 'vpd-parser/',
+                                include_directories : vpd_tool_INCLUDE,
                                 install: true,
                                 cpp_args : '-DIPZ_PARSER'
                             )
@@ -139,7 +142,6 @@ if get_option('ibm-parser').enabled()
                             'vpd-manager/editor_impl.cpp',
                            ]+common_SOURCES
 
-        vpd_tool_INCLUDE = include_directories('vpd-parser/', 'vpd-manager')
 
         vpd_tool_exe = executable(
                                  'vpd-tool',
