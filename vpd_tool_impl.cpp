@@ -641,6 +641,66 @@ void VpdTool::getSystemDataFromCache(IntfPropMap& svpdBusData)
     svpdBusData.emplace("UTIL", util);
 }
 
+/*
+ * @brief This API retrieves the hardware backup in map
+ *
+ * @param[in] systemVpdBackupPath - The path to the EEPROM file that stores the
+ * primary VPD data.
+ * @param[in] backupVpdInvPath - Inventory object path.
+ * @param[in] jsonFile - Reference to vpd inventory json object.
+ * @param[out] backupVpdMap - An IPZ VPD map containing the parsed Backup VPD.
+ * */
+void getBackupVpdInMap(const std::string& systemVpdBackupPath,
+                       const std::string& backupVpdInvPath,
+                       nlohmann::json& jsonFile, Parsed& backupVpdMap)
+{
+    if (!fs::exists(systemVpdBackupPath))
+    {
+        std::cout << "Backup is on hardware EEPORM file,"
+                     " but the path of EEPROM file "
+                  << systemVpdBackupPath << " does not exist." << std::endl;
+
+        exit(0);
+    }
+    else
+    {
+        ParserInterface* parser = nullptr;
+        try
+        {
+            auto backupVpdParseResult = parseVpdFile(
+                systemVpdBackupPath, backupVpdInvPath, jsonFile, parser);
+
+            // release the parser object
+            ParserFactory::freeParser(parser);
+
+            if (auto pVal = get_if<Store>(&backupVpdParseResult))
+            {
+                backupVpdMap = pVal->getVpdMap();
+            }
+            else
+            {
+                std::cerr << systemVpdBackupPath
+                          << " is not of type IPZ VPD."
+                          << std::endl;
+
+                exit(0);
+            }
+        }
+        catch (const VpdEccException& ex)
+        {
+            std::cerr << "ECC Exceptions found in the Backup VPD file "
+                      << systemVpdBackupPath << std::endl;
+
+            cerr << ex.what() << std::endl;
+
+            // release the parser object
+            ParserFactory::freeParser(parser);
+
+            exit(0);
+        }
+    }
+}
+
 int VpdTool::fixSystemVPD()
 {
     std::string outline(191, '=');
@@ -663,33 +723,57 @@ int VpdTool::fixSystemVPD()
                 constants::pimPath +
                     static_cast<std::string>(constants::SYSTEM_OBJECT));
 
+    // Get the value of systemVpdBackupPath field from json
+    const std::string& systemVpdBackupPath =
+        js["frus"][constants::systemVpdFilePath].at(0).value(
+            "systemVpdBackupPath", "");
+
+    Parsed backupVpdMap{};
+    bool isbackupOnCache = true;
+
     // Get system VPD D-Bus Data in a map
     IntfPropMap svpdBusData;
-    getSystemDataFromCache(svpdBusData);
+    if (systemVpdBackupPath.empty())
+    {
+        getSystemDataFromCache(svpdBusData);
+    }
+    else
+    {
+        isbackupOnCache = false;
+        const std::string& backupVpdInvPath =
+            js["frus"][systemVpdBackupPath][0]["inventoryPath"]
+                .get_ref<const nlohmann::json::string_t&>();
+
+        getBackupVpdInMap(systemVpdBackupPath, backupVpdInvPath, js,
+                          backupVpdMap);
+    }
 
     for (const auto& recordKw : svpdKwdMap)
     {
         string record = recordKw.first;
 
-        // Extract specific record data from the svpdBusData map.
-        const auto& rec = svpdBusData.find(record);
-
-        if (rec == svpdBusData.end())
+        if (systemVpdBackupPath.empty())
         {
-            std::cerr << record << " not a part of critical system VPD records."
-                      << std::endl;
-            continue;
+            // Extract specific record data from the svpdBusData map.
+            const auto& rec = svpdBusData.find(record);
+            if (rec == svpdBusData.end())
+            {
+                std::cerr << record
+                          << " not a part of critical system VPD records."
+                          << std::endl;
+                continue;
+            }
         }
 
-        const auto& recData = svpdBusData.find(record)->second;
-
-        string busStr{}, hwValStr{};
+        std::string primaryVpdKwValueStr{}, backupVpdKwValueStr{};
+        string backupVpdRecName{}, backupVpdKwName{};
 
         for (const auto& keywordInfo : recordKw.second)
         {
             const auto& keyword = get<0>(keywordInfo);
             string mismatch = "NO"; // no mismatch
-            string hardwareValue{};
+            string primaryVpdKwValue{};
+            string backupVpdKwValue{};
             auto recItr = vpdMap.find(record);
 
             if (recItr != vpdMap.end())
@@ -698,69 +782,133 @@ int VpdTool::fixSystemVPD()
                 auto kwItr = kwValMap.find(keyword);
                 if (kwItr != kwValMap.end())
                 {
-                    hardwareValue = kwItr->second;
+                    primaryVpdKwValue = kwItr->second;
                 }
             }
 
             inventory::Value kwValue;
-            for (auto& kwData : recData)
+            if (systemVpdBackupPath.empty())
             {
-                if (kwData.first == keyword)
+                const auto& recData = svpdBusData.find(record)->second;
+                for (auto& kwData : recData)
                 {
-                    kwValue = kwData.second;
-                    break;
+                    if (kwData.first == keyword)
+                    {
+                        kwValue = kwData.second;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                backupVpdRecName = get<4>(keywordInfo);
+                backupVpdKwName = get<5>(keywordInfo);
+
+                auto recItr = backupVpdMap.find(backupVpdRecName);
+
+                if (recItr != backupVpdMap.end())
+                {
+                    backupVpdRecKwdValMap& backupVpdKwValueMap = recItr->second;
+
+                    auto kwItr = backupVpdKwValueMap.find(backupVpdKwName);
+
+                    if (kwItr != backupVpdKwValueMap.end())
+                    {
+                        backupVpdKwValue = kwItr->second;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    continue;
                 }
             }
 
             if (keyword != "SE") // SE to display in Hex string only
             {
-                ostringstream hwValStream;
-                hwValStream << "0x";
-                hwValStr = hwValStream.str();
+                ostringstream primaryVpdKwValueStream;
+                primaryVpdKwValueStream << "0x";
+                primaryVpdKwValueStr = primaryVpdKwValueStream.str();
 
-                for (uint16_t byte : hardwareValue)
+                for (uint16_t byte : primaryVpdKwValue)
                 {
-                    hwValStream << setfill('0') << setw(2) << hex << byte;
-                    hwValStr = hwValStream.str();
+                    primaryVpdKwValueStream << setfill('0') << setw(2) << hex
+                                            << byte;
+                    primaryVpdKwValueStr = primaryVpdKwValueStream.str();
                 }
 
-                if (const auto value = get_if<Binary>(&kwValue))
+                if (systemVpdBackupPath.empty())
                 {
-                    busStr = hexString(*value);
+                    if (const auto value = get_if<Binary>(&kwValue))
+                    {
+                        backupVpdKwValueStr = hexString(*value);
+                    }
                 }
-                if (busStr != hwValStr)
+                else
+                {
+                    ostringstream backupKwValStream;
+                    backupKwValStream << "0x";
+                    backupVpdKwValueStr = backupKwValStream.str();
+
+                    for (uint16_t byte : backupVpdKwValue)
+                    {
+                        backupKwValStream << setfill('0') << setw(2) << hex
+                                          << byte;
+
+                        backupVpdKwValueStr = backupKwValStream.str();
+                    }
+                }
+
+                if (backupVpdKwValueStr != primaryVpdKwValueStr)
                 {
                     mismatch = "YES";
                 }
             }
             else
             {
-                if (const auto value = get_if<Binary>(&kwValue))
+                if (systemVpdBackupPath.empty())
                 {
-                    busStr = getPrintableValue(*value);
+                    if (const auto value = get_if<Binary>(&kwValue))
+                    {
+                        backupVpdKwValueStr = getPrintableValue(*value);
+                    }
                 }
-                if (busStr != hardwareValue)
+                else
+                {
+                    backupVpdKwValueStr = backupVpdKwValue;
+                }
+
+                if (backupVpdKwValueStr != primaryVpdKwValue)
                 {
                     mismatch = "YES";
                 }
-                hwValStr = hardwareValue;
+
+                primaryVpdKwValueStr = primaryVpdKwValue;
             }
-            recKwData.push_back(
-                make_tuple(++num, record, keyword, busStr, hwValStr, mismatch));
+
+            recKwData.push_back(make_tuple(++num, record, keyword,
+                                           backupVpdKwValueStr,
+                                           primaryVpdKwValueStr, mismatch,
+                                           backupVpdRecName, backupVpdKwName));
 
             std::string splitLine(191, '-');
             cout << left << setw(6) << num << left << setw(8) << record << left
                  << setw(9) << keyword << left << setw(75) << setfill(' ')
-                 << busStr << left << setw(75) << setfill(' ') << hwValStr
-                 << left << setw(14) << mismatch << '\n'
+                 << backupVpdKwValueStr << left << setw(75) << setfill(' ')
+                 << primaryVpdKwValueStr << left << setw(14) << mismatch << '\n'
                  << splitLine << endl;
         }
     }
-    parseSVPDOptions(js);
+    parseSVPDOptions(js, isbackupOnCache, systemVpdBackupPath);
     return 0;
 }
 
-void VpdTool::parseSVPDOptions(const nlohmann::json& json)
+void VpdTool::parseSVPDOptions(const nlohmann::json& json,
+                               const bool& isbackupOnCache,
+                               const std::string& backupVpdFilePath)
 {
     do
     {
@@ -816,8 +964,25 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
             {
                 if (get<5>(data) == "YES")
                 {
-                    EditorImpl edit(constants::systemVpdFilePath, json,
-                                    get<1>(data), get<2>(data));
+                    std::string vpdFilePath{};
+                    std::string recordName{};
+                    std::string kwName{};
+
+                    if (isbackupOnCache)
+                    {
+                        vpdFilePath = constants::systemVpdFilePath;
+                        recordName = get<1>(data);
+                        kwName = get<2>(data);
+                    }
+                    else
+                    {
+                        vpdFilePath = backupVpdFilePath;
+                        recordName = get<6>(data);
+                        kwName = get<7>(data);
+                    }
+
+                    EditorImpl edit(vpdFilePath, json, recordName, kwName);
+
                     edit.updateKeyword(toBinary(get<4>(data)), 0, true);
                     mismatchFound = true;
                 }
@@ -886,6 +1051,9 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
                     EditorImpl edit(constants::systemVpdFilePath, json,
                                     get<1>(data), get<2>(data));
 
+                    EditorImpl backupVpdEditObj(backupVpdFilePath, json,
+                                                get<6>(data), get<7>(data));
+
                     if (option == VpdTool::BACKUP_DATA_FOR_CURRENT)
                     {
                         edit.updateKeyword(toBinary(get<3>(data)), 0, true);
@@ -895,7 +1063,15 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
                     else if (option ==
                              VpdTool::SYSTEM_BACKPLANE_DATA_FOR_CURRENT)
                     {
-                        edit.updateKeyword(toBinary(get<4>(data)), 0, true);
+                        if (isbackupOnCache)
+                        {
+                            edit.updateKeyword(toBinary(get<4>(data)), 0, true);
+                        }
+                        else
+                        {
+                            backupVpdEditObj.updateKeyword(
+                                toBinary(get<4>(data)), 0, true);
+                        }
                         cout << "\nData updated successfully.\n";
                         break;
                     }
@@ -909,6 +1085,12 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
                         cout << '\n' << outline << endl;
 
                         edit.updateKeyword(toBinary(value), 0, true);
+
+                        if (!isbackupOnCache)
+                        {
+                            backupVpdEditObj.updateKeyword(toBinary(value), 0,
+                                                           true);
+                        }
                         cout << "\nData updated successfully.\n";
                         break;
                     }
@@ -957,6 +1139,11 @@ int VpdTool::cleanSystemVPD()
                     constants::pimPath +
                         static_cast<std::string>(constants::SYSTEM_OBJECT));
 
+        // Get the value of systemVpdBackupPath field from json
+        const std::string& systemVpdBackupPath =
+            js["frus"][constants::systemVpdFilePath].at(0).value(
+                "systemVpdBackupPath", "");
+
         RecKwValMap kwdsToBeUpdated;
 
         for (auto recordMap : svpdKwdMap)
@@ -994,6 +1181,30 @@ int VpdTool::cleanSystemVPD()
                     EditorImpl edit(constants::systemVpdFilePath, js, record,
                                     keyword);
                     edit.updateKeyword(defaultValue, 0, true);
+
+                    if (!systemVpdBackupPath.empty())
+                    {
+                        if (!fs::exists(systemVpdBackupPath))
+                        {
+                            std::cout
+                                << "Backup is on hardware EEPORM file,"
+                                   " but the path of EEPROM file "
+                                << systemVpdBackupPath
+                                << " does not exist. So not able to reset "
+                                   "the keyword value on Backup"
+                                << std::endl;
+                        }
+                        else
+                        {
+
+                            EditorImpl backupVpdEditObj(
+                                systemVpdBackupPath, js, std::get<4>(keywordMap),
+                                std::get<5>(keywordMap));
+
+                            backupVpdEditObj.updateKeyword(defaultValue, 0,
+                                                           true);
+                        }
+                    }
                 }
             }
         }

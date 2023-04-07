@@ -104,6 +104,57 @@ void Manager::initManager()
     }
 }
 
+/*
+ * @brief This API retrieves the hardware backup in map
+ *
+ * @param[in] systemVpdBckupPath - The path to the EEPROM file that stores the
+ * primary VPD data.
+ * @param[in] backupVpdInvPath - Inventory object path.
+ * @param[in] jsonFile - Reference to vpd inventory json object.
+ * @param[out] backupVpdMap - An IPZ VPD map containing the parsed Backup VPD.
+ * @return true if the Backup VPD was obtained, otherwise false.
+ * */
+bool getBackupVpdInMap(const std::string& systemVpdBckupPath,
+                       nlohmann::json& jsonFile, Parsed& backupVpdMap)
+{
+    ParserInterface* parser = nullptr;
+    try
+    {
+        const std::string& backupVpdInvPath =
+            jsonFile["frus"][systemVpdBckupPath][0]["inventoryPath"]
+                .get_ref<const nlohmann::json::string_t&>();
+
+        auto backupVpdParsedResult = parseVpdFile(
+            systemVpdBckupPath, backupVpdInvPath, jsonFile, parser);
+
+        // release the parser object
+        ParserFactory::freeParser(parser);
+
+        if (auto pVal = get_if<Store>(&backupVpdParsedResult))
+        {
+            backupVpdMap = pVal->getVpdMap();
+        }
+        else
+        {
+            std::cout << "Invalid Backup VPD format" << std::endl;
+
+            return false;
+        }
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "Failed to get Backup VPD due to exception: " << e.what()
+                  << std::endl;
+
+        // release the parser object
+        ParserFactory::freeParser(parser);
+
+        return false;
+    }
+
+    return true;
+}
+
 /**
  * @brief An api to get list of blank system VPD properties.
  * @param[in] vpdMap - IPZ vpd map.
@@ -113,8 +164,23 @@ void Manager::initManager()
  */
 static void
     getListOfBlankSystemVpd(Parsed& vpdMap, const string& objectPath,
-                            std::vector<RestoredEeproms>& blankPropertyList)
+                            std::vector<RestoredEeproms>& blankPropertyList,
+                            nlohmann::json& jsonFile)
 {
+    // Get the value of systemVpdBackupPath field from json
+    const std::string& systemVpdBckupPath =
+        jsonFile["frus"][systemVpdFilePath].at(0).value("systemVpdBckupPath",
+                                                        "");
+    Parsed backupVpdMap{};
+
+    if (!systemVpdBckupPath.empty())
+    {
+        if (!getBackupVpdInMap(systemVpdBckupPath, jsonFile, backupVpdMap))
+        {
+            return;
+        }
+    }
+
     for (const auto& systemRecKwdPair : svpdKwdMap)
     {
         auto it = vpdMap.find(systemRecKwdPair.first);
@@ -134,14 +200,40 @@ static void
                 {
                     string& kwdValue = iterator->second;
 
-                    // check bus data
                     const string& recordName = systemRecKwdPair.first;
-                    const string& busValue = readBusProperty(
-                        objectPath, ipzVpdInf + recordName, keyword);
+
+                    string backupValue{};
+
+                    if (systemVpdBckupPath.empty())
+                    {
+                        // check bus data
+                        backupValue = readBusProperty(
+                            objectPath, ipzVpdInf + recordName, keyword);
+                    }
+                    else
+                    {
+                        const auto& backupVpdRecName = get<4>(keywordInfo);
+                        const auto& backupVpdKwName = get<5>(keywordInfo);
+
+                        it = backupVpdMap.find(backupVpdRecName);
+
+                        if (it != backupVpdMap.end())
+                        {
+                            backupVpdRecKwdValMap& backupVpdKwValueMap =
+                                it->second;
+
+                            iterator =
+                                backupVpdKwValueMap.find(backupVpdKwName);
+
+                            if (iterator != backupVpdKwValueMap.end())
+                            {
+                                backupValue = iterator->second;
+                            }
+                        }
+                    }
 
                     const auto& defaultValue = get<1>(keywordInfo);
-
-                    if (Binary(busValue.begin(), busValue.end()) !=
+                    if (Binary(backupValue.begin(), backupValue.end()) !=
                         defaultValue)
                     {
                         if (Binary(kwdValue.begin(), kwdValue.end()) ==
@@ -149,7 +241,8 @@ static void
                         {
                             // implies data is blank on EEPROM but not on cache.
                             // So EEPROM vpd update is required.
-                            Binary busData(busValue.begin(), busValue.end());
+                            Binary busData(backupValue.begin(),
+                                           backupValue.end());
 
                             blankPropertyList.push_back(std::make_tuple(
                                 objectPath, recordName, keyword, busData));
@@ -167,15 +260,12 @@ void Manager::restoreSystemVpd()
     ParserInterface* parser = nullptr;
     try
     {
-        auto vpdVector = getVpdDataInVector(jsonFile, systemVpdFilePath);
-        uint32_t vpdStartOffset = 0;
         const auto& inventoryPath =
             jsonFile["frus"][systemVpdFilePath][0]["inventoryPath"]
                 .get_ref<const nlohmann::json::string_t&>();
 
-        parser = ParserFactory::getParser(vpdVector, (pimPath + inventoryPath),
-                                          systemVpdFilePath, vpdStartOffset);
-        auto parseResult = parser->parse();
+        auto parseResult =
+            parseVpdFile(systemVpdFilePath, inventoryPath, jsonFile, parser);
 
         if (auto pVal = std::get_if<Store>(&parseResult))
         {
@@ -183,7 +273,7 @@ void Manager::restoreSystemVpd()
             // needs to be updated at standby.
             std::vector<RestoredEeproms> blankSystemVpdProperties{};
             getListOfBlankSystemVpd(pVal->getVpdMap(), SYSTEM_OBJECT,
-                                    blankSystemVpdProperties);
+                                    blankSystemVpdProperties, jsonFile);
 
             // if system VPD restore is required, update the
             // EEPROM

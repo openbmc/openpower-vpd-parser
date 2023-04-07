@@ -9,10 +9,11 @@
 
 using json = nlohmann::json;
 
-// <S.no, Record, Keyword, D-Bus value, HW value, Data mismatch>
+// <S.no, Record, Keyword, D-Bus value, HW value, Data mismatch,
+// backupVpdRecName, backupVpdKwName>
 using SystemCriticalData =
     std::vector<std::tuple<int, std::string, std::string, std::string,
-                           std::string, std::string>>;
+                           std::string, std::string, std::string, std::string>>;
 
 class VpdTool
 {
@@ -140,8 +141,12 @@ class VpdTool
      * @brief Parse through the options to fix system VPD
      *
      * @param[in] json - Inventory JSON
+     * @param[in] backupOnCache - Flag denotes that the backup is BMC cache or
+     * Hardware
+     * @param[in] backupVpdFilePath - EEPROM file path of backup vpd
      */
-    void parseSVPDOptions(const nlohmann::json& json);
+    void parseSVPDOptions(const nlohmann::json& json, const bool& backupOnCache,
+                          const std::string& backupVpdFilePath);
 
     /**
      * @brief List of user options that can be used to fix system VPD keywords.
