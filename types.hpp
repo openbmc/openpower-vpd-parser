@@ -65,8 +65,12 @@ using RecordName = std::string;
 using KeywordDefault = Binary;
 using isPELReqOnRestoreFailure = bool;
 using isMFGResetRequired = bool;
+using isRestorable = bool;
 using SystemKeywordInfo =
     std::tuple<Keyword, KeywordDefault, isPELReqOnRestoreFailure,
+               isMFGResetRequired>;
+using bonnellSystemKeywordInfo =
+    std::tuple<Keyword, KeywordDefault, isRestorable, isPELReqOnRestoreFailure,
                isMFGResetRequired>;
 
 /** Map of system backplane records to list of keywords and its related data. {
@@ -75,10 +79,18 @@ using SystemKeywordInfo =
 using SystemKeywordsMap =
     std::unordered_map<RecordName, std::vector<SystemKeywordInfo>>;
 
+/** Map of system backplane records to list of keywords and its related data. {
+ * Record : { Keyword, Default value, Is Restorable, Is PEL required on restore
+ * failure, Is MFG reset required }} **/
+using bonnellSystemKeywordsMap =
+    std::unordered_map<RecordName, std::vector<bonnellSystemKeywordInfo>>;
+
 using GetAllResultType = std::vector<std::pair<Keyword, Value>>;
 using IntfPropMap = std::map<RecordName, GetAllResultType>;
 using RecKwValMap =
     std::unordered_map<RecordName, std::unordered_map<Keyword, Binary>>;
+using BasePanelVsbkRecKwdValMap = DbusPropertyMap;
+
 } // namespace inventory
 
 } // namespace vpd

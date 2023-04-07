@@ -39,6 +39,43 @@ static const inventory::SystemKeywordsMap svpdKwdMap{
       inventory::SystemKeywordInfo("F5", Binary(16, 0x00), false, true),
       inventory::SystemKeywordInfo("F6", Binary(16, 0x00), false, true)}}};
 
+// Map which holds bonnell system vpd keywords which can be restored at standby
+// and via vpd-tool and also can be used to reset keywords to its defaults at
+// manufacturing. The list of keywords for VSYS record is as per the S0 system.
+// Should be updated for another type of systems For those keywords whose
+// default value is system specific, the default value field is left empty.
+// Record : {Keyword, Default value, Is Restorable, Is PEL required on restore
+// failure, Is MFG reset required}
+static const inventory::bonnellSystemKeywordsMap bonnelSvpdKwdMap{
+    {"VSYS",
+     {inventory::bonnellSystemKeywordInfo("BR", Binary(2, 0x20), true, true,
+                                          true),
+      inventory::bonnellSystemKeywordInfo("TM", Binary(8, 0x20), true, true,
+                                          true),
+      inventory::bonnellSystemKeywordInfo("SE", Binary(7, 0x20), true, true,
+                                          true),
+      inventory::bonnellSystemKeywordInfo("SU", Binary(6, 0x20), true, true,
+                                          true),
+      inventory::bonnellSystemKeywordInfo("RB", Binary(4, 0x20), true, true,
+                                          true),
+      inventory::bonnellSystemKeywordInfo("WN", Binary(12, 0x20), true, true,
+                                          true),
+      inventory::bonnellSystemKeywordInfo("RG", Binary(4, 0x20), true, true,
+                                          true),
+      inventory::bonnellSystemKeywordInfo("FV", Binary(32, 0x20), true, false,
+                                          true)}},
+    {"VCEN",
+     {inventory::bonnellSystemKeywordInfo("FC", Binary(), true, true, false),
+      inventory::bonnellSystemKeywordInfo("SE", Binary(7, 0x20), true, true,
+                                          true)}},
+    {"LXR0",
+     {inventory::bonnellSystemKeywordInfo("LX", Binary(), true, true, false)}},
+    {"UTIL",
+     {inventory::bonnellSystemKeywordInfo("D0", Binary(1, 0x00), true, true,
+                                          true),
+      inventory::bonnellSystemKeywordInfo("D1", Binary(1, 0x00), false, false,
+                                          false)}}};
+
 /** @brief Return the hex representation of the incoming byte
  *
  * @param [in] c - The input byte
