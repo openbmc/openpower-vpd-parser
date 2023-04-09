@@ -1,0 +1,429 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c6c4709_23514d94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "Please add why this change was required and a test section which explains step required to test this change.",
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22a99fd0_a6b89e86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "The flow does not looks correct. Need to revisit the code flow. Will review further post that.",
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31fc5649_cabea5ff",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1363,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "Whis function is required? This is duplicating a lot of code.",
+      "range": {
+        "startLine": 1353,
+        "startChar": 1,
+        "endLine": 1363,
+        "endChar": 1
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55054126_ee45d47b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1554,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "Why this has been marked as in,out?",
+      "range": {
+        "startLine": 1554,
+        "startChar": 3,
+        "endLine": 1554,
+        "endChar": 58
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cff450d8_4b167c89",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "Same here, marked as in,out.",
+      "range": {
+        "startLine": 1555,
+        "startChar": 3,
+        "endLine": 1555,
+        "endChar": 65
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7dd1da9_dd428701",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1564,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "Use a better name, like systemRecKwdPairForBackup.",
+      "range": {
+        "startLine": 1564,
+        "startChar": 21,
+        "endLine": 1564,
+        "endChar": 37
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1feb9852_351ffb0a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1566,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "Use a constant reference.",
+      "range": {
+        "startLine": 1566,
+        "startChar": 8,
+        "endLine": 1566,
+        "endChar": 30
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ae784a1_34c1e734",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1905,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "To avoid this string copy can we have this checked in-place?",
+      "range": {
+        "startLine": 1903,
+        "startChar": 12,
+        "endLine": 1905,
+        "endChar": 39
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d4e05be_0d6decec",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1915,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "Why this piece of code is required?",
+      "range": {
+        "startLine": 1907,
+        "startChar": 12,
+        "endLine": 1915,
+        "endChar": 13
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ba1f404_f44c4dd7",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1995,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "This information has already been extracted above. Why it is required again? Why the above value cant be re-used?",
+      "range": {
+        "startLine": 1994,
+        "startChar": 20,
+        "endLine": 1995,
+        "endChar": 79
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e67fd061_91e89f50",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2001,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "Do you still want to continue further if the system VPD format is invalid?",
+      "range": {
+        "startLine": 2001,
+        "startChar": 20,
+        "endLine": 2001,
+        "endChar": 74
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82051df1_f07927a5",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2014,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "Why this code needs to be moved into a condition. This is a common code irrespective of system type.",
+      "range": {
+        "startLine": 2007,
+        "startChar": 16,
+        "endLine": 2014,
+        "endChar": 17
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a035437a_4fc19afe",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2018,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "This check is already there is populateDbus function. Can we branch off from there?",
+      "range": {
+        "startLine": 2018,
+        "startChar": 16,
+        "endLine": 2018,
+        "endChar": 32
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73362a16_f8fa7c22",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2024,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "Can we avoid this copy as it is being only used at one place. Can we do this in place?",
+      "range": {
+        "startLine": 2022,
+        "startChar": 20,
+        "endLine": 2024,
+        "endChar": 48
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9476508c_837ed88e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2058,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "At this point the data is already in vector. Why this is re-required?",
+      "range": {
+        "startLine": 2057,
+        "startChar": 24,
+        "endLine": 2058,
+        "endChar": 73
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1db81011_a473d97d",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2062,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "Same here, these codes are already executed above. Why we need to repeat?",
+      "range": {
+        "startLine": 2060,
+        "startChar": 23,
+        "endLine": 2062,
+        "endChar": 62
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "738580b7_31abc4c9",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2083,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "The flow does not looks correct. Need to revisit the code flow. Will review further post that.",
+      "range": {
+        "startLine": 2073,
+        "startChar": 28,
+        "endLine": 2083,
+        "endChar": 29
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d063f37c_fbe17239",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2146,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "Why change of severity only required in case of ECC exception?",
+      "range": {
+        "startLine": 2146,
+        "startChar": 11,
+        "endLine": 2146,
+        "endChar": 48
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6df1e25c_c3ac5682",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-09T05:39:00Z",
+      "side": 1,
+      "message": "The explanation is not correct. Need to discuss.",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 48,
+        "endChar": 34
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
