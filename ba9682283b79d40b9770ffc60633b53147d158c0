@@ -70,6 +70,30 @@
       },
       "revId": "ba9682283b79d40b9770ffc60633b53147d158c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3644f11b_25d45a8c",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-12T15:19:06Z",
+      "side": 1,
+      "message": "I don\u0027t say it never fails. it fails when the type is changed from bool to something else. (as of now)that is never going to happen.\n\neven if they change the type one day, atleast our code won\u0027t crash. it just displays Present as empty.",
+      "parentUuid": "104767a6_aca97815",
+      "range": {
+        "startLine": 319,
+        "startChar": 4,
+        "endLine": 320,
+        "endChar": 36
+      },
+      "revId": "ba9682283b79d40b9770ffc60633b53147d158c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
