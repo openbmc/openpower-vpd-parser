@@ -22,6 +22,30 @@
       },
       "revId": "ba9682283b79d40b9770ffc60633b53147d158c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f38285f_41403929",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-12T14:56:24Z",
+      "side": 1,
+      "message": "if condition can fail only when the Present property type is changed from bool to something else. is that gonna happen?\nif the Present property type changes we will change here as well.",
+      "parentUuid": "87ae442a_df075c8b",
+      "range": {
+        "startLine": 319,
+        "startChar": 4,
+        "endLine": 320,
+        "endChar": 36
+      },
+      "revId": "ba9682283b79d40b9770ffc60633b53147d158c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
