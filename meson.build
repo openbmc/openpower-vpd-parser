@@ -9,7 +9,7 @@ project(
        'buildtype=debugoptimized'
      ],
      version: '1.0',
-     meson_version: '>=0.57.0',
+     meson_version: '>=0.58.0',
 )
 
 add_global_arguments('-Wno-psabi', language : ['c', 'cpp'])
@@ -159,10 +159,10 @@ if get_option('vpd-manager').enabled()
 endif
 
 systemd_system_unit_dir = dependency('systemd').get_variable(
-        pkgconfig: 'systemdsystemunitdir')
+        'systemdsystemunitdir')
 
 udev_dir = dependency('udev').get_variable(
-        pkgconfig: 'udev_dir')
+        'udev_dir')
 
 install_data(
     'ibm_vpd/system-vpd.service',
