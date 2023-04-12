@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "01c5464f_ebb6b26e",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-12T08:59:31Z",
+      "side": 1,
+      "message": "forgot to remove the api. will remove it in ps 5",
+      "parentUuid": "39557d68_ee8c96b5",
+      "range": {
+        "startLine": 306,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 1
+      },
+      "revId": "70150e44c5c0b7d72376fc160a71fd7750fd6f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37c55345_12d26168",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 4
@@ -54,6 +78,24 @@
       "writtenOn": "2023-04-11T07:42:25Z",
       "side": 1,
       "message": "Please add handlePresence, if for flags embedded etc.",
+      "revId": "70150e44c5c0b7d72376fc160a71fd7750fd6f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5aa1b68_42798e75",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-12T08:59:31Z",
+      "side": 1,
+      "message": "am not following. can you add details?",
+      "parentUuid": "37c55345_12d26168",
       "revId": "70150e44c5c0b7d72376fc160a71fd7750fd6f6b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
