@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87ae442a_df075c8b",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-12T11:40:07Z",
+      "side": 1,
+      "message": "I have a doubt here. What in case the if condition fails, We will be returning a json with \"Present\" property as empty string and hence the presentJs returned further will also have empty value.\nIs this desired output?",
+      "range": {
+        "startLine": 319,
+        "startChar": 4,
+        "endLine": 320,
+        "endChar": 36
+      },
+      "revId": "ba9682283b79d40b9770ffc60633b53147d158c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
