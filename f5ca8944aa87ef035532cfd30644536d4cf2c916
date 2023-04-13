@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "563cfc39_4dfb6079",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "why you see it as complicated?\nthe prefix says the file is from vpd-tool-read option.\n\nand this option can be used for any keywords. so we need record name too.\n\nI don\u0027t find problem having a detailed file name.\n\n\nand vpd-tool differentiates output read from cache and read from hardware.\nif its read from hardware, the file name will be - vpd_tool_read_8-0050_PSPD_#D.txt\nand if its read from cache file name will be vpd_tool_read_motherboard_PSDP_#D.txt",
+      "parentUuid": "f5f77c33_fc1e85dc",
+      "range": {
+        "startLine": 21,
+        "startChar": 38,
+        "endLine": 21,
+        "endChar": 71
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13cf3cd4_b21c5d82",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 10
@@ -37,6 +61,24 @@
       "writtenOn": "2023-04-05T13:26:24Z",
       "side": 1,
       "message": "What if the string is empty?",
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad11fb49_4275dcde",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "empty string or invalid keyword - will get captured when making dbus call to read that keyword",
+      "parentUuid": "13cf3cd4_b21c5d82",
       "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +96,30 @@
       "writtenOn": "2023-04-05T13:26:24Z",
       "side": 1,
       "message": "nit: d should be capital.",
+      "range": {
+        "startLine": 492,
+        "startChar": 28,
+        "endLine": 492,
+        "endChar": 29
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e491fabd_64499a12",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73f3beac_86053560",
       "range": {
         "startLine": 492,
         "startChar": 28,
@@ -87,6 +153,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "632912b6_15e79a49",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1817df3d_704de36a",
+      "range": {
+        "startLine": 499,
+        "startChar": 33,
+        "endLine": 499,
+        "endChar": 52
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6a821c7_0d926a3d",
@@ -100,6 +190,30 @@
       "writtenOn": "2023-04-05T13:26:24Z",
       "side": 1,
       "message": "Do we need to have this copy?",
+      "range": {
+        "startLine": 406,
+        "startChar": 4,
+        "endLine": 406,
+        "endChar": 34
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92617477_3ec72285",
+        "filename": "vpd-manager/editor_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "not required",
+      "parentUuid": "b6a821c7_0d926a3d",
       "range": {
         "startLine": 406,
         "startChar": 4,
@@ -150,6 +264,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00528882_975b5e61",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb184561_6136ebba",
+      "range": {
+        "startLine": 25,
+        "startChar": 14,
+        "endLine": 25,
+        "endChar": 27
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6462f375_4f3d5acc",
@@ -163,6 +301,30 @@
       "writtenOn": "2023-04-05T13:26:24Z",
       "side": 1,
       "message": "A bit curious here. why do we need to convert the value to fs::path when string used initially and suffice the requirement for this flow.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 9
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52021488_7f2921e2",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "made std::string everywhere",
+      "parentUuid": "6462f375_4f3d5acc",
       "range": {
         "startLine": 39,
         "startChar": 0,
@@ -243,6 +405,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe5ff97b_f7f07275",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "thats right. will change",
+      "parentUuid": "6555912c_e2a1b87d",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 50
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6736a084_9effc3e4",
@@ -256,6 +442,30 @@
       "writtenOn": "2023-04-05T13:26:24Z",
       "side": 1,
       "message": "Please provide an empty line between blocks of code.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 7
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8b06aa6_a463f2cb",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6736a084_9effc3e4",
       "range": {
         "startLine": 51,
         "startChar": 0,
@@ -289,6 +499,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31acb1d7_ac9c72c3",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ac67b01_6650dae5",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 3
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4d1cf58_03a3310e",
@@ -302,6 +536,24 @@
       "writtenOn": "2023-04-12T06:33:57Z",
       "side": 1,
       "message": "Can have try catch.",
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e071560_a82f4d49",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4d1cf58_03a3310e",
       "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -329,6 +581,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dedaa99_de5e10ea",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "its good to have. added it.",
+      "parentUuid": "b42a54da_a80cb3cd",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 17
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9c07313_4f9b9c81",
@@ -342,6 +618,30 @@
       "writtenOn": "2023-04-06T05:59:02Z",
       "side": 1,
       "message": "Please use bool if you want only 1/0 to detect function failure/success.\nbool is 1 byte, int is 4 bytes (on 32bit system).",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 3
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6e8b767_83124dd7",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9c07313_4f9b9c81",
       "range": {
         "startLine": 87,
         "startChar": 0,
@@ -377,6 +677,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25c4191f_f32fe7be",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "I would suggest to keep this. anyways we need to have a variable to hold the file type.\nin that case, having a bool type variable doesn\u0027t make sense ( bool textFile \u003d true/false ). \nso its better to have enum.",
+      "parentUuid": "c3237617_cb444bb7",
+      "range": {
+        "startLine": 88,
+        "startChar": 26,
+        "endLine": 88,
+        "endChar": 67
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "db8a75a3_2bdce9db",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 10
@@ -388,6 +712,30 @@
       "writtenOn": "2023-04-06T05:59:02Z",
       "side": 1,
       "message": "Please avoid unnecessary string copy",
+      "range": {
+        "startLine": 107,
+        "startChar": 12,
+        "endLine": 107,
+        "endChar": 42
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28047d18_7b7227d8",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db8a75a3_2bdce9db",
       "range": {
         "startLine": 107,
         "startChar": 12,
@@ -421,6 +769,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7e5af3e_59172df7",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4652ea1a_b8b23091",
+      "range": {
+        "startLine": 113,
+        "startChar": 26,
+        "endLine": 113,
+        "endChar": 35
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e13d8674_c8205918",
@@ -434,6 +806,30 @@
       "writtenOn": "2023-04-06T05:59:02Z",
       "side": 1,
       "message": "This is there when file is_open fails. The message does not convey the cause properly.",
+      "range": {
+        "startLine": 117,
+        "startChar": 26,
+        "endLine": 117,
+        "endChar": 61
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "265f512d_b7e3d65b",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e13d8674_c8205918",
       "range": {
         "startLine": 117,
         "startChar": 26,
@@ -467,6 +863,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29dcac17_94bbca47",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "yeah.. changed it to true and false to avoid confusion.",
+      "parentUuid": "23ce867d_facc75ef",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 119,
+        "endChar": 21
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3916205_889310ca",
@@ -480,6 +900,30 @@
       "writtenOn": "2023-04-06T05:59:02Z",
       "side": 1,
       "message": "Same here.",
+      "range": {
+        "startLine": 126,
+        "startChar": 9,
+        "endLine": 126,
+        "endChar": 17
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b919e41c_1f4329fc",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3916205_889310ca",
       "range": {
         "startLine": 126,
         "startChar": 9,
@@ -513,6 +957,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c86cc3a_421dc8ab",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8c63a80_a2e89059",
+      "range": {
+        "startLine": 555,
+        "startChar": 4,
+        "endLine": 555,
+        "endChar": 18
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a475c7e7_a45ecad4",
@@ -536,6 +1004,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "961ff8e9_cc4f9d8a",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a475c7e7_a45ecad4",
+      "range": {
+        "startLine": 576,
+        "startChar": 12,
+        "endLine": 576,
+        "endChar": 68
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f85b9f6_b4d7d551",
@@ -549,6 +1041,30 @@
       "writtenOn": "2023-04-06T05:59:02Z",
       "side": 1,
       "message": "same here.",
+      "range": {
+        "startLine": 714,
+        "startChar": 15,
+        "endLine": 714,
+        "endChar": 25
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3181bbe8_8362bbf9",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "this is returning to the caller in vpd_tool.cpp , that is getting returned as rc from main. so having 0 for success and 1 for failure works here.",
+      "parentUuid": "2f85b9f6_b4d7d551",
       "range": {
         "startLine": 714,
         "startChar": 15,
@@ -606,6 +1122,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6940082_68f69656",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37a2c61a_6b1029f3",
+      "range": {
+        "startLine": 797,
+        "startChar": 28,
+        "endLine": 797,
+        "endChar": 45
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f18fcc8b_e3fe6858",
@@ -619,6 +1159,30 @@
       "writtenOn": "2023-04-05T13:26:24Z",
       "side": 1,
       "message": "Please avoid unnecessary copy.",
+      "range": {
+        "startLine": 799,
+        "startChar": 8,
+        "endLine": 799,
+        "endChar": 62
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcff0860_9420b073",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f18fcc8b_e3fe6858",
       "range": {
         "startLine": 799,
         "startChar": 8,
@@ -652,6 +1216,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d0c58fa_23e1e952",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29b35b60_fcc86d9c",
+      "range": {
+        "startLine": 1085,
+        "startChar": 26,
+        "endLine": 1085,
+        "endChar": 28
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57212cda_6371a3f9",
@@ -665,6 +1253,30 @@
       "writtenOn": "2023-04-05T13:26:24Z",
       "side": 1,
       "message": "These are unnecessary noise. Please check.",
+      "range": {
+        "startLine": 1244,
+        "startChar": 7,
+        "endLine": 1247,
+        "endChar": 31
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a838ee31_b46e3d43",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1247,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57212cda_6371a3f9",
       "range": {
         "startLine": 1244,
         "startChar": 7,
@@ -721,6 +1333,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "193b4c3b_4c13be89",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d76348a_32eb244b",
+      "range": {
+        "startLine": 199,
+        "startChar": 28,
+        "endLine": 199,
+        "endChar": 43
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef8362e8_968fcced",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56d18d5b_e3e7b545",
+      "range": {
+        "startLine": 199,
+        "startChar": 14,
+        "endLine": 199,
+        "endChar": 15
+      },
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b048f4ac_6365181b",
@@ -734,6 +1394,24 @@
       "writtenOn": "2023-04-05T13:26:24Z",
       "side": 1,
       "message": "Will need more information here.\nFor what the keyword is being verified or why it is being verified.",
+      "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e78c278_8ecf5022",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T08:41:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b048f4ac_6365181b",
       "revId": "f5ca8944aa87ef035532cfd30644536d4cf2c916",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
