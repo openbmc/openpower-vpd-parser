@@ -110,10 +110,13 @@ constexpr auto errIntfForEssentialFru = "com.ibm.VPD.Error.RequiredFRUMissing";
 constexpr auto errIntfForGpioError = "com.ibm.VPD.Error.GPIOError";
 constexpr auto motherBoardInterface =
     "xyz.openbmc_project.Inventory.Item.Board.Motherboard";
-constexpr auto systemVpdFilePath = "/sys/bus/i2c/drivers/at24/8-0050/eeprom";
-constexpr auto i2cPathPrefix = "/sys/bus/i2c/drivers/at24/";
-constexpr auto spiPathPrefix = "/sys/bus/spi/drivers/at25/";
 constexpr auto invItemIntf = "xyz.openbmc_project.Inventory.Item";
+constexpr auto systemVpdFilePath = "/sys/bus/i2c/drivers/at24/8-0050/eeprom";
+constexpr auto i2cPathPrefix = "/sys/bus/i2c/drivers/";
+constexpr auto spiPathPrefix = "/sys/bus/spi/drivers/";
+constexpr auto at24driver = "at24";
+constexpr auto at25driver = "at25";
+constexpr auto ee1004driver = "ee1004";
 
 namespace lengths
 {
@@ -166,7 +169,7 @@ enum vpdType
     DDR5_DDIMM_MEMORY_VPD,  /**< DDR5 DDIMM Memory VPD type */
     DDR4_ISDIMM_MEMORY_VPD, /**< DDR4 ISDIMM Memory VPD type */
     DDR5_ISDIMM_MEMORY_VPD, /**< DDR5 ISDIMM Memory VPD type */
-    INVALID_VPD_FORMAT      /**< Invalid VPD type */
+    INVALID_VPD_FORMAT      /**< Invalid VPD type Format */
 };
 
 enum PelSeverity
