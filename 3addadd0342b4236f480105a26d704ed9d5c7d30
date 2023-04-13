@@ -1,0 +1,382 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41cc9b9e_0e9edf27",
+        "filename": "const.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "Jinu: This is not required.",
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "082ad7e4_cab10e2c",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "Why have you added this header if you are not using string_view in your code.",
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd5d0728_2912017f",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "Jinu: Use constants instead of magic number/symbols",
+      "range": {
+        "startLine": 1049,
+        "startChar": 22,
+        "endLine": 1049,
+        "endChar": 25
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "498181d2_5c4f89fd",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "nit D should be in capitals.",
+      "range": {
+        "startLine": 494,
+        "startChar": 47,
+        "endLine": 494,
+        "endChar": 52
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34fe41a7_5d0002ef",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "In return please mention that it will also return the same value as input in case if/else if fails.",
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa835a9a_dc5dfdfe",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 497,
+        "startChar": 26,
+        "endLine": 497,
+        "endChar": 27
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a79195e_5e8f7ac8",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "Jinu: No differentiation required as we are only having one type of file.",
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "972fb276_a7e30c30",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "Jinu: No need for this flag as there is only one type of file now.",
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a33aa157_83f6e8db",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "What is 2 digit hex format. Also this complete description need to go away if we agree to remove the -t flag.",
+      "range": {
+        "startLine": 99,
+        "startChar": 54,
+        "endLine": 99,
+        "endChar": 72
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1441a3b_0df86fd2",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "In case the above comment prevails, this code becomes moot.",
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4735bd8b_a5226709",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "Jinu: need to discuss file name.",
+      "range": {
+        "startLine": 39,
+        "startChar": 1,
+        "endLine": 60,
+        "endChar": 1
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "740ff9d7_a42ecfc6",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "Could you change this to something like writeStringValueIntoFile.",
+      "range": {
+        "startLine": 101,
+        "startChar": 14,
+        "endLine": 101,
+        "endChar": 26
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cc90b54_30385517",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "Please use a constant reference if you are not going to modify this value.",
+      "range": {
+        "startLine": 587,
+        "startChar": 12,
+        "endLine": 587,
+        "endChar": 32
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0010f17a_0c9685dc",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "Where is the offset?",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 41
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b08fcb4_2a215e0e",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "only @return should suffice.",
+      "range": {
+        "startLine": 182,
+        "startChar": 7,
+        "endLine": 182,
+        "endChar": 26
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2719df4a_a061e4fe",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "Jinu: Binary not to be supported, please update.",
+      "range": {
+        "startLine": 189,
+        "startChar": 7,
+        "endLine": 189,
+        "endChar": 64
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12a2d992_3a610d56",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "Add more description please about which path.",
+      "range": {
+        "startLine": 190,
+        "startChar": 6,
+        "endLine": 190,
+        "endChar": 30
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9a2f916_c918667b",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T10:08:08Z",
+      "side": 1,
+      "message": "Dont use \"\u003d\" sign here.",
+      "range": {
+        "startLine": 235,
+        "startChar": 18,
+        "endLine": 235,
+        "endChar": 34
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
