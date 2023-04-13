@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4db593f1_2c79d892",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-13T05:17:07Z",
+      "side": 1,
+      "message": "What if the path is of an embedded fru?",
+      "revId": "ba9682283b79d40b9770ffc60633b53147d158c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87ae442a_df075c8b",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 5
