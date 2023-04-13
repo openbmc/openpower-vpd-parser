@@ -533,7 +533,7 @@ std::string getSystemsJson(const Parsed& vpdMap)
     return jsonPath;
 }
 
-void udevToGenericPath(std::string& file)
+void udevToGenericPath(std::string& file, const std::string& driver)
 {
     // Sample udevEvent i2c path :
     // "/sys/devices/platform/ahb/ahb:apb/ahb:apb:bus@1e78a000/1e78a480.i2c-bus/i2c-8/8-0051/8-00510/nvmem"
@@ -560,7 +560,7 @@ void udevToGenericPath(std::string& file)
             exit(EXIT_SUCCESS);
         }
         // Forming the generic file path
-        file = i2cPathPrefix + i2cBusAddr + "/eeprom";
+        file = i2cPathPrefix + driver + "/" + i2cBusAddr + "/eeprom";
     }
     // Sample udevEvent spi path :
     // "/sys/devices/platform/ahb/ahb:apb/1e79b000.fsi/fsi-master/fsi0/slave@00:00/00:00:00:04/spi_master/spi2/spi2.0/spi2.00/nvmem"
@@ -588,7 +588,7 @@ void udevToGenericPath(std::string& file)
             exit(EXIT_SUCCESS);
         }
         // Forming the generic path
-        file = spiPathPrefix + spiBus + ".0/eeprom";
+        file = spiPathPrefix + driver + "/" + spiBus + ".0/eeprom";
     }
     else
     {
