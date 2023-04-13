@@ -293,8 +293,9 @@ const std::string getIM(const Parsed& vpdMap);
 
 /** @brief Translate udev event generated path to a generic /sys/bus eeprom path
  *  @param[io] file - path generated from udev event.
+ *  @param[in] driver - kernel driver used by the device.
  */
-void udevToGenericPath(std::string& file);
+void udevToGenericPath(std::string& file, const std::string& driver);
 
 /**
  * @brief API to generate a vpd name in some pattern.
