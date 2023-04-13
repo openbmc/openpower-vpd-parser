@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2e1ad2e_fb04d451",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-13T06:23:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "17f616f7_421718ce",
+      "range": {
+        "startLine": 681,
+        "startChar": 16,
+        "endLine": 681,
+        "endChar": 19
+      },
+      "revId": "6152f1e01bb3156cc2f53b882c0880e8e30b8ed4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36194b12_6fce6b87",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-13T05:36:50Z",
       "side": 1,
       "message": "Meaningful name",
+      "range": {
+        "startLine": 683,
+        "startChar": 22,
+        "endLine": 683,
+        "endChar": 25
+      },
+      "revId": "6152f1e01bb3156cc2f53b882c0880e8e30b8ed4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f74a3e2e_205a0250",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-13T06:23:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "36194b12_6fce6b87",
       "range": {
         "startLine": 683,
         "startChar": 22,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e3f28b6_694f8467",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-13T06:23:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "39e11cac_89623eb6",
+      "range": {
+        "startLine": 697,
+        "startChar": 71,
+        "endLine": 697,
+        "endChar": 74
+      },
+      "revId": "6152f1e01bb3156cc2f53b882c0880e8e30b8ed4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f9f2427_17dfbeac",
@@ -89,6 +161,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7e7ce7f5_d6161e15",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-13T06:23:22Z",
+      "side": 1,
+      "message": "No, it\u0027ll give error as visit is other function and may need to capture",
+      "parentUuid": "9f9f2427_17dfbeac",
+      "revId": "6152f1e01bb3156cc2f53b882c0880e8e30b8ed4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe3f7e2b_ff818019",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 19
@@ -100,6 +190,30 @@
       "writtenOn": "2023-04-13T05:36:50Z",
       "side": 1,
       "message": "Try to see if you can avoid such copies.",
+      "range": {
+        "startLine": 719,
+        "startChar": 19,
+        "endLine": 719,
+        "endChar": 57
+      },
+      "revId": "6152f1e01bb3156cc2f53b882c0880e8e30b8ed4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c1be876_d0128db1",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-13T06:23:22Z",
+      "side": 1,
+      "message": "Okay.",
+      "parentUuid": "fe3f7e2b_ff818019",
       "range": {
         "startLine": 719,
         "startChar": 19,
@@ -135,6 +249,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7a5e452_1f96765a",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-13T06:23:22Z",
+      "side": 1,
+      "message": "Yes, This can be inside visit or will return hexString()",
+      "parentUuid": "0b6e1fdd_d96a00d4",
+      "range": {
+        "startLine": 726,
+        "startChar": 8,
+        "endLine": 726,
+        "endChar": 29
+      },
+      "revId": "6152f1e01bb3156cc2f53b882c0880e8e30b8ed4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "23ad9506_1ad2b5eb",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 19
@@ -146,6 +284,30 @@
       "writtenOn": "2023-04-13T05:36:50Z",
       "side": 1,
       "message": "Don\u0027t use using in header file and also Vec is not a meaningful name.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 46
+      },
+      "revId": "6152f1e01bb3156cc2f53b882c0880e8e30b8ed4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb73ba74_dc0c8f23",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-13T06:23:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "23ad9506_1ad2b5eb",
       "range": {
         "startLine": 16,
         "startChar": 0,
@@ -169,6 +331,24 @@
       "writtenOn": "2023-04-13T05:36:50Z",
       "side": 1,
       "message": "Please use meaningful names",
+      "revId": "6152f1e01bb3156cc2f53b882c0880e8e30b8ed4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5207d5eb_1d770fb6",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-13T06:23:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fe115fd1_1eae8242",
       "revId": "6152f1e01bb3156cc2f53b882c0880e8e30b8ed4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -214,6 +394,54 @@
         "startChar": 63,
         "endLine": 372,
         "endChar": 66
+      },
+      "revId": "6152f1e01bb3156cc2f53b882c0880e8e30b8ed4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "070e8110_85fd2278",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-13T06:23:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a69fe9e1_163b3ef4",
+      "range": {
+        "startLine": 372,
+        "startChar": 63,
+        "endLine": 372,
+        "endChar": 66
+      },
+      "revId": "6152f1e01bb3156cc2f53b882c0880e8e30b8ed4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8c36b0b_14ba4fde",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-13T06:23:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cbe24088_1832ef23",
+      "range": {
+        "startLine": 372,
+        "startChar": 28,
+        "endLine": 372,
+        "endChar": 61
       },
       "revId": "6152f1e01bb3156cc2f53b882c0880e8e30b8ed4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
