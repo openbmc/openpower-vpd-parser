@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e2b8cce_094a2c78",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T15:10:57Z",
+      "side": 1,
+      "message": "all those cases are handled in ibm-read-vpd parser app and populated on dbus. vpd-tool will just display whatever there on dbus. so no need to handle it here.",
+      "parentUuid": "4db593f1_2c79d892",
+      "revId": "ba9682283b79d40b9770ffc60633b53147d158c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87ae442a_df075c8b",
@@ -127,6 +145,30 @@
       "side": 1,
       "message": "So it can fail. Now going back to my first question. Showing blank in that case is a desired output?\nIf so why are you setting the value as \"unknown\" when call to D-Bus fails? For any failure the value should be \"unknown\"?",
       "parentUuid": "3644f11b_25d45a8c",
+      "range": {
+        "startLine": 319,
+        "startChar": 4,
+        "endLine": 320,
+        "endChar": 36
+      },
+      "revId": "ba9682283b79d40b9770ffc60633b53147d158c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8b22d1a_abbe9a7d",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-13T15:10:57Z",
+      "side": 1,
+      "message": "yes, for any failures value can be Unknown. changed accordingly",
+      "parentUuid": "419c3595_837f2fc9",
       "range": {
         "startLine": 319,
         "startChar": 4,
