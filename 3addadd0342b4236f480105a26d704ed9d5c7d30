@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "079140d8_72a52d4d",
+        "filename": "const.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41cc9b9e_0e9edf27",
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "082ad7e4_cab10e2c",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-04-13T10:08:08Z",
       "side": 1,
       "message": "Why have you added this header if you are not using string_view in your code.",
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51d2ce09_6a77a4d7",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "082ad7e4_cab10e2c",
       "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +94,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b6431a6_fb3f50a4",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd5d0728_2912017f",
+      "range": {
+        "startLine": 1049,
+        "startChar": 22,
+        "endLine": 1049,
+        "endChar": 25
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "498181d2_5c4f89fd",
@@ -71,6 +131,30 @@
       "writtenOn": "2023-04-13T10:08:08Z",
       "side": 1,
       "message": "nit D should be in capitals.",
+      "range": {
+        "startLine": 494,
+        "startChar": 47,
+        "endLine": 494,
+        "endChar": 52
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0a1e516_88c6b127",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "498181d2_5c4f89fd",
       "range": {
         "startLine": 494,
         "startChar": 47,
@@ -123,6 +207,48 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4ace755_9f59039c",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "even if if..else fails, we still return the dbus name only for the given keyword right?",
+      "parentUuid": "34fe41a7_5d0002ef",
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24500b5a_93998a71",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa835a9a_dc5dfdfe",
+      "range": {
+        "startLine": 497,
+        "startChar": 26,
+        "endLine": 497,
+        "endChar": 27
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a79195e_5e8f7ac8",
         "filename": "vpd_tool.cpp",
         "patchSetId": 11
@@ -134,6 +260,24 @@
       "writtenOn": "2023-04-13T10:08:08Z",
       "side": 1,
       "message": "Jinu: No differentiation required as we are only having one type of file.",
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15b86e51_1ad85808",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a79195e_5e8f7ac8",
       "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -151,6 +295,24 @@
       "writtenOn": "2023-04-13T10:08:08Z",
       "side": 1,
       "message": "Jinu: No need for this flag as there is only one type of file now.",
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31d51188_6c974b98",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "972fb276_a7e30c30",
       "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -178,6 +340,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f71f4ad_19617c78",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a33aa157_83f6e8db",
+      "range": {
+        "startLine": 99,
+        "startChar": 54,
+        "endLine": 99,
+        "endChar": 72
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1441a3b_0df86fd2",
@@ -195,6 +381,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c79d1f8_264fe616",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1441a3b_0df86fd2",
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4735bd8b_a5226709",
@@ -208,6 +412,30 @@
       "writtenOn": "2023-04-13T10:08:08Z",
       "side": 1,
       "message": "Jinu: need to discuss file name.",
+      "range": {
+        "startLine": 39,
+        "startChar": 1,
+        "endLine": 60,
+        "endChar": 1
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41433073_a810e82b",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "modified",
+      "parentUuid": "4735bd8b_a5226709",
       "range": {
         "startLine": 39,
         "startChar": 1,
@@ -241,6 +469,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c61d27f_4c8b8e35",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "740ff9d7_a42ecfc6",
+      "range": {
+        "startLine": 101,
+        "startChar": 14,
+        "endLine": 101,
+        "endChar": 26
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7cc90b54_30385517",
@@ -254,6 +506,30 @@
       "writtenOn": "2023-04-13T10:08:08Z",
       "side": 1,
       "message": "Please use a constant reference if you are not going to modify this value.",
+      "range": {
+        "startLine": 587,
+        "startChar": 12,
+        "endLine": 587,
+        "endChar": 32
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d504cd4_27afcce0",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cc90b54_30385517",
       "range": {
         "startLine": 587,
         "startChar": 12,
@@ -287,6 +563,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5652c97a_f49e5865",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0010f17a_0c9685dc",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 41
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b08fcb4_2a215e0e",
@@ -300,6 +600,30 @@
       "writtenOn": "2023-04-13T10:08:08Z",
       "side": 1,
       "message": "only @return should suffice.",
+      "range": {
+        "startLine": 182,
+        "startChar": 7,
+        "endLine": 182,
+        "endChar": 26
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3eb2c2a6_90cb1411",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b08fcb4_2a215e0e",
       "range": {
         "startLine": 182,
         "startChar": 7,
@@ -333,6 +657,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c841be1_b48a6058",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2719df4a_a061e4fe",
+      "range": {
+        "startLine": 189,
+        "startChar": 7,
+        "endLine": 189,
+        "endChar": 64
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12a2d992_3a610d56",
@@ -356,6 +704,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc46a95d_8c39122c",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12a2d992_3a610d56",
+      "range": {
+        "startLine": 190,
+        "startChar": 6,
+        "endLine": 190,
+        "endChar": 30
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9a2f916_c918667b",
@@ -369,6 +741,30 @@
       "writtenOn": "2023-04-13T10:08:08Z",
       "side": 1,
       "message": "Dont use \"\u003d\" sign here.",
+      "range": {
+        "startLine": 235,
+        "startChar": 18,
+        "endLine": 235,
+        "endChar": 34
+      },
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96aa65c9_d3023bc5",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-17T03:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9a2f916_c918667b",
       "range": {
         "startLine": 235,
         "startChar": 18,
