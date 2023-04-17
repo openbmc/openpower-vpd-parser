@@ -249,6 +249,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75d36508_94ec1ea7",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-17T08:49:27Z",
+      "side": 1,
+      "message": "Then remove \"corresponding\" from there.",
+      "parentUuid": "c4ace755_9f59039c",
+      "revId": "3addadd0342b4236f480105a26d704ed9d5c7d30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a79195e_5e8f7ac8",
         "filename": "vpd_tool.cpp",
         "patchSetId": 11

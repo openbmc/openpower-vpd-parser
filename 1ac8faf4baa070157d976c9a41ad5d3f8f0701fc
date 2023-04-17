@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1346a206_345a568e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-17T08:49:27Z",
+      "side": 1,
+      "message": "There are lot of unwanted changes in the commit. Please look into that.",
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08879c96_c6aa236b",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-17T08:49:27Z",
+      "side": 1,
+      "message": "Please have error handling in case of rfind as well, goes for line number 49 as well.",
+      "range": {
+        "startLine": 44,
+        "startChar": 28,
+        "endLine": 44,
+        "endChar": 42
+      },
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "438483ff_53376378",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-17T08:49:27Z",
+      "side": 1,
+      "message": "Why do we need this \\n?",
+      "range": {
+        "startLine": 80,
+        "startChar": 26,
+        "endLine": 80,
+        "endChar": 28
+      },
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c83a3a5_f6e6befb",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-17T08:49:27Z",
+      "side": 1,
+      "message": "If you are closing here, you should close after line 110 as well. \nBTW you can also get rid of close, It will close when the object goes out of scope.\n\nYou call, if you want have it at both the places or remove completely.",
+      "range": {
+        "startLine": 114,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 24
+      },
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ba65afd_7030b0b3",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-17T08:49:27Z",
+      "side": 1,
+      "message": "Why this needs to be added? Your previous logs will have std::endl shouldn\u0027t that take care.\nWe are mixing c and c++ types.",
+      "range": {
+        "startLine": 758,
+        "startChar": 18,
+        "endLine": 758,
+        "endChar": 20
+      },
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "779556ec_c8f37e95",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-17T08:49:27Z",
+      "side": 1,
+      "message": "Same here, don\u0027t mix c and c++ type and please check do we actually need a new line before every log where every log is also has std::endl;",
+      "range": {
+        "startLine": 776,
+        "startChar": 26,
+        "endLine": 776,
+        "endChar": 28
+      },
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce676276_585af470",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-17T08:49:27Z",
+      "side": 1,
+      "message": "unnecessary noise. Please fix.",
+      "range": {
+        "startLine": 1059,
+        "startChar": 21,
+        "endLine": 1060,
+        "endChar": 30
+      },
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0b22d17_f4173623",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1221,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-17T08:49:27Z",
+      "side": 1,
+      "message": "Please check why these has been modified. I don\u0027t see any change here.",
+      "range": {
+        "startLine": 1219,
+        "startChar": 8,
+        "endLine": 1221,
+        "endChar": 31
+      },
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
