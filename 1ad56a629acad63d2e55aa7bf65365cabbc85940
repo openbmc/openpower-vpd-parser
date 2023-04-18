@@ -1,0 +1,192 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4161855_f3c98423",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-18T13:31:30Z",
+      "side": 1,
+      "message": "Query: What is this file? Same at 51 and 62. This was not there in previous commits.",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea3c848e_41b25265",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-18T13:31:30Z",
+      "side": 1,
+      "message": "Unwanted change.",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "046632f6_13428db4",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-18T13:31:30Z",
+      "side": 1,
+      "message": "Have a cout here atleast, empty block does not make sense.",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4a173fd_91875bd8",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-18T13:31:30Z",
+      "side": 1,
+      "message": "Please look at all the places where you have changes in this commit and remove this.",
+      "range": {
+        "startLine": 624,
+        "startChar": 18,
+        "endLine": 624,
+        "endChar": 20
+      },
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9568a57_bb979604",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-18T13:31:30Z",
+      "side": 1,
+      "message": "Why we need a cout here? If nothing failed it is obvious that data got updated. Lets keep logging limited to error handling.",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ee6d6b9_5503877e",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-18T13:31:30Z",
+      "side": 1,
+      "message": "Please dont miix \"\\n\" and endl.\nPlease follow c++ type and we dont need \\n at the beginning f the statement.",
+      "range": {
+        "startLine": 698,
+        "startChar": 25,
+        "endLine": 698,
+        "endChar": 37
+      },
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61ccc313_b832f183",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-18T13:31:30Z",
+      "side": 1,
+      "message": "Get rid of this.",
+      "range": {
+        "startLine": 787,
+        "startChar": 26,
+        "endLine": 787,
+        "endChar": 28
+      },
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a3eb974_cfc149cc",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-18T13:31:30Z",
+      "side": 1,
+      "message": "Why are you changing code unrelated to your commit? It will create unnecessary confusion.",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b4d18d6_83cab3a4",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1189,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-18T13:31:30Z",
+      "side": 1,
+      "message": "Unwanted change.",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bc8a8b4_8593efea",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-18T13:31:30Z",
+      "side": 1,
+      "message": "Same here. Unwanted.",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
