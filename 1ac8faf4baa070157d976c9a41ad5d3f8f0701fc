@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e22af984_68fde4b4",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-18T10:16:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08879c96_c6aa236b",
+      "range": {
+        "startLine": 44,
+        "startChar": 28,
+        "endLine": 44,
+        "endChar": 42
+      },
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "438483ff_53376378",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-04-17T08:49:27Z",
       "side": 1,
       "message": "Why do we need this \\n?",
+      "range": {
+        "startLine": 80,
+        "startChar": 26,
+        "endLine": 80,
+        "endChar": 28
+      },
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ba01d45_e10d06a4",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-18T10:16:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "438483ff_53376378",
       "range": {
         "startLine": 80,
         "startChar": 26,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24d94283_6270b912",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-18T10:16:08Z",
+      "side": 1,
+      "message": "If the stream is currently not associated with any file (i.e., no file has successfully been open with it), calling this function fails. https://cplusplus.com/reference/fstream/fstream/close/ \n\nSo its not required to close after line 110",
+      "parentUuid": "2c83a3a5_f6e6befb",
+      "range": {
+        "startLine": 114,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 24
+      },
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ba65afd_7030b0b3",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-04-17T08:49:27Z",
       "side": 1,
       "message": "Why this needs to be added? Your previous logs will have std::endl shouldn\u0027t that take care.\nWe are mixing c and c++ types.",
+      "range": {
+        "startLine": 758,
+        "startChar": 18,
+        "endLine": 758,
+        "endChar": 20
+      },
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bae65782_b867855c",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-18T10:16:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ba65afd_7030b0b3",
       "range": {
         "startLine": 758,
         "startChar": 18,
@@ -133,6 +229,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3d787d4_e5510925",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-18T10:16:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "779556ec_c8f37e95",
+      "range": {
+        "startLine": 776,
+        "startChar": 26,
+        "endLine": 776,
+        "endChar": 28
+      },
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce676276_585af470",
@@ -156,6 +276,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d6a003b_a5067044",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-18T10:16:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce676276_585af470",
+      "range": {
+        "startLine": 1059,
+        "startChar": 21,
+        "endLine": 1060,
+        "endChar": 30
+      },
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0b22d17_f4173623",
@@ -169,6 +313,30 @@
       "writtenOn": "2023-04-17T08:49:27Z",
       "side": 1,
       "message": "Please check why these has been modified. I don\u0027t see any change here.",
+      "range": {
+        "startLine": 1219,
+        "startChar": 8,
+        "endLine": 1221,
+        "endChar": 31
+      },
+      "revId": "1ac8faf4baa070157d976c9a41ad5d3f8f0701fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e056776_b2757abd",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1221,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-18T10:16:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0b22d17_f4173623",
       "range": {
         "startLine": 1219,
         "startChar": 8,
