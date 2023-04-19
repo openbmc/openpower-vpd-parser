@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b2fe792_17597274",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-19T14:17:31Z",
+      "side": 1,
+      "message": "Please don\u0027t  mark as resolved if you are not fixing as requested or disagree with the comment as it does not show up in the next PS and it is difficult to track. Just reply why you dis-agree. Once we reach a conclusion we can close.\n\nNow, I am still not convinced, if it is ok to just give any file name in case of any situation. Why do we need to do all those math in normal case? Why can\u0027t we return a simple file name there itself and if those checks are important then why in case of any error situation we are just overlooking them and proceeding further.",
+      "parentUuid": "3b4c1a02_223da096",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea3c848e_41b25265",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 16
