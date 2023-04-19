@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b4c1a02_223da096",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T09:44:47Z",
+      "side": 1,
+      "message": "if we fail to parse the inventory path for some reason, we still need to continue providing a file path. so we will go with output.txt in such cases. Anyways at the end of the execution we will tell the user about the output file path. So this shouldn\u0027t be an issue.",
+      "parentUuid": "a4161855_f3c98423",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea3c848e_41b25265",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96119cff_01ee8179",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T09:44:47Z",
+      "side": 1,
+      "message": "am not sure why am getting all these unrelated changes after running clang.",
+      "parentUuid": "ea3c848e_41b25265",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "046632f6_13428db4",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-04-18T13:31:30Z",
       "side": 1,
       "message": "Have a cout here atleast, empty block does not make sense.",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60dcee01_f3886d86",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T09:44:47Z",
+      "side": 1,
+      "message": "ok. I thought why to display the error message, as anyways we print the vpd-tool output with Present set to unknown.\nBut now I think its ok to display both error msg and the the vpd-tool output, so atleast we get an idea of what went wrong.",
+      "parentUuid": "046632f6_13428db4",
       "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -75,6 +129,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c12483eb_2220120d",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T09:44:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4a173fd_91875bd8",
+      "range": {
+        "startLine": 624,
+        "startChar": 18,
+        "endLine": 624,
+        "endChar": 20
+      },
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9568a57_bb979604",
@@ -92,6 +170,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50a1756f_d1a34649",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T09:44:47Z",
+      "side": 1,
+      "message": "this is required to indicate the user that from vpd-tool side updation is successful and done.",
+      "parentUuid": "a9568a57_bb979604",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ee6d6b9_5503877e",
@@ -105,6 +201,30 @@
       "writtenOn": "2023-04-18T13:31:30Z",
       "side": 1,
       "message": "Please dont miix \"\\n\" and endl.\nPlease follow c++ type and we dont need \\n at the beginning f the statement.",
+      "range": {
+        "startLine": 698,
+        "startChar": 25,
+        "endLine": 698,
+        "endChar": 37
+      },
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb0ad482_f99dcc1f",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T09:44:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ee6d6b9_5503877e",
       "range": {
         "startLine": 698,
         "startChar": 25,
@@ -138,6 +258,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73cf44ee_2ecad347",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T09:44:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61ccc313_b832f183",
+      "range": {
+        "startLine": 787,
+        "startChar": 26,
+        "endLine": 787,
+        "endChar": 28
+      },
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a3eb974_cfc149cc",
@@ -151,6 +295,24 @@
       "writtenOn": "2023-04-18T13:31:30Z",
       "side": 1,
       "message": "Why are you changing code unrelated to your commit? It will create unnecessary confusion.",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d131218_6f87bbde",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T09:44:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3eb974_cfc149cc",
       "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -172,6 +334,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5bbb957_aed2faf2",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1189,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T09:44:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b4d18d6_83cab3a4",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bc8a8b4_8593efea",
@@ -185,6 +365,24 @@
       "writtenOn": "2023-04-18T13:31:30Z",
       "side": 1,
       "message": "Same here. Unwanted.",
+      "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0d89a4e_2f435b56",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T09:44:47Z",
+      "side": 1,
+      "message": "all these are clang issue. am not sure why these are getting changed unnecessarily",
+      "parentUuid": "7bc8a8b4_8593efea",
       "revId": "1ad56a629acad63d2e55aa7bf65365cabbc85940",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
