@@ -52,6 +52,29 @@
       "parentUuid": "c8b871dc_96ffdd8e",
       "revId": "9cd8d04433293692d015f24ad132e3e66a26d097",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27e12651_6e41e52f",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-04-19T11:33:52Z",
+      "side": 1,
+      "message": "Here, I meant to check if it has this tag, true value may need not be checked as it may create problem as is[json] edited manually",
+      "range": {
+        "startLine": 678,
+        "startChar": 20,
+        "endLine": 678,
+        "endChar": 65
+      },
+      "revId": "9cd8d04433293692d015f24ad132e3e66a26d097",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
