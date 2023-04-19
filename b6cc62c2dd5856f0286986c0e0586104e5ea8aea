@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cacb86e2_ba88312d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T15:42:00Z",
+      "side": 1,
+      "message": "posting whatever I have now. need to review manager code",
+      "revId": "b6cc62c2dd5856f0286986c0e0586104e5ea8aea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "380b7cc3_72fa1954",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T15:42:00Z",
+      "side": 1,
+      "message": "missing doxygen for jsonFile",
+      "range": {
+        "startLine": 863,
+        "startChar": 22,
+        "endLine": 863,
+        "endChar": 47
+      },
+      "revId": "b6cc62c2dd5856f0286986c0e0586104e5ea8aea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "102f2344_caa55ebc",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T15:42:00Z",
+      "side": 1,
+      "message": "where is the corresponding json change?",
+      "range": {
+        "startLine": 867,
+        "startChar": 6,
+        "endLine": 867,
+        "endChar": 76
+      },
+      "revId": "b6cc62c2dd5856f0286986c0e0586104e5ea8aea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf5747d2_e5a49276",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T15:42:00Z",
+      "side": 1,
+      "message": "This is going to break the rainier and everest flow. say the systemVpdBackupPath will be empty or N/A on rainier and everest json. in that case, why we need to log a PEL?",
+      "range": {
+        "startLine": 872,
+        "startChar": 4,
+        "endLine": 872,
+        "endChar": 36
+      },
+      "revId": "b6cc62c2dd5856f0286986c0e0586104e5ea8aea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e161bea0_517afa48",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T15:42:00Z",
+      "side": 1,
+      "message": "How can you say that the backup vpd has default value in PEL, when the backup vpd doesn\u0027t exist.",
+      "range": {
+        "startLine": 891,
+        "startChar": 58,
+        "endLine": 891,
+        "endChar": 78
+      },
+      "revId": "b6cc62c2dd5856f0286986c0e0586104e5ea8aea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48bbd6d7_baa47dd8",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T15:42:00Z",
+      "side": 1,
+      "message": "you can print the errorMsg and also print \"System VPD backup and restore failed. Continue collecting system VPD..\"",
+      "range": {
+        "startLine": 894,
+        "startChar": 0,
+        "endLine": 894,
+        "endChar": 72
+      },
+      "revId": "b6cc62c2dd5856f0286986c0e0586104e5ea8aea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d21d213e_abab7d7a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T15:42:00Z",
+      "side": 1,
+      "message": "wherever required, please avoid using the term hardware for both primary/backup.\ninstead make use of the terms primaryVPD and backupVPD.",
+      "range": {
+        "startLine": 911,
+        "startChar": 21,
+        "endLine": 911,
+        "endChar": 32
+      },
+      "revId": "b6cc62c2dd5856f0286986c0e0586104e5ea8aea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75dc5a33_a05c6ffc",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T15:42:00Z",
+      "side": 1,
+      "message": "I don\u0027t prefer catching all the exceptions here at restoreSystemVPD() just to handle errors in backup vpd. we need to discuss on this.",
+      "range": {
+        "startLine": 930,
+        "startChar": 12,
+        "endLine": 979,
+        "endChar": 13
+      },
+      "revId": "b6cc62c2dd5856f0286986c0e0586104e5ea8aea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fdcf800_63168206",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1041,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T15:42:00Z",
+      "side": 1,
+      "message": "I would like to have this in a separate api. Lets be cautious to have minimal editions in the existing apis.",
+      "range": {
+        "startLine": 1020,
+        "startChar": 23,
+        "endLine": 1041,
+        "endChar": 25
+      },
+      "revId": "b6cc62c2dd5856f0286986c0e0586104e5ea8aea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4ae0c9e_1b0d3a2b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-19T15:42:00Z",
+      "side": 1,
+      "message": "again I can see you pointing a wrong PEL interface here. you log the error as Record doesn\u0027t exist. but your pel interface says that the vpd has default value :)\ncan you please log the appropriate interface here.",
+      "range": {
+        "startLine": 1058,
+        "startChar": 38,
+        "endLine": 1058,
+        "endChar": 59
+      },
+      "revId": "b6cc62c2dd5856f0286986c0e0586104e5ea8aea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
