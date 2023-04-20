@@ -16,6 +16,24 @@
       "message": "I still don\u0027t find this correct.\nThe point is you are not just adding CM flag to make drives CMable.\nYou are adding all the required parameters to make a FRU CMable.\n\nPlease update accordingly.",
       "revId": "299c5be51f3b8061b8bce767b27903e5a28e98b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24b44f59_99044a3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-20T07:16:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fccdb6e6_4eb2efb4",
+      "revId": "299c5be51f3b8061b8bce767b27903e5a28e98b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
