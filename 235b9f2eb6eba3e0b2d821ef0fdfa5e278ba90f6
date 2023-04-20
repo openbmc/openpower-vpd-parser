@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6e9c873_6067b290",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-20T04:34:04Z",
+      "side": 1,
+      "message": "Please add why this change was required.",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 55
+      },
+      "revId": "235b9f2eb6eba3e0b2d821ef0fdfa5e278ba90f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "367f50fa_c9928a71",
+        "filename": "const.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-20T04:34:04Z",
+      "side": 1,
+      "message": "Do we need this change?",
+      "range": {
+        "startLine": 172,
+        "startChar": 49,
+        "endLine": 172,
+        "endChar": 57
+      },
+      "revId": "235b9f2eb6eba3e0b2d821ef0fdfa5e278ba90f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70a04729_3f56801b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-20T04:34:04Z",
+      "side": 1,
+      "message": "We are anyways using std namespace in this file. So having these lines changes just to add std will have unnecessary noise in the commit.",
+      "range": {
+        "startLine": 206,
+        "startChar": 7,
+        "endLine": 206,
+        "endChar": 11
+      },
+      "revId": "235b9f2eb6eba3e0b2d821ef0fdfa5e278ba90f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e8681d8_b047c0e9",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-20T04:34:04Z",
+      "side": 1,
+      "message": "Same here and at multiple other places.",
+      "range": {
+        "startLine": 265,
+        "startChar": 20,
+        "endLine": 265,
+        "endChar": 26
+      },
+      "revId": "235b9f2eb6eba3e0b2d821ef0fdfa5e278ba90f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9203833e_3400ae59",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-20T04:34:04Z",
+      "side": 1,
+      "message": "Not required?",
+      "revId": "235b9f2eb6eba3e0b2d821ef0fdfa5e278ba90f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1617ddf8_4359fe6c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-20T04:34:04Z",
+      "side": 1,
+      "message": "Not required?",
+      "revId": "235b9f2eb6eba3e0b2d821ef0fdfa5e278ba90f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e82584b_504d8cef",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-20T04:34:04Z",
+      "side": 1,
+      "message": "We can avoid these changes as it is not explicitly required for this commit.",
+      "range": {
+        "startLine": 520,
+        "startChar": 20,
+        "endLine": 520,
+        "endChar": 23
+      },
+      "revId": "235b9f2eb6eba3e0b2d821ef0fdfa5e278ba90f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b5356f6_795ff9f9",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-20T04:34:04Z",
+      "side": 1,
+      "message": "We can get rid of changes where only std has been added.",
+      "range": {
+        "startLine": 1455,
+        "startChar": 12,
+        "endLine": 1455,
+        "endChar": 17
+      },
+      "revId": "235b9f2eb6eba3e0b2d821ef0fdfa5e278ba90f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
