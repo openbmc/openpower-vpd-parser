@@ -85,6 +85,29 @@
       },
       "revId": "39b4f0a898cda94672e8e9afc6dae7eaf5ff3f1f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e25145c_2a9ff5cf",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-04-24T07:22:25Z",
+      "side": 1,
+      "message": "Can you please change this function name as getDbusNameForGivenKw, this sounds better instead of ThisKw.",
+      "range": {
+        "startLine": 478,
+        "startChar": 28,
+        "endLine": 478,
+        "endChar": 48
+      },
+      "revId": "39b4f0a898cda94672e8e9afc6dae7eaf5ff3f1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
