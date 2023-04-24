@@ -259,6 +259,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5a15e8d_0ff00bc9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T10:35:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfa4f207_dd1d195d",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 0
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "868d8640_221a4975",
@@ -284,6 +308,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c714e282_20867666",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T10:35:04Z",
+      "side": 1,
+      "message": "\"ThisKw\" denotes the keyword taken as input parameter. both the names suits this. I prefer not to change.",
+      "parentUuid": "868d8640_221a4975",
+      "range": {
+        "startLine": 1046,
+        "startChar": 12,
+        "endLine": 1046,
+        "endChar": 32
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c92ab542_186f3651",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 18
@@ -295,6 +343,30 @@
       "writtenOn": "2023-04-20T09:02:56Z",
       "side": 1,
       "message": "Can you please rename this function name as getDbusNameForGiveKw, this sounds better I feel.",
+      "range": {
+        "startLine": 499,
+        "startChar": 12,
+        "endLine": 499,
+        "endChar": 32
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9c581f5_bcb42c77",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T10:35:04Z",
+      "side": 1,
+      "message": "\"ThisKw\" denotes the keyword taken as input parameter. both the names suits this. I prefer not to change.",
+      "parentUuid": "c92ab542_186f3651",
       "range": {
         "startLine": 499,
         "startChar": 12,
@@ -548,6 +620,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d8add9d_b360cb79",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T10:35:04Z",
+      "side": 1,
+      "message": "to notify the user that data has been successfully updated.",
+      "parentUuid": "4e1815dd_a7217e5e",
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76582482_79420ee1",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 18
@@ -583,6 +673,30 @@
       "side": 1,
       "message": "removed",
       "parentUuid": "76582482_79420ee1",
+      "range": {
+        "startLine": 740,
+        "startChar": 4,
+        "endLine": 740,
+        "endChar": 76
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a5ff948_42d45cf1",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T10:35:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba66d476_77fb1d16",
       "range": {
         "startLine": 740,
         "startChar": 4,

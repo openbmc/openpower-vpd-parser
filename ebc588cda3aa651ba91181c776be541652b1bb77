@@ -41,6 +41,48 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "062ae1c2_65dcd5b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T10:35:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0650d92_8d65be2e",
+      "revId": "ebc588cda3aa651ba91181c776be541652b1bb77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9a62b45_1adab085",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T10:35:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf9decfc_b2a16fe3",
+      "range": {
+        "startLine": 9,
+        "startChar": 46,
+        "endLine": 9,
+        "endChar": 51
+      },
+      "revId": "ebc588cda3aa651ba91181c776be541652b1bb77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88d44d37_134ea0cb",
@@ -219,6 +261,30 @@
       "side": 1,
       "message": "8-0050 is coming from the user\u0027s input. there wont be any confusion in providing such names.",
       "parentUuid": "13043922_609cd96a",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 4
+      },
+      "revId": "ebc588cda3aa651ba91181c776be541652b1bb77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0955e359_4e12e3ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T10:35:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cad3c19d_2c922bbb",
       "range": {
         "startLine": 32,
         "startChar": 0,
