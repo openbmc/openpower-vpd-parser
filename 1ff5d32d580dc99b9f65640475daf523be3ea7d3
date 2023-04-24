@@ -530,6 +530,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e1815dd_a7217e5e",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-24T06:48:22Z",
+      "side": 1,
+      "message": "Why?",
+      "parentUuid": "111f4a42_f49530ef",
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76582482_79420ee1",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 18
@@ -612,6 +630,30 @@
       "side": 1,
       "message": "this line is in clang format. The base one was not in clang format.",
       "parentUuid": "698e2a20_8635541c",
+      "range": {
+        "startLine": 1199,
+        "startChar": 21,
+        "endLine": 1199,
+        "endChar": 46
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d199bbb_84e6feaa",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1199,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-24T06:48:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "667910a1_9b3d0d0c",
       "range": {
         "startLine": 1199,
         "startChar": 21,

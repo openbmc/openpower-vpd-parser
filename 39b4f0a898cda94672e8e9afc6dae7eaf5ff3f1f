@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d25fe857_d470564d",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-24T06:48:22Z",
+      "side": 1,
+      "message": "Why this change?\nEmpty string is taken care by the string constructor. You don\u0027t have to explicitly have that.\nIt is one\u0027s choice to define it their own way. A change just to add {} does not make sense.",
+      "range": {
+        "startLine": 681,
+        "startChar": 25,
+        "endLine": 681,
+        "endChar": 27
+      },
+      "revId": "39b4f0a898cda94672e8e9afc6dae7eaf5ff3f1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4e0b0af_31acff6c",
+        "filename": "impl.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-24T06:48:22Z",
+      "side": 1,
+      "message": "Why?",
+      "revId": "39b4f0a898cda94672e8e9afc6dae7eaf5ff3f1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29c4e2fa_a8467abf",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-24T06:48:22Z",
+      "side": 1,
+      "message": "You can form this string in place. Why copy?",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 34
+      },
+      "revId": "39b4f0a898cda94672e8e9afc6dae7eaf5ff3f1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd350852_a672ab1d",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-24T06:48:22Z",
+      "side": 1,
+      "message": "This change again takes back to the previous discussion where in case \"if\" fails at line 382. You end up passing empty presence.",
+      "range": {
+        "startLine": 375,
+        "startChar": 4,
+        "endLine": 375,
+        "endChar": 27
+      },
+      "revId": "39b4f0a898cda94672e8e9afc6dae7eaf5ff3f1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
