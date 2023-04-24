@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89868a53_121ead10",
+        "filename": "const.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "589f08ed_4a3f6a1a",
+      "range": {
+        "startLine": 189,
+        "startChar": 4,
+        "endLine": 189,
+        "endChar": 16
+      },
+      "revId": "3d4aaa38ef5afc10f12f8131f4258340c63d9351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6de68f7_17ac9164",
@@ -173,6 +197,30 @@
       "side": 1,
       "message": "its a text file, its extension is .txt and not .hex. so I gave like this. \nIn what way you think it will be confusing to the user?",
       "parentUuid": "45470bf7_8f4e352e",
+      "range": {
+        "startLine": 98,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 20
+      },
+      "revId": "3d4aaa38ef5afc10f12f8131f4258340c63d9351",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8891aff9_35154a59",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ef18384_d55e2438",
       "range": {
         "startLine": 98,
         "startChar": 8,

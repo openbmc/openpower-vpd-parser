@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b02f3c18_a3c39bb0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e850b36_7caa5394",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 67
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b1afa78_8c131267",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-20T08:33:55Z",
       "side": 1,
       "message": "what do you mean by \"pipe to text file\"?\n\nWhy text file and not just file",
+      "range": {
+        "startLine": 20,
+        "startChar": 31,
+        "endLine": 20,
+        "endChar": 35
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a69e30b_0a7966cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1afa78_8c131267",
       "range": {
         "startLine": 20,
         "startChar": 31,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d588ac2_13144154",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e5d1bfa_0d6cbac6",
+      "range": {
+        "startLine": 23,
+        "startChar": 14,
+        "endLine": 23,
+        "endChar": 19
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d46462e4_0f131c74",
@@ -93,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4613cacd_fd4d2b15",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d46462e4_0f131c74",
+      "range": {
+        "startLine": 50,
+        "startChar": 28,
+        "endLine": 50,
+        "endChar": 32
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06552987_268261d7",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-04-20T08:33:55Z",
       "side": 1,
       "message": "meaning?",
+      "range": {
+        "startLine": 57,
+        "startChar": 14,
+        "endLine": 57,
+        "endChar": 19
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fb655b0_62b53065",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06552987_268261d7",
       "range": {
         "startLine": 57,
         "startChar": 14,
@@ -208,6 +328,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "acf4bdab_1fe7d5da",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ed19301_f6830a05",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 0
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbfb197d_9f3feb64",
@@ -221,6 +365,30 @@
       "writtenOn": "2023-04-20T08:33:55Z",
       "side": 1,
       "message": "does not make sense",
+      "range": {
+        "startLine": 78,
+        "startChar": 24,
+        "endLine": 78,
+        "endChar": 77
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41b54180_b5ec666a",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cbfb197d_9f3feb64",
       "range": {
         "startLine": 78,
         "startChar": 24,
@@ -254,6 +422,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f863832_56a8cfcd",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "944d3482_db5229d2",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 0
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12905cf2_205e5cac",
@@ -267,6 +459,30 @@
       "writtenOn": "2023-04-19T14:17:31Z",
       "side": 1,
       "message": "Why we need this?",
+      "range": {
+        "startLine": 601,
+        "startChar": 3,
+        "endLine": 601,
+        "endChar": 64
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c25ae69b_ca88dd2c",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "12905cf2_205e5cac",
       "range": {
         "startLine": 601,
         "startChar": 3,
@@ -296,6 +512,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "111f4a42_f49530ef",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "I would like to keep this print",
+      "parentUuid": "8759f284_aecfdd30",
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76582482_79420ee1",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 18
@@ -307,6 +541,30 @@
       "writtenOn": "2023-04-19T14:17:31Z",
       "side": 1,
       "message": "Are these test couts? Because there is no point having these",
+      "range": {
+        "startLine": 740,
+        "startChar": 4,
+        "endLine": 740,
+        "endChar": 76
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba66d476_77fb1d16",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "76582482_79420ee1",
       "range": {
         "startLine": 740,
         "startChar": 4,
@@ -342,6 +600,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "667910a1_9b3d0d0c",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1199,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "this line is in clang format. The base one was not in clang format.",
+      "parentUuid": "698e2a20_8635541c",
+      "range": {
+        "startLine": 1199,
+        "startChar": 21,
+        "endLine": 1199,
+        "endChar": 46
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f6021ed_57ad6588",
         "filename": "vpd_tool_impl.hpp",
         "patchSetId": 18
@@ -353,6 +635,30 @@
       "writtenOn": "2023-04-20T08:33:55Z",
       "side": 1,
       "message": "still not convinced if we need this",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 36
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7af33fc3_60e403af",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "0f6021ed_57ad6588",
       "range": {
         "startLine": 182,
         "startChar": 0,
@@ -376,6 +682,30 @@
       "writtenOn": "2023-04-20T08:33:55Z",
       "side": 1,
       "message": "can be removed",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 33
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "803eed86_bdc1411a",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-24T05:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7567a1fa_6023756b",
       "range": {
         "startLine": 198,
         "startChar": 0,
