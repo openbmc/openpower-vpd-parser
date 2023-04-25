@@ -681,15 +681,15 @@ std::string hexString(const std::variant<Binary, std::string>& kw)
     std::string hexString;
     std::visit(
         [&hexString](auto&& kw) {
+            std::stringstream ss;
+            std::string hexRep = "0x";
+            ss << hexRep;
             for (auto& kwVal : kw)
             {
-                std::stringstream ss;
-                std::string hexRep = "0x";
-                ss << hexRep;
                 ss << std::setfill('0') << std::setw(2) << std::hex
                    << static_cast<int>(kwVal);
-                hexString = ss.str();
             }
+            hexString = ss.str();
         },
         kw);
     return hexString;
