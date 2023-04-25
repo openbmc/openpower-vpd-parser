@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5488e1c9_fca48988",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-04-25T13:13:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "53fea8f1_da2f6681",
+      "range": {
+        "startLine": 11,
+        "startChar": 60,
+        "endLine": 12,
+        "endChar": 32
+      },
+      "revId": "501e0d7cc6172cf8c0e4e0c2463196e838b458ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbc2c734_e8b5c8be",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-02-28T15:30:15Z",
       "side": 1,
       "message": "system-vpd.service has multiple service that it wants and triggers after that. Now since you have removed dependency of system-vpd service from Manager. Have you ensured that those services will not be required by Manager and its ok to trigger manager without them?",
+      "revId": "501e0d7cc6172cf8c0e4e0c2463196e838b458ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26ae5dbd_d4c625d2",
+        "filename": "ibm_vpd/com.ibm.VPD.Manager.service",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-04-25T13:13:35Z",
+      "side": 1,
+      "message": "We have to add all the dependent services mentioned in system-vpd.service file to com.ibm.VPD.Manager.service file since we are removing the dependency of system-vpd-service which was taking care of starting or ensuring the order of dependent services start before the system-vpd.sevice start.",
+      "parentUuid": "fbc2c734_e8b5c8be",
       "revId": "501e0d7cc6172cf8c0e4e0c2463196e838b458ea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
