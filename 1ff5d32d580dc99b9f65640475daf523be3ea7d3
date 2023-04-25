@@ -356,6 +356,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0099dca1_85d72266",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-25T05:07:26Z",
+      "side": 1,
+      "message": "@jinu @sunny what\u0027s your opinion on this.",
+      "parentUuid": "db51b067_d876990f",
+      "range": {
+        "startLine": 1046,
+        "startChar": 12,
+        "endLine": 1046,
+        "endChar": 32
+      },
+      "revId": "1ff5d32d580dc99b9f65640475daf523be3ea7d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c92ab542_186f3651",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 18
