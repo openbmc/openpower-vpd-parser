@@ -1,0 +1,602 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "009daece_6999bdde",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "please add \"a\" to backup.",
+      "range": {
+        "startLine": 870,
+        "startChar": 47,
+        "endLine": 870,
+        "endChar": 65
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "362d3aec_77d1ed8d",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Why do you need a variable and set it again and again. return true/false in-place",
+      "range": {
+        "startLine": 873,
+        "startChar": 3,
+        "endLine": 873,
+        "endChar": 23
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "364fa96d_fe48c278",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Why this variable is required.",
+      "range": {
+        "startLine": 884,
+        "startChar": 12,
+        "endLine": 884,
+        "endChar": 44
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f31875f_c581629b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "If it stores the primary data, why it is called back up path?",
+      "range": {
+        "startLine": 921,
+        "startChar": 14,
+        "endLine": 921,
+        "endChar": 32
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c384efe5_672581da",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Inventory object path of what?",
+      "range": {
+        "startLine": 923,
+        "startChar": 33,
+        "endLine": 923,
+        "endChar": 55
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c87e4a7_f39deba8",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Proper name.",
+      "range": {
+        "startLine": 928,
+        "startChar": 37,
+        "endLine": 928,
+        "endChar": 55
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a5ef72c_abc4c9c9",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Again, Why there is a need to pass this parameter?",
+      "range": {
+        "startLine": 955,
+        "startChar": 8,
+        "endLine": 955,
+        "endChar": 42
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93319493_fb366e92",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Please use proper name.",
+      "range": {
+        "startLine": 988,
+        "startChar": 23,
+        "endLine": 988,
+        "endChar": 41
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6cff098_9209cb70",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Since this function returns a bool, you could have directly evaluated it inside the \"if\" condition, saving an extra variable, a copy and a comparison.",
+      "range": {
+        "startLine": 1002,
+        "startChar": 22,
+        "endLine": 1002,
+        "endChar": 39
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57bfa68f_83597a7e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "No need of this variable.",
+      "range": {
+        "startLine": 1050,
+        "startChar": 24,
+        "endLine": 1050,
+        "endChar": 35
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "829cf02d_62f12dfc",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Is there a need for this?",
+      "range": {
+        "startLine": 1153,
+        "startChar": 23,
+        "endLine": 1153,
+        "endChar": 47
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49089df9_db2900cf",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1575,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "There is no gain by not using \"a\" in Backup?",
+      "range": {
+        "startLine": 1575,
+        "startChar": 16,
+        "endLine": 1575,
+        "endChar": 34
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7b22bd9_6982f611",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1576,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Please add some explanation against these variables.",
+      "range": {
+        "startLine": 1576,
+        "startChar": 16,
+        "endLine": 1576,
+        "endChar": 35
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0efd8192_5c7cb3f8",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1720,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Why are you declaring the object pointer here and why do you want to pass this to the parseVpdFile API?",
+      "range": {
+        "startLine": 1720,
+        "startChar": 11,
+        "endLine": 1720,
+        "endChar": 46
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09e60357_23292cd3",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1725,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "We already have this check at line 1596 where we are setting pel severity. We can avoid string comparison here?",
+      "range": {
+        "startLine": 1725,
+        "startChar": 12,
+        "endLine": 1725,
+        "endChar": 42
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6205a360_8b4c1fac",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1756,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "I am a bit doubtful here. How do we know that the failure is while parsing backup file VPD or system VPD?",
+      "range": {
+        "startLine": 1753,
+        "startChar": 12,
+        "endLine": 1756,
+        "endChar": 13
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4134557b_50d6801f",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Do you have to pass inventory path as parameter? Can we extract that here in the function definition?",
+      "range": {
+        "startLine": 1057,
+        "startChar": 48,
+        "endLine": 1057,
+        "endChar": 75
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c7ca059_8f19a662",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1068,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "The same code is repeated in \"getVpdDataInVector\" can we make use of that here?",
+      "range": {
+        "startLine": 1061,
+        "startChar": 4,
+        "endLine": 1068,
+        "endChar": 5
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daf1948a_3658e85d",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Why this object needs to be passed as parameter to the function?",
+      "range": {
+        "startLine": 1072,
+        "startChar": 4,
+        "endLine": 1073,
+        "endChar": 70
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2bf6aeb_9931e757",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Don\u0027t include namespace at this scope in header files. Please follow the guidelines for newly added code.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35e0548f_e654a700",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Please make this api as class member function. Also I see a common code being used in multiple files. Can we move that to utils?",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 23
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8306c5d4_9d45964a",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "If you are passing class member as reference, remove it from a static method. Make it a class member function.",
+      "range": {
+        "startLine": 163,
+        "startChar": 28,
+        "endLine": 163,
+        "endChar": 52
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35520b39_1dfc1a22",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Proper name.",
+      "range": {
+        "startLine": 650,
+        "startChar": 42,
+        "endLine": 650,
+        "endChar": 60
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21113bea_fb652102",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "Why do you need to pass this?",
+      "range": {
+        "startLine": 664,
+        "startChar": 8,
+        "endLine": 664,
+        "endChar": 42
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f5a02b8_3036abaf",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "The statement is wrong. We are able to parse the VPD. Its just that we are not interested in that type here.",
+      "range": {
+        "startLine": 679,
+        "startChar": 16,
+        "endLine": 681,
+        "endChar": 56
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28a5ed20_dff85669",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-04-25T19:16:51Z",
+      "side": 1,
+      "message": "What about data exception?",
+      "range": {
+        "startLine": 687,
+        "startChar": 21,
+        "endLine": 687,
+        "endChar": 36
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
