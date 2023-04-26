@@ -222,6 +222,30 @@
       },
       "revId": "39b4f0a898cda94672e8e9afc6dae7eaf5ff3f1f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "176e2c4d_7588b0bb",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-04-26T06:35:12Z",
+      "side": 1,
+      "message": "As discussed please go ahead with ThisKw",
+      "parentUuid": "7e25145c_2a9ff5cf",
+      "range": {
+        "startLine": 478,
+        "startChar": 28,
+        "endLine": 478,
+        "endChar": 48
+      },
+      "revId": "39b4f0a898cda94672e8e9afc6dae7eaf5ff3f1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
