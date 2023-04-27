@@ -1,0 +1,487 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c229ef2_31c490a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "I don\u0027t understand this test case",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 0
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9dc2e00_f07b4673",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "where is the time for this ?",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 1
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d376b1a7_aad17517",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "why both are required ?",
+      "range": {
+        "startLine": 62,
+        "startChar": 16,
+        "endLine": 62,
+        "endChar": 55
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b16c991_2eb1d713",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "would this not change as valOption is not required.",
+      "range": {
+        "startLine": 62,
+        "startChar": 16,
+        "endLine": 66,
+        "endChar": 62
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de6c83fa_017b7daa",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "why the usage is not specified here ? as seen in other flags?",
+      "range": {
+        "startLine": 72,
+        "startChar": 66,
+        "endLine": 72,
+        "endChar": 68
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01d7fecc_c17fd4ed",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "file name",
+      "range": {
+        "startLine": 72,
+        "startChar": 39,
+        "endLine": 72,
+        "endChar": 43
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2a6285a_ef50694b",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "remove text",
+      "range": {
+        "startLine": 72,
+        "startChar": 34,
+        "endLine": 72,
+        "endChar": 38
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31518186_03586bd4",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "valid file with absolute path in --file",
+      "range": {
+        "startLine": 135,
+        "startChar": 49,
+        "endLine": 135,
+        "endChar": 53
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f280b89_4b53e18c",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "is this ok or you need to check is_open ?",
+      "range": {
+        "startLine": 31,
+        "startChar": 7,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39fd7ec5_38748756",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "How do you know this failed or not ?",
+      "range": {
+        "startLine": 34,
+        "startChar": 18,
+        "endLine": 34,
+        "endChar": 43
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "114669ae_802b2635",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "is this required, isn\u0027t the file path a class variable ?",
+      "range": {
+        "startLine": 59,
+        "startChar": 31,
+        "endLine": 59,
+        "endChar": 58
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0191c70e_0850b22a",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "How do you know if this failed or not ?",
+      "range": {
+        "startLine": 73,
+        "startChar": 11,
+        "endLine": 73,
+        "endChar": 65
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55f8db08_cd851c35",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be done only of opened ?",
+      "range": {
+        "startLine": 81,
+        "startChar": 7,
+        "endLine": 81,
+        "endChar": 24
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eaca10d_0eec2a25",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "why do we need to pass class variables in class functions ?",
+      "range": {
+        "startLine": 496,
+        "startChar": 47,
+        "endLine": 496,
+        "endChar": 52
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0f111dc_cc9d0380",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "need a new line after brief",
+      "range": {
+        "startLine": 176,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 13
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a84274f0_9fae3eb3",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "Add a newline after params are done",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 13
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aefdea65_7558d02d",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "please rewrite this to specify that if operation is success return true else ion failure return false",
+      "range": {
+        "startLine": 178,
+        "startChar": 15,
+        "endLine": 178,
+        "endChar": 53
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5a4cdb9_a246ab04",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "add a newline after brief",
+      "range": {
+        "startLine": 183,
+        "startChar": 8,
+        "endLine": 183,
+        "endChar": 13
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "738ada62_97fa309f",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "please reword this",
+      "range": {
+        "startLine": 187,
+        "startChar": 15,
+        "endLine": 187,
+        "endChar": 43
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "112f1426_f346dcfb",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "is this valid still ?",
+      "range": {
+        "startLine": 211,
+        "startChar": 22,
+        "endLine": 212,
+        "endChar": 64
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aa3879c_7f267d58",
+        "filename": "vpd_tool_impl.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-04-27T11:02:37Z",
+      "side": 1,
+      "message": "displayed on console",
+      "range": {
+        "startLine": 254,
+        "startChar": 12,
+        "endLine": 254,
+        "endChar": 22
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
