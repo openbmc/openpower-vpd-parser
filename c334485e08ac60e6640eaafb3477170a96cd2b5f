@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9461326a_d3a7d0a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-04-28T04:13:45Z",
+      "side": 1,
+      "message": "by api names I meant hexString() .\nvpd-tool is the executable name and am fine with that.\n\nIf you provide a generic commit header, it\u0027ll be easier to search commits.",
+      "parentUuid": "f57bea33_6a6a6671",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "c334485e08ac60e6640eaafb3477170a96cd2b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bf98d00_a2d6e0fb",
