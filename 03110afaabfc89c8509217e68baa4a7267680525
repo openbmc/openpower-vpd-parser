@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8caacfa1_997a24aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-02T05:50:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "701e47d3_67f7c489",
+      "range": {
+        "startLine": 53,
+        "startChar": 16,
+        "endLine": 53,
+        "endChar": 1611
+      },
+      "revId": "03110afaabfc89c8509217e68baa4a7267680525",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87a64c34_45d462a7",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-28T04:13:45Z",
       "side": 1,
       "message": "you forgot to remove machine name here",
+      "range": {
+        "startLine": 104,
+        "startChar": 2,
+        "endLine": 104,
+        "endChar": 13
+      },
+      "revId": "03110afaabfc89c8509217e68baa4a7267680525",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76dc399f_fc1def88",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-02T05:50:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87a64c34_45d462a7",
       "range": {
         "startLine": 104,
         "startChar": 2,
