@@ -705,20 +705,7 @@ std::string getPrintableValue(const std::variant<Binary, std::string>& kwVal)
                              [](const auto& kw) { return !isprint(kw); });
             if (it != kwVal.end())
             {
-                bool printable = true;
-                for (auto itr = it; itr != kwVal.end(); itr++)
-                {
-                    if (*itr != 0x00)
-                    {
-                        kwString = hexString(kwVal);
-                        printable = false;
-                        break;
-                    }
-                }
-                if (printable)
-                {
-                    kwString = std::string(kwVal.begin(), it);
-                }
+                kwString = hexString(kwVal);
             }
             else
             {
