@@ -95,6 +95,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ee1ee8f_e0a2a008",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-03T15:06:09Z",
+      "side": 1,
+      "message": "No need of this variable, check in place and return if false.",
+      "range": {
+        "startLine": 385,
+        "startChar": 3,
+        "endLine": 385,
+        "endChar": 16
+      },
+      "revId": "ea3566485ced29ecb40640ee12543bddb6df388e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a95bc09_322c66cc",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-03T15:06:09Z",
+      "side": 1,
+      "message": "This code is independent of condition please move out from if/else.",
+      "range": {
+        "startLine": 390,
+        "startChar": 8,
+        "endLine": 394,
+        "endChar": 9
+      },
+      "revId": "ea3566485ced29ecb40640ee12543bddb6df388e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee1be277_2fdb96de",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 34
