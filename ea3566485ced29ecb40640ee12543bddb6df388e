@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bb0c770_d24250ae",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0d265141_baad6d4d",
+      "range": {
+        "startLine": 152,
+        "startChar": 3,
+        "endLine": 153,
+        "endChar": 43
+      },
+      "revId": "ea3566485ced29ecb40640ee12543bddb6df388e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "287d6d63_92eff853",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-03T14:28:41Z",
       "side": 1,
       "message": "Lets say num passed is 1;\nso after line 165 num will become 0;\nnumOfOddNumbrs will become 0\n168 condition will fail so in line 171 \nnumOfEvenNumbrs \u003d (0+1)-0 which is equal to 1;\n\nThe logic still appears wrong.",
+      "range": {
+        "startLine": 165,
+        "startChar": 8,
+        "endLine": 171,
+        "endChar": 53
+      },
+      "revId": "ea3566485ced29ecb40640ee12543bddb6df388e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06dc9eb6_9d00a0d5",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "It is correct only, let me explain the thought behind the implementation:\nThe function will return count of even \u0026 odd number for the range n-1 .. so if we pass 1 as input then range will be 0, so function will return even count as 1 as only the \u00270\u0027 number comes in the range \u0026 num of odd as 0. (In doxygen I have briefed the same i.e about num-1 range).\nn-1 because the range has to consider \u00270\u0027 as the starting number.\n\nexamples:\ninput 6 means : 0, 1, 2, 3, 4, 5 \ninput 8 means : 0, 1, 2, 3, 4, 5, 6, 7 \nso on.",
+      "parentUuid": "287d6d63_92eff853",
       "range": {
         "startLine": 165,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "467be080_b346266e",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7934a791_eba4632f",
+      "range": {
+        "startLine": 326,
+        "startChar": 33,
+        "endLine": 326,
+        "endChar": 50
+      },
+      "revId": "ea3566485ced29ecb40640ee12543bddb6df388e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b67b5a96_58f4fcb8",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-05-03T14:28:41Z",
       "side": 1,
       "message": "Please use a proper name.",
+      "range": {
+        "startLine": 342,
+        "startChar": 4,
+        "endLine": 342,
+        "endChar": 20
+      },
+      "revId": "ea3566485ced29ecb40640ee12543bddb6df388e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7afbffbe_1b08a3a6",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b67b5a96_58f4fcb8",
       "range": {
         "startLine": 342,
         "startChar": 4,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77741c45_537292bb",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8ee1ee8f_e0a2a008",
+      "range": {
+        "startLine": 385,
+        "startChar": 3,
+        "endLine": 385,
+        "endChar": 16
+      },
+      "revId": "ea3566485ced29ecb40640ee12543bddb6df388e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a95bc09_322c66cc",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-05-03T15:06:09Z",
       "side": 1,
       "message": "This code is independent of condition please move out from if/else.",
+      "range": {
+        "startLine": 390,
+        "startChar": 8,
+        "endLine": 394,
+        "endChar": 9
+      },
+      "revId": "ea3566485ced29ecb40640ee12543bddb6df388e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb5a17c6_4b1a4b87",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6a95bc09_322c66cc",
       "range": {
         "startLine": 390,
         "startChar": 8,
@@ -162,6 +306,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c88f6498_99e91300",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ee1be277_2fdb96de",
+      "range": {
+        "startLine": 422,
+        "startChar": 8,
+        "endLine": 422,
+        "endChar": 47
+      },
+      "revId": "ea3566485ced29ecb40640ee12543bddb6df388e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb8c79ed_3df6ed68",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-05-03T14:28:41Z",
       "side": 1,
       "message": "Why is this required?",
+      "range": {
+        "startLine": 467,
+        "startChar": 4,
+        "endLine": 467,
+        "endChar": 24
+      },
+      "revId": "ea3566485ced29ecb40640ee12543bddb6df388e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5e7d01b_2fc807ea",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eb8c79ed_3df6ed68",
       "range": {
         "startLine": 467,
         "startChar": 4,
@@ -208,6 +400,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40e23f75_94844e52",
+        "filename": "vpd-parser/memory_vpd_parser.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "276c0028_679b2b2a",
+      "range": {
+        "startLine": 81,
+        "startChar": 7,
+        "endLine": 82,
+        "endChar": 52
+      },
+      "revId": "ea3566485ced29ecb40640ee12543bddb6df388e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95542c8d_c9467988",
@@ -221,6 +437,30 @@
       "writtenOn": "2023-05-03T14:28:41Z",
       "side": 1,
       "message": "Just dimm size is sufficient as that is what the api returns. Not required to explain from where we are getting that.",
+      "range": {
+        "startLine": 85,
+        "startChar": 25,
+        "endLine": 85,
+        "endChar": 48
+      },
+      "revId": "ea3566485ced29ecb40640ee12543bddb6df388e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc53ca9d_3173caab",
+        "filename": "vpd-parser/memory_vpd_parser.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "95542c8d_c9467988",
       "range": {
         "startLine": 85,
         "startChar": 25,

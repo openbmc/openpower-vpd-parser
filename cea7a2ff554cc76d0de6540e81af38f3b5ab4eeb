@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f041b186_99c4456a",
+        "filename": "const.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "I think I have moved these here because b/n DDIMM \u0026 ISDIMM these const expression values are common and will keep it in common place to make use of these in both the files. But still same const expressions which were defined in isdimm are not removed yet. So for time being I will move these const expression to DDIMM .cpp files .. later we can move to common place by re-checking any other are redefining in both files (ISDIMM \u0026 DDIMM).",
+      "parentUuid": "67a09688_bc44a899",
+      "range": {
+        "startLine": 120,
+        "startChar": 1,
+        "endLine": 125,
+        "endChar": 17
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9186bd38_f04d9a1b",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 32
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-02T09:11:05Z",
       "side": 1,
       "message": "you are just declaring the byte number. such a lengthy name is not giving any meaning. you can simply declare as BYTE2, BYTE4, BYTE6..just like how they did before in line 20",
+      "range": {
+        "startLine": 41,
+        "startChar": 22,
+        "endLine": 47,
+        "endChar": 56
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5522c7a_21d5855c",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "removed from here added in const.hpp as like ISDMM changes.",
+      "parentUuid": "9186bd38_f04d9a1b",
       "range": {
         "startLine": 41,
         "startChar": 22,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be94fb49_efc482e5",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "225ddc86_c1c296a3",
+      "range": {
+        "startLine": 63,
+        "startChar": 22,
+        "endLine": 63,
+        "endChar": 76
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14297b4c_ac2943ae",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-05-02T09:11:05Z",
       "side": 1,
       "message": "there is a bug in this code. this logic doesn\u0027t give me the expected output.\n\nif I give num\u003d7,\nexpected output: even\u003d4, odd\u003d3.\noutput from this code: even\u003d4, odd\u003d4.\n\n\nbe aware that you are sending the final value of package ranks per channel (after adding 1) (line 265)",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 0
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d73f603_0e7d7f3e",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "This function is returning the range b/n 0 - N, corrected to return 0 to N -1  range.",
+      "parentUuid": "14297b4c_ac2943ae",
       "range": {
         "startLine": 166,
         "startChar": 0,
@@ -141,6 +237,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1586a901_4760ad37",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "there is no memory optimization gain by using tuple so as discussed we will be using individual variables than tuple.",
+      "parentUuid": "bcb5c601_a2370e4e",
+      "range": {
+        "startLine": 188,
+        "startChar": 36,
+        "endLine": 189,
+        "endChar": 63
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5204582_95479c8c",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "there is no memory optimization gain by using tuple so as discussed we will be using individual variables than tuple.",
+      "parentUuid": "195d6e12_6880183a",
+      "range": {
+        "startLine": 188,
+        "startChar": 30,
+        "endLine": 189,
+        "endChar": 63
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bad57569_34cd3267",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 32
@@ -152,6 +296,30 @@
       "writtenOn": "2023-05-02T09:11:05Z",
       "side": 1,
       "message": "can you specify the eeprom path, and the bad value taken from byte 6.\nalso this cerr statement looks incomplete. please correct it.",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 202,
+        "endChar": 32
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48d6a9c0_89df4fd5",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "we don\u0027t have eeprom path to specify. corrected the statement",
+      "parentUuid": "bad57569_34cd3267",
       "range": {
         "startLine": 200,
         "startChar": 8,
@@ -187,6 +355,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7fdb6d64_19de1f72",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "Initially I was returning from the place where the error is encountering, but this one was suggested by Giri, to not to return and proceed with other parameter calculation so that we can get all the errors in one shot if any while extracting rest of the parameters. So I felt that is true hence the code.",
+      "parentUuid": "a032e0ae_99893676",
+      "range": {
+        "startLine": 204,
+        "startChar": 6,
+        "endLine": 205,
+        "endChar": 5
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "985f58d3_cc4f9a1b",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 32
@@ -198,6 +390,30 @@
       "writtenOn": "2023-05-02T09:11:05Z",
       "side": 1,
       "message": "can you specify the eeprom path, and the bad value taken from byte 6.\nalso this cerr statement looks incomplete. please correct it wherever required.",
+      "range": {
+        "startLine": 218,
+        "startChar": 15,
+        "endLine": 220,
+        "endChar": 32
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24f70ee3_65775cda",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "we don\u0027t have eeprom path to specify. corrected the statement",
+      "parentUuid": "985f58d3_cc4f9a1b",
       "range": {
         "startLine": 218,
         "startChar": 15,
@@ -233,6 +449,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "86fba802_969c60ac",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "map traversing is costly operation than simple comparison, we will keep comparison logic than map traversing.",
+      "parentUuid": "b5d2619e_e052d882",
+      "range": {
+        "startLine": 232,
+        "startChar": 4,
+        "endLine": 239,
+        "endChar": 5
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0039e60f_74c88ba2",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 32
@@ -244,6 +484,30 @@
       "writtenOn": "2023-05-02T09:11:05Z",
       "side": 1,
       "message": "this condition check is not needed as there are no reserved bit positions in bits (3~5) at byte 234. all combinations of 0s\u0027 and 1s\u0027 has some value.\n\nyou can remove this check and the const variable SPD_JEDEC_DDR5_NUM_OF_PKG_RANKS_PER_CHNL_RESERVED_BITS",
+      "range": {
+        "startLine": 285,
+        "startChar": 4,
+        "endLine": 291,
+        "endChar": 5
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8142bdc_10895f6b",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0039e60f_74c88ba2",
       "range": {
         "startLine": 285,
         "startChar": 4,
@@ -267,6 +531,30 @@
       "writtenOn": "2023-05-02T09:11:05Z",
       "side": 1,
       "message": "lines 312 and 331 are going to give you the same output. can you make this call as a common call for both symmetric  and asymmetric.",
+      "range": {
+        "startLine": 331,
+        "startChar": 7,
+        "endLine": 333,
+        "endChar": 0
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45955fdc_1f525fd9",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "49e53c9d_16dbb6ac",
       "range": {
         "startLine": 331,
         "startChar": 7,
@@ -302,6 +590,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0587e11a_fb917ca3",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "added separate method to calculate the parameters for Asymmetric module and we already have a common method for Symmetric \u0026 Asymmetric even rank parameters extraction.",
+      "parentUuid": "3a7d2f07_e6c6f296",
+      "range": {
+        "startLine": 337,
+        "startChar": 7,
+        "endLine": 337,
+        "endChar": 53
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "feb3e2d4_0377a4f3",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 32
@@ -313,6 +625,30 @@
       "writtenOn": "2023-05-02T09:11:05Z",
       "side": 1,
       "message": "there is no point in calculating other params if error occurred. so please have a break/return wherever the error has been occurred.",
+      "range": {
+        "startLine": 347,
+        "startChar": 11,
+        "endLine": 347,
+        "endChar": 42
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39cc8557_6b305b87",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "Initially I was returning from the place where the error is encountering, but this one was suggested by Giri, to not to return and proceed with other parameter calculation so that we can get all the errors in one shot if any while extracting rest of the parameters. So I felt that is true hence the code.",
+      "parentUuid": "feb3e2d4_0377a4f3",
       "range": {
         "startLine": 347,
         "startChar": 11,
@@ -348,6 +684,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec9ba840_aa6e502d",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "map traversing is costly operation than simple comparison, we will keep comparison than map traversing.",
+      "parentUuid": "169399eb_09bc6aaa",
+      "range": {
+        "startLine": 360,
+        "startChar": 8,
+        "endLine": 368,
+        "endChar": 9
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec378aa4_f84f4561",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 32
@@ -371,6 +731,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fc64188c_afbb213a",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "this is not repetitive, here the sdramIo width value is different (primary we extract from different byte \u0026 secondary we extract from different bytes)",
+      "parentUuid": "ec378aa4_f84f4561",
+      "range": {
+        "startLine": 410,
+        "startChar": 12,
+        "endLine": 410,
+        "endChar": 69
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cff4c44c_aaaee59c",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 32
@@ -382,6 +766,24 @@
       "writtenOn": "2023-05-02T09:11:05Z",
       "side": 1,
       "message": "can you point me to the page in spec which tells about byte 2.",
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ca111c8_76bf64a1",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-03T17:24:44Z",
+      "side": 1,
+      "message": "page number 27  (8.1.3 Byte 2 (0x002): Key Byte / Host Bus Command Protocol Type).\n\nHex 0x12 is defined for DDR5 SDRAM. Please let me know if are not able to get it we can discuss.",
+      "parentUuid": "cff4c44c_aaaee59c",
       "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
