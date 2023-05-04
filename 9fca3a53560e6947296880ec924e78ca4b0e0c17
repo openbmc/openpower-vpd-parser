@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa3f09e6_54fbd720",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9b42b324_c5221d38",
+      "range": {
+        "startLine": 67,
+        "startChar": 32,
+        "endLine": 67,
+        "endChar": 38
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c719c5cd_8733dcb1",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-04T10:14:12Z",
       "side": 1,
       "message": "Don\u0027t need to define these, already in const.hpp, please re-use.\nstatic constexpr auto SPD_DRAM_TYPE_DDR5 \u003d 0x12;\nstatic constexpr auto SPD_DRAM_TYPE_DDR4 \u003d 0x0C;",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 2
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dc930ac_1a109052",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c719c5cd_8733dcb1",
       "range": {
         "startLine": 71,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "045eebea_acee10be",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c19739b1_21ebbad9",
+      "range": {
+        "startLine": 175,
+        "startChar": 11,
+        "endLine": 176,
+        "endChar": 46
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5c9d361_0b96f4e5",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-05-04T10:14:12Z",
       "side": 1,
       "message": "Please use proper name. also not an in/out parameter.",
+      "range": {
+        "startLine": 179,
+        "startChar": 10,
+        "endLine": 179,
+        "endChar": 20
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8bcaf96_e7e8d284",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a5c9d361_0b96f4e5",
       "range": {
         "startLine": 179,
         "startChar": 10,
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "64e9e996_e7c12689",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "In older version of SPD value 1 was also reserved hence added this check. I Will remove this since the latest version of SPD don\u0027t have value 1 as reserved",
+      "parentUuid": "11863dd9_5d64f2a5",
+      "range": {
+        "startLine": 216,
+        "startChar": 16,
+        "endLine": 216,
+        "endChar": 59
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a0f8003_b812ebde",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 35
@@ -129,6 +249,30 @@
       "writtenOn": "2023-05-04T10:14:12Z",
       "side": 1,
       "message": "Please check the map as well.",
+      "range": {
+        "startLine": 226,
+        "startChar": 13,
+        "endLine": 226,
+        "endChar": 25
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b61e08bd_449afe20",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7a0f8003_b812ebde",
       "range": {
         "startLine": 226,
         "startChar": 13,
@@ -162,6 +306,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5e566ce_d1ea9b22",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f1e27a4b_62fa4239",
+      "range": {
+        "startLine": 253,
+        "startChar": 52,
+        "endLine": 253,
+        "endChar": 69
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48cb0104_aebd3912",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-05-04T10:14:12Z",
       "side": 1,
       "message": "Once the function fails please return instead or processing further.",
+      "range": {
+        "startLine": 282,
+        "startChar": 8,
+        "endLine": 282,
+        "endChar": 23
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83e9809a_60fe8a21",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "48cb0104_aebd3912",
       "range": {
         "startLine": 282,
         "startChar": 8,
@@ -210,6 +402,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34cfd1f3_f41061b6",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "In older version of SPD value 1 was also reserved hence added this check. I Will remove this since the latest version of SPD don\u0027t have value 1 as reserved",
+      "parentUuid": "b59cec35_b28f8d75",
+      "range": {
+        "startLine": 294,
+        "startChar": 9,
+        "endLine": 294,
+        "endChar": 61
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac592c5c_5a023d3b",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 35
@@ -221,6 +437,30 @@
       "writtenOn": "2023-05-04T10:14:12Z",
       "side": 1,
       "message": "Please check for value 1.",
+      "range": {
+        "startLine": 304,
+        "startChar": 13,
+        "endLine": 304,
+        "endChar": 25
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7f5b1bf_ab63b81b",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ac592c5c_5a023d3b",
       "range": {
         "startLine": 304,
         "startChar": 13,
@@ -254,6 +494,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72520b49_f9adb897",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8a898915_7b5d9fe9",
+      "range": {
+        "startLine": 332,
+        "startChar": 11,
+        "endLine": 332,
+        "endChar": 14
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "133086f1_5ad16302",
@@ -271,6 +535,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c08a4fb_8ce72a99",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "133086f1_5ad16302",
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98ce9e52_0fc816dc",
@@ -284,6 +566,30 @@
       "writtenOn": "2023-05-04T10:14:12Z",
       "side": 1,
       "message": "There should be a check for reserved value here?",
+      "range": {
+        "startLine": 375,
+        "startChar": 4,
+        "endLine": 377,
+        "endChar": 31
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be932cd2_26891a45",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "reserved value check is not required here as values are defined for all the range i.e 000 to 111",
+      "parentUuid": "98ce9e52_0fc816dc",
       "range": {
         "startLine": 375,
         "startChar": 4,
@@ -317,6 +623,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c09ca6b0_8c0ccb89",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a97b2083_ff437780",
+      "range": {
+        "startLine": 386,
+        "startChar": 4,
+        "endLine": 386,
+        "endChar": 66
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c097e6c_c61b1362",
@@ -330,6 +660,30 @@
       "writtenOn": "2023-05-04T10:14:12Z",
       "side": 1,
       "message": "Use appropriate type.",
+      "range": {
+        "startLine": 393,
+        "startChar": 4,
+        "endLine": 393,
+        "endChar": 10
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8554a77_44ee213c",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3c097e6c_c61b1362",
       "range": {
         "startLine": 393,
         "startChar": 4,
@@ -363,6 +717,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27204cb9_ef497706",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "11f0a88d_c2651791",
+      "range": {
+        "startLine": 405,
+        "startChar": 76,
+        "endLine": 405,
+        "endChar": 78
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d516aee1_70b358ef",
@@ -376,6 +754,30 @@
       "writtenOn": "2023-05-04T10:14:12Z",
       "side": 1,
       "message": "Please name as even and odd for easy understanding.",
+      "range": {
+        "startLine": 421,
+        "startChar": 15,
+        "endLine": 421,
+        "endChar": 45
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e735d97e_0b4644d4",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d516aee1_70b358ef",
       "range": {
         "startLine": 421,
         "startChar": 15,
@@ -409,6 +811,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5ce496f_b472de0c",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2767452c_dafc6b89",
+      "range": {
+        "startLine": 443,
+        "startChar": 22,
+        "endLine": 443,
+        "endChar": 37
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b51061c8_e8645995",
@@ -422,6 +848,30 @@
       "writtenOn": "2023-05-04T10:14:12Z",
       "side": 1,
       "message": "Jinu: Don\u0027t need this variable, Value can be fetched and used in place.",
+      "range": {
+        "startLine": 446,
+        "startChar": 11,
+        "endLine": 446,
+        "endChar": 20
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91d86cd3_7d4fcd57",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b51061c8_e8645995",
       "range": {
         "startLine": 446,
         "startChar": 11,
@@ -449,6 +899,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "580d1d17_b4672bbc",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1ad81000_9d4e6be8",
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fe71607_bd55832e",
@@ -462,6 +930,30 @@
       "writtenOn": "2023-05-04T10:14:12Z",
       "side": 1,
       "message": "Use this value from const.hpp",
+      "range": {
+        "startLine": 453,
+        "startChar": 26,
+        "endLine": 453,
+        "endChar": 44
+      },
+      "revId": "9fca3a53560e6947296880ec924e78ca4b0e0c17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a3c56eb_27ebb1f5",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-04T15:10:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4fe71607_bd55832e",
       "range": {
         "startLine": 453,
         "startChar": 26,
