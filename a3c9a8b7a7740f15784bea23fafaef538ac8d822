@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6f08a58_dc1a33fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-05-04T03:35:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "423c48cd_7913a3ca",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 0
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9dc2e00_f07b4673",
@@ -142,6 +166,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a64f5d3_0eb5f82e",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-05-04T03:35:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8273d64f_0499e5ae",
+      "range": {
+        "startLine": 62,
+        "startChar": 16,
+        "endLine": 62,
+        "endChar": 55
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b16c991_2eb1d713",
@@ -179,6 +227,30 @@
       "side": 1,
       "message": "here we can either get --value or --file as input.\nI checked if CLI supports either or option, but its not.",
       "parentUuid": "2b16c991_2eb1d713",
+      "range": {
+        "startLine": 62,
+        "startChar": 16,
+        "endLine": 66,
+        "endChar": 62
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fef4f11_21a86c78",
+        "filename": "vpd_tool.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-05-04T03:35:31Z",
+      "side": 1,
+      "message": "Isn\u0027t it just a description where you could mention either value or file needs to be used in a bracket ?",
+      "parentUuid": "91f5e82b_d352058c",
       "range": {
         "startLine": 62,
         "startChar": 16,
@@ -473,6 +545,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9cbb51e_4673e790",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-05-04T03:35:31Z",
+      "side": 1,
+      "message": "That is my issue , should we go ahead and write only half or nothing if full data is provided or fail, letting the user know that data could not be retrieved from the file.",
+      "parentUuid": "68bb47dd_906eb89d",
+      "range": {
+        "startLine": 34,
+        "startChar": 18,
+        "endLine": 34,
+        "endChar": 43
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "114669ae_802b2635",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 23
@@ -567,6 +663,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63b78a88_d40aec2e",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-05-04T03:35:31Z",
+      "side": 1,
+      "message": "the exception will only be thrown if \"If badbit was set on the last call to exceptions\", else how will you know if the call failed ?",
+      "parentUuid": "0fea068e_b36460ea",
+      "range": {
+        "startLine": 73,
+        "startChar": 11,
+        "endLine": 73,
+        "endChar": 65
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55f8db08_cd851c35",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 23
@@ -602,6 +722,30 @@
       "side": 1,
       "message": "at line 63, the constructor takes care of opening the file if exist. so the file is already opened.",
       "parentUuid": "55f8db08_cd851c35",
+      "range": {
+        "startLine": 81,
+        "startChar": 7,
+        "endLine": 81,
+        "endChar": 24
+      },
+      "revId": "a3c9a8b7a7740f15784bea23fafaef538ac8d822",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee123e8f_082ae57b",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-05-04T03:35:31Z",
+      "side": 1,
+      "message": "I meant on an exception you miss closing it , based on when the exception occurs , further to this , do we even need an explicit close?",
+      "parentUuid": "98ae202e_a1684f5a",
       "range": {
         "startLine": 81,
         "startChar": 7,
