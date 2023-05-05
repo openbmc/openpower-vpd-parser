@@ -373,7 +373,7 @@ vpdType vpdTypeCheck(const Binary& vpdVector)
     }
     else if (((vpdVector[SPD_BYTE_3] & SPD_BYTE_BIT_0_3_MASK) ==
               SPD_MODULE_TYPE_DDIMM) &&
-             (is11SFormat.compare(MEMORY_VPD_START_TAG)))
+             (is11SFormat.compare(MEMORY_VPD_START_TAG) == 0))
     {
         // DDIMM Memory VPD format
         if ((vpdVector[SPD_BYTE_2] & SPD_BYTE_MASK) == SPD_DRAM_TYPE_DDR5)
