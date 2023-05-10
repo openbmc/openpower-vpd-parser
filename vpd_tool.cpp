@@ -1,6 +1,7 @@
 #include "vpd_tool_impl.hpp"
 
 #include <CLI/CLI.hpp>
+
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -23,10 +24,10 @@ int main(int argc, char** argv)
     string val{};
     uint32_t offset = 0;
 
-    auto object =
-        app.add_option("--object, -O", objectPath, "Enter the Object Path");
-    auto record =
-        app.add_option("--record, -R", recordName, "Enter the Record Name");
+    auto object = app.add_option("--object, -O", objectPath,
+                                 "Enter the Object Path");
+    auto record = app.add_option("--record, -R", recordName,
+                                 "Enter the Record Name");
     auto kw = app.add_option("--keyword, -K", keyword, "Enter the Keyword");
     auto valOption = app.add_option(
         "--value, -V", val,
@@ -91,9 +92,9 @@ int main(int argc, char** argv)
         "--fixSystemVPD", "Use this option to interactively fix critical "
                           "system VPD keywords {vpd-tool-exe --fixSystemVPD}");
 
-    auto mfgClean =
-        app.add_flag("--mfgClean", "Flag to clean and reset specific keywords "
-                                   "on system VPD to its default value.");
+    auto mfgClean = app.add_flag("--mfgClean",
+                                 "Flag to clean and reset specific keywords "
+                                 "on system VPD to its default value.");
 
     auto confirm =
         app.add_flag("--yes", "Using this flag with --mfgClean option, assumes "

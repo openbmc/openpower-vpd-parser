@@ -49,9 +49,7 @@ class ParserInterface
     /**
      * @brief Virtual destructor for the interface.
      */
-    virtual ~ParserInterface()
-    {
-    }
+    virtual ~ParserInterface() {}
 
 }; // class Parserinterface
 } // namespace interface

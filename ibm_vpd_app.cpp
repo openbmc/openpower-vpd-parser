@@ -13,16 +13,17 @@
 #include <ctype.h>
 
 #include <CLI/CLI.hpp>
-#include <algorithm>
 #include <boost/algorithm/string.hpp>
+#include <gpiod.hpp>
+#include <phosphor-logging/log.hpp>
+
+#include <algorithm>
 #include <cstdarg>
 #include <exception>
 #include <filesystem>
 #include <fstream>
-#include <gpiod.hpp>
 #include <iostream>
 #include <iterator>
-#include <phosphor-logging/log.hpp>
 #include <regex>
 #include <thread>
 
@@ -356,8 +357,8 @@ static void populateInterfaces(const nlohmann::json& js,
                     if (!rec.empty() && !kw.empty() && vpdMap.count(rec) &&
                         vpdMap.at(rec).count(kw))
                     {
-                        auto encoded =
-                            encodeKeyword(vpdMap.at(rec).at(kw), encoding);
+                        auto encoded = encodeKeyword(vpdMap.at(rec).at(kw),
+                                                     encoding);
                         props.emplace(busProp, encoded);
                     }
                 }
@@ -367,8 +368,8 @@ static void populateInterfaces(const nlohmann::json& js,
                     {
                         if (auto kwValue = get_if<Binary>(&vpdMap.at(kw)))
                         {
-                            auto prop =
-                                string((*kwValue).begin(), (*kwValue).end());
+                            auto prop = string((*kwValue).begin(),
+                                               (*kwValue).end());
 
                             auto encoded = encodeKeyword(prop, encoding);
 
@@ -377,8 +378,8 @@ static void populateInterfaces(const nlohmann::json& js,
                         else if (auto kwValue =
                                      get_if<std::string>(&vpdMap.at(kw)))
                         {
-                            auto prop =
-                                string((*kwValue).begin(), (*kwValue).end());
+                            auto prop = string((*kwValue).begin(),
+                                               (*kwValue).end());
 
                             auto encoded = encodeKeyword(prop, encoding);
 
@@ -1129,8 +1130,8 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         {
             std::vector<std::string> interfaces = {motherBoardInterface};
             // call mapper to check for object path creation
-            MapperResponse subTree =
-                getObjectSubtreeForInterfaces(pimPath, 0, interfaces);
+            MapperResponse subTree = getObjectSubtreeForInterfaces(pimPath, 0,
+                                                                   interfaces);
             string mboardPath =
                 js["frus"][filePath].at(0).value("inventoryPath", "");
 
@@ -1223,7 +1224,6 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
 
         if ((isSystemVpd) || (item.value("noprime", false)))
         {
-
             // Populate one time properties for the system VPD and its sub-frus
             // and for other non-primeable frus.
             // For the remaining FRUs, this will get handled as a part of

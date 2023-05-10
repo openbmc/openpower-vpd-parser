@@ -15,9 +15,7 @@ namespace interface
 class UtilityInterface
 {
   public:
-    virtual ~UtilityInterface()
-    {
-    }
+    virtual ~UtilityInterface() {}
 
     virtual std::string readBusProperty(const std::string& obj,
                                         const std::string& inf,
@@ -27,9 +25,7 @@ class UtilityInterface
 class utility : public UtilityInterface
 {
   public:
-    virtual ~utility()
-    {
-    }
+    virtual ~utility() {}
 
     std::string readBusProperty(const std::string& obj, const std::string& inf,
                                 const std::string& prop) override

@@ -4,12 +4,13 @@
 
 #include "ibm_vpd_utils.hpp"
 
-#include <algorithm>
 #include <com/ibm/VPD/error.hpp>
-#include <map>
 #include <phosphor-logging/elog-errors.hpp>
-#include <vector>
 #include <xyz/openbmc_project/Common/error.hpp>
+
+#include <algorithm>
+#include <map>
+#include <vector>
 
 #ifdef ManagerTest
 #include "reader_test.hpp"
@@ -112,8 +113,8 @@ ListOfPaths
     for_each(range.first, range.second,
              [&inventoryPaths](
                  const inventory::LocationCodeMap::value_type& mappedItem) {
-                 inventoryPaths.push_back(INVENTORY_PATH + mappedItem.second);
-             });
+        inventoryPaths.push_back(INVENTORY_PATH + mappedItem.second);
+    });
     return inventoryPaths;
 }
 
@@ -188,8 +189,8 @@ std::tuple<LocationCode, NodeNumber>
     {
         std::string tm{};
         // read TM kwd value
-        tm =
-            utilObj.readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "TM");
+        tm = utilObj.readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS",
+                                     "TM");
         ;
 
         // check if the substr matches to TM kwd

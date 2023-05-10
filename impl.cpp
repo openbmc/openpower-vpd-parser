@@ -1,5 +1,7 @@
 #include "impl.hpp"
 
+#include "vpdecc/vpdecc.h"
+
 #include "const.hpp"
 #include "defines.hpp"
 #include "ibm_vpd_utils.hpp"
@@ -14,8 +16,6 @@
 #include <sstream>
 #include <tuple>
 #include <unordered_map>
-
-#include "vpdecc/vpdecc.h"
 
 namespace openpower
 {
@@ -348,9 +348,9 @@ internal::OffsetList Impl::readPT(Binary::const_iterator iterator,
 
             if (rc != eccStatus::SUCCESS)
             {
-                std::string errorMsg =
-                    std::string("ERROR: ECC check did not pass for the "
-                                "Record:");
+                std::string errorMsg = std::string(
+                    "ERROR: ECC check did not pass for the "
+                    "Record:");
                 throw(VpdEccException(errorMsg));
             }
         }

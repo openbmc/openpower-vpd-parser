@@ -4,8 +4,9 @@
 #include "editor_impl.hpp"
 #include "gpioMonitor.hpp"
 
-#include <map>
 #include <sdbusplus/asio/object_server.hpp>
+
+#include <map>
 
 namespace openpower
 {

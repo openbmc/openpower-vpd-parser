@@ -3,9 +3,10 @@
 #include "const.hpp"
 #include "types.hpp"
 
+#include <nlohmann/json.hpp>
+
 #include <cstddef>
 #include <fstream>
-#include <nlohmann/json.hpp>
 #include <tuple>
 
 namespace openpower
@@ -26,9 +27,7 @@ class EditorImpl
     EditorImpl& operator=(const EditorImpl&) = delete;
     EditorImpl(EditorImpl&&) = delete;
     EditorImpl& operator=(EditorImpl&&) = delete;
-    ~EditorImpl()
-    {
-    }
+    ~EditorImpl() {}
 
     /** @brief Construct EditorImpl class
      *
@@ -40,8 +39,7 @@ class EditorImpl
                Binary&& vpd) :
         startOffset(0),
         thisRecord(record, kwd), vpdFile(std::move(vpd))
-    {
-    }
+    {}
 
     /** @brief Construct EditorImpl class
      *
@@ -57,8 +55,7 @@ class EditorImpl
         vpdFilePath(path),
         objPath(inventoryPath), startOffset(0), jsonFile(json),
         thisRecord(record, kwd)
-    {
-    }
+    {}
 
     /** @brief Construct EditorImpl class
      *
@@ -71,8 +68,7 @@ class EditorImpl
                const std::string& record, const std::string& kwd) :
         vpdFilePath(path),
         jsonFile(json), thisRecord(record, kwd)
-    {
-    }
+    {}
 
     /**
      * @brief Update data for keyword
@@ -208,8 +204,7 @@ class EditorImpl
         RecInfo(const std::string& rec, const std::string& kwd) :
             recName(rec), recKWd(kwd), recOffset(0), recECCoffset(0),
             recECCLength(0), kwdDataLength(0), recSize(0), kwDataOffset(0)
-        {
-        }
+        {}
     } thisRecord;
 
     Binary vpdFile;

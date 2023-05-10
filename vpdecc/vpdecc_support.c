@@ -46,8 +46,7 @@ void seepromGenCsDecode(const unsigned char numBits,
                         const unsigned char syndrom,
                         const unsigned char* csdSyndroms,
                         unsigned char* vResult)
-{
-}
+{}
 
 /******************************************************************************/
 /* seepromGenerateCheckSyndromDecode                                          */
@@ -57,8 +56,7 @@ void seepromGenCsDecode(const unsigned char numBits,
 void seepromGenerateCheckSyndromDecode(const unsigned char checkSyndrom,
                                        unsigned char* csdData,
                                        unsigned char* csdEcc)
-{
-}
+{}
 
 /******************************************************************************/
 /* seepromEccCheck                                                            */

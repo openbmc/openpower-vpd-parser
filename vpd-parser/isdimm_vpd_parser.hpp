@@ -30,9 +30,7 @@ class isdimmVpdParser : public ParserInterface
      *
      * Move memVpdVector to parser object's memVpdVector
      */
-    isdimmVpdParser(const Binary& VpdVector) : memVpd(VpdVector)
-    {
-    }
+    isdimmVpdParser(const Binary& VpdVector) : memVpd(VpdVector) {}
 
     /**
      * @brief Parse the memory SPD binary data.

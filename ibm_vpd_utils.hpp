@@ -4,8 +4,9 @@
 #include "store.hpp"
 #include "types.hpp"
 
-#include <iostream>
 #include <nlohmann/json.hpp>
+
+#include <iostream>
 #include <optional>
 #include <variant>
 
@@ -108,9 +109,9 @@ T readDBusProperty(const std::string& service, const std::string& object,
     try
     {
         auto bus = sdbusplus::bus::new_default();
-        auto properties =
-            bus.new_method_call(service.c_str(), object.c_str(),
-                                "org.freedesktop.DBus.Properties", "Get");
+        auto properties = bus.new_method_call(service.c_str(), object.c_str(),
+                                              "org.freedesktop.DBus.Properties",
+                                              "Get");
         properties.append(inf);
         properties.append(prop);
         auto result = bus.call(properties);
@@ -447,9 +448,9 @@ void setBusProperty(const std::string& service, const std::string& object,
     try
     {
         auto bus = sdbusplus::bus::new_default();
-        auto method =
-            bus.new_method_call(service.c_str(), object.c_str(),
-                                "org.freedesktop.DBus.Properties", "Set");
+        auto method = bus.new_method_call(service.c_str(), object.c_str(),
+                                          "org.freedesktop.DBus.Properties",
+                                          "Set");
         method.append(interface);
         method.append(propertyName);
         method.append(propertyValue);

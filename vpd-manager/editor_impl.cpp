@@ -2,6 +2,8 @@
 
 #include "editor_impl.hpp"
 
+#include "vpdecc/vpdecc.h"
+
 #include "common_utility.hpp"
 #include "ibm_vpd_utils.hpp"
 #include "ipz_parser.hpp"
@@ -10,8 +12,6 @@
 
 #include <phosphor-logging/elog-errors.hpp>
 #include <xyz/openbmc_project/Common/error.hpp>
-
-#include "vpdecc/vpdecc.h"
 
 using namespace openpower::vpd::parser::interface;
 using namespace openpower::vpd::constants;
@@ -470,17 +470,17 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
 
     if (locationCodeType == "fcs")
     {
-        propertyFCorTM =
-            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "FC");
-        propertySE =
-            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "SE");
+        propertyFCorTM = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN",
+                                         "FC");
+        propertySE = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN",
+                                     "SE");
     }
     else if (locationCodeType == "mts")
     {
-        propertyFCorTM =
-            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "TM");
-        propertySE =
-            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "SE");
+        propertyFCorTM = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS",
+                                         "TM");
+        propertySE = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS",
+                                     "SE");
     }
 
     const nlohmann::json& groupFRUS =

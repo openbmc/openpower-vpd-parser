@@ -4,10 +4,11 @@
 #include "parser_factory.hpp"
 #include "vpd_exceptions.hpp"
 
+#include <sdbusplus/bus.hpp>
+
 #include <cstdlib>
 #include <filesystem>
 #include <iostream>
-#include <sdbusplus/bus.hpp>
 #include <variant>
 #include <vector>
 
@@ -128,8 +129,8 @@ static void
     }
     else
     {
-        std::string err =
-            vpdPath + " is not of type IPZ VPD. Unable to parse the VPD.";
+        std::string err = vpdPath +
+                          " is not of type IPZ VPD. Unable to parse the VPD.";
         throw std::runtime_error(err);
     }
 }
@@ -540,8 +541,8 @@ int VpdTool::updateKeyword()
     }
 
     auto bus = sdbusplus::bus::new_default();
-    auto properties =
-        bus.new_method_call(BUSNAME, OBJPATH, IFACE, "WriteKeyword");
+    auto properties = bus.new_method_call(BUSNAME, OBJPATH, IFACE,
+                                          "WriteKeyword");
     properties.append(static_cast<sdbusplus::message::object_path>(fruPath));
     properties.append(recordName);
     properties.append(keyword);
@@ -584,8 +585,7 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
                 }
             }
             catch (const fs::filesystem_error& e)
-            {
-            }
+            {}
         }
     }
 

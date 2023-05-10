@@ -1,8 +1,9 @@
 #include "editor_impl.hpp"
 #include "ipz_parser.hpp"
 
-#include <algorithm>
 #include <nlohmann/json.hpp>
+
+#include <algorithm>
 #include <vector>
 
 #include <gtest/gtest.h>

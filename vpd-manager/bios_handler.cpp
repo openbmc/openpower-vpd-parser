@@ -7,9 +7,10 @@
 #include "manager.hpp"
 #include "types.hpp"
 
+#include <sdbusplus/bus.hpp>
+
 #include <iostream>
 #include <memory>
-#include <sdbusplus/bus.hpp>
 #include <string>
 #include <tuple>
 #include <variant>
@@ -33,23 +34,22 @@ void BiosHandler::checkAndListenPLDMService()
             sdbusplus::bus::match::rules::nameOwnerChanged(
                 "xyz.openbmc_project.PLDM"),
             [this](sdbusplus::message_t& msg) {
-                if (msg.is_method_error())
-                {
-                    std::cerr << "Error in reading name owner signal "
-                              << std::endl;
-                    return;
-                }
-                std::string name;
-                std::string newOwner;
-                std::string oldOwner;
+        if (msg.is_method_error())
+        {
+            std::cerr << "Error in reading name owner signal " << std::endl;
+            return;
+        }
+        std::string name;
+        std::string newOwner;
+        std::string oldOwner;
 
-                msg.read(name, oldOwner, newOwner);
-                if (newOwner != "" && name == "xyz.openbmc_project.PLDM")
-                {
-                    this->restoreBIOSAttribs();
-                    // We don't need the match anymore
-                    nameOwnerMatch.reset();
-                }
+        msg.read(name, oldOwner, newOwner);
+        if (newOwner != "" && name == "xyz.openbmc_project.PLDM")
+        {
+            this->restoreBIOSAttribs();
+            // We don't need the match anymore
+            nameOwnerMatch.reset();
+        }
             });
     // Check if PLDM is already running, if it is, we can go ahead and attempt
     // to sync BIOS attributes (since PLDM would have initialized them by the
@@ -550,8 +550,8 @@ void BiosHandler::saveCreateDefaultLparToBIOS(
     }
 
     // Need to write?
-    std::string toWrite =
-        (createDefaultLpar.at(0) & 0x02) ? "Enabled" : "Disabled";
+    std::string toWrite = (createDefaultLpar.at(0) & 0x02) ? "Enabled"
+                                                           : "Disabled";
     if (createDefaultLparInBIOS == toWrite)
     {
         std::cout << "Skip Create default LPAR BIOS write, value is already: "
@@ -623,8 +623,8 @@ void BiosHandler::restoreBIOSAttribs()
     // VPD keywords with data taken from the BIOS.
     auto fcoInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "RG");
     auto ammInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D0");
-    auto keepAndClearInVPD =
-        readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
+    auto keepAndClearInVPD = readBusProperty(SYSTEM_OBJECT,
+                                             "com.ibm.ipzvpd.UTIL", "D1");
     auto fcoInBIOS = readBIOSFCO();
     auto ammInBIOS = readBIOSAMM();
     auto keepAndClearInBIOS = readBIOSKeepAndClear();
@@ -655,13 +655,13 @@ void BiosHandler::restoreBIOSAttribs()
     saveKeepAndClearToBIOS(keepAndClearInVPD, keepAndClearInBIOS);
     // Have to read D1 again because two attributes are stored in the same
     // keyword.
-    auto createDefaultLparInVPD =
-        readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
+    auto createDefaultLparInVPD = readBusProperty(SYSTEM_OBJECT,
+                                                  "com.ibm.ipzvpd.UTIL", "D1");
     saveCreateDefaultLparToBIOS(createDefaultLparInVPD,
                                 createDefaultLparInBIOS);
 
-    auto clearNVRAMInVPD =
-        readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL", "D1");
+    auto clearNVRAMInVPD = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.UTIL",
+                                           "D1");
     saveClearNVRAMToBIOS(clearNVRAMInVPD, clearNVRAMInBIOS);
 
     // Start listener now that we have done the restore

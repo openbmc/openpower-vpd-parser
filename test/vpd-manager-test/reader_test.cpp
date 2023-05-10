@@ -4,8 +4,9 @@
 #include "reader_impl.hpp"
 #include "types.hpp"
 
-#include <fstream>
 #include <nlohmann/json.hpp>
+
+#include <fstream>
 #include <tuple>
 
 #include <gmock/gmock.h>
@@ -151,8 +152,8 @@ TEST_F(vpdManagerReaderTest, getFrusAtLocation_Valid)
 
     MockUtilCalls uCalls;
     ReaderImpl read(uCalls);
-    ListOfPaths paths =
-        read.getFrusAtLocation(LocationCode, nodeNumber, fruLocationCode);
+    ListOfPaths paths = read.getFrusAtLocation(LocationCode, nodeNumber,
+                                               fruLocationCode);
     std::string expected =
         "/xyz/openbmc_project/inventory/system/chassis/motherboard";
     EXPECT_EQ(paths.at(0), expected);
@@ -167,8 +168,8 @@ TEST_F(vpdManagerReaderTest, getFRUsByExpandedLocationCode_invalid)
     ReaderImpl read(uCalls);
     ListOfPaths paths;
     EXPECT_ANY_THROW({
-        paths =
-            read.getFRUsByExpandedLocationCode(locationCode, fruLocationCode);
+        paths = read.getFRUsByExpandedLocationCode(locationCode,
+                                                   fruLocationCode);
     });
 
     // unused variable warning
@@ -177,8 +178,8 @@ TEST_F(vpdManagerReaderTest, getFRUsByExpandedLocationCode_invalid)
     // length is les sthan 17 for expanded location code
     locationCode = "U9105.22A.SIMP10";
     EXPECT_ANY_THROW({
-        paths =
-            read.getFRUsByExpandedLocationCode(locationCode, fruLocationCode);
+        paths = read.getFRUsByExpandedLocationCode(locationCode,
+                                                   fruLocationCode);
     });
 
     // Invalid location code. No "."
@@ -194,8 +195,8 @@ TEST_F(vpdManagerReaderTest, getFRUsByExpandedLocationCode_invalid)
     // unused variable warning
     (void)paths;
     EXPECT_ANY_THROW({
-        paths =
-            read.getFRUsByExpandedLocationCode(locationCode, fruLocationCode);
+        paths = read.getFRUsByExpandedLocationCode(locationCode,
+                                                   fruLocationCode);
     });
 }
 
@@ -212,8 +213,8 @@ TEST_F(vpdManagerReaderTest, getFRUsByExpandedLocationCode_Valid_FC)
             testing::Return("78DAPQRS")); // return a dummy value for FC keyword
 
     ReaderImpl read(uCalls);
-    ListOfPaths paths =
-        read.getFRUsByExpandedLocationCode(validLocationCode, fruLocationCode);
+    ListOfPaths paths = read.getFRUsByExpandedLocationCode(validLocationCode,
+                                                           fruLocationCode);
 
     std::string expected =
         "/xyz/openbmc_project/inventory/system/chassis/motherboard";
@@ -240,8 +241,8 @@ TEST_F(vpdManagerReaderTest, getFRUsByExpandedLocationCode_Valid_TM)
             testing::Return("9105PQRS")); // return a dummy value for TM keyword
 
     ReaderImpl read(uCalls);
-    ListOfPaths paths =
-        read.getFRUsByExpandedLocationCode(validLocationCode, fruLocationCode);
+    ListOfPaths paths = read.getFRUsByExpandedLocationCode(validLocationCode,
+                                                           fruLocationCode);
 
     std::string expected = "/xyz/openbmc_project/inventory/system";
     EXPECT_EQ(paths.at(0), expected);

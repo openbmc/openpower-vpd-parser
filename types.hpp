@@ -1,8 +1,9 @@
 #pragma once
 
+#include <sdbusplus/server.hpp>
+
 #include <climits>
 #include <map>
-#include <sdbusplus/server.hpp>
 #include <string>
 #include <unordered_map>
 #include <vector>

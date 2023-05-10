@@ -30,9 +30,7 @@ class memoryVpdParser : public ParserInterface
      *
      * Move memVpdVector to parser object's memVpdVector
      */
-    memoryVpdParser(const Binary& VpdVector) : memVpd(VpdVector)
-    {
-    }
+    memoryVpdParser(const Binary& VpdVector) : memVpd(VpdVector) {}
 
     /**
      * @brief Parse the memory VPD binary data.

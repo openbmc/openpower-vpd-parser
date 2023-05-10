@@ -1,9 +1,10 @@
-#include <cassert>
 #include <defines.hpp>
-#include <fstream>
-#include <iterator>
 #include <store.hpp>
 #include <vpd-parser/ipz_parser.hpp>
+
+#include <cassert>
+#include <fstream>
+#include <iterator>
 
 void runTests()
 {

@@ -10,9 +10,10 @@
 #include "reader_impl.hpp"
 #include "vpd_exceptions.hpp"
 
-#include <filesystem>
 #include <phosphor-logging/elog-errors.hpp>
 #include <xyz/openbmc_project/Common/error.hpp>
+
+#include <filesystem>
 
 using namespace openpower::vpd::constants;
 using namespace openpower::vpd::inventory;
@@ -42,7 +43,7 @@ Manager::Manager(std::shared_ptr<boost::asio::io_context>& ioCon,
         [this](const sdbusplus::message::object_path& path,
                const std::string& recordName, const std::string& keyword,
                const Binary& value) {
-            this->writeKeyword(path, recordName, keyword, value);
+        this->writeKeyword(path, recordName, keyword, value);
         });
 
     interface->register_method(

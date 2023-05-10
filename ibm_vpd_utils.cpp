@@ -7,18 +7,19 @@
 #include "vpd_exceptions.hpp"
 
 #include <boost/algorithm/string.hpp>
-#include <filesystem>
-#include <fstream>
 #include <gpiod.hpp>
-#include <iomanip>
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
-#include <regex>
 #include <sdbusplus/server.hpp>
+#include <xyz/openbmc_project/Common/error.hpp>
+
+#include <filesystem>
+#include <fstream>
+#include <iomanip>
+#include <regex>
 #include <sstream>
 #include <vector>
-#include <xyz/openbmc_project/Common/error.hpp>
 
 using json = nlohmann::json;
 
@@ -681,15 +682,15 @@ std::string hexString(const std::variant<Binary, std::string>& kw)
     std::string hexString;
     std::visit(
         [&hexString](auto&& kw) {
-            std::stringstream ss;
-            std::string hexRep = "0x";
-            ss << hexRep;
-            for (auto& kwVal : kw)
-            {
-                ss << std::setfill('0') << std::setw(2) << std::hex
-                   << static_cast<int>(kwVal);
-            }
-            hexString = ss.str();
+        std::stringstream ss;
+        std::string hexRep = "0x";
+        ss << hexRep;
+        for (auto& kwVal : kw)
+        {
+            ss << std::setfill('0') << std::setw(2) << std::hex
+               << static_cast<int>(kwVal);
+        }
+        hexString = ss.str();
         },
         kw);
     return hexString;
@@ -700,30 +701,30 @@ std::string getPrintableValue(const std::variant<Binary, std::string>& kwVal)
     std::string kwString{};
     std::visit(
         [&kwString](auto&& kwVal) {
-            const auto it =
-                std::find_if(kwVal.begin(), kwVal.end(),
-                             [](const auto& kw) { return !isprint(kw); });
-            if (it != kwVal.end())
+        const auto it =
+            std::find_if(kwVal.begin(), kwVal.end(),
+                         [](const auto& kw) { return !isprint(kw); });
+        if (it != kwVal.end())
+        {
+            bool printable = true;
+            for (auto itr = it; itr != kwVal.end(); itr++)
             {
-                bool printable = true;
-                for (auto itr = it; itr != kwVal.end(); itr++)
+                if (*itr != 0x00)
                 {
-                    if (*itr != 0x00)
-                    {
-                        kwString = hexString(kwVal);
-                        printable = false;
-                        break;
-                    }
-                }
-                if (printable)
-                {
-                    kwString = std::string(kwVal.begin(), it);
+                    kwString = hexString(kwVal);
+                    printable = false;
+                    break;
                 }
             }
-            else
+            if (printable)
             {
-                kwString = std::string(kwVal.begin(), kwVal.end());
+                kwString = std::string(kwVal.begin(), it);
             }
+        }
+        else
+        {
+            kwString = std::string(kwVal.begin(), kwVal.end());
+        }
         },
         kwVal);
     return kwString;
@@ -984,10 +985,10 @@ std::string getPowerState()
     // TODO: How do we handle multiple chassis?
     std::string powerState{};
     auto bus = sdbusplus::bus::new_default();
-    auto properties =
-        bus.new_method_call("xyz.openbmc_project.State.Chassis",
-                            "/xyz/openbmc_project/state/chassis0",
-                            "org.freedesktop.DBus.Properties", "Get");
+    auto properties = bus.new_method_call("xyz.openbmc_project.State.Chassis",
+                                          "/xyz/openbmc_project/state/chassis0",
+                                          "org.freedesktop.DBus.Properties",
+                                          "Get");
     properties.append("xyz.openbmc_project.State.Chassis");
     properties.append("CurrentPowerState");
     auto result = bus.call(properties);

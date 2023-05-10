@@ -28,9 +28,7 @@ class ReaderImpl
     ~ReaderImpl() = default;
 
 #ifdef ManagerTest
-    explicit ReaderImpl(IUtil& obj) : utilObj(obj)
-    {
-    }
+    explicit ReaderImpl(IUtil& obj) : utilObj(obj) {}
 #endif
 
     /** @brief An API to expand a given unexpanded location code.

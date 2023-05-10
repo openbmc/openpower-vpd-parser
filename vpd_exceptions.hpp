@@ -32,8 +32,7 @@ class VPDException : public std::runtime_error
      */
     explicit VPDException(const std::string& msg) :
         std::runtime_error(msg), errMsg(msg)
-    {
-    }
+    {}
 
     /** @brief inline method to return exception string
      * This is overridden method of std::runtime class
@@ -68,9 +67,7 @@ class VpdEccException : public VPDException
     /** @brief constructor
      *  @param[in] - string to define exception
      */
-    explicit VpdEccException(const std::string& msg) : VPDException(msg)
-    {
-    }
+    explicit VpdEccException(const std::string& msg) : VPDException(msg) {}
 
 }; // class VpdEccException
 
@@ -93,9 +90,7 @@ class VpdDataException : public VPDException
     /** @brief constructor
      *  @param[in] - string to define exception
      */
-    explicit VpdDataException(const std::string& msg) : VPDException(msg)
-    {
-    }
+    explicit VpdDataException(const std::string& msg) : VPDException(msg) {}
 
 }; // class VpdDataException
 
@@ -117,8 +112,7 @@ class VpdJsonException : public VPDException
      */
     VpdJsonException(const std::string& msg, const std::string& path) :
         VPDException(msg), jsonPath(path)
-    {
-    }
+    {}
 
     /** @brief Json path getter method.
      *  @return - Json path
@@ -153,9 +147,7 @@ class GpioException : public VPDException
     /** @brief constructor
      *  @param[in] msg - string to define exception
      */
-    explicit GpioException(const std::string& msg) : VPDException(msg)
-    {
-    }
+    explicit GpioException(const std::string& msg) : VPDException(msg) {}
 };
 
 } // namespace exceptions

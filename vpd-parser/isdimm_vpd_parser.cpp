@@ -132,7 +132,6 @@ auto isdimmVpdParser::getDDR4DimmCapacity(Binary::const_iterator& iterator)
 
 auto isdimmVpdParser::getDDR4PartNumber(Binary::const_iterator& iterator)
 {
-
     char tmpPN[constants::PART_NUM_LEN + 1] = {'\0'};
     sprintf(tmpPN, "%02X%02X%02X%X",
             iterator[SPD_JEDEC_DDR4_SDRAM_DENSITY_BANK_OFFSET],

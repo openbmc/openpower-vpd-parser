@@ -38,9 +38,7 @@ class Store final
      *
      *  @param[in] vpdBuffer - A parsed VPD object
      */
-    explicit Store(Parsed&& vpdBuffer) : vpd(std::move(vpdBuffer))
-    {
-    }
+    explicit Store(Parsed&& vpdBuffer) : vpd(std::move(vpdBuffer)) {}
 
     /** @brief Retrieves VPD from Store as a Parsed object
      *
@@ -78,13 +76,12 @@ class Store final
      */
     void dump() const
     {
-        for (auto const& [vpdname, avpd] : vpd)
+        for (const auto& [vpdname, avpd] : vpd)
         {
             std::cout << vpdname << ": " << std::endl;
 
-            for (auto const& [key, val] : avpd)
+            for (const auto& [key, val] : avpd)
             {
-
                 std::cout << "\t" << key << " : " << val << std::endl;
             }
         }

@@ -5,6 +5,7 @@
 #include "types.hpp"
 
 #include <nlohmann/json.hpp>
+
 #include <string>
 
 using json = nlohmann::json;
@@ -283,18 +284,14 @@ class VpdTool
      * object instantiation for dumpInventory option and
      * forceReset option.
      */
-    VpdTool()
-    {
-    }
+    VpdTool() {}
 
     /**
      * @brief Constructor
      * Constructor is called during the
      * object instantiation for dumpObject option.
      */
-    VpdTool(const std::string&& fru) : fruPath(std::move(fru))
-    {
-    }
+    VpdTool(const std::string&& fru) : fruPath(std::move(fru)) {}
 
     /**
      * @brief Constructor
@@ -307,6 +304,5 @@ class VpdTool
         fruPath(std::move(fru)),
         recordName(std::move(recName)), keyword(std::move(kw)),
         value(std::move(val))
-    {
-    }
+    {}
 };

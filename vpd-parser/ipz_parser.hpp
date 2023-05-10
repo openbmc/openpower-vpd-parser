@@ -41,8 +41,7 @@ class IpzVpdParser : public ParserInterface
         vpd(VpdVector),
         inventoryPath(path), vpdFilePath(vpdFilePath),
         vpdStartOffset(vpdStartOffset)
-    {
-    }
+    {}
 
     /**
      * @brief Parse the memory VPD binary data.

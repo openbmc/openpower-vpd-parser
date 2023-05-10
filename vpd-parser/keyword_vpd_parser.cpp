@@ -199,7 +199,6 @@ size_t KeywordVpdParser::getKwDataSize()
 
 void KeywordVpdParser::itrOutOfBoundCheck(uint8_t incVar)
 {
-
     if ((std::distance(keywordVpdVector.begin(), kwVpdIterator + incVar)) >
         std::distance(keywordVpdVector.begin(), keywordVpdVector.end()))
     {
