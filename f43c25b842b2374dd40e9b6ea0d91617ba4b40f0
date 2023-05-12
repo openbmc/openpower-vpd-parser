@@ -216,6 +216,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f4770fe_46f0e9cb",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1915,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "above piece of code is not required, need to remove it",
+      "parentUuid": "4d4e05be_0d6decec",
+      "range": {
+        "startLine": 1907,
+        "startChar": 12,
+        "endLine": 1915,
+        "endChar": 13
+      },
+      "revId": "f43c25b842b2374dd40e9b6ea0d91617ba4b40f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ba1f404_f44c4dd7",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 4

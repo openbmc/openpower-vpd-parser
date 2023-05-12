@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4611f6be_2b560d49",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "009daece_6999bdde",
+      "range": {
+        "startLine": 870,
+        "startChar": 47,
+        "endLine": 870,
+        "endChar": 65
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "362d3aec_77d1ed8d",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57c42a44_4f97e8ee",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "362d3aec_77d1ed8d",
+      "range": {
+        "startLine": 873,
+        "startChar": 3,
+        "endLine": 873,
+        "endChar": 23
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "364fa96d_fe48c278",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-04-25T19:16:51Z",
       "side": 1,
       "message": "Why this variable is required.",
+      "range": {
+        "startLine": 884,
+        "startChar": 12,
+        "endLine": 884,
+        "endChar": 44
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b95f2a8_1fca3358",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "364fa96d_fe48c278",
       "range": {
         "startLine": 884,
         "startChar": 12,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "677b86c5_fd0eb4ae",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "It will store the system backplane\u0027s critical data as a backup on EEPROM file hence the name. I have corrected explanation that will give appropriate meaning.",
+      "parentUuid": "5f31875f_c581629b",
+      "range": {
+        "startLine": 921,
+        "startChar": 14,
+        "endLine": 921,
+        "endChar": 32
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c384efe5_672581da",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 10
@@ -106,6 +202,30 @@
       "writtenOn": "2023-04-25T19:16:51Z",
       "side": 1,
       "message": "Inventory object path of what?",
+      "range": {
+        "startLine": 923,
+        "startChar": 33,
+        "endLine": 923,
+        "endChar": 55
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fff3351_6b3442b4",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c384efe5_672581da",
       "range": {
         "startLine": 923,
         "startChar": 33,
@@ -141,6 +261,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c79b0781_f8657302",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "I feel this is the suitable name, as this will have the EEPROM file path on which the system VPD\u0027s critical keywords will be stored as backup.",
+      "parentUuid": "3c87e4a7_f39deba8",
+      "range": {
+        "startLine": 928,
+        "startChar": 37,
+        "endLine": 928,
+        "endChar": 55
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9a5ef72c_abc4c9c9",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 10
@@ -152,6 +296,30 @@
       "writtenOn": "2023-04-25T19:16:51Z",
       "side": 1,
       "message": "Again, Why there is a need to pass this parameter?",
+      "range": {
+        "startLine": 955,
+        "startChar": 8,
+        "endLine": 955,
+        "endChar": 42
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2202932_6fdf4954",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "As discussed, I am passing this because we need that pointer object in order to de-allocate the memory in case of any exceptions. Once the exceptions are handled Caller has make sure the pointer is deleted. I have mentioned that point in doxygen (Caller has to make sure of deleting the pointer object).",
+      "parentUuid": "9a5ef72c_abc4c9c9",
       "range": {
         "startLine": 955,
         "startChar": 8,
@@ -187,6 +355,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29098d21_330ef1a0",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "I feel this is the suitable name, as this will have the EEPROM file path on which the system VPD\u0027s critical keywords will be stored as backup.",
+      "parentUuid": "93319493_fb366e92",
+      "range": {
+        "startLine": 988,
+        "startChar": 23,
+        "endLine": 988,
+        "endChar": 41
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6cff098_9209cb70",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 10
@@ -198,6 +390,30 @@
       "writtenOn": "2023-04-25T19:16:51Z",
       "side": 1,
       "message": "Since this function returns a bool, you could have directly evaluated it inside the \"if\" condition, saving an extra variable, a copy and a comparison.",
+      "range": {
+        "startLine": 1002,
+        "startChar": 22,
+        "endLine": 1002,
+        "endChar": 39
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ae5947d_8ee2a375",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f6cff098_9209cb70",
       "range": {
         "startLine": 1002,
         "startChar": 22,
@@ -221,6 +437,30 @@
       "writtenOn": "2023-04-25T19:16:51Z",
       "side": 1,
       "message": "No need of this variable.",
+      "range": {
+        "startLine": 1050,
+        "startChar": 24,
+        "endLine": 1050,
+        "endChar": 35
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1303f7a1_e886590c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "57bfa68f_83597a7e",
       "range": {
         "startLine": 1050,
         "startChar": 24,
@@ -256,6 +496,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7121527_50eea957",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "Not really, thought of printing the error message for developer reference while analyzing the logs",
+      "parentUuid": "829cf02d_62f12dfc",
+      "range": {
+        "startLine": 1153,
+        "startChar": 23,
+        "endLine": 1153,
+        "endChar": 47
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "49089df9_db2900cf",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 10
@@ -267,6 +531,30 @@
       "writtenOn": "2023-04-25T19:16:51Z",
       "side": 1,
       "message": "There is no gain by not using \"a\" in Backup?",
+      "range": {
+        "startLine": 1575,
+        "startChar": 16,
+        "endLine": 1575,
+        "endChar": 34
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a66eb439_c1916d25",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1575,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "49089df9_db2900cf",
       "range": {
         "startLine": 1575,
         "startChar": 16,
@@ -290,6 +578,30 @@
       "writtenOn": "2023-04-25T19:16:51Z",
       "side": 1,
       "message": "Please add some explanation against these variables.",
+      "range": {
+        "startLine": 1576,
+        "startChar": 16,
+        "endLine": 1576,
+        "endChar": 35
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7aa98b0_6f97365e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1576,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a7b22bd9_6982f611",
       "range": {
         "startLine": 1576,
         "startChar": 16,
@@ -325,6 +637,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6c58cc7_6204d281",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1720,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "As discussed, I am passing this because we need that pointer object in order to de-allocate the memory in case of any exceptions. Once the exceptions are handled Caller has make sure the pointer is deleted. I have mentioned that point in doxygen (Caller has to make sure of deleting the pointer object).",
+      "parentUuid": "0efd8192_5c7cb3f8",
+      "range": {
+        "startLine": 1720,
+        "startChar": 11,
+        "endLine": 1720,
+        "endChar": 46
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "09e60357_23292cd3",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 10
@@ -336,6 +672,30 @@
       "writtenOn": "2023-04-25T19:16:51Z",
       "side": 1,
       "message": "We already have this check at line 1596 where we are setting pel severity. We can avoid string comparison here?",
+      "range": {
+        "startLine": 1725,
+        "startChar": 12,
+        "endLine": 1725,
+        "endChar": 42
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8a0d1f8_a236c4d5",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1725,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "09e60357_23292cd3",
       "range": {
         "startLine": 1725,
         "startChar": 12,
@@ -371,6 +731,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c0ceefd5_05b8a9f6",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1756,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "yeah correct we can\u0027t say because of which file failure occurred here, we need to handle general exceptions locally for base panel vpd. But anyway we don\u0027t take any action for both system VPD \u0026 pase panel VPD files inside postActionFail() as they don\u0027t have \u0027postActionFail\u0027 flag in vpd json file. we can add handling of general exception locally for base panel VPD.",
+      "parentUuid": "6205a360_8b4c1fac",
+      "range": {
+        "startLine": 1753,
+        "startChar": 12,
+        "endLine": 1756,
+        "endChar": 13
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4134557b_50d6801f",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 10
@@ -382,6 +766,30 @@
       "writtenOn": "2023-04-25T19:16:51Z",
       "side": 1,
       "message": "Do you have to pass inventory path as parameter? Can we extract that here in the function definition?",
+      "range": {
+        "startLine": 1057,
+        "startChar": 48,
+        "endLine": 1057,
+        "endChar": 75
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c747af01_be2e2ee0",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "Can be extracted inside this function, but before this function call we already  doing the extraction of inventory path, hence thought of passing as parameter instead of repeating same piece of code.",
+      "parentUuid": "4134557b_50d6801f",
       "range": {
         "startLine": 1057,
         "startChar": 48,
@@ -417,6 +825,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b88427e_8ca58085",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1068,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "Can be done, but it requires adding an extra argument to the getVpdDataInVector() in order to get the offset value, so which will impact at many places as getVpdDataInVector() is used in other places \u0026 files as well. So Lets keep as it is I feel.",
+      "parentUuid": "7c7ca059_8f19a662",
+      "range": {
+        "startLine": 1061,
+        "startChar": 4,
+        "endLine": 1068,
+        "endChar": 5
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "daf1948a_3658e85d",
         "filename": "ibm_vpd_utils.cpp",
         "patchSetId": 10
@@ -440,6 +872,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7edeece5_0f538cc0",
+        "filename": "ibm_vpd_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "As discussed, I am passing this because we need that pointer object in order to de-allocate the memory in case of any exceptions. Once the exceptions are handled Caller has make sure the pointer is deleted. I have mentioned that point in doxygen (Caller has to make sure of deleting the pointer object).",
+      "parentUuid": "daf1948a_3658e85d",
+      "range": {
+        "startLine": 1072,
+        "startChar": 4,
+        "endLine": 1073,
+        "endChar": 70
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2bf6aeb_9931e757",
         "filename": "ibm_vpd_utils.hpp",
         "patchSetId": 10
@@ -451,6 +907,30 @@
       "writtenOn": "2023-04-25T19:16:51Z",
       "side": 1,
       "message": "Don\u0027t include namespace at this scope in header files. Please follow the guidelines for newly added code.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e62feb31_d316614e",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a2bf6aeb_9931e757",
       "range": {
         "startLine": 13,
         "startChar": 0,
@@ -486,6 +966,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f1903cf0_b348f5b6",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "For time being I am not addressing this comment because as per our latest discussion we don\u0027t need any changes in vpd-manager.",
+      "parentUuid": "35e0548f_e654a700",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 23
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8306c5d4_9d45964a",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 10
@@ -497,6 +1001,30 @@
       "writtenOn": "2023-04-25T19:16:51Z",
       "side": 1,
       "message": "If you are passing class member as reference, remove it from a static method. Make it a class member function.",
+      "range": {
+        "startLine": 163,
+        "startChar": 28,
+        "endLine": 163,
+        "endChar": 52
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af07c4f1_05b566cb",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "For time being I am not addressing this comment because as per our latest discussion we don\u0027t need any changes in vpd-manager.",
+      "parentUuid": "8306c5d4_9d45964a",
       "range": {
         "startLine": 163,
         "startChar": 28,
@@ -532,6 +1060,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6c385f32_13a0384a",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "I feel this is the suitable name, as this will have the EEPROM file path on which the system VPD\u0027s critical keywords will be stored as backup.",
+      "parentUuid": "35520b39_1dfc1a22",
+      "range": {
+        "startLine": 650,
+        "startChar": 42,
+        "endLine": 650,
+        "endChar": 60
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21113bea_fb652102",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 10
@@ -543,6 +1095,30 @@
       "writtenOn": "2023-04-25T19:16:51Z",
       "side": 1,
       "message": "Why do you need to pass this?",
+      "range": {
+        "startLine": 664,
+        "startChar": 8,
+        "endLine": 664,
+        "endChar": 42
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b679811e_68e8e1c6",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "As discussed, I am passing this because we need that pointer object in order to de-allocate the memory in case of any exceptions. Once the exceptions are handled Caller has make sure the pointer is deleted. I have mentioned that point in doxygen (Caller has to make sure of deleting the pointer object).",
+      "parentUuid": "21113bea_fb652102",
       "range": {
         "startLine": 664,
         "startChar": 8,
@@ -576,6 +1152,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef25cee2_89e1107b",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2f5a02b8_3036abaf",
+      "range": {
+        "startLine": 679,
+        "startChar": 16,
+        "endLine": 681,
+        "endChar": 56
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28a5ed20_dff85669",
@@ -589,6 +1189,30 @@
       "writtenOn": "2023-04-25T19:16:51Z",
       "side": 1,
       "message": "What about data exception?",
+      "range": {
+        "startLine": 687,
+        "startChar": 21,
+        "endLine": 687,
+        "endChar": 36
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17a6f780_9b8d07ce",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-12T06:06:49Z",
+      "side": 1,
+      "message": "I think it is not required because in the current code  we are not handling even any exception for system vpd parsing. Here I have added exception handling for ECC because we have to exit the process if there are ECC exception found while parsing of base panel VPD. As discussed initially we need to exit the vpd-tool process in below cases: 1) base panel EEPROM file path doesn\u0027t exist 2) VSBK record not present in the EEPROM file 3) If there are any ECC exceptions found in base panel vpd parsing.",
+      "parentUuid": "28a5ed20_dff85669",
       "range": {
         "startLine": 687,
         "startChar": 21,
