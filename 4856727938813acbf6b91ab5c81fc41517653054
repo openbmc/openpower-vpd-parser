@@ -1,0 +1,320 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "470e3369_07bcbec1",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-15T08:24:36Z",
+      "side": 1,
+      "message": "This re-typing is not required. Type of variable need not be specific so \"DbusPropertyMap\" term is ok and variable name can explain the specific requirement of that value. So variable name is ok in this case.",
+      "range": {
+        "startLine": 918,
+        "startChar": 8,
+        "endLine": 918,
+        "endChar": 29
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b86ecb9a_9f4a2743",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-15T08:24:36Z",
+      "side": 1,
+      "message": "If record is not found pel is logged but if keyword is not found only standard logging? Is that ok?",
+      "range": {
+        "startLine": 928,
+        "startChar": 12,
+        "endLine": 930,
+        "endChar": 58
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "402b2300_373f2ba3",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 951,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-15T08:24:36Z",
+      "side": 1,
+      "message": "Not required.",
+      "range": {
+        "startLine": 951,
+        "startChar": 8,
+        "endLine": 951,
+        "endChar": 43
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48789567_0fd7642b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-15T08:24:36Z",
+      "side": 1,
+      "message": "Please rephrase, the path backs up the system VPD.",
+      "range": {
+        "startLine": 962,
+        "startChar": 36,
+        "endLine": 963,
+        "endChar": 20
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f671dcd_a529d4c7",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-15T08:24:36Z",
+      "side": 1,
+      "message": "inventory path is of the FRU.",
+      "range": {
+        "startLine": 964,
+        "startChar": 33,
+        "endLine": 964,
+        "endChar": 69
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f30b0fe_e79c20f6",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-15T08:24:36Z",
+      "side": 1,
+      "message": "there is nothing called VPD inventory.",
+      "range": {
+        "startLine": 965,
+        "startChar": 32,
+        "endLine": 965,
+        "endChar": 46
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cc79ca6_e43cb811",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-15T08:24:36Z",
+      "side": 1,
+      "message": "nit: Why \u0027B\u0027 is capital?",
+      "range": {
+        "startLine": 966,
+        "startChar": 67,
+        "endLine": 966,
+        "endChar": 73
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86e17335_aabe87f4",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-15T08:24:36Z",
+      "side": 1,
+      "message": "Dont need to return any value from this function.Just compare the map for empty after call.",
+      "range": {
+        "startLine": 970,
+        "startChar": 0,
+        "endLine": 970,
+        "endChar": 4
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b7762be_295fffa8",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-15T08:24:36Z",
+      "side": 1,
+      "message": "Not required.",
+      "range": {
+        "startLine": 990,
+        "startChar": 8,
+        "endLine": 990,
+        "endChar": 43
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee57b48b_69413d9c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-15T08:24:36Z",
+      "side": 1,
+      "message": "Dont need these couts.",
+      "range": {
+        "startLine": 1005,
+        "startChar": 12,
+        "endLine": 1005,
+        "endChar": 59
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9095502_6b8a2010",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1299,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-15T08:24:36Z",
+      "side": 1,
+      "message": "Cout not required.",
+      "range": {
+        "startLine": 1299,
+        "startChar": 32,
+        "endLine": 1299,
+        "endChar": 65
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bee3b92_aa0d2718",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1995,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-15T08:24:36Z",
+      "side": 1,
+      "message": "Why this check is needed before dumping the file?",
+      "range": {
+        "startLine": 1995,
+        "startChar": 7,
+        "endLine": 1995,
+        "endChar": 40
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e06db1e_4e2b521b",
+        "filename": "types.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-15T08:24:36Z",
+      "side": 1,
+      "message": "Types should be generic. Specific meaning should be provided by variable name.\nSo type \"RecordName\" is ok you can have variable name which gives specific meaning.\n\nThere are many pre-existing code which does that but we need to get rid of this going forward.\n\nIts better to define a type only when the type is complex type else just use the standard type for defining the type and give variable name which gives specific meaning to the data that variable holds. Otherwise we will overly pollute the file.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 35
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c380ab8_d7f674db",
+        "filename": "types.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-05-15T08:24:36Z",
+      "side": 1,
+      "message": "DbusPropertyMap is sufficient here.",
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
