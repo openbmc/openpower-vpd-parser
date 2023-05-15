@@ -646,10 +646,37 @@ void VpdTool::readKwFromHw(const uint32_t& startOffset)
 {
     ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
     auto jsonFile = nlohmann::json::parse(inventoryJson);
+    bool pathNotFound = false;
 
     Binary completeVPDFile;
     completeVPDFile.resize(65504);
     fstream vpdFileStream;
+    uint32_t vpdStartOffset = 0;
+
+    if (!jsonFile["frus"].contains(fruPath))
+    {
+        vpdStartOffset = startOffset;
+        pathNotFound = true;
+    }
+    else
+    {
+        for (const auto& item : jsonFile["frus"][fruPath])
+        {
+            if (item.find("offset") != item.end())
+            {
+                vpdStartOffset = item["offset"];
+                break;
+            }
+        }
+    }
+
+    if ((startOffset != vpdStartOffset))
+    {
+        std::cerr << "Invalid offset, please add correct offset" << endl;
+        std::cerr << "Correct Offset is: " << vpdStartOffset << endl;
+        return;
+    }
+
     vpdFileStream.open(fruPath,
                        std::ios::in | std::ios::out | std::ios::binary);
 
@@ -663,16 +690,10 @@ void VpdTool::readKwFromHw(const uint32_t& startOffset)
         throw std::runtime_error("Invalid File");
     }
 
-    const std::string& inventoryPath =
-        jsonFile["frus"][fruPath][0]["inventoryPath"];
-
-    uint32_t vpdStartOffset = 0;
-    for (const auto& item : jsonFile["frus"][fruPath])
+    std::string inventoryPath;
+    if (!pathNotFound)
     {
-        if (item.find("offset") != item.end())
-        {
-            vpdStartOffset = item["offset"];
-        }
+        inventoryPath = jsonFile["frus"][fruPath][0]["inventoryPath"];
     }
 
     Impl obj(completeVPDFile, (constants::pimPath + inventoryPath), fruPath,
