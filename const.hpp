@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <iostream>
+#include <stdint>
 
 namespace openpower
 {
