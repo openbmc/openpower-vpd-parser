@@ -610,7 +610,6 @@ void VpdTool::forceReset(const nlohmann::basic_json<>& jsObject)
 
 int VpdTool::updateHardware(const uint32_t offset)
 {
-    int rc = 0;
     Binary val;
     if (std::filesystem::exists(value))
     {
@@ -630,6 +629,24 @@ int VpdTool::updateHardware(const uint32_t offset)
     try
     {
         auto json = nlohmann::json::parse(inventoryJson);
+        uint32_t vpdStartOffset = 0;
+        for (const auto& item : json["frus"][fruPath])
+        {
+            if (item.find("offset") != item.end())
+            {
+                vpdStartOffset = item["offset"];
+                break;
+            }
+        }
+
+        if ((offset != vpdStartOffset))
+        {
+            std::cerr << "Invalid offset passed, please add correct offset"
+                      << endl;
+            std::cerr << "Correct Offset is: " << vpdStartOffset << endl;
+            return -1;
+        }
+
         EditorImpl edit(fruPath, json, recordName, keyword);
 
         edit.updateKeyword(val, offset, false);
@@ -639,7 +656,7 @@ int VpdTool::updateHardware(const uint32_t offset)
         throw(VpdJsonException("Json Parsing failed", INVENTORY_JSON_SYM_LINK));
     }
     std::cout << "Data updated successfully " << std::endl;
-    return rc;
+    return 0;
 }
 
 void VpdTool::readKwFromHw(const uint32_t& startOffset)
@@ -650,6 +667,22 @@ void VpdTool::readKwFromHw(const uint32_t& startOffset)
     Binary completeVPDFile;
     completeVPDFile.resize(65504);
     fstream vpdFileStream;
+    uint32_t vpdStartOffset = 0;
+    for (const auto& item : jsonFile["frus"][fruPath])
+    {
+        if (item.find("offset") != item.end())
+        {
+            vpdStartOffset = item["offset"];
+            break;
+        }
+    }
+    if ((startOffset != vpdStartOffset))
+    {
+        std::cerr << "Invalid offset passed, please add correct offset" << endl;
+        std::cerr << "Correct Offset is: " << vpdStartOffset << endl;
+        return;
+    }
+
     vpdFileStream.open(fruPath,
                        std::ios::in | std::ios::out | std::ios::binary);
 
@@ -665,15 +698,6 @@ void VpdTool::readKwFromHw(const uint32_t& startOffset)
 
     const std::string& inventoryPath =
         jsonFile["frus"][fruPath][0]["inventoryPath"];
-
-    uint32_t vpdStartOffset = 0;
-    for (const auto& item : jsonFile["frus"][fruPath])
-    {
-        if (item.find("offset") != item.end())
-        {
-            vpdStartOffset = item["offset"];
-        }
-    }
 
     Impl obj(completeVPDFile, (constants::pimPath + inventoryPath), fruPath,
              vpdStartOffset);
