@@ -233,9 +233,9 @@ int main(int argc, char** argv)
 
         if (*Hardware)
         {
-            std::cerr << "Did you provide a valid offset? By default VPD "
-                         "offset is taken as 0. To input offset, use --seek. "
-                         "Refer vpd-tool help."
+            std::cerr << std::endl << "Did you provide a valid offset? By"
+                         " default VPD offset is taken as 0. To input offset,"
+                         " use --seek. Refer vpd-tool help."
                       << std::endl;
         }
         rc = -1;
