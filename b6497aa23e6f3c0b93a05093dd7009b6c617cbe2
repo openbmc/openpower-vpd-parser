@@ -542,6 +542,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "351633bd_253528e4",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-16T05:50:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "afca0fe4_0db4a0d5",
+      "range": {
+        "startLine": 1153,
+        "startChar": 23,
+        "endLine": 1153,
+        "endChar": 47
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49089df9_db2900cf",
