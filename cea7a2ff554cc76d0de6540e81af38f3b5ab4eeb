@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8951e06c_18302685",
+        "filename": "const.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-17T04:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f041b186_99c4456a",
+      "range": {
+        "startLine": 120,
+        "startChar": 1,
+        "endLine": 125,
+        "endChar": 17
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9186bd38_f04d9a1b",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "removed from here added in const.hpp as like ISDMM changes.",
       "parentUuid": "9186bd38_f04d9a1b",
+      "range": {
+        "startLine": 41,
+        "startChar": 22,
+        "endLine": 47,
+        "endChar": 56
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9e7b549_d074e924",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-17T04:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5522c7a_21d5855c",
       "range": {
         "startLine": 41,
         "startChar": 22,
@@ -179,6 +227,30 @@
       "side": 1,
       "message": "This function is returning the range b/n 0 - N, corrected to return 0 to N -1  range.",
       "parentUuid": "14297b4c_ac2943ae",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 0
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24542eff_c7e2779b",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-17T04:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d73f603_0e7d7f3e",
       "range": {
         "startLine": 166,
         "startChar": 0,
@@ -378,6 +450,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e8ad8b9_e778d900",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-17T04:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48d6a9c0_89df4fd5",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 202,
+        "endChar": 32
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a032e0ae_99893676",
@@ -415,6 +511,30 @@
       "side": 1,
       "message": "Initially I was returning from the place where the error is encountering, but this one was suggested by Giri, to not to return and proceed with other parameter calculation so that we can get all the errors in one shot if any while extracting rest of the parameters. So I felt that is true hence the code.",
       "parentUuid": "a032e0ae_99893676",
+      "range": {
+        "startLine": 204,
+        "startChar": 6,
+        "endLine": 205,
+        "endChar": 5
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44bfa8ec_18ee5f17",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-17T04:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fdb6d64_19de1f72",
       "range": {
         "startLine": 204,
         "startChar": 6,
@@ -472,6 +592,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74974e90_fd13135d",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-17T04:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24f70ee3_65775cda",
+      "range": {
+        "startLine": 218,
+        "startChar": 15,
+        "endLine": 220,
+        "endChar": 32
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5d2619e_e052d882",
@@ -509,6 +653,30 @@
       "side": 1,
       "message": "map traversing is costly operation than simple comparison, we will keep comparison logic than map traversing.",
       "parentUuid": "b5d2619e_e052d882",
+      "range": {
+        "startLine": 232,
+        "startChar": 4,
+        "endLine": 239,
+        "endChar": 5
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d74a4e9e_f0157cda",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-17T04:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86fba802_969c60ac",
       "range": {
         "startLine": 232,
         "startChar": 4,
@@ -660,6 +828,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c12c7b_6c56f7f3",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-17T04:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0587e11a_fb917ca3",
+      "range": {
+        "startLine": 337,
+        "startChar": 7,
+        "endLine": 337,
+        "endChar": 53
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "feb3e2d4_0377a4f3",
@@ -707,6 +899,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48ce83a4_b39c573e",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-17T04:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39cc8557_6b305b87",
+      "range": {
+        "startLine": 347,
+        "startChar": 11,
+        "endLine": 347,
+        "endChar": 42
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "169399eb_09bc6aaa",
@@ -744,6 +960,30 @@
       "side": 1,
       "message": "map traversing is costly operation than simple comparison, we will keep comparison than map traversing.",
       "parentUuid": "169399eb_09bc6aaa",
+      "range": {
+        "startLine": 360,
+        "startChar": 8,
+        "endLine": 368,
+        "endChar": 9
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "602bfacc_f50686b2",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-17T04:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec9ba840_aa6e502d",
       "range": {
         "startLine": 360,
         "startChar": 8,
