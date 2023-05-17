@@ -84,9 +84,11 @@ class isdimmVpdParser : public ParserInterface
      * @brief This function allocates FRU number based on part number
      *
      * @param[in] partNumber - part number of the DIMM
+     * @param[in] iterator - iterator to buffer containing SPD
      * @return allocated FRU number.
      */
-    auto getDDR4FruNumber(const std::string& partNumber);
+    auto getDDR4FruNumber(const std::string& partNumber,
+                          Binary::const_iterator& iterator);
 
     /**
      * @brief This function allocates CCIN based on part number
