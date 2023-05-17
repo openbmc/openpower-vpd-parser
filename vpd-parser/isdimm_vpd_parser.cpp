@@ -156,19 +156,39 @@ auto isdimmVpdParser::getDDR4SerialNumber(Binary::const_iterator& iterator)
     return serialNumber;
 }
 
-auto isdimmVpdParser::getDDR4FruNumber(const std::string& partNumber)
+auto isdimmVpdParser::getDDR4FruNumber(const std::string& partNumber,
+                                       Binary::const_iterator& iterator)
 {
     // check for 128GB ISRDIMM not implemented
     //(128GB 2RX4(8GX72) IS RDIMM 36*(16GBIT, 2H),1.2V 288PIN,1.2" ROHS) - NA
 
-    static std::unordered_map<std::string, std::string> pnFruMap = {
-        {"8421000", "78P4191"}, {"8421008", "78P4192"}, {"8529000", "78P4197"},
-        {"8529008", "78P4198"}, {"8529928", "78P4199"}, {"8529B28", "78P4200"},
-        {"8631008", "78P6815"}, {"8631928", "78P6925"}};
+    // MTB Units is used in deciding the frequency of the DIMM
+    // This is applicable only for DDR4 specification
+    // 10 - DDR4-1600
+    // 9  - DDR4-1866
+    // 8  - DDR4-2133
+    // 7  - DDR4-2400
+    // 6  - DDR4-2666
+    // 5  - DDR4-3200
+    // pnFreqFnMap < tuple <partNumber, MTBUnits>, fruNumber>
+    static std::map<std::tuple<std::string, uint8_t>, std::string> pnFreqFnMap =
+        {{std::make_tuple("8421000", 6), "78P4191"},
+         {std::make_tuple("8421008", 6), "78P4192"},
+         {std::make_tuple("8529000", 6), "78P4197"},
+         {std::make_tuple("8529008", 6), "78P4198"},
+         {std::make_tuple("8529928", 6), "78P4199"},
+         {std::make_tuple("8529B28", 6), "78P4200"},
+         {std::make_tuple("8631928", 6), "78P6925"},
+         {std::make_tuple("8529000", 5), "78P7317"},
+         {std::make_tuple("8529008", 5), "78P7318"},
+         {std::make_tuple("8631008", 5), "78P6815"}};
 
     std::string fruNumber;
-    auto itr = pnFruMap.find(partNumber);
-    if (itr != pnFruMap.end())
+    uint8_t mtbUnits = iterator[openpower::vpd::constants::SPD_BYTE_18] &
+                       openpower::vpd::constants::SPD_BYTE_MASK;
+    std::tuple<std::string, uint8_t> tup_key = {partNumber, mtbUnits};
+    auto itr = pnFreqFnMap.find(tup_key);
+    if (itr != pnFreqFnMap.end())
     {
         fruNumber = itr->second;
     }
@@ -179,15 +199,16 @@ auto isdimmVpdParser::getDDR4FruNumber(const std::string& partNumber)
     return fruNumber;
 }
 
-auto isdimmVpdParser::getDDR4CCIN(const std::string& partNumber)
+auto isdimmVpdParser::getDDR4CCIN(const std::string& fruNumber)
 {
     static std::unordered_map<std::string, std::string> pnCCINMap = {
-        {"8421000", "324D"}, {"8421008", "324E"}, {"8529000", "324E"},
-        {"8529008", "324F"}, {"8529928", "325A"}, {"8529B28", "324C"},
-        {"8631008", "32BB"}, {"8631928", "32BC"}};
+        {"78P4191", "324D"}, {"78P4192", "324E"}, {"78P4197", "324E"},
+        {"78P4198", "324F"}, {"78P4199", "325A"}, {"78P4200", "324C"},
+        {"78P6925", "32BC"}, {"78P7317", "331A"}, {"78P7318", "331F"},
+        {"78P6815", "32BB"}};
 
     std::string ccin;
-    auto itr = pnCCINMap.find(partNumber);
+    auto itr = pnCCINMap.find(fruNumber);
     if (itr != pnCCINMap.end())
     {
         ccin = itr->second;
@@ -302,9 +323,9 @@ kwdVpdMap isdimmVpdParser::readKeywords(Binary::const_iterator& iterator)
         }
 
         auto partNumber = getDDR4PartNumber(iterator);
-        auto fruNumber = getDDR4FruNumber(partNumber);
+        auto fruNumber = getDDR4FruNumber(partNumber, iterator);
         auto serialNumber = getDDR4SerialNumber(iterator);
-        auto ccin = getDDR4CCIN(partNumber);
+        auto ccin = getDDR4CCIN(fruNumber);
         keywordValueMap.emplace("PN", move(partNumber));
         keywordValueMap.emplace("FN", move(fruNumber));
         keywordValueMap.emplace("SN", move(serialNumber));
