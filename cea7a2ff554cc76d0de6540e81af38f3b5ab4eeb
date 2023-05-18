@@ -1266,6 +1266,24 @@
       "parentUuid": "cff4c44c_aaaee59c",
       "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebfe89f0_a7c9d91e",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-18T05:54:45Z",
+      "side": 1,
+      "message": "thanks!",
+      "parentUuid": "4ca111c8_76bf64a1",
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
