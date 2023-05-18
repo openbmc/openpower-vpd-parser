@@ -39,6 +39,30 @@
       },
       "revId": "dc3fe43c3442dc55b44561e949f93d66fdca2cbb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "972ac4ab_a8b0e878",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-18T08:39:06Z",
+      "side": 1,
+      "message": "As discussed, I will be removing all the cout statements and will have only one cout statement saying \"Failed to read DIMM VPD, calculated dimm size is 0\"",
+      "parentUuid": "3ffb5696_352fcd93",
+      "range": {
+        "startLine": 195,
+        "startChar": 8,
+        "endLine": 198,
+        "endChar": 26
+      },
+      "revId": "dc3fe43c3442dc55b44561e949f93d66fdca2cbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
