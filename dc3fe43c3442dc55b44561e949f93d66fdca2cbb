@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7650c433_0e36574f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-18T05:54:02Z",
+      "side": 1,
+      "message": "Looks ok to me, except having a cerr statement without mentioning the inventory path/eeprom path. Once that is resolved I\u0027ll score +1",
+      "revId": "dc3fe43c3442dc55b44561e949f93d66fdca2cbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ffb5696_352fcd93",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-18T05:54:02Z",
+      "side": 1,
+      "message": "this debug data is not useful unless you tell on which eeprom the 6th byte has bad data.\nlets say dimm0 , dimm1, dimm2 has bad vpd. the cerr statement here will be confusing on which dimm the 6th byte is bad and its not useful enough to debug further.\n\nTry to include eeprom path in every cerr statements.",
+      "range": {
+        "startLine": 195,
+        "startChar": 8,
+        "endLine": 198,
+        "endChar": 26
+      },
+      "revId": "dc3fe43c3442dc55b44561e949f93d66fdca2cbb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

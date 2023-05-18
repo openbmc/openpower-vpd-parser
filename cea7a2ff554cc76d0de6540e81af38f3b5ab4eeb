@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "817fd6ec_6b39baef",
+        "filename": "const.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-18T05:54:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f041b186_99c4456a",
+      "range": {
+        "startLine": 120,
+        "startChar": 1,
+        "endLine": 125,
+        "endChar": 17
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9186bd38_f04d9a1b",
@@ -130,6 +154,30 @@
         "id": 1001643
       },
       "writtenOn": "2023-05-17T04:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5522c7a_21d5855c",
+      "range": {
+        "startLine": 41,
+        "startChar": 22,
+        "endLine": 47,
+        "endChar": 56
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f383d3b3_eb54c552",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-18T05:54:02Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "d5522c7a_21d5855c",
@@ -396,6 +444,54 @@
       "range": {
         "startLine": 188,
         "startChar": 36,
+        "endLine": 189,
+        "endChar": 63
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b45da548_fadd957e",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-18T05:54:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1586a901_4760ad37",
+      "range": {
+        "startLine": 188,
+        "startChar": 36,
+        "endLine": 189,
+        "endChar": 63
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8711ce80_9677fd76",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-18T05:54:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5204582_95479c8c",
+      "range": {
+        "startLine": 188,
+        "startChar": 30,
         "endLine": 189,
         "endChar": 63
       },
@@ -687,6 +783,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a93a2d5e_84526ba2",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-18T05:54:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "86fba802_969c60ac",
+      "range": {
+        "startLine": 232,
+        "startChar": 4,
+        "endLine": 239,
+        "endChar": 5
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0039e60f_74c88ba2",
@@ -852,6 +972,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbdfb9d5_c79a8ed1",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-18T05:54:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0587e11a_fb917ca3",
+      "range": {
+        "startLine": 337,
+        "startChar": 7,
+        "endLine": 337,
+        "endChar": 53
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "feb3e2d4_0377a4f3",
@@ -994,6 +1138,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cab48708_aaea2ec7",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-18T05:54:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec9ba840_aa6e502d",
+      "range": {
+        "startLine": 360,
+        "startChar": 8,
+        "endLine": 368,
+        "endChar": 9
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec378aa4_f84f4561",
@@ -1031,6 +1199,30 @@
       "side": 1,
       "message": "this is not repetitive, here the sdramIo width value is different (primary we extract from different byte \u0026 secondary we extract from different bytes)",
       "parentUuid": "ec378aa4_f84f4561",
+      "range": {
+        "startLine": 410,
+        "startChar": 12,
+        "endLine": 410,
+        "endChar": 69
+      },
+      "revId": "cea7a2ff554cc76d0de6540e81af38f3b5ab4eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8fd53a5_fa4f3639",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-18T05:54:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc64188c_afbb213a",
       "range": {
         "startLine": 410,
         "startChar": 12,
