@@ -46,6 +46,30 @@
       },
       "revId": "7b9cd07649623bc4c2f178e3759d7732d1e8bce8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71d9166e_6463817e",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-19T13:43:37Z",
+      "side": 1,
+      "message": "and do we need it in bytes or some other unit?",
+      "parentUuid": "50991706_dd8a9c41",
+      "range": {
+        "startLine": 390,
+        "startChar": 4,
+        "endLine": 390,
+        "endChar": 20
+      },
+      "revId": "7b9cd07649623bc4c2f178e3759d7732d1e8bce8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
