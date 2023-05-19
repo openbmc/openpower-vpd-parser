@@ -94,6 +94,30 @@
       },
       "revId": "7b9cd07649623bc4c2f178e3759d7732d1e8bce8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a99c63e_5ff87527",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-19T15:36:58Z",
+      "side": 1,
+      "message": "1. can you please point me where in isdimm for ddr5 we display MemorySizeInKB on dbus in bytes?\n2. DDR4 dimm size as per spec will be in mb/gb. but whatever we populate on dbus it should be in kb - as the dbus property name suggest \"MemorySizeInKB\". There is a defect for DDR4 dimm size, which will be addressed by Giri.\n3. In DDR5 as per the spec it is bytes but we need to display in dbus in KB - and we are storing the value in bytes for this property \"MemorySizeInKB\". which is not right. \ncan you please make the changes w.r.t DDR5 in this commit.",
+      "parentUuid": "05d60baa_395fc6a7",
+      "range": {
+        "startLine": 390,
+        "startChar": 4,
+        "endLine": 390,
+        "endChar": 20
+      },
+      "revId": "7b9cd07649623bc4c2f178e3759d7732d1e8bce8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
