@@ -70,6 +70,30 @@
       },
       "revId": "7b9cd07649623bc4c2f178e3759d7732d1e8bce8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05d60baa_395fc6a7",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-19T13:55:26Z",
+      "side": 1,
+      "message": "It should be in bytes, I took the reference of ISDIMM changes there also for DDR5  we are keeping it in bytes. For DDR4 the dimm size will be in megabytes or giga bytes as per the spec and it is being converted to KB. But for DDR5 we can have it in bytes else if we need convert to KB means it will be a floating point number.",
+      "parentUuid": "71d9166e_6463817e",
+      "range": {
+        "startLine": 390,
+        "startChar": 4,
+        "endLine": 390,
+        "endChar": 20
+      },
+      "revId": "7b9cd07649623bc4c2f178e3759d7732d1e8bce8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
