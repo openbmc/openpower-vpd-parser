@@ -101,7 +101,7 @@ auto memoryVpdParser::getDimmSize(Binary::const_iterator iterator)
     dimmSize = (sdramCap / JEDEC_PRI_BUS_WIDTH_MULTIPLIER) *
                (priBusWid / sdramWid) * logicalRanksPerDimm;
 
-    return dimmSize;
+    return (constants::CONVERT_MB_TO_KB)*dimmSize;
 }
 
 kwdVpdMap memoryVpdParser::readKeywords(Binary::const_iterator iterator)
