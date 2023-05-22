@@ -1,5 +1,7 @@
 #include "memory_vpd_parser.hpp"
 
+#include "const.hpp"
+
 #include <iostream>
 #include <numeric>
 #include <string>
@@ -115,7 +117,7 @@ kwdVpdMap memoryVpdParser::readKeywords(Binary::const_iterator iterator)
         cerr << "Error: Calculated dimm size is 0.";
     }
 
-    map.emplace("MemorySizeInKB", dimmSize);
+    map.emplace("MemorySizeInKB", (dimmSize * constants::CONVERT_MB_TO_KB));
     // point the iterator to DIMM data and skip "11S"
     advance(iterator, MEMORY_VPD_DATA_START + 3);
     Binary partNumber(iterator, iterator + PART_NUM_LEN);
