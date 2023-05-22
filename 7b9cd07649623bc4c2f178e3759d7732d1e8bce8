@@ -166,6 +166,30 @@
       },
       "revId": "7b9cd07649623bc4c2f178e3759d7732d1e8bce8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae02df1d_344d192a",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-22T06:47:54Z",
+      "side": 1,
+      "message": "1. isdimm code has dummy implementation for ddr5.\n 3. where in code the size is in uint32_t ? please check properly. its in size_t only.",
+      "parentUuid": "6a5c0188_a2befa47",
+      "range": {
+        "startLine": 390,
+        "startChar": 4,
+        "endLine": 390,
+        "endChar": 20
+      },
+      "revId": "7b9cd07649623bc4c2f178e3759d7732d1e8bce8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
