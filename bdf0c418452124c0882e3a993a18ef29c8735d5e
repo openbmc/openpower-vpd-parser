@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac868077_a9e485a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-22T09:24:52Z",
+      "side": 1,
+      "message": "test section is missing in commit message. please test on dbus and on GUI and paste the outputs.",
+      "revId": "bdf0c418452124c0882e3a993a18ef29c8735d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6712e1d7_1fc65948",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-22T09:24:52Z",
+      "side": 1,
+      "message": "can you please add a brief note about this defect. what was there before and what have you changed",
+      "revId": "bdf0c418452124c0882e3a993a18ef29c8735d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30930ca9_dce0ee89",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-22T09:24:52Z",
+      "side": 1,
+      "message": "this is not required as its already been included in impl.hpp which is defined in memory_vpd_parser.hpp",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "bdf0c418452124c0882e3a993a18ef29c8735d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fa4ab2c_bbad673f",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-22T09:24:52Z",
+      "side": 1,
+      "message": "please make the conversion after size calculation, that is before the control returning to line 114. \nhaving this conversion at line 120 will conflict with ddr5 dimm size.",
+      "range": {
+        "startLine": 120,
+        "startChar": 34,
+        "endLine": 120,
+        "endChar": 76
+      },
+      "revId": "bdf0c418452124c0882e3a993a18ef29c8735d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
