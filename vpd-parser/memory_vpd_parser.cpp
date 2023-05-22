@@ -109,7 +109,7 @@ kwdVpdMap memoryVpdParser::readKeywords(Binary::const_iterator iterator)
     KeywordVpdMap map{};
 
     // collect Dimm size value
-    auto dimmSize = getDimmSize(iterator);
+    auto dimmSize = (constants::CONVERT_MB_TO_KB) * getDimmSize(iterator);
     if (!dimmSize)
     {
         cerr << "Error: Calculated dimm size is 0.";
