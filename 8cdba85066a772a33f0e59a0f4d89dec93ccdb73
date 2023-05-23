@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9293dcc_7f635477",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-23T06:17:47Z",
+      "side": 1,
+      "message": "bonnell* spelling",
+      "range": {
+        "startLine": 7,
+        "startChar": 29,
+        "endLine": 7,
+        "endChar": 37
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f2ddf98_7263c071",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-23T06:17:47Z",
+      "side": 1,
+      "message": "can you please avoid using capitals in between the sentences unless its an abbreviation.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 59
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93780041_51dc6529",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-23T06:17:47Z",
+      "side": 1,
+      "message": "backup*",
+      "range": {
+        "startLine": 18,
+        "startChar": 54,
+        "endLine": 18,
+        "endChar": 60
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8baac28a_1c6626a2",
+        "filename": "ibm_vpd/fru/50004000.json",
+        "patchSetId": 20
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-23T06:17:47Z",
+      "side": 1,
+      "message": "50004000.json present in upstream is not up-to-date. please create a downstream PR for the json changes.\n\nRemove this change here.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 81
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a4cd38f_69dcb30e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-23T06:17:47Z",
+      "side": 1,
+      "message": "I can see you are fetching these two values systemVpdBackupPath and backupVpdInvPath in 3 apis. (in main, in populate dbus and in restore system vpd apis). Can you fetch once in main and pass it as arguments wherever required?",
+      "range": {
+        "startLine": 1174,
+        "startChar": 8,
+        "endLine": 1180,
+        "endChar": 0
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89fc3f2b_0a30ec9a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-23T06:17:47Z",
+      "side": 1,
+      "message": "can you print cerr stating - \"Unable to fetch backup VPD \u003ceeprom path\u003e. Skip system VPD restore.\"",
+      "range": {
+        "startLine": 1186,
+        "startChar": 11,
+        "endLine": 1186,
+        "endChar": 19
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a871657_71441794",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1779,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-23T06:17:47Z",
+      "side": 1,
+      "message": "no need of this boolean.  stated the reason below",
+      "range": {
+        "startLine": 1779,
+        "startChar": 4,
+        "endLine": 1779,
+        "endChar": 29
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d90d5d02_80c69bb2",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1940,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-23T06:17:47Z",
+      "side": 1,
+      "message": "can you please move(1930 till 1939) this inside the if at line 1799. and you can move the if at line 1799 anywhere after line 1846.\n\nno need of the boolean isSystemVpd.",
+      "range": {
+        "startLine": 1928,
+        "startChar": 12,
+        "endLine": 1940,
+        "endChar": 13
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8f6b3f8_bb025786",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1971,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-23T06:17:47Z",
+      "side": 1,
+      "message": "what happens when the system VPD itself has any ECC errors? where do you capture it?\n\nIs it always the backup vpd going to fail?",
+      "range": {
+        "startLine": 1968,
+        "startChar": 8,
+        "endLine": 1971,
+        "endChar": 9
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87100cdc_d6179bdd",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1993,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-23T06:17:47Z",
+      "side": 1,
+      "message": "same here, what happens when the system VPD itself has any data exceptions? where do you capture it?",
+      "range": {
+        "startLine": 1987,
+        "startChar": 5,
+        "endLine": 1993,
+        "endChar": 0
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
