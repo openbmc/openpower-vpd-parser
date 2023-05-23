@@ -70,6 +70,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71413bab_14837d97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-05-23T06:18:12Z",
+      "side": 1,
+      "message": "review pending. posting the comments which I have so far",
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8baac28a_1c6626a2",
