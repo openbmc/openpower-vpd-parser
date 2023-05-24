@@ -37,6 +37,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f337bda0_97d54997",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-05-24T05:45:41Z",
+      "side": 1,
+      "message": "Will put it.",
+      "parentUuid": "ac868077_a9e485a6",
+      "revId": "bdf0c418452124c0882e3a993a18ef29c8735d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40e4d1a3_d3712e3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-05-24T05:45:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6712e1d7_1fc65948",
+      "revId": "bdf0c418452124c0882e3a993a18ef29c8735d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "30930ca9_dce0ee89",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 2
@@ -60,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2bdc1492_335e6c66",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-05-24T05:45:41Z",
+      "side": 1,
+      "message": "Oh Okay, thanks.",
+      "parentUuid": "30930ca9_dce0ee89",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "bdf0c418452124c0882e3a993a18ef29c8735d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3fa4ab2c_bbad673f",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 2
@@ -71,6 +131,30 @@
       "writtenOn": "2023-05-22T09:24:52Z",
       "side": 1,
       "message": "please make the conversion after size calculation, that is before the control returning to line 114. \nhaving this conversion at line 120 will conflict with ddr5 dimm size.",
+      "range": {
+        "startLine": 120,
+        "startChar": 34,
+        "endLine": 120,
+        "endChar": 76
+      },
+      "revId": "bdf0c418452124c0882e3a993a18ef29c8735d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85fb956a_bf260bfb",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000386
+      },
+      "writtenOn": "2023-05-24T05:45:41Z",
+      "side": 1,
+      "message": "DDR5 is future patch right? so, can have the change when merging?",
+      "parentUuid": "3fa4ab2c_bbad673f",
       "range": {
         "startLine": 120,
         "startChar": 34,
