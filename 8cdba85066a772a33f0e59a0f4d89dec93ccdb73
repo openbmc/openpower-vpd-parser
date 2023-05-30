@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfc9fb7b_f287efa8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-30T07:19:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c9293dcc_7f635477",
+      "range": {
+        "startLine": 7,
+        "startChar": 29,
+        "endLine": 7,
+        "endChar": 37
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f2ddf98_7263c071",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36573120_7918681c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-30T07:19:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0f2ddf98_7263c071",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 59
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93780041_51dc6529",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-05-23T06:17:47Z",
       "side": 1,
       "message": "backup*",
+      "range": {
+        "startLine": 18,
+        "startChar": 54,
+        "endLine": 18,
+        "endChar": 60
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04b2682c_7aed0f41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-30T07:19:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "93780041_51dc6529",
       "range": {
         "startLine": 18,
         "startChar": 54,
@@ -112,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f20d778_c0f3b747",
+        "filename": "ibm_vpd/fru/50004000.json",
+        "patchSetId": 20
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-30T07:19:25Z",
+      "side": 1,
+      "message": "okay..",
+      "parentUuid": "8baac28a_1c6626a2",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 81
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a4cd38f_69dcb30e",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 20
@@ -123,6 +219,30 @@
       "writtenOn": "2023-05-23T06:17:47Z",
       "side": 1,
       "message": "I can see you are fetching these two values systemVpdBackupPath and backupVpdInvPath in 3 apis. (in main, in populate dbus and in restore system vpd apis). Can you fetch once in main and pass it as arguments wherever required?",
+      "range": {
+        "startLine": 1174,
+        "startChar": 8,
+        "endLine": 1180,
+        "endChar": 0
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13414d6b_f2c7c708",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-30T07:19:25Z",
+      "side": 1,
+      "message": "These two parameters we are being used only during the system VPD parsing \u0026 restoring of system VPD so lets fetch as and when required instead of polluting the populateDbus() argument list because in other cases we won\u0027t be using these parameters.",
+      "parentUuid": "1a4cd38f_69dcb30e",
       "range": {
         "startLine": 1174,
         "startChar": 8,
@@ -158,6 +278,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5c285d5_056bbd86",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-30T07:19:25Z",
+      "side": 1,
+      "message": "Not needed because we already creating the PEL inside getBackupVpdInMap().",
+      "parentUuid": "89fc3f2b_0a30ec9a",
+      "range": {
+        "startLine": 1186,
+        "startChar": 11,
+        "endLine": 1186,
+        "endChar": 19
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9a871657_71441794",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 20
@@ -169,6 +313,30 @@
       "writtenOn": "2023-05-23T06:17:47Z",
       "side": 1,
       "message": "no need of this boolean.  stated the reason below",
+      "range": {
+        "startLine": 1779,
+        "startChar": 4,
+        "endLine": 1779,
+        "endChar": 29
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afa25db6_5bbd2768",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1779,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-30T07:19:25Z",
+      "side": 1,
+      "message": "No it should be here only. Please take a look at explanation given below",
+      "parentUuid": "9a871657_71441794",
       "range": {
         "startLine": 1779,
         "startChar": 4,
@@ -204,6 +372,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "39eca36b_330466d9",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1940,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-30T07:19:25Z",
+      "side": 1,
+      "message": "The intent of putting this piece of code here, I want to fetch the \u0027systemVpdBackupPath\u0027 field value from JSON file only after successful parsing of system VPD. This is because if we fetch at above and keep it ready means in a scenario if there are ECC/VPD data exceptions occurs during system VPD parser it will hit the catch() blocks so in those cases we may end up in choosing the wrong baseFruInventoryPath \u0026 VPD file path hence this piece of code is being written here instead of above.",
+      "parentUuid": "d90d5d02_80c69bb2",
+      "range": {
+        "startLine": 1928,
+        "startChar": 12,
+        "endLine": 1940,
+        "endChar": 13
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8f6b3f8_bb025786",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 20
@@ -227,6 +419,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e7f10d4_ef911920",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1971,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-30T07:19:25Z",
+      "side": 1,
+      "message": "\u0027systemVpdBackupPath\u0027 will be empty if there are any ECC exceptions occurred because we are fetching \u0027systemVpdBackupPath\u0027 after the parseVpdFile() of system VPD. If any exceptions ECC/VPD data exceptions occurred inside parseVpdFile()  the next statement after parseVpdFile() call won\u0027t be executed so value of \u0027systemVpdBackupPath\u0027 will empty in those case hence it will capture the system VPD failure details",
+      "parentUuid": "c8f6b3f8_bb025786",
+      "range": {
+        "startLine": 1968,
+        "startChar": 8,
+        "endLine": 1971,
+        "endChar": 9
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87100cdc_d6179bdd",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 20
@@ -238,6 +454,30 @@
       "writtenOn": "2023-05-23T06:17:47Z",
       "side": 1,
       "message": "same here, what happens when the system VPD itself has any data exceptions? where do you capture it?",
+      "range": {
+        "startLine": 1987,
+        "startChar": 5,
+        "endLine": 1993,
+        "endChar": 0
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dfadbc7_52db0668",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1993,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-30T07:19:25Z",
+      "side": 1,
+      "message": "Same explanation as above",
+      "parentUuid": "87100cdc_d6179bdd",
       "range": {
         "startLine": 1987,
         "startChar": 5,

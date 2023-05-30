@@ -591,6 +591,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "98a81f15_d0374292",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1995,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-05-30T07:19:25Z",
+      "side": 1,
+      "message": "value of \u0027systemVpdBackupPath\u0027 will be empty because it is being fetched after parsing of system VPD file i.e after parseVpdFile() call. If there are any exceptions during parsing of system VPD the next statement after parseVpdFile() call won\u0027t get executed so control will directly goes to catch() block and take care of dumping the syste VPD because at that time value of \u0027systemVpdBackupPath\u0027 still be empty.",
+      "parentUuid": "6812c4e6_b2a256b4",
+      "range": {
+        "startLine": 1995,
+        "startChar": 7,
+        "endLine": 1995,
+        "endChar": 40
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e06db1e_4e2b521b",
         "filename": "types.hpp",
         "patchSetId": 15
