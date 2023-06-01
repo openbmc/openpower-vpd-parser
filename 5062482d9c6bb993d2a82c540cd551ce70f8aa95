@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c6c3dd9_5a3cfa65",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-01T16:22:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8b69dc71_dd03c2e6",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 3
+      },
+      "revId": "5062482d9c6bb993d2a82c540cd551ce70f8aa95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f03cf11f_b13d5f62",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-31T10:33:16Z",
       "side": 1,
       "message": "this is normally done in header files only",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 3
+      },
+      "revId": "5062482d9c6bb993d2a82c540cd551ce70f8aa95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1513f3b_1032f6e1",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-01T16:22:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f03cf11f_b13d5f62",
       "range": {
         "startLine": 169,
         "startChar": 0,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c29c4788_2feedfd2",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-01T16:22:58Z",
+      "side": 1,
+      "message": "I would prefer to keep this for better modularity, instead of having single larger function. Lets have a separate function for for symmetrical \u0026 asymmetrical even ranks as like we are having asymmetrical odd ranks.",
+      "parentUuid": "cf828327_eefd333a",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 64
+      },
+      "revId": "5062482d9c6bb993d2a82c540cd551ce70f8aa95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "330a4253_18cc4ca7",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 41
@@ -83,6 +155,30 @@
       "writtenOn": "2023-05-31T10:33:16Z",
       "side": 1,
       "message": "sdramIoWidth \u003d JEDEC_SDRAM_WIDTH_MULTIPLIER \u003c\u003c tmp; would be better",
+      "range": {
+        "startLine": 197,
+        "startChar": 4,
+        "endLine": 197,
+        "endChar": 72
+      },
+      "revId": "5062482d9c6bb993d2a82c540cd551ce70f8aa95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95421d95_5d332b1b",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-01T16:22:58Z",
+      "side": 1,
+      "message": "yeah agree, but to keep in line with DDR4 calculations, let\u0027s keep it the same.",
+      "parentUuid": "330a4253_18cc4ca7",
       "range": {
         "startLine": 197,
         "startChar": 4,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a4ac8dd_c099df12",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-01T16:22:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2b5a37c2_2dbb5d19",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 3
+      },
+      "revId": "5062482d9c6bb993d2a82c540cd551ce70f8aa95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c599c123_278fd4e6",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-05-31T10:33:16Z",
       "side": 1,
       "message": "why is tmp separate and not in the uint8_t below?",
+      "range": {
+        "startLine": 295,
+        "startChar": 4,
+        "endLine": 295,
+        "endChar": 20
+      },
+      "revId": "5062482d9c6bb993d2a82c540cd551ce70f8aa95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8124785d_05aae460",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-01T16:22:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c599c123_278fd4e6",
       "range": {
         "startLine": 295,
         "startChar": 4,
@@ -164,6 +308,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e7be5b6_93e2718f",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-01T16:22:58Z",
+      "side": 1,
+      "message": "No specific reason as such, as a practice declared the variables with default value at the beginning of function in one shot.",
+      "parentUuid": "a1bb89c5_cd53980c",
+      "range": {
+        "startLine": 298,
+        "startChar": 4,
+        "endLine": 299,
+        "endChar": 36
+      },
+      "revId": "5062482d9c6bb993d2a82c540cd551ce70f8aa95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f02192b6_4318fbc4",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 41
@@ -175,6 +343,30 @@
       "writtenOn": "2023-05-31T10:33:16Z",
       "side": 1,
       "message": "SPD_JEDEC_DDR5_PRI_BUS_WIDTH_PER_CHNL_MULTIPLIER \u003c\u003c tmp",
+      "range": {
+        "startLine": 323,
+        "startChar": 4,
+        "endLine": 324,
+        "endChar": 79
+      },
+      "revId": "5062482d9c6bb993d2a82c540cd551ce70f8aa95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2629ceb7_df1689aa",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-01T16:22:58Z",
+      "side": 1,
+      "message": "yeah agree, but to keep in line with DDR4 calculations, let\u0027s keep it the same",
+      "parentUuid": "f02192b6_4318fbc4",
       "range": {
         "startLine": 323,
         "startChar": 4,
@@ -210,6 +402,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2dfb371d_d8ca9ec6",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-01T16:22:58Z",
+      "side": 1,
+      "message": "because here I have taken default value of variable \u0027numOfPkgRankPerChnl\u0027 as 1 i.e right side value as per spec which is starting from 1.",
+      "parentUuid": "3feeef06_dc5dc32e",
+      "range": {
+        "startLine": 332,
+        "startChar": 4,
+        "endLine": 332,
+        "endChar": 31
+      },
+      "revId": "5062482d9c6bb993d2a82c540cd551ce70f8aa95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dd6935fb_fdabec6d",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 41
@@ -221,6 +437,30 @@
       "writtenOn": "2023-05-31T10:33:16Z",
       "side": 1,
       "message": "was not needed just line 337 could have been used below",
+      "range": {
+        "startLine": 334,
+        "startChar": 1,
+        "endLine": 344,
+        "endChar": 0
+      },
+      "revId": "5062482d9c6bb993d2a82c540cd551ce70f8aa95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb541efd_9840dc8c",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-01T16:22:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dd6935fb_fdabec6d",
       "range": {
         "startLine": 334,
         "startChar": 1,
@@ -256,6 +496,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "efe200cd_77b60b41",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-01T16:22:58Z",
+      "side": 1,
+      "message": "I have taken default value of this param as 1 to derive the SDRAM I/O width after extracting the SDRAM I/O width value from DIMM VPD, we can take any value as default. value 0 or -1 we ideally take for the variables which are returning from function to indicate function successful or failure.",
+      "parentUuid": "6ff8eeff_48fe6f8d",
+      "range": {
+        "startLine": 345,
+        "startChar": 12,
+        "endLine": 345,
+        "endChar": 28
+      },
+      "revId": "5062482d9c6bb993d2a82c540cd551ce70f8aa95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48998e78_9f94ce22",
         "filename": "vpd-parser/memory_vpd_parser.cpp",
         "patchSetId": 41
@@ -267,6 +531,30 @@
       "writtenOn": "2023-05-31T10:33:16Z",
       "side": 1,
       "message": "if(iterator[constants::SPD_BYTE_234] \u0026 SPD_JEDEC_DDR5_SDRAM_RANK_MIX_TYPE_MASK;)\nCould have been used along with a comment that if is for symmetrical Rank and else for Asymmetrical rank.",
+      "range": {
+        "startLine": 354,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 57
+      },
+      "revId": "5062482d9c6bb993d2a82c540cd551ce70f8aa95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18f2cd7d_872aa5f9",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-01T16:22:58Z",
+      "side": 1,
+      "message": "I would prefer to keep as it is because this gives better readability than the said change.",
+      "parentUuid": "48998e78_9f94ce22",
       "range": {
         "startLine": 354,
         "startChar": 0,
@@ -294,6 +582,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02fd717c_386164cd",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-01T16:22:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1468bef3_8d371c4d",
+      "revId": "5062482d9c6bb993d2a82c540cd551ce70f8aa95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2bcaf10_24065d28",
@@ -307,6 +613,30 @@
       "writtenOn": "2023-05-31T10:33:16Z",
       "side": 1,
       "message": "Unsupported DIMM type",
+      "range": {
+        "startLine": 412,
+        "startChar": 24,
+        "endLine": 412,
+        "endChar": 37
+      },
+      "revId": "5062482d9c6bb993d2a82c540cd551ce70f8aa95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3fa7308_2b67f278",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-01T16:22:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b2bcaf10_24065d28",
       "range": {
         "startLine": 412,
         "startChar": 24,
