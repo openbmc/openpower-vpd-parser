@@ -11,7 +11,7 @@ do
         echo "Done wait for active VPD parsers. Exit success"
         exit 0
     fi
-    retries=$((retries - 1))
+    retries=`expr $retries - 1`
     echo "VPD parsers still running. Retries remaining: $retries"
 done
 echo "Exit wait for VPD services to finish with timeout"
