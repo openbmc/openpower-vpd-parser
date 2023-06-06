@@ -7,7 +7,7 @@ After=system-vpd.service
 Before=phosphor-discover-system-state@0.service
 
 [Service]
-ExecStart=/usr/bin/env ibm-read-vpd --file %f/nvmem
+ExecStart=/usr/bin/env ibm-read-vpd --file %f --driver at24
 SyslogIdentifier=ibm-vpd-parser
 
 [Install]
