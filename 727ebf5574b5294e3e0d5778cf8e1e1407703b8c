@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8680c702_b0dcd6fd",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T12:42:12Z",
+      "side": 1,
+      "message": "There was a comment to change this. You marked the comment as resolved but I don\u0027t see a change here.",
+      "range": {
+        "startLine": 909,
+        "startChar": 16,
+        "endLine": 910,
+        "endChar": 55
+      },
+      "revId": "727ebf5574b5294e3e0d5778cf8e1e1407703b8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e83de2df_75e9cfac",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1370,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T12:42:12Z",
+      "side": 1,
+      "message": "Can we use recursive call here to populate Dbus instead of creating a new function?",
+      "range": {
+        "startLine": 1370,
+        "startChar": 8,
+        "endLine": 1370,
+        "endChar": 37
+      },
+      "revId": "727ebf5574b5294e3e0d5778cf8e1e1407703b8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

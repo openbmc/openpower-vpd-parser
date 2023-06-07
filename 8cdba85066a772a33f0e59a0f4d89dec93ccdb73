@@ -738,6 +738,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc7e06f6_e1ef65b8",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T12:42:12Z",
+      "side": 1,
+      "message": "I know, that is why in my comment I told to make that function generic so that it can be used if required in future.\nAlso, a function to get value should just get the value if there is any error or failure caller should take the call if it requires a PEL or something else.",
+      "parentUuid": "fa779389_f0b646ee",
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "adf379f5_e8106b64",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 20
