@@ -189,6 +189,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbeac035_10df9850",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "677b86c5_fd0eb4ae",
+      "range": {
+        "startLine": 921,
+        "startChar": 14,
+        "endLine": 921,
+        "endChar": 32
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c384efe5_672581da",
@@ -283,6 +307,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50f5b69e_96243766",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "My concern was with the spelling of \"backup\" which has been taken care in latest PS. Hence marking as resolved.",
+      "parentUuid": "c79b0781_f8657302",
+      "range": {
+        "startLine": 928,
+        "startChar": 37,
+        "endLine": 928,
+        "endChar": 55
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a5ef72c_abc4c9c9",
@@ -367,6 +415,30 @@
       "side": 1,
       "message": "I feel this is the suitable name, as this will have the EEPROM file path on which the system VPD\u0027s critical keywords will be stored as backup.",
       "parentUuid": "93319493_fb366e92",
+      "range": {
+        "startLine": 988,
+        "startChar": 23,
+        "endLine": 988,
+        "endChar": 41
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "196b1a63_3309199e",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "My concern was with the \"backup\" part which has been taken care hence resolving the comment.",
+      "parentUuid": "29098d21_330ef1a0",
       "range": {
         "startLine": 988,
         "startChar": 23,
@@ -697,6 +769,30 @@
       "side": 1,
       "message": "As discussed, I am passing this because we need that pointer object in order to de-allocate the memory in case of any exceptions. Once the exceptions are handled Caller has make sure the pointer is deleted. I have mentioned that point in doxygen (Caller has to make sure of deleting the pointer object).",
       "parentUuid": "0efd8192_5c7cb3f8",
+      "range": {
+        "startLine": 1720,
+        "startChar": 11,
+        "endLine": 1720,
+        "endChar": 46
+      },
+      "revId": "b6497aa23e6f3c0b93a05093dd7009b6c617cbe2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c837129_e278a16c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1720,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "The comment no longer holds good as with the latest change pointer can be taken care without passing around.\nMarking as resolved.",
+      "parentUuid": "a6c58cc7_6204d281",
       "range": {
         "startLine": 1720,
         "startChar": 11,

@@ -208,6 +208,167 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34f75938_ac94de44",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "The map also has records?\nParsed VPD map will be fine I guess.",
+      "range": {
+        "startLine": 865,
+        "startChar": 18,
+        "endLine": 865,
+        "endChar": 31
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c73c540e_99991fe3",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "You are already including this namespace at the top. Get rid from one of the place.",
+      "range": {
+        "startLine": 867,
+        "startChar": 13,
+        "endLine": 867,
+        "endChar": 39
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3fb3972_5926fca6",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "You are including this at the top of file. Get rid from the top.",
+      "range": {
+        "startLine": 883,
+        "startChar": 8,
+        "endLine": 883,
+        "endChar": 54
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efc8aedb_9fde04bd",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "VPD itself os vital product data.",
+      "range": {
+        "startLine": 897,
+        "startChar": 55,
+        "endLine": 897,
+        "endChar": 64
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b654dacb_53e58301",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "Try to keep the function generic so that it can be reused if required in future.\nLet the function be just getKwValue which reads kwd value from a map and returns true/false based on result.",
+      "range": {
+        "startLine": 908,
+        "startChar": 5,
+        "endLine": 908,
+        "endChar": 27
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d428936a_0b3d6ee1",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "These two parameters are just required for logging PEL.\nCan be avoided by logging PEL at the caller. \nLet the API just return true/false based on wether it was able to read the value or not and caller decide what to do in that case.",
+      "range": {
+        "startLine": 911,
+        "startChar": 28,
+        "endLine": 912,
+        "endChar": 67
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4de57757_4ee8e03a",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "Use a default value here.",
+      "range": {
+        "startLine": 1166,
+        "startChar": 48,
+        "endLine": 1166,
+        "endChar": 63
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a4cd38f_69dcb30e",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 20
@@ -243,6 +404,30 @@
       "side": 1,
       "message": "These two parameters we are being used only during the system VPD parsing \u0026 restoring of system VPD so lets fetch as and when required instead of polluting the populateDbus() argument list because in other cases we won\u0027t be using these parameters.",
       "parentUuid": "1a4cd38f_69dcb30e",
+      "range": {
+        "startLine": 1174,
+        "startChar": 8,
+        "endLine": 1180,
+        "endChar": 0
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1ab9c6b_ddd78f6b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "IMO, fetching from JSON is constant time action, since only few values, I am ok with the code here.",
+      "parentUuid": "13414d6b_f2c7c708",
       "range": {
         "startLine": 1174,
         "startChar": 8,
@@ -295,6 +480,93 @@
         "startChar": 11,
         "endLine": 1186,
         "endChar": 19
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e236ecb_58651ae4",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "Is it possible that file is present still the parsed map comes out to be empty?",
+      "parentUuid": "d5c285d5_056bbd86",
+      "range": {
+        "startLine": 1186,
+        "startChar": 11,
+        "endLine": 1186,
+        "endChar": 19
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a49859a_b6f07a8c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "Log PELs here if required. Also I would like to take an opinion on should we log PEL for record/kwd not found.",
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adf379f5_e8106b64",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "Since the logic has changed above, please update the comment for the line as well.",
+      "range": {
+        "startLine": 1303,
+        "startChar": 24,
+        "endLine": 1303,
+        "endChar": 47
+      },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e83ba9b_26bf9118",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1529,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "Use a parameter with default value in the \"restoreSystemVPD\" api. This way\n1) You will avoid change in the existing code.\n2) Get rid of this variable.",
+      "range": {
+        "startLine": 1529,
+        "startChar": 12,
+        "endLine": 1529,
+        "endChar": 40
       },
       "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
@@ -484,6 +756,23 @@
         "endLine": 1993,
         "endChar": 0
       },
+      "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96e6830d_e8cc3a64",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 2031,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "Get rid of this.",
       "revId": "8cdba85066a772a33f0e59a0f4d89dec93ccdb73",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

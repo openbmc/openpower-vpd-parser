@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d499f74_78169e70",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-07T06:59:06Z",
+      "side": 1,
+      "message": "In that case log a pel with the same severity as of record. Later can be updated.",
+      "parentUuid": "4987ab7a_afa84b67",
+      "range": {
+        "startLine": 928,
+        "startChar": 12,
+        "endLine": 930,
+        "endChar": 58
+      },
+      "revId": "4856727938813acbf6b91ab5c81fc41517653054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "402b2300_373f2ba3",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 15
