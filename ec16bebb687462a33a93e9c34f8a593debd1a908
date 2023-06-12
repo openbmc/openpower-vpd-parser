@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "add250b3_bd0f4d9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-06-12T07:02:01Z",
+      "side": 1,
+      "message": "Please only mention what is done in the commit",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 54
+      },
+      "revId": "ec16bebb687462a33a93e9c34f8a593debd1a908",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6899596_dcf7ac61",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-06-12T07:02:01Z",
+      "side": 1,
+      "message": "why is clang not run on this file ?",
+      "range": {
+        "startLine": 104,
+        "startChar": 3,
+        "endLine": 104,
+        "endChar": 50
+      },
+      "revId": "ec16bebb687462a33a93e9c34f8a593debd1a908",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a163fd7_be1ad4cd",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2023-06-12T07:02:01Z",
+      "side": 1,
+      "message": "why is this in bracket ?",
+      "range": {
+        "startLine": 104,
+        "startChar": 11,
+        "endLine": 104,
+        "endChar": 40
+      },
+      "revId": "ec16bebb687462a33a93e9c34f8a593debd1a908",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
