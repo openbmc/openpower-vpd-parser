@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "05a5e67b_4b96f6b7",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-13T06:05:53Z",
+      "side": 1,
+      "message": "These two parameters are no more as arguments to function. Below was the comment\n\"These two parameters are just required for logging PEL.\nCan be avoided by logging PEL at the caller.\"",
+      "parentUuid": "8680c702_b0dcd6fd",
+      "range": {
+        "startLine": 909,
+        "startChar": 16,
+        "endLine": 910,
+        "endChar": 55
+      },
+      "revId": "727ebf5574b5294e3e0d5778cf8e1e1407703b8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e83de2df_75e9cfac",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 25
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-07T12:42:12Z",
       "side": 1,
       "message": "Can we use recursive call here to populate Dbus instead of creating a new function?",
+      "range": {
+        "startLine": 1370,
+        "startChar": 8,
+        "endLine": 1370,
+        "endChar": 37
+      },
+      "revId": "727ebf5574b5294e3e0d5778cf8e1e1407703b8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ed1a763_f23bddf4",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1370,
+      "author": {
+        "id": 1001643
+      },
+      "writtenOn": "2023-06-13T06:05:53Z",
+      "side": 1,
+      "message": "Lets discuss with Jinu on this and decide. Keeping the following disadvantages of recursive functions I would prefer not to go with recursive call.\n\n1. Recursive functions are generally slower than non-recursive function.\n2. It may require a lot of memory space to hold intermediate results on the system stacks.\n3. Hard to analyze or understand the code.\n4. It is not more efficient in terms of space and time complexity.\n5. The computer may run out of memory if the recursive calls are not properly checked.\n\nIf code duplication is the concern we can add the appropriate checks and make use of existing code instead of recursive function and need to take care of all the test scenarios.",
+      "parentUuid": "e83de2df_75e9cfac",
       "range": {
         "startLine": 1370,
         "startChar": 8,
