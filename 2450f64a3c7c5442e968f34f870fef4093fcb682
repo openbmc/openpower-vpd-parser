@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8fce0b1_810ef7d1",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-06-15T06:57:44Z",
+      "side": 1,
+      "message": "During genesis boot, F0 takes a default value. That doesn\u0027t mean there is an issue. so its not required to log PEL when default is found for this keyword. please make the change",
+      "revId": "2450f64a3c7c5442e968f34f870fef4093fcb682",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
