@@ -67,6 +67,7 @@ static auto getBMCState()
     {
         // Ignore any error
         std::cerr << "Failed to get BMC state: " << e.what() << "\n";
+	VPD_ERROR << "Failed to get BMC state: " << e.what() << "\n";
     }
     return bmcState;
 }
@@ -105,6 +106,7 @@ static auto isFruInVpdCache(const std::string& objectPath)
     catch (const sdbusplus::exception::SdBusError& e)
     {
         std::cout << "FRU: " << objectPath << " not in D-Bus\n";
+	VPD_INFO << "FRU: " << objectPath << " not in D-Bus\n";
         // Assume not present in case of an error
         return false;
     }
@@ -206,6 +208,8 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
     {
         std::cerr << "Failed to expand location code with exception: "
                   << e.what() << "\n";
+	VPD_ERROR << "Failed to expand location code with exception: "
+                  << e.what()<< "\n";
     }
     return expanded;
 }
@@ -264,11 +268,13 @@ static void populateFruSpecificInterfaces(const T& map,
                 else
                 {
                     std::cerr << "Unknown Keyword[" << kw << "] found ";
+		    VPD_ERROR << "Unknown Keyword[" << kw << "] found \n";
                 }
             }
             else
             {
                 std::cerr << "Unknown Variant found ";
+		VPD_ERROR << "Unknown Variant found \n";
             }
         }
         else
@@ -343,6 +349,7 @@ static void populateInterfaces(const nlohmann::json& js,
                 catch (const nlohmann::detail::type_error& e)
                 {
                     std::cerr << "Type exception: " << e.what() << "\n";
+		    VPD_ERROR << "Type exception: " << e.what() << "\n";
                     // Ignore any type errors
                 }
             }
@@ -394,6 +401,8 @@ static void populateInterfaces(const nlohmann::json& js,
                         {
                             std::cerr << " Unknown Keyword [" << kw
                                       << "] Encountered";
+			    VPD_ERROR << " Unknown Keyword [" << kw
+                                      << "] Encountered\n";
                         }
                     }
                 }
@@ -510,9 +519,11 @@ static void preAction(const nlohmann::json& json, const string& file)
                 // Now bind the device
                 string bind = json["frus"][file].at(0).value("devAddress", "");
                 std::cout << "Binding device " << bind << std::endl;
+		VPD_INFO << "Binding device " << bind << "\n";
                 string bindCmd = string("echo \"") + bind +
                                  string("\" > /sys/bus/i2c/drivers/at24/bind");
                 std::cout << bindCmd << std::endl;
+		VPD_INFO << bindCmd <<"\n";
                 executeCmd(bindCmd);
 
                 // Check if device showed up (test for file)
@@ -521,6 +532,8 @@ static void preAction(const nlohmann::json& json, const string& file)
                     std::cerr << "EEPROM " << file
                               << " does not exist. Take failure action"
                               << std::endl;
+		    VPD_ERROR << "EEPROM " << file
+                              << " does not exist. Take failure action\n";
                     // If not, then take failure postAction
                     executePostFailAction(json, file);
                 }
@@ -533,6 +546,10 @@ static void preAction(const nlohmann::json& json, const string& file)
                              "for this FRU : ["
                           << file << "]. Executing executePostFailAction."
                           << std::endl;
+		VPD_ERROR << "VPD inventory JSON missing basic informations of "
+                             "preAction "
+                             "for this FRU : ["
+                          << file << "]. Executing executePostFailAction.\n";
 
                 // Take failure postAction
                 executePostFailAction(json, file);
@@ -768,6 +785,7 @@ void setEnvAndReboot(const string& key, const string& value)
     // set env and reboot and break.
     executeCmd("/sbin/fw_setenv", key, value);
     log<level::INFO>("Rebooting BMC to pick up new device tree");
+    VPD_INFO << "Rebooting BMC to pick up new device tree\n";
     // make dbus call to reboot
     auto bus = sdbusplus::bus::new_default_system();
     auto method = bus.new_method_call(
@@ -1145,6 +1163,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
             else
             {
                 log<level::ERR>("No object path found");
+		VPD_ERROR << "No object path found\n";
             }
         }
         else
@@ -1391,6 +1410,8 @@ int main(int argc, char** argv)
         {
             std::cerr << "Encountered empty input parameter file [" << file
                       << "] driver [" << driver << "]" << std::endl;
+	    VPD_ERROR  << "Encountered empty input parameter file [" << file
+                      << "] driver [" << driver << "]\n";
             return 0;
         }
 
@@ -1400,6 +1421,7 @@ int main(int argc, char** argv)
         {
             std::cerr << "The driver [" << driver << "] is not supported."
                       << std::endl;
+	    VPD_ERROR << "The driver [" << driver << "] is not supported.\n";
             return 0;
         }
 
@@ -1446,6 +1468,7 @@ int main(int argc, char** argv)
             {
                 std::cout << "We have already collected system VPD, skiping."
                           << std::endl;
+		VPD_ERROR << "We have already collected system VPD, skiping.\n"
                 return 0;
             }
         }
@@ -1453,12 +1476,15 @@ int main(int argc, char** argv)
         if (file.empty())
         {
             std::cerr << "The EEPROM path <" << file << "> is not valid.";
-            return 0;
+            VPD_ERROR << "The EEPROM path <" << file << "> is not valid.\n";
+	    return 0;
         }
         if (js["frus"].find(file) == js["frus"].end())
         {
             std::cerr << "The EEPROM path [" << file
                       << "] is not found in the json." << std::endl;
+	    VPD_ERROR << "The EEPROM path [" << file
+                      << "] is not found in the json.\n";
             return 0;
         }
 
@@ -1467,6 +1493,8 @@ int main(int argc, char** argv)
             std::cout << "Device path: " << file
                       << " does not exist. Spurious udev event? Exiting."
                       << std::endl;
+	    VPD_INFO << "Device path: " << file
+                      << " does not exist. Spurious udev event? Exiting.\n";
             return 0;
         }
 
@@ -1492,6 +1520,7 @@ int main(int argc, char** argv)
             {
                 std::cout << "This VPD cannot be read when power is ON"
                           << std::endl;
+		VPD_INFO << "This VPD cannot be read when power is ON\n";
                 return 0;
             }
         }
@@ -1500,6 +1529,7 @@ int main(int argc, char** argv)
         if (!needsRecollection(js, file))
         {
             std::cout << "Skip VPD recollection for: " << file << std::endl;
+	    VPD_INFO << "Skip VPD recollection for: " << file << "\n";
             return 0;
         }
 
@@ -1545,6 +1575,7 @@ int main(int argc, char** argv)
         createPEL(additionalData, pelSeverity, errIntfForJsonFailure, nullptr);
 
         std::cerr << ex.what() << "\n";
+	VPD_ERROR << ex.what() <<"\n";
         rc = -1;
     }
     catch (const VpdEccException& ex)
@@ -1555,6 +1586,7 @@ int main(int argc, char** argv)
         createPEL(additionalData, pelSeverity, errIntfForEccCheckFail, nullptr);
         dumpBadVpd(file, vpdVector);
         std::cerr << ex.what() << "\n";
+	VPD_ERROR << ex.what() << "\n";
         rc = -1;
     }
     catch (const VpdDataException& ex)
@@ -1563,11 +1595,15 @@ int main(int argc, char** argv)
         {
             std::cout << "Pcie_device  [" << file
                       << "]'s VPD is not valid on PASS1 planar.Ignoring.\n";
-            rc = 0;
+            VPD_INFO << "Pcie_device  [" << file
+                      << "]'s VPD is not valid on PASS1 planar.Ignoring.\n";
+	    rc = 0;
         }
         else if (!(isPresent(js, file).value_or(true)))
         {
             std::cout << "FRU at: " << file
+                      << " is not detected present. Ignore parser error.\n";
+	    VPD_INFO << ""FRU at: " << file
                       << " is not detected present. Ignore parser error.\n";
             rc = 0;
         }
@@ -1591,6 +1627,7 @@ int main(int argc, char** argv)
     {
         dumpBadVpd(file, vpdVector);
         std::cerr << e.what() << "\n";
+	VPD_ERROR << e.what() <<"\n";
         rc = -1;
     }
 
