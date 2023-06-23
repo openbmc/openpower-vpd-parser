@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5111f850_52970549",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2023-06-23T06:50:16Z",
+      "side": 1,
+      "message": "Hello RekhaAparna18. Unfortunately this falls out of line with OpenBMC project norms and can\u0027t be accepted as is.\n\nPlease use the lg2 APIs from phosphor-logging instead and log to the journal[0][].\n\nFurther, you must not use `/tmp/log_level.conf` as the source of log level configuration for the application. This should instead be implemented as a `--verbose` argument to the application per [1][]. From there you can choose to use an environment file that lives at `/etc/default/openpower-vpd-parser` that can be loaded by the associated systemd service unit [2][].\n\n[0]: https://github.com/openbmc/phosphor-logging/blob/master/docs/structured-logging.md#lg2\n[1]: https://github.com/openbmc/docs/blob/master/anti-patterns.md#non-standard-debug-application-options-and-logging\n[2]: https://www.freedesktop.org/software/systemd/man/systemd.exec.html#EnvironmentFile\u003d",
+      "revId": "f6933dda50954d10010074eda10a0f59f095890c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
