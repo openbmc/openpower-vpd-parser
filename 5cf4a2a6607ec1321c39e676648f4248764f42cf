@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb37907e_75a83022",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-06-26T08:54:32Z",
+      "side": 1,
+      "message": "commit header should have maximum 50 characters. Please change.\nFor your reference : https://cbea.ms/git-commit/",
+      "revId": "5cf4a2a6607ec1321c39e676648f4248764f42cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b9a19b6_2b0a4189",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-06-26T08:54:32Z",
+      "side": 1,
+      "message": "can you please add more info like, why you need this change?",
+      "revId": "5cf4a2a6607ec1321c39e676648f4248764f42cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81a0ad06_0f52d364",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-06-26T08:54:32Z",
+      "side": 1,
+      "message": "Code looks good. Please update the commit message",
+      "revId": "5cf4a2a6607ec1321c39e676648f4248764f42cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
