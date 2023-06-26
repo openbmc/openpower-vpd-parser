@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "473aa2f5_f6cb5c5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-06-26T09:47:18Z",
+      "side": 1,
+      "message": "User didn\u0027t pass any offset, but the trace says Invalid offset passed. Can you please handle the traces.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 48
+      },
+      "revId": "2b0008a645bd6f09c52e3c709218cc2e889b7e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "119cf037_452e5cb2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-06-26T09:47:18Z",
+      "side": 1,
+      "message": "User didn\u0027t pass any offset, but the trace says Invalid offset passed. Can you please handle the traces.",
+      "range": {
+        "startLine": 21,
+        "startChar": 15,
+        "endLine": 22,
+        "endChar": 48
+      },
+      "revId": "2b0008a645bd6f09c52e3c709218cc2e889b7e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f35d60ed_d7ed1f8f",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-06-26T09:47:18Z",
+      "side": 1,
+      "message": "same here. please handle redundant EEPROM case. When the user provides redundant EEPROM path for the FRU with \"redundantEEPROM\" flag in vpd json, vpd-tool should be able to perform operations.",
+      "range": {
+        "startLine": 633,
+        "startChar": 7,
+        "endLine": 641,
+        "endChar": 0
+      },
+      "revId": "2b0008a645bd6f09c52e3c709218cc2e889b7e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b746c26_90e09efe",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-06-26T09:47:18Z",
+      "side": 1,
+      "message": "why this change is required? why you removed rc variable?",
+      "range": {
+        "startLine": 659,
+        "startChar": 4,
+        "endLine": 659,
+        "endChar": 13
+      },
+      "revId": "2b0008a645bd6f09c52e3c709218cc2e889b7e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "388a87c3_bed836b7",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-06-26T09:47:18Z",
+      "side": 1,
+      "message": "Please handle redundantEEPROM case.\nWhen the user provides redundant EEPROM path for the FRU with \"redundantEEPROM\" flag in vpd json, vpd-tool should be able to perform operations.",
+      "range": {
+        "startLine": 671,
+        "startChar": 4,
+        "endLine": 678,
+        "endChar": 5
+      },
+      "revId": "2b0008a645bd6f09c52e3c709218cc2e889b7e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
