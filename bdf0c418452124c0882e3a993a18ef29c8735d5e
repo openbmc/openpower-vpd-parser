@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9985b9e_bad0cd25",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-06-26T08:01:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f337bda0_97d54997",
+      "revId": "bdf0c418452124c0882e3a993a18ef29c8735d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30930ca9_dce0ee89",
@@ -155,6 +173,30 @@
       "side": 1,
       "message": "DDR5 is future patch right? so, can have the change when merging?",
       "parentUuid": "3fa4ab2c_bbad673f",
+      "range": {
+        "startLine": 120,
+        "startChar": 34,
+        "endLine": 120,
+        "endChar": 76
+      },
+      "revId": "bdf0c418452124c0882e3a993a18ef29c8735d5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e6dae20_ded79449",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-06-26T08:01:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "85fb956a_bf260bfb",
       "range": {
         "startLine": 120,
         "startChar": 34,
