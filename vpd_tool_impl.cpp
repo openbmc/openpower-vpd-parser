@@ -341,6 +341,15 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
 
         for (const auto& ex : itemEEPROM["extraInterfaces"].items())
         {
+            // Properties under Decorator.Asset interface are derived from VINI
+            // keywords. Displaying VINI keywords and skipping Decorator.Asset
+            // interface's properties will avoid duplicate entries in vpd-tool
+            // output.
+            if (ex.key() == "xyz.openbmc_project.Inventory.Decorator.Asset")
+            {
+                continue;
+            }
+
             if (!(ex.value().is_null()))
             {
                 // TODO: Remove this if condition check once inventory json is
