@@ -133,6 +133,30 @@
       },
       "revId": "ec16bebb687462a33a93e9c34f8a593debd1a908",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8129df6_3051ad76",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-06-28T05:55:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3a163fd7_be1ad4cd",
+      "range": {
+        "startLine": 104,
+        "startChar": 11,
+        "endLine": 104,
+        "endChar": 40
+      },
+      "revId": "ec16bebb687462a33a93e9c34f8a593debd1a908",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
