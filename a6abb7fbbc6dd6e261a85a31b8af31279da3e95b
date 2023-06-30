@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b839d11_090fc386",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-30T07:14:10Z",
+      "side": 1,
+      "message": "Please close this comment before further score.\n@priyanga @Giridhari",
+      "parentUuid": "326595a1_779c052b",
+      "range": {
+        "startLine": 9,
+        "startChar": 55,
+        "endLine": 9,
+        "endChar": 66
+      },
+      "revId": "a6abb7fbbc6dd6e261a85a31b8af31279da3e95b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d83da4ad_21668efb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Yes, thanks, but this is the information I have, as asked.",
       "parentUuid": "d83da4ad_21668efb",
+      "range": {
+        "startLine": 11,
+        "startChar": 1,
+        "endLine": 13,
+        "endChar": 48
+      },
+      "revId": "a6abb7fbbc6dd6e261a85a31b8af31279da3e95b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f81ad46b_5651de10",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-06-30T07:14:10Z",
+      "side": 1,
+      "message": "We can\u0027t put these chats in public domain. Please remove. If you want you can put the gist of it.",
+      "parentUuid": "6310e021_fb3b7976",
       "range": {
         "startLine": 11,
         "startChar": 1,
