@@ -192,6 +192,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "32c43bc3_703f9bc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-06-30T12:35:47Z",
+      "side": 1,
+      "message": "Yes, but for full understanding it would have been better than flooding here, I thought, will update it.",
+      "parentUuid": "f81ad46b_5651de10",
+      "range": {
+        "startLine": 11,
+        "startChar": 1,
+        "endLine": 13,
+        "endChar": 48
+      },
+      "revId": "a6abb7fbbc6dd6e261a85a31b8af31279da3e95b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5060c763_511c8cb2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
