@@ -1019,11 +1019,24 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
     Binary vpdVector;
     vpdVector.resize(maxVPDSize);
     std::ifstream vpdFile;
-    vpdFile.open(file, std::ios::binary);
-
-    vpdFile.seekg(offset, std::ios_base::cur);
-    vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), maxVPDSize);
-    vpdVector.resize(vpdFile.gcount());
+    vpdFile.exceptions(std::ifstream::badbit | std::ifstream::failbit);
+    try
+    {
+        vpdFile.open(file, std::ios::binary);
+        vpdFile.seekg(offset, std::ios_base::cur);
+        vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), maxVPDSize);
+        vpdVector.resize(vpdFile.gcount());
+    }
+    catch (const std::ifstream::failure& fail)
+    {
+        std::cerr << "Exception in file handling [" << file
+                  << "] error : " << fail.what();
+        std::cerr << "EEPROM file size =" << std::filesystem::file_size(file)
+                  << std::endl;
+        std::cerr << "Stream file size = " << vpdFile.gcount() << std::endl;
+        std::cerr << " Vector size" << vpdVector.size() << std::endl;
+        throw;
+    }
 
     // Make sure we reset the EEPROM pointer to a "safe" location if it was DIMM
     // SPD that we just read.
@@ -1035,12 +1048,23 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
                     "xyz.openbmc_project.Inventory.Item.Dimm") !=
                 item["extraInterfaces"].end())
             {
-                // moves the EEPROM pointer to 2048 'th byte.
-                vpdFile.seekg(2047, std::ios::beg);
-                // Read that byte and discard - to affirm the move
-                // operation.
-                char ch;
-                vpdFile.read(&ch, sizeof(ch));
+                try
+                {
+                    // moves the EEPROM pointer to 2048 'th byte.
+                    vpdFile.seekg(2047, std::ios::beg);
+                    // Read that byte and discard - to affirm the move
+                    // operation.
+                    char ch;
+                    vpdFile.read(&ch, sizeof(ch));
+                }
+                catch (const std::ifstream::failure& fail)
+                {
+                    std::cerr << "Exception in file handling [" << file
+                              << "] error : " << fail.what();
+                    std::cerr << "Stream file size = " << vpdFile.gcount()
+                              << std::endl;
+                    throw;
+                }
                 break;
             }
         }

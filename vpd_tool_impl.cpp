@@ -683,13 +683,24 @@ void VpdTool::readKwFromHw(const uint32_t& startOffset)
         inventoryPath = jsonFile["frus"][fruPath][0]["inventoryPath"];
     }
 
-    vpdFileStream.open(fruPath,
-                       std::ios::in | std::ios::out | std::ios::binary);
-
-    vpdFileStream.seekg(startOffset, ios_base::cur);
-    vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]), 65504);
-    completeVPDFile.resize(vpdFileStream.gcount());
-    vpdFileStream.clear(std::ios_base::eofbit);
+    vpdFileStream.exceptions(std::ifstream::badbit | std::ifstream::failbit);
+    try
+    {
+        vpdFileStream.open(fruPath,
+                           std::ios::in | std::ios::out | std::ios::binary);
+        vpdFileStream.seekg(startOffset, ios_base::cur);
+        vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]), 65504);
+        completeVPDFile.resize(vpdFileStream.gcount());
+        vpdFileStream.clear(std::ios_base::eofbit);
+    }
+    catch (const std::ifstream::failure& fail)
+    {
+        std::cerr << "Exception in file handling [" << fruPath
+                  << "] error : " << fail.what();
+        std::cerr << "Stream file size = " << vpdFileStream.gcount()
+                  << std::endl;
+        throw;
+    }
 
     if (completeVPDFile.empty())
     {
