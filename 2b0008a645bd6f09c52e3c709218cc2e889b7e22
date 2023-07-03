@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2664d129_6ef6317e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-03T10:53:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "473aa2f5_f6cb5c5a",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 48
+      },
+      "revId": "2b0008a645bd6f09c52e3c709218cc2e889b7e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "119cf037_452e5cb2",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2aa677f_43dabe29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-03T10:53:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "119cf037_452e5cb2",
+      "range": {
+        "startLine": 21,
+        "startChar": 15,
+        "endLine": 22,
+        "endChar": 48
+      },
+      "revId": "2b0008a645bd6f09c52e3c709218cc2e889b7e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f35d60ed_d7ed1f8f",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-06-26T09:47:18Z",
       "side": 1,
       "message": "same here. please handle redundant EEPROM case. When the user provides redundant EEPROM path for the FRU with \"redundantEEPROM\" flag in vpd json, vpd-tool should be able to perform operations.",
+      "range": {
+        "startLine": 633,
+        "startChar": 7,
+        "endLine": 641,
+        "endChar": 0
+      },
+      "revId": "2b0008a645bd6f09c52e3c709218cc2e889b7e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2e7f7d1_bd0e45b0",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-03T10:53:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f35d60ed_d7ed1f8f",
       "range": {
         "startLine": 633,
         "startChar": 7,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "062b63fd_0755869e",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-03T10:53:45Z",
+      "side": 1,
+      "message": "It was not used anywhere.",
+      "parentUuid": "1b746c26_90e09efe",
+      "range": {
+        "startLine": 659,
+        "startChar": 4,
+        "endLine": 659,
+        "endChar": 13
+      },
+      "revId": "2b0008a645bd6f09c52e3c709218cc2e889b7e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "388a87c3_bed836b7",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 5
@@ -106,6 +202,30 @@
       "writtenOn": "2023-06-26T09:47:18Z",
       "side": 1,
       "message": "Please handle redundantEEPROM case.\nWhen the user provides redundant EEPROM path for the FRU with \"redundantEEPROM\" flag in vpd json, vpd-tool should be able to perform operations.",
+      "range": {
+        "startLine": 671,
+        "startChar": 4,
+        "endLine": 678,
+        "endChar": 5
+      },
+      "revId": "2b0008a645bd6f09c52e3c709218cc2e889b7e22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f72495c0_903b0c74",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-03T10:53:45Z",
+      "side": 1,
+      "message": "As discussed made other changes.",
+      "parentUuid": "388a87c3_bed836b7",
       "range": {
         "startLine": 671,
         "startChar": 4,
