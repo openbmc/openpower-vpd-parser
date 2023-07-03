@@ -78,14 +78,20 @@ class Impl
         inventoryPath(path), vpdFilePath(vpdFilePath),
         vpdStartOffset(vpdStartOffset), out{}
     {
+#ifndef ManagerTest
+        vpdFileStream.exceptions(std::ifstream::badbit |
+                                 std::ifstream::failbit);
+#endif
         try
         {
             vpdFileStream.open(vpdFilePath,
                                std::ios::in | std::ios::out | std::ios::binary);
         }
-        catch (const std::fstream::failure& e)
+        catch (const std::fstream::failure& fail)
         {
-            std::cout << e.what();
+            std::cerr << "Exception in file handling [" << vpdFilePath
+                      << "] error : " << fail.what();
+            throw;
         }
     }
 

@@ -604,14 +604,26 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
         // TODO: Figure out a better way to get max possible VPD size.
         Binary completeVPDFile;
         completeVPDFile.resize(65504);
-        vpdFileStream.open(vpdFilePath,
-                           std::ios::in | std::ios::out | std::ios::binary);
-
-        vpdFileStream.seekg(startOffset, std::ios_base::cur);
-        vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]), 65504);
-        completeVPDFile.resize(vpdFileStream.gcount());
-        vpdFileStream.clear(std::ios_base::eofbit);
-
+        vpdFileStream.exceptions(std::ifstream::badbit |
+                                 std::ifstream::failbit);
+        try
+        {
+            vpdFileStream.open(vpdFilePath,
+                               std::ios::in | std::ios::out | std::ios::binary);
+            vpdFileStream.seekg(startOffset, std::ios_base::cur);
+            vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]),
+                               65504);
+            completeVPDFile.resize(vpdFileStream.gcount());
+            vpdFileStream.clear(std::ios_base::eofbit);
+        }
+        catch (const std::ifstream::failure& fail)
+        {
+            std::cerr << "Exception in file handling [" << vpdFilePath
+                      << "] error : " << fail.what();
+            std::cerr << "Stream file size = " << vpdFileStream.gcount()
+                      << std::endl;
+            throw;
+        }
         vpdFile = completeVPDFile;
 
         if (objPath.empty() &&
