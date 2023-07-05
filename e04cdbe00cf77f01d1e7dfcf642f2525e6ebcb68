@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48be17ff_48e8c07a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-07-05T16:11:40Z",
+      "side": 1,
+      "message": "Please have at least these two sections in commit message when changing existing flow.\nWhat and Why.\n\nWhy missing in this case.\n\nAlso don\u0027t just paste commands.\nHave a line about what you are testing then paste the commands. Applies for each set of test commands.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "e04cdbe00cf77f01d1e7dfcf642f2525e6ebcb68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9062a5f_1832ce85",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-07-05T16:11:40Z",
+      "side": 1,
+      "message": "C++ string constructor takes care of initialization. These initialization is not required.",
+      "range": {
+        "startLine": 716,
+        "startChar": 4,
+        "endLine": 716,
+        "endChar": 35
+      },
+      "revId": "e04cdbe00cf77f01d1e7dfcf642f2525e6ebcb68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b8984d7_42b22b26",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-07-05T16:11:40Z",
+      "side": 1,
+      "message": "What is the inventory path in case it is redundant fru?",
+      "range": {
+        "startLine": 717,
+        "startChar": 4,
+        "endLine": 720,
+        "endChar": 5
+      },
+      "revId": "e04cdbe00cf77f01d1e7dfcf642f2525e6ebcb68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
