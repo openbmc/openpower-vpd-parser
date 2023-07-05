@@ -143,6 +143,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "144ee404_45283973",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-05T11:37:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9c1b0b2a_d56bbd54",
+      "range": {
+        "startLine": 633,
+        "startChar": 8,
+        "endLine": 644,
+        "endChar": 9
+      },
+      "revId": "ca9cc7020e1d3e7d689304305f65b3d985467cc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d3cfc16_71e64197",
