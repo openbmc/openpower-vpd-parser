@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c1b0b2a_d56bbd54",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-05T07:11:36Z",
+      "side": 1,
+      "message": "It\u0027s checking whether fruPath exists and sets the given offset if not found, else takes offset from json and is checked with given offset.",
+      "parentUuid": "28c84aaf_61ffc7d5",
+      "range": {
+        "startLine": 633,
+        "startChar": 8,
+        "endLine": 644,
+        "endChar": 9
+      },
+      "revId": "ca9cc7020e1d3e7d689304305f65b3d985467cc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d3cfc16_71e64197",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 7
