@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "014eb9ef_0f096273",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-05T17:09:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "48be17ff_48e8c07a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "e04cdbe00cf77f01d1e7dfcf642f2525e6ebcb68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9062a5f_1832ce85",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb88fbac_10e015aa",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-05T17:09:33Z",
+      "side": 1,
+      "message": "Yeah.",
+      "parentUuid": "a9062a5f_1832ce85",
+      "range": {
+        "startLine": 716,
+        "startChar": 4,
+        "endLine": 716,
+        "endChar": 35
+      },
+      "revId": "e04cdbe00cf77f01d1e7dfcf642f2525e6ebcb68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b8984d7_42b22b26",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 8
@@ -60,6 +108,30 @@
       "writtenOn": "2023-07-05T16:11:40Z",
       "side": 1,
       "message": "What is the inventory path in case it is redundant fru?",
+      "range": {
+        "startLine": 717,
+        "startChar": 4,
+        "endLine": 720,
+        "endChar": 5
+      },
+      "revId": "e04cdbe00cf77f01d1e7dfcf642f2525e6ebcb68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "199fc668_5d65d11b",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-05T17:09:33Z",
+      "side": 1,
+      "message": "Not required, redundant FRU should not be there.",
+      "parentUuid": "8b8984d7_42b22b26",
       "range": {
         "startLine": 717,
         "startChar": 4,
