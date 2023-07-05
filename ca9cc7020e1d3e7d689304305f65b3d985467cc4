@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9caf3157_509de946",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-05T08:09:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7b1fc601_fd7384b1",
+      "range": {
+        "startLine": 637,
+        "startChar": 7,
+        "endLine": 637,
+        "endChar": 54
+      },
+      "revId": "ca9cc7020e1d3e7d689304305f65b3d985467cc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9dd107e_1407581d",
