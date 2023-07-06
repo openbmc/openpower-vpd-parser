@@ -188,6 +188,30 @@
       },
       "revId": "e04cdbe00cf77f01d1e7dfcf642f2525e6ebcb68",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17a67214_87a4ce04",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-07-06T04:01:19Z",
+      "side": 1,
+      "message": "Don\u0027t mark comments as resolved in following scenario:-\n1) If you dis-agree with the comment and are not willing to make any change w.r.t that.\n2) If it is a conversation where question is asked against some scenario. As you can\u0027t be sure if your answer actually addresses the query.\n\nIn both these cases, it should be the responsibility of reviewer who gave the comment to mark it as resolved.\n\nNow, coming back to the query. What will happen when inventory path remains as blank in this case?",
+      "parentUuid": "7f38bd24_dbbf09f2",
+      "range": {
+        "startLine": 717,
+        "startChar": 4,
+        "endLine": 720,
+        "endChar": 5
+      },
+      "revId": "e04cdbe00cf77f01d1e7dfcf642f2525e6ebcb68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
