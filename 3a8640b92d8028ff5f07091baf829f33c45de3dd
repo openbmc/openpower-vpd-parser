@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3cd5b7c_48c3e5d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-06T07:29:44Z",
+      "side": 1,
+      "message": "Though the issue of overriding is not there, I\u0027m pushing it to address offset issue in general, and handling fru paths not in json gracefully",
+      "revId": "3a8640b92d8028ff5f07091baf829f33c45de3dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
