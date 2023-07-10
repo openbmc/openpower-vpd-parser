@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19927b0b_53b55a71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-10T12:38:40Z",
+      "side": 1,
+      "message": "Just for confirmation, the code seems to be fine, but not sure if you can have o/p pasted.",
+      "revId": "2df82008acc54d632529e02a921aca97b91f7d8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68ed42a2_8f838834",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-10T12:38:40Z",
+      "side": 1,
+      "message": "Don\u0027t see it getting update \u0026 useful, can you please remove if not required.",
+      "range": {
+        "startLine": 318,
+        "startChar": 4,
+        "endLine": 318,
+        "endChar": 20
+      },
+      "revId": "2df82008acc54d632529e02a921aca97b91f7d8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d6bb297_5dbb7bc1",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-10T12:38:40Z",
+      "side": 1,
+      "message": "May have to indent it if removed.",
+      "revId": "2df82008acc54d632529e02a921aca97b91f7d8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
