@@ -118,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97f138f8_4efedbe4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-10T11:34:53Z",
+      "side": 1,
+      "message": "This is not necessary, though have acknowledged.",
+      "parentUuid": "dac5127b_f660bda5",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 15
+      },
+      "revId": "19d843dbc1bc9ecdc3344d554c082e3413387d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a74f5b8_65b619bb",
