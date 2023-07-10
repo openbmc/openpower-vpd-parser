@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8ccc026_e80a2f23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-07-10T09:04:07Z",
+      "side": 1,
+      "message": "Need to revisit the code for optimization.",
+      "revId": "5bfd77c2c18be1acc1d6342b408d439eebd12f77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
