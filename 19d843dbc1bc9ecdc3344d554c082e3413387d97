@@ -154,6 +154,30 @@
       },
       "revId": "19d843dbc1bc9ecdc3344d554c082e3413387d97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0783c6cc_ebd4ae9c",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-07-10T10:21:18Z",
+      "side": 1,
+      "message": "correction in the above comment, else case will get executed only for frupaths not present in json and for that we have to make use of the offset given by user. so else is not required.",
+      "parentUuid": "a7f7e62d_2899e54d",
+      "range": {
+        "startLine": 677,
+        "startChar": 6,
+        "endLine": 677,
+        "endChar": 37
+      },
+      "revId": "19d843dbc1bc9ecdc3344d554c082e3413387d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
