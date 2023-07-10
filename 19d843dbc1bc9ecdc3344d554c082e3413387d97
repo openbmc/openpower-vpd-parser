@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2051ae50_b1046dee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-10T11:14:41Z",
+      "side": 1,
+      "message": "Ack. It\u0027s recommended suggestion, though but the limit is 80",
+      "parentUuid": "511e79af_bfcf4b15",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 29
+      },
+      "revId": "19d843dbc1bc9ecdc3344d554c082e3413387d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74f5c3b3_f2ea049e",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-07-10T08:41:32Z",
       "side": 1,
       "message": "what is a normal FRU?",
+      "range": {
+        "startLine": 21,
+        "startChar": 27,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "19d843dbc1bc9ecdc3344d554c082e3413387d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6158f948_ee95fcf4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-10T11:14:41Z",
+      "side": 1,
+      "message": "I2C VPD FRUs.",
+      "parentUuid": "74f5c3b3_f2ea049e",
       "range": {
         "startLine": 21,
         "startChar": 27,
@@ -93,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e41c8ce_fca74c6b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-10T11:14:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8a74f5b8_65b619bb",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "19d843dbc1bc9ecdc3344d554c082e3413387d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af7a8742_fb4a5e3c",
@@ -116,6 +188,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcb007b2_a2ac9d06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-10T11:14:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "af7a8742_fb4a5e3c",
+      "range": {
+        "startLine": 51,
+        "startChar": 11,
+        "endLine": 51,
+        "endChar": 30
+      },
+      "revId": "19d843dbc1bc9ecdc3344d554c082e3413387d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0265227_2e7379b3",
@@ -129,6 +225,24 @@
       "writtenOn": "2023-07-10T08:41:32Z",
       "side": 1,
       "message": "can you add in the test case, on what happens when invalid offset is provided for eeprom path which is not present in JSON?",
+      "revId": "19d843dbc1bc9ecdc3344d554c082e3413387d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "414e226a_b3567bd6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-10T11:14:41Z",
+      "side": 1,
+      "message": "Okay, as discussed, I\u0027ll add wrong offset one, along with no offset[equivalent to 0], but as is test case, so",
+      "parentUuid": "c0265227_2e7379b3",
       "revId": "19d843dbc1bc9ecdc3344d554c082e3413387d97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -169,6 +283,30 @@
       "writtenOn": "2023-07-10T10:21:18Z",
       "side": 1,
       "message": "correction in the above comment, else case will get executed only for frupaths not present in json and for that we have to make use of the offset given by user. so else is not required.",
+      "parentUuid": "a7f7e62d_2899e54d",
+      "range": {
+        "startLine": 677,
+        "startChar": 6,
+        "endLine": 677,
+        "endChar": 37
+      },
+      "revId": "19d843dbc1bc9ecdc3344d554c082e3413387d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85f1b265_4fe60731",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-10T11:14:41Z",
+      "side": 1,
+      "message": "Ack",
       "parentUuid": "a7f7e62d_2899e54d",
       "range": {
         "startLine": 677,
