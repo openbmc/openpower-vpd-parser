@@ -44,6 +44,21 @@ using namespace phosphor::logging;
 using namespace openpower::vpd::manager::editor;
 
 /**
+ * @brief API declaration, Populate Dbus.
+ *
+ * This method invokes all the populateInterface functions
+ * and notifies PIM about dbus object.
+ *
+ * @param[in] vpdMap - Either IPZ vpd map or Keyword vpd map based on the
+ * input.
+ * @param[in] js - Inventory json object
+ * @param[in] filePath - Path of the vpd file
+ * @param[in] preIntrStr - Interface string
+ */
+template <typename T>
+static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath);
+
+/**
  * @brief Returns the BMC state
  */
 static auto getBMCState()
@@ -859,14 +874,11 @@ void setDevTreeEnv(const string& systemType)
  * @brief Parse the given EEPROM file.
  *
  * @param[in] vpdFilePath - Path of EEPROM file
- * @param[in] invPath - Path of inventory object
  * @param[in] js- Reference to vpd inventory json object
- *
  * @return Parsed VPD map
  */
 std::variant<KeywordVpdMap, openpower::vpd::Store>
-    parseVpdFile(const std::string& vpdFilePath, const std::string& invPath,
-                 const nlohmann::json& js)
+    parseVpdFile(const std::string& vpdFilePath, const nlohmann::json& js)
 {
     uint32_t vpdStartOffset = 0;
     for (const auto& item : js["frus"][vpdFilePath])
@@ -874,13 +886,17 @@ std::variant<KeywordVpdMap, openpower::vpd::Store>
         if (item.find("offset") != item.end())
         {
             vpdStartOffset = item["offset"];
+            break;
         }
     }
 
     Binary vpdVector = getVpdDataInVector(js, vpdFilePath);
 
     ParserInterface* parser = ParserFactory::getParser(
-        vpdVector, (pimPath + invPath), vpdFilePath, vpdStartOffset);
+        vpdVector,
+        (pimPath + js["frus"][vpdFilePath][0]["inventoryPath"]
+                       .get_ref<const nlohmann::json::string_t&>()),
+        vpdFilePath, vpdStartOffset);
 
     auto parseResult = parser->parse();
 
@@ -921,12 +937,16 @@ void getBackupVpdInMap(const string& systemVpdBackupPath,
     }
     else
     {
-        auto backupVpdParsedResult = parseVpdFile(systemVpdBackupPath,
-                                                  backupVpdInvPath, js);
+        auto backupVpdParsedResult = parseVpdFile(systemVpdBackupPath, js);
 
         if (auto pVal = get_if<Store>(&backupVpdParsedResult))
         {
             backupVpdMap = pVal->getVpdMap();
+        }
+        else
+        {
+            std::cerr << "Invalid format of VPD in back up. Restore aborted."
+                      << std::endl;
         }
     }
 }
@@ -960,135 +980,6 @@ void updateVpdDataOnHw(const std::string& vpdFilePath, nlohmann::json& js,
 }
 
 /**
- * @brief Populate base panel object on dbus.
-
- * This method invokes all the populateInterface functions
- * and notifies PIM about base panel dbus object.
-
- * @param[in] vpdMap - Base panel vpd map in IPZ format
- * @param[in] js - Inventory json object
- * @param[in] filePath - Path of the base panel vpd file
- */
-void populateBasePanelObjectOnDBus(const Parsed& vpdMap, nlohmann::json& js,
-                                   const string& filePath)
-{
-    inventory::InterfaceMap interfaces;
-    inventory::ObjectMap objects;
-    inventory::PropertyMap prop;
-
-    string ccinFromVpd = getKwVal(vpdMap, "VINI", "CC");
-    transform(ccinFromVpd.begin(), ccinFromVpd.end(), ccinFromVpd.begin(),
-              ::toupper);
-
-    for (const auto& item : js["frus"][filePath])
-    {
-        const auto& objectPath = item["inventoryPath"];
-        sdbusplus::message::object_path object(objectPath);
-
-        vector<string> ccinList;
-        if (item.find("ccin") != item.end())
-        {
-            for (const auto& cc : item["ccin"])
-            {
-                string ccin = cc;
-                transform(ccin.begin(), ccin.end(), ccin.begin(), ::toupper);
-                ccinList.push_back(ccin);
-            }
-        }
-
-        if (!ccinFromVpd.empty() && !ccinList.empty() &&
-            (find(ccinList.begin(), ccinList.end(), ccinFromVpd) ==
-             ccinList.end()))
-        {
-            continue;
-        }
-
-        if ((item.value("noprime", false)))
-        {
-            // Populate one time properties for non-primeable frus.
-            // For the remaining FRUs, this will get handled as a part of
-            // priming the inventory.
-            setOneTimeProperties(objectPath, interfaces);
-        }
-
-        // Populate the VPD keywords and the common interfaces only if we
-        // are asked to inherit that data from the VPD, else only add the
-        // extraInterfaces.
-        if (item.value("inherit", true))
-        {
-            // Each record in the VPD becomes an interface and all
-            // keyword within the record are properties under that
-            // interface.
-            for (const auto& record : vpdMap)
-            {
-                populateFruSpecificInterfaces(
-                    record.second, ipzVpdInf + record.first, interfaces);
-            }
-
-            if (js.find("commonInterfaces") != js.end())
-            {
-                populateInterfaces(js["commonInterfaces"], interfaces, vpdMap,
-                                   false);
-            }
-        }
-        else
-        {
-            // Check if we have been asked to inherit specific record(s)
-            if (item.find("copyRecords") != item.end())
-            {
-                for (const auto& record : item["copyRecords"])
-                {
-                    const string& recordName = record;
-                    if (vpdMap.find(recordName) != vpdMap.end())
-                    {
-                        populateFruSpecificInterfaces(vpdMap.at(recordName),
-                                                      ipzVpdInf + recordName,
-                                                      interfaces);
-                    }
-                }
-            }
-        }
-
-        // Populate interfaces and properties that are common to every FRU
-        // and additional interface that might be defined on a per-FRU
-        // basis.
-        if (item.find("extraInterfaces") != item.end())
-        {
-            populateInterfaces(item["extraInterfaces"], interfaces, vpdMap,
-                               false);
-        }
-
-        // embedded property(true or false) says whether the subfru is embedded
-        // into the parent fru (or) not. VPD sets Present property only for
-        // embedded frus. If the subfru is not an embedded FRU, the subfru may
-        // or may not be physically present. Those non embedded frus will always
-        // have Present=false irrespective of its physical presence or absence.
-        // Eg: nvme drive in nvme slot is not an embedded FRU. So don't set
-        // Present to true for such sub frus.
-        // Eg: ethernet port is embedded into bmc card. So set Present to true
-        // for such sub frus. Also donot populate present property for embedded
-        // subfru which is synthesized. Currently there is no subfru which are
-        // both embedded and synthesized. But still the case is handled here.
-        if ((item.value("embedded", true)) &&
-            (!item.value("synthesized", false)))
-        {
-            // Check if its required to handle presence for this FRU.
-            if (item.value("handlePresence", true))
-            {
-                inventory::PropertyMap presProp;
-                presProp.emplace("Present", true);
-                insertOrMerge(interfaces, invItemIntf, move(presProp));
-            }
-        }
-
-        objects.emplace(move(object), move(interfaces));
-    }
-
-    // Notify PIM
-    common::utility::callPIM(move(objects));
-}
-
-/**
  * @brief API to check if we need to restore system VPD
  * This functionality is only applicable for IPZ VPD data.
 
@@ -1118,6 +1009,7 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath,
 
         if (backupVpdMap.empty())
         {
+            std::cerr << "Back up VPD map is empty" << std::endl;
             return;
         }
     }
@@ -1158,51 +1050,35 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath,
                     }
                     else
                     {
-                        auto recItr = backupVpdMap.find(backupVpdRecName);
-                        if (recItr != backupVpdMap.end())
+                        backupValue = getKwVal(backupVpdMap, backupVpdRecName,
+                                               backupVpdKwName);
+
+                        if (backupValue.empty())
                         {
-                            string errorMsg = backupVpdRecName +
-                                              " Record does not exist in "
-                                              "the EEPROM file ";
+                            string errorMsg{};
+                            if (backupVpdMap.find(backupVpdRecName) ==
+                                backupVpdMap.end())
+                            {
+                                errorMsg = backupVpdRecName +
+                                           " Record does not exist in "
+                                           "the EEPROM file ";
+                            }
+                            else
+                            {
+                                errorMsg = backupVpdKwName +
+                                           " Keyword not found or empty in "
+                                           "the backup EEPROM file ";
+                            }
 
                             errorMsg += systemVpdBackupPath;
 
                             PelAdditionalData additionalData;
                             additionalData.emplace("DESCRIPTION", errorMsg);
 
-                            additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                                                   INVENTORY_PATH +
-                                                       backupVpdInvPath);
-
                             createPEL(additionalData, PelSeverity::ERROR,
                                       errIntfForInvalidVPD, nullptr);
 
                             continue;
-                        }
-                        else
-                        {
-                            backupValue = getKwVal(backupVpdMap,
-                                                   backupVpdRecName,
-                                                   backupVpdKwName);
-                            if (backupValue.empty())
-                            {
-                                string errorMsg = backupVpdKwName +
-                                                  " Keyword not found in "
-                                                  "the backup VPD file ";
-
-                                errorMsg += systemVpdBackupPath;
-
-                                PelAdditionalData additionalData;
-                                additionalData.emplace("DESCRIPTION", errorMsg);
-
-                                additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                                                       INVENTORY_PATH +
-                                                           backupVpdInvPath);
-
-                                createPEL(additionalData, PelSeverity::ERROR,
-                                          errIntfForInvalidVPD, nullptr);
-                                continue;
-                            }
                         }
                     }
 
@@ -1242,9 +1118,6 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath,
 
                                 // data mismatch
                                 PelAdditionalData additionalData;
-                                additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                                                       INVENTORY_PATH +
-                                                           objectPath);
 
                                 additionalData.emplace("DESCRIPTION", errMsg);
                                 additionalData.emplace(
@@ -1266,6 +1139,12 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath,
                                     // its cache.
                                     continue;
                                 }
+                            }
+                            else
+                            {
+                                // both the back up and proimary data is
+                                // non-fault and same. Nothing needs to be done.
+                                continue;
                             }
                         }
 
@@ -1303,9 +1182,6 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath,
 
                         // mfg default on both backup and primary, log PEL
                         PelAdditionalData additionalData;
-                        additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                                               INVENTORY_PATH + objectPath);
-
                         additionalData.emplace("DESCRIPTION", errMsg);
 
                         // log PEL TODO: Block IPL
@@ -1335,7 +1211,7 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath,
 
     if (!isBackupOnCache)
     {
-        populateBasePanelObjectOnDBus(backupVpdMap, js, systemVpdBackupPath);
+        populateDbus(backupVpdMap, js, systemVpdBackupPath);
     }
 }
 
@@ -1895,8 +1771,7 @@ int main(int argc, char** argv)
         try
         {
             variant<KeywordVpdMap, Store> parseResult;
-
-            parseResult = parseVpdFile(file, baseFruInventoryPath, js);
+            parseResult = parseVpdFile(file, js);
 
             if (isSystemVpd)
             {
@@ -1923,6 +1798,12 @@ int main(int argc, char** argv)
         }
         catch (const exception& e)
         {
+            if (!systemVpdBackupPath.empty())
+            {
+                file = systemVpdBackupPath;
+                baseFruInventoryPath = backupVpdInvPath;
+            }
+
             executePostFailAction(js, file);
             throw;
         }
@@ -1938,11 +1819,6 @@ int main(int argc, char** argv)
     }
     catch (const VpdEccException& ex)
     {
-        if (!systemVpdBackupPath.empty())
-        {
-            baseFruInventoryPath = backupVpdInvPath;
-        }
-
         additionalData.emplace("DESCRIPTION", "ECC check failed");
         additionalData.emplace("CALLOUT_INVENTORY_PATH",
                                INVENTORY_PATH + baseFruInventoryPath);
@@ -1958,12 +1834,6 @@ int main(int argc, char** argv)
     }
     catch (const VpdDataException& ex)
     {
-        if (!systemVpdBackupPath.empty())
-        {
-            file = systemVpdBackupPath;
-            baseFruInventoryPath = backupVpdInvPath;
-        }
-
         if (isThisPcieOnPass1planar(js, file))
         {
             std::cout << "Pcie_device  [" << file
