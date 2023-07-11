@@ -109,6 +109,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a70648e7_980806ac",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-07-11T06:52:20Z",
+      "side": 1,
+      "message": "objFound variable is getting set by getVINIProperties() which is called in line 321.",
+      "parentUuid": "4bd39f4c_43f15db5",
+      "range": {
+        "startLine": 318,
+        "startChar": 4,
+        "endLine": 318,
+        "endChar": 20
+      },
+      "revId": "2df82008acc54d632529e02a921aca97b91f7d8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d6bb297_5dbb7bc1",
         "filename": "vpd_tool_impl.cpp",
         "patchSetId": 2
