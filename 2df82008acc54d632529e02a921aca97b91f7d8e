@@ -131,6 +131,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12ee1d5b_10f40197",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-11T07:22:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a70648e7_980806ac",
+      "range": {
+        "startLine": 318,
+        "startChar": 4,
+        "endLine": 318,
+        "endChar": 20
+      },
+      "revId": "2df82008acc54d632529e02a921aca97b91f7d8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d6bb297_5dbb7bc1",
@@ -144,6 +168,24 @@
       "writtenOn": "2023-07-10T12:38:40Z",
       "side": 1,
       "message": "May have to indent it if removed.",
+      "revId": "2df82008acc54d632529e02a921aca97b91f7d8e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ea22549_28734538",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-07-11T07:22:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7d6bb297_5dbb7bc1",
       "revId": "2df82008acc54d632529e02a921aca97b91f7d8e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
