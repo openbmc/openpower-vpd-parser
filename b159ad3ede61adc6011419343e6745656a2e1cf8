@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8c89a8f_68406ec4",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-07-17T08:17:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9f2dec3_e4629aa0",
+      "revId": "b159ad3ede61adc6011419343e6745656a2e1cf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e846e601_898d0376",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-07-14T09:59:20Z",
       "side": 1,
       "message": "Same as above.",
+      "range": {
+        "startLine": 1145,
+        "startChar": 44,
+        "endLine": 1145,
+        "endChar": 51
+      },
+      "revId": "b159ad3ede61adc6011419343e6745656a2e1cf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82778aa5_6f75ecfd",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-07-17T08:17:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e846e601_898d0376",
       "range": {
         "startLine": 1145,
         "startChar": 44,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "253d0e3c_18619db7",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1182,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-07-17T08:17:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e57c9e75_0f670c4b",
+      "range": {
+        "startLine": 1182,
+        "startChar": 23,
+        "endLine": 1182,
+        "endChar": 69
+      },
+      "revId": "b159ad3ede61adc6011419343e6745656a2e1cf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af737a15_4944562d",
@@ -87,6 +153,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b527102a_729d3aa3",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-07-17T08:17:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "af737a15_4944562d",
+      "range": {
+        "startLine": 1188,
+        "startChar": 24,
+        "endLine": 1188,
+        "endChar": 50
+      },
+      "revId": "b159ad3ede61adc6011419343e6745656a2e1cf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b667e69d_b19eb713",
@@ -100,6 +190,24 @@
       "writtenOn": "2023-07-14T09:59:20Z",
       "side": 1,
       "message": "Since UDEV will e there for panel. We will populate and publish DBus for panel at that time itself.",
+      "revId": "b159ad3ede61adc6011419343e6745656a2e1cf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efc05238_460e6abe",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2023-07-17T08:17:04Z",
+      "side": 1,
+      "message": "We agreed on this in the review meeting.",
+      "parentUuid": "b667e69d_b19eb713",
       "revId": "b159ad3ede61adc6011419343e6745656a2e1cf8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
