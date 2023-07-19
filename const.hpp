@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <filesystem>
 #include <iostream>
 
 namespace openpower
@@ -121,6 +122,8 @@ constexpr auto spiPathPrefix = "/sys/bus/spi/drivers/";
 constexpr auto at24driver = "at24";
 constexpr auto at25driver = "at25";
 constexpr auto ee1004driver = "ee1004";
+constexpr auto invItemIntf = "xyz.openbmc_project.Inventory.Item";
+static constexpr std::uintmax_t MAX_VPD_SIZE = 65504;
 
 namespace lengths
 {

@@ -601,17 +601,36 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
         // prevent any data/ECC corruption in case BMC reboots while VPD update.
         enableRebootGuard();
 
-        // TODO: Figure out a better way to get max possible VPD size.
         Binary completeVPDFile;
-        completeVPDFile.resize(65504);
-        vpdFileStream.open(vpdFilePath,
-                           std::ios::in | std::ios::out | std::ios::binary);
+        vpdFileStream.exceptions(std::ifstream::badbit |
+                                 std::ifstream::failbit);
+        try
+        {
+            vpdFileStream.open(vpdFilePath,
+                               std::ios::in | std::ios::out | std::ios::binary);
 
-        vpdFileStream.seekg(startOffset, std::ios_base::cur);
-        vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]), 65504);
-        completeVPDFile.resize(vpdFileStream.gcount());
-        vpdFileStream.clear(std::ios_base::eofbit);
+            auto vpdFileSize = std::min(std::filesystem::file_size(vpdFilePath),
+                                        MAX_VPD_SIZE);
+            if (vpdFileSize == 0)
+            {
+                std::cerr << "File size is 0 for " << vpdFilePath << std::endl;
+                throw std::runtime_error("File size is 0.");
+            }
 
+            completeVPDFile.resize(vpdFileSize);
+            vpdFileStream.seekg(startOffset, std::ios_base::cur);
+            vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]),
+                               vpdFileSize);
+            vpdFileStream.clear(std::ios_base::eofbit);
+        }
+        catch (const std::system_error& fail)
+        {
+            std::cerr << "Exception in file handling [" << vpdFilePath
+                      << "] error : " << fail.what();
+            std::cerr << "Stream file size = " << vpdFileStream.gcount()
+                      << std::endl;
+            throw;
+        }
         vpdFile = completeVPDFile;
 
         if (objPath.empty() &&
