@@ -655,10 +655,6 @@ void VpdTool::readKwFromHw(const uint32_t& startOffset)
 {
     ifstream inventoryJson(INVENTORY_JSON_SYM_LINK);
     auto jsonFile = nlohmann::json::parse(inventoryJson);
-
-    Binary completeVPDFile;
-    completeVPDFile.resize(65504);
-    fstream vpdFileStream;
     std::string inventoryPath;
 
     if (jsonFile["frus"].contains(fruPath))
@@ -683,17 +679,30 @@ void VpdTool::readKwFromHw(const uint32_t& startOffset)
         inventoryPath = jsonFile["frus"][fruPath][0]["inventoryPath"];
     }
 
+    Binary completeVPDFile;
+    fstream vpdFileStream;
+
     vpdFileStream.exceptions(std::ifstream::badbit | std::ifstream::failbit);
     try
     {
         vpdFileStream.open(fruPath,
                            std::ios::in | std::ios::out | std::ios::binary);
+
+        auto vpdFileSize = std::min(std::filesystem::file_size(fruPath),
+                                    constants::MAX_VPD_SIZE);
+        if (vpdFileSize == 0)
+        {
+            std::cerr << "File size is 0 for " << fruPath << std::endl;
+            throw std::runtime_error("File size is 0.");
+        }
+
+        completeVPDFile.resize(vpdFileSize);
         vpdFileStream.seekg(startOffset, ios_base::cur);
-        vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]), 65504);
-        completeVPDFile.resize(vpdFileStream.gcount());
+        vpdFileStream.read(reinterpret_cast<char*>(&completeVPDFile[0]),
+                           vpdFileSize);
         vpdFileStream.clear(std::ios_base::eofbit);
     }
-    catch (const std::ifstream::failure& fail)
+    catch (const std::system_error& fail)
     {
         std::cerr << "Exception in file handling [" << fruPath
                   << "] error : " << fail.what();
