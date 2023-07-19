@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <filesystem>
 #include <iostream>
 
 namespace openpower
@@ -114,13 +115,14 @@ constexpr auto errIntfForEssentialFru = "com.ibm.VPD.Error.RequiredFRUMissing";
 constexpr auto errIntfForGpioError = "com.ibm.VPD.Error.GPIOError";
 constexpr auto motherBoardInterface =
     "xyz.openbmc_project.Inventory.Item.Board.Motherboard";
-constexpr auto invItemIntf = "xyz.openbmc_project.Inventory.Item";
 constexpr auto systemVpdFilePath = "/sys/bus/i2c/drivers/at24/8-0050/eeprom";
 constexpr auto i2cPathPrefix = "/sys/bus/i2c/drivers/";
 constexpr auto spiPathPrefix = "/sys/bus/spi/drivers/";
 constexpr auto at24driver = "at24";
 constexpr auto at25driver = "at25";
 constexpr auto ee1004driver = "ee1004";
+constexpr auto invItemIntf = "xyz.openbmc_project.Inventory.Item";
+static constexpr std::uintmax_t MAX_VPD_SIZE = 65504;
 
 namespace lengths
 {
