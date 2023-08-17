@@ -83,8 +83,31 @@ static constexpr auto SPD_BYTE_6 = 6;
 static constexpr auto SPD_BYTE_12 = 12;
 static constexpr auto SPD_BYTE_13 = 13;
 static constexpr auto SPD_BYTE_18 = 18;
+static constexpr auto SPD_BYTE_234 = 234;
+static constexpr auto SPD_BYTE_235 = 235;
 static constexpr auto SPD_BYTE_BIT_0_3_MASK = 0x0F;
 static constexpr auto SPD_BYTE_MASK = 0xFF;
+
+static constexpr auto VALUE_0 = 0;
+static constexpr auto VALUE_1 = 1;
+static constexpr auto VALUE_2 = 2;
+static constexpr auto VALUE_3 = 3;
+static constexpr auto VALUE_4 = 4;
+static constexpr auto VALUE_5 = 5;
+static constexpr auto VALUE_6 = 6;
+static constexpr auto VALUE_7 = 7;
+static constexpr auto VALUE_8 = 8;
+
+static constexpr auto MASK_BYTE_BITS_01 = 0x03;
+static constexpr auto MASK_BYTE_BITS_345 = 0x38;
+static constexpr auto MASK_BYTE_BITS_012 = 0x07;
+static constexpr auto MASK_BYTE_BITS_567 = 0xE0;
+static constexpr auto MASK_BYTE_BITS_0123 = 0x0F;
+static constexpr auto MASK_BYTE_BITS_01234 = 0x1F;
+
+static constexpr auto SHIFT_BITS_0 = 0;
+static constexpr auto SHIFT_BITS_3 = 3;
+static constexpr auto SHIFT_BITS_5 = 5;
 
 static constexpr auto SPD_MODULE_TYPE_DDIMM = 0x0A;
 static constexpr auto SPD_DRAM_TYPE_DDR5 = 0x12;
