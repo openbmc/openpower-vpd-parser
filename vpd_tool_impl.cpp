@@ -345,7 +345,9 @@ json VpdTool::interfaceDecider(json& itemEEPROM)
             // keywords. Displaying VINI keywords and skipping Decorator.Asset
             // interface's properties will avoid duplicate entries in vpd-tool
             // output.
-            if (ex.key() == "xyz.openbmc_project.Inventory.Decorator.Asset")
+            if (ex.key() == "xyz.openbmc_project.Inventory.Decorator.Asset" &&
+                itemEEPROM["extraInterfaces"].find(constants::kwdVpdInf) !=
+                    itemEEPROM["extraInterfaces"].end())
             {
                 continue;
             }
