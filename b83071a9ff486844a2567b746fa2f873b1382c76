@@ -98,6 +98,30 @@
       },
       "revId": "b83071a9ff486844a2567b746fa2f873b1382c76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c0abcc2_10a3ca28",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000354
+      },
+      "writtenOn": "2023-08-22T12:39:35Z",
+      "side": 1,
+      "message": "The comment states it\u0027s derived from VINI but if record is not there, then hope not duplicate? need to avoid duplicate entries line, I think.",
+      "parentUuid": "5e287353_91810c21",
+      "range": {
+        "startLine": 345,
+        "startChar": 73,
+        "endLine": 346,
+        "endChar": 24
+      },
+      "revId": "b83071a9ff486844a2567b746fa2f873b1382c76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
