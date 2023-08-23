@@ -122,6 +122,30 @@
       },
       "revId": "b83071a9ff486844a2567b746fa2f873b1382c76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3041c695_2492f9ec",
+        "filename": "vpd_tool_impl.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2023-08-23T03:03:53Z",
+      "side": 1,
+      "message": "if the two interfaces (Asset and VINI) are present, then display VINI only and skip Asset -(this has been mentioned in the above comment)\nIf either one is present, display whatever is present - (this is not required to mention)",
+      "parentUuid": "3c0abcc2_10a3ca28",
+      "range": {
+        "startLine": 345,
+        "startChar": 73,
+        "endLine": 346,
+        "endChar": 24
+      },
+      "revId": "b83071a9ff486844a2567b746fa2f873b1382c76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
