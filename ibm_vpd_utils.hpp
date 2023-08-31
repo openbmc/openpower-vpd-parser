@@ -51,7 +51,7 @@ static const inventory::SystemKeywordsMap svpdKwdMap{
     {"UTIL",
      {inventory::SystemKeywordInfo("D0", Binary(1, 0x00), true, true, "VSBK",
                                    "D0"),
-      inventory::SystemKeywordInfo("D1", Binary(1, 0x00), true, true, "VSBK",
+      inventory::SystemKeywordInfo("D1", Binary(1, 0x00), false, true, "VSBK",
                                    "D1"),
       inventory::SystemKeywordInfo("F0", Binary(8, 0x00), false, true, "VSBK",
                                    "F0"),
