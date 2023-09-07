@@ -3,28 +3,32 @@ sdeventplus = dependency('sdeventplus')
 
 configuration_inc = include_directories('.', '../', '../vpd-parser/')
 
-vpd_manager_SOURCES =['manager_main.cpp',
-                      'manager.cpp',
-                      'error.cpp',
-                      'editor_impl.cpp',
-                      'reader_impl.cpp',
-                      'gpioMonitor.cpp',
-                      'bios_handler.cpp',
-                      '../impl.cpp',
-                      '../vpd-parser/ipz_parser.cpp',
-                      '../ibm_vpd_utils.cpp',
-                      '../common_utility.cpp',
-                      '../vpd-parser//keyword_vpd_parser.cpp',
-                      '../vpd-parser/memory_vpd_parser.cpp',
-                      '../vpd-parser/isdimm_vpd_parser.cpp',
-                      '../vpd-parser/parser_factory.cpp'
-                     ]
+vpd_manager_SOURCES = [
+    'manager_main.cpp',
+    'manager.cpp',
+    'error.cpp',
+    'editor_impl.cpp',
+    'reader_impl.cpp',
+    'gpioMonitor.cpp',
+    'bios_handler.cpp',
+    '../impl.cpp',
+    '../vpd-parser/ipz_parser.cpp',
+    '../ibm_vpd_utils.cpp',
+    '../common_utility.cpp',
+    '../vpd-parser//keyword_vpd_parser.cpp',
+    '../vpd-parser/memory_vpd_parser.cpp',
+    '../vpd-parser/isdimm_vpd_parser.cpp',
+    '../vpd-parser/parser_factory.cpp'
+]
 
-vpd_manager_dependencies =[phosphor_logging,
-                           systemd,
-                           libgpiodcxx,
-                           sdeventplus,
-                          ]
+vpd_manager_dependencies = [
+    CLI11_dep,
+    libgpiodcxx,
+    phosphor_logging,
+    sdeventplus,
+    systemd,
+    nlohmann_json_dep,
+]
 
 vpd_manager_exe = executable(
                  'vpd-manager',
