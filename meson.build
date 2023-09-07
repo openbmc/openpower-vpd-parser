@@ -116,7 +116,10 @@ common_SOURCES =['common_utility.cpp',
 ]
 
 if get_option('ibm-parser').enabled()
-        libgpiodcxx = dependency('libgpiodcxx')
+        libgpiodcxx = dependency(
+            'libgpiodcxx',
+            default_options: ['bindings=cxx'],
+        )
         ibm_read_vpd_SOURCES = ['ibm_vpd_app.cpp',
                                 'vpd-manager/editor_impl.cpp',
                                ]+common_SOURCES
