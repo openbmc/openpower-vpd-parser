@@ -72,15 +72,24 @@ libvpdecc = shared_library(
     install: true,
 )
 
-if not build_tests.disabled()
-    subdir('test')
-endif
-
 compiler = meson.get_compiler('cpp')
 python = find_program('python3', required:true)
 
-compiler.has_header('CLI/CLI.hpp')
-compiler.has_header('nlohmann/json.hpp')
+if compiler.has_header('CLI/CLI.hpp')
+    CLI11_dep = declare_dependency()
+else
+    CLI11_dep = dependency('CLI11')
+endif
+
+if compiler.has_header('nlohmann/json.hpp')
+    nlohmann_json_dep = declare_dependency()
+else
+    nlohmann_json_dep = dependency('nlohmann-json')
+endif
+
+if not build_tests.disabled()
+    subdir('test')
+endif
 
 configure_file(output: 'config.h',
                        configuration :{
@@ -133,6 +142,8 @@ if get_option('ibm-parser').enabled()
                                         sdbusplus,
                                         phosphor_logging,
                                         libgpiodcxx,
+                                        nlohmann_json_dep,
+                                        CLI11_dep,
                                 ],
                                 link_with : libvpdecc,
                                 include_directories : vpd_tool_INCLUDE,
@@ -152,7 +163,8 @@ if get_option('ibm-parser').enabled()
                                  dependencies: [
                                    sdbusplus,
                                    phosphor_logging,
-                                   libgpiodcxx
+                                   libgpiodcxx,
+                                   nlohmann_json_dep,
                                    ],
                                  link_with : libvpdecc,
                                  install: true,
@@ -252,6 +264,7 @@ else
                 dependencies: [
                         sdbusplus,
                         phosphor_logging,
+                        nlohmann_json_dep,
                 ],
                 include_directories : 'vpd-parser/',
                 install: true,
