@@ -201,7 +201,7 @@ else
         FRUGEN = '$srcdir/extra-properties.py -e' + get_option('FRU_YAML')
         PROPGEN = '$srcdir/extra-properties.py -e' + get_option('PROP_YAML')
 
-        src_dir = meson.source_root()
+        src_dir = meson.project_source_root()
         FRU_GEN_SCRIPT = src_dir + '/writefru.py'
         FRU_GEN_SCRIPT_FILES = src_dir + '/writefru.yaml'
 
