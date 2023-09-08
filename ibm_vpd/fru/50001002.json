@@ -1963,6 +1963,32 @@
                 }
             },
             {
+                "inventoryPath": "/system/chassis/motherboard/disk_backplane0/dp0_port1",
+                "inherit": false,
+                "extraInterfaces": {
+                    "xyz.openbmc_project.Inventory.Connector.Port": null,
+                    "com.ibm.ipzvpd.Location": {
+                        "LocationCode": "Ufcs-P1-P1"
+                    },
+                    "xyz.openbmc_project.Inventory.Item": {
+                        "PrettyName": "NVMe Internal Port"
+                    }
+                }
+            },
+            {
+                "inventoryPath": "/system/chassis/motherboard/disk_backplane0/dp0_port2",
+                "inherit": false,
+                "extraInterfaces": {
+                    "xyz.openbmc_project.Inventory.Connector.Port": null,
+                    "com.ibm.ipzvpd.Location": {
+                        "LocationCode": "Ufcs-P1-P2"
+                    },
+                    "xyz.openbmc_project.Inventory.Item": {
+                        "PrettyName": "NVMe Internal Port"
+                    }
+                }
+            },
+            {
                 "inventoryPath": "/cables/dp0_cable0",
                 "inherit": false,
                 "noprime": true,
@@ -2376,6 +2402,32 @@
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe Internal Connector"
+                    }
+                }
+            },
+            {
+                "inventoryPath": "/system/chassis/motherboard/disk_backplane1/dp1_port1",
+                "inherit": false,
+                "extraInterfaces": {
+                    "xyz.openbmc_project.Inventory.Connector.Port": null,
+                    "com.ibm.ipzvpd.Location": {
+                        "LocationCode": "Ufcs-P2-P1"
+                    },
+                    "xyz.openbmc_project.Inventory.Item": {
+                        "PrettyName": "NVMe Internal Port"
+                    }
+                }
+            },
+            {
+                "inventoryPath": "/system/chassis/motherboard/disk_backplane1/dp1_port2",
+                "inherit": false,
+                "extraInterfaces": {
+                    "xyz.openbmc_project.Inventory.Connector.Port": null,
+                    "com.ibm.ipzvpd.Location": {
+                        "LocationCode": "Ufcs-P2-P2"
+                    },
+                    "xyz.openbmc_project.Inventory.Item": {
+                        "PrettyName": "NVMe Internal Port"
                     }
                 }
             },
