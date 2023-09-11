@@ -124,7 +124,7 @@ common_SOURCES =['common_utility.cpp',
                  'vpd-parser/ipz_parser.cpp', 'impl.cpp', 'ibm_vpd_utils.cpp',
 ]
 
-if get_option('ibm-parser').enabled()
+if get_option('ibm-parser').allowed()
         libgpiodcxx = dependency(
             'libgpiodcxx',
             default_options: ['bindings=cxx'],
@@ -172,7 +172,7 @@ if get_option('ibm-parser').enabled()
                                  include_directories : vpd_tool_INCLUDE,
                                  cpp_args : '-DIPZ_PARSER'
                                  )
-if get_option('vpd-manager').enabled()
+if get_option('vpd-manager').allowed()
     subdir('vpd-manager')
 endif
 
