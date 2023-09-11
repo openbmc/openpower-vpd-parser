@@ -6,7 +6,6 @@ configuration_inc = include_directories('.', '../', '../vpd-parser/')
 vpd_manager_SOURCES = [
     'manager_main.cpp',
     'manager.cpp',
-    'error.cpp',
     'editor_impl.cpp',
     'reader_impl.cpp',
     'gpioMonitor.cpp',
