@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef9c8098_c98b5413",
+        "filename": "ibm_vpd/fru/50001000.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 3150,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-09-12T13:09:06Z",
+      "side": 1,
+      "message": "I haven\u0027t modified `dp*_connector*` and these are not a part of this commit.",
+      "parentUuid": "33df95bd_81442b43",
+      "range": {
+        "startLine": 3150,
+        "startChar": 2,
+        "endLine": 3150,
+        "endChar": 94
+      },
+      "revId": "ad0293523c421744296c127cde0cab255a319ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94363199_d6a02e44",
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "654b1b30_b99ddde9",
+        "filename": "ibm_vpd/fru/50001000.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 3163,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-09-12T13:09:06Z",
+      "side": 1,
+      "message": "I haven\u0027t modified `dp*_connector*` and these are not a part of this commit.",
+      "parentUuid": "94363199_d6a02e44",
+      "range": {
+        "startLine": 3163,
+        "startChar": 2,
+        "endLine": 3163,
+        "endChar": 94
+      },
+      "revId": "ad0293523c421744296c127cde0cab255a319ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f174446_ae82f1a9",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-09-12T08:55:43Z",
       "side": 1,
       "message": "location code is wrong , there is no such location code",
+      "range": {
+        "startLine": 3181,
+        "startChar": 23,
+        "endLine": 3181,
+        "endChar": 52
+      },
+      "revId": "ad0293523c421744296c127cde0cab255a319ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae71476a_c37e000d",
+        "filename": "ibm_vpd/fru/50001000.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 3181,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-09-12T13:09:06Z",
+      "side": 1,
+      "message": "Here, I\u0027m trying to add a mock location code as an example.\nCould you suggest the better one, or a real one if there can be?",
+      "parentUuid": "4f174446_ae82f1a9",
       "range": {
         "startLine": 3181,
         "startChar": 23,
