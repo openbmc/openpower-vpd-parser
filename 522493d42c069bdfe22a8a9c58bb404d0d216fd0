@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1674b9b2_9fd1fa48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-09-12T10:21:09Z",
+      "side": 1,
+      "message": "Going to push this stack through in order to unblock openbmc/opennbmc merges.  If the maintainers have any concerns on this stack, reach out and I\u0027ll get issues resolved.",
+      "revId": "522493d42c069bdfe22a8a9c58bb404d0d216fd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
