@@ -1,0 +1,6 @@
+Code-Review+2: Patrick Williams <patrick@stwcx.xyz>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Andrew Geissler <geissonator@yahoo.com>
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/66552
+Project: openbmc/openpower-vpd-parser
+Branch: refs/heads/master
