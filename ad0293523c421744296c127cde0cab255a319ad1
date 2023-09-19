@@ -159,6 +159,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fdf31da_75353fc5",
+        "filename": "ibm_vpd/fru/50001000.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 3181,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-09-19T17:18:15Z",
+      "side": 1,
+      "message": "As Jinu suggested, I\u0027ve added Connector.Port interface to dp0_connector4/5 \u0026 dp1_connector4/5.\n\n```\n                     \"xyz.openbmc_project.Inventory.Item.Connector\": null,\n+                    \"xyz.openbmc_project.Inventory.Connector.Port\": null,\n```",
+      "parentUuid": "ae71476a_c37e000d",
+      "range": {
+        "startLine": 3181,
+        "startChar": 23,
+        "endLine": 3181,
+        "endChar": 52
+      },
+      "revId": "ad0293523c421744296c127cde0cab255a319ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e405421b_c29af3cd",
@@ -172,6 +196,30 @@
       "writtenOn": "2023-09-12T08:55:43Z",
       "side": 1,
       "message": "location code is wrong , there is no such location code",
+      "range": {
+        "startLine": 3194,
+        "startChar": 24,
+        "endLine": 3194,
+        "endChar": 52
+      },
+      "revId": "ad0293523c421744296c127cde0cab255a319ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f763636_70e50172",
+        "filename": "ibm_vpd/fru/50001000.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 3194,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2023-09-19T17:18:15Z",
+      "side": 1,
+      "message": "As suggested, I\u0027ve used dp0_connector4/5 \u0026 dp1_connector4/5 for Connector.Port",
+      "parentUuid": "e405421b_c29af3cd",
       "range": {
         "startLine": 3194,
         "startChar": 24,
