@@ -117,9 +117,9 @@ static void
     Binary vpdVector{};
 
     uint32_t vpdStartOffset = 0;
-    vpdVector = getVpdDataInVector(js, constants::systemVpdFilePath);
-    ParserInterface* parser = ParserFactory::getParser(
-        vpdVector, invPath, constants::systemVpdFilePath, vpdStartOffset);
+    vpdVector = getVpdDataInVector(js, vpdPath);
+    ParserInterface* parser = ParserFactory::getParser(vpdVector, invPath,
+                                                       vpdPath, vpdStartOffset);
     auto parseResult = parser->parse();
     ParserFactory::freeParser(parser);
 
@@ -834,7 +834,7 @@ int VpdTool::fixSystemVPD()
          << "Data Mismatch\n"
          << outline << std::endl;
 
-    int num = 0;
+    uint8_t num = 0;
 
     // Get system VPD data in map
     unordered_map<string, DbusPropertyMap> vpdMap;
@@ -929,18 +929,19 @@ int VpdTool::fixSystemVPD()
                 make_tuple(++num, record, keyword, busStr, hwValStr, mismatch));
 
             std::string splitLine(191, '-');
-            cout << left << setw(6) << num << left << setw(8) << record << left
-                 << setw(9) << keyword << left << setw(75) << setfill(' ')
-                 << busStr << left << setw(75) << setfill(' ') << hwValStr
-                 << left << setw(14) << mismatch << '\n'
+            cout << left << setw(6) << static_cast<int>(num) << left << setw(8)
+                 << record << left << setw(9) << keyword << left << setw(75)
+                 << setfill(' ') << busStr << left << setw(75) << setfill(' ')
+                 << hwValStr << left << setw(14) << mismatch << '\n'
                  << splitLine << endl;
         }
     }
-    parseSVPDOptions(js);
+    parseSVPDOptions(js, std::string());
     return 0;
 }
 
-void VpdTool::parseSVPDOptions(const nlohmann::json& json)
+void VpdTool::parseSVPDOptions(const nlohmann::json& json,
+                               const std::string& backupEEPROMPath)
 {
     do
     {
@@ -992,12 +993,24 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
         }
         else if (option == VpdTool::SYSTEM_BACKPLANE_DATA_FOR_ALL)
         {
+            std::string hardwarePath = constants::systemVpdFilePath;
+            if (!backupEEPROMPath.empty())
+            {
+                hardwarePath = backupEEPROMPath;
+            }
+
             for (const auto& data : recKwData)
             {
                 if (get<5>(data) == "YES")
                 {
-                    EditorImpl edit(constants::systemVpdFilePath, json,
-                                    get<1>(data), get<2>(data));
+                    std::string record = get<1>(data), keyword = get<2>(data);
+
+                    if (!backupEEPROMPath.empty())
+                    {
+                        getBackupRecordKeyword(record, keyword);
+                    }
+
+                    EditorImpl edit(hardwarePath, json, record, keyword);
                     edit.updateKeyword(toBinary(get<4>(data)), 0, true);
                     mismatchFound = true;
                 }
@@ -1034,11 +1047,11 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
                          << setw(75) << setfill(' ') << "Primary Data" << left
                          << setw(14) << "Data Mismatch" << endl;
 
-                    cout << left << setw(6) << get<0>(data) << left << setw(8)
-                         << get<1>(data) << left << setw(9) << get<2>(data)
-                         << left << setw(75) << setfill(' ') << get<3>(data)
-                         << left << setw(75) << setfill(' ') << get<4>(data)
-                         << left << setw(14) << get<5>(data);
+                    cout << left << setw(6) << static_cast<int>(get<0>(data))
+                         << left << setw(8) << get<1>(data) << left << setw(9)
+                         << get<2>(data) << left << setw(75) << setfill(' ')
+                         << get<3>(data) << left << setw(75) << setfill(' ')
+                         << get<4>(data) << left << setw(14) << get<5>(data);
 
                     cout << '\n' << outline << endl;
 
@@ -1063,11 +1076,10 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
                     cin >> option;
                     cout << '\n' << outline << endl;
 
-                    EditorImpl edit(constants::systemVpdFilePath, json,
-                                    get<1>(data), get<2>(data));
-
                     if (option == VpdTool::BACKUP_DATA_FOR_CURRENT)
                     {
+                        EditorImpl edit(constants::systemVpdFilePath, json,
+                                        get<1>(data), get<2>(data));
                         edit.updateKeyword(toBinary(get<3>(data)), 0, true);
                         cout << "\nData updated successfully.\n";
                         break;
@@ -1075,6 +1087,17 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
                     else if (option ==
                              VpdTool::SYSTEM_BACKPLANE_DATA_FOR_CURRENT)
                     {
+                        std::string hardwarePath = constants::systemVpdFilePath;
+                        std::string record = get<1>(data);
+                        std::string keyword = get<2>(data);
+
+                        if (!backupEEPROMPath.empty())
+                        {
+                            hardwarePath = backupEEPROMPath;
+                            getBackupRecordKeyword(record, keyword);
+                        }
+
+                        EditorImpl edit(hardwarePath, json, record, keyword);
                         edit.updateKeyword(toBinary(get<4>(data)), 0, true);
                         cout << "\nData updated successfully.\n";
                         break;
@@ -1088,7 +1111,21 @@ void VpdTool::parseSVPDOptions(const nlohmann::json& json)
                         cin >> value;
                         cout << '\n' << outline << endl;
 
+                        EditorImpl edit(constants::systemVpdFilePath, json,
+                                        get<1>(data), get<2>(data));
                         edit.updateKeyword(toBinary(value), 0, true);
+
+                        if (!backupEEPROMPath.empty())
+                        {
+                            std::string record = get<1>(data);
+                            std::string keyword = get<2>(data);
+
+                            getBackupRecordKeyword(record, keyword);
+                            EditorImpl edit(backupEEPROMPath, json, record,
+                                            keyword);
+                            edit.updateKeyword(toBinary(value), 0, true);
+                        }
+
                         cout << "\nData updated successfully.\n";
                         break;
                     }
@@ -1188,5 +1225,127 @@ int VpdTool::cleanSystemVPD()
         std::cerr
             << "\nManufacturing reset on system vpd keywords is unsuccessful";
     }
+    return 0;
+}
+
+int VpdTool::fixSystemBackupVPD(const std::string& backupEepromPath,
+                                const std::string& backupInvPath)
+{
+    std::string outline(191, '=');
+    cout << "\nRestorable record-keyword pairs and their data on backup & "
+            "primary.\n\n"
+         << outline << std::endl;
+
+    cout << left << setw(6) << "S.No" << left << setw(8) << "Record" << left
+         << setw(9) << "Keyword" << left << setw(75) << "Data On Backup" << left
+         << setw(75) << "Data On Primary" << left << setw(14)
+         << "Data Mismatch\n"
+         << outline << std::endl;
+
+    uint8_t num = 0;
+    // Get system VPD data in map
+    unordered_map<string, DbusPropertyMap> systemVPDMap;
+    json js;
+    getVPDInMap(constants::systemVpdFilePath, systemVPDMap, js,
+                constants::pimPath +
+                    static_cast<std::string>(constants::SYSTEM_OBJECT));
+
+    // Get backup VPD data in map
+    unordered_map<string, DbusPropertyMap> backupVPDMap;
+    getVPDInMap(backupEepromPath, backupVPDMap, js,
+                constants::pimPath + backupInvPath);
+
+    for (const auto& recordKw : svpdKwdMap)
+    {
+        const std::string& primaryRecord = recordKw.first;
+
+        std::string primaryValStr{}, backupValStr{};
+
+        for (const auto& keywordInfo : recordKw.second)
+        {
+            const auto& primaryKeyword = get<0>(keywordInfo);
+            const auto& bkRecord = get<4>(keywordInfo);
+            const auto& bkKeyword = get<5>(keywordInfo);
+            string mismatch = "NO";
+            string primaryValue{};
+            string backupValue{};
+
+            // Find keyword value for system VPD (primary VPD)
+            auto primaryRecItr = systemVPDMap.find(primaryRecord);
+            if (primaryRecItr != systemVPDMap.end())
+            {
+                DbusPropertyMap& primaryKwValMap = primaryRecItr->second;
+                auto kwItr = primaryKwValMap.find(primaryKeyword);
+                if (kwItr != primaryKwValMap.end())
+                {
+                    primaryValue = kwItr->second;
+                }
+            }
+
+            // Find keyword value for backup VPD
+            auto bkRecItr = backupVPDMap.find(bkRecord);
+            if (bkRecItr != backupVPDMap.end())
+            {
+                DbusPropertyMap& bkKwValMap = bkRecItr->second;
+                auto kwItr = bkKwValMap.find(bkKeyword);
+                if (kwItr != bkKwValMap.end())
+                {
+                    backupValue = kwItr->second;
+                }
+            }
+
+            // SE to display in hex string only
+            if (primaryKeyword != "SE")
+            {
+                ostringstream hwValStream;
+                hwValStream << "0x";
+                primaryValStr = hwValStream.str();
+
+                for (uint16_t byte : primaryValue)
+                {
+                    hwValStream << setfill('0') << setw(2) << hex << byte;
+                    primaryValStr = hwValStream.str();
+                }
+
+                hwValStream.str(std::string());
+                hwValStream << "0x";
+                backupValStr = hwValStream.str();
+
+                for (uint16_t byte : backupValue)
+                {
+                    hwValStream << setfill('0') << setw(2) << hex << byte;
+                    backupValStr = hwValStream.str();
+                }
+                if (primaryValStr != backupValStr)
+                {
+                    mismatch = "YES";
+                }
+            }
+            else
+            {
+                if (primaryValue != backupValue)
+                {
+                    mismatch = "YES";
+                }
+
+                primaryValStr = primaryValue;
+                backupValStr = backupValue;
+            }
+
+            recKwData.push_back(make_tuple(++num, primaryRecord, primaryKeyword,
+                                           backupValStr, primaryValStr,
+                                           mismatch));
+
+            std::string splitLine(191, '-');
+            cout << left << setw(6) << static_cast<int>(num) << left << setw(8)
+                 << primaryRecord << left << setw(9) << primaryKeyword << left
+                 << setw(75) << setfill(' ') << backupValStr << left << setw(75)
+                 << setfill(' ') << primaryValStr << left << setw(14)
+                 << mismatch << '\n'
+                 << splitLine << endl;
+        }
+    }
+
+    parseSVPDOptions(js, backupEepromPath);
     return 0;
 }
