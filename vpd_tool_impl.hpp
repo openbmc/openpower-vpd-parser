@@ -12,7 +12,7 @@ using json = nlohmann::json;
 
 // <S.no, Record, Keyword, D-Bus value, HW value, Data mismatch>
 using SystemCriticalData =
-    std::vector<std::tuple<int, std::string, std::string, std::string,
+    std::vector<std::tuple<uint8_t, std::string, std::string, std::string,
                            std::string, std::string>>;
 
 class VpdTool
@@ -141,8 +141,10 @@ class VpdTool
      * @brief Parse through the options to fix system VPD
      *
      * @param[in] json - Inventory JSON
+     * @param[in] backupEEPROMPath - Backup VPD path
      */
-    void parseSVPDOptions(const nlohmann::json& json);
+    void parseSVPDOptions(const nlohmann::json& json,
+                          const std::string& backupEEPROMPath);
 
     /**
      * @brief List of user options that can be used to fix system VPD keywords.
@@ -277,6 +279,19 @@ class VpdTool
      * @return return code (success/failure)
      */
     int cleanSystemVPD();
+
+    /**
+     * @brief Fix system VPD and its backup VPD
+     * API is triggerred if the backup of system VPD has to be taken in a
+     * hardware VPD. User can use the --fixSystemVPD option to restore the
+     * keywords in backup VPD and/or system VPD.
+     *
+     * @param[in] backupEepromPath - Backup VPD path
+     * @param[in] backupInvPath - Backup inventory path
+     * @return returncode
+     */
+    int fixSystemBackupVPD(const std::string& backupEepromPath,
+                           const std::string& backupInvPath);
 
     /**
      * @brief Constructor

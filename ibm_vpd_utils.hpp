@@ -539,5 +539,24 @@ std::string getDbusNameForThisKw(const std::string& keyword);
  */
 void clearVpdOnRemoval(const std::string& objPath,
                        inventory::InterfaceMap& interfacesPropMap);
+
+/**
+ * @brief Find backup VPD path if any for the system VPD
+ *
+ * @param[out] backupEepromPath - Backup VPD path
+ * @param[out] backupInvPath - Backup inventory path
+ * @param[in] js - Inventory JSON object
+ */
+void findBackupVPDPaths(std::string& backupEepromPath,
+                        std::string& backupInvPath, const nlohmann::json& js);
+
+/**
+ * @brief Get backup VPD's record and keyword for the given system VPD keyword
+ *
+ * @param[in,out] record - Record name
+ * @param[in,out] keyword - Keyword name
+ */
+void getBackupRecordKeyword(std::string& record, std::string& keyword);
+
 } // namespace vpd
 } // namespace openpower
