@@ -1180,5 +1180,46 @@ void clearVpdOnRemoval(const std::string& objPath,
         }
     }
 }
+
+void findBackupVPDPaths(std::string& backupEepromPath,
+                        std::string& backupInvPath, const nlohmann::json& js)
+{
+    for (const auto& item : js["frus"][constants::systemVpdFilePath])
+    {
+        if (item.find("systemVpdBackupPath") != item.end())
+        {
+            backupEepromPath = item["systemVpdBackupPath"];
+            for (const auto& item : js["frus"][backupEepromPath])
+            {
+                if (item.find("inventoryPath") != item.end())
+                {
+                    backupInvPath = item["inventoryPath"];
+                    break;
+                }
+            }
+            break;
+        }
+    }
+}
+
+void getBackupRecordKeyword(std::string& record, std::string& keyword)
+{
+    for (const auto& recordKw : svpdKwdMap)
+    {
+        if (record == recordKw.first)
+        {
+            for (const auto& keywordInfo : recordKw.second)
+            {
+                if (keyword == get<0>(keywordInfo))
+                {
+                    record = get<4>(keywordInfo);
+                    keyword = get<5>(keywordInfo);
+                    break;
+                }
+            }
+            break;
+        }
+    }
+}
 } // namespace vpd
 } // namespace openpower

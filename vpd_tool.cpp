@@ -199,8 +199,20 @@ int main(int argc, char** argv)
         }
         else if (*fixSystemVPDFlag)
         {
+            std::string backupEepromPath;
+            std::string backupInvPath;
+            findBackupVPDPaths(backupEepromPath, backupInvPath, jsObject);
             VpdTool vpdToolObj;
-            rc = vpdToolObj.fixSystemVPD();
+
+            if (backupEepromPath.empty())
+            {
+                rc = vpdToolObj.fixSystemVPD();
+            }
+            else
+            {
+                rc = vpdToolObj.fixSystemBackupVPD(backupEepromPath,
+                                                   backupInvPath);
+            }
         }
         else if (*mfgClean)
         {
