@@ -16,3 +16,4 @@ do
 done
 echo "Exit wait for VPD services to finish with timeout"
 exit 1
+
