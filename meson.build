@@ -182,33 +182,27 @@ systemd_system_unit_dir = dependency('systemd').get_variable(
 udev_dir = dependency('udev').get_variable(
         'udev_dir')
 
-install_data(
-    'ibm_vpd/system-vpd.service',
-    install_dir: systemd_system_unit_dir)
+rules = ['rules/70-ibm-vpd-parser.rules']
 
-install_data(
-    'ibm_vpd/ibm-vpd-parser@.service',
-    install_dir: systemd_system_unit_dir)
+install_data(rules, install_mode: 'rw-r--r--', install_dir: udev_dir/'rules.d')
 
-install_data(
-    'ibm_vpd/com.ibm.VPD.Manager.service',
-    install_dir: systemd_system_unit_dir)
+services = ['service_files/system-vpd.service',
+            'service_files/ibm-vpd-parser@.service',
+            'service_files/com.ibm.VPD.Manager.service',
+            'service_files/wait-vpd-parsers.service',
+            'service_files/ibm-isdimm-vpd-parser@.service',
+            'service_files/ibm-spi-vpd-parser@.service']
 
-install_data(
-    'ibm_vpd/wait-vpd-parsers.service',
-    install_dir: systemd_system_unit_dir)
+install_data(services, install_dir: systemd_system_unit_dir)
 
-install_data(
-    'ibm_vpd/wait-vpd-parsers.sh',
+scripts = ['scripts/wait-vpd-parsers.sh']
+
+install_data(scripts,
     install_mode: 'rwxr-xr-x',
     install_dir: get_option('bindir'))
 
-install_data(
-    ['ibm_vpd/70-ibm-vpd-parser.rules'],
-    install_dir: udev_dir / 'rules.d')
-
 package_datadir = join_paths('share', 'vpd')
-install_subdir('ibm_vpd/fru/', install_dir: package_datadir, strip_directory: true)
+install_subdir('config/ibm/', install_dir: package_datadir, strip_directory: true)
 
 else
         FRUGEN = '$srcdir/extra-properties.py -e' + get_option('FRU_YAML')
