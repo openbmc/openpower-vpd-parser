@@ -1,6 +1,6 @@
 #!/bin/sh
 retries=100
-echo "Checking every 2s for active VPD parsers..."
+echo "Checking every 2s for active VPD parsers...."
 while [ "$retries" -ne 0 ]
 do
     sleep 2
