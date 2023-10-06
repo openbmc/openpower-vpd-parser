@@ -22,6 +22,13 @@
                 "keywordName": "DC",
                 "encoding": "DATE"
             }
+        },
+        "xyz.openbmc_project.Inventory.Item": {
+            "PrettyName": {
+                "recordName": "VINI",
+                "keywordName": "DR"
+            },
+            "Present": true
         }
     },
     "frus": {
@@ -29,14 +36,10 @@
             {
                 "inventoryPath": "/system/chassis/motherboard",
                 "isSystemVpd": true,
-                "systemVpdBackupPath": "/sys/bus/i2c/drivers/at24/7-0050/eeprom",
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Board.Motherboard": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P0"
-                    },
-                    "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "System Backplane"
                     }
                 }
             },
@@ -63,23 +66,17 @@
                     },
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Umts"
-                    },
-                    "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "System"
                     }
                 }
             },
             {
                 "inventoryPath": "/system/chassis",
+                "inherit": false,
                 "isSystemVpd": true,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Chassis": null,
-                    "xyz.openbmc_project.Inventory.Item.Global": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs"
-                    },
-                    "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Chassis"
                     }
                 }
             }
