@@ -2488,8 +2488,8 @@
                 "devAddress": "34-0050",
                 "driverType": "at24",
                 "busType": "i2c",
-                "handlePresence": false,
                 "concurrentlyMaintainable": true,
+                "handlePresence": false,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Fan": null,
                     "com.ibm.ipzvpd.Location": {
