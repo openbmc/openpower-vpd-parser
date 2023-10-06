@@ -198,7 +198,7 @@ install_data(scripts,
     install_dir: get_option('bindir'))
 
 package_datadir = join_paths('share', 'vpd')
-install_subdir('config/ibm', install_dir: package_datadir, strip_directory: true)
+install_subdir('config/ibm/', install_mode: 'rwxr-xr-x', install_dir: package_datadir, strip_directory: true)
 
 else
         FRUGEN = '$srcdir/extra-properties.py -e' + get_option('FRU_YAML')
