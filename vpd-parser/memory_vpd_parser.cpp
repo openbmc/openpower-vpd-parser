@@ -208,7 +208,7 @@ auto memoryVpdParser::getDdr5BasedDDimmSize(Binary::const_iterator iterator)
                     l_diePerPackage * l_densityPerDie * l_ranksPerChannel) /
                    (8 * l_dramWidth);
 
-    } while (1);
+    } while (false);
 
     return constants::CONVERT_MB_TO_KB * dimmSize;
 }
