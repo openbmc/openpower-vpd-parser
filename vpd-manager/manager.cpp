@@ -44,41 +44,40 @@ Manager::Manager(std::shared_ptr<boost::asio::io_context>& ioCon,
                const std::string& recordName, const std::string& keyword,
                const Binary& value) {
         this->writeKeyword(path, recordName, keyword, value);
-        });
+    });
 
     interface->register_method(
         "GetFRUsByUnexpandedLocationCode",
         [this](const std::string& locationCode,
                const uint16_t nodeNumber) -> inventory::ListOfPaths {
-            return this->getFRUsByUnexpandedLocationCode(locationCode,
-                                                         nodeNumber);
-        });
+        return this->getFRUsByUnexpandedLocationCode(locationCode, nodeNumber);
+    });
 
     interface->register_method(
         "GetFRUsByExpandedLocationCode",
         [this](const std::string& locationCode) -> inventory::ListOfPaths {
-            return this->getFRUsByExpandedLocationCode(locationCode);
-        });
+        return this->getFRUsByExpandedLocationCode(locationCode);
+    });
 
     interface->register_method(
         "GetExpandedLocationCode",
         [this](const std::string& locationCode,
                const uint16_t nodeNumber) -> std::string {
-            return this->getExpandedLocationCode(locationCode, nodeNumber);
-        });
+        return this->getExpandedLocationCode(locationCode, nodeNumber);
+    });
 
     interface->register_method("PerformVPDRecollection",
                                [this]() { this->performVPDRecollection(); });
 
     interface->register_method(
         "deleteFRUVPD", [this](const sdbusplus::message::object_path& path) {
-            this->deleteFRUVPD(path);
-        });
+        this->deleteFRUVPD(path);
+    });
 
     interface->register_method(
         "CollectFRUVPD", [this](const sdbusplus::message::object_path& path) {
-            this->collectFRUVPD(path);
-        });
+        this->collectFRUVPD(path);
+    });
 
     sd_bus_default(&sdBus);
     initManager();

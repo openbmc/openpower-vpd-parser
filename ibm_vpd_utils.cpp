@@ -699,7 +699,7 @@ std::string hexString(const std::variant<Binary, std::string>& kw)
                << static_cast<int>(kwVal);
         }
         hexString = ss.str();
-        },
+    },
         kw);
     return hexString;
 }
@@ -720,7 +720,7 @@ std::string getPrintableValue(const std::variant<Binary, std::string>& kwVal)
         {
             kwString = std::string(kwVal.begin(), kwVal.end());
         }
-        },
+    },
         kwVal);
     return kwString;
 }

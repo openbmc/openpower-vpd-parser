@@ -50,7 +50,7 @@ void BiosHandler::checkAndListenPLDMService()
             // We don't need the match anymore
             nameOwnerMatch.reset();
         }
-            });
+    });
     // Check if PLDM is already running, if it is, we can go ahead and attempt
     // to sync BIOS attributes (since PLDM would have initialized them by the
     // time it acquires a bus name).
