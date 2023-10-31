@@ -386,6 +386,66 @@ void Manager::processJSON()
     }
 }
 
+void Manager::updateSystemVPDBackUpFRU(const std::string& recordName,
+                                       const std::string& keyword,
+                                       const Binary& value)
+{
+    const std::string& systemVpdBackupPath =
+        jsonFile["frus"][systemVpdFilePath].at(0).value("systemVpdBackupPath",
+                                                        "");
+
+    if (!systemVpdBackupPath.empty() &&
+        jsonFile["frus"][systemVpdBackupPath].at(0).contains("inventoryPath"))
+    {
+        std::string systemVpdBackupInvPath =
+            jsonFile["frus"][systemVpdBackupPath][0]["inventoryPath"]
+                .get_ref<const nlohmann::json::string_t&>();
+
+        const auto& itr = svpdKwdMap.find(recordName);
+        if (itr != svpdKwdMap.end())
+        {
+            auto systemKwdInfoList = itr->second;
+            const auto& itrToKwd = find_if(systemKwdInfoList.begin(),
+                                           systemKwdInfoList.end(),
+                                           [&keyword](const auto& kwdInfo) {
+                return (keyword == std::get<0>(kwdInfo));
+            });
+
+            if (itrToKwd != systemKwdInfoList.end())
+            {
+                EditorImpl edit(systemVpdBackupPath, jsonFile,
+                                std::get<4>(*itrToKwd), std::get<5>(*itrToKwd),
+                                systemVpdBackupInvPath);
+
+                // Setup offset, if any
+                uint32_t offset = 0;
+                if (jsonFile["frus"][systemVpdBackupPath].at(0).contains(
+                        "offset"))
+                {
+                    offset =
+                        jsonFile["frus"][systemVpdBackupPath].at(0).contains(
+                            "offset");
+                }
+
+                edit.updateKeyword(value, offset, true);
+            }
+        }
+    }
+    else
+    {
+        if (systemVpdBackupPath.empty())
+        {
+            throw std::runtime_error(
+                "Invalid entry for systemVpdBackupPath in JSON");
+        }
+        else
+        {
+            throw std::runtime_error(
+                "Inventory path missing for systemVpdBackupPath");
+        }
+    }
+}
+
 void Manager::writeKeyword(const sdbusplus::message::object_path& path,
                            const std::string& recordName,
                            const std::string& keyword, const Binary& value)
@@ -421,6 +481,15 @@ void Manager::writeKeyword(const sdbusplus::message::object_path& path,
         }
 
         edit.updateKeyword(value, offset, true);
+
+        // If system VPD is being updated and system VPD is marked for back up
+        // on another FRU, update data on back up as well.
+        if (objPath == sdbusplus::message::object_path{SYSTEM_OBJECT} &&
+            jsonFile["frus"][systemVpdFilePath].at(0).contains(
+                "systemVpdBackupPath"))
+        {
+            updateSystemVPDBackUpFRU(recordName, keyword, value);
+        }
 
         // If we have a redundant EEPROM to update, then update just the EEPROM,
         // not the cache since that is already done when we updated the primary
