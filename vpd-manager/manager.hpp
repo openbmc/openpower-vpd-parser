@@ -172,6 +172,20 @@ class Manager
     void triggerVpdCollection(const nlohmann::json& singleFru,
                               const std::string& path);
 
+    /** @brief Update FRU that back up system VPD.
+     *
+     * The API checks if the FRU being updated is system FRU and the record
+     * keyword pair being updated is the one that needs to be backed up and
+     * updates the back up FRU accordingly.
+     *
+     *  @param[in] recordName - name of the record.
+     *  @param[in] keyword - keyword whose value needs to be updated.
+     *  @param[in] value - value that needs to be updated.
+     */
+    void updateSystemVPDBackUpFRU(const std::string& recordName,
+                                  const std::string& keyword,
+                                  const Binary& value);
+
     /**
      * @brief Check for essential fru in the system.
      * The api check for the presence of FRUs marked as essential and logs PEL
