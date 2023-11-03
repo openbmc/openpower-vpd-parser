@@ -115,6 +115,7 @@ static constexpr auto SPD_DRAM_TYPE_DDR4 = 0x0C;
 
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
 constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
+constexpr auto pimService = "xyz.openbmc_project.Inventory.Manager";
 constexpr auto kwdVpdInf = "com.ibm.ipzvpd.VINI";
 constexpr auto memVpdInf = "com.ibm.ipzvpd.VINI";
 constexpr auto ipzVpdInf = "com.ibm.ipzvpd.";
@@ -145,6 +146,9 @@ constexpr auto at24driver = "at24";
 constexpr auto at25driver = "at25";
 constexpr auto ee1004driver = "ee1004";
 constexpr auto invItemIntf = "xyz.openbmc_project.Inventory.Item";
+constexpr auto invAssetIntf = "xyz.openbmc_project.Inventory.Decorator.Asset";
+constexpr auto invOperationalStatusIntf =
+    "xyz.openbmc_project.State.Decorator.OperationalStatus";
 static constexpr std::uintmax_t MAX_VPD_SIZE = 65504;
 
 namespace lengths
