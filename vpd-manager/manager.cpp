@@ -32,6 +32,7 @@ namespace vpd
 {
 namespace manager
 {
+
 Manager::Manager(std::shared_ptr<boost::asio::io_context>& ioCon,
                  std::shared_ptr<sdbusplus::asio::dbus_interface>& iFace,
                  std::shared_ptr<sdbusplus::asio::connection>& conn) :
@@ -838,18 +839,14 @@ void Manager::deleteFRUVPD(const sdbusplus::message::object_path& path)
     }
     else
     {
-        // Set present property of FRU as false as it has been removed.
-        // CC data for FRU is also removed as
-        // a) FRU is not there so CC does not make sense.
-        // b) Sensors dependent on Panel uses CC data.
-        inventory::InterfaceMap interfaces{
-            {"xyz.openbmc_project.Inventory.Item", {{"Present", false}}},
-            {"com.ibm.ipzvpd.VINI", {{"CC", Binary{}}}}};
+        inventory::InterfaceMap interfacesPropMap;
+        clearVpdOnRemoval(INVENTORY_PATH + objPath, interfacesPropMap);
 
         inventory::ObjectMap objectMap;
-        objectMap.emplace(objPath, move(interfaces));
+        objectMap.emplace(objPath, move(interfacesPropMap));
 
         common::utility::callPIM(move(objectMap));
+
     }
 }
 

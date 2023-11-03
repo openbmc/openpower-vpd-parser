@@ -87,6 +87,17 @@ MapperResponse
     getObjectSubtreeForInterfaces(const std::string& root, const int32_t depth,
                                   const std::vector<std::string>& interfaces);
 
+/**
+ * @brief API to call GetObject API of mapper.
+ *
+ * @param[in] objectPath - inventory path.
+ * @param[in] interfaces - List of interfaces.
+ *
+ * @return - response of the API call.
+ */
+MapperGetObjectResponse getObject(const std::string& objectPath,
+                                  const std::vector<std::string>& interfaces);
+
 } // namespace inventory
 
 /**@brief This API reads 2 Bytes of data and swap the read data
@@ -520,5 +531,13 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file);
  */
 std::string getDbusNameForThisKw(const std::string& keyword);
 
+/**
+ * @brief API to remove VPD data from Dbus on removal of FRU.
+ *
+ * @param[in] objPath - Inventory path of the FRU.
+ * @param[out] interfacesPropMap - Map of interface, property and value.
+ */
+void clearVpdOnRemoval(const std::string& objPath,
+                       inventory::InterfaceMap& interfacesPropMap);
 } // namespace vpd
 } // namespace openpower
