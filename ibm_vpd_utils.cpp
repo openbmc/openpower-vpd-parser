@@ -81,6 +81,32 @@ MapperResponse
     return result;
 }
 
+MapperGetObjectResponse getObject(const std::string& objectPath,
+                                  const std::vector<std::string>& interfaces)
+{
+    auto bus = sdbusplus::bus::new_default();
+    auto mapperCall = bus.new_method_call(mapperDestination, mapperObjectPath,
+                                          mapperInterface, "GetObject");
+    mapperCall.append(objectPath);
+    mapperCall.append(interfaces);
+
+    MapperGetObjectResponse result = {};
+
+    try
+    {
+        auto response = bus.call(mapperCall);
+
+        response.read(result);
+    }
+    catch (const sdbusplus::exception_t& e)
+    {
+        log<level::ERR>("Error in mapper GetObject",
+                        entry("ERROR=%s", e.what()));
+    }
+
+    return result;
+}
+
 } // namespace inventory
 
 LE2ByteData readUInt16LE(Binary::const_iterator iterator)
@@ -1093,5 +1119,66 @@ std::string getDbusNameForThisKw(const std::string& keyword)
     return keyword;
 }
 
+void clearVpdOnRemoval(const std::string& objPath,
+                       inventory::InterfaceMap& interfacesPropMap)
+{
+    std::vector<std::string> vpdRelatedInterfaces{
+        constants::invOperationalStatusIntf, constants::invItemIntf,
+        constants::invAssetIntf};
+
+    std::vector<std::string> interfaces{};
+    auto mapperResponse = inventory::getObject(objPath, interfaces);
+
+    for (const auto& [service, interfaceList] : mapperResponse)
+    {
+        // Handle FRUs under PIM
+        if (service.compare(pimService) != 0)
+        {
+            continue;
+        }
+
+        for (const auto& interface : interfaceList)
+        {
+            // Only process for VPD related interfaces.
+            if ((interface.find("com.ibm.ipzvpd") != std::string::npos) ||
+                ((std::find(vpdRelatedInterfaces.begin(),
+                            vpdRelatedInterfaces.end(), interface)) !=
+                 vpdRelatedInterfaces.end()))
+            {
+                const auto propertyList = getAllDBusProperty<GetAllResultType>(
+                    service, objPath, interface);
+
+                inventory::PropertyMap propertyValueMap;
+                for (auto aProperty : propertyList)
+                {
+                    const auto& propertyName = std::get<0>(aProperty);
+                    const auto& propertyValue = std::get<1>(aProperty);
+
+                    if (std::holds_alternative<Binary>(propertyValue))
+                    {
+                        propertyValueMap.emplace(propertyName, Binary{});
+                    }
+                    else if (std::holds_alternative<std::string>(propertyValue))
+                    {
+                        propertyValueMap.emplace(propertyName, std::string{});
+                    }
+                    else if (std::holds_alternative<bool>(propertyValue))
+                    {
+                        if (propertyName.compare("Present") == 0)
+                        {
+                            propertyValueMap.emplace(propertyName, false);
+                        }
+                        else if (propertyName.compare("Functional") == 0)
+                        {
+                            propertyValueMap.emplace(propertyName, true);
+                        }
+                    }
+                }
+                interfacesPropMap.emplace(interface,
+                                          std::move(propertyValueMap));
+            }
+        }
+    }
+}
 } // namespace vpd
 } // namespace openpower

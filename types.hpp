@@ -59,6 +59,7 @@ using PelAdditionalData = std::map<std::string, std::string>;
 using Service = std::string;
 using MapperResponse =
     std::map<Path, std::map<Service, std::vector<Interface>>>;
+using MapperGetObjectResponse = std::map<Service, std::vector<Interface>>;
 using RestoredEeproms = std::tuple<Path, std::string, Keyword, Binary>;
 using ReplaceableFrus = std::vector<VPDfilepath>;
 using EssentialFrus = std::vector<Path>;
