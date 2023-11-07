@@ -3,6 +3,7 @@
 #include "ibm_vpd_utils.hpp"
 
 #include "common_utility.hpp"
+#include "const.hpp"
 #include "defines.hpp"
 #include "vpd_exceptions.hpp"
 
@@ -1022,7 +1023,7 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
     vpdFile.exceptions(std::ifstream::badbit | std::ifstream::failbit);
     try
     {
-        vpdFile.open(file, std::ios::binary);
+        vpdFile.open(file, std::ios::binary | std::ios::in);
         vpdFile.seekg(offset, std::ios_base::cur);
         vpdFile.read(reinterpret_cast<char*>(&vpdVector[0]), maxVPDSize);
         vpdVector.resize(vpdFile.gcount());
@@ -1038,8 +1039,8 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
         throw;
     }
 
-    // Make sure we reset the EEPROM pointer to a "safe" location if it was DIMM
-    // SPD that we just read.
+    // Make sure we reset the EEPROM pointer to a "safe" location if it was
+    // a DDIMM SPD that we just read.
     for (const auto& item : js["frus"][file])
     {
         if (item.find("extraInterfaces") != item.end())
@@ -1048,22 +1049,28 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
                     "xyz.openbmc_project.Inventory.Item.Dimm") !=
                 item["extraInterfaces"].end())
             {
-                try
+                // check added here for DDIMM only workarround
+                vpdType dimmType = vpdTypeCheck(vpdVector);
+                if (dimmType == constants::DDR4_DDIMM_MEMORY_VPD ||
+                    dimmType == constants::DDR5_DDIMM_MEMORY_VPD)
                 {
-                    // moves the EEPROM pointer to 2048 'th byte.
-                    vpdFile.seekg(2047, std::ios::beg);
-                    // Read that byte and discard - to affirm the move
-                    // operation.
-                    char ch;
-                    vpdFile.read(&ch, sizeof(ch));
-                }
-                catch (const std::ifstream::failure& fail)
-                {
-                    std::cerr << "Exception in file handling [" << file
-                              << "] error : " << fail.what();
-                    std::cerr << "Stream file size = " << vpdFile.gcount()
-                              << std::endl;
-                    throw;
+                    try
+                    {
+                        // moves the EEPROM pointer to 2048 'th byte.
+                        vpdFile.seekg(2047, std::ios::beg);
+                        // Read that byte and discard - to affirm the move
+                        // operation.
+                        char ch;
+                        vpdFile.read(&ch, sizeof(ch));
+                    }
+                    catch (const std::ifstream::failure& fail)
+                    {
+                        std::cerr << "Exception in file handling [" << file
+                                  << "] error : " << fail.what();
+                        std::cerr << "Stream file size = " << vpdFile.gcount()
+                                  << std::endl;
+                        throw;
+                    }
                 }
                 break;
             }
@@ -1086,5 +1093,45 @@ std::string getDbusNameForThisKw(const std::string& keyword)
     return keyword;
 }
 
+void findBackupVPDPaths(std::string& backupEepromPath,
+                        std::string& backupInvPath, const nlohmann::json& js)
+{
+    for (const auto& item : js["frus"][constants::systemVpdFilePath])
+    {
+        if (item.find("systemVpdBackupPath") != item.end())
+        {
+            backupEepromPath = item["systemVpdBackupPath"];
+            for (const auto& item : js["frus"][backupEepromPath])
+            {
+                if (item.find("inventoryPath") != item.end())
+                {
+                    backupInvPath = item["inventoryPath"];
+                    break;
+                }
+            }
+            break;
+        }
+    }
+}
+
+void getBackupRecordKeyword(std::string& record, std::string& keyword)
+{
+    for (const auto& recordKw : svpdKwdMap)
+    {
+        if (record == recordKw.first)
+        {
+            for (const auto& keywordInfo : recordKw.second)
+            {
+                if (keyword == get<0>(keywordInfo))
+                {
+                    record = get<4>(keywordInfo);
+                    keyword = get<5>(keywordInfo);
+                    break;
+                }
+            }
+            break;
+        }
+    }
+}
 } // namespace vpd
 } // namespace openpower
