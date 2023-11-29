@@ -1,4 +1,4 @@
-if get_option('oe-sdk').enabled()
+if get_option('oe-sdk').allowed()
   # Setup OE SYSROOT
   OECORE_TARGET_SYSROOT = run_command('sh', '-c', 'echo $OECORE_TARGET_SYSROOT').stdout().strip()
   if OECORE_TARGET_SYSROOT == ''
@@ -40,7 +40,7 @@ application_src =['../impl.cpp',
 foreach t : vpd_test
     test(t, executable(t.underscorify(),
             [t, application_src],
-    build_rpath: get_option('oe-sdk').enabled() ? rpath : '',
+    build_rpath: get_option('oe-sdk').allowed() ? rpath : '',
     link_args: dynamic_linker,
     cpp_args: ['-DIPZ_PARSER', '-DManagerTest'],
     c_args: ['-Wno-unused-parameter',
