@@ -1,4 +1,4 @@
-option('oe-sdk', type: 'feature', description: 'ENABLE OE SDK FOR OPENPOWER VPD PARSER')
+option('oe-sdk', type: 'feature', value : 'disabled', description: 'ENABLE OE SDK FOR OPENPOWER VPD PARSER')
 option('tests', type: 'feature', value : 'enabled', description: 'Build tests')
 option('FRU_YAML',type: 'string', value: 'writefru.yaml',  description: 'YAML STRING')
 option('PROP_YAML',type: 'string', value: 'extra-properties-example.yaml',  description: 'YAML PROPERTY')
