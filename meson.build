@@ -50,6 +50,8 @@ if not build_tests.disabled()
     endif
 endif
 
+nlohmann_json_dep = dependency('nlohmann_json', include_type: 'system')
+
 phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces',
     default_options: [ 'data_com_ibm=true', 'data_org_open_power=true' ],
     fallback: ['phosphor-dbus-interfaces', 'phosphor_dbus_interfaces_dep'])
@@ -79,12 +81,6 @@ if compiler.has_header('CLI/CLI.hpp')
     CLI11_dep = declare_dependency()
 else
     CLI11_dep = dependency('CLI11')
-endif
-
-if compiler.has_header('nlohmann/json.hpp')
-    nlohmann_json_dep = declare_dependency()
-else
-    nlohmann_json_dep = dependency('nlohmann-json')
 endif
 
 if not build_tests.disabled()
