@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "619080d1_182b98fd",
+        "filename": "scripts/wait-vpd-parsers.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000411
+      },
+      "writtenOn": "2023-12-29T10:08:48Z",
+      "side": 1,
+      "message": "This change is unnecessary. Please remove.",
+      "revId": "e1cc6cd5f1e91a0e692dd649fc6e2d3cbaf613dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
