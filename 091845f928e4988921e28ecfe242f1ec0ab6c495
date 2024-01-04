@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aab2bb8a_8879a2b9",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-01-04T05:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90f83082_87f44aca",
+      "revId": "091845f928e4988921e28ecfe242f1ec0ab6c495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a982829_3ec4cb81",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "The default permissions given by systemd is taken as -rw-r--r-- , which is the expected one. so not required to give permissions explicitly",
       "parentUuid": "9a982829_3ec4cb81",
+      "revId": "091845f928e4988921e28ecfe242f1ec0ab6c495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c417a2b8_86fc28a4",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-01-04T05:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01b8a709_0d7f9db8",
       "revId": "091845f928e4988921e28ecfe242f1ec0ab6c495",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
