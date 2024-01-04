@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d7f786b_c56fdd1d",
+        "filename": "ibm_vpd_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-01-04T08:51:22Z",
+      "side": 1,
+      "message": "Please correct this.",
+      "revId": "bfe3d9a9707d3601084b3469002da9252e08cedb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
