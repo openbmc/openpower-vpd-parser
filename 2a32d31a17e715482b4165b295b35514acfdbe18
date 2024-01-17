@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaedd0ae_3e83151c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-01-17T06:30:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ebf1596f_24de3eb1",
+      "range": {
+        "startLine": 7,
+        "startChar": 22,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64e6512e_881702b6",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-01-17T05:11:57Z",
       "side": 1,
       "message": "Space missing.",
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd8357e3_44c2c915",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-01-17T06:30:37Z",
+      "side": 1,
+      "message": "where is the space missing?",
+      "parentUuid": "64e6512e_881702b6",
       "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a8e0d96_54d5edd2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-01-17T06:30:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "09e18abf_333e1b66",
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d289d5f_7a5ff4de",
@@ -71,6 +131,24 @@
       "writtenOn": "2024-01-17T05:11:57Z",
       "side": 1,
       "message": "This is array of JSONs. Why not have it the same way as we have frus? Not sure how it works with json::parse.",
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73d635d0_3775ee11",
+        "filename": "config/ibm/50001000_v2.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-01-17T06:30:37Z",
+      "side": 1,
+      "message": "should not matter array also can be used , it all depends on the need",
+      "parentUuid": "9d289d5f_7a5ff4de",
       "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -98,6 +176,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d344c3c2_2a86172b",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1343,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-01-17T06:30:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "98d87c69_acb9edb3",
+      "range": {
+        "startLine": 1342,
+        "startChar": 2,
+        "endLine": 1343,
+        "endChar": 54
+      },
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27a4655b_bc422c2d",
@@ -111,6 +213,30 @@
       "writtenOn": "2024-01-17T05:11:57Z",
       "side": 1,
       "message": "constant reference.",
+      "range": {
+        "startLine": 1346,
+        "startChar": 25,
+        "endLine": 1346,
+        "endChar": 40
+      },
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9203841_88d916e0",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-01-17T06:30:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "27a4655b_bc422c2d",
       "range": {
         "startLine": 1346,
         "startChar": 25,
@@ -146,6 +272,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63872b02_5291deb6",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-01-17T06:30:37Z",
+      "side": 1,
+      "message": "mandatory is meant for the need to bring MUX out of idle state",
+      "parentUuid": "a124038e_ddccde57",
+      "range": {
+        "startLine": 1348,
+        "startChar": 4,
+        "endLine": 1348,
+        "endChar": 48
+      },
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80b62e64_be4e6fa1",
         "filename": "ibm_vpd_app.cpp",
         "patchSetId": 2
@@ -157,6 +307,30 @@
       "writtenOn": "2024-01-17T05:11:57Z",
       "side": 1,
       "message": "The copy can be avoided by either using a reference or using the value in place.",
+      "range": {
+        "startLine": 1357,
+        "startChar": 16,
+        "endLine": 1357,
+        "endChar": 60
+      },
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5e9f339_e81c84a0",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1357,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-01-17T06:30:37Z",
+      "side": 1,
+      "message": "This was done to remove the double quotes",
+      "parentUuid": "80b62e64_be4e6fa1",
       "range": {
         "startLine": 1357,
         "startChar": 16,
