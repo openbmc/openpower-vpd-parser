@@ -1339,6 +1339,40 @@ static bool isCPUIOGoodOnly(const string& pgKeyword)
 }
 
 /**
+ * @brief Function to bring MUX out of idle state
+ *    
+ *        This finds All the MUX defined in the system json and enables
+ *        them by setting the holdidle parameter to 0.
+ * @param[in] js- system json to iterate through and take action
+ */
+void doEnableAllMuxChips(const nlohmann::json& js)
+{
+    // Do we have the mandatory "muxes" section?
+    if (js.find("muxes") != js.end())
+    {
+        std::cout << "Enabling all the MUX on the system " << std::endl;
+        // iterate over each MUX detail and enable them
+        for (const auto& item : js["muxes"])
+        {
+            if (item.find("holdidlepath") != item.end())
+            {
+                std::string holdidle = item["holdidlepath"];
+                std::cout << "Setting holdidle state for " << holdidle
+                          << "to 0 " << std::endl;
+                string cmd = "echo 0 > " + holdidle;
+                executeCmd(cmd);
+            }
+        }
+        std::cout << "Completed enabling all the MUX on the system "
+                  << std::endl;
+    }
+    else
+    {
+        std::cout << "No MUX was defined for the system" << std::endl;
+    }
+}
+
+/**
  * @brief Populate Dbus.
  * This method invokes all the populateInterface functions
  * and notifies PIM about dbus object.
@@ -1760,6 +1794,15 @@ int main(int argc, char** argv)
         {
             std::cout << "Skip VPD recollection for: " << file << std::endl;
             return 0;
+        }
+
+        // Enable all mux which are used for connecting to the i2c on the pcie
+        // slots for pcie cards. These are not enabled by kernel due to an issue
+        // seen with Castello cards, where the i2c line hangs on a probe.
+        // To run it only once have kept it under System vpd check.
+        if (isSystemVpd)
+        {
+            doEnableAllMuxChips(js);
         }
 
         try
