@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebf1596f_24de3eb1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-01-17T05:11:57Z",
+      "side": 1,
+      "message": "Typo.",
+      "range": {
+        "startLine": 7,
+        "startChar": 22,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64e6512e_881702b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-01-17T05:11:57Z",
+      "side": 1,
+      "message": "Space missing.",
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09e18abf_333e1b66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-01-17T05:11:57Z",
+      "side": 1,
+      "message": "if?",
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d289d5f_7a5ff4de",
+        "filename": "config/ibm/50001000_v2.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-01-17T05:11:57Z",
+      "side": 1,
+      "message": "This is array of JSONs. Why not have it the same way as we have frus? Not sure how it works with json::parse.",
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98d87c69_acb9edb3",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1343,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-01-17T05:11:57Z",
+      "side": 1,
+      "message": "Should be wrapped in one line?",
+      "range": {
+        "startLine": 1342,
+        "startChar": 2,
+        "endLine": 1343,
+        "endChar": 54
+      },
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27a4655b_bc422c2d",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-01-17T05:11:57Z",
+      "side": 1,
+      "message": "constant reference.",
+      "range": {
+        "startLine": 1346,
+        "startChar": 25,
+        "endLine": 1346,
+        "endChar": 40
+      },
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a124038e_ddccde57",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-01-17T05:11:57Z",
+      "side": 1,
+      "message": "If this is mandatory then should we throw in case the field is absent?",
+      "range": {
+        "startLine": 1348,
+        "startChar": 4,
+        "endLine": 1348,
+        "endChar": 48
+      },
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80b62e64_be4e6fa1",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1357,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-01-17T05:11:57Z",
+      "side": 1,
+      "message": "The copy can be avoided by either using a reference or using the value in place.",
+      "range": {
+        "startLine": 1357,
+        "startChar": 16,
+        "endLine": 1357,
+        "endChar": 60
+      },
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
