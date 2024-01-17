@@ -83,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b2830a5_21ec1883",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-01-17T07:09:30Z",
+      "side": 1,
+      "message": "It was for \"holdidle\", later I saw it was a tag from JSON. Good here.",
+      "parentUuid": "bd8357e3_44c2c915",
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09e18abf_333e1b66",
@@ -294,6 +312,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f97df90_e6348777",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-01-17T07:09:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "63872b02_5291deb6",
+      "range": {
+        "startLine": 1348,
+        "startChar": 4,
+        "endLine": 1348,
+        "endChar": 48
+      },
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80b62e64_be4e6fa1",
@@ -331,6 +373,30 @@
       "side": 1,
       "message": "This was done to remove the double quotes",
       "parentUuid": "80b62e64_be4e6fa1",
+      "range": {
+        "startLine": 1357,
+        "startChar": 16,
+        "endLine": 1357,
+        "endChar": 60
+      },
+      "revId": "2a32d31a17e715482b4165b295b35514acfdbe18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f5062ef_e503cdbe",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1357,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-01-17T07:09:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f5e9f339_e81c84a0",
       "range": {
         "startLine": 1357,
         "startChar": 16,
