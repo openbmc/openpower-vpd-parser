@@ -1007,7 +1007,7 @@ std::string getPowerState()
     // TODO: How do we handle multiple chassis?
     std::string powerState{};
     auto bus = sdbusplus::bus::new_default();
-    auto properties = bus.new_method_call("xyz.openbmc_project.State.Chassis",
+    auto properties = bus.new_method_call("xyz.openbmc_project.State.Chassis0",
                                           "/xyz/openbmc_project/state/chassis0",
                                           "org.freedesktop.DBus.Properties",
                                           "Get");
