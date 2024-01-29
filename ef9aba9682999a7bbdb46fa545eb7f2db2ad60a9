@@ -16,6 +16,24 @@
       "message": "Please remove commented lines.",
       "revId": "ef9aba9682999a7bbdb46fa545eb7f2db2ad60a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "456555a2_a57eeda9",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-01-29T06:59:16Z",
+      "side": 1,
+      "message": "Acknowledged, this is just a comment",
+      "parentUuid": "1f74984a_21ddf8e1",
+      "revId": "ef9aba9682999a7bbdb46fa545eb7f2db2ad60a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
