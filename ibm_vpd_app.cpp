@@ -1292,14 +1292,25 @@ void doEnableAllDimms(nlohmann::json& js)
                                 i = regex_replace(i, pattern, "");
                             }
 
-                            if (i2cReg.size() == 2)
+                            // For ISDIMM which uses ee1004 driver
+                            // the below is done
+                            size_t stringFound = dimmVpd.find("ee1004");
+                            if (stringFound != string::npos)
+                            {
+                                // echo ee1004 0x50 >
+                                // /sys/bus/i2c/devices/i2c-110/new_device
+                                string cmnd = "echo ee1004 0x" + i2cReg[1] +
+                                              " > /sys/bus/i2c/devices/i2c-" +
+                                              i2cReg[0] + "/new_device";
+                                executeCmd(cmnd);
+                            }
+                            else if (i2cReg.size() == 2)
                             {
                                 // echo 24c32 0x50 >
                                 // /sys/bus/i2c/devices/i2c-16/new_device
                                 string cmnd = "echo 24c32 0x" + i2cReg[1] +
                                               " > /sys/bus/i2c/devices/i2c-" +
                                               i2cReg[0] + "/new_device";
-
                                 executeCmd(cmnd);
                             }
                         }
@@ -1356,7 +1367,7 @@ void doEnableAllMuxChips(const nlohmann::json& js)
         {
             if (item.find("holdidlepath") != item.end())
             {
-                std::string holdidle = item["holdidlepath"];
+                const std::string& holdidle = item["holdidlepath"];
                 std::cout << "Setting holdidle state for " << holdidle
                           << "to 0 " << std::endl;
                 string cmd = "echo 0 > " + holdidle;
