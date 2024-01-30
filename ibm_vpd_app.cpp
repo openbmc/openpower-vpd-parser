@@ -1754,6 +1754,16 @@ int main(int argc, char** argv)
             }
         }
 
+        // Enable all mux which are used for connecting to the i2c on the pcie
+        // slots for pcie cards. These are not enabled by kernel due to an issue
+        // seen with Castello cards, where the i2c line hangs on a probe.
+        // To run it only once have kept it under System vpd check.
+        // we need to run this on all BMC reboots so kept here
+        if(file == systemVpdFilePath)
+        {
+            doEnableAllMuxChips(js);
+        }
+
         if (file.empty())
         {
             std::cerr << "The EEPROM path <" << file << "> is not valid.";
@@ -1805,15 +1815,6 @@ int main(int argc, char** argv)
         {
             std::cout << "Skip VPD recollection for: " << file << std::endl;
             return 0;
-        }
-
-        // Enable all mux which are used for connecting to the i2c on the pcie
-        // slots for pcie cards. These are not enabled by kernel due to an issue
-        // seen with Castello cards, where the i2c line hangs on a probe.
-        // To run it only once have kept it under System vpd check.
-        if (isSystemVpd)
-        {
-            doEnableAllMuxChips(js);
         }
 
         try
