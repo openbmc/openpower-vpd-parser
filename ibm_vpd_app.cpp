@@ -1748,6 +1748,8 @@ int main(int argc, char** argv)
             if ((js["frus"].find(file) != js["frus"].end()) &&
                 (file == systemVpdFilePath))
             {
+                // we need to run this on all BMC reboots so kept here
+                doEnableAllMuxChips(js);
                 std::cout << "We have already collected system VPD, skiping."
                           << std::endl;
                 return 0;
