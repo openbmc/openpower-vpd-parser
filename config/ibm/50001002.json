@@ -47,7 +47,7 @@
                         "LocationCode": "Ufcs-P0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "System Backplane"
+                        "PrettyName": "System backplane"
                     }
                 }
             },
@@ -116,7 +116,7 @@
                         "LocationCode": "Ufcs-P0-C6"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "OpenCAPI adapter"
                     }
                 }
             },
@@ -133,7 +133,7 @@
                         "LocationCode": "Ufcs-P0-C7"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe5 x8 adapter"
                     }
                 }
             },
@@ -150,7 +150,7 @@
                         "LocationCode": "Ufcs-P0-C8"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe4 x8 adapter"
                     }
                 }
             },
@@ -167,7 +167,7 @@
                         "LocationCode": "Ufcs-P0-C9"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe5 x8 adapter"
                     }
                 }
             },
@@ -184,7 +184,7 @@
                         "LocationCode": "Ufcs-P0-C10"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
                 }
             },
@@ -201,7 +201,7 @@
                         "LocationCode": "Ufcs-P0-C11"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe5 x8 adapter"
                     }
                 }
             },
@@ -217,7 +217,7 @@
                         "LocationCode": "Ufcs-P0-T18"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Dummy PCIe USB Adapter Slot"
+                        "PrettyName": "USB 3.0 port"
                     }
                 }
             },
@@ -233,7 +233,7 @@
                         "SlotNumber": 12
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Dummy PCIe USB Adapter"
+                        "PrettyName": "USB 3.0 port"
                     }
                 }
             },
@@ -409,7 +409,7 @@
                         "LocationCode": "Ufcs-P0-E0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Time Of Day Battery"
+                        "PrettyName": "Time-of-day battery"
                     }
                 }
             },
@@ -422,7 +422,7 @@
                         "LocationCode": "Ufcs-P0-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "OpenCAPI Port Connector"
+                        "PrettyName": "Connector for OpenCAPI Port DCM-0 P0 OP3B"
                     }
                 }
             },
@@ -435,7 +435,7 @@
                         "LocationCode": "Ufcs-P0-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "OpenCAPI Port Connector"
+                        "PrettyName": "Connector for OpenCAPI Port DCM-0 P0 OP3A"
                     }
                 }
             },
@@ -448,7 +448,7 @@
                         "LocationCode": "Ufcs-P0-T2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "OpenCAPI Port Connector"
+                        "PrettyName": "Connector for OpenCAPI Port DCM-0 P1 OP0B"
                     }
                 }
             },
@@ -461,7 +461,7 @@
                         "LocationCode": "Ufcs-P0-T3"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "OpenCAPI Port Connector"
+                        "PrettyName": "Connector for OpenCAPI Port DCM-0 P1 OP0A"
                     }
                 }
             },
@@ -474,7 +474,7 @@
                         "LocationCode": "Ufcs-P0-T4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Power Distribution Board Signals Cable Connector"
+                        "PrettyName": "Power signal cable port"
                     }
                 }
             },
@@ -487,7 +487,7 @@
                         "LocationCode": "Ufcs-P0-T7"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Front Host USB 3.0 Connector"
+                        "PrettyName": "USB 3.0 port"
                     }
                 }
             },
@@ -500,7 +500,7 @@
                         "LocationCode": "Ufcs-P0-T8"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Backplane Signal Cable Connector"
+                        "PrettyName": "Drive backplane signal cable port"
                     }
                 }
             },
@@ -513,7 +513,7 @@
                         "LocationCode": "Ufcs-P0-T9"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Backplane Signal Cable Connector"
+                        "PrettyName": "Drive backplane signal cable port"
                     }
                 }
             },
@@ -526,7 +526,7 @@
                         "LocationCode": "Ufcs-P0-T11"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Op Panel Cable Connector"
+                        "PrettyName": "Control panel cable port"
                     }
                 }
             },
@@ -539,7 +539,7 @@
                         "LocationCode": "Ufcs-P0-T12"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Fan Card Signal Cable Connector"
+                        "PrettyName": "Fan signal cable port"
                     }
                 }
             },
@@ -552,7 +552,7 @@
                         "LocationCode": "Ufcs-P0-T13"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Op Panel LCD Display cable Connector"
+                        "PrettyName": "Control panel display cable port"
                     }
                 }
             },
@@ -565,7 +565,7 @@
                         "LocationCode": "Ufcs-P0-T14"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Backplane Power Cable Connector"
+                        "PrettyName": "Drive backplane power cable port"
                     }
                 }
             },
@@ -578,7 +578,7 @@
                         "LocationCode": "Ufcs-P0-T15"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Backplane Power Cable Connector"
+                        "PrettyName": "Drive backplane power cable port"
                     }
                 }
             },
@@ -591,7 +591,7 @@
                         "LocationCode": "Ufcs-P0-T17"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Fan Card Signal Cable Connector"
+                        "PrettyName": "Fan signal cable port"
                     }
                 }
             },
@@ -604,7 +604,7 @@
                         "LocationCode": "Ufcs-P0-T18"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Front USB Connector"
+                        "PrettyName": "USB 3.0 port"
                     }
                 }
             },
@@ -632,7 +632,7 @@
                         "LocationCode": "Ufcs-P4-D0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "RDX Drive"
+                        "PrettyName": "RDX removable disk drive"
                     }
                 }
             },
@@ -646,7 +646,7 @@
                         "LocationCode": "Ufcs-P4-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "RDX Power Connector"
+                        "PrettyName": "Power connector for RDX"
                     }
                 }
             },
@@ -660,7 +660,7 @@
                         "LocationCode": "Ufcs-P4-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "RDX USB Connector"
+                        "PrettyName": "USB connector for RDX"
                     }
                 }
             }
@@ -674,7 +674,7 @@
                         "LocationCode": "Ufcs-P0-C5"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "BMC Card"
+                        "PrettyName": "eBMC card"
                     }
                 }
             },
@@ -696,7 +696,7 @@
                         }
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "HMC Ethernet Connector"
+                        "PrettyName": "HMC port 0"
                     }
                 }
             },
@@ -717,7 +717,7 @@
                             "encoding": "MAC"
                         },
                         "xyz.openbmc_project.Inventory.Item": {
-                            "PrettyName": "HMC Ethernet Connector"
+                            "PrettyName": "HMC port 1"
                         }
                     }
                 }
@@ -731,7 +731,7 @@
                         "LocationCode": "Ufcs-P0-C5-T2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "BMC USB Connector"
+                        "PrettyName": "USB 3.0 port"
                     }
                 }
             },
@@ -744,7 +744,7 @@
                         "LocationCode": "Ufcs-P0-C5-T3"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Display Port Connector"
+                        "PrettyName": "Display Port"
                     }
                 }
             },
@@ -757,7 +757,7 @@
                         "LocationCode": "Ufcs-P0-C5-T4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "BMC USB Connector"
+                        "PrettyName": "USB 2.0 port"
                     }
                 }
             }
@@ -771,7 +771,7 @@
                         "LocationCode": "Ufcs-P0-C22"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "TPM Card"
+                        "PrettyName": "Trusted platform module card"
                     }
                 }
             }
@@ -786,7 +786,7 @@
                         "LocationCode": "Ufcs-D0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Operator Panel Base"
+                        "PrettyName": "Control panel"
                     }
                 }
             }
@@ -819,7 +819,7 @@
                         "LocationCode": "Ufcs-D1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Operator Panel LCD"
+                        "PrettyName": "Control panel display"
                     }
                 }
             }
@@ -833,7 +833,7 @@
                         "LocationCode": "Ufcs-P0-C14"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Voltage regulator module for system processor module 0"
                     }
                 }
             }
@@ -852,7 +852,7 @@
                         "LocationCode": "Ufcs-P0-C15"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Processor Module"
+                        "PrettyName": "System processor module 0"
                     }
                 }
             },
@@ -1005,7 +1005,7 @@
                         "LocationCode": "Ufcs-P0-C15"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Processor Module"
+                        "PrettyName": "System processor module 0"
                     }
                 }
             },
@@ -1183,7 +1183,7 @@
                         "SlotNumber": 10
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
                 }
             },
@@ -1307,7 +1307,7 @@
                         "LocationCode": "Ufcs-P0-C6"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "OpenCAPI adapter"
                     }
                 }
             }
@@ -1349,7 +1349,7 @@
                         "SlotNumber": 7
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe5 x8 adapter"
                     }
                 }
             }
@@ -1391,7 +1391,7 @@
                         "SlotNumber": 9
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe5 x8 adapter"
                     }
                 }
             }
@@ -1434,7 +1434,7 @@
                         "SlotNumber": 11
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe5 x8 adapter"
                     }
                 }
             },
@@ -1537,7 +1537,7 @@
                         "SlotNumber": 8
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe4 x8 adapter"
                     }
                 }
             },
@@ -1612,7 +1612,7 @@
                         "LocationCode": "Ufcs-P1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Backplane"
+                        "PrettyName": "Drive backplane 0"
                     }
                 }
             },
@@ -1629,7 +1629,7 @@
                         "LocationCode": "Ufcs-P1-C0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 0"
                     }
                 }
             },
@@ -1647,7 +1647,7 @@
                         "LocationCode": "Ufcs-P1-C0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 0"
                     }
                 }
             },
@@ -1664,7 +1664,7 @@
                         "LocationCode": "Ufcs-P1-C1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 1"
                     }
                 }
             },
@@ -1682,7 +1682,7 @@
                         "LocationCode": "Ufcs-P1-C1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 1"
                     }
                 }
             },
@@ -1699,7 +1699,7 @@
                         "LocationCode": "Ufcs-P1-C2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 2"
                     }
                 }
             },
@@ -1717,7 +1717,7 @@
                         "LocationCode": "Ufcs-P1-C2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 2"
                     }
                 }
             },
@@ -1734,7 +1734,7 @@
                         "LocationCode": "Ufcs-P1-C3"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 3"
                     }
                 }
             },
@@ -1752,7 +1752,7 @@
                         "LocationCode": "Ufcs-P1-C3"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 3"
                     }
                 }
             },
@@ -1769,7 +1769,7 @@
                         "LocationCode": "Ufcs-P1-C4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 4"
                     }
                 }
             },
@@ -1787,7 +1787,7 @@
                         "LocationCode": "Ufcs-P1-C4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 4"
                     }
                 }
             },
@@ -1804,7 +1804,7 @@
                         "LocationCode": "Ufcs-P1-C5"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 5"
                     }
                 }
             },
@@ -1822,7 +1822,7 @@
                         "LocationCode": "Ufcs-P1-C5"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 5"
                     }
                 }
             },
@@ -1839,7 +1839,7 @@
                         "LocationCode": "Ufcs-P1-C6"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 6"
                     }
                 }
             },
@@ -1857,7 +1857,7 @@
                         "LocationCode": "Ufcs-P1-C6"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 6"
                     }
                 }
             },
@@ -1874,7 +1874,7 @@
                         "LocationCode": "Ufcs-P1-C7"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 7"
                     }
                 }
             },
@@ -1892,7 +1892,7 @@
                         "LocationCode": "Ufcs-P1-C7"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 7"
                     }
                 }
             },
@@ -1905,7 +1905,7 @@
                         "LocationCode": "Ufcs-P1-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Internal Connector"
+                        "PrettyName": "Drive cable port"
                     }
                 }
             },
@@ -1918,7 +1918,7 @@
                         "LocationCode": "Ufcs-P1-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Internal Connector"
+                        "PrettyName": "Drive cable port"
                     }
                 }
             },
@@ -1931,7 +1931,7 @@
                         "LocationCode": "Ufcs-P1-T2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Internal Connector"
+                        "PrettyName": "Drive cable port"
                     }
                 }
             },
@@ -1944,7 +1944,7 @@
                         "LocationCode": "Ufcs-P1-T3"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Internal Connector"
+                        "PrettyName": "Drive cable port"
                     }
                 }
             },
@@ -1958,7 +1958,7 @@
                         "LocationCode": "Ufcs-P1-T4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Internal Connector"
+                        "PrettyName": "Drive backplane signal cable port"
                     }
                 }
             },
@@ -1972,7 +1972,7 @@
                         "LocationCode": "Ufcs-P1-T5"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Internal Connector"
+                        "PrettyName": "Drive backplane power cable port"
                     }
                 }
             },
@@ -2031,7 +2031,7 @@
                         "LocationCode": "Ufcs-P2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Backplane"
+                        "PrettyName": "Drive backplane 1"
                     }
                 }
             },
@@ -2048,7 +2048,7 @@
                         "LocationCode": "Ufcs-P2-C8"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 8"
                     }
                 }
             },
@@ -2066,7 +2066,7 @@
                         "LocationCode": "Ufcs-P2-C8"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 8"
                     }
                 }
             },
@@ -2083,7 +2083,7 @@
                         "LocationCode": "Ufcs-P2-C9"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 9"
                     }
                 }
             },
@@ -2101,7 +2101,7 @@
                         "LocationCode": "Ufcs-P2-C9"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 9"
                     }
                 }
             },
@@ -2118,7 +2118,7 @@
                         "LocationCode": "Ufcs-P2-C10"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 10"
                     }
                 }
             },
@@ -2136,7 +2136,7 @@
                         "LocationCode": "Ufcs-P2-C10"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 10"
                     }
                 }
             },
@@ -2153,7 +2153,7 @@
                         "LocationCode": "Ufcs-P2-C11"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 11"
                     }
                 }
             },
@@ -2171,7 +2171,7 @@
                         "LocationCode": "Ufcs-P2-C11"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 11"
                     }
                 }
             },
@@ -2188,7 +2188,7 @@
                         "LocationCode": "Ufcs-P2-C12"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 12"
                     }
                 }
             },
@@ -2206,7 +2206,7 @@
                         "LocationCode": "Ufcs-P2-C12"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 12"
                     }
                 }
             },
@@ -2223,7 +2223,7 @@
                         "LocationCode": "Ufcs-P2-C13"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 13"
                     }
                 }
             },
@@ -2241,7 +2241,7 @@
                         "LocationCode": "Ufcs-P2-C13"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 13"
                     }
                 }
             },
@@ -2258,7 +2258,7 @@
                         "LocationCode": "Ufcs-P2-C14"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 14"
                     }
                 }
             },
@@ -2276,7 +2276,7 @@
                         "LocationCode": "Ufcs-P2-C14"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 14"
                     }
                 }
             },
@@ -2293,7 +2293,7 @@
                         "LocationCode": "Ufcs-P2-C15"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 15"
                     }
                 }
             },
@@ -2311,7 +2311,7 @@
                         "LocationCode": "Ufcs-P2-C15"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 15"
                     }
                 }
             },
@@ -2324,7 +2324,7 @@
                         "LocationCode": "Ufcs-P2-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Internal Connector"
+                        "PrettyName": "Drive cable port"
                     }
                 }
             },
@@ -2337,7 +2337,7 @@
                         "LocationCode": "Ufcs-P2-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Internal Connector"
+                        "PrettyName": "Drive cable port"
                     }
                 }
             },
@@ -2350,7 +2350,7 @@
                         "LocationCode": "Ufcs-P2-T2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Internal Connector"
+                        "PrettyName": "Drive cable port"
                     }
                 }
             },
@@ -2363,7 +2363,7 @@
                         "LocationCode": "Ufcs-P2-T3"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Internal Connector"
+                        "PrettyName": "Drive cable port"
                     }
                 }
             },
@@ -2377,7 +2377,7 @@
                         "LocationCode": "Ufcs-P2-T4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Internal Connector"
+                        "PrettyName": "Drive backplane signal cable port"
                     }
                 }
             },
@@ -2391,7 +2391,7 @@
                         "LocationCode": "Ufcs-P2-T5"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Internal Connector"
+                        "PrettyName": "Drive backplane power cable port"
                     }
                 }
             },
@@ -2449,7 +2449,7 @@
                         "LocationCode": "Ufcs-P0-C12"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 0"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -2502,7 +2502,7 @@
                         "LocationCode": "Ufcs-P0-C13"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 1"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -2555,7 +2555,7 @@
                         "LocationCode": "Ufcs-P0-C27"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 10"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -2608,7 +2608,7 @@
                         "LocationCode": "Ufcs-P0-C28"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 11"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -2661,7 +2661,7 @@
                         "LocationCode": "Ufcs-P0-C29"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 12"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -2714,7 +2714,7 @@
                         "LocationCode": "Ufcs-P0-C30"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 13"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -2767,7 +2767,7 @@
                         "LocationCode": "Ufcs-P0-C31"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 14"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -2820,7 +2820,7 @@
                         "LocationCode": "Ufcs-P0-C32"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 15"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
