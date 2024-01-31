@@ -52,7 +52,7 @@
                         "LocationCode": "Ufcs-P0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "System Backplane"
+                        "PrettyName": "System backplane"
                     }
                 }
             },
@@ -121,7 +121,7 @@
                         "LocationCode": "Ufcs-P0-C1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe4 x8 adapter"
                     }
                 }
             },
@@ -138,7 +138,7 @@
                         "LocationCode": "Ufcs-P0-C2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
                 }
             },
@@ -155,7 +155,7 @@
                         "LocationCode": "Ufcs-P0-C3"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
                 }
             },
@@ -172,7 +172,7 @@
                         "LocationCode": "Ufcs-P0-C4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
                 }
             },
@@ -189,7 +189,7 @@
                         "LocationCode": "Ufcs-P0-C5"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
                 }
             },
@@ -206,7 +206,7 @@
                         "LocationCode": "Ufcs-P0-C6"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe4 x8 adapter"
                     }
                 }
             },
@@ -223,7 +223,7 @@
                         "LocationCode": "Ufcs-P0-C7"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe5 x8 adapter"
                     }
                 }
             },
@@ -240,7 +240,7 @@
                         "LocationCode": "Ufcs-P0-C8"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
                 }
             },
@@ -257,7 +257,7 @@
                         "LocationCode": "Ufcs-P0-C9"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe4 x8 adapter"
                     }
                 }
             },
@@ -274,7 +274,7 @@
                         "LocationCode": "Ufcs-P0-C10"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe5 x8 adapter"
                     }
                 }
             },
@@ -291,7 +291,7 @@
                         "LocationCode": "Ufcs-P0-C11"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Slot"
+                        "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
                 }
             },
@@ -307,7 +307,7 @@
                         "LocationCode": "Ufcs-P1-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Dummy PCIe USB Adapter Slot"
+                        "PrettyName": "USB 3.0 port 2"
                     }
                 }
             },
@@ -323,7 +323,7 @@
                         "SlotNumber": 12
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Dummy PCIe USB Adapter"
+                        "PrettyName": "USB 3.0 port 2"
                     }
                 }
             },
@@ -380,7 +380,7 @@
                         "LocationCode": "Ufcs-P0-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "OpenCAPI Port Connector"
+                        "PrettyName": "OpenCAPI Port Conn 0"
                     }
                 }
             },
@@ -393,7 +393,7 @@
                         "LocationCode": "Ufcs-P0-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "OpenCAPI Port Connector"
+                        "PrettyName": "OpenCAPI Port Conn 1"
                     }
                 }
             },
@@ -406,7 +406,7 @@
                         "LocationCode": "Ufcs-P0-T2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "OpenCAPI Port Connector"
+                        "PrettyName": "OpenCAPI Port Conn 2"
                     }
                 }
             },
@@ -419,7 +419,7 @@
                         "LocationCode": "Ufcs-P0-T3"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "OpenCAPI Port Connector"
+                        "PrettyName": "OpenCAPI Port Conn 3"
                     }
                 }
             },
@@ -432,7 +432,7 @@
                         "LocationCode": "Ufcs-P0-T4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "OpenCAPI Port Connector"
+                        "PrettyName": "OpenCAPI Port Conn 4"
                     }
                 }
             },
@@ -445,7 +445,7 @@
                         "LocationCode": "Ufcs-P0-T5"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "OpenCAPI Port Connector"
+                        "PrettyName": "OpenCAPI Port Conn 5"
                     }
                 }
             }
@@ -459,7 +459,7 @@
                         "LocationCode": "Ufcs-P0-C0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "BMC Card"
+                        "PrettyName": "eBMC card assembly"
                     }
                 }
             },
@@ -481,7 +481,7 @@
                         }
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "HMC Ethernet Connector"
+                        "PrettyName": "HMC port 1"
                     }
                 }
             },
@@ -503,7 +503,7 @@
                         }
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "HMC Ethernet Connector"
+                        "PrettyName": "HMC port 2"
                     }
                 }
             },
@@ -515,7 +515,7 @@
                         "LocationCode": "Ufcs-P0-C0-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Rear OS USB Top Connector"
+                        "PrettyName": "USB 3.0 port 1"
                     }
                 }
             },
@@ -527,7 +527,7 @@
                         "LocationCode": "Ufcs-P0-C0-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Rear OS USB Bottom Connector"
+                        "PrettyName": "USB 3.0 port 2"
                     }
                 }
             },
@@ -539,7 +539,7 @@
                         "LocationCode": "Ufcs-P0-C0-T4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "BMC USB Connector"
+                        "PrettyName": "USB 2.0 port 1"
                     }
                 }
             },
@@ -551,7 +551,7 @@
                         "LocationCode": "Ufcs-P0-C0-T5"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "BMC USB Connector"
+                        "PrettyName": "USB 2.0 port 2"
                     }
                 }
             },
@@ -563,7 +563,7 @@
                         "LocationCode": "Ufcs-P0-C0-E0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Time Of Day Battery"
+                        "PrettyName": "Time-of-day battery"
                     }
                 }
             }
@@ -577,7 +577,7 @@
                         "LocationCode": "Ufcs-P0-C54"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Miscellaneous voltage regulator module for system processor module 3"
                     }
                 }
             }
@@ -591,7 +591,7 @@
                         "LocationCode": "Ufcs-P0-C55"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Processor voltage regulator module for system processor module 3"
                     }
                 }
             }
@@ -605,7 +605,7 @@
                         "LocationCode": "Ufcs-P0-C57"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Processor voltage regulator module for system processor module 3"
                     }
                 }
             }
@@ -619,7 +619,7 @@
                         "LocationCode": "Ufcs-P0-C58"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Shared voltage regulator module"
                     }
                 }
             }
@@ -633,7 +633,7 @@
                         "LocationCode": "Ufcs-P0-C12"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Miscellaneous voltage regulator module for system processor module 1"
                     }
                 }
             }
@@ -647,7 +647,7 @@
                         "LocationCode": "Ufcs-P0-C13"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Processor voltage regulator module for system processor module 1"
                     }
                 }
             }
@@ -661,7 +661,7 @@
                         "LocationCode": "Ufcs-P0-C15"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Processor voltage regulator module for system processor module 1"
                     }
                 }
             }
@@ -675,7 +675,7 @@
                         "LocationCode": "Ufcs-P0-C16"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Shared voltage regulator module"
                     }
                 }
             }
@@ -689,7 +689,7 @@
                         "LocationCode": "Ufcs-P0-C59"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "I/O and standby voltage regulator module"
                     }
                 }
             }
@@ -703,7 +703,7 @@
                         "LocationCode": "Ufcs-P0-C60"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Processor voltage regulator module for system processor module 0"
                     }
                 }
             }
@@ -717,7 +717,7 @@
                         "LocationCode": "Ufcs-P0-C62"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Processor voltage regulator module for system processor module 0"
                     }
                 }
             }
@@ -731,7 +731,7 @@
                         "LocationCode": "Ufcs-P0-C63"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Miscellaneous voltage regulator module for system processor module 0"
                     }
                 }
             }
@@ -745,7 +745,7 @@
                         "LocationCode": "Ufcs-P0-C17"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "I/O and standby voltage regulator module"
                     }
                 }
             }
@@ -759,7 +759,7 @@
                         "LocationCode": "Ufcs-P0-C18"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Processor voltage regulator module for system processor module 2"
                     }
                 }
             }
@@ -773,7 +773,7 @@
                         "LocationCode": "Ufcs-P0-C20"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Processor voltage regulator module for system processor module 2"
                     }
                 }
             }
@@ -787,7 +787,7 @@
                         "LocationCode": "Ufcs-P0-C21"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Voltage Regulator Module"
+                        "PrettyName": "Miscellaneous voltage regulator module for system processor module 2"
                     }
                 }
             }
@@ -801,7 +801,7 @@
                         "LocationCode": "Ufcs-P0-C96"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "TPM Card"
+                        "PrettyName": "Trusted platform module card"
                     }
                 }
             }
@@ -818,7 +818,7 @@
                         "LocationCode": "Ufcs-P0-C61"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Processor Module"
+                        "PrettyName": "System processor module 0"
                     }
                 }
             },
@@ -970,7 +970,7 @@
                         "LocationCode": "Ufcs-P0-C61"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Processor Module"
+                        "PrettyName": "System processor module 0"
                     }
                 }
             },
@@ -1123,7 +1123,7 @@
                         "LocationCode": "Ufcs-P0-C14"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Processor Module"
+                        "PrettyName": "System processor module 1"
                     }
                 }
             },
@@ -1275,7 +1275,7 @@
                         "LocationCode": "Ufcs-P0-C14"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Processor Module"
+                        "PrettyName": "System processor module 1"
                     }
                 }
             },
@@ -1427,7 +1427,7 @@
                         "LocationCode": "Ufcs-P0-C19"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Processor Module"
+                        "PrettyName": "System processor module 2"
                     }
                 }
             },
@@ -1579,7 +1579,7 @@
                         "LocationCode": "Ufcs-P0-C19"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Processor Module"
+                        "PrettyName": "System processor module 2"
                     }
                 }
             },
@@ -1731,7 +1731,7 @@
                         "LocationCode": "Ufcs-P0-C56"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Processor Module"
+                        "PrettyName": "System processor module 3"
                     }
                 }
             },
@@ -1883,7 +1883,7 @@
                         "LocationCode": "Ufcs-P0-C56"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Processor Module"
+                        "PrettyName": "System processor module 3"
                     }
                 }
             },
@@ -2032,7 +2032,7 @@
                         "LocationCode": "Ufcs-P1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Backplane"
+                        "PrettyName": "Drive backplane"
                     }
                 }
             },
@@ -2049,7 +2049,7 @@
                         "LocationCode": "Ufcs-P1-C0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 0"
                     }
                 }
             },
@@ -2067,7 +2067,7 @@
                         "LocationCode": "Ufcs-P1-C0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 0"
                     }
                 }
             },
@@ -2084,7 +2084,7 @@
                         "LocationCode": "Ufcs-P1-C1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 1"
                     }
                 }
             },
@@ -2102,7 +2102,7 @@
                         "LocationCode": "Ufcs-P1-C1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 1"
                     }
                 }
             },
@@ -2119,7 +2119,7 @@
                         "LocationCode": "Ufcs-P1-C2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 2"
                     }
                 }
             },
@@ -2137,7 +2137,7 @@
                         "LocationCode": "Ufcs-P1-C2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 2"
                     }
                 }
             },
@@ -2154,7 +2154,7 @@
                         "LocationCode": "Ufcs-P1-C3"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 3"
                     }
                 }
             },
@@ -2172,7 +2172,7 @@
                         "LocationCode": "Ufcs-P1-C3"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 3"
                     }
                 }
             },
@@ -2189,7 +2189,7 @@
                         "LocationCode": "Ufcs-P1-C4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 4"
                     }
                 }
             },
@@ -2207,7 +2207,7 @@
                         "LocationCode": "Ufcs-P1-C4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 4"
                     }
                 }
             },
@@ -2224,7 +2224,7 @@
                         "LocationCode": "Ufcs-P1-C5"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 5"
                     }
                 }
             },
@@ -2242,7 +2242,7 @@
                         "LocationCode": "Ufcs-P1-C5"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 5"
                     }
                 }
             },
@@ -2259,7 +2259,7 @@
                         "LocationCode": "Ufcs-P1-C6"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 6"
                     }
                 }
             },
@@ -2277,7 +2277,7 @@
                         "LocationCode": "Ufcs-P1-C6"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 6"
                     }
                 }
             },
@@ -2294,7 +2294,7 @@
                         "LocationCode": "Ufcs-P1-C7"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 7"
                     }
                 }
             },
@@ -2312,7 +2312,7 @@
                         "LocationCode": "Ufcs-P1-C7"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 7"
                     }
                 }
             },
@@ -2329,7 +2329,7 @@
                         "LocationCode": "Ufcs-P1-C8"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 8"
                     }
                 }
             },
@@ -2347,7 +2347,7 @@
                         "LocationCode": "Ufcs-P1-C8"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 8"
                     }
                 }
             },
@@ -2364,7 +2364,7 @@
                         "LocationCode": "Ufcs-P1-C9"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "U.2 PCIe Slot"
+                        "PrettyName": "NVMe U.2 drive 9"
                     }
                 }
             },
@@ -2382,7 +2382,7 @@
                         "LocationCode": "Ufcs-P1-C9"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "NVMe Drive"
+                        "PrettyName": "NVMe U.2 drive 9"
                     }
                 }
             },
@@ -2395,7 +2395,7 @@
                         "LocationCode": "Ufcs-P1-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Front OS USB Top Connector"
+                        "PrettyName": "USB 3.0 port 1"
                     }
                 }
             },
@@ -2408,7 +2408,7 @@
                         "LocationCode": "Ufcs-P1-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Front OS USB Bot Connector"
+                        "PrettyName": "USB 3.0 port 2"
                     }
                 }
             }
@@ -2427,7 +2427,7 @@
                         "LocationCode": "Ufcs-D1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Operator Panel LCD"
+                        "PrettyName": "Control panel display"
                     }
                 }
             }
@@ -2446,7 +2446,7 @@
                         "LocationCode": "Ufcs-D0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Operator Panel Base"
+                        "PrettyName": "Control panel"
                     }
                 }
             }
@@ -2553,7 +2553,7 @@
                         "SlotNumber": 1
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe4 x8 adapter"
                     }
                 }
             },
@@ -2624,7 +2624,7 @@
                         "SlotNumber": 2
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
                 }
             },
@@ -2695,7 +2695,7 @@
                         "SlotNumber": 3
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
                 }
             },
@@ -2766,7 +2766,7 @@
                         "SlotNumber": 4
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
                 }
             },
@@ -2837,7 +2837,7 @@
                         "SlotNumber": 5
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
                 }
             },
@@ -2908,7 +2908,7 @@
                         "SlotNumber": 6
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe4 x8 adapter"
                     }
                 }
             }
@@ -2951,7 +2951,7 @@
                         "SlotNumber": 7
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe5 x8 adapter"
                     }
                 }
             },
@@ -3022,7 +3022,7 @@
                         "SlotNumber": 8
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
                 }
             },
@@ -3093,7 +3093,7 @@
                         "SlotNumber": 9
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe4 x8 adapter"
                     }
                 }
             }
@@ -3136,7 +3136,7 @@
                         "SlotNumber": 10
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe5 x8 adapter"
                     }
                 }
             },
@@ -3207,7 +3207,7 @@
                         "SlotNumber": 11
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "PCIe Card"
+                        "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
                 }
             },
@@ -3249,7 +3249,7 @@
                         "LocationCode": "Ufcs-P0-C22"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 0"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -3302,7 +3302,7 @@
                         "LocationCode": "Ufcs-P0-C23"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 1"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -3355,7 +3355,7 @@
                         "LocationCode": "Ufcs-P0-C24"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 2"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -3408,7 +3408,7 @@
                         "LocationCode": "Ufcs-P0-C25"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 3"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -3461,7 +3461,7 @@
                         "LocationCode": "Ufcs-P0-C26"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 4"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -3514,7 +3514,7 @@
                         "LocationCode": "Ufcs-P0-C27"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 5"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -3567,7 +3567,7 @@
                         "LocationCode": "Ufcs-P0-C28"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 6"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -3620,7 +3620,7 @@
                         "LocationCode": "Ufcs-P0-C29"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 7"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -3673,7 +3673,7 @@
                         "LocationCode": "Ufcs-P0-C30"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 8"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -3726,7 +3726,7 @@
                         "LocationCode": "Ufcs-P0-C31"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 9"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -3779,7 +3779,7 @@
                         "LocationCode": "Ufcs-P0-C32"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 10"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -3832,7 +3832,7 @@
                         "LocationCode": "Ufcs-P0-C33"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 11"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -3885,7 +3885,7 @@
                         "LocationCode": "Ufcs-P0-C34"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 12"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -3938,7 +3938,7 @@
                         "LocationCode": "Ufcs-P0-C35"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 13"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -3991,7 +3991,7 @@
                         "LocationCode": "Ufcs-P0-C36"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 14"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4044,7 +4044,7 @@
                         "LocationCode": "Ufcs-P0-C37"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 15"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4097,7 +4097,7 @@
                         "LocationCode": "Ufcs-P0-C38"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 16"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4150,7 +4150,7 @@
                         "LocationCode": "Ufcs-P0-C39"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 17"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4203,7 +4203,7 @@
                         "LocationCode": "Ufcs-P0-C40"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 18"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4256,7 +4256,7 @@
                         "LocationCode": "Ufcs-P0-C41"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 19"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4309,7 +4309,7 @@
                         "LocationCode": "Ufcs-P0-C42"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 20"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4362,7 +4362,7 @@
                         "LocationCode": "Ufcs-P0-C43"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 21"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4415,7 +4415,7 @@
                         "LocationCode": "Ufcs-P0-C44"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 22"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4468,7 +4468,7 @@
                         "LocationCode": "Ufcs-P0-C45"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 23"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4521,7 +4521,7 @@
                         "LocationCode": "Ufcs-P0-C46"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 24"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4574,7 +4574,7 @@
                         "LocationCode": "Ufcs-P0-C47"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 25"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4627,7 +4627,7 @@
                         "LocationCode": "Ufcs-P0-C48"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 26"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4680,7 +4680,7 @@
                         "LocationCode": "Ufcs-P0-C49"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 27"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4733,7 +4733,7 @@
                         "LocationCode": "Ufcs-P0-C50"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 28"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4786,7 +4786,7 @@
                         "LocationCode": "Ufcs-P0-C51"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 29"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4839,7 +4839,7 @@
                         "LocationCode": "Ufcs-P0-C52"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 30"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4892,7 +4892,7 @@
                         "LocationCode": "Ufcs-P0-C53"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 31"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4945,7 +4945,7 @@
                         "LocationCode": "Ufcs-P0-C64"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 32"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -4998,7 +4998,7 @@
                         "LocationCode": "Ufcs-P0-C65"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 33"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5051,7 +5051,7 @@
                         "LocationCode": "Ufcs-P0-C66"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 34"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5104,7 +5104,7 @@
                         "LocationCode": "Ufcs-P0-C67"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 35"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5157,7 +5157,7 @@
                         "LocationCode": "Ufcs-P0-C68"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 36"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5210,7 +5210,7 @@
                         "LocationCode": "Ufcs-P0-C69"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 37"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5263,7 +5263,7 @@
                         "LocationCode": "Ufcs-P0-C70"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 38"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5316,7 +5316,7 @@
                         "LocationCode": "Ufcs-P0-C71"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 39"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5369,7 +5369,7 @@
                         "LocationCode": "Ufcs-P0-C72"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 40"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5422,7 +5422,7 @@
                         "LocationCode": "Ufcs-P0-C73"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 41"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5475,7 +5475,7 @@
                         "LocationCode": "Ufcs-P0-C74"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 42"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5528,7 +5528,7 @@
                         "LocationCode": "Ufcs-P0-C75"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 43"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5581,7 +5581,7 @@
                         "LocationCode": "Ufcs-P0-C76"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 44"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5634,7 +5634,7 @@
                         "LocationCode": "Ufcs-P0-C77"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 45"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5687,7 +5687,7 @@
                         "LocationCode": "Ufcs-P0-C78"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 46"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5740,7 +5740,7 @@
                         "LocationCode": "Ufcs-P0-C79"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 47"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5793,7 +5793,7 @@
                         "LocationCode": "Ufcs-P0-C80"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 48"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5846,7 +5846,7 @@
                         "LocationCode": "Ufcs-P0-C81"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 49"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5899,7 +5899,7 @@
                         "LocationCode": "Ufcs-P0-C82"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 50"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5952,7 +5952,7 @@
                         "LocationCode": "Ufcs-P0-C83"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 51"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -6005,7 +6005,7 @@
                         "LocationCode": "Ufcs-P0-C84"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 52"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -6058,7 +6058,7 @@
                         "LocationCode": "Ufcs-P0-C85"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 53"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -6111,7 +6111,7 @@
                         "LocationCode": "Ufcs-P0-C86"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 54"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -6164,7 +6164,7 @@
                         "LocationCode": "Ufcs-P0-C87"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 55"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -6217,7 +6217,7 @@
                         "LocationCode": "Ufcs-P0-C88"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 56"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -6270,7 +6270,7 @@
                         "LocationCode": "Ufcs-P0-C89"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 57"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -6323,7 +6323,7 @@
                         "LocationCode": "Ufcs-P0-C90"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 58"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -6376,7 +6376,7 @@
                         "LocationCode": "Ufcs-P0-C91"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 59"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -6429,7 +6429,7 @@
                         "LocationCode": "Ufcs-P0-C92"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 60"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -6482,7 +6482,7 @@
                         "LocationCode": "Ufcs-P0-C93"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 61"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -6535,7 +6535,7 @@
                         "LocationCode": "Ufcs-P0-C94"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 62"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -6588,7 +6588,7 @@
                         "LocationCode": "Ufcs-P0-C95"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory DIMM"
+                        "PrettyName": "Memory module 63"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
