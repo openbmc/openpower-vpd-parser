@@ -38,10 +38,10 @@ well as making the application more flexible for future improvements.
 
 ## TODOs and Future Improvements
 
-1.  The long-term goal is to completely do away with the build time YAML driven
-    configurations and instead reconcile the OpenPower VPD parser and the IBM
-    VPD parser applications into a single runtime JSON driven application.
-2.  Add details to the README on how to configure and build the application.
-3.  More JSON documentation.
-4.  Support for more IBM VPD formats.
-5.  VPD Write and tool documentation.
+1. The long-term goal is to completely do away with the build time YAML driven
+   configurations and instead reconcile the OpenPower VPD parser and the IBM
+   VPD parser applications into a single runtime JSON driven application.
+2. Add details to the README on how to configure and build the application.
+3. More JSON documentation.
+4. Support for more IBM VPD formats.
+5. VPD Write and tool documentation.
