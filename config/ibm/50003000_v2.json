@@ -26,6 +26,11 @@
     },
     "muxes": [
         {
+            "i2bus": "4",
+            "deviceaddress": "0xE0",
+            "holdidlepath": "/sys/bus/i2c/drivers/pca954x/4-0070/hold_idle"
+        },
+        {
             "i2bus": "5",
             "deviceaddress": "0xE0",
             "holdidlepath": "/sys/bus/i2c/drivers/pca954x/5-0070/hold_idle"
@@ -34,11 +39,6 @@
             "i2bus": "6",
             "deviceaddress": "0xE0",
             "holdidlepath": "/sys/bus/i2c/drivers/pca954x/6-0070/hold_idle"
-        },
-        {
-            "i2bus": "7",
-            "deviceaddress": "0xE0",
-            "holdidlepath": "/sys/bus/i2c/drivers/pca954x/7-0070/hold_idle"
         }
     ],
     "frus": {
