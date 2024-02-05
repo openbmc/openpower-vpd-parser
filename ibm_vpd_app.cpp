@@ -63,7 +63,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath);
  */
 static auto getBMCState()
 {
-    std::string bmcState;
+    std::string bmcState = "xyz.openbmc_project.State.BMC.BMCState.NotReady";
     try
     {
         auto bus = sdbusplus::bus::new_default();
