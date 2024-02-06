@@ -75,6 +75,7 @@ static constexpr auto PART_NUM_LEN = 7;
 static constexpr auto SERIAL_NUM_LEN = 12;
 static constexpr auto CCIN_LEN = 4;
 static constexpr auto CONVERT_MB_TO_KB = 1024;
+static constexpr auto CONVERT_GB_TO_KB = 1024 * 1024;
 
 static constexpr auto SPD_BYTE_2 = 2;
 static constexpr auto SPD_BYTE_3 = 3;

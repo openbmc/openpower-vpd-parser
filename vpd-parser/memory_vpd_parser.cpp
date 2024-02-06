@@ -210,7 +210,7 @@ auto memoryVpdParser::getDdr5BasedDDimmSize(Binary::const_iterator iterator)
 
     } while (false);
 
-    return constants::CONVERT_MB_TO_KB * dimmSize;
+    return constants::CONVERT_GB_TO_KB * dimmSize;
 }
 
 auto memoryVpdParser::getDdr4BasedDDimmSize(Binary::const_iterator iterator)
