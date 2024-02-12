@@ -24,6 +24,18 @@
             }
         }
     },
+    "muxes": [
+        {
+            "i2bus": "6",
+            "deviceaddress": "0xE0",
+            "holdidlepath": "/sys/bus/i2c/drivers/pca954x/6-0070/hold_idle"
+        },
+        {
+            "i2bus": "11",
+            "deviceaddress": "0xE0",
+            "holdidlepath": "/sys/bus/i2c/drivers/pca954x/11-0070/hold_idle"
+        }
+    ],
     "frus": {
         "/sys/bus/i2c/drivers/at24/8-0050/eeprom": [
             {
