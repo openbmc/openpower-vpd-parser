@@ -743,11 +743,6 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                                 }
                             }
                         }
-                        else if (eI.key().find("Inventory.Item.") !=
-                                 string::npos)
-                        {
-                            interfaces.emplace(move(eI.key()), move(props));
-                        }
                         else if (eI.key() ==
                                  "xyz.openbmc_project.Inventory.Item")
                         {
@@ -764,6 +759,10 @@ inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
                             // this function under this same interface.
                             interfaces.insert_or_assign(eI.key(),
                                                         move(presProp));
+                        }
+                        else
+                        {
+                            interfaces.emplace(move(eI.key()), move(props));
                         }
                     }
                 }
