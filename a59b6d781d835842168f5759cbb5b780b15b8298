@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64537610_115235b5",
+        "filename": "config/ibm/50001000.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2024-02-13T14:10:10Z",
+      "side": 1,
+      "message": "why is that 1 in adapter?",
+      "revId": "a59b6d781d835842168f5759cbb5b780b15b8298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc3b84b7_1928e504",
+        "filename": "config/ibm/50001000.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2024-02-13T14:10:10Z",
+      "side": 1,
+      "message": "From Knowledge centre : USB 3.0 port (front)",
+      "revId": "a59b6d781d835842168f5759cbb5b780b15b8298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3812d9ff_5ffb8c18",
+        "filename": "config/ibm/50001000.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2024-02-13T14:10:10Z",
+      "side": 1,
+      "message": "USB 3.0 port (front)",
+      "revId": "a59b6d781d835842168f5759cbb5b780b15b8298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89e60510_48515b0b",
+        "filename": "config/ibm/50001000.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2024-02-13T14:10:10Z",
+      "side": 1,
+      "message": "USB 3.0 port (rear)",
+      "revId": "a59b6d781d835842168f5759cbb5b780b15b8298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a026dbb_f1cbd86d",
+        "filename": "config/ibm/50001000.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2024-02-13T14:10:10Z",
+      "side": 1,
+      "message": "USB 2.0 port (rear)",
+      "revId": "a59b6d781d835842168f5759cbb5b780b15b8298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
