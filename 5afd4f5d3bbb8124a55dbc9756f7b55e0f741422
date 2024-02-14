@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41a89135_3e3a1309",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2024-02-14T10:29:23Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 12,
+        "startChar": 49,
+        "endLine": 12,
+        "endChar": 63
+      },
+      "revId": "5afd4f5d3bbb8124a55dbc9756f7b55e0f741422",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92aab94b_af565e3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2024-02-14T10:29:23Z",
+      "side": 1,
+      "message": "Test Section:",
+      "revId": "5afd4f5d3bbb8124a55dbc9756f7b55e0f741422",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "092173a1_07a95f48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2024-02-14T10:29:23Z",
+      "side": 1,
+      "message": "please check my comments",
+      "revId": "5afd4f5d3bbb8124a55dbc9756f7b55e0f741422",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f7f0b95_18608a7c",
+        "filename": "ibm_vpd_app.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2024-02-14T10:29:23Z",
+      "side": 1,
+      "message": "props is empty, so we are populating interface with Nothing as prop-value.\nIf any new interface gets added in EI and it has some properties , we will have to take care of that.",
+      "range": {
+        "startLine": 765,
+        "startChar": 63,
+        "endLine": 765,
+        "endChar": 73
+      },
+      "revId": "5afd4f5d3bbb8124a55dbc9756f7b55e0f741422",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
