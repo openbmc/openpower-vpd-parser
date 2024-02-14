@@ -2896,7 +2896,6 @@
                 },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
-                    "xyz.openbmc_project.Inventory.Item.FabricAdapter": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P0-C6"
                     },
@@ -3081,7 +3080,6 @@
                 },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
-                    "xyz.openbmc_project.Inventory.Item.FabricAdapter": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P0-C9"
                     },
