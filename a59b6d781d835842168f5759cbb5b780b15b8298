@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2ac14dd_1a7e8630",
+        "filename": "config/ibm/50001000.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2024-02-14T06:09:34Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "64537610_115235b5",
+      "revId": "a59b6d781d835842168f5759cbb5b780b15b8298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc3b84b7_1928e504",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-02-13T14:10:10Z",
       "side": 1,
       "message": "From Knowledge centre : USB 3.0 port (front)",
+      "revId": "a59b6d781d835842168f5759cbb5b780b15b8298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ebe4d12_03d17d04",
+        "filename": "config/ibm/50001000.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2024-02-14T06:09:34Z",
+      "side": 1,
+      "message": "Not required",
+      "parentUuid": "fc3b84b7_1928e504",
       "revId": "a59b6d781d835842168f5759cbb5b780b15b8298",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95b4e45f_2ce60081",
+        "filename": "config/ibm/50001000.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2024-02-14T06:09:34Z",
+      "side": 1,
+      "message": "Not required",
+      "parentUuid": "3812d9ff_5ffb8c18",
+      "revId": "a59b6d781d835842168f5759cbb5b780b15b8298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89e60510_48515b0b",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21fd4f5e_8a7aef87",
+        "filename": "config/ibm/50001000.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2024-02-14T06:09:34Z",
+      "side": 1,
+      "message": "Not required",
+      "parentUuid": "89e60510_48515b0b",
+      "revId": "a59b6d781d835842168f5759cbb5b780b15b8298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a026dbb_f1cbd86d",
@@ -82,6 +154,24 @@
       "writtenOn": "2024-02-13T14:10:10Z",
       "side": 1,
       "message": "USB 2.0 port (rear)",
+      "revId": "a59b6d781d835842168f5759cbb5b780b15b8298",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5497a4d_00ec1235",
+        "filename": "config/ibm/50001000.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2024-02-14T06:09:34Z",
+      "side": 1,
+      "message": "Not required",
+      "parentUuid": "1a026dbb_f1cbd86d",
       "revId": "a59b6d781d835842168f5759cbb5b780b15b8298",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
