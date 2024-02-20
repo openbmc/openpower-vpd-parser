@@ -34,6 +34,24 @@
       "parentUuid": "cb0af095_d8cf2b6c",
       "revId": "69cd96042cbbc3c2aa021b3d610f28ffc77a7493",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c2f8c9c_650b0ea3",
+        "filename": "vpd-parser/memory_vpd_parser.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-02-20T07:20:59Z",
+      "side": 1,
+      "message": "I thought that comment you kept for your testing phase.",
+      "parentUuid": "6b7030e2_97526f21",
+      "revId": "69cd96042cbbc3c2aa021b3d610f28ffc77a7493",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
