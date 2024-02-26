@@ -37,6 +37,27 @@ bool GpioEventHandler::getPresencePinValue()
     return gpioData;
 }
 
+bool GpioEventHandler::isVpdFileAvailable()
+{
+    if (FILE* file = fopen("/sys/bus/i2c/drivers/at24/7-0051/eeprom", "r"))
+    {
+        fclose(file);
+        gpiod::line outputLine = gpiod::find_line(outputPin);
+        if (!outputLine)
+        {
+            cerr << "Error: toggleGpio: couldn't find output line:" << outputPin
+                 << ". Skipping update\n";
+
+            return false;
+        }
+        outputLine.request({"FRU presence: update the output GPIO pin",
+                            gpiod::line_request::DIRECTION_OUTPUT, 0},
+                           0);
+        return true;
+    }
+    return false;
+}
+
 void GpioMonitor::initGpioInfos(
     std::shared_ptr<boost::asio::io_context>& ioContext)
 {

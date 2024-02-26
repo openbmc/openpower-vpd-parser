@@ -61,8 +61,8 @@ class GpioEventHandler
     const std::string objectPath;
 
     /** Preserves the GPIO pin value to compare it next time. Default init by
-     *  false*/
-    bool prevPresPinValue = false;
+     *  true*/
+    bool prevPresPinValue = true;
 
     /** @brief This is a helper function to read the
      *        current value of Presence GPIO
@@ -70,6 +70,13 @@ class GpioEventHandler
      *  @returns The GPIO value
      */
     bool getPresencePinValue();
+
+    /** @brief This is a helper function to see if
+     *        the VPD file is present or not
+     *
+     *  @returns The file availability status
+     */
+    bool isVpdFileAvailable();
 
     /** @brief This function will toggle the output gpio as per the presence
      *         state of fru.
@@ -84,7 +91,22 @@ class GpioEventHandler
      */
     inline bool hasEventOccurred()
     {
-        return getPresencePinValue() != prevPresPinValue;
+        if ((getPresencePinValue() != prevPresPinValue))
+        {
+            std::cout << "Presence pin value changed" << std::endl;
+            return true;
+        }
+        else if (0 == prevPresPinValue)
+        {
+            if (!isVpdFileAvailable())
+            {
+                std::cout
+                    << "Presence pin value HIGH checking file file not there;"
+                    << std::endl;
+                return true;
+            }
+        }
+        return false;
     }
 
     /** @brief This function runs a timer , which keeps checking for if an event
