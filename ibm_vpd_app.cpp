@@ -84,6 +84,8 @@ static auto getBMCState()
     {
         // Ignore any error
         std::cerr << "Failed to get BMC state: " << e.what() << "\n";
+        // Since we failed set to not ready state
+        bmcState =  "xyz.openbmc_project.State.BMC.BMCState.NotReady";
     }
     return bmcState;
 }
