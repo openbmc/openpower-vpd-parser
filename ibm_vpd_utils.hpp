@@ -290,8 +290,17 @@ inline std::vector<std::string> executeCmd(T&& path, Types... args)
 
     std::string cmd = path + getCommand(args...);
 
-    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"),
-                                                  pclose);
+    struct custom_file_deleter
+    {
+        void operator()(std::FILE* fp)
+        {
+            pclose(fp);
+        }
+    };
+    using unique_file_custom_deleter =
+        std::unique_ptr<std::FILE, custom_file_deleter>;
+    unique_file_custom_deleter pipe{popen(cmd.c_str(), "r")};
+
     if (!pipe)
     {
         throw std::runtime_error("popen() failed!");
