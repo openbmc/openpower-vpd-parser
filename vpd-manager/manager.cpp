@@ -10,6 +10,8 @@
 #include "reader_impl.hpp"
 #include "vpd_exceptions.hpp"
 
+#include <unistd.h>
+
 #include <phosphor-logging/elog-errors.hpp>
 #include <xyz/openbmc_project/Common/error.hpp>
 
@@ -597,33 +599,50 @@ void Manager::performVPDRecollection()
         // required.
         if (prePostActionRequired)
         {
-            // Check if device showed up (test for file)
-            if (!filesystem::exists(item))
+            // value 10 for retry counter is just a random value picked.
+            for (uint8_t retryCounter = 0; retryCounter < 10; retryCounter++)
             {
-                try
-                {
-                    // If not, then take failure postAction
-                    executePostFailAction(jsonFile, item);
-                }
-                catch (const GpioException& e)
-                {
-                    PelAdditionalData additionalData{};
-                    additionalData.emplace("DESCRIPTION", e.what());
-                    createPEL(additionalData, PelSeverity::WARNING,
-                              errIntfForGpioError, sdBus);
-                }
-            }
-            else
-            {
-                // bind the LED driver
-                string chipAddr = singleFru.value("pcaChipAddress", "");
-                cout << "performVPDRecollection: Executing driver binding for "
-                        "chip "
-                        "address - "
-                     << chipAddr << endl;
+                // sleep for 10 milisecond
+                usleep(100000);
 
-                executeCmd(createBindUnbindDriverCmnd(chipAddr, "i2c",
-                                                      "leds-pca955x", "/bind"));
+                // Check if file showed up
+                if (!filesystem::exists(item))
+                {
+                    // Do we need to retry?
+                    if (retryCounter < 10)
+                    {
+                        continue;
+                    }
+
+                    try
+                    {
+                        // If not, then take failure postAction
+                        executePostFailAction(jsonFile, item);
+                    }
+                    catch (const GpioException& e)
+                    {
+                        PelAdditionalData additionalData{};
+                        additionalData.emplace("DESCRIPTION", e.what());
+                        createPEL(additionalData, PelSeverity::WARNING,
+                                  errIntfForGpioError, sdBus);
+                    }
+                }
+                else
+                {
+                    // bind the LED driver
+                    string chipAddr = singleFru.value("pcaChipAddress", "");
+                    cout
+                        << "performVPDRecollection: Executing driver binding for "
+                           "chip "
+                           "address - "
+                        << chipAddr << endl;
+
+                    executeCmd(createBindUnbindDriverCmnd(
+                        chipAddr, "i2c", "leds-pca955x", "/bind"));
+
+                    // File has been found, kill the retry loop.
+                    break;
+                }
             }
         }
     }
