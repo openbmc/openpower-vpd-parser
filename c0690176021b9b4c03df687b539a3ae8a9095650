@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ad43453_b9bcafa5",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-03-21T11:28:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a390c024_645818cc",
+      "range": {
+        "startLine": 602,
+        "startChar": 0,
+        "endLine": 602,
+        "endChar": 72
+      },
+      "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60d53c5b_6cf05bb7",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-03-21T09:04:12Z",
       "side": 1,
       "message": "why is the return not checked\nwhy magic number 100000 ?",
+      "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f493d751_08e0bdc9",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-03-21T11:28:30Z",
+      "side": 1,
+      "message": "\u003e why is the return not checked\n\nBecause the implementation does not care for return value in this case. There is no implementation deviation that needs to happen based on the return value. Hence no need to handle that.\nIn case any specific implementation is required based on return type then we can handle that.\n\n\u003e why magic number 100000 ?\n\nFixed that.",
+      "parentUuid": "60d53c5b_6cf05bb7",
       "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e714eade_a7f796fd",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-03-21T11:28:30Z",
+      "side": 1,
+      "message": "There is a global namespace defined in this file. Its a mix.\nWas legacy code so did not made the change.\n\nIf still required I can do that.",
+      "parentUuid": "c471d31f_4f2bc0c1",
+      "range": {
+        "startLine": 633,
+        "startChar": 20,
+        "endLine": 633,
+        "endChar": 26
+      },
+      "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9db1e606_607d7dc8",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 3
@@ -77,6 +143,24 @@
       "writtenOn": "2024-03-21T09:04:12Z",
       "side": 1,
       "message": "nit std::",
+      "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e54582db_2c93f31c",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-03-21T11:28:30Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "9db1e606_607d7dc8",
       "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -100,6 +184,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e11f83f7_a8f7f17f",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-03-21T11:28:30Z",
+      "side": 1,
+      "message": "Don\u0027t think so. The delay above is solving the issue. Trying to keep delays at minimum.",
+      "parentUuid": "e66ce5cd_ab62f1fa",
+      "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ab57497_15e62072",
         "filename": "vpd-manager/manager.cpp",
         "patchSetId": 3
@@ -111,6 +213,24 @@
       "writtenOn": "2024-03-21T09:04:12Z",
       "side": 1,
       "message": "kill or break from or exit out of?",
+      "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e99a986_58147e09",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-03-21T11:28:30Z",
+      "side": 1,
+      "message": "One or the same thing?",
+      "parentUuid": "7ab57497_15e62072",
       "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
