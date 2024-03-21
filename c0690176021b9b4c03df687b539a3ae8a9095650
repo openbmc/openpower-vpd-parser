@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a390c024_645818cc",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-03-21T09:04:12Z",
+      "side": 1,
+      "message": "1 second is the random value , 10 is based on the split of the loop in milliseconds\nwhy magic number 10 ? can it not be defined as a retryCount_10 or else?",
+      "range": {
+        "startLine": 602,
+        "startChar": 0,
+        "endLine": 602,
+        "endChar": 72
+      },
+      "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60d53c5b_6cf05bb7",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-03-21T09:04:12Z",
+      "side": 1,
+      "message": "why is the return not checked\nwhy magic number 100000 ?",
+      "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c471d31f_4f2bc0c1",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-03-21T09:04:12Z",
+      "side": 1,
+      "message": "nit std::",
+      "range": {
+        "startLine": 633,
+        "startChar": 20,
+        "endLine": 633,
+        "endChar": 26
+      },
+      "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9db1e606_607d7dc8",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-03-21T09:04:12Z",
+      "side": 1,
+      "message": "nit std::",
+      "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e66ce5cd_ab62f1fa",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-03-21T09:04:12Z",
+      "side": 1,
+      "message": "is there any need to have a small delay here ?",
+      "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ab57497_15e62072",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-03-21T09:04:12Z",
+      "side": 1,
+      "message": "kill or break from or exit out of?",
+      "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
