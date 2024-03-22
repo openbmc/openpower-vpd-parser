@@ -83,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28a8618b_ae240b54",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2024-03-22T06:36:19Z",
+      "side": 1,
+      "message": "As discussed, error has been logged.",
+      "parentUuid": "f493d751_08e0bdc9",
+      "revId": "c0690176021b9b4c03df687b539a3ae8a9095650",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c471d31f_4f2bc0c1",
