@@ -763,7 +763,7 @@
                         "LocationCode": "Ufcs-P0-T18"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "USB 3.0 por"
+                        "PrettyName": "USB 3.0 port"
                     }
                 }
             }

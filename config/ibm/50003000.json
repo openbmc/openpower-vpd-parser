@@ -52,7 +52,7 @@
                         "LocationCode": "Ufcs-P0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "System backplanev"
+                        "PrettyName": "System backplane"
                     }
                 }
             },
@@ -4941,7 +4941,7 @@
                         "LocationCode": "Ufcs-P0-C65"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory module 34"
+                        "PrettyName": "Memory module 33"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5259,7 +5259,7 @@
                         "LocationCode": "Ufcs-P0-C71"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "DDIMM 39"
+                        "PrettyName": "Memory Module 39"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
@@ -5418,7 +5418,7 @@
                         "LocationCode": "Ufcs-P0-C74"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory module 40"
+                        "PrettyName": "Memory module 42"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
