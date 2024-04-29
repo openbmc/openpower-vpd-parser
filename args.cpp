@@ -33,10 +33,8 @@ void usage(char** argv)
     std::cerr << " for eg an eeprom file\n";
     std::cerr << "--dump output contents of parsed VPD\n";
     std::cerr << "--fru=<FRU type>, supported types:\n";
-    std::cerr << "\t"
-              << "bmc\n";
-    std::cerr << "\t"
-              << "ethernet\n";
+    std::cerr << "\t" << "bmc\n";
+    std::cerr << "\t" << "ethernet\n";
     std::cerr << "Specify multiple FRU types via comma-separated list\n";
     std::cerr << "--object=<FRU object path> for eg,";
     std::cerr << " chassis/bmc0/planar\n";

@@ -37,8 +37,7 @@ class EditorImpl
      */
     EditorImpl(const std::string& record, const std::string& kwd,
                Binary&& vpd) :
-        startOffset(0),
-        thisRecord(record, kwd), vpdFile(std::move(vpd))
+        startOffset(0), thisRecord(record, kwd), vpdFile(std::move(vpd))
     {}
 
     /** @brief Construct EditorImpl class
@@ -52,9 +51,8 @@ class EditorImpl
     EditorImpl(const inventory::Path& path, const nlohmann::json& json,
                const std::string& record, const std::string& kwd,
                const sdbusplus::message::object_path& inventoryPath) :
-        vpdFilePath(path),
-        objPath(inventoryPath), startOffset(0), jsonFile(json),
-        thisRecord(record, kwd)
+        vpdFilePath(path), objPath(inventoryPath), startOffset(0),
+        jsonFile(json), thisRecord(record, kwd)
     {}
 
     /** @brief Construct EditorImpl class
@@ -66,8 +64,7 @@ class EditorImpl
      */
     EditorImpl(const inventory::Path& path, const nlohmann::json& json,
                const std::string& record, const std::string& kwd) :
-        vpdFilePath(path),
-        jsonFile(json), thisRecord(record, kwd)
+        vpdFilePath(path), jsonFile(json), thisRecord(record, kwd)
     {}
 
     /**

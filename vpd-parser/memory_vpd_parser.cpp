@@ -50,8 +50,8 @@ bool memoryVpdParser::checkValidValue(uint8_t l_ByteValue, uint8_t shift,
     if ((l_ByteValue > maxValue) || (l_ByteValue < minValue))
     {
         cout << "Non valid Value encountered value[" << l_ByteValue
-             << "] range [" << minValue << ".." << maxValue << "] found "
-             << " " << endl;
+             << "] range [" << minValue << ".." << maxValue << "] found " << " "
+             << endl;
         return false;
     }
     else

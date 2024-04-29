@@ -38,8 +38,7 @@ namespace manager
 Manager::Manager(std::shared_ptr<boost::asio::io_context>& ioCon,
                  std::shared_ptr<sdbusplus::asio::dbus_interface>& iFace,
                  std::shared_ptr<sdbusplus::asio::connection>& conn) :
-    ioContext(ioCon),
-    interface(iFace), conn(conn)
+    ioContext(ioCon), interface(iFace), conn(conn)
 {
     interface->register_method(
         "WriteKeyword",

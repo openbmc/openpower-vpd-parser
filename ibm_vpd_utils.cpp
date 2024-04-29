@@ -715,8 +715,7 @@ const std::string getKwVal(const Parsed& vpdMap, const std::string& rec,
 std::string hexString(const std::variant<Binary, std::string>& kw)
 {
     std::string hexString;
-    std::visit(
-        [&hexString](auto&& kw) {
+    std::visit([&hexString](auto&& kw) {
         std::stringstream ss;
         std::string hexRep = "0x";
         ss << hexRep;
@@ -726,16 +725,14 @@ std::string hexString(const std::variant<Binary, std::string>& kw)
                << static_cast<int>(kwVal);
         }
         hexString = ss.str();
-    },
-        kw);
+    }, kw);
     return hexString;
 }
 
 std::string getPrintableValue(const std::variant<Binary, std::string>& kwVal)
 {
     std::string kwString{};
-    std::visit(
-        [&kwString](auto&& kwVal) {
+    std::visit([&kwString](auto&& kwVal) {
         const auto it =
             std::find_if(kwVal.begin(), kwVal.end(),
                          [](const auto& kw) { return !isprint(kw); });
@@ -747,8 +744,7 @@ std::string getPrintableValue(const std::variant<Binary, std::string>& kwVal)
         {
             kwString = std::string(kwVal.begin(), kwVal.end());
         }
-    },
-        kwVal);
+    }, kwVal);
     return kwString;
 }
 

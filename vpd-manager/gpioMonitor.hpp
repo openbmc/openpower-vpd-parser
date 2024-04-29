@@ -31,10 +31,9 @@ class GpioEventHandler
                      Byte& outValue, std::string& devAddr, std::string& driver,
                      std::string& bus, std::string& objPath,
                      std::shared_ptr<boost::asio::io_context>& ioCon) :
-        presencePin(presPin),
-        presenceValue(presValue), outputPin(outPin), outputValue(outValue),
-        devNameAddr(devAddr), driverType(driver), busType(bus),
-        objectPath(objPath)
+        presencePin(presPin), presenceValue(presValue), outputPin(outPin),
+        outputValue(outValue), devNameAddr(devAddr), driverType(driver),
+        busType(bus), objectPath(objPath)
     {
         doEventAndTimerSetup(ioCon);
     }
@@ -120,8 +119,7 @@ class GpioMonitor
     GpioMonitor& operator=(GpioMonitor&&) = delete;
 
     GpioMonitor(nlohmann::json& js,
-                std::shared_ptr<boost::asio::io_context>& ioCon) :
-        jsonFile(js)
+                std::shared_ptr<boost::asio::io_context>& ioCon) : jsonFile(js)
     {
         initGpioInfos(ioCon);
     }
