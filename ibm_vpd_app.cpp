@@ -1492,6 +1492,12 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         ifstream inventoryJson(link);
         js = json::parse(inventoryJson);
         inventoryJson.close();
+
+        // enable the muxes again here to cover the case where during first boot
+        // after reset, system would have come up with default JSON
+        // configuration and have skipped enabling mux at the beginning.
+        // Default config JSON does not have mux entries.
+        doEnableAllMuxChips(js);
     }
 
     for (const auto& item : js["frus"][filePath])
