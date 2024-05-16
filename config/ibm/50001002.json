@@ -217,7 +217,7 @@
                         "LocationCode": "Ufcs-P0-T18"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "USB 3.0 port"
+                        "PrettyName": "USB 3.0 port (front)"
                     }
                 }
             },
@@ -233,7 +233,7 @@
                         "SlotNumber": 12
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "USB 3.0 port"
+                        "PrettyName": "USB 3.0 port (front)"
                     }
                 }
             },
@@ -604,7 +604,7 @@
                         "LocationCode": "Ufcs-P0-T18"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "USB 3.0 port"
+                        "PrettyName": "USB 3.0 port (front)"
                     }
                 }
             },
@@ -731,7 +731,7 @@
                         "LocationCode": "Ufcs-P0-C5-T2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "USB 3.0 port"
+                        "PrettyName": "USB 3.0 port (rear)"
                     }
                 }
             },
@@ -757,7 +757,7 @@
                         "LocationCode": "Ufcs-P0-C5-T4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "USB 2.0 port"
+                        "PrettyName": "USB 2.0 port (rear)"
                     }
                 }
             }
