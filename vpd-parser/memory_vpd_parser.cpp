@@ -42,6 +42,8 @@ static constexpr auto SDRAM_DENSITY_PER_DIE_UNDEFINED = 0;
 
 static constexpr auto PRIMARY_BUS_WIDTH_32_BITS = 32;
 static constexpr auto PRIMARY_BUS_WIDTH_UNUSED = 0;
+static constexpr auto DRAM_MANUFACTURER_ID_OFFSET = 0x228;
+static constexpr auto DRAM_MANUFACTURER_ID_LENGTH = 0x02;
 
 bool memoryVpdParser::checkValidValue(uint8_t l_ByteValue, uint8_t shift,
                                       uint8_t minValue, uint8_t maxValue)
@@ -364,10 +366,15 @@ kwdVpdMap memoryVpdParser::readKeywords(Binary::const_iterator iterator)
     advance(iterator, SERIAL_NUM_LEN);
     Binary ccin(iterator, iterator + CCIN_LEN);
 
+    Binary mfgId(DRAM_MANUFACTURER_ID_LENGTH);
+    std::copy_n((memVpd.cbegin() + DRAM_MANUFACTURER_ID_OFFSET),
+                DRAM_MANUFACTURER_ID_LENGTH, mfgId.begin());
+
     map.emplace("FN", partNumber);
     map.emplace("PN", move(partNumber));
     map.emplace("SN", move(serialNumber));
     map.emplace("CC", move(ccin));
+    map.emplace("DI", move(mfgId));
 
     return map;
 }

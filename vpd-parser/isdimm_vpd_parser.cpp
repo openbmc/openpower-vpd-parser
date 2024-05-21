@@ -38,6 +38,8 @@ static constexpr auto SPD_JEDEC_DDR4_SDRAM_DENSITY_BANK_OFFSET = 4;
 static constexpr auto SPD_JEDEC_DDR4_SDRAM_ADDR_OFFSET = 5;
 static constexpr auto SPD_JEDEC_DDR4_DRAM_PRI_PACKAGE_OFFSET = 6;
 static constexpr auto SPD_JEDEC_DDR4_DRAM_MODULE_ORG_OFFSET = 12;
+static constexpr auto SPD_JEDEC_DDR4_DRAM_MANUFACTURER_ID_OFFSET = 320;
+static constexpr auto SPD_JEDEC_DRAM_MANUFACTURER_ID_LENGTH = 2;
 
 // DDR5 JEDEC specification constants
 static constexpr auto SPD_JEDEC_DDR5_SUB_CHANNELS_PER_DIMM = 235;
@@ -58,6 +60,7 @@ static constexpr auto SPD_JEDEC_DDR5_SDRAM_DENSITY_PER_DIE_ASYM_ODD = 8;
 static constexpr auto SPD_JEDEC_DDR5_SDRAM_DENSITY_PER_DIE_MASK = 0x1F;
 static constexpr auto SPD_JEDEC_DDR5_RANK_MIX = 234;
 static constexpr auto SPD_JEDEC_DDR5_RANK_MIX_SYMMETRICAL_MASK = 0x40;
+static constexpr auto SPD_JEDEC_DDR5_DRAM_MANUFACTURER_ID_OFFSET = 552;
 
 auto isdimmVpdParser::getDDR4DimmCapacity(Binary::const_iterator& iterator)
 {
@@ -220,6 +223,25 @@ auto isdimmVpdParser::getDDR4CCIN(const std::string& fruNumber)
     return ccin;
 }
 
+auto isdimmVpdParser::getDDR4ManufacturerId()
+{
+    Binary mfgId(SPD_JEDEC_DRAM_MANUFACTURER_ID_LENGTH);
+
+    if (memVpd.size() < (SPD_JEDEC_DDR4_DRAM_MANUFACTURER_ID_OFFSET +
+                         SPD_JEDEC_DRAM_MANUFACTURER_ID_LENGTH))
+    {
+        std::cout
+            << "VPD length is less than the offset of Manufacturer ID. Can't fetch it"
+            << std::endl;
+        return mfgId;
+    }
+
+    std::copy_n((memVpd.cbegin() + SPD_JEDEC_DDR4_DRAM_MANUFACTURER_ID_OFFSET),
+                SPD_JEDEC_DRAM_MANUFACTURER_ID_LENGTH, mfgId.begin());
+
+    return mfgId;
+}
+
 auto isdimmVpdParser::getDDR5DimmCapacity(Binary::const_iterator& iterator)
 {
     // dummy implementation to be updated when required
@@ -284,6 +306,25 @@ auto isdimmVpdParser::getDDR5CCIN(const std::string& partNumber)
     return ccin;
 }
 
+auto isdimmVpdParser::getDDR5ManufacturerId()
+{
+    Binary mfgId(SPD_JEDEC_DRAM_MANUFACTURER_ID_LENGTH);
+
+    if (memVpd.size() < (SPD_JEDEC_DDR5_DRAM_MANUFACTURER_ID_OFFSET +
+                         SPD_JEDEC_DRAM_MANUFACTURER_ID_LENGTH))
+    {
+        std::cout
+            << "VPD length is less than the offset of Manufacturer ID. Can't fetch it"
+            << std::endl;
+        return mfgId;
+    }
+
+    std::copy_n((memVpd.cbegin() + SPD_JEDEC_DDR5_DRAM_MANUFACTURER_ID_OFFSET),
+                SPD_JEDEC_DRAM_MANUFACTURER_ID_LENGTH, mfgId.begin());
+
+    return mfgId;
+}
+
 kwdVpdMap isdimmVpdParser::readKeywords(Binary::const_iterator& iterator)
 {
     inventory::KeywordVpdMap keywordValueMap{};
@@ -307,6 +348,8 @@ kwdVpdMap isdimmVpdParser::readKeywords(Binary::const_iterator& iterator)
         auto ccin = getDDR5CCIN(partNumber);
         keywordValueMap.emplace("CC", move(ccin));
         keywordValueMap.emplace("PN", move(partNumber));
+        auto mfgID = getDDR5ManufacturerId();
+        keywordValueMap.emplace("DI", move(mfgID));
     }
     else if ((iterator[constants::SPD_BYTE_2] & constants::SPD_BYTE_MASK) ==
              constants::SPD_DRAM_TYPE_DDR4)
@@ -326,12 +369,15 @@ kwdVpdMap isdimmVpdParser::readKeywords(Binary::const_iterator& iterator)
         auto fruNumber = getDDR4FruNumber(partNumber, iterator);
         auto serialNumber = getDDR4SerialNumber(iterator);
         auto ccin = getDDR4CCIN(fruNumber);
+        auto mfgID = getDDR4ManufacturerId();
+
         // PN value is made same as FN value
         auto displayPartNumber = fruNumber;
         keywordValueMap.emplace("PN", move(displayPartNumber));
         keywordValueMap.emplace("FN", move(fruNumber));
         keywordValueMap.emplace("SN", move(serialNumber));
         keywordValueMap.emplace("CC", move(ccin));
+        keywordValueMap.emplace("DI", move(mfgID));
     }
     return keywordValueMap;
 }

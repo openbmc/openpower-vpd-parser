@@ -99,6 +99,13 @@ class isdimmVpdParser : public ParserInterface
     auto getDDR4CCIN(const std::string& partNumber);
 
     /**
+     * @brief The function fetches manufacturer's ID of DIMM.
+     *
+     * @return manufacturer ID.
+     */
+    auto getDDR4ManufacturerId();
+
+    /**
      * @brief This function calculates DIMM size from SPD
      *
      * @param[in] iterator - iterator to buffer containing SPD
@@ -137,6 +144,13 @@ class isdimmVpdParser : public ParserInterface
      * @return allocated CCIN.
      */
     auto getDDR5CCIN(const std::string& partNumber);
+
+    /**
+     * @brief The function fetches manufacturer's ID of DIMM.
+     *
+     * @return manufacturer ID.
+     */
+    auto getDDR5ManufacturerId();
 
     // vdp file to be parsed
     const Binary& memVpd;
