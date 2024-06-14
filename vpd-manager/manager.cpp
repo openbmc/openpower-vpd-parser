@@ -850,11 +850,6 @@ void Manager::deleteFRUVPD(const sdbusplus::message::object_path& path)
     string chipAddress =
         jsonFile["frus"][vpdFilePath].at(0).value("pcaChipAddress", "");
 
-    // Unbind the LED driver for this FRU
-    cout << "Unbinding device- " << chipAddress << endl;
-    executeCmd(createBindUnbindDriverCmnd(chipAddress, "i2c", "leds-pca955x",
-                                          "/unbind"));
-
     // if the FRU is not present then log error
     if (readBusProperty(objPath, "xyz.openbmc_project.Inventory.Item",
                         "Present") == "false")
@@ -864,6 +859,43 @@ void Manager::deleteFRUVPD(const sdbusplus::message::object_path& path)
     }
     else
     {
+        // check if we have cxp-port populated for the given object path.
+        std::vector<std::string> interfaceList{
+            "xyz.openbmc_project.State.Decorator.OperationalStatus"};
+        MapperResponse subTree = getObjectSubtreeForInterfaces(path, 0,
+                                                               interfaceList);
+
+        if (subTree.size() != 0)
+        {
+            for (auto [objectPath, serviceInterfaceMap] : subTree)
+            {
+                std::string subTreeObjPath{objectPath};
+                if (subTreeObjPath.find("cxp_top") != std::string::npos ||
+                    subTreeObjPath.find("cxp_bot") != std::string::npos)
+                {
+                    // Strip any inventory prefix in path
+                    if (subTreeObjPath.find(INVENTORY_PATH) == 0)
+                    {
+                        subTreeObjPath =
+                            subTreeObjPath.substr(sizeof(INVENTORY_PATH) - 1);
+                    }
+
+                    inventory::ObjectMap objectMap{
+                        {subTreeObjPath,
+                         {{"xyz.openbmc_project.State.Decorator.OperationalStatus",
+                           {{"Functional", true}}}}}};
+
+                    // objectMap.emplace(objectPath, move(interfaceMap));
+                    common::utility::callPIM(move(objectMap));
+                }
+            }
+        }
+
+        // Unbind the LED driver for this FRU
+        cout << "Unbinding device- " << chipAddress << endl;
+        executeCmd(createBindUnbindDriverCmnd(chipAddress, "i2c",
+                                              "leds-pca955x", "/unbind"));
+
         inventory::InterfaceMap interfacesPropMap;
         clearVpdOnRemoval(INVENTORY_PATH + objPath, interfacesPropMap);
 
