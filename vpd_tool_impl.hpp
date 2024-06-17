@@ -78,7 +78,7 @@ class VpdTool
     /**
      * @brief Interface Decider
      * Decides whether to make the dbus call for
-     * getting properites from extraInterface or from
+     * getting properties from extraInterface or from
      * VINI interface, depending on the value of
      * extraInterfaces object in the inventory json.
      *
@@ -282,7 +282,7 @@ class VpdTool
 
     /**
      * @brief Fix system VPD and its backup VPD
-     * API is triggerred if the backup of system VPD has to be taken in a
+     * API is triggered if the backup of system VPD has to be taken in a
      * hardware VPD. User can use the --fixSystemVPD option to restore the
      * keywords in backup VPD and/or system VPD.
      *

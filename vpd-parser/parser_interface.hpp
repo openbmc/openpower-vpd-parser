@@ -19,7 +19,7 @@ using kwdVpdMap = openpower::vpd::inventory::KeywordVpdMap;
  *  @brief Interface class for vpd parsers.
  *
  *  Any concrete parser class, implementing the parser logic needs to
- *  derive from this interface class and ovverride the methods declared
+ *  derive from this interface class and override the methods declared
  *  in this class.
  */
 class ParserInterface
@@ -28,7 +28,7 @@ class ParserInterface
     /**
      * @brief An api to implement parsing logic for VPD file.
      * Needs to be implemented by all the class deriving from
-     * parser inerface.
+     * parser interface.
      *
      * @return parsed format for vpd data, depending upon the
      * parsing logic.
@@ -39,7 +39,7 @@ class ParserInterface
      * @brief An api to return interface name which will hold the
      * data on cache.
      * Needs to be implemented by all the class deriving fronm
-     * parser inerface
+     * parser interface
      *
      * @return - Interface name for that vpd type.
      */

@@ -130,7 +130,7 @@ class KeywordVpdParser : public ParserInterface
     /**
      * @brief Check for iterator Out of Bound exception
      *
-     * Check if no.of elements from (begining of the vector) to (iterator +
+     * Check if no.of elements from (beginning of the vector) to (iterator +
      * incVar) is lesser than or equal to the total no.of elements in the
      * vector. This check is performed before the advancement of the iterator.
      *

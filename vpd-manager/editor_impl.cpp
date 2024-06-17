@@ -527,7 +527,7 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
 
                     // update the DBUS interface COM as well as XYZ path
                     prop.emplace("LocationCode", expandedLocationCode);
-                    // TODO depricate this com.ibm interface later
+                    // TODO deprecate this com.ibm interface later
                     interfaces.emplace(IBM_LOCATION_CODE_INF, prop);
                     interfaces.emplace(XYZ_LOCATION_CODE_INF, std::move(prop));
                 }

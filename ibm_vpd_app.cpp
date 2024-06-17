@@ -546,8 +546,8 @@ static void preAction(const nlohmann::json& json, const string& file)
             }
             else
             {
-                // missing required informations
-                std::cerr << "VPD inventory JSON missing basic informations of "
+                // missing required information
+                std::cerr << "VPD inventory JSON missing basic information of "
                              "preAction "
                              "for this FRU : ["
                           << file << "]. Executing executePostFailAction."
@@ -561,7 +561,7 @@ static void preAction(const nlohmann::json& json, const string& file)
         else
         {
             // If the FRU is not there, clear the VINI/CCIN data.
-            // Enity manager probes for this keyword to look for this
+            // Entity manager probes for this keyword to look for this
             // FRU, now if the data is persistent on BMC and FRU is
             // removed this can lead to ambiguity. Hence clearing this
             // Keyword if FRU is absent.
@@ -624,8 +624,8 @@ static void fillAssetTag(inventory::InterfaceMap& interfaces,
  * present, it will be added to the map with a suitable default value (true for
  * Functional and Enabled)
  *
- * @param[in] object - The inventory D-Bus obejct without the inventory prefix.
- * @param[inout] interfaces - Reference to a map of inventory interfaces to
+ * @param[in] object - The inventory D-Bus object without the inventory prefix.
+ * @param[in,out] interfaces - Reference to a map of inventory interfaces to
  * which the properties will be attached.
  */
 static void setOneTimeProperties(const std::string& object,
@@ -1151,7 +1151,7 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath,
 
                         // If the backup is on the cache we need to copy the
                         // backup data to the VPD map to ensure there is no
-                        // mimatch b/n them. So if backup data is not default,
+                        // mismatch b/n them. So if backup data is not default,
                         // then irrespective of primary data(default or other
                         // than backup), copy the backup data to vpd map as we
                         // don't need to change the backup data in either case
@@ -1286,7 +1286,7 @@ void doEnableAllDimms(nlohmann::json& js)
                             boost::split(i2cReg, matchFound.str(0),
                                          boost::is_any_of("-"));
 
-                            // remove 0s from begining
+                            // remove 0s from beginning
                             const regex pattern("^0+(?!$)");
                             for (auto& i : i2cReg)
                             {
@@ -1607,7 +1607,7 @@ static void populateDbus(T& vpdMap, nlohmann::json& js, const string& filePath)
         // Eg: nvme drive in nvme slot is not an embedded FRU. So don't set
         // Present to true for such sub frus.
         // Eg: ethernet port is embedded into bmc card. So set Present to true
-        // for such sub frus. Also donot populate present property for embedded
+        // for such sub frus. Also do not populate present property for embedded
         // subfru which is synthesized. Currently there is no subfru which are
         // both embedded and synthesized. But still the case is handled here.
         if ((item.value("embedded", true)) &&
@@ -1755,7 +1755,7 @@ int main(int argc, char** argv)
             if ((js["frus"].find(file) != js["frus"].end()) &&
                 (file == systemVpdFilePath))
             {
-                std::cout << "We have already collected system VPD, skiping."
+                std::cout << "We have already collected system VPD, skipping."
                           << std::endl;
                 return 0;
             }

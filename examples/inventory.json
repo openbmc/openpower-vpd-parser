@@ -18,7 +18,7 @@
         }
     },
     "frus": {
-        "/sys/devices/path/to/motherboard/eeeprom": {
+        "/sys/devices/path/to/motherboard/eeprom": {
             "inventoryPath": "/bus/path/for/motherboardfru",
             "extraInterfaces": {
                 "xyz.openbmc_project.Inventory.Item.Board.Motherboard": null

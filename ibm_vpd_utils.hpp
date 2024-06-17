@@ -114,7 +114,7 @@ openpower::vpd::constants::LE2ByteData
 std::string encodeKeyword(const std::string& kw, const std::string& encoding);
 
 /** @brief Reads a property from the inventory manager given object path,
- *         intreface and property.
+ *         interface and property.
  *  @param[in] obj - object path
  *  @param[in] inf - interface
  *  @param[in] prop - property whose value is fetched
@@ -452,7 +452,7 @@ void executePostFailAction(const nlohmann::json& json, const std::string& file);
  *
  * This method checks in the given inventory::InterfaceMap if the given
  * interface key is existing or not. If the interface key already exists, given
- * property map is inserted into it. If the key does'nt exist then given
+ * property map is inserted into it. If the key doesn't exist then given
  * interface and property map pair is newly created. If the property present in
  * propertymap already exist in the InterfaceMap, then the new property value is
  * ignored.

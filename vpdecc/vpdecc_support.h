@@ -20,7 +20,7 @@ int seepromUnscramble(const int bitOffset, const unsigned char* scrambledData,
 /******************************************************************************/
 /******************************************************************************/
 void seepromGenCsDecode(const unsigned char numBits,
-                        const unsigned char syndrom,
+                        const unsigned char syndrome,
                         const unsigned char* csdSyndroms,
                         unsigned char* vResult);
 

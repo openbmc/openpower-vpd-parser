@@ -76,7 +76,7 @@ class EditorImpl
      * looks for the keyword name in that record. when found it updates the data
      * of keyword with the given data. It does not block keyword data update in
      * case the length of new data is greater than or less than the current data
-     * length. If the new data length is more than the length alotted to that
+     * length. If the new data length is more than the length allotted to that
      * keyword the new data will be truncated to update only the allotted
      * length. Similarly if the new data length is less then only that much data
      * will be updated for the keyword and remaining bits will be left

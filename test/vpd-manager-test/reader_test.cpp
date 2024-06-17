@@ -126,7 +126,7 @@ TEST_F(vpdManagerReaderTest, getExpandedLocationCode_Valid)
 
 TEST_F(vpdManagerReaderTest, getFrusAtLocation_Invalid)
 {
-    // invalid lication code
+    // invalid location code
     std::string unexpandedLocationCode = "Uabc-X0";
 
     MockUtilCalls uCalls;

@@ -10,7 +10,7 @@ namespace exceptions
 {
 
 /** @class VPDException
- * @brief This class inherits std::runtime_error and overrrides
+ * @brief This class inherits std::runtime_error and overrides
  * "what" method to return the description of exception.
  * This class also works as base class for custom exception
  * classes of openpower-vpd repository.

@@ -43,7 +43,7 @@ int seepromUnscramble(const int bitOffset, const unsigned char* scrambledData,
 /*                                                                            */
 /******************************************************************************/
 void seepromGenCsDecode(const unsigned char numBits,
-                        const unsigned char syndrom,
+                        const unsigned char syndrome,
                         const unsigned char* csdSyndroms,
                         unsigned char* vResult)
 {}
@@ -61,7 +61,7 @@ void seepromGenerateCheckSyndromDecode(const unsigned char checkSyndrom,
 /******************************************************************************/
 /* seepromEccCheck                                                            */
 /*                                                                            */
-/* Checks the data integrety and correct it if possible                       */
+/* Checks the data integrity and correct it if possible                       */
 /*                                                                            */
 /******************************************************************************/
 

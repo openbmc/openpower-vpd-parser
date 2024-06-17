@@ -40,7 +40,7 @@ class GpioEventHandler
     }
 
   private:
-    /** @brief GPIO informations to get parsed from vpd json*/
+    /** @brief GPIO information to get parsed from vpd json*/
 
     // gpio pin indicates presence/absence of fru
     const std::string presencePin;
@@ -88,7 +88,7 @@ class GpioEventHandler
     }
 
     /** @brief This function runs a timer , which keeps checking for if an event
-     *         happened, if event occured then takes action.
+     *         happened, if event occurred then takes action.
      *
      *  @param[in] ioContext - Pointer to io context object.
      */
@@ -107,7 +107,7 @@ class GpioEventHandler
 
 /** @class GpioMonitor
  *  @brief Responsible for initialising the private variables containing gpio
- *         infos. These informations will be fetched from vpd json.
+ *         infos. These information will be fetched from vpd json.
  */
 class GpioMonitor
 {
@@ -127,12 +127,12 @@ class GpioMonitor
     }
 
   private:
-    // Json file to get the datas
+    // Json file to get the data
     nlohmann::json& jsonFile;
     // Array of event handlers for all the attachable FRUs
     std::vector<std::shared_ptr<GpioEventHandler>> gpioObjects;
 
-    /** @brief This function will extract the gpio informations from vpd json
+    /** @brief This function will extract the gpio information from vpd json
      * and store it in GpioEventHandler's private variables
      *
      * @param[in] ioContext - Pointer to io context object.

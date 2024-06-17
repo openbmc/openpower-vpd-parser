@@ -28,7 +28,7 @@ variant<KeywordVpdMap, store> KeywordVpdParser::parse()
 
     auto kwValMap = kwValParser();
 
-    // Donot process these two functions for bono type VPD
+    // Do not process these two functions for bono type VPD
     if (!kwVpdType)
     {
         validateSmallResourceTypeEnd();
@@ -55,7 +55,7 @@ void KeywordVpdParser::validateLargeResourceIdentifierString()
 {
     kwVpdIterator = keywordVpdVector.begin();
 
-    // Check for large resource type identfier string
+    // Check for large resource type identifier string
     if (*kwVpdIterator != KW_VPD_START_TAG)
     {
         throw std::runtime_error(

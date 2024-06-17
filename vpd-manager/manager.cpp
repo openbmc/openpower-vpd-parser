@@ -273,7 +273,7 @@ void Manager::hostStateCallBack(sdbusplus::message_t& msg)
                 // detect if essential frus are present in the system.
                 checkEssentialFrus();
 
-                // check and perfrom recollection for FRUs replaceable at
+                // check and perform recollection for FRUs replaceable at
                 // standby.
                 performVPDRecollection();
                 return;
@@ -599,12 +599,12 @@ void Manager::performVPDRecollection()
         // required.
         if (prePostActionRequired)
         {
-            // The sleep of 1sec is sliced up in 10 retries of 10 miliseconds
+            // The sleep of 1sec is sliced up in 10 retries of 10 milliseconds
             // each.
             for (auto retryCounter = VALUE_0; retryCounter <= VALUE_10;
                  retryCounter++)
             {
-                // sleep for 10 milisecond
+                // sleep for 10 millisecond
                 if (usleep(VALUE_100000) != VALUE_0)
                 {
                     std::cout << "Sleep failed before accessing the file"

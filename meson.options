@@ -9,7 +9,7 @@ option('INVENTORY_PATH',type: 'string', value: '/xyz/openbmc_project/inventory',
 option('INVENTORY_MANAGER_SERVICE',type: 'string', value: 'xyz.openbmc_project.Inventory.Manager', description: 'Inventory manager service')
 option('IPZ_INTERFACE', type: 'string', value: 'com.ibm.ipzvpd', description: 'IPZ VPD interface')
 option('BUSNAME', type : 'string', value : 'com.ibm.VPD.Manager',description : 'BUS NAME FOR THE SERVICE')
-option('OBJPATH', type : 'string', value : '/com/ibm/VPD/Manager', description : 'OBJECT PATH FOT THE SERVICE')
+option('OBJPATH', type : 'string', value : '/com/ibm/VPD/Manager', description : 'OBJECT PATH FOR THE SERVICE')
 option('IFACE', type : 'string', value : 'com.ibm.VPD.Manager', description : 'INTERFACE NAME')
 option('vpd-manager', type: 'feature', description: 'ENABLE VPD-MANAGERR APPLICATION')
 option('POWER_SUPPLY_TYPE_INTERFACE', type : 'string', value : 'xyz.openbmc_project.Inventory.Item.PowerSupply', description : 'Power Supply Type Interface')

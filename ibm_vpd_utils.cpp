@@ -874,9 +874,9 @@ std::optional<bool> isPresent(const nlohmann::json& json,
         }
         else
         {
-            // missing required informations
+            // missing required information
             std::cerr
-                << "VPD inventory JSON missing basic informations of presence "
+                << "VPD inventory JSON missing basic information of presence "
                    "for this FRU : ["
                 << file << "]. Executing executePostFailAction." << std::endl;
 
@@ -950,9 +950,9 @@ bool executePreAction(const nlohmann::json& json, const std::string& file)
         }
         else
         {
-            // missing required informations
+            // missing required information
             std::cerr
-                << "VPD inventory JSON missing basic informations of preAction "
+                << "VPD inventory JSON missing basic information of preAction "
                    "for this FRU : ["
                 << file << "]. Executing executePostFailAction." << std::endl;
 
@@ -1075,7 +1075,7 @@ Binary getVpdDataInVector(const nlohmann::json& js, const std::string& file)
                     "xyz.openbmc_project.Inventory.Item.Dimm") !=
                 item["extraInterfaces"].end())
             {
-                // check added here for DDIMM only workarround
+                // check added here for DDIMM only workaround
                 vpdType dimmType = vpdTypeCheck(vpdVector);
                 if (dimmType == constants::DDR4_DDIMM_MEMORY_VPD ||
                     dimmType == constants::DDR5_DDIMM_MEMORY_VPD)

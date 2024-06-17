@@ -11,7 +11,7 @@ namespace parser
 namespace factory
 {
 /** @class ParserFactory
- *  @brief Factory calss to instantiate concrete parser class.
+ *  @brief Factory class to instantiate concrete parser class.
  *
  *  This class should be used to instantiate an instance of parser class based
  *  on the typeof vpd file.
