@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce836be7_e620672f",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2024-06-19T14:40:50Z",
+      "side": 1,
+      "message": "can you make use of constants::invOperationalStatusIntf",
+      "revId": "b67634dfe4bc9b950dbc4ccad2102ed8de6817e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "689b5a4d_32d0fc30",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2024-06-19T14:40:50Z",
+      "side": 1,
+      "message": "The functional property of any child modelled under the given FRU has to be toggled in this case. Hardcoding cxp_top and cxp_bot makes the api more specific to pcie cards only",
+      "revId": "b67634dfe4bc9b950dbc4ccad2102ed8de6817e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daeaeab2_7f5be3f3",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2024-06-19T14:40:50Z",
+      "side": 1,
+      "message": "this finds for INVENTORY_PATH irrespective of where it is present in the subTreeObjPath. can you do a string compare to check if prefix INVENTORY_PATH is present?",
+      "revId": "b67634dfe4bc9b950dbc4ccad2102ed8de6817e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4a8c08d_4b04b70b",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2024-06-19T14:40:50Z",
+      "side": 1,
+      "message": "can you make use of constants::invOperationalStatusIntf",
+      "revId": "b67634dfe4bc9b950dbc4ccad2102ed8de6817e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
