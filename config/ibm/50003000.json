@@ -2391,6 +2391,7 @@
                 "inherit": false,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
+                    "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P1-T0"
                     },
@@ -2404,6 +2405,7 @@
                 "inherit": false,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
+                    "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P1-T1"
                     },
@@ -2558,6 +2560,7 @@
                 "noprime": true,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
+                    "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P0-C1-T0"
                     },
@@ -2572,6 +2575,7 @@
                 "noprime": true,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
+                    "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P0-C1-T1"
                     },

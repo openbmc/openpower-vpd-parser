@@ -2391,6 +2391,7 @@
                 "inherit": false,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
+                    "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P1-T0"
                     },
@@ -2404,6 +2405,7 @@
                 "inherit": false,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
+                    "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P1-T1"
                     },
