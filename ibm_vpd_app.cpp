@@ -813,7 +813,14 @@ void setDevTreeEnv(const string& systemType)
         {RAINIER_1S4U, "conf-aspeed-bmc-ibm-rainier-1s4u.dtb"},
         {EVEREST, "conf-aspeed-bmc-ibm-everest.dtb"},
         {EVEREST_V2, "conf-aspeed-bmc-ibm-everest.dtb"},
-        {BONNELL, "conf-aspeed-bmc-ibm-bonnell.dtb"}};
+        {BONNELL, "conf-aspeed-bmc-ibm-bonnell.dtb"},
+        {BLUERIDGE_2U, "conf-aspeed-bmc-ibm-blueridge-p1.dtb"},
+        {BLUERIDGE_2U_V2, "conf-aspeed-bmc-ibm-blueridge.dtb"},
+        {BLUERIDGE_4U, "conf-aspeed-bmc-ibm-blueridge-4u-p1.dtb"},
+        {BLUERIDGE_4U_V2, "conf-aspeed-bmc-ibm-blueridge-4u.dtb"},
+        {BLUERIDGE_1S4U, "conf-aspeed-bmc-ibm-blueridge-1s4u.dtb"},
+        {FUJI, "conf-aspeed-bmc-ibm-fuji.dtb"},
+        {FUJI_V2, "conf-aspeed-bmc-ibm-fuji.dtb"}};
 
     if (deviceTreeSystemTypeMap.find(systemType) !=
         deviceTreeSystemTypeMap.end())
