@@ -61,6 +61,13 @@ static constexpr auto RAINIER_1S4U = "50001002.json";
 static constexpr auto EVEREST = "50003000.json";
 static constexpr auto EVEREST_V2 = "50003000_v2.json";
 static constexpr auto BONNELL = "50004000.json";
+static constexpr auto BLUERIDGE_2U = "60001001.json";
+static constexpr auto BLUERIDGE_2U_V2 = "60001001_v2.json";
+static constexpr auto BLUERIDGE_4U = "60001000.json";
+static constexpr auto BLUERIDGE_4U_V2 = "60001000_v2.json";
+static constexpr auto BLUERIDGE_1S4U = "60001002.json";
+static constexpr auto FUJI = "60002000.json";
+static constexpr auto FUJI_V2 = "60002000_v2.json";
 
 constexpr uint8_t KW_VPD_START_TAG = 0x82;
 constexpr uint8_t KW_VPD_END_TAG = 0x78;
