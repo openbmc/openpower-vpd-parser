@@ -38,49 +38,50 @@ namespace manager
 Manager::Manager(std::shared_ptr<boost::asio::io_context>& ioCon,
                  std::shared_ptr<sdbusplus::asio::dbus_interface>& iFace,
                  std::shared_ptr<sdbusplus::asio::connection>& conn) :
-    ioContext(ioCon),
-    interface(iFace), conn(conn)
+    ioContext(ioCon), interface(iFace), conn(conn)
 {
     interface->register_method(
         "WriteKeyword",
         [this](const sdbusplus::message::object_path& path,
                const std::string& recordName, const std::string& keyword,
                const Binary& value) {
-        this->writeKeyword(path, recordName, keyword, value);
-    });
+            this->writeKeyword(path, recordName, keyword, value);
+        });
 
     interface->register_method(
         "GetFRUsByUnexpandedLocationCode",
         [this](const std::string& locationCode,
                const uint16_t nodeNumber) -> inventory::ListOfPaths {
-        return this->getFRUsByUnexpandedLocationCode(locationCode, nodeNumber);
-    });
+            return this->getFRUsByUnexpandedLocationCode(locationCode,
+                                                         nodeNumber);
+        });
 
     interface->register_method(
         "GetFRUsByExpandedLocationCode",
         [this](const std::string& locationCode) -> inventory::ListOfPaths {
-        return this->getFRUsByExpandedLocationCode(locationCode);
-    });
+            return this->getFRUsByExpandedLocationCode(locationCode);
+        });
 
     interface->register_method(
         "GetExpandedLocationCode",
         [this](const std::string& locationCode,
                const uint16_t nodeNumber) -> std::string {
-        return this->getExpandedLocationCode(locationCode, nodeNumber);
-    });
+            return this->getExpandedLocationCode(locationCode, nodeNumber);
+        });
 
-    interface->register_method("PerformVPDRecollection",
-                               [this]() { this->performVPDRecollection(); });
+    interface->register_method("PerformVPDRecollection", [this]() {
+        this->performVPDRecollection();
+    });
 
     interface->register_method(
         "deleteFRUVPD", [this](const sdbusplus::message::object_path& path) {
-        this->deleteFRUVPD(path);
-    });
+            this->deleteFRUVPD(path);
+        });
 
     interface->register_method(
         "CollectFRUVPD", [this](const sdbusplus::message::object_path& path) {
-        this->collectFRUVPD(path);
-    });
+            this->collectFRUVPD(path);
+        });
 
     sd_bus_default(&sdBus);
     initManager();
@@ -408,11 +409,11 @@ void Manager::updateSystemVPDBackUpFRU(const std::string& recordName,
         if (itr != svpdKwdMap.end())
         {
             auto systemKwdInfoList = itr->second;
-            const auto& itrToKwd = find_if(systemKwdInfoList.begin(),
-                                           systemKwdInfoList.end(),
-                                           [&keyword](const auto& kwdInfo) {
-                return (keyword == std::get<0>(kwdInfo));
-            });
+            const auto& itrToKwd =
+                find_if(systemKwdInfoList.begin(), systemKwdInfoList.end(),
+                        [&keyword](const auto& kwdInfo) {
+                            return (keyword == std::get<0>(kwdInfo));
+                        });
 
             if (itrToKwd != systemKwdInfoList.end())
             {
@@ -525,9 +526,8 @@ void Manager::writeKeyword(const sdbusplus::message::object_path& path,
     }
 }
 
-ListOfPaths
-    Manager::getFRUsByUnexpandedLocationCode(const LocationCode& locationCode,
-                                             const NodeNumber nodeNumber)
+ListOfPaths Manager::getFRUsByUnexpandedLocationCode(
+    const LocationCode& locationCode, const NodeNumber nodeNumber)
 {
     ReaderImpl read;
     return read.getFrusAtLocation(locationCode, nodeNumber, fruLocationCode);
@@ -790,14 +790,14 @@ void Manager::triggerVpdCollection(const nlohmann::json& singleFru,
             string busNum = deviceAddress.substr(0, pos);
             deviceAddress = "0x" + deviceAddress.substr(pos + 1, string::npos);
 
-            string deleteDevice = "echo" + deviceAddress + " > /sys/bus/" +
-                                  busType + "/devices/" + busType + "-" +
-                                  busNum + "/delete_device";
+            string deleteDevice =
+                "echo" + deviceAddress + " > /sys/bus/" + busType +
+                "/devices/" + busType + "-" + busNum + "/delete_device";
             executeCmd(deleteDevice);
 
-            string addDevice = "echo" + driverType + " " + deviceAddress +
-                               " > /sys/bus/" + busType + "/devices/" +
-                               busType + "-" + busNum + "/new_device";
+            string addDevice =
+                "echo" + driverType + " " + deviceAddress + " > /sys/bus/" +
+                busType + "/devices/" + busType + "-" + busNum + "/new_device";
             executeCmd(addDevice);
         }
         else
@@ -862,8 +862,8 @@ void Manager::deleteFRUVPD(const sdbusplus::message::object_path& path)
         // check if we have cxp-port populated for the given object path.
         std::vector<std::string> interfaceList{
             "xyz.openbmc_project.State.Decorator.OperationalStatus"};
-        MapperResponse subTree = getObjectSubtreeForInterfaces(path, 0,
-                                                               interfaceList);
+        MapperResponse subTree =
+            getObjectSubtreeForInterfaces(path, 0, interfaceList);
 
         if (subTree.size() != 0)
         {

@@ -316,8 +316,7 @@ class VpdTool
 
     VpdTool(const std::string&& fru, const std::string&& recName,
             const std::string&& kw, const std::string&& val) :
-        fruPath(std::move(fru)),
-        recordName(std::move(recName)), keyword(std::move(kw)),
-        value(std::move(val))
+        fruPath(std::move(fru)), recordName(std::move(recName)),
+        keyword(std::move(kw)), value(std::move(val))
     {}
 };

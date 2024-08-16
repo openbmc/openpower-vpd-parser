@@ -118,8 +118,8 @@ static void
 
     uint32_t vpdStartOffset = 0;
     vpdVector = getVpdDataInVector(js, vpdPath);
-    ParserInterface* parser = ParserFactory::getParser(vpdVector, invPath,
-                                                       vpdPath, vpdStartOffset);
+    ParserInterface* parser =
+        ParserFactory::getParser(vpdVector, invPath, vpdPath, vpdStartOffset);
     auto parseResult = parser->parse();
     ParserFactory::freeParser(parser);
 
@@ -129,8 +129,8 @@ static void
     }
     else
     {
-        std::string err = vpdPath +
-                          " is not of type IPZ VPD. Unable to parse the VPD.";
+        std::string err =
+            vpdPath + " is not of type IPZ VPD. Unable to parse the VPD.";
         throw std::runtime_error(err);
     }
 }
@@ -552,8 +552,8 @@ int VpdTool::updateKeyword()
     }
 
     auto bus = sdbusplus::bus::new_default();
-    auto properties = bus.new_method_call(BUSNAME, OBJPATH, IFACE,
-                                          "WriteKeyword");
+    auto properties =
+        bus.new_method_call(BUSNAME, OBJPATH, IFACE, "WriteKeyword");
     properties.append(static_cast<sdbusplus::message::object_path>(fruPath));
     properties.append(recordName);
     properties.append(keyword);
@@ -1332,9 +1332,9 @@ int VpdTool::fixSystemBackupVPD(const std::string& backupEepromPath,
                 backupValStr = backupValue;
             }
 
-            recKwData.push_back(make_tuple(++num, primaryRecord, primaryKeyword,
-                                           backupValStr, primaryValStr,
-                                           mismatch));
+            recKwData.push_back(
+                make_tuple(++num, primaryRecord, primaryKeyword, backupValStr,
+                           primaryValStr, mismatch));
 
             std::string splitLine(191, '-');
             cout << left << setw(6) << static_cast<int>(num) << left << setw(8)

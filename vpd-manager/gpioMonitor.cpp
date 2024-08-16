@@ -174,8 +174,8 @@ void GpioEventHandler::handleTimerExpiry(
     {
         toggleGpio();
     }
-    timer->expires_at(std::chrono::steady_clock::now() +
-                      std::chrono::seconds(5));
+    timer->expires_at(
+        std::chrono::steady_clock::now() + std::chrono::seconds(5));
     timer->async_wait(boost::bind(&GpioEventHandler::handleTimerExpiry, this,
                                   boost::asio::placeholders::error, timer));
 }

@@ -240,9 +240,8 @@ static auto expandLocationCode(const string& unexpanded, const Parsed& vpdMap,
  * @param[out] interfaces - Reference to interface map.
  */
 template <typename T>
-static void populateFruSpecificInterfaces(const T& map,
-                                          const string& preIntrStr,
-                                          inventory::InterfaceMap& interfaces)
+static void populateFruSpecificInterfaces(
+    const T& map, const string& preIntrStr, inventory::InterfaceMap& interfaces)
 {
     inventory::PropertyMap prop;
 
@@ -376,8 +375,8 @@ static void populateInterfaces(const nlohmann::json& js,
                     if (!rec.empty() && !kw.empty() && vpdMap.count(rec) &&
                         vpdMap.at(rec).count(kw))
                     {
-                        auto encoded = encodeKeyword(vpdMap.at(rec).at(kw),
-                                                     encoding);
+                        auto encoded =
+                            encodeKeyword(vpdMap.at(rec).at(kw), encoding);
                         props.emplace(busProp, encoded);
                     }
                 }
@@ -387,8 +386,8 @@ static void populateInterfaces(const nlohmann::json& js,
                     {
                         if (auto kwValue = get_if<Binary>(&vpdMap.at(kw)))
                         {
-                            auto prop = string((*kwValue).begin(),
-                                               (*kwValue).end());
+                            auto prop =
+                                string((*kwValue).begin(), (*kwValue).end());
 
                             auto encoded = encodeKeyword(prop, encoding);
 
@@ -397,8 +396,8 @@ static void populateInterfaces(const nlohmann::json& js,
                         else if (auto kwValue =
                                      get_if<std::string>(&vpdMap.at(kw)))
                         {
-                            auto prop = string((*kwValue).begin(),
-                                               (*kwValue).end());
+                            auto prop =
+                                string((*kwValue).begin(), (*kwValue).end());
 
                             auto encoded = encodeKeyword(prop, encoding);
 
@@ -537,9 +536,9 @@ static void preAction(const nlohmann::json& json, const string& file)
                 // Check if device showed up (test for file)
                 if (!fs::exists(file))
                 {
-                    std::cerr << "EEPROM " << file
-                              << " does not exist. Take failure action"
-                              << std::endl;
+                    std::cerr
+                        << "EEPROM " << file
+                        << " does not exist. Take failure action" << std::endl;
                     // If not, then take failure postAction
                     executePostFailAction(json, file);
                 }
@@ -681,8 +680,8 @@ static void setOneTimeProperties(const std::string& object,
  * @returns Map of items in extraInterface.
  */
 template <typename T>
-inventory::ObjectMap primeInventory(const nlohmann::json& jsObject,
-                                    const T& vpdMap)
+inventory::ObjectMap
+    primeInventory(const nlohmann::json& jsObject, const T& vpdMap)
 {
     inventory::ObjectMap objects;
 
@@ -1110,17 +1109,17 @@ void restoreSystemVPD(Parsed& vpdMap, const string& objectPath,
                                 std::ostringstream busStream;
                                 for (uint16_t byte : backupValue)
                                 {
-                                    busStream << std::setfill('0')
-                                              << std::setw(2) << std::hex
-                                              << "0x" << byte << " ";
+                                    busStream
+                                        << std::setfill('0') << std::setw(2)
+                                        << std::hex << "0x" << byte << " ";
                                 }
 
                                 std::ostringstream vpdStream;
                                 for (uint16_t byte : kwdValue)
                                 {
-                                    vpdStream << std::setfill('0')
-                                              << std::setw(2) << std::hex
-                                              << "0x" << byte << " ";
+                                    vpdStream
+                                        << std::setfill('0') << std::setw(2)
+                                        << std::hex << "0x" << byte << " ";
                                 }
 
                                 // data mismatch

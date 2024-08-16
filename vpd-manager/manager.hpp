@@ -75,9 +75,8 @@ class Manager
      *  @return inventoryList[std::vector<sdbusplus::message::object_path>] -
      *  List of all the FRUs D-Bus object paths for the given location code.
      */
-    inventory::ListOfPaths
-        getFRUsByUnexpandedLocationCode(const std::string& locationCode,
-                                        const uint16_t nodeNumber);
+    inventory::ListOfPaths getFRUsByUnexpandedLocationCode(
+        const std::string& locationCode, const uint16_t nodeNumber);
 
     /** @brief Implementation for GetFRUsByExpandedLocationCode
      *  A method to get list of FRU D-BUS object paths for a given expanded

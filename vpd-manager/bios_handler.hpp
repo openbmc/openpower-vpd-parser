@@ -42,9 +42,7 @@ class BiosHandler
     ~BiosHandler() = default;
 
     BiosHandler(std::shared_ptr<sdbusplus::asio::connection>& conn,
-                Manager& manager) :
-        conn(conn),
-        manager(manager)
+                Manager& manager) : conn(conn), manager(manager)
     {
         checkAndListenPLDMService();
     }

@@ -107,8 +107,8 @@ uint8_t memoryVpdParser::getDDR5DiePerPackage(uint8_t l_ByteValue)
     }
     else
     {
-        l_DiePerPackage = pow(constants::VALUE_2,
-                              (l_ByteValue - constants::VALUE_1));
+        l_DiePerPackage =
+            pow(constants::VALUE_2, (l_ByteValue - constants::VALUE_1));
     }
     return l_DiePerPackage;
 }
@@ -143,13 +143,14 @@ auto memoryVpdParser::getDdr5BasedDDimmSize(Binary::const_iterator iterator)
                   ? constants::VALUE_1
                   : constants::VALUE_0));
 
-        uint8_t l_channelsPerDdimm = (((iterator[constants::SPD_BYTE_235] &
-                                        constants::MASK_BYTE_BITS_6) >>
-                                       constants::VALUE_6) +
-                                      ((iterator[constants::SPD_BYTE_235] &
-                                        constants::MASK_BYTE_BITS_7) >>
-                                       constants::VALUE_7)) *
-                                     l_channelsPerPhy;
+        uint8_t l_channelsPerDdimm =
+            (((iterator[constants::SPD_BYTE_235] &
+               constants::MASK_BYTE_BITS_6) >>
+              constants::VALUE_6) +
+             ((iterator[constants::SPD_BYTE_235] &
+               constants::MASK_BYTE_BITS_7) >>
+              constants::VALUE_7)) *
+            l_channelsPerPhy;
 
         if (!checkValidValue(iterator[constants::SPD_BYTE_235] &
                                  constants::MASK_BYTE_BITS_012,
@@ -167,10 +168,10 @@ auto memoryVpdParser::getDdr5BasedDDimmSize(Binary::const_iterator iterator)
                 ? PRIMARY_BUS_WIDTH_32_BITS
                 : PRIMARY_BUS_WIDTH_UNUSED;
 
-        if (!checkValidValue(iterator[constants::SPD_BYTE_4] &
-                                 constants::MASK_BYTE_BITS_567,
-                             constants::SHIFT_BITS_5, constants::VALUE_0,
-                             constants::VALUE_5))
+        if (!checkValidValue(
+                iterator[constants::SPD_BYTE_4] & constants::MASK_BYTE_BITS_567,
+                constants::SHIFT_BITS_5, constants::VALUE_0,
+                constants::VALUE_5))
         {
             std::cerr
                 << "Capacity calculation failed for die per package. DDIMM "
@@ -231,20 +232,20 @@ auto memoryVpdParser::getDdr5BasedDDimmSize(Binary::const_iterator iterator)
                                    constants::VALUE_6));
 #endif
 
-        if (!checkValidValue(iterator[constants::SPD_BYTE_6] &
-                                 constants::MASK_BYTE_BITS_567,
-                             constants::SHIFT_BITS_5, constants::VALUE_0,
-                             constants::VALUE_3))
+        if (!checkValidValue(
+                iterator[constants::SPD_BYTE_6] & constants::MASK_BYTE_BITS_567,
+                constants::SHIFT_BITS_5, constants::VALUE_0,
+                constants::VALUE_3))
         {
             std::cout
                 << "Capacity calculation failed for dram width DDIMM Byte 6 value ["
                 << iterator[constants::SPD_BYTE_6] << "]";
             break;
         }
-        uint8_t l_dramWidth = VALUE_4 *
-                              (VALUE_1 << ((iterator[constants::SPD_BYTE_6] &
-                                            constants::MASK_BYTE_BITS_567) >>
-                                           constants::VALUE_5));
+        uint8_t l_dramWidth =
+            VALUE_4 * (VALUE_1 << ((iterator[constants::SPD_BYTE_6] &
+                                    constants::MASK_BYTE_BITS_567) >>
+                                   constants::VALUE_5));
 
         dimmSize = (l_channelsPerDdimm * l_busWidthPerChannel *
                     l_diePerPackage * l_densityPerDie * l_ranksPerChannel) /

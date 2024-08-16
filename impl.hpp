@@ -74,13 +74,12 @@ class Impl
      */
     Impl(const Binary& vpdBuffer, const std::string& path,
          const std::string& vpdFilePath, uint32_t vpdStartOffset) :
-        vpd(vpdBuffer),
-        inventoryPath(path), vpdFilePath(vpdFilePath),
+        vpd(vpdBuffer), inventoryPath(path), vpdFilePath(vpdFilePath),
         vpdStartOffset(vpdStartOffset), out{}
     {
 #ifndef ManagerTest
-        vpdFileStream.exceptions(std::ifstream::badbit |
-                                 std::ifstream::failbit);
+        vpdFileStream.exceptions(
+            std::ifstream::badbit | std::ifstream::failbit);
 #endif
         try
         {

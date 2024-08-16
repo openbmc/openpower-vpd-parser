@@ -65,10 +65,10 @@ void EditorImpl::checkPTForRecord(Binary::const_iterator& iterator,
         else
         {
             // Jump the record
-            std::advance(iterator, lengths::RECORD_NAME + sizeof(RecordType) +
-                                       sizeof(RecordOffset) +
-                                       sizeof(RecordLength) +
-                                       sizeof(ECCOffset) + sizeof(ECCLength));
+            std::advance(iterator,
+                         lengths::RECORD_NAME + sizeof(RecordType) +
+                             sizeof(RecordOffset) + sizeof(RecordLength) +
+                             sizeof(ECCOffset) + sizeof(ECCLength));
         }
     }
     // imples the record was not found
@@ -311,10 +311,9 @@ void EditorImpl::readVTOC()
 }
 
 template <typename T>
-void EditorImpl::makeDbusCall(const std::string& object,
-                              const std::string& interface,
-                              const std::string& property,
-                              const std::variant<T>& data)
+void EditorImpl::makeDbusCall(
+    const std::string& object, const std::string& interface,
+    const std::string& property, const std::variant<T>& data)
 {
     auto bus = sdbusplus::bus::new_default();
     auto properties =
@@ -470,17 +469,17 @@ void EditorImpl::expandLocationCode(const std::string& locationCodeType)
 
     if (locationCodeType == "fcs")
     {
-        propertyFCorTM = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN",
-                                         "FC");
-        propertySE = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN",
-                                     "SE");
+        propertyFCorTM =
+            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "FC");
+        propertySE =
+            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VCEN", "SE");
     }
     else if (locationCodeType == "mts")
     {
-        propertyFCorTM = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS",
-                                         "TM");
-        propertySE = readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS",
-                                     "SE");
+        propertyFCorTM =
+            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "TM");
+        propertySE =
+            readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "SE");
     }
 
     const nlohmann::json& groupFRUS =
@@ -602,15 +601,15 @@ void EditorImpl::updateKeyword(const Binary& kwdData, uint32_t offset,
         enableRebootGuard();
 
         Binary completeVPDFile;
-        vpdFileStream.exceptions(std::ifstream::badbit |
-                                 std::ifstream::failbit);
+        vpdFileStream.exceptions(
+            std::ifstream::badbit | std::ifstream::failbit);
         try
         {
             vpdFileStream.open(vpdFilePath,
                                std::ios::in | std::ios::out | std::ios::binary);
 
-            auto vpdFileSize = std::min(std::filesystem::file_size(vpdFilePath),
-                                        MAX_VPD_SIZE);
+            auto vpdFileSize =
+                std::min(std::filesystem::file_size(vpdFilePath), MAX_VPD_SIZE);
             if (vpdFileSize == 0)
             {
                 std::cerr << "File size is 0 for " << vpdFilePath << std::endl;

@@ -79,11 +79,11 @@ int Impl::vhdrEccCheck()
     int rc = eccStatus::SUCCESS;
     auto vpdPtr = vpd.cbegin();
 
-    auto l_status =
-        vpdecc_check_data(const_cast<uint8_t*>(&vpdPtr[offsets::VHDR_RECORD]),
-                          lengths::VHDR_RECORD_LENGTH,
-                          const_cast<uint8_t*>(&vpdPtr[offsets::VHDR_ECC]),
-                          lengths::VHDR_ECC_LENGTH);
+    auto l_status = vpdecc_check_data(
+        const_cast<uint8_t*>(&vpdPtr[offsets::VHDR_RECORD]),
+        lengths::VHDR_RECORD_LENGTH,
+        const_cast<uint8_t*>(&vpdPtr[offsets::VHDR_ECC]),
+        lengths::VHDR_ECC_LENGTH);
     if (l_status == VPD_ECC_CORRECTABLE_DATA)
     {
         try

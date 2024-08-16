@@ -80,10 +80,9 @@ LocationCode ReaderImpl::getExpandedLocationCode(
     return expandedLocationCode;
 }
 
-ListOfPaths
-    ReaderImpl::getFrusAtLocation(const LocationCode& locationCode,
-                                  const NodeNumber& nodeNumber,
-                                  const LocationCodeMap& frusLocationCode) const
+ListOfPaths ReaderImpl::getFrusAtLocation(
+    const LocationCode& locationCode, const NodeNumber& nodeNumber,
+    const LocationCodeMap& frusLocationCode) const
 {
     // unused at this moment, to avoid compilation warning
     (void)nodeNumber;
@@ -113,8 +112,8 @@ ListOfPaths
     for_each(range.first, range.second,
              [&inventoryPaths](
                  const inventory::LocationCodeMap::value_type& mappedItem) {
-        inventoryPaths.push_back(INVENTORY_PATH + mappedItem.second);
-    });
+                 inventoryPaths.push_back(INVENTORY_PATH + mappedItem.second);
+             });
     return inventoryPaths;
 }
 
@@ -189,8 +188,8 @@ std::tuple<LocationCode, NodeNumber>
     {
         std::string tm{};
         // read TM kwd value
-        tm = utilObj.readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS",
-                                     "TM");
+        tm =
+            utilObj.readBusProperty(SYSTEM_OBJECT, "com.ibm.ipzvpd.VSYS", "TM");
         ;
 
         // check if the substr matches to TM kwd
