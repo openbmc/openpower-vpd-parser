@@ -1221,5 +1221,36 @@ void getBackupRecordKeyword(std::string& record, std::string& keyword)
         }
     }
 }
+
+bool isReadOnlyEEPROM(const std::string& vpdPath,
+                      const nlohmann::json& jsObject)
+{
+    // check if given path is FRU path
+    if (jsObject["frus"].contains(vpdPath))
+    {
+        return jsObject["frus"][vpdPath].at(0).value("readOnly", false);
+    }
+
+    const nlohmann::json& fruList =
+        jsObject["frus"].get_ref<const nlohmann::json::object_t&>();
+
+    for (const auto& fru : fruList.items())
+    {
+        const auto fruPath = fru.key();
+
+        // If given VPD path is either the inventory path or redundant EEPROM
+        // path.
+        if ((vpdPath ==
+             jsObject["frus"][fruPath].at(0).value("inventoryPath", "")) ||
+            (vpdPath ==
+             jsObject["frus"][fruPath].at(0).value("redundantEeprom", "")))
+        {
+            return jsObject["frus"][fruPath].at(0).value("readOnly", false);
+        }
+    }
+
+    // Given path not found in JSON
+    return false;
+}
 } // namespace vpd
 } // namespace openpower

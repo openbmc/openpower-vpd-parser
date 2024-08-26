@@ -566,5 +566,15 @@ void findBackupVPDPaths(std::string& backupEepromPath,
  */
 void getBackupRecordKeyword(std::string& record, std::string& keyword);
 
+/**
+ * @brief Check if EEPROM of the given VPD path is read only.
+ *
+ * @param[in] vpdPath - VPD path of the FRU.
+ * @param[in] jsObject - Inventory JSON object.
+ *
+ * @return true if EEPROM is read only, false otherwise.
+ */
+bool isReadOnlyEEPROM(const std::string& vpdPath,
+                      const nlohmann::json& jsObject);
 } // namespace vpd
 } // namespace openpower
