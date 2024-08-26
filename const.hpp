@@ -68,6 +68,7 @@ static constexpr auto BLUERIDGE_4U_V2 = "60001000_v2.json";
 static constexpr auto BLUERIDGE_1S4U = "60001002.json";
 static constexpr auto FUJI = "60002000.json";
 static constexpr auto FUJI_V2 = "60002000_v2.json";
+static constexpr auto HUYGENS = "70001000.json";
 
 constexpr uint8_t KW_VPD_START_TAG = 0x82;
 constexpr uint8_t KW_VPD_END_TAG = 0x78;

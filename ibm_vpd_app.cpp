@@ -819,6 +819,7 @@ void setDevTreeEnv(const string& systemType)
         {BLUERIDGE_4U_V2, "conf-aspeed-bmc-ibm-blueridge-4u.dtb"},
         {BLUERIDGE_1S4U, "conf-aspeed-bmc-ibm-blueridge-1s4u.dtb"},
         {FUJI, "conf-aspeed-bmc-ibm-fuji.dtb"},
+        {HUYGENS, "conf-aspeed-bmc-ibm-huygens.dtb"},
         {FUJI_V2, "conf-aspeed-bmc-ibm-fuji.dtb"}};
 
     if (deviceTreeSystemTypeMap.find(systemType) !=
