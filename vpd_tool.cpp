@@ -107,6 +107,11 @@ int main(int argc, char** argv)
 
     try
     {
+        if (objectPath.empty())
+        {
+            throw runtime_error("Given path is empty.");
+        }
+
         if ((*kw) && (keyword.size() != 2))
         {
             throw runtime_error("Keyword " + keyword + " not supported.");
@@ -128,6 +133,11 @@ int main(int argc, char** argv)
 
         if (*writeFlag)
         {
+            if (isReadOnlyEEPROM(objectPath, jsObject))
+            {
+                throw runtime_error("Read only EEPROM. Update not allowed.");
+            }
+
             if ((!*fileOption) && (!*valOption))
             {
                 throw runtime_error("Please provide the data that needs to be "
