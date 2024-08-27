@@ -1753,8 +1753,10 @@ int main(int argc, char** argv)
                                    jsonToParse));
         }
 
-        // Check if it's a udev path - patterned as(/ahb/ahb:apb/ahb:apb:bus@)
-        if (file.find("/ahb:apb") != string::npos)
+        // Check if it's a udev path - patterned as(/ahb/1e780000.apb/ for I2C
+        // or /ahb/1e790000.apb/ for FSI)
+        if (file.find("/ahb/1e780000.apb/") != string::npos ||
+            file.find("/ahb/1e790000.apb/") != string::npos)
         {
             // Translate udev path to a generic /sys/bus/.. file path.
             udevToGenericPath(file, driver);
