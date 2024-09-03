@@ -1,4 +1,4 @@
-systemd = dependency('libsystemd', version: '>= 221')
+libsystemd_dep = dependency('libsystemd', version: '>= 221')
 sdeventplus = dependency('sdeventplus')
 
 configuration_inc = include_directories('.', '../', '../vpd-parser/')
@@ -25,7 +25,7 @@ vpd_manager_dependencies = [
     libgpiodcxx,
     phosphor_logging,
     sdeventplus,
-    systemd,
+    libsystemd_dep,
     nlohmann_json_dep,
 ]
 
