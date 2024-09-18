@@ -101,12 +101,15 @@ void BiosHandler::biosAttribsCallback(sdbusplus::message_t& msg)
         std::cerr << "Error in reading BIOS attribute signal " << std::endl;
         return;
     }
+
     using BiosProperty = std::tuple<
         std::string, bool, std::string, std::string, std::string,
         std::variant<int64_t, std::string>, std::variant<int64_t, std::string>,
-        std::vector<
-            std::tuple<std::string, std::variant<int64_t, std::string>>>>;
-    using BiosBaseTable = std::variant<std::map<std::string, BiosProperty>>;
+        std::vector<std::tuple<std::string, std::variant<int64_t, std::string>,
+                               std::string>>>;
+
+    using BiosBaseTable =
+        std::variant<std::monostate, std::map<std::string, BiosProperty>>;
     using BiosBaseTableType = std::map<std::string, BiosBaseTable>;
 
     std::string object;
@@ -116,55 +119,69 @@ void BiosHandler::biosAttribsCallback(sdbusplus::message_t& msg)
     {
         if (prop.first == "BaseBIOSTable")
         {
-            auto list = std::get<0>(prop.second);
-            for (const auto& item : list)
+            if (auto list = std::get_if<std::map<std::string, BiosProperty>>(
+                    &(prop.second)))
             {
-                std::string attributeName = std::get<0>(item);
-                if (attributeName == "hb_memory_mirror_mode")
+                std::cout << "Size of Bios table recived in VPD ="
+                          << (*list).size() << std::endl;
+
+                for (const auto& item : *list)
                 {
-                    auto attrValue = std::get<5>(std::get<1>(item));
-                    auto val = std::get_if<std::string>(&attrValue);
-                    if (val)
+                    std::string attributeName = std::get<0>(item);
+                    std::cout << "VPD Attribute name = " << attributeName
+                              << std::endl;
+                    if (attributeName == "hb_memory_mirror_mode")
                     {
-                        saveAMMToVPD(*val);
+                        auto attrValue = std::get<5>(std::get<1>(item));
+                        auto val = std::get_if<std::string>(&attrValue);
+                        if (val)
+                        {
+                            saveAMMToVPD(*val);
+                        }
+                    }
+                    else if (attributeName == "hb_field_core_override")
+                    {
+                        auto attrValue = std::get<5>(std::get<1>(item));
+                        auto val = std::get_if<int64_t>(&attrValue);
+                        if (val)
+                        {
+                            saveFCOToVPD(*val);
+                        }
+                    }
+                    else if (attributeName == "pvm_keep_and_clear")
+                    {
+                        auto attrValue = std::get<5>(std::get<1>(item));
+                        auto val = std::get_if<std::string>(&attrValue);
+                        if (val)
+                        {
+                            saveKeepAndClearToVPD(*val);
+                        }
+                    }
+                    else if (attributeName == "pvm_create_default_lpar")
+                    {
+                        auto attrValue = std::get<5>(std::get<1>(item));
+                        auto val = std::get_if<std::string>(&attrValue);
+                        if (val)
+                        {
+                            saveCreateDefaultLparToVPD(*val);
+                        }
+                    }
+                    else if (attributeName == "pvm_clear_nvram")
+                    {
+                        auto attrValue = std::get<5>(std::get<1>(item));
+                        auto val = std::get_if<std::string>(&attrValue);
+                        if (val)
+                        {
+                            saveClearNVRAMToVPD(*val);
+                        }
                     }
                 }
-                else if (attributeName == "hb_field_core_override")
-                {
-                    auto attrValue = std::get<5>(std::get<1>(item));
-                    auto val = std::get_if<int64_t>(&attrValue);
-                    if (val)
-                    {
-                        saveFCOToVPD(*val);
-                    }
-                }
-                else if (attributeName == "pvm_keep_and_clear")
-                {
-                    auto attrValue = std::get<5>(std::get<1>(item));
-                    auto val = std::get_if<std::string>(&attrValue);
-                    if (val)
-                    {
-                        saveKeepAndClearToVPD(*val);
-                    }
-                }
-                else if (attributeName == "pvm_create_default_lpar")
-                {
-                    auto attrValue = std::get<5>(std::get<1>(item));
-                    auto val = std::get_if<std::string>(&attrValue);
-                    if (val)
-                    {
-                        saveCreateDefaultLparToVPD(*val);
-                    }
-                }
-                else if (attributeName == "pvm_clear_nvram")
-                {
-                    auto attrValue = std::get<5>(std::get<1>(item));
-                    auto val = std::get_if<std::string>(&attrValue);
-                    if (val)
-                    {
-                        saveClearNVRAMToVPD(*val);
-                    }
-                }
+            }
+            else
+            {
+                std::cerr
+                    << "Invalid type received for BIOS base table property"
+                    << std::endl;
             }
         }
     }
