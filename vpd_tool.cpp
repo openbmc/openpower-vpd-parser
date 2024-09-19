@@ -107,9 +107,14 @@ int main(int argc, char** argv)
 
     try
     {
-        if (objectPath.empty())
+        if (*object && objectPath.empty())
         {
             throw runtime_error("Given path is empty.");
+        }
+
+        if (*record && (recordName.size() != 4))
+        {
+            throw runtime_error("Record " + recordName + " not supported.");
         }
 
         if ((*kw) && (keyword.size() != 2))
