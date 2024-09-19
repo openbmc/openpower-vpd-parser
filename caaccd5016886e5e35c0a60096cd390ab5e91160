@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55a6dc94_a4d4cf2c",
+        "filename": "vpd-manager/bios_handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-09-19T13:13:07Z",
+      "side": 1,
+      "message": "do we need to log an error and crash in such instance ?",
+      "revId": "caaccd5016886e5e35c0a60096cd390ab5e91160",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
