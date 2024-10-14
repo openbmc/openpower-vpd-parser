@@ -560,6 +560,41 @@ void Manager::performVPDRecollection()
             singleFru["inventoryPath"]
                 .get_ref<const nlohmann::json::string_t&>();
 
+        // clear VPD of FRU before re-collection.
+        inventory::InterfaceMap interfacesPropMap;
+        clearVpdOnRemoval(INVENTORY_PATH + inventoryPath, interfacesPropMap);
+
+        inventory::ObjectMap objectMap;
+        objectMap.emplace(inventoryPath, move(interfacesPropMap));
+
+        common::utility::callPIM(move(objectMap));
+
+        // check if any subtree exist under the parent path. If so clear VPD for
+        // them as well.
+        std::vector<std::string> interfaceList{
+            "xyz.openbmc_project.Inventory.Item"};
+        MapperResponse subTree = getObjectSubtreeForInterfaces(
+            INVENTORY_PATH + inventoryPath, 0, interfaceList);
+
+        for (auto [objectPath, serviceInterfaceMap] : subTree)
+        {
+            interfacesPropMap.clear();
+            clearVpdOnRemoval(objectPath, interfacesPropMap);
+
+            std::string subTreeObjPath{objectPath};
+            // Strip any inventory prefix in path
+            if (subTreeObjPath.find(INVENTORY_PATH) == 0)
+            {
+                subTreeObjPath =
+                    subTreeObjPath.substr(sizeof(INVENTORY_PATH) - 1);
+            }
+
+            objectMap.clear();
+            objectMap.emplace(subTreeObjPath, move(interfacesPropMap));
+
+            common::utility::callPIM(move(objectMap));
+        }
+
         bool prePostActionRequired = false;
 
         if ((jsonFile["frus"][item].at(0)).find("preAction") !=
