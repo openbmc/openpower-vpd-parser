@@ -717,6 +717,48 @@ inventory::ObjectMap
                         presProp.emplace("Present", false);
                         interfaces.emplace("xyz.openbmc_project.Inventory.Item",
                                            presProp);
+
+                        if ((jsObject["frus"][itemFRUS.key()].at(0).contains(
+                                "extraInterfaces")) &&
+                            (jsObject["frus"][itemFRUS.key()]
+                                 .at(0)["extraInterfaces"]
+                                 .contains("xyz.openbmc_project.Inventory."
+                                           "Item.PCIeDevice")))
+                        {
+                            // check if any subtree exist under the parent
+                            // path.
+                            std::vector<std::string> interfaceList{
+                                "xyz.openbmc_project.Inventory.Item"};
+                            MapperResponse subTree =
+                                getObjectSubtreeForInterfaces(
+                                    INVENTORY_PATH + std::string(object), 0,
+                                    interfaceList);
+
+                            for (auto [objectPath, serviceInterfaceMap] :
+                                 subTree)
+                            {
+                                std::string subTreeObjPath{objectPath};
+                                // Strip any inventory prefix in path
+                                if (subTreeObjPath.find(INVENTORY_PATH) == 0)
+                                {
+                                    subTreeObjPath = subTreeObjPath.substr(
+                                        sizeof(INVENTORY_PATH) - 1);
+                                }
+
+                                // If subtree present, set its presence to
+                                // false and functional to true.
+                                inventory::ObjectMap objectMap{
+                                    {subTreeObjPath,
+                                     {{"xyz.openbmc_project.State."
+                                       "Decorator."
+                                       "OperationalStatus",
+                                       {{"Functional", true}}},
+                                      {"xyz.openbmc_project.Inventory.Item",
+                                       {{"Present", false}}}}}};
+
+                                common::utility::callPIM(move(objectMap));
+                            }
+                        }
                     }
                 }
 
