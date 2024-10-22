@@ -187,8 +187,8 @@ class Manager
 
     /**
      * @brief Check for essential fru in the system.
-     * The api check for the presence of FRUs marked as essential and logs PEL
-     * in case they are missing.
+     * The api check for the presence of FRUs marked as essential and logs
+     * PEL in case they are missing.
      */
     void checkEssentialFrus();
 
