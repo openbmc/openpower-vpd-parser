@@ -548,6 +548,55 @@ LocationCode Manager::getExpandedLocationCode(const LocationCode& locationCode,
                                         fruLocationCode);
 }
 
+void Manager::updateFRUOnRecollection(const std::string& inventoryPath)
+{
+    auto res = utils::readDBusProperty<std::variant<bool>>(
+        pimService, INVENTORY_PATH + inventoryPath,
+        "xyz.openbmc_project.Inventory.Item", "Present");
+
+    if (const auto* presentPropVal = std::get_if<bool>(&res))
+    {
+        // If it was present earlier, set its property.
+        if (*presentPropVal)
+        {
+            inventory::InterfaceMap interfacesPropMap;
+            clearVpdOnRemoval(INVENTORY_PATH + inventoryPath,
+                              interfacesPropMap);
+
+            inventory::ObjectMap objectMap;
+            objectMap.emplace(inventoryPath, move(interfacesPropMap));
+
+            common::utility::callPIM(move(objectMap));
+
+            // check if any subtree exist under the parent path. If so clear VPD
+            // for them as well.
+            std::vector<std::string> interfaceList{
+                "xyz.openbmc_project.Inventory.Item"};
+            MapperResponse subTree = getObjectSubtreeForInterfaces(
+                INVENTORY_PATH + inventoryPath, 0, interfaceList);
+
+            for (auto [objectPath, serviceInterfaceMap] : subTree)
+            {
+                interfacesPropMap.clear();
+                clearVpdOnRemoval(objectPath, interfacesPropMap);
+
+                std::string subTreeObjPath{objectPath};
+                // Strip any inventory prefix in path
+                if (subTreeObjPath.find(INVENTORY_PATH) == 0)
+                {
+                    subTreeObjPath =
+                        subTreeObjPath.substr(sizeof(INVENTORY_PATH) - 1);
+                }
+
+                objectMap.clear();
+                objectMap.emplace(subTreeObjPath, move(interfacesPropMap));
+
+                common::utility::callPIM(move(objectMap));
+            }
+        }
+    }
+}
+
 void Manager::performVPDRecollection()
 {
     // get list of FRUs replaceable at standby
@@ -559,41 +608,6 @@ void Manager::performVPDRecollection()
         const string& inventoryPath =
             singleFru["inventoryPath"]
                 .get_ref<const nlohmann::json::string_t&>();
-
-        // clear VPD of FRU before re-collection.
-        inventory::InterfaceMap interfacesPropMap;
-        clearVpdOnRemoval(INVENTORY_PATH + inventoryPath, interfacesPropMap);
-
-        inventory::ObjectMap objectMap;
-        objectMap.emplace(inventoryPath, move(interfacesPropMap));
-
-        common::utility::callPIM(move(objectMap));
-
-        // check if any subtree exist under the parent path. If so clear VPD for
-        // them as well.
-        std::vector<std::string> interfaceList{
-            "xyz.openbmc_project.Inventory.Item"};
-        MapperResponse subTree = getObjectSubtreeForInterfaces(
-            INVENTORY_PATH + inventoryPath, 0, interfaceList);
-
-        for (auto [objectPath, serviceInterfaceMap] : subTree)
-        {
-            interfacesPropMap.clear();
-            clearVpdOnRemoval(objectPath, interfacesPropMap);
-
-            std::string subTreeObjPath{objectPath};
-            // Strip any inventory prefix in path
-            if (subTreeObjPath.find(INVENTORY_PATH) == 0)
-            {
-                subTreeObjPath =
-                    subTreeObjPath.substr(sizeof(INVENTORY_PATH) - 1);
-            }
-
-            objectMap.clear();
-            objectMap.emplace(subTreeObjPath, move(interfacesPropMap));
-
-            common::utility::callPIM(move(objectMap));
-        }
 
         bool prePostActionRequired = false;
 
@@ -612,6 +626,9 @@ void Manager::performVPDRecollection()
                         "Pre-Action execution failed for the FRU",
                         entry("ERROR=%s",
                               ("Inventory path: " + inventoryPath).c_str()));
+
+                    // As recollection failed update FRU status.
+                    updateFRUOnRecollection(inventoryPath);
                     continue;
                 }
             }
@@ -622,6 +639,10 @@ void Manager::performVPDRecollection()
                 additionalData.emplace("DESCRIPTION", e.what());
                 createPEL(additionalData, PelSeverity::WARNING,
                           errIntfForGpioError, sdBus);
+
+                // As recollection failed update FRU status.
+                updateFRUOnRecollection(inventoryPath);
+
                 continue;
             }
             prePostActionRequired = true;
@@ -659,6 +680,9 @@ void Manager::performVPDRecollection()
                     {
                         // If not, then take failure postAction
                         executePostFailAction(jsonFile, item);
+
+                        // As recollection failed update FRU status.
+                        updateFRUOnRecollection(inventoryPath);
                     }
                     catch (const GpioException& e)
                     {
@@ -666,6 +690,9 @@ void Manager::performVPDRecollection()
                         additionalData.emplace("DESCRIPTION", e.what());
                         createPEL(additionalData, PelSeverity::WARNING,
                                   errIntfForGpioError, sdBus);
+
+                        // As recollection failed update FRU status.
+                        updateFRUOnRecollection(inventoryPath);
                     }
                 }
                 else
