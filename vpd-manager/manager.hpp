@@ -186,9 +186,19 @@ class Manager
                                   const Binary& value);
 
     /**
+     * @brief An api to update FRU in the flow of recollection.
+     *
+     * Some FRUs qualifies for recollection at standby. The API updates their
+     * VPD and othe properties based on the status of their re-collection.
+     *
+     * @param[in] inventoryPath - Inventory path of the FRU.
+     */
+    void updateFRUOnRecollection(const std::string& inventoryPath);
+
+    /**
      * @brief Check for essential fru in the system.
-     * The api check for the presence of FRUs marked as essential and logs PEL
-     * in case they are missing.
+     * The api check for the presence of FRUs marked as essential and logs
+     * PEL in case they are missing.
      */
     void checkEssentialFrus();
 
