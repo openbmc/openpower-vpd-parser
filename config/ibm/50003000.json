@@ -2082,6 +2082,9 @@
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P1-C0"
                     },
+                    "xyz.openbmc_project.Inventory.Decorator.Slot": {
+                        "SlotNumber": 1
+                    },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 0"
                     }
@@ -2116,6 +2119,9 @@
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P1-C1"
+                    },
+                    "xyz.openbmc_project.Inventory.Decorator.Slot": {
+                        "SlotNumber": 2
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 1"
@@ -2152,6 +2158,9 @@
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P1-C2"
                     },
+                    "xyz.openbmc_project.Inventory.Decorator.Slot": {
+                        "SlotNumber": 3
+                    },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 2"
                     }
@@ -2186,6 +2195,9 @@
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P1-C3"
+                    },
+                    "xyz.openbmc_project.Inventory.Decorator.Slot": {
+                        "SlotNumber": 4
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 3"
@@ -2222,6 +2234,9 @@
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P1-C4"
                     },
+                    "xyz.openbmc_project.Inventory.Decorator.Slot": {
+                        "SlotNumber": 5
+                    },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 4"
                     }
@@ -2256,6 +2271,9 @@
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P1-C5"
+                    },
+                    "xyz.openbmc_project.Inventory.Decorator.Slot": {
+                        "SlotNumber": 6
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 5"
@@ -2292,6 +2310,9 @@
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P1-C6"
                     },
+                    "xyz.openbmc_project.Inventory.Decorator.Slot": {
+                        "SlotNumber": 7
+                    },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 6"
                     }
@@ -2326,6 +2347,9 @@
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P1-C7"
+                    },
+                    "xyz.openbmc_project.Inventory.Decorator.Slot": {
+                        "SlotNumber": 8
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 7"
@@ -2362,6 +2386,9 @@
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P1-C8"
                     },
+                    "xyz.openbmc_project.Inventory.Decorator.Slot": {
+                        "SlotNumber": 9
+                    },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 8"
                     }
@@ -2396,6 +2423,9 @@
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs-P1-C9"
+                    },
+                    "xyz.openbmc_project.Inventory.Decorator.Slot": {
+                        "SlotNumber": 10
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 9"
