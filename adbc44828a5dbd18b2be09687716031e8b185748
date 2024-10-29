@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4999b43_92a84e35",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2024-10-29T12:33:10Z",
+      "side": 1,
+      "message": "unbind",
+      "range": {
+        "startLine": 866,
+        "startChar": 35,
+        "endLine": 866,
+        "endChar": 39
+      },
+      "revId": "adbc44828a5dbd18b2be09687716031e8b185748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
