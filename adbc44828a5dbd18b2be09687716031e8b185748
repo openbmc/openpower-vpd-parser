@@ -22,6 +22,30 @@
       },
       "revId": "adbc44828a5dbd18b2be09687716031e8b185748",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c3ae0de_67ebbe72",
+        "filename": "vpd-manager/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2024-10-29T14:07:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4999b43_92a84e35",
+      "range": {
+        "startLine": 866,
+        "startChar": 35,
+        "endLine": 866,
+        "endChar": 39
+      },
+      "revId": "adbc44828a5dbd18b2be09687716031e8b185748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
