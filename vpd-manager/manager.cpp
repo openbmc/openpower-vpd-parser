@@ -863,14 +863,9 @@ void Manager::deleteFRUVPD(const sdbusplus::message::object_path& path)
     string chipAddress =
         jsonFile["frus"][vpdFilePath].at(0).value("pcaChipAddress", "");
 
-    // if the FRU is not present then log error
+    // if the FRU is present, then bind the LED driver if any
     if (readBusProperty(objPath, "xyz.openbmc_project.Inventory.Item",
-                        "Present") == "false")
-    {
-        elog<InvalidArgument>(Argument::ARGUMENT_NAME("FRU not preset"),
-                              Argument::ARGUMENT_VALUE(objPath.c_str()));
-    }
-    else
+                        "Present") == "true")
     {
         // check if we have cxp-port populated for the given object path.
         std::vector<std::string> interfaceList{
