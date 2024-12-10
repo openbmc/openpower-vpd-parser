@@ -81,7 +81,9 @@
                 "inventoryPath": "/system/chassis",
                 "isSystemVpd": true,
                 "extraInterfaces": {
-                    "xyz.openbmc_project.Inventory.Item.Chassis": null,
+                    "xyz.openbmc_project.Inventory.Item.Chassis": {
+                        "Type": "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.RackMount"
+                    },
                     "xyz.openbmc_project.Inventory.Item.Global": null,
                     "com.ibm.ipzvpd.Location": {
                         "LocationCode": "Ufcs"
