@@ -16,6 +16,24 @@
       "message": "The chassis can be either in Rack configuration or Tower configuration , do you thing defaulting it to only Rack is the correct way",
       "revId": "6e26ab5dfda5b82e7fed5e41d49310cd29ef0249",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80654657_58425981",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-12-11T15:33:54Z",
+      "side": 1,
+      "message": "I still think this change is better even though it is wrong for the few tower models we have because the default PDI value maps to something we can\u0027t understand in bmcweb and this way we are not relying on that default value in bmcweb",
+      "parentUuid": "94058d0a_b9026a69",
+      "revId": "6e26ab5dfda5b82e7fed5e41d49310cd29ef0249",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
