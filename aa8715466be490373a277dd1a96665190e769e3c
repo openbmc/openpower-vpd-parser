@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "effa6423_8f9cf1b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-12-12T16:20:14Z",
+      "side": 1,
+      "message": "There have now been 10 other commits merged since I originally submitted this trivial change.  Can the maintainers please take a look at this?\n\n```\n$ git log --since\u003d\"Sept 03, 2024\" --oneline\naa87154 (HEAD -\u003e master) meson: switch code dependency to libsystemd\n7f23d4d (origin/master, origin/HEAD) Add Type \u003d RackMount to Chassis\ne0e1549 Add Slot interface to all NVMe drives\nf04c174 Everest:Missing EXP_PRSNT GPIO pin for PCIe cards\n4be52ac delete-vpd:Do not throw exception if FRU is absent\n74f89e1 Update FRU status on recollection\ne5faaa9 Update present property for subtree\na12c6c8 Clear vpd before recollection\n78b2cd6 Update BIOS table type\na36d643 Fix: vpd-tool input validation checks (#368)\n44fca01 1060:vpd-tool:Check for read only FRUs before write\n```",
+      "revId": "aa8715466be490373a277dd1a96665190e769e3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
