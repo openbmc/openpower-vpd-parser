@@ -197,5 +197,18 @@ static constexpr auto systemdService = "org.freedesktop.systemd1";
 static constexpr auto systemdObjectPath = "/org/freedesktop/systemd1";
 static constexpr auto systemdManagerInterface =
     "org.freedesktop.systemd1.Manager";
+
+static constexpr auto vpdCollectionInterface = "com.ibm.VPD.Collection";
+
+// enumerated values of CollectionStatus D-bus property defined under
+// com.ibm.VPD.Collection interface.
+static constexpr auto vpdCollectionSuccess =
+    "com.ibm.VPD.Collection.Status.Success";
+static constexpr auto vpdCollectionFailure =
+    "com.ibm.VPD.Collection.Status.Failure";
+static constexpr auto vpdCollectionInProgress =
+    "com.ibm.VPD.Collection.Status.InProgress";
+static constexpr auto vpdCollectionNotStarted =
+    "com.ibm.VPD.Collection.Status.NotStarted";
 } // namespace constants
 } // namespace vpd

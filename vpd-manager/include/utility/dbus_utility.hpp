@@ -563,5 +563,34 @@ inline int DisableRebootGuard() noexcept
     return l_rc;
 }
 
+/**
+ * @brief API to notify FRU VPD Collection status.
+ *
+ * This API uses PIM's Notify method to update the given FRU VPD collection
+ * status on D-bus.
+ *
+ * @param[in] i_inventoryPath - D-bus inventory path
+ * @param[in] i_fruCollectionStatus - FRU VPD collection status.
+ *
+ * @return true if update succeeds, false otherwise.
+ */
+inline bool notifyFRUCollectionStatus(const std::string& i_inventoryPath,
+                                      const std::string& i_fruCollectionStatus)
+{
+    types::ObjectMap l_objectMap;
+    types::InterfaceMap l_interfaceMap;
+    types::PropertyMap l_propertyMap;
+
+    l_propertyMap.emplace("CollectionStatus", i_fruCollectionStatus);
+    l_interfaceMap.emplace(constants::vpdCollectionInterface, l_propertyMap);
+    l_objectMap.emplace(i_inventoryPath, l_interfaceMap);
+
+    if (!dbusUtility::callPIM(std::move(l_objectMap)))
+    {
+        return false;
+    }
+
+    return true;
+}
 } // namespace dbusUtility
 } // namespace vpd
