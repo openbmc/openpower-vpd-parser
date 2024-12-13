@@ -854,6 +854,14 @@ bool Worker::primeInventory(const std::string& i_vpdFilePath)
         processFunctionalProperty(l_Fru["inventoryPath"], l_interfaces);
         processEnabledProperty(l_Fru["inventoryPath"], l_interfaces);
 
+        // Emplace the default state of FRU VPD collection
+        types::PropertyMap l_fruCollectionProperty = {
+            {"CollectionStatus", constants::vpdCollectionNotStarted}};
+
+        vpdSpecificUtility::insertOrMerge(l_interfaces,
+                                          constants::vpdCollectionInterface,
+                                          std::move(l_fruCollectionProperty));
+
         l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
                                      std::move(l_interfaces));
     }
@@ -1140,6 +1148,14 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
             processFunctionalProperty(inventoryPath, interfaces);
             processEnabledProperty(inventoryPath, interfaces);
 
+            // Update collection status as successful
+            types::PropertyMap l_collectionProperty = {
+                {"CollectionStatus", constants::vpdCollectionSuccess}};
+
+            vpdSpecificUtility::insertOrMerge(interfaces,
+                                              constants::vpdCollectionInterface,
+                                              std::move(l_collectionProperty));
+
             objectInterfaceMap.emplace(std::move(fruObjectPath),
                                        std::move(interfaces));
         }
@@ -1414,6 +1430,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
 std::tuple<bool, std::string>
     Worker::parseAndPublishVPD(const std::string& i_vpdFilePath)
 {
+    std::string l_inventoryPath{};
+
     try
     {
         m_semaphore.acquire();
@@ -1422,6 +1440,26 @@ std::tuple<bool, std::string>
         m_mutex.lock();
         m_activeCollectionThreadCount++;
         m_mutex.unlock();
+
+        // Set CollectionStatus as InProgress. Since it's an intermediate state
+        // D-bus set-property call is good enough to update the status.
+        try
+        {
+            l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
+                m_parsedJson, i_vpdFilePath);
+
+            dbusUtility::writeDbusProperty(
+                jsonUtility::getServiceName(m_parsedJson, l_inventoryPath),
+                l_inventoryPath, constants::vpdCollectionInterface,
+                "CollectionStatus",
+                types::DbusVariantType{constants::vpdCollectionInProgress});
+        }
+        catch (const std::exception& e)
+        {
+            logging::logMessage(
+                "Unable to set CollectionStatus as InProgress for " +
+                i_vpdFilePath);
+        }
 
         const types::VPDMapVariant& parsedVpdMap = parseVpdFile(i_vpdFilePath);
 
@@ -1462,14 +1500,23 @@ std::tuple<bool, std::string>
             logging::logMessage(ex.what());
         }
 
+        // Notify FRU's VPD CollectionStatus as Failure
+        if (!dbusUtility::notifyFRUCollectionStatus(
+                l_inventoryPath, constants::vpdCollectionFailure))
+        {
+            logging::logMessage(
+                "Call to PIM Notify method failed to update Collection status as Failure for " +
+                i_vpdFilePath);
+        }
+
         // TODO: Figure out a way to clear data in case of any failure at
         // runtime.
         //  Prime the inventry for FRUs which
         //  are not present/processing had some error.
         /* if (!primeInventory(i_vpdFilePath))
          {
-             logging::logMessage("Priming of inventory failed for FRU " +
-                                 i_vpdFilePath);
+            logging::logMessage("Priming of inventory failed for FRU " +
+                                i_vpdFilePath);
          }*/
         m_semaphore.release();
         return std::make_tuple(false, i_vpdFilePath);
