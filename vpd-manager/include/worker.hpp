@@ -499,6 +499,14 @@ class Worker
      */
     void setJsonSymbolicLink(const std::string& i_systemJson);
 
+    /**
+     * @brief API to set present property.
+     *
+     * @param[in] i_vpdPath - EEPROM or inventory path.
+     * @param[in] i_value - value to be set.
+     */
+    void setPresentProperty(const std::string& i_fruPath, const bool& i_value);
+
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
 

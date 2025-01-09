@@ -835,10 +835,15 @@ bool Worker::primeInventory(const std::string& i_vpdFilePath)
 
         types::PropertyMap l_propertyValueMap;
         l_propertyValueMap.emplace("Present", false);
-        if (std::filesystem::exists(i_vpdFilePath))
+
+        // TODO: Present based on file will be taken care in future.
+        // By default present is set to false for FRU at the time of
+        // priming. Once collection goes through, it will be set to true in that
+        // flow.
+        /*if (std::filesystem::exists(i_vpdFilePath))
         {
             l_propertyValueMap["Present"] = true;
-        }
+        }*/
 
         vpdSpecificUtility::insertOrMerge(l_interfaces,
                                           "xyz.openbmc_project.Inventory.Item",
@@ -1464,13 +1469,11 @@ std::tuple<bool, std::string>
 
         // TODO: Figure out a way to clear data in case of any failure at
         // runtime.
-        //  Prime the inventry for FRUs which
-        //  are not present/processing had some error.
-        /* if (!primeInventory(i_vpdFilePath))
-         {
-             logging::logMessage("Priming of inventory failed for FRU " +
-                                 i_vpdFilePath);
-         }*/
+
+        // set present property to false for any error case. In future this will
+        // be replaced by presence logic.
+        setPresentProperty(i_vpdFilePath, false);
+
         m_semaphore.release();
         return std::make_tuple(false, i_vpdFilePath);
     }
@@ -1674,4 +1677,72 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
                             " error: " + std::string(l_ex.what()));
     }
 }
+
+void Worker::setPresentProperty(const std::string& i_vpdPath,
+                                const bool& i_value)
+{
+    try
+    {
+        if (i_vpdPath.empty())
+        {
+            throw std::runtime_error(
+                "Path is empty. Can't set present property");
+        }
+
+        types::ObjectMap l_objectInterfaceMap;
+
+        // If the given path is EEPROM path.
+        if (m_parsedJson["frus"].contains(i_vpdPath))
+        {
+            for (const auto& l_Fru : m_parsedJson["frus"][i_vpdPath])
+            {
+                sdbusplus::message::object_path l_fruObjectPath(
+                    l_Fru["inventoryPath"]);
+
+                types::PropertyMap l_propertyValueMap;
+                l_propertyValueMap.emplace("Present", i_value);
+
+                types::InterfaceMap l_interfaces;
+                vpdSpecificUtility::insertOrMerge(l_interfaces,
+                                                  constants::inventoryItemInf,
+                                                  move(l_propertyValueMap));
+
+                l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
+                                             std::move(l_interfaces));
+            }
+        }
+        else
+        {
+            // consider it as an inventory path.
+            if (i_vpdPath.find(constants::pimPath) != constants::VALUE_0)
+            {
+                throw std::runtime_error("Invalid inventory path: " +
+                                         i_vpdPath);
+            }
+
+            types::PropertyMap l_propertyValueMap;
+            l_propertyValueMap.emplace("Present", i_value);
+
+            types::InterfaceMap l_interfaces;
+            vpdSpecificUtility::insertOrMerge(l_interfaces,
+                                              constants::inventoryItemInf,
+                                              move(l_propertyValueMap));
+
+            l_objectInterfaceMap.emplace(i_vpdPath, std::move(l_interfaces));
+        }
+
+        // Notify PIM
+        if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+        {
+            throw std::runtime_error(
+                "Call to PIM failed while setting present property for path " +
+                i_vpdPath);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(l_ex.what());
+    }
+}
+
 } // namespace vpd
