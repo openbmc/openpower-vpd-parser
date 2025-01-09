@@ -458,9 +458,10 @@ void Manager::collectSingleFruVpd(
     {
         if (m_vpdCollectionStatus != "Completed")
         {
-            throw std::runtime_error(
+            logging::logMessage(
                 "Currently VPD CollectionStatus is not completed. Cannot perform single FRU VPD collection for " +
                 std::string(i_dbusObjPath));
+            return;
         }
 
         // Get system config JSON object from worker class
@@ -474,9 +475,10 @@ void Manager::collectSingleFruVpd(
         // Check if system config JSON is present
         if (l_sysCfgJsonObj.empty())
         {
-            throw std::runtime_error(
-                "System config JSON object not present. Single FRU VPD collection failed for " +
+            logging::logMessage(
+                "System config JSON object not present. Single FRU VPD collection is not performed for " +
                 std::string(i_dbusObjPath));
+            return;
         }
 
         // Get FRU path for the given D-bus object path from JSON
@@ -485,9 +487,10 @@ void Manager::collectSingleFruVpd(
 
         if (l_fruPath.empty())
         {
-            throw std::runtime_error(
-                "D-bus object path not present in JSON. Single FRU VPD collection failed for " +
+            logging::logMessage(
+                "D-bus object path not present in JSON. Single FRU VPD collection is not performed for " +
                 std::string(i_dbusObjPath));
+            return;
         }
 
         // Check if host is up and running
@@ -496,9 +499,10 @@ void Manager::collectSingleFruVpd(
             if (!jsonUtility::isFruReplaceableAtRuntime(l_sysCfgJsonObj,
                                                         l_fruPath))
             {
-                throw std::runtime_error(
-                    "Given FRU is not replaceable at host runtime. Single FRU VPD collection failed for " +
+                logging::logMessage(
+                    "Given FRU is not replaceable at host runtime. Single FRU VPD collection is not performed for " +
                     std::string(i_dbusObjPath));
+                return;
             }
         }
         else if (dbusUtility::isBMCReady())
@@ -508,10 +512,31 @@ void Manager::collectSingleFruVpd(
                 (!jsonUtility::isFruReplaceableAtRuntime(l_sysCfgJsonObj,
                                                          l_fruPath)))
             {
-                throw std::runtime_error(
-                    "Given FRU is neither replaceable at standby nor replaceable at runtime. Single FRU VPD collection failed for " +
+                logging::logMessage(
+                    "Given FRU is neither replaceable at standby nor replaceable at runtime. Single FRU VPD collection is not performed for " +
                     std::string(i_dbusObjPath));
+                return;
             }
+        }
+
+        // Set CollectionStatus as InProgress. Since it's an intermediate state
+        // D-bus set-property call is good enough to update the status.
+        try
+        {
+            const std::string& l_collStatusProp = "CollectionStatus";
+            dbusUtility::writeDbusProperty(
+                jsonUtility::getServiceName(l_sysCfgJsonObj,
+                                            std::string(i_dbusObjPath)),
+                std::string(i_dbusObjPath), constants::vpdCollectionInterface,
+                l_collStatusProp,
+                types::DbusVariantType{constants::vpdCollectionInProgress});
+        }
+        catch (const std::exception& e)
+        {
+            logging::logMessage(
+                "Unable to set CollectionStatus as InProgress for " +
+                std::string(i_dbusObjPath) +
+                ". Continue single FRU VPD collection.");
         }
 
         // Parse VPD
@@ -545,6 +570,15 @@ void Manager::collectSingleFruVpd(
     }
     catch (const std::exception& l_error)
     {
+        // Notify FRU's VPD CollectionStatus as Failure
+        if (!dbusUtility::notifyFRUCollectionStatus(
+                std::string(i_dbusObjPath), constants::vpdCollectionFailure))
+        {
+            logging::logMessage(
+                "Call to PIM Notify method failed to update Collection status as Failure for " +
+                std::string(i_dbusObjPath));
+        }
+
         // TODO: Log PEL
         logging::logMessage(std::string(l_error.what()));
     }
