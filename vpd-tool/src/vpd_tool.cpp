@@ -285,7 +285,7 @@ int VpdTool::fixSystemVpd() const noexcept
         int l_userSelectedOption = types::UserOption::Exit;
         std::cin >> l_userSelectedOption;
 
-        std::cout << std::endl << std::string(191, '=') << std::endl;
+        std::cout << std::endl;
 
         if (types::UserOption::UseBackupDataForAll == l_userSelectedOption)
         {
@@ -306,6 +306,7 @@ int VpdTool::fixSystemVpd() const noexcept
         else if (types::UserOption::Exit == l_userSelectedOption)
         {
             std::cout << "Exit successfully" << std::endl;
+            l_rc = constants::SUCCESS;
             break;
         }
         else
@@ -849,7 +850,7 @@ void VpdTool::printSystemVpd(
         std::cerr << "Invalid JSON to print system VPD" << std::endl;
     }
 
-    std::string l_outline(191, '=');
+    std::string l_outline(constants::OUTLINE_COUNT, '=');
     std::cout << "\nRestorable record-keyword pairs and their data on backup & "
                  "primary.\n\n"
               << l_outline << std::endl;
@@ -865,9 +866,9 @@ void VpdTool::printSystemVpd(
 
     for (const auto& l_aRecordKwInfo : i_parsedJsonObj["backupMap"])
     {
-        if (l_aRecordKwInfo.contains("sourceRecord") ||
-            l_aRecordKwInfo.contains("sourceKeyword") ||
-            l_aRecordKwInfo.contains("destinationkeywordValue") ||
+        if (l_aRecordKwInfo.contains("sourceRecord") &&
+            l_aRecordKwInfo.contains("sourceKeyword") &&
+            l_aRecordKwInfo.contains("destinationkeywordValue") &&
             l_aRecordKwInfo.contains("sourcekeywordValue"))
         {
             std::string l_mismatchFound{
@@ -876,7 +877,7 @@ void VpdTool::printSystemVpd(
                     ? "YES"
                     : "NO"};
 
-            std::string l_splitLine(191, '-');
+            std::string l_splitLine(constants::OUTLINE_COUNT, '-');
 
             try
             {
@@ -938,6 +939,8 @@ int VpdTool::updateAllKeywords(const nlohmann::json& i_parsedJsonObj,
     }
 
     bool l_anyMismatchFound = false;
+    bool l_errorOccurred = false;
+
     for (const auto& l_aRecordKwInfo : i_parsedJsonObj["backupMap"])
     {
         if (!l_aRecordKwInfo.contains("sourceRecord") ||
@@ -951,6 +954,7 @@ int VpdTool::updateAllKeywords(const nlohmann::json& i_parsedJsonObj,
             continue;
         }
 
+        l_rc = constants::FAILURE;
         if (l_aRecordKwInfo["sourcekeywordValue"] !=
             l_aRecordKwInfo["destinationkeywordValue"])
         {
@@ -974,6 +978,7 @@ int VpdTool::updateAllKeywords(const nlohmann::json& i_parsedJsonObj,
             }
             catch (const std::exception& l_ex)
             {
+                l_errorOccurred = true;
                 // TODO: Enable logging when verbose is enabled.
                 std::cerr << "write keyword failed for record: "
                           << l_aRecordKwInfo["sourceRecord"]
@@ -983,8 +988,16 @@ int VpdTool::updateAllKeywords(const nlohmann::json& i_parsedJsonObj,
         }
     }
 
+    if (l_errorOccurred)
+    {
+        std::cout << "Failed to update one/more record-keyword pairs."
+                  << std::endl;
+        return l_rc;
+    }
+
     std::string l_dataUsed =
         (i_useBackupData ? "data from backup" : "data from primary VPD");
+
     if (l_anyMismatchFound)
     {
         std::cout << "Data updated successfully for all mismatching "
@@ -993,6 +1006,7 @@ int VpdTool::updateAllKeywords(const nlohmann::json& i_parsedJsonObj,
     }
     else
     {
+        l_rc = constants::SUCCESS;
         std::cout << "No mismatch found for any of the above mentioned "
                      "record-keyword pair. Exit successfully."
                   << std::endl;
@@ -1033,38 +1047,15 @@ int VpdTool::handleMoreOption(
                 "source path information is missing in JSON");
         }
 
-        auto updateKeywordValue =
-            [](std::string io_vpdPath, const std::string& i_recordName,
-               const std::string& i_keywordName,
-               const types::BinaryVector& i_keywordValue) -> int {
-            int l_rc = constants::FAILURE;
+        uint8_t l_slNum = 0;
 
-            try
-            {
-                auto l_paramsToWrite = std::make_tuple(
-                    i_recordName, i_keywordName, i_keywordValue);
-                l_rc = utils::writeKeyword(io_vpdPath, l_paramsToWrite);
-
-                if (l_rc > 0)
-                {
-                    std::cout << std::endl
-                              << "Data updated successfully." << std::endl;
-                }
-            }
-            catch (const std::exception& l_ex)
-            {
-                // TODO: Enable log when verbose is enabled.
-                std::cerr << l_ex.what() << std::endl;
-            }
-            return l_rc;
-        };
-
-        do
+        for (const auto& l_aRecordKwInfo : i_parsedJsonObj["backupMap"])
         {
-            int l_slNum = 0;
-            bool l_exit = false;
+            l_rc = constants::FAILURE;
+            ++l_slNum;
 
-            for (const auto& l_aRecordKwInfo : i_parsedJsonObj["backupMap"])
+            uint8_t l_runOnce = 1;
+            while (l_runOnce--)
             {
                 if (!l_aRecordKwInfo.contains("sourceRecord") ||
                     !l_aRecordKwInfo.contains("sourceKeyword") ||
@@ -1075,7 +1066,7 @@ int VpdTool::handleMoreOption(
                     std::cerr
                         << "Source or destination information is missing in the JSON."
                         << std::endl;
-                    continue;
+                    break;
                 }
 
                 const std::string l_mismatchFound{
@@ -1085,7 +1076,10 @@ int VpdTool::handleMoreOption(
                         : "NO"};
 
                 std::cout << std::endl
-                          << std::left << std::setw(6) << "S.No" << std::left
+                          << std::string(constants::OUTLINE_COUNT, '=')
+                          << std::endl;
+
+                std::cout << std::left << std::setw(6) << "S.No" << std::left
                           << std::setw(8) << "Record" << std::left
                           << std::setw(9) << "Keyword" << std::left
                           << std::setw(75) << std::setfill(' ') << "Backup Data"
@@ -1094,7 +1088,7 @@ int VpdTool::handleMoreOption(
                           << "Data Mismatch" << std::endl;
 
                 std::cout << std::left << std::setw(6)
-                          << static_cast<int>(++l_slNum) << std::left
+                          << static_cast<int>(l_slNum) << std::left
                           << std::setw(8)
                           << l_aRecordKwInfo.value("sourceRecord", "")
                           << std::left << std::setw(9)
@@ -1108,7 +1102,8 @@ int VpdTool::handleMoreOption(
                           << std::left << std::setw(14) << l_mismatchFound
                           << std::endl;
 
-                std::cout << std::string(191, '=') << std::endl;
+                std::cout << std::string(constants::OUTLINE_COUNT, '=')
+                          << std::endl;
 
                 if (constants::STR_CMP_SUCCESS ==
                     l_mismatchFound.compare("YES"))
@@ -1132,74 +1127,109 @@ int VpdTool::handleMoreOption(
                 int l_userSelectedOption = types::UserOption::Exit;
                 std::cin >> l_userSelectedOption;
 
-                if (types::UserOption::UseBackupDataForCurrent ==
-                    l_userSelectedOption)
+                switch (l_userSelectedOption)
                 {
-                    l_rc = updateKeywordValue(
-                        l_srcVpdPath, l_aRecordKwInfo["sourceRecord"],
-                        l_aRecordKwInfo["sourceKeyword"],
-                        l_aRecordKwInfo["destinationkeywordValue"]);
-                }
-                else if (types::UserOption::UseSystemBackplaneDataForCurrent ==
-                         l_userSelectedOption)
-                {
-                    l_rc = updateKeywordValue(
-                        l_srcVpdPath, l_aRecordKwInfo["sourceRecord"],
-                        l_aRecordKwInfo["sourceKeyword"],
-                        l_aRecordKwInfo["sourcekeywordValue"]);
-                }
-                else if (types::UserOption::NewValueOnBoth ==
-                         l_userSelectedOption)
-                {
-                    std::string l_newValue;
-                    std::cout
-                        << std::endl
-                        << "Enter the new value to update on both "
-                           "primary & backup. Value should be in ASCII or "
-                           "in HEX(prefixed with 0x) : ";
-                    std::cin >> l_newValue;
-                    std::cout << std::endl
-                              << std::string(191, '=') << std::endl;
+                    case types::UserOption::UseBackupDataForCurrent:
+                        try
+                        {
+                            l_rc = utils::writeKeyword(
+                                l_srcVpdPath,
+                                std::make_tuple(
+                                    l_aRecordKwInfo["sourceRecord"],
+                                    l_aRecordKwInfo["sourceKeyword"],
+                                    l_aRecordKwInfo
+                                        ["destinationkeywordValue"]));
 
-                    try
+                            if (l_rc > 0)
+                            {
+                                l_rc = constants::SUCCESS;
+                                std::cout << std::endl
+                                          << "Data updated successfully."
+                                          << std::endl;
+                            }
+                        }
+                        catch (const std::exception& l_ex)
+                        {
+                            // TODO: Enable log when verbose is enabled.
+                            std::cerr << std::endl << l_ex.what() << std::endl;
+                        }
+                        break;
+                    case types::UserOption::UseSystemBackplaneDataForCurrent:
+                        try
+                        {
+                            l_rc = utils::writeKeyword(
+                                l_srcVpdPath,
+                                std::make_tuple(
+                                    l_aRecordKwInfo["sourceRecord"],
+                                    l_aRecordKwInfo["sourceKeyword"],
+                                    l_aRecordKwInfo["sourcekeywordValue"]));
+
+                            if (l_rc > 0)
+                            {
+                                l_rc = constants::SUCCESS;
+                                std::cout << std::endl
+                                          << "Data updated successfully."
+                                          << std::endl;
+                            }
+                        }
+                        catch (const std::exception& l_ex)
+                        {
+                            // TODO: Enable log when verbose is enabled.
+                            std::cerr << std::endl << l_ex.what() << std::endl;
+                        }
+                        break;
+                    case types::UserOption::NewValueOnBoth:
                     {
-                        l_rc = updateKeywordValue(
-                            l_srcVpdPath, l_aRecordKwInfo["sourceRecord"],
-                            l_aRecordKwInfo["sourceKeyword"],
-                            utils::convertToBinary(l_newValue));
+                        std::string l_newValue;
+                        std::cout
+                            << std::endl
+                            << "Enter the new value to update on both "
+                               "primary & backup. Value should be in ASCII or "
+                               "in HEX(prefixed with 0x) : ";
+                        std::cin >> l_newValue;
+
+                        try
+                        {
+                            l_rc = utils::writeKeyword(
+                                l_srcVpdPath,
+                                std::make_tuple(
+                                    l_aRecordKwInfo["sourceRecord"],
+                                    l_aRecordKwInfo["sourceKeyword"],
+                                    utils::convertToBinary(l_newValue)));
+
+                            if (l_rc > 0)
+                            {
+                                l_rc = constants::SUCCESS;
+                                std::cout << std::endl
+                                          << "Data updated successfully."
+                                          << std::endl;
+                            }
+                        }
+                        catch (const std::exception& l_ex)
+                        {
+                            // TODO: Enable logging when verbose is enabled.
+                            std::cerr << std::endl << l_ex.what() << std::endl;
+                        }
+                        break;
                     }
-                    catch (const std::exception& l_ex)
-                    {
-                        // TODO: Enable logging when verbose is enabled.
-                        std::cerr << l_ex.what() << std::endl;
-                    }
-                }
-                else if (types::UserOption::SkipCurrent == l_userSelectedOption)
-                {
-                    std::cout << std::endl
-                              << "Skipped the above record-keyword pair. "
-                                 "Continue to the next available pair."
-                              << std::endl;
-                }
-                else if (types::UserOption::Exit == l_userSelectedOption)
-                {
-                    std::cout << "Exit successfully" << std::endl;
-                    l_exit = true;
-                    break;
-                }
-                else
-                {
-                    std::cout << "Provide a valid option. Retrying for the "
-                                 "current record-keyword pair"
-                              << std::endl;
-                }
-            }
-            if (l_exit)
-            {
-                l_rc = constants::SUCCESS;
-                break;
-            }
-        } while (true);
+                    case types::UserOption::SkipCurrent:
+                        l_rc = constants::SUCCESS;
+                        std::cout << std::endl
+                                  << "Skipped the above record-keyword pair. "
+                                     "Continue to the next available pair."
+                                  << std::endl;
+                        break;
+                    case types::UserOption::Exit:
+                        std::cout << "Exit successfully" << std::endl;
+                        return constants::SUCCESS;
+                    default:
+                        l_runOnce = 1;
+                        std::cout << "Provide a valid option. Retrying for the "
+                                     "current record-keyword pair"
+                                  << std::endl;
+                } // end switch
+            } // end while
+        } // end for
     }
     catch (const std::exception& l_ex)
     {
