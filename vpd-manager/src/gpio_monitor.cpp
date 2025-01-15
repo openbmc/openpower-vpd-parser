@@ -42,7 +42,8 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
         }
         else
         {
-            // TODO -- Add implementation to Delete FRU if FRU is not present.
+            m_worker->deleteFruVpd(jsonUtility::getInventoryObjPathFromJson(
+                m_worker->getSysCfgJsonObj(), m_fruPath));
         }
     }
     catch (std::exception& l_ex)
