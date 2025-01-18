@@ -1,4 +1,5 @@
 #include "tool_constants.hpp"
+#include "tool_utils.hpp"
 #include "vpd_tool.hpp"
 
 #include <CLI/CLI.hpp>
@@ -43,51 +44,70 @@ int doMfgClean(const auto& i_mfgCleanConfirmFlag)
  * @param[in] i_recordName - Record to be updated.
  * @param[in] i_keywordName - Keyword to be updated.
  * @param[in] i_keywordValue - Value to be updated in keyword.
+ * @param[in] i_fileOption - Option to take keyword's value from file.
+ * @param[in] i_filePath - File path to take keyword's value.
  *
  * @return Status of writeKeyword operation, failure otherwise.
  */
 int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
                  const std::string& i_vpdPath, const std::string& i_recordName,
                  const std::string& i_keywordName,
-                 const std::string& i_keywordValue)
+                 const std::string& i_keywordValue, const auto& i_fileOption,
+                 const std::string& i_filePath)
 {
+    int l_rc = vpd::constants::FAILURE;
     std::error_code l_ec;
 
     if (!i_hardwareFlag->empty() && !std::filesystem::exists(i_vpdPath, l_ec))
     {
-        std::cerr << "Given EEPROM file path doesn't exist : " + i_vpdPath
-                  << std::endl;
-        return vpd::constants::FAILURE;
+        std::string l_message{
+            "Given EEPROM file path doesn't exist : " + i_vpdPath};
+        if (l_ec)
+        {
+            l_message = "filesystem call exists failed for file: " + i_vpdPath +
+                        ", error: " + l_ec.message();
+        }
+        std::cerr << l_message << std::endl;
+        return l_rc;
     }
 
-    if (l_ec)
+    if (!i_keywordValueOption->empty() && !i_fileOption->empty())
     {
-        std::cerr << "filesystem call exists failed for file: " << i_vpdPath
-                  << ", reason: " + l_ec.message() << std::endl;
-        return vpd::constants::FAILURE;
+        std::cerr
+            << "Please provide keyword value.\nUse either --value or --file to give "
+               "keyword value. Refer --help."
+            << std::endl;
+        return l_rc;
     }
-
-    if (!i_keywordValueOption->empty() && i_keywordValue.empty())
+    else if ((i_keywordValueOption->empty() && i_fileOption->empty()) ||
+             (!i_keywordValueOption->empty() && i_keywordValue.empty()) ||
+             (!i_fileOption->empty() && i_filePath.empty()))
     {
         std::cerr
             << "Please provide keyword value.\nUse --value/--file to give "
                "keyword value. Refer --help."
             << std::endl;
-        return vpd::constants::FAILURE;
+        return l_rc;
     }
 
-    if (i_keywordValueOption->empty())
+    std::string l_keywordValue = i_keywordValue;
+
+    if (!i_filePath.empty())
     {
-        std::cerr
-            << "Please provide keyword value.\nUse --value/--file to give "
-               "keyword value. Refer --help."
-            << std::endl;
-        return vpd::constants::FAILURE;
+        try
+        {
+            l_keywordValue = vpd::utils::readValueFromFile(i_filePath);
+        }
+        catch (const std::exception& l_ex)
+        {
+            std::cerr << l_ex.what() << std::endl;
+            return l_rc;
+        }
     }
 
     vpd::VpdTool l_vpdToolObj;
     return l_vpdToolObj.writeKeyword(i_vpdPath, i_recordName, i_keywordName,
-                                     i_keywordValue, !i_hardwareFlag->empty());
+                                     l_keywordValue, !i_hardwareFlag->empty());
 }
 
 /**
@@ -236,9 +256,8 @@ int main(int argc, char** argv)
     auto l_keywordOption =
         l_app.add_option("--keyword, -K", l_keywordName, "Keyword name");
 
-    // Enable when file option is implemented.
-    /*auto l_fileOption = l_app.add_option("--file", l_filePath,
-                                         "Absolute file path");*/
+    auto l_fileOption =
+        l_app.add_option("--file", l_filePath, "Absolute file path");
 
     auto l_keywordValueOption =
         l_app.add_option("--value, -V", l_keywordValue,
@@ -304,7 +323,8 @@ int main(int argc, char** argv)
     if (!l_writeFlag->empty())
     {
         return writeKeyword(l_hardwareFlag, l_keywordValueOption, l_vpdPath,
-                            l_recordName, l_keywordName, l_keywordValue);
+                            l_recordName, l_keywordName, l_keywordValue,
+                            l_fileOption, l_filePath);
     }
 
     if (!l_dumpObjFlag->empty())
