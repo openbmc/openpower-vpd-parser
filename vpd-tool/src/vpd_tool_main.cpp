@@ -1,4 +1,5 @@
 #include "tool_constants.hpp"
+#include "tool_utils.hpp"
 #include "vpd_tool.hpp"
 
 #include <CLI/CLI.hpp>
@@ -145,13 +146,16 @@ int readKeyword(const auto& i_hardwareFlag, const std::string& i_vpdPath,
  * @param[in] i_recordName - Record name.
  * @param[in] i_keywordOption - Option to pass keyword name.
  * @param[in] i_keywordName - Keyword name.
+ * @param[in] i_fileOption - Option to pass file path.
+ * @param[in] i_filePath - File path.
  *
  * @return Success if corresponding value is found against option, failure
  * otherwise.
  */
 int checkOptionValuePair(const auto& i_objectOption, const auto& i_vpdPath,
                          const auto& i_recordOption, const auto& i_recordName,
-                         const auto& i_keywordOption, const auto& i_keywordName)
+                         const auto& i_keywordOption, const auto& i_keywordName,
+                         const auto& i_fileOption, const auto& i_filePath)
 {
     if (!i_objectOption->empty() && i_vpdPath.empty())
     {
@@ -172,6 +176,12 @@ int checkOptionValuePair(const auto& i_objectOption, const auto& i_vpdPath,
     {
         std::cerr << "Keyword " << i_keywordName << " is not supported."
                   << std::endl;
+        return vpd::constants::FAILURE;
+    }
+
+    if (!i_fileOption->empty() && i_filePath.empty())
+    {
+        std::cout << "File path is empty." << std::endl;
         return vpd::constants::FAILURE;
     }
 
@@ -242,9 +252,8 @@ int main(int argc, char** argv)
     auto l_keywordOption =
         l_app.add_option("--keyword, -K", l_keywordName, "Keyword name");
 
-    // Enable when file option is implemented.
-    /*auto l_fileOption = l_app.add_option("--file", l_filePath,
-                                         "Absolute file path");*/
+    auto l_fileOption =
+        l_app.add_option("--file", l_filePath, "Absolute file path");
 
     auto l_keywordValueOption =
         l_app.add_option("--value, -V", l_keywordValue,
@@ -299,7 +308,8 @@ int main(int argc, char** argv)
     CLI11_PARSE(l_app, argc, argv);
 
     if (checkOptionValuePair(l_objectOption, l_vpdPath, l_recordOption,
-                             l_recordName, l_keywordOption, l_keywordName) ==
+                             l_recordName, l_keywordOption, l_keywordName,
+                             l_fileOption, l_filePath) ==
         vpd::constants::FAILURE)
     {
         return vpd::constants::FAILURE;
@@ -313,6 +323,28 @@ int main(int argc, char** argv)
 
     if (!l_writeFlag->empty())
     {
+        if ((l_keywordValueOption->empty() && l_fileOption->empty()) ||
+            (!l_keywordValueOption->empty() && !l_fileOption->empty()))
+        {
+            std::cerr
+                << "Please provide keyword value.\nUse --value/--file to give "
+                   "keyword value. Refer --help."
+                << std::endl;
+            return vpd::constants::FAILURE;
+        }
+
+        if (!l_fileOption->empty())
+        {
+            l_keywordValue = vpd::utils::readValueFromFile(l_filePath);
+            if (l_keywordValue.empty())
+            {
+                return vpd::constants::FAILURE;
+            }
+
+            return writeKeyword(l_hardwareFlag, l_fileOption, l_vpdPath,
+                                l_recordName, l_keywordName, l_keywordValue);
+        }
+
         return writeKeyword(l_hardwareFlag, l_keywordValueOption, l_vpdPath,
                             l_recordName, l_keywordName, l_keywordValue);
     }
