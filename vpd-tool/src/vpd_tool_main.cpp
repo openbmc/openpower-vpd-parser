@@ -1,4 +1,5 @@
 #include "tool_constants.hpp"
+#include "tool_utils.hpp"
 #include "vpd_tool.hpp"
 
 #include <CLI/CLI.hpp>
@@ -41,6 +42,66 @@ int doMfgClean(const auto& i_mfgCleanConfirmFlag,
 /**
  * @brief API to write keyword's value.
  *
+ * Note: The API gets the keyword's value by reading the file to update the
+ * value.
+ *
+ * @param[in] i_hardwareFlag - Flag to perform write on hardware.
+ * @param[in] i_vpdPath - DBus object path or EEPROM path.
+ * @param[in] i_recordName - Record to be updated.
+ * @param[in] i_keywordName - Keyword to be updated.
+ * @param[in] i_filePath - File path to take keyword's value.
+ *
+ * @return On success returns 0, otherwise returns -1.
+ */
+int writeKeyword(const auto& i_hardwareFlag, const std::string& i_vpdPath,
+                 const std::string& i_recordName,
+                 const std::string& i_keywordName,
+                 const std::string& i_filePath)
+{
+    if (i_filePath.empty())
+    {
+        std::cerr
+            << "Please provide keyword value.\nUse --value/--file to give "
+               "keyword value. Refer --help."
+            << std::endl;
+        return vpd::constants::FAILURE;
+    }
+
+    std::error_code l_ec;
+
+    if (!i_hardwareFlag->empty() && !std::filesystem::exists(i_vpdPath, l_ec))
+    {
+        std::cerr << "Given EEPROM file path doesn't exist : " + i_vpdPath
+                  << std::endl;
+
+        if (l_ec)
+        {
+            std::cerr << "filesystem call exists failed, error: " +
+                             l_ec.message()
+                      << std::endl;
+        }
+        return vpd::constants::FAILURE;
+    }
+
+    std::string l_keywordValue;
+    try
+    {
+        l_keywordValue = vpd::utils::readValueFromFile(i_filePath);
+    }
+    catch (const std::exception& l_ex)
+    {
+        std::cerr << l_ex.what() << std::endl;
+        return vpd::constants::FAILURE;
+    }
+
+    vpd::VpdTool l_vpdToolObj;
+    return l_vpdToolObj.writeKeyword(i_vpdPath, i_recordName, i_keywordName,
+                                     l_keywordValue, !i_hardwareFlag->empty());
+}
+
+/**
+ * @brief API to write keyword's value.
+ *
  * @param[in] i_hardwareFlag - Flag to perform write on hardware.
  * @param[in] i_keywordValueOption - Option to read keyword value from command.
  * @param[in] i_vpdPath - DBus object path or EEPROM path.
@@ -48,7 +109,7 @@ int doMfgClean(const auto& i_mfgCleanConfirmFlag,
  * @param[in] i_keywordName - Keyword to be updated.
  * @param[in] i_keywordValue - Value to be updated in keyword.
  *
- * @return Status of writeKeyword operation, failure otherwise.
+ * @return On success returns 0, otherwise returns -1.
  */
 int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
                  const std::string& i_vpdPath, const std::string& i_recordName,
@@ -61,13 +122,13 @@ int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
     {
         std::cerr << "Given EEPROM file path doesn't exist : " + i_vpdPath
                   << std::endl;
-        return vpd::constants::FAILURE;
-    }
 
-    if (l_ec)
-    {
-        std::cerr << "filesystem call exists failed for file: " << i_vpdPath
-                  << ", reason: " + l_ec.message() << std::endl;
+        if (l_ec)
+        {
+            std::cerr << "filesystem call exists failed, error: " +
+                             l_ec.message()
+                      << std::endl;
+        }
         return vpd::constants::FAILURE;
     }
 
@@ -145,13 +206,16 @@ int readKeyword(const auto& i_hardwareFlag, const std::string& i_vpdPath,
  * @param[in] i_recordName - Record name.
  * @param[in] i_keywordOption - Option to pass keyword name.
  * @param[in] i_keywordName - Keyword name.
+ * @param[in] i_fileOption - Option to pass file path.
+ * @param[in] i_filePath - File path.
  *
  * @return Success if corresponding value is found against option, failure
  * otherwise.
  */
 int checkOptionValuePair(const auto& i_objectOption, const auto& i_vpdPath,
                          const auto& i_recordOption, const auto& i_recordName,
-                         const auto& i_keywordOption, const auto& i_keywordName)
+                         const auto& i_keywordOption, const auto& i_keywordName,
+                         const auto& i_fileOption, const auto& i_filePath)
 {
     if (!i_objectOption->empty() && i_vpdPath.empty())
     {
@@ -172,6 +236,12 @@ int checkOptionValuePair(const auto& i_objectOption, const auto& i_vpdPath,
     {
         std::cerr << "Keyword " << i_keywordName << " is not supported."
                   << std::endl;
+        return vpd::constants::FAILURE;
+    }
+
+    if (!i_fileOption->empty() && i_filePath.empty())
+    {
+        std::cout << "File path is empty." << std::endl;
         return vpd::constants::FAILURE;
     }
 
@@ -242,9 +312,8 @@ int main(int argc, char** argv)
     auto l_keywordOption =
         l_app.add_option("--keyword, -K", l_keywordName, "Keyword name");
 
-    // Enable when file option is implemented.
-    /*auto l_fileOption = l_app.add_option("--file", l_filePath,
-                                         "Absolute file path");*/
+    auto l_fileOption =
+        l_app.add_option("--file", l_filePath, "Absolute file path");
 
     auto l_keywordValueOption =
         l_app.add_option("--value, -V", l_keywordValue,
@@ -299,7 +368,8 @@ int main(int argc, char** argv)
     CLI11_PARSE(l_app, argc, argv);
 
     if (checkOptionValuePair(l_objectOption, l_vpdPath, l_recordOption,
-                             l_recordName, l_keywordOption, l_keywordName) ==
+                             l_recordName, l_keywordOption, l_keywordName,
+                             l_fileOption, l_filePath) ==
         vpd::constants::FAILURE)
     {
         return vpd::constants::FAILURE;
@@ -313,6 +383,22 @@ int main(int argc, char** argv)
 
     if (!l_writeFlag->empty())
     {
+        if ((l_keywordValueOption->empty() && l_fileOption->empty()) ||
+            (!l_keywordValueOption->empty() && !l_fileOption->empty()))
+        {
+            std::cerr
+                << "Please provide keyword value.\nUse --value/--file to give "
+                   "keyword value. Refer --help."
+                << std::endl;
+            return vpd::constants::FAILURE;
+        }
+
+        if (!l_fileOption->empty())
+        {
+            return writeKeyword(l_hardwareFlag, l_vpdPath, l_recordName,
+                                l_keywordName, l_filePath);
+        }
+
         return writeKeyword(l_hardwareFlag, l_keywordValueOption, l_vpdPath,
                             l_recordName, l_keywordName, l_keywordValue);
     }
