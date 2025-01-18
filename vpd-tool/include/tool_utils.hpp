@@ -767,5 +767,72 @@ class Table
     }
 };
 
+/**
+ * @brief API to read value from file.
+ *
+ * The API reads the file and returns the read value.
+ *
+ * @param[in] i_filePath - File path.
+ *
+ * @return - Value read, otherise empty string in case of any error.
+ *
+ */
+inline std::string readValueFromFile(const std::string& i_filePath)
+{
+    std::string l_valueRead{};
+
+    std::error_code l_ec;
+    if (!std::filesystem::exists(i_filePath, l_ec))
+    {
+        std::string l_message{
+            "filesystem call exists failed for file [" + i_filePath + "]."};
+
+        if (l_ec)
+        {
+            l_message += " Error: " + l_ec.message();
+        }
+
+        std::cerr << l_message << std::endl;
+        return l_valueRead;
+    }
+
+    if (std::filesystem::is_empty(i_filePath, l_ec))
+    {
+        std::cerr << "File[" << i_filePath << "] is empty." << std::endl;
+        return l_valueRead;
+    }
+    else if (l_ec)
+    {
+        std::cerr << "is_empty file system call failed for file[" << i_filePath
+                  << "] , error: " << l_ec.message() << std::endl;
+
+        return l_valueRead;
+    }
+
+    std::ifstream l_fileStream;
+    l_fileStream.exceptions(std::ifstream::badbit | std::ifstream::failbit);
+    try
+    {
+        l_fileStream.open(i_filePath, std::ifstream::in);
+
+        std::getline(l_fileStream, l_valueRead);
+
+        l_fileStream.close();
+        return l_valueRead;
+    }
+    catch (const std::ifstream::failure& l_ex)
+    {
+        if (l_fileStream.is_open())
+        {
+            l_fileStream.close();
+        }
+
+        std::cerr << "File read operation failed for path[" << i_filePath
+                  << "], error: " << l_ex.what() << std::endl;
+    }
+
+    return l_valueRead;
+}
+
 } // namespace utils
 } // namespace vpd
