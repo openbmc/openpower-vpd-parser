@@ -771,5 +771,71 @@ class Table
     }
 };
 
+/**
+ * @brief API to read value from file.
+ *
+ * The API reads the file and returns the read value.
+ *
+ * @param[in] i_filePath - File path.
+ *
+ * @return - Value read.
+ *
+ * @throw std::runtime_error
+ */
+inline std::string readValueFromFile(const std::string& i_filePath)
+{
+    std::error_code l_ec;
+    if (!std::filesystem::exists(i_filePath, l_ec))
+    {
+        std::string l_message{
+            "filesystem call exists failed for file [" + i_filePath + "]."};
+
+        if (l_ec)
+        {
+            l_message += " Error: " + l_ec.message();
+        }
+
+        throw std::runtime_error(l_message);
+    }
+
+    if (std::filesystem::is_empty(i_filePath, l_ec))
+    {
+        throw std::runtime_error("Empty file: " + i_filePath);
+    }
+    else if (l_ec)
+    {
+        throw std::runtime_error("is_empty file system call failed for file: " +
+                                 i_filePath + ", error: " + l_ec.message());
+    }
+
+    std::ifstream l_fileStream;
+    l_fileStream.exceptions(std::ifstream::badbit | std::ifstream::failbit);
+    try
+    {
+        l_fileStream.open(i_filePath, std::ifstream::in);
+
+        if (l_fileStream.is_open())
+        {
+            std::string l_valueRead;
+
+            std::getline(l_fileStream, l_valueRead);
+
+            l_fileStream.close();
+            return l_valueRead;
+        }
+        throw std::runtime_error("Error while opening the file " + i_filePath);
+    }
+    catch (const std::ios_base::failure& l_ex)
+    {
+        if (l_fileStream.is_open())
+        {
+            l_fileStream.close();
+        }
+
+        throw std::runtime_error("File read operation failed for path[" +
+                                 i_filePath + "], error: " + l_ex.what());
+    }
+}
+
 } // namespace utils
 } // namespace vpd
