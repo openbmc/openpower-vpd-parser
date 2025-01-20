@@ -73,17 +73,17 @@ int VpdTool::readKeyword(
         else
         {
             // TODO: Enable logging when verbose is enabled.
-            // std::cout << "Invalid data type or empty data received." <<
-            // std::endl;
+            std::cout << "Invalid data type or empty data received."
+                      << std::endl;
         }
     }
     catch (const std::exception& l_ex)
     {
         // TODO: Enable logging when verbose is enabled.
-        /*std::cerr << "Read keyword's value for path: " << i_vpdPath
+        std::cerr << "Read keyword's value for path: " << i_vpdPath
                   << ", Record: " << i_recordName
                   << ", Keyword: " << i_keywordName
-                  << " is failed, exception: " << l_ex.what() << std::endl;*/
+                  << " is failed, exception: " << l_ex.what() << std::endl;
     }
     return l_rc;
 }
@@ -249,15 +249,15 @@ nlohmann::json VpdTool::getInventoryPropertyJson(
         else
         {
             // TODO: Enable logging when verbose is enabled.
-            // std::cout << "Invalid data type received." << std::endl;
+            std::cout << "Invalid data type received." << std::endl;
         }
     }
     catch (const std::exception& l_ex)
     {
         // TODO: Enable logging when verbose is enabled.
-        /*std::cerr << "Read " << i_propertyName << " value for FRU path: " <<
-           i_objectPath
-                  << ", failed with exception: " << l_ex.what() << std::endl;*/
+        std::cerr << "Read " << i_propertyName
+                  << " value for FRU path: " << i_objectPath
+                  << ", failed with exception: " << l_ex.what() << std::endl;
     }
     return l_resultInJson;
 }
