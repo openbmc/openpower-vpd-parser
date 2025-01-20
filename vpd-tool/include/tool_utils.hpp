@@ -376,10 +376,6 @@ inline int
 
     l_result.read(l_rc);
 
-    if (l_rc > 0)
-    {
-        std::cout << "Data updated successfully " << std::endl;
-    }
     return l_rc;
 }
 
@@ -540,7 +536,7 @@ inline types::MapperGetObject GetServiceInterfacesForObject(
     catch (const sdbusplus::exception::SdBusError& l_ex)
     {
         // TODO: log only when verbose is enabled
-        // std::cerr << std::string(l_ex.what()) << std::endl;
+        std::cerr << std::string(l_ex.what()) << std::endl;
     }
     return l_serviceInfMap;
 }
