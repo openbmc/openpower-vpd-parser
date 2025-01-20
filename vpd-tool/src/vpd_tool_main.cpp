@@ -103,7 +103,7 @@ int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
  * @param[in] i_keywordName - Keyword to be updated.
  * @param[in] i_filePath - File path to save keyword's read value.
  *
- * @return Status of readKeyword operation, failure otherwise.
+ * @return On success return 0, otherwise return -1.
  */
 int readKeyword(const auto& i_hardwareFlag, const std::string& i_vpdPath,
                 const std::string& i_recordName,
