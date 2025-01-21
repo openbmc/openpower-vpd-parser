@@ -146,23 +146,14 @@ void Worker::performInitialSetup()
         // some reason at system power on.
         return;
     }
-    catch (const std::exception& ex)
+    catch (const std::exception& l_ex)
     {
-        if (typeid(ex) == std::type_index(typeid(DataException)))
-        {
-            // TODO:Catch logic to be implemented once PEL code goes in.
-        }
-        else if (typeid(ex) == std::type_index(typeid(EccException)))
-        {
-            // TODO:Catch logic to be implemented once PEL code goes in.
-        }
-        else if (typeid(ex) == std::type_index(typeid(JsonException)))
-        {
-            // TODO:Catch logic to be implemented once PEL code goes in.
-        }
-
-        logging::logMessage(ex.what());
-        throw;
+        // Any issue in system's inital set up is handled in this catch. Error
+        // will not propogate to manager.
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Critical,
+            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
 }
 #endif
@@ -302,57 +293,9 @@ void Worker::fillVPDMap(const std::string& vpdFilePath,
         throw std::runtime_error("Can't Find physical file");
     }
 
-    try
-    {
-        std::shared_ptr<Parser> vpdParser =
-            std::make_shared<Parser>(vpdFilePath, m_parsedJson);
-        vpdMap = vpdParser->parse();
-    }
-    catch (const std::exception& ex)
-    {
-        if (typeid(ex) == std::type_index(typeid(DataException)))
-        {
-            // TODO: Do what needs to be done in case of Data exception.
-            // Uncomment when PEL implementation goes in.
-            /* string errorMsg =
-                 "VPD file is either empty or invalid. Parser failed for [";
-             errorMsg += m_vpdFilePath;
-             errorMsg += "], with error = " + std::string(ex.what());
-
-             additionalData.emplace("DESCRIPTION", errorMsg);
-             additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                                    INVENTORY_PATH + baseFruInventoryPath);
-             createPEL(additionalData, pelSeverity, errIntfForInvalidVPD,
-             nullptr);*/
-
-            // throw generic error from here to inform main caller about
-            // failure.
-            logging::logMessage(ex.what());
-            throw std::runtime_error(
-                "Data Exception occurred for file path = " + vpdFilePath);
-        }
-
-        if (typeid(ex) == std::type_index(typeid(EccException)))
-        {
-            // TODO: Do what needs to be done in case of ECC exception.
-            // Uncomment when PEL implementation goes in.
-            /* additionalData.emplace("DESCRIPTION", "ECC check failed");
-             additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                                    INVENTORY_PATH + baseFruInventoryPath);
-             createPEL(additionalData, pelSeverity, errIntfForEccCheckFail,
-                       nullptr);
-             */
-
-            logging::logMessage(ex.what());
-            // Need to decide once all error handling is implemented.
-            // vpdSpecificUtility::dumpBadVpd(vpdFilePath,vpdVector);
-
-            // throw generic error from here to inform main caller about
-            // failure.
-            throw std::runtime_error(
-                "Ecc Exception occurred for file path = " + vpdFilePath);
-        }
-    }
+    std::shared_ptr<Parser> vpdParser =
+        std::make_shared<Parser>(vpdFilePath, m_parsedJson);
+    vpdMap = vpdParser->parse();
 }
 
 void Worker::getSystemJson(std::string& systemJson,
@@ -408,7 +351,8 @@ void Worker::getSystemJson(std::string& systemJson,
         return;
     }
 
-    throw DataException("Invalid VPD type returned from Parser");
+    throw DataException(
+        "Invalid VPD type returned from Parser. Can't get system JSON.");
 }
 
 static void setEnvAndReboot(const std::string& key, const std::string& value)
@@ -507,7 +451,7 @@ void Worker::setDeviceTreeAndJson()
     // JSON is madatory for processing of this API.
     if (m_parsedJson.empty())
     {
-        throw std::runtime_error("JSON is empty");
+        throw JsonException("System config JSON is empty", m_configJsonPath);
     }
 
     types::VPDMapVariant parsedVpdMap;
@@ -524,8 +468,8 @@ void Worker::setDeviceTreeAndJson()
 
     if (!systemJson.compare(JSON_ABSOLUTE_PATH_PREFIX))
     {
-        // TODO: Log a PEL saying that "System type not supported"
-        throw DataException("Error in getting system JSON.");
+        throw DataException(
+            "No system JSON found corresponding to IM read from VPD.");
     }
 
     // re-parse the JSON once appropriate JSON has been selected.
@@ -543,10 +487,12 @@ void Worker::setDeviceTreeAndJson()
 
         if (devTreeFromJson.empty())
         {
-            // TODO:: Log a predictive PEL
-            logging::logMessage(
+            EventLogger::createSyncPel(
+                types::ErrorType::JsonFailure, types::SeverityType::Error,
+                __FILE__, __FUNCTION__, 0,
                 "Mandatory value for device tree missing from JSON[" +
-                std::string(INVENTORY_JSON_SYM_LINK) + "]");
+                    systemJson + "]",
+                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
         }
     }
 
@@ -1279,7 +1225,7 @@ void Worker::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
                 if (l_itrToSystemPath == objectInterfaceMap.end())
                 {
                     throw std::runtime_error(
-                        "System Path not found in object map.");
+                        "Asset tag update failed. System Path not found in object map.");
                 }
 
                 types::PropertyMap l_assetTagProperty;
@@ -1293,10 +1239,8 @@ void Worker::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
         catch (const std::exception& l_ex)
         {
             EventLogger::createSyncPel(
-                types::ErrorType::InvalidVpdMessage,
-                types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
-                "Asset tag update failed with following error: " +
-                    std::string(l_ex.what()),
+                EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
+                __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
                 std::nullopt, std::nullopt, std::nullopt, std::nullopt);
         }
 
@@ -1732,7 +1676,7 @@ void Worker::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
     catch (const std::exception& l_ex)
     {
         EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
+            EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
             __FILE__, __FUNCTION__, 0,
             std::string(
                 "Exception caught while backup and restore VPD keyword's.") +

@@ -184,7 +184,7 @@ class Worker
      * If device tree change is required, it updates the "fitconfig" and reboots
      * the system. Else it is NOOP.
      *
-     * @throw std::runtime_error
+     * @throw std::exception
      */
     void setDeviceTreeAndJson();
 
@@ -221,6 +221,8 @@ class Worker
 
     /**
      * @brief An API to parse given VPD file path.
+     *
+     * @throw std::exception
      *
      * @param[in] vpdFilePath - EEPROM file path.
      * @param[out] parsedVpd - Parsed VPD as a map.
