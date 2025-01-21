@@ -146,23 +146,18 @@ void Worker::performInitialSetup()
         // some reason at system power on.
         return;
     }
-    catch (const std::exception& ex)
+    catch (const std::exception& l_ex)
     {
-        if (typeid(ex) == std::type_index(typeid(DataException)))
-        {
-            // TODO:Catch logic to be implemented once PEL code goes in.
-        }
-        else if (typeid(ex) == std::type_index(typeid(EccException)))
-        {
-            // TODO:Catch logic to be implemented once PEL code goes in.
-        }
-        else if (typeid(ex) == std::type_index(typeid(JsonException)))
-        {
-            // TODO:Catch logic to be implemented once PEL code goes in.
-        }
+        // Any issue in system's inital set up is handled in this catch. Error
+        // will not propogate to manager.
+        std::tuple<types::ErrorType, std::string> l_errInfoTuple =
+            vpdSpecificUtility::processException(l_ex);
 
-        logging::logMessage(ex.what());
-        throw;
+        EventLogger::createSyncPel(
+            std::get<0>(l_errInfoTuple), types::SeverityType::Critical,
+            __FILE__, __FUNCTION__, 0,
+            std::get<1>(l_errInfoTuple) + l_ex.what(), std::nullopt,
+            std::nullopt, std::nullopt, std::nullopt);
     }
 }
 #endif
@@ -302,42 +297,9 @@ void Worker::fillVPDMap(const std::string& vpdFilePath,
         throw std::runtime_error("Can't Find physical file");
     }
 
-    try
-    {
-        std::shared_ptr<Parser> vpdParser =
-            std::make_shared<Parser>(vpdFilePath, m_parsedJson);
-        vpdMap = vpdParser->parse();
-    }
-    catch (const std::exception& ex)
-    {
-        auto l_exceptionData = vpdSpecificUtility::getExceptionData(ex);
-        std::string l_error(ex.what());
-        if (std::get_if<std::string>(&l_exceptionData["ErrorMsg"]) &&
-            std::get_if<types::ErrorType>(&l_exceptionData["ErrorType"]))
-        {
-            l_error = *(std::get_if<std::string>(&l_exceptionData["ErrorMsg"]));
-            std::string l_errorMsg{
-                "VPD Parser failed for [" + vpdFilePath + "], " + l_error};
-            // ToDo -- Update Internal Rc code.
-            EventLogger::createAsyncPelWithInventoryCallout(
-                *(std::get_if<types::ErrorType>(&l_exceptionData["ErrorType"])),
-                types::SeverityType::Informational,
-                {{jsonUtility::getInventoryObjPathFromJson(m_parsedJson,
-                                                           vpdFilePath),
-                  types::CalloutPriority::High}},
-                std::source_location::current().file_name(),
-                std::source_location::current().function_name(), 0, l_errorMsg,
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
-        }
-        if (typeid(ex) == std::type_index(typeid(EccException)))
-        {
-            // TODO: Do what needs to be done in case of ECC exception.
-            // Need to decide once all error handling is implemented.
-            // vpdSpecificUtility::dumpBadVpd(vpdFilePath,vpdVector);
-        }
-        logging::logMessage(l_error);
-        throw std::runtime_error(l_error + ", for file path = " + vpdFilePath);
-    }
+    std::shared_ptr<Parser> vpdParser =
+        std::make_shared<Parser>(vpdFilePath, m_parsedJson);
+    vpdMap = vpdParser->parse();
 }
 
 void Worker::getSystemJson(std::string& systemJson,
