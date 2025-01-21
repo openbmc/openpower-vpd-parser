@@ -40,19 +40,16 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount) :
             m_isSymlinkPresent = true;
         }
 
-        try
-        {
-            m_parsedJson = jsonUtility::getParsedJson(m_configJsonPath);
+        m_parsedJson = jsonUtility::getParsedJson(m_configJsonPath);
 
-            // check for mandatory fields at this point itself.
-            if (!m_parsedJson.contains("frus"))
-            {
-                throw std::runtime_error("Mandatory tag(s) missing from JSON");
-            }
-        }
-        catch (const std::exception& ex)
+        // check for mandatory fields at this point itself.
+        if (!m_parsedJson.contains("frus"))
         {
-            throw(JsonException(ex.what(), m_configJsonPath));
+            EventLogger::createSyncPel(
+                types::ErrorType::InternalFailure,
+                types::SeverityType::Critical, __FILE__, __FUNCTION__, 0,
+                "Mandatory tag(s) missing from JSON", std::nullopt,
+                std::nullopt, std::nullopt, std::nullopt);
         }
     }
     else
@@ -66,8 +63,8 @@ void Worker::enableMuxChips()
     if (m_parsedJson.empty())
     {
         // config JSON should not be empty at this point of execution.
-        throw std::runtime_error("Config JSON is empty. Can't enable muxes");
-        return;
+        throw jsonException("Config JSON is empty. Can't enable muxes",
+                            m_configJsonPath);
     }
 
     if (!m_parsedJson.contains("muxes"))
@@ -90,8 +87,9 @@ void Worker::enableMuxChips()
             continue;
         }
 
-        logging::logMessage(
-            "Mux Entry does not have hold idle path. Can't enable the mux");
+        throw jsonException(
+            "Mux Entry does not have hold idle path. Can't enable the mux",
+            m_configJsonPath);
     }
 }
 
@@ -146,23 +144,15 @@ void Worker::performInitialSetup()
         // some reason at system power on.
         return;
     }
-    catch (const std::exception& ex)
+    catch (const std::exception& l_ex)
     {
-        if (typeid(ex) == std::type_index(typeid(DataException)))
-        {
-            // TODO:Catch logic to be implemented once PEL code goes in.
-        }
-        else if (typeid(ex) == std::type_index(typeid(EccException)))
-        {
-            // TODO:Catch logic to be implemented once PEL code goes in.
-        }
-        else if (typeid(ex) == std::type_index(typeid(JsonException)))
-        {
-            // TODO:Catch logic to be implemented once PEL code goes in.
-        }
-
-        logging::logMessage(ex.what());
-        throw;
+        // Any issue in system's inital set up is handled in this catch. Error
+        // will not propogate to manager.
+        EventLogger::createSyncPel(
+            vpdSpecificUtility::getErrorType(l_ex),
+            types::SeverityType::Critical, __FILE__, __FUNCTION__, 0,
+            vpdSpecificUtility::getErrorMsg(l_ex), std::nullopt, std::nullopt,
+            std::nullopt, std::nullopt);
     }
 }
 #endif
@@ -302,64 +292,9 @@ void Worker::fillVPDMap(const std::string& vpdFilePath,
         throw std::runtime_error("Can't Find physical file");
     }
 
-    try
-    {
-        std::shared_ptr<Parser> vpdParser =
-            std::make_shared<Parser>(vpdFilePath, m_parsedJson);
-        vpdMap = vpdParser->parse();
-    }
-    catch (const std::exception& ex)
-    {
-        if (typeid(ex) == std::type_index(typeid(DataException)) ||
-            typeid(ex) == std::type_index(typeid(EccException)))
-        {
-            if (auto l_exceptionData = vpdSpecificUtility::getExceptionData(ex);
-                !l_exceptionData.empty())
-            {
-                std::string l_errorMsg{
-                    "VPD Parser failed for [" + vpdFilePath + "], " +
-                    *(std::get_if<std::string>(&l_exceptionData["ErrorMsg"]))};
-
-                // ToDo -- Update Internal Rc code.
-                EventLogger::createAsyncPelWithInventoryCallout(
-                    *(std::get_if<types::ErrorType>(
-                        &l_exceptionData["ErrorType"])),
-                    types::SeverityType::Informational,
-                    {{jsonUtility::getInventoryObjPathFromJson(m_parsedJson,
-                                                               vpdFilePath),
-                      types::CalloutPriority::High}},
-                    std::source_location::current().file_name(),
-                    std::source_location::current().function_name(), 0,
-                    l_errorMsg, std::nullopt, std::nullopt, std::nullopt,
-                    std::nullopt);
-            }
-        }
-
-        if (typeid(ex) == std::type_index(typeid(DataException)))
-        {
-            // TODO: Do what needs to be done in case of Data exception.
-
-            // throw generic error from here to inform main caller about
-            // failure.
-            logging::logMessage(ex.what());
-            throw std::runtime_error(
-                "Data Exception occurred for file path = " + vpdFilePath);
-        }
-
-        if (typeid(ex) == std::type_index(typeid(EccException)))
-        {
-            // TODO: Do what needs to be done in case of ECC exception.
-
-            logging::logMessage(ex.what());
-            // Need to decide once all error handling is implemented.
-            // vpdSpecificUtility::dumpBadVpd(vpdFilePath,vpdVector);
-
-            // throw generic error from here to inform main caller about
-            // failure.
-            throw std::runtime_error(
-                "Ecc Exception occurred for file path = " + vpdFilePath);
-        }
-    }
+    std::shared_ptr<Parser> vpdParser =
+        std::make_shared<Parser>(vpdFilePath, m_parsedJson);
+    vpdMap = vpdParser->parse();
 }
 
 void Worker::getSystemJson(std::string& systemJson,
@@ -478,7 +413,7 @@ void Worker::setDeviceTreeAndJson()
     // JSON is madatory for processing of this API.
     if (m_parsedJson.empty())
     {
-        throw std::runtime_error("JSON is empty");
+        throw JsonException("JSON is empty", m_configJsonPath);
     }
 
     types::VPDMapVariant parsedVpdMap;
@@ -1253,10 +1188,10 @@ void Worker::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
         catch (const std::exception& l_ex)
         {
             EventLogger::createSyncPel(
-                types::ErrorType::InvalidVpdMessage,
-                types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+                vpdSpecificUtility::getErrorType(l_ex),
+                types::SeverityType::Critical, __FILE__, __FUNCTION__, 0,
                 "Asset tag update failed with following error: " +
-                    std::string(l_ex.what()),
+                    vpdSpecificUtility::getErrorType(l_ex),
                 std::nullopt, std::nullopt, std::nullopt, std::nullopt);
         }
 
@@ -1661,7 +1596,7 @@ void Worker::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
 
         if (l_backupAndRestoreCfgJsonObj.empty())
         {
-            throw JsonException("JSON parsing failed",
+            throw JsonException("JSON parsing failed. Skip backup and restore",
                                 l_backupAndRestoreCfgFilePath);
         }
 
@@ -1692,11 +1627,8 @@ void Worker::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
     catch (const std::exception& l_ex)
     {
         EventLogger::createSyncPel(
-            types::ErrorType::InvalidVpdMessage,
-            types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
-            std::string(
-                "Exception caught while backup and restore VPD keyword's.") +
-                l_ex.what(),
+            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
+            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
 }
