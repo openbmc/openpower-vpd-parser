@@ -146,23 +146,37 @@ void Worker::performInitialSetup()
         // some reason at system power on.
         return;
     }
-    catch (const std::exception& ex)
+    catch (const std::exception& l_ex)
     {
-        if (typeid(ex) == std::type_index(typeid(DataException)))
+        // Any issue is system inital set up is handled in this catch. Service
+        // is not blocked for these errors.
+
+        types::ErrorType l_errType = types::ErrorType::InvalidSystem;
+        types::SeverityType l_sevType = types::SeverityType::Critical;
+        std::string l_errMsg;
+
+        if (typeid(l_ex) == std::type_index(typeid(DataException)))
         {
-            // TODO:Catch logic to be implemented once PEL code goes in.
+            l_errType = types::ErrorType::InvalidVpdMessage;
+            l_errMsg =
+                "Data Exception occurred for system VPD file path with error = ";
         }
-        else if (typeid(ex) == std::type_index(typeid(EccException)))
+        else if (typeid(l_ex) == std::type_index(typeid(EccException)))
         {
-            // TODO:Catch logic to be implemented once PEL code goes in.
+            l_errType = types::ErrorType::EccCheckFailed;
+            l_errMsg =
+                "ECC Exception occurred for system VPD file path with error = ";
         }
-        else if (typeid(ex) == std::type_index(typeid(JsonException)))
+        else if (typeid(l_ex) == std::type_index(typeid(JsonException)))
         {
-            // TODO:Catch logic to be implemented once PEL code goes in.
+            l_errType = types::ErrorType::JsonFailure;
+            l_errMsg =
+                "Json Exception occurred for system VPD file path with error = ";
         }
 
-        logging::logMessage(ex.what());
-        throw;
+        EventLogger::createSyncPel(l_errType, l_sevType, __FILE__, __FUNCTION__,
+                                   0, l_errMsg + l_ex.what(), std::nullopt,
+                                   std::nullopt, std::nullopt, std::nullopt);
     }
 }
 #endif
@@ -302,57 +316,9 @@ void Worker::fillVPDMap(const std::string& vpdFilePath,
         throw std::runtime_error("Can't Find physical file");
     }
 
-    try
-    {
-        std::shared_ptr<Parser> vpdParser =
-            std::make_shared<Parser>(vpdFilePath, m_parsedJson);
-        vpdMap = vpdParser->parse();
-    }
-    catch (const std::exception& ex)
-    {
-        if (typeid(ex) == std::type_index(typeid(DataException)))
-        {
-            // TODO: Do what needs to be done in case of Data exception.
-            // Uncomment when PEL implementation goes in.
-            /* string errorMsg =
-                 "VPD file is either empty or invalid. Parser failed for [";
-             errorMsg += m_vpdFilePath;
-             errorMsg += "], with error = " + std::string(ex.what());
-
-             additionalData.emplace("DESCRIPTION", errorMsg);
-             additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                                    INVENTORY_PATH + baseFruInventoryPath);
-             createPEL(additionalData, pelSeverity, errIntfForInvalidVPD,
-             nullptr);*/
-
-            // throw generic error from here to inform main caller about
-            // failure.
-            logging::logMessage(ex.what());
-            throw std::runtime_error(
-                "Data Exception occurred for file path = " + vpdFilePath);
-        }
-
-        if (typeid(ex) == std::type_index(typeid(EccException)))
-        {
-            // TODO: Do what needs to be done in case of ECC exception.
-            // Uncomment when PEL implementation goes in.
-            /* additionalData.emplace("DESCRIPTION", "ECC check failed");
-             additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                                    INVENTORY_PATH + baseFruInventoryPath);
-             createPEL(additionalData, pelSeverity, errIntfForEccCheckFail,
-                       nullptr);
-             */
-
-            logging::logMessage(ex.what());
-            // Need to decide once all error handling is implemented.
-            // vpdSpecificUtility::dumpBadVpd(vpdFilePath,vpdVector);
-
-            // throw generic error from here to inform main caller about
-            // failure.
-            throw std::runtime_error(
-                "Ecc Exception occurred for file path = " + vpdFilePath);
-        }
-    }
+    std::shared_ptr<Parser> vpdParser =
+        std::make_shared<Parser>(vpdFilePath, m_parsedJson);
+    vpdMap = vpdParser->parse();
 }
 
 void Worker::getSystemJson(std::string& systemJson,
@@ -480,9 +446,9 @@ void Worker::setDeviceTreeAndJson()
     // Implies it is default JSON.
     std::string systemJson{JSON_ABSOLUTE_PATH_PREFIX};
 
-    // ToDo: Need to check if INVENTORY_JSON_SYM_LINK pointing to correct system
-    // This is required to support movement from rainier to Blue Ridge on the
-    // fly.
+    // ToDo: Need to check if INVENTORY_JSON_SYM_LINK pointing to correct
+    // system This is required to support movement from rainier to Blue
+    // Ridge on the fly.
 
     // Do we have the entry for device tree in parsed JSON?
     if (m_parsedJson.find("devTree") == m_parsedJson.end())
