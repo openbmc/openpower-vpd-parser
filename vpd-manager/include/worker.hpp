@@ -184,7 +184,7 @@ class Worker
      * If device tree change is required, it updates the "fitconfig" and reboots
      * the system. Else it is NOOP.
      *
-     * @throw std::runtime_error
+     * @throw std::exception
      */
     void setDeviceTreeAndJson();
 
