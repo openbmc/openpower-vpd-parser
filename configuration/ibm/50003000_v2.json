@@ -3974,6 +3974,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm0",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -4043,6 +4044,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm1",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -4112,6 +4114,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm2",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -4181,6 +4184,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm3",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -4250,6 +4254,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm4",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -4319,6 +4324,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm5",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -4326,7 +4332,7 @@
                             "value": 0
                         },
                         "systemCmd": {
-                            "cmd": "echo 24c32 0x50 > /sys/bus/i2c/devices/i2c-315new_device"
+                            "cmd": "echo 24c32 0x50 > /sys/bus/i2c/devices/i2c-315/new_device"
                         }
                     }
                 },
@@ -4388,6 +4394,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm6",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -4457,6 +4464,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm7",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -4526,6 +4534,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm8",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -4595,6 +4604,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm9",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -4664,6 +4674,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm10",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -4733,6 +4744,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm11",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -4802,6 +4814,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm12",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -4871,6 +4884,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm13",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -4940,6 +4954,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm14",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5009,6 +5024,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm15",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5078,6 +5094,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm16",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5147,6 +5164,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm17",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5216,6 +5234,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm18",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5285,6 +5304,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm19",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5354,6 +5374,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm20",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5423,6 +5444,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm21",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5492,6 +5514,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm22",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5561,6 +5584,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm23",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5630,6 +5654,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm24",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5699,6 +5724,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm25",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5768,6 +5794,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm26",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5837,6 +5864,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm27",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5906,6 +5934,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm28",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -5975,6 +6004,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm29",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -6044,6 +6074,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm30",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -6113,6 +6144,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm31",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -6182,6 +6214,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm32",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -6251,6 +6284,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm33",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -6320,6 +6354,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm34",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -6389,6 +6424,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm35",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -6458,6 +6494,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm36",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -6527,6 +6564,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm37",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -6596,6 +6634,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm38",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -6665,6 +6704,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm39",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -6734,6 +6774,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm40",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -6803,6 +6844,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm41",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -6872,6 +6914,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm42",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -6941,6 +6984,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm43",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7010,6 +7054,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm44",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7079,6 +7124,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm45",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7148,6 +7194,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm46",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7217,6 +7264,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm47",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7286,6 +7334,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm48",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7355,6 +7404,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm49",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7424,6 +7474,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm50",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7493,6 +7544,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm51",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7562,6 +7614,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm52",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7631,6 +7684,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm53",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7700,6 +7754,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm54",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7769,6 +7824,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm55",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7838,6 +7894,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm56",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7907,6 +7964,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm57",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -7976,6 +8034,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm58",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -8045,6 +8104,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm59",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -8114,6 +8174,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm60",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -8183,6 +8244,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm61",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -8252,6 +8314,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm62",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
@@ -8321,6 +8384,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm63",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "powerOffOnly": true,
                 "preAction": {
                     "collection": {
                         "gpioPresence": {
