@@ -114,8 +114,8 @@ int VpdTool::dumpObject(std::string i_fruPath) const noexcept
     catch (std::exception& l_ex)
     {
         // TODO: Enable logging when verbose is enabled.
-        // std::cerr << "Dump Object failed for FRU [" << i_fruPath
-        //           << "], Error: " << l_ex.what() << std::endl;
+        std::cerr << "Dump Object failed for FRU [" << i_fruPath
+                  << "], Error: " << l_ex.what() << std::endl;
     }
     return l_rc;
 }
@@ -130,9 +130,15 @@ nlohmann::json VpdTool::getFruProperties(const std::string& i_objectPath) const
 
     nlohmann::json l_fruJson = nlohmann::json::object_t({});
 
-    l_fruJson.emplace(i_objectPath, nlohmann::json::object_t({}));
+    // need to trim out the base inventory path in the FRU JSON.
+    const std::string l_displayObjectPath =
+        (i_objectPath.find(constants::baseInventoryPath) == std::string::npos)
+            ? i_objectPath
+            : i_objectPath.substr(strlen(constants::baseInventoryPath));
 
-    auto& l_fruObject = l_fruJson[i_objectPath];
+    l_fruJson.emplace(l_displayObjectPath, nlohmann::json::object_t({}));
+
+    auto& l_fruObject = l_fruJson[l_displayObjectPath];
 
     const auto l_prettyNameInJson = getInventoryPropertyJson<std::string>(
         i_objectPath, constants::inventoryItemInf, "PrettyName");
@@ -148,15 +154,6 @@ nlohmann::json VpdTool::getFruProperties(const std::string& i_objectPath) const
     {
         l_fruObject.insert(l_locationCodeInJson.cbegin(),
                            l_locationCodeInJson.cend());
-    }
-
-    const auto l_subModelInJson = getInventoryPropertyJson<std::string>(
-        i_objectPath, constants::assetInf, "SubModel");
-
-    if (!l_subModelInJson.empty() &&
-        !l_subModelInJson.value("SubModel", "").empty())
-    {
-        l_fruObject.insert(l_subModelInJson.cbegin(), l_subModelInJson.cend());
     }
 
     // Get the properties under VINI interface.
@@ -183,6 +180,24 @@ nlohmann::json VpdTool::getFruProperties(const std::string& i_objectPath) const
         l_fruObject.insert(l_viniPropertiesInJson.cbegin(),
                            l_viniPropertiesInJson.cend());
     }
+    // if a FRU doesn't have VINI properties, we need to get the properties from
+    // Decorator.Asset interface
+    else
+    {
+        // Get properties under Decorator.Asset interface
+        const auto l_decoratorAssetPropertiesMap =
+            utils::getPropertyMap(constants::inventoryManagerService,
+                                  i_objectPath, constants::assetInf);
+
+        for (const auto& l_aProperty : l_decoratorAssetPropertiesMap)
+        {
+            if (const auto l_propertyValueStr =
+                    std::get_if<std::string>(&l_aProperty.second))
+            {
+                l_fruObject.emplace(l_aProperty.first, *l_propertyValueStr);
+            }
+        }
+    }
 
     const auto l_typePropertyJson = getFruTypeProperty(i_objectPath);
     if (!l_typePropertyJson.empty())
@@ -190,6 +205,9 @@ nlohmann::json VpdTool::getFruProperties(const std::string& i_objectPath) const
         l_fruObject.insert(l_typePropertyJson.cbegin(),
                            l_typePropertyJson.cend());
     }
+
+    // insert FRU "TYPE"
+    l_fruObject.emplace("TYPE", "FRU");
 
     return l_fruJson;
 }
