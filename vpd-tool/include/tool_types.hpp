@@ -67,6 +67,9 @@ using TableInputData = std::vector<TableRowData>;
 // A table column name-size pair
 using TableColumnNameSizePair = std::pair<std::string, std::size_t>;
 
+/* Map<Property, Value>*/
+using PropertyMap = std::map<std::string, DbusVariantType>;
+
 enum UserOption
 {
     Exit,
