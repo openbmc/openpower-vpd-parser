@@ -114,8 +114,8 @@ int VpdTool::dumpObject(std::string i_fruPath) const noexcept
     catch (std::exception& l_ex)
     {
         // TODO: Enable logging when verbose is enabled.
-        // std::cerr << "Dump Object failed for FRU [" << i_fruPath
-        //           << "], Error: " << l_ex.what() << std::endl;
+        std::cerr << "Dump Object failed for FRU [" << i_fruPath
+                  << "], Error: " << l_ex.what() << std::endl;
     }
     return l_rc;
 }
@@ -130,9 +130,15 @@ nlohmann::json VpdTool::getFruProperties(const std::string& i_objectPath) const
 
     nlohmann::json l_fruJson = nlohmann::json::object_t({});
 
-    l_fruJson.emplace(i_objectPath, nlohmann::json::object_t({}));
+    // need to trim out the base inventory path in the FRU JSON.
+    const std::string l_displayObjectPath =
+        (i_objectPath.find(constants::baseInventoryPath) == std::string::npos)
+            ? i_objectPath
+            : i_objectPath.substr(strlen(constants::baseInventoryPath));
 
-    auto& l_fruObject = l_fruJson[i_objectPath];
+    l_fruJson.emplace(l_displayObjectPath, nlohmann::json::object_t({}));
+
+    auto& l_fruObject = l_fruJson[l_displayObjectPath];
 
     const auto l_prettyNameInJson = getInventoryPropertyJson<std::string>(
         i_objectPath, constants::inventoryItemInf, "PrettyName");
