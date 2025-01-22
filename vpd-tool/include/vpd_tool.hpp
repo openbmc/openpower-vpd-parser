@@ -38,7 +38,7 @@ class VpdTool
      * If FRU's "Present" property is false, this API returns an empty JSON.
      * Note: The caller of this API should handle empty JSON.
      *
-     * @throw json::exception
+     * @throw json::exception, std::out_of_range, std::bad_alloc
      */
     nlohmann::json getFruProperties(const std::string& i_objectPath) const;
 
