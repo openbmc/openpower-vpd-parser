@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "729fce77_da93d08f",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-23T13:56:58Z",
+      "side": 1,
+      "message": "Brief should we wrapped in a line.",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "98f3be30_f0e8230b",
         "filename": "vpd-manager/include/manager.hpp",
         "patchSetId": 3
@@ -20,6 +37,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f82744c4_1beee0b8",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-23T13:56:58Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "98f3be30_f0e8230b",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10fb6c6e_272343e9",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-23T13:56:58Z",
+      "side": 1,
+      "message": "Wrap brief in a single line.",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9880e0ff_87b9de04",
         "filename": "vpd-manager/include/worker.hpp",
         "patchSetId": 3
@@ -31,6 +83,40 @@
       "writtenOn": "2025-01-23T11:14:03Z",
       "side": 1,
       "message": "can we have it as inline function ?",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc56c432_e14f0034",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-23T13:56:58Z",
+      "side": 1,
+      "message": "This is not the correct place to call this API.\nThe property can get set to completed while these collections are going on and this can cause issues.",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b307cff0_c04e3fba",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-23T13:56:58Z",
+      "side": 1,
+      "message": "I dont see a reason why Manager should hold this API. If you have any thought here, please let me know else let worker host this API which can be called by Manager.",
       "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
