@@ -1,10 +1,37 @@
 #include "tool_constants.hpp"
+#include "tool_utils.hpp"
 #include "vpd_tool.hpp"
 
 #include <CLI/CLI.hpp>
 
 #include <filesystem>
 #include <iostream>
+
+/**
+ * @brief Force Reset VPD.
+ *
+ * API clears the inventory cache data and restarts the
+ * phosphor inventory manager(PIM) DBus service and the VPD manager service.
+ * VPD manager service collects the VPD for all the FRU's listed on the system
+ * config JSON and calls PIM to publish VPD on DBus.
+ *
+ * Force reset only happens if chassis is powered off.
+ *
+ * @return On success returns 0, otherwise returns -1.
+ */
+int forceReset()
+{
+    if (vpd::utils::isChassisPowerOff())
+    {
+        vpd::VpdTool l_vpdToolObj;
+        return l_vpdToolObj.forceReset();
+    }
+
+    std::cerr
+        << "The chassis power state is not Off. Force reset operation is not allowed."
+        << std::endl;
+    return -1;
+}
 
 /**
  * @brief API to perform manufacturing clean.
@@ -214,7 +241,9 @@ void updateFooter(CLI::App& i_app)
         "   From DBus to console in JSON format: "
         "vpd-tool -i\n"
         "   From DBus to console in Table format: "
-        "vpd-tool -i -t\n");
+        "vpd-tool -i -t\n"
+        "Force Reset:\n"
+        "   vpd-tool --forceReset\n");
 }
 
 int main(int argc, char** argv)
@@ -286,6 +315,10 @@ int main(int argc, char** argv)
     auto l_dumpInventoryTableFlag =
         l_app.add_flag("--table, -t", "Dump inventory in table format");
 
+    auto l_forceResetFlag = l_app.add_flag(
+        "--forceReset, -f, -F",
+        "Force collect for hardware. CAUTION: Developer only option.");
+
     CLI11_PARSE(l_app, argc, argv);
 
     if (checkOptionValuePair(l_objectOption, l_vpdPath, l_recordOption,
@@ -328,6 +361,11 @@ int main(int argc, char** argv)
     {
         vpd::VpdTool l_vpdToolObj;
         return l_vpdToolObj.dumpInventory(!l_dumpInventoryTableFlag->empty());
+    }
+
+    if (!l_forceResetFlag->empty())
+    {
+        return forceReset();
     }
 
     std::cout << l_app.help() << std::endl;
