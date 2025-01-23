@@ -1567,19 +1567,26 @@ void Worker::collectFrusFromJson()
             continue;
         }
 
-        std::thread{[vpdFilePath, this]() {
-            const auto& l_parseResult = parseAndPublishVPD(vpdFilePath);
+        try
+        {
+            std::thread{[vpdFilePath, this]() {
+                const auto& l_parseResult = parseAndPublishVPD(vpdFilePath);
 
-            // thread returned.
-            m_mutex.lock();
-            m_activeCollectionThreadCount--;
-            m_mutex.unlock();
+                m_mutex.lock();
+                m_activeCollectionThreadCount--;
+                m_mutex.unlock();
 
-            if (!m_activeCollectionThreadCount)
-            {
-                m_isAllFruCollected = true;
-            }
-        }}.detach();
+                if (!m_activeCollectionThreadCount)
+                {
+                    m_isAllFruCollected = true;
+                }
+            }}.detach();
+        }
+        catch (const std::exception& l_ex)
+        {
+            // add vpdFilePath(EEPROM path) to failed list
+            m_failedEepromPaths.push_front(vpdFilePath);
+        }
     }
 }
 
