@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4398460a_4a22465f",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-23T14:20:56Z",
+      "side": 1,
+      "message": "forceReset what?\nThough doxygen can be read for that but the API name itself should tell what it does.",
+      "revId": "a76bd2023f9a00ec5f89596598376b9916dfbe4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ca753c_0f48f5fe",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-23T14:20:56Z",
+      "side": 1,
+      "message": "call is going from main -\u003e to forceReset in main.cpp then it -\u003e goes to forceReset of VPD tool class.\n\nWhy we need this intermediate API in between in main.cpp.\n\nCan we call vpdTool force reset directly and that API can host all the intelligence to reset inventory data?",
+      "revId": "a76bd2023f9a00ec5f89596598376b9916dfbe4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "905960c1_ce52eb1a",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-23T14:20:56Z",
+      "side": 1,
+      "message": "Use constant defined.",
+      "revId": "a76bd2023f9a00ec5f89596598376b9916dfbe4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
