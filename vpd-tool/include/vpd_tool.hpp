@@ -185,8 +185,19 @@ class VpdTool
      * @throw std::terminate, std::bad_alloc
      */
     types::BinaryVector getBiosAttributeValueForKeyword(
-        [[maybe_unused]] const std::string& i_recordName,
-        [[maybe_unused]] const std::string& i_keywordName) const;
+        const std::string& i_recordName,
+        const std::string& i_keywordName) const;
+
+    /**
+     * @brief VPD keyword to BIOS attribute map
+     *
+     * This map specifies which VPD keyword is used to backup which BIOS
+     * attribute.
+     * {Record, Keyword} -> {attribute name, number of bits in keyword, starting
+     * bit position, enabled value, disabled value}
+     *
+     */
+    static const types::BiosAttributeKeywordMap m_biosAttributeVpdKeywordMap;
 
   public:
     /**
