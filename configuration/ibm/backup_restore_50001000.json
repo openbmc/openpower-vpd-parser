@@ -14,7 +14,8 @@
             "destinationKeyword": "BR",
             "defaultValue": [32, 32],
             "isPelRequired": true,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isUsedForBiosAttributeBackup": false
         },
         {
             "sourceRecord": "VSYS",
@@ -23,7 +24,8 @@
             "destinationKeyword": "TM",
             "defaultValue": [32, 32, 32, 32, 32, 32, 32, 32],
             "isPelRequired": true,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isUsedForBiosAttributeBackup": false
         },
         {
             "sourceRecord": "VSYS",
@@ -32,7 +34,8 @@
             "destinationKeyword": "SE",
             "defaultValue": [32, 32, 32, 32, 32, 32, 32],
             "isPelRequired": true,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isUsedForBiosAttributeBackup": false
         },
         {
             "sourceRecord": "VSYS",
@@ -41,7 +44,8 @@
             "destinationKeyword": "SU",
             "defaultValue": [32, 32, 32, 32, 32, 32],
             "isPelRequired": true,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isUsedForBiosAttributeBackup": false
         },
         {
             "sourceRecord": "VSYS",
@@ -50,7 +54,8 @@
             "destinationKeyword": "RB",
             "defaultValue": [32, 32, 32, 32],
             "isPelRequired": true,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isUsedForBiosAttributeBackup": false
         },
         {
             "sourceRecord": "VSYS",
@@ -59,7 +64,8 @@
             "destinationKeyword": "WN",
             "defaultValue": [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32],
             "isPelRequired": true,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isUsedForBiosAttributeBackup": false
         },
         {
             "sourceRecord": "VSYS",
@@ -68,7 +74,8 @@
             "destinationKeyword": "RG",
             "defaultValue": [32, 32, 32, 32],
             "isPelRequired": true,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isUsedForBiosAttributeBackup": true
         },
         {
             "sourceRecord": "VSYS",
@@ -80,7 +87,8 @@
                 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
             ],
             "isPelRequired": false,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isUsedForBiosAttributeBackup": false
         },
         {
             "sourceRecord": "VCEN",
@@ -89,7 +97,8 @@
             "destinationKeyword": "FC",
             "defaultValue": [32, 32, 32, 32, 32, 32, 32, 32],
             "isPelRequired": true,
-            "isManufactureResetRequired": false
+            "isManufactureResetRequired": false,
+            "isUsedForBiosAttributeBackup": false
         },
         {
             "sourceRecord": "VCEN",
@@ -98,7 +107,8 @@
             "destinationKeyword": "SE",
             "defaultValue": [32, 32, 32, 32, 32, 32, 32],
             "isPelRequired": true,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isUsedForBiosAttributeBackup": false
         },
         {
             "sourceRecord": "LXR0",
@@ -107,7 +117,8 @@
             "destinationKeyword": "LX",
             "defaultValue": [0, 0, 0, 0, 0, 0, 0, 0],
             "isPelRequired": true,
-            "isManufactureResetRequired": false
+            "isManufactureResetRequired": false,
+            "isUsedForBiosAttributeBackup": false
         },
         {
             "sourceRecord": "UTIL",
@@ -116,7 +127,8 @@
             "destinationKeyword": "D0",
             "defaultValue": [0],
             "isPelRequired": true,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isUsedForBiosAttributeBackup": true
         },
         {
             "sourceRecord": "UTIL",
@@ -125,7 +137,8 @@
             "destinationKeyword": "D1",
             "defaultValue": [0],
             "isPelRequired": false,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isUsedForBiosAttributeBackup": true
         },
         {
             "sourceRecord": "UTIL",
@@ -134,7 +147,8 @@
             "destinationKeyword": "F0",
             "defaultValue": [0, 0, 0, 0, 0, 0, 0, 0],
             "isPelRequired": false,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isUsedForBiosAttributeBackup": false
         },
         {
             "sourceRecord": "UTIL",
@@ -143,7 +157,8 @@
             "destinationKeyword": "F5",
             "defaultValue": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             "isPelRequired": false,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isUsedForBiosAttributeBackup": false
         },
         {
             "sourceRecord": "UTIL",
@@ -152,7 +167,8 @@
             "destinationKeyword": "F6",
             "defaultValue": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             "isPelRequired": false,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isUsedForBiosAttributeBackup": false
         }
     ]
 }
