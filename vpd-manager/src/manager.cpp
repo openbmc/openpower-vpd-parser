@@ -275,6 +275,7 @@ void Manager::SetTimerToDetectVpdCollectionStatus()
         {
             // cancel the timer
             l_timer.cancel();
+            processFailedEeproms();
             m_interface->set_property("CollectionStatus",
                                       std::string("Completed"));
 
@@ -910,6 +911,19 @@ void Manager::performVpdRecollection()
         // TODO Log PEL
         logging::logMessage(
             "VPD recollection failed with error: " + std::string(l_ex.what()));
+    }
+}
+
+void Manager::processFailedEeproms()
+{
+    if (m_worker.get() != nullptr)
+    {
+        // TODO:
+        // - iterate through list of EEPROMs for which thread creation has
+        // failed
+        // - get list of FRUs under the EEPROM
+        // - For each FRU, extract the object path and do collect single FRU
+        m_worker->getListOfEepromPathsThreadFailed().clear();
     }
 }
 } // namespace vpd
