@@ -903,5 +903,59 @@ inline bool isServiceRunning(const std::string& i_serviceName) noexcept
     return l_retVal;
 }
 
+/**
+ * @brief API to call "GetAttribute" method under BIOS Config Manager.
+ *
+ * The API reads the given attribute from BIOS Config Manager and returns a
+ * variant containing current value for that attribute if the value is found.
+ * API returns an empty variant of type BiosAttributeCurrentValue in case of any
+ * error.
+ *
+ * @param[in] i_attributeName - Attribute to be read.
+ * @return Tuple of PLDM attribute Type, current attribute value and pending
+ * attribute value.
+ */
+inline types::BiosAttributeCurrentValue biosGetAttributeMethodCall(
+    const std::string& i_attributeName) noexcept
+{
+    types::BiosGetAttrRetType l_attributeVal;
+
+    try
+    {
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method = l_bus.new_method_call(
+            constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
+            constants::biosConfigMgrInterface, "GetAttribute");
+        l_method.append(i_attributeName);
+
+        auto l_result = l_bus.call(l_method);
+        l_result.read(std::get<0>(l_attributeVal), std::get<1>(l_attributeVal),
+                      std::get<2>(l_attributeVal));
+    }
+    catch (const sdbusplus::exception::SdBusError& l_ex)
+    {
+        // TODO : enable logging when verbose is implemented
+        std::cerr << "Failed to read BIOS Attribute: " + i_attributeName +
+                         " due to error " + std::string(l_ex.what())
+                  << std::endl;
+    }
+
+    return std::get<1>(l_attributeVal);
+}
+
+/** @brief Converts string to lower case.
+ *
+ * @param [in,out] io_string - Input string.
+ *
+ * @throw std::terminate, std::bad_alloc
+ */
+inline void toLower(std::string& io_string)
+{
+    std::transform(io_string.begin(), io_string.end(), io_string.begin(),
+                   [](const unsigned char& l_char) {
+                       return std::tolower(l_char);
+                   });
+}
+
 } // namespace utils
 } // namespace vpd
