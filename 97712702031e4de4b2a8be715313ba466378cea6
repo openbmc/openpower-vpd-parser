@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ad3cf300_b629466f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-01-23T12:36:31Z",
+      "side": 1,
+      "message": "Updated the doxygen.",
+      "parentUuid": "fca5aab5_fd5a6cfb",
+      "revId": "97712702031e4de4b2a8be715313ba466378cea6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0ecf4b8_3c826f65",
         "filename": "vpd-tool/include/tool_utils.hpp",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2025-01-23T10:52:57Z",
       "side": 1,
       "message": "can we get the chassis0 object path as input? as it is not required to have only one chassis on a system.\nAlso why you need a wrapper api here? why can\u0027t you directly make readDbusProperty call? which will take care of the arguments too",
+      "revId": "97712702031e4de4b2a8be715313ba466378cea6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c93a923f_8e29d277",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-01-23T12:36:31Z",
+      "side": 1,
+      "message": "API handles exception from DBus in case of error and gives chassis power off state or not. This bool value is required to call forceReset member function from VpdTool.\nI see the API is convenient instead having in-place implementation and handing different error scenario. \n\nI need to check multiple chassis scenario. I will update on this.",
+      "parentUuid": "e0ecf4b8_3c826f65",
       "revId": "97712702031e4de4b2a8be715313ba466378cea6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
