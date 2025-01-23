@@ -767,5 +767,39 @@ class Table
     }
 };
 
+/**
+ * @brief API to check if chassis is powered off.
+ *
+ * This API queries Phosphor Chassis State Manager to know whether
+ * chassis is powered off.
+ *
+ * @return true if chassis is powered off, false otherwise.
+ */
+inline bool isChassisPowerOff()
+{
+    try
+    {
+        // ToDo: Handle in case system has multiple chassis
+        auto l_powerState = readDbusProperty(
+            constants::chassisStateManagerService,
+            constants::chassisStateManagerObjectPath,
+            constants::chassisStateManagerInfName, "CurrentPowerState");
+
+        if (auto l_curPowerState = std::get_if<std::string>(&l_powerState);
+            l_curPowerState &&
+            ("xyz.openbmc_project.State.Chassis.PowerState.Off" ==
+             *l_curPowerState))
+        {
+            return true;
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        // Todo: Enale log when verbose is enabled
+        std::cerr << l_ex.what() << std::endl;
+    }
+    return false;
+}
+
 } // namespace utils
 } // namespace vpd
