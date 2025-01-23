@@ -11,10 +11,14 @@
  *
  * @param[in] i_mfgCleanConfirmFlag - Confirmation flag to perform manufacturing
  * clean.
+ * @param[in] i_syncBiosAttributesFlag - Flag which specifies whether
+ * BIOS attribute related keywords need to be synced from BIOS Config Manager
+ * instead of being reset to default value.
  *
  * @return Status returned by cleanSystemVpd operation, success otherwise.
  */
-int doMfgClean(const auto& i_mfgCleanConfirmFlag)
+int doMfgClean(const auto& i_mfgCleanConfirmFlag,
+               const auto& i_syncBiosAttributesFlag)
 {
     if (i_mfgCleanConfirmFlag->empty())
     {
@@ -31,7 +35,7 @@ int doMfgClean(const auto& i_mfgCleanConfirmFlag)
     }
 
     vpd::VpdTool l_vpdToolObj;
-    return l_vpdToolObj.cleanSystemVpd();
+    return l_vpdToolObj.cleanSystemVpd(!i_syncBiosAttributesFlag->empty());
 }
 
 /**
@@ -210,6 +214,8 @@ void updateFooter(CLI::App& i_app)
         "MfgClean:\n"
         "        Flag to clean and reset specific keywords on system VPD to its default value.\n"
         "        vpd-tool --mfgClean\n"
+        "        To sync BIOS attribute related keywords with BIOS Config Manager:\n"
+        "        vpd-tool --mfgClean --syncBiosAttributes\n"
         "Dump Inventory:\n"
         "   From DBus to console in JSON format: "
         "vpd-tool -i\n"
@@ -286,6 +292,10 @@ int main(int argc, char** argv)
     auto l_dumpInventoryTableFlag =
         l_app.add_flag("--table, -t", "Dump inventory in table format");
 
+    auto l_mfgCleanSyncBiosAttributesFlag = l_app.add_flag(
+        "--syncBiosAttributes, -s",
+        "Using this flag with --mfgClean option, Syncs the BIOS attribute related keywords from BIOS Config Manager service instead resetting keyword's value to default value");
+
     CLI11_PARSE(l_app, argc, argv);
 
     if (checkOptionValuePair(l_objectOption, l_vpdPath, l_recordOption,
@@ -321,7 +331,8 @@ int main(int argc, char** argv)
 
     if (!l_mfgCleanFlag->empty())
     {
-        return doMfgClean(l_mfgCleanConfirmFlag);
+        return doMfgClean(l_mfgCleanConfirmFlag,
+                          l_mfgCleanSyncBiosAttributesFlag);
     }
 
     if (!l_dumpInventoryFlag->empty())
