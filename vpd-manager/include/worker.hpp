@@ -146,6 +146,22 @@ class Worker
         return m_activeCollectionThreadCount;
     }
 
+    /**
+     * @brief API to get VPD collection thread failed EEPROMs.
+     *
+     * This API returns the list of EEPROMs for which VPD collection thread
+     * creation has failed by reference. Manager needs to process this list of
+     * EEPROMs and take appropriate action.
+     *
+     * @return reference to list of EEPROM paths for which VPD collection thread
+     * creation has failed
+     */
+    inline std::forward_list<std::string>&
+        getListOfEepromPathsThreadFailed() noexcept
+    {
+        return m_failedEepromPaths;
+    }
+
   private:
     /**
      * @brief An API to parse and publish a FRU VPD over D-Bus.
@@ -533,5 +549,8 @@ class Worker
     // Counting semaphore to limit the number of threads.
     std::counting_semaphore<constants::MAX_THREADS> m_semaphore{
         constants::MAX_THREADS};
+
+    // List of EEPROM paths for which VPD collection thread creation has failed.
+    std::forward_list<std::string> m_failedEepromPaths;
 };
 } // namespace vpd
