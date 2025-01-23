@@ -6,11 +6,29 @@
 #include "tool_types.hpp"
 #include "tool_utils.hpp"
 
+#include <cstring>
 #include <iostream>
 #include <regex>
 #include <tuple>
 namespace vpd
 {
+// {Record, Keyword} -> {attribute name, number of bits in keyword, starting bit
+// position, enabled value, disabled value}
+const types::BiosAttributeKeywordMap VpdTool::m_biosAttributeVpdKeywordMap = {
+    {{"UTIL", "D0"},
+     {{"hb_memory_mirror_mode", constants::VALUE_8, constants::VALUE_0,
+       constants::VALUE_2, constants::VALUE_1}}},
+    {{"UTIL", "D1"},
+     {{"pvm_keep_and_clear", constants::VALUE_1, constants::VALUE_0,
+       constants::VALUE_1, constants::VALUE_0},
+      {"pvm_create_default_lpar", constants::VALUE_1, constants::VALUE_1,
+       constants::VALUE_1, constants::VALUE_0},
+      {"pvm_clear_nvram", constants::VALUE_1, constants::VALUE_2,
+       constants::VALUE_1, constants::VALUE_0}}},
+    {{"VSYS", "RG"},
+     {{"hb_field_core_override", constants::VALUE_32, constants::VALUE_0,
+       constants::VALUE_1, constants::VALUE_0}}}};
+
 int VpdTool::readKeyword(
     const std::string& i_vpdPath, const std::string& i_recordName,
     const std::string& i_keywordName, const bool i_onHardware,
@@ -394,7 +412,16 @@ int VpdTool::cleanSystemVpd(bool i_syncBiosAttributes) const noexcept
 {
     try
     {
-        (void)i_syncBiosAttributes;
+        // In order to do syncBiosAttributes, we need BIOS Config Manager
+        // service up and running
+        if (i_syncBiosAttributes &&
+            !utils::isServiceRunning(constants::biosConfigMgrService))
+        {
+            std::cerr
+                << "Cannot sync BIOS attributes as BIOS Config Manager service is not running."
+                << std::endl;
+            return constants::FAILURE;
+        }
 
         // get the keyword map from backup_restore json
         // iterate through the keyword map get default value of
@@ -436,9 +463,28 @@ int VpdTool::cleanSystemVpd(bool i_syncBiosAttributes) const noexcept
                         l_aRecordKwInfo.contains("defaultValue") &&
                         l_aRecordKwInfo["defaultValue"].is_array())
                     {
-                        const types::BinaryVector l_defaultBinaryValue =
-                            l_aRecordKwInfo["defaultValue"]
-                                .get<types::BinaryVector>();
+                        // check if this keyword is used for backing up BIOS
+                        // attribute
+                        const bool l_isUsedForBiosAttributeBackup =
+                            l_aRecordKwInfo.value(
+                                "isUsedForBiosAttributeBackup", false);
+
+                        const types::BinaryVector l_keywordValueToUpdate =
+                            (i_syncBiosAttributes &&
+                             l_isUsedForBiosAttributeBackup)
+                                ? getBiosAttributeValueForKeyword(
+                                      l_srcRecordName, l_srcKeywordName)
+                                : l_aRecordKwInfo["defaultValue"]
+                                      .get<types::BinaryVector>();
+
+                        if (l_keywordValueToUpdate.empty())
+                        {
+                            std::cerr << "Failed to update " << l_srcRecordName
+                                      << ":" << l_srcKeywordName
+                                      << " . Keyword value to update is empty"
+                                      << std::endl;
+                            continue;
+                        }
 
                         // update the Keyword with default value, use D-Bus
                         // method UpdateKeyword exposed by vpd-manager.
@@ -449,9 +495,9 @@ int VpdTool::cleanSystemVpd(bool i_syncBiosAttributes) const noexcept
                         if (constants::FAILURE ==
                             utils::writeKeyword(
                                 l_hardwarePath,
-                                std::make_tuple(l_srcRecordName,
-                                                l_srcKeywordName,
-                                                l_defaultBinaryValue)))
+                                types::IpzData(l_srcRecordName,
+                                               l_srcKeywordName,
+                                               l_keywordValueToUpdate)))
                         {
                             // TODO: Enable logging when verbose
                             // is enabled.
@@ -1212,4 +1258,95 @@ int VpdTool::handleMoreOption(
     return l_rc;
 }
 
+types::BinaryVector VpdTool::getBiosAttributeValueForKeyword(
+    const std::string& i_recordName, const std::string& i_keywordName) const
+{
+    types::BinaryVector l_result;
+    const auto l_entry = m_biosAttributeVpdKeywordMap.find(
+        types::IpzType(i_recordName, i_keywordName));
+    if (l_entry != m_biosAttributeVpdKeywordMap.end())
+    {
+        const auto& l_biosAttributeList = l_entry->second;
+        for (const auto& l_biosAttributeEntry : l_biosAttributeList)
+        {
+            // get the attribute name
+            const std::string l_attributeName =
+                std::get<0>(l_biosAttributeEntry);
+
+            // get the number of bits used to store the value in VPD
+            const size_t l_numBitsKeyword = std::get<1>(l_biosAttributeEntry);
+
+            const size_t l_numBytesKeyword =
+                l_numBitsKeyword / constants::VALUE_8;
+
+            // get the bit position
+            const uint8_t l_bitPosition = std::get<2>(l_biosAttributeEntry);
+
+            const auto l_attrValueVariant =
+                utils::biosGetAttributeMethodCall(l_attributeName);
+
+            if (auto l_attrVal = std::get_if<int64_t>(&l_attrValueVariant))
+            {
+                // multiple bytes update
+
+                // sanitize number of bytes to copy
+                size_t l_bytesToCopy = l_numBytesKeyword;
+                if (l_bytesToCopy > constants::VALUE_8)
+                {
+                    l_bytesToCopy = constants::VALUE_8;
+                }
+
+                l_result.resize(l_numBytesKeyword, constants::VALUE_0);
+
+                // save in VPD format, Least Significant Byte first
+                // LSB of source -> MSB of resultant binary vector
+                constexpr auto l_byteMask{0xFF};
+
+                for (size_t l_byte = 0; l_byte < l_bytesToCopy; ++l_byte)
+                {
+                    l_result[l_result.size() - (l_byte + constants::VALUE_1)] =
+                        (*l_attrVal &
+                         (l_byteMask << (l_byte * constants::VALUE_8)));
+                }
+            }
+            else if (auto l_attrVal =
+                         std::get_if<std::string>(&l_attrValueVariant))
+            {
+                std::string l_valStr = *l_attrVal;
+                utils::toLower(const_cast<std::string&>(l_valStr));
+
+                // Since we are doing mfgClean, we do not
+                // care about reading the current VPD keyword value before
+                // writing to it.
+                if (l_numBitsKeyword == constants::VALUE_1)
+                {
+                    // single bit update.
+                    l_result.resize(constants::VALUE_1, constants::VALUE_0);
+
+                    if (l_valStr.compare(constants::enabledString) ==
+                        constants::STR_CMP_SUCCESS)
+                    {
+                        l_result.at(constants::VALUE_0) |=
+                            (constants::VALUE_1 << l_bitPosition);
+                    }
+                    else
+                    {
+                        l_result.at(constants::VALUE_0) &=
+                            ~(constants::VALUE_1 << l_bitPosition);
+                    }
+                }
+                else
+                {
+                    // single byte update
+                    l_result.emplace_back(
+                        (l_valStr.compare(constants::enabledString) ==
+                         constants::STR_CMP_SUCCESS)
+                            ? std::get<3>(l_biosAttributeEntry)
+                            : std::get<4>(l_biosAttributeEntry));
+                }
+            }
+        } // loop end
+    }
+    return l_result;
+}
 } // namespace vpd
