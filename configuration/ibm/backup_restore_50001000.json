@@ -68,7 +68,8 @@
             "destinationKeyword": "RG",
             "defaultValue": [32, 32, 32, 32],
             "isPelRequired": true,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isBiosSyncRequired": true
         },
         {
             "sourceRecord": "VSYS",
@@ -116,7 +117,8 @@
             "destinationKeyword": "D0",
             "defaultValue": [0],
             "isPelRequired": true,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isBiosSyncRequired": true
         },
         {
             "sourceRecord": "UTIL",
@@ -125,7 +127,8 @@
             "destinationKeyword": "D1",
             "defaultValue": [0],
             "isPelRequired": false,
-            "isManufactureResetRequired": true
+            "isManufactureResetRequired": true,
+            "isBiosSyncRequired": true
         },
         {
             "sourceRecord": "UTIL",
