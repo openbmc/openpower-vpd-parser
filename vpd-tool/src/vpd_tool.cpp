@@ -390,10 +390,12 @@ nlohmann::json VpdTool::getBackupRestoreCfgJsonObj() const noexcept
     return l_parsedBackupRestoreJson;
 }
 
-int VpdTool::cleanSystemVpd() const noexcept
+int VpdTool::cleanSystemVpd(bool i_syncBiosAttributes) const noexcept
 {
     try
     {
+        (void)i_syncBiosAttributes;
+
         // get the keyword map from backup_restore json
         // iterate through the keyword map get default value of
         // l_keywordName.
