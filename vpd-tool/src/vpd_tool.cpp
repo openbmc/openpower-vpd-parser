@@ -11,6 +11,13 @@
 #include <tuple>
 namespace vpd
 {
+
+const types::BiosAttributeKeywordMap VpdTool::m_biosAttributeVpdKeywordMap = {
+    {{"UTIL", "D0"}, {"hb_memory_mirror_mode"}},
+    {{"UTIL", "D1"},
+     {"pvm_keep_and_clear", "pvm_create_default_lpar", "pvm_clear_nvram"}},
+    {{"VSYS", "RG"}, {"hb_field_core_override"}}};
+
 int VpdTool::readKeyword(
     const std::string& i_vpdPath, const std::string& i_recordName,
     const std::string& i_keywordName, const bool i_onHardware,
@@ -394,7 +401,16 @@ int VpdTool::cleanSystemVpd(bool i_syncBiosAttributes) const noexcept
 {
     try
     {
-        (void)i_syncBiosAttributes;
+        // In order to do syncBiosAttributes, we need BIOS Config Manager
+        // service up and running
+        if (i_syncBiosAttributes &&
+            !utils::isServiceRunning(constants::biosConfigMgrService))
+        {
+            std::cerr
+                << "Cannot sync BIOS attributes as BIOS Config Manager service is not running."
+                << std::endl;
+            return constants::FAILURE;
+        }
 
         // get the keyword map from backup_restore json
         // iterate through the keyword map get default value of
@@ -440,6 +456,23 @@ int VpdTool::cleanSystemVpd(bool i_syncBiosAttributes) const noexcept
                             l_aRecordKwInfo["defaultValue"]
                                 .get<types::BinaryVector>();
 
+                        // check if this keyword is used for backing up BIOS
+                        // attribute
+                        const bool l_isUsedForBiosAttributeBackup =
+                            l_aRecordKwInfo.value(
+                                "isUsedForBiosAttributeBackup", false);
+
+                        types::BinaryVector l_keywordValueToUpdate =
+                            (i_syncBiosAttributes &&
+                             l_isUsedForBiosAttributeBackup)
+                                ? getBiosAttributeValueForKeyword(
+                                      l_srcRecordName, l_srcKeywordName)
+                                : l_defaultBinaryValue;
+                        if (l_keywordValueToUpdate.empty())
+                        {
+                            // log error?
+                        }
+
                         // update the Keyword with default value, use D-Bus
                         // method UpdateKeyword exposed by vpd-manager.
                         // Note: writing to all paths (Primary EEPROM path,
@@ -451,7 +484,7 @@ int VpdTool::cleanSystemVpd(bool i_syncBiosAttributes) const noexcept
                                 l_hardwarePath,
                                 std::make_tuple(l_srcRecordName,
                                                 l_srcKeywordName,
-                                                l_defaultBinaryValue)))
+                                                l_keywordValueToUpdate)))
                         {
                             // TODO: Enable logging when verbose
                             // is enabled.
@@ -1212,4 +1245,15 @@ int VpdTool::handleMoreOption(
     return l_rc;
 }
 
+types::BinaryVector VpdTool::getBiosAttributeValueForKeyword(
+    const std::string& i_recordName,
+    const std::string& i_keywordName) const noexcept
+{
+    types::BinaryVector l_result;
+    const auto l_entry = m_biosAttributeVpdKeywordMap.find(
+        types::IpzType(i_recordName, i_keywordName));
+    if (l_entry != m_biosAttributeVpdKeywordMap.end())
+    {}
+    return l_result;
+}
 } // namespace vpd
