@@ -82,5 +82,8 @@ enum UserOption
     SkipCurrent
 };
 
+using BiosAttributeCurrentValue =
+    std::variant<std::monostate, int64_t, std::string>;
+
 } // namespace types
 } // namespace vpd

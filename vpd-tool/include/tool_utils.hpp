@@ -771,5 +771,79 @@ class Table
     }
 };
 
+/**
+ * @brief API to check if a D-Bus service is running or not.
+ *
+ * Any failure in calling the method "NameHasOwner" implies that the service is
+ * not in a running state. Hence the API returns false in case of any exception
+ * as well.
+ *
+ * @param[in] i_serviceName - D-Bus service name whose status is to be checked.
+ * @return bool - True if the service is running, false otherwise.
+ */
+inline bool isServiceRunning(const std::string& i_serviceName)
+{
+    bool l_retVal = false;
+
+    try
+    {
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method = l_bus.new_method_call(
+            "org.freedesktop.DBus", "/org/freedesktop/DBus",
+            "org.freedesktop.DBus", "NameHasOwner");
+        l_method.append(i_serviceName);
+
+        l_bus.call(l_method).read(l_retVal);
+    }
+    catch (const sdbusplus::exception::SdBusError& l_ex)
+    {
+        logging::logMessage(
+            "Call to check service status failed with exception: " +
+            std::string(l_ex.what()));
+    }
+
+    return l_retVal;
+}
+
+/**
+ * @brief API to call "GetAttribute" method uner BIOS manager.
+ *
+ * The API reads the given attribuute from BIOS and returns a tuple of both
+ * current as well as pending value for that attribute.
+ * The API return only the current attribute value if found.
+ * API returns an empty variant of type BiosAttributeCurrentValue in case of any
+ * error.
+ *
+ * @param[in] i_attributeName - Attribute to be read.
+ * @return Tuple of PLDM attribute Type, current attribute value and pending
+ * attribute value.
+ */
+inline types::BiosAttributeCurrentValue
+    biosGetAttributeMethodCall(const std::string& i_attributeName)
+{
+    auto l_bus = sdbusplus::bus::new_default();
+    auto l_method = l_bus.new_method_call(
+        constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
+        constants::biosConfigMgrInterface, "GetAttribute");
+    l_method.append(i_attributeName);
+
+    types::BiosGetAttrRetType l_attributeVal;
+    try
+    {
+        auto l_result = l_bus.call(l_method);
+        l_result.read(std::get<0>(l_attributeVal), std::get<1>(l_attributeVal),
+                      std::get<2>(l_attributeVal));
+    }
+    catch (const sdbusplus::exception::SdBusError& l_ex)
+    {
+        // TODO : enable logging when verbose is implemented
+        std::cerr << "Failed to read BIOS Attribute: " + i_attributeName +
+                         " due to error " + std::string(l_ex.what())
+                  << std::endl;
+    }
+
+    return std::get<1>(l_attributeVal);
+}
+
 } // namespace utils
 } // namespace vpd
