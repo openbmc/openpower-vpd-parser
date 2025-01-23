@@ -344,8 +344,8 @@ size_t
     return l_dimmSize;
 }
 
-void DdimmVpdParser::readKeywords(
-    types::BinaryVector::const_iterator i_iterator)
+void
+    DdimmVpdParser::readKeywords(types::BinaryVector::const_iterator i_iterator)
 {
     // collect DDIMM size value
     auto l_dimmSize = getDdimmSize(i_iterator);

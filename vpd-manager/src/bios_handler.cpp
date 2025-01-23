@@ -710,8 +710,8 @@ void IbmBiosHandler::saveKeepAndClearToVpd(const std::string& i_KeepAndClearVal)
     logging::logMessage("Invalid type recieved for keep and clear from VPD.");
 }
 
-void IbmBiosHandler::saveKeepAndClearToBios(
-    const std::string& i_KeepAndClearVal)
+void
+    IbmBiosHandler::saveKeepAndClearToBios(const std::string& i_KeepAndClearVal)
 {
     // checking for exact length as it is a string and can have garbage value.
     if (i_KeepAndClearVal.size() != constants::VALUE_1)
