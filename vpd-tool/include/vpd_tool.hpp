@@ -168,6 +168,16 @@ class VpdTool
      */
     int handleMoreOption(const nlohmann::json& i_parsedJsonObj) const noexcept;
 
+    /**
+     * @brief VPD keyword to BIOS attribute map
+     *
+     * This map specifies which VPD keyword is used to backup which BIOS
+     * attribute.
+     * {{"Record name", "Keyword name"},BIOS attribute name}
+     *
+     */
+    static const types::BiosAttributeKeywordMap m_biosAttributeVpdKeywordMap;
+
   public:
     /**
      * @brief Read keyword value.

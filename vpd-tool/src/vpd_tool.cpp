@@ -11,6 +11,13 @@
 #include <tuple>
 namespace vpd
 {
+
+const types::BiosAttributeKeywordMap VpdTool::m_biosAttributeVpdKeywordMap = {
+    {{"UTIL", "D0"}, {"hb_memory_mirror_mode"}},
+    {{"UTIL", "D1"},
+     {"pvm_keep_and_clear", "pvm_create_default_lpar", "pvm_clear_nvram"}},
+    {{"VSYS", "RG"}, {"hb_field_core_override"}}};
+
 int VpdTool::readKeyword(
     const std::string& i_vpdPath, const std::string& i_recordName,
     const std::string& i_keywordName, const bool i_onHardware,
@@ -394,7 +401,16 @@ int VpdTool::cleanSystemVpd(bool i_syncBiosAttributes) const noexcept
 {
     try
     {
-        (void)i_syncBiosAttributes;
+        // In order to do syncBiosAttributes, we need BIOS Config Manager
+        // service up and running
+        if (i_syncBiosAttributes &&
+            !utils::isServiceRunning(constants::biosConfigMgrService))
+        {
+            std::cerr
+                << "Cannot sync BIOS attributes as BIOS Config Manager service is not running."
+                << std::endl;
+            return constants::FAILURE;
+        }
 
         // get the keyword map from backup_restore json
         // iterate through the keyword map get default value of
@@ -439,6 +455,20 @@ int VpdTool::cleanSystemVpd(bool i_syncBiosAttributes) const noexcept
                         const types::BinaryVector l_defaultBinaryValue =
                             l_aRecordKwInfo["defaultValue"]
                                 .get<types::BinaryVector>();
+
+                        if (i_syncBiosAttributes)
+                        {
+                            // check if this keyword is used for backing up BIOS
+                            // attribute
+                            // const bool l_isUsedForBiosAttributeBackup =
+                            //     l_aRecordKwInfo.value(
+                            //         "isUsedForBiosAttributeBackup", false);
+
+                            // lookup VPD keyword <-> BIOS attribute map
+
+                            // read the BIOS attribute value from BIOS Config
+                            // Manager and determine the VPD keyword value
+                        }
 
                         // update the Keyword with default value, use D-Bus
                         // method UpdateKeyword exposed by vpd-manager.
