@@ -14,6 +14,7 @@
 #include <filesystem>
 #include <fstream>
 #include <regex>
+#include <typeindex>
 
 namespace vpd
 {
@@ -551,6 +552,58 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
         logging::logMessage("Failed to remove VPD for FRU: " + i_objectPath +
                             " with error: " + std::string(l_ex.what()));
     }
+}
+
+/**
+ * @brief API to process thrown exception.
+ *
+ * The API will process the passed exception and extract the type of exception
+ * thrown internally. Based on that it will set the error type and err message
+ * and return to the caller.
+ *
+ * @param[in]i_exception - Exception thrown,
+ * @return Tuple of error type and error message.
+ */
+std::tuple<types::ErrorType, std::string>
+    processException(const std::exception& i_exception)
+{
+    types::ErrorType l_errType = types::ErrorType::InternalFailure;
+    std::string l_errMsg;
+
+    if (typeid(i_exception) == std::type_index(typeid(DataException)))
+    {
+        l_errType = types::ErrorType::InvalidVpdMessage;
+        l_errMsg = "Data Exception occurred with error [";
+    }
+    else if (typeid(i_exception) == std::type_index(typeid(EccException)))
+    {
+        l_errType = types::ErrorType::EccCheckFailed;
+        l_errMsg = "ECC Exception occurred with error [";
+    }
+    else if (typeid(i_exception) == std::type_index(typeid(JsonException)))
+    {
+        l_errType = types::ErrorType::JsonFailure;
+        l_errMsg = "Json Exception occurred with error [";
+    }
+    else if (typeid(i_exception) == std::type_index(typeid(DbusException)))
+    {
+        l_errType = types::ErrorType::DbusFailure;
+        l_errMsg = "Dbus Exception occurred with error [";
+    }
+    else if (typeid(i_exception) == std::type_index(typeid(EepromException)))
+    {
+        l_errType = types::ErrorType::InvalidEeprom;
+        l_errMsg = "EEPROM Exception occurred with error [";
+    }
+    else if (typeid(i_exception) == std::type_index(typeid(FirmwareException)))
+    {
+        l_errType = types::ErrorType::InternalFailure;
+        l_errMsg = "Firmware Exception occurred with error [";
+    }
+
+    l_errMsg += std::string(i_exception.what()) + "]";
+
+    return std::make_tuple(l_errType, l_errMsg);
 }
 } // namespace vpdSpecificUtility
 } // namespace vpd
