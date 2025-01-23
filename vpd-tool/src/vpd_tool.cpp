@@ -12,6 +12,23 @@
 #include <tuple>
 namespace vpd
 {
+// {Record, Keyword} -> {attribute name, number of bits in keyword, starting bit
+// position, enabled value, disabled value}
+const types::BiosAttributeKeywordMap VpdTool::m_biosAttributeVpdKeywordMap = {
+    {{"UTIL", "D0"},
+     {{"hb_memory_mirror_mode", constants::VALUE_8, std::nullopt,
+       constants::VALUE_2, constants::VALUE_1}}},
+    {{"UTIL", "D1"},
+     {{"pvm_keep_and_clear", constants::VALUE_1, constants::VALUE_0,
+       constants::VALUE_1, constants::VALUE_0},
+      {"pvm_create_default_lpar", constants::VALUE_1, constants::VALUE_1,
+       constants::VALUE_1, constants::VALUE_0},
+      {"pvm_clear_nvram", constants::VALUE_1, constants::VALUE_2,
+       constants::VALUE_1, constants::VALUE_0}}},
+    {{"VSYS", "RG"},
+     {{"hb_field_core_override", constants::VALUE_32, std::nullopt,
+       std::nullopt, std::nullopt}}}};
+
 int VpdTool::readKeyword(
     const std::string& i_vpdPath, const std::string& i_recordName,
     const std::string& i_keywordName, const bool i_onHardware,
@@ -1428,13 +1445,92 @@ int VpdTool::resetVpdOnDbus()
 }
 
 types::BinaryVector VpdTool::getVpdValueInBiosConfigManager(
-    [[maybe_unused]] const std::string& i_recordName,
-    [[maybe_unused]] const std::string& i_keywordName) const
+    const std::string& i_recordName, const std::string& i_keywordName) const
 {
     types::BinaryVector l_result;
-    // TODO: Use Record name, Keyword name to identify BIOS attribute.
-    //  Get BIOS attribute value from BIOS Config Manager.
-    //  Convert BIOS attribute value to VPD format value in binary.
+    const auto l_itrToBiosAttributeKeywordMap =
+        m_biosAttributeVpdKeywordMap.find(
+            types::IpzType(i_recordName, i_keywordName));
+
+    if (l_itrToBiosAttributeKeywordMap != m_biosAttributeVpdKeywordMap.end())
+    {
+        const auto& l_biosAttributeList =
+            l_itrToBiosAttributeKeywordMap->second;
+        for (const auto& l_biosAttributeEntry : l_biosAttributeList)
+        {
+            // get the attribute name
+            const std::string l_attributeName =
+                std::get<0>(l_biosAttributeEntry);
+
+            // get the number of bits used to store the value in VPD
+            const size_t l_numBitsKeyword = std::get<1>(l_biosAttributeEntry);
+
+            auto l_attrValueVariant =
+                utils::biosGetAttributeMethodCall(l_attributeName);
+
+            if (auto l_attrVal = std::get_if<int64_t>(&l_attrValueVariant))
+            {
+                // multiple bytes update
+
+                size_t l_numBytesKeyword =
+                    l_numBitsKeyword / constants::VALUE_8;
+
+                // convert to VPD format
+                l_result = utils::toVpdFormat(*l_attrVal, l_numBytesKeyword);
+            }
+            else if (auto l_attrVal =
+                         std::get_if<std::string>(&l_attrValueVariant))
+            {
+                utils::toLower(*l_attrVal);
+
+                // Since we are doing mfgClean, we do not
+                // care about reading the current VPD keyword value before
+                // writing to it.
+                if (l_numBitsKeyword == constants::VALUE_1)
+                {
+                    // single bit update.
+
+                    // get the bit position
+                    const uint8_t l_bitPosition =
+                        std::get<2>(l_biosAttributeEntry).has_value()
+                            ? std::get<2>(l_biosAttributeEntry).value()
+                            : constants::VALUE_0;
+
+                    l_result.resize(constants::VALUE_1, constants::VALUE_0);
+
+                    if (l_attrVal->compare("enabled") ==
+                        constants::STR_CMP_SUCCESS)
+                    {
+                        l_result.at(constants::VALUE_0) |=
+                            (constants::VALUE_1 << l_bitPosition);
+                    }
+                    else
+                    {
+                        l_result.at(constants::VALUE_0) &=
+                            ~(constants::VALUE_1 << l_bitPosition);
+                    }
+                }
+                else
+                {
+                    // single byte update
+                    const auto l_enabledValue =
+                        std::get<3>(l_biosAttributeEntry).has_value()
+                            ? std::get<3>(l_biosAttributeEntry).value()
+                            : constants::VALUE_0;
+
+                    const auto l_disabledValue =
+                        std::get<4>(l_biosAttributeEntry).has_value()
+                            ? std::get<4>(l_biosAttributeEntry).value()
+                            : constants::VALUE_1;
+
+                    l_result.emplace_back((l_attrVal->compare("enabled") ==
+                                           constants::STR_CMP_SUCCESS)
+                                              ? l_enabledValue
+                                              : l_disabledValue);
+                }
+            }
+        } // BIOS attribute loop end
+    }
     return l_result;
 }
 } // namespace vpd
