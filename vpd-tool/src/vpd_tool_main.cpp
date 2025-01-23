@@ -8,6 +8,32 @@
 #include <iostream>
 
 /**
+ * @brief Reset DBus VPD for all the Frus.
+ *
+ * API clears the inventory persisted data and restarts the phosphor inventory
+ * manager(PIM) DBus service and the VPD manager service. VPD manager service
+ * collects the VPD for all the FRU's listed on the system config JSON and calls
+ * PIM to publish VPD on DBus.
+ *
+ * Note: Force reset only happens if chassis is powered off.
+ *
+ * @return On success returns 0, otherwise returns -1.
+ */
+int forceReset()
+{
+    if (vpd::utils::isChassisPowerOff())
+    {
+        vpd::VpdTool l_vpdToolObj;
+        return l_vpdToolObj.resetVpd();
+    }
+
+    std::cerr
+        << "The chassis power state is not Off. Force reset operation is not allowed."
+        << std::endl;
+    return vpd::constants::FAILURE;
+}
+
+/**
  * @brief API to perform manufacturing clean.
  *
  * @param[in] i_mfgCleanConfirmFlag - Confirmation flag to perform manufacturing
@@ -230,7 +256,9 @@ void updateFooter(CLI::App& i_app)
         "   From DBus to console in JSON format: "
         "vpd-tool -i\n"
         "   From DBus to console in Table format: "
-        "vpd-tool -i -t\n");
+        "vpd-tool -i -t\n"
+        "Force Reset:\n"
+        "   vpd-tool --forceReset\n");
 }
 
 int main(int argc, char** argv)
@@ -305,6 +333,10 @@ int main(int argc, char** argv)
         "--syncBiosAttributes, -s",
         "Using this flag with --mfgClean option, Syncs the BIOS attribute related keywords from BIOS Config Manager service instead resetting keyword's value to default value");
 
+    auto l_forceResetFlag = l_app.add_flag(
+        "--forceReset, -f, -F",
+        "Force collect for hardware. CAUTION: Developer only option.");
+
     CLI11_PARSE(l_app, argc, argv);
 
     if (checkOptionValuePair(l_objectOption, l_vpdPath, l_recordOption,
@@ -371,6 +403,11 @@ int main(int argc, char** argv)
     {
         vpd::VpdTool l_vpdToolObj;
         return l_vpdToolObj.dumpInventory(!l_dumpInventoryTableFlag->empty());
+    }
+
+    if (!l_forceResetFlag->empty())
+    {
+        return forceReset();
     }
 
     std::cout << l_app.help() << std::endl;
