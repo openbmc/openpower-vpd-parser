@@ -44,5 +44,22 @@ constexpr auto pcieSlotInf = "xyz.openbmc_project.Inventory.Item.PCIeSlot";
 constexpr auto slotNumInf = "xyz.openbmc_project.Inventory.Decorator.Slot";
 constexpr auto i2cDeviceInf =
     "xyz.openbmc_project.Inventory.Decorator.I2CDevice";
+constexpr auto biosConfigMgrObjPath =
+    "/xyz/openbmc_project/bios_config/manager";
+constexpr auto biosConfigMgrInterface =
+    "xyz.openbmc_project.BIOSConfig.Manager";
+
+static constexpr auto VALUE_0 = 0;
+static constexpr auto VALUE_1 = 1;
+static constexpr auto VALUE_2 = 2;
+static constexpr auto VALUE_3 = 3;
+static constexpr auto VALUE_4 = 4;
+static constexpr auto VALUE_5 = 5;
+static constexpr auto VALUE_6 = 6;
+static constexpr auto VALUE_7 = 7;
+static constexpr auto VALUE_8 = 8;
+static constexpr auto VALUE_32 = 32;
+
+static constexpr auto enabledString = "enabled";
 } // namespace constants
 } // namespace vpd
