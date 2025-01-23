@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b43c3ad_f50c1adf",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-23T10:43:56Z",
+      "side": 1,
+      "message": "param[in]i_exception \u003d Exception object sounds better",
+      "revId": "a7a2188a5acda2a46c3219094497e41283b7974c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d0c8b72_7da536ed",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-23T10:43:56Z",
+      "side": 1,
+      "message": "where is the usecase for this API?",
+      "revId": "a7a2188a5acda2a46c3219094497e41283b7974c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86901e37_fdc91435",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-23T10:43:56Z",
+      "side": 1,
+      "message": "InvalidVPDMessage - means the VPD message is invalid.. but looks like we are pointing it to invalid VPD.\nmay be we can create an issue to change the name from InvalidVpdMessage to InvalidVpd.",
+      "revId": "a7a2188a5acda2a46c3219094497e41283b7974c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "370f6e50_712ad5dd",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-23T10:43:56Z",
+      "side": 1,
+      "message": "instead of doing this in utility api, why can\u0027t we have a private member variable called errorType in each exception class. so that we can get the error type using the respective class object instead of relying on utility api.",
+      "revId": "a7a2188a5acda2a46c3219094497e41283b7974c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
