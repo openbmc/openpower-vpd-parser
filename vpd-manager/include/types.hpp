@@ -182,7 +182,9 @@ enum ErrorType
     DbusFailure,
     InvalidSystem,
     EssentialFru,
-    GpioError
+    GpioError,
+    InternalFailure, /*Should be used for any generic firmware failure*/
+    FRUMissing /* Should be Used in case of presence failure*/
 };
 
 using InventoryCalloutData = std::tuple<std::string, CalloutPriority>;

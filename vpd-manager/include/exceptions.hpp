@@ -154,4 +154,76 @@ class GpioException : public Exception
     explicit GpioException(const std::string& msg) : Exception(msg) {}
 };
 
+/** @class DbusException
+ *  @brief Custom handler for Dbus exception.
+ *
+ *  This class extends Exceptions class and define
+ *  type for DBus related exception in VPD.
+ */
+class DbusException : public Exception
+{
+  public:
+    // deleted methods
+    DbusException() = delete;
+    DbusException(const DbusException&) = delete;
+    DbusException(DbusException&&) = delete;
+    DbusException& operator=(const DbusException&) = delete;
+
+    // default destructor
+    ~DbusException() = default;
+
+    /** @brief constructor
+     *  @param[in] msg - string to define exception
+     */
+    explicit DbusException(const std::string& msg) : Exception(msg) {}
+};
+
+/** @class FirmwareException
+ *  @brief Custom handler for firmware exception.
+ *
+ *  This class extends Exceptions class and define
+ *  type for generic firmware related exception in VPD.
+ */
+class FirmwareException : public Exception
+{
+  public:
+    // deleted methods
+    FirmwareException() = delete;
+    FirmwareException(const FirmwareException&) = delete;
+    FirmwareException(FirmwareException&&) = delete;
+    FirmwareException& operator=(const FirmwareException&) = delete;
+
+    // default destructor
+    ~FirmwareException() = default;
+
+    /** @brief constructor
+     *  @param[in] msg - string to define exception
+     */
+    explicit FirmwareException(const std::string& msg) : Exception(msg) {}
+};
+
+/** @class EepromException
+ *  @brief Custom handler for EEPROM exception.
+ *
+ *  This class extends Exceptions class and define
+ *  type for EEPROM related exception in VPD.
+ */
+class EepromException : public Exception
+{
+  public:
+    // deleted methods
+    EepromException() = delete;
+    EepromException(const EepromException&) = delete;
+    EepromException(EepromException&&) = delete;
+    EepromException& operator=(const EepromException&) = delete;
+
+    // default destructor
+    ~EepromException() = default;
+
+    /** @brief constructor
+     *  @param[in] msg - string to define exception
+     */
+    explicit EepromException(const std::string& msg) : Exception(msg) {}
+};
+
 } // namespace vpd
