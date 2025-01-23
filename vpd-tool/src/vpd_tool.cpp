@@ -1210,4 +1210,10 @@ int VpdTool::handleMoreOption(
     return l_rc;
 }
 
+int VpdTool::forceReset()
+{
+    // ToDo: Implementation needs to be added
+    return constants::SUCCESS;
+}
+
 } // namespace vpd
