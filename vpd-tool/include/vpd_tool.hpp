@@ -259,9 +259,12 @@ class VpdTool
      * 3. D-Bus cache.
      * 4. Backup path.
      *
+     * @param[in] i_syncBiosAttributes - Flag which specifies whether BIOS
+     * attribute related keywords need to be synced from BIOS Config Manager
+     *
      * @return On success returns 0, otherwise returns -1.
      */
-    int cleanSystemVpd() const noexcept;
+    int cleanSystemVpd(bool i_syncBiosAttributes = false) const noexcept;
 
     /**
      * @brief Dump all the inventory objects in JSON or table format to console.
