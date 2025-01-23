@@ -30,5 +30,10 @@ constexpr auto assetInf = "xyz.openbmc_project.Inventory.Decorator.Asset";
 constexpr auto objectMapperService = "xyz.openbmc_project.ObjectMapper";
 constexpr auto objectMapperObjectPath = "/xyz/openbmc_project/object_mapper";
 constexpr auto objectMapperInfName = "xyz.openbmc_project.ObjectMapper";
+
+constexpr auto chassisStateManagerService = "xyz.openbmc_project.State.Chassis";
+constexpr auto chassisStateManagerObjectPath =
+    "/xyz/openbmc_project/state/chassis0";
+constexpr auto chassisStateManagerInfName = "xyz.openbmc_project.State.Chassis";
 } // namespace constants
 } // namespace vpd
