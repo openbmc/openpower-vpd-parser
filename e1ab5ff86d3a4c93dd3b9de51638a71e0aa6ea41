@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98f3be30_f0e8230b",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-23T11:14:03Z",
+      "side": 1,
+      "message": "can we follow camel case for api names?",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9880e0ff_87b9de04",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-23T11:14:03Z",
+      "side": 1,
+      "message": "can we have it as inline function ?",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a9eb7d1_efa9df79",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-23T11:14:03Z",
+      "side": 1,
+      "message": "why are you clearing the container?\nif you did this for suppressing the unused variable warning, then I would suggest you to use [[maybe_unused]] attribute in front of the variable declaration.",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48e2e790_9db2b172",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-23T11:14:03Z",
+      "side": 1,
+      "message": "nit: getFailedEepromPaths() sounds better.",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1a8ff33_f7ba59aa",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-23T11:14:03Z",
+      "side": 1,
+      "message": "once you retry the vpd collection for those failed eeproms and if it succeeds then you should have a mechanism to clear the m_failedEepromPaths from worker class.",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0195ab3a_4068a6ce",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-23T11:14:03Z",
+      "side": 1,
+      "message": "why not push_back here?\n\nwhen we try to recollect the vpd we can start from the one which failed first. this will give some time for the eeprom which failed last to get into a readable state if it can.",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8f5eb07_d3c094b2",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-23T11:14:03Z",
+      "side": 1,
+      "message": "we should log a critical PEL here as we don\u0027t have any other way to identify it later.",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
