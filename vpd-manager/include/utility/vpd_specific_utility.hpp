@@ -552,5 +552,57 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
                             " with error: " + std::string(l_ex.what()));
     }
 }
+
+/**
+ * @brief API to process thrown exception.
+ *
+ * The API will process the passed exception and extract the type of exception
+ * thrown internally. Based on that it will set the error type and err message
+ * and return to the caller.
+ *
+ * @param[in]i_exception - Exception thrown,
+ * @return Tuple of error type and error message.
+ */
+inline std::tuple<types::ErrorType, std::string>
+    processException(const std::exception& i_exception)
+{
+    types::ErrorType l_errType = types::ErrorType::InternalFailure;
+    std::string l_errMsg;
+
+    if (typeid(i_exception).name() == typeid(DataException).name())
+    {
+        l_errType = types::ErrorType::InvalidVpdMessage;
+        l_errMsg = "Data Exception occurred with error [";
+    }
+    else if (typeid(i_exception).name() == typeid(EccException).name())
+    {
+        l_errType = types::ErrorType::EccCheckFailed;
+        l_errMsg = "ECC Exception occurred with error [";
+    }
+    else if (typeid(i_exception).name() == typeid(JsonException).name())
+    {
+        l_errType = types::ErrorType::JsonFailure;
+        l_errMsg = "Json Exception occurred with error [";
+    }
+    else if (typeid(i_exception).name() == typeid(DbusException).name())
+    {
+        l_errType = types::ErrorType::DbusFailure;
+        l_errMsg = "Dbus Exception occurred with error [";
+    }
+    else if (typeid(i_exception).name() == typeid(EepromException).name())
+    {
+        l_errType = types::ErrorType::InvalidEeprom;
+        l_errMsg = "EEPROM Exception occurred with error [";
+    }
+    else if (typeid(i_exception).name() == typeid(FirmwareException).name())
+    {
+        l_errType = types::ErrorType::InternalFailure;
+        l_errMsg = "Firmware Exception occurred with error [";
+    }
+
+    l_errMsg += std::string(i_exception.what()) + "]";
+
+    return std::make_tuple(l_errType, l_errMsg);
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd
