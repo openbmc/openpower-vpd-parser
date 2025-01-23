@@ -30,5 +30,10 @@ constexpr auto assetInf = "xyz.openbmc_project.Inventory.Decorator.Asset";
 constexpr auto objectMapperService = "xyz.openbmc_project.ObjectMapper";
 constexpr auto objectMapperObjectPath = "/xyz/openbmc_project/object_mapper";
 constexpr auto objectMapperInfName = "xyz.openbmc_project.ObjectMapper";
+constexpr auto biosConfigMgrObjPath =
+    "/xyz/openbmc_project/bios_config/manager";
+constexpr auto biosConfigMgrService = "xyz.openbmc_project.BIOSConfigManager";
+constexpr auto biosConfigMgrInterface =
+    "xyz.openbmc_project.BIOSConfig.Manager";
 } // namespace constants
 } // namespace vpd
