@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include <tuple>
+#include <unordered_map>
 #include <variant>
 #include <vector>
 
@@ -82,5 +83,35 @@ enum UserOption
     SkipCurrent
 };
 
+using BiosAttributeCurrentValue =
+    std::variant<std::monostate, int64_t, std::string>;
+using BiosAttributePendingValue = std::variant<int64_t, std::string>;
+using BiosGetAttrRetType = std::tuple<std::string, BiosAttributeCurrentValue,
+                                      BiosAttributePendingValue>;
+
+// VPD keyword to BIOS attribute map
+struct IpzKeyHash
+{
+    std::size_t operator()(const IpzType& i_key) const
+    {
+        return std::hash<std::string>()(std::get<0>(i_key)) ^ std::hash<std::string>()(std::get<1>(i_key));
+    }
+};
+
+struct IpzKeyEqual
+{
+    bool operator()(const IpzType& i_leftKey, const IpzType& i_rightKey) const
+    {
+        return std::get<0>(i_leftKey) == std::get<0>(i_rightKey) && std::get<1>(i_leftKey) == std::get<1>(i_rightKey);
+    }
+};
+
+// Bios attribute metadata container : {attribute name, number of bits, starting bit position, enabled value, disabled value}
+using BiosAttributeMetaData = std::tuple<std::string, uint8_t, uint8_t, uint8_t, uint8_t>;
+
+// IPZ keyword to BIOS attribute map
+//{Record, Keyword} -> {attribute name, number of bits in keyword, starting bit
+// position, enabled value, disabled value}
+using BiosAttributeKeywordMap = std::unordered_map<IpzType,std::vector<BiosAttributeMetaData>,IpzKeyHash,IpzKeyEqual>;
 } // namespace types
 } // namespace vpd
