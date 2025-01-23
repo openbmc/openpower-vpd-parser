@@ -1567,19 +1567,35 @@ void Worker::collectFrusFromJson()
             continue;
         }
 
-        std::thread{[vpdFilePath, this]() {
-            const auto& l_parseResult = parseAndPublishVPD(vpdFilePath);
+        try
+        {
+            std::thread{[vpdFilePath, this]() {
+                const auto& l_parseResult = parseAndPublishVPD(vpdFilePath);
 
-            // thread returned.
-            m_mutex.lock();
-            m_activeCollectionThreadCount--;
-            m_mutex.unlock();
+                m_mutex.lock();
+                m_activeCollectionThreadCount--;
+                m_mutex.unlock();
 
-            if (!m_activeCollectionThreadCount)
+                if (!m_activeCollectionThreadCount)
+                {
+                    m_isAllFruCollected = true;
+                }
+            }}.detach();
+        }
+        catch (const std::exception& l_ex)
+        {
+            try
             {
-                m_isAllFruCollected = true;
+                // add vpdFilePath(EEPROM path) to failed list
+                m_failedEepromPaths.push_front(vpdFilePath);
             }
-        }}.detach();
+            catch (const std::exception& l_ex)
+            {
+                logging::logMessage(
+                    "Failed to add [" + vpdFilePath +
+                    "] to failed EEPROM list. Error: " + l_ex.what());
+            }
+        }
     }
 }
 

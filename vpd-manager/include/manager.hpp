@@ -255,6 +255,11 @@ class Manager
      * @param[in] i_msg - The callback message.
      */
     void processAssetTagChangeCallback(sdbusplus::message_t& i_msg);
+
+    /**
+     * @brief API to process VPD collection thread failed EEPROMs.
+     */
+    void processFailedEeproms();
 #endif
 
     /**
