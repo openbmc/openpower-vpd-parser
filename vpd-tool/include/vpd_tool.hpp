@@ -287,5 +287,17 @@ class VpdTool
      * @return On success returns 0, otherwise returns -1.
      */
     int dumpInventory(bool i_dumpTable = false) const noexcept;
+
+    /**
+     * @brief Resets the VPD on DBus for all the Frus.
+     *
+     * API clears the inventory persisted data and restarts the phosphor
+     * inventory manager(PIM) DBus service and the VPD manager service. VPD
+     * manager service collects the VPD for all the FRU's listed on the system
+     * config JSON and calls PIM to publish VPD on DBus.
+     *
+     * @return On success returns 0, otherwise returns -1.
+     */
+    int resetVpdOnDbus();
 };
 } // namespace vpd
