@@ -11,10 +11,13 @@
  *
  * @param[in] i_mfgCleanConfirmFlag - Confirmation flag to perform manufacturing
  * clean.
+ * @param[in] i_mfgCleanSyncBiosAttributesFlag - Flag which specifies whether
+ * BIOS attribute related keywords need to be synced from BIOS Config Manager
  *
  * @return Status returned by cleanSystemVpd operation, success otherwise.
  */
-int doMfgClean(const auto& i_mfgCleanConfirmFlag)
+int doMfgClean(const auto& i_mfgCleanConfirmFlag,
+               const auto& i_mfgCleanSyncBiosAttributesFlag)
 {
     if (i_mfgCleanConfirmFlag->empty())
     {
@@ -31,7 +34,8 @@ int doMfgClean(const auto& i_mfgCleanConfirmFlag)
     }
 
     vpd::VpdTool l_vpdToolObj;
-    return l_vpdToolObj.cleanSystemVpd();
+    return l_vpdToolObj.cleanSystemVpd(
+        !i_mfgCleanSyncBiosAttributesFlag->empty());
 }
 
 /**
@@ -210,6 +214,8 @@ void updateFooter(CLI::App& i_app)
         "MfgClean:\n"
         "        Flag to clean and reset specific keywords on system VPD to its default value.\n"
         "        vpd-tool --mfgClean\n"
+        "     To sync BIOS attribute related keywords with BIOS Config Manager:\n"
+        "        vpd-tool --mfgClean --syncBiosAttributes\n"
         "Dump Inventory:\n"
         "   From DBus to console in JSON format: "
         "vpd-tool -i\n"
@@ -276,6 +282,9 @@ int main(int argc, char** argv)
     auto l_dumpInventoryFlag =
         l_app.add_flag("--dumpInventory, -i", "Dump all the inventory objects");
 
+    auto l_dumpInventoryTableFlag =
+        l_app.add_flag("--table, -t", "Dump inventory in table format");
+
     auto l_mfgCleanFlag = l_app.add_flag(
         "--mfgClean", "Manufacturing clean on system VPD keyword");
 
@@ -283,8 +292,9 @@ int main(int argc, char** argv)
         "--yes", "Using this flag with --mfgClean option, assumes "
                  "yes to proceed without confirmation.");
 
-    auto l_dumpInventoryTableFlag =
-        l_app.add_flag("--table, -t", "Dump inventory in table format");
+    auto l_mfgCleanSyncBiosAttributesFlag = l_app.add_flag(
+        "--syncBiosAttributes, -s",
+        "Sync BIOS attribute related keywords from BIOS Config Manager");
 
     CLI11_PARSE(l_app, argc, argv);
 
@@ -321,7 +331,8 @@ int main(int argc, char** argv)
 
     if (!l_mfgCleanFlag->empty())
     {
-        return doMfgClean(l_mfgCleanConfirmFlag);
+        return doMfgClean(l_mfgCleanConfirmFlag,
+                          l_mfgCleanSyncBiosAttributesFlag);
     }
 
     if (!l_dumpInventoryFlag->empty())
