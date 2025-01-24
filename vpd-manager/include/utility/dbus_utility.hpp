@@ -563,5 +563,42 @@ inline int DisableRebootGuard() noexcept
     return l_rc;
 }
 
+/**
+ * @brief API to return prefix of functional firmware driver.
+ *
+ * Every functional driver belongs to a series which is denoted by the first two
+ * characters of the driver name. The API extracts that and returns it to the
+ * caller.
+ *
+ * @return Prefix of the image, empty string in case of any error.
+ */
+inline std::string getImagePrefix()
+{
+    types::DbusVariantType l_retVal = readDbusProperty(
+        constants::objectMapperService, constants::functionalImageObjPath,
+        constants::associationInterface, "endpoints");
+
+    if (auto l_listOfFunctionalPath =
+            std::get_if<std::vector<std::string>>(&l_retVal))
+    {
+        // extract the first two character from the image name.
+        if (!(*l_listOfFunctionalPath).empty() &&
+            (*l_listOfFunctionalPath).at(0).length() > constants::VALUE_2)
+        {
+            std::string value =
+                (*l_listOfFunctionalPath)
+                    .at(0)
+                    .substr(constants::VALUE_0, constants::VALUE_2);
+
+            std::cout << value << std::endl;
+            // return first two character from image name.
+            return (*l_listOfFunctionalPath)
+                .at(0)
+                .substr(constants::VALUE_0, constants::VALUE_2);
+        }
+    }
+
+    return std::string{};
+}
 } // namespace dbusUtility
 } // namespace vpd

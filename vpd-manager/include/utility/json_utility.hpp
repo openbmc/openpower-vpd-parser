@@ -1039,5 +1039,35 @@ inline std::vector<std::string>
     return l_frusReplaceableAtStandby;
 }
 
+/**
+ * @brief API to select powerVS JSON based on system IM.
+ *
+ * The API selects respective JSON based on system IM, parse it and return the
+ * JSON object. Empty JSON will be returned in case of any error. Caller needs
+ * to handle empty value.
+ *
+ * @param[in] i_imValue - IM value of the system.
+ * @return Parsed JSON object, empty JSON otherwise.
+ */
+inline nlohmann::json getPowerVsJson(const types::BinaryVector& i_imValue)
+{
+    try
+    {
+        if ((i_imValue.at(0) == constants::HEX_VALUE_50) &&
+            (i_imValue.at(2) == constants::HEX_VALUE_30))
+        {
+            return jsonUtility::getParsedJson(constants::power_vs_5003_json);
+        }
+        else if (i_imValue.at(0) == constants::HEX_VALUE_50)
+        {
+            return jsonUtility::getParsedJson(constants::power_vs_5001_json);
+        }
+        return nlohmann::json{};
+    }
+    catch (const std::exception& l_ex)
+    {
+        return nlohmann::json{};
+    }
+}
 } // namespace jsonUtility
 } // namespace vpd
