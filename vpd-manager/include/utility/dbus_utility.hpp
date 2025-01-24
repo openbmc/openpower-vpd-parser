@@ -563,5 +563,109 @@ inline int DisableRebootGuard() noexcept
     return l_rc;
 }
 
+/**
+ * @brief API to return prefix of functional firmware driver.
+ *
+ * Every functional driver belongs to a series which is denoted by the first two
+ * characters of the driver name. The API extracts that and returns it to the
+ * caller.
+ *
+ * @return Prefix of the image, empty string in case of any error.
+ */
+inline std::string getImagePrefix()
+{
+    try
+    {
+        types::DbusVariantType l_retVal = readDbusProperty(
+            constants::objectMapperService, constants::functionalImageObjPath,
+            constants::associationInterface, "endpoints");
+
+        auto l_listOfFunctionalPath =
+            std::get_if<std::vector<std::string>>(&l_retVal);
+
+        if (!l_listOfFunctionalPath || (*l_listOfFunctionalPath).empty())
+        {
+            throw std::runtime_error("failed to get functional image path.");
+        }
+
+        for (const auto& l_imagePath : *l_listOfFunctionalPath)
+        {
+            l_retVal =
+                readDbusProperty(constants::imageUpdateService, l_imagePath,
+                                 constants::imagePrirotyInf, "Priority");
+
+            auto l_imagePriority = std::get_if<uint8_t>(&l_retVal);
+            if (!l_imagePriority)
+            {
+                throw std::runtime_error(
+                    "failed to read functional image priority for path [" +
+                    l_imagePath + "]");
+            }
+
+            // only interested in running image.
+            if (*l_imagePriority != constants::VALUE_0)
+            {
+                continue;
+            }
+
+            l_retVal = readDbusProperty(
+                constants::imageUpdateService, l_imagePath,
+                constants::imageExtendedVerInf, "ExtendedVersion");
+
+            auto l_imageExtendedVersion = std::get_if<std::string>(&l_retVal);
+            if (!l_imageExtendedVersion)
+            {
+                throw std::runtime_error(
+                    "Unable to read extended version for the functional image [" +
+                    l_imagePath + "]");
+            }
+
+            // extract the first two character from the image name.
+            if ((*l_imageExtendedVersion).empty() ||
+                (*l_imageExtendedVersion).length() <= constants::VALUE_2)
+            {
+                throw std::runtime_error(
+                    "Invalid extended version read for path [" + l_imagePath +
+                    "]");
+            }
+
+            // remove after test
+            std::string value =
+                (*l_imageExtendedVersion)
+                    .substr(constants::VALUE_0, constants::VALUE_2);
+
+            std::cout << value << std::endl;
+
+            // return first two character from image name.
+            return (*l_imageExtendedVersion)
+                .substr(constants::VALUE_0, constants::VALUE_2);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(l_ex.what());
+        return std::string{};
+    }
+}
+
+/**
+ * @brief API to read IM keyword from Dbus.
+ *
+ * @return IM value read from Dbus, Empty in case of any error.
+ */
+inline types::BinaryVector getImFromDbus()
+{
+    const auto& l_retValue = dbusUtility::readDbusProperty(
+        constants::pimServiceName, constants::systemInvPath, constants::vsbpInf,
+        constants::kwdIM);
+
+    auto l_imValue = std::get_if<types::BinaryVector>(&l_retValue);
+    if (!l_imValue || (*l_imValue).size() != constants::VALUE_4)
+    {
+        return types::BinaryVector{};
+    }
+
+    return *l_imValue;
+}
 } // namespace dbusUtility
 } // namespace vpd
