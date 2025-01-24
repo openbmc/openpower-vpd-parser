@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "975238f5_179a1a85",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-01-24T08:31:30Z",
+      "side": 1,
+      "message": "Giving extra space to print next set of data.",
+      "parentUuid": "7dfe25df_f1fa26f0",
+      "revId": "864615864d5bd90ae19eb13490d33ee3c2bb4bf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "184bbb25_d9366dc5",
         "filename": "vpd-tool/src/vpd_tool.cpp",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2025-01-23T14:05:53Z",
       "side": 1,
       "message": "A bit confused here. In the for loop if a mismatch is fond then we set \"l_anyMismatchFound \u003d true\"\n\nAfter that let\u0027s say \"writeKeyword\" fails and code goes to exception. Then you log error to console and then come here and log that data updated successfully.\n\nIs that by design?",
+      "revId": "864615864d5bd90ae19eb13490d33ee3c2bb4bf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45acb820_bb6d44ef",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-01-24T08:31:30Z",
+      "side": 1,
+      "message": "Updated code to handle the error scenario,\nwill print error log in case of error occured while updating keywords.",
+      "parentUuid": "184bbb25_d9366dc5",
       "revId": "864615864d5bd90ae19eb13490d33ee3c2bb4bf6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
