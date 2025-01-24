@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "745c0fcb_6b0d14b8",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-01-24T06:41:29Z",
+      "side": 1,
+      "message": "updated the API name.",
+      "parentUuid": "4398460a_4a22465f",
+      "revId": "a76bd2023f9a00ec5f89596598376b9916dfbe4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "92ca753c_0f48f5fe",
         "filename": "vpd-tool/src/vpd_tool_main.cpp",
         "patchSetId": 3
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "def4220f_bd1111c6",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-01-24T06:41:29Z",
+      "side": 1,
+      "message": "VpdTool member function will have only implementation of reseting VPD of the system and the requirement to call this checked prior to that.",
+      "parentUuid": "92ca753c_0f48f5fe",
+      "revId": "a76bd2023f9a00ec5f89596598376b9916dfbe4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "905960c1_ce52eb1a",
         "filename": "vpd-tool/src/vpd_tool_main.cpp",
         "patchSetId": 3
@@ -48,6 +84,24 @@
       "writtenOn": "2025-01-23T14:20:56Z",
       "side": 1,
       "message": "Use constant defined.",
+      "revId": "a76bd2023f9a00ec5f89596598376b9916dfbe4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49c46c8c_30e0f4ec",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-01-24T06:41:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "905960c1_ce52eb1a",
       "revId": "a76bd2023f9a00ec5f89596598376b9916dfbe4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
