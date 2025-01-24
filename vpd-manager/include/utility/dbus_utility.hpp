@@ -563,5 +563,67 @@ inline int DisableRebootGuard() noexcept
     return l_rc;
 }
 
+/**
+ * @brief API to read IM value published on Dbus.
+ *
+ * @throw std::runtime_error.
+ * @return IM value. Exception otherwise.
+ */
+inline types::BinaryVector readImFromDbus()
+{
+    const auto& l_retValue = dbusUtility::readDbusProperty(
+            constants::pimServiceName, constants::systemInvPath,
+            constants::vsbpInf, constants::kwdIM);
+
+    if (auto l_imValue = std::get_if<types::BinaryVector>(&l_retValue))
+    {
+        if ((*l_imValue).size() != constants::VALUE_4)
+        {
+            throw std::runtime_error("Invalid IM value read from DBus.");
+        }
+
+        return *l_imValue;
+    }
+
+    throw std::runtime_error("Invalid type read for IM value from DBus.");
+}
+
+/**
+ * @brief API to return prefix of functional firmware image.
+ *
+ * Every functional image belongs to a series which is denoted by the first two
+ * characters of the image name. The API extracts that and return that to the
+ * caller.
+ *
+ * @return Prefix of the image, empty string in case of any error.
+ */
+inline std::string getImagePrefix()
+{
+    types::DbusVariantType l_retVal = readDbusProperty(
+        constants::objectMapperService, constants::functionalImageObjPath,
+        constants::associationInterface, "endpoints");
+
+    if (auto l_listOfFunctionalPath =
+            std::get_if<std::vector<std::string>>(&l_retVal))
+    {
+        // extract the first two character from the image name.
+        if (!(*l_listOfFunctionalPath).empty() &&
+            (*l_listOfFunctionalPath).at(0).length() > constants::VALUE_2)
+        {
+            std::string value = (*l_listOfFunctionalPath)
+                                    .at(0)
+                                    .substr(constants::VALUE_0,
+                                           constants::VALUE_2);
+
+            std::cout << value << std::endl;
+            // return first two character from image name.
+            return (*l_listOfFunctionalPath)
+                .at(0)
+                .substr(constants::VALUE_0, constants::VALUE_2);
+        }
+    }
+
+    return std::string{};
+}
 } // namespace dbusUtility
 } // namespace vpd
