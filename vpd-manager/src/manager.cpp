@@ -287,6 +287,10 @@ void Manager::SetTimerToDetectVpdCollectionStatus()
             // cancel the timer
             l_timer.cancel();
             processFailedEeproms();
+
+            // upadte VPD for powerVS system.
+            updatePowerVsVpd();
+
             m_interface->set_property("CollectionStatus",
                                       std::string("Completed"));
 
@@ -318,6 +322,79 @@ void Manager::SetTimerToDetectVpdCollectionStatus()
             }
         }
     });
+}
+
+void Manager::updatePowerVsVpd()
+{
+    std::vector<std::string> l_failedPathList;
+    try
+    {
+        types::BinaryVector l_imValue = dbusUtility::getImFromDbus();
+        if (l_imValue.empty())
+        {
+            throw DbusException("Invalid IM value read from Dbus");
+        }
+
+        if (!vpdSpecificUtility::isPowerVsConfiguration(l_imValue))
+        {
+            // TODO: Should booting be blocked in case of some
+            // misconfigurations?
+            return;
+        }
+
+        const nlohmann::json& l_powerVsJsonObj =
+            jsonUtility::getPowerVsJson(l_imValue);
+
+        if (l_powerVsJsonObj.empty())
+        {
+            throw std::runtime_error("Power VS Json not found");
+        }
+
+        for (const auto& [l_path, l_recJson] : l_powerVsJsonObj.items())
+        {
+            for (const auto& [l_recordName, l_kwdJson] : l_recJson.items())
+            {
+                for (const auto& [l_kwdName, l_kwdValue] : l_kwdJson.items())
+                {
+                    if (l_kwdValue.is_array())
+                    {
+                        types::BinaryVector l_binaryKwdValue =
+                            l_kwdValue.get<types::BinaryVector>();
+
+                        if (updateKeyword(
+                                l_path, std::make_tuple(l_recordName, l_kwdName,
+                                                        l_kwdValue)) ==
+                            constants::FAILURE)
+                        {
+                            l_failedPathList.push_back(l_path);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!l_failedPathList.empty())
+        {
+            throw std::runtime_error(
+                "Part number update failed for following paths: ");
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        std::string l_errMsg = l_ex.what();
+        if (!l_failedPathList.empty())
+        {
+            for (const auto& l_path : l_failedPathList)
+            {
+                l_errMsg += l_path + std::string("; ");
+            }
+        }
+
+        EventLogger::createSyncPel(
+            types::ErrorType::InternalFailure, types::SeverityType::Critical,
+            __FILE__, __FUNCTION__, 0, l_errMsg + l_ex.what(), std::nullopt,
+            std::nullopt, std::nullopt, std::nullopt);
+    }
 }
 #endif
 
