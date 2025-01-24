@@ -255,6 +255,14 @@ class Manager
      * @param[in] i_msg - The callback message.
      */
     void processAssetTagChangeCallback(sdbusplus::message_t& i_msg);
+
+    /**
+     * @brief API to update VPD specific to power vs system.
+     *
+     * Some FRUs part number is specific to power VS system. The API updates VPD
+     * of those FRUs to those specific value.
+     */
+    void updatePowerVsVpd();
 #endif
 
     /**
