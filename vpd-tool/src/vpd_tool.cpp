@@ -6,6 +6,7 @@
 #include "tool_types.hpp"
 #include "tool_utils.hpp"
 
+#include <cstdlib>
 #include <iostream>
 #include <regex>
 #include <tuple>
@@ -1315,8 +1316,115 @@ int VpdTool::handleMoreOption(
 
 int VpdTool::resetVpdOnDbus()
 {
-    // ToDo: Implementation needs to be added
-    return constants::SUCCESS;
+    // ToDo: Limit this function to lab mode only.
+
+    int l_rc = constants::FAILURE;
+    try
+    {
+        std::string l_vpdManagerStopCmd(
+            "systemctl stop " + std::string(constants::vpdManagerProcessName));
+
+        std::cout << std::flush;
+        if (auto l_rc = std::system(l_vpdManagerStopCmd.c_str()); l_rc != 0)
+        {
+            std::cerr << "Failed to stop " << constants::vpdManagerProcessName
+                      << " service. Ret code [" << l_rc << "]. Exiting."
+                      << std::endl;
+            return l_rc;
+        }
+
+        std::string l_vpdServiceIsActiveCmd(
+            "systemctl is-active --quiet " +
+            std::string(constants::vpdManagerProcessName));
+
+        std::cout << std::flush;
+        if (auto l_rc = std::system(l_vpdServiceIsActiveCmd.c_str()); l_rc == 0)
+        {
+            std::cerr
+                << constants::vpdManagerProcessName
+                << " service is still active, can't proceed further. Ret code ["
+                << l_rc << "]. Exiting." << std::endl;
+            return l_rc;
+        }
+
+        std::error_code l_ec;
+        if (static_cast<std::uintmax_t>(-1) ==
+            std::filesystem::remove_all(constants::pimPersistPath, l_ec))
+        {
+            std::cerr
+                << "Error occured while removing the persisted VPD under path ["
+                << constants::pimPersistPath << "]." << std::endl;
+
+            if (l_ec)
+            {
+                std::cerr << "Reason: " << l_ec.message() << std::endl;
+            }
+
+            std::cerr << "Reboot BMC to recover the system." << std::endl;
+            return l_rc;
+        }
+
+        std::string l_pimServiceRestartCmd(
+            "systemctl restart " +
+            std::string(constants::inventoryManagerService));
+
+        std::cout << std::flush;
+        if (auto l_rc = std::system(l_pimServiceRestartCmd.c_str()); l_rc != 0)
+        {
+            std::cerr << "Failed to restart "
+                      << constants::inventoryManagerService
+                      << " service. Ret code [" << l_rc << "]. Exiting."
+                      << std::endl
+                      << "Reboot BMC to recover the system." << std::endl;
+            return l_rc;
+        }
+
+        std::string l_pimServiceIsActiveCmd(
+            "systemctl is-active --quiet " +
+            std::string(constants::inventoryManagerService));
+
+        std::cout << std::flush;
+        if (auto l_rc = std::system(l_pimServiceIsActiveCmd.c_str()); l_rc != 0)
+        {
+            std::cerr << constants::inventoryManagerService
+                      << " service is not active. Ret code [" << l_rc
+                      << "]. Exiting." << std::endl
+                      << "Reboot BMC to recover the system." << std::endl;
+            return l_rc;
+        }
+
+        std::string l_vpdManagerStartCmd(
+            "systemctl start " + std::string(constants::vpdManagerProcessName));
+
+        std::cout << std::flush;
+        if (auto l_rc = std::system(l_vpdManagerStartCmd.c_str()); l_rc != 0)
+        {
+            std::cerr << "Failed to start " << constants::vpdManagerProcessName
+                      << " service. Ret code [" << l_rc << "]. Exiting."
+                      << std::endl
+                      << "Reboot BMC to recover the system." << std::endl;
+            return l_rc;
+        }
+
+        std::cout << std::flush;
+        if (auto l_rc = std::system(l_vpdServiceIsActiveCmd.c_str()); l_rc != 0)
+        {
+            std::cerr << constants::vpdManagerProcessName
+                      << " service is not active. Ret code [" << l_rc
+                      << "]. Exiting." << std::endl
+                      << "Reboot BMC to recover the system." << std::endl;
+            return l_rc;
+        }
+
+        l_rc = constants::SUCCESS;
+    }
+    catch (const std::exception& l_ex)
+    {
+        // TODO: Enable logging when verbose is enabled.
+        std::cerr << l_ex.what() << std::endl;
+    }
+
+    return l_rc;
 }
 
 types::BinaryVector VpdTool::getVpdValueInBiosConfigManager(
