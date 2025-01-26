@@ -289,12 +289,12 @@ class VpdTool
     int dumpInventory(bool i_dumpTable = false) const noexcept;
 
     /**
-     * @brief Reset VPD of the system.
+     * @brief Reset DBus VPD for all the Frus.
      *
-     * API clears the inventory cache data and restarts the
-     * phosphor inventory manager(PIM) DBus service and the VPD manager service.
-     * VPD manager service collects the VPD for all the FRU's listed on the
-     * system config JSON and calls PIM to publish VPD on DBus.
+     * API clears the inventory cache data and restarts the phosphor inventory
+     * manager(PIM) DBus service and the VPD manager service. VPD manager
+     * service collects the VPD for all the FRU's listed on the system config
+     * JSON and calls PIM to publish VPD on DBus.
      *
      * @return On success returns 0, otherwise returns -1.
      */

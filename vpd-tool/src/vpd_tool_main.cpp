@@ -8,14 +8,14 @@
 #include <iostream>
 
 /**
- * @brief Force Reset VPD.
+ * @brief Resets DBus VPD for all the Frus.
  *
- * API clears the inventory cache data and restarts the
- * phosphor inventory manager(PIM) DBus service and the VPD manager service.
- * VPD manager service collects the VPD for all the FRU's listed on the system
- * config JSON and calls PIM to publish VPD on DBus.
+ * API clears the inventory manager persist data and restarts the phosphor
+ * inventory manager(PIM) DBus service and the VPD manager service. VPD manager
+ * service collects the VPD for all the FRU's listed on the system config JSON
+ * and calls PIM to publish VPD on DBus.
  *
- * Force reset only happens if chassis is powered off.
+ * Note: Force reset only happens if chassis is powered off.
  *
  * @return On success returns 0, otherwise returns -1.
  */
