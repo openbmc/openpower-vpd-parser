@@ -6,6 +6,7 @@
 #include "tool_types.hpp"
 #include "tool_utils.hpp"
 
+#include <cstdlib>
 #include <iostream>
 #include <regex>
 #include <tuple>
@@ -1213,8 +1214,100 @@ int VpdTool::handleMoreOption(
 
 int VpdTool::resetVpd()
 {
-    // ToDo: Implementation needs to be added
-    return constants::SUCCESS;
+    int l_rc = constants::FAILURE;
+    try
+    {
+        const auto l_objectPaths =
+            utils::GetSubTreePaths(constants::baseInventoryPath);
+
+        nlohmann::json l_resultInJson = nlohmann::json::array({});
+
+        std::for_each(
+            l_objectPaths.begin(), l_objectPaths.end(),
+            [](const auto& l_objectPath) {
+                try
+                {
+                    std::error_code l_ec;
+                    std::filesystem::path l_fruPath(
+                        constants::pimPersistPath + l_objectPath);
+
+                    for (const auto& l_dirItr :
+                         std::filesystem::directory_iterator(l_fruPath))
+                    {
+                        if (std::filesystem::is_regular_file(l_dirItr.path(),
+                                                             l_ec))
+                        {
+                            std::filesystem::remove(l_dirItr);
+                        }
+
+                        if (l_ec)
+                        {
+                            std::cerr
+                                << "Error occured while removing the file ["
+                                << l_dirItr.path()
+                                << "], error: " << l_ec.message() << std::endl;
+                            l_ec.clear();
+                        }
+                    }
+                }
+                catch (const std::exception& l_ex)
+                {
+                    // TODO: Enable logging when verbose is enabled.
+                    std::cerr << l_ex.what() << std::endl;
+                }
+            });
+
+        std::string l_pimServiceRestartCmd(
+            "systemctl restart " +
+            std::string(constants::inventoryManagerService));
+
+        std::cout << "Restarting " << constants::inventoryManagerService
+                  << " service." << std::endl;
+        std::cout << std::flush;
+
+        if (auto l_rc = std::system(l_pimServiceRestartCmd.c_str()); l_rc != 0)
+        {
+            std::cerr << "Restarting " << constants::inventoryManagerService
+                      << " service failed with the return code[" << l_rc
+                      << "]. Continuing the execution. " << std::endl;
+            return l_rc;
+        }
+
+        std::string l_pimServiceIsActiveCmd(
+            "systemctl is-active --quiet " +
+            std::string(constants::inventoryManagerService));
+        if (auto l_rc = std::system(l_pimServiceIsActiveCmd.c_str()); l_rc != 0)
+        {
+            std::cerr
+                << constants::inventoryManagerService
+                << " service is not active yet. So stopping further excecution of the command.";
+            return l_rc;
+        }
+
+        std::string l_vpdManagerRestartCmd(
+            "systemctl restart " +
+            std::string(constants::vpdManagerProcessName));
+
+        std::cout << "Restarting " << constants::vpdManagerProcessName
+                  << " service." << std::endl;
+        std::cout << std::flush;
+
+        if (auto l_rc = std::system(l_vpdManagerRestartCmd.c_str()); l_rc != 0)
+        {
+            std::cerr << "Restarting " << constants::vpdManagerProcessName
+                      << " service failed with the return code[" << l_rc << "]."
+                      << std::endl;
+        }
+
+        l_rc = constants::SUCCESS;
+    }
+    catch (const std::exception& l_ex)
+    {
+        // TODO: Enable logging when verbose is enabled.
+        std::cerr << l_ex.what() << std::endl;
+    }
+
+    return l_rc;
 }
 
 } // namespace vpd
