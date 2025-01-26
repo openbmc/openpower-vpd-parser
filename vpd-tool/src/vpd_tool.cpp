@@ -6,6 +6,7 @@
 #include "tool_types.hpp"
 #include "tool_utils.hpp"
 
+#include <cstdlib>
 #include <iostream>
 #include <regex>
 #include <tuple>
@@ -1213,8 +1214,117 @@ int VpdTool::handleMoreOption(
 
 int VpdTool::resetVpd()
 {
-    // ToDo: Implementation needs to be added
-    return constants::SUCCESS;
+    int l_rc = constants::FAILURE;
+    try
+    {
+        nlohmann::json l_parsedSystemJson =
+            utils::getParsedJson(INVENTORY_JSON_SYM_LINK);
+
+        // check for mandatory fields at this point itself.
+        if (!l_parsedSystemJson.contains("frus"))
+        {
+            std::cerr << "Missing frus tag in system config JSON ["
+                      << std::string(INVENTORY_JSON_SYM_LINK) << "]";
+            return l_rc;
+        }
+
+        for (const auto& l_frus : l_parsedSystemJson["frus"].items())
+        {
+            for (const auto& l_aFru : l_frus.value())
+            {
+                if (!l_aFru.contains("inventoryPath"))
+                {
+                    // TODO: Enable logging when verbose is enabled.
+                    std::cerr << "inventoryPath tag is missing for FRU["
+                              << l_frus.key() << "] in system config JSON ["
+                              << INVENTORY_JSON_SYM_LINK << "]." << std::endl;
+                    continue;
+                }
+
+                try
+                {
+                    std::error_code l_ec;
+                    std::filesystem::path l_fruPath(
+                        constants::pimPersistPath +
+                        std::string(l_aFru["inventoryPath"]));
+
+                    for (const auto& l_dirItr :
+                         std::filesystem::directory_iterator(l_fruPath))
+                    {
+                        if (std::filesystem::is_regular_file(l_dirItr.path(),
+                                                             l_ec))
+                        {
+                            std::filesystem::remove(l_dirItr);
+                        }
+
+                        if (l_ec)
+                        {
+                            std::cerr
+                                << "is_regular_file system call failed for file ["
+                                << l_dirItr.path()
+                                << "], error: " << l_ec.message() << std::endl;
+                            l_ec.clear();
+                        }
+                    }
+                }
+                catch (const std::exception& l_ex)
+                {
+                    // TODO: Enable logging when verbose is enabled.
+                    std::cerr << l_ex.what() << std::endl;
+                }
+            }
+        }
+
+        std::string l_pimServiceRestartCmd(
+            "systemctl restart " +
+            std::string(constants::inventoryManagerService));
+
+        std::cout << "Restarting " << constants::inventoryManagerService
+                  << " service." << std::endl;
+        std::cout << std::flush;
+
+        if (auto l_rc = std::system(l_pimServiceRestartCmd.c_str()); l_rc != 0)
+        {
+            std::cerr << "Restarting " << constants::inventoryManagerService
+                      << " service failed with the return code[" << l_rc
+                      << "]. Continuing the execution. " << std::endl;
+            return l_rc;
+        }
+
+        std::string l_pimServiceIsActiveCmd(
+            "systemctl is-active --quiet " +
+            std::string(constants::inventoryManagerService));
+        if (auto l_rc = std::system(l_pimServiceIsActiveCmd.c_str()); l_rc != 0)
+        {
+            std::cerr
+                << constants::inventoryManagerService
+                << " service is not active yet. So stopping further excecution of the command.";
+            return l_rc;
+        }
+
+        std::string l_vpdManagerRestartCmd(
+            "systemctl restart " + std::string(constants::vpdManagerAppName));
+
+        std::cout << "Restarting " << constants::vpdManagerAppName
+                  << " service." << std::endl;
+        std::cout << std::flush;
+
+        if (auto l_rc = std::system(l_vpdManagerRestartCmd.c_str()); l_rc != 0)
+        {
+            std::cerr << "Restarting " << constants::vpdManagerAppName
+                      << " service failed with the return code[" << l_rc << "]."
+                      << std::endl;
+        }
+
+        l_rc = constants::SUCCESS;
+    }
+    catch (const std::exception& l_ex)
+    {
+        // TODO: Enable logging when verbose is enabled.
+        std::cerr << l_ex.what() << std::endl;
+    }
+
+    return l_rc;
 }
 
 } // namespace vpd
