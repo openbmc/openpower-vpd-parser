@@ -18,6 +18,7 @@ static constexpr auto STR_CMP_SUCCESS = 0;
 constexpr auto inventoryManagerService =
     "xyz.openbmc_project.Inventory.Manager";
 constexpr auto baseInventoryPath = "/xyz/openbmc_project/inventory";
+constexpr auto pimPersistPath = "/var/lib/phosphor-inventory-manager";
 constexpr auto ipzVpdInfPrefix = "com.ibm.ipzvpd.";
 
 constexpr auto vpdManagerService = "com.ibm.VPD.Manager";
@@ -34,5 +35,6 @@ constexpr auto chassisStateManagerService = "xyz.openbmc_project.State.Chassis";
 constexpr auto chassisStateManagerObjectPath =
     "/xyz/openbmc_project/state/chassis0";
 constexpr auto chassisStateManagerInfName = "xyz.openbmc_project.State.Chassis";
+constexpr auto vpdManagerProcessName = "vpd-manager";
 } // namespace constants
 } // namespace vpd
