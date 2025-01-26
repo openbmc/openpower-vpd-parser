@@ -1212,8 +1212,80 @@ int VpdTool::handleMoreOption(
 
 int VpdTool::resetVpd()
 {
-    // ToDo: Implementation needs to be added
-    return constants::SUCCESS;
+    int l_rc = constants::SUCCESS;
+    try
+    {
+        nlohmann::json l_parsedSystemJson =
+            utils::getParsedJson(INVENTORY_JSON_SYM_LINK);
+
+        // check for mandatory fields at this point itself.
+        if (!l_parsedSystemJson.contains("frus"))
+        {
+            std::cerr << "Missing frus tag in system config JSON ["
+                      << std::string(INVENTORY_JSON_SYM_LINK) << "]";
+            return l_rc;
+        }
+
+        for (const auto& l_frus : l_parsedSystemJson["frus"].items())
+        {
+            for (const auto& l_aFru : l_frus.value())
+            {
+                try
+                {
+                    std::error_code l_ec;
+                    std::filesystem::path l_fruPath(
+                        constants::pimCachePath +
+                        std::string(l_aFru["inventoryPath"]));
+
+                    for (const auto& l_dirItr :
+                         std::filesystem::directory_iterator(l_fruPath))
+                    {
+                        if (std::filesystem::is_regular_file(l_dirItr.path(),
+                                                             l_ec))
+                        {
+                            std::filesystem::remove(l_dirItr);
+                        }
+                    }
+                }
+                catch (const std::exception& l_ex)
+                {
+                    // TODO: Enable logging when verbose is enabled.
+                    std::cerr << l_ex.what() << std::endl;
+                }
+            }
+        }
+
+        std::string l_pimServiceRestart("systemctl restart ");
+        l_pimServiceRestart += constants::inventoryManagerService;
+
+        std::cout << std::flush;
+        if (auto l_rc = std::system(l_pimServiceRestart.c_str()); l_rc != 0)
+        {
+            std::cerr
+                << "Restarting Inventory.Manager service failed with the return code["
+                << l_rc << "]. Continuing the execution. " << std::endl;
+        }
+
+        std::string l_vpdManagerRestart(
+            "systemctl restart vpd-manager.service");
+
+        std::cout << std::flush;
+        if (auto l_rc = std::system(l_vpdManagerRestart.c_str()); l_rc != 0)
+        {
+            std::cerr
+                << "Restarting VPD.Manager service failed with the return code["
+                << l_rc << "]." << std::endl;
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        l_rc = constants::FAILURE;
+
+        // TODO: Enable logging when verbose is enabled.
+        std::cerr << l_ex.what() << std::endl;
+    }
+
+    return l_rc;
 }
 
 } // namespace vpd

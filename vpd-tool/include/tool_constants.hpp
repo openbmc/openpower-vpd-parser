@@ -18,6 +18,7 @@ static constexpr auto STR_CMP_SUCCESS = 0;
 constexpr auto inventoryManagerService =
     "xyz.openbmc_project.Inventory.Manager";
 constexpr auto baseInventoryPath = "/xyz/openbmc_project/inventory";
+constexpr auto pimCachePath = "/var/lib/phosphor-inventory-manager";
 constexpr auto ipzVpdInfPrefix = "com.ibm.ipzvpd.";
 
 constexpr auto vpdManagerService = "com.ibm.VPD.Manager";
