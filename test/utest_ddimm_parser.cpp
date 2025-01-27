@@ -26,7 +26,8 @@ TEST(DdimmVpdParserTest, GoodTestCase)
             {0x59, 0x48, 0x33, 0x33, 0x31, 0x54, 0x33, 0x38, 0x34, 0x30, 0x33,
              0x46}},
         std::pair<std::string, types::BinaryVector>{"CC",
-                                                    {0x33, 0x32, 0x41, 0x31}}};
+                                                    {0x33, 0x32, 0x41, 0x31}},
+        std::pair<std::string, types::BinaryVector>{"DI", {0x80, 0xCE}}};
 
     nlohmann::json l_json;
     std::string l_vpdFile("vpd_files/ddr5_ddimm.dat");
@@ -49,7 +50,8 @@ TEST(DdimmVpdParserTest, DDR4GoodTestCase)
             {0x59, 0x48, 0x33, 0x35, 0x31, 0x54, 0x31, 0x35, 0x53, 0x30, 0x44,
              0x35}},
         std::pair<std::string, types::BinaryVector>{"CC",
-                                                    {0x33, 0x32, 0x37, 0x42}}};
+                                                    {0x33, 0x32, 0x37, 0x42}},
+        std::pair<std::string, types::BinaryVector>{"DI", {0x80, 0xAD}}};
 
     nlohmann::json l_json;
     std::string l_vpdFile("vpd_files/ddr4_ddimm.dat");

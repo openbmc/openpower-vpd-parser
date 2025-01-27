@@ -20,6 +20,8 @@ static constexpr auto SDRAM_DENSITY_PER_DIE_UNDEFINED = 0;
 
 static constexpr auto PRIMARY_BUS_WIDTH_32_BITS = 32;
 static constexpr auto PRIMARY_BUS_WIDTH_UNUSED = 0;
+static constexpr auto DRAM_MANUFACTURER_ID_OFFSET = 0x228;
+static constexpr auto DRAM_MANUFACTURER_ID_LENGTH = 0x02;
 
 bool DdimmVpdParser::checkValidValue(uint8_t i_ByteValue, uint8_t i_shift,
                                      uint8_t i_minValue, uint8_t i_maxValue)
@@ -368,10 +370,15 @@ void
     advance(i_iterator, constants::SERIAL_NUM_LEN);
     types::BinaryVector l_ccin(i_iterator, i_iterator + constants::CCIN_LEN);
 
+    types::BinaryVector l_mfgId(DRAM_MANUFACTURER_ID_LENGTH);
+    std::copy_n((m_vpdVector.cbegin() + DRAM_MANUFACTURER_ID_OFFSET),
+                DRAM_MANUFACTURER_ID_LENGTH, l_mfgId.begin());
+
     m_parsedVpdMap.emplace("FN", l_partNumber);
     m_parsedVpdMap.emplace("PN", move(l_partNumber));
     m_parsedVpdMap.emplace("SN", move(l_serialNumber));
     m_parsedVpdMap.emplace("CC", move(l_ccin));
+    m_parsedVpdMap.emplace("DI", move(l_mfgId));
 }
 
 types::VPDMapVariant DdimmVpdParser::parse()
