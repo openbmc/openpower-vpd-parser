@@ -101,6 +101,13 @@ class JedecSpdParser : public ParserInterface
     std::string_view getDDR4CCIN(const std::string& i_partNumber);
 
     /**
+     * @brief This function returns manufacturer's ID for DDR4 DIMM.
+     *
+     * @return manufacturer ID.
+     */
+    types::BinaryVector getDDR4ManufacturerId();
+
+    /**
      * @brief This function calculates DIMM size from DDR5 SPD
      *
      * @param[in] i_iterator - iterator to buffer containing SPD

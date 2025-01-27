@@ -40,6 +40,8 @@ constexpr auto SPD_JEDEC_DDR4_SDRAM_DENSITY_BANK_OFFSET = 4;
 constexpr auto SPD_JEDEC_DDR4_SDRAM_ADDR_OFFSET = 5;
 constexpr auto SPD_JEDEC_DDR4_DRAM_PRI_PACKAGE_OFFSET = 6;
 constexpr auto SPD_JEDEC_DDR4_DRAM_MODULE_ORG_OFFSET = 12;
+static constexpr auto SPD_JEDEC_DDR4_DRAM_MANUFACTURER_ID_OFFSET = 320;
+static constexpr auto SPD_JEDEC_DRAM_MANUFACTURER_ID_LENGTH = 2;
 
 // Lookup tables
 const std::map<std::tuple<std::string, uint8_t>, std::string> pnFreqFnMap = {
@@ -204,6 +206,24 @@ std::string_view JedecSpdParser::getDDR4CCIN(const std::string& i_fruNumber)
     return "XXXX"; // Return default value as XXXX
 }
 
+types::BinaryVector JedecSpdParser::getDDR4ManufacturerId()
+{
+    types::BinaryVector l_mfgId(SPD_JEDEC_DRAM_MANUFACTURER_ID_LENGTH);
+
+    if (m_memSpd.size() < (SPD_JEDEC_DDR4_DRAM_MANUFACTURER_ID_OFFSET +
+                           SPD_JEDEC_DRAM_MANUFACTURER_ID_LENGTH))
+    {
+        logging::logMessage(
+            "VPD length is less than the offset of Manufacturer ID. Can't fetch it");
+        return l_mfgId;
+    }
+
+    std::copy_n((m_memSpd.cbegin() +
+                 SPD_JEDEC_DDR4_DRAM_MANUFACTURER_ID_OFFSET),
+                SPD_JEDEC_DRAM_MANUFACTURER_ID_LENGTH, l_mfgId.begin());
+    return l_mfgId;
+}
+
 auto JedecSpdParser::getDDR5DimmCapacity(
     types::BinaryVector::const_iterator& i_iterator)
 {
@@ -290,6 +310,8 @@ types::JedecSpdMap JedecSpdParser::readKeywords(
         getDDR4CCIN(std::string(l_fruNumber.begin(), l_fruNumber.end()));
     // PN value is made same as FN value
     auto l_displayPartNumber = l_fruNumber;
+    auto l_mfgId = getDDR4ManufacturerId();
+
     l_keywordValueMap.emplace("PN",
                               move(std::string(l_displayPartNumber.begin(),
                                                l_displayPartNumber.end())));
@@ -298,6 +320,7 @@ types::JedecSpdMap JedecSpdParser::readKeywords(
     l_keywordValueMap.emplace("SN", move(l_serialNumber));
     l_keywordValueMap.emplace("CC",
                               move(std::string(ccin.begin(), ccin.end())));
+    l_keywordValueMap.emplace("DI", move(l_mfgId));
 
     return l_keywordValueMap;
 }
