@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e32e0983_3f7c3237",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-28T06:16:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1722c74f_beca43f0",
+      "revId": "8ea423810b0da1360ff46b49316075e22fb908e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "200f5f94_4e13165e",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-01-28T06:11:07Z",
       "side": 1,
       "message": "why is some abbreviations in capital like FRU VPD GPIO in someplace only",
+      "revId": "8ea423810b0da1360ff46b49316075e22fb908e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef2d603b_44aae8ac",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-28T06:16:35Z",
+      "side": 1,
+      "message": "This is based on the interface defined in Message registry json file pf phosphor logging.",
+      "parentUuid": "200f5f94_4e13165e",
       "revId": "8ea423810b0da1360ff46b49316075e22fb908e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
