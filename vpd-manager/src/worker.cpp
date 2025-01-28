@@ -1397,7 +1397,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
     {
         // If post fail action is required, execute it.
         if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
-                                          "PostFailAction", "collection"))
+                                          "postFailAction", "collection"))
         {
             if (!jsonUtility::executePostFailAction(m_parsedJson, i_vpdFilePath,
                                                     "collection"))

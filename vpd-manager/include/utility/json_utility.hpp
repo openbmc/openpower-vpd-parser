@@ -203,7 +203,7 @@ inline bool executePostFailAction(const nlohmann::json& i_parsedConfigJson,
         return false;
     }
 
-    if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))["PostFailAction"]
+    if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))["postFailAction"]
              .contains(i_flagToProcess))
     {
         logging::logMessage(
@@ -214,14 +214,14 @@ inline bool executePostFailAction(const nlohmann::json& i_parsedConfigJson,
     }
 
     for (const auto& l_tags : (i_parsedConfigJson["frus"][i_vpdFilePath].at(
-             0))["PostFailAction"][i_flagToProcess]
+             0))["postFailAction"][i_flagToProcess]
                                   .items())
     {
         auto itrToFunction = funcionMap.find(l_tags.key());
         if (itrToFunction != funcionMap.end())
         {
             if (!itrToFunction->second(i_parsedConfigJson, i_vpdFilePath,
-                                       "PostFailAction", i_flagToProcess))
+                                       "postFailAction", i_flagToProcess))
             {
                 return false;
             }

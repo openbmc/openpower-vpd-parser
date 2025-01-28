@@ -2897,7 +2897,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "presence-cable-card1",
@@ -3005,7 +3005,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "presence-cable-card2",
@@ -3115,7 +3115,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "presence-cable-card3",
@@ -3225,7 +3225,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "presence-cable-card4",
@@ -3335,7 +3335,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "presence-cable-card5",
@@ -3434,7 +3434,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "presence-cable-card6",
@@ -3509,7 +3509,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "presence-cable-card7",
@@ -3619,7 +3619,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "presence-cable-card8",
@@ -3718,7 +3718,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "presence-cable-card9",
@@ -3793,7 +3793,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "presence-cable-card10",
@@ -3903,7 +3903,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "presence-cable-card11",
