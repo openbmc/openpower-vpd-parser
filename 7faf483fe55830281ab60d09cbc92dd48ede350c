@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bec1d6a_d87a63a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-01-28T10:35:16Z",
+      "side": 1,
+      "message": "Give overview about, what this option does.\n\nSync BIOS attribute related keywords from BIOS Config Manager\nShould it be \"Sync BIOS attribute related keywords only with BIOS Config Manager service\" ?\n\nTo sync BIOS attribute related keywords with BIOS Config Manager:\n\"To sync only BIOS attribute related keywords with BIOS Config Manager service:\" ?",
+      "revId": "7faf483fe55830281ab60d09cbc92dd48ede350c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
