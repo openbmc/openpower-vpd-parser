@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27d88ff0_af60ac3d",
+        "filename": "configuration/ibm/backup_restore_50001000.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-01-28T17:35:48Z",
+      "side": 1,
+      "message": "\"isBiosAttribute\" should be enough ? As the file name itself suggest keywords used for backup and restore.",
+      "revId": "b7d962e98b8a49ce5e6544751e0a3fc6e4a94198",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
