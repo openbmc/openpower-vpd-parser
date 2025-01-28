@@ -2013,7 +2013,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "SLOT3_PRSNT_EN_RSVD",
@@ -2222,7 +2222,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "SLOT10_PRSNT_EN_RSVD",
@@ -2385,7 +2385,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "SLOT2_PRSNT_EN_RSVD",
@@ -2445,7 +2445,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "SLOT6_PRSNT_EN_RSVD",
@@ -2498,7 +2498,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "SLOT7_PRSNT_EN_RSVD",
@@ -2558,7 +2558,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "SLOT9_PRSNT_EN_RSVD",
@@ -2618,7 +2618,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "SLOT11_PRSNT_EN_RSVD",
@@ -2747,7 +2747,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "SLOT1_PRSNT_EN_RSVD",
@@ -2807,7 +2807,7 @@
                         }
                     }
                 },
-                "PostFailAction": {
+                "postFailAction": {
                     "collection": {
                         "setGpio": {
                             "pin": "SLOT8_PRSNT_EN_RSVD",
