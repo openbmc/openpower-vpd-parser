@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa177814_755acffc",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-01-28T16:16:38Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "3b493c99_870762a0",
+      "revId": "7faf483fe55830281ab60d09cbc92dd48ede350c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "709265ff_13ab5f81",
         "filename": "vpd-tool/src/vpd_tool_main.cpp",
         "patchSetId": 4
@@ -66,6 +84,24 @@
       "writtenOn": "2025-01-28T11:13:30Z",
       "side": 1,
       "message": "i_syncBiosAttributesFlag name is enough I guess.\n\nsynced from \u0027BIOS Config Manager\u0027 service instead of reseting keyword\u0027s value to its default value.",
+      "revId": "7faf483fe55830281ab60d09cbc92dd48ede350c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e91b4ef_f1158ae2",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-01-28T16:16:38Z",
+      "side": 1,
+      "message": "i_mfgCleanSyncBiosAttributesFlag makes it clear that the flag is supposed to be used with mfgClean only.\nAddressed the doxygen comment.",
+      "parentUuid": "709265ff_13ab5f81",
       "revId": "7faf483fe55830281ab60d09cbc92dd48ede350c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -89,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e89d077_5efe80b8",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-01-28T16:16:38Z",
+      "side": 1,
+      "message": "l_mfgCleanSyncBiosAttributesFlag makes it clear that this flag is meant for `--mfgClean` option only.",
+      "parentUuid": "4fef6f99_a8d5024b",
+      "revId": "7faf483fe55830281ab60d09cbc92dd48ede350c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "41c27d3f_ca10b0e8",
         "filename": "vpd-tool/src/vpd_tool_main.cpp",
         "patchSetId": 4
@@ -100,6 +154,24 @@
       "writtenOn": "2025-01-28T11:13:30Z",
       "side": 1,
       "message": "\"Using this flag with --mfgClean option, Syncs the BIOS attribute related keywords from \u0027BIOS Config Manager\u0027 service instead resetting keyword\u0027s value to default value.\"\n\n\nOtherwise it gives a impression as a separate command itself.",
+      "revId": "7faf483fe55830281ab60d09cbc92dd48ede350c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e1e69cf_8ab4cca5",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-01-28T16:16:38Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "41c27d3f_ca10b0e8",
       "revId": "7faf483fe55830281ab60d09cbc92dd48ede350c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
