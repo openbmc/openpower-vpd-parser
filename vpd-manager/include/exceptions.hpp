@@ -1,5 +1,7 @@
 #pragma once
 
+#include "types.hpp"
+
 #include <stdexcept>
 
 namespace vpd
@@ -39,6 +41,8 @@ class Exception : public std::runtime_error
         return m_errMsg.c_str();
     }
 
+    // TODO: Create getErrorType api by defining VPD default error type
+
   private:
     /** @brief string to hold the reason of exception */
     std::string m_errMsg;
@@ -68,6 +72,16 @@ class EccException : public Exception
      */
     explicit EccException(const std::string& msg) : Exception(msg) {}
 
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * EccException.
+     */
+    types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::EccCheckFailed;
+    }
+
 }; // class EccException
 
 /** @class DataException
@@ -93,6 +107,15 @@ class DataException : public Exception
      */
     explicit DataException(const std::string& msg) : Exception(msg) {}
 
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * DataException.
+     */
+    types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::InvalidVpdMessage;
+    }
 }; // class DataException
 
 class JsonException : public Exception
@@ -124,6 +147,16 @@ class JsonException : public Exception
         return m_jsonPath;
     }
 
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * JsonException.
+     */
+    types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::JsonFailure;
+    }
+
   private:
     /** To hold the path of Json that failed*/
     std::string m_jsonPath;
@@ -152,6 +185,16 @@ class GpioException : public Exception
      *  @param[in] msg - string to define exception
      */
     explicit GpioException(const std::string& msg) : Exception(msg) {}
+
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * GpioException.
+     */
+    types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::GpioError;
+    }
 };
 
 /** @class DbusException
@@ -176,6 +219,16 @@ class DbusException : public Exception
      *  @param[in] msg - string to define exception
      */
     explicit DbusException(const std::string& msg) : Exception(msg) {}
+
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * DbusException.
+     */
+    types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::DbusFailure;
+    }
 };
 
 /** @class FirmwareException
@@ -200,6 +253,16 @@ class FirmwareException : public Exception
      *  @param[in] msg - string to define exception
      */
     explicit FirmwareException(const std::string& msg) : Exception(msg) {}
+
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * FirmwareException.
+     */
+    types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::InternalFailure;
+    }
 };
 
 /** @class EepromException
@@ -224,6 +287,16 @@ class EepromException : public Exception
      *  @param[in] msg - string to define exception
      */
     explicit EepromException(const std::string& msg) : Exception(msg) {}
+
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * EepromException.
+     */
+    types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::InvalidEeprom;
+    }
 };
 
 } // namespace vpd
