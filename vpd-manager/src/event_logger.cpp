@@ -42,7 +42,9 @@ const std::unordered_map<types::ErrorType, std::string>
         {types::ErrorType::GpioError, "com.ibm.VPD.Error.GPIOError"},
         {types::ErrorType::InternalFailure,
          "xyz.openbmc_project.Common.Error.InternalFailure"},
-        {types::ErrorType::FruMissing, "com.ibm.VPD.Error.RequiredFRUMissing"}};
+        {types::ErrorType::FruMissing, "com.ibm.VPD.Error.RequiredFRUMissing"},
+        {types::ErrorType::DefaultError,
+         "xyz.openbmc_project.Logging.Error.Default"}};
 
 const std::unordered_map<types::CalloutPriority, std::string>
     EventLogger::m_priorityMap = {

@@ -184,7 +184,8 @@ enum ErrorType
     EssentialFru,
     GpioError,
     InternalFailure, /* Should be used for any generic firmware failure */
-    FruMissing /* Should be used in case of presence failure */
+    FruMissing, /* Should be used in case of presence failure */
+    DefaultError /* Default error type */
 };
 
 using InventoryCalloutData = std::tuple<std::string, CalloutPriority>;
