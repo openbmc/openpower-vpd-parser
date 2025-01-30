@@ -30,7 +30,7 @@ if not gtest_dep.found() or not gmock_dep.found()
 endif
 
 parser_build_arguments = []
-if get_option('ipz_ecc_check').enabled()
+if get_option('ipz_ecc_check').allowed()
     parser_build_arguments += ['-DIPZ_ECC_CHECK']
 endif
 

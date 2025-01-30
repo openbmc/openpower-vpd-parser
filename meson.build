@@ -28,7 +28,7 @@ sdbusplus = dependency('sdbusplus', fallback: [ 'sdbusplus', 'sdbusplus_dep' ])
 phosphor_logging = dependency('phosphor-logging')
 phosphor_dbus_interfaces = dependency('phosphor-dbus-interfaces')
 
-if not build_tests.disabled()
+if build_tests.allowed()
     subdir('test')
 endif
 
