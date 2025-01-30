@@ -18,7 +18,7 @@ vpd_manager_SOURCES = ['src/manager_main.cpp',
 parser_dependencies = [sdbusplus, libgpiodcxx, phosphor_logging, phosphor_dbus_interfaces]
 
 parser_build_arguments = []
-if get_option('ibm_system').enabled()
+if get_option('ibm_system').allowed()
     parser_build_arguments += ['-DIBM_SYSTEM']
 endif
 
