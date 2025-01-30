@@ -1,5 +1,7 @@
 #pragma once
 
+#include "types.hpp"
+
 #include <stdexcept>
 
 namespace vpd
@@ -10,7 +12,7 @@ namespace vpd
  * This class also works as base class for custom exception classes for
  * VPD repository.
  */
-class Exception : public std::runtime_error
+class Exception : public std::exception
 {
   public:
     // deleted methods
@@ -26,9 +28,7 @@ class Exception : public std::runtime_error
      *
      *  @param[in] msg - Information w.r.t exception.
      */
-    explicit Exception(const std::string& msg) :
-        std::runtime_error(msg), m_errMsg(msg)
-    {}
+    explicit Exception(const std::string& msg) : m_errMsg(msg) {}
 
     /** @brief inline method to return exception string.
      *
@@ -38,6 +38,15 @@ class Exception : public std::runtime_error
     {
         return m_errMsg.c_str();
     }
+
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type Exception.
+     */
+    virtual types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::DefaultError;
+    };
 
   private:
     /** @brief string to hold the reason of exception */
@@ -68,6 +77,16 @@ class EccException : public Exception
      */
     explicit EccException(const std::string& msg) : Exception(msg) {}
 
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * EccException.
+     */
+    virtual types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::EccCheckFailed;
+    }
+
 }; // class EccException
 
 /** @class DataException
@@ -93,6 +112,15 @@ class DataException : public Exception
      */
     explicit DataException(const std::string& msg) : Exception(msg) {}
 
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * DataException.
+     */
+    virtual types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::InvalidVpdMessage;
+    }
 }; // class DataException
 
 class JsonException : public Exception
@@ -124,6 +152,16 @@ class JsonException : public Exception
         return m_jsonPath;
     }
 
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * JsonException.
+     */
+    virtual types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::JsonFailure;
+    }
+
   private:
     /** To hold the path of Json that failed*/
     std::string m_jsonPath;
@@ -152,6 +190,16 @@ class GpioException : public Exception
      *  @param[in] msg - string to define exception
      */
     explicit GpioException(const std::string& msg) : Exception(msg) {}
+
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * GpioException.
+     */
+    virtual types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::GpioError;
+    }
 };
 
 /** @class DbusException
@@ -176,6 +224,16 @@ class DbusException : public Exception
      *  @param[in] msg - string to define exception
      */
     explicit DbusException(const std::string& msg) : Exception(msg) {}
+
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * DbusException.
+     */
+    virtual types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::DbusFailure;
+    }
 };
 
 /** @class FirmwareException
@@ -200,6 +258,16 @@ class FirmwareException : public Exception
      *  @param[in] msg - string to define exception
      */
     explicit FirmwareException(const std::string& msg) : Exception(msg) {}
+
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * FirmwareException.
+     */
+    virtual types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::InternalFailure;
+    }
 };
 
 /** @class EepromException
@@ -224,6 +292,16 @@ class EepromException : public Exception
      *  @param[in] msg - string to define exception
      */
     explicit EepromException(const std::string& msg) : Exception(msg) {}
+
+    /** @brief Method to get error type
+     *
+     * @return Error type which has to be logged for errors of type
+     * EepromException.
+     */
+    virtual types::ErrorType getErrorType() const
+    {
+        return types::ErrorType::InvalidEeprom;
+    }
 };
 
 } // namespace vpd
