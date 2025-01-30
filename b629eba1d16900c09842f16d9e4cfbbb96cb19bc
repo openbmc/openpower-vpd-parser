@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a00802d_2fa53781",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-01-30T07:03:07Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "2afb93c7_545834f7",
+      "revId": "b629eba1d16900c09842f16d9e4cfbbb96cb19bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a76d298_6aa736d0",
@@ -67,6 +85,41 @@
       "side": 1,
       "message": "getFailedEepromPaths() can be misinterpreted as \"EEPROM paths which have failed\", but in reality this returns a list of EEPROMs for which the thread launching has failed.",
       "parentUuid": "2a76d298_6aa736d0",
+      "revId": "b629eba1d16900c09842f16d9e4cfbbb96cb19bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fac6a16c_4883d42d",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-01-30T07:03:07Z",
+      "side": 1,
+      "message": "then should we rename variable m_failedEepromPaths as well ?\nI don\u0027t think so, the description of the API/variable tells what it is doing.\nIts fine to keep this way, but this what I am thinking.",
+      "parentUuid": "cadae7c5_b8ab9c6b",
+      "revId": "b629eba1d16900c09842f16d9e4cfbbb96cb19bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c4bed3c_22e9a30a",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-01-30T07:03:07Z",
+      "side": 1,
+      "message": "It should be trigger VPD collection for each failed EEPROM paths, not for object paths under the EEPROM path in JSON.",
       "revId": "b629eba1d16900c09842f16d9e4cfbbb96cb19bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
