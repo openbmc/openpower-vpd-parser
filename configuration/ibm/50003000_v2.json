@@ -612,6 +612,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm8",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c54",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -628,6 +636,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm9",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c55",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -644,6 +660,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm10",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c57",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -660,6 +684,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm11",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c58",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -676,6 +708,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm0",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c12",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -692,6 +732,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm1",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c13",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -708,6 +756,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm2",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c15",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -724,6 +780,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm3",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c16",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -740,6 +804,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm12",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c59",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -756,6 +828,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm13",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c60",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -772,6 +852,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm14",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c62",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -788,6 +876,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm15",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c63",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -804,6 +900,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm4",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c17",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -820,6 +924,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm5",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c18",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -836,6 +948,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm6",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c20",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
@@ -852,6 +972,14 @@
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/vrm7",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "readOnly": true,
+                "preAction": {
+                    "collection": {
+                        "gpioPresence": {
+                            "pin": "presence-vrm-c21",
+                            "value": 0
+                        }
+                    }
+                },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
