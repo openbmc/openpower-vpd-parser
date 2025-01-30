@@ -16,6 +16,24 @@
       "message": "why we are not handling DDR5?",
       "revId": "bf34bfb9d093e08cffaf1c3f5ae530796a7d61e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "752acf28_6fc106c4",
+        "filename": "vpd-manager/src/isdimm_parser.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-30T10:38:35Z",
+      "side": 1,
+      "message": "ddr5 is not handled in this file. all I can see is the dummy implementation of it. I can create a dummy api for ddr5 mfg id.",
+      "parentUuid": "0fb4828c_d4f35524",
+      "revId": "bf34bfb9d093e08cffaf1c3f5ae530796a7d61e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
