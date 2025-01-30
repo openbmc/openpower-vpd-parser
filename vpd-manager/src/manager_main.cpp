@@ -47,13 +47,18 @@ int main(int, char**)
 
         exit(EXIT_SUCCESS);
     }
-    catch (const std::exception& l_ex)
+    catch (const vpd::Exception& l_ex)
     {
+        vpd::EventLogger::createAsyncPel(
+            l_ex.getErrorType(), vpd::types::SeverityType::Error, __FILE__,
+            __FUNCTION__, EXIT_FAILURE, l_ex.what(), std::nullopt, std::nullopt,
+            std::nullopt, std::nullopt);
+
+#if 0
         if (typeid(l_ex) == typeid(vpd::JsonException))
         {
             // ToDo: Severity needs to be revisited.
-            vpd::EventLogger::createAsyncPel(
-                vpd::types::ErrorType::JsonFailure,
+            vpd::EventLogger::createAsyncPel(l_ex.getErrorType(),
                 vpd::types::SeverityType::Informational, __FILE__, __FUNCTION__,
                 0,
                 std::string("VPD Manager service failed with : ") + l_ex.what(),
@@ -62,8 +67,7 @@ int main(int, char**)
         else if (typeid(l_ex) == typeid(vpd::GpioException))
         {
             // ToDo: Severity needs to be revisited.
-            vpd::EventLogger::createAsyncPel(
-                vpd::types::ErrorType::GpioError,
+            vpd::EventLogger::createAsyncPel(l_ex.getErrorType(),
                 vpd::types::SeverityType::Informational, __FILE__, __FUNCTION__,
                 0,
                 std::string("VPD Manager service failed with : ") + l_ex.what(),
@@ -72,8 +76,7 @@ int main(int, char**)
         else if (typeid(l_ex) == typeid(sdbusplus::exception::SdBusError))
         {
             // ToDo: Severity needs to be revisited.
-            vpd::EventLogger::createAsyncPel(
-                vpd::types::ErrorType::DbusFailure,
+            vpd::EventLogger::createAsyncPel(l_ex.getErrorType(),
                 vpd::types::SeverityType::Informational, __FILE__, __FUNCTION__,
                 0,
                 std::string("VPD Manager service failed with : ") + l_ex.what(),
@@ -89,6 +92,24 @@ int main(int, char**)
                 std::string("VPD Manager service failed with : ") + l_ex.what(),
                 "BMC0001", std::nullopt, std::nullopt, std::nullopt);
         }
+#endif
+    }
+    catch (const std::exception& l_ex) // for C++ standard exceptions
+    {
+        vpd::EventLogger::createAsyncPel(
+            vpd::types::ErrorType::InvalidVpdMessage,
+            vpd::types::SeverityType::Error, __FILE__, __FUNCTION__,
+            EXIT_FAILURE,
+            std::string("VPD Manager service failed with : ") + l_ex.what(),
+            "BMC0001", std::nullopt, std::nullopt, std::nullopt);
+    }
+    catch (...) //  for any other exceptions
+    {
+        vpd::EventLogger::createAsyncPel(
+            vpd::types::ErrorType::InvalidVpdMessage,
+            vpd::types::SeverityType::Error, __FILE__, __FUNCTION__,
+            EXIT_FAILURE, std::string("VPD Manager service failed with : "),
+            "BMC0001", std::nullopt, std::nullopt, std::nullopt);
     }
     exit(EXIT_FAILURE);
 }
