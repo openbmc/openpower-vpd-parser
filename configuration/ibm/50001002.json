@@ -1423,7 +1423,7 @@
                             "pin": "SLOT7_PRSNT_EN_RSVD",
                             "value": 0
                         }
-                  }
+                    }
                 },
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
