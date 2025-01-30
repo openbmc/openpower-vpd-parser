@@ -334,6 +334,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0eece87_cb21e363",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-01-30T06:38:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fddc06b_e7e2cbc8",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0195ab3a_4068a6ce",
@@ -369,6 +387,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05ca4f4b_5d6af347",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-01-30T06:38:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f403b1c_3eb91720",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8f5eb07_d3c094b2",
@@ -400,6 +436,24 @@
       "side": 1,
       "message": "I agree. This is a double failure scenario though. @sunnsr25@in.ibm.com, what do you think?",
       "parentUuid": "e8f5eb07_d3c094b2",
+      "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25b7ed80_edd3af0c",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-01-30T06:38:14Z",
+      "side": 1,
+      "message": "We discussed this and have decided not to log any PELs here.",
+      "parentUuid": "89fa6611_c19d8ef7",
       "revId": "e1ab5ff86d3a4c93dd3b9de51638a71e0aa6ea41",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2afb93c7_545834f7",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-01-30T06:38:14Z",
+      "side": 1,
+      "message": "As @brief should be wrapped in single line, so used a more concise language here.",
+      "parentUuid": "44404fa4_1cf9c9bf",
+      "revId": "b629eba1d16900c09842f16d9e4cfbbb96cb19bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a76d298_6aa736d0",
         "filename": "vpd-manager/include/worker.hpp",
         "patchSetId": 5
@@ -31,6 +49,24 @@
       "writtenOn": "2025-01-29T16:56:44Z",
       "side": 1,
       "message": "getFailedEepromPaths() is enough I guess, as paths says its multiple.\nAnd the description of the API will tell its from thread launching failure.\n\nthis also matches with member variable \u0027m_failedEepromPaths\u0027 as a get method.",
+      "revId": "b629eba1d16900c09842f16d9e4cfbbb96cb19bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cadae7c5_b8ab9c6b",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-01-30T06:38:14Z",
+      "side": 1,
+      "message": "getFailedEepromPaths() can be misinterpreted as \"EEPROM paths which have failed\", but in reality this returns a list of EEPROMs for which the thread launching has failed.",
+      "parentUuid": "2a76d298_6aa736d0",
       "revId": "b629eba1d16900c09842f16d9e4cfbbb96cb19bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
