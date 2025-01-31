@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "084ebb6b_6dd12451",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-31T08:52:07Z",
+      "side": 1,
+      "message": "I agree with @anupama.b.r1@ibm.com.\nYou are using this parameter inside doMfgClean API which itself sets the context?",
+      "parentUuid": "6e91b4ef_f1158ae2",
+      "revId": "7faf483fe55830281ab60d09cbc92dd48ede350c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4fef6f99_a8d5024b",
         "filename": "vpd-tool/src/vpd_tool_main.cpp",
         "patchSetId": 4
