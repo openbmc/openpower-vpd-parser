@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "980fa171_0ec1416c",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-31T09:09:13Z",
+      "side": 1,
+      "message": "instead of \":\" use \".\" so that if ec is not there it does not look like an incomplete statement.",
+      "revId": "faf9b990f868453c4fcfcfa2e210e22c168f714e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1413be7_fd953c26",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-31T09:09:13Z",
+      "side": 1,
+      "message": "No need of else. You can throw directly. Anyways good case returns from above.",
+      "revId": "faf9b990f868453c4fcfcfa2e210e22c168f714e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c7c14b8_12edc3d8",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-31T09:09:13Z",
+      "side": 1,
+      "message": "Statement does not look correct.",
+      "revId": "faf9b990f868453c4fcfcfa2e210e22c168f714e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db25d903_2d2a0f10",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-31T09:09:13Z",
+      "side": 1,
+      "message": "what is the difference in this error msg and the else part?\nI see same msg in both the blocks then why if/else? Am I missing something?",
+      "revId": "faf9b990f868453c4fcfcfa2e210e22c168f714e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b191917c_80a73cc0",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-31T09:09:13Z",
+      "side": 1,
+      "message": "I did not understand reason behind this copy.",
+      "revId": "faf9b990f868453c4fcfcfa2e210e22c168f714e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
