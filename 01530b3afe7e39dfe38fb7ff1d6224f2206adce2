@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2520f397_989ce129",
+        "filename": "vpd-manager/include/exceptions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-31T09:44:06Z",
+      "side": 1,
+      "message": "added",
+      "parentUuid": "4ed3557b_442b99b1",
+      "revId": "01530b3afe7e39dfe38fb7ff1d6224f2206adce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d59571d_028a8807",
         "filename": "vpd-manager/include/exceptions.hpp",
         "patchSetId": 2
@@ -72,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e256d62_d00c6fc4",
+        "filename": "vpd-manager/include/exceptions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-31T09:44:06Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "9f773e37_9b6c1297",
+      "revId": "01530b3afe7e39dfe38fb7ff1d6224f2206adce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "28673572_5503dcac",
         "filename": "vpd-manager/include/types.hpp",
         "patchSetId": 2
@@ -118,6 +154,24 @@
       "writtenOn": "2025-01-31T08:22:01Z",
       "side": 1,
       "message": "I dont see the relevance of adding this via this commit. If at all required, please create a separate commit for this.",
+      "revId": "01530b3afe7e39dfe38fb7ff1d6224f2206adce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b7d784c_340a2a13",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-01-31T09:44:06Z",
+      "side": 1,
+      "message": "since I have added the ErrorType::DefaultError in the enum list, I have updated in this map as well..",
+      "parentUuid": "26fc2656_9cba04d7",
       "revId": "01530b3afe7e39dfe38fb7ff1d6224f2206adce2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
