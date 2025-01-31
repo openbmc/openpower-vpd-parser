@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ed3557b_442b99b1",
+        "filename": "vpd-manager/include/exceptions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-31T08:22:01Z",
+      "side": 1,
+      "message": "Doxygen misssing.",
+      "revId": "01530b3afe7e39dfe38fb7ff1d6224f2206adce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f773e37_9b6c1297",
+        "filename": "vpd-manager/include/exceptions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-31T08:22:01Z",
+      "side": 1,
+      "message": "Please add virtual in all the functions for better readability.",
+      "revId": "01530b3afe7e39dfe38fb7ff1d6224f2206adce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28673572_5503dcac",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-31T08:22:01Z",
+      "side": 1,
+      "message": "I don\u0027t see the relevance of this change in this commit.",
+      "revId": "01530b3afe7e39dfe38fb7ff1d6224f2206adce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26fc2656_9cba04d7",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-01-31T08:22:01Z",
+      "side": 1,
+      "message": "I dont see the relevance of adding this via this commit. If at all required, please create a separate commit for this.",
+      "revId": "01530b3afe7e39dfe38fb7ff1d6224f2206adce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
