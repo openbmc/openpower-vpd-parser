@@ -6722,7 +6722,7 @@
                         "LocationCode": "Ufcs-P0-C71"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
-                        "PrettyName": "Memory Module 39"
+                        "PrettyName": "Memory module 39"
                     },
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
