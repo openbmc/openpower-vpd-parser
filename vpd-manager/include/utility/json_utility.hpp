@@ -730,8 +730,8 @@ inline bool isActionRequired(
  *
  * @return list of FRUs parameters that needs polling.
  */
-inline std::vector<std::string>
-    getListOfGpioPollingFrus(const nlohmann::json& i_sysCfgJsonObj)
+inline std::vector<std::string> getListOfGpioPollingFrus(
+    const nlohmann::json& i_sysCfgJsonObj)
 {
     if (i_sysCfgJsonObj.empty())
     {
@@ -1006,8 +1006,8 @@ inline bool isFruReplaceableAtStandby(const nlohmann::json& i_sysCfgJsonObj,
  *
  * @return - List of FRUs replaceable at standby.
  */
-inline std::vector<std::string>
-    getListOfFrusReplaceableAtStandby(const nlohmann::json& i_sysCfgJsonObj)
+inline std::vector<std::string> getListOfFrusReplaceableAtStandby(
+    const nlohmann::json& i_sysCfgJsonObj)
 {
     std::vector<std::string> l_frusReplaceableAtStandby;
 

@@ -326,8 +326,8 @@ types::RecordOffsetList IpzVpdParser::readPT(
     return recordOffsets;
 }
 
-types::IPZVpdMap::mapped_type
-    IpzVpdParser::readKeywords(types::BinaryVector::const_iterator& itrToKwds)
+types::IPZVpdMap::mapped_type IpzVpdParser::readKeywords(
+    types::BinaryVector::const_iterator& itrToKwds)
 {
     types::IPZVpdMap::mapped_type kwdValueMap{};
     while (true)

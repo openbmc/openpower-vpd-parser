@@ -127,9 +127,9 @@ inline types::PropertyMap getPropertyMap(const std::string& i_service,
  *           success. If failed, empty map.
  */
 
-inline types::MapperGetSubTree
-    getObjectSubTree(const std::string& i_objectPath, const int& i_depth,
-                     const std::vector<std::string>& i_interfaces)
+inline types::MapperGetSubTree getObjectSubTree(
+    const std::string& i_objectPath, const int& i_depth,
+    const std::vector<std::string>& i_interfaces)
 {
     types::MapperGetSubTree l_subTreeMap;
 
@@ -343,8 +343,8 @@ inline bool isServiceRunning(const std::string& i_serviceName)
  * @return Tuple of PLDM attribute Type, current attribute value and pending
  * attribute value.
  */
-inline types::BiosAttributeCurrentValue
-    biosGetAttributeMethodCall(const std::string& i_attributeName)
+inline types::BiosAttributeCurrentValue biosGetAttributeMethodCall(
+    const std::string& i_attributeName)
 {
     auto l_bus = sdbusplus::bus::new_default();
     auto l_method = l_bus.new_method_call(

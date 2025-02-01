@@ -74,8 +74,8 @@ class DdimmVpdParser : public ParserInterface
      * @param[in] i_iterator - iterator to buffer containing VPD
      * @return calculated size or 0 in case of any error.
      */
-    size_t
-        getDdr5BasedDdimmSize(types::BinaryVector::const_iterator i_iterator);
+    size_t getDdr5BasedDdimmSize(
+        types::BinaryVector::const_iterator i_iterator);
 
     /**
      * @brief This function calculates DDR4 based DDIMM's capacity
@@ -83,8 +83,8 @@ class DdimmVpdParser : public ParserInterface
      * @param[in] i_iterator - iterator to buffer containing VPD
      * @return calculated size or 0 in case of any error.
      */
-    size_t
-        getDdr4BasedDdimmSize(types::BinaryVector::const_iterator i_iterator);
+    size_t getDdr4BasedDdimmSize(
+        types::BinaryVector::const_iterator i_iterator);
 
     /**
      * @brief This function calculates DDR5 based die per package
