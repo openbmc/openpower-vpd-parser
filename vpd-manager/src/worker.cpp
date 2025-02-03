@@ -1151,8 +1151,8 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
     }
 }
 
-std::string
-    Worker::createAssetTagString(const types::VPDMapVariant& i_parsedVpdMap)
+std::string Worker::createAssetTagString(
+    const types::VPDMapVariant& i_parsedVpdMap)
 {
     std::string l_assetTag;
 
@@ -1416,8 +1416,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
     }
 }
 
-std::tuple<bool, std::string>
-    Worker::parseAndPublishVPD(const std::string& i_vpdFilePath)
+std::tuple<bool, std::string> Worker::parseAndPublishVPD(
+    const std::string& i_vpdFilePath)
 {
     try
     {

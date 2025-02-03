@@ -189,9 +189,9 @@ inline std::string getPrintableValue(const types::BinaryVector& i_keywordValue)
  *
  * @throw std::runtime_error, sdbusplus::exception::SdBusError
  */
-inline types::DbusVariantType
-    readKeywordFromHardware(const std::string& i_eepromPath,
-                            const types::ReadVpdParams i_paramsToReadData)
+inline types::DbusVariantType readKeywordFromHardware(
+    const std::string& i_eepromPath,
+    const types::ReadVpdParams i_paramsToReadData)
 {
     if (i_eepromPath.empty())
     {
@@ -355,9 +355,9 @@ inline int writeKeyword(const std::string& i_vpdPath,
  *
  * @throw - std::runtime_error, sdbusplus::exception::SdBusError
  */
-inline int
-    writeKeywordOnHardware(const std::string& i_eepromPath,
-                           const types::WriteVpdParams& i_paramsToWriteData)
+inline int writeKeywordOnHardware(
+    const std::string& i_eepromPath,
+    const types::WriteVpdParams& i_paramsToWriteData)
 {
     if (i_eepromPath.empty())
     {

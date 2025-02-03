@@ -43,8 +43,8 @@ class ParserFactory
      *
      * @return - Pointer to concrete parser class object.
      */
-    static std::shared_ptr<ParserInterface>
-        getParser(const types::BinaryVector& i_vpdVector,
-                  const std::string& i_vpdFilePath, size_t i_vpdStartOffset);
+    static std::shared_ptr<ParserInterface> getParser(
+        const types::BinaryVector& i_vpdVector,
+        const std::string& i_vpdFilePath, size_t i_vpdStartOffset);
 };
 } // namespace vpd

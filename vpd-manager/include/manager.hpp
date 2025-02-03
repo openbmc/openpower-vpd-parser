@@ -107,9 +107,9 @@ class Manager
      * @return On success returns the read value in variant of array of bytes.
      * On failure throws exception.
      */
-    types::DbusVariantType
-        readKeyword(const types::Path i_fruPath,
-                    const types::ReadVpdParams i_paramsToReadData);
+    types::DbusVariantType readKeyword(
+        const types::Path i_fruPath,
+        const types::ReadVpdParams i_paramsToReadData);
 
     /**
      * @brief Collect single FRU VPD
@@ -214,8 +214,8 @@ class Manager
      *
      * @return Location code in unexpanded format and its node number.
      */
-    std::tuple<std::string, uint16_t>
-        getUnexpandedLocationCode(const std::string& i_expandedLocationCode);
+    std::tuple<std::string, uint16_t> getUnexpandedLocationCode(
+        const std::string& i_expandedLocationCode);
 
   private:
 #ifdef IBM_SYSTEM
