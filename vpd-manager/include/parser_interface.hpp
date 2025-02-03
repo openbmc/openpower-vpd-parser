@@ -33,8 +33,8 @@ class ParserInterface
      *
      * @return keyword's value on successful read. Exception on failure.
      */
-    virtual types::DbusVariantType
-        readKeywordFromHardware(const types::ReadVpdParams)
+    virtual types::DbusVariantType readKeywordFromHardware(
+        const types::ReadVpdParams)
     {
         return types::DbusVariantType();
     }
@@ -54,8 +54,8 @@ class ParserInterface
      * @return On success returns number of bytes written on hardware, On
      * failure returns -1.
      */
-    virtual int
-        writeKeywordOnHardware(const types::WriteVpdParams i_paramsToWriteData)
+    virtual int writeKeywordOnHardware(
+        const types::WriteVpdParams i_paramsToWriteData)
     {
         (void)i_paramsToWriteData;
         return -1;

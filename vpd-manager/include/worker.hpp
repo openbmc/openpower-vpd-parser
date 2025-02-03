@@ -174,8 +174,8 @@ class Worker
      * @return Tuple of status and file path. Status, true if successfull else
      * false.
      */
-    std::tuple<bool, std::string>
-        parseAndPublishVPD(const std::string& i_vpdFilePath);
+    std::tuple<bool, std::string> parseAndPublishVPD(
+        const std::string& i_vpdFilePath);
 
     /**
      * @brief An API to set appropriate device tree and JSON.
@@ -495,8 +495,8 @@ class Worker
      *
      * @return - Formed asset tag string.
      */
-    std::string
-        createAssetTagString(const types::VPDMapVariant& i_parsedVpdMap);
+    std::string createAssetTagString(
+        const types::VPDMapVariant& i_parsedVpdMap);
 
     /**
      * @brief API to prime system blueprint.

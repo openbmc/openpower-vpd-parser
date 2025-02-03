@@ -49,8 +49,8 @@ class JedecSpdParser : public ParserInterface
      * @param[in] i_iterator - iterator to buffer containing SPD
      * @return- map of kwd:value
      */
-    types::JedecSpdMap
-        readKeywords(types::BinaryVector::const_iterator& i_iterator);
+    types::JedecSpdMap readKeywords(
+        types::BinaryVector::const_iterator& i_iterator);
 
     /**
      * @brief This function calculates DIMM size from DDR4 SPD
@@ -66,8 +66,8 @@ class JedecSpdParser : public ParserInterface
      * @param[in] i_iterator - iterator to buffer containing SPD
      * @return calculated part number or a default value.
      */
-    std::string_view
-        getDDR4PartNumber(types::BinaryVector::const_iterator& i_iterator);
+    std::string_view getDDR4PartNumber(
+        types::BinaryVector::const_iterator& i_iterator);
 
     /**
      * @brief This function calculates serial number from DDR4 SPD
@@ -75,8 +75,8 @@ class JedecSpdParser : public ParserInterface
      * @param[in] i_iterator - iterator to buffer containing SPD
      * @return calculated serial number or a default value.
      */
-    std::string
-        getDDR4SerialNumber(types::BinaryVector::const_iterator& i_iterator);
+    std::string getDDR4SerialNumber(
+        types::BinaryVector::const_iterator& i_iterator);
 
     /**
      * @brief This function allocates FRU number based on part number
@@ -88,9 +88,9 @@ class JedecSpdParser : public ParserInterface
      * @param[in] i_iterator - iterator to buffer containing SPD
      * @return allocated FRU number or a default value
      */
-    std::string_view
-        getDDR4FruNumber(const std::string& i_partNumber,
-                         types::BinaryVector::const_iterator& i_iterator);
+    std::string_view getDDR4FruNumber(
+        const std::string& i_partNumber,
+        types::BinaryVector::const_iterator& i_iterator);
 
     /**
      * @brief This function allocates CCIN based on part number for DDR4 SPD

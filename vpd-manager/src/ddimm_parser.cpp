@@ -325,8 +325,8 @@ size_t DdimmVpdParser::getDdr4BasedDdimmSize(
     return l_dimmSize;
 }
 
-size_t
-    DdimmVpdParser::getDdimmSize(types::BinaryVector::const_iterator i_iterator)
+size_t DdimmVpdParser::getDdimmSize(
+    types::BinaryVector::const_iterator i_iterator)
 {
     size_t l_dimmSize = 0;
     if (i_iterator[constants::SPD_BYTE_2] == constants::SPD_DRAM_TYPE_DDR5)
@@ -346,8 +346,8 @@ size_t
     return l_dimmSize;
 }
 
-void
-    DdimmVpdParser::readKeywords(types::BinaryVector::const_iterator i_iterator)
+void DdimmVpdParser::readKeywords(
+    types::BinaryVector::const_iterator i_iterator)
 {
     // collect DDIMM size value
     auto l_dimmSize = getDdimmSize(i_iterator);

@@ -225,9 +225,9 @@ inline void insertOrMerge(types::InterfaceMap& map,
  * @return Expanded location code. In case of any error, unexpanded is returned
  * as it is.
  */
-inline std::string
-    getExpandedLocationCode(const std::string& unexpandedLocationCode,
-                            const types::VPDMapVariant& parsedVpdMap)
+inline std::string getExpandedLocationCode(
+    const std::string& unexpandedLocationCode,
+    const types::VPDMapVariant& parsedVpdMap)
 {
     auto expanded{unexpandedLocationCode};
 

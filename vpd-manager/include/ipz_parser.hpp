@@ -87,8 +87,8 @@ class IpzVpdParser : public ParserInterface
      *
      * @return On success return the value read. On failure throw exception.
      */
-    types::DbusVariantType
-        readKeywordFromHardware(const types::ReadVpdParams i_paramsToReadData);
+    types::DbusVariantType readKeywordFromHardware(
+        const types::ReadVpdParams i_paramsToReadData);
 
     /**
      * @brief API to write keyword's value on hardware.
@@ -174,8 +174,8 @@ class IpzVpdParser : public ParserInterface
      * @param[in] iterator - pointer to the start of keywords under the record.
      * @return keyword-value map of keywords under that record.
      */
-    types::IPZVpdMap::mapped_type
-        readKeywords(types::BinaryVector::const_iterator& itrToKwds);
+    types::IPZVpdMap::mapped_type readKeywords(
+        types::BinaryVector::const_iterator& itrToKwds);
 
     /**
      * @brief API to process a record.
@@ -211,9 +211,9 @@ class IpzVpdParser : public ParserInterface
      * @return On success return record's details, on failure return empty
      * buffer.
      */
-    types::RecordData
-        getRecordDetailsFromVTOC(const types::Record& l_recordName,
-                                 const types::RecordOffset& i_vtocOffset);
+    types::RecordData getRecordDetailsFromVTOC(
+        const types::Record& l_recordName,
+        const types::RecordOffset& i_vtocOffset);
 
     /**
      * @brief API to update record's ECC

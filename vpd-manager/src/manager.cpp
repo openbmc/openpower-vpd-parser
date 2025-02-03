@@ -688,8 +688,8 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
     return l_inventoryPaths;
 }
 
-std::string
-    Manager::getHwPath(const sdbusplus::message::object_path& i_dbusObjPath)
+std::string Manager::getHwPath(
+    const sdbusplus::message::object_path& i_dbusObjPath)
 {
     // Dummy code to supress unused variable warning. To be removed.
     logging::logMessage(std::string(i_dbusObjPath));

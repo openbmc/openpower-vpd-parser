@@ -81,8 +81,8 @@ class IbmBiosHandler : public BiosHandlerInterface
      * @param[in] attributeName - Attribute to be read.
      * @return - Bios attribute current value.
      */
-    types::BiosAttributeCurrentValue
-        readBiosAttribute(const std::string& attributeName);
+    types::BiosAttributeCurrentValue readBiosAttribute(
+        const std::string& attributeName);
 
     /**
      * @brief API to process "hb_field_core_override" attribute.

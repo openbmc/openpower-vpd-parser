@@ -626,8 +626,8 @@ bool VpdTool::fetchKeywordInfo(nlohmann::json& io_parsedJsonObj) const noexcept
     return l_returnValue;
 }
 
-nlohmann::json
-    VpdTool::getFruTypeProperty(const std::string& i_objectPath) const noexcept
+nlohmann::json VpdTool::getFruTypeProperty(
+    const std::string& i_objectPath) const noexcept
 {
     nlohmann::json l_resultInJson = nlohmann::json::object({});
     std::vector<std::string> l_pimInfList;

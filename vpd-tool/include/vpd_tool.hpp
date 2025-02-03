@@ -77,8 +77,8 @@ class VpdTool
      * format, otherwise returns empty JSON. The caller of this API should
      * handle empty JSON.
      */
-    nlohmann::json
-        getFruTypeProperty(const std::string& i_objectPath) const noexcept;
+    nlohmann::json getFruTypeProperty(
+        const std::string& i_objectPath) const noexcept;
 
     /**
      * @brief Check if a FRU is present in the system.

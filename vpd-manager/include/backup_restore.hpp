@@ -71,8 +71,8 @@ class BackupAndRestore
      *
      * @param[in] i_status - Status to set.
      */
-    static void
-        setBackupAndRestoreStatus(const BackupAndRestoreStatus& i_status);
+    static void setBackupAndRestoreStatus(
+        const BackupAndRestoreStatus& i_status);
 
   private:
     /**
