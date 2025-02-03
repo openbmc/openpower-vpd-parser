@@ -69,6 +69,24 @@
       "parentUuid": "cf3ad07d_999d96fb",
       "revId": "f8061e74e9c6bba03d48be08621cc26611b11e0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52f2fe5a_01450853",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-03T06:54:07Z",
+      "side": 1,
+      "message": "This is not relevant to this commit. You can raise a different commit to fix this.",
+      "parentUuid": "b2b2f99a_ad1f135c",
+      "revId": "f8061e74e9c6bba03d48be08621cc26611b11e0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
