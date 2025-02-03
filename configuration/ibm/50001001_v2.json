@@ -1994,7 +1994,7 @@
                             "cmd": "echo 24-0051 > /sys/bus/i2c/drivers/at24/unbind"
                         },
                         "setGpio": {
-                            "pin": "SLOT4_EXPANDER_PRSNT_N",
+                            "pin": "SLOT4_PRSNT_EN_RSVD",
                             "value": 0
                         }
                     }
@@ -2002,13 +2002,13 @@
                 "postFailAction": {
                     "collection": {
                         "setGpio": {
-                            "pin": "SLOT4_EXPANDER_PRSNT_N",
+                            "pin": "SLOT4_PRSNT_EN_RSVD",
                             "value": 0
                         }
                     },
                     "deletion": {
                         "setGpio": {
-                            "pin": "SLOT4_EXPANDER_PRSNT_N",
+                            "pin": "SLOT4_PRSNT_EN_RSVD",
                             "value": 0
                         }
                     }

@@ -1722,6 +1722,10 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
+                        "gpioPresence": {
+                            "pin": "SLOT0_EXPANDER_PRSNT_N",
+                            "value": 0
+                        },
                         "setGpio": {
                             "pin": "SLOT0_PRSNT_EN_RSVD",
                             "value": 1
@@ -1828,6 +1832,10 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
+                        "gpioPresence": {
+                            "pin": "SLOT3_EXPANDER_PRSNT_N",
+                            "value": 0
+                        },
                         "setGpio": {
                             "pin": "SLOT3_PRSNT_EN_RSVD",
                             "value": 1
@@ -1934,6 +1942,10 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
+                        "gpioPresence": {
+                            "pin": "SLOT4_EXPANDER_PRSNT_N",
+                            "value": 0
+                        },
                         "setGpio": {
                             "pin": "SLOT4_PRSNT_EN_RSVD",
                             "value": 1
@@ -2040,6 +2052,10 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
+                        "gpioPresence": {
+                            "pin": "SLOT10_EXPANDER_PRSNT_N",
+                            "value": 0
+                        },
                         "setGpio": {
                             "pin": "SLOT10_PRSNT_EN_RSVD",
                             "value": 1
@@ -2214,6 +2230,10 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
+                        "gpioPresence": {
+                            "pin": "SLOT2_EXPANDER_PRSNT_N",
+                            "value": 0
+                        },
                         "setGpio": {
                             "pin": "SLOT2_PRSNT_EN_RSVD",
                             "value": 1
@@ -2274,6 +2294,10 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
+                        "gpioPresence": {
+                            "pin": "SLOT6_EXPANDER_PRSNT_N",
+                            "value": 0
+                        },
                         "setGpio": {
                             "pin": "SLOT6_PRSNT_EN_RSVD",
                             "value": 1
@@ -2327,6 +2351,10 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
+                        "gpioPresence": {
+                            "pin": "SLOT7_EXPANDER_PRSNT_N",
+                            "value": 0
+                        },
                         "setGpio": {
                             "pin": "SLOT7_PRSNT_EN_RSVD",
                             "value": 1
@@ -2387,6 +2415,10 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
+                        "gpioPresence": {
+                            "pin": "SLOT9_EXPANDER_PRSNT_N",
+                            "value": 0
+                        },
                         "setGpio": {
                             "pin": "SLOT9_PRSNT_EN_RSVD",
                             "value": 1
@@ -2447,6 +2479,10 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
+                        "gpioPresence": {
+                            "pin": "SLOT11_EXPANDER_PRSNT_N",
+                            "value": 0
+                        },
                         "setGpio": {
                             "pin": "SLOT11_PRSNT_EN_RSVD",
                             "value": 1
@@ -2576,6 +2612,10 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
+                        "gpioPresence": {
+                            "pin": "SLOT1_EXPANDER_PRSNT_N",
+                            "value": 0
+                        },
                         "setGpio": {
                             "pin": "SLOT1_PRSNT_EN_RSVD",
                             "value": 1
@@ -2636,6 +2676,10 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
+                        "gpioPresence": {
+                            "pin": "SLOT8_EXPANDER_PRSNT_N",
+                            "value": 0
+                        },
                         "setGpio": {
                             "pin": "SLOT8_PRSNT_EN_RSVD",
                             "value": 1
