@@ -195,6 +195,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdbd4941_54bf3de2",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-03T14:22:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e3075831_a64c7c8f",
+      "revId": "01530b3afe7e39dfe38fb7ff1d6224f2206adce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26fc2656_9cba04d7",
@@ -244,6 +262,24 @@
       "side": 1,
       "message": "In case needed, define one interface for VPD.",
       "parentUuid": "1b7d784c_340a2a13",
+      "revId": "01530b3afe7e39dfe38fb7ff1d6224f2206adce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6272600_07415181",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-03T14:22:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "22a77670_367f6da5",
       "revId": "01530b3afe7e39dfe38fb7ff1d6224f2206adce2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
