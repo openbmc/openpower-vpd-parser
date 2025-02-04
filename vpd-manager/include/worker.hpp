@@ -42,11 +42,13 @@ class Worker
      * initialize the parsed JSON variable.
      *
      * @param[in] pathToConfigJSON - Path to the config JSON, if applicable.
+     * @param[in] i_maxThreadCount - Maximum thread while collecting FRUs VPD.
      *
      * Note: Throws std::exception in case of construction failure. Caller needs
      * to handle to detect successful object creation.
      */
-    Worker(std::string pathToConfigJson = std::string());
+    Worker(std::string pathToConfigJson = std::string(),
+           uint8_t i_maxThreadCount = constants::MAX_THREADS);
 
     /**
      * @brief Destructor
@@ -513,6 +515,8 @@ class Worker
      * Some FRUs, under some given scenarios should not be collected and
      * skipped.
      *
+     * @param[in] i_vpdFilePath - EEPROM path.
+     *
      * @return True - if path is empty or should be skipped, false otherwise.
      */
     bool skipPathForCollection(const std::string& i_vpdFilePath);
@@ -541,7 +545,6 @@ class Worker
     std::mutex m_mutex;
 
     // Counting semaphore to limit the number of threads.
-    std::counting_semaphore<constants::MAX_THREADS> m_semaphore{
-        constants::MAX_THREADS};
+    std::counting_semaphore<constants::MAX_THREADS> m_semaphore;
 };
 } // namespace vpd
