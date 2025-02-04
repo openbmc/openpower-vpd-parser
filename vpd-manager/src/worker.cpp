@@ -1481,6 +1481,43 @@ std::tuple<bool, std::string>
     return std::make_tuple(true, i_vpdFilePath);
 }
 
+bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
+{
+    if (i_vpdFilePath.empty())
+    {
+        return true;
+    }
+
+    // skip processing of system VPD again as it has been already collected.
+    if (i_vpdFilePath == SYSTEM_VPD_FILE_PATH)
+    {
+        return true;
+    }
+
+    if (dbusUtility::isChassisPowerOn())
+    {
+        // If chassis is powered on, skip collecting FRUs which are
+        // powerOffOnly.
+        if (jsonUtility::isFruPowerOffOnly(m_parsedJson, i_vpdFilePath))
+        {
+            return true;
+        }
+
+        const std::string& l_invPathLeafValue =
+            sdbusplus::message::object_path(
+                jsonUtility::getInventoryObjPathFromJson(m_parsedJson,
+                                                         i_vpdFilePath))
+                .filename();
+
+        if ((l_invPathLeafValue.find("pcie_card", 0) != std::string::npos))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void Worker::collectFrusFromJson()
 {
     // A parsed JSON file should be present to pick FRUs EEPROM paths
@@ -1497,22 +1534,13 @@ void Worker::collectFrusFromJson()
     {
         const std::string& vpdFilePath = itemFRUS.key();
 
-        // skip processing of system VPD again as it has been already collected.
-        // Also, if chassis is powered on, skip collecting FRUs which are
-        // powerOffOnly.
-        // TODO: Need to revisit for P-Future to reduce code update time.
-        if (vpdFilePath == SYSTEM_VPD_FILE_PATH ||
-            (jsonUtility::isFruPowerOffOnly(m_parsedJson, vpdFilePath) &&
-             dbusUtility::isChassisPowerOn()))
+        if (skipPathForCollection(vpdFilePath))
         {
             continue;
         }
 
         std::thread{[vpdFilePath, this]() {
-            auto l_futureObject =
-                std::async(&Worker::parseAndPublishVPD, this, vpdFilePath);
-
-            std::tuple<bool, std::string> l_threadInfo = l_futureObject.get();
+            const auto& l_parseResult = parseAndPublishVPD(vpdFilePath);
 
             // thread returned.
             m_mutex.lock();

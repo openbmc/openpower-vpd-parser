@@ -507,6 +507,16 @@ class Worker
      */
     void setPresentProperty(const std::string& i_fruPath, const bool& i_value);
 
+    /**
+     * @brief API to check if the path needs to be skipped for collection.
+     *
+     * Some FRUs, under some given scenarios should not be collected and
+     * skipped.
+     *
+     * @return True - if path is empty or should be skipped, false otherwise.
+     */
+    bool skipPathForCollection(const std::string& i_vpdFilePath);
+
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
 
