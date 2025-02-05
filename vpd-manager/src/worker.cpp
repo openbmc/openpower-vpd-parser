@@ -833,21 +833,26 @@ bool Worker::primeInventory(const std::string& i_vpdFilePath)
                                std::monostate{});
         }
 
-        types::PropertyMap l_propertyValueMap;
-        l_propertyValueMap.emplace("Present", false);
-
-        // TODO: Present based on file will be taken care in future.
-        // By default present is set to false for FRU at the time of
-        // priming. Once collection goes through, it will be set to true in that
-        // flow.
-        /*if (std::filesystem::exists(i_vpdFilePath))
+        if (vpdSpecificUtility::shouldHandleInterface(
+                i_vpdFilePath, constants::inventoryItemInf))
         {
-            l_propertyValueMap["Present"] = true;
-        }*/
+            types::PropertyMap l_propertyValueMap;
 
-        vpdSpecificUtility::insertOrMerge(l_interfaces,
-                                          "xyz.openbmc_project.Inventory.Item",
-                                          move(l_propertyValueMap));
+            l_propertyValueMap.emplace("Present", false);
+
+            // TODO: Present based on file will be taken care in future.
+            // By default present is set to false for FRU at the time of
+            // priming. Once collection goes through, it will be set to true in
+            // that flow.
+            /*if (std::filesystem::exists(i_vpdFilePath))
+            {
+                l_propertyValueMap["Present"] = true;
+            }*/
+
+            vpdSpecificUtility::insertOrMerge(l_interfaces,
+                                              constants::inventoryItemInf,
+                                              move(l_propertyValueMap));
+        }
 
         if (l_Fru.value("inherit", true) &&
             m_parsedJson.contains("commonInterfaces"))
@@ -1724,6 +1729,14 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
         {
             for (const auto& l_Fru : m_parsedJson["frus"][i_vpdPath])
             {
+                // do not update Present property if we are not supposed to
+                // handle Item interface.
+                if (!vpdSpecificUtility::shouldHandleInterface(
+                        l_Fru["inventoryPath"], constants::inventoryItemInf))
+                {
+                    continue;
+                }
+
                 sdbusplus::message::object_path l_fruObjectPath(
                     l_Fru["inventoryPath"]);
 
@@ -1748,6 +1761,13 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
                     "Invalid inventory path: " + i_vpdPath);
             }
 
+            // do not update Present property if we are not supposed to
+            // handle Item interface.
+            if (!vpdSpecificUtility::shouldHandleInterface(
+                    i_vpdPath, constants::inventoryItemInf))
+            {
+                return;
+            }
             types::PropertyMap l_propertyValueMap;
             l_propertyValueMap.emplace("Present", i_value);
 

@@ -470,6 +470,60 @@ inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
 }
 
 /**
+ * @brief API to check if given interface should be handled for given FRU.
+ *
+ * For some FRUs, some interfaces are handled by other services. vpd-manager
+ * should not handle these interfaces for these FRUs.
+ *
+ * @param[in] i_inventoryObjPath - Inventory object path.
+ * @param[in] i_interface - Interface name.
+ *
+ * @return true if given interface for given inventory path should be handled.
+ */
+inline bool shouldHandleInterface(const std::string& i_inventoryObjPath,
+                                  const std::string& i_interface) noexcept
+{
+    bool l_retVal{true};
+    try
+    {
+        if (!i_inventoryObjPath.empty() && !i_interface.empty())
+        {
+            // validate the inventory path.
+            if (i_inventoryObjPath.find(constants::pimPath) !=
+                constants::VALUE_0)
+            {
+                throw std::runtime_error(
+                    "Invalid inventory path: [" + i_inventoryObjPath + "]");
+            }
+            else
+            {
+                // For fans, we do not handle Inventory.Item interface
+                if (i_inventoryObjPath.find("fan") != std::string::npos &&
+                    i_interface == constants::inventoryItemInf)
+                {
+                    logging::logMessage(
+                        "Skip handling interface " + i_interface + " for [" +
+                        i_inventoryObjPath + "]");
+                    l_retVal = false;
+                }
+            }
+        }
+        else
+        {
+            throw std::runtime_error(
+                "Invalid inventory path: [" + i_inventoryObjPath +
+                "] or interface: [" + i_interface + "]");
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(l_ex.what());
+        l_retVal = false;
+    }
+    return l_retVal;
+}
+
+/**
  * @brief API to reset data of a FRU populated under PIM.
  *
  * This API resets the data for particular interfaces of a FRU under PIM.
@@ -506,6 +560,11 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
                                 l_vpdRelatedInterfaces.end(), l_interface)) !=
                      l_vpdRelatedInterfaces.end()))
                 {
+                    if (!shouldHandleInterface(i_objectPath, l_interface))
+                    {
+                        continue;
+                    }
+
                     const types::PropertyMap& l_propertyValueMap =
                         dbusUtility::getPropertyMap(l_service, i_objectPath,
                                                     l_interface);
