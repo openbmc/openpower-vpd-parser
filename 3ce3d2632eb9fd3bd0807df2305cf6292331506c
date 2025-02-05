@@ -34,6 +34,24 @@
       "parentUuid": "e1f2c068_603f7cfc",
       "revId": "3ce3d2632eb9fd3bd0807df2305cf6292331506c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bf0524d_d47e31d1",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-05T11:52:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c4cd8bde_122779ab",
+      "revId": "3ce3d2632eb9fd3bd0807df2305cf6292331506c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
