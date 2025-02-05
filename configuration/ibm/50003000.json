@@ -2990,10 +2990,6 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "expander-cable-card1",
-                            "value": 0
-                        },
                         "setGpio": {
                             "pin": "presence-cable-card1",
                             "value": 1
@@ -3098,10 +3094,6 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "expander-cable-card2",
-                            "value": 0
-                        },
                         "setGpio": {
                             "pin": "presence-cable-card2",
                             "value": 1
@@ -3208,10 +3200,6 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "expander-cable-card3",
-                            "value": 0
-                        },
                         "setGpio": {
                             "pin": "presence-cable-card3",
                             "value": 1
@@ -3318,10 +3306,6 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "expander-cable-card4",
-                            "value": 0
-                        },
                         "setGpio": {
                             "pin": "presence-cable-card4",
                             "value": 1
@@ -3428,10 +3412,6 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "expander-cable-card5",
-                            "value": 0
-                        },
                         "setGpio": {
                             "pin": "presence-cable-card5",
                             "value": 1
@@ -3538,10 +3518,6 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "expander-cable-card6",
-                            "value": 0
-                        },
                         "setGpio": {
                             "pin": "presence-cable-card6",
                             "value": 1
@@ -3602,10 +3578,6 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "expander-cable-card7",
-                            "value": 0
-                        },
                         "setGpio": {
                             "pin": "presence-cable-card7",
                             "value": 1
@@ -3712,10 +3684,6 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "expander-cable-card8",
-                            "value": 0
-                        },
                         "setGpio": {
                             "pin": "presence-cable-card8",
                             "value": 1
@@ -3822,10 +3790,6 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "expander-cable-card9",
-                            "value": 0
-                        },
                         "setGpio": {
                             "pin": "presence-cable-card9",
                             "value": 1
@@ -3886,10 +3850,6 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "expander-cable-card10",
-                            "value": 0
-                        },
                         "setGpio": {
                             "pin": "presence-cable-card10",
                             "value": 1
@@ -3996,10 +3956,6 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "expander-cable-card11",
-                            "value": 0
-                        },
                         "setGpio": {
                             "pin": "presence-cable-card11",
                             "value": 1

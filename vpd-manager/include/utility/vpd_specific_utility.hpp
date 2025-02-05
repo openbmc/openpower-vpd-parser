@@ -552,5 +552,48 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
                             " with error: " + std::string(l_ex.what()));
     }
 }
+
+/**
+ * @brief API to detect pass1 planar type.
+ *
+ * Based on HW version and IM keyword, This API detects is it is a pass1 planar
+ * or not.
+ *
+ * @return True if pass 1 planar, false otherwise.
+ */
+inline bool isPass1Planar()
+{
+    auto l_retVal = dbusUtility::readDbusProperty(
+        constants::pimServiceName, constants::systemVpdInvPath,
+        constants::viniInf, constants::kwdHW);
+
+    auto l_hwVer = std::get_if<types::BinaryVector>(&l_retVal);
+
+    l_retVal = dbusUtility::readDbusProperty(
+        constants::pimServiceName, constants::systemInvPath, constants::vsbpInf,
+        constants::kwdIM);
+
+    auto l_imValue = std::get_if<types::BinaryVector>(&l_retVal);
+
+    if (l_hwVer && l_imValue)
+    {
+        types::BinaryVector everest{80, 00, 48, 00};
+        types::BinaryVector fuji{96, 00, 32, 00};
+
+        if (((*l_imValue) == everest) || ((*l_imValue) == fuji))
+        {
+            if ((*l_hwVer).at(1) < constants::VALUE_21)
+            {
+                return true;
+            }
+        }
+        else if ((*l_hwVer).at(1) < constants::VALUE_2)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd
