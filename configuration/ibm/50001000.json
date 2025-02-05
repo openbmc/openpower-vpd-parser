@@ -2787,10 +2787,6 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "SLOT8_EXPANDER_PRSNT_N",
-                            "value": 0
-                        },
                         "setGpio": {
                             "pin": "SLOT8_PRSNT_EN_RSVD",
                             "value": 1

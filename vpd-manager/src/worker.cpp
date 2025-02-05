@@ -1453,14 +1453,24 @@ std::tuple<bool, std::string>
             // logging error for these cases.
             if (vpdSpecificUtility::isPass1Planar())
             {
-                const std::string& l_invPathLeafValue =
-                    sdbusplus::message::object_path(
-                        jsonUtility::getInventoryObjPathFromJson(m_parsedJson,
-                                                                 i_vpdFilePath))
-                        .filename();
+                // Till exceptions are removed from utility method, this needs
+                // to be handled in place.
+                try
+                {
+                    const std::string& l_invPathLeafValue =
+                        sdbusplus::message::object_path(
+                            jsonUtility::getInventoryObjPathFromJson(
+                                m_parsedJson, i_vpdFilePath))
+                            .filename();
 
-                if ((l_invPathLeafValue.find("pcie_card", 0) !=
-                     std::string::npos))
+                    if ((l_invPathLeafValue.find("pcie_card", 0) !=
+                         std::string::npos))
+                    {
+                        // skip logging any PEL for PCIe cards on pass 1 planar.
+                        return std::make_tuple(false, i_vpdFilePath);
+                    }
+                }
+                catch (const std::exception& l_ex)
                 {
                     // skip logging any PEL for PCIe cards on pass 1 planar.
                     return std::make_tuple(false, i_vpdFilePath);
