@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbe3b19b_4e0e60f4",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-02-05T05:18:33Z",
+      "side": 0,
+      "message": "may i know the reason why you removed the cout here",
+      "revId": "a88a298f0756a525b4d628cda2fb77b8e74a283f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
