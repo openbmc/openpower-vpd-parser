@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1616f1b_85d3e983",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-05T05:41:26Z",
+      "side": 1,
+      "message": "we will bring verbose to display logs in vpd-tool, so left todo.",
+      "parentUuid": "a882a470_82d10998",
+      "revId": "a6fadab370a428216cda220f893c9fce83effac9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bf82dac_36754a5f",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-02-05T05:18:33Z",
       "side": 1,
       "message": "comments required?",
+      "revId": "a6fadab370a428216cda220f893c9fce83effac9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2240919_58c8be85",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-05T05:41:26Z",
+      "side": 1,
+      "message": "we will bring verbose to display logs in vpd-tool, so left todo.",
+      "parentUuid": "1bf82dac_36754a5f",
       "revId": "a6fadab370a428216cda220f893c9fce83effac9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
