@@ -381,6 +381,7 @@
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0",
+                "handlePresence": false,
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "inherit": false,
                 "embedded": false,
@@ -412,6 +413,7 @@
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan1",
+                "handlePresence": false,
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "inherit": false,
                 "embedded": false,
@@ -443,6 +445,7 @@
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan2",
+                "handlePresence": false,
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "inherit": false,
                 "embedded": false,
@@ -474,6 +477,7 @@
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan3",
+                "handlePresence": false,
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "inherit": false,
                 "embedded": false,
@@ -505,6 +509,7 @@
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan4",
+                "handlePresence": false,
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "inherit": false,
                 "embedded": false,
@@ -536,6 +541,7 @@
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan5",
+                "handlePresence": false,
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
                 "inherit": false,
                 "embedded": false,
