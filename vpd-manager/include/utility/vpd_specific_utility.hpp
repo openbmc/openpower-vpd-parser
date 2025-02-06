@@ -478,7 +478,8 @@ inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
  * @param[in] io_interfaceMap - Interface and its properties map.
  */
 inline void resetDataUnderPIM(const std::string& i_objectPath,
-                              types::InterfaceMap& io_interfaceMap)
+                              types::InterfaceMap& io_interfaceMap,
+                              bool i_handlePresence = true)
 {
     try
     {
@@ -506,6 +507,17 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
                                 l_vpdRelatedInterfaces.end(), l_interface)) !=
                      l_vpdRelatedInterfaces.end()))
                 {
+                    // Handle Item interface for this FRU only if we handle
+                    // Present property
+                    // for the FRU.
+                    if ((l_interface == constants::inventoryItemInf) &&
+                        !i_handlePresence)
+                    {
+                        logging::logMessage("Skip reset Item interface for [" +
+                                            i_objectPath + "]");
+                        continue;
+                    }
+
                     const types::PropertyMap& l_propertyValueMap =
                         dbusUtility::getPropertyMap(l_service, i_objectPath,
                                                     l_interface);
