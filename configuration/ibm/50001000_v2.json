@@ -404,6 +404,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "handlePresence": false,
                 "inherit": false,
                 "embedded": false,
                 "synthesized": true,
@@ -435,6 +436,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan1",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "handlePresence": false,
                 "inherit": false,
                 "embedded": false,
                 "synthesized": true,
@@ -466,6 +468,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan2",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "handlePresence": false,
                 "inherit": false,
                 "embedded": false,
                 "synthesized": true,
@@ -497,6 +500,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan3",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "handlePresence": false,
                 "inherit": false,
                 "embedded": false,
                 "synthesized": true,
@@ -528,6 +532,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan4",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "handlePresence": false,
                 "inherit": false,
                 "embedded": false,
                 "synthesized": true,
@@ -559,6 +564,7 @@
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan5",
                 "serviceName": "xyz.openbmc_project.Inventory.Manager",
+                "handlePresence": false,
                 "inherit": false,
                 "embedded": false,
                 "synthesized": true,
