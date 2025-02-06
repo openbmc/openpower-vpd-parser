@@ -824,7 +824,8 @@ bool Worker::primeInventory(const std::string& i_vpdFilePath)
 
         // Clear data under PIM if already exists.
         vpdSpecificUtility::resetDataUnderPIM(
-            std::string(l_Fru["inventoryPath"]), l_interfaces);
+            std::string(l_Fru["inventoryPath"]), l_interfaces,
+            l_Fru.value("handlePresence", true));
 
         // Add extra interfaces mentioned in the Json config file
         if (l_Fru.contains("extraInterfaces"))
@@ -834,20 +835,26 @@ bool Worker::primeInventory(const std::string& i_vpdFilePath)
         }
 
         types::PropertyMap l_propertyValueMap;
-        l_propertyValueMap.emplace("Present", false);
 
-        // TODO: Present based on file will be taken care in future.
-        // By default present is set to false for FRU at the time of
-        // priming. Once collection goes through, it will be set to true in that
-        // flow.
-        /*if (std::filesystem::exists(i_vpdFilePath))
+        // Handle Item interface for this FRU only if we handle Present property
+        // for the FRU.
+        if (l_Fru.value("handlePresence", true))
         {
-            l_propertyValueMap["Present"] = true;
-        }*/
+            l_propertyValueMap.emplace("Present", false);
 
-        vpdSpecificUtility::insertOrMerge(l_interfaces,
-                                          "xyz.openbmc_project.Inventory.Item",
-                                          move(l_propertyValueMap));
+            // TODO: Present based on file will be taken care in future.
+            // By default present is set to false for FRU at the time of
+            // priming. Once collection goes through, it will be set to true in
+            // that flow.
+            /*if (std::filesystem::exists(i_vpdFilePath))
+            {
+                l_propertyValueMap["Present"] = true;
+            }*/
+
+            vpdSpecificUtility::insertOrMerge(
+                l_interfaces, "xyz.openbmc_project.Inventory.Item",
+                move(l_propertyValueMap));
+        }
 
         if (l_Fru.value("inherit", true) &&
             m_parsedJson.contains("commonInterfaces"))
@@ -1752,6 +1759,15 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
         {
             for (const auto& l_Fru : m_parsedJson["frus"][i_vpdPath])
             {
+                // Check "handlePresence" tag before updating the Present
+                // property.
+                if (!l_Fru.value("handlePresence", true))
+                {
+                    logging::logMessage("Skip updating Present property for [" +
+                                        l_Fru.value("inventoryPath", "") + "]");
+                    continue;
+                }
+
                 sdbusplus::message::object_path l_fruObjectPath(
                     l_Fru["inventoryPath"]);
 
@@ -1774,6 +1790,28 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
             {
                 throw std::runtime_error(
                     "Invalid inventory path: " + i_vpdPath);
+            }
+
+            // get the EEPROM path for given inventory path
+            const std::string l_eepromPath =
+                jsonUtility::getFruPathFromJson(m_parsedJson, i_vpdPath);
+
+            if (m_parsedJson["frus"].contains(l_eepromPath))
+            {
+                // Check "handlePresence" tag before updating the Present
+                // property.
+                for (const auto& l_Fru : m_parsedJson["frus"][l_eepromPath])
+                {
+                    if (i_vpdPath.compare(l_Fru.value("inventoryPath", "")) ==
+                            constants::STR_CMP_SUCCESS &&
+                        !l_Fru.value("handlePresence", true))
+                    {
+                        logging::logMessage(
+                            "Skip updating Present property for [" + i_vpdPath +
+                            "]");
+                        return;
+                    }
+                }
             }
 
             types::PropertyMap l_propertyValueMap;
