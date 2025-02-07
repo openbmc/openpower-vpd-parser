@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "301b12d4_bb999ade",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-07T04:02:02Z",
+      "side": 1,
+      "message": "Too many changes for the required behaviour. Can we optimise this?",
+      "revId": "9f7f3a9640ac47b8594b3815843f3623816c3b46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

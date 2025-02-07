@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56506d7e_0c91da10",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-07T04:02:02Z",
+      "side": 1,
+      "message": "Not required.",
+      "revId": "3359c42fb81d5083c3041b7d816d6f1fd3ed2495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74449eb1_65241580",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-07T04:02:02Z",
+      "side": 1,
+      "message": "No need of any change in this API.",
+      "revId": "3359c42fb81d5083c3041b7d816d6f1fd3ed2495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cfc8dfe_48a996dd",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-07T04:02:02Z",
+      "side": 1,
+      "message": "No, I don\u0027t agree to this. \nIf I don\u0027t see a need to update this API. We already have a tag \"synthesized\" which can be used here.\nIf the VPD is synthesized. It should not be cleared.",
+      "revId": "3359c42fb81d5083c3041b7d816d6f1fd3ed2495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "089079e3_4e88771e",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-07T04:02:02Z",
+      "side": 1,
+      "message": "Again I am not sure why we are not just skipping the properties under the interface?",
+      "revId": "3359c42fb81d5083c3041b7d816d6f1fd3ed2495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77af9ed5_f6d68e4b",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1795,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-07T04:02:02Z",
+      "side": 1,
+      "message": "Don;t see need of this change, just skip the property based on \"handlePresence\" tag.",
+      "revId": "3359c42fb81d5083c3041b7d816d6f1fd3ed2495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
