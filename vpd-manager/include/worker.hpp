@@ -521,6 +521,25 @@ class Worker
      */
     bool skipPathForCollection(const std::string& i_vpdFilePath);
 
+    /**
+     * @brief API to check if Present property should be handled for given FRU.
+     *
+     * vpd-manager should update Present property for a FRU iff it's not
+     * synthesized and vpd-manager handles Present property for the FRU.
+     * This API assumes "handlePresence" tag is a subset of "synthesized" tag.
+     *
+     * @param[in] l_Fru -  JSON block for a single FRU.
+     *
+     * @return true if Present property should be handled, false otherwise
+     */
+    inline bool
+        shouldHandlePresentProperty(const nlohmann::json& l_Fru) const noexcept
+    {
+        // TODO: revisit this to see if this logic can be optimized.
+        return !l_Fru.value("synthesized", false) &&
+               l_Fru.value("handlePresence", true);
+    }
+
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
 
