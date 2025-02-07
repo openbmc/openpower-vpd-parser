@@ -519,6 +519,10 @@ class Worker
     /**
      * @brief API to set present property.
      *
+     * This API updates the present property of the given FRU with the given
+     * value. Note: It is the responsibility of the caller to determine whether
+     * the present property for the FRU should be updated or not.
+     *
      * @param[in] i_vpdPath - EEPROM or inventory path.
      * @param[in] i_value - value to be set.
      */
@@ -535,6 +539,25 @@ class Worker
      * @return True - if path is empty or should be skipped, false otherwise.
      */
     bool skipPathForCollection(const std::string& i_vpdFilePath);
+
+    /**
+     * @brief API to check if present property should be handled for given FRU.
+     *
+     * vpd-manager should update present property for a FRU if and only if it's
+     * not synthesized and vpd-manager handles present property for the FRU.
+     * This API assumes "handlePresence" tag is a subset of "synthesized" tag.
+     *
+     * @param[in] i_fru -  JSON block for a single FRU.
+     *
+     * @return true if present property should be handled, false otherwise.
+     */
+    inline bool isPresentPropertyHandlingRequired(
+        const nlohmann::json& i_fru) const noexcept
+    {
+        // TODO: revisit this to see if this logic can be optimized.
+        return !i_fru.value("synthesized", false) &&
+               i_fru.value("handlePresence", true);
+    }
 
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};

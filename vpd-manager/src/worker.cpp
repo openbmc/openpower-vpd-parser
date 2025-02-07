@@ -822,9 +822,14 @@ bool Worker::primeInventory(const std::string& i_vpdFilePath)
             continue;
         }
 
-        // Clear data under PIM if already exists.
-        vpdSpecificUtility::resetDataUnderPIM(
-            std::string(l_Fru["inventoryPath"]), l_interfaces);
+        // Reset data under PIM for this FRU only if the FRU is not synthesized
+        // and we handle it's Present property.
+        if (isPresentPropertyHandlingRequired(l_Fru))
+        {
+            // Clear data under PIM if already exists.
+            vpdSpecificUtility::resetDataUnderPIM(
+                std::string(l_Fru["inventoryPath"]), l_interfaces);
+        }
 
         // Add extra interfaces mentioned in the Json config file
         if (l_Fru.contains("extraInterfaces"))
@@ -834,16 +839,22 @@ bool Worker::primeInventory(const std::string& i_vpdFilePath)
         }
 
         types::PropertyMap l_propertyValueMap;
-        l_propertyValueMap.emplace("Present", false);
 
-        // TODO: Present based on file will be taken care in future.
-        // By default present is set to false for FRU at the time of
-        // priming. Once collection goes through, it will be set to true in that
-        // flow.
-        /*if (std::filesystem::exists(i_vpdFilePath))
+        // Update Present property for this FRU only if we handle Present
+        // property for the FRU.
+        if (isPresentPropertyHandlingRequired(l_Fru))
         {
-            l_propertyValueMap["Present"] = true;
-        }*/
+            l_propertyValueMap.emplace("Present", false);
+
+            // TODO: Present based on file will be taken care in future.
+            // By default present is set to false for FRU at the time of
+            // priming. Once collection goes through, it will be set to true in
+            // that flow.
+            /*if (std::filesystem::exists(i_vpdFilePath))
+            {
+                l_propertyValueMap["Present"] = true;
+            }*/
+        }
 
         vpdSpecificUtility::insertOrMerge(l_interfaces,
                                           "xyz.openbmc_project.Inventory.Item",
@@ -1500,7 +1511,13 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
 
         // set present property to false for any error case. In future this will
         // be replaced by presence logic.
-        setPresentProperty(i_vpdFilePath, false);
+        // Update Present property for this FRU only if we handle Present
+        // property for the FRU.
+        if (isPresentPropertyHandlingRequired(
+                m_parsedJson["frus"][i_vpdFilePath].at(0)))
+        {
+            setPresentProperty(i_vpdFilePath, false);
+        }
 
         m_semaphore.release();
         return std::make_tuple(false, i_vpdFilePath);
