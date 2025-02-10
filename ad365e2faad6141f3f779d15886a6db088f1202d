@@ -16,6 +16,24 @@
       "message": "There is a return statement at the top. So the collection status needs to be updated before that, else we will miss for them.",
       "revId": "ad365e2faad6141f3f779d15886a6db088f1202d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95bc0bc3_be70a1ff",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1537,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-02-10T15:03:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8aa099b_24710b4d",
+      "revId": "ad365e2faad6141f3f779d15886a6db088f1202d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

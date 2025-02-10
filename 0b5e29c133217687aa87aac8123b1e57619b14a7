@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78306c3e_de38b58f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-02-10T15:03:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb08e2c1_56fa4fc2",
+      "revId": "0b5e29c133217687aa87aac8123b1e57619b14a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fcb6151_c4028beb",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "459296a6_4c5f6562",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1462,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-02-10T15:03:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fcb6151_c4028beb",
+      "revId": "0b5e29c133217687aa87aac8123b1e57619b14a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3dccb26_c2b61406",
@@ -48,6 +84,24 @@
       "writtenOn": "2025-02-10T14:06:42Z",
       "side": 1,
       "message": "Why we need this code at three different places? Why can\u0027t this be updated once at the beginning of catch block?",
+      "revId": "0b5e29c133217687aa87aac8123b1e57619b14a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d5ce7c5_a82d8d58",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-02-10T15:03:26Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b3dccb26_c2b61406",
       "revId": "0b5e29c133217687aa87aac8123b1e57619b14a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
