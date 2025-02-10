@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b2fc3f52_f4036201",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-10T09:59:08Z",
+      "side": 1,
+      "message": "This condition needs to be checked at multiple places. Also, we plan to optimize the logic of using \"synthesized\" and \"handlePresence\" tag to determine whether vpd-manager needs to handle the Present property of the FRU, in the future.\nHaving this condition as an inline method makes the code more readable and maintainable.",
+      "parentUuid": "efdb679f_88526440",
+      "revId": "1d9baae09a68827412886534e0450765936210d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d84d0d35_c8bcb61f",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 5
@@ -31,6 +49,24 @@
       "writtenOn": "2025-02-10T08:19:38Z",
       "side": 1,
       "message": "we need not log this to journal.",
+      "revId": "1d9baae09a68827412886534e0450765936210d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6979514_d4c3ebd4",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-10T09:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d84d0d35_c8bcb61f",
       "revId": "1d9baae09a68827412886534e0450765936210d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8654ef47_fe4c6119",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1809,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-10T09:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bb4882e_4551a8e7",
+      "revId": "1d9baae09a68827412886534e0450765936210d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c42d931b_06a0551d",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-02-10T08:19:38Z",
       "side": 1,
       "message": "IMO the intelligence to set property or not should be with the caller, This API should limit the property to be set?",
+      "revId": "1d9baae09a68827412886534e0450765936210d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd78b55e_d8870cbc",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1812,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-10T09:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c42d931b_06a0551d",
       "revId": "1d9baae09a68827412886534e0450765936210d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
