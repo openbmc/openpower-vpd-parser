@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74d0d8d2_f6b8022a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-10T09:39:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad3cf300_b629466f",
+      "revId": "97712702031e4de4b2a8be715313ba466378cea6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0ecf4b8_3c826f65",
@@ -85,6 +103,24 @@
       "side": 1,
       "message": "Added todo to handle in case system has multiple chassis.",
       "parentUuid": "c93a923f_8e29d277",
+      "revId": "97712702031e4de4b2a8be715313ba466378cea6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e11288c_709dbec4",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-10T09:39:51Z",
+      "side": 1,
+      "message": "as of now we only have chassis0. Will handle if multiple paths as it gets introduced in the system.",
+      "parentUuid": "2ef260e1_e349f996",
       "revId": "97712702031e4de4b2a8be715313ba466378cea6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
