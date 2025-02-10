@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e437801_38094a05",
+        "filename": "vpd-manager/include/isdimm_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-10T09:27:37Z",
+      "side": 1,
+      "message": "we do not support DDR5 ISDIMM",
+      "revId": "26497699984dfc546b43a10367b38ce36a2a662a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2a4dc0b_88dbe95c",
+        "filename": "vpd-manager/src/isdimm_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-10T09:27:37Z",
+      "side": 1,
+      "message": "either correct this to give the correct output on DDR5 or remove this as a whole",
+      "revId": "26497699984dfc546b43a10367b38ce36a2a662a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
