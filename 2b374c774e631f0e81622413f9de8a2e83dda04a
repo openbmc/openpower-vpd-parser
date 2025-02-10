@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e19d7ab_fd34bfa7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T09:04:53Z",
+      "side": 1,
+      "message": "If possible, please break the commit in chunks below 100 LOC, it is more convenient to review.",
+      "revId": "2b374c774e631f0e81622413f9de8a2e83dda04a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca8d5900_673d6dee",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T09:04:53Z",
+      "side": 1,
+      "message": "\u003e starting bit\n\nThis should be only bit position.",
+      "revId": "2b374c774e631f0e81622413f9de8a2e83dda04a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebd88f65_1c2f4d50",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T09:04:53Z",
+      "side": 1,
+      "message": "\u003e number of bits in keyword\n\nnumber of bits to be update in the keyword",
+      "revId": "2b374c774e631f0e81622413f9de8a2e83dda04a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

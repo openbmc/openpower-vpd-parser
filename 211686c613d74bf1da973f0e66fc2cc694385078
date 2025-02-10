@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35fa0dcf_70b400cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T09:04:53Z",
+      "side": 1,
+      "message": "We don\u0027t need these prefix in the header. It is just eating up the space. Instead some meaningful information can be added?",
+      "revId": "211686c613d74bf1da973f0e66fc2cc694385078",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "518cc55d_e64011f6",
+        "filename": "vpd-tool/include/tool_constants.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T09:04:53Z",
+      "side": 1,
+      "message": "Don;t need this. Defining in constants make sense when it means something else w.r.t the context else it will just add an overhead.",
+      "revId": "211686c613d74bf1da973f0e66fc2cc694385078",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
