@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efdb679f_88526440",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T08:19:38Z",
+      "side": 1,
+      "message": "Why we need an API for this? Just a condition check, why this can\u0027t be done in place?",
+      "revId": "1d9baae09a68827412886534e0450765936210d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d84d0d35_c8bcb61f",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T08:19:38Z",
+      "side": 1,
+      "message": "we need not log this to journal.",
+      "revId": "1d9baae09a68827412886534e0450765936210d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bb4882e_4551a8e7",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1809,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T08:19:38Z",
+      "side": 1,
+      "message": "This check is not required here.",
+      "revId": "1d9baae09a68827412886534e0450765936210d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c42d931b_06a0551d",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1812,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T08:19:38Z",
+      "side": 1,
+      "message": "IMO the intelligence to set property or not should be with the caller, This API should limit the property to be set?",
+      "revId": "1d9baae09a68827412886534e0450765936210d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
