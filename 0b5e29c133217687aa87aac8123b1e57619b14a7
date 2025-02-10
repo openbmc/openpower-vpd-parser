@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb08e2c1_56fa4fc2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T14:06:42Z",
+      "side": 1,
+      "message": "\u003e implements\n\nPopulates?",
+      "revId": "0b5e29c133217687aa87aac8123b1e57619b14a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fcb6151_c4028beb",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1462,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T14:06:42Z",
+      "side": 1,
+      "message": "nit: l_ex",
+      "revId": "0b5e29c133217687aa87aac8123b1e57619b14a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3dccb26_c2b61406",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T14:06:42Z",
+      "side": 1,
+      "message": "Why we need this code at three different places? Why can\u0027t this be updated once at the beginning of catch block?",
+      "revId": "0b5e29c133217687aa87aac8123b1e57619b14a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
