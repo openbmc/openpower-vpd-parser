@@ -34,6 +34,24 @@
       "parentUuid": "0fb4828c_d4f35524",
       "revId": "bf34bfb9d093e08cffaf1c3f5ae530796a7d61e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aab4199_422072e3",
+        "filename": "vpd-manager/src/isdimm_parser.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T08:32:28Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "752acf28_6fc106c4",
+      "revId": "bf34bfb9d093e08cffaf1c3f5ae530796a7d61e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
