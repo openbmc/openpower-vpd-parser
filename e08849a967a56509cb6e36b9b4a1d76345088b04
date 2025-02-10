@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a19406af_6c911bdd",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T05:33:39Z",
+      "side": 1,
+      "message": "API to get list of EEPROMs for which thread creation failed?",
+      "revId": "e08849a967a56509cb6e36b9b4a1d76345088b04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
