@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "523e17c7_415eb683",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-10T13:42:21Z",
+      "side": 1,
+      "message": "can you include dbus property value for the same in commit message .",
+      "revId": "bfec1008738f21fdb947fefcf0eec615719175a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "325bdd46_7712f6b3",
+        "filename": "vpd-manager/src/ddimm_parser.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-10T13:42:21Z",
+      "side": 1,
+      "message": "can we directly construct l_mfgId from m_vpdVector from DRAM_MANUFACTURER_ID_OFFSET position. ?",
+      "revId": "bfec1008738f21fdb947fefcf0eec615719175a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
