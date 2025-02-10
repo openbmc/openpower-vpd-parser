@@ -16,6 +16,24 @@
       "message": "I don\u0027t agree with these nested try/catch.\nIf required can be at the function level.",
       "revId": "afedc6b91dbd16a88118775040b64770f5556fa8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f531442a_4a9d621c",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1592,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-10T04:42:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "507b9b68_34a97d8b",
+      "revId": "afedc6b91dbd16a88118775040b64770f5556fa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
