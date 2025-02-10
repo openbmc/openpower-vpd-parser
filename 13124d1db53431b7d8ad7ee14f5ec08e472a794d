@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c979eac_0ca79720",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-10T11:02:21Z",
+      "side": 1,
+      "message": "the FRU ?",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "accfc835_011b5c46",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-10T11:02:21Z",
+      "side": 1,
+      "message": "Nit: if",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17c0ca1f_712e0295",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-10T11:02:21Z",
+      "side": 1,
+      "message": "\"and handlePresence is true for that FRU\" ?",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede43661_c416131c",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-10T11:02:21Z",
+      "side": 1,
+      "message": "the statement is not clear.",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaeb63fa_790ed7ad",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-10T11:02:21Z",
+      "side": 1,
+      "message": "need \u0027.\u0027 at the end of the statement.",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b523988c_de9f0429",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-10T11:02:21Z",
+      "side": 1,
+      "message": "i_fru",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd553f8f_ab043d45",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-10T11:02:21Z",
+      "side": 1,
+      "message": "statement look incomplete after \u0027PIM for this\u0027\n\nReset data under PIM for the FRU which is not synthesized and handle Present property is required?",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
