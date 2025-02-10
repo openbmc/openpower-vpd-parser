@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1d6cc56_d7e0bea3",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T14:09:20Z",
+      "side": 1,
+      "message": "Are we actually resetting VPD of the system?",
+      "revId": "80e636f3894bedf1b43ce1b38d6a22ffffbd5a86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b497ea28_32ad93f8",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T14:09:20Z",
+      "side": 1,
+      "message": "Clang issue?",
+      "revId": "80e636f3894bedf1b43ce1b38d6a22ffffbd5a86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7846d75b_6f885345",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T14:09:20Z",
+      "side": 1,
+      "message": "Are you actually resetting VPD of the system?",
+      "revId": "80e636f3894bedf1b43ce1b38d6a22ffffbd5a86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0be90b5e_b0291049",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-10T14:09:20Z",
+      "side": 1,
+      "message": "clang issue? why it is wrapped so early?",
+      "revId": "80e636f3894bedf1b43ce1b38d6a22ffffbd5a86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
