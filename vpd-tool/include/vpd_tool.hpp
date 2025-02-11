@@ -168,6 +168,26 @@ class VpdTool
      */
     int handleMoreOption(const nlohmann::json& i_parsedJsonObj) const noexcept;
 
+    /**
+     * @brief API to get VPD value of keyword in BIOS Config Manager.
+     *
+     * For a given record and keyword, this API gets the associated BIOS
+     * attribute current value from BIOS Config Manager, by reading the
+     * attribute value from BIOS Config Manager, converts the BIOS attribute
+     * value to VPD format, and returns it.
+     *
+     * @param[in] i_recordName - Record name.
+     * @param[in] i_keywordName - Keyword name.
+     *
+     * @return On success returns the resultant keyword value in binary
+     * format, else returns empty value.
+     *
+     * @throw std::terminate, std::bad_alloc
+     */
+    types::BinaryVector getVpdValueInBiosConfigManager(
+        [[maybe_unused]] const std::string& i_recordName,
+        [[maybe_unused]] const std::string& i_keywordName) const;
+
   public:
     /**
      * @brief Read keyword value.
