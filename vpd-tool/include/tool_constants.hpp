@@ -34,5 +34,9 @@ constexpr auto chassisStateManagerService = "xyz.openbmc_project.State.Chassis";
 constexpr auto chassisStateManagerObjectPath =
     "/xyz/openbmc_project/state/chassis0";
 constexpr auto chassisStateManagerInfName = "xyz.openbmc_project.State.Chassis";
+constexpr auto dbusService = "org.freedesktop.DBus";
+constexpr auto dbusObjectPath = "/org/freedesktop/DBus";
+constexpr auto dbusInterface = "org.freedesktop.DBus";
+constexpr auto biosConfigMgrService = "xyz.openbmc_project.BIOSConfigManager";
 } // namespace constants
 } // namespace vpd

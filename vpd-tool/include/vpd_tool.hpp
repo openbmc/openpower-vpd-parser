@@ -168,6 +168,26 @@ class VpdTool
      */
     int handleMoreOption(const nlohmann::json& i_parsedJsonObj) const noexcept;
 
+    /**
+     * @brief API to get VPD value of keyword in BIOS Config Manager.
+     *
+     * For a given record and keyword, this API gets the associated BIOS
+     * attribute current value from BIOS Config Manager, by reading the
+     * attribute value from BIOS Config Manager, converts the BIOS attribute
+     * value to VPD format, and returns it.
+     *
+     * @param[in] i_recordName - Record name.
+     * @param[in] i_keywordName - Keyword name.
+     *
+     * @return On success returns the resultant keyword value in binary
+     * format, else returns empty value.
+     *
+     * @throw std::terminate, std::bad_alloc
+     */
+    types::BinaryVector getVpdValueInBiosConfigManager(
+        [[maybe_unused]] const std::string& i_recordName,
+        [[maybe_unused]] const std::string& i_keywordName) const;
+
   public:
     /**
      * @brief Read keyword value.
@@ -259,13 +279,14 @@ class VpdTool
      * 3. D-Bus cache.
      * 4. Backup path.
      *
-     * @param[in] i_syncBiosAttributes - Flag which specifies whether BIOS
-     * attribute related keywords need to be synced from BIOS Config Manager
-     * instead of being reset to default value.
+     * @param[in] i_syncBiosAttributesRequired - Flag which specifies whether
+     * BIOS attribute related keywords need to be synced from BIOS Config
+     * Manager instead of being reset to default value.
      *
      * @return On success returns 0, otherwise returns -1.
      */
-    int cleanSystemVpd(bool i_syncBiosAttributes = false) const noexcept;
+    int cleanSystemVpd(
+        bool i_syncBiosAttributesRequired = false) const noexcept;
 
     /**
      * @brief Dump all the inventory objects in JSON or table format to console.

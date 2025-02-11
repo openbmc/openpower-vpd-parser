@@ -389,11 +389,20 @@ nlohmann::json VpdTool::getBackupRestoreCfgJsonObj() const noexcept
     return l_parsedBackupRestoreJson;
 }
 
-int VpdTool::cleanSystemVpd(bool i_syncBiosAttributes) const noexcept
+int VpdTool::cleanSystemVpd(bool i_syncBiosAttributesRequired) const noexcept
 {
     try
     {
-        (void)i_syncBiosAttributes;
+        // In order to do syncBiosAttributes, we need BIOS Config Manager
+        // service up and running
+        if (i_syncBiosAttributesRequired &&
+            !utils::isServiceRunning(constants::biosConfigMgrService))
+        {
+            std::cerr
+                << "Cannot sync BIOS attributes as BIOS Config Manager service is not running."
+                << std::endl;
+            return constants::FAILURE;
+        }
 
         // get the keyword map from backup_restore json
         // iterate through the keyword map get default value of
@@ -435,9 +444,27 @@ int VpdTool::cleanSystemVpd(bool i_syncBiosAttributes) const noexcept
                         l_aRecordKwInfo.contains("defaultValue") &&
                         l_aRecordKwInfo["defaultValue"].is_array())
                     {
-                        const types::BinaryVector l_defaultBinaryValue =
-                            l_aRecordKwInfo["defaultValue"]
-                                .get<types::BinaryVector>();
+                        // check if this keyword is used for backing up BIOS
+                        // attribute
+                        const bool l_isUsedForBiosAttributeBackup =
+                            l_aRecordKwInfo.value("isBiosSyncRequired", false);
+
+                        const types::BinaryVector l_keywordValueToUpdate =
+                            (i_syncBiosAttributesRequired &&
+                             l_isUsedForBiosAttributeBackup)
+                                ? getVpdValueInBiosConfigManager(
+                                      l_srcRecordName, l_srcKeywordName)
+                                : l_aRecordKwInfo["defaultValue"]
+                                      .get<types::BinaryVector>();
+
+                        if (l_keywordValueToUpdate.empty())
+                        {
+                            std::cerr << "Failed to update " << l_srcRecordName
+                                      << ":" << l_srcKeywordName
+                                      << " . Keyword value to update is empty"
+                                      << std::endl;
+                            continue;
+                        }
 
                         // update the Keyword with default value, use D-Bus
                         // method UpdateKeyword exposed by vpd-manager.
@@ -450,7 +477,7 @@ int VpdTool::cleanSystemVpd(bool i_syncBiosAttributes) const noexcept
                                 l_hardwarePath,
                                 std::make_tuple(l_srcRecordName,
                                                 l_srcKeywordName,
-                                                l_defaultBinaryValue)))
+                                                l_keywordValueToUpdate)))
                         {
                             // TODO: Enable logging when verbose
                             // is enabled.
@@ -1217,4 +1244,14 @@ int VpdTool::resetVpdOnDbus()
     return constants::SUCCESS;
 }
 
+types::BinaryVector VpdTool::getVpdValueInBiosConfigManager(
+    [[maybe_unused]] const std::string& i_recordName,
+    [[maybe_unused]] const std::string& i_keywordName) const
+{
+    types::BinaryVector l_result;
+    // TODO: Use Record name, Keyword name to identify BIOS attribute.
+    //  Get BIOS attribute value from BIOS Config Manager.
+    //  Convert BIOS attribute value to VPD format value in binary.
+    return l_result;
+}
 } // namespace vpd
