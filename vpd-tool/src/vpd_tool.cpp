@@ -1211,4 +1211,14 @@ int VpdTool::handleMoreOption(
     return l_rc;
 }
 
+types::BinaryVector VpdTool::getBiosAttributeValueForKeyword(
+    [[maybe_unused]] const std::string& i_recordName,
+    [[maybe_unused]] const std::string& i_keywordName) const
+{
+    types::BinaryVector l_result;
+    // TODO: Use Record name, Keyword name to identify BIOS attribute.
+    //  Get BIOS attribute value from BIOS Config Manager.
+    //  Convert BIOS attribute value to VPD format value in binary.
+    return l_result;
+}
 } // namespace vpd
