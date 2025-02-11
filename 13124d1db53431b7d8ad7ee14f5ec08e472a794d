@@ -71,6 +71,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36227666_203e4e99",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T05:38:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f86b0bef_33f513c7",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7368baf_11c73771",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T05:38:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f86b0bef_33f513c7",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17c0ca1f_712e0295",
@@ -106,6 +142,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba8196e2_6b005b85",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T05:38:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ad53c6e7_c4458c89",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ede43661_c416131c",
@@ -137,6 +191,42 @@
       "side": 1,
       "message": "\"handlePresence\" tag is a subset of \"synthesized\", which means ideally we should not handle presence for a FRU if its synthesized. Currently, we are checking both tags to accommodate both Rainier and Everest systems and to avoid changes in respective system config JSONs.  In future, we want to simplify this logic of two tags.",
       "parentUuid": "ede43661_c416131c",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1558dcca_240ead8c",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T05:38:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4ab1387b_cb57dae1",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33a25cf3_11c2b4d9",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T05:38:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4ab1387b_cb57dae1",
       "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
