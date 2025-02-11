@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aa81b71_e97aa4d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T09:51:18Z",
+      "side": 1,
+      "message": "Updated the commit message.",
+      "parentUuid": "d4c71a75_c48d0546",
+      "revId": "ee1d40404ad372cc381738afbb7341448737559d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3a88c69_05121438",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-02-11T07:08:20Z",
       "side": 1,
       "message": "\u003e inventory persist data\n\nThis is not clear. Do you mean the Inventory persistent data which is saved on the filesystem?",
+      "revId": "ee1d40404ad372cc381738afbb7341448737559d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8fdb328_6d6a5453",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T09:51:18Z",
+      "side": 1,
+      "message": "Updated the commit message.",
+      "parentUuid": "a3a88c69_05121438",
       "revId": "ee1d40404ad372cc381738afbb7341448737559d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8c322d2_3f801bb1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T09:51:18Z",
+      "side": 1,
+      "message": "Updated the commit message.",
+      "parentUuid": "0e2d762a_1812ff5b",
+      "revId": "ee1d40404ad372cc381738afbb7341448737559d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b97e0e8_aa549854",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-02-11T07:08:20Z",
       "side": 1,
       "message": "\u003e update keyword only on cache\n\nupdating keyword? \n\nWhat does \"cache\" refer to here?",
+      "revId": "ee1d40404ad372cc381738afbb7341448737559d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1fbee7b_716669f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T09:51:18Z",
+      "side": 1,
+      "message": "cache here is DBus.\nUpdated the commit message.",
+      "parentUuid": "3b97e0e8_aa549854",
       "revId": "ee1d40404ad372cc381738afbb7341448737559d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +160,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2ea1aaaf_dd94fd0e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T09:51:18Z",
+      "side": 1,
+      "message": "Updated the commit message.",
+      "parentUuid": "642ef513_fde3db2b",
+      "revId": "ee1d40404ad372cc381738afbb7341448737559d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3066be24_af4e02f0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
@@ -99,6 +189,24 @@
       "writtenOn": "2025-02-11T07:08:20Z",
       "side": 1,
       "message": "What does \"cache\" refer to here?",
+      "revId": "ee1d40404ad372cc381738afbb7341448737559d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0658f58_9050d13f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T09:51:18Z",
+      "side": 1,
+      "message": "Updated the commit message.",
+      "parentUuid": "3066be24_af4e02f0",
       "revId": "ee1d40404ad372cc381738afbb7341448737559d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -122,6 +230,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8bc4a13e_fcc9a4f8",
+        "filename": "vpd-tool/include/tool_constants.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T09:51:18Z",
+      "side": 1,
+      "message": "this name suits more, as it clearly tells its persistent path.",
+      "parentUuid": "a744ea0e_29a509ef",
+      "revId": "ee1d40404ad372cc381738afbb7341448737559d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "277b9976_fb30e0ca",
         "filename": "vpd-tool/include/tool_constants.hpp",
         "patchSetId": 10
@@ -133,6 +259,24 @@
       "writtenOn": "2025-02-11T07:08:20Z",
       "side": 1,
       "message": "\u003e vpdManagerAppName\n\nvpdManagerProcessName?",
+      "revId": "ee1d40404ad372cc381738afbb7341448737559d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0785608_6e2c3142",
+        "filename": "vpd-tool/include/tool_constants.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T09:51:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "277b9976_fb30e0ca",
       "revId": "ee1d40404ad372cc381738afbb7341448737559d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -150,6 +294,24 @@
       "writtenOn": "2025-02-11T07:08:20Z",
       "side": 1,
       "message": "Instead of parsing System Config JSON to get the object paths of FRUs under PIM, we can use `utils::GetSubTreePaths()` API. `dumpInventory` already uses this API.",
+      "revId": "ee1d40404ad372cc381738afbb7341448737559d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b8fecd5_8f178cfc",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1221,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T09:51:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6ece98e_f86a1ff3",
       "revId": "ee1d40404ad372cc381738afbb7341448737559d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
