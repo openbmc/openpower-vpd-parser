@@ -141,6 +141,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b92ff2b_47321918",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T04:25:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d574d86b_ecb33d02",
+      "revId": "faf9b990f868453c4fcfcfa2e210e22c168f714e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b191917c_80a73cc0",
@@ -172,6 +190,24 @@
       "side": 1,
       "message": "keyword value can be given using --value or --file option.\nby default keyword\u0027s value taken from --value option which is coming from i_keywordValue parameter. if i_filePath is not empty means user has give keyword\u0027s value in the file, so extract the value from this file.",
       "parentUuid": "b191917c_80a73cc0",
+      "revId": "faf9b990f868453c4fcfcfa2e210e22c168f714e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b133c20_652d201f",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-11T04:25:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6240b7d_04a53a1c",
       "revId": "faf9b990f868453c4fcfcfa2e210e22c168f714e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
