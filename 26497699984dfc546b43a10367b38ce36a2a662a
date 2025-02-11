@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fddca22f_ca997a68",
+        "filename": "vpd-manager/include/isdimm_parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-11T04:30:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f6bb5157_2d5cb54e",
+      "revId": "26497699984dfc546b43a10367b38ce36a2a662a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2a4dc0b_88dbe95c",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "will remove this.",
       "parentUuid": "a2a4dc0b_88dbe95c",
+      "revId": "26497699984dfc546b43a10367b38ce36a2a662a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11354a22_332ca206",
+        "filename": "vpd-manager/src/isdimm_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-11T04:30:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dc74557b_09a9c4cc",
       "revId": "26497699984dfc546b43a10367b38ce36a2a662a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
