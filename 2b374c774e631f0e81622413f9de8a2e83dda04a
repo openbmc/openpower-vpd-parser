@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c03560c_07d003d0",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-11T06:50:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca8d5900_673d6dee",
+      "revId": "2b374c774e631f0e81622413f9de8a2e83dda04a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebd88f65_1c2f4d50",
@@ -48,6 +66,24 @@
       "writtenOn": "2025-02-10T09:04:53Z",
       "side": 1,
       "message": "\u003e number of bits in keyword\n\nnumber of bits to be update in the keyword",
+      "revId": "2b374c774e631f0e81622413f9de8a2e83dda04a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "913c9a9a_5e9e4f15",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-11T06:50:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebd88f65_1c2f4d50",
       "revId": "2b374c774e631f0e81622413f9de8a2e83dda04a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
