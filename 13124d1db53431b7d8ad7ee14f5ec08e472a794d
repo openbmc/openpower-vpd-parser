@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c51917b9_c0033592",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-11T04:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c979eac_0ca79720",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "accfc835_011b5c46",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-02-10T11:02:21Z",
       "side": 1,
       "message": "Nit: if",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f86b0bef_33f513c7",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-11T04:04:59Z",
+      "side": 1,
+      "message": "\"iff\" means \"if and only if\"",
+      "parentUuid": "accfc835_011b5c46",
       "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ad53c6e7_c4458c89",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-11T04:04:59Z",
+      "side": 1,
+      "message": "Trying to keep the @brief language as generic as possible.",
+      "parentUuid": "17c0ca1f_712e0295",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ede43661_c416131c",
         "filename": "vpd-manager/include/worker.hpp",
         "patchSetId": 6
@@ -65,6 +119,24 @@
       "writtenOn": "2025-02-10T11:02:21Z",
       "side": 1,
       "message": "the statement is not clear.",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ab1387b_cb57dae1",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-11T04:04:59Z",
+      "side": 1,
+      "message": "\"handlePresence\" tag is a subset of \"synthesized\", which means ideally we should not handle presence for a FRU if its synthesized. Currently, we are checking both tags to accommodate both Rainier and Everest systems and to avoid changes in respective system config JSONs.  In future, we want to simplify this logic of two tags.",
+      "parentUuid": "ede43661_c416131c",
       "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a93a2a1b_cb9b43e9",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-11T04:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aaeb63fa_790ed7ad",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b523988c_de9f0429",
@@ -103,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0f1ad83_5106ade5",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-11T04:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b523988c_de9f0429",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd553f8f_ab043d45",
@@ -116,6 +224,24 @@
       "writtenOn": "2025-02-10T11:02:21Z",
       "side": 1,
       "message": "statement look incomplete after \u0027PIM for this\u0027\n\nReset data under PIM for the FRU which is not synthesized and handle Present property is required?",
+      "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4e90564_f4b7c5c3",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-11T04:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd553f8f_ab043d45",
       "revId": "13124d1db53431b7d8ad7ee14f5ec08e472a794d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
