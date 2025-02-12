@@ -258,12 +258,12 @@ void Manager::SetTimerToDetectVpdCollectionStatus()
 {
     // Keeping max retry for 2 minutes. TODO: Make it cinfigurable based on
     // system type.
-    static constexpr auto MAX_RETRY = 40;
+    static constexpr auto MAX_RETRY = 12;
 
     static boost::asio::steady_timer l_timer(*m_ioContext);
     static uint8_t l_timerRetry = 0;
 
-    auto l_asyncCancelled = l_timer.expires_after(std::chrono::seconds(3));
+    auto l_asyncCancelled = l_timer.expires_after(std::chrono::seconds(10));
 
     (l_asyncCancelled == 0)
         ? logging::logMessage("Collection Timer started")
@@ -311,8 +311,7 @@ void Manager::SetTimerToDetectVpdCollectionStatus()
             {
                 l_timerRetry++;
                 logging::logMessage("Waiting... active thread = " +
-                                    std::to_string(l_threadCount) + "After " +
-                                    std::to_string(l_timerRetry) + " re-tries");
+                                    std::to_string(l_threadCount));
 
                 SetTimerToDetectVpdCollectionStatus();
             }
