@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06b699b3_49141c04",
+        "filename": "vpd-tool/include/tool_constants.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-12T15:24:22Z",
+      "side": 1,
+      "message": "Any specific reason for the blank line?",
+      "revId": "c4bdfb87d60441a42b92ae4f8cca46bc6bcb9a15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20d83ced_d72bd03e",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-12T15:24:22Z",
+      "side": 1,
+      "message": "better function name? It does not state where is it reseting the VPD.",
+      "revId": "c4bdfb87d60441a42b92ae4f8cca46bc6bcb9a15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
