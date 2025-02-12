@@ -60,15 +60,12 @@ int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
 
     if (!i_hardwareFlag->empty() && !std::filesystem::exists(i_vpdPath, l_ec))
     {
-        std::cerr << "Given EEPROM file path doesn't exist : " + i_vpdPath
+        std::cerr << "Given EEPROM file path doesn't exist[" + i_vpdPath << "]."
                   << std::endl;
-        return vpd::constants::FAILURE;
-    }
-
-    if (l_ec)
-    {
-        std::cerr << "filesystem call exists failed for file: " << i_vpdPath
-                  << ", reason: " + l_ec.message() << std::endl;
+        if (l_ec)
+        {
+            std::cerr << "Reason: " + l_ec.message() << std::endl;
+        }
         return vpd::constants::FAILURE;
     }
 
@@ -260,8 +257,9 @@ int main(int argc, char** argv)
                          "Keyword value in ascii/hex format."
                          " ascii ex: 01234; hex ex: 0x30313233");
 
-    auto l_hardwareFlag =
-        l_app.add_flag("--Hardware, -H", "CAUTION: Developer only option.");
+    auto l_hardwareFlag = l_app.add_flag(
+        "--Hardware, -H",
+        "CAUTION: Developer only option.\nNote: Using this flag for updating keyword can create difference between primary and backup VPD.");
 
     auto l_readFlag = l_app.add_flag("--readKeyword, -r", "Read keyword")
                           ->needs(l_objectOption)
