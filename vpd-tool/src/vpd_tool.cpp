@@ -119,6 +119,123 @@ int VpdTool::dumpObject(std::string i_fruPath) const noexcept
     return l_rc;
 }
 
+template <typename PropertyType>
+void VpdTool::populateInterfaceJson(const std::string& i_inventoryObjPath,
+                                    const std::string& i_infName,
+                                    const std::vector<std::string>& i_propList,
+                                    nlohmann::json& io_fruJsonObject) const
+{
+    nlohmann::json l_interfaceJsonObj = nlohmann::json::object({});
+
+    auto l_readProperties = [i_inventoryObjPath, &l_interfaceJsonObj, i_infName,
+                             this](const std::string& i_property) {
+        const nlohmann::json l_propertyJsonObj =
+            getInventoryPropertyJson<PropertyType>(i_inventoryObjPath,
+                                                   i_infName, i_property);
+        l_interfaceJsonObj.insert(l_propertyJsonObj.cbegin(),
+                                  l_propertyJsonObj.cend());
+    };
+
+    std::for_each(i_propList.cbegin(), i_propList.cend(), l_readProperties);
+
+    if (!l_interfaceJsonObj.empty())
+    {
+        io_fruJsonObject.insert(l_interfaceJsonObj.cbegin(),
+                                l_interfaceJsonObj.cend());
+    }
+}
+
+void VpdTool::populateFruJson(
+    const std::string& i_inventoryObjPath, nlohmann::json& io_fruJsonObject,
+    const std::vector<std::string>& i_interfaceList) const
+{
+    for (const auto& l_interface : i_interfaceList)
+    {
+        if (l_interface == constants::inventoryItemInf)
+        {
+            const std::vector<std::string> l_properties = {"PrettyName"};
+            populateInterfaceJson<std::string>(i_inventoryObjPath,
+                                               constants::inventoryItemInf,
+                                               l_properties, io_fruJsonObject);
+            continue;
+        }
+
+        if (l_interface == constants::locationCodeInf)
+        {
+            const std::vector<std::string> l_properties = {"LocationCode"};
+            populateInterfaceJson<std::string>(i_inventoryObjPath,
+                                               constants::locationCodeInf,
+                                               l_properties, io_fruJsonObject);
+            continue;
+        }
+
+        if (l_interface == constants::viniInf)
+        {
+            const std::vector<std::string> l_properties = {"SN", "PN", "CC",
+                                                           "FN", "DR"};
+            populateInterfaceJson<vpd::types::BinaryVector>(
+                i_inventoryObjPath, constants::viniInf, l_properties,
+                io_fruJsonObject);
+            continue;
+        }
+
+        if (l_interface == constants::assetInf)
+        {
+            if (std::find(i_interfaceList.begin(), i_interfaceList.end(),
+                          constants::viniInf) != i_interfaceList.end())
+            {
+                // The value will be filled from VINI interface. Don't
+                // process asset interface.
+                continue;
+            }
+
+            const std::vector<std::string> l_properties = {
+                "Model", "SerialNumber", "SubModel"};
+
+            populateInterfaceJson<std::string>(i_inventoryObjPath,
+                                               constants::assetInf,
+                                               l_properties, io_fruJsonObject);
+            continue;
+        }
+
+        if (l_interface == constants::networkInf)
+        {
+            const std::vector<std::string> l_properties = {"MACAddress"};
+            populateInterfaceJson<std::string>(i_inventoryObjPath,
+                                               constants::networkInf,
+                                               l_properties, io_fruJsonObject);
+            continue;
+        }
+
+        if (l_interface == constants::pcieSlotInf)
+        {
+            const std::vector<std::string> l_properties = {"SlotType"};
+            populateInterfaceJson<std::string>(i_inventoryObjPath,
+                                               constants::pcieSlotInf,
+                                               l_properties, io_fruJsonObject);
+            continue;
+        }
+
+        if (l_interface == constants::slotNumInf)
+        {
+            const std::vector<std::string> l_properties = {"SlotNumber"};
+            populateInterfaceJson<uint32_t>(i_inventoryObjPath,
+                                            constants::slotNumInf, l_properties,
+                                            io_fruJsonObject);
+            continue;
+        }
+
+        if (l_interface == constants::i2cDeviceInf)
+        {
+            const std::vector<std::string> l_properties = {"Address", "Bus"};
+            populateInterfaceJson<uint32_t>(i_inventoryObjPath,
+                                            constants::i2cDeviceInf,
+                                            l_properties, io_fruJsonObject);
+            continue;
+        }
+    }
+}
+
 nlohmann::json VpdTool::getFruProperties(const std::string& i_objectPath) const
 {
     // check if FRU is present in the system
@@ -139,63 +256,13 @@ nlohmann::json VpdTool::getFruProperties(const std::string& i_objectPath) const
 
     auto& l_fruObject = l_fruJson[l_displayObjectPath];
 
-    const auto l_prettyNameInJson = getInventoryPropertyJson<std::string>(
-        i_objectPath, constants::inventoryItemInf, "PrettyName");
-    if (!l_prettyNameInJson.empty())
+    types::MapperGetObject l_mapperResp = utils::GetServiceInterfacesForObject(
+        i_objectPath, std::vector<std::string>{});
+
+    for (const auto& l_interfaceList :
+         l_mapperResp[constants::inventoryManagerService])
     {
-        l_fruObject.insert(l_prettyNameInJson.cbegin(),
-                           l_prettyNameInJson.cend());
-    }
-
-    const auto l_locationCodeInJson = getInventoryPropertyJson<std::string>(
-        i_objectPath, constants::locationCodeInf, "LocationCode");
-    if (!l_locationCodeInJson.empty())
-    {
-        l_fruObject.insert(l_locationCodeInJson.cbegin(),
-                           l_locationCodeInJson.cend());
-    }
-
-    // Get the properties under VINI interface.
-
-    nlohmann::json l_viniPropertiesInJson = nlohmann::json::object({});
-
-    auto l_readViniKeyWord = [i_objectPath, &l_viniPropertiesInJson,
-                              this](const std::string& i_keyWord) {
-        const nlohmann::json l_keyWordJson =
-            getInventoryPropertyJson<vpd::types::BinaryVector>(
-                i_objectPath, constants::kwdVpdInf, i_keyWord);
-        l_viniPropertiesInJson.insert(l_keyWordJson.cbegin(),
-                                      l_keyWordJson.cend());
-    };
-
-    const std::vector<std::string> l_viniKeywords = {"SN", "PN", "CC", "FN",
-                                                     "DR"};
-
-    std::for_each(l_viniKeywords.cbegin(), l_viniKeywords.cend(),
-                  l_readViniKeyWord);
-
-    if (!l_viniPropertiesInJson.empty())
-    {
-        l_fruObject.insert(l_viniPropertiesInJson.cbegin(),
-                           l_viniPropertiesInJson.cend());
-    }
-    // if a FRU doesn't have VINI properties, we need to get the properties from
-    // Decorator.Asset interface
-    else
-    {
-        // Get properties under Decorator.Asset interface
-        const auto l_decoratorAssetPropertiesMap =
-            utils::getPropertyMap(constants::inventoryManagerService,
-                                  i_objectPath, constants::assetInf);
-
-        for (const auto& l_aProperty : l_decoratorAssetPropertiesMap)
-        {
-            if (const auto l_propertyValueStr =
-                    std::get_if<std::string>(&l_aProperty.second))
-            {
-                l_fruObject.emplace(l_aProperty.first, *l_propertyValueStr);
-            }
-        }
+        populateFruJson(i_objectPath, l_fruObject, l_interfaceList);
     }
 
     const auto l_typePropertyJson = getFruTypeProperty(i_objectPath);
@@ -243,6 +310,11 @@ nlohmann::json VpdTool::getInventoryPropertyJson(
                     vpd::utils::getPrintableValue(*l_value);
 
                 l_resultInJson.emplace(i_propertyName, l_keywordStrValue);
+            }
+            else if constexpr (std::is_same<PropertyType, uint32_t>::value)
+            {
+                l_resultInJson.emplace(i_propertyName,
+                                       std::to_string(*l_value));
             }
         }
         else
