@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5390b34a_8a34da79",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-12T15:28:11Z",
+      "side": 1,
+      "message": "User may not know what is primary and what is back up. Better to mention between hardware and cache data.",
+      "revId": "589e30015ede09eb94d11d152c03817fbec5fb92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
