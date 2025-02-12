@@ -60,15 +60,12 @@ int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
 
     if (!i_hardwareFlag->empty() && !std::filesystem::exists(i_vpdPath, l_ec))
     {
-        std::cerr << "Given EEPROM file path doesn't exist : " + i_vpdPath
+        std::cerr << "Given EEPROM file path doesn't exist[" + i_vpdPath << "]."
                   << std::endl;
-        return vpd::constants::FAILURE;
-    }
-
-    if (l_ec)
-    {
-        std::cerr << "filesystem call exists failed for file: " << i_vpdPath
-                  << ", reason: " + l_ec.message() << std::endl;
+        if (l_ec)
+        {
+            std::cerr << "Reason: " + l_ec.message() << std::endl;
+        }
         return vpd::constants::FAILURE;
     }
 
