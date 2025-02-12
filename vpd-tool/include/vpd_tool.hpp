@@ -43,6 +43,38 @@ class VpdTool
     nlohmann::json getFruProperties(const std::string& i_objectPath) const;
 
     /**
+     * @brief API to populate FRU JSON.
+     *
+     * The API will create FRUs JSON, which will have property value pairs for
+     * all the interfaces required for that particular FRU.
+     *
+     * @param[in] i_invPath - FRU inventory path.
+     * @param[in, out] io_fruJsonObject - JSON object.
+     * @param[in] i_interfaceList - list of interfaces implemented by the FRU on
+     * Dbus.
+     */
+    void populateFruJson(const std::string& i_invPath,
+                         nlohmann::json& io_fruJsonObject,
+                         std::vector<std::string> i_interfaceList) const;
+
+    /**
+     * @brief API to populate JSON for an interface.
+     *
+     * The API will create interface JSON, which will have property value pairs
+     * for all the properties required under that interface.
+     *
+     * @param[in] i_invPath - FRU inventory path.
+     * @param[in] i_infName - interface whose JSON need to be populated.
+     * @param[in] i_propList - List of properties needed in the JSON.
+     * @param[in, out] io_fruJsonObject - JSON object.
+     */
+    template <typename PropertyType>
+    void populateInterfaceJson(const std::string& i_invPath,
+                               const std::string& i_infName,
+                               const std::vector<std::string>& i_propList,
+                               nlohmann::json& io_fruJsonObject) const;
+
+    /**
      * @brief Get any inventory property in JSON.
      *
      * API to get any property of a FRU in JSON format. Given an object path,
