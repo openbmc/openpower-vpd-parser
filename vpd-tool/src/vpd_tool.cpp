@@ -121,6 +121,15 @@ int VpdTool::dumpObject(std::string i_fruPath) const noexcept
 
 nlohmann::json VpdTool::getFruProperties(const std::string& i_objectPath) const
 {
+    const std::string& l_invPathLeafValue =
+        sdbusplus::message::object_path(i_objectPath).filename();
+
+    // Don't process dimm units
+    if ((l_invPathLeafValue.find("unit", 0) != std::string::npos))
+    {
+        return nlohmann::json::object_t();
+    }
+
     // check if FRU is present in the system
     if (!isFruPresent(i_objectPath))
     {
@@ -139,61 +148,101 @@ nlohmann::json VpdTool::getFruProperties(const std::string& i_objectPath) const
 
     auto& l_fruObject = l_fruJson[l_displayObjectPath];
 
-    const auto l_prettyNameInJson = getInventoryPropertyJson<std::string>(
-        i_objectPath, constants::inventoryItemInf, "PrettyName");
-    if (!l_prettyNameInJson.empty())
+    types::MapperGetObject l_mapperResp = utils::GetServiceInterfacesForObject(
+        i_objectPath, std::vector<std::string>{});
+
+    for (const auto& [l_service, l_interfaceList] : l_mapperResp)
     {
-        l_fruObject.insert(l_prettyNameInJson.cbegin(),
-                           l_prettyNameInJson.cend());
-    }
-
-    const auto l_locationCodeInJson = getInventoryPropertyJson<std::string>(
-        i_objectPath, constants::locationCodeInf, "LocationCode");
-    if (!l_locationCodeInJson.empty())
-    {
-        l_fruObject.insert(l_locationCodeInJson.cbegin(),
-                           l_locationCodeInJson.cend());
-    }
-
-    // Get the properties under VINI interface.
-
-    nlohmann::json l_viniPropertiesInJson = nlohmann::json::object({});
-
-    auto l_readViniKeyWord = [i_objectPath, &l_viniPropertiesInJson,
-                              this](const std::string& i_keyWord) {
-        const nlohmann::json l_keyWordJson =
-            getInventoryPropertyJson<vpd::types::BinaryVector>(
-                i_objectPath, constants::kwdVpdInf, i_keyWord);
-        l_viniPropertiesInJson.insert(l_keyWordJson.cbegin(),
-                                      l_keyWordJson.cend());
-    };
-
-    const std::vector<std::string> l_viniKeywords = {"SN", "PN", "CC", "FN",
-                                                     "DR"};
-
-    std::for_each(l_viniKeywords.cbegin(), l_viniKeywords.cend(),
-                  l_readViniKeyWord);
-
-    if (!l_viniPropertiesInJson.empty())
-    {
-        l_fruObject.insert(l_viniPropertiesInJson.cbegin(),
-                           l_viniPropertiesInJson.cend());
-    }
-    // if a FRU doesn't have VINI properties, we need to get the properties from
-    // Decorator.Asset interface
-    else
-    {
-        // Get properties under Decorator.Asset interface
-        const auto l_decoratorAssetPropertiesMap =
-            utils::getPropertyMap(constants::inventoryManagerService,
-                                  i_objectPath, constants::assetInf);
-
-        for (const auto& l_aProperty : l_decoratorAssetPropertiesMap)
+        if (l_service != constants::inventoryManagerService)
         {
-            if (const auto l_propertyValueStr =
-                    std::get_if<std::string>(&l_aProperty.second))
+            continue;
+        }
+
+        for (const auto& l_interface : l_interfaceList)
+        {
+            if (l_interface == constants::inventoryItemInf)
             {
-                l_fruObject.emplace(l_aProperty.first, *l_propertyValueStr);
+                const auto l_prettyNameInJson =
+                    getInventoryPropertyJson<std::string>(
+                        i_objectPath, constants::inventoryItemInf,
+                        "PrettyName");
+                if (!l_prettyNameInJson.empty())
+                {
+                    l_fruObject.insert(l_prettyNameInJson.cbegin(),
+                                       l_prettyNameInJson.cend());
+                }
+
+                continue;
+            }
+
+            if (l_interface == constants::locationCodeInf)
+            {
+                const auto l_locationCodeInJson =
+                    getInventoryPropertyJson<std::string>(
+                        i_objectPath, constants::locationCodeInf,
+                        "LocationCode");
+                if (!l_locationCodeInJson.empty())
+                {
+                    l_fruObject.insert(l_locationCodeInJson.cbegin(),
+                                       l_locationCodeInJson.cend());
+                }
+
+                continue;
+            }
+
+            if (l_interface == constants::viniInf)
+            {
+                // Get the properties under VINI interface.
+                nlohmann::json l_viniPropertiesInJson =
+                    nlohmann::json::object({});
+
+                auto l_readViniKeyWord = [i_objectPath, &l_viniPropertiesInJson,
+                                          this](const std::string& i_keyWord) {
+                    const nlohmann::json l_keyWordJson =
+                        getInventoryPropertyJson<vpd::types::BinaryVector>(
+                            i_objectPath, constants::viniInf, i_keyWord);
+                    l_viniPropertiesInJson.insert(l_keyWordJson.cbegin(),
+                                                  l_keyWordJson.cend());
+                };
+
+                const std::vector<std::string> l_viniKeywords = {
+                    "SN", "PN", "CC", "FN", "DR"};
+
+                std::for_each(l_viniKeywords.cbegin(), l_viniKeywords.cend(),
+                              l_readViniKeyWord);
+
+                if (!l_viniPropertiesInJson.empty())
+                {
+                    l_fruObject.insert(l_viniPropertiesInJson.cbegin(),
+                                       l_viniPropertiesInJson.cend());
+                }
+            }
+
+            if (l_interface == constants::assetInf)
+            {
+                if (std::find(l_interfaceList.begin(), l_interfaceList.end(),
+                              constants::viniInf) != l_interfaceList.end())
+                {
+                    // The value will be filled from VINI interface. Don;t
+                    // process asset interface.
+                    continue;
+                }
+
+                // Get properties under Decorator.Asset interface
+                const auto l_decoratorAssetPropertiesMap =
+                    utils::getPropertyMap(constants::inventoryManagerService,
+                                          i_objectPath, constants::assetInf);
+
+                for (const auto& l_aProperty : l_decoratorAssetPropertiesMap)
+                {
+                    if (const auto l_propertyValueStr =
+                            std::get_if<std::string>(&l_aProperty.second))
+                    {
+                        l_fruObject.emplace(l_aProperty.first,
+                                            *l_propertyValueStr);
+                    }
+                }
+                continue;
             }
         }
     }
