@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ab60422_b3bee934",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-13T06:25:59Z",
+      "side": 1,
+      "message": "I think we had decided to filter out DIMM units (and other object paths ending in \"unit[0-9][0-9]\" from `--dumpInventory --table` option only, and process them for `--dumpInventory` JSON output. I remember someone in manufacturing had complained on this point when we had initially filtered out \"unit\"s from the JSON output.",
+      "revId": "bced5b3bf96541c5133cc02c01ee3d5d81832dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f1e00cf_d5f775e2",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-13T06:25:59Z",
+      "side": 1,
+      "message": "We can pass `Inventory.Item` interface in the constraining interfaces argument, to restrict the return value to PIM interfaces only. That way we can avoid the outer `for` loop to find `inventoryManagerService`.",
+      "revId": "bced5b3bf96541c5133cc02c01ee3d5d81832dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28476087_18b964ab",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-13T06:25:59Z",
+      "side": 1,
+      "message": "Do we need the `continue;` statement here and down below? Have `if(){} else if() else if()` instead?",
+      "revId": "bced5b3bf96541c5133cc02c01ee3d5d81832dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
