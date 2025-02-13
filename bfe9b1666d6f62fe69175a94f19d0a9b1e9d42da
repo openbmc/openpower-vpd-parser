@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4998ae40_919bb663",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-13T07:11:24Z",
+      "side": 1,
+      "message": "Is this a blocking call? Meaning, will this call block until PIM restarts (successfully or otherwise)?",
+      "revId": "bfe9b1666d6f62fe69175a94f19d0a9b1e9d42da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c99653e_c26137cd",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-13T07:11:24Z",
+      "side": 1,
+      "message": "I think its safer to parse the output of `systemctl is-active` command instead of the return value. As per https://askubuntu.com/questions/1402466/what-will-systemctl-is-active-return-if-failed, `systemctl is-active` may return `0` when the service was active but failed.",
+      "revId": "bfe9b1666d6f62fe69175a94f19d0a9b1e9d42da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
