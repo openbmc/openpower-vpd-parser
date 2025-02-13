@@ -110,6 +110,27 @@ class Parser
         const std::string& i_fruPath,
         const types::WriteVpdParams& i_paramsToWriteData);
 
+    /**
+     * @brief Update keyword value on backup FRU path.
+     *
+     * This API is used to update keyword value on the backup EEPROM path, if
+     * the provided EEPROM path is system VPD path.
+     *
+     * To update IPZ type VPD, input parameter for writing should be in the form
+     * of (Record, Keyword, Value). Eg: ("VINI", "SN", {0x01, 0x02, 0x03}).
+     *
+     * To update Keyword type VPD, input parameter for writing should be in the
+     * form of (Keyword, Value). Eg: ("PE", {0x01, 0x02, 0x03}).
+     *
+     * @param[in] i_primaryFruPath - EEPROM path.
+     * @param[in] i_paramsToWriteData - Input details.
+     *
+     * @return On success returns number of bytes written, on failure returns
+     * -1.
+     */
+    int updateVpdOnBackupFru(const std::string& i_primaryFruPath,
+                             const types::WriteVpdParams& i_paramsToWriteData);
+
     // holds offfset to VPD if applicable.
     size_t m_vpdStartOffset = 0;
 

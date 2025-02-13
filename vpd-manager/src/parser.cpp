@@ -207,6 +207,14 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData)
             }
         }
 
+        if (SYSTEM_VPD_FILE_PATH == l_fruPath &&
+            updateVpdOnBackupFru(l_fruPath, i_paramsToWriteData) < 0)
+        {
+            std::string l_errMsg(
+                "Error while updating keyword's value on backup path ");
+            throw std::runtime_error(l_errMsg);
+        }
+
         // TODO: Check if revert is required when any of the writes fails.
         // TODO: Handle error logging
     }
@@ -337,6 +345,149 @@ int Parser::updateVpdKeywordOnHardware(
     }
 
     return l_bytesUpdatedOnHardware;
+}
+
+int Parser::updateVpdOnBackupFru(
+    const std::string& i_primaryFruPath,
+    const types::WriteVpdParams& i_paramsToWriteData)
+{
+    if (i_primaryFruPath != SYSTEM_VPD_FILE_PATH ||
+        m_parsedJson.value("backupRestoreConfigPath", "").empty())
+    {
+        return constants::SUCCESS;
+    }
+
+    std::string l_backupFruPath;
+    try
+    {
+        std::string l_srcRecordName, l_srcKeywordName;
+        types::BinaryVector l_keywordValue;
+
+        if (const types::IpzData* l_ipzData =
+                std::get_if<types::IpzData>(&i_paramsToWriteData))
+        {
+            l_srcRecordName = std::get<0>(*l_ipzData);
+            l_srcKeywordName = std::get<1>(*l_ipzData);
+            l_keywordValue = std::get<2>(*l_ipzData);
+        }
+        else
+        {
+            // Input parameter type provided isn't compatible to perform
+            // update.
+            std::string l_errMsg(
+                "Input parameter type isn't compatible to update keyword's value on backup FRU, for the primary[" +
+                i_primaryFruPath + "] FRU");
+            throw std::runtime_error(l_errMsg);
+        }
+
+        std::string l_backupRestoreCfgFilePath =
+            m_parsedJson["backupRestoreConfigPath"];
+
+        nlohmann::json l_backupRestoreCfgJsonObj =
+            jsonUtility::getParsedJson(l_backupRestoreCfgFilePath);
+
+        l_backupFruPath =
+            jsonUtility::getBackupFruPath(l_backupRestoreCfgJsonObj);
+
+        if (l_backupFruPath.empty())
+        {
+            // System doesn't have backup EEPROM path
+            return constants::SUCCESS;
+        }
+
+        auto [l_backupRecordName, l_backupKeywordName] =
+            jsonUtility::getBackupRecordKeywordName(
+                l_backupRestoreCfgJsonObj, l_srcRecordName, l_srcKeywordName);
+
+        if (l_backupRecordName.empty() || l_backupKeywordName.empty())
+        {
+            // Record:Keyword pair not part of the backup restore config JSON.
+            return constants::SUCCESS;
+        }
+
+        types::IpzData l_paramsToWriteData(l_backupRecordName,
+                                           l_backupKeywordName, l_keywordValue);
+
+        std::shared_ptr<Parser> l_parserObj =
+            std::make_shared<Parser>(l_backupFruPath, m_parsedJson);
+
+        std::shared_ptr<ParserInterface> l_vpdParserInstance =
+            l_parserObj->getVpdParserInstance();
+
+        auto l_bytesWritten =
+            l_vpdParserInstance->writeKeywordOnHardware(l_paramsToWriteData);
+
+        std::string l_backupInventoryObjPath =
+            jsonUtility::getInventoryObjPathFromJson(m_parsedJson,
+                                                     l_backupFruPath);
+
+        // If inventory D-bus object path is present, update keyword's value
+        // on DBus
+        if (!l_backupInventoryObjPath.empty())
+        {
+            types::DbusVariantType l_keywordValue;
+            std::string l_interfaceName =
+                constants::ipzVpdInf + l_backupRecordName;
+
+            try
+            {
+                // Read keyword's value from hardware to write the same on
+                // D-bus.
+                std::shared_ptr<ParserInterface> l_vpdParserInstance =
+                    l_parserObj->getVpdParserInstance();
+
+                logging::logMessage(
+                    "Performing VPD read on " + l_backupFruPath);
+
+                l_keywordValue = l_vpdParserInstance->readKeywordFromHardware(
+                    types::ReadVpdParams(std::make_tuple(l_backupRecordName,
+                                                         l_backupKeywordName)));
+            }
+            catch (const std::exception& l_exception)
+            {
+                // Unable to read keyword's value from hardware.
+                std::string l_errMsg(
+                    "Error while reading keyword's value from hadware path " +
+                    l_backupFruPath +
+                    ", error: " + std::string(l_exception.what()));
+
+                throw std::runtime_error(l_errMsg);
+            }
+
+            // Get D-bus name for the given keyword
+            l_backupKeywordName = vpdSpecificUtility::getDbusPropNameForGivenKw(
+                l_backupKeywordName);
+
+            // Create D-bus object map
+            types::ObjectMap l_dbusObjMap = {std::make_pair(
+                l_backupInventoryObjPath,
+                types::InterfaceMap{std::make_pair(
+                    l_interfaceName,
+                    types::PropertyMap{std::make_pair(l_backupKeywordName,
+                                                      l_keywordValue)})})};
+
+            // Call PIM's Notify method to perform update
+            if (!dbusUtility::callPIM(std::move(l_dbusObjMap)))
+            {
+                // Call to PIM's Notify method failed.
+                std::string l_errMsg("Notify PIM is failed for object path: " +
+                                     l_backupInventoryObjPath);
+                throw std::runtime_error(l_errMsg);
+            }
+
+            return l_bytesWritten;
+        }
+    }
+    catch (const std::exception& l_exception)
+    {
+        EventLogger::createSyncPel(
+            types::ErrorType::InvalidVpdMessage,
+            types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+            "Error while updating keyword's value on backup path " +
+                l_backupFruPath + ", error: " + std::string(l_exception.what()),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+    }
+    return constants::FAILURE;
 }
 
 } // namespace vpd
