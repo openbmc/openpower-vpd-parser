@@ -12,6 +12,7 @@
 #include <fstream>
 #include <type_traits>
 #include <unordered_map>
+#include <utility>
 
 namespace vpd
 {
@@ -788,6 +789,33 @@ inline std::vector<std::string> getListOfGpioPollingFrus(
 }
 
 /**
+ * @brief API to get backup EEPROM path.
+ *
+ * The API will return system VPD backup(EEPROM) path if present for the
+ * system by parsing backup restore config JSON file.
+ *
+ * @param[in] i_backupRestoreCfgJsonObj - Backup restore config JSON object.
+ *
+ * @return - Backup EEPROM path if present, otherwise empty string.
+ */
+inline std::string getBackupFruPath(
+    const nlohmann::json& i_backupRestoreCfgJsonObj)
+{
+    std::string l_backupFruPath{};
+
+    if (!i_backupRestoreCfgJsonObj.empty() &&
+        i_backupRestoreCfgJsonObj.contains("destination") &&
+        i_backupRestoreCfgJsonObj["destination"].contains("hardwarePath") &&
+        !i_backupRestoreCfgJsonObj["destination"]["hardwarePath"].empty())
+    {
+        l_backupFruPath =
+            i_backupRestoreCfgJsonObj["destination"]["hardwarePath"];
+    }
+
+    return l_backupFruPath;
+}
+
+/**
  * @brief Get all related path(s) to update keyword value.
  *
  * Given FRU EEPROM path/Inventory path needs keyword's value update, this API
@@ -1053,6 +1081,46 @@ inline std::vector<std::string> getListOfFrusReplaceableAtStandby(
     }
 
     return l_frusReplaceableAtStandby;
+}
+
+/**
+ * @brief API to get backup record and keyword name
+ *
+ * API will return the matching backup(destination) record and keyword name for
+ * the given source(primary) record and keyword name by parsing backup and
+ * restore config JSON.
+ *
+ * @param[in] i_backupRestoreCfgJsonObj - Backup restore config JSON object.
+ * @param[in] i_srcRecordName - Source record name.
+ * @param[in] i_srcKeywordName - Source keyword name
+ *
+ * @return Pair of backup record and keyword name if found, otherwise empty
+ * pair.
+ */
+inline std::pair<std::string, std::string> getBackupRecordKeywordName(
+    const nlohmann::json& i_backupRestoreCfgJsonObj,
+    std::string& i_srcRecordName, std::string& i_srcKeywordName)
+{
+    std::string l_recordName, l_keywordName;
+
+    if (!i_backupRestoreCfgJsonObj.empty() &&
+        i_backupRestoreCfgJsonObj.contains("backupMap") &&
+        i_backupRestoreCfgJsonObj["backupMap"].is_array())
+    {
+        for (const auto& l_aRecordKwInfo :
+             i_backupRestoreCfgJsonObj["backupMap"])
+        {
+            if (l_aRecordKwInfo.value("sourceRecord", "") == i_srcRecordName &&
+                l_aRecordKwInfo.value("sourceKeyword", "") == i_srcKeywordName)
+            {
+                l_recordName = l_aRecordKwInfo.value("destinationRecord", "");
+                l_keywordName = l_aRecordKwInfo.value("destinationKeyword", "");
+                break;
+            }
+        }
+    }
+
+    return std::make_pair(l_recordName, l_keywordName);
 }
 
 } // namespace jsonUtility
