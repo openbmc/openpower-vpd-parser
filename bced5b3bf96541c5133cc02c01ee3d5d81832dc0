@@ -176,6 +176,24 @@
       "parentUuid": "bfd3a440_5c48a76c",
       "revId": "bced5b3bf96541c5133cc02c01ee3d5d81832dc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f83596d2_205dece6",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-13T13:12:30Z",
+      "side": 1,
+      "message": "Not much difference between the two, just suggested `if else if` for better readability.",
+      "parentUuid": "2936b890_c1b83323",
+      "revId": "bced5b3bf96541c5133cc02c01ee3d5d81832dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
