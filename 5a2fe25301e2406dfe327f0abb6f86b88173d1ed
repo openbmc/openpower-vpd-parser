@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2515b71_8dea6960",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-13T06:07:48Z",
+      "side": 1,
+      "message": "Name of the feature we are implementing. Do you recommend rephrasing this?",
+      "parentUuid": "017fca99_b4333f1d",
+      "revId": "5a2fe25301e2406dfe327f0abb6f86b88173d1ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe3e7a87_5fd1069e",
         "filename": "vpd-tool/include/tool_constants.hpp",
         "patchSetId": 3
@@ -31,6 +49,24 @@
       "writtenOn": "2025-02-12T15:19:51Z",
       "side": 1,
       "message": "Any specific reason for having a blank line here?",
+      "revId": "5a2fe25301e2406dfe327f0abb6f86b88173d1ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4654667_7b1a08e4",
+        "filename": "vpd-tool/include/tool_constants.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-13T06:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe3e7a87_5fd1069e",
       "revId": "5a2fe25301e2406dfe327f0abb6f86b88173d1ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf88d0b3_137f7ad6",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-13T06:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff62c0d8_d7ea6c0b",
+      "revId": "5a2fe25301e2406dfe327f0abb6f86b88173d1ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f9fccb3_46e1e52d",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f97782b_9a5e3c95",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-13T06:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f9fccb3_46e1e52d",
+      "revId": "5a2fe25301e2406dfe327f0abb6f86b88173d1ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57224a85_66dacc52",
@@ -82,6 +154,24 @@
       "writtenOn": "2025-02-12T15:19:51Z",
       "side": 1,
       "message": "Not a big fan of this level of indentation but since it is already there in this method, I am ok for now, but can we restrict the level to 3, it makes the code more readable.",
+      "revId": "5a2fe25301e2406dfe327f0abb6f86b88173d1ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "312fec93_1e8441b4",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-13T06:07:48Z",
+      "side": 1,
+      "message": "Ok. Restricting to max 3 levels of indentation will require refactoring and retesting of this method. I will take note of this point in the future.",
+      "parentUuid": "57224a85_66dacc52",
       "revId": "5a2fe25301e2406dfe327f0abb6f86b88173d1ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
