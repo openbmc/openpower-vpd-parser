@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db6d208b_e8f0f66a",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-13T09:11:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f2acda9_18e8b603",
+      "revId": "bced5b3bf96541c5133cc02c01ee3d5d81832dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28476087_18b964ab",
@@ -120,6 +138,24 @@
       "side": 1,
       "message": "Pros and cons for this change?",
       "parentUuid": "28476087_18b964ab",
+      "revId": "bced5b3bf96541c5133cc02c01ee3d5d81832dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfd3a440_5c48a76c",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-13T09:11:13Z",
+      "side": 1,
+      "message": "We wouldn\u0027t have to keep adding `continue;` for each new `if()` block",
+      "parentUuid": "bfde4a7f_dfefa349",
       "revId": "bced5b3bf96541c5133cc02c01ee3d5d81832dc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
