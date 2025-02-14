@@ -16,6 +16,24 @@
       "message": "is i_syncBiosAttributes required",
       "revId": "d3cb934a7153df779448ce45e248596abd56afb8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53912884_3921e5dd",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-14T09:19:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a062ab08_d61fea01",
+      "revId": "d3cb934a7153df779448ce45e248596abd56afb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
