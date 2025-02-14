@@ -121,6 +121,24 @@
       "message": "`vpd-tool -i` on FW1060 does process cables. Just dumps `PrettyName`, `TYPE` and `type`\n\n\"/cables/dp0_cable0\": {\n            \"Present\": \"true\",\n            \"PrettyName\": \"NVMe Backplane Cable\",\n            \"TYPE\": \"FRU\",\n            \"type\": \"xyz.openbmc_project.Inventory.Item.Cable\"\n        },\n        \"/cables/dp0_cable1\": {\n            \"Present\": \"true\",\n            \"PrettyName\": \"NVMe Backplane Cable\",\n            \"TYPE\": \"FRU\",\n            \"type\": \"xyz.openbmc_project.Inventory.Item.Cable\"\n        },\"",
       "revId": "1c992f1089e97328e368b9b91420ca79ecb3e358",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc233270_2f30f3ed",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-14T04:54:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fff9c71a_d1790472",
+      "revId": "1c992f1089e97328e368b9b91420ca79ecb3e358",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
