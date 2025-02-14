@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "787c67aa_88fdff7e",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-14T08:11:32Z",
+      "side": 1,
+      "message": "nit: why is P capital for Present",
+      "revId": "95d1a9ff3aeeb84039a5ff2c6f17dc573d821d4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a12ea044_149fce51",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-14T08:11:32Z",
+      "side": 1,
+      "message": "nit: if",
+      "revId": "95d1a9ff3aeeb84039a5ff2c6f17dc573d821d4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a53a7335_c1a0338f",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-14T08:11:32Z",
+      "side": 1,
+      "message": "the function nem tells me that we should handle the present property \nwould be better to have a more meaningful name",
+      "revId": "95d1a9ff3aeeb84039a5ff2c6f17dc573d821d4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c611d85b_d66fb65d",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-14T08:11:32Z",
+      "side": 1,
+      "message": "did not understand the need for the TODO here",
+      "revId": "95d1a9ff3aeeb84039a5ff2c6f17dc573d821d4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
