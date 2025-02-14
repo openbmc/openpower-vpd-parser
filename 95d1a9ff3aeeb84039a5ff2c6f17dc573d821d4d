@@ -139,6 +139,24 @@
       "parentUuid": "c611d85b_d66fb65d",
       "revId": "95d1a9ff3aeeb84039a5ff2c6f17dc573d821d4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0ca2683_d6e8426a",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-14T08:34:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ff8f0e80_b471177f",
+      "revId": "95d1a9ff3aeeb84039a5ff2c6f17dc573d821d4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
