@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc29dcda_806009c6",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-14T08:27:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "787c67aa_88fdff7e",
+      "revId": "95d1a9ff3aeeb84039a5ff2c6f17dc573d821d4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a12ea044_149fce51",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-02-14T08:11:32Z",
       "side": 1,
       "message": "nit: if",
+      "revId": "95d1a9ff3aeeb84039a5ff2c6f17dc573d821d4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acb39a4b_630b0999",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-14T08:27:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a12ea044_149fce51",
       "revId": "95d1a9ff3aeeb84039a5ff2c6f17dc573d821d4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90e1ca57_b74114a1",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-14T08:27:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a53a7335_c1a0338f",
+      "revId": "95d1a9ff3aeeb84039a5ff2c6f17dc573d821d4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c611d85b_d66fb65d",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-02-14T08:11:32Z",
       "side": 1,
       "message": "did not understand the need for the TODO here",
+      "revId": "95d1a9ff3aeeb84039a5ff2c6f17dc573d821d4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff8f0e80_b471177f",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-14T08:27:02Z",
+      "side": 1,
+      "message": "@sunnsr25@in.ibm.com and I discussed this. In future we want to simplify the logic of depending on both \"synthesized\" and \"handlePresence\" tags to determine if we should handle \"Present\" property for the FRU, so left a TODO here.",
+      "parentUuid": "c611d85b_d66fb65d",
       "revId": "95d1a9ff3aeeb84039a5ff2c6f17dc573d821d4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
