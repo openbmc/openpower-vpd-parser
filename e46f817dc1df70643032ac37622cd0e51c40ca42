@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3dce356_ef24343b",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-14T07:06:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5210d745_30ec7882",
+      "revId": "e46f817dc1df70643032ac37622cd0e51c40ca42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "593b35b6_9018d8d2",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55afa78e_156129dc",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-14T07:06:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "593b35b6_9018d8d2",
+      "revId": "e46f817dc1df70643032ac37622cd0e51c40ca42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb3b6c5d_737962b8",
@@ -48,6 +84,24 @@
       "writtenOn": "2025-02-14T06:02:39Z",
       "side": 1,
       "message": "we use else if instead of i.\nSo continue can be avoided in all if conditions.\nand can also avoid anyone adding any piece of code in between.",
+      "revId": "e46f817dc1df70643032ac37622cd0e51c40ca42",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38a24613_262f686f",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-14T07:06:34Z",
+      "side": 1,
+      "message": "As discussed we are ok here.",
+      "parentUuid": "fb3b6c5d_737962b8",
       "revId": "e46f817dc1df70643032ac37622cd0e51c40ca42",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

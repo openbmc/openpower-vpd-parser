@@ -212,6 +212,24 @@
       "parentUuid": "f83596d2_205dece6",
       "revId": "bced5b3bf96541c5133cc02c01ee3d5d81832dc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "556db08f_4d6d3391",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-14T07:06:34Z",
+      "side": 1,
+      "message": "As discussed we are ok here.",
+      "parentUuid": "04db39c0_9c6a7127",
+      "revId": "bced5b3bf96541c5133cc02c01ee3d5d81832dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
