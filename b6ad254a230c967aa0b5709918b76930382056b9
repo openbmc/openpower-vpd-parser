@@ -138,6 +138,24 @@
       "message": "Instead of iterating over the map (O(n)), we can look up `inventoryManagerService` entry using `l_mapperResp[constants::inventoryManagerService]` (O(log n))",
       "revId": "b6ad254a230c967aa0b5709918b76930382056b9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a39d9e48_2abed015",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-14T08:56:06Z",
+      "side": 1,
+      "message": "On second thought, `std::map.find()` would be better. \n`std::map []` performs insertion if `key` is not found.\n\n`std::map.find()` returns `std::map.end()` if `key` is not found, else returns an iterator to requested element.",
+      "parentUuid": "848a5912_1bf57d8a",
+      "revId": "b6ad254a230c967aa0b5709918b76930382056b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
