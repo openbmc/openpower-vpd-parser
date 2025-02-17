@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13bf424a_5b25e7d9",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-17T16:02:46Z",
+      "side": 1,
+      "message": "This is vpd-manger service name only. I used this name \nas vpd-manager dbus name is already referred as \"vpdManagerService\" in constants.",
+      "parentUuid": "b9754137_415a8595",
+      "revId": "b2663ae8bee5fb599ce58eddf8eacece96531fdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "42ed77d5_2924083d",
         "filename": "vpd-tool/src/vpd_tool.cpp",
         "patchSetId": 16
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8cd914c0_d7a4a347",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-17T16:02:46Z",
+      "side": 1,
+      "message": "as PIM restart is a blocking call, any failure in that we exiting with failure.\nThis is additional check for double sure. As I tested multiple times, PIM is coming up quickly always. Am not seeing need for any delay.",
+      "parentUuid": "42ed77d5_2924083d",
+      "revId": "b2663ae8bee5fb599ce58eddf8eacece96531fdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "db0d4f54_c21c0e3e",
         "filename": "vpd-tool/src/vpd_tool.cpp",
         "patchSetId": 16
@@ -48,6 +84,24 @@
       "writtenOn": "2025-02-17T14:45:00Z",
       "side": 1,
       "message": "This is start command not restart.",
+      "revId": "b2663ae8bee5fb599ce58eddf8eacece96531fdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5e39bd9_0c3923cd",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-17T16:02:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db0d4f54_c21c0e3e",
       "revId": "b2663ae8bee5fb599ce58eddf8eacece96531fdc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
