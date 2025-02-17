@@ -513,18 +513,8 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
         // Get the EEPROM path
         if (!l_sysCfgJsonObj.empty())
         {
-            try
-            {
-                l_fruPath =
-                    jsonUtility::getFruPathFromJson(l_sysCfgJsonObj, i_vpdPath);
-            }
-            catch (const std::exception& l_exception)
-            {
-                logging::logMessage(
-                    "Error while getting FRU path, Path: " + i_vpdPath +
-                    ", error: " + std::string(l_exception.what()));
-                return -1;
-            }
+            l_fruPath =
+                jsonUtility::getFruPathFromJson(l_sysCfgJsonObj, i_vpdPath);
         }
     }
 
