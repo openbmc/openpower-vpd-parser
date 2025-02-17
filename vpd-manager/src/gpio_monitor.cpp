@@ -109,24 +109,16 @@ void GpioMonitor::initHandlerForGpio(
     const std::shared_ptr<boost::asio::io_context>& i_ioContext,
     const std::shared_ptr<Worker>& i_worker)
 {
-    try
-    {
-        std::vector<std::string> l_gpioPollingRequiredFrusList =
-            jsonUtility::getListOfGpioPollingFrus(m_sysCfgJsonObj);
+    std::vector<std::string> l_gpioPollingRequiredFrusList =
+        jsonUtility::getListOfGpioPollingFrus(m_sysCfgJsonObj);
 
-        for (const auto& l_fruPath : l_gpioPollingRequiredFrusList)
-        {
-            std::shared_ptr<GpioEventHandler> l_gpioEventHandlerObj =
-                std::make_shared<GpioEventHandler>(l_fruPath, i_worker,
-                                                   i_ioContext);
-
-            m_gpioEventHandlerObjects.push_back(l_gpioEventHandlerObj);
-        }
-    }
-    catch (std::exception& l_ex)
+    for (const auto& l_fruPath : l_gpioPollingRequiredFrusList)
     {
-        // TODO log PEL for exception.
-        logging::logMessage(l_ex.what());
+        std::shared_ptr<GpioEventHandler> l_gpioEventHandlerObj =
+            std::make_shared<GpioEventHandler>(l_fruPath, i_worker,
+                                               i_ioContext);
+
+        m_gpioEventHandlerObjects.push_back(l_gpioEventHandlerObj);
     }
 }
 } // namespace vpd
