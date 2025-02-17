@@ -496,11 +496,9 @@ void Worker::setDeviceTreeAndJson()
         }
 
         // re-parse the JSON once appropriate JSON has been selected.
-        try
-        {
-            m_parsedJson = jsonUtility::getParsedJson(systemJson);
-        }
-        catch (const nlohmann::json::parse_error& ex)
+        m_parsedJson = jsonUtility::getParsedJson(systemJson);
+
+        if (m_parsedJson.empty())
         {
             throw(JsonException("Json parsing failed", systemJson));
         }
@@ -1511,8 +1509,6 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             // logging error for these cases.
             if (vpdSpecificUtility::isPass1Planar())
             {
-                // Till exceptions are removed from utility method, this needs
-                // to be handled in place.
                 try
                 {
                     const std::string& l_invPathLeafValue =
