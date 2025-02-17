@@ -496,6 +496,8 @@ void Worker::setDeviceTreeAndJson()
         }
 
         // re-parse the JSON once appropriate JSON has been selected.
+        m_parsedJson = jsonUtility::getParsedJson(systemJson);
+
         try
         {
             m_parsedJson = jsonUtility::getParsedJson(systemJson);
