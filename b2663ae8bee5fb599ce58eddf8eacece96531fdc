@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9754137_415a8595",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-17T14:45:00Z",
+      "side": 1,
+      "message": "This is the process name that is being printed here, not service.",
+      "revId": "b2663ae8bee5fb599ce58eddf8eacece96531fdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42ed77d5_2924083d",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-17T14:45:00Z",
+      "side": 1,
+      "message": "Do we need a time gap here?",
+      "revId": "b2663ae8bee5fb599ce58eddf8eacece96531fdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db0d4f54_c21c0e3e",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-17T14:45:00Z",
+      "side": 1,
+      "message": "This is start command not restart.",
+      "revId": "b2663ae8bee5fb599ce58eddf8eacece96531fdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
