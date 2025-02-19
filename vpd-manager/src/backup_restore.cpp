@@ -20,17 +20,14 @@ BackupAndRestore::BackupAndRestore(const nlohmann::json& i_sysCfgJsonObj) :
 {
     std::string l_backupAndRestoreCfgFilePath =
         i_sysCfgJsonObj.value("backupRestoreConfigPath", "");
-    try
+
+    m_backupAndRestoreCfgJsonObj =
+        jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath);
+
+    if (m_backupAndRestoreCfgJsonObj.empty())
     {
-        m_backupAndRestoreCfgJsonObj =
-            jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath);
-    }
-    catch (const std::exception& ex)
-    {
-        logging::logMessage(
-            "Failed to intialize backup and restore object for file = " +
-            l_backupAndRestoreCfgFilePath);
-        throw(ex);
+        throw JsonException("JSON parsing failed",
+                            l_backupAndRestoreCfgFilePath);
     }
 }
 
