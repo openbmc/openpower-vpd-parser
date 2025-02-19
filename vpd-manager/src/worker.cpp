@@ -496,11 +496,9 @@ void Worker::setDeviceTreeAndJson()
         }
 
         // re-parse the JSON once appropriate JSON has been selected.
-        try
-        {
-            m_parsedJson = jsonUtility::getParsedJson(systemJson);
-        }
-        catch (const nlohmann::json::parse_error& ex)
+        m_parsedJson = jsonUtility::getParsedJson(systemJson);
+
+        if (m_parsedJson.empty())
         {
             throw(JsonException("Json parsing failed", systemJson));
         }
@@ -1459,22 +1457,25 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
 
         // Set CollectionStatus as InProgress. Since it's an intermediate state
         // D-bus set-property call is good enough to update the status.
-        try
-        {
-            l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
-                m_parsedJson, i_vpdFilePath);
+        l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
+            m_parsedJson, i_vpdFilePath);
 
-            dbusUtility::writeDbusProperty(
-                jsonUtility::getServiceName(m_parsedJson, l_inventoryPath),
-                l_inventoryPath, constants::vpdCollectionInterface,
-                "CollectionStatus",
-                types::DbusVariantType{constants::vpdCollectionInProgress});
-        }
-        catch (const std::exception& l_exception)
+        if (!l_inventoryPath.empty())
         {
-            logging::logMessage(
-                "Unable to set CollectionStatus as InProgress for " +
-                i_vpdFilePath + ". Error : " + l_exception.what());
+            try
+            {
+                dbusUtility::writeDbusProperty(
+                    jsonUtility::getServiceName(m_parsedJson, l_inventoryPath),
+                    l_inventoryPath, constants::vpdCollectionInterface,
+                    "CollectionStatus",
+                    types::DbusVariantType{constants::vpdCollectionInProgress});
+            }
+            catch (const std::exception& l_exception)
+            {
+                logging::logMessage(
+                    "Unable to set CollectionStatus as InProgress for " +
+                    i_vpdFilePath + ". Error : " + l_exception.what());
+            }
         }
 
         const types::VPDMapVariant& parsedVpdMap = parseVpdFile(i_vpdFilePath);
@@ -1511,24 +1512,14 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             // logging error for these cases.
             if (vpdSpecificUtility::isPass1Planar())
             {
-                // Till exceptions are removed from utility method, this needs
-                // to be handled in place.
-                try
-                {
-                    const std::string& l_invPathLeafValue =
-                        sdbusplus::message::object_path(
-                            jsonUtility::getInventoryObjPathFromJson(
-                                m_parsedJson, i_vpdFilePath))
-                            .filename();
+                const std::string& l_invPathLeafValue =
+                    sdbusplus::message::object_path(
+                        jsonUtility::getInventoryObjPathFromJson(m_parsedJson,
+                                                                 i_vpdFilePath))
+                        .filename();
 
-                    if ((l_invPathLeafValue.find("pcie_card", 0) !=
-                         std::string::npos))
-                    {
-                        // skip logging any PEL for PCIe cards on pass 1 planar.
-                        return std::make_tuple(false, i_vpdFilePath);
-                    }
-                }
-                catch (const std::exception& l_ex)
+                if ((l_invPathLeafValue.find("pcie_card", 0) !=
+                     std::string::npos))
                 {
                     // skip logging any PEL for PCIe cards on pass 1 planar.
                     return std::make_tuple(false, i_vpdFilePath);
@@ -1664,6 +1655,12 @@ void Worker::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
 
         nlohmann::json l_backupAndRestoreCfgJsonObj =
             jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath);
+
+        if (l_backupAndRestoreCfgJsonObj.empty())
+        {
+            throw JsonException("JSON parsing failed",
+                                l_backupAndRestoreCfgFilePath);
+        }
 
         // check if either of "source" or "destination" has inventory path.
         // this indicates that this sytem has System VPD on hardware
