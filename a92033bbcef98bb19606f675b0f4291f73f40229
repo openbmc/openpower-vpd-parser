@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a17283a6_96e5b866",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-19T16:32:18Z",
+      "side": 1,
+      "message": "there should not be a trow from utility function",
+      "revId": "a92033bbcef98bb19606f675b0f4291f73f40229",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b8b58c0_ac0aad09",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-19T16:32:18Z",
+      "side": 1,
+      "message": "a return false would be sufficient here",
+      "revId": "a92033bbcef98bb19606f675b0f4291f73f40229",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "329b4ef2_ba8678ce",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-19T16:32:18Z",
+      "side": 1,
+      "message": "would be better to check both image prefix and the corresponding IM to ascertain that we have the correct configuration",
+      "revId": "a92033bbcef98bb19606f675b0f4291f73f40229",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
