@@ -323,11 +323,70 @@ void Manager::SetTimerToDetectVpdCollectionStatus()
     });
 }
 
+void Manager::checkAndUpdatePowerVsVpd(
+    const nlohmann::json& i_powerVsJsonObj,
+    std::vector<std::string>& io_failedPathList)
+{
+    for (const auto& [l_fruPath, l_recJson] : l_powerVsJsonObj.items())
+    {
+        // TODO add special handling for PROC CCIN check.
+        for (const auto& [l_recordName, l_kwdJson] : l_recJson.items())
+        {
+            for (const auto& [l_kwdName, l_kwdValue] : l_kwdJson.items())
+            {
+                // Is value of type array.
+                if (!l_kwdValue.is_array())
+                {
+                    l_failedPathList.push_back(l_fruPath);
+                    continue;
+                }
+
+                auto l_inventoryPath =
+                    jsonUtility::getInventoryObjPathFromJson(l_fruPath);
+
+                // Mark it as failed if inventory path not found in JSON.
+                if (l_inventoryPath.empty())
+                {
+                    l_failedPathList.push_back(l_fruPath);
+                    continue;
+                }
+
+                // Get current Part number.
+                auto l_retVal = dbusUtility::readDbusProperty(
+                    constants::pimServiceName, l_inventoryPath,
+                    constants::viniInf, constants::kwdPN);
+
+                auto l_ptrToPn = std::get_if<types::BinaryVector>(&l_retVal);
+
+                if (!l_ptrToPn)
+                {
+                    l_failedPathList.push_back(l_fruPath);
+                    continue;
+                }
+
+                types::BinaryVector l_binaryKwdValue =
+                    l_kwdValue.get<types::BinaryVector>();
+                if (l_binaryKwdValue == (*l_ptrToPn))
+                {
+                    continue;
+                }
+
+                // Update part number only if required.
+                if (updateKeyword(
+                        l_path,
+                        std::make_tuple(l_recordName, l_kwdName, l_kwdValue)) ==
+                    constants::FAILURE)
+                {
+                    l_failedPathList.push_back(l_path);
+                }
+            }
+        }
+    }
+}
+
 void Manager::ConfigurePowerVsSystem()
 {
-    // This API should check for required powerVS configuration and will
-    // update the VPD accordingly.
-
+    std::vector<std::string> l_failedPathList;
     try
     {
         types::BinaryVector l_imValue = dbusUtility::getImFromDbus();
@@ -341,6 +400,22 @@ void Manager::ConfigurePowerVsSystem()
             // TODO: Should booting be blocked in case of some
             // misconfigurations?
             return;
+        }
+
+        const nlohmann::json& l_powerVsJsonObj =
+            jsonUtility::getPowerVsJson(l_imValue);
+
+        if (l_powerVsJsonObj.empty())
+        {
+            throw std::runtime_error("Power VS Json not found");
+        }
+
+        checkAndUpdatePowerVsVpd(l_powerVsJsonObj, l_failedPathList);
+
+        if (!l_failedPathList.empty())
+        {
+            throw std::runtime_error(
+                "Part number update failed for following paths: ");
         }
     }
     catch (const std::exception& l_ex)
