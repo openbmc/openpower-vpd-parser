@@ -287,6 +287,10 @@ void Manager::SetTimerToDetectVpdCollectionStatus()
             // cancel the timer
             l_timer.cancel();
             processFailedEeproms();
+
+            // update VPD for powerVS system.
+            ConfigurePowerVsSystem();
+
             m_interface->set_property("CollectionStatus",
                                       std::string("Completed"));
 
@@ -317,6 +321,12 @@ void Manager::SetTimerToDetectVpdCollectionStatus()
             }
         }
     });
+}
+
+void Manager::ConfigurePowerVsSystem()
+{
+    // This API should check for required powerVS configuration and will
+    // update the VPD accordingly.
 }
 #endif
 
