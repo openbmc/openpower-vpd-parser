@@ -323,11 +323,18 @@ void Manager::SetTimerToDetectVpdCollectionStatus()
     });
 }
 
+void Manager::checkAndUpdatePowerVsVpd(
+    const nlohmann::json& i_powerVsJsonObj,
+    std::vector<std::string>& o_failedPathList)
+{
+    (void)i_powerVsJsonObj;
+    (void)o_failedPathList;
+    // TODO: Check and update powerVS VPD
+}
+
 void Manager::ConfigurePowerVsSystem()
 {
-    // This API should check for required powerVS configuration and will
-    // update the VPD accordingly.
-
+    std::vector<std::string> l_failedPathList;
     try
     {
         types::BinaryVector l_imValue = dbusUtility::getImFromDbus();
@@ -341,6 +348,22 @@ void Manager::ConfigurePowerVsSystem()
             // TODO: Should booting be blocked in case of some
             // misconfigurations?
             return;
+        }
+
+        const nlohmann::json& l_powerVsJsonObj =
+            jsonUtility::getPowerVsJson(l_imValue);
+
+        if (l_powerVsJsonObj.empty())
+        {
+            throw std::runtime_error("Power VS Json not found");
+        }
+
+        checkAndUpdatePowerVsVpd(l_powerVsJsonObj, l_failedPathList);
+
+        if (!l_failedPathList.empty())
+        {
+            throw std::runtime_error(
+                "Part number update failed for following paths: ");
         }
     }
     catch (const std::exception& l_ex)
