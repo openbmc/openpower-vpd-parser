@@ -20,10 +20,16 @@ BackupAndRestore::BackupAndRestore(const nlohmann::json& i_sysCfgJsonObj) :
 {
     std::string l_backupAndRestoreCfgFilePath =
         i_sysCfgJsonObj.value("backupRestoreConfigPath", "");
+
+    m_backupAndRestoreCfgJsonObj =
+        jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath);
     try
     {
-        m_backupAndRestoreCfgJsonObj =
-            jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath);
+        if (m_backupAndRestoreCfgJsonObj.empty())
+        {
+            throw JsonException("JSON parsing failed",
+                                l_backupAndRestoreCfgFilePath);
+        }
     }
     catch (const std::exception& ex)
     {

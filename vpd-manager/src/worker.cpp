@@ -496,11 +496,9 @@ void Worker::setDeviceTreeAndJson()
         }
 
         // re-parse the JSON once appropriate JSON has been selected.
-        try
-        {
-            m_parsedJson = jsonUtility::getParsedJson(systemJson);
-        }
-        catch (const nlohmann::json::parse_error& ex)
+        m_parsedJson = jsonUtility::getParsedJson(systemJson);
+
+        if (m_parsedJson.empty())
         {
             throw(JsonException("Json parsing failed", systemJson));
         }
@@ -1513,22 +1511,14 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             {
                 // Till exceptions are removed from utility method, this needs
                 // to be handled in place.
-                try
-                {
-                    const std::string& l_invPathLeafValue =
-                        sdbusplus::message::object_path(
-                            jsonUtility::getInventoryObjPathFromJson(
-                                m_parsedJson, i_vpdFilePath))
-                            .filename();
+                const std::string& l_invPathLeafValue =
+                    sdbusplus::message::object_path(
+                        jsonUtility::getInventoryObjPathFromJson(m_parsedJson,
+                                                                 i_vpdFilePath))
+                        .filename();
 
-                    if ((l_invPathLeafValue.find("pcie_card", 0) !=
-                         std::string::npos))
-                    {
-                        // skip logging any PEL for PCIe cards on pass 1 planar.
-                        return std::make_tuple(false, i_vpdFilePath);
-                    }
-                }
-                catch (const std::exception& l_ex)
+                if ((l_invPathLeafValue.find("pcie_card", 0) !=
+                     std::string::npos))
                 {
                     // skip logging any PEL for PCIe cards on pass 1 planar.
                     return std::make_tuple(false, i_vpdFilePath);
@@ -1664,6 +1654,11 @@ void Worker::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
 
         nlohmann::json l_backupAndRestoreCfgJsonObj =
             jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath);
+
+        if (l_backupAndRestoreCfgJsonObj.empty())
+        {
+            throw std::runtime_error("JSON parsing failed");
+        }
 
         // check if either of "source" or "destination" has inventory path.
         // this indicates that this sytem has System VPD on hardware
