@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93214f95_f230ba05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-19T09:53:42Z",
+      "side": 1,
+      "message": "for some of the \"json_utility APIs.\"?",
+      "revId": "4341843094ba76d2f29a658aab14a8a0dc8f674f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
