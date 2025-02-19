@@ -88,38 +88,42 @@ inline size_t getVPDOffset(const nlohmann::json& i_sysCfgJsonObj,
 /**
  * @brief API to parse respective JSON.
  *
- * Exception is thrown in case of JSON parse error.
- *
  * @param[in] pathToJson - Path to JSON.
- * @return Parsed JSON.
+ * @return on success parsed JSON. On failure empty JSON object.
+ *
+ * Note: Caller has to handle it in case an empty JSON object is received.
  */
-inline nlohmann::json getParsedJson(const std::string& pathToJson)
+inline nlohmann::json getParsedJson(const std::string& pathToJson) noexcept
 {
-    if (pathToJson.empty())
-    {
-        throw std::runtime_error("Path to JSON is missing");
-    }
-
-    if (!std::filesystem::exists(pathToJson) ||
-        std::filesystem::is_empty(pathToJson))
-    {
-        throw std::runtime_error("Incorrect File Path or empty file");
-    }
-
-    std::ifstream jsonFile(pathToJson);
-    if (!jsonFile)
-    {
-        throw std::runtime_error("Failed to access Json path = " + pathToJson);
-    }
-
     try
     {
-        return nlohmann::json::parse(jsonFile);
+        if (pathToJson.empty())
+        {
+            throw std::runtime_error("Path to JSON is missing");
+        }
+
+        if (!std::filesystem::exists(pathToJson) ||
+            std::filesystem::is_empty(pathToJson))
+        {
+            throw std::runtime_error("Incorrect file Path or empty file");
+        }
+
+        std::ifstream l_jsonFile(pathToJson);
+        if (!l_jsonFile)
+        {
+            throw std::runtime_error(
+                "Failed to access Json path = " + pathToJson);
+        }
+
+        return nlohmann::json::parse(l_jsonFile);
     }
-    catch (const nlohmann::json::parse_error& e)
+    catch (const std::exception& l_ex)
     {
-        throw std::runtime_error("Failed to parse JSON file");
+        logging::logMessage(
+            "Failed to parse JSON file, error: " + std::string(l_ex.what()));
     }
+
+    return nlohmann::json{};
 }
 
 /**
@@ -131,48 +135,60 @@ inline nlohmann::json getParsedJson(const std::string& pathToJson)
  * @param[in] i_sysCfgJsonObj - System config JSON object
  * @param[in] i_vpdPath - Path to where VPD is stored.
  *
- * @throw std::runtime_error.
- *
  * @return On success a valid path is returned, on failure an empty string is
- * returned or an exception is thrown.
+ * returned.
+ *
+ * Note: Caller has to handle it in case an empty string is received.
  */
 inline std::string getInventoryObjPathFromJson(
-    const nlohmann::json& i_sysCfgJsonObj, const std::string& i_vpdPath)
+    const nlohmann::json& i_sysCfgJsonObj,
+    const std::string& i_vpdPath) noexcept
 {
-    if (i_vpdPath.empty())
+    try
     {
-        throw std::runtime_error("Path parameter is empty.");
-    }
-
-    if (!i_sysCfgJsonObj.contains("frus"))
-    {
-        throw std::runtime_error("Missing frus tag in system config JSON.");
-    }
-
-    // check if given path is FRU path
-    if (i_sysCfgJsonObj["frus"].contains(i_vpdPath))
-    {
-        return i_sysCfgJsonObj["frus"][i_vpdPath].at(0).value(
-            "inventoryPath", "");
-    }
-
-    const nlohmann::json& l_fruList =
-        i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
-
-    for (const auto& l_fru : l_fruList.items())
-    {
-        const auto l_fruPath = l_fru.key();
-        const auto l_invObjPath =
-            i_sysCfgJsonObj["frus"][l_fruPath].at(0).value("inventoryPath", "");
-
-        // check if given path is redundant FRU path or inventory path
-        if (i_vpdPath == i_sysCfgJsonObj["frus"][l_fruPath].at(0).value(
-                             "redundantEeprom", "") ||
-            (i_vpdPath == l_invObjPath))
+        if (i_vpdPath.empty())
         {
-            return l_invObjPath;
+            throw std::runtime_error("Path parameter is empty.");
+        }
+
+        if (!i_sysCfgJsonObj.contains("frus"))
+        {
+            throw std::runtime_error("Missing frus tag in system config JSON.");
+        }
+
+        // check if given path is FRU path
+        if (i_sysCfgJsonObj["frus"].contains(i_vpdPath))
+        {
+            return i_sysCfgJsonObj["frus"][i_vpdPath].at(0).value(
+                "inventoryPath", "");
+        }
+
+        const nlohmann::json& l_fruList =
+            i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+
+        for (const auto& l_fru : l_fruList.items())
+        {
+            const auto l_fruPath = l_fru.key();
+            const auto l_invObjPath =
+                i_sysCfgJsonObj["frus"][l_fruPath].at(0).value("inventoryPath",
+                                                               "");
+
+            // check if given path is redundant FRU path or inventory path
+            if (i_vpdPath == i_sysCfgJsonObj["frus"][l_fruPath].at(0).value(
+                                 "redundantEeprom", "") ||
+                (i_vpdPath == l_invObjPath))
+            {
+                return l_invObjPath;
+            }
         }
     }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to get inventory object path from json, error: " +
+            std::string(l_ex.what()));
+    }
+
     return std::string();
 }
 
