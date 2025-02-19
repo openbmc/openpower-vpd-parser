@@ -325,11 +325,51 @@ void Manager::SetTimerToDetectVpdCollectionStatus()
 
 void Manager::checkAndUpdatePowerVsVpd(
     const nlohmann::json& i_powerVsJsonObj,
-    std::vector<std::string>& io_failedPathList)
+    std::vector<std::string>& io_failedPathList, types::BinaryVector& i_imValue)
 {
     for (const auto& [l_fruPath, l_recJson] : i_powerVsJsonObj.items())
     {
-        // TODO add special handling for PROC CCIN check.
+        nlohmann::json l_sysCfgJsonObj{};
+        if (m_worker.get() != nullptr)
+        {
+            l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+        }
+
+        // The utility method will handle emty JSON case. No explicit
+        // handling required here.
+        auto l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
+            l_sysCfgJsonObj, l_fruPath);
+
+        // Check if this is a Processor EEPROM path.
+        if (l_fruPath.find("spi") != std::string::npos)
+        {
+            const auto& l_ccin =
+                vpdSpecificUtility::getProcessorCcin(l_inventoryPath);
+
+            // Not an ideal situation as CCIn can't be empty.
+            if (l_ccin.empty())
+            {
+                io_failedPathList.push_back(l_fruPath);
+                continue;
+            }
+
+            if ((i_imValue.at(0) == constants::HEX_VALUE_50 &&
+                 i_imValue.at(2) == constants::HEX_VALUE_30) &&
+                (l_ccin != constants::PVS_PROC_EVEREST_CCIN))
+            {
+                // Don't support other PROCs on PowerVS configration.
+                continue;
+            }
+
+            if ((i_imValue.at(0) == constants::HEX_VALUE_50 &&
+                 i_imValue.at(2) == constants::HEX_VALUE_10) &&
+                (l_ccin != constants::PVS_PROC_RAINIER_CCIN))
+            {
+                // Don't support other PROCs on PowerVS configration.
+                continue;
+            }
+        }
+
         for (const auto& [l_recordName, l_kwdJson] : l_recJson.items())
         {
             for (const auto& [l_kwdName, l_kwdValue] : l_kwdJson.items())
@@ -340,17 +380,6 @@ void Manager::checkAndUpdatePowerVsVpd(
                     io_failedPathList.push_back(l_fruPath);
                     continue;
                 }
-
-                nlohmann::json l_sysCfgJsonObj{};
-                if (m_worker.get() != nullptr)
-                {
-                    l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
-                }
-
-                // The utility method will handle emty JSON case. No explicit
-                // handling required here.
-                auto l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
-                    l_sysCfgJsonObj, l_fruPath);
 
                 // Mark it as failed if inventory path not found in JSON.
                 if (l_inventoryPath.empty())
@@ -418,7 +447,7 @@ void Manager::ConfigurePowerVsSystem()
             throw std::runtime_error("Power VS Json not found");
         }
 
-        checkAndUpdatePowerVsVpd(l_powerVsJsonObj, l_failedPathList);
+        checkAndUpdatePowerVsVpd(l_powerVsJsonObj, l_failedPathList, l_imValue);
 
         if (!l_failedPathList.empty())
         {

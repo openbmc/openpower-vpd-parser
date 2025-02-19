@@ -270,9 +270,11 @@ class Manager
      *
      * @param[in] i_powerVsJsonObj - PowerVS JSON object.
      * @param[in, out] io_failedPathList - List of path failed to update.
+     * @param[in] i_imValue - IM value of the system.
      */
     void checkAndUpdatePowerVsVpd(const nlohmann::json& i_powerVsJsonObj,
-                                  std::vector<std::string>& io_failedPathList);
+                                  std::vector<std::string>& io_failedPathList,
+                                  types::BinaryVector& i_imValue);
 
     /**
      * @brief API to handle configuration w.r.t. PowerVS systems.
