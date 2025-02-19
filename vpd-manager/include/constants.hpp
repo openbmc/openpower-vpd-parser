@@ -138,6 +138,7 @@ constexpr auto kwdTM = "TM";
 constexpr auto kwdSE = "SE";
 constexpr auto kwdHW = "HW";
 constexpr auto kwdIM = "IM";
+constexpr auto kwdPN = "PN";
 constexpr auto recVSYS = "VSYS";
 constexpr auto recVCEN = "VCEN";
 constexpr auto locationCodeInf = "com.ibm.ipzvpd.Location";
@@ -228,5 +229,9 @@ static constexpr auto vpdCollectionInProgress =
     "com.ibm.VPD.Collection.Status.InProgress";
 static constexpr auto vpdCollectionNotStarted =
     "com.ibm.VPD.Collection.Status.NotStarted";
+static constexpr auto power_vs_50003_json =
+    "/usr/share/vpd/50003_power_vs.json";
+static constexpr auto power_vs_50001_json =
+    "/usr/share/vpd/50001_power_vs.json";
 } // namespace constants
 } // namespace vpd
