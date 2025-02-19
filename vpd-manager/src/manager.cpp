@@ -327,9 +327,80 @@ void Manager::checkAndUpdatePowerVsVpd(
     const nlohmann::json& i_powerVsJsonObj,
     std::vector<std::string>& o_failedPathList)
 {
-    (void)i_powerVsJsonObj;
-    (void)o_failedPathList;
-    // TODO: Check and update powerVS VPD
+    for (const auto& [l_fruPath, l_recJson] : i_powerVsJsonObj.items())
+    {
+        // TODO add special handling for PROC CCIN check.
+        for (const auto& [l_recordName, l_kwdJson] : l_recJson.items())
+        {
+            for (const auto& [l_kwdName, l_kwdValue] : l_kwdJson.items())
+            {
+                // Is value of type array.
+                if (!l_kwdValue.is_array())
+                {
+                    o_failedPathList.push_back(l_fruPath);
+                    continue;
+                }
+
+                nlohmann::json l_sysCfgJsonObj{};
+                if (m_worker.get() != nullptr)
+                {
+                    l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+                }
+
+                // The utility method will handle empty JSON case. No explicit
+                // handling required here.
+                auto l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
+                    l_sysCfgJsonObj, l_fruPath);
+
+                // Mark it as failed if inventory path not found in JSON.
+                if (l_inventoryPath.empty())
+                {
+                    o_failedPathList.push_back(l_fruPath);
+                    continue;
+                }
+
+                // Get current Part number.
+                auto l_retVal = dbusUtility::readDbusProperty(
+                    constants::pimServiceName, l_inventoryPath,
+                    constants::viniInf, constants::kwdPN);
+
+                auto l_ptrToPn = std::get_if<types::BinaryVector>(&l_retVal);
+
+                if (!l_ptrToPn)
+                {
+                    o_failedPathList.push_back(l_fruPath);
+                    continue;
+                }
+
+                types::BinaryVector l_binaryKwdValue =
+                    l_kwdValue.get<types::BinaryVector>();
+                if (l_binaryKwdValue == (*l_ptrToPn))
+                {
+                    continue;
+                }
+
+                // Update part number only if required.
+                if (updateKeyword(
+                        l_fruPath,
+                        std::make_tuple(l_recordName, l_kwdName, l_kwdValue)) ==
+                    constants::FAILURE)
+                {
+                    o_failedPathList.push_back(l_fruPath);
+                    continue;
+                }
+
+                // Just needed for logging.
+                std::string l_initialPartNum((*l_ptrToPn).begin(),
+                                             (*l_ptrToPn).end());
+                std::string l_finalPartNum(l_binaryKwdValue.begin(),
+                                           l_binaryKwdValue.end());
+                logging::logMessage(
+                    "Part number updated for path [" + l_inventoryPath + "]" +
+                    "From [" + l_initialPartNum + "]" + " to [" +
+                    l_finalPartNum + "]");
+            }
+        }
+    }
 }
 
 void Manager::ConfigurePowerVsSystem()
