@@ -727,5 +727,41 @@ inline bool isPowerVsConfiguration(const types::BinaryVector& i_imValue)
     }
     return false;
 }
+
+/**
+ * @brief API to get CCIN for a given FRU from DBus.
+ *
+ * The API reads the CCIN for a FRU based on its inventory path.
+ *
+ * @param[in] i_invObjPath - Inventory path of the FRU.
+ * @return CCIN of the FRU on success, empty string otherwise.
+ */
+inline std::string getCcinFromDbus(const std::string& i_invObjPath)
+{
+    try
+    {
+        if (i_invObjPath.empty())
+        {
+            throw std::runtime_error("Empty EEPROM path, can't read CCIN");
+        }
+
+        const auto& l_retValue = dbusUtility::readDbusProperty(
+            constants::pimServiceName, i_invObjPath, constants::viniInf,
+            constants::kwdCCIN);
+
+        auto l_ptrCcin = std::get_if<types::BinaryVector>(&l_retValue);
+        if (!l_ptrCcin || (*l_ptrCcin).size() != constants::VALUE_4)
+        {
+            throw DbusException("Invalid CCIN read from Dbus");
+        }
+
+        return std::string((*l_ptrCcin).begin(), (*l_ptrCcin).end());
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(l_ex.what());
+        return std::string{};
+    }
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd
