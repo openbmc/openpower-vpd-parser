@@ -113,6 +113,8 @@ static constexpr auto SIZE_OF_8EQ_IN_PG = 24;
 // Zero based index position of first EQ in CP00's PG keyword
 static constexpr auto INDEX_OF_EQ0_IN_PG = 97;
 
+static constexpr auto HEX_VALUE_50 = 0x50;
+
 constexpr auto systemInvPath = "/xyz/openbmc_project/inventory/system";
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
 constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
@@ -161,6 +163,19 @@ constexpr auto hostInterface = "xyz.openbmc_project.State.Host";
 constexpr auto hostService = "xyz.openbmc_project.State.Host";
 constexpr auto hostRunningState =
     "xyz.openbmc_project.State.Host.HostState.Running";
+constexpr auto imageUpdateService = "xyz.openbmc_project.Software.BMC.Updater";
+constexpr auto imagePrirotyInf =
+    "xyz.openbmc_project.Software.RedundancyPriority";
+constexpr auto imageExtendedVerInf =
+    "xyz.openbmc_project.Software.ExtendedVersion";
+constexpr auto functionalImageObjPath =
+    "/xyz/openbmc_project/software/functional";
+constexpr auto associationInterface = "xyz.openbmc_project.Association";
+constexpr auto powerVsImagePrefix_MY = "MY";
+constexpr auto powerVsImagePrefix_MZ = "MZ";
+constexpr auto powerVsImagePrefix_NY = "NY";
+constexpr auto powerVsImagePrefix_NZ = "NZ";
+
 static constexpr auto BD_YEAR_END = 4;
 static constexpr auto BD_MONTH_END = 7;
 static constexpr auto BD_DAY_END = 10;
