@@ -335,6 +335,13 @@ void Manager::processPowerVsSystem()
         {
             throw DbusException("Invalid IM value read from Dbus");
         }
+
+        if (!vpdSpecificUtility::isPowerVsConfiguration(l_imValue))
+        {
+            // TODO: Should booting be blocked in case of some
+            // misconfigurations?
+            return;
+        }
     }
     catch (const std::exception& l_ex)
     {
