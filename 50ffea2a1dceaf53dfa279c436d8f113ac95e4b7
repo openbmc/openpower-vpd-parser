@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a239b9f7_9a75b709",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-19T15:07:44Z",
+      "side": 1,
+      "message": "nit: ConfigurePowerVsSystem (better function name)",
+      "revId": "50ffea2a1dceaf53dfa279c436d8f113ac95e4b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d388c269_760deeff",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-19T15:07:44Z",
+      "side": 1,
+      "message": "nit: update",
+      "revId": "50ffea2a1dceaf53dfa279c436d8f113ac95e4b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e739b655_ad73673e",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-19T15:07:44Z",
+      "side": 1,
+      "message": "nit: will or should ?",
+      "revId": "50ffea2a1dceaf53dfa279c436d8f113ac95e4b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
