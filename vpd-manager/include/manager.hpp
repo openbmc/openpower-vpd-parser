@@ -262,6 +262,19 @@ class Manager
     void processFailedEeproms();
 
     /**
+     * @brief API to check and update POwerVS VPD.
+     *
+     * The API will read the existing data from the VPD and if found
+     * different than what has been read from JSON, will update the VPD with
+     * JSON data.
+     *
+     * @param[in] i_powerVsJsonObj - PowerVS JSON object.
+     * @param[in, out] io_failedPathList - List of path failed to update.
+     */
+    void checkAndUpdatePowerVsVpd(const nlohmann::json& i_powerVsJsonObj,
+                                  std::vector<std::string>& io_failedPathList);
+
+    /**
      * @brief API to handle configuration w.r.t. PowerVS systems.
      *
      * Some FRUs VPD is specific to powerVS system. The API detects the
