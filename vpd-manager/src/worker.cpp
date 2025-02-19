@@ -931,9 +931,9 @@ void Worker::processExtraInterfaces(const nlohmann::json& singleFru,
                 return;
             }
 
-            std::string pgKeywordValue;
-            vpdSpecificUtility::getKwVal(itrToRec->second, "PG",
-                                         pgKeywordValue);
+            const std::string pgKeywordValue{
+                vpdSpecificUtility::getKwVal(itrToRec->second, "PG")};
+
             if (!pgKeywordValue.empty())
             {
                 if (isCPUIOGoodOnly(pgKeywordValue))
@@ -941,6 +941,10 @@ void Worker::processExtraInterfaces(const nlohmann::json& singleFru,
                     interfaces["xyz.openbmc_project.Inventory.Item"]
                               ["PrettyName"] = "IO Module";
                 }
+            }
+            else
+            {
+                throw std::runtime_error("Failed to get value for keyword PG");
             }
         }
     }
@@ -999,8 +1003,9 @@ bool Worker::processFruWithCCIN(const nlohmann::json& singleFru,
             return false;
         }
 
-        std::string ccinFromVpd;
-        vpdSpecificUtility::getKwVal(itrToRec->second, "CC", ccinFromVpd);
+        std::string ccinFromVpd{
+            vpdSpecificUtility::getKwVal(itrToRec->second, "CC")};
+
         if (ccinFromVpd.empty())
         {
             return false;
@@ -1187,13 +1192,27 @@ std::string Worker::createAssetTagString(
         auto l_itrToVsys = (*l_parsedVpdMap).find(constants::recVSYS);
         if (l_itrToVsys != (*l_parsedVpdMap).end())
         {
-            std::string l_tmKwdValue;
-            vpdSpecificUtility::getKwVal(l_itrToVsys->second, constants::kwdTM,
-                                         l_tmKwdValue);
+            const std::string l_tmKwdValue{vpdSpecificUtility::getKwVal(
+                l_itrToVsys->second, constants::kwdTM)};
 
-            std::string l_seKwdValue;
-            vpdSpecificUtility::getKwVal(l_itrToVsys->second, constants::kwdSE,
-                                         l_seKwdValue);
+            if (l_tmKwdValue.empty())
+            {
+                throw std::runtime_error(
+                    std::string("Failed to get value for keyword [") +
+                    constants::kwdTM +
+                    std::string("] while creating Asset tag."));
+            }
+
+            const std::string l_seKwdValue{vpdSpecificUtility::getKwVal(
+                l_itrToVsys->second, constants::kwdSE)};
+
+            if (l_seKwdValue.empty())
+            {
+                throw std::runtime_error(
+                    std::string("Failed to get value for keyword [") +
+                    constants::kwdSE +
+                    std::string("] while creating Asset tag."));
+            }
 
             l_assetTag = std::string{"Server-"} + l_tmKwdValue +
                          std::string{"-"} + l_seKwdValue;
