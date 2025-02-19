@@ -128,29 +128,39 @@ inline int dumpBadVpd(const std::string& i_vpdFilePath,
 /**
  * @brief An API to read value of a keyword.
  *
- * Note: Throws exception. Caller needs to handle.
  *
- * @param[in] kwdValueMap - A map having Kwd value pair.
- * @param[in] kwd - keyword name.
- * @param[out] kwdValue - Value of the keyword read from map.
+ * @param[in] i_kwdValueMap - A map having Kwd value pair.
+ * @param[in] i_kwd - keyword name.
+ * @param[out] o_kwdValue - Value of the keyword read from map.
+ *
+ * @return On success returns 0, otherwise returns -1.
  */
-inline void getKwVal(const types::IPZKwdValueMap& kwdValueMap,
-                     const std::string& kwd, std::string& kwdValue)
+inline int getKwVal(const types::IPZKwdValueMap& i_kwdValueMap,
+                    const std::string& i_kwd, std::string& o_kwdValue) noexcept
 {
-    if (kwd.empty())
+    int l_rc{constants::FAILURE};
+    try
     {
-        logging::logMessage("Invalid parameters");
-        throw std::runtime_error("Invalid parameters");
-    }
+        if (i_kwd.empty())
+        {
+            logging::logMessage("Invalid parameters");
+            throw std::runtime_error("Invalid parameters");
+        }
 
-    auto itrToKwd = kwdValueMap.find(kwd);
-    if (itrToKwd != kwdValueMap.end())
+        auto l_itrToKwd = i_kwdValueMap.find(i_kwd);
+        if (l_itrToKwd != i_kwdValueMap.end())
+        {
+            o_kwdValue = l_itrToKwd->second;
+            l_rc = constants::SUCCESS;
+        }
+    }
+    catch (const std::exception& l_ex)
     {
-        kwdValue = itrToKwd->second;
-        return;
+        l_rc = constants::FAILURE;
+        logging::logMessage("Failed to get keyword value for [" + i_kwd +
+                            "]. Error : " + l_ex.what());
     }
-
-    throw std::runtime_error("Keyword not found");
+    return l_rc;
 }
 
 /**
