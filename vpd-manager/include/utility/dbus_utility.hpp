@@ -612,5 +612,83 @@ inline types::BinaryVector getImFromDbus()
 
     return *l_imValue;
 }
+
+/**
+ * @brief API to return prefix of functional firmware driver.
+ *
+ * Every functional driver belongs to a series which is denoted by the first two
+ * characters of the driver name. The API extracts that and returns it to the
+ * caller.
+ *
+ * @return Prefix of the image, empty string in case of any error.
+ */
+inline std::string getImagePrefix()
+{
+    try
+    {
+        types::DbusVariantType l_retVal = readDbusProperty(
+            constants::objectMapperService, constants::functionalImageObjPath,
+            constants::associationInterface, "endpoints");
+
+        auto l_listOfFunctionalPath =
+            std::get_if<std::vector<std::string>>(&l_retVal);
+
+        if (!l_listOfFunctionalPath || (*l_listOfFunctionalPath).empty())
+        {
+            throw DbusException("failed to get functional image path.");
+        }
+
+        for (const auto& l_imagePath : *l_listOfFunctionalPath)
+        {
+            types::DbusVariantType l_retValPriority =
+                readDbusProperty(constants::imageUpdateService, l_imagePath,
+                                 constants::imagePrirotyInf, "Priority");
+
+            auto l_imagePriority = std::get_if<uint8_t>(&l_retValPriority);
+            if (!l_imagePriority)
+            {
+                throw DbusException(
+                    "failed to read functional image priority for path [" +
+                    l_imagePath + "]");
+            }
+
+            // only interested in running image.
+            if (*l_imagePriority != constants::VALUE_0)
+            {
+                continue;
+            }
+
+            types::DbusVariantType l_retExVer = readDbusProperty(
+                constants::imageUpdateService, l_imagePath,
+                constants::imageExtendedVerInf, "ExtendedVersion");
+
+            auto l_imageExtendedVersion = std::get_if<std::string>(&l_retExVer);
+            if (!l_imageExtendedVersion)
+            {
+                throw DbusException(
+                    "Unable to read extended version for the functional image [" +
+                    l_imagePath + "]");
+            }
+
+            // extract the first two character from the image name.
+            if ((*l_imageExtendedVersion).empty() ||
+                (*l_imageExtendedVersion).length() <= constants::VALUE_2)
+            {
+                throw DbusException("Invalid extended version read for path [" +
+                                    l_imagePath + "]");
+            }
+
+            // return first two character from image name.
+            return (*l_imageExtendedVersion)
+                .substr(constants::VALUE_0, constants::VALUE_2);
+        }
+        throw std::runtime_error("No Image found with required priority.");
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(l_ex.what());
+        return std::string{};
+    }
+}
 } // namespace dbusUtility
 } // namespace vpd
