@@ -135,29 +135,37 @@ inline int dumpBadVpd(const std::string& i_vpdFilePath,
 /**
  * @brief An API to read value of a keyword.
  *
- * Note: Throws exception. Caller needs to handle.
  *
- * @param[in] kwdValueMap - A map having Kwd value pair.
- * @param[in] kwd - keyword name.
- * @param[out] kwdValue - Value of the keyword read from map.
+ * @param[in] i_kwdValueMap - A map having Kwd value pair.
+ * @param[in] i_kwd - keyword name.
+ *
+ * @return On success returns value of the keyword read from map, otherwise
+ * returns empty string.
  */
-inline void getKwVal(const types::IPZKwdValueMap& kwdValueMap,
-                     const std::string& kwd, std::string& kwdValue)
+inline std::string getKwVal(const types::IPZKwdValueMap& i_kwdValueMap,
+                            const std::string& i_kwd) noexcept
 {
-    if (kwd.empty())
+    std::string l_kwdValue;
+    try
     {
-        logging::logMessage("Invalid parameters");
-        throw std::runtime_error("Invalid parameters");
-    }
+        if (i_kwd.empty())
+        {
+            throw std::runtime_error("Invalid parameters");
+        }
 
-    auto itrToKwd = kwdValueMap.find(kwd);
-    if (itrToKwd != kwdValueMap.end())
+        auto l_itrToKwd = i_kwdValueMap.find(i_kwd);
+        if (l_itrToKwd != i_kwdValueMap.end())
+        {
+            l_kwdValue = l_itrToKwd->second;
+        }
+    }
+    catch (const std::exception& l_ex)
     {
-        kwdValue = itrToKwd->second;
-        return;
+        l_kwdValue.clear();
+        logging::logMessage("Failed to get keyword value for [" + i_kwd +
+                            "]. Error : " + l_ex.what());
     }
-
-    throw std::runtime_error("Keyword not found");
+    return l_kwdValue;
 }
 
 /**
@@ -322,8 +330,8 @@ inline std::string getExpandedLocationCode(
         {
             auto itrToVCEN = (*ipzVpdMap).find(recordName);
             // The exceptions will be cautght at end.
-            getKwVal(itrToVCEN->second, kwd1, firstKwdValue);
-            getKwVal(itrToVCEN->second, kwd2, secondKwdValue);
+            firstKwdValue = getKwVal(itrToVCEN->second, kwd1);
+            secondKwdValue = getKwVal(itrToVCEN->second, kwd2);
         }
         else
         {
@@ -488,9 +496,8 @@ inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
                     "VINI record not found in parsed VPD. Can't find CCIN");
             }
 
-            std::string l_ccinFromVpd;
-            vpdSpecificUtility::getKwVal(l_itrToRec->second, "CC",
-                                         l_ccinFromVpd);
+            std::string l_ccinFromVpd{
+                vpdSpecificUtility::getKwVal(l_itrToRec->second, "CC")};
             if (l_ccinFromVpd.empty())
             {
                 throw DataException(
