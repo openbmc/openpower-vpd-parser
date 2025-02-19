@@ -260,6 +260,14 @@ class Manager
      * @brief API to process VPD collection thread failed EEPROMs.
      */
     void processFailedEeproms();
+
+    /**
+     * @brief API to handle processing w.r.t. PowerVS systems.
+     *
+     * Some FRUs VPD is specific to powerVS system. The API detects the
+     * powerVS configuration and updates the VPD accordingly.
+     */
+    void processPowerVsSystem();
 #endif
 
     /**
