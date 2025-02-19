@@ -329,31 +329,69 @@ void Manager::checkAndUpdatePowerVsVpd(
 {
     for (const auto& [l_fruPath, l_recJson] : i_powerVsJsonObj.items())
     {
-        // TODO add special handling for PROC CCIN check.
+        nlohmann::json l_sysCfgJsonObj{};
+        if (m_worker.get() != nullptr)
+        {
+            l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+        }
+
+        // The utility method will handle emty JSON case. No explicit
+        // handling required here.
+        auto l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
+            l_sysCfgJsonObj, l_fruPath);
+
+        // Mark it as failed if inventory path not found in JSON.
+        if (l_inventoryPath.empty())
+        {
+            o_failedPathList.push_back(l_fruPath);
+            continue;
+        }
+
+        // check if the FRU is present
+        if (!isInventoryPresent(l_inventoryPath))
+        {
+            logging::logMessage(
+                "Inventory not present, skip updating part number. Path: " +
+                l_inventoryPath);
+            continue;
+        }
+
+        // check if the FRU needs CCIN check before updating PN.
+        if (l_recJson.contains("CCIN"))
+        {
+            const auto& l_ccinFromDbus =
+                vpdSpecificUtility::getCcinFromDbus(l_inventoryPath);
+
+            // Not an ideal situation as CCIN can't be empty.
+            if (l_ccin.empty())
+            {
+                o_failedPathList.push_back(l_fruPath);
+                continue;
+            }
+
+            std::vector<std::string> l_ccinListFromJson = l_recJson["CCIN"];
+
+            if (find(l_ccinListFromJson.begin(), l_ccinListFromJson.end(),
+                     l_ccinFromDbus) == ccinList.end())
+            {
+                // Don't update PN in this case.
+                continue;
+            }
+        }
+
         for (const auto& [l_recordName, l_kwdJson] : l_recJson.items())
         {
+            // Record name can't be CCIN, skip processing as it is there for PN
+            // update based on CCIN check.
+            if (l_recordName == contants::kwdCCIN)
+            {
+                continue;
+            }
+
             for (const auto& [l_kwdName, l_kwdValue] : l_kwdJson.items())
             {
                 // Is value of type array.
                 if (!l_kwdValue.is_array())
-                {
-                    o_failedPathList.push_back(l_fruPath);
-                    continue;
-                }
-
-                nlohmann::json l_sysCfgJsonObj{};
-                if (m_worker.get() != nullptr)
-                {
-                    l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
-                }
-
-                // The utility method will handle empty JSON case. No explicit
-                // handling required here.
-                auto l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
-                    l_sysCfgJsonObj, l_fruPath);
-
-                // Mark it as failed if inventory path not found in JSON.
-                if (l_inventoryPath.empty())
                 {
                     o_failedPathList.push_back(l_fruPath);
                     continue;
@@ -429,7 +467,7 @@ void Manager::ConfigurePowerVsSystem()
             throw std::runtime_error("PowerVS Json not found");
         }
 
-        checkAndUpdatePowerVsVpd(l_powerVsJsonObj, l_failedPathList);
+        checkAndUpdatePowerVsVpd(l_powerVsJsonObj, l_failedPathList, l_imValue);
 
         if (!l_failedPathList.empty())
         {

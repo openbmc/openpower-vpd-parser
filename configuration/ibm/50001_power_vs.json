@@ -1,20 +1,24 @@
 {
     "/sys/bus/spi/drivers/at25/spi12.0/eeprom": {
+        "CCIN":["5C85"],
         "VINI": {
             "PN": [48, 50, 89, 75, 57, 52, 48]
         }
     },
     "/sys/bus/spi/drivers/at25/spi22.0/eeprom": {
+        "CCIN":["5C85"],
         "VINI": {
             "PN": [48, 50, 89, 75, 57, 52, 48]
         }
     },
     "/sys/bus/spi/drivers/at25/spi32.0/eeprom": {
+        "CCIN":["5C85"],
         "VINI": {
             "PN": [48, 50, 89, 75, 57, 52, 48]
         }
     },
     "/sys/bus/spi/drivers/at25/spi42.0/eeprom": {
+        "CCIN":["5C85"],
         "VINI": {
             "PN": [48, 50, 89, 75, 57, 52, 48]
         }
