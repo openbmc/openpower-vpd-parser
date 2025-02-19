@@ -685,5 +685,31 @@ inline std::string getImagePrefix()
         return std::string{};
     }
 }
+
+/**
+ * @brief API to read DBus present property for the given inventory.
+ *
+ * @param[in] i_invObjPath - Inventory path.
+ * @return Present property value, false in case of any error.
+ */
+inline bool isInventoryPresent(const std::string& i_invObjPath)
+{
+    if (i_invObjPath.empty())
+    {
+        return false;
+    }
+
+    const auto& l_retValue =
+        dbusUtility::readDbusProperty(constants::pimServiceName, i_invObjPath,
+                                      constants::inventoryItemInf, "Present");
+
+    auto l_ptrPresence = std::get_if<bool>(&l_retValue);
+    if (!l_ptrPresence)
+    {
+        return false;
+    }
+
+    return (*l_ptrPresence);
+}
 } // namespace dbusUtility
 } // namespace vpd
