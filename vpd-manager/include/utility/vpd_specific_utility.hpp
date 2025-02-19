@@ -595,5 +595,45 @@ inline bool isPass1Planar()
 
     return false;
 }
+
+/**
+ * @brief API to detect if system configuration is that of PowerVS system.
+ *
+ * @param[in] i_imValue - IM value of the system.
+ * @return true if it is PowerVS configuration, false otherwise.
+ */
+inline bool isPowerVsConfiguration(const types::BinaryVector& i_imValue)
+{
+    if (i_imValue.empty() || i_imValue.size() != constants::VALUE_4)
+    {
+        return false;
+    }
+
+    // Should be a 0x5000XX series system.
+    if (i_imValue.at(0) == constants::HEX_VALUE_50 &&
+        i_imValue.at(1) == constants::HEX_VALUE_00)
+    {
+        std::string l_imagePrefix = dbusUtility::getImagePrefix();
+
+        // Check image for 0x500030XX series.
+        if ((i_imValue.at(2) == constants::HEX_VALUE_30) &&
+            ((l_imagePrefix == constants::powerVsImagePrefix_MY) ||
+             (l_imagePrefix == constants::powerVsImagePrefix_NY)))
+        {
+            logging::logMessage("PowerVS configuration");
+            return true;
+        }
+
+        // Check image for 0X500010XX series.
+        if ((i_imValue.at(2) == constants::HEX_VALUE_10) &&
+            ((l_imagePrefix == constants::powerVsImagePrefix_MZ) ||
+             (l_imagePrefix == constants::powerVsImagePrefix_NZ)))
+        {
+            logging::logMessage("PowerVS configuration");
+            return true;
+        }
+    }
+    return false;
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd
