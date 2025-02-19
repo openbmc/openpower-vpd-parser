@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5bcd3f7_5f9d05e5",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1319,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-19T09:44:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "822ab233_8fc86b2a",
+      "revId": "0d8966e8f1f2b2bd1afe6106e775390c6a3933e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "999d6c9e_ea85fd04",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-02-19T04:19:49Z",
       "side": 1,
       "message": "Since the persisted data is getting cleared\nFor manager as well we need to check if it stopped correctly and then started correctly else we loose all the data.",
+      "revId": "0d8966e8f1f2b2bd1afe6106e775390c6a3933e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63292717_39e1e020",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 1390,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-19T09:44:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "999d6c9e_ea85fd04",
       "revId": "0d8966e8f1f2b2bd1afe6106e775390c6a3933e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
