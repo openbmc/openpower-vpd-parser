@@ -323,11 +323,17 @@ void Manager::SetTimerToDetectVpdCollectionStatus()
     });
 }
 
+void Manager::checkAndUpdatePowerVsVpd(
+    const std::string& i_fruPath, const std::string& i_recordName,
+    const std::string& i_keywordName, const types::BinaryVector& i_kwdValue,
+    std::vector<std::string>& io_failedPathList)
+{
+    // TODO check and update power VS VPD if required.
+}
+
 void Manager::processPowerVsSystem()
 {
-    // This API will should check for required powerVS configuration and will
-    // update the VPD accordingly.
-
+    std::vector<std::string> l_failedPathList;
     try
     {
         types::BinaryVector l_imValue = dbusUtility::getImFromDbus();
@@ -341,6 +347,41 @@ void Manager::processPowerVsSystem()
             // TODO: Should booting be blocked in case of some
             // misconfigurations?
             return;
+        }
+
+        const nlohmann::json& l_powerVsJsonObj =
+            jsonUtility::getPowerVsJson(l_imValue);
+
+        if (l_powerVsJsonObj.empty())
+        {
+            throw std::runtime_error("Power VS Json not found");
+        }
+
+        for (const auto& [l_fruPath, l_recJson] : l_powerVsJsonObj.items())
+        {
+            // TODO add special handling for PROC CCIN check.
+            for (const auto& [l_recordName, l_kwdJson] : l_recJson.items())
+            {
+                for (const auto& [l_kwdName, l_kwdValue] : l_kwdJson.items())
+                {
+                    if (!l_kwdValue.is_array())
+                    {
+                        l_failedPathList.push_back(l_fruPath);
+                        continue;
+                    }
+
+                    checkAndUpdatePowerVsVpd(
+                        l_fruPath, l_recordName, l_kwdName,
+                        l_kwdValue.get<types::BinaryVector>(),
+                        l_failedPathList);
+                }
+            }
+        }
+
+        if (!l_failedPathList.empty())
+        {
+            throw std::runtime_error(
+                "Part number update failed for following paths: ");
         }
     }
     catch (const std::exception& l_ex)
