@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1425a877_9c08c436",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-19T13:49:31Z",
+      "side": 1,
+      "message": "Nit: empty JSON object received. ?",
+      "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f6963ad_7e5dd324",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-19T13:49:31Z",
+      "side": 1,
+      "message": "l_parsedJsonObj\n\nIf this variable used used only at the end to send empty object, we can directly return in place constructed empty json object. or we can use this variable at line 119 for assignment as a single return statement for this API ?",
+      "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "360075a1_93a86956",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-19T13:49:31Z",
+      "side": 1,
+      "message": "Nit: file path",
+      "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f139953_e684e266",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-19T13:49:31Z",
+      "side": 1,
+      "message": "l_fileStream ?",
+      "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb0b0831_576e9253",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-19T13:49:31Z",
+      "side": 1,
+      "message": "Nit: in case empty string",
+      "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49be71d1_db325c6a",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1652,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-19T13:49:31Z",
+      "side": 1,
+      "message": "we need return if the l_backupAndRestoreCfgFilePath is empty.",
+      "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
