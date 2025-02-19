@@ -117,6 +117,9 @@ static constexpr auto HEX_VALUE_50 = 0x50;
 static constexpr auto HEX_VALUE_30 = 0x30;
 static constexpr auto HEX_VALUE_10 = 0x10;
 
+static constexpr auto PVS_PROC_EVEREST_CCIN = "5CF8";
+static constexpr auto PVS_PROC_RAINIER_CCIN = "5C85";
+
 constexpr auto systemInvPath = "/xyz/openbmc_project/inventory/system";
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
 constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
