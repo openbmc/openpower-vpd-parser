@@ -592,5 +592,25 @@ inline bool notifyFRUCollectionStatus(const std::string& i_inventoryPath,
 
     return true;
 }
+
+/**
+ * @brief API to read IM keyword from Dbus.
+ *
+ * @return IM value read from Dbus, Empty in case of any error.
+ */
+inline types::BinaryVector getImFromDbus()
+{
+    const auto& l_retValue = dbusUtility::readDbusProperty(
+        constants::pimServiceName, constants::systemVpdInvPath,
+        constants::vsbpInf, constants::kwdIM);
+
+    auto l_imValue = std::get_if<types::BinaryVector>(&l_retValue);
+    if (!l_imValue || (*l_imValue).size() != constants::VALUE_4)
+    {
+        return types::BinaryVector{};
+    }
+
+    return *l_imValue;
+}
 } // namespace dbusUtility
 } // namespace vpd

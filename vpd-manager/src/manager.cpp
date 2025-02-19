@@ -327,6 +327,19 @@ void Manager::ConfigurePowerVsSystem()
 {
     // This API should check for required powerVS configuration and will
     // update the VPD accordingly.
+
+    try
+    {
+        types::BinaryVector l_imValue = dbusUtility::getImFromDbus();
+        if (l_imValue.empty())
+        {
+            throw DbusException("Invalid IM value read from Dbus");
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        // TODO log appropriate PEL
+    }
 }
 #endif
 
