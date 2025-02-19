@@ -26,32 +26,44 @@ namespace vpdSpecificUtility
  * i2c-<bus-number>-<eeprom-address>.
  * For spi eeproms - the pattern of the vpd-name will be spi-<spi-number>.
  *
- * @param[in] vpdFilePath - file path of the vpd.
- * @return Generated file name.
+ * @param[in] i_vpdFilePath - file path of the vpd.
+ * @return On success, returns generated file name, otherwise returns empty
+ * string.
  */
-inline std::string generateBadVPDFileName(const std::string& vpdFilePath)
+inline std::string generateBadVPDFileName(
+    const std::string& i_vpdFilePath) noexcept
 {
-    std::string badVpdFileName = BAD_VPD_DIR;
-    if (vpdFilePath.find("i2c") != std::string::npos)
+    std::string l_badVpdFileName;
+    try
     {
-        badVpdFileName += "i2c-";
-        std::regex i2cPattern("(at24/)([0-9]+-[0-9]+)\\/");
-        std::smatch match;
-        if (std::regex_search(vpdFilePath, match, i2cPattern))
+        l_badVpdFileName = BAD_VPD_DIR;
+        if (i_vpdFilePath.find("i2c") != std::string::npos)
         {
-            badVpdFileName += match.str(2);
+            l_badVpdFileName += "i2c-";
+            std::regex l_i2cPattern("(at24/)([0-9]+-[0-9]+)\\/");
+            std::smatch l_match;
+            if (std::regex_search(i_vpdFilePath, l_match, l_i2cPattern))
+            {
+                l_badVpdFileName += l_match.str(2);
+            }
+        }
+        else if (i_vpdFilePath.find("spi") != std::string::npos)
+        {
+            std::regex l_spiPattern("((spi)[0-9]+)(.0)");
+            std::smatch l_match;
+            if (std::regex_search(i_vpdFilePath, l_match, l_spiPattern))
+            {
+                l_badVpdFileName += l_match.str(1);
+            }
         }
     }
-    else if (vpdFilePath.find("spi") != std::string::npos)
+    catch (const std::exception& l_ex)
     {
-        std::regex spiPattern("((spi)[0-9]+)(.0)");
-        std::smatch match;
-        if (std::regex_search(vpdFilePath, match, spiPattern))
-        {
-            badVpdFileName += match.str(1);
-        }
+        l_badVpdFileName = "";
+        logging::logMessage("Failed to generate bad VPD file name for [" +
+                            i_vpdFilePath + "]. Error: " + l_ex.what());
     }
-    return badVpdFileName;
+    return l_badVpdFileName;
 }
 
 /**
@@ -60,43 +72,57 @@ inline std::string generateBadVPDFileName(const std::string& vpdFilePath)
  * "/tmp/bad-vpd" in BMC, in order to collect bad VPD data as a part of user
  * initiated BMC dump.
  *
- * Note: Throws exception in case of any failure.
  *
- * @param[in] vpdFilePath - vpd file path
- * @param[in] vpdVector - vpd vector
+ * @param[in] i_vpdFilePath - vpd file path
+ * @param[in] i_vpdVector - vpd vector
+ *
+ * @return On success returns 0, otherwise returns -1.
  */
-inline void dumpBadVpd(const std::string& vpdFilePath,
-                       const types::BinaryVector& vpdVector)
+inline int dumpBadVpd(const std::string& i_vpdFilePath,
+                      const types::BinaryVector& i_vpdVector) noexcept
 {
-    std::filesystem::create_directory(BAD_VPD_DIR);
-    auto badVpdPath = generateBadVPDFileName(vpdFilePath);
-
-    if (std::filesystem::exists(badVpdPath))
+    int l_rc{constants::FAILURE};
+    try
     {
-        std::error_code ec;
-        std::filesystem::remove(badVpdPath, ec);
-        if (ec) // error code
+        std::filesystem::create_directory(BAD_VPD_DIR);
+        auto l_badVpdPath = generateBadVPDFileName(i_vpdFilePath);
+
+        if (std::filesystem::exists(l_badVpdPath))
         {
-            std::string error = "Error removing the existing broken vpd in ";
-            error += badVpdPath;
-            error += ". Error code : ";
-            error += ec.value();
-            error += ". Error message : ";
-            error += ec.message();
-            throw std::runtime_error(error);
+            std::error_code l_ec;
+            std::filesystem::remove(l_badVpdPath, l_ec);
+            if (l_ec) // error code
+            {
+                const std::string l_errorMsg{
+                    "Error removing the existing broken vpd in " +
+                    l_badVpdPath +
+                    ". Error code : " + std::to_string(l_ec.value()) +
+                    ". Error message : " + l_ec.message()};
+
+                throw std::runtime_error(l_errorMsg);
+            }
         }
-    }
 
-    std::ofstream badVpdFileStream(badVpdPath, std::ofstream::binary);
-    if (badVpdFileStream.is_open())
+        std::ofstream l_badVpdFileStream(l_badVpdPath, std::ofstream::binary);
+        if (!l_badVpdFileStream.is_open())
+        {
+            throw std::runtime_error(
+                "Failed to open bad vpd file path in /tmp/bad-vpd. "
+                "Unable to dump the broken/bad vpd file.");
+        }
+
+        l_badVpdFileStream.write(
+            reinterpret_cast<const char*>(i_vpdVector.data()),
+            i_vpdVector.size());
+
+        l_rc = constants::SUCCESS;
+    }
+    catch (const std::exception& l_ex)
     {
-        throw std::runtime_error(
-            "Failed to open bad vpd file path in /tmp/bad-vpd. "
-            "Unable to dump the broken/bad vpd file.");
+        logging::logMessage("Failed to dump bad VPD for [" + i_vpdFilePath +
+                            "]. Error: " + l_ex.what());
     }
-
-    badVpdFileStream.write(reinterpret_cast<const char*>(vpdVector.data()),
-                           vpdVector.size());
+    return l_rc;
 }
 
 /**
