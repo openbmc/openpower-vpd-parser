@@ -290,19 +290,14 @@ void IbmBiosHandler::saveFcoToBios(const types::BinaryVector& i_fcoVal)
             "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Integer",
             i_fcoVal.at(constants::VALUE_3))));
 
-    try
-    {
-        dbusUtility::writeDbusProperty(
+    if (!dbusUtility::writeDbusProperty(
             constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
             constants::biosConfigMgrInterface, "PendingAttributes",
-            l_pendingBiosAttribute);
-    }
-    catch (const std::exception& l_ex)
+            l_pendingBiosAttribute))
     {
         // TODO: Should we log informational PEL here as well?
         logging::logMessage(
-            "DBus call to update FCO value in pending attribute failed. " +
-            std::string(l_ex.what()));
+            "DBus call to update FCO value in pending attribute failed. ");
     }
 }
 
@@ -370,19 +365,14 @@ void IbmBiosHandler::saveAmmToBios(const std::string& i_ammVal)
             "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Enumeration",
             l_valtoUpdate)));
 
-    try
-    {
-        dbusUtility::writeDbusProperty(
+    if (!dbusUtility::writeDbusProperty(
             constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
             constants::biosConfigMgrInterface, "PendingAttributes",
-            l_pendingBiosAttribute);
-    }
-    catch (const std::exception& l_ex)
+            l_pendingBiosAttribute))
     {
         // TODO: Should we log informational PEL here as well?
         logging::logMessage(
-            "DBus call to update AMM value in pending attribute failed. " +
-            std::string(l_ex.what()));
+            "DBus call to update AMM value in pending attribute failed.");
     }
 }
 
@@ -505,18 +495,13 @@ void IbmBiosHandler::saveCreateDefaultLparToBios(
             "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Enumeration",
             l_valtoUpdate)));
 
-    try
-    {
-        dbusUtility::writeDbusProperty(
+    if (!dbusUtility::writeDbusProperty(
             constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
             constants::biosConfigMgrInterface, "PendingAttributes",
-            l_pendingBiosAttribute);
-    }
-    catch (const std::exception& l_ex)
+            l_pendingBiosAttribute))
     {
         logging::logMessage(
-            "DBus call to update lpar value in pending attribute failed. " +
-            std::string(l_ex.what()));
+            "DBus call to update lpar value in pending attribute failed.");
     }
 
     return;
@@ -621,18 +606,13 @@ void IbmBiosHandler::saveClearNvramToBios(const std::string& i_clearNvramVal)
             "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Enumeration",
             l_valtoUpdate)));
 
-    try
-    {
-        dbusUtility::writeDbusProperty(
+    if (!dbusUtility::writeDbusProperty(
             constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
             constants::biosConfigMgrInterface, "PendingAttributes",
-            l_pendingBiosAttribute);
-    }
-    catch (const std::exception& l_ex)
+            l_pendingBiosAttribute))
     {
         logging::logMessage(
-            "DBus call to update NVRAM value in pending attribute failed. " +
-            std::string(l_ex.what()));
+            "DBus call to update NVRAM value in pending attribute failed.");
     }
 }
 
@@ -732,18 +712,13 @@ void IbmBiosHandler::saveKeepAndClearToBios(
             "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Enumeration",
             l_valtoUpdate)));
 
-    try
-    {
-        dbusUtility::writeDbusProperty(
+    if (!dbusUtility::writeDbusProperty(
             constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
             constants::biosConfigMgrInterface, "PendingAttributes",
-            l_pendingBiosAttribute);
-    }
-    catch (const std::exception& l_ex)
+            l_pendingBiosAttribute))
     {
         logging::logMessage(
-            "DBus call to update keep and clear value in pending attribute failed. " +
-            std::string(l_ex.what()));
+            "DBus call to update keep and clear value in pending attribute failed.");
     }
 }
 
