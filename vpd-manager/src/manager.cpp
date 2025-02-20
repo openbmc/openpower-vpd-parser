@@ -543,17 +543,14 @@ void Manager::collectSingleFruVpd(
 
         // Set CollectionStatus as InProgress. Since it's an intermediate state
         // D-bus set-property call is good enough to update the status.
-        try
-        {
-            const std::string& l_collStatusProp = "CollectionStatus";
-            dbusUtility::writeDbusProperty(
+        const std::string& l_collStatusProp = "CollectionStatus";
+
+        if (!dbusUtility::writeDbusProperty(
                 jsonUtility::getServiceName(l_sysCfgJsonObj,
                                             std::string(i_dbusObjPath)),
                 std::string(i_dbusObjPath), constants::vpdCollectionInterface,
                 l_collStatusProp,
-                types::DbusVariantType{constants::vpdCollectionInProgress});
-        }
-        catch (const std::exception& e)
+                types::DbusVariantType{constants::vpdCollectionInProgress}))
         {
             logging::logMessage(
                 "Unable to set CollectionStatus as InProgress for " +
