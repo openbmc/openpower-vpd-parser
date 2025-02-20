@@ -3,6 +3,7 @@
 #include "config.h"
 
 #include "constants.hpp"
+#include "event_logger.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
 #include "types.hpp"
@@ -14,6 +15,7 @@
 #include <filesystem>
 #include <fstream>
 #include <regex>
+#include <typeindex>
 
 namespace vpd
 {
@@ -461,59 +463,83 @@ inline std::string getDbusPropNameForGivenKw(const std::string& i_keywordName)
  * The API will check from parsed VPD map if the FRU is the one with desired
  * CCIN.
  *
- * @throw std::runtime_error
- * @throw DataException
- *
  * @param[in] i_JsonObject - Any JSON which contains CCIN tag to match.
  * @param[in] i_parsedVpdMap - Parsed VPD map.
+ *
  * @return True if found, false otherwise.
  */
 inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
-                          const types::VPDMapVariant& i_parsedVpdMap)
+                          const types::VPDMapVariant& i_parsedVpdMap) noexcept
 {
-    if (i_JsonObject.empty())
+    bool l_rc{false};
+    try
     {
-        throw std::runtime_error("Json object is empty. Can't find CCIN");
-    }
-
-    if (auto l_ipzVPDMap = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap))
-    {
-        auto l_itrToRec = (*l_ipzVPDMap).find("VINI");
-        if (l_itrToRec == (*l_ipzVPDMap).end())
+        if (i_JsonObject.empty())
         {
-            throw DataException(
-                "VINI record not found in parsed VPD. Can't find CCIN");
+            throw std::runtime_error("Json object is empty. Can't find CCIN");
         }
 
-        std::string l_ccinFromVpd;
-        vpdSpecificUtility::getKwVal(l_itrToRec->second, "CC", l_ccinFromVpd);
-        if (l_ccinFromVpd.empty())
+        if (auto l_ipzVPDMap = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap))
         {
-            throw DataException("Empty CCIN value in VPD map. Can't find CCIN");
-        }
-
-        transform(l_ccinFromVpd.begin(), l_ccinFromVpd.end(),
-                  l_ccinFromVpd.begin(), ::toupper);
-
-        for (std::string l_ccinValue : i_JsonObject["ccin"])
-        {
-            transform(l_ccinValue.begin(), l_ccinValue.end(),
-                      l_ccinValue.begin(), ::toupper);
-
-            if (l_ccinValue.compare(l_ccinFromVpd) ==
-                constants::STR_CMP_SUCCESS)
+            auto l_itrToRec = (*l_ipzVPDMap).find("VINI");
+            if (l_itrToRec == (*l_ipzVPDMap).end())
             {
-                // CCIN found
-                return true;
+                throw DataException(
+                    "VINI record not found in parsed VPD. Can't find CCIN");
+            }
+
+            std::string l_ccinFromVpd;
+            vpdSpecificUtility::getKwVal(l_itrToRec->second, "CC",
+                                         l_ccinFromVpd);
+            if (l_ccinFromVpd.empty())
+            {
+                throw DataException(
+                    "Empty CCIN value in VPD map. Can't find CCIN");
+            }
+
+            transform(l_ccinFromVpd.begin(), l_ccinFromVpd.end(),
+                      l_ccinFromVpd.begin(), ::toupper);
+
+            for (std::string l_ccinValue : i_JsonObject["ccin"])
+            {
+                transform(l_ccinValue.begin(), l_ccinValue.end(),
+                          l_ccinValue.begin(), ::toupper);
+
+                if (l_ccinValue.compare(l_ccinFromVpd) ==
+                    constants::STR_CMP_SUCCESS)
+                {
+                    // CCIN found
+                    l_rc = true;
+                }
+            }
+
+            if (!l_rc)
+            {
+                logging::logMessage("No match found for CCIN");
             }
         }
-
-        logging::logMessage("No match found for CCIN");
-        return false;
+        else
+        {
+            logging::logMessage("VPD type not supported. Can't find CCIN");
+        }
     }
+    catch (const std::exception& l_ex)
+    {
+        const std::string l_errMsg{
+            "Failed to find CCIN in VPD. Error : " + std::string(l_ex.what())};
 
-    logging::logMessage("VPD type not supported. Can't find CCIN");
-    return false;
+        if (typeid(l_ex) == std::type_index(typeid(DataException)))
+        {
+            EventLogger::createSyncPel(
+                types::ErrorType::InvalidVpdMessage,
+                types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                l_errMsg, std::nullopt, std::nullopt, std::nullopt,
+                std::nullopt);
+        }
+
+        logging::logMessage(l_errMsg);
+    }
+    return l_rc;
 }
 
 /**
