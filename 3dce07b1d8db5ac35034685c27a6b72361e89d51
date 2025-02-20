@@ -191,6 +191,24 @@
       "message": "we need return if the l_backupAndRestoreCfgFilePath is empty.",
       "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0e32e54_ffb0217c",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1652,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-20T03:22:38Z",
+      "side": 1,
+      "message": "Please create a defect if you an issue here.The change looks outside the scope of this commit.",
+      "parentUuid": "49be71d1_db325c6a",
+      "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
