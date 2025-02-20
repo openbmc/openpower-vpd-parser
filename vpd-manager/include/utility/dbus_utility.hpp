@@ -53,10 +53,9 @@ inline types::MapperGetObject getObjectMap(const std::string& objectPath,
         auto result = bus.call(method);
         result.read(getObjectMap);
     }
-    catch (const sdbusplus::exception::SdBusError& e)
+    catch (const sdbusplus::exception::SdBusError& l_ex)
     {
-        // logging::logMessage(e.what());
-        return getObjectMap;
+        logging::logMessage(l_ex.what());
     }
 
     return getObjectMap;
@@ -200,9 +199,10 @@ inline types::DbusVariantType readDbusProperty(
         auto result = bus.call(method);
         result.read(propertyValue);
     }
-    catch (const sdbusplus::exception::SdBusError& e)
+    catch (const sdbusplus::exception::SdBusError& l_ex)
     {
-        return propertyValue;
+        logging::logMessage(
+            "Read DBus property failed. Error : " + std::string(l_ex.what()));
     }
     return propertyValue;
 }
@@ -214,46 +214,41 @@ inline types::DbusVariantType readDbusProperty(
  * identify any write failure. The API in no other way indicate write  failure
  * to the caller.
  *
- * Note: It will be caller's responsibility ho handle the exception thrown in
- * case of write failure and generate appropriate error.
- *
  * @param [in] serviceName - Name of the Dbus service.
  * @param [in] objectPath - Object path under the service.
  * @param [in] interface - Interface under which property exist.
  * @param [in] property - Property whose value is to be written.
  * @param [in] propertyValue - The value to be written.
+ * @return True if write on DBus is success, false otherwise.
  */
-inline void writeDbusProperty(
+inline bool writeDbusProperty(
     const std::string& serviceName, const std::string& objectPath,
     const std::string& interface, const std::string& property,
     const types::DbusVariantType& propertyValue)
 {
-    // Mandatory fields to make a write dbus call.
-    if (serviceName.empty() || objectPath.empty() || interface.empty() ||
-        property.empty())
-    {
-        logging::logMessage(
-            "One of the parameter to make Dbus read call is empty.");
-
-        // caller need to handle the throw to ensure Dbus write success.
-        throw std::runtime_error("Dbus write failed, Parameter empty");
-    }
-
     try
     {
+        // Mandatory fields to make a write dbus call.
+        if (serviceName.empty() || objectPath.empty() || interface.empty() ||
+            property.empty())
+        {
+            throw std::runtime_error("Dbus write failed, Parameter empty");
+        }
+
         auto bus = sdbusplus::bus::new_default();
         auto method =
             bus.new_method_call(serviceName.c_str(), objectPath.c_str(),
                                 "org.freedesktop.DBus.Properties", "Set");
         method.append(interface, property, propertyValue);
         bus.call(method);
-    }
-    catch (const sdbusplus::exception::SdBusError& e)
-    {
-        logging::logMessage(e.what());
 
-        // caller needs to handle this throw to handle error in writing Dbus.
-        throw std::runtime_error("Dbus write failed");
+        return true;
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "DBus write failed, error: " + std::string(l_ex.what()));
+        return false;
     }
 }
 
@@ -289,8 +284,10 @@ inline bool callPIM(types::ObjectMap&& objectMap)
         pimMsg.append(std::move(objectMap));
         bus.call(pimMsg);
     }
-    catch (const sdbusplus::exception::SdBusError& e)
+    catch (const sdbusplus::exception::SdBusError& l_ex)
     {
+        logging::logMessage(
+            "call PIM failed, error: " + std::string(l_ex.what()));
         return false;
     }
     return true;
