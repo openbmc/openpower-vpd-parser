@@ -628,39 +628,48 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
  *
  * @return True if pass 1 planar, false otherwise.
  */
-inline bool isPass1Planar()
+inline bool isPass1Planar() noexcept
 {
-    auto l_retVal = dbusUtility::readDbusProperty(
-        constants::pimServiceName, constants::systemVpdInvPath,
-        constants::viniInf, constants::kwdHW);
-
-    auto l_hwVer = std::get_if<types::BinaryVector>(&l_retVal);
-
-    l_retVal = dbusUtility::readDbusProperty(
-        constants::pimServiceName, constants::systemInvPath, constants::vsbpInf,
-        constants::kwdIM);
-
-    auto l_imValue = std::get_if<types::BinaryVector>(&l_retVal);
-
-    if (l_hwVer && l_imValue)
+    bool l_rc{false};
+    try
     {
-        types::BinaryVector everest{80, 00, 48, 00};
-        types::BinaryVector fuji{96, 00, 32, 00};
+        auto l_retVal = dbusUtility::readDbusProperty(
+            constants::pimServiceName, constants::systemVpdInvPath,
+            constants::viniInf, constants::kwdHW);
 
-        if (((*l_imValue) == everest) || ((*l_imValue) == fuji))
+        auto l_hwVer = std::get_if<types::BinaryVector>(&l_retVal);
+
+        l_retVal = dbusUtility::readDbusProperty(
+            constants::pimServiceName, constants::systemInvPath,
+            constants::vsbpInf, constants::kwdIM);
+
+        auto l_imValue = std::get_if<types::BinaryVector>(&l_retVal);
+
+        if (l_hwVer && l_imValue)
         {
-            if ((*l_hwVer).at(1) < constants::VALUE_21)
+            const types::BinaryVector l_everest{80, 00, 48, 00};
+            const types::BinaryVector l_fuji{96, 00, 32, 00};
+
+            if (((*l_imValue) == l_everest) || ((*l_imValue) == l_fuji))
             {
-                return true;
+                if ((*l_hwVer).at(1) < constants::VALUE_21)
+                {
+                    l_rc = true;
+                }
+            }
+            else if ((*l_hwVer).at(1) < constants::VALUE_2)
+            {
+                l_rc = true;
             }
         }
-        else if ((*l_hwVer).at(1) < constants::VALUE_2)
-        {
-            return true;
-        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage("Failed to check for pass 1 planar. Error: " +
+                            std::string(l_ex.what()));
     }
 
-    return false;
+    return l_rc;
 }
 } // namespace vpdSpecificUtility
 } // namespace vpd
