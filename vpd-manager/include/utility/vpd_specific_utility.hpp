@@ -223,36 +223,42 @@ inline std::string encodeKeyword(const std::string& i_keyword,
  * created. If the property present in propertymap already exist in the
  * InterfaceMap, then the new property value is ignored.
  *
- * @param[in,out] map - Interface map.
- * @param[in] interface - Interface to be processed.
- * @param[in] propertyMap - new property map that needs to be emplaced.
+ * @param[in,out] io_map - Interface map.
+ * @param[in] i_interface - Interface to be processed.
+ * @param[in] i_propertyMap - new property map that needs to be emplaced.
+ *
+ * @return On success returns 0, otherwise returns -1.
  */
-inline void insertOrMerge(types::InterfaceMap& map,
-                          const std::string& interface,
-                          types::PropertyMap&& propertyMap)
+inline int insertOrMerge(types::InterfaceMap& io_map,
+                         const std::string& i_interface,
+                         types::PropertyMap&& i_propertyMap) noexcept
 {
-    if (map.find(interface) != map.end())
+    int l_rc{constants::FAILURE};
+    try
     {
-        try
+        if (io_map.find(i_interface) != io_map.end())
         {
-            auto& prop = map.at(interface);
-            std::for_each(propertyMap.begin(), propertyMap.end(),
-                          [&prop](auto l_keyValue) {
-                              prop[l_keyValue.first] = l_keyValue.second;
+            auto& l_prop = io_map.at(i_interface);
+            std::for_each(i_propertyMap.begin(), i_propertyMap.end(),
+                          [&l_prop](auto l_keyValue) {
+                              l_prop[l_keyValue.first] = l_keyValue.second;
                           });
         }
-        catch (const std::exception& l_ex)
+        else
         {
-            // ToDo:: Log PEL
-            logging::logMessage(
-                "Inserting properties into interface[" + interface +
-                "] map is failed, reason: " + std::string(l_ex.what()));
+            io_map.emplace(i_interface, i_propertyMap);
         }
+
+        l_rc = constants::SUCCESS;
     }
-    else
+    catch (const std::exception& l_ex)
     {
-        map.emplace(interface, propertyMap);
+        // ToDo:: Log PEL
+        logging::logMessage(
+            "Inserting properties into interface[" + i_interface +
+            "] map failed, reason: " + std::string(l_ex.what()));
     }
+    return l_rc;
 }
 
 /**
