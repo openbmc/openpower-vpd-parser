@@ -1462,19 +1462,15 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
 
         if (!l_inventoryPath.empty())
         {
-            try
-            {
-                dbusUtility::writeDbusProperty(
+            if (!dbusUtility::writeDbusProperty(
                     jsonUtility::getServiceName(m_parsedJson, l_inventoryPath),
                     l_inventoryPath, constants::vpdCollectionInterface,
                     "CollectionStatus",
-                    types::DbusVariantType{constants::vpdCollectionInProgress});
-            }
-            catch (const std::exception& l_exception)
+                    types::DbusVariantType{constants::vpdCollectionInProgress}))
             {
                 logging::logMessage(
                     "Unable to set CollectionStatus as InProgress for " +
-                    i_vpdFilePath + ". Error : " + l_exception.what());
+                    i_vpdFilePath + ". Error : " + "DBus write failed");
             }
         }
 
