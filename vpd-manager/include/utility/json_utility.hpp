@@ -210,38 +210,43 @@ inline bool executePostFailAction(const nlohmann::json& i_parsedConfigJson,
                                   const std::string& i_vpdFilePath,
                                   const std::string& i_flagToProcess)
 {
-    if (i_parsedConfigJson.empty() || i_vpdFilePath.empty() ||
-        i_flagToProcess.empty())
+    try
     {
-        logging::logMessage(
-            "Invalid parameters. Abort processing for post fail action");
-
-        return false;
-    }
-
-    if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))["postFailAction"]
-             .contains(i_flagToProcess))
-    {
-        logging::logMessage(
-            "Config JSON missing flag " + i_flagToProcess +
-            " to execute post fail action for path = " + i_vpdFilePath);
-
-        return false;
-    }
-
-    for (const auto& l_tags : (i_parsedConfigJson["frus"][i_vpdFilePath].at(
-             0))["postFailAction"][i_flagToProcess]
-                                  .items())
-    {
-        auto itrToFunction = funcionMap.find(l_tags.key());
-        if (itrToFunction != funcionMap.end())
+        if (i_parsedConfigJson.empty() || i_vpdFilePath.empty() ||
+            i_flagToProcess.empty())
         {
-            if (!itrToFunction->second(i_parsedConfigJson, i_vpdFilePath,
-                                       "postFailAction", i_flagToProcess))
+            throw std::runtime_error(
+                "Invalid parameters. Abort processing for post fail action");
+        }
+
+        if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))["postFailAction"]
+                 .contains(i_flagToProcess))
+        {
+            throw std::runtime_error(
+                "Config JSON missing flag " + i_flagToProcess +
+                " to execute post fail action for path = " + i_vpdFilePath);
+        }
+
+        for (const auto& l_tags : (i_parsedConfigJson["frus"][i_vpdFilePath].at(
+                 0))["postFailAction"][i_flagToProcess]
+                                      .items())
+        {
+            auto itrToFunction = funcionMap.find(l_tags.key());
+            if (itrToFunction != funcionMap.end())
             {
-                return false;
+                if (!itrToFunction->second(i_parsedConfigJson, i_vpdFilePath,
+                                           "postFailAction", i_flagToProcess))
+                {
+                    return false;
+                }
             }
         }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage("Execute post fail action failed. Error : " +
+                            std::string(l_ex.what()));
+        return false;
     }
 
     return true;
@@ -264,27 +269,24 @@ inline bool processSystemCmdTag(
     const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
     const std::string& i_baseAction, const std::string& i_flagToProcess)
 {
-    if (i_vpdFilePath.empty() || i_parsedConfigJson.empty() ||
-        i_baseAction.empty() || i_flagToProcess.empty())
-    {
-        logging::logMessage(
-            "Invalid parameter. Abort processing of processSystemCmd.");
-        return false;
-    }
-
-    if (!((i_parsedConfigJson["frus"][i_vpdFilePath].at(
-               0)[i_baseAction][i_flagToProcess]["systemCmd"])
-              .contains("cmd")))
-    {
-        logging::logMessage(
-            "Config JSON missing required information to execute system command for EEPROM " +
-            i_vpdFilePath);
-
-        return false;
-    }
-
     try
     {
+        if (i_vpdFilePath.empty() || i_parsedConfigJson.empty() ||
+            i_baseAction.empty() || i_flagToProcess.empty())
+        {
+            throw std::runtime_error(
+                "Invalid parameter. Abort processing of processSystemCmd.");
+        }
+
+        if (!((i_parsedConfigJson["frus"][i_vpdFilePath].at(
+                   0)[i_baseAction][i_flagToProcess]["systemCmd"])
+                  .contains("cmd")))
+        {
+            throw std::runtime_error(
+                "Config JSON missing required information to execute system command for EEPROM " +
+                i_vpdFilePath);
+        }
+
         const std::string& l_systemCommand =
             i_parsedConfigJson["frus"][i_vpdFilePath].at(
                 0)[i_baseAction][i_flagToProcess]["systemCmd"]["cmd"];
@@ -292,12 +294,10 @@ inline bool processSystemCmdTag(
         commonUtility::executeCmd(l_systemCommand);
         return true;
     }
-    catch (const std::exception& e)
+    catch (const std::exception& l_ex)
     {
-        std::string l_errMsg = "Process system tag failed for exception: ";
-        l_errMsg += e.what();
-
-        logging::logMessage(l_errMsg);
+        logging::logMessage("Process system command tag failed. Error : " +
+                            std::string(l_ex.what()));
         return false;
     }
 }
@@ -364,22 +364,13 @@ inline bool processGpioPresenceTag(
 
         return (l_presencePinValue == l_presenceLine.get_value());
     }
-    catch (const std::exception& ex)
+    catch (const std::exception& l_ex)
     {
         std::string l_errMsg = "Exception on GPIO line: ";
         l_errMsg += l_presencePinName;
         l_errMsg += " Reason: ";
-        l_errMsg += ex.what();
-        l_errMsg += " File: " + i_vpdFilePath + " Pel Logged";
-
-        // ToDo -- Update Internal Rc code.
-        EventLogger::createAsyncPelWithInventoryCallout(
-            types::ErrorType::GpioError, types::SeverityType::Informational,
-            {{getInventoryObjPathFromJson(i_parsedConfigJson, i_vpdFilePath),
-              types::CalloutPriority::High}},
-            std::source_location::current().file_name(),
-            std::source_location::current().function_name(), 0, l_errMsg,
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+        l_errMsg += l_ex.what();
+        l_errMsg += " File: " + i_vpdFilePath;
 
         logging::logMessage(l_errMsg);
 
@@ -437,6 +428,7 @@ inline bool procesSetGpioTag(
 
     logging::logMessage(
         "Setting GPIO: " + l_pinName + " to " + std::to_string(l_pinValue));
+
     try
     {
         gpiod::line l_outputLine = gpiod::find_line(l_pinName);
@@ -457,7 +449,7 @@ inline bool procesSetGpioTag(
         l_errMsg += l_pinName;
         l_errMsg += " Reason: ";
         l_errMsg += ex.what();
-        l_errMsg += " File: " + i_vpdFilePath + " Pel Logged";
+        l_errMsg += " File: " + i_vpdFilePath + "Pel Logged";
 
         // ToDo -- Update Internal RC code
         EventLogger::createAsyncPelWithInventoryCallout(
