@@ -161,47 +161,57 @@ inline void getKwVal(const types::IPZKwdValueMap& kwdValueMap,
 /**
  * @brief An API to process encoding of a keyword.
  *
- * @param[in] keyword - Keyword to be processed.
- * @param[in] encoding - Type of encoding.
+ * @param[in] i_keyword - Keyword to be processed.
+ * @param[in] i_encoding - Type of encoding.
+ *
  * @return Value after being processed for encoded type.
  */
-inline std::string encodeKeyword(const std::string& keyword,
-                                 const std::string& encoding)
+inline std::string encodeKeyword(const std::string& i_keyword,
+                                 const std::string& i_encoding) noexcept
 {
     // Default value is keyword value
-    std::string result(keyword.begin(), keyword.end());
-
-    if (encoding == "MAC")
+    std::string l_result(i_keyword.begin(), i_keyword.end());
+    try
     {
-        result.clear();
-        size_t firstByte = keyword[0];
-        result += commonUtility::toHex(firstByte >> 4);
-        result += commonUtility::toHex(firstByte & 0x0f);
-        for (size_t i = 1; i < keyword.size(); ++i)
+        if (i_encoding == "MAC")
         {
-            result += ":";
-            result += commonUtility::toHex(keyword[i] >> 4);
-            result += commonUtility::toHex(keyword[i] & 0x0f);
+            l_result.clear();
+            size_t l_firstByte = i_keyword[0];
+            l_result += commonUtility::toHex(l_firstByte >> 4);
+            l_result += commonUtility::toHex(l_firstByte & 0x0f);
+            for (size_t i = 1; i < i_keyword.size(); ++i)
+            {
+                l_result += ":";
+                l_result += commonUtility::toHex(i_keyword[i] >> 4);
+                l_result += commonUtility::toHex(i_keyword[i] & 0x0f);
+            }
+        }
+        else if (i_encoding == "DATE")
+        {
+            // Date, represent as
+            // <year>-<month>-<day> <hour>:<min>
+            l_result.clear();
+            static constexpr uint8_t skipPrefix = 3;
+
+            auto strItr = i_keyword.begin();
+            advance(strItr, skipPrefix);
+            for_each(strItr, i_keyword.end(),
+                     [&l_result](size_t c) { l_result += c; });
+
+            l_result.insert(constants::BD_YEAR_END, 1, '-');
+            l_result.insert(constants::BD_MONTH_END, 1, '-');
+            l_result.insert(constants::BD_DAY_END, 1, ' ');
+            l_result.insert(constants::BD_HOUR_END, 1, ':');
         }
     }
-    else if (encoding == "DATE")
+    catch (const std::exception& l_ex)
     {
-        // Date, represent as
-        // <year>-<month>-<day> <hour>:<min>
-        result.clear();
-        static constexpr uint8_t skipPrefix = 3;
-
-        auto strItr = keyword.begin();
-        advance(strItr, skipPrefix);
-        for_each(strItr, keyword.end(), [&result](size_t c) { result += c; });
-
-        result.insert(constants::BD_YEAR_END, 1, '-');
-        result.insert(constants::BD_MONTH_END, 1, '-');
-        result.insert(constants::BD_DAY_END, 1, ' ');
-        result.insert(constants::BD_HOUR_END, 1, ':');
+        l_result.clear();
+        logging::logMessage("Failed to encode keyword [" + i_keyword +
+                            "]. Error: " + l_ex.what());
     }
 
-    return result;
+    return l_result;
 }
 
 /**
