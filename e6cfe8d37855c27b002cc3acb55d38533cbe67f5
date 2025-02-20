@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a545be56_9d9e6248",
+        "filename": "vpd-tool/include/tool_constants.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-20T04:35:05Z",
+      "side": 1,
+      "message": "Yes, addressed it.",
+      "parentUuid": "a1b7f867_c134d5ea",
+      "revId": "e6cfe8d37855c27b002cc3acb55d38533cbe67f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce0e692b_8c7c87ae",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e63045a6_4b367e48",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-20T04:35:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce0e692b_8c7c87ae",
+      "revId": "e6cfe8d37855c27b002cc3acb55d38533cbe67f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c002b221_a106fef7",
@@ -48,6 +84,30 @@
       "writtenOn": "2025-02-20T04:13:35Z",
       "side": 1,
       "message": "Better name? like itr to what?",
+      "range": {
+        "startLine": 1343,
+        "startChar": 15,
+        "endLine": 1343,
+        "endChar": 22
+      },
+      "revId": "e6cfe8d37855c27b002cc3acb55d38533cbe67f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8061bf43_0a209cea",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1343,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-20T04:35:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c002b221_a106fef7",
       "range": {
         "startLine": 1343,
         "startChar": 15,
