@@ -469,59 +469,66 @@ inline std::string getDbusPropNameForGivenKw(const std::string& i_keywordName)
  * The API will check from parsed VPD map if the FRU is the one with desired
  * CCIN.
  *
- * @throw std::runtime_error
- * @throw DataException
- *
  * @param[in] i_JsonObject - Any JSON which contains CCIN tag to match.
  * @param[in] i_parsedVpdMap - Parsed VPD map.
+ *
  * @return True if found, false otherwise.
  */
 inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
-                          const types::VPDMapVariant& i_parsedVpdMap)
+                          const types::VPDMapVariant& i_parsedVpdMap) noexcept
 {
-    if (i_JsonObject.empty())
+    bool l_rc{false};
+    try
     {
-        throw std::runtime_error("Json object is empty. Can't find CCIN");
-    }
-
-    if (auto l_ipzVPDMap = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap))
-    {
-        auto l_itrToRec = (*l_ipzVPDMap).find("VINI");
-        if (l_itrToRec == (*l_ipzVPDMap).end())
+        if (i_JsonObject.empty())
         {
-            throw DataException(
-                "VINI record not found in parsed VPD. Can't find CCIN");
+            throw std::runtime_error("Json object is empty. Can't find CCIN");
         }
 
-        std::string l_ccinFromVpd{
-            vpdSpecificUtility::getKwVal(l_itrToRec->second, "CC")};
-        if (l_ccinFromVpd.empty())
+        if (auto l_ipzVPDMap = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap))
         {
-            throw DataException("Empty CCIN value in VPD map. Can't find CCIN");
-        }
-
-        transform(l_ccinFromVpd.begin(), l_ccinFromVpd.end(),
-                  l_ccinFromVpd.begin(), ::toupper);
-
-        for (std::string l_ccinValue : i_JsonObject["ccin"])
-        {
-            transform(l_ccinValue.begin(), l_ccinValue.end(),
-                      l_ccinValue.begin(), ::toupper);
-
-            if (l_ccinValue.compare(l_ccinFromVpd) ==
-                constants::STR_CMP_SUCCESS)
+            auto l_itrToRec = (*l_ipzVPDMap).find("VINI");
+            if (l_itrToRec == (*l_ipzVPDMap).end())
             {
-                // CCIN found
-                return true;
+                throw DataException(
+                    "VINI record not found in parsed VPD. Can't find CCIN");
             }
+
+            std::string l_ccinFromVpd{
+                vpdSpecificUtility::getKwVal(l_itrToRec->second, "CC")};
+            if (l_ccinFromVpd.empty())
+            {
+                throw DataException(
+                    "Empty CCIN value in VPD map. Can't find CCIN");
+            }
+
+            transform(l_ccinFromVpd.begin(), l_ccinFromVpd.end(),
+                      l_ccinFromVpd.begin(), ::toupper);
+
+            for (std::string l_ccinValue : i_JsonObject["ccin"])
+            {
+                transform(l_ccinValue.begin(), l_ccinValue.end(),
+                          l_ccinValue.begin(), ::toupper);
+
+                if (l_ccinValue.compare(l_ccinFromVpd) ==
+                    constants::STR_CMP_SUCCESS)
+                {
+                    // CCIN found
+                    l_rc = true;
+                }
+            }
+
+            logging::logMessage("No match found for CCIN");
         }
 
-        logging::logMessage("No match found for CCIN");
-        return false;
+        logging::logMessage("VPD type not supported. Can't find CCIN");
     }
-
-    logging::logMessage("VPD type not supported. Can't find CCIN");
-    return false;
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to find CCIN in VPD. Error : " + l_ex.what());
+    }
+    return l_rc;
 }
 
 /**
