@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fab251c7_889377a7",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1333,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-20T04:28:31Z",
+      "side": 1,
+      "message": "Can we keep cout msgs more brief?\nFailed to stop vpd-manager service. Ret code []. Exiting.\n\nApplies to all other instances.",
+      "revId": "f8c8de59c207aed33040719e518c603b4391d72f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f72b6dcb_59a77aa6",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1374,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-20T04:28:31Z",
+      "side": 1,
+      "message": "Do we need these logs?",
+      "revId": "f8c8de59c207aed33040719e518c603b4391d72f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "107dfabc_257563c3",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1404,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-20T04:28:31Z",
+      "side": 1,
+      "message": "Same here, Do we need this?",
+      "revId": "f8c8de59c207aed33040719e518c603b4391d72f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
