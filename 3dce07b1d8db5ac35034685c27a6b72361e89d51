@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fba27cdd_b1493e09",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-02-20T00:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1425a877_9c08c436",
+      "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f6963ad_7e5dd324",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-02-19T13:49:31Z",
       "side": 1,
       "message": "l_parsedJsonObj\n\nIf this variable used used only at the end to send empty object, we can directly return in place constructed empty json object. or we can use this variable at line 119 for assignment as a single return statement for this API ?",
+      "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f384eb72_8c508056",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-02-20T00:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f6963ad_7e5dd324",
       "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e671bc01_cebe1a07",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-02-20T00:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "360075a1_93a86956",
+      "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f139953_e684e266",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e59d446_34569c02",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-02-20T00:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f139953_e684e266",
+      "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb0b0831_576e9253",
@@ -82,6 +154,24 @@
       "writtenOn": "2025-02-19T13:49:31Z",
       "side": 1,
       "message": "Nit: in case empty string",
+      "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4fd343f_b95798c2",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-02-20T00:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb0b0831_576e9253",
       "revId": "3dce07b1d8db5ac35034685c27a6b72361e89d51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
