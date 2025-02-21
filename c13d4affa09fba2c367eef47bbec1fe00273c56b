@@ -34,6 +34,24 @@
       "parentUuid": "6068d0a7_3e484b92",
       "revId": "c13d4affa09fba2c367eef47bbec1fe00273c56b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ecdc8e2_74bf6ee9",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-21T16:06:40Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "97d04488_1b56d9c5",
+      "revId": "c13d4affa09fba2c367eef47bbec1fe00273c56b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
