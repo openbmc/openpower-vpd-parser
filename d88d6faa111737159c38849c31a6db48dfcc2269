@@ -16,6 +16,125 @@
       "message": "as record size and keyword size are different.\nand record name keyword name can\u0027t be same. so we don\u0027t need left shift operation (which is needed to generate unique hash, in case record and keyword values are same).",
       "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c40f89d_6d683e8c",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-21T05:34:26Z",
+      "side": 1,
+      "message": "empty line required.\nAPI is returning BiosAttributeCurrentValue(std;:variant) not tuple.",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ded23de_22aa00d5",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-21T05:34:26Z",
+      "side": 1,
+      "message": "it can be \"const unsigned char\u0026\"",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd8217ab_c28f1911",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-21T05:34:26Z",
+      "side": 1,
+      "message": "need new line after this",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e14458f3_91c6216a",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1357,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-21T05:34:26Z",
+      "side": 1,
+      "message": "l_numBits is enough as we referring without keyword here l_bitPosition",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9b89c93_08b566cb",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1359,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-21T05:34:26Z",
+      "side": 1,
+      "message": "l_numBytesKeyword is used in case of int64_t type, can we reduce the scope of this variable",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4c885c0_0972d31d",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1363,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-21T05:34:26Z",
+      "side": 1,
+      "message": "l_bitPosition is required only for string type(D1 attributes), can we keep this local.",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8028d1d2_c39b0d6a",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-21T05:34:26Z",
+      "side": 1,
+      "message": "instead of hardcoding, can we take sizeof(int64_t)",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
