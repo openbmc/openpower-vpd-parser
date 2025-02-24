@@ -190,5 +190,9 @@ enum ErrorType
 using InventoryCalloutData = std::tuple<std::string, CalloutPriority>;
 using DeviceCalloutData = std::tuple<std::string, std::string>;
 using I2cBusCalloutData = std::tuple<std::string, std::string, std::string>;
+
+using ErrorInfoVariant = std::variant<std::monostate, ErrorType>;
+/* Error info map of format <Error format, Value> */
+using ErrorInfoMap = std::map<std::string, ErrorInfoVariant>;
 } // namespace types
 } // namespace vpd
