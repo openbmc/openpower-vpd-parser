@@ -310,20 +310,34 @@ void Worker::fillVPDMap(const std::string& vpdFilePath,
     }
     catch (const std::exception& ex)
     {
+        if (typeid(ex) == std::type_index(typeid(DataException)) ||
+            typeid(ex) == std::type_index(typeid(EccException)))
+        {
+            if (auto l_exceptionData = vpdSpecificUtility::getExceptionData(ex);
+                !l_exceptionData.empty())
+            {
+                std::string l_errorMsg{
+                    "VPD Parser failed for [" + vpdFilePath + "], " +
+                    *(std::get_if<std::string>(&l_exceptionData["ErrorMsg"]))};
+
+                // ToDo -- Update Internal Rc code.
+                EventLogger::createAsyncPelWithInventoryCallout(
+                    *(std::get_if<types::ErrorType>(
+                        &l_exceptionData["ErrorType"])),
+                    types::SeverityType::Informational,
+                    {{jsonUtility::getInventoryObjPathFromJson(m_parsedJson,
+                                                               vpdFilePath),
+                      types::CalloutPriority::High}},
+                    std::source_location::current().file_name(),
+                    std::source_location::current().function_name(), 0,
+                    l_errorMsg, std::nullopt, std::nullopt, std::nullopt,
+                    std::nullopt);
+            }
+        }
+
         if (typeid(ex) == std::type_index(typeid(DataException)))
         {
             // TODO: Do what needs to be done in case of Data exception.
-            // Uncomment when PEL implementation goes in.
-            /* string errorMsg =
-                 "VPD file is either empty or invalid. Parser failed for [";
-             errorMsg += m_vpdFilePath;
-             errorMsg += "], with error = " + std::string(ex.what());
-
-             additionalData.emplace("DESCRIPTION", errorMsg);
-             additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                                    INVENTORY_PATH + baseFruInventoryPath);
-             createPEL(additionalData, pelSeverity, errIntfForInvalidVPD,
-             nullptr);*/
 
             // throw generic error from here to inform main caller about
             // failure.
@@ -335,13 +349,6 @@ void Worker::fillVPDMap(const std::string& vpdFilePath,
         if (typeid(ex) == std::type_index(typeid(EccException)))
         {
             // TODO: Do what needs to be done in case of ECC exception.
-            // Uncomment when PEL implementation goes in.
-            /* additionalData.emplace("DESCRIPTION", "ECC check failed");
-             additionalData.emplace("CALLOUT_INVENTORY_PATH",
-                                    INVENTORY_PATH + baseFruInventoryPath);
-             createPEL(additionalData, pelSeverity, errIntfForEccCheckFail,
-                       nullptr);
-             */
 
             logging::logMessage(ex.what());
             // Need to decide once all error handling is implemented.
