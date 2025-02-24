@@ -229,6 +229,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c7b56be_6fac034b",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-24T10:30:52Z",
+      "side": 1,
+      "message": "in case keyword is in bytes size, enabled value \u0026 disabled value fields won\u0027t be used.",
+      "parentUuid": "b003972d_96cec57c",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd8217ab_c28f1911",
@@ -295,6 +313,24 @@
       "side": 1,
       "message": "`l_numBitsKeyword` gives more context. Do you see an issue here if we use longer variable name?",
       "parentUuid": "e14458f3_91c6216a",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec196f72_b8043969",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1357,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-24T10:30:52Z",
+      "side": 1,
+      "message": "its not about longer variable name, how we used variable name to describe.\nl_numOfBitsUsed or l_numOfBits gives more readability than l_numBitsKeyword which is not giving much sense while understanding it.",
+      "parentUuid": "547cd779_6297a7a9",
       "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -493,6 +529,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fff50c2a_a86af8fc",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-24T10:30:52Z",
+      "side": 1,
+      "message": "if we are not using it any more, we can modify it. unless original is used later.",
+      "parentUuid": "a8b9fef7_abe1fbba",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f4b12c8_a7cad70f",
         "filename": "vpd-tool/src/vpd_tool.cpp",
         "patchSetId": 27
@@ -557,6 +611,24 @@
       "side": 1,
       "message": "I think its implicitly understood that we will update a bit on the 0th byte. I do not see a scenario where we will update a bit on some other byte.",
       "parentUuid": "c1e5cb42_1febedea",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17e255a7_71d25fc5",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1403,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-24T10:30:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6d27f900_22ed26c7",
       "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
