@@ -727,5 +727,40 @@ inline bool isPowerVsConfiguration(const types::BinaryVector& i_imValue)
     }
     return false;
 }
+
+/**
+ * @brief API to get error info based on the exception.
+ *
+ * @param[in] i_exception - Exception object.
+ *
+ * @return - Valid ErrorInfoMap on success, otherwise empty map.
+ */
+inline types::ErrorInfoMap getErrorInfo(const Exception& i_exception)
+{
+    types::ErrorInfoMap l_errorInfo{};
+
+    try
+    {
+        if (typeid(i_exception) == typeid(DataException))
+        {
+            const DataException& l_ex =
+                dynamic_cast<const DataException&>(i_exception);
+            l_errorInfo["ErrorType"] = l_ex.getErrorType();
+        }
+
+        if (typeid(i_exception) == typeid(EccException))
+        {
+            const EccException& l_ex =
+                dynamic_cast<const EccException&>(i_exception);
+            l_errorInfo["ErrorType"] = l_ex.getErrorType();
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to get error info, reason: " + std::string(l_ex.what()));
+    }
+    return l_errorInfo;
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd
