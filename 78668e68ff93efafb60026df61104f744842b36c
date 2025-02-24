@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ce98b57_a0bab984",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-24T13:46:16Z",
+      "side": 1,
+      "message": "No empty map. Default values should be there.",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 2
+      },
+      "revId": "78668e68ff93efafb60026df61104f744842b36c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e47fe1f_253fa7f4",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-24T13:46:16Z",
+      "side": 1,
+      "message": "How will this handle std::exception?",
+      "range": {
+        "startLine": 738,
+        "startChar": 46,
+        "endLine": 738,
+        "endChar": 55
+      },
+      "revId": "78668e68ff93efafb60026df61104f744842b36c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85853d67_682125ad",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-24T13:46:16Z",
+      "side": 1,
+      "message": "On a second thought, can we name the type as \"types::ExceptionDataMap\"\nas it deals with exception.\nAlso the method name as \"getExceptionData\".",
+      "revId": "78668e68ff93efafb60026df61104f744842b36c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "859a7aed_44909e00",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-24T13:46:16Z",
+      "side": 1,
+      "message": "Initialize with the default type and a default ErrorMessage.",
+      "revId": "78668e68ff93efafb60026df61104f744842b36c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c710ca0_52348c10",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-24T13:46:16Z",
+      "side": 1,
+      "message": "Handling for other types are missing.",
+      "revId": "78668e68ff93efafb60026df61104f744842b36c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
