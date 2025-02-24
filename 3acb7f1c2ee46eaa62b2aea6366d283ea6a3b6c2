@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "830357f4_14169ed4",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-24T06:18:43Z",
+      "side": 1,
+      "message": "why these are not in the json ?",
+      "revId": "3acb7f1c2ee46eaa62b2aea6366d283ea6a3b6c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2c65975_083fb736",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-24T06:18:43Z",
+      "side": 1,
+      "message": "why is this not above and here as the get is done above",
+      "revId": "3acb7f1c2ee46eaa62b2aea6366d283ea6a3b6c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
