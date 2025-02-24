@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b37f30b2_1f6e6154",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T06:58:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2584d02_75188b39",
+      "revId": "ac1045205a04673e183419912ec98f0049b3fdce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f7038fd_61dc26e5",
@@ -106,6 +124,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "779cfd1d_9525e1e6",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T06:58:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2753386_b8f930c0",
+      "revId": "ac1045205a04673e183419912ec98f0049b3fdce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7638a67f_94c1472e",
@@ -119,6 +155,24 @@
       "writtenOn": "2025-02-21T10:25:47Z",
       "side": 1,
       "message": "earlier this API was throwing, so any error would have stopped processing. Now how that is being handled?",
+      "revId": "ac1045205a04673e183419912ec98f0049b3fdce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3d5675f_1a720f7f",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T06:58:41Z",
+      "side": 1,
+      "message": "Addressed this. The callers of this API check for empty value and throw std::runtime_error if needed. This ensures the behavior remains same as of today.",
+      "parentUuid": "7638a67f_94c1472e",
       "revId": "ac1045205a04673e183419912ec98f0049b3fdce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
