@@ -687,5 +687,38 @@ inline bool isPass1Planar() noexcept
 
     return l_rc;
 }
+
+/**
+ * @brief API to get error info based on the exception.
+ *
+ * @param[in] i_exception - Exception object.
+ *
+ * @return - Valid ErrorInfoMap on success, otherwise empty map.
+ */
+inline types::ErrorInfoMap getErrorInfo(Exception& i_exception)
+{
+    types::ErrorInfoMap l_errorInfo{};
+
+    try
+    {
+        if (typeid(i_exception) == typeid(DataException))
+        {
+            DataException& l_ex = dynamic_cast<DataException&>(i_exception);
+            l_errorInfo["ErrorType"] = l_ex.getErrorType();
+        }
+
+        if (typeid(i_exception) == typeid(EccException))
+        {
+            EccException& l_ex = dynamic_cast<EccException&>(i_exception);
+            l_errorInfo["ErrorType"] = l_ex.getErrorType();
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to get error info, reason: " + std::string(l_ex.what()));
+    }
+    return l_errorInfo;
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd
