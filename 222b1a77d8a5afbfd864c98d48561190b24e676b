@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b46fc9b_a4d2de64",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-24T04:17:12Z",
+      "side": 1,
+      "message": "nit: not driver -\u003e image",
+      "revId": "222b1a77d8a5afbfd864c98d48561190b24e676b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6e60e35_f0153cca",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-24T04:17:12Z",
+      "side": 1,
+      "message": "nit:two character string",
+      "revId": "222b1a77d8a5afbfd864c98d48561190b24e676b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4f68499_a398c8fb",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-24T04:17:12Z",
+      "side": 1,
+      "message": "nit:remove comment",
+      "revId": "222b1a77d8a5afbfd864c98d48561190b24e676b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2086ce27_7d258700",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-24T04:17:12Z",
+      "side": 1,
+      "message": "nit:True-\u003etrue",
+      "revId": "222b1a77d8a5afbfd864c98d48561190b24e676b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09cfea76_7877d776",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-24T04:17:12Z",
+      "side": 1,
+      "message": "better to check with 5000 series",
+      "revId": "222b1a77d8a5afbfd864c98d48561190b24e676b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8f6214c_d99a9526",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-24T04:17:12Z",
+      "side": 1,
+      "message": "nit: 0x500030xx",
+      "revId": "222b1a77d8a5afbfd864c98d48561190b24e676b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a345d4f_73af8e58",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-24T04:17:12Z",
+      "side": 1,
+      "message": "nit: l_ImagePrefix (camel case )",
+      "revId": "222b1a77d8a5afbfd864c98d48561190b24e676b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ac7334a_71611300",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-24T04:17:12Z",
+      "side": 1,
+      "message": "nit: PowerVS",
+      "revId": "222b1a77d8a5afbfd864c98d48561190b24e676b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63877c94_be8884d7",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-02-24T04:17:12Z",
+      "side": 1,
+      "message": "nit: 0x500010xx",
+      "revId": "222b1a77d8a5afbfd864c98d48561190b24e676b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
