@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1334de97_55e9dac1",
+        "filename": "vpd-tool/include/tool_types.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2119f83e_bb701599",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c40f89d_6d683e8c",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-02-21T05:34:26Z",
       "side": 1,
       "message": "empty line required.\nAPI is returning BiosAttributeCurrentValue(std;:variant) not tuple.",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dde89d2d_05883883",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c40f89d_6d683e8c",
       "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5181df28_d97683e8",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c77c7837_dbcc606e",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ded23de_22aa00d5",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae107f81_8795d589",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "This API is copy-pasted from vpd-manager utility. Addressed this here.",
+      "parentUuid": "2ded23de_22aa00d5",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "518faa6c_19bbdb9b",
@@ -82,6 +154,24 @@
       "writtenOn": "2025-02-24T05:28:37Z",
       "side": 1,
       "message": "enabled value/max value, disabled value/min value\n?",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae4d1050_df3e68ad",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "\u003eenabled value/max value, disabled value/min value\n\nWe do not care about max/min value for the BIOS attributes here. Only the enabled/disabled value is needed.",
+      "parentUuid": "518faa6c_19bbdb9b",
       "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -123,6 +213,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b003972d_96cec57c",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "\u003eneed to use bytes not bit for RG.\n\nThat would require creating a separate std::map for `VSYS:RG`, which is an unnecessary overhead.\n\n\u003erange should be updated to max value of byte length (255) ?\n\nWhat do you mean by range here?",
+      "parentUuid": "c78f3804_41e15476",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd8217ab_c28f1911",
         "filename": "vpd-tool/src/vpd_tool.cpp",
         "patchSetId": 27
@@ -134,6 +242,24 @@
       "writtenOn": "2025-02-21T05:34:26Z",
       "side": 1,
       "message": "need new line after this",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ac1b39_892332a5",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd8217ab_c28f1911",
       "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -157,6 +283,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "547cd779_6297a7a9",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1357,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "`l_numBitsKeyword` gives more context. Do you see an issue here if we use longer variable name?",
+      "parentUuid": "e14458f3_91c6216a",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e9b89c93_08b566cb",
         "filename": "vpd-tool/src/vpd_tool.cpp",
         "patchSetId": 27
@@ -168,6 +312,24 @@
       "writtenOn": "2025-02-21T05:34:26Z",
       "side": 1,
       "message": "l_numBytesKeyword is used in case of int64_t type, can we reduce the scope of this variable",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "805709be_023833ef",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1359,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9b89c93_08b566cb",
       "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -189,6 +351,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed6f05e4_99b0d6f0",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1363,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4c885c0_0972d31d",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e241e49e_137cd041",
@@ -206,6 +386,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b863045b_db978354",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e241e49e_137cd041",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8028d1d2_c39b0d6a",
@@ -219,6 +417,24 @@
       "writtenOn": "2025-02-21T05:34:26Z",
       "side": 1,
       "message": "instead of hardcoding, can we take sizeof(int64_t)",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbf6dd70_a335e7b7",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8028d1d2_c39b0d6a",
       "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -259,6 +475,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8b9fef7_abe1fbba",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "Using `l_valStr` to keep a copy of the attribute value in lower case.\n`*l_attrVal` holds the original value read from BIOS Config Manager.",
+      "parentUuid": "6ab6bf94_97c8e19e",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f4b12c8_a7cad70f",
         "filename": "vpd-tool/src/vpd_tool.cpp",
         "patchSetId": 27
@@ -270,6 +504,24 @@
       "writtenOn": "2025-02-22T07:14:47Z",
       "side": 1,
       "message": "I dint get why do we need this casting, as utils::toLower() takes std::string\u0026",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b307560f_106f93fc",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1396,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f4b12c8_a7cad70f",
       "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -287,6 +539,24 @@
       "writtenOn": "2025-02-22T07:14:47Z",
       "side": 1,
       "message": "Nit: update single bit on the 0th byte. ?",
+      "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d27f900_22ed26c7",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1403,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-02-24T09:01:39Z",
+      "side": 1,
+      "message": "I think its implicitly understood that we will update a bit on the 0th byte. I do not see a scenario where we will update a bit on some other byte.",
+      "parentUuid": "c1e5cb42_1febedea",
       "revId": "d88d6faa111737159c38849c31a6db48dfcc2269",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
