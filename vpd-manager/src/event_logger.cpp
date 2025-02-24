@@ -1,5 +1,6 @@
 #include "event_logger.hpp"
 
+#include "exceptions.hpp"
 #include "logger.hpp"
 
 #include <systemd/sd-bus.h>
@@ -293,5 +294,80 @@ void EventLogger::createSyncPel(
         logging::logMessage("Sync PEL creation failed with an error: " +
                             std::string(l_ex.what()));
     }
+}
+
+types::ExceptionDataMap EventLogger::getExceptionData(
+    const std::exception& i_exception)
+{
+    types::ExceptionDataMap l_errorInfo{
+        {"ErrorType", types::ErrorType::InternalFailure},
+        {"ErrorMsg", i_exception.what()}};
+
+    try
+    {
+        if (typeid(i_exception) == typeid(DataException))
+        {
+            const DataException& l_ex =
+                dynamic_cast<const DataException&>(i_exception);
+            l_errorInfo["ErrorType"] = l_ex.getErrorType();
+            l_errorInfo["ErrorMsg"] =
+                std::string("Data Exception. Reason: ") + i_exception.what();
+        }
+        else if (typeid(i_exception) == typeid(EccException))
+        {
+            const EccException& l_ex =
+                dynamic_cast<const EccException&>(i_exception);
+            l_errorInfo["ErrorType"] = l_ex.getErrorType();
+            l_errorInfo["ErrorMsg"] =
+                std::string("Ecc Exception. Reason: ") + i_exception.what();
+        }
+        else if (typeid(i_exception) == typeid(JsonException))
+        {
+            const JsonException& l_ex =
+                dynamic_cast<const JsonException&>(i_exception);
+            l_errorInfo["ErrorType"] = l_ex.getErrorType();
+            l_errorInfo["ErrorMsg"] =
+                std::string("Json Exception. Reason: ") + i_exception.what();
+        }
+        else if (typeid(i_exception) == typeid(GpioException))
+        {
+            const GpioException& l_ex =
+                dynamic_cast<const GpioException&>(i_exception);
+            l_errorInfo["ErrorType"] = l_ex.getErrorType();
+            l_errorInfo["ErrorMsg"] =
+                std::string("Gpio Exception. Reason: ") + i_exception.what();
+        }
+        else if (typeid(i_exception) == typeid(DbusException))
+        {
+            const DbusException& l_ex =
+                dynamic_cast<const DbusException&>(i_exception);
+            l_errorInfo["ErrorType"] = l_ex.getErrorType();
+            l_errorInfo["ErrorMsg"] =
+                std::string("Dbus Exception. Reason: ") + i_exception.what();
+        }
+        else if (typeid(i_exception) == typeid(FirmwareException))
+        {
+            const FirmwareException& l_ex =
+                dynamic_cast<const FirmwareException&>(i_exception);
+            l_errorInfo["ErrorType"] = l_ex.getErrorType();
+            l_errorInfo["ErrorMsg"] =
+                std::string("Firmware Exception. Reason: ") +
+                i_exception.what();
+        }
+        else if (typeid(i_exception) == typeid(EepromException))
+        {
+            const EepromException& l_ex =
+                dynamic_cast<const EepromException&>(i_exception);
+            l_errorInfo["ErrorType"] = l_ex.getErrorType();
+            l_errorInfo["ErrorMsg"] =
+                std::string("Eeprom Exception. Reason: ") + i_exception.what();
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to get error info, reason: " + std::string(l_ex.what()));
+    }
+    return l_errorInfo;
 }
 } // namespace vpd

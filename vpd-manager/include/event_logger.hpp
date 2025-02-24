@@ -160,6 +160,17 @@ class EventLogger
         const std::optional<std::string> i_procedure);
 
   private:
+    /**
+     * @brief API to get error info based on the exception.
+     *
+     * @param[in] i_exception - Exception object.
+     *
+     * @return - Valid ExceptionDataMap on success, otherwise map having default
+     * value.
+     */
+    static types::ExceptionDataMap getExceptionData(
+        const std::exception& i_exception);
+
     static const std::unordered_map<types::SeverityType, std::string>
         m_severityMap;
     static const std::unordered_map<types::ErrorType, std::string>
