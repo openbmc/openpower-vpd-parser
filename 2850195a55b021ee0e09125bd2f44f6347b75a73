@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4402668_64498fd6",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 1389,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-25T11:07:40Z",
+      "side": 1,
+      "message": "do we need extra variable l_numBitsShift \u0026 l_mask, can\u0027t we do in place calculation ?\ncurrent operation :(*l_attrVal \u0026 (l_byteMask \u003c\u003c (l_byte * 8))) \u003e\u003e (l_byte * 8)\ncan we optimise it ?",
+      "revId": "2850195a55b021ee0e09125bd2f44f6347b75a73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
