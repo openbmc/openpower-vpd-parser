@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf26705d_51dac0dd",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-25T06:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ce98b57_a0bab984",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 2
+      },
+      "revId": "78668e68ff93efafb60026df61104f744842b36c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e47fe1f_253fa7f4",
@@ -66,6 +90,48 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "981e614a_8bb223a7",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-25T06:03:25Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "9e47fe1f_253fa7f4",
+      "range": {
+        "startLine": 738,
+        "startChar": 46,
+        "endLine": 738,
+        "endChar": 55
+      },
+      "revId": "78668e68ff93efafb60026df61104f744842b36c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b56843c6_31c3db2c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-25T06:03:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "85853d67_682125ad",
+      "revId": "78668e68ff93efafb60026df61104f744842b36c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "859a7aed_44909e00",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 3
@@ -77,6 +143,24 @@
       "writtenOn": "2025-02-24T13:46:16Z",
       "side": 1,
       "message": "Initialize with the default type and a default ErrorMessage.",
+      "revId": "78668e68ff93efafb60026df61104f744842b36c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88a46564_15e861d4",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-25T06:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "859a7aed_44909e00",
       "revId": "78668e68ff93efafb60026df61104f744842b36c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -94,6 +178,24 @@
       "writtenOn": "2025-02-24T13:46:16Z",
       "side": 1,
       "message": "Handling for other types are missing.",
+      "revId": "78668e68ff93efafb60026df61104f744842b36c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c16c4bd_de6bcebe",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-25T06:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c710ca0_52348c10",
       "revId": "78668e68ff93efafb60026df61104f744842b36c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
