@@ -442,6 +442,18 @@ void Manager::ConfigurePowerVsSystem()
         // TODO log appropriate PEL
     }
 }
+
+void Manager::processFailedEeproms()
+{
+    if (m_worker.get() != nullptr)
+    {
+        // TODO:
+        // - iterate through list of EEPROMs for which thread creation has
+        // failed
+        // - For each failed EEPROM, trigger VPD collection
+        m_worker->getFailedEepromPaths().clear();
+    }
+}
 #endif
 
 int Manager::updateKeyword(const types::Path i_vpdPath,
@@ -1076,18 +1088,6 @@ void Manager::performVpdRecollection()
         // TODO Log PEL
         logging::logMessage(
             "VPD recollection failed with error: " + std::string(l_ex.what()));
-    }
-}
-
-void Manager::processFailedEeproms()
-{
-    if (m_worker.get() != nullptr)
-    {
-        // TODO:
-        // - iterate through list of EEPROMs for which thread creation has
-        // failed
-        // - For each failed EEPROM, trigger VPD collection
-        m_worker->getFailedEepromPaths().clear();
     }
 }
 } // namespace vpd
