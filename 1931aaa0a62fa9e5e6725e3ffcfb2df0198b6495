@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ff5bd7d_6ceab49a",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-25T17:31:05Z",
+      "side": 1,
+      "message": "Why is this casting required?",
+      "revId": "1931aaa0a62fa9e5e6725e3ffcfb2df0198b6495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbcb4323_c9394813",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-25T17:31:05Z",
+      "side": 1,
+      "message": "I am not understanding, what are you trying to do here?",
+      "revId": "1931aaa0a62fa9e5e6725e3ffcfb2df0198b6495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fedbb17c_edd32b68",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-25T17:31:05Z",
+      "side": 1,
+      "message": "How is this code valid? Is it possible to have empty \"l_exceptionData\"?",
+      "revId": "1931aaa0a62fa9e5e6725e3ffcfb2df0198b6495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "463a979a_1c4465b8",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-25T17:31:05Z",
+      "side": 1,
+      "message": "What if it is a null pointer?",
+      "revId": "1931aaa0a62fa9e5e6725e3ffcfb2df0198b6495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06783f4f_246b454d",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-25T17:31:05Z",
+      "side": 1,
+      "message": "Same here. What if Null pointer?",
+      "revId": "1931aaa0a62fa9e5e6725e3ffcfb2df0198b6495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
