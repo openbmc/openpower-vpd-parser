@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "096f413f_14b2cf57",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-02-26T09:35:24Z",
+      "side": 1,
+      "message": "Why do we need this comparison still?",
+      "revId": "71503cd18fab221d8259c4102c83b1be5f2f8172",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
