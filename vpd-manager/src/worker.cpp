@@ -310,39 +310,15 @@ void Worker::fillVPDMap(const std::string& vpdFilePath,
     }
     catch (const std::exception& ex)
     {
-        auto l_exceptionData = vpdSpecificUtility::getExceptionData(ex);
-        std::string l_error(ex.what());
+        // TODO:revist PEL type logged.
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(ex), types::SeverityType::Critical,
+            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(ex),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
 
-        if (std::get_if<std::string>(&l_exceptionData["ErrorMsg"]) &&
-            std::get_if<types::ErrorType>(&l_exceptionData["ErrorType"]))
-        {
-            l_error = *(std::get_if<std::string>(&l_exceptionData["ErrorMsg"]));
-
-            std::string l_errorMsg{
-                "VPD Parser failed for [" + vpdFilePath + "], " + l_error};
-
-            // ToDo -- Update Internal Rc code.
-            EventLogger::createAsyncPelWithInventoryCallout(
-                *(std::get_if<types::ErrorType>(&l_exceptionData["ErrorType"])),
-                types::SeverityType::Informational,
-                {{jsonUtility::getInventoryObjPathFromJson(m_parsedJson,
-                                                           vpdFilePath),
-                  types::CalloutPriority::High}},
-                std::source_location::current().file_name(),
-                std::source_location::current().function_name(), 0, l_errorMsg,
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
-        }
-
-        if (typeid(ex) == std::type_index(typeid(EccException)))
-        {
-            // TODO: Do what needs to be done in case of ECC exception.
-
-            // Need to decide once all error handling is implemented.
-            // vpdSpecificUtility::dumpBadVpd(vpdFilePath,vpdVector);
-        }
-
-        logging::logMessage(l_error);
-        throw std::runtime_error(l_error + ", for file path = " + vpdFilePath);
+        // TODO: Remove throw.
+        throw std::runtime_error(
+            ex.what() + ", for file path = " + vpdFilePath);
     }
 }
 
@@ -1676,11 +1652,11 @@ void Worker::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
     catch (const std::exception& l_ex)
     {
         EventLogger::createSyncPel(
-            types::ErrorType::InvalidVpdMessage,
-            types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
+            __FILE__, __FUNCTION__, 0,
             std::string(
                 "Exception caught while backup and restore VPD keyword's.") +
-                l_ex.what(),
+                EventLogger::getErrorMsg(l_ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
 }
