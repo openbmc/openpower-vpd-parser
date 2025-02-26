@@ -294,4 +294,44 @@ void EventLogger::createSyncPel(
                             std::string(l_ex.what()));
     }
 }
+
+types::ErrorType getErrorType(const std::exception& i_exception)
+{
+    const auto& l_exceptionDataMap =
+        vpdSpecificUtility::getExceptionData(i_exception);
+
+    auto l_itrToErrType = l_exceptionDataMap.find("ErrorType");
+    if (l_itrToErrType == l_exceptionDataMap.end())
+    {
+        return types::ErrorType::InternalFailure;
+    }
+
+    auto l_ptrToErrType = std::get_if<types::ErrorType>(l_itrToErrType->second);
+    if (!l_ptrToErrType)
+    {
+        return types::ErrorType::InternalFailure;
+    }
+
+    return *l_ptrToErrType;
+}
+
+std::string getErrorMsg(const std::exception& i_exception)
+{
+    const auto& l_exceptionDataMap =
+        vpdSpecificUtility::getExceptionData(i_exception);
+
+    auto l_itrToErrMsg = l_exceptionDataMap.find("ErrorMsg");
+    if (l_itrToErrMsg == l_exceptionDataMap.end())
+    {
+        return i_exception.what();
+    }
+
+    auto l_ptrToErrMsg = std::get_if<std::string>(l_itrToErrMsg->second);
+    if (!l_ptrToErrMsg)
+    {
+        return i_exception.what();
+    }
+
+    return *l_ptrToErrMsg;
+}
 } // namespace vpd
