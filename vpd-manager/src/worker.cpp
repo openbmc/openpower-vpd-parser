@@ -1685,11 +1685,11 @@ void Worker::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
     catch (const std::exception& l_ex)
     {
         EventLogger::createSyncPel(
-            types::ErrorType::InvalidVpdMessage,
-            types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
+            __FILE__, __FUNCTION__, 0,
             std::string(
                 "Exception caught while backup and restore VPD keyword's.") +
-                l_ex.what(),
+                EventLogger::getErrorMsg(l_ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
 }
