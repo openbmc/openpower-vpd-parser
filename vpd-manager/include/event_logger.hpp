@@ -21,6 +21,26 @@ class EventLogger
 {
   public:
     /**
+     * @brief API to get Error type.
+     *
+     * @param[in] i_exception - Exception object.
+     *
+     * @return Error type set for the exception.
+     * types::ErrorType::InternalFailure otherwise.
+     */
+    static types::ErrorType getErrorType(const std::exception& i_exception);
+
+    /**
+     * @brief API to get Error msg.
+     *
+     * @param[in] i_exception - Exception object.
+     *
+     * @return Error msg set for the specific exception. Default error msg
+     * otherwise.
+     */
+    static std::string getErrorMsg(const std::exception& i_exception);
+
+    /**
      * @brief An API to create a PEL with inventory path callout.
      *
      * This API calls an async method to create PEL, and also handles inventory
