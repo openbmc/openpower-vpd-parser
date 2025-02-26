@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27920fa3_16d0da1b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-26T09:16:24Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "1ff5bd7d_6ceab49a",
+      "revId": "1931aaa0a62fa9e5e6725e3ffcfb2df0198b6495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbcb4323_c9394813",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-02-25T17:31:05Z",
       "side": 1,
       "message": "I am not understanding, what are you trying to do here?",
+      "revId": "1931aaa0a62fa9e5e6725e3ffcfb2df0198b6495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b61252c4_af9d3209",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-26T09:16:24Z",
+      "side": 1,
+      "message": "creating PEL irrespective of exception type.",
+      "parentUuid": "dbcb4323_c9394813",
       "revId": "1931aaa0a62fa9e5e6725e3ffcfb2df0198b6495",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "56016ff6_a07d7f2d",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-26T09:16:24Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "fedbb17c_edd32b68",
+      "revId": "1931aaa0a62fa9e5e6725e3ffcfb2df0198b6495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "463a979a_1c4465b8",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 8
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "743c5b30_0d9a255c",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-26T09:16:24Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "463a979a_1c4465b8",
+      "revId": "1931aaa0a62fa9e5e6725e3ffcfb2df0198b6495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06783f4f_246b454d",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 8
@@ -82,6 +154,24 @@
       "writtenOn": "2025-02-25T17:31:05Z",
       "side": 1,
       "message": "Same here. What if Null pointer?",
+      "revId": "1931aaa0a62fa9e5e6725e3ffcfb2df0198b6495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc37d5d7_87183a29",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-02-26T09:16:24Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "06783f4f_246b454d",
       "revId": "1931aaa0a62fa9e5e6725e3ffcfb2df0198b6495",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
