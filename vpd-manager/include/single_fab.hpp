@@ -4,6 +4,7 @@
 
 namespace vpd
 {
+
 /**
  * @brief class to implement single fab feature.
  *
@@ -29,5 +30,14 @@ class SingleFab
      * @return IM value on success, empty string otherwise.
      */
     std::string getImFromPlanar() const noexcept;
+
+    /**
+     * @brief API to get system mode.
+     *
+     * This API returns whether the system is in field mode or lab mode.
+     *
+     * @return System mode on success, invalid mode in case of any failure.
+     */
+    bool isFieldModeEnabled() const noexcept;
 };
 } // namespace vpd
