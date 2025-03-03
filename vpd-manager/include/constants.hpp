@@ -235,5 +235,8 @@ static constexpr auto power_vs_50003_json =
     "/usr/share/vpd/50003_power_vs.json";
 static constexpr auto power_vs_50001_json =
     "/usr/share/vpd/50001_power_vs.json";
+
+static constexpr auto KW_NAME_SIZE_IN_BYTES = 0x02;
+static constexpr auto IM_KW_OFFSET = 0x000005f8;
 } // namespace constants
 } // namespace vpd
