@@ -29,5 +29,12 @@ class SingleFab
      * @return IM value on success, empty string otherwise.
      */
     std::string getImFromPlanar() const noexcept;
+
+    /**
+     * @brief API to check if field mode is enabled.
+     *
+     * @return true, if field mode is enabled. otherwise false.
+     */
+    bool isFieldModeEnabled() const noexcept;
 };
 } // namespace vpd
