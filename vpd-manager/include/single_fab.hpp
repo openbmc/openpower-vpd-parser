@@ -22,5 +22,11 @@ class SingleFab
      * @return IM value on success, empty string otherwise.
      */
     std::string getImFromPersistedLocation() const noexcept;
+
+    /** @brief API to get IM value from system planar EEPROM path.
+     *
+     * @return IM value on success, empty string otherwise.
+     */
+    std::string getImFromPlanar() const noexcept;
 };
 } // namespace vpd
