@@ -190,5 +190,13 @@ enum ErrorType
 using InventoryCalloutData = std::tuple<std::string, CalloutPriority>;
 using DeviceCalloutData = std::tuple<std::string, std::string>;
 using I2cBusCalloutData = std::tuple<std::string, std::string, std::string>;
+
+/* enum for System mode types. */
+enum SystemMode
+{
+    FieldMode,
+    LabMode,
+    InvalidMode
+};
 } // namespace types
 } // namespace vpd

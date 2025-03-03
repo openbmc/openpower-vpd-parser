@@ -174,6 +174,8 @@ constexpr auto imageExtendedVerInf =
     "xyz.openbmc_project.Software.ExtendedVersion";
 constexpr auto functionalImageObjPath =
     "/xyz/openbmc_project/software/functional";
+constexpr auto softwareImageObjpath = "/xyz/openbmc_project/software";
+constexpr auto fieldModeIntreface = "xyz.openbmc_project.Control.FieldMode";
 constexpr auto associationInterface = "xyz.openbmc_project.Association";
 constexpr auto powerVsImagePrefix_MY = "MY";
 constexpr auto powerVsImagePrefix_MZ = "MZ";
