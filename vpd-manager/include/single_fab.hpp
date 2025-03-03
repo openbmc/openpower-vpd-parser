@@ -38,5 +38,12 @@ class SingleFab
      * @return true if value updated successfully, otherwise false.
      */
     bool setImOnPlanar(const std::string& i_imValue) const noexcept;
+
+    /**
+     * @brief API to check is field mode enabled.
+     *
+     * @return true, if field mode is enabled. otherwise false.
+     */
+    bool isFieldModeEnabled() const noexcept;
 };
 } // namespace vpd
