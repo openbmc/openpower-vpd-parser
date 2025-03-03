@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "single_fab.hpp"
 
 #include "constants.hpp"
@@ -9,6 +11,8 @@ namespace vpd
 {
 constexpr auto pimPersistVsbpPath =
     "/var/lib/phosphor-inventory-manager/xyz/openbmc_project/inventory/system/chassis/motherboard/com.ibm.ipzvpd.VSBP";
+constexpr auto IM_SIZE_IN_BYTES = 0x04;
+constexpr auto IM_KW_VALUE_OFFSET = 0x000005fb;
 
 std::string SingleFab::getImFromPersistedLocation() const noexcept
 {
@@ -43,6 +47,41 @@ std::string SingleFab::getImFromPersistedLocation() const noexcept
             std::string(pimPersistVsbpPath) +
             ", reason: " + std::string(l_ex.what()));
     }
+
+    return std::string();
+}
+
+std::string SingleFab::getImFromPlanar() const noexcept
+{
+    try
+    {
+        types::BinaryVector l_imValue(IM_SIZE_IN_BYTES);
+        std::fstream l_vpdFileStream;
+
+        l_vpdFileStream.exceptions(
+            std::ifstream::badbit | std::ifstream::failbit);
+
+        l_vpdFileStream.open(SYSTEM_VPD_FILE_PATH,
+                             std::ios::in | std::ios::binary);
+
+        l_vpdFileStream.seekg(IM_KW_VALUE_OFFSET, std::ios_base::beg);
+
+        // Read keyword value
+        l_vpdFileStream.read(reinterpret_cast<char*>(&l_imValue[0]),
+                             IM_SIZE_IN_BYTES);
+
+        l_vpdFileStream.clear(std::ios_base::eofbit);
+
+        std::ostringstream l_imData;
+        for (const auto& l_byte : l_imValue)
+        {
+            l_imData << std::setw(2) << std::setfill('0') << std::hex
+                     << static_cast<int>(l_byte);
+        }
+        return l_imData.str();
+    }
+    catch (const std::ifstream::failure& l_ex)
+    {}
 
     return std::string();
 }
