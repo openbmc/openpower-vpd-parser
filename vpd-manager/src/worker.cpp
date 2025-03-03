@@ -142,6 +142,8 @@ void Worker::performInitialSetup()
         // probe.
         enableMuxChips();
 
+        std::cout << "System mode : " << dbusUtility::getSystemMode() << std::endl;
+
         // Nothing needs to be done. Service restarted or BMC re-booted for
         // some reason at system power on.
         return;
