@@ -5,6 +5,8 @@
 #include "constants.hpp"
 #include "types.hpp"
 
+#include <utility/common_utility.hpp>
+#include <utility/dbus_utility.hpp>
 #include <utility/json_utility.hpp>
 
 namespace vpd
@@ -84,5 +86,20 @@ std::string SingleFab::getImFromPlanar() const noexcept
     {}
 
     return std::string();
+}
+
+bool SingleFab::isFieldModeEnabled() const noexcept
+{
+    try
+    {
+        std::vector<std::string> l_cmdOutput =
+            commonUtility::executeCmd("/sbin/fw_printenv -n fieldmode 2>&1");
+
+        return l_cmdOutput[0] == "false" ? false : true;
+    }
+    catch (const std::exception& l_ex)
+    {
+        return true;
+    }
 }
 } // namespace vpd
