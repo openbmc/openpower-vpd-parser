@@ -121,6 +121,8 @@ static constexpr auto HEX_VALUE_00 = 0x00;
 constexpr auto systemInvPath = "/xyz/openbmc_project/inventory/system";
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
 constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
+constexpr auto pimPersistVsbpPath =
+    "/var/lib/phosphor-inventory-manager/xyz/openbmc_project/inventory/system/chassis/motherboard/com.ibm.ipzvpd.VSBP";
 constexpr auto ipzVpdInf = "com.ibm.ipzvpd.";
 constexpr auto kwdVpdInf = "com.ibm.ipzvpd.VINI";
 constexpr auto vsysInf = "com.ibm.ipzvpd.VSYS";
