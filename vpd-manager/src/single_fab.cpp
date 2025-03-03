@@ -7,6 +7,7 @@
 #include "types.hpp"
 
 #include <nlohmann/json.hpp>
+#include <utility/common_utility.hpp>
 #include <utility/json_utility.hpp>
 
 namespace vpd
@@ -110,5 +111,27 @@ bool SingleFab::setImOnPlanar(const std::string& i_imValue) const noexcept
     {
         return false;
     }
+}
+
+bool SingleFab::isFieldModeEnabled() const noexcept
+{
+    try
+    {
+        std::vector<std::string> l_cmdOutput =
+            commonUtility::executeCmd("/sbin/fw_printenv -n fieldmode 2>&1");
+
+        if (l_cmdOutput.size() > 0)
+        {
+            return l_cmdOutput[0] == "false" ? false : true;
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to check if field mode is enabled, error : " +
+            std::string(l_ex.what()));
+    }
+
+    return false;
 }
 } // namespace vpd
