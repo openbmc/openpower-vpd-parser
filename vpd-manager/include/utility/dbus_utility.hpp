@@ -711,5 +711,29 @@ inline bool isInventoryPresent(const std::string& i_invObjPath)
 
     return (*l_ptrPresence);
 }
+
+/**
+ * @brief API to get system mode.
+ *
+ * This API returns whether the system is in field mode or lab mode.
+ *
+ * @return System mode, invalid mode in case of any failure.
+ */
+inline types::SystemMode getSystemMode() noexcept
+{
+    types::SystemMode l_systemMode = types::SystemMode::InvalidMode;
+
+    auto l_fieldModeEnabledValue = readDbusProperty(
+        constants::imageUpdateService, constants::softwareImageObjPath,
+        constants::fieldModeInterface, "FieldModeEnabled");
+
+    if (auto l_isFieldModeEnabled = std::get_if<bool>(&l_fieldModeEnabledValue))
+    {
+        l_systemMode = *l_isFieldModeEnabled ? types::SystemMode::FieldMode
+                                             : types::SystemMode::LabMode;
+    }
+
+    return l_systemMode;
+}
 } // namespace dbusUtility
 } // namespace vpd

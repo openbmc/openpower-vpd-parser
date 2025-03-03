@@ -194,5 +194,13 @@ using I2cBusCalloutData = std::tuple<std::string, std::string, std::string>;
 using ExceptionInfoVariant = std::variant<std::monostate, ErrorType, std::string>;
 /* Error info map of format <Error format, Value> */
 using ExceptionDataMap = std::map<std::string, ExceptionInfoVariant>;
+
+/* enum class for System mode types. */
+enum class SystemMode
+{
+    FieldMode,
+    LabMode,
+    InvalidMode
+};
 } // namespace types
 } // namespace vpd
