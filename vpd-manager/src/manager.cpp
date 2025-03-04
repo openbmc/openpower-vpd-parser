@@ -29,6 +29,7 @@ Manager::Manager(
     try
     {
 #ifdef IBM_SYSTEM
+
         if (dbusUtility::isChassisPowerOn())
         {
             // At power on, less number of FRU(s) needs collection. we can scale
