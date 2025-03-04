@@ -175,6 +175,24 @@
       "parentUuid": "7638a67f_94c1472e",
       "revId": "ac1045205a04673e183419912ec98f0049b3fdce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6e9d652_94cfb18a",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-04T13:03:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d3d5675f_1a720f7f",
+      "revId": "ac1045205a04673e183419912ec98f0049b3fdce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
