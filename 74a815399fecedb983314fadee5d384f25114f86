@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae5b2a6e_353f221d",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-04T10:35:18Z",
+      "side": 1,
+      "message": "new line required after this statement.",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa69ac9b_d38d4485",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-04T10:35:18Z",
+      "side": 1,
+      "message": "can we say getBiosAttribute(), internal thing no need to present as a part of function name. ?",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dddd25d_cb7e6285",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-04T10:35:18Z",
+      "side": 1,
+      "message": "its generic api name as its copying integral data into bytes. \nso can we keep generic name ?",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af3bb30a_a68a8c91",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-04T10:35:18Z",
+      "side": 1,
+      "message": "we can just say number of bytes to copy.\ni_numBytes or i_numBytesToCopy is enough?",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd13476d_886ad6ec",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1448,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-04T10:35:18Z",
+      "side": 1,
+      "message": "should the API name getVpdFromBiosConfigManager ?",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de16874b_40ed2315",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1520,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-04T10:35:18Z",
+      "side": 1,
+      "message": "should it be VALUE_1 if not found ?",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "244909c9_36543c22",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1525,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-04T10:35:18Z",
+      "side": 1,
+      "message": "Should it be VALUE_0 ?",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
