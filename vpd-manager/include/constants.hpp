@@ -141,6 +141,7 @@ constexpr auto kwdIM = "IM";
 constexpr auto kwdPN = "PN";
 constexpr auto recVSYS = "VSYS";
 constexpr auto recVCEN = "VCEN";
+constexpr auto recVSBP = "VSBP";
 constexpr auto locationCodeInf = "com.ibm.ipzvpd.Location";
 constexpr auto xyzLocationCodeInf =
     "xyz.openbmc_project.Inventory.Decorator.LocationCode";
