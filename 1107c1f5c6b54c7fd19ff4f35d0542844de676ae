@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f348e7c_7eb9607c",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-04T10:38:16Z",
+      "side": 1,
+      "message": "nit: typo `fieldModeInterface`",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "874237a7_5358ac14",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-04T10:38:16Z",
+      "side": 1,
+      "message": "Can we use `enum class` instead of `enum`?",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a463123_fc7796c0",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-04T10:38:16Z",
+      "side": 1,
+      "message": "Please specify `noexcept` if this API doesn\u0027t throw any exceptions, or mention `@throw` if it does throw.",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05dd5b99_fc633cdd",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-04T10:38:16Z",
+      "side": 1,
+      "message": "nit: `l_FieldModeEnabledValue` should be `l_fieldModeEnabledValue`",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3e0bbf2_2f274261",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-04T10:38:16Z",
+      "side": 1,
+      "message": "Can be simplified as `l_systemMode \u003d *l_isFieldModeEnabled ? types::SystemMode::FieldMode : types::SystemMode::LabMode;`",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
