@@ -20,6 +20,7 @@ Parser::Parser(const std::string& vpdFilePath, nlohmann::json parsedJson) :
     // depends on their VPD type.
     if (!std::filesystem::exists(m_vpdFilePath, l_errCode))
     {
+        std::cout << "File system is not present " << std::endl;
         std::string l_message{"Parser object creation failed, file [" +
                               m_vpdFilePath + "] doesn't exists."};
 
@@ -283,6 +284,7 @@ int Parser::updateVpdKeywordOnHardware(
         return l_keywordString;
     };
 
+    
     try
     {
         // Enable Reboot Guard
@@ -324,7 +326,7 @@ int Parser::updateVpdKeywordOnHardware(
                 m_vpdFilePath + "], error: " + std::string(l_exception.what()),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
-
+    
     // Disable Reboot Guard
     if (constants::FAILURE == dbusUtility::DisableRebootGuard())
     {
@@ -335,6 +337,7 @@ int Parser::updateVpdKeywordOnHardware(
                         l_keyWordIdentifier(i_paramsToWriteData)),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
+    
 
     return l_bytesUpdatedOnHardware;
 }
