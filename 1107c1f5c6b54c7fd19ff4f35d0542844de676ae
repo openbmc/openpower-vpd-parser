@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a225089_e532d2b9",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-05T05:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f348e7c_7eb9607c",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "874237a7_5358ac14",
         "filename": "vpd-manager/include/types.hpp",
         "patchSetId": 3
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-04T10:38:16Z",
       "side": 1,
       "message": "Can we use `enum class` instead of `enum`?",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aee92019_5e30d7e1",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-05T05:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "874237a7_5358ac14",
       "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62894978_01f0a9fb",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-05T05:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a463123_fc7796c0",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "05dd5b99_fc633cdd",
         "filename": "vpd-manager/include/utility/dbus_utility.hpp",
         "patchSetId": 3
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd1dbb09_2bcd000c",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-05T05:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05dd5b99_fc633cdd",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3e0bbf2_2f274261",
         "filename": "vpd-manager/include/utility/dbus_utility.hpp",
         "patchSetId": 3
@@ -82,6 +154,24 @@
       "writtenOn": "2025-03-04T10:38:16Z",
       "side": 1,
       "message": "Can be simplified as `l_systemMode \u003d *l_isFieldModeEnabled ? types::SystemMode::FieldMode : types::SystemMode::LabMode;`",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "819dd8ea_6852c617",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-05T05:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3e0bbf2_2f274261",
       "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
