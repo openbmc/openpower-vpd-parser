@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b325663c_64f23ecf",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-05T05:24:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae5b2a6e_353f221d",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa69ac9b_d38d4485",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-04T10:35:18Z",
       "side": 1,
       "message": "can we say getBiosAttribute(), internal thing no need to present as a part of function name. ?",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b246fcf_a6cf5ee6",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-05T05:24:14Z",
+      "side": 1,
+      "message": "This API has been copied as is from `dbus_utility.hpp`.\n\n`getBiosAttribute()` name is abstract and doesn\u0027t make it apparent how/where the attribute is fetched from.",
+      "parentUuid": "fa69ac9b_d38d4485",
       "revId": "74a815399fecedb983314fadee5d384f25114f86",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae8a4cee_9de0c168",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-05T05:24:14Z",
+      "side": 1,
+      "message": "I think the name is generic enough. Please do suggest if you have any better names in mind.",
+      "parentUuid": "8dddd25d_cb7e6285",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "af3bb30a_a68a8c91",
         "filename": "vpd-tool/include/tool_utils.hpp",
         "patchSetId": 32
@@ -65,6 +119,24 @@
       "writtenOn": "2025-03-04T10:35:18Z",
       "side": 1,
       "message": "we can just say number of bytes to copy.\ni_numBytes or i_numBytesToCopy is enough?",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f53c9bbc_3ae5e435",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-05T05:24:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af3bb30a_a68a8c91",
       "revId": "74a815399fecedb983314fadee5d384f25114f86",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +160,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "596a0898_fc61ce43",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1448,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-05T05:24:14Z",
+      "side": 1,
+      "message": "This change is unrelated to the purpose of this patch.",
+      "parentUuid": "fd13476d_886ad6ec",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de16874b_40ed2315",
         "filename": "vpd-tool/src/vpd_tool.cpp",
         "patchSetId": 32
@@ -99,6 +189,24 @@
       "writtenOn": "2025-03-04T10:35:18Z",
       "side": 1,
       "message": "should it be VALUE_1 if not found ?",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff9a5413_171d481b",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1520,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-05T05:24:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de16874b_40ed2315",
       "revId": "74a815399fecedb983314fadee5d384f25114f86",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -116,6 +224,24 @@
       "writtenOn": "2025-03-04T10:35:18Z",
       "side": 1,
       "message": "Should it be VALUE_0 ?",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "745a6278_1b257d6a",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1525,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-05T05:24:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "244909c9_36543c22",
       "revId": "74a815399fecedb983314fadee5d384f25114f86",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
