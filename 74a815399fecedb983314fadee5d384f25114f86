@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24358d1e_d6365b95",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-05T06:29:58Z",
+      "side": 1,
+      "message": "convertIntegralTypeToBytes ?",
+      "parentUuid": "ae8a4cee_9de0c168",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "af3bb30a_a68a8c91",
         "filename": "vpd-tool/include/tool_utils.hpp",
         "patchSetId": 32
