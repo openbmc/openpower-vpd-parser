@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24eeb8ba_b1edf232",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-03-05T05:16:47Z",
+      "side": 1,
+      "message": "how can you gaurantee that IM value will always be present in this offset only?\n\nwhat if a new record gets added to the VPD like how we added VSBK in base panel VPD?",
+      "revId": "840a13e6364ddca5cb24173f5af0e98bbeb08ecc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57502f7b_1fd6cd4b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-03-05T05:16:47Z",
+      "side": 1,
+      "message": "why are you storing keyword name in a vector?\nin line 788 why are you converting the vector elements to string for comparison?\n\ninstead store it in string.",
+      "revId": "840a13e6364ddca5cb24173f5af0e98bbeb08ecc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
