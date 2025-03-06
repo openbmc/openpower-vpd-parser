@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb2d7389_1e67eb80",
+        "filename": "vpd-manager/include/event_logger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-06T19:03:11Z",
+      "side": 1,
+      "message": "I don’t see this being followed across the repository, also because if we take our coding guidelines as base, it does not mandate blank line between param and return. Whereas mandates between other fields.\n\nSo this change would require change in our guidelines document and other part of the code as well.",
+      "parentUuid": "83818ef6_3623a8ea",
+      "revId": "9b0beb16e4c3639c5c9a7510e5562917b37898ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb9703c3_344c8931",
         "filename": "vpd-manager/src/event_logger.cpp",
         "patchSetId": 10
