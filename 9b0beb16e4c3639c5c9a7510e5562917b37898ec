@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6f358cb3_b812a3d9",
+        "filename": "vpd-manager/include/event_logger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-06T14:26:13Z",
+      "side": 1,
+      "message": "Do we have any such guideline?",
+      "parentUuid": "93ec584a_77097fcb",
+      "revId": "9b0beb16e4c3639c5c9a7510e5562917b37898ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb9703c3_344c8931",
         "filename": "vpd-manager/src/event_logger.cpp",
         "patchSetId": 10
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-06T11:07:50Z",
       "side": 1,
       "message": "why do we need NOT operation, instead we can directly check for if(l_ptrToErrType) is true and do the required return?\n\nsame for below API as well.",
+      "revId": "9b0beb16e4c3639c5c9a7510e5562917b37898ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37a7bfc8_fb945919",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-06T14:26:13Z",
+      "side": 1,
+      "message": "What difference it will bring to the existing code?",
+      "parentUuid": "cb9703c3_344c8931",
       "revId": "9b0beb16e4c3639c5c9a7510e5562917b37898ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
