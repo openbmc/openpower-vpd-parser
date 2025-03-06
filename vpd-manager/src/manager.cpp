@@ -427,6 +427,19 @@ void Manager::checkAndUpdatePowerVsVpd(
                     continue;
                 }
 
+                // update the Asset interface PN explicitly
+                if (!dbusUtility::callPIM(types::ObjectMap{
+                        {l_inventoryPath,
+                         {{constants::viniInf,
+                           {{"PartNumber",
+                             std::string(l_binaryKwdValue.begin(),
+                                         l_binaryKwdValue.end())}}}}}}))
+                {
+                    logging::logMessage(
+                        "Updating PN under Asset interface failed for path [" +
+                        l_inventoryPath + "]");
+                }
+
                 // Just needed for logging.
                 std::string l_initialPartNum((*l_ptrToPn).begin(),
                                              (*l_ptrToPn).end());
