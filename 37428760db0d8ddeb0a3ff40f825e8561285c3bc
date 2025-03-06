@@ -1,4 +1,22 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75b34653_6994344b",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-06T05:42:49Z",
+      "side": 1,
+      "message": "Earlier, if `jsonUtility::getFruPathFromJson` failed and threw an exception, the execution would stop here and `Manager::updateKeyword` would return -1. This behavior is no longer preserved.",
+      "revId": "37428760db0d8ddeb0a3ff40f825e8561285c3bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
