@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d6d03d7_5a24b0db",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-06T14:10:27Z",
+      "side": 1,
+      "message": "This does not looks like a header about what is being done in the commit.",
+      "revId": "0afad8d915e687a4fed23ef5200cc0386692e116",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92b3505e_437b1431",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-06T14:10:27Z",
+      "side": 1,
+      "message": "Could you please re-phrase the commit message and be more descriptive.",
+      "revId": "0afad8d915e687a4fed23ef5200cc0386692e116",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
