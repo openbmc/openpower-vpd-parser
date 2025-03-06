@@ -356,7 +356,7 @@ void IbmBiosHandler::saveAmmToBios(const std::string& i_ammVal)
     }
 
     const std::string l_valtoUpdate =
-        (i_ammVal.at(0) == constants::VALUE_2) ? "Enabled" : "Disabled";
+        (i_ammVal.at(0) & constants::VALUE_2) ? "Enabled" : "Disabled";
 
     types::PendingBIOSAttrs l_pendingBiosAttribute;
     l_pendingBiosAttribute.push_back(std::make_pair(
