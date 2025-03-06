@@ -347,16 +347,10 @@ void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode)
     }
 }
 
-void IbmBiosHandler::saveAmmToBios(const std::string& i_ammVal)
+void IbmBiosHandler::saveAmmToBios(const uint8_t& i_ammVal)
 {
-    if (i_ammVal.size() != constants::VALUE_1)
-    {
-        logging::logMessage("Bad size for AMM received, Skip writing to BIOS");
-        return;
-    }
-
     const std::string l_valtoUpdate =
-        (i_ammVal.at(0) == constants::VALUE_2) ? "Enabled" : "Disabled";
+        (i_ammVal == constants::VALUE_2) ? "Enabled" : "Disabled";
 
     types::PendingBIOSAttrs l_pendingBiosAttribute;
     l_pendingBiosAttribute.push_back(std::make_pair(
@@ -403,7 +397,7 @@ void IbmBiosHandler::processActiveMemoryMirror()
         }
         else
         {
-            saveAmmToBios(std::to_string(l_ammValInVpd.at(0)));
+            saveAmmToBios(l_ammValInVpd.at(0));
         }
         return;
     }
