@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83818ef6_3623a8ea",
+        "filename": "vpd-manager/include/event_logger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-06T15:13:55Z",
+      "side": 1,
+      "message": "Yes ideally doxygen documentation specifies to write it in a readable form. And since this has been followed , would be better if we can have a new line in between. Could you please add one",
+      "parentUuid": "6f358cb3_b812a3d9",
+      "revId": "9b0beb16e4c3639c5c9a7510e5562917b37898ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb9703c3_344c8931",
         "filename": "vpd-manager/src/event_logger.cpp",
         "patchSetId": 10
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "What difference it will bring to the existing code?",
       "parentUuid": "cb9703c3_344c8931",
+      "revId": "9b0beb16e4c3639c5c9a7510e5562917b37898ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b49cf3fd_d75f6b99",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-06T15:13:55Z",
+      "side": 1,
+      "message": "agree this will not impact anything. IMO it seems correct",
+      "parentUuid": "37a7bfc8_fb945919",
       "revId": "9b0beb16e4c3639c5c9a7510e5562917b37898ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
