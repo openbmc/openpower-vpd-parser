@@ -119,7 +119,7 @@ class IbmBiosHandler : public BiosHandlerInterface
      *
      * @param[in] i_ammVal - AMM value.
      */
-    void saveAmmToBios(const std::string& i_ammVal);
+    void saveAmmToBios(const uint8_t& i_ammVal);
 
     /**
      * @brief API to process "hb_memory_mirror_mode" attribute.
