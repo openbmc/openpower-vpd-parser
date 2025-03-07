@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4df5fcf4_da2dc392",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-07T05:53:02Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "0d6d03d7_5a24b0db",
+      "revId": "0afad8d915e687a4fed23ef5200cc0386692e116",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92b3505e_437b1431",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-06T14:10:27Z",
       "side": 1,
       "message": "Could you please re-phrase the commit message and be more descriptive.",
+      "revId": "0afad8d915e687a4fed23ef5200cc0386692e116",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33009fa3_23bde644",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-07T05:53:02Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "92b3505e_437b1431",
       "revId": "0afad8d915e687a4fed23ef5200cc0386692e116",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
