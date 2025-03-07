@@ -28,6 +28,7 @@ parser_dependencies = [
 parser_build_arguments = []
 if get_option('ibm_system').allowed()
     parser_build_arguments += ['-DIBM_SYSTEM']
+    common_SOURCES += 'src/single_fab.cpp'
 endif
 
 vpd_manager_exe = executable(
