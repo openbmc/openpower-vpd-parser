@@ -123,6 +123,41 @@
       "parentUuid": "37a7bfc8_fb945919",
       "revId": "9b0beb16e4c3639c5c9a7510e5562917b37898ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73178bb3_67218d4e",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-07T05:17:08Z",
+      "side": 1,
+      "message": "From code readability point of view, I think using ternary operator instead of `if else` would be better.\n\n`return l_ptrToErrType ? *l_ptrToErrType : types::ErrorType::InternalFailure;`\n\nThis reduces LOC as well.",
+      "parentUuid": "b49cf3fd_d75f6b99",
+      "revId": "9b0beb16e4c3639c5c9a7510e5562917b37898ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "855cc085_e4fda223",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-07T05:17:08Z",
+      "side": 1,
+      "message": "From code readability point of view, I think using ternary operator instead of `if else` would be better.\n\n`return l_ptrToErrMsg ? *l_ptrToErrMsg : i_exception.what();`\n\nThis reduces LOC as well.",
+      "revId": "9b0beb16e4c3639c5c9a7510e5562917b37898ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
