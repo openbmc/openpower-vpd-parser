@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3518a996_f66dd8f4",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-07T06:33:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b246fcf_a6cf5ee6",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8dddd25d_cb7e6285",
@@ -120,6 +138,24 @@
       "side": 1,
       "message": "convertIntegralTypeToBytes ?",
       "parentUuid": "ae8a4cee_9de0c168",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15adbdce_63439d19",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-07T06:33:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24358d1e_d6365b95",
       "revId": "74a815399fecedb983314fadee5d384f25114f86",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -190,6 +226,24 @@
       "side": 1,
       "message": "This change is unrelated to the purpose of this patch.",
       "parentUuid": "fd13476d_886ad6ec",
+      "revId": "74a815399fecedb983314fadee5d384f25114f86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "003a4795_9fc9aaf5",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1448,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-07T06:33:51Z",
+      "side": 1,
+      "message": "As discussed, won\u0027t be updating the name of the API for now.",
+      "parentUuid": "596a0898_fc61ce43",
       "revId": "74a815399fecedb983314fadee5d384f25114f86",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
