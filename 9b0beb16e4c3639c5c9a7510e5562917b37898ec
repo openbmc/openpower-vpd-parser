@@ -179,6 +179,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d93ebf1c_84ee2cc1",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-07T06:48:23Z",
+      "side": 1,
+      "message": "Agree, its a personal opinion. Was suggesting this to reduce LOC.",
+      "parentUuid": "6c26f7fb_26691d95",
+      "revId": "9b0beb16e4c3639c5c9a7510e5562917b37898ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "855cc085_e4fda223",
@@ -192,6 +210,24 @@
       "writtenOn": "2025-03-07T05:17:08Z",
       "side": 1,
       "message": "From code readability point of view, I think using ternary operator instead of `if else` would be better.\n\n`return l_ptrToErrMsg ? *l_ptrToErrMsg : i_exception.what();`\n\nThis reduces LOC as well.",
+      "revId": "9b0beb16e4c3639c5c9a7510e5562917b37898ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "877de056_2be860ce",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-07T06:48:23Z",
+      "side": 1,
+      "message": "Agree, its a personal opinion. Was suggesting this to reduce LOC.",
+      "parentUuid": "855cc085_e4fda223",
       "revId": "9b0beb16e4c3639c5c9a7510e5562917b37898ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
