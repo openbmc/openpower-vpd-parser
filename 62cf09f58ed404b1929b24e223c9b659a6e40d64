@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebe6cda3_e438b779",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-10T10:01:38Z",
+      "side": 1,
+      "message": "This class is create to handle all changes related to single fabrication under a single class and will expose only public APIs to support the feature. Currently its not handling any common resource. \nI don\u0027t see any particular requirement of only handling a single instance of this class is needed.",
+      "parentUuid": "34851fbc_e957a9ab",
+      "revId": "62cf09f58ed404b1929b24e223c9b659a6e40d64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78053ded_8ccb24bd",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ee736a0_bf148053",
+        "filename": "vpd-manager/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-10T10:01:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78053ded_8ccb24bd",
+      "revId": "62cf09f58ed404b1929b24e223c9b659a6e40d64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08bf38ba_dd7f3081",
@@ -48,6 +84,24 @@
       "writtenOn": "2025-03-10T09:06:10Z",
       "side": 1,
       "message": "Do we need variable `l_imFilePath`? Can we use `vpd::pimPersistVsbpPath` directly?",
+      "revId": "62cf09f58ed404b1929b24e223c9b659a6e40d64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3d52c42_638aeb2b",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-10T10:01:38Z",
+      "side": 1,
+      "message": "need string variable as getParsedJson takes const ref and also in case of exception,\nto append file path needs string conversion.",
+      "parentUuid": "08bf38ba_dd7f3081",
       "revId": "62cf09f58ed404b1929b24e223c9b659a6e40d64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -82,6 +136,24 @@
       "writtenOn": "2025-03-10T09:06:10Z",
       "side": 1,
       "message": "Should we have an utility API for the below code block which does binary vector to string conversion?",
+      "revId": "62cf09f58ed404b1929b24e223c9b659a6e40d64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce2d82c8_f3ff8059",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-10T10:01:38Z",
+      "side": 1,
+      "message": "not needed for now, will have utility/private API later if we see more use cases for this.",
+      "parentUuid": "26f5bd70_cb29a044",
       "revId": "62cf09f58ed404b1929b24e223c9b659a6e40d64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
