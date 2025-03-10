@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78053ded_8ccb24bd",
+        "filename": "vpd-manager/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-10T09:02:52Z",
+      "side": 1,
+      "message": "can this be compiled only if IBM tag is defined",
+      "revId": "62cf09f58ed404b1929b24e223c9b659a6e40d64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
