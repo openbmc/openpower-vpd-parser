@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "737daa48_06df6422",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-12T06:25:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a225089_e532d2b9",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "874237a7_5358ac14",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "874237a7_5358ac14",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f3fbb99_06afcbd0",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-12T06:25:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aee92019_5e30d7e1",
       "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -106,6 +142,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b2e3c3c_cf736a33",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-12T06:25:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62894978_01f0a9fb",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05dd5b99_fc633cdd",
@@ -141,6 +195,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79a031c9_a6f3325c",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-12T06:25:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd1dbb09_2bcd000c",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3e0bbf2_2f274261",
@@ -172,6 +244,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "a3e0bbf2_2f274261",
+      "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "472bb3e3_bcd47b6f",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-12T06:25:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "819dd8ea_6852c617",
       "revId": "1107c1f5c6b54c7fd19ff4f35d0542844de676ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
