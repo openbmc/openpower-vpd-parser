@@ -1,5 +1,6 @@
 #pragma once
 
+#include "event_logger.hpp"
 #include "worker.hpp"
 
 #include <boost/asio/steady_timer.hpp>
@@ -115,8 +116,11 @@ class GpioMonitor
         }
         else
         {
-            throw std::runtime_error(
-                "Gpio Monitoring can't be instantiated with empty config JSON");
+            EventLogger::createSyncPel(
+                types::ErrorType::InternalFailure, types::SeverityType::Warning,
+                __FILE__, __FUNCTION__, 0,
+                "Gpio Monitoring can't be instantiated with empty config JSON",
+                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
         }
     }
 
