@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39a8af8b_36e88a78",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-12T10:20:39Z",
+      "side": 1,
+      "message": "System VPD gets update very rarely, the requirement is to directly read IM value from its offset.\nIn future if offset changes, we should update this offset. so will handle this later when system VPD gets updated.",
+      "parentUuid": "24eeb8ba_b1edf232",
+      "revId": "840a13e6364ddca5cb24173f5af0e98bbeb08ecc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57502f7b_1fd6cd4b",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-05T05:16:47Z",
       "side": 1,
       "message": "why are you storing keyword name in a vector?\nin line 788 why are you converting the vector elements to string for comparison?\n\ninstead store it in string.",
+      "revId": "840a13e6364ddca5cb24173f5af0e98bbeb08ecc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "562e54a1_9b08f4ae",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-12T10:20:39Z",
+      "side": 1,
+      "message": "the read API takes a address, as we know keyword size is two, so allocating that size. converting vector to string will also help in using \u003d\u003d operator for direct comparison.",
+      "parentUuid": "57502f7b_1fd6cd4b",
       "revId": "840a13e6364ddca5cb24173f5af0e98bbeb08ecc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
