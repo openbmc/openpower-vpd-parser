@@ -429,6 +429,42 @@ void Worker::setJsonSymbolicLink(const std::string& i_systemJson)
 {
     std::error_code l_ec;
     l_ec.clear();
+
+    // Check if symlink file path exists and if the JSON at this location is a
+    // symlink.
+    if (m_isSymlinkPresent &&
+        std::filesystem::is_symlink(INVENTORY_JSON_SYM_LINK, l_ec))
+    { // Don't care about exception in "is_symlink". Will continue with creation
+      // of symlink.
+
+        const auto& l_symlinkFilePth =
+            std::filesystem::read_symlink(INVENTORY_JSON_SYM_LINK, l_ec);
+
+        if (l_ec)
+        {
+            logging::logMessage(
+                "Can't read existing symlink. Error =" + l_ec.message() +
+                "Trying removal of symlink and creation of new symlink.");
+        }
+
+        // If currently set JSON is the required one. No further processing
+        // required.
+        if (i_systemJson == l_symlinkFilePth)
+        {
+            // Correct symlink already set.
+            return;
+        }
+
+        if (!std::filesystem::remove(INVENTORY_JSON_SYM_LINK, l_ec))
+        {
+            // No point going further. If removal fails for existing symlink,
+            // create will anyways throw.
+            throw std::runtime_error(
+                "Removal of symlink failed with Error = " + l_ec.message() +
+                ". Can't proceed with create_symlink.");
+        }
+    }
+
     if (!std::filesystem::exists(VPD_SYMLIMK_PATH, l_ec))
     {
         if (l_ec)
@@ -484,24 +520,20 @@ void Worker::setDeviceTreeAndJson()
     // This is required to support movement from rainier to Blue Ridge on the
     // fly.
 
-    // Do we have the entry for device tree in parsed JSON?
-    if (m_parsedJson.find("devTree") == m_parsedJson.end())
+    getSystemJson(systemJson, parsedVpdMap);
+
+    if (!systemJson.compare(JSON_ABSOLUTE_PATH_PREFIX))
     {
-        getSystemJson(systemJson, parsedVpdMap);
+        // TODO: Log a PEL saying that "System type not supported"
+        throw DataException("Error in getting system JSON.");
+    }
 
-        if (!systemJson.compare(JSON_ABSOLUTE_PATH_PREFIX))
-        {
-            // TODO: Log a PEL saying that "System type not supported"
-            throw DataException("Error in getting system JSON.");
-        }
+    // re-parse the JSON once appropriate JSON has been selected.
+    m_parsedJson = jsonUtility::getParsedJson(systemJson);
 
-        // re-parse the JSON once appropriate JSON has been selected.
-        m_parsedJson = jsonUtility::getParsedJson(systemJson);
-
-        if (m_parsedJson.empty())
-        {
-            throw(JsonException("Json parsing failed", systemJson));
-        }
+    if (m_parsedJson.empty())
+    {
+        throw(JsonException("Json parsing failed", systemJson));
     }
 
     std::string devTreeFromJson;
@@ -525,11 +557,7 @@ void Worker::setDeviceTreeAndJson()
     { // Skipping setting device tree as either devtree info is missing from
       // Json or it is rightly set.
 
-        // avoid setting symlink on every reboot.
-        if (!m_isSymlinkPresent)
-        {
-            setJsonSymbolicLink(systemJson);
-        }
+        setJsonSymbolicLink(systemJson);
 
         if (isSystemVPDOnDBus() &&
             jsonUtility::isBackupAndRestoreRequired(m_parsedJson))
