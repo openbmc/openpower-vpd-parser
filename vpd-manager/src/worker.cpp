@@ -429,6 +429,26 @@ void Worker::setJsonSymbolicLink(const std::string& i_systemJson)
 {
     std::error_code l_ec;
     l_ec.clear();
+
+    // Directory exist. Check if symlink file path also exists and if the JSON
+    // at this location is a symlink.
+    if (m_isSymlinkPresent && is_symlink(INVENTORY_JSON_SYM_LINK, l_ec))
+    {
+        // Don't care about bad path. In case of any exception continue with
+        // creation of symlink.
+        const auto& l_symlinkFilePth =
+            read_symlink(INVENTORY_JSON_SYM_LINK, std::error_code & l_ec);
+
+        if (!ec)
+        {
+            if (i_systemJson == l_symlinkFilePth)
+            {
+                // Correct symlink already set. Just a reboot. Skip
+                return;
+            }
+        }
+    }
+
     if (!std::filesystem::exists(VPD_SYMLIMK_PATH, l_ec))
     {
         if (l_ec)
@@ -525,11 +545,7 @@ void Worker::setDeviceTreeAndJson()
     { // Skipping setting device tree as either devtree info is missing from
       // Json or it is rightly set.
 
-        // avoid setting symlink on every reboot.
-        if (!m_isSymlinkPresent)
-        {
-            setJsonSymbolicLink(systemJson);
-        }
+        setJsonSymbolicLink(systemJson);
 
         if (isSystemVPDOnDBus() &&
             jsonUtility::isBackupAndRestoreRequired(m_parsedJson))
