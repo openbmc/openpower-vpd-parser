@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc3a0be9_84fd3312",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-14T09:00:07Z",
+      "side": 1,
+      "message": "do we need to throw here or try the remaining so that if the failure happened after it was removed and before returning we could still try and create a new one , this will allow the below check of exists to throw",
+      "revId": "adff78807988742489dfe860c4582e86449897a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
