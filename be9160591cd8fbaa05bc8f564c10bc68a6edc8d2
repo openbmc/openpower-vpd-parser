@@ -34,6 +34,24 @@
       "parentUuid": "f9d4b89a_fced4d62",
       "revId": "be9160591cd8fbaa05bc8f564c10bc68a6edc8d2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc264b4a_ce46489c",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-03-14T11:35:41Z",
+      "side": 1,
+      "message": "fieldmode is an u-boot environment variable which we can get by executing the command /sbin/fw_printenv..\nReference:\nhttps://github.com/openbmc/phosphor-bmc-code-mgmt/blob/449e793c823154561a44b7827592ce73d877c834/bmc/item_updater.cpp#L710",
+      "parentUuid": "61ee8c0b_c655fdd3",
+      "revId": "be9160591cd8fbaa05bc8f564c10bc68a6edc8d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
