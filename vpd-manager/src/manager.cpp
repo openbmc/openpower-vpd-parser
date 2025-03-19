@@ -219,39 +219,53 @@ void Manager::processAssetTagChangeCallback(sdbusplus::message_t& i_msg)
 
 void Manager::SetTimerToDetectSVPDOnDbus()
 {
-    static boost::asio::steady_timer timer(*m_ioContext);
+    try
+    {
+        static boost::asio::steady_timer timer(*m_ioContext);
 
-    // timer for 2 seconds
-    auto asyncCancelled = timer.expires_after(std::chrono::seconds(2));
+        // timer for 2 seconds
+        auto asyncCancelled = timer.expires_after(std::chrono::seconds(2));
 
-    (asyncCancelled == 0) ? logging::logMessage("Timer started")
-                          : logging::logMessage("Timer re-started");
+        (asyncCancelled == 0) ? logging::logMessage("Timer started")
+                              : logging::logMessage("Timer re-started");
 
-    timer.async_wait([this](const boost::system::error_code& ec) {
-        if (ec == boost::asio::error::operation_aborted)
-        {
-            throw std::runtime_error(
-                "Timer to detect system VPD collection status was aborted");
-        }
+        timer.async_wait([this](const boost::system::error_code& ec) {
+            if (ec == boost::asio::error::operation_aborted)
+            {
+                throw std::runtime_error(
+                    std::string(__FUNCTION__) +
+                    ": Timer to detect system VPD collection status was aborted.");
+            }
 
-        if (ec)
-        {
-            throw std::runtime_error(
-                "Timer to detect System VPD collection failed");
-        }
+            if (ec)
+            {
+                throw std::runtime_error(
+                    std::string(__FUNCTION__) +
+                    ": Timer to detect System VPD collection failed");
+            }
 
-        if (m_worker->isSystemVPDOnDBus())
-        {
-            // cancel the timer
-            timer.cancel();
+            if (m_worker->isSystemVPDOnDBus())
+            {
+                // cancel the timer
+                timer.cancel();
 
-            // Triggering FRU VPD collection. Setting status to "In
-            // Progress".
-            m_interface->set_property("CollectionStatus",
-                                      std::string("InProgress"));
-            m_worker->collectFrusFromJson();
-        }
-    });
+                // Triggering FRU VPD collection. Setting status to "In
+                // Progress".
+                m_interface->set_property("CollectionStatus",
+                                          std::string("InProgress"));
+                m_worker->collectFrusFromJson();
+            }
+        });
+    }
+    catch (const std::exception& l_ex)
+    {
+        EventLogger::createAsyncPel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Critical,
+            __FILE__, __FUNCTION__, 0,
+            std::string("Collection for FRUs failed with reason:") +
+                EventLogger::getErrorMsg(l_ex),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+    }
 }
 
 void Manager::SetTimerToDetectVpdCollectionStatus()
