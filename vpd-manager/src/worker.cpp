@@ -1366,7 +1366,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
     if (i_vpdFilePath.empty())
     {
         throw std::runtime_error(
-            "Empty VPD file path passed to Worker::parseVpdFile. Abort processing");
+            std::string(__FUNCTION__) +
+            ": Empty VPD file path passed. Abort processing");
     }
 
     try
@@ -1376,15 +1377,16 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
         {
             if (!processPreAction(i_vpdFilePath, "collection"))
             {
-                throw std::runtime_error("Pre-Action failed");
+                throw std::runtime_error(
+                    std::string(__FUNCTION__) + ": Pre-Action failed");
             }
         }
 
         if (!std::filesystem::exists(i_vpdFilePath))
         {
             throw std::runtime_error(
-                "Could not find file path " + i_vpdFilePath +
-                "Skipping parser trigger for the EEPROM");
+                std::string(__FUNCTION__) + ": Could not find file path " +
+                i_vpdFilePath + "Skipping parser trigger for the EEPROM");
         }
 
         std::shared_ptr<Parser> vpdParser =
@@ -1401,9 +1403,15 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
         {
             if (!processPostAction(i_vpdFilePath, "collection", l_parsedVpd))
             {
-                // TODO: Log PEL
-                logging::logMessage("Required post action failed for path [" +
-                                    i_vpdFilePath + "]");
+                // Warning to indicate that post action was required but failed.
+                // Can have side effects. Don't exit from here as collection is
+                // done so proceeding with publishing of data.
+                EventLogger::createAsyncPel(
+                    types::ErrorType::InternalFailure,
+                    types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                    std::string("Required post action failed for path [" +
+                                i_vpdFilePath + "]"),
+                    std::nullopt, std::nullopt, std::nullopt, std::nullopt);
             }
         }
 
@@ -1418,7 +1426,6 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             if (!jsonUtility::executePostFailAction(m_parsedJson, i_vpdFilePath,
                                                     "collection"))
             {
-                // TODO: Log PEL
                 throw std::runtime_error(
                     "VPD parsing failed for " + i_vpdFilePath +
                     " due to error: " + l_ex.what() +
@@ -1426,7 +1433,6 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             }
         }
 
-        // TODO: Log PEL
         throw std::runtime_error("VPD parsing failed for " + i_vpdFilePath +
                                  " due to error: " + l_ex.what());
     }
@@ -1512,24 +1518,12 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                     return std::make_tuple(false, i_vpdFilePath);
                 }
             }
+        }
 
-            // TODO: Add custom handling
-            logging::logMessage(ex.what());
-        }
-        else if (typeid(ex) == std::type_index(typeid(EccException)))
-        {
-            // TODO: Add custom handling
-            logging::logMessage(ex.what());
-        }
-        else if (typeid(ex) == std::type_index(typeid(JsonException)))
-        {
-            // TODO: Add custom handling
-            logging::logMessage(ex.what());
-        }
-        else
-        {
-            logging::logMessage(ex.what());
-        }
+        EventLogger::createAsyncPel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Critical,
+            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
 
         // TODO: Figure out a way to clear data in case of any failure at
         // runtime.
@@ -1593,8 +1587,10 @@ void Worker::collectFrusFromJson()
     // A parsed JSON file should be present to pick FRUs EEPROM paths
     if (m_parsedJson.empty())
     {
-        throw std::runtime_error(
-            "A config JSON is required for processing of FRUs");
+        throw JsonException(
+            std::string(__FUNCTION__) +
+                ": Config JSON is mandatory for processing of FRUs through this API.",
+            m_configJsonPath);
     }
 
     const nlohmann::json& listOfFrus =
