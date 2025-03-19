@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91a34f4a_652507be",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-19T07:35:11Z",
+      "side": 1,
+      "message": "Why is this limited to system VPD?",
+      "revId": "ea6f919266c3951f31cca6fbaa3b4209f53f6710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6d68fda_4dca31f9",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-19T07:35:11Z",
+      "side": 1,
+      "message": "What is the difference between back up FRU and redundant FRU logically?",
+      "revId": "ea6f919266c3951f31cca6fbaa3b4209f53f6710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
