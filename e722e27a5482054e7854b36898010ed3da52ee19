@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc304c94_7542082c",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-19T08:58:38Z",
+      "side": 1,
+      "message": "when you know the size and the offset is hardcoded why do you go and check the IM and then get the value od size from it ?",
+      "revId": "e722e27a5482054e7854b36898010ed3da52ee19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
