@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "715039eb_8a60e10e",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-20T14:26:34Z",
+      "side": 1,
+      "message": "Why this API cares about the output of \"read IM value\". Also this API is not restricted to be used in continuation of \"ead IM value\".\nSo I don\u0027t agree with the argument above. Why should this api has the overhead of converting string to vector of uint8_t.",
+      "parentUuid": "5fc9a82f_99cf1573",
+      "revId": "028f72d9d34300c4c9abf5a1da3c00a5e462da36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64e7677d_65425114",
         "filename": "vpd-manager/src/single_fab.cpp",
         "patchSetId": 6
@@ -138,6 +156,24 @@
       "side": 1,
       "message": "Offset for system VPD is not present in the JSON. So system config JSON is not required to update the IM value on planar.",
       "parentUuid": "f436842d_1bc30467",
+      "revId": "028f72d9d34300c4c9abf5a1da3c00a5e462da36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2ee3323_8b4b9d9d",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-20T14:26:34Z",
+      "side": 1,
+      "message": "The question was for @anupama.b.r1@ibm.com",
+      "parentUuid": "2a5771e4_f5377a86",
       "revId": "028f72d9d34300c4c9abf5a1da3c00a5e462da36",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
