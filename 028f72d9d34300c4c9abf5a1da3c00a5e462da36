@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3fa3a75e_d110a07d",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-20T10:39:23Z",
+      "side": 1,
+      "message": "Why should this API take string as a parameter? Any specific reason for that?",
+      "revId": "028f72d9d34300c4c9abf5a1da3c00a5e462da36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64e7677d_65425114",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-20T10:39:23Z",
+      "side": 1,
+      "message": "If this has no use in the API, could you please check if in-place object can be passed to the API?",
+      "revId": "028f72d9d34300c4c9abf5a1da3c00a5e462da36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d57391e9_715a8e50",
         "filename": "vpd-manager/src/single_fab.cpp",
         "patchSetId": 6
@@ -14,6 +48,24 @@
       "writtenOn": "2025-03-20T08:50:31Z",
       "side": 1,
       "message": "instead passing empty json, should we get the parsed system config json from the caller ?",
+      "revId": "028f72d9d34300c4c9abf5a1da3c00a5e462da36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f436842d_1bc30467",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-20T10:39:23Z",
+      "side": 1,
+      "message": "Why?",
+      "parentUuid": "d57391e9_715a8e50",
       "revId": "028f72d9d34300c4c9abf5a1da3c00a5e462da36",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
