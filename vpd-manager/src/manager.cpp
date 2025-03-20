@@ -397,14 +397,14 @@ void Manager::checkAndUpdatePowerVsVpd(
                     continue;
                 }
 
-                // Get current Part number.
+                // Get current FRU Part number.
                 auto l_retVal = dbusUtility::readDbusProperty(
                     constants::pimServiceName, l_inventoryPath,
-                    constants::viniInf, constants::kwdPN);
+                    constants::viniInf, constants::kwdFN);
 
-                auto l_ptrToPn = std::get_if<types::BinaryVector>(&l_retVal);
+                auto l_ptrToFn = std::get_if<types::BinaryVector>(&l_retVal);
 
-                if (!l_ptrToPn)
+                if (!l_ptrToFn)
                 {
                     o_failedPathList.push_back(l_fruPath);
                     continue;
@@ -412,7 +412,7 @@ void Manager::checkAndUpdatePowerVsVpd(
 
                 types::BinaryVector l_binaryKwdValue =
                     l_kwdValue.get<types::BinaryVector>();
-                if (l_binaryKwdValue == (*l_ptrToPn))
+                if (l_binaryKwdValue == (*l_ptrToFn))
                 {
                     continue;
                 }
@@ -427,27 +427,27 @@ void Manager::checkAndUpdatePowerVsVpd(
                     continue;
                 }
 
-                // update the Asset interface PN explicitly
+                // update the Asset interface Spare part number explicitly.
                 if (!dbusUtility::callPIM(types::ObjectMap{
                         {l_inventoryPath,
                          {{constants::viniInf,
-                           {{"PartNumber",
+                           {{"SparePartNumber",
                              std::string(l_binaryKwdValue.begin(),
                                          l_binaryKwdValue.end())}}}}}}))
                 {
                     logging::logMessage(
-                        "Updating PN under Asset interface failed for path [" +
+                        "Updating Spare Part Number under Asset interface failed for path [" +
                         l_inventoryPath + "]");
                 }
 
                 // Just needed for logging.
-                std::string l_initialPartNum((*l_ptrToPn).begin(),
-                                             (*l_ptrToPn).end());
+                std::string l_initialPartNum((*l_ptrToFn).begin(),
+                                             (*l_ptrToFn).end());
                 std::string l_finalPartNum(l_binaryKwdValue.begin(),
                                            l_binaryKwdValue.end());
                 logging::logMessage(
-                    "Part number updated for path [" + l_inventoryPath + "]" +
-                    "From [" + l_initialPartNum + "]" + " to [" +
+                    "FRU Part number updated for path [" + l_inventoryPath +
+                    "]" + "From [" + l_initialPartNum + "]" + " to [" +
                     l_finalPartNum + "]");
             }
         }
