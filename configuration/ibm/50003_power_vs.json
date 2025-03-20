@@ -2,54 +2,54 @@
     "/sys/bus/spi/drivers/at25/spi12.0/eeprom": {
         "CCIN": ["5CF8"],
         "VINI": {
-            "PN": [48, 51, 85, 72, 48, 57, 56]
+            "FN": [48, 51, 85, 72, 48, 57, 56]
         }
     },
     "/sys/bus/spi/drivers/at25/spi22.0/eeprom": {
         "CCIN": ["5CF8"],
         "VINI": {
-            "PN": [48, 51, 85, 72, 48, 57, 56]
+            "FN": [48, 51, 85, 72, 48, 57, 56]
         }
     },
     "/sys/bus/spi/drivers/at25/spi32.0/eeprom": {
         "CCIN": ["5CF8"],
         "VINI": {
-            "PN": [48, 51, 85, 72, 48, 57, 56]
+            "FN": [48, 51, 85, 72, 48, 57, 56]
         }
     },
     "/sys/bus/spi/drivers/at25/spi42.0/eeprom": {
         "CCIN": ["5CF8"],
         "VINI": {
-            "PN": [48, 51, 85, 72, 48, 57, 56]
+            "FN": [48, 51, 85, 72, 48, 57, 56]
         }
     },
     "/sys/bus/spi/drivers/at25/spi52.0/eeprom": {
         "CCIN": ["5CF8"],
         "VINI": {
-            "PN": [48, 51, 85, 72, 48, 57, 56]
+            "FN": [48, 51, 85, 72, 48, 57, 56]
         }
     },
     "/sys/bus/spi/drivers/at25/spi62.0/eeprom": {
         "CCIN": ["5CF8"],
         "VINI": {
-            "PN": [48, 51, 85, 72, 48, 57, 56]
+            "FN": [48, 51, 85, 72, 48, 57, 56]
         }
     },
     "/sys/bus/spi/drivers/at25/spi72.0/eeprom": {
         "CCIN": ["5CF8"],
         "VINI": {
-            "PN": [48, 51, 85, 72, 48, 57, 56]
+            "FN": [48, 51, 85, 72, 48, 57, 56]
         }
     },
     "/sys/bus/spi/drivers/at25/spi82.0/eeprom": {
         "CCIN": ["5CF8"],
         "VINI": {
-            "PN": [48, 51, 85, 72, 48, 57, 56]
+            "FN": [48, 51, 85, 72, 48, 57, 56]
         }
     },
     "/sys/bus/i2c/drivers/at24/8-0051/eeprom": {
         "VINI": {
-            "PN": [48, 51, 82, 86, 50, 57, 48]
+            "FN": [48, 51, 82, 86, 50, 57, 48]
         }
     }
 }
