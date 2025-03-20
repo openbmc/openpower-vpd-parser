@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5fc9a82f_99cf1573",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-20T12:25:42Z",
+      "side": 1,
+      "message": "Output of read IM value APIs will be used as input for updating the IM value on planar. Return type of read IM value APIs is string so using string as input type parameter.",
+      "parentUuid": "3fa3a75e_d110a07d",
+      "revId": "028f72d9d34300c4c9abf5a1da3c00a5e462da36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64e7677d_65425114",
         "filename": "vpd-manager/src/single_fab.cpp",
         "patchSetId": 6
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-20T10:39:23Z",
       "side": 1,
       "message": "If this has no use in the API, could you please check if in-place object can be passed to the API?",
+      "revId": "028f72d9d34300c4c9abf5a1da3c00a5e462da36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "856ccb07_d199af15",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-20T12:25:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64e7677d_65425114",
       "revId": "028f72d9d34300c4c9abf5a1da3c00a5e462da36",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -66,6 +102,24 @@
       "side": 1,
       "message": "Why?",
       "parentUuid": "d57391e9_715a8e50",
+      "revId": "028f72d9d34300c4c9abf5a1da3c00a5e462da36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a5771e4_f5377a86",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-20T12:25:42Z",
+      "side": 1,
+      "message": "Offset for system VPD is not present in the JSON. So system config JSON is not required to update the IM value on planar.",
+      "parentUuid": "f436842d_1bc30467",
       "revId": "028f72d9d34300c4c9abf5a1da3c00a5e462da36",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
