@@ -139,6 +139,7 @@ constexpr auto kwdSE = "SE";
 constexpr auto kwdHW = "HW";
 constexpr auto kwdIM = "IM";
 constexpr auto kwdPN = "PN";
+constexpr auto kwdFN = "FN";
 constexpr auto recVSYS = "VSYS";
 constexpr auto recVCEN = "VCEN";
 constexpr auto locationCodeInf = "com.ibm.ipzvpd.Location";
