@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e5bced7_77d6cc91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-20T04:30:23Z",
+      "side": 1,
+      "message": "Clang issues please fix",
+      "revId": "bf66162ab38ccd3e2f9c6cd403e873b3d877bde1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
