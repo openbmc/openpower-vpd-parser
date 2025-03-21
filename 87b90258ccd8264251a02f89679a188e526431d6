@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17617356_30bc22f5",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-21T08:46:56Z",
+      "side": 1,
+      "message": "get ?",
+      "revId": "87b90258ccd8264251a02f89679a188e526431d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a45f3e84_4dabee4e",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-21T08:46:56Z",
+      "side": 1,
+      "message": "we are not calling any dbus API here, should we avoid this inclusion ?",
+      "revId": "87b90258ccd8264251a02f89679a188e526431d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25ef2aa9_2784294c",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-21T08:46:56Z",
+      "side": 1,
+      "message": "should we check size of l_cmdOutput, before accessing [0] index, is case if we receive empty vector?",
+      "revId": "87b90258ccd8264251a02f89679a188e526431d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
