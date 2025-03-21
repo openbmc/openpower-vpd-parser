@@ -176,6 +176,24 @@
       "parentUuid": "2a5771e4_f5377a86",
       "revId": "028f72d9d34300c4c9abf5a1da3c00a5e462da36",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c26a58a_08693ba3",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-21T04:11:05Z",
+      "side": 1,
+      "message": "system config JSON is passed while creating parser object, to extract offset that EEPROM file. As Rekha mentioned, there is not offset for system VPD, so config JSON is not required in this case.",
+      "parentUuid": "c2ee3323_8b4b9d9d",
+      "revId": "028f72d9d34300c4c9abf5a1da3c00a5e462da36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
