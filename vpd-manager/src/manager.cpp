@@ -2,7 +2,6 @@
 
 #include "manager.hpp"
 
-#include "backup_restore.hpp"
 #include "constants.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
@@ -60,6 +59,14 @@ Manager::Manager(
 
         // Set up minimal things that is needed before bus name is claimed.
         m_worker->performInitialSetup();
+
+        const nlohmann::json& l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+        if (!m_worker->getSysCfgJsonObj().empty() &&
+            jsonUtility::isBackupAndRestoreRequired(l_sysCfgJsonObj))
+        {
+            m_backupAndRestoreObj =
+                std::make_shared<BackupAndRestore>(l_sysCfgJsonObj);
+        }
 
         // set callback to detect any asset tag change
         registerAssetTagChangeCallback();
@@ -328,12 +335,9 @@ void Manager::SetTimerToDetectVpdCollectionStatus()
             m_interface->set_property("CollectionStatus",
                                       std::string("Completed"));
 
-            const nlohmann::json& l_sysCfgJsonObj =
-                m_worker->getSysCfgJsonObj();
-            if (jsonUtility::isBackupAndRestoreRequired(l_sysCfgJsonObj))
+            if (m_backupAndRestoreObj)
             {
-                BackupAndRestore l_backupAndRestoreObj(l_sysCfgJsonObj);
-                l_backupAndRestoreObj.backupAndRestore();
+                m_backupAndRestoreObj->backupAndRestore();
             }
         }
         else
@@ -574,7 +578,19 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
     {
         std::shared_ptr<Parser> l_parserObj =
             std::make_shared<Parser>(l_fruPath, l_sysCfgJsonObj);
-        return l_parserObj->updateVpdKeyword(i_paramsToWriteData);
+        auto l_rc = l_parserObj->updateVpdKeyword(i_paramsToWriteData);
+
+        if (l_rc != constants::FAILURE && m_backupAndRestoreObj)
+        {
+            if (m_backupAndRestoreObj->updateKeywordOnPrimaryOrBackupPath(
+                    l_fruPath, i_paramsToWriteData) < constants::VALUE_0)
+            {
+                logging::logMessage(
+                    "Write success, but backup and restore failed for file[" +
+                    l_fruPath + "]");
+            }
+        }
+        return l_rc;
     }
     catch (const std::exception& l_exception)
     {
