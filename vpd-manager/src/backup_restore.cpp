@@ -394,4 +394,53 @@ void BackupAndRestore::setBackupAndRestoreStatus(
 {
     m_backupAndRestoreStatus = i_status;
 }
+
+int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
+    [[maybe_unused]] const std::string& i_fruPath,
+    [[maybe_unused]] const types::WriteVpdParams& i_paramsToWriteData)
+    const noexcept
+{
+    int l_rc = constants::SUCCESS;
+
+    if (i_fruPath.empty())
+    {
+        return l_rc;
+    }
+
+    bool l_keywordUpdateRequired = false;
+    std::string l_fruPathToUpdate;
+
+    if (m_backupAndRestoreCfgJsonObj.contains("source") &&
+        m_backupAndRestoreCfgJsonObj["source"].value("hardwarePath", "") ==
+            i_fruPath &&
+        m_backupAndRestoreCfgJsonObj.contains("destination") &&
+        !m_backupAndRestoreCfgJsonObj["destination"]
+             .value("hardwarePath", "")
+             .empty())
+    {
+        l_keywordUpdateRequired = true;
+        l_fruPathToUpdate =
+            m_backupAndRestoreCfgJsonObj["destination"]["hardwarePath"];
+    }
+    else if (m_backupAndRestoreCfgJsonObj.contains("destination") &&
+             m_backupAndRestoreCfgJsonObj["destination"].value(
+                 "hardwarePath", "") == i_fruPath &&
+             m_backupAndRestoreCfgJsonObj.contains("source") &&
+             !m_backupAndRestoreCfgJsonObj["source"]
+                  .value("hardwarePath", "")
+                  .empty())
+    {
+        l_keywordUpdateRequired = true;
+        l_fruPathToUpdate =
+            m_backupAndRestoreCfgJsonObj["source"]["hardwarePath"];
+    }
+
+    if (l_keywordUpdateRequired)
+    {
+        // ToDo implementation needs to be added
+    }
+
+    return l_rc;
+}
+
 } // namespace vpd
