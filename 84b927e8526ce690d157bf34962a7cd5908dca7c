@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d577ae01_4fdd19da",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-24T11:28:23Z",
+      "side": 1,
+      "message": "This API was copied as is from vpd-manager common_utility.hpp.\n\nhttps://grok.openbmc.org/xref/openbmc/openpower-vpd-parser/vpd-manager/include/utility/common_utility.hpp?r\u003dfa5e4d325ef9cea3c841fe89d202c340f92bd8c6#111",
+      "parentUuid": "abbbd617_242d129a",
+      "revId": "84b927e8526ce690d157bf34962a7cd5908dca7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d017224b_14c90ad9",
         "filename": "vpd-tool/include/tool_utils.hpp",
         "patchSetId": 35
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-21T14:59:38Z",
       "side": 1,
       "message": "why is this called an integral data ?",
+      "revId": "84b927e8526ce690d157bf34962a7cd5908dca7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "552a7b47_bd956a99",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-24T11:28:23Z",
+      "side": 1,
+      "message": "This API is a generic API which takes in any integral data type(eg. `int16_t` , `int32_t`, `int64_t`, etc) and converts it into binary vector of bytes.\n\nCurrently, we get BIOS attribute FCO as an `int64_t` datatype from BIOS Config Manager, which we need to convert into a vector of bytes.",
+      "parentUuid": "d017224b_14c90ad9",
       "revId": "84b927e8526ce690d157bf34962a7cd5908dca7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
