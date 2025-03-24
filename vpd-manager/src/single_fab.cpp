@@ -3,12 +3,14 @@
 #include "single_fab.hpp"
 
 #include "constants.hpp"
+#include "event_logger.hpp"
 #include "parser.hpp"
 #include "types.hpp"
 
 #include <nlohmann/json.hpp>
 #include <utility/common_utility.hpp>
 #include <utility/json_utility.hpp>
+#include <utility/vpd_specific_utility.hpp>
 
 namespace vpd
 {
@@ -131,5 +133,99 @@ bool SingleFab::isFieldModeEnabled() const noexcept
     {}
 
     return false;
+}
+
+bool SingleFab::isValidImSeries(const std::string& l_imValue) const noexcept
+{
+    if (l_imValue.substr(0, 4) == POWER10_IM_SERIES ||
+        l_imValue.substr(0, 4) == POWER11_IM_SERIES)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+void SingleFab::singleFabImOverride()
+{
+    const std::string l_planarImValue = SingleFab::getImFromPlanar();
+    const std::string l_eBmcImValue = SingleFab::getImFromPersistedLocation();
+    const bool l_isFieldModeEnabled = SingleFab::isFieldModeEnabled();
+    const bool l_isLabModeEnabled = !l_isFieldModeEnabled;
+    const bool l_isPowerVsImage = vpdSpecificUtility::isPowerVsImage();
+    const bool l_isNormalImage = !l_isPowerVsImage;
+
+    if (!isValidImSeries(l_planarImValue))
+    {
+        // Create Errorlog for invalid IM series encountered
+        EventLogger::createSyncPel(
+            types::ErrorType::InvalidSystem, types::SeverityType::Error,
+            __FILE__, __FUNCTION__, 0,
+            std::string("Invalid IM found on system planar. ") +
+                l_planarImValue,
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        return;
+    }
+
+    if (!l_eBmcImValue.empty())
+    {
+        if (isP10System(l_eBmcImValue))
+        {
+            if (isP10System(l_planarImValue))
+            {
+                if (l_isFieldModeEnabled && l_isNormalImage)
+                {
+                    // Create SRC1;
+                    // Quiesce the BMC;
+                }
+            }
+            else if (isP11System(l_planarImValue))
+            {
+                if (!(l_isLabModeEnabled && l_isNormalImage))
+                {
+                    // Create SRC1;
+                    // Quiesce the BMC;
+                }
+            }
+        }
+        else if (isP11System(l_eBmcImValue))
+        {
+            if (l_isPowerVsImage)
+            {
+                // Create SRC1;
+                // Quiesce the BMC;
+            }
+            else
+            {
+                if (isP10System(l_planarImValue))
+                {
+                    // update system IM Value to P11Series
+                }
+            }
+        }
+    }
+    else
+    {
+        if (isP11System(l_planarImValue) && l_isPowerVsImage)
+        {
+            // Create SRC1;
+            // Quiesce the BMC;
+        }
+        else if (isP10System(l_planarImValue) && l_isNormalImage)
+        {
+            if (l_isLabModeEnabled)
+            {
+                // create SRC0;
+                // PE intervention required , PE to set IM based on Processor
+                // used ; restart required;
+            }
+            else
+            {
+                // update system IM Value to P11Series;
+            }
+        }
+    }
+    return;
 }
 } // namespace vpd
