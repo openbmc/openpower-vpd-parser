@@ -570,5 +570,7 @@ class Worker
 
     // List of EEPROM paths for which VPD collection thread creation has failed.
     std::forward_list<std::string> m_failedEepromPaths;
+
+    // Shared pointer to back up and restore class;
 };
 } // namespace vpd

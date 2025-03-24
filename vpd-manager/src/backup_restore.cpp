@@ -394,4 +394,21 @@ void BackupAndRestore::setBackupAndRestoreStatus(
 {
     m_backupAndRestoreStatus = i_status;
 }
+
+int BackupAndRestore::perfromIndividualBackupRestore(
+    const types::Path i_Path, const types::WriteVpdParams i_paramsToWriteData)
+{
+    // check if path qualifies for back up and restore
+    if (!/*qualifies for B&R*/)
+    {
+        return 0;
+    }
+
+    // perform back up or restore based on the path
+    if (/*B&R is successful*/)
+    {
+        return 1;
+    }
+    return -1;
+}
 } // namespace vpd
