@@ -783,5 +783,24 @@ inline std::string getCcinFromDbus(const std::string& i_invObjPath)
         return std::string{};
     }
 }
+
+/**
+ * @brief API to check if the current running image is a powerVS image.
+ *
+ * @return true if it is PowerVS image, false otherwise.
+ */
+inline bool isPowerVsImage()
+{
+    std::string l_imagePrefix = dbusUtility::getImagePrefix();
+
+    if ((l_imagePrefix == constants::powerVsImagePrefix_MY) ||
+        (l_imagePrefix == constants::powerVsImagePrefix_NY) ||
+        (l_imagePrefix == constants::powerVsImagePrefix_MZ) ||
+        (l_imagePrefix == constants::powerVsImagePrefix_NZ))
+    {
+        return true;
+    }
+    return false;
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd
