@@ -74,6 +74,30 @@ class BackupAndRestore
     static void setBackupAndRestoreStatus(
         const BackupAndRestoreStatus& i_status);
 
+    /**
+     * @brief An API to update keyword's value on primary or backup path.
+     *
+     * Updates the keyword's value based on the following,
+     * 1. If provided i_fruPath is primary(source) path in the backup restore
+     * config JSON, then API updates VPD on the backup(destination) path.
+     * 2. If i_fruPath is backup path, then API updates the VPD on the
+     * primary path.
+     *
+     * Note: The above condition is only valid,
+     * 1. If system's primary & backup VPD is on EEPROM path(and should be found
+     * in the backup and restore config JSON).
+     * 2. If the input record and keyword name found in the backup and restore
+     * config JSON.
+     *
+     * @param[in] i_fruPath - EEPROM path of the FRU.
+     * @param[in] i_paramsToWriteData - Input details.
+     *
+     * @return On success returns number of bytes written, -1 on failure.
+     */
+    int updateKeywordOnPrimaryOrBackupPath(
+        const std::string& i_fruPath,
+        const types::WriteVpdParams& i_paramsToWriteData) const noexcept;
+
   private:
     /**
      * @brief An API to handle backup and restore of IPZ type VPD.

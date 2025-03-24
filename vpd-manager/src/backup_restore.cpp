@@ -394,4 +394,40 @@ void BackupAndRestore::setBackupAndRestoreStatus(
 {
     m_backupAndRestoreStatus = i_status;
 }
+
+int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
+    const std::string& i_fruPath,
+    [[maybe_unused]] const types::WriteVpdParams& i_paramsToWriteData)
+    const noexcept
+{
+    if (i_fruPath.empty())
+    {
+        logging::logMessage("Given FRU path is empty.");
+        return constants::FAILURE;
+    }
+
+    if (m_backupAndRestoreCfgJsonObj.contains("source") &&
+        m_backupAndRestoreCfgJsonObj["source"].value("hardwarePath", "") ==
+            i_fruPath &&
+        m_backupAndRestoreCfgJsonObj.contains("destination") &&
+        !m_backupAndRestoreCfgJsonObj["destination"]
+             .value("hardwarePath", "")
+             .empty())
+    {
+        // ToDo implementation needs to be added
+    }
+    else if (m_backupAndRestoreCfgJsonObj.contains("destination") &&
+             m_backupAndRestoreCfgJsonObj["destination"].value(
+                 "hardwarePath", "") == i_fruPath &&
+             m_backupAndRestoreCfgJsonObj.contains("source") &&
+             !m_backupAndRestoreCfgJsonObj["source"]
+                  .value("hardwarePath", "")
+                  .empty())
+    {
+        // ToDo implementation needs to be added
+    }
+
+    return constants::SUCCESS;
+}
+
 } // namespace vpd
