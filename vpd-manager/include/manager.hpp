@@ -2,6 +2,7 @@
 
 #include "constants.hpp"
 #include "gpio_monitor.hpp"
+#include "single_fab.hpp"
 #include "types.hpp"
 #include "worker.hpp"
 
@@ -318,6 +319,9 @@ class Manager
 
     // Shared pointer to GpioMonitor class
     std::shared_ptr<GpioMonitor> m_gpioMonitor;
+
+    // Shared pointer to Singlefab class
+    std::shared_ptr<SingleFab> m_singleFab;
 
     // Variable to hold current collection status
     std::string m_vpdCollectionStatus = "NotStarted";
