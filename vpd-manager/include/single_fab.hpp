@@ -38,5 +38,18 @@ class SingleFab
      * @return true if value updated successfully, otherwise false.
      */
     bool setImOnPlanar(const std::string& i_imValue) const noexcept;
+
+    /**
+     * @brief API to update IM value on system planar EEPROM path to P11 series.
+     *
+     * This API updates the IM value in VPD to P11 series (6000x).
+     *
+     * @param[in] i_currentImValuePlanar - current IM value in planar EEPROM.
+     *
+     * @return true if IM value is updated successfully, otherwise false.
+     *
+     */
+    bool updateSystemImValueInVpdToP11Series(
+        const std::string& i_currentImValuePlanar) const noexcept;
 };
 } // namespace vpd
