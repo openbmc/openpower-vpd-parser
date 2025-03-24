@@ -124,6 +124,9 @@ bool SingleFab::isFieldModeEnabled() const noexcept
         {
             commonUtility::toLower(l_cmdOutput[0]);
 
+            // Remove the new line character from the string.
+            l_cmdOutput[0].erase(l_cmdOutput[0].length() - 1);
+
             return l_cmdOutput[0] == "false" ? false : true;
         }
     }

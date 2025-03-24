@@ -15,7 +15,7 @@ class SingleFab
     // ToDo: public API to be implemented, which can be called by the user to
     // support single FAB.
 
-  private:
+  public:
     /**
      * @brief API to get IM value from persisted location.
      *
