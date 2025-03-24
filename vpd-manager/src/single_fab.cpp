@@ -111,4 +111,11 @@ bool SingleFab::setImOnPlanar(const std::string& i_imValue) const noexcept
         return false;
     }
 }
+
+bool SingleFab::updateSystemImValueInVpdToP11Series() const noexcept
+{
+    // update the IM value to P11 series
+    return setImOnPlanar(
+        std::string("6") + l_currentImValuePlanar.substr(1, 3));
+}
 } // namespace vpd
