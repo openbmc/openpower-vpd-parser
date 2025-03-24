@@ -45,5 +45,18 @@ class SingleFab
      * @return true, if field mode is enabled. otherwise false.
      */
     bool isFieldModeEnabled() const noexcept;
+
+    /**
+     * @brief API to update IM value on system planar EEPROM path to P11 series.
+     *
+     * This API updates the IM value in VPD to P11 series (6000x).
+     *
+     * @param[in] i_currentImValuePlanar - current IM value in planar EEPROM.
+     *
+     * @return true if IM value is updated successfully, otherwise false.
+     *
+     */
+    bool updateSystemImValueInVpdToP11Series(
+        std::string i_currentImValuePlanar) const noexcept;
 };
 } // namespace vpd
