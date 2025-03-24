@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20523b11_6edd00d3",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-24T04:50:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a45f3e84_4dabee4e",
+      "revId": "87b90258ccd8264251a02f89679a188e526431d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25ef2aa9_2784294c",
         "filename": "vpd-manager/src/single_fab.cpp",
         "patchSetId": 8
@@ -84,6 +102,24 @@
       "writtenOn": "2025-03-21T08:46:56Z",
       "side": 1,
       "message": "should we check size of l_cmdOutput, before accessing [0] index, is case if we receive empty vector?",
+      "revId": "87b90258ccd8264251a02f89679a188e526431d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67e42d8b_de5ef5af",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-24T04:50:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25ef2aa9_2784294c",
       "revId": "87b90258ccd8264251a02f89679a188e526431d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
