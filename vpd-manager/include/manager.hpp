@@ -1,5 +1,6 @@
 #pragma once
 
+#include "backup_restore.hpp"
 #include "constants.hpp"
 #include "gpio_monitor.hpp"
 #include "types.hpp"
@@ -321,6 +322,9 @@ class Manager
 
     // Variable to hold current collection status
     std::string m_vpdCollectionStatus = "NotStarted";
+
+    // Shared pointer to backup and restore class
+    std::shared_ptr<BackupAndRestore> m_backupAndRestoreObj;
 };
 
 } // namespace vpd
