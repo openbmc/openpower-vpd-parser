@@ -394,4 +394,31 @@ void BackupAndRestore::setBackupAndRestoreStatus(
 {
     m_backupAndRestoreStatus = i_status;
 }
+
+bool BackupAndRestore::isBackupVpdOnFru()
+{
+    if (m_backupAndRestoreCfgJsonObj.contains("destination") &&
+        !m_backupAndRestoreCfgJsonObj["destination"]
+             .value("hardwarePath", "")
+             .empty())
+    {
+        return true;
+    }
+
+    return false;
+}
+
+int BackupAndRestore::updateKeyword(
+    [[maybe_unused]] const std::string& i_fruPath,
+    [[maybe_unused]] const types::WriteVpdParams& i_paramsToWriteData)
+{
+    if (!isBackupVpdOnFru())
+    {
+        return constants::SUCCESS;
+    }
+    // ToDo implementation needs to be added
+
+    return constants::SUCCESS;
+}
+
 } // namespace vpd
