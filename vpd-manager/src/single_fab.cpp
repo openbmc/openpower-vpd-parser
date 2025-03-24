@@ -111,4 +111,34 @@ bool SingleFab::setImOnPlanar(const std::string& i_imValue) const noexcept
         return false;
     }
 }
+
+bool SingleFab::updateSystemImValueInVpdToP11Series() const noexcept
+{
+    const std::string l_currentImValuePlanar{getImFromPlanar()};
+    if (l_currentImValuePlanar.empty())
+    {
+        // log error
+        return;
+    }
+
+    // check if the IM value on Planar is valid.
+    //  if not valid, raise error and return
+#if 0
+    if(!isValidImSeries(l_currentImValuePlanar))
+    {
+        // log error
+        return;
+    }
+    else
+    {
+        //check if IM value is already P11 series
+        if(isPower11ImValue(l_currentImValuePlanar))
+        {
+            return;
+        }
+        // update the IM value to P11 series
+        return setImOnPlanar(std::string("6") + l_currentImValuePlanar.substr(1,3));
+    }
+#endif
+}
 } // namespace vpd
