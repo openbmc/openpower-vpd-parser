@@ -29,6 +29,8 @@ Manager::Manager(
     try
     {
 #ifdef IBM_SYSTEM
+        m_singleFab->singleFabImOverride();
+
         if (dbusUtility::isChassisPowerOn())
         {
             // At power on, less number of FRU(s) needs collection. we can scale
