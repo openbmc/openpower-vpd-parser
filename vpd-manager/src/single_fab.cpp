@@ -132,4 +132,19 @@ bool SingleFab::isFieldModeEnabled() const noexcept
 
     return false;
 }
+
+bool SingleFab::updateSystemImValueInVpdToP11Series(
+    std::string i_currentImValuePlanar) const noexcept
+{
+    bool l_retVal{false};
+    if (!i_currentImValuePlanar.empty())
+    {
+        // update the IM value to P11 series(6000x). Replace the first character
+        // of IM value string with '6'
+        l_retVal = setImOnPlanar(i_currentImValuePlanar.replace(
+            constants::VALUE_0, constants::VALUE_1,
+            std::to_string(constants::VALUE_6)));
+    }
+    return l_retVal;
+}
 } // namespace vpd
