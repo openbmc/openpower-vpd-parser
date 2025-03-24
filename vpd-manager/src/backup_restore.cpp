@@ -394,4 +394,48 @@ void BackupAndRestore::setBackupAndRestoreStatus(
 {
     m_backupAndRestoreStatus = i_status;
 }
+
+bool BackupAndRestore::isPrimaryAndBackupVpdOnFru() const noexcept
+{
+    return (m_backupAndRestoreCfgJsonObj.contains("source") &&
+            !m_backupAndRestoreCfgJsonObj["source"]
+                 .value("hardwarePath", "")
+                 .empty() &&
+            m_backupAndRestoreCfgJsonObj.contains("destination") &&
+            !m_backupAndRestoreCfgJsonObj["destination"]
+                 .value("hardwarePath", "")
+                 .empty());
+}
+
+int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
+    [[maybe_unused]] const std::string& i_fruPath,
+    [[maybe_unused]] const types::WriteVpdParams& i_paramsToWriteData)
+    const noexcept
+{
+    int l_rc = constants::SUCCESS;
+
+    if (i_fruPath.empty() || !isPrimaryAndBackupVpdOnFru())
+    {
+        return l_rc;
+    }
+
+    bool l_isSrcFruPath =
+        (m_backupAndRestoreCfgJsonObj.contains("source") &&
+         m_backupAndRestoreCfgJsonObj["source"]["hardwarePath"] == i_fruPath);
+
+    bool l_isDstFruPath =
+        (m_backupAndRestoreCfgJsonObj.contains("destination") &&
+         m_backupAndRestoreCfgJsonObj["destination"]["hardwarePath"] ==
+             i_fruPath);
+
+    if (!(l_isSrcFruPath || l_isDstFruPath))
+    {
+        return l_rc;
+    }
+
+    // ToDo implementation needs to be added
+
+    return l_rc;
+}
+
 } // namespace vpd
