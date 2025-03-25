@@ -177,12 +177,30 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData)
             l_propertyName =
                 vpdSpecificUtility::getDbusPropNameForGivenKw(l_propertyName);
 
+            // Create interface map
+            types::InterfaceMap l_interfaceMap{std::make_pair(
+                l_interfaceName, types::PropertyMap{std::make_pair(
+                                     l_propertyName, l_keywordValue)})};
+
+            // Check for redundant pair of D-bus interface and property for the
+            // given record and keyword pair.
+            if (const auto identicalPair =
+                    dbusUtility::identicalDbusPropertyPairs.find(
+                        std::make_pair(l_interfaceName, l_propertyName));
+                identicalPair != dbusUtility::identicalDbusPropertyPairs.end())
+            {
+                l_interfaceMap.emplace(
+                    std::get<0>(identicalPair->second),
+                    types::PropertyMap{std::make_pair(
+                        std::get<1>(identicalPair->second),
+                        vpdSpecificUtility::encodeKeyword(
+                            commonUtility::toString(l_keywordValue),
+                            std::get<2>(identicalPair->second)))});
+            }
+
             // Create D-bus object map
-            types::ObjectMap l_dbusObjMap = {std::make_pair(
-                l_inventoryObjPath,
-                types::InterfaceMap{std::make_pair(
-                    l_interfaceName, types::PropertyMap{std::make_pair(
-                                         l_propertyName, l_keywordValue)})})};
+            types::ObjectMap l_dbusObjMap = {
+                std::make_pair(l_inventoryObjPath, l_interfaceMap)};
 
             // Call PIM's Notify method to perform update
             if (!dbusUtility::callPIM(std::move(l_dbusObjMap)))
