@@ -9,6 +9,7 @@
 #include "parser.hpp"
 #include "parser_factory.hpp"
 #include "parser_interface.hpp"
+#include "single_fab.hpp"
 #include "types.hpp"
 #include "utility/dbus_utility.hpp"
 #include "utility/json_utility.hpp"
@@ -26,6 +27,21 @@ Manager::Manager(
     const std::shared_ptr<sdbusplus::asio::connection>& asioConnection) :
     m_ioContext(ioCon), m_interface(iFace), m_asioConnection(asioConnection)
 {
+#ifdef IBM_SYSTEM
+    if (!dbusUtility::isChassisPowerOn())
+    {
+        SingleFab l_singleFab;
+        const int& l_rc = l_singleFab.singleFabImOverride();
+
+        if (l_rc == INVALID_CASE)
+        {
+            throw std::runtime_error(
+                std::string(__FUNCTION__) +
+                " : Found invalid system configuration. BMC needs to got to quiesced state.");
+        }
+    }
+#endif
+
     try
     {
 #ifdef IBM_SYSTEM
