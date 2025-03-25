@@ -168,8 +168,13 @@ Manager::Manager(
     catch (const std::exception& e)
     {
         logging::logMessage(
-            "VPD-Manager service failed. " + std::string(e.what()));
-        throw;
+            "Manager class instantiation failed. " + std::string(e.what()));
+
+        vpd::EventLogger::createSyncPel(
+            vpd::EventLogger::getErrorType(l_ex),
+            vpd::types::SeverityType::Error, __FILE__, __FUNCTION__, 0,
+            vpd::EventLogger::getErrorMsg(l_ex), std::nullopt, std::nullopt,
+            std::nullopt, std::nullopt);
     }
 }
 
