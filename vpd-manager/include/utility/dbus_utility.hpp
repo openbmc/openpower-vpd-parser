@@ -15,6 +15,21 @@ namespace vpd
 namespace dbusUtility
 {
 
+// Map of identical D-bus interface and D-bus property pair
+// key : <vpd interface, vpd keyword>
+// value : <d-bus interface, d-bus property, encode type>
+static const std::map<std::pair<std::string, std::string>,
+                      std::tuple<std::string, std::string, std::string>>
+    identicalDbusPropertyPairs{
+        {{constants::kwdVpdInf, "SN"},
+         {constants::assetInf, "SerialNumber", "ASCII"}},
+        {{constants::kwdVpdInf, "PN"},
+         {constants::assetInf, "PartNumber", "ASCII"}},
+        {{constants::kwdVpdInf, "FN"},
+         {constants::assetInf, "SparePartNumber", "ASCII"}},
+        {{constants::kwdVpdInf, "CC"}, {constants::assetInf, "Model", "ASCII"}},
+        {{constants::vr10Inf, "DC"},
+         {constants::assetInf, "BuildDate", "DATE"}}};
 /**
  * @brief An API to get Map of service and interfaces for an object path.
  *

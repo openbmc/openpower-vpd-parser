@@ -113,5 +113,21 @@ inline void toLower(std::string& i_string)
     std::transform(i_string.begin(), i_string.end(), i_string.begin(),
                    [](unsigned char l_char) { return std::tolower(l_char); });
 }
+
+/**
+ * @brief API to convert the given variant to string
+ *
+ * @param[in] i_data - Data to be converted
+ * @return Converted data in string format on success. Empty string on failure.
+ */
+inline std::string toString(const types::DbusVariantType& i_data)
+{
+    if (const auto l_data = std::get_if<types::BinaryVector>(&i_data);
+        l_data && !l_data->empty())
+    {
+        return std::string(l_data->begin(), l_data->end());
+    }
+    return std::string();
+}
 } // namespace commonUtility
 } // namespace vpd
