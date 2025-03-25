@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a99bb15_a860c002",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-25T15:46:13Z",
+      "side": 1,
+      "message": "Move this code out of try/catch block and use the return code from \"singleFabImOverride\" to mark the situation where BMC needs to be quiesced. Then throw from here so that main catches the exception and mark the service as failed?\n\nDo you see any downside in case we do this?",
+      "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed2480b7_b6000be8",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-25T15:46:13Z",
+      "side": 1,
+      "message": "Return int from this API and have some specific error code defined so that its return code can be used to set BMC to Quiesced state?",
+      "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2893a400_f3666c59",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-25T15:46:13Z",
+      "side": 1,
+      "message": "Do we need string copy or reference can be used as it is already const?\nSame for others.",
+      "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
