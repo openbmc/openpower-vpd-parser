@@ -128,6 +128,7 @@ constexpr auto utilInf = "com.ibm.ipzvpd.UTIL";
 constexpr auto vcenInf = "com.ibm.ipzvpd.VCEN";
 constexpr auto viniInf = "com.ibm.ipzvpd.VINI";
 constexpr auto vsbpInf = "com.ibm.ipzvpd.VSBP";
+constexpr auto vr10Inf = "com.ibm.ipzvpd.VR10";
 constexpr auto kwdCCIN = "CC";
 constexpr auto kwdRG = "RG";
 constexpr auto kwdAMM = "D0";
