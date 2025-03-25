@@ -1,9 +1,12 @@
 #pragma once
 
+#include "constants.hpp"
+
 #include <string>
 
 namespace vpd
 {
+
 /**
  * @brief class to implement single fab feature.
  *
@@ -12,8 +15,18 @@ namespace vpd
  */
 class SingleFab
 {
-    // ToDo: public API to be implemented, which can be called by the user to
-    // support single FAB.
+  public:
+    /**
+     * @brief API to support single FAB feature.
+     *
+     * This API updates the IM value to the P11 series or creates PEL in invalid
+     * case based on the IM value read from the cache and planar, considering
+     * the system mode and image.
+     *
+     * System mode can be of field mode or lab mode and system image can be
+     * special or normal image.
+     */
+    void singleFabImOverride() const noexcept;
 
   private:
     /**
@@ -55,5 +68,49 @@ class SingleFab
      */
     bool updateSystemImValueInVpdToP11Series(
         std::string i_currentImValuePlanar) const noexcept;
+
+    /**
+     * @brief API to check if it is a P10 system.
+     *
+     * @param[in] i_imValue - IM value of the system.
+     *
+     * @return true, if P10 system. Otherwise false.
+     */
+    inline bool isP10System(const std::string& i_imValue) const noexcept
+    {
+        return (i_imValue.substr(constants::VALUE_0, constants::VALUE_4) ==
+                POWER10_IM_SERIES);
+    }
+
+    /**
+     * @brief API to check if it is a P11 system.
+     *
+     * @param[in] i_imValue - IM value of the system.
+     *
+     * @return true, if P11 system. Otherwise false.
+     */
+    inline bool isP11System(const std::string& i_imValue) const noexcept
+    {
+        return (i_imValue.substr(constants::VALUE_0, constants::VALUE_4) ==
+                POWER11_IM_SERIES);
+    }
+
+    /**
+     * @brief API to check if it is a valid IM series.
+     *
+     * This API checks if the provided IM value is of either P10 or P11 series.
+     *
+     * @param[in] i_imValue - IM value of the system.
+     *
+     * @return true, if valid IM series. Otherwise false.
+     */
+    inline bool isValidImSeries(const std::string& l_imValue) const noexcept
+    {
+        return (isP10System(l_imValue) || isP11System(l_imValue));
+    }
+
+    // valid IM series.
+    static constexpr auto POWER10_IM_SERIES = "5000";
+    static constexpr auto POWER11_IM_SERIES = "6000";
 };
 } // namespace vpd
