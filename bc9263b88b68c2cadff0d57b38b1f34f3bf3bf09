@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40dd6968_7116e05b",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-25T05:53:38Z",
+      "side": 1,
+      "message": "I think these constants should be `static constexpr` members of `SingleFab`, as they are only supposed to be used by `SingleFab`.",
+      "revId": "bc9263b88b68c2cadff0d57b38b1f34f3bf3bf09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b35f66bb_4bf31e48",
         "filename": "vpd-manager/include/single_fab.hpp",
         "patchSetId": 5
@@ -14,6 +31,125 @@
       "writtenOn": "2025-03-25T04:22:43Z",
       "side": 1,
       "message": "\"or will create PEL in case of invalid scenario\" ?",
+      "revId": "bc9263b88b68c2cadff0d57b38b1f34f3bf3bf09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48e0a34f_34a603b5",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-25T05:53:38Z",
+      "side": 1,
+      "message": "Please specify `const` `noexcept` specifiers if required.",
+      "revId": "bc9263b88b68c2cadff0d57b38b1f34f3bf3bf09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f68956e_755897d4",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-25T05:53:38Z",
+      "side": 1,
+      "message": "`const` `noexcept` specifiers missing.",
+      "revId": "bc9263b88b68c2cadff0d57b38b1f34f3bf3bf09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac8fb632_3ad9c2a5",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-25T05:53:38Z",
+      "side": 1,
+      "message": "`return (i_imValue.substr(0, 4) \u003d\u003d POWER10_IM_SERIES) ? true : false;`\nWe do not need ternary operator here.\n\n`return (i_imValue.substr(0, 4) \u003d\u003d POWER10_IM_SERIES)` serves the purpose.",
+      "revId": "bc9263b88b68c2cadff0d57b38b1f34f3bf3bf09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69003eb6_60694c89",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-25T05:53:38Z",
+      "side": 1,
+      "message": "`const` `noexcept` specifiers missing.",
+      "revId": "bc9263b88b68c2cadff0d57b38b1f34f3bf3bf09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c7b553b_20d6bb62",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-25T05:53:38Z",
+      "side": 1,
+      "message": "`return (i_imValue.substr(0, 4) \u003d\u003d POWER11_IM_SERIES) ? true : false;`\nWe do not need ternary operator here.\n\n`return (i_imValue.substr(0, 4) \u003d\u003d POWER11_IM_SERIES)` serves the purpose.",
+      "revId": "bc9263b88b68c2cadff0d57b38b1f34f3bf3bf09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fa16bdc_23b48876",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-25T05:53:38Z",
+      "side": 1,
+      "message": "This can be an `inline` method.",
+      "revId": "bc9263b88b68c2cadff0d57b38b1f34f3bf3bf09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f766766_1603d0ff",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-25T05:53:38Z",
+      "side": 1,
+      "message": "As we already have two methods `isP10System()` and `isP11System()`, this implementation can be simplified to: \n\n`return isP10System(l_imValue) || isP11System(l_imValue);`",
       "revId": "bc9263b88b68c2cadff0d57b38b1f34f3bf3bf09",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
