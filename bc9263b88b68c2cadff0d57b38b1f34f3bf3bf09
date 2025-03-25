@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b35f66bb_4bf31e48",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-25T04:22:43Z",
+      "side": 1,
+      "message": "\"or will create PEL in case of invalid scenario\" ?",
+      "revId": "bc9263b88b68c2cadff0d57b38b1f34f3bf3bf09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
