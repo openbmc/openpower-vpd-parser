@@ -3,12 +3,14 @@
 #include "single_fab.hpp"
 
 #include "constants.hpp"
+#include "event_logger.hpp"
 #include "parser.hpp"
 #include "types.hpp"
 
 #include <nlohmann/json.hpp>
 #include <utility/common_utility.hpp>
 #include <utility/json_utility.hpp>
+#include <utility/vpd_specific_utility.hpp>
 
 namespace vpd
 {
@@ -146,5 +148,143 @@ bool SingleFab::updateSystemImValueInVpdToP11Series(
             std::to_string(constants::VALUE_6)));
     }
     return l_retVal;
+}
+
+void SingleFab::singleFabImOverride() const noexcept
+{
+    const std::string l_planarImValue = getImFromPlanar();
+    const std::string l_eBmcImValue = getImFromPersistedLocation();
+    const bool l_isFieldModeEnabled = isFieldModeEnabled();
+    const bool l_isLabModeEnabled = !l_isFieldModeEnabled;
+    const bool l_isPowerVsImage = vpdSpecificUtility::isPowerVsImage();
+    const bool l_isNormalImage = !l_isPowerVsImage;
+
+    if (!isValidImSeries(l_planarImValue))
+    {
+        // Create Errorlog for invalid IM series encountered
+        EventLogger::createAsyncPel(
+            types::ErrorType::InvalidSystem, types::SeverityType::Error,
+            __FILE__, __FUNCTION__, 0,
+            std::string("Invalid IM found on the system planar, IM value : ") +
+                l_planarImValue,
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        return;
+    }
+
+    if (!l_eBmcImValue.empty())
+    {
+        if (isP10System(l_eBmcImValue))
+        {
+            if (isP10System(l_planarImValue))
+            {
+                if (l_isFieldModeEnabled && l_isNormalImage)
+                {
+                    EventLogger::createAsyncPel(
+                        types::ErrorType::SystemTypeMismatch,
+                        types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                        std::string("Mismatch in IM value found eBMC IM [") +
+                            l_eBmcImValue + std::string("] planar IM [") +
+                            l_planarImValue +
+                            std::string("] Field mode enabled [") +
+                            ((l_isFieldModeEnabled) ? "true" : "false") +
+                            std::string("]"),
+                        std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+                    // TODO : Quiesce the BMC;
+                }
+            }
+            else if (isP11System(l_planarImValue))
+            {
+                if (!(l_isLabModeEnabled && l_isNormalImage))
+                {
+                    EventLogger::createAsyncPel(
+                        types::ErrorType::SystemTypeMismatch,
+                        types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                        std::string("Mismatch in IM value found eBMC IM [") +
+                            l_eBmcImValue + std::string("] planar IM [") +
+                            l_planarImValue +
+                            std::string("] Field mode enabled [") +
+                            ((l_isFieldModeEnabled) ? "true" : "false") +
+                            std::string("]"),
+                        std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+                    // TODO : Quiesce the BMC;
+                }
+            }
+        }
+        else if (isP11System(l_eBmcImValue))
+        {
+            if (l_isPowerVsImage)
+            {
+                EventLogger::createAsyncPel(
+                    types::ErrorType::SystemTypeMismatch,
+                    types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                    std::string("Mismatch in IM value found eBMC IM [") +
+                        l_eBmcImValue + std::string("] planar IM [") +
+                        l_planarImValue +
+                        std::string("] Field mode enabled [") +
+                        ((l_isFieldModeEnabled) ? "true" : "false") +
+                        std::string("]"),
+                    std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+                // TODO : Quiesce the BMC;
+            }
+            else
+            {
+                if (isP10System(l_planarImValue))
+                {
+                    if (!updateSystemImValueInVpdToP11Series(l_planarImValue))
+                    {
+                        logging::logMessage(
+                            "Failed to update IM value on planar.");
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        if (isP11System(l_planarImValue) && l_isPowerVsImage)
+        {
+            EventLogger::createAsyncPel(
+                types::ErrorType::SystemTypeMismatch,
+                types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                std::string("Mismatch in IM value found eBMC IM [") +
+                    l_eBmcImValue + std::string("] planar IM [") +
+                    l_planarImValue + std::string("] Field mode enabled [") +
+                    ((l_isFieldModeEnabled) ? "true" : "false") +
+                    std::string("]"),
+                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            // TODO : Quiesce the BMC;
+        }
+        else if (isP10System(l_planarImValue) && l_isNormalImage)
+        {
+            if (l_isLabModeEnabled)
+            {
+                EventLogger::createAsyncPel(
+                    types::ErrorType::UnknownSystemSettings,
+                    types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                    std::string("Mismatch in IM value found eBMC IM [") +
+                        l_eBmcImValue + std::string("] planar IM [") +
+                        l_planarImValue +
+                        std::string("] Field mode enabled [") +
+                        ((l_isFieldModeEnabled) ? "true" : "false") +
+                        std::string("]"),
+                    std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+                // PE intervention required , PE to set IM based on Processor
+                // used ; restart required;
+            }
+            else
+            {
+                if (!updateSystemImValueInVpdToP11Series(l_planarImValue))
+                {
+                    logging::logMessage("Failed to update IM value on planar");
+                }
+            }
+        }
+    }
+    return;
 }
 } // namespace vpd
