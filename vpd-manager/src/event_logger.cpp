@@ -43,7 +43,11 @@ const std::unordered_map<types::ErrorType, std::string>
         {types::ErrorType::GpioError, "com.ibm.VPD.Error.GPIOError"},
         {types::ErrorType::InternalFailure,
          "xyz.openbmc_project.Common.Error.InternalFailure"},
-        {types::ErrorType::FruMissing, "com.ibm.VPD.Error.RequiredFRUMissing"}};
+        {types::ErrorType::FruMissing, "com.ibm.VPD.Error.RequiredFRUMissing"},
+        {types::ErrorType::SystemTypeMismatch,
+         "com.ibm.VPD.Error.SystemTypeMismatch"},
+        {types::ErrorType::UnknownSystemSettings,
+         "com.ibm.VPD.Error.UnknownSystemSettings"}};
 
 const std::unordered_map<types::CalloutPriority, std::string>
     EventLogger::m_priorityMap = {
@@ -216,6 +220,7 @@ void EventLogger::createAsyncPel(
         // VALUE_6 represents the additional data pair count passing to create
         // PEL. If there any change in additional data, we need to pass the
         // correct number.
+
         auto l_rc = sd_bus_call_method_async(
             l_sdBus, NULL, constants::eventLoggingServiceName,
             constants::eventLoggingObjectPath, constants::eventLoggingInterface,
