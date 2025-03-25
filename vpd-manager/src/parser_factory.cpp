@@ -100,7 +100,8 @@ std::shared_ptr<ParserInterface> ParserFactory::getParser(
 {
     if (i_vpdVector.empty())
     {
-        throw std::runtime_error("Empty VPD vector passed to parser factory");
+        throw std::runtime_error(std::string(__FUNCTION__) +
+                                 "Empty VPD vector passed to parser factory");
     }
 
     vpdType l_type = vpdTypeCheck(i_vpdVector);
@@ -134,7 +135,8 @@ std::shared_ptr<ParserInterface> ParserFactory::getParser(
         }
 
         default:
-            throw DataException("Unable to determine VPD format");
+            throw DataException(
+                std::string(__FUNCTION__) + "Unable to determine VPD format");
     }
 }
 } // namespace vpd

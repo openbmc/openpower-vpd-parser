@@ -918,7 +918,8 @@ void Worker::processExtraInterfaces(const nlohmann::json& singleFru,
             }
             else
             {
-                throw std::runtime_error("Failed to get value for keyword PG");
+                throw DataException(std::string(__FUNCTION__) +
+                                    "Failed to get value for keyword PG");
             }
         }
     }
@@ -1092,6 +1093,7 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
     if (vpdFilePath.empty())
     {
         throw std::runtime_error(
+            std::string(__FUNCTION__) +
             "Invalid parameter passed to populateDbus API.");
     }
 
@@ -1363,28 +1365,30 @@ bool Worker::processPostAction(
 
 types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
 {
-    if (i_vpdFilePath.empty())
-    {
-        throw std::runtime_error(
-            "Empty VPD file path passed to Worker::parseVpdFile. Abort processing");
-    }
-
     try
     {
+        if (i_vpdFilePath.empty())
+        {
+            throw std::runtime_error(
+                std::string(__FUNCTION__) +
+                "Empty VPD file path passed. Abort processing");
+        }
+
         if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
                                           "preAction", "collection"))
         {
             if (!processPreAction(i_vpdFilePath, "collection"))
             {
-                throw std::runtime_error("Pre-Action failed");
+                throw std::runtime_error(
+                    std::string(__FUNCTION__) + "Pre-Action failed");
             }
         }
 
         if (!std::filesystem::exists(i_vpdFilePath))
         {
             throw std::runtime_error(
-                "Could not find file path " + i_vpdFilePath +
-                "Skipping parser trigger for the EEPROM");
+                std::string(__FUNCTION__) + "Could not find file path " +
+                i_vpdFilePath + "Skipping parser trigger for the EEPROM");
         }
 
         std::shared_ptr<Parser> vpdParser =
@@ -1401,9 +1405,14 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
         {
             if (!processPostAction(i_vpdFilePath, "collection", l_parsedVpd))
             {
-                // TODO: Log PEL
-                logging::logMessage("Required post action failed for path [" +
-                                    i_vpdFilePath + "]");
+                // Post action was required but failed while executing.
+                // Behaviour can be undefined.
+                EventLogger::createSyncPel(
+                    types::ErrorType::InternalFailure,
+                    types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                    std::string("Required post action failed for path [" +
+                                i_vpdFilePath + "]"),
+                    std::nullopt, std::nullopt, std::nullopt, std::nullopt);
             }
         }
 
@@ -1418,17 +1427,16 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             if (!jsonUtility::executePostFailAction(m_parsedJson, i_vpdFilePath,
                                                     "collection"))
             {
-                // TODO: Log PEL
                 throw std::runtime_error(
-                    "VPD parsing failed for " + i_vpdFilePath +
-                    " due to error: " + l_ex.what() +
+                    std::string(__FUNCTION__) + "VPD parsing failed for " +
+                    i_vpdFilePath + " due to error: " + l_ex.what() +
                     ". Post Fail Action also failed, aborting collection for this FRU");
             }
         }
 
-        // TODO: Log PEL
-        throw std::runtime_error("VPD parsing failed for " + i_vpdFilePath +
-                                 " due to error: " + l_ex.what());
+        throw std::runtime_error(
+            std::string(__FUNCTION__) + "VPD parsing failed for " +
+            i_vpdFilePath + " due to error: " + l_ex.what());
     }
 }
 
@@ -1470,13 +1478,11 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         types::ObjectMap objectInterfaceMap;
         populateDbus(parsedVpdMap, objectInterfaceMap, i_vpdFilePath);
 
-        // logging::logMessage("Dbus sucessfully populated for FRU " +
-        //                     i_vpdFilePath);
-
         // Notify PIM
         if (!dbusUtility::callPIM(move(objectInterfaceMap)))
         {
             throw std::runtime_error(
+                std::string(__FUNCTION__) +
                 "Call to PIM failed while publishing VPD.");
         }
     }
@@ -1512,24 +1518,12 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                     return std::make_tuple(false, i_vpdFilePath);
                 }
             }
+        }
 
-            // TODO: Add custom handling
-            logging::logMessage(ex.what());
-        }
-        else if (typeid(ex) == std::type_index(typeid(EccException)))
-        {
-            // TODO: Add custom handling
-            logging::logMessage(ex.what());
-        }
-        else if (typeid(ex) == std::type_index(typeid(JsonException)))
-        {
-            // TODO: Add custom handling
-            logging::logMessage(ex.what());
-        }
-        else
-        {
-            logging::logMessage(ex.what());
-        }
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(ex), types::SeverityType::Critical,
+            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(ex),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
 
         // TODO: Figure out a way to clear data in case of any failure at
         // runtime.
@@ -1593,8 +1587,10 @@ void Worker::collectFrusFromJson()
     // A parsed JSON file should be present to pick FRUs EEPROM paths
     if (m_parsedJson.empty())
     {
-        throw std::runtime_error(
-            "A config JSON is required for processing of FRUs");
+        throw JsonException(
+            std::string(__FUNCTION__) +
+                ": Config JSON is mandatory for processing of FRUs through this API.",
+            m_configJsonPath);
     }
 
     const nlohmann::json& listOfFrus =
@@ -1845,14 +1841,18 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
         // Notify PIM
         if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
         {
-            throw std::runtime_error(
+            throw DbusException(
+                std::string(__FUNCTION__) +
                 "Call to PIM failed while setting present property for path " +
                 i_vpdPath);
         }
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(l_ex.what());
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
+            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
 }
 
