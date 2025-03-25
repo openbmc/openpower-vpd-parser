@@ -2,6 +2,7 @@
 
 #include "constants.hpp"
 #include "gpio_monitor.hpp"
+#include "single_fab.hpp"
 #include "types.hpp"
 #include "worker.hpp"
 

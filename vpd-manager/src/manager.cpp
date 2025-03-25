@@ -9,6 +9,7 @@
 #include "parser.hpp"
 #include "parser_factory.hpp"
 #include "parser_interface.hpp"
+#include "single_fab.hpp"
 #include "types.hpp"
 #include "utility/dbus_utility.hpp"
 #include "utility/json_utility.hpp"
@@ -29,6 +30,12 @@ Manager::Manager(
     try
     {
 #ifdef IBM_SYSTEM
+        if (!dbusUtility::isChassisPowerOn())
+        {
+            SingleFab l_singleFab;
+            l_singleFab.singleFabImOverride();
+        }
+
         if (dbusUtility::isChassisPowerOn())
         {
             // At power on, less number of FRU(s) needs collection. we can scale
