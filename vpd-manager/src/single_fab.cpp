@@ -3,12 +3,14 @@
 #include "single_fab.hpp"
 
 #include "constants.hpp"
+#include "event_logger.hpp"
 #include "parser.hpp"
 #include "types.hpp"
 
 #include <nlohmann/json.hpp>
 #include <utility/common_utility.hpp>
 #include <utility/json_utility.hpp>
+#include <utility/vpd_specific_utility.hpp>
 
 namespace vpd
 {
@@ -136,7 +138,7 @@ bool SingleFab::isFieldModeEnabled() const noexcept
     return false;
 }
 
-bool SingleFab::updateSystemImValueInVpdToP11Series(
+void SingleFab::updateSystemImValueInVpdToP11Series(
     std::string i_currentImValuePlanar) const noexcept
 {
     bool l_retVal{false};
@@ -148,6 +150,143 @@ bool SingleFab::updateSystemImValueInVpdToP11Series(
             constants::VALUE_0, constants::VALUE_1,
             std::to_string(constants::VALUE_6)));
     }
-    return l_retVal;
+
+    if (!l_retVal)
+    {
+        EventLogger::createSyncPel(
+            types::ErrorType::InternalFailure,
+            types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+            std::string("Failed to update IM value to P11 series."),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+    }
+}
+
+int SingleFab::singleFabImOverride() const noexcept
+{
+    const std::string& l_planarImValue = getImFromPlanar();
+    const std::string& l_eBmcImValue = getImFromPersistedLocation();
+    const bool& l_isFieldModeEnabled = isFieldModeEnabled();
+    const bool& l_isLabModeEnabled = !l_isFieldModeEnabled; //used for understanding
+    const bool& l_isPowerVsImage = vpdSpecificUtility::isPowerVsImage();
+    const bool& l_isNormalImage = !l_isPowerVsImage; //used for understanding
+
+    if (!isValidImSeries(l_planarImValue))
+    {
+        // Create Errorlog for invalid IM series encountered
+        EventLogger::createSyncPel(
+            types::ErrorType::InvalidSystem, types::SeverityType::Error,
+            __FILE__, __FUNCTION__, 0,
+            std::string("Invalid IM found on the system planar, IM value : ") +
+                l_planarImValue,
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        return constants::SUCCESS;
+    }
+
+    if (!l_eBmcImValue.empty())
+    {
+        if (isP10System(l_eBmcImValue))
+        {
+            if (isP10System(l_planarImValue))
+            {
+                if (l_isFieldModeEnabled && l_isNormalImage)
+                {
+                    EventLogger::createSyncPel(
+                        types::ErrorType::SystemTypeMismatch,
+                        types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                        std::string("Mismatch in IM value found eBMC IM [") +
+                            l_eBmcImValue + std::string("] planar IM [") +
+                            l_planarImValue +
+                            std::string("] Field mode enabled [") +
+                            ((l_isFieldModeEnabled) ? "true" : "false") +
+                            std::string("]"),
+                        std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+                    return constants::FAILURE;
+                }
+            }
+            else if (isP11System(l_planarImValue))
+            {
+                if (!(l_isLabModeEnabled && l_isNormalImage))
+                {
+                    EventLogger::createSyncPel(
+                        types::ErrorType::SystemTypeMismatch,
+                        types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                        std::string("Mismatch in IM value found eBMC IM [") +
+                            l_eBmcImValue + std::string("] planar IM [") +
+                            l_planarImValue +
+                            std::string("] Field mode enabled [") +
+                            ((l_isFieldModeEnabled) ? "true" : "false") +
+                            std::string("]"),
+                        std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+                    return constants::FAILURE;
+                }
+            }
+        }
+        else if (isP11System(l_eBmcImValue))
+        {
+            if (l_isPowerVsImage)
+            {
+                EventLogger::createSyncPel(
+                    types::ErrorType::SystemTypeMismatch,
+                    types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                    std::string("Mismatch in IM value found eBMC IM [") +
+                        l_eBmcImValue + std::string("] planar IM [") +
+                        l_planarImValue +
+                        std::string("] Field mode enabled [") +
+                        ((l_isFieldModeEnabled) ? "true" : "false") +
+                        std::string("]"),
+                    std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+                return constants::FAILURE;
+            }
+            else
+            {
+                if (isP10System(l_planarImValue))
+                {
+                    updateSystemImValueInVpdToP11Series(l_planarImValue);
+                }
+            }
+        }
+    }
+    else
+    {
+        if (isP11System(l_planarImValue) && l_isPowerVsImage)
+        {
+            EventLogger::createSyncPel(
+                types::ErrorType::SystemTypeMismatch,
+                types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                std::string("Mismatch in IM value found eBMC IM [") +
+                    l_eBmcImValue + std::string("] planar IM [") +
+                    l_planarImValue + std::string("] Field mode enabled [") +
+                    ((l_isFieldModeEnabled) ? "true" : "false") +
+                    std::string("]"),
+                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+            return constants::FAILURE;
+        }
+        else if (isP10System(l_planarImValue) && l_isNormalImage)
+        {
+            if (l_isLabModeEnabled)
+            {
+                EventLogger::createSyncPel(
+                    types::ErrorType::UnknownSystemSettings,
+                    types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                    std::string("Mismatch in IM value found eBMC IM [") +
+                        l_eBmcImValue + std::string("] planar IM [") +
+                        l_planarImValue +
+                        std::string("] Field mode enabled [") +
+                        ((l_isFieldModeEnabled) ? "true" : "false") +
+                        std::string("]"),
+                    std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            }
+            else
+            {
+                updateSystemImValueInVpdToP11Series(l_planarImValue);
+            }
+        }
+    }
+    return constants::SUCCESS;
 }
 } // namespace vpd
