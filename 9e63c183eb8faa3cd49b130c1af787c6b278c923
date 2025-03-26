@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "326d66da_0c4e4faa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-03-26T10:15:04Z",
+      "side": 1,
+      "message": "fixed it",
+      "parentUuid": "8d4f0e95_9092e1bf",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "626d11a0_8e349a2a",
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7aa1874_022b4bba",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-03-26T10:15:04Z",
+      "side": 1,
+      "message": "this map is w.r.t dbus property and values. so i kept in dbus utility.",
+      "parentUuid": "96729d02_4d7e8e9a",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f2cdc40_a36fcf91",
         "filename": "vpd-manager/include/utility/dbus_utility.hpp",
         "patchSetId": 2
@@ -65,6 +101,24 @@
       "writtenOn": "2025-03-26T07:25:05Z",
       "side": 1,
       "message": "Why do we need all the entries in this map? We need to update common interface irrespective of any condition.\nSo this map should have thing only which are not covered via common interface?",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe3d646f_bc1cd2f8",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-03-26T10:15:04Z",
+      "side": 1,
+      "message": "common interface in JSON - refers to the interfaces which are common across all FRUs.\n\nHere I don\u0027t need common interface,  I need to find the pairs of d-bus interface and property which holds the same values.\n\nNot all pairs has to be in common interface section in json.",
+      "parentUuid": "9f2cdc40_a36fcf91",
       "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +159,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae7b5096_c1925f5a",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-03-26T10:15:04Z",
+      "side": 1,
+      "message": "when required we can extend this api to convert any other type to string by adding else if statements.",
+      "parentUuid": "f5eab19a_a8ac26b3",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "850e1e8e_d280eb63",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-03-26T10:15:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e0df962d_fdece3ba",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a247629a_04c0db1c",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 2
@@ -122,6 +212,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "055e5f27_12269af5",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-03-26T10:15:04Z",
+      "side": 1,
+      "message": "for this use case it is converting Binary vector to string.\nwhen required we can extend this api to convert any other type in DbusVariantType to std::string.",
+      "parentUuid": "a247629a_04c0db1c",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "495c507c_21c777de",
         "filename": "vpd-manager/src/parser.cpp",
         "patchSetId": 2
@@ -133,6 +241,24 @@
       "writtenOn": "2025-03-26T07:25:05Z",
       "side": 1,
       "message": "The API is already too big, please extract the implementation to another function.",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "948a54c3_ba900e93",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-03-26T10:15:04Z",
+      "side": 1,
+      "message": "here I emplace another entry in the interface map. I don\u0027t find a need forfunction.",
+      "parentUuid": "495c507c_21c777de",
       "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
