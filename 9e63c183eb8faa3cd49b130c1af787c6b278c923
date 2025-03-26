@@ -143,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "21200f7c_b01b9694",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-26T12:24:13Z",
+      "side": 1,
+      "message": "Most of the pairs here are in the list because they are published under common interface which is again because it is under the CI tag in JSON. \n\nIf that segment of JSON is modified, this list here needs to be updated. Implies some part of this list mimics the entry from JSON.\n\nSo, IMO why to have multiple source of same data, will have to maintain both of them in case of any change.\nThis map should only have entries which are not there in the JSON, rest should be taken care with update of CI during write if applicable.\n\n\nAlso, I agree with @jinu.joy.thomas@in.ibm.com. This is a utility file, why should this have such map.\n-\u003e Either have it in constants\n-\u003e or local to the cpp file which uses it.",
+      "parentUuid": "fe3d646f_bc1cd2f8",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0df962d_fdece3ba",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 2
@@ -277,6 +295,24 @@
       "side": 1,
       "message": "here I emplace another entry in the interface map. I don\u0027t find a need forfunction.",
       "parentUuid": "495c507c_21c777de",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62f4eeb0_1d5297a6",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-26T12:24:13Z",
+      "side": 1,
+      "message": "There is nothing called as \"need of a function\".\nIdeally it is a good practice to keep the function small for maintainability.\n\nThis function is already more that 150 lines of code. Adding any more code to the same function just makes it more tough to maintain.\n\nWhat is the downside you see in taking this code change to a new function?",
+      "parentUuid": "948a54c3_ba900e93",
       "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
