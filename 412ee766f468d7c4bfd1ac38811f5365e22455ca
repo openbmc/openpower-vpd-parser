@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3a5f7bd_8532973b",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-26T12:29:23Z",
+      "side": 1,
+      "message": "\u003e Move this code out of try/catch block and use the return code from \"singleFabImOverride\" to mark the situation where BMC needs to be quiesced.\n\n\nThat is why I said to have return codes instead of throw from the singleFab API.\nRest of the exception can be handled locally and specific return code can be sent back to mark situation where BMC should be quiesced. \nBased on that we can throw from here and fail the service.",
+      "parentUuid": "08f529c7_b2335d0f",
+      "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed2480b7_b6000be8",
         "filename": "vpd-manager/src/single_fab.cpp",
         "patchSetId": 9
