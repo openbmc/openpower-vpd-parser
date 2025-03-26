@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9fe48e33_a358f871",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-26T09:57:17Z",
+      "side": 1,
+      "message": "Instead of invoking two `std::string` functions, `std::string.substr()` and `bool operator \u003d\u003d (std::string,std::string)` , we can use `std::string.compare(pos1, count1,str)`",
+      "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c811ded_2bd03894",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-26T09:57:17Z",
+      "side": 1,
+      "message": "Instead of invoking two `std::string` functions, `std::string.substr()` and `bool operator \u003d\u003d (std::string,std::string)` , we can use `std::string.compare(pos1, count1,str)`",
+      "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3a99bb15_a860c002",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 9
@@ -14,6 +48,24 @@
       "writtenOn": "2025-03-25T15:46:13Z",
       "side": 1,
       "message": "Move this code out of try/catch block and use the return code from \"singleFabImOverride\" to mark the situation where BMC needs to be quiesced. Then throw from here so that main catches the exception and mark the service as failed?\n\nDo you see any downside in case we do this?",
+      "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08f529c7_b2335d0f",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-26T09:57:17Z",
+      "side": 1,
+      "message": "@sunnsr25@in.ibm.com, One downside I see of moving `singleFabImOverride()` out of `try` `catch` block is if `singleFabImOverride()` API throws exception due to any STL call or other method failure.",
+      "parentUuid": "3a99bb15_a860c002",
       "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
