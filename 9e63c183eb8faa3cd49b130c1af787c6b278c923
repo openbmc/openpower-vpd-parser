@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "626d11a0_8e349a2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-26T07:08:37Z",
+      "side": 1,
+      "message": "would not say that the Asset interfaces are redundant interfaces, they are primary interfaces which has values from the VPD data. Some other interfaces may also be there which use the same data.",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96729d02_4d7e8e9a",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-26T07:08:37Z",
+      "side": 1,
+      "message": "why is this not in constants.hpp",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0df962d_fdece3ba",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-26T07:08:37Z",
+      "side": 1,
+      "message": "move this to common_utility",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
