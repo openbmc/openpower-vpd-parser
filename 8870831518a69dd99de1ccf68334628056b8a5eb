@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01c2a773_be70570f",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-26T05:26:43Z",
+      "side": 1,
+      "message": "Better name would help. Update keyword calling update keyword does not actually states what is being done.\nA more specific name would give a better idea as why this API is being called.",
+      "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a84715eb_dada84dd",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-26T05:26:43Z",
+      "side": 1,
+      "message": "The flow need some more checks. So what is being checked in \"isBackupVpdOnFru\" is not sufficient.\n\nSo I would suggest something like, \"isBbackupRestoreRequired\"\nwhich should indeed check,\n-\u003e The given FRU path is source or destination path\n-\u003e The given keyword is in the list of backed up kwds or not.\n\nand based on that return if further processing is required or not.",
+      "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
