@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "12c77b73_4e5b074f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-26T09:21:57Z",
+      "side": 1,
+      "message": "\u003eBackup or restore keyword’s value\n\nThis line is vague and implies the commit is for a single keyword.",
+      "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01c2a773_be70570f",
         "filename": "vpd-manager/include/backup_restore.hpp",
         "patchSetId": 4
@@ -20,6 +37,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14b35941_ace181eb",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-26T09:21:57Z",
+      "side": 1,
+      "message": "Please specify `const`, `noexcept` as applicable.",
+      "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8cd6a36_4764ab8a",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-26T09:21:57Z",
+      "side": 1,
+      "message": "Can be simplified. \n\n`if(conditon)\n     return true;\n else\n     return false;\n`\n\nis same as `return (condition);`",
+      "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a84715eb_dada84dd",
         "filename": "vpd-manager/src/backup_restore.cpp",
         "patchSetId": 4
@@ -31,6 +82,23 @@
       "writtenOn": "2025-03-26T05:26:43Z",
       "side": 1,
       "message": "The flow need some more checks. So what is being checked in \"isBackupVpdOnFru\" is not sufficient.\n\nSo I would suggest something like, \"isBbackupRestoreRequired\"\nwhich should indeed check,\n-\u003e The given FRU path is source or destination path\n-\u003e The given keyword is in the list of backed up kwds or not.\n\nand based on that return if further processing is required or not.",
+      "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e07b9cd3_447bf14a",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-26T09:21:57Z",
+      "side": 1,
+      "message": "nit: use `constants::VALUE_0`?",
       "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
