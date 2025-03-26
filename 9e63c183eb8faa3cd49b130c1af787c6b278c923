@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d4f0e95_9092e1bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-26T07:25:05Z",
+      "side": 1,
+      "message": "Not following commit guidelines.",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "626d11a0_8e349a2a",
@@ -37,6 +54,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f2cdc40_a36fcf91",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-26T07:25:05Z",
+      "side": 1,
+      "message": "Why do we need all the entries in this map? We need to update common interface irrespective of any condition.\nSo this map should have thing only which are not covered via common interface?",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0df962d_fdece3ba",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 2
@@ -48,6 +82,57 @@
       "writtenOn": "2025-03-26T07:08:37Z",
       "side": 1,
       "message": "move this to common_utility",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5eab19a_a8ac26b3",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-26T07:25:05Z",
+      "side": 1,
+      "message": "Will it convert any variant to string? Or only Binary vector to string?",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a247629a_04c0db1c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-26T07:25:05Z",
+      "side": 1,
+      "message": "How this utility will be used?\nthis API just converts binary vector to string.\n-\u003e the name toString does not work\n-\u003e Why it needs variant as parameter?",
+      "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "495c507c_21c777de",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-03-26T07:25:05Z",
+      "side": 1,
+      "message": "The API is already too big, please extract the implementation to another function.",
       "revId": "9e63c183eb8faa3cd49b130c1af787c6b278c923",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
