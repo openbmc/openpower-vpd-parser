@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ececfc76_01aa4155",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-26T13:37:07Z",
+      "side": 1,
+      "message": "yes, the changes made to handle single keyword update",
+      "parentUuid": "12c77b73_4e5b074f",
+      "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01c2a773_be70570f",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-26T05:26:43Z",
       "side": 1,
       "message": "Better name would help. Update keyword calling update keyword does not actually states what is being done.\nA more specific name would give a better idea as why this API is being called.",
+      "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16a463fa_6a4e91c9",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-26T13:37:07Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "01c2a773_be70570f",
       "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "004acbd7_3c9f1b13",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-26T13:37:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "14b35941_ace181eb",
+      "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8cd6a36_4764ab8a",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-03-26T09:21:57Z",
       "side": 1,
       "message": "Can be simplified. \n\n`if(conditon)\n     return true;\n else\n     return false;\n`\n\nis same as `return (condition);`",
+      "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b40b1e8_e4fdd947",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-26T13:37:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c8cd6a36_4764ab8a",
       "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +160,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7e3176f6_478146b8",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-26T13:37:07Z",
+      "side": 1,
+      "message": "yes, As I mentioned in the API doxygen, this API will have certain checks.\nFull implementation is not added for this review, will include required checks in the implementation PR.",
+      "parentUuid": "a84715eb_dada84dd",
+      "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e07b9cd3_447bf14a",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 4
@@ -99,6 +189,24 @@
       "writtenOn": "2025-03-26T09:21:57Z",
       "side": 1,
       "message": "nit: use `constants::VALUE_0`?",
+      "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f72132f4_dd480eb3",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-26T13:37:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e07b9cd3_447bf14a",
       "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
