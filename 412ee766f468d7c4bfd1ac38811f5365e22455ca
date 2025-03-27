@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "969829b7_6070e762",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-27T04:08:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fe48e33_a358f871",
+      "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c811ded_2bd03894",
         "filename": "vpd-manager/include/single_fab.hpp",
         "patchSetId": 9
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-26T09:57:17Z",
       "side": 1,
       "message": "Instead of invoking two `std::string` functions, `std::string.substr()` and `bool operator \u003d\u003d (std::string,std::string)` , we can use `std::string.compare(pos1, count1,str)`",
+      "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2182970_e9c4db3f",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-27T04:08:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c811ded_2bd03894",
       "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -90,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8cb509e9_49644ac6",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-27T04:08:36Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "e3a5f7bd_8532973b",
+      "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed2480b7_b6000be8",
         "filename": "vpd-manager/src/single_fab.cpp",
         "patchSetId": 9
@@ -107,6 +161,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60e9c117_5e60c9f6",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-27T04:08:36Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "ed2480b7_b6000be8",
+      "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2893a400_f3666c59",
         "filename": "vpd-manager/src/single_fab.cpp",
         "patchSetId": 9
@@ -118,6 +190,24 @@
       "writtenOn": "2025-03-25T15:46:13Z",
       "side": 1,
       "message": "Do we need string copy or reference can be used as it is already const?\nSame for others.",
+      "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7984e267_c01fe0f7",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-27T04:08:36Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "2893a400_f3666c59",
       "revId": "412ee766f468d7c4bfd1ac38811f5365e22455ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
