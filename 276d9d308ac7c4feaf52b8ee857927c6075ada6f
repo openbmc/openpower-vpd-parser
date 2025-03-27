@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f72e6292_61e56bdf",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-27T16:33:38Z",
+      "side": 1,
+      "message": "Defined this under vpd namespace. so this can be used in manager.cpp file to check for invalid case.",
+      "parentUuid": "e542d500_e6660edb",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "adacd5f8_84b47dd3",
         "filename": "vpd-manager/include/single_fab.hpp",
         "patchSetId": 14
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-27T16:15:48Z",
       "side": 1,
       "message": "Why one declaration up and another two here?",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abea9dbd_05be84f4",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-03-27T16:33:38Z",
+      "side": 1,
+      "message": "These are being used only in this file. so declared as private members of SingleFab class.",
+      "parentUuid": "adacd5f8_84b47dd3",
       "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
