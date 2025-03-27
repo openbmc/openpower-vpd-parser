@@ -178,6 +178,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a61380bd_02b9f162",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-03-27T09:27:45Z",
+      "side": 1,
+      "message": "added check for is source Path or destination Path.\n\"The given keyword is in the list of backed up kwds or not\" check will be added in the implementation.",
+      "parentUuid": "7e3176f6_478146b8",
+      "revId": "8870831518a69dd99de1ccf68334628056b8a5eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e07b9cd3_447bf14a",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 4
