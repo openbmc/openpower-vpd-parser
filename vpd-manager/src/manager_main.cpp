@@ -50,7 +50,7 @@ int main(int, char**)
     catch (const std::exception& l_ex)
     {
         vpd::logging::logMessage("VPD-Manager service failed to start.");
-        vpd::EventLogger::createAsyncPel(
+        vpd::EventLogger::createSyncPel(
             vpd::EventLogger::getErrorType(l_ex),
             vpd::types::SeverityType::Critical, __FILE__, __FUNCTION__, 0,
             vpd::EventLogger::getErrorMsg(l_ex), std::nullopt, std::nullopt,
