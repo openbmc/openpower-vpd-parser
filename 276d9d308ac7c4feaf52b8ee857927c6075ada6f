@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95032651_03f0c19b",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-03-27T18:10:18Z",
+      "side": 1,
+      "message": "I think its better to define an enum for the possible return codes of `SingleFabImOverride` API. For eg. `enum class SingleFabReturnVal { INVALID_CASE\u003d-2, FAILURE\u003d-1,SUCCESS\u003d0};`\n\nHaving a `INVALID_CASE` variable does not make it immediately clear what and where it is being used for.",
+      "parentUuid": "f72e6292_61e56bdf",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "adacd5f8_84b47dd3",
         "filename": "vpd-manager/include/single_fab.hpp",
         "patchSetId": 14
