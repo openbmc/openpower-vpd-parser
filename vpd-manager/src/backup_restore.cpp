@@ -404,9 +404,8 @@ bool BackupAndRestore::isBackupVpdOnFru() const noexcept
 }
 
 int BackupAndRestore::backupOrRestoreKeyword(
-    [[maybe_unused]] const std::string& i_fruPath,
-    [[maybe_unused]] const types::WriteVpdParams& i_paramsToWriteData)
-    const noexcept
+    const std::string& i_fruPath,
+    const types::WriteVpdParams& i_paramsToWriteData) const noexcept
 {
     int l_rc = constants::SUCCESS;
 
@@ -417,20 +416,93 @@ int BackupAndRestore::backupOrRestoreKeyword(
 
     bool l_isSrcFruPath =
         (m_backupAndRestoreCfgJsonObj.contains("source") &&
-         m_backupAndRestoreCfgJsonObj["source"].value("hardwarePath", "") ==
-             i_fruPath);
+         m_backupAndRestoreCfgJsonObj["source"].contains("hardwarePath") &&
+         m_backupAndRestoreCfgJsonObj["source"]["hardwarePath"] == i_fruPath);
 
     bool l_isDstFruPath =
         (m_backupAndRestoreCfgJsonObj.contains("destination") &&
-         m_backupAndRestoreCfgJsonObj["destination"].value("hardwarePath",
-                                                           "") == i_fruPath);
+         m_backupAndRestoreCfgJsonObj["destination"].contains("hardwarePath") &&
+         m_backupAndRestoreCfgJsonObj["destination"]["hardwarePath"] ==
+             i_fruPath);
 
-    if (!(l_isSrcFruPath || l_isDstFruPath))
+    if ((l_isSrcFruPath || l_isDstFruPath) &&
+        m_backupAndRestoreCfgJsonObj.contains("backupMap") &&
+        m_backupAndRestoreCfgJsonObj["backupMap"].is_array())
     {
-        return l_rc;
-    }
+        std::string l_inpRecordName;
+        std::string l_inpKeywordName;
+        types::BinaryVector l_keywordValue;
 
-    // ToDo implementation needs to be added
+        if (const types::IpzData* l_ipzData =
+                std::get_if<types::IpzData>(&i_paramsToWriteData))
+        {
+            l_inpRecordName = std::get<0>(*l_ipzData);
+            l_inpKeywordName = std::get<1>(*l_ipzData);
+            l_keywordValue = std::get<2>(*l_ipzData);
+
+            if (l_inpRecordName.empty() || l_inpKeywordName.empty() ||
+                l_keywordValue.empty())
+            {
+                // Invalid input received
+                return constants::FAILURE;
+            }
+        }
+        else
+        {
+            // only IPZ type VPD is supported now.
+            return l_rc;
+        }
+
+        std::string l_fruPathToUpdate;
+        types::IpzData l_paramsToWrite;
+        bool isRecordKeywordFound = false;
+
+        for (const auto& l_aRecordKwInfo :
+             m_backupAndRestoreCfgJsonObj["backupMap"])
+        {
+            if (l_aRecordKwInfo.value("sourceRecord", "").empty() ||
+                l_aRecordKwInfo.value("sourceKeyword", "").empty() ||
+                l_aRecordKwInfo.value("destinationRecord", "").empty() ||
+                l_aRecordKwInfo.value("destinationKeyword", "").empty())
+            {
+                // invalid backup map found
+                continue;
+            }
+
+            if (l_isSrcFruPath &&
+                (l_aRecordKwInfo["sourceRecord"] == l_inpRecordName) &&
+                (l_aRecordKwInfo["sourceKeyword"] == l_inpKeywordName))
+            {
+                isRecordKeywordFound = true;
+                l_fruPathToUpdate =
+                    m_backupAndRestoreCfgJsonObj["destination"]["hardwarePath"];
+                l_paramsToWrite = std::make_tuple(
+                    l_aRecordKwInfo["destinationRecord"],
+                    l_aRecordKwInfo["destinationKeyword"], l_keywordValue);
+                break;
+            }
+            else if (l_isDstFruPath &&
+                     (l_aRecordKwInfo["destinationRecord"] ==
+                      l_inpRecordName) &&
+                     (l_aRecordKwInfo["destinationKeyword"] ==
+                      l_inpKeywordName))
+            {
+                isRecordKeywordFound = true;
+                l_fruPathToUpdate =
+                    m_backupAndRestoreCfgJsonObj["source"]["hardwarePath"];
+                l_paramsToWrite = std::make_tuple(
+                    l_aRecordKwInfo["sourceRecord"],
+                    l_aRecordKwInfo["sourceKeyword"], l_keywordValue);
+                break;
+            }
+        }
+
+        if (isRecordKeywordFound)
+        {
+            Parser l_parserObj(l_fruPathToUpdate, m_sysCfgJsonObj);
+            return l_parserObj.updateVpdKeyword(l_paramsToWrite);
+        }
+    }
 
     return l_rc;
 }
