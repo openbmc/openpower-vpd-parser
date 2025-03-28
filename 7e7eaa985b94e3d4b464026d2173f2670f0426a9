@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ed2e77f_c8f85d0f",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T04:29:48Z",
+      "side": 1,
+      "message": "what is a source path and what is a destination path?",
+      "revId": "7e7eaa985b94e3d4b464026d2173f2670f0426a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
