@@ -56,6 +56,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8433d756_5bdac292",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "no need for this constant",
+      "parentUuid": "95032651_03f0c19b",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d64c847b_f736895f",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "no need for invalid case. failure is an invalid case and is handled",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2129ed6_b478722c",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "log an informational error log here before return",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52e25b3a_03b23ace",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "log an informational error log here before return",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "adacd5f8_84b47dd3",
         "filename": "vpd-manager/include/single_fab.hpp",
         "patchSetId": 14
@@ -85,6 +154,74 @@
       "side": 1,
       "message": "These are being used only in this file. so declared as private members of SingleFab class.",
       "parentUuid": "adacd5f8_84b47dd3",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "601710d7_9b8e3d68",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "better to remove this line",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a7d1687_5148c26a",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "why a new Line here ?",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d431a93e_b439d42b",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "use a failure check",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a403cfb_a913e805",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "Found an invalid system configuration. Needs manual intervention. BMC is being quiesced.",
       "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -233,6 +370,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "833aa6ae_8a8818b3",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "this should return success",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "509f1142_62e68319",
         "filename": "vpd-manager/src/single_fab.cpp",
         "patchSetId": 14
@@ -298,6 +452,159 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "db8d4631_cc2da9d8",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff0c2c46_2ab02646",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "use constants::FAILURE;",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdc583b8_433d39e5",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "use constants::FAILURE;",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56b48a1c_a171c50f",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "use constants::FAILURE;",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92fe9b96_fb5bdc2e",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "don\u0027t think we need the check here",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f209779_cd8d9c64",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "remove the log here and add a failure error log  in the calling function if write is not successful",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fda54b7_5668046c",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "this should be success",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bd32541_ab083f7c",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "use constants::FAILURE;",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1077c73_a0cfe626",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "remove comment",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0871c227_ca370e14",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:54:03Z",
+      "side": 1,
+      "message": "same moment was above and need to return success no need to check return of this . could be a void function.",
       "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
