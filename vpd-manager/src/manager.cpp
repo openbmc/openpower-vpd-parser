@@ -560,7 +560,7 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
             std::make_shared<Parser>(l_fruPath, l_sysCfgJsonObj);
         auto l_rc = l_parserObj->updateVpdKeyword(i_paramsToWriteData);
 
-        if (m_backupAndRestoreObj)
+        if (l_rc != constants::FAILURE && m_backupAndRestoreObj)
         {
             if (m_backupAndRestoreObj->backupOrRestoreKeyword(
                     l_fruPath, i_paramsToWriteData) < constants::VALUE_0)
