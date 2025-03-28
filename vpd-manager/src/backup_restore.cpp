@@ -397,14 +397,17 @@ void BackupAndRestore::setBackupAndRestoreStatus(
 
 int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
     const std::string& i_fruPath,
-    [[maybe_unused]] const types::WriteVpdParams& i_paramsToWriteData)
-    const noexcept
+    const types::WriteVpdParams& i_paramsToWriteData) const noexcept
 {
     if (i_fruPath.empty())
     {
         logging::logMessage("Given FRU path is empty.");
         return constants::FAILURE;
     }
+
+    bool l_isInputPathIsSourcePath = false;
+    bool l_isInputPathIsDestinationPath = false;
+    types::IpzData l_paramsToWrite;
 
     if (m_backupAndRestoreCfgJsonObj.contains("source") &&
         m_backupAndRestoreCfgJsonObj["source"].value("hardwarePath", "") ==
@@ -414,7 +417,7 @@ int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
              .value("hardwarePath", "")
              .empty())
     {
-        // ToDo implementation needs to be added
+        l_isInputPathIsSourcePath = true;
     }
     else if (m_backupAndRestoreCfgJsonObj.contains("destination") &&
              m_backupAndRestoreCfgJsonObj["destination"].value(
@@ -424,9 +427,82 @@ int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
                   .value("hardwarePath", "")
                   .empty())
     {
-        // ToDo implementation needs to be added
+        l_isInputPathIsDestinationPath = true;
+    }
+    else
+    {
+        // Input path is neither source or destination path of the
+        // backup&restore JSON.
+        return constants::SUCCESS;
     }
 
+    if (m_backupAndRestoreCfgJsonObj.contains("backupMap") &&
+        m_backupAndRestoreCfgJsonObj["backupMap"].is_array())
+    {
+        std::string l_inpRecordName;
+        std::string l_inpKeywordName;
+        types::BinaryVector l_keywordValue;
+
+        if (const types::IpzData* l_ipzData =
+                std::get_if<types::IpzData>(&i_paramsToWriteData))
+        {
+            l_inpRecordName = std::get<0>(*l_ipzData);
+            l_inpKeywordName = std::get<1>(*l_ipzData);
+            l_keywordValue = std::get<2>(*l_ipzData);
+
+            if (l_inpRecordName.empty() || l_inpKeywordName.empty() ||
+                l_keywordValue.empty())
+            {
+                // Invalid input received
+                return constants::FAILURE;
+            }
+        }
+        else
+        {
+            // only IPZ type VPD is supported now.
+            return constants::SUCCESS;
+        }
+
+        for (const auto& l_aRecordKwInfo :
+             m_backupAndRestoreCfgJsonObj["backupMap"])
+        {
+            if (l_aRecordKwInfo.value("sourceRecord", "").empty() ||
+                l_aRecordKwInfo.value("sourceKeyword", "").empty() ||
+                l_aRecordKwInfo.value("destinationRecord", "").empty() ||
+                l_aRecordKwInfo.value("destinationKeyword", "").empty())
+            {
+                // invalid backup map found
+                continue;
+            }
+
+            if (l_isInputPathIsSourcePath &&
+                (l_aRecordKwInfo["sourceRecord"] == l_inpRecordName) &&
+                (l_aRecordKwInfo["sourceKeyword"] == l_inpKeywordName))
+            {
+                std::string l_fruPath(m_backupAndRestoreCfgJsonObj["destination"]["hardwarePath"]);
+                Parser l_parserObj(l_fruPath, m_sysCfgJsonObj);
+
+                return l_parserObj.updateVpdKeyword(std::make_tuple(
+                    l_aRecordKwInfo["destinationRecord"],
+                    l_aRecordKwInfo["destinationKeyword"], l_keywordValue));
+            }
+            else if (l_isInputPathIsDestinationPath &&
+                     (l_aRecordKwInfo["destinationRecord"] ==
+                      l_inpRecordName) &&
+                     (l_aRecordKwInfo["destinationKeyword"] ==
+                      l_inpKeywordName))
+            {
+                std::string l_fruPath(m_backupAndRestoreCfgJsonObj["source"]["hardwarePath"]);
+                Parser l_parserObj(l_fruPath, m_sysCfgJsonObj);
+
+                return l_parserObj.updateVpdKeyword(std::make_tuple(
+                    l_aRecordKwInfo["sourceRecord"],
+                    l_aRecordKwInfo["sourceKeyword"], l_keywordValue));
+            }
+        }
+    }
+
+    // Received property is not part of backup & restore JSON.
     return constants::SUCCESS;
 }
 
