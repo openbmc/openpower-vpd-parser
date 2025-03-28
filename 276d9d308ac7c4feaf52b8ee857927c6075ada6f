@@ -142,6 +142,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad6edbab_5f314073",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:34:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "370f2937_be486d04",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51fe7931_61d2cb60",
@@ -195,6 +213,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbc0e70d_2908baac",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:34:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fb1c4a15_efc9f500",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "509f1142_62e68319",
@@ -241,6 +277,24 @@
         "id": 1000348
       },
       "writtenOn": "2025-03-28T03:33:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "db8d4631_cc2da9d8",
+      "revId": "276d9d308ac7c4feaf52b8ee857927c6075ada6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dc47e02_6bd9d328",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-03-28T03:34:19Z",
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "db8d4631_cc2da9d8",
