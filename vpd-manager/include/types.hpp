@@ -186,7 +186,8 @@ enum ErrorType
     InternalFailure, /* Should be used for any generic firmware failure */
     FruMissing, /* Should be used in case of presence failure */
     SystemTypeMismatch,
-    UnknownSystemSettings
+    UnknownSystemSettings,
+    FirmwareError
 };
 
 using InventoryCalloutData = std::tuple<std::string, CalloutPriority>;
