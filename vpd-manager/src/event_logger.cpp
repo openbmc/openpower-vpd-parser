@@ -47,7 +47,8 @@ const std::unordered_map<types::ErrorType, std::string>
         {types::ErrorType::SystemTypeMismatch,
          "com.ibm.VPD.Error.SystemTypeMismatch"},
         {types::ErrorType::UnknownSystemSettings,
-         "com.ibm.VPD.Error.UnknownSystemSettings"}};
+         "com.ibm.VPD.Error.UnknownSystemSettings"},
+        {types::ErrorType::FirmwareError, "com.ibm.VPD.Error.FirmwareError"}};
 
 const std::unordered_map<types::CalloutPriority, std::string>
     EventLogger::m_priorityMap = {
@@ -304,7 +305,7 @@ types::ExceptionDataMap EventLogger::getExceptionData(
     const std::exception& i_exception)
 {
     types::ExceptionDataMap l_errorInfo{
-        {"ErrorType", types::ErrorType::InternalFailure},
+        {"ErrorType", types::ErrorType::FirmwareError},
         {"ErrorMsg", i_exception.what()}};
 
     try
@@ -382,14 +383,14 @@ types::ErrorType EventLogger::getErrorType(const std::exception& i_exception)
     auto l_itrToErrType = l_exceptionDataMap.find("ErrorType");
     if (l_itrToErrType == l_exceptionDataMap.end())
     {
-        return types::ErrorType::InternalFailure;
+        return types::ErrorType::FirmwareError;
     }
 
     auto l_ptrToErrType =
         std::get_if<types::ErrorType>(&l_itrToErrType->second);
     if (!l_ptrToErrType)
     {
-        return types::ErrorType::InternalFailure;
+        return types::ErrorType::FirmwareError;
     }
 
     return *l_ptrToErrType;
