@@ -278,43 +278,11 @@ types::RecordOffsetList IpzVpdParser::readPT(
 
         // Get record offset
         recordOffsets.push_back(readUInt16LE(itrToPT));
-        try
+
+        // Verify the ECC for this Record
+        if (!recordEccCheck(itrToPT))
         {
-            // Verify the ECC for this Record
-            if (!recordEccCheck(itrToPT))
-            {
-                throw(EccException("ERROR: ECC check failed"));
-            }
-        }
-        catch (const EccException& ex)
-        {
-            logging::logMessage(ex.what());
-
-            /*TODO: uncomment when PEL code goes in */
-
-            /*std::string errMsg =
-                std::string{ex.what()} + " Record: " + recordName;
-
-            inventory::PelAdditionalData additionalData{};
-            additionalData.emplace("DESCRIPTION", errMsg);
-            additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
-            createPEL(additionalData, PelSeverity::WARNING,
-                      errIntfForEccCheckFail, nullptr);*/
-        }
-        catch (const DataException& ex)
-        {
-            logging::logMessage(ex.what());
-
-            /*TODO: uncomment when PEL code goes in */
-
-            /*std::string errMsg =
-                std::string{ex.what()} + " Record: " + recordName;
-
-            inventory::PelAdditionalData additionalData{};
-            additionalData.emplace("DESCRIPTION", errMsg);
-            additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
-            createPEL(additionalData, PelSeverity::WARNING,
-                      errIntfForInvalidVPD, nullptr);*/
+            throw(EccException("ERROR: ECC check failed"));
         }
 
         // Jump record size, record length, ECC offset and ECC length
