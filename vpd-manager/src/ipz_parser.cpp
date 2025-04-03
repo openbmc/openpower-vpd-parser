@@ -7,6 +7,7 @@
 #include "constants.hpp"
 #include "event_logger.hpp"
 #include "exceptions.hpp"
+#include "utility/vpd_specific_utility.hpp"
 
 #include <nlohmann/json.hpp>
 
@@ -260,43 +261,11 @@ types::RecordOffsetList IpzVpdParser::readPT(
 
         // Get record offset
         recordOffsets.push_back(readUInt16LE(itrToPT));
-        try
+
+        // Verify the ECC for this Record
+        if (!recordEccCheck(itrToPT))
         {
-            // Verify the ECC for this Record
-            if (!recordEccCheck(itrToPT))
-            {
-                throw(EccException("ERROR: ECC check failed"));
-            }
-        }
-        catch (const EccException& ex)
-        {
-            logging::logMessage(ex.what());
-
-            /*TODO: uncomment when PEL code goes in */
-
-            /*std::string errMsg =
-                std::string{ex.what()} + " Record: " + recordName;
-
-            inventory::PelAdditionalData additionalData{};
-            additionalData.emplace("DESCRIPTION", errMsg);
-            additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
-            createPEL(additionalData, PelSeverity::WARNING,
-                      errIntfForEccCheckFail, nullptr);*/
-        }
-        catch (const DataException& ex)
-        {
-            logging::logMessage(ex.what());
-
-            /*TODO: uncomment when PEL code goes in */
-
-            /*std::string errMsg =
-                std::string{ex.what()} + " Record: " + recordName;
-
-            inventory::PelAdditionalData additionalData{};
-            additionalData.emplace("DESCRIPTION", errMsg);
-            additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
-            createPEL(additionalData, PelSeverity::WARNING,
-                      errIntfForInvalidVPD, nullptr);*/
+            throw(EccException("ERROR: ECC check failed"));
         }
 
         // Jump record size, record length, ECC offset and ECC length
@@ -413,6 +382,21 @@ types::VPDMapVariant IpzVpdParser::parse()
     }
     catch (const std::exception& e)
     {
+        EventLogger::createSyncPel(
+            types::ErrorType::InvalidVpdMessage, types::SeverityType::Warning,
+            __FILE__, __FUNCTION__, constants::VALUE_0,
+            std::string("Exception while parsing VPD for [" + m_vpdFilePath +
+                        "]: " + EventLogger::getErrorMsg(e)),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        // dump the bad VPD
+        if (constants::SUCCESS !=
+            vpdSpecificUtility::dumpBadVpd(m_vpdFilePath, m_vpdVector))
+        {
+            logging::logMessage(
+                "Failed to dump bad VPD for [" + m_vpdFilePath + "]");
+        }
+
         logging::logMessage(e.what());
         throw e;
     }
