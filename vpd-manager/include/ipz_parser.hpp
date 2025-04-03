@@ -148,10 +148,11 @@ class IpzVpdParser : public ParserInterface
     /**
      * @brief API to read PT record.
      *
-     * Note: Throws exception in case ECC check fails.
-     *
      * @param[in] itrToPT - Iterator to PT record in VPD vector.
      * @param[in] ptLength - length of the PT record.
+     *
+     * @throw EccException, DataException
+     *
      * @return List of record's offset.
      */
     types::RecordOffsetList readPT(types::BinaryVector::const_iterator& itrToPT,
