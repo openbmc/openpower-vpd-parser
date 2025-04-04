@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8044b50_4ae0cb6b",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-04-04T06:33:33Z",
+      "side": 1,
+      "message": "i_fruPath is being used. we can remove [[maybe_unused]] for this variable.",
+      "revId": "f4462eb7d4adbe26b4bfe9a67e9beb72c4250b4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
