@@ -16,6 +16,24 @@
       "message": "i_fruPath is being used. we can remove [[maybe_unused]] for this variable.",
       "revId": "f4462eb7d4adbe26b4bfe9a67e9beb72c4250b4f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eb3b08a_fa626bcf",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-04T07:12:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8044b50_4ae0cb6b",
+      "revId": "f4462eb7d4adbe26b4bfe9a67e9beb72c4250b4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
