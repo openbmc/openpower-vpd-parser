@@ -277,8 +277,9 @@ int main(int argc, char** argv)
     auto l_keywordOption =
         l_app.add_option("--keyword, -K", l_keywordName, "Keyword name");
 
-    auto l_fileOption =
-        l_app.add_option("--file", l_filePath, "Absolute file path");
+    auto l_fileOption = l_app.add_option(
+        "--file", l_filePath,
+        "Absolute file path, \nNote: For write operation, file should contain keyword’s value in either ascii or in hex format.");
 
     auto l_keywordValueOption =
         l_app.add_option("--value, -V", l_keywordValue,
@@ -297,7 +298,7 @@ int main(int argc, char** argv)
         l_app
             .add_flag(
                 "--writeKeyword, -w,--updateKeyword, -u",
-                "Write keyword, Note: Irrespective of DBus or hardware path provided, primary and backup, redundant EEPROM(if any) paths will get updated with given key value")
+                "Write keyword, \nNote: In case DBus path is provided, both EEPROM and DBus are updated with the given keyword's value.\nIn case EEPROM path is provided, only the given EEPROM is updated with the given keyword's value.")
             ->needs(l_objectOption)
             ->needs(l_recordOption)
             ->needs(l_keywordOption);
