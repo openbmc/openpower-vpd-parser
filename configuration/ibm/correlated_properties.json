@@ -1,0 +1,38 @@
+{
+    "xyz.openbmc_project.Inventory.Manager": {
+        "xyz.openbmc_project.Inventory.Decorator.Asset": {
+            "PartNumber": {
+                "com.ibm.ipzvpd.VINI": "PN"
+            },
+            "SerialNumber": {
+                "com.ibm.ipzvpd.VINI": "SN"
+            },
+            "SparePartNumber": {
+                "com.ibm.ipzvpd.VINI": "FN"
+            },
+            "Model": {
+                "com.ibm.ipzvpd.VINI": "CC"
+            },
+            "BuildDate": {
+                "com.ibm.ipzvpd.VR10": "DC"
+            }
+        },
+        "com.ibm.ipzvpd.VINI": {
+            "PN": {
+                "xyz.openbmc_project.Inventory.Decorator.Asset": "PartNumber"
+            },
+            "SN": {
+                "xyz.openbmc_project.Inventory.Decorator.Asset": "SerialNumber"
+            },
+            "FN": {
+                "xyz.openbmc_project.Inventory.Decorator.Asset": "SparePartNumber"
+            },
+            "CC": {
+                "xyz.openbmc_project.Inventory.Decorator.Asset": "Model"
+            },
+            "DC": {
+                "xyz.openbmc_project.Inventory.Decorator.Asset": "BuildDate"
+            }
+        }
+    }
+}
