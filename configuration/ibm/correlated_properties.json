@@ -1,0 +1,706 @@
+{
+    "xyz.openbmc_project.Inventory.Manager": {
+        "xyz.openbmc_project.Inventory.Decorator.Asset": {
+            "PartNumber": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system/chassis": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "PN"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "PN"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "PN"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "PN"
+                        }
+                    }
+                },
+                "com.ibm.ipzvpd.VINI": "PN"
+            },
+            "SerialNumber": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system/chassis": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "SN"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "SN"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "SN"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "SN"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VSYS": "SE"
+                        }
+                    }
+                },
+                "com.ibm.ipzvpd.VINI": "SN"
+            },
+            "SparePartNumber": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system/chassis": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "FN"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "FN"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "FN"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "FN"
+                        }
+                    }
+                },
+                "com.ibm.ipzvpd.VINI": "FN"
+            },
+            "Model": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system/chassis": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "CC"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "CC"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "CC"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VINI": "CC"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system",
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VSYS": "TM"
+                        }
+                    }
+                },
+                "com.ibm.ipzvpd.VINI": "CC"
+            },
+            "SubModel": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system",
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VSYS": "BR"
+                        }
+                    }
+                }
+            },
+            "BuildDate": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system/chassis": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VR10": "DC"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VR10": "DC"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VR10": "DC"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VR10": "DC"
+                        }
+                    }
+                },
+                "com.ibm.ipzvpd.VR10": "DC"
+            }
+        },
+        "com.ibm.ipzvpd.VINI": {
+            "PN": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system/chassis": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "PartNumber"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "PartNumber"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "PartNumber"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "PartNumber"
+                        }
+                    }
+                },
+                "xyz.openbmc_project.Inventory.Decorator.Asset": "PartNumber"
+            },
+            "SN": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system/chassis": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SerialNumber"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SerialNumber"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SerialNumber"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SerialNumber"
+                        }
+                    }
+                },
+                "xyz.openbmc_project.Inventory.Decorator.Asset": "SerialNumber"
+            },
+            "FN": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system/chassis": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SparePartNumber"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SparePartNumber"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SparePartNumber"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SparePartNumber"
+                        }
+                    }
+                },
+                "xyz.openbmc_project.Inventory.Decorator.Asset": "SparePartNumber"
+            },
+            "CC": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system/chassis": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "Model"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "Model"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "Model"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "Model"
+                        }
+                    }
+                },
+                "xyz.openbmc_project.Inventory.Decorator.Asset": "Model"
+            }
+        },
+        "com.ibm.ipzvpd.VR10": {
+            "DC": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system/chassis": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "BuildDate"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "BuildDate"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "BuildDate"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "BuildDate"
+                        }
+                    }
+                },
+                "xyz.openbmc_project.Inventory.Decorator.Asset": "BuildDate"
+            }
+        },
+        "com.ibm.ipzvpd.VCFG": {
+            "Z0": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc/ethernet0"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Item.NetworkInterface": "MACAddress"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/ethernet0"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Item.NetworkInterface": "MACAddress"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/ethernet0"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Item.NetworkInterface": "MACAddress"
+                        }
+                    }
+                }
+            },
+            "Z1": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc/ethernet1"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Item.NetworkInterface": "MACAddress"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/ethernet1"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Item.NetworkInterface": "MACAddress"
+                        }
+                    }
+                }
+            }
+        },
+        "xyz.openbmc_project.Inventory.Item.NetworkInterface": {
+            "MACAddress": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc/ethernet0": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VCFG": "Z0"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc/ethernet1": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VCFG": "Z1"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/ethernet0": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VCFG": "Z0"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/ethernet1": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VCFG": "Z1"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/ethernet0": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VCFG": "Z0"
+                        }
+                    }
+                }
+            }
+        },
+        "com.ibm.ipzvpd.VSYS": {
+            "SE": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SerialNumber"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system",
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VSYS": "SE"
+                        }
+                    }
+                }
+            },
+            "TM": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "Model"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system",
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VSYS": "SE"
+                        }
+                    }
+                }
+            },
+            "BR": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SubModel"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system",
+                            "/xyz/openbmc_project/inventory/system/chassis",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/bmc/tod_battery",
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VSYS": "SE"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
