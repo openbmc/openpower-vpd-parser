@@ -60,7 +60,9 @@ static uint16_t readUInt16LE(types::BinaryVector::const_iterator iterator)
 
 bool IpzVpdParser::vhdrEccCheck()
 {
-    auto vpdPtr = m_vpdVector.cbegin();
+    // To avoid 1 bit flip correction from corrupting the main buffer.
+    const types::BinaryVector tempVector = m_vpdVector;
+    auto vpdPtr = tempVector.cbegin();
 
     auto l_status = vpdecc_check_data(
         const_cast<uint8_t*>(&vpdPtr[Offset::VHDR_RECORD]),
@@ -69,29 +71,11 @@ bool IpzVpdParser::vhdrEccCheck()
         Length::VHDR_ECC_LENGTH);
     if (l_status == VPD_ECC_CORRECTABLE_DATA)
     {
-        try
-        {
-            if (m_vpdFileStream.is_open())
-            {
-                m_vpdFileStream.seekp(m_vpdStartOffset + Offset::VHDR_RECORD,
-                                      std::ios::beg);
-                m_vpdFileStream.write(reinterpret_cast<const char*>(
-                                          &m_vpdVector[Offset::VHDR_RECORD]),
-                                      Length::VHDR_RECORD_LENGTH);
-            }
-            else
-            {
-                logging::logMessage("File not open");
-                return false;
-            }
-        }
-        catch (const std::fstream::failure& e)
-        {
-            logging::logMessage(
-                "Error while operating on file with exception: " +
-                std::string(e.what()));
-            return false;
-        }
+        EventLogger::createSyncPel(
+            types::ErrorType::EccCheckFailed,
+            types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+            "One bit correction for VHDR performed", std::nullopt, std::nullopt,
+            std::nullopt, std::nullopt);
     }
     else if (l_status != VPD_ECC_OK)
     {
@@ -122,37 +106,22 @@ bool IpzVpdParser::vtocEccCheck()
     std::advance(vpdPtr, sizeof(types::ECCOffset));
     auto vtocECCLength = readUInt16LE(vpdPtr);
 
+    // To avoid 1 bit flip correction from corrupting the main buffer.
+    const types::BinaryVector tempVector = m_vpdVector;
     // Reset pointer to start of the vpd,
     // so that Offset will point to correct address
-    vpdPtr = m_vpdVector.cbegin();
+    vpdPtr = tempVector.cbegin();
+
     auto l_status = vpdecc_check_data(
-        const_cast<uint8_t*>(&m_vpdVector[vtocOffset]), vtocLength,
-        const_cast<uint8_t*>(&m_vpdVector[vtocECCOffset]), vtocECCLength);
+        const_cast<uint8_t*>(&vpdPtr[vtocOffset]), vtocLength,
+        const_cast<uint8_t*>(&vpdPtr[vtocECCOffset]), vtocECCLength);
     if (l_status == VPD_ECC_CORRECTABLE_DATA)
     {
-        try
-        {
-            if (m_vpdFileStream.is_open())
-            {
-                m_vpdFileStream.seekp(m_vpdStartOffset + vtocOffset,
-                                      std::ios::beg);
-                m_vpdFileStream.write(
-                    reinterpret_cast<const char*>(&m_vpdVector[vtocOffset]),
-                    vtocLength);
-            }
-            else
-            {
-                logging::logMessage("File not open");
-                return false;
-            }
-        }
-        catch (const std::fstream::failure& e)
-        {
-            logging::logMessage(
-                "Error while operating on file with exception " +
-                std::string(e.what()));
-            return false;
-        }
+        EventLogger::createSyncPel(
+            types::ErrorType::EccCheckFailed,
+            types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+            "One bit correction for VTOC performed", std::nullopt, std::nullopt,
+            std::nullopt, std::nullopt);
     }
     else if (l_status != VPD_ECC_OK)
     {
@@ -185,16 +154,28 @@ bool IpzVpdParser::recordEccCheck(types::BinaryVector::const_iterator iterator)
         throw(EccException("Invalid ECC length or offset."));
     }
 
-    auto vpdPtr = m_vpdVector.cbegin();
+    // To avoid 1 bit flip correction from corrupting the main buffer.
+    const types::BinaryVector tempVector = m_vpdVector;
+    auto vpdPtr = tempVector.cbegin();
 
-    if (vpdecc_check_data(
-            const_cast<uint8_t*>(&vpdPtr[recordOffset]), recordLength,
-            const_cast<uint8_t*>(&vpdPtr[eccOffset]), eccLength) == VPD_ECC_OK)
+    auto l_status = vpdecc_check_data(
+        const_cast<uint8_t*>(&vpdPtr[recordOffset]), recordLength,
+        const_cast<uint8_t*>(&vpdPtr[eccOffset]), eccLength);
+
+    if (l_status == VPD_ECC_CORRECTABLE_DATA)
     {
-        return true;
+        EventLogger::createSyncPel(
+            types::ErrorType::EccCheckFailed,
+            types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+            "One bit correction for record performed", std::nullopt,
+            std::nullopt, std::nullopt, std::nullopt);
+    }
+    else if (l_status != VPD_ECC_OK)
+    {
+        return false;
     }
 
-    return false;
+    return true;
 }
 
 void IpzVpdParser::checkHeader(types::BinaryVector::const_iterator itrToVPD)
