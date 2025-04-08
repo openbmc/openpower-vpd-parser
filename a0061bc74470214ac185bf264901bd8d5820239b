@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "113bc725_6a29c744",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-08T16:52:02Z",
+      "side": 1,
+      "message": "should we add i_vpdFilePath ?",
+      "revId": "a0061bc74470214ac185bf264901bd8d5820239b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
