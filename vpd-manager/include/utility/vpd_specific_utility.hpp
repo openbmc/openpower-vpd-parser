@@ -71,8 +71,8 @@ inline std::string generateBadVPDFileName(
 /**
  * @brief API which dumps the broken/bad vpd in a directory.
  * When the vpd is bad, this API places  the bad vpd file inside
- * "/tmp/bad-vpd" in BMC, in order to collect bad VPD data as a part of user
- * initiated BMC dump.
+ * "/var/lib/vpd/dumps" in BMC, in order to collect bad VPD data as a part of
+ * user initiated BMC dump.
  *
  *
  * @param[in] i_vpdFilePath - vpd file path
@@ -113,9 +113,12 @@ inline int dumpBadVpd(const std::string& i_vpdFilePath,
         std::ofstream l_badVpdFileStream(l_badVpdPath, std::ofstream::binary);
         if (!l_badVpdFileStream.is_open())
         {
-            throw std::runtime_error(
-                "Failed to open bad vpd file path in /tmp/bad-vpd. "
-                "Unable to dump the broken/bad vpd file.");
+            const std::string l_errorMsg{
+                "Failed to open bad vpd file path in " +
+                std::string(BAD_VPD_DIR) +
+                ". Unable to dump the broken/bad vpd file."};
+
+            throw std::runtime_error(l_errorMsg);
         }
 
         l_badVpdFileStream.write(
