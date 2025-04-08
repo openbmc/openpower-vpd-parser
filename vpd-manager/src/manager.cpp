@@ -27,7 +27,8 @@ Manager::Manager(
     const std::shared_ptr<sdbusplus::asio::connection>& asioConnection) :
     m_ioContext(ioCon), m_interface(iFace), m_asioConnection(asioConnection)
 {
-#ifdef IBM_SYSTEM
+// Single FAB functionality to be included in subsequent commit.
+#ifdef 0
     if (!dbusUtility::isChassisPowerOn())
     {
         SingleFab l_singleFab;
