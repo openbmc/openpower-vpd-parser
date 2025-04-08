@@ -192,13 +192,46 @@ inline std::string encodeKeyword(const std::string& i_keyword,
         {
             l_result.clear();
             size_t l_firstByte = i_keyword[0];
-            l_result += commonUtility::toHex(l_firstByte >> 4);
-            l_result += commonUtility::toHex(l_firstByte & 0x0f);
+
+            auto l_hexValue = commonUtility::toHex(l_firstByte >> 4);
+
+            if (!l_hexValue)
+            {
+                throw std::runtime_error("Out of bound error");
+            }
+
+            l_result += l_hexValue;
+
+            l_hexValue = commonUtility::toHex(l_firstByte & 0x0f);
+
+            if (!l_hexValue)
+            {
+                throw std::runtime_error("Out of bound error");
+            }
+
+            l_result += l_hexValue;
+
             for (size_t i = 1; i < i_keyword.size(); ++i)
             {
                 l_result += ":";
-                l_result += commonUtility::toHex(i_keyword[i] >> 4);
-                l_result += commonUtility::toHex(i_keyword[i] & 0x0f);
+
+                l_hexValue = commonUtility::toHex(i_keyword[i] >> 4);
+
+                if (!l_hexValue)
+                {
+                    throw std::runtime_error("Out of bound error");
+                }
+
+                l_result += l_hexValue;
+
+                l_hexValue = commonUtility::toHex(i_keyword[i] & 0x0f);
+
+                if (!l_hexValue)
+                {
+                    throw std::runtime_error("Out of bound error");
+                }
+
+                l_result += l_hexValue;
             }
         }
         else if (i_encoding == "DATE")
