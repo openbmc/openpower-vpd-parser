@@ -39,12 +39,14 @@ namespace commonUtility
 /** @brief Return the hex representation of the incoming byte.
  *
  * @param [in] i_aByte - The input byte.
- * @returns Hex representation of the byte as a character.
+ * @returns Null character if input byte is out of bound else returns hex
+ * representation of the byte as a character.
  */
-constexpr auto toHex(size_t i_aByte)
+constexpr auto toHex(size_t i_aByte) noexcept
 {
     constexpr auto l_map = "0123456789abcdef";
-    return l_map[i_aByte];
+
+    return (i_aByte < std::strlen(l_map)) ? l_map[i_aByte] : '\0';
 }
 
 /**
