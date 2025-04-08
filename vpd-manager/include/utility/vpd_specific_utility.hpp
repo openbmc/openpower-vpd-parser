@@ -190,13 +190,32 @@ inline std::string encodeKeyword(const std::string& i_keyword,
         {
             l_result.clear();
             size_t l_firstByte = i_keyword[0];
-            l_result += commonUtility::toHex(l_firstByte >> 4);
-            l_result += commonUtility::toHex(l_firstByte & 0x0f);
+
+            if (const auto& l_hexValue = commonUtility::toHex(l_firstByte >> 4))
+            {
+                l_result += l_hexValue;
+            }
+
+            if (const auto& l_hexValue =
+                    commonUtility::toHex(l_firstByte & 0x0f))
+            {
+                l_result += l_hexValue;
+            }
+
             for (size_t i = 1; i < i_keyword.size(); ++i)
             {
                 l_result += ":";
-                l_result += commonUtility::toHex(i_keyword[i] >> 4);
-                l_result += commonUtility::toHex(i_keyword[i] & 0x0f);
+
+                if (const auto& l_hexValue =
+                        commonUtility::toHex(i_keyword[i] >> 4))
+                {
+                    l_result += l_hexValue;
+                }
+                if (const auto& l_hexValue =
+                        commonUtility::toHex(i_keyword[i] & 0x0f))
+                {
+                    l_result += l_hexValue;
+                }
             }
         }
         else if (i_encoding == "DATE")
