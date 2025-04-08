@@ -26,7 +26,7 @@ option(
 option(
     'BAD_VPD_DIR',
     type: 'string',
-    value: '/tmp/bad-vpd/',
+    value: '/var/lib/vpd/dumps/',
     description: 'Directory which contains the bad vpd file - which needs to be included in bmc dump.',
 )
 option(
