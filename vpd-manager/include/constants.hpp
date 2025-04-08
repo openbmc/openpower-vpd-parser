@@ -181,6 +181,7 @@ constexpr auto powerVsImagePrefix_MY = "MY";
 constexpr auto powerVsImagePrefix_MZ = "MZ";
 constexpr auto powerVsImagePrefix_NY = "NY";
 constexpr auto powerVsImagePrefix_NZ = "NZ";
+constexpr auto badVpdDir = "/var/lib/vpd/dumps/";
 
 static constexpr auto BD_YEAR_END = 4;
 static constexpr auto BD_MONTH_END = 7;
