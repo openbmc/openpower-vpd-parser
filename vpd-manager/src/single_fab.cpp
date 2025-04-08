@@ -55,30 +55,28 @@ std::string SingleFab::getImFromPlanar() const noexcept
 {
     try
     {
-        types::BinaryVector l_imValue(IM_SIZE_IN_BYTES);
-        std::fstream l_vpdFileStream;
+        const std::string l_systemPlanarPath(SYSTEM_VPD_FILE_PATH);
+        Parser l_parserObj(l_systemPlanarPath, nlohmann::json{});
 
-        l_vpdFileStream.exceptions(
-            std::ifstream::badbit | std::ifstream::failbit);
+        std::shared_ptr<ParserInterface> l_vpdParserInstance =
+            l_parserObj.getVpdParserInstance();
 
-        l_vpdFileStream.open(SYSTEM_VPD_FILE_PATH,
-                             std::ios::in | std::ios::binary);
+        auto l_readValue = l_vpdParserInstance->readKeywordFromHardware(
+            std::make_tuple(constants::recVSBP, constants::kwdIM));
 
-        l_vpdFileStream.seekg(IM_KW_VALUE_OFFSET, std::ios_base::beg);
-
-        // Read keyword value
-        l_vpdFileStream.read(reinterpret_cast<char*>(&l_imValue[0]),
-                             IM_SIZE_IN_BYTES);
-
-        l_vpdFileStream.clear(std::ios_base::eofbit);
-
-        std::ostringstream l_imData;
-        for (const auto& l_byte : l_imValue)
+        if (auto l_keywordValue =
+                std::get_if<types::BinaryVector>(&l_readValue);
+            l_keywordValue && !l_keywordValue->empty())
         {
-            l_imData << std::setw(2) << std::setfill('0') << std::hex
-                     << static_cast<int>(l_byte);
+            std::ostringstream l_imData;
+            for (const auto& l_byte : *l_keywordValue)
+            {
+                l_imData << std::setw(2) << std::setfill('0') << std::hex
+                         << static_cast<int>(l_byte);
+            }
+
+            return l_imData.str();
         }
-        return l_imData.str();
     }
     catch (const std::ifstream::failure& l_ex)
     {}
