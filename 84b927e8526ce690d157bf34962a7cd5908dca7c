@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca055742_2fa5ac70",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-04-09T08:49:35Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d577ae01_4fdd19da",
+      "revId": "84b927e8526ce690d157bf34962a7cd5908dca7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d017224b_14c90ad9",
@@ -71,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d36ec00b_fc9d9b24",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-04-09T08:49:35Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "552a7b47_bd956a99",
+      "revId": "84b927e8526ce690d157bf34962a7cd5908dca7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01c3e1f4_733e2e12",
@@ -84,6 +120,24 @@
       "writtenOn": "2025-03-21T14:59:38Z",
       "side": 1,
       "message": "Feel you tried to write this generic but seems to be tied to what is above , I need a walkthrough for this you understand it.",
+      "revId": "84b927e8526ce690d157bf34962a7cd5908dca7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2020a0f_39c682ea",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 1453,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-04-09T08:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01c3e1f4_733e2e12",
       "revId": "84b927e8526ce690d157bf34962a7cd5908dca7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
