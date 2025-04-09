@@ -275,15 +275,17 @@ inline bool processSystemCmdTag(
             i_baseAction.empty() || i_flagToProcess.empty())
         {
             throw std::runtime_error(
-                "Invalid parameter. Abort processing of processSystemCmd.");
+                std::string(__FUNCTION__) +
+                " Invalid parameter. Abort processing of processSystemCmd.");
         }
 
         if (!((i_parsedConfigJson["frus"][i_vpdFilePath].at(
                    0)[i_baseAction][i_flagToProcess]["systemCmd"])
                   .contains("cmd")))
         {
-            throw std::runtime_error(
-                "Config JSON missing required information to execute system command for EEPROM " +
+            throw JsonException(
+                std::string(__FUNCTION__) +
+                " Config JSON missing required information to execute system command for EEPROM " +
                 i_vpdFilePath);
         }
 
@@ -296,8 +298,10 @@ inline bool processSystemCmdTag(
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage("Process system command tag failed. Error : " +
-                            std::string(l_ex.what()));
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
+            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
         return false;
     }
 }
@@ -319,39 +323,39 @@ inline bool processGpioPresenceTag(
     const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
     const std::string& i_baseAction, const std::string& i_flagToProcess)
 {
-    if (i_vpdFilePath.empty() || i_parsedConfigJson.empty() ||
-        i_baseAction.empty() || i_flagToProcess.empty())
-    {
-        logging::logMessage(
-            "Invalid parameter. Abort processing of processGpioPresence tag");
-        return false;
-    }
-
-    if (!(((i_parsedConfigJson["frus"][i_vpdFilePath].at(
-                0)[i_baseAction][i_flagToProcess]["gpioPresence"])
-               .contains("pin")) &&
-          ((i_parsedConfigJson["frus"][i_vpdFilePath].at(
-                0)[i_baseAction][i_flagToProcess]["gpioPresence"])
-               .contains("value"))))
-    {
-        logging::logMessage(
-            "Config JSON missing required information to detect presence for EEPROM " +
-            i_vpdFilePath);
-
-        return false;
-    }
-
-    // get the pin name
-    const std::string& l_presencePinName =
-        i_parsedConfigJson["frus"][i_vpdFilePath].at(
-            0)[i_baseAction][i_flagToProcess]["gpioPresence"]["pin"];
-
-    // get the pin value
-    uint8_t l_presencePinValue = i_parsedConfigJson["frus"][i_vpdFilePath].at(
-        0)[i_baseAction][i_flagToProcess]["gpioPresence"]["value"];
-
     try
     {
+        if (i_vpdFilePath.empty() || i_parsedConfigJson.empty() ||
+            i_baseAction.empty() || i_flagToProcess.empty())
+        {
+            throw std::runtime_error(
+                std::string(__FUNCTION__) +
+                "Invalid parameter. Abort processing of processGpioPresence tag");
+        }
+
+        if (!(((i_parsedConfigJson["frus"][i_vpdFilePath].at(
+                    0)[i_baseAction][i_flagToProcess]["gpioPresence"])
+                   .contains("pin")) &&
+              ((i_parsedConfigJson["frus"][i_vpdFilePath].at(
+                    0)[i_baseAction][i_flagToProcess]["gpioPresence"])
+                   .contains("value"))))
+        {
+            throw JsonException(
+                std::string(__FUCTION__) +
+                "Config JSON missing required information to detect presence for EEPROM " +
+                i_vpdFilePath);
+        }
+
+        // get the pin name
+        const std::string& l_presencePinName =
+            i_parsedConfigJson["frus"][i_vpdFilePath].at(
+                0)[i_baseAction][i_flagToProcess]["gpioPresence"]["pin"];
+
+        // get the pin value
+        uint8_t l_presencePinValue =
+            i_parsedConfigJson["frus"][i_vpdFilePath].at(
+                0)[i_baseAction][i_flagToProcess]["gpioPresence"]["value"];
+
         gpiod::line l_presenceLine = gpiod::find_line(l_presencePinName);
 
         if (!l_presenceLine)
@@ -366,6 +370,16 @@ inline bool processGpioPresenceTag(
     }
     catch (const std::exception& ex)
     {
+        if (EventLogger::getErrorType(ex) != types::ErrorType::GpioError)
+        {
+            EventLogger::createSyncPel(
+                EventLogger::getErrorType(l_ex),
+                types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+                EventLogger::getErrorMsg(l_ex), std::nullopt, std::nullopt,
+                std::nullopt, std::nullopt);
+            return false;
+        }
+
         std::string l_errMsg = "Exception on GPIO line: ";
         l_errMsg += l_presencePinName;
         l_errMsg += " Reason: ";
@@ -406,39 +420,40 @@ inline bool procesSetGpioTag(
     const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
     const std::string& i_baseAction, const std::string& i_flagToProcess)
 {
-    if (i_vpdFilePath.empty() || i_parsedConfigJson.empty() ||
-        i_baseAction.empty() || i_flagToProcess.empty())
-    {
-        logging::logMessage(
-            "Invalid parameter. Abort processing of procesSetGpio.");
-        return false;
-    }
-
-    if (!(((i_parsedConfigJson["frus"][i_vpdFilePath].at(
-                0)[i_baseAction][i_flagToProcess]["setGpio"])
-               .contains("pin")) &&
-          ((i_parsedConfigJson["frus"][i_vpdFilePath].at(
-                0)[i_baseAction][i_flagToProcess]["setGpio"])
-               .contains("value"))))
-    {
-        logging::logMessage(
-            "Config JSON missing required information to set gpio line for EEPROM " +
-            i_vpdFilePath);
-
-        return false;
-    }
-
-    const std::string& l_pinName = i_parsedConfigJson["frus"][i_vpdFilePath].at(
-        0)[i_baseAction][i_flagToProcess]["setGpio"]["pin"];
-
-    // Get the value to set
-    uint8_t l_pinValue = i_parsedConfigJson["frus"][i_vpdFilePath].at(
-        0)[i_baseAction][i_flagToProcess]["setGpio"]["value"];
-
-    logging::logMessage(
-        "Setting GPIO: " + l_pinName + " to " + std::to_string(l_pinValue));
     try
     {
+        if (i_vpdFilePath.empty() || i_parsedConfigJson.empty() ||
+            i_baseAction.empty() || i_flagToProcess.empty())
+        {
+            throw std::runtime_error(
+                std::string(__FUNCTION__) +
+                " Invalid parameter. Abort processing of procesSetGpio.");
+        }
+
+        if (!(((i_parsedConfigJson["frus"][i_vpdFilePath].at(
+                    0)[i_baseAction][i_flagToProcess]["setGpio"])
+                   .contains("pin")) &&
+              ((i_parsedConfigJson["frus"][i_vpdFilePath].at(
+                    0)[i_baseAction][i_flagToProcess]["setGpio"])
+                   .contains("value"))))
+        {
+            throw JsonException(
+                std::string(__FUCTION__) +
+                " Config JSON missing required information to set gpio line for EEPROM " +
+                i_vpdFilePath);
+        }
+
+        const std::string& l_pinName =
+            i_parsedConfigJson["frus"][i_vpdFilePath].at(
+                0)[i_baseAction][i_flagToProcess]["setGpio"]["pin"];
+
+        // Get the value to set
+        uint8_t l_pinValue = i_parsedConfigJson["frus"][i_vpdFilePath].at(
+            0)[i_baseAction][i_flagToProcess]["setGpio"]["value"];
+
+        logging::logMessage(
+            "Setting GPIO: " + l_pinName + " to " + std::to_string(l_pinValue));
+
         gpiod::line l_outputLine = gpiod::find_line(l_pinName);
 
         if (!l_outputLine)
@@ -453,22 +468,34 @@ inline bool procesSetGpioTag(
     }
     catch (const std::exception& ex)
     {
-        std::string l_errMsg = "Exception on GPIO line: ";
-        l_errMsg += l_pinName;
-        l_errMsg += " Reason: ";
-        l_errMsg += ex.what();
-        l_errMsg += " File: " + i_vpdFilePath + " Pel Logged";
+        if (EventLogger::getErrorType(ex) != types::ErrorType::GpioError)
+        {
+            EventLogger::createSyncPel(
+                EventLogger::getErrorType(l_ex),
+                types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+                EventLogger::getErrorMsg(l_ex), std::nullopt, std::nullopt,
+                std::nullopt, std::nullopt);
+        }
+        else
+        {
+            std::string l_errMsg = "Exception on GPIO line: ";
+            l_errMsg += l_pinName;
+            l_errMsg += " Reason: ";
+            l_errMsg += ex.what();
+            l_errMsg += " File: " + i_vpdFilePath + " Pel Logged";
 
-        // ToDo -- Update Internal RC code
-        EventLogger::createAsyncPelWithInventoryCallout(
-            types::ErrorType::GpioError, types::SeverityType::Informational,
-            {{getInventoryObjPathFromJson(i_parsedConfigJson, i_vpdFilePath),
-              types::CalloutPriority::High}},
-            std::source_location::current().file_name(),
-            std::source_location::current().function_name(), 0, l_errMsg,
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            // ToDo -- Update Internal RC code
+            EventLogger::createAsyncPelWithInventoryCallout(
+                types::ErrorType::GpioError, types::SeverityType::Informational,
+                {{getInventoryObjPathFromJson(i_parsedConfigJson,
+                                              i_vpdFilePath),
+                  types::CalloutPriority::High}},
+                std::source_location::current().file_name(),
+                std::source_location::current().function_name(), 0, l_errMsg,
+                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
 
-        logging::logMessage(l_errMsg);
+            logging::logMessage(l_errMsg);
+        }
 
         return false;
     }
@@ -493,33 +520,43 @@ inline bool executeBaseAction(
     const nlohmann::json& i_parsedConfigJson, const std::string& i_action,
     const std::string& i_vpdFilePath, const std::string& i_flagToProcess)
 {
-    if (i_flagToProcess.empty() || i_action.empty() || i_vpdFilePath.empty() ||
-        !i_parsedConfigJson.contains("frus"))
+    try
     {
-        logging::logMessage("Invalid parameter");
-        return false;
+        if (i_flagToProcess.empty() || i_action.empty() ||
+            i_vpdFilePath.empty() || !i_parsedConfigJson.contains("frus"))
+        {
+            throw std::runtime_error(
+                std::string(__FUNCTION__) + " Invalid parameter");
+        }
+
+        if (!i_parsedConfigJson["frus"].contains(i_vpdFilePath))
+        {
+            throw JsonException(std::string(__FUNCTION__) + " File path: " +
+                                i_vpdFilePath + " not found in JSON");
+        }
+
+        if (!i_parsedConfigJson["frus"][i_vpdFilePath].at(0).contains(i_action))
+        {
+            throw JsonException(
+                std::string(__FUNCTION__) + " Action [" + i_action +
+                "] not defined for file path:" + i_vpdFilePath);
+        }
+
+        if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))[i_action]
+                 .contains(i_flagToProcess))
+        {
+            throw JsonException(
+                std::string(__FUNCTION__) + "Config JSON missing flag [" +
+                i_flagToProcess +
+                "] to execute action for path = " + i_vpdFilePath);
+        }
     }
-
-    if (!i_parsedConfigJson["frus"].contains(i_vpdFilePath))
+    catch (const std::exception& e)
     {
-        logging::logMessage(
-            "File path: " + i_vpdFilePath + " not found in JSON");
-        return false;
-    }
-
-    if (!i_parsedConfigJson["frus"][i_vpdFilePath].at(0).contains(i_action))
-    {
-        logging::logMessage("Action [" + i_action +
-                            "] not defined for file path:" + i_vpdFilePath);
-        return false;
-    }
-
-    if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))[i_action].contains(
-            i_flagToProcess))
-    {
-        logging::logMessage("Config JSON missing flag [" + i_flagToProcess +
-                            "] to execute action for path = " + i_vpdFilePath);
-
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(e), types::SeverityType::Informational,
+            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(e),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
         return false;
     }
 
