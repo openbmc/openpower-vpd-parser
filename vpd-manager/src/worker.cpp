@@ -1371,7 +1371,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
         {
             throw std::runtime_error(
                 std::string(__FUNCTION__) +
-                "Empty VPD file path passed. Abort processing");
+                " Empty VPD file path passed. Abort processing");
         }
 
         if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
@@ -1380,14 +1380,14 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             if (!processPreAction(i_vpdFilePath, "collection"))
             {
                 throw std::runtime_error(
-                    std::string(__FUNCTION__) + "Pre-Action failed");
+                    std::string(__FUNCTION__) + " Pre-Action failed");
             }
         }
 
         if (!std::filesystem::exists(i_vpdFilePath))
         {
             throw std::runtime_error(
-                std::string(__FUNCTION__) + "Could not find file path " +
+                std::string(__FUNCTION__) + " Could not find file path " +
                 i_vpdFilePath + "Skipping parser trigger for the EEPROM");
         }
 
@@ -1521,7 +1521,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         }
 
         EventLogger::createSyncPel(
-            EventLogger::getErrorType(ex), types::SeverityType::Critical,
+            EventLogger::getErrorType(ex), types::SeverityType::Informational,
             __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
 
