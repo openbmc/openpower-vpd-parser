@@ -1371,24 +1371,30 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
         {
             throw std::runtime_error(
                 std::string(__FUNCTION__) +
-                "Empty VPD file path passed. Abort processing");
+                " Empty VPD file path passed. Abort processing");
         }
 
+        bool isPreActionRequired = false;
         if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
                                           "preAction", "collection"))
         {
+            isPreActionRequired = true;
             if (!processPreAction(i_vpdFilePath, "collection"))
             {
                 throw std::runtime_error(
-                    std::string(__FUNCTION__) + "Pre-Action failed");
+                    std::string(__FUNCTION__) + " Pre-Action failed");
             }
         }
 
         if (!std::filesystem::exists(i_vpdFilePath))
         {
-            throw std::runtime_error(
-                std::string(__FUNCTION__) + "Could not find file path " +
-                i_vpdFilePath + "Skipping parser trigger for the EEPROM");
+            if (isPreActionRequired)
+            {
+                throw std::runtime_error(
+                    std::string(__FUNCTION__) + " Could not find file path " +
+                    i_vpdFilePath + "Skipping parser trigger for the EEPROM");
+            }
+            return types::VPDMapVariant{};
         }
 
         std::shared_ptr<Parser> vpdParser =
@@ -1474,16 +1480,23 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         }
 
         const types::VPDMapVariant& parsedVpdMap = parseVpdFile(i_vpdFilePath);
-
-        types::ObjectMap objectInterfaceMap;
-        populateDbus(parsedVpdMap, objectInterfaceMap, i_vpdFilePath);
-
-        // Notify PIM
-        if (!dbusUtility::callPIM(move(objectInterfaceMap)))
+        if (!std::holds_alternative<std::monostate>(parsedVpdMap))
         {
-            throw std::runtime_error(
-                std::string(__FUNCTION__) +
-                "Call to PIM failed while publishing VPD.");
+            types::ObjectMap objectInterfaceMap;
+            populateDbus(parsedVpdMap, objectInterfaceMap, i_vpdFilePath);
+
+            // Notify PIM
+            if (!dbusUtility::callPIM(move(objectInterfaceMap)))
+            {
+                throw std::runtime_error(
+                    std::string(__FUNCTION__) +
+                    "Call to PIM failed while publishing VPD.");
+            }
+        }
+        else
+        {
+            logging::logMessage("Empty parsedVpdMap recieved for path [" +
+                                i_vpdFilePath + "]. Check PEL for reason.");
         }
     }
     catch (const std::exception& ex)
@@ -1521,7 +1534,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         }
 
         EventLogger::createSyncPel(
-            EventLogger::getErrorType(ex), types::SeverityType::Critical,
+            EventLogger::getErrorType(ex), types::SeverityType::Informational,
             __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
 
