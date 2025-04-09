@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb26ebdb_1ad67a48",
+        "filename": "meson.options",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-09T06:41:01Z",
+      "side": 1,
+      "message": "As discussed, moved this to `constants.hpp`",
+      "parentUuid": "9b844bde_6475320a",
+      "revId": "a0061bc74470214ac185bf264901bd8d5820239b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "113bc725_6a29c744",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-08T16:52:02Z",
       "side": 1,
       "message": "should we add i_vpdFilePath ?",
+      "revId": "a0061bc74470214ac185bf264901bd8d5820239b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb124a64_e3b32785",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-09T06:41:01Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "113bc725_6a29c744",
       "revId": "a0061bc74470214ac185bf264901bd8d5820239b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
