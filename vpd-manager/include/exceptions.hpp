@@ -138,6 +138,11 @@ class JsonException : public Exception
         Exception(msg), m_jsonPath(path)
     {}
 
+    /** @brief constructor
+     *  @param[in] msg - Information w.r.t. exception.
+     */
+    JsonException(const std::string& msg) : Exception(msg) {}
+
     /** @brief Json path getter method.
      *
      *  @return - Json path
