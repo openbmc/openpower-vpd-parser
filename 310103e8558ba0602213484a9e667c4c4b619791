@@ -22,6 +22,30 @@
       },
       "revId": "310103e8558ba0602213484a9e667c4c4b619791",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "498330ab_88001ceb",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-10T07:00:40Z",
+      "side": 1,
+      "message": "removed these variable, as this is stub only.\nWill handle this in the implementation part.",
+      "parentUuid": "e70d4f81_e029d7ad",
+      "range": {
+        "startLine": 409,
+        "startChar": 3,
+        "endLine": 410,
+        "endChar": 34
+      },
+      "revId": "310103e8558ba0602213484a9e667c4c4b619791",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
