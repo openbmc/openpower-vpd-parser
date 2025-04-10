@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8a499e3_b55b9b5a",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-10T10:23:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02e780db_f2885b25",
+      "revId": "7973f4514f7a2858969725cd68f674e10af712fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c95fcbbb_86704d8b",
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74e5d93f_135ca178",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-10T10:23:28Z",
+      "side": 1,
+      "message": "m_backupAndRestoreObj is only created if backup and restore JSON is there and its checked by isBackupAndRestoreRequired API.\nso not all system need to have backup\u0026restore json, hence this object needs to be checked, before using it.",
+      "parentUuid": "c95fcbbb_86704d8b",
+      "revId": "7973f4514f7a2858969725cd68f674e10af712fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "245b6380_31583d08",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 16
@@ -65,6 +101,24 @@
       "writtenOn": "2025-04-10T09:08:00Z",
       "side": 1,
       "message": "Do we need `null` check on `m_backupAndRestoreObj`?",
+      "revId": "7973f4514f7a2858969725cd68f674e10af712fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a98d1ac_a31fe48c",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-10T10:23:28Z",
+      "side": 1,
+      "message": "all system need not to have backup\u0026restore json, hence this object needs to be checked, before using it.",
+      "parentUuid": "245b6380_31583d08",
       "revId": "7973f4514f7a2858969725cd68f674e10af712fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
