@@ -113,5 +113,29 @@ inline void toLower(std::string& i_string)
     std::transform(i_string.begin(), i_string.end(), i_string.begin(),
                    [](unsigned char l_char) { return std::tolower(l_char); });
 }
+
+/**
+ * @brief An API to get hex representation of the incoming bytes.
+ *
+ * The API returns the hex represented value of the given input in string format
+ * with 0x prefix.
+ *
+ * @param[in] i_keywordValue - Vector of input byte.
+ *
+ * @return - Returns the converted string value.
+ */
+inline std::string convertByteVectorToHex(
+    const types::BinaryVector& i_keywordValue)
+{
+    std::ostringstream l_oss;
+    l_oss << "0x";
+    for (const auto& l_byte : i_keywordValue)
+    {
+        l_oss << std::setfill('0') << std::setw(2) << std::hex
+              << static_cast<int>(l_byte);
+    }
+
+    return l_oss.str();
+}
 } // namespace commonUtility
 } // namespace vpd
