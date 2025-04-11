@@ -365,8 +365,10 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
                 std::string l_errorMsg(
                     "Mismatch found between source and destination VPD for record : " +
                     l_srcRecordName + " and keyword : " + l_srcKeywordName +
-                    " . Value read from source : " + l_srcStrValue +
-                    " . Value read from destination : " + l_dstStrValue);
+                    " . Value read from source : " +
+                    commonUtility::convertByteVectorToHex(l_srcBinaryValue) +
+                    " . Value read from destination : " +
+                    commonUtility::convertByteVectorToHex(l_dstBinaryValue));
 
                 EventLogger::createSyncPel(
                     types::ErrorType::VpdMismatch, types::SeverityType::Warning,
