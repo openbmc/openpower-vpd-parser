@@ -18,6 +18,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b62b86e6_8206014f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-11T04:23:42Z",
+      "side": 1,
+      "message": "this is part of write keyword implementation, because some of the keywords are backed up on eeprom as well, needs to checked and should be updated on this backup path as well for the system\u0027s which has backup EEPROM.",
+      "parentUuid": "c904942a_b1cedef2",
+      "revId": "7973f4514f7a2858969725cd68f674e10af712fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60d57972_b4b4838a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-11T04:23:42Z",
+      "side": 1,
+      "message": "this is part of write keyword implementation, because some of the keywords are backed up on eeprom as well, needs to checked and should be updated on this backup path as well for the system\u0027s which has backup EEPROM.",
+      "parentUuid": "c904942a_b1cedef2",
+      "revId": "7973f4514f7a2858969725cd68f674e10af712fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02e780db_f2885b25",
