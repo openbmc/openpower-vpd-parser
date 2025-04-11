@@ -804,5 +804,28 @@ inline bool isPowerVsImage()
     }
     return false;
 }
+
+/**
+ * @brief An API to convert binary value into hex representation.
+ *
+ * The API returns the hex represented value of the given data in string format.
+ *
+ * @param[in] i_keywordValue - Data in binary format.
+ *
+ * @return - Returns the converted string value.
+ */
+inline std::string getHexRepresentValue(
+    const types::BinaryVector& i_keywordValue)
+{
+    std::ostringstream l_oss;
+    l_oss << "0x";
+    for (const auto& l_byte : i_keywordValue)
+    {
+        l_oss << std::setfill('0') << std::setw(2) << std::hex
+              << static_cast<int>(l_byte);
+    }
+
+    return l_oss.str();
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd
