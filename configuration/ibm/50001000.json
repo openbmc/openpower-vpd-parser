@@ -26,6 +26,163 @@
             }
         }
     },
+    "watch": [
+        "xyz.openbmc_project.Inventory.Decorator.Asset",
+        "com.ibm.ipzvpd.VINI",
+        "com.ibm.ipzvpd.VSYS",
+        "com.ibm.ipzvpd.VR10",
+        "xyz.openbmc_project.Inventory.Item.Network.Interface",
+        "com.ibm.ipzvpd.VCFG"
+    ],
+    "correlatedObjects": [
+        {
+            "id": "eth0MAC",
+            "object": "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc/ethernet0",
+            "interface": "xyz.openbmc_project.Inventory.Item.NetworkInterface",
+            "property": "MACAddress",
+            "encoding": "MAC",
+            "dbusSignature": "s"
+        },
+        {
+            "id": "BMCZ0",
+            "object": "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc",
+            "interface": "com.ibm.ipzvpd.VCFG",
+            "property": "Z0",
+            "dbusSignature": "ay"
+        },
+        {
+            "id": "systemSE",
+            "object": "/xyz/openbmc_project/inventory/system",
+            "interface": "com.ibm.ipzvpd.VSYS",
+            "property": "SE",
+            "dbusSignature": "ay"
+        },
+        {
+            "id": "systemSerial",
+            "object": "/xyz/openbmc_project/inventory/system",
+            "interface": "xyz.openbmc_project.Inventory.Decorator.Asset",
+            "property": "SerialNumber",
+            "dbusSignature": "s"
+        },
+        {
+            "id": "systemTM",
+            "object": "/xyz/openbmc_project/inventory/system",
+            "interface": "com.ibm.ipzvpd.VSYS",
+            "property": "TM",
+            "dbusSignature": "ay"
+        },
+        {
+            "id": "systemModel",
+            "object": "/xyz/openbmc_project/inventory/system",
+            "interface": "xyz.openbmc_project.Inventory.Decorator.Asset",
+            "property": "Model",
+            "dbusSignature": "s"
+        },
+        {
+            "id": "systemBR",
+            "object": "/xyz/openbmc_project/inventory/system",
+            "interface": "com.ibm.ipzvpd.VSYS",
+            "property": "BR",
+            "dbusSignature": "ay"
+        },
+        {
+            "id": "systemSubModel",
+            "object": "/xyz/openbmc_project/inventory/system",
+            "interface": "xyz.openbmc_project.Inventory.Decorator.Asset",
+            "property": "SubModel",
+            "dbusSignature": "s"
+        },
+        {
+            "id": "motherboardSE",
+            "object": "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+            "interface": "com.ibm.ipzvpd.VSYS",
+            "property": "SE"
+        },
+        {
+            "id": "motherboardTM",
+            "object": "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+            "interface": "com.ibm.ipzvpd.VSYS",
+            "property": "TM"
+        },
+        {
+            "id": "motherboardBR",
+            "object": "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+            "interface": "com.ibm.ipzvpd.VSYS",
+            "property": "BR"
+        },
+        {
+            "id": "SN",
+            "interface": "com.ibm.ipzvpd.VINI",
+            "property": "SN",
+            "dbusSignature": "ay"
+        },
+        {
+            "id": "SerialNumber",
+            "interface": "xyz.openbmc_project.Inventory.Decorator.Asset",
+            "property": "SerialNumber",
+            "dbusSignature": "s"
+        },
+        {
+            "id": "PN",
+            "interface": "com.ibm.ipzvpd.VINI",
+            "property": "PN",
+            "dbusSignature": "ay"
+        },
+        {
+            "id": "PartNumber",
+            "interface": "xyz.openbmc_project.Inventory.Decorator.Asset",
+            "property": "PartNumber",
+            "dbusSignature": "s"
+        },
+        {
+            "id": "CC",
+            "interface": "com.ibm.ipzvpd.VINI",
+            "property": "CC",
+            "dbusSignature": "ay"
+        },
+        {
+            "id": "Model",
+            "interface": "xyz.openbmc_project.Inventory.Decorator.Asset",
+            "property": "Model",
+            "dbusSignature": "s"
+        },
+        {
+            "id": "FN",
+            "interface": "com.ibm.ipzvpd.VINI",
+            "property": "FN",
+            "dbusSignature": "ay"
+        },
+        {
+            "id": "SparePartNumber",
+            "interface": "xyz.openbmc_project.Inventory.Decorator.Asset",
+            "property": "SparePartNumber",
+            "dbusSignature": "s"
+        },
+        {
+            "id": "DC",
+            "interface": "com.ibm.ipzvpd.VR10",
+            "property": "DC",
+            "encoding": "DATE",
+            "dbusSignature": "ay"
+        },
+        {
+            "id": "BuildDate",
+            "interface": "xyz.openbmc_project.Inventory.Decorator.Asset",
+            "property": "BuildDate",
+            "encoding": "DATE",
+            "dbusSignature": "s"
+        }
+    ],
+    "commonObjPairs": [
+        { "SN": "SerialNumber" },
+        { "SerialNumber": "SN" },
+        { "PN": "PartNumber" },
+        { "PartNumber": "PN" },
+        { "FN": "SparePartNumber" },
+        { "SparePartNumber": "FN" },
+        { "CC": "Model" },
+        { "Model": "CC" }
+    ],
     "frus": {
         "/sys/bus/i2c/drivers/at24/8-0050/eeprom": [
             {
@@ -40,7 +197,14 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "System backplane"
                     }
-                }
+                },
+                "commonObjSearch": true,
+                "specialObjSearch": true,
+                "specialObjPairs": [
+                    { "motherboardSE": ["systemSerial", "systemSE"] },
+                    { "motherboardTM": ["systemModel", "systemTM"] },
+                    { "motherboardBR": ["systemBR", "systemSubModel"] }
+                ]
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/unit0",
@@ -80,7 +244,16 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "System"
                     }
-                }
+                },
+                "specialObjSearch": true,
+                "specialObjPairs": [
+                    { "systemSE": ["systemSerial", "motherboardSE"] },
+                    { "systemSerial": ["systemSE", "motherboardSE"] },
+                    { "systemTM": ["systemModel", "motherboardTM"] },
+                    { "systemModel": ["systemTM", "motherboardTM"] },
+                    { "systemBR": ["systemSubModel"] },
+                    { "systemSubModel": ["systemBR"] }
+                ]
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis",
@@ -97,7 +270,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Chassis"
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot0",
@@ -563,7 +737,8 @@
                         "SparePartNumber": "02YK323",
                         "SerialNumber": "YL12JP1C1234"
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery",
@@ -576,7 +751,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Time-of-day battery"
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/connector0",
@@ -959,7 +1135,15 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "eBMC card"
                     }
-                }
+                },
+                "commonObjSearch": true,
+                "specialObjSearch": true,
+                "specialObjPairs": [
+                    { "DC": "BuildDate" },
+                    { "BuildDate": "DC" },
+                    { "BMCZ0": "eth0MAC" },
+                    { "BMCZ1": "eth1MAC" }
+                ]
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc/ethernet0",
@@ -982,7 +1166,9 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "HMC port 0"
                     }
-                }
+                },
+                "specialObjSearch": true,
+                "specialObjPairs": [{ "eth0MAC": "BMCZ0" }]
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc/ethernet1",
@@ -1005,7 +1191,9 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "HMC port 1"
                     }
-                }
+                },
+                "specialObjSearch": true,
+                "specialObjPairs": [{ "eth1MAC": "BMCZ1" }]
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/ebmc_card_bmc/usb0",
@@ -1070,7 +1258,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Trusted platform module card"
                     }
-                }
+                },
+                "commonObjSearch": true
             }
         ],
         "/sys/bus/i2c/drivers/at24/7-0050/eeprom": [
@@ -1094,7 +1283,13 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Control panel"
                     }
-                }
+                },
+                "commonObjSearch": true,
+                "specialObjSearch": true,
+                "specialObjPairs": [
+                    { "DC": "BuildDate" },
+                    { "BuildDate": "DC" }
+                ]
             }
         ],
         "/sys/bus/i2c/drivers/at24/7-0051/eeprom": [
@@ -1158,7 +1353,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Control panel display"
                     }
-                }
+                },
+                "commonObjSearch": true
             }
         ],
         "/sys/bus/i2c/drivers/at24/9-0050/eeprom": [
@@ -1173,7 +1369,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Voltage regulator module for system processor module 0"
                     }
-                }
+                },
+                "commonObjSearch": true
             }
         ],
         "/sys/bus/i2c/drivers/at24/10-0050/eeprom": [
@@ -1188,7 +1385,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Voltage regulator module for system processor module 1"
                     }
-                }
+                },
+                "commonObjSearch": true
             }
         ],
         "/sys/bus/spi/drivers/at25/spi12.0/eeprom": [
@@ -1208,7 +1406,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "System processor module 0"
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dcm0/cpu0/unit0",
@@ -1377,7 +1576,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "System processor module 0"
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dcm0/cpu1/unit0",
@@ -1546,7 +1746,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "System processor module 1"
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dcm1/cpu0/unit0",
@@ -1707,6 +1908,7 @@
                 "powerOffOnly": true,
                 "offset": 196608,
                 "size": 65504,
+                "commonObjSearch": true,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Cpu": null,
                     "com.ibm.ipzvpd.Location": {
@@ -1937,7 +2139,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot0/pcie_card0/cxp_top",
@@ -2043,7 +2246,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot3/pcie_card3/cxp_top",
@@ -2146,7 +2350,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot4/pcie_card4/cxp_top",
@@ -2252,7 +2457,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot10/pcie_card10/cxp_top",
@@ -2648,7 +2854,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe5 x8 adapter"
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot11/pcie_card11/c11_connector0",
@@ -2837,7 +3044,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe4 x8 adapter"
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot8/pcie_card8/c8_connector0",
@@ -2921,7 +3129,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Drive backplane 0"
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/disk_backplane0/nvme0",
@@ -3371,7 +3580,8 @@
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Drive backplane 1"
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/disk_backplane1/nvme0",
@@ -3827,7 +4037,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm0/unit0",
@@ -3897,7 +4108,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm1/unit0",
@@ -3967,7 +4179,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm10/unit0",
@@ -4037,7 +4250,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm9/unit0",
@@ -4107,7 +4321,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm8/unit0",
@@ -4177,7 +4392,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm16/unit0",
@@ -4247,7 +4463,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm17/unit0",
@@ -4317,7 +4534,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm18/unit0",
@@ -4387,7 +4605,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm24/unit0",
@@ -4457,7 +4676,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm25/unit0",
@@ -4527,7 +4747,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm2/unit0",
@@ -4597,7 +4818,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm4/unit0",
@@ -4667,7 +4889,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm5/unit0",
@@ -4737,7 +4960,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm7/unit0",
@@ -4807,7 +5031,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm6/unit0",
@@ -4877,7 +5102,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm3/unit0",
@@ -4947,7 +5173,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm15/unit0",
@@ -5017,7 +5244,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm14/unit0",
@@ -5087,7 +5315,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm11/unit0",
@@ -5157,7 +5386,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm13/unit0",
@@ -5227,7 +5457,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm12/unit0",
@@ -5297,7 +5528,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm20/unit0",
@@ -5367,7 +5599,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm21/unit0",
@@ -5437,7 +5670,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm19/unit0",
@@ -5507,7 +5741,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm22/unit0",
@@ -5577,7 +5812,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm23/unit0",
@@ -5647,7 +5883,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm27/unit0",
@@ -5717,7 +5954,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm30/unit0",
@@ -5787,7 +6025,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm31/unit0",
@@ -5857,7 +6096,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm29/unit0",
@@ -5927,7 +6167,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm28/unit0",
@@ -5997,7 +6238,8 @@
                     "xyz.openbmc_project.State.Decorator.Availability": {
                         "Available": false
                     }
-                }
+                },
+                "commonObjSearch": true
             },
             {
                 "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm26/unit0",
