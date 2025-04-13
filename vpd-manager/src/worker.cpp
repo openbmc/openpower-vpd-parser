@@ -95,7 +95,6 @@ void Worker::enableMuxChips()
     }
 }
 
-#ifdef IBM_SYSTEM
 void Worker::primeSystemBlueprint()
 {
     if (m_parsedJson.empty())
@@ -156,7 +155,6 @@ void Worker::performInitialSetup()
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
 }
-#endif
 
 static std::string readFitConfigValue()
 {
