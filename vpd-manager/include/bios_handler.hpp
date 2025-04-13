@@ -240,8 +240,25 @@ class BiosHandler
         const std::shared_ptr<sdbusplus::asio::connection>& i_connection,
         const std::shared_ptr<Manager>& i_manager) : m_asioConn(i_connection)
     {
-        m_specificBiosHandler = std::make_shared<T>(i_manager);
-        checkAndListenPldmService();
+        try
+        {
+            m_specificBiosHandler = std::make_shared<T>(i_manager);
+            checkAndListenPldmService();
+        }
+        catch (std::exception& l_ex)
+        {
+            // catch any exception here itself and don't pass it to main as it
+            // will mark the service failed. Since VPD-Manager is a critical
+            // service, failing it can push BMC to quiesced state whic is not
+            // required in this case.
+            std::string l_errMsg = "Instantiation of BIOS Handler failed. {";
+            l_errMsg += l_ex.what() + "}";
+
+            EventLogger::createSyncPel(
+                types::ErrorType::FirmwareError, types::SeverityType::Warning,
+                __FILE__, __FUNCTION__, 0, l_errMsg, std::nullopt, std::nullopt,
+                std::nullopt, std::nullopt);
+        }
     }
 
   private:
