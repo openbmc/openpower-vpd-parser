@@ -64,8 +64,23 @@ Manager::Manager(
         if (!m_worker->getSysCfgJsonObj().empty() &&
             jsonUtility::isBackupAndRestoreRequired(l_sysCfgJsonObj))
         {
-            m_backupAndRestoreObj =
-                std::make_shared<BackupAndRestore>(l_sysCfgJsonObj);
+            try
+            {
+                m_backupAndRestoreObj =
+                    std::make_shared<BackupAndRestore>(l_sysCfgJsonObj);
+            }
+            catch (const std::exception& l_ex)
+            {
+                logging::logMessage(
+                    "Back up and restore instantiation failed. {" +
+                    std::string(e.what()) + "}");
+
+                EventLogger::createSyncPel(
+                    EventLogger::getErrorType(l_ex),
+                    types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                    EventLogger::getErrorMsg(l_ex), std::nullopt, std::nullopt,
+                    std::nullopt, std::nullopt);
+            }
         }
 
         // set callback to detect any asset tag change
