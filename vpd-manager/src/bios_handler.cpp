@@ -145,8 +145,12 @@ void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
         }
         else
         {
-            // TODO: log a predicitive PEL.
-            logging::logMessage("Invalid typre received from BIOS table.");
+            logging::logMessage("Invalid type received for BIOS table.");
+            EventLogger::createSyncPel(
+                types::ErrorType::FirmwareError, types::SeverityType::Warning,
+                __FILE__, __FUNCTION__, 0,
+                std::string("Invalid type received for BIOS table."),
+                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
             break;
         }
     }
