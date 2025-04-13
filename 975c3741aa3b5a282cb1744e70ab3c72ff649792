@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "060c0c4e_fa99f9c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-13T05:44:57Z",
+      "side": 1,
+      "message": "Please add details of its processing in the commit message.",
+      "revId": "975c3741aa3b5a282cb1744e70ab3c72ff649792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
