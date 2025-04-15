@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb6e0d46_a1f71d94",
+        "filename": "configuration/ibm/correlated_properties.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-15T07:03:37Z",
+      "side": 1,
+      "message": "record VR10, property DC is present only for BMC and base panel only. why it\u0027s there for chassis and motherboard?",
+      "revId": "fae2422bda90ce7bd52e951c2a15a715c78f5a3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9272b423_73208d76",
+        "filename": "configuration/ibm/correlated_properties.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-15T07:03:37Z",
+      "side": 1,
+      "message": "While processing this json, how to distinguish between \"pathsPair\"(which is a constant section) and  \"com.ibm.ipzvpd.VINI\" (which is a variable section) keys?\n\n\nto elaborate it : \nat runtime, both \"pathsPair\" and \"com.ibm.ipzvpd.VINI\" are looked equally.\none way to decide is based on the value type. if the current key\u0027s value type is a json object - consider it as pathsPair.\nif the current key\u0027s value type is a string - consider is as interface: property pair.\n\n*in this way we are strictly restricting that only one pair of any unique type can exist.*\n\n\nImpact of this restriction:\nsay I want to add \" encoding type \" : \"DATE\"- where encoding type is not required to add under each pathPair as it is an attribute which describes about the Property BuildDate.\n\nwith this approach i cannot have \" encoding type \" : \"DATE\" as an individual entry under \"BuildDate\".\n\nsame goes with another attribute say \n\"dbusSignature\" : \"s\"  ----\u003e all Asset properties are in string type in Dbus\n\n\"dbusSignature : \"ay\".  -----\u003e all VPD record\u0027s keyword are in array of bytes in Dbus\n\nhere if i need to include dbusSignature as an attribute which describes the property type, i cannot have it as an individual attribute under the \"Property\" section because it violates the restriction which I have mentioned above.\n\n\nDo you have any better approach to distinguish between \"pathsPair\" and \"interface\" property\" section at runtime without having any type restrictions in json?",
+      "revId": "fae2422bda90ce7bd52e951c2a15a715c78f5a3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
