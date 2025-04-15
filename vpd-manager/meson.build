@@ -1,4 +1,4 @@
-common_SOURCES = [
+common_SOURCES += [
     'src/logger.cpp',
     'src/parser_factory.cpp',
     'src/ipz_parser.cpp',
