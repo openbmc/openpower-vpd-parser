@@ -1,3 +1,8 @@
+oem_SOURCES = []
+if get_option('ibm_system').allowed()
+    oem_SOURCES += ['oem-handler/ibm_handler.cpp']
+endif
+
 common_SOURCES = [
     'src/logger.cpp',
     'src/parser_factory.cpp',
@@ -16,7 +21,7 @@ vpd_manager_SOURCES = [
     'src/manager_main.cpp',
     'src/manager.cpp',
     'src/bios_handler.cpp',
-] + common_SOURCES
+] + common_SOURCES + oem_SOURCES
 
 parser_dependencies = [
     sdbusplus,
