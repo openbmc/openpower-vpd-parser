@@ -16,7 +16,7 @@ vpd_manager_SOURCES = [
     'src/manager_main.cpp',
     'src/manager.cpp',
     'src/bios_handler.cpp',
-] + common_SOURCES
+] + common_SOURCES + specific_SOURCES
 
 parser_dependencies = [
     sdbusplus,
