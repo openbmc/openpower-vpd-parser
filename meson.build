@@ -60,6 +60,7 @@ conf_data.set_quoted('PIM_PATH_PREFIX', get_option('PIM_PATH_PREFIX'))
 configure_file(output: 'config.h', configuration: conf_data)
 
 services = ['service_files/vpd-manager.service']
+specific_SOURCES = []
 
 if get_option('ibm_system').allowed()
     subdir('vpd-tool')
