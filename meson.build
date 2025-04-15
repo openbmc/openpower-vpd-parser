@@ -83,6 +83,8 @@ if get_option('ibm_system').allowed()
         install_dir: package_datadir,
         strip_directory: true,
     )
+
+    common_SOURCES += ['oem-handler/ibm-handler.cpp']
 endif
 
 libgpiodcxx = dependency('libgpiodcxx', default_options: ['bindings=cxx'])
