@@ -138,6 +138,8 @@ using WriteVpdParams = std::variant<IpzData, KwData>;
 using ListOfPaths = std::vector<sdbusplus::message::object_path>;
 using RecordData = std::tuple<RecordOffset, RecordLength, ECCOffset, ECCLength>;
 
+using RecordList = std::vector<Record>;
+
 using DbusInvalidArgument =
     sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument;
 using DbusNotAllowed = sdbusplus::xyz::openbmc_project::Common::Error::NotAllowed;
