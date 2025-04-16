@@ -41,6 +41,17 @@ class EventLogger
     static std::string getErrorMsg(const std::exception& i_exception);
 
     /**
+     * @brief API to get string representation of a Error type enum.
+     *
+     * @param[in] i_exception - Exception object.
+     *
+     * @return Error msg set for the specific error type. Default error msg
+     * otherwise.
+     */
+    static std::string getErrorTypeString(
+        const types::ErrorType& i_errorType) noexcept;
+
+    /**
      * @brief An API to create a PEL with inventory path callout.
      *
      * This API calls an async method to create PEL, and also handles inventory
