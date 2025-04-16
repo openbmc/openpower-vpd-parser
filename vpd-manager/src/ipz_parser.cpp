@@ -7,6 +7,7 @@
 #include "constants.hpp"
 #include "event_logger.hpp"
 #include "exceptions.hpp"
+#include "utility/vpd_specific_utility.hpp"
 
 #include <nlohmann/json.hpp>
 
@@ -268,35 +269,21 @@ types::RecordOffsetList IpzVpdParser::readPT(
                 throw(EccException("ERROR: ECC check failed"));
             }
         }
-        catch (const EccException& ex)
+        catch (const std::exception& l_ex)
         {
-            logging::logMessage(ex.what());
+            logging::logMessage(l_ex.what());
 
-            /*TODO: uncomment when PEL code goes in */
+            // log an Informational PEL specifying which Record is invalid
+            EventLogger::createSyncPel(
+                types::ErrorType::InvalidVpdMessage,
+                types::SeverityType::Informational, __FILE__, __FUNCTION__,
+                constants::VALUE_0,
+                std::string("Invalid record [" + recordName +
+                            "] found while parsing VPD for [" + m_vpdFilePath +
+                            "]. Error: " + EventLogger::getErrorMsg(l_ex)),
+                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
 
-            /*std::string errMsg =
-                std::string{ex.what()} + " Record: " + recordName;
-
-            inventory::PelAdditionalData additionalData{};
-            additionalData.emplace("DESCRIPTION", errMsg);
-            additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
-            createPEL(additionalData, PelSeverity::WARNING,
-                      errIntfForEccCheckFail, nullptr);*/
-        }
-        catch (const DataException& ex)
-        {
-            logging::logMessage(ex.what());
-
-            /*TODO: uncomment when PEL code goes in */
-
-            /*std::string errMsg =
-                std::string{ex.what()} + " Record: " + recordName;
-
-            inventory::PelAdditionalData additionalData{};
-            additionalData.emplace("DESCRIPTION", errMsg);
-            additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
-            createPEL(additionalData, PelSeverity::WARNING,
-                      errIntfForInvalidVPD, nullptr);*/
+            m_badRecordFound = true;
         }
 
         // Jump record size, record length, ECC offset and ECC length
@@ -407,6 +394,28 @@ types::VPDMapVariant IpzVpdParser::parse()
         for (const auto& offset : recordOffsets)
         {
             processRecord(offset);
+        }
+
+        if (m_badRecordFound)
+        {
+            // Log a Predictive PEL
+            EventLogger::createSyncPel(
+                types::ErrorType::InvalidVpdMessage,
+                types::SeverityType::Warning, __FILE__, __FUNCTION__,
+                constants::VALUE_0,
+                std::string("Invalid record(s) found while parsing VPD for [" +
+                            m_vpdFilePath + "]"),
+                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+            // Dump Bad VPD to file
+            if (constants::SUCCESS !=
+                vpdSpecificUtility::dumpBadVpd(m_vpdFilePath, m_vpdVector))
+            {
+                logging::logMessage(
+                    "Failed to dump bad VPD for [" + m_vpdFilePath + "]");
+            }
+
+            m_badRecordFound = false;
         }
 
         return m_parsedVPDMap;

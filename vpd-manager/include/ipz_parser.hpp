@@ -269,5 +269,8 @@ class IpzVpdParser : public ParserInterface
 
     // VPD start offset. Required for ECC correction.
     size_t m_vpdStartOffset = 0;
+
+    // Flag which indicates if any bad record was found while parsing VPD
+    bool m_badRecordFound{false};
 };
 } // namespace vpd
