@@ -197,5 +197,31 @@ using I2cBusCalloutData = std::tuple<std::string, std::string, std::string>;
 using ExceptionInfoVariant = std::variant<std::monostate, ErrorType, std::string>;
 /* Error info map of format <Error format, Value> */
 using ExceptionDataMap = std::map<std::string, ExceptionInfoVariant>;
+
+using InvalidRecordEntry = std::pair<Record,ErrorType>;
+using InvalidRecordList = std::vector<InvalidRecordEntry>;
+
+inline const std::string toString(const ErrorType& i_errorType) noexcept
+{
+    const std::unordered_map<ErrorType,std::string> l_errorTypeToStringMap{{InvalidVpdMessage,"Invalid VPD Message"},{EccCheckFailed,"ECC check failed"}};
+    const auto l_result = l_errorTypeToStringMap.find(i_errorType);
+    return (l_result != l_errorTypeToStringMap.end() ? l_result->second : "Invalid VPD");
+}
+
+inline const std::string toString(const InvalidRecordEntry& i_recordEntry) noexcept
+{
+    return std::string{"{" + i_recordEntry.first + "," + toString(i_recordEntry.second) + "}"};
+}
+
+inline const std::string toString(const InvalidRecordList& i_list) noexcept
+{
+    std::string l_result{"["};
+    for(const auto& l_entry : i_list)
+    {
+        l_result += toString(l_entry) + ",";
+    }
+    l_result += "]";
+    return l_result;
+}
 } // namespace types
 } // namespace vpd
