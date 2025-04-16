@@ -197,5 +197,16 @@ using I2cBusCalloutData = std::tuple<std::string, std::string, std::string>;
 using ExceptionInfoVariant = std::variant<std::monostate, ErrorType, std::string>;
 /* Error info map of format <Error format, Value> */
 using ExceptionDataMap = std::map<std::string, ExceptionInfoVariant>;
+
+/**MatchObject is used to stores asynchronous d-bus object registered against d-bus service & interface.
+ * structure holds : {Service, {Interface, D-bus object}}
+ */
+using MatchObject = std::map<
+    std::string,
+    std::map<std::string, std::shared_ptr<sdbusplus::asio::connection>>>;
+
+/** DbusData is used to store set of {service, interface, object path} combinations. */
+using DbusData = std::set<std::tuple<std::string, std::string, std::string>>;
+
 } // namespace types
 } // namespace vpd
