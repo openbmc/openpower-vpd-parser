@@ -197,5 +197,8 @@ using I2cBusCalloutData = std::tuple<std::string, std::string, std::string>;
 using ExceptionInfoVariant = std::variant<std::monostate, ErrorType, std::string>;
 /* Error info map of format <Error format, Value> */
 using ExceptionDataMap = std::map<std::string, ExceptionInfoVariant>;
+
+using InvalidRecordEntry = std::pair<Record,ErrorType>;
+using InvalidRecordList = std::vector<InvalidRecordEntry>;
 } // namespace types
 } // namespace vpd

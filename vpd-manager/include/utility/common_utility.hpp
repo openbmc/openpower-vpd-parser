@@ -2,6 +2,7 @@
 
 #include "constants.hpp"
 #include "logger.hpp"
+#include "types.hpp"
 
 #include <algorithm>
 #include <cstdio>
@@ -113,5 +114,67 @@ inline void toLower(std::string& i_string)
     std::transform(i_string.begin(), i_string.end(), i_string.begin(),
                    [](unsigned char l_char) { return std::tolower(l_char); });
 }
+
+/**
+ * @brief API to convert ErrorType enum to string.
+ *
+ * @param[in] i_errorType - the error type enum value.
+ *
+ * @return string representation of ErrorType enum.
+ */
+inline const std::string toString(const types::ErrorType& i_errorType) noexcept
+{
+    const std::unordered_map<types::ErrorType, std::string>
+        l_errorTypeToStringMap{
+            {types::InvalidVpdMessage, "Invalid VPD Message"},
+            {types::EccCheckFailed, "ECC check failed"}};
+
+    const auto l_result = l_errorTypeToStringMap.find(i_errorType);
+
+    return (l_result != l_errorTypeToStringMap.end() ? l_result->second
+                                                     : "Invalid VPD");
+}
+
+/**
+ * @brief API to convert InvalidRecordEntry to string.
+ *
+ * @param[in] i_recordEntry - invalid record entry.
+ *
+ * @return string representation of InvalidRecordEntry.
+ */
+inline const std::string toString(
+    const types::InvalidRecordEntry& i_recordEntry) noexcept
+{
+    return std::string{
+        "{" + i_recordEntry.first + "," + toString(i_recordEntry.second) + "}"};
+}
+
+/**
+ * @brief API to convert InvalidRecordList to string.
+ *
+ * @param[in] i_list - list of invalid records.
+ *
+ * @return On success, returns string representation of InvalidRecordList, empty
+ * string otherwise.
+ */
+inline const std::string toString(
+    const types::InvalidRecordList& i_list) noexcept
+{
+    std::string l_result{"["};
+    try
+    {
+        for (const auto& l_entry : i_list)
+        {
+            l_result += toString(l_entry) + ",";
+        }
+        l_result += "]";
+    }
+    catch (const std::exception& l_ex)
+    {
+        l_result = "";
+    }
+    return l_result;
+}
+
 } // namespace commonUtility
 } // namespace vpd

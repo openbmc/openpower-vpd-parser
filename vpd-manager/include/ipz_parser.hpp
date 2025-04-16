@@ -152,10 +152,11 @@ class IpzVpdParser : public ParserInterface
      *
      * @param[in] itrToPT - Iterator to PT record in VPD vector.
      * @param[in] ptLength - length of the PT record.
-     * @return List of record's offset.
+     * @return List of record's offset, and a list of invalid
+     * records found during parsing
      */
-    types::RecordOffsetList readPT(types::BinaryVector::const_iterator& itrToPT,
-                                   auto ptLength);
+    std::pair<types::RecordOffsetList, types::InvalidRecordList> readPT(
+        types::BinaryVector::const_iterator& itrToPT, auto ptLength);
 
     /**
      * @brief API to read keyword data based on its encoding type.
@@ -254,6 +255,20 @@ class IpzVpdParser : public ParserInterface
                                 const types::BinaryVector& i_keywordData,
                                 const types::RecordOffset& i_recordDataOffset,
                                 types::BinaryVector& io_vpdVector);
+
+    /**
+     * @brief API to process list of invalid records found during parsing
+     *
+     * This API takes a list of invalid records found while parsing a given
+     * EEPROM, logs a predictive PEL with details about the invalid records and
+     * then dumps the EEPROM data to filesystem.
+     *
+     * @param[in] i_invalidRecordList - a list of invalid records
+     *
+     * @return On success returns 0, otherwise returns -1.
+     */
+    int processInvalidRecords(
+        const types::InvalidRecordList& i_invalidRecordList) const noexcept;
 
     // Holds VPD data.
     const types::BinaryVector& m_vpdVector;
