@@ -152,10 +152,11 @@ class IpzVpdParser : public ParserInterface
      *
      * @param[in] itrToPT - Iterator to PT record in VPD vector.
      * @param[in] ptLength - length of the PT record.
-     * @return List of record's offset.
+     * @return List of record's offset, and a list of names of all invalid
+     * Records.
      */
-    types::RecordOffsetList readPT(types::BinaryVector::const_iterator& itrToPT,
-                                   auto ptLength);
+    std::pair<types::RecordOffsetList, types::RecordList> readPT(
+        types::BinaryVector::const_iterator& itrToPT, auto ptLength);
 
     /**
      * @brief API to read keyword data based on its encoding type.

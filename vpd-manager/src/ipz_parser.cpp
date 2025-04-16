@@ -7,6 +7,7 @@
 #include "constants.hpp"
 #include "event_logger.hpp"
 #include "exceptions.hpp"
+#include "utility/vpd_specific_utility.hpp"
 
 #include <nlohmann/json.hpp>
 
@@ -242,10 +243,13 @@ auto IpzVpdParser::readTOC(types::BinaryVector::const_iterator& itrToVPD)
     return ptLen;
 }
 
-types::RecordOffsetList IpzVpdParser::readPT(
+std::pair<types::RecordOffsetList, types::RecordList> IpzVpdParser::readPT(
     types::BinaryVector::const_iterator& itrToPT, auto ptLength)
 {
     types::RecordOffsetList recordOffsets;
+
+    // List of names of all bad Records found.
+    types::RecordList l_badRecordList;
 
     auto end = itrToPT;
     std::advance(end, ptLength);
@@ -268,35 +272,12 @@ types::RecordOffsetList IpzVpdParser::readPT(
                 throw(EccException("ERROR: ECC check failed"));
             }
         }
-        catch (const EccException& ex)
+        catch (const std::exception& l_ex)
         {
-            logging::logMessage(ex.what());
+            logging::logMessage(l_ex.what());
 
-            /*TODO: uncomment when PEL code goes in */
-
-            /*std::string errMsg =
-                std::string{ex.what()} + " Record: " + recordName;
-
-            inventory::PelAdditionalData additionalData{};
-            additionalData.emplace("DESCRIPTION", errMsg);
-            additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
-            createPEL(additionalData, PelSeverity::WARNING,
-                      errIntfForEccCheckFail, nullptr);*/
-        }
-        catch (const DataException& ex)
-        {
-            logging::logMessage(ex.what());
-
-            /*TODO: uncomment when PEL code goes in */
-
-            /*std::string errMsg =
-                std::string{ex.what()} + " Record: " + recordName;
-
-            inventory::PelAdditionalData additionalData{};
-            additionalData.emplace("DESCRIPTION", errMsg);
-            additionalData.emplace("CALLOUT_INVENTORY_PATH", inventoryPath);
-            createPEL(additionalData, PelSeverity::WARNING,
-                      errIntfForInvalidVPD, nullptr);*/
+            // add the bad record name to list
+            l_badRecordList.emplace_back(recordName);
         }
 
         // Jump record size, record length, ECC offset and ECC length
@@ -305,7 +286,7 @@ types::RecordOffsetList IpzVpdParser::readPT(
                          sizeof(types::ECCOffset) + sizeof(types::ECCLength));
     }
 
-    return recordOffsets;
+    return std::make_pair(recordOffsets, l_badRecordList);
 }
 
 types::IPZVpdMap::mapped_type IpzVpdParser::readKeywords(
@@ -403,10 +384,39 @@ types::VPDMapVariant IpzVpdParser::parse()
 
         // Read the table of contents record, to get offsets
         // to other records.
-        auto recordOffsets = readPT(itrToVPD, ptLen);
+        auto l_result = readPT(itrToVPD, ptLen);
+        auto recordOffsets = l_result.first;
         for (const auto& offset : recordOffsets)
         {
             processRecord(offset);
+        }
+
+        const auto& l_badRecordList = l_result.second;
+        if (!l_badRecordList.empty())
+        {
+            // Log a Predictive PEL, including names of all bad Records
+            std::string l_badRecordNames{"["};
+            for (const auto& l_record : l_badRecordList)
+            {
+                l_badRecordNames += l_record + ", ";
+            }
+            l_badRecordNames += "]";
+
+            EventLogger::createSyncPel(
+                types::ErrorType::InvalidVpdMessage,
+                types::SeverityType::Warning, __FILE__, __FUNCTION__,
+                constants::VALUE_0,
+                std::string("Invalid records found while parsing VPD for [" +
+                            m_vpdFilePath + "]"),
+                l_badRecordNames, std::nullopt, std::nullopt, std::nullopt);
+
+            // Dump Bad VPD to file
+            if (constants::SUCCESS !=
+                vpdSpecificUtility::dumpBadVpd(m_vpdFilePath, m_vpdVector))
+            {
+                logging::logMessage(
+                    "Failed to dump bad VPD for [" + m_vpdFilePath + "]");
+            }
         }
 
         return m_parsedVPDMap;
