@@ -423,4 +423,13 @@ std::string EventLogger::getErrorMsg(const std::exception& i_exception)
 
     return *l_ptrToErrMsg;
 }
+
+std::string EventLogger::getErrorTypeString(
+    const types::ErrorType& i_errorType) noexcept
+{
+    const auto l_entry = m_errorMsgMap.find(i_errorType);
+    return (l_entry != m_errorMsgMap.end()
+                ? l_entry->second
+                : m_errorMsgMap.at(types::ErrorType::UndefinedError));
+}
 } // namespace vpd
