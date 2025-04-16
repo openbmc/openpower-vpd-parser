@@ -203,5 +203,16 @@ using ExceptionDataMap = std::map<std::string, ExceptionInfoVariant>;
 using InvalidRecordEntry = std::pair<Record,ErrorType>;
 /* List of invalid record entries*/
 using InvalidRecordList = std::vector<InvalidRecordEntry>;
+
+/**MatchObject is used to stores d-bus match object registered against d-bus service & interface.
+ * structure holds : {Service, {Interface, D-bus match object}}
+ */
+using MatchObject = std::map<
+    std::string,
+    std::map<std::string, std::shared_ptr<sdbusplus::bus::match::match>>>;
+
+/** DbusData is used to store set of {service, interface, object path} combinations. */
+using DbusData = std::set<std::tuple<std::string, std::string, std::string>>;
+
 } // namespace types
 } // namespace vpd
