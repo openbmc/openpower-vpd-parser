@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0df0e76_e7d11f00",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-17T09:25:38Z",
+      "side": 1,
+      "message": "Why \"InvalidVpdMessage\" error type is being used? How to know it was data issue or ECC?",
+      "revId": "a0a4fa977a6a1d1341d0114fc7b1dcee9080c092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
