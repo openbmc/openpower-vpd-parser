@@ -1,0 +1,161 @@
+{
+    "source": {
+        "hardwarePath": "/sys/bus/i2c/drivers/at24/8-0050/eeprom"
+    },
+    "destination": {
+        "hardwarePath": "/sys/bus/i2c/drivers/at24/7-0050/eeprom"
+    },
+    "type": "IPZ",
+    "backupMap": [
+        {
+            "sourceRecord": "VSYS",
+            "sourceKeyword": "BR",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "BR",
+            "defaultValue": [32, 32],
+            "isPelRequired": true,
+            "isManufactureResetRequired": true
+        },
+        {
+            "sourceRecord": "VSYS",
+            "sourceKeyword": "TM",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "TM",
+            "defaultValue": [32, 32, 32, 32, 32, 32, 32, 32],
+            "isPelRequired": true,
+            "isManufactureResetRequired": true
+        },
+        {
+            "sourceRecord": "VSYS",
+            "sourceKeyword": "SE",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "SE",
+            "defaultValue": [32, 32, 32, 32, 32, 32, 32],
+            "isPelRequired": true,
+            "isManufactureResetRequired": true
+        },
+        {
+            "sourceRecord": "VSYS",
+            "sourceKeyword": "SU",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "SU",
+            "defaultValue": [32, 32, 32, 32, 32, 32],
+            "isPelRequired": true,
+            "isManufactureResetRequired": true
+        },
+        {
+            "sourceRecord": "VSYS",
+            "sourceKeyword": "RB",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "RB",
+            "defaultValue": [32, 32, 32, 32],
+            "isPelRequired": true,
+            "isManufactureResetRequired": true
+        },
+        {
+            "sourceRecord": "VSYS",
+            "sourceKeyword": "WN",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "WN",
+            "defaultValue": [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32],
+            "isPelRequired": true,
+            "isManufactureResetRequired": true
+        },
+        {
+            "sourceRecord": "VSYS",
+            "sourceKeyword": "RG",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "RG",
+            "defaultValue": [32, 32, 32, 32],
+            "isPelRequired": true,
+            "isManufactureResetRequired": true,
+            "isBiosSyncRequired": true
+        },
+        {
+            "sourceRecord": "VSYS",
+            "sourceKeyword": "FV",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "FV",
+            "defaultValue": [
+                32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+                32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+            ],
+            "isPelRequired": false,
+            "isManufactureResetRequired": true
+        },
+        {
+            "sourceRecord": "VCEN",
+            "sourceKeyword": "FC",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "FC",
+            "defaultValue": [32, 32, 32, 32, 32, 32, 32, 32],
+            "isPelRequired": true,
+            "isManufactureResetRequired": false
+        },
+        {
+            "sourceRecord": "VCEN",
+            "sourceKeyword": "SE",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "ES",
+            "defaultValue": [32, 32, 32, 32, 32, 32, 32],
+            "isPelRequired": true,
+            "isManufactureResetRequired": true
+        },
+        {
+            "sourceRecord": "LXR0",
+            "sourceKeyword": "LX",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "LX",
+            "defaultValue": [0, 0, 0, 0, 0, 0, 0, 0],
+            "isPelRequired": true,
+            "isManufactureResetRequired": false
+        },
+        {
+            "sourceRecord": "UTIL",
+            "sourceKeyword": "D0",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "D0",
+            "defaultValue": [0],
+            "isPelRequired": true,
+            "isManufactureResetRequired": true,
+            "isBiosSyncRequired": true
+        },
+        {
+            "sourceRecord": "UTIL",
+            "sourceKeyword": "D1",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "D1",
+            "defaultValue": [0],
+            "isPelRequired": false,
+            "isManufactureResetRequired": true,
+            "isBiosSyncRequired": true
+        },
+        {
+            "sourceRecord": "UTIL",
+            "sourceKeyword": "F0",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "F0",
+            "defaultValue": [0, 0, 0, 0, 0, 0, 0, 0],
+            "isPelRequired": false,
+            "isManufactureResetRequired": true
+        },
+        {
+            "sourceRecord": "UTIL",
+            "sourceKeyword": "F5",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "F5",
+            "defaultValue": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            "isPelRequired": false,
+            "isManufactureResetRequired": true
+        },
+        {
+            "sourceRecord": "UTIL",
+            "sourceKeyword": "F6",
+            "destinationRecord": "VSBK",
+            "destinationKeyword": "F6",
+            "defaultValue": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            "isPelRequired": false,
+            "isManufactureResetRequired": true
+        }
+    ]
+}
