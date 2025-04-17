@@ -243,13 +243,14 @@ auto IpzVpdParser::readTOC(types::BinaryVector::const_iterator& itrToVPD)
     return ptLen;
 }
 
-std::pair<types::RecordOffsetList, types::RecordList> IpzVpdParser::readPT(
-    types::BinaryVector::const_iterator& itrToPT, auto ptLength)
+std::pair<types::RecordOffsetList, types::InvalidRecordList>
+    IpzVpdParser::readPT(types::BinaryVector::const_iterator& itrToPT,
+                         auto ptLength)
 {
     types::RecordOffsetList recordOffsets;
 
     // List of names of all bad Records found.
-    types::RecordList l_badRecordList;
+    types::InvalidRecordList i_invalidRecordList;
 
     auto end = itrToPT;
     std::advance(end, ptLength);
@@ -277,7 +278,8 @@ std::pair<types::RecordOffsetList, types::RecordList> IpzVpdParser::readPT(
             logging::logMessage(l_ex.what());
 
             // add the bad record name to list
-            l_badRecordList.emplace_back(recordName);
+            i_invalidRecordList.emplace_back(types::InvalidRecordEntry{
+                recordName, EventLogger::getErrorType(l_ex)});
         }
 
         // Jump record size, record length, ECC offset and ECC length
@@ -286,7 +288,7 @@ std::pair<types::RecordOffsetList, types::RecordList> IpzVpdParser::readPT(
                          sizeof(types::ECCOffset) + sizeof(types::ECCLength));
     }
 
-    return std::make_pair(recordOffsets, l_badRecordList);
+    return std::make_pair(recordOffsets, i_invalidRecordList);
 }
 
 types::IPZVpdMap::mapped_type IpzVpdParser::readKeywords(
@@ -391,33 +393,7 @@ types::VPDMapVariant IpzVpdParser::parse()
             processRecord(offset);
         }
 
-        const auto& l_badRecordList = l_result.second;
-        if (!l_badRecordList.empty())
-        {
-            // Log a Predictive PEL, including names of all bad Records
-            std::string l_badRecordNames{"["};
-            for (const auto& l_record : l_badRecordList)
-            {
-                l_badRecordNames += l_record + ", ";
-            }
-            l_badRecordNames += "]";
-
-            EventLogger::createSyncPel(
-                types::ErrorType::InvalidVpdMessage,
-                types::SeverityType::Warning, __FILE__, __FUNCTION__,
-                constants::VALUE_0,
-                std::string("Invalid records found while parsing VPD for [" +
-                            m_vpdFilePath + "]"),
-                l_badRecordNames, std::nullopt, std::nullopt, std::nullopt);
-
-            // Dump Bad VPD to file
-            if (constants::SUCCESS !=
-                vpdSpecificUtility::dumpBadVpd(m_vpdFilePath, m_vpdVector))
-            {
-                logging::logMessage(
-                    "Failed to dump bad VPD for [" + m_vpdFilePath + "]");
-            }
-        }
+        processInvalidRecords(l_result.second);
 
         return m_parsedVPDMap;
     }
@@ -830,5 +806,30 @@ int IpzVpdParser::writeKeywordOnHardware(
     }
 
     return l_sizeWritten;
+}
+
+int IpzVpdParser::processInvalidRecords(
+    const types::InvalidRecordList& i_invalidRecordList) const noexcept
+{
+    if (!i_invalidRecordList.empty())
+    {
+        // Log a Predictive PEL, including names of all bad Records
+        EventLogger::createSyncPel(
+            types::ErrorType::InvalidVpdMessage, types::SeverityType::Warning,
+            __FILE__, __FUNCTION__, constants::VALUE_0,
+            std::string("Invalid records found while parsing VPD for [" +
+                        m_vpdFilePath + "]"),
+            types::toString(i_invalidRecordList), std::nullopt, std::nullopt,
+            std::nullopt);
+
+        // Dump Bad VPD to file
+        if (constants::SUCCESS !=
+            vpdSpecificUtility::dumpBadVpd(m_vpdFilePath, m_vpdVector))
+        {
+            logging::logMessage(
+                "Failed to dump bad VPD for [" + m_vpdFilePath + "]");
+        }
+    }
+    return constants::SUCCESS;
 }
 } // namespace vpd
