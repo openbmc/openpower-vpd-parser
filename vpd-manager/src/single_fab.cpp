@@ -142,6 +142,17 @@ void SingleFab::updateSystemImValueInVpdToP11Series(
     bool l_retVal{false};
     if (!i_currentImValuePlanar.empty())
     {
+        if (i_currentImValuePlanar.length() >= constants::VALUE_5 &&
+            i_currentImValuePlanar.compare(
+                constants::VALUE_4, constants::VALUE_1,
+                std::to_string(constants::VALUE_3)) ==
+                constants::STR_CMP_SUCCESS)
+        {
+            i_currentImValuePlanar.replace(constants::VALUE_4,
+                                           constants::VALUE_1,
+                                           std::to_string(constants::VALUE_2));
+        }
+
         // update the IM value to P11 series(6000x). Replace the first character
         // of IM value string with '6'
         l_retVal = setImOnPlanar(i_currentImValuePlanar.replace(
