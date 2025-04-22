@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4978ac3d_eaf10d6e",
+        "filename": "vpd-manager/include/ipz_parser.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-22T16:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cba3d593_a744a953",
+      "revId": "6981769d055545a683faeedc734528956d1464fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1971a6e_252fbfcb",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-22T13:56:23Z",
       "side": 1,
       "message": "We already have this mapping in event logger class. Can we use that?",
+      "revId": "6981769d055545a683faeedc734528956d1464fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b3835a8_f64ebad1",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-22T16:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1971a6e_252fbfcb",
       "revId": "6981769d055545a683faeedc734528956d1464fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5563d463_f9b19ff1",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-22T16:58:11Z",
+      "side": 1,
+      "message": "Addressed this. Using `EventLogger::getErrorMsg()` to get error message for given exception. We still need `toString()` APIs to get string representation of `InvalidRecordEntry` and `InvalidRecordList`.",
+      "parentUuid": "db390ac7_64042782",
+      "revId": "6981769d055545a683faeedc734528956d1464fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4901a8f_ec6afaa5",
         "filename": "vpd-manager/src/ipz_parser.cpp",
         "patchSetId": 9
@@ -65,6 +119,24 @@
       "writtenOn": "2025-04-22T13:56:23Z",
       "side": 1,
       "message": "No need of two logs in case we fail to dump vpd.",
+      "revId": "6981769d055545a683faeedc734528956d1464fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e36fbfc_7db222e5",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-22T16:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4901a8f_ec6afaa5",
       "revId": "6981769d055545a683faeedc734528956d1464fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
