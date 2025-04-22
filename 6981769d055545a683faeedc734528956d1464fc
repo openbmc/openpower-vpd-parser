@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cba3d593_a744a953",
+        "filename": "vpd-manager/include/ipz_parser.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-22T13:56:23Z",
+      "side": 1,
+      "message": "Pair of... ?",
+      "revId": "6981769d055545a683faeedc734528956d1464fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1971a6e_252fbfcb",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-22T13:56:23Z",
+      "side": 1,
+      "message": "We already have this mapping in event logger class. Can we use that?",
+      "revId": "6981769d055545a683faeedc734528956d1464fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db390ac7_64042782",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-22T13:56:23Z",
+      "side": 1,
+      "message": "Ideally you don\u0027t need these API\u0027s. \nRecord name is already a string, error type mapping to string is there in event logger class.\nAdding an API to get string from that mapping will solve the problem here.\nGive it a thought, see if that works.",
+      "revId": "6981769d055545a683faeedc734528956d1464fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4901a8f_ec6afaa5",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-22T13:56:23Z",
+      "side": 1,
+      "message": "No need of two logs in case we fail to dump vpd.",
+      "revId": "6981769d055545a683faeedc734528956d1464fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
