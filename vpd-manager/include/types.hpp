@@ -186,6 +186,7 @@ enum ErrorType
     InternalFailure, /* Should be used for any generic firmware failure */
     FruMissing, /* Should be used in case of presence failure */
     SystemTypeMismatch,
+    UndefinedError,
     UnknownSystemSettings,
     FirmwareError
 };

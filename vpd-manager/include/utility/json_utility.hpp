@@ -370,7 +370,12 @@ inline bool processGpioPresenceTag(
     }
     catch (const std::exception& l_ex)
     {
-        if (EventLogger::getErrorType(l_ex) != types::ErrorType::GpioError)
+        // No need to continue in case of JSON failure or Firmware error
+        // as these are errors internal to the code and in that case the FRU
+        // should not be processed. Any other error is considered as external
+        // error in this case and a try to read the EEPROM should be done.
+        if (EventLogger::getErrorType(l_ex) == types::ErrorType::JsonFailure ||
+            EventLogger::getErrorType(l_ex) == types::ErrorType::FirmwareError)
         {
             EventLogger::createSyncPel(
                 EventLogger::getErrorType(l_ex),
