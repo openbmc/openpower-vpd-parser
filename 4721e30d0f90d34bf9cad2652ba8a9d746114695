@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e6bf031_2633c343",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-23T12:30:57Z",
+      "side": 1,
+      "message": "related to?",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "4721e30d0f90d34bf9cad2652ba8a9d746114695",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c68b104f_bd503f48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-23T12:30:57Z",
+      "side": 1,
+      "message": "presentation?",
+      "range": {
+        "startLine": 13,
+        "startChar": 56,
+        "endLine": 13,
+        "endChar": 68
+      },
+      "revId": "4721e30d0f90d34bf9cad2652ba8a9d746114695",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c52f7d8b_bb7a1b61",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-23T12:30:57Z",
+      "side": 1,
+      "message": "What is a binary value? \nW.r.t implementation it is converting byte to hex?",
+      "revId": "4721e30d0f90d34bf9cad2652ba8a9d746114695",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dfb757b_fc92659a",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-23T12:30:57Z",
+      "side": 1,
+      "message": "What is a binary format? Doxygen should mention standard types.",
+      "revId": "4721e30d0f90d34bf9cad2652ba8a9d746114695",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcccb068_2f403bee",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-23T12:30:57Z",
+      "side": 1,
+      "message": "The name needs to be fixed.\n\"getHexRepresentValue\" does not seem to be grammatically correct.",
+      "range": {
+        "startLine": 817,
+        "startChar": 19,
+        "endLine": 817,
+        "endChar": 39
+      },
+      "revId": "4721e30d0f90d34bf9cad2652ba8a9d746114695",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d75dcd5_a80e8c5c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-23T12:30:57Z",
+      "side": 1,
+      "message": "The API is a better fit under common utility? That file already hosts similar function like toHex.",
+      "revId": "4721e30d0f90d34bf9cad2652ba8a9d746114695",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
