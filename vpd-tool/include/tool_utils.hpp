@@ -996,5 +996,27 @@ inline types::BinaryVector convertIntegralTypeToBytes(
     return l_result;
 }
 
+/**
+ * @brief An API to get hex representation of the incoming ASCII value.
+ *
+ * The API returns the hex represented value of the given input in string format
+ * with 0x prefix.
+ *
+ * @param[in] i_asciiValue - ASCII value.
+ *
+ * @return - Returns the converted string value.
+ */
+inline std::string convertAsciiToHexString(const std::string& i_asciiValue)
+{
+    std::ostringstream l_oss;
+    l_oss << "0x";
+    for (const auto& l_byte : i_asciiValue)
+    {
+        l_oss << std::setfill('0') << std::setw(2) << std::hex
+              << static_cast<int>(l_byte);
+    }
+
+    return l_oss.str();
+}
 } // namespace utils
 } // namespace vpd
