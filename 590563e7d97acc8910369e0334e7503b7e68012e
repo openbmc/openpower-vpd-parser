@@ -317,6 +317,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0eb981bc_6f4186b1",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-23T10:06:36Z",
+      "side": 1,
+      "message": "changed it to uint8_t",
+      "parentUuid": "3f86f2cc_3be11ce6",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "79f5c8e4_f03e5978",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 1
