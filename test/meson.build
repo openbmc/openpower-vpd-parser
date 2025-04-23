@@ -39,6 +39,7 @@ configuration_inc = include_directories(
     '..',
     '../vpd-manager/include',
     '../vpdecc',
+    '../configuration',
 )
 
 test_sources = [

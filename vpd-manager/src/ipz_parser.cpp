@@ -4,6 +4,7 @@
 
 #include "vpdecc/vpdecc.h"
 
+#include "configuration.hpp"
 #include "constants.hpp"
 #include "event_logger.hpp"
 #include "exceptions.hpp"
@@ -761,6 +762,28 @@ int IpzVpdParser::writeKeywordOnHardware(
             logging::logMessage(
                 "Write operation not allowed as the given keyword's data length is 0.");
             throw types::DbusInvalidArgument();
+        }
+
+        // Restrict updating of IM value if it is not in supported list of IM
+        // values.
+        if (l_keywordName == constants::kwdIM)
+        {
+            std::ostringstream l_imData;
+
+            for (const auto& l_byte : l_keywordData)
+            {
+                l_imData << std::setw(2) << std::setfill('0') << std::hex
+                         << static_cast<int>(l_byte);
+            }
+
+            if (config::systemType.find(l_imData.str()) ==
+                config::systemType.end())
+            {
+                throw DataException(
+                    __FUNCTION__ +
+                    std::string(
+                        ": Given IM keyword value does not map to any system type."));
+            }
         }
 
         auto l_vpdBegin = m_vpdVector.begin();
