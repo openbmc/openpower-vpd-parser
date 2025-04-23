@@ -14,7 +14,7 @@ namespace config
  * To add a new system, just update the below map.
  * {IM value, {Default, {HW_version, version}}}
  */
-types::SystemTypeMap systemType{
+inline types::SystemTypeMap systemType{
     {"50001001", {"50001001_v2", {{"0001", ""}}}},
     {"50001000", {"50001000_v2", {{"0001", ""}}}},
     {"50001002", {"50001002", {}}},
