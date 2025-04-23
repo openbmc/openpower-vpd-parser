@@ -113,6 +113,26 @@ int writeKeyword(const auto& i_hardwareFlag, const auto& i_keywordValueOption,
         return vpd::constants::FAILURE;
     }
 
+    if (i_keywordName == vpd::constants::KwdIM)
+    {
+        if (!(i_keywordValue.substr(0, 2).compare("0x") ==
+              vpd::constants::STR_CMP_SUCCESS))
+        {
+            std::cerr << "Please provide IM value in hex format." << std::endl;
+            return vpd::constants::FAILURE;
+        }
+
+        if (std::find(vpd::constants::validImValues.begin(),
+                      vpd::constants::validImValues.end(), i_keywordValue) ==
+            vpd::constants::validImValues.end())
+        {
+            std::cerr << "Given IM value [" << i_keywordValue
+                      << "] doesn't match with any of the valid system type."
+                      << std::endl;
+            return vpd::constants::FAILURE;
+        }
+    }
+
     vpd::VpdTool l_vpdToolObj;
     return l_vpdToolObj.writeKeyword(i_vpdPath, i_recordName, i_keywordName,
                                      i_keywordValue, !i_hardwareFlag->empty());
