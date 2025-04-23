@@ -29,6 +29,7 @@ const std::unordered_map<types::SeverityType, std::string>
 const std::unordered_map<types::ErrorType, std::string>
     EventLogger::m_errorMsgMap = {
         {types::ErrorType::DefaultValue, "com.ibm.VPD.Error.DefaultValue"},
+        {types::ErrorType::DefaultError, "com.ibm.VPD.Error.DefaultError"},
         {types::ErrorType::InvalidVpdMessage, "com.ibm.VPD.Error.InvalidVPD"},
         {types::ErrorType::VpdMismatch, "com.ibm.VPD.Error.Mismatch"},
         {types::ErrorType::InvalidEeprom,
@@ -305,7 +306,7 @@ types::ExceptionDataMap EventLogger::getExceptionData(
     const std::exception& i_exception)
 {
     types::ExceptionDataMap l_errorInfo{
-        {"ErrorType", types::ErrorType::FirmwareError},
+        {"ErrorType", types::ErrorType::DefaultError},
         {"ErrorMsg", i_exception.what()}};
 
     try
@@ -367,6 +368,13 @@ types::ExceptionDataMap EventLogger::getExceptionData(
             l_errorInfo["ErrorMsg"] =
                 std::string("Eeprom Exception. Reason: ") + i_exception.what();
         }
+        else if (typeid(i_exception) == typeid(std::runtime_error))
+        {
+            //Since it is a standard exception no casting is required and error type is hardcoded.
+            l_errorInfo["ErrorType"] = types::ErrorType::FirmwareError;
+            l_errorInfo["ErrorMsg"] =
+                std::string("Eeprom Exception. Reason: ") + i_exception.what();
+        }
     }
     catch (const std::exception& l_ex)
     {
@@ -383,14 +391,14 @@ types::ErrorType EventLogger::getErrorType(const std::exception& i_exception)
     auto l_itrToErrType = l_exceptionDataMap.find("ErrorType");
     if (l_itrToErrType == l_exceptionDataMap.end())
     {
-        return types::ErrorType::FirmwareError;
+        return types::ErrorType::DefaultError;
     }
 
     auto l_ptrToErrType =
         std::get_if<types::ErrorType>(&l_itrToErrType->second);
     if (!l_ptrToErrType)
     {
-        return types::ErrorType::FirmwareError;
+        return types::ErrorType::DefaultError;
     }
 
     return *l_ptrToErrType;

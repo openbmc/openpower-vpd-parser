@@ -174,6 +174,7 @@ enum CalloutPriority
 enum ErrorType
 {
     DefaultValue,
+    DefaultError,
     InvalidVpdMessage,
     VpdMismatch,
     InvalidEeprom,
