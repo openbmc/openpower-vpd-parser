@@ -105,7 +105,8 @@ inline nlohmann::json getParsedJson(const std::string& pathToJson) noexcept
         if (!std::filesystem::exists(pathToJson) ||
             std::filesystem::is_empty(pathToJson))
         {
-            throw std::runtime_error("Incorrect file Path or empty file");
+            throw std::runtime_error(
+                "Incorrect file Path or empty file: [" + pathToJson + "]");
         }
 
         std::ifstream l_jsonFile(pathToJson);
