@@ -144,6 +144,12 @@ Manager::Manager(
         m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT);
         m_interface->set_property("CollectionStatus", std::string("Completed"));
 #endif
+
+        // Instantiate Listener class
+        m_listener = std::make_shared<Listener>(m_asioConnection);
+
+        // start listening to all correlated d-bus properties change events
+        m_listener->regAllCorrelatedDbusProps();
     }
     catch (const std::exception& e)
     {
