@@ -66,6 +66,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "201281e3_da5cf15c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-23T13:46:12Z",
+      "side": 1,
+      "message": "updated the doxygen",
+      "parentUuid": "c52f7d8b_bb7a1b61",
+      "revId": "4721e30d0f90d34bf9cad2652ba8a9d746114695",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6dfb757b_fc92659a",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 2
@@ -77,6 +95,24 @@
       "writtenOn": "2025-04-23T12:30:57Z",
       "side": 1,
       "message": "What is a binary format? Doxygen should mention standard types.",
+      "revId": "4721e30d0f90d34bf9cad2652ba8a9d746114695",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c9fd539_e7814ae6",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-23T13:46:12Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "6dfb757b_fc92659a",
       "revId": "4721e30d0f90d34bf9cad2652ba8a9d746114695",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -106,6 +142,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b84e521e_a963a3e3",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-23T13:46:12Z",
+      "side": 1,
+      "message": "updated the API name",
+      "parentUuid": "bcccb068_2f403bee",
+      "range": {
+        "startLine": 817,
+        "startChar": 19,
+        "endLine": 817,
+        "endChar": 39
+      },
+      "revId": "4721e30d0f90d34bf9cad2652ba8a9d746114695",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3d75dcd5_a80e8c5c",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 2
@@ -117,6 +177,24 @@
       "writtenOn": "2025-04-23T12:30:57Z",
       "side": 1,
       "message": "The API is a better fit under common utility? That file already hosts similar function like toHex.",
+      "revId": "4721e30d0f90d34bf9cad2652ba8a9d746114695",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22c4573f_6bda160c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-23T13:46:12Z",
+      "side": 1,
+      "message": "moved to common utility",
+      "parentUuid": "3d75dcd5_a80e8c5c",
       "revId": "4721e30d0f90d34bf9cad2652ba8a9d746114695",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
