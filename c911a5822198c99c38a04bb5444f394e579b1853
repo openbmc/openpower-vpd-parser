@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48302bda_91b119c8",
+        "filename": "vpd-manager/include/ipz_parser.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-23T13:49:13Z",
+      "side": 1,
+      "message": "You mean why not use `bool`? We have a lot of utility APIs which return `int` 0 on success, -1 on failure, so following the same convention here.",
+      "parentUuid": "00efa1e6_2be99e90",
+      "revId": "c911a5822198c99c38a04bb5444f394e579b1853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6fef5ff_7aac7aca",
         "filename": "vpd-manager/src/event_logger.cpp",
         "patchSetId": 13
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-23T12:53:17Z",
       "side": 1,
       "message": "A commit is coming in for default error called \"undefined error\". Please re-base and use that for default case.\nTill then please keep it on hold.",
+      "revId": "c911a5822198c99c38a04bb5444f394e579b1853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e929de0a_dc4942a3",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-23T13:49:13Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "c6fef5ff_7aac7aca",
       "revId": "c911a5822198c99c38a04bb5444f394e579b1853",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
