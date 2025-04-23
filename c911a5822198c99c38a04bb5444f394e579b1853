@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00efa1e6_2be99e90",
+        "filename": "vpd-manager/include/ipz_parser.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-23T12:53:17Z",
+      "side": 1,
+      "message": "Why int for just success and failure?",
+      "revId": "c911a5822198c99c38a04bb5444f394e579b1853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6fef5ff_7aac7aca",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-23T12:53:17Z",
+      "side": 1,
+      "message": "A commit is coming in for default error called \"undefined error\". Please re-base and use that for default case.\nTill then please keep it on hold.",
+      "revId": "c911a5822198c99c38a04bb5444f394e579b1853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
