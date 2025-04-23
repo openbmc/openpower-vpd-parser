@@ -65,3 +65,9 @@ option(
     value: 'enabled',
     description: 'Enable code specific to IBM systems.',
 )
+option(
+    'CORRELATED_PROPS_JSON',
+    type: 'string',
+    value: '/usr/share/vpd/correlated_properties.json',
+    description: 'JSON with all correlated VPD properties.',
+)

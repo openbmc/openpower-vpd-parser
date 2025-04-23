@@ -3,6 +3,7 @@
 #include "backup_restore.hpp"
 #include "constants.hpp"
 #include "gpio_monitor.hpp"
+#include "listener.hpp"
 #include "types.hpp"
 #include "worker.hpp"
 
@@ -264,6 +265,9 @@ class Manager
 
     // Shared pointer to oem specific class.
     std::shared_ptr<IbmHandler> m_ibmHandler;
+
+    // Shared pointer object to Listener class
+    std::shared_ptr<Listener> m_listener;
 };
 
 } // namespace vpd
