@@ -1,6 +1,8 @@
 #pragma once
 
 #include <cstdint>
+#include <string>
+#include <vector>
 
 namespace vpd
 {
@@ -50,6 +52,13 @@ constexpr auto biosConfigMgrObjPath =
     "/xyz/openbmc_project/bios_config/manager";
 constexpr auto biosConfigMgrInterface =
     "xyz.openbmc_project.BIOSConfig.Manager";
+
+constexpr auto KwdIM = "IM";
+
+// Valid IM values list.
+static std::vector<std::string> validImValues{
+    "0x50001000", "0x50001001", "0x50001002", "0x50003000", "0x50004000",
+    "0x60001000", "0x60001001", "0x60001002", "0x60002000", "0x60004000"};
 
 static constexpr auto VALUE_0 = 0;
 static constexpr auto VALUE_1 = 1;
