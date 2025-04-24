@@ -110,6 +110,23 @@ class Parser
         const std::string& i_fruPath,
         const types::WriteVpdParams& i_paramsToWriteData);
 
+    /**
+     * @brief API to update common interface property of a FRU
+     *
+     * For a given object path, this API looks up if there any common interfaces
+     * for the given object path and then looks up if there are any properties
+     * in the common interface(s) corresponding to the record and keyword which
+     * needs to be updated and updates the property.
+     *
+     * @param[in] i_objPath - Object path of FRU
+     * @param[in] i_paramsToWriteData - Input details
+     *
+     * @return On success returns true, otherwise returns false.
+     */
+    bool updateCommonInterfaceProperty(
+        const std::string& i_objPath,
+        const types::WriteVpdParams& i_paramsToWriteData) const noexcept;
+
     // holds offfset to VPD if applicable.
     size_t m_vpdStartOffset = 0;
 
