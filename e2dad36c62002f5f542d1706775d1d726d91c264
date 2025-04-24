@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7292f6dd_e59efe24",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-24T09:58:51Z",
+      "side": 1,
+      "message": "File doesn\u0027t exists or empty file ?",
+      "revId": "e2dad36c62002f5f542d1706775d1d726d91c264",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
