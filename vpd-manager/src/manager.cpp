@@ -197,6 +197,16 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
                     l_fruPath + "]");
             }
         }
+
+        if (l_rc != constants::FAILURE &&
+            !dbusUtility::updateKeywordSubFrus(l_fruPath, i_paramsToWriteData,
+                                               l_sysCfgJsonObj))
+        {
+            logging::logMessage(
+                "Failed to update common interface properties for [" +
+                i_vpdPath + "]");
+        }
+
         return l_rc;
     }
     catch (const std::exception& l_exception)

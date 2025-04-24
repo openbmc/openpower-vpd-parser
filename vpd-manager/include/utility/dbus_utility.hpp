@@ -711,5 +711,133 @@ inline bool isInventoryPresent(const std::string& i_invObjPath)
 
     return (*l_ptrPresence);
 }
+
+/**
+ * @brief API to get the common interface(s) properties to update for a given
+ * record,keyword update.
+ *
+ * For a given record, keyword update this API looks up if there are any
+ * corresponding common interface(s) properties to update. If any such common
+ * interface properties are found, the common interface(s), property and value
+ * are appended to the passed in interface map.
+ *
+ * @param[in] i_paramsToWriteData - parameters to update.
+ * @param[in,out] io_interfaceMap - Map interface, property and value.
+ *
+ */
+inline void getCommonInterfacePropertiesToUpdate(
+    [[maybe_unused]] const types::WriteVpdParams& i_paramsToWriteData,
+    [[maybe_unused]] types::InterfaceMap& io_interfaceMap) noexcept
+{
+    // TODO:
+    // if systemConfigJson has "commonInterfaces", iterate through the common
+    // interfaces and for
+    //  each interface, iterate through {Property,Value} pairs and find
+    //  corresponding record,keyword match. if match is found, append
+    //  corresponding common interface, property and value to the passed in
+    //  interface map.
+}
+
+/**
+ * @brief API to sync inventory property update to sub FRUs.
+ *
+ * For a given FRU, and keyword update this API syncs the keyword update to all
+ * inherited sub FRUs.
+ *
+ * @param[in] i_vpdPath - EEPROM path of FRU.
+ * @param[in] i_paramsToWriteData - Input details.
+ * @param[in] i_sysCfgJsonObj - System config JSON.
+ *
+ * @return On success returns true, otherwise returns false.
+ */
+inline bool updateKeywordSubFrus(
+    const std::string& i_vpdPath,
+    const types::WriteVpdParams& i_paramsToWriteData,
+    const nlohmann::json& i_sysCfgJsonObj) noexcept
+{
+    bool l_rc{false};
+    try
+    {
+        if (!i_sysCfgJsonObj.contains("frus"))
+        {
+            throw std::runtime_error("Mandatory tag(s) missing from JSON");
+        }
+
+        if (!i_sysCfgJsonObj["frus"].contains(i_vpdPath))
+        {
+            throw std::runtime_error(
+                "VPD path [" + i_vpdPath + "] not found in system config JSON");
+        }
+
+        //  iterate through all inventory paths for given EEPROM path,
+        //  if for an inventory path, "inherit" tag is true,
+        //  1. update the inventory path's com.ibm.ipzvpd.<record>,keyword
+        //  property
+        //  2. update corresponding common interface(s) properties if any.
+        if (const types::IpzData* l_ipzData =
+                std::get_if<types::IpzData>(&i_paramsToWriteData))
+        {
+            types::ObjectMap l_objectInterfaceMap;
+
+            types::InterfaceMap l_interfaceMap;
+            const std::string l_interface{
+                constants::ipzVpdInf + std::get<0>(*l_ipzData)};
+
+            const types::PropertyMap l_propertyMap{
+                {std::get<1>(*l_ipzData), std::get<2>(*l_ipzData)}};
+
+            l_interfaceMap.emplace(std::move(l_interface),
+                                   std::move(l_propertyMap));
+
+            //  update corresponding common interface(s)
+            //  properties(if any).
+            getCommonInterfacePropertiesToUpdate(i_paramsToWriteData,
+                                                 l_interfaceMap);
+
+            for (const auto& l_Fru : i_sysCfgJsonObj["frus"][i_vpdPath])
+            {
+                const sdbusplus::message::object_path l_objectPath{
+                    l_Fru["inventoryPath"]};
+
+                // base FRU object path has already been updated, so skip it.
+                if (l_Fru["inventoryPath"] ==
+                    i_sysCfgJsonObj["frus"][i_vpdPath].at(0)["inventoryPath"])
+                {
+                    continue;
+                }
+
+                if (l_Fru.value("inherit", true))
+                {
+                    l_objectInterfaceMap.emplace(std::move(l_objectPath),
+                                                 l_interfaceMap);
+                }
+            }
+
+            if (!l_objectInterfaceMap.empty())
+            {
+                // notify PIM
+                if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+                {
+                    throw std::runtime_error(
+                        "Call to PIM failed for VPD file " + i_vpdPath);
+                }
+            }
+
+            l_rc = true;
+        }
+        else
+        {
+            throw std::runtime_error("Unsupported VPD type");
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        l_rc = false;
+        logging::logMessage(
+            "Failed to sync keyword update to sub FRUs. Error: " +
+            std::string(l_ex.what()));
+    }
+    return l_rc;
+}
 } // namespace dbusUtility
 } // namespace vpd
