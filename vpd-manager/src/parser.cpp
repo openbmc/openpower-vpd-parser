@@ -192,6 +192,16 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData)
                                      l_inventoryObjPath);
                 throw std::runtime_error(l_errMsg);
             }
+
+            // update the corresponding common interface property
+            if (!updateCommonInterfaceProperty(l_inventoryObjPath,
+                                               i_paramsToWriteData))
+            {
+                logging::logMessage(
+                    "Failed to update common interface properties for [" +
+                    l_inventoryObjPath + "] " +
+                    l_keyWordIdentifier(i_paramsToWriteData));
+            }
         }
 
         // Update keyword's value on redundant hardware if present
@@ -337,6 +347,22 @@ int Parser::updateVpdKeywordOnHardware(
     }
 
     return l_bytesUpdatedOnHardware;
+}
+
+bool Parser::updateCommonInterfaceProperty(
+    [[maybe_unused]] const std::string& i_objPath,
+    [[maybe_unused]] const types::WriteVpdParams& i_paramsToWriteData)
+    const noexcept
+{
+    bool l_rc{true};
+    // TODO: if "inherit" is true for this object path
+    // and if system config JSON has "commonInterfaces",
+    // iterate through the commonInterfaces.
+    // for each interface iterate through {Property,Value} pairs and
+    // find corresponding record, keyword match.
+    // if match is found, update corresponding {object path,common interface,
+    // property}.
+    return l_rc;
 }
 
 } // namespace vpd
