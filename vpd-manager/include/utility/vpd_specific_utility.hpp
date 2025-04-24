@@ -804,5 +804,95 @@ inline bool isPowerVsImage()
     }
     return false;
 }
+
+/**
+ * @brief API to sync keyword update to inherited FRUs.
+ *
+ * For a given keyword update on a EEPROM path, this API syncs the keyword
+ * update to all inherited FRUs. This syncs the com.ibm.ipzvpd.<Record>
+ * interface, <Keyword> property on PIM of all inherited FRUs with the base FRU.
+ *
+ * @param[in] i_fruPath - EEPROM path of FRU.
+ * @param[in] i_paramsToWriteData - Input details.
+ * @param[in] i_sysCfgJsonObj - System config JSON.
+ *
+ */
+inline void updateKeywordOnAllInheritedFrus(
+    const std::string& i_fruPath,
+    const types::WriteVpdParams& i_paramsToWriteData,
+    const nlohmann::json& i_sysCfgJsonObj) noexcept
+{
+    try
+    {
+        if (!i_sysCfgJsonObj.contains("frus"))
+        {
+            throw std::runtime_error("Mandatory tag(s) missing from JSON");
+        }
+
+        if (!i_sysCfgJsonObj["frus"].contains(i_fruPath))
+        {
+            throw std::runtime_error(
+                "VPD path [" + i_fruPath + "] not found in system config JSON");
+        }
+
+        //  iterate through all inventory paths for given EEPROM path,
+        //  if for an inventory path, "inherit" tag is true,
+        //  update the inventory path's com.ibm.ipzvpd.<record>,keyword
+        //  property
+        if (const types::IpzData* l_ipzData =
+                std::get_if<types::IpzData>(&i_paramsToWriteData))
+        {
+            types::ObjectMap l_objectInterfaceMap;
+
+            const std::string l_interface{
+                constants::ipzVpdInf + std::get<0>(*l_ipzData)};
+
+            const types::PropertyMap l_propertyMap{
+                {std::get<1>(*l_ipzData), std::get<2>(*l_ipzData)}};
+
+            const types::InterfaceMap l_interfaceMap{
+                {std::move(l_interface), std::move(l_propertyMap)}};
+
+            for (const auto& l_Fru : i_sysCfgJsonObj["frus"][i_fruPath])
+            {
+                const sdbusplus::message::object_path l_objectPath{
+                    l_Fru["inventoryPath"]};
+
+                // base FRU object path has already been updated, so skip it.
+                if (l_Fru["inventoryPath"] ==
+                    i_sysCfgJsonObj["frus"][i_fruPath].at(0)["inventoryPath"])
+                {
+                    continue;
+                }
+
+                if (l_Fru.value("inherit", true))
+                {
+                    l_objectInterfaceMap.emplace(std::move(l_objectPath),
+                                                 l_interfaceMap);
+                }
+            }
+
+            if (!l_objectInterfaceMap.empty())
+            {
+                // notify PIM
+                if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+                {
+                    throw std::runtime_error(
+                        "Call to PIM failed for VPD file " + i_fruPath);
+                }
+            }
+        }
+        else
+        {
+            throw std::runtime_error("Unsupported VPD type");
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to sync keyword update to inherited FRUs of FRU [" +
+            i_fruPath + "]. Error: " + std::string(l_ex.what()));
+    }
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd
