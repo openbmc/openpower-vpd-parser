@@ -350,18 +350,97 @@ int Parser::updateVpdKeywordOnHardware(
 }
 
 bool Parser::updateCommonInterfaceProperty(
-    [[maybe_unused]] const std::string& i_objPath,
-    [[maybe_unused]] const types::WriteVpdParams& i_paramsToWriteData)
-    const noexcept
+    const std::string& i_objPath,
+    const types::WriteVpdParams& i_paramsToWriteData) const noexcept
 {
     bool l_rc{true};
-    // TODO: if "inherit" is true for this object path
-    // and if system config JSON has "commonInterfaces",
-    // iterate through the commonInterfaces.
-    // for each interface iterate through {Property,Value} pairs and
-    // find corresponding record, keyword match.
-    // if match is found, update corresponding {object path,common interface,
-    // property}.
+    try
+    {
+        // get the inherit tag for this object path
+        const auto l_result =
+            jsonUtility::getInheritTag(m_parsedJson, i_objPath);
+
+        if (l_result.has_value())
+        {
+            if (l_result.value() && m_parsedJson.contains("commonInterfaces"))
+            {
+                if (const types::IpzData* l_ipzData =
+                        std::get_if<types::IpzData>(&i_paramsToWriteData))
+                {
+                    // inherit is true and JSON has common interfaces, iterate
+                    // through all common interfaces
+                    for (const auto& l_interfacesPropPair :
+                         m_parsedJson["commonInterfaces"].items())
+                    {
+                        const std::string& l_interface =
+                            l_interfacesPropPair.key();
+
+                        for (const auto& l_propValuePair :
+                             l_interfacesPropPair.value().items())
+                        {
+                            const std::string& l_property =
+                                l_propValuePair.key();
+                            if (l_propValuePair.value().is_object())
+                            {
+                                const std::string& l_record =
+                                    l_propValuePair.value().value("recordName",
+                                                                  "");
+                                const std::string& l_keyword =
+                                    l_propValuePair.value().value("keywordName",
+                                                                  "");
+
+                                // compare the record,keyword values
+                                if (l_record == std::get<0>(*l_ipzData) &&
+                                    l_keyword == std::get<1>(*l_ipzData))
+                                {
+                                    // update {object path, common interface,
+                                    // property}
+
+                                    // Create D-bus object map
+                                    types::ObjectMap l_dbusObjMap = {
+                                        std::make_pair(
+                                            i_objPath,
+                                            types::InterfaceMap{std::make_pair(
+                                                l_interface,
+                                                types::PropertyMap{
+                                                    std::make_pair(
+                                                        l_property,
+                                                        std::get<2>(
+                                                            *l_ipzData))})})};
+
+                                    // Call PIM's Notify method to perform
+                                    // update
+                                    if (!dbusUtility::callPIM(
+                                            std::move(l_dbusObjMap)))
+                                    {
+                                        // Call to PIM's Notify method failed.
+                                        std::string l_errMsg(
+                                            "Notify PIM is failed for object path: " +
+                                            i_objPath);
+                                        throw std::runtime_error(l_errMsg);
+                                    }
+
+                                    // common interface property is updated
+                                    // successfully, return success
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                } // IPZ data type
+            }
+        }
+        else
+        {
+            throw std::runtime_error("Failed to get inherit tag");
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage("Failed to update common interface property for [" +
+                            i_objPath + "] Error:" + l_ex.what());
+        l_rc = false;
+    }
     return l_rc;
 }
 
