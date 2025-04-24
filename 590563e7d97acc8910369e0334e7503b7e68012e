@@ -55,6 +55,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec7e8dd3_7fe810e1",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-24T09:29:59Z",
+      "side": 1,
+      "message": "better to add what each string will hold in a comment.",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03a3fb8a_d12457ae",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-24T09:29:59Z",
+      "side": 1,
+      "message": "better to add what each string will hold in a comment.",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a4007d5_a46198da",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 1
@@ -265,6 +299,58 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6c6c9bb8_bbddede6",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-24T09:29:59Z",
+      "side": 1,
+      "message": "I do agree \u0027All\u0027 is not required\n\nAs doxygen can explain what the API does.\nderegistering will be a separate API, it is  nothing do with this API.\n\nregisterPropChangeEvent is it not enough ?",
+      "parentUuid": "21e6b72d_fcd495b4",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7405ee9a_d816f570",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-24T09:29:59Z",
+      "side": 1,
+      "message": "dont we need return type for this API, \nwhat if given service is not part of m_listOfMatchObjects ?",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edc00a9d_0a91100d",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-24T09:29:59Z",
+      "side": 1,
+      "message": "is this API only adding entry in m_pausedInvData or taking pause action ?\n\nIf no action is taken in this API use API name like addToPauseList, or what ever is suits ?",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "efd09028_985b3a5d",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 1
@@ -294,6 +380,23 @@
       "side": 1,
       "message": "if we have a method which is answering a true or false scenario, we can return bool.. but this method is performing an action - so returning success/failure using 0/1",
       "parentUuid": "efd09028_985b3a5d",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f660f5c_32863572",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-24T09:29:59Z",
+      "side": 1,
+      "message": "Use consistent name across the APIs.\nuse varName or var style for service name and interface name, etc.",
       "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -335,6 +438,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14c8b1ba_49bcaf55",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-24T09:29:59Z",
+      "side": 1,
+      "message": "propChangeCallback or propChangeCallbackHandle would be enough ?",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "79f5c8e4_f03e5978",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 1
@@ -364,6 +484,23 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "79f5c8e4_f03e5978",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63b36fc3_d7c2b26c",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-24T09:29:59Z",
+      "side": 1,
+      "message": "Do we need a single API, where we pause all the callbacks, ex. for poweron state ?",
       "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
