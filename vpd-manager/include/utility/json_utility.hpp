@@ -1156,5 +1156,63 @@ inline nlohmann::json getPowerVsJson(const types::BinaryVector& i_imValue)
         return nlohmann::json{};
     }
 }
+
+/**
+ * @brief An API to "inherit" tag value for a given object path.
+ *
+ * Given DBus inventory path, this API returns "inherit" tag value in
+ * the JSON. If "inherit" tag is not present, it is assumed to be true.
+ *
+ * @param[in] i_sysCfgJsonObj - System config JSON object.
+ * @param[in] l_inventoryPath - DBus inventory path.
+ *
+ * @return Returns value of "inherit" tag if found, otherwise returns true.
+ *         Incase of error, returns an empty value. The caller should check for
+ * empty return value.
+ *
+ */
+inline std::optional<bool> getInheritTag(
+    const nlohmann::json& i_sysCfgJsonObj,
+    const std::string& l_inventoryPath) noexcept
+{
+    std::optional<bool> l_rc;
+    try
+    {
+        if (l_inventoryPath.empty())
+        {
+            throw std::runtime_error("Path parameter is empty.");
+        }
+
+        if (!i_sysCfgJsonObj.contains("frus"))
+        {
+            throw std::runtime_error("Missing frus tag in system config JSON.");
+        }
+
+        const nlohmann::json& l_listOfFrus =
+            i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+
+        for (const auto& l_frus : l_listOfFrus.items())
+        {
+            for (const auto& l_inventoryItem : l_frus.value())
+            {
+                if (l_inventoryPath.compare(l_inventoryItem["inventoryPath"]) ==
+                    constants::STR_CMP_SUCCESS)
+                {
+                    l_rc.emplace(l_inventoryItem.value("inherit", true));
+                    return l_rc;
+                }
+            }
+        }
+        throw std::runtime_error(
+            "Inventory path not found in the system config JSON");
+    }
+    catch (const std::exception& l_exception)
+    {
+        logging::logMessage(
+            "Error while getting inherit tag for given path " +
+            l_inventoryPath + ", error: " + std::string(l_exception.what()));
+    }
+    return l_rc;
+}
 } // namespace jsonUtility
 } // namespace vpd
