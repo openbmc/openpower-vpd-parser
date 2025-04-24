@@ -197,6 +197,14 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
                     l_fruPath + "]");
             }
         }
+
+        // update keyword in inherited FRUs
+        if (l_rc != constants::FAILURE)
+        {
+            dbusUtility::updateKeywordOnAllInheritedFrus(
+                l_fruPath, i_paramsToWriteData, l_sysCfgJsonObj);
+        }
+
         return l_rc;
     }
     catch (const std::exception& l_exception)
