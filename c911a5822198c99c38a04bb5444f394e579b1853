@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07b0291e_33de69ec",
+        "filename": "vpd-manager/include/ipz_parser.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-24T06:47:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48302bda_91b119c8",
+      "revId": "c911a5822198c99c38a04bb5444f394e579b1853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6fef5ff_7aac7aca",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "ok",
       "parentUuid": "c6fef5ff_7aac7aca",
+      "revId": "c911a5822198c99c38a04bb5444f394e579b1853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a262b23a_eba8b285",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-24T06:47:30Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "e929de0a_dc4942a3",
       "revId": "c911a5822198c99c38a04bb5444f394e579b1853",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
