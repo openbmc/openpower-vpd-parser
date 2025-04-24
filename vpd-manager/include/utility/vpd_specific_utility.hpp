@@ -804,5 +804,88 @@ inline bool isPowerVsImage()
     }
     return false;
 }
+
+/**
+ * @brief API to sync keyword update to inherited FRUs.
+ *
+ * For a given keyword update on a EEPROM path, this API syncs the keyword
+ * update to all inherited FRUs' respective interface, property on PIM.
+ *
+ * @param[in] i_fruPath - EEPROM path of FRU.
+ * @param[in] i_paramsToWriteData - Input details.
+ * @param[in] i_sysCfgJsonObj - System config JSON.
+ *
+ */
+inline void updateKwdOnInheritedFrus(
+    const std::string& i_fruPath,
+    const types::WriteVpdParams& i_paramsToWriteData,
+    const nlohmann::json& i_sysCfgJsonObj) noexcept
+{
+    try
+    {
+        if (!i_sysCfgJsonObj.contains("frus"))
+        {
+            throw std::runtime_error("Mandatory tag(s) missing from JSON");
+        }
+
+        if (!i_sysCfgJsonObj["frus"].contains(i_fruPath))
+        {
+            throw std::runtime_error(
+                "VPD path [" + i_fruPath + "] not found in system config JSON");
+        }
+
+        const types::IpzData* l_ipzData =
+            std::get_if<types::IpzData>(&i_paramsToWriteData);
+
+        if (!l_ipzData)
+        {
+            throw std::runtime_error("Unsupported VPD type");
+        }
+        //  iterate through all inventory paths for given EEPROM path,
+        //  except the base FRU.
+        //  if for an inventory path, "inherit" tag is true,
+        //  update the inventory path's com.ibm.ipzvpd.<record>,keyword
+        //  property
+
+        types::ObjectMap l_objectInterfaceMap;
+
+        auto l_populateInterfaceMap =
+            [&l_objectInterfaceMap,
+             &l_ipzData = std::as_const(l_ipzData)](const auto& l_Fru) {
+                // update inherited FRUs only
+                if (l_Fru.value("inherit", true))
+                {
+                    l_objectInterfaceMap.emplace(
+                        sdbusplus::message::object_path{l_Fru["inventoryPath"]},
+                        types::InterfaceMap{
+                            {std::string{constants::ipzVpdInf +
+                                         std::get<0>(*l_ipzData)},
+                             types::PropertyMap{{std::get<1>(*l_ipzData),
+                                                 std::get<2>(*l_ipzData)}}}});
+                }
+            };
+
+        // iterate through all FRUs except the base FRU
+        std::for_each(
+            i_sysCfgJsonObj["frus"][i_fruPath].begin() + constants::VALUE_1,
+            i_sysCfgJsonObj["frus"][i_fruPath].end(), l_populateInterfaceMap);
+
+        if (!l_objectInterfaceMap.empty())
+        {
+            // notify PIM
+            if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+            {
+                throw std::runtime_error(
+                    "Call to PIM failed for VPD file " + i_fruPath);
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to sync keyword update to inherited FRUs of FRU [" +
+            i_fruPath + "]. Error: " + std::string(l_ex.what()));
+    }
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd
