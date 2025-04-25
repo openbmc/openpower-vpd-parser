@@ -59,6 +59,9 @@ IbmHandler::IbmHandler(
         }
     }
 
+    // callback to detect host state change.
+    registerHostStateChangeCallback();
+
     // set callback to detect any asset tag change
     registerAssetTagChangeCallback();
 
@@ -431,6 +434,73 @@ void IbmHandler::processFailedEeproms()
         // failed
         // - For each failed EEPROM, trigger VPD collection
         m_worker->getFailedEepromPaths().clear();
+    }
+}
+
+void IbmHandler::registerHostStateChangeCallback()
+{
+    static std::shared_ptr<sdbusplus::bus::match_t> l_hostState =
+        std::make_shared<sdbusplus::bus::match_t>(
+            *m_asioConnection,
+            sdbusplus::bus::match::rules::propertiesChanged(
+                constants::hostObjectPath, constants::hostInterface),
+            [this](sdbusplus::message_t& i_msg) {
+                hostStateChangeCallBack(i_msg);
+            });
+}
+
+void IbmHandler::hostStateChangeCallBack(sdbusplus::message_t& i_msg)
+{
+    try
+    {
+        if (i_msg.is_method_error())
+        {
+            throw std::runtime_error(
+                "Error reading callback message for host state");
+        }
+
+        std::string l_objectPath;
+        types::PropertyMap l_propMap;
+        i_msg.read(l_objectPath, l_propMap);
+
+        const auto l_itr = l_propMap.find("CurrentHostState");
+
+        if (l_itr == l_propMap.end())
+        {
+            throw std::runtime_error(
+                "CurrentHostState field is missing in callback message");
+        }
+
+        if (auto l_hostState = std::get_if<std::string>(&(l_itr->second)))
+        {
+            // implies system is moving from standby to power on state
+            if (*l_hostState == "xyz.openbmc_project.State.Host.HostState."
+                                "TransitioningToRunning")
+            {
+                // TODO: check for all the essential FRUs in the system.
+
+                if (m_worker.get() != nullptr)
+                {
+                    // Perform recollection.
+                    m_worker->performVpdRecollection();
+                }
+                else
+                {
+                    logging::logMessage(
+                        "Failed to get worker object, Abort re-collection");
+                }
+            }
+        }
+        else
+        {
+            throw std::runtime_error(
+                "Invalid type recieved in variant for host state.");
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        // TODO: Log PEL.
+        logging::logMessage(l_ex.what());
     }
 }
 } // namespace vpd

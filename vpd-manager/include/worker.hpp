@@ -163,6 +163,24 @@ class Worker
         return m_failedEepromPaths;
     }
 
+    /**
+     * @brief Collect single FRU VPD
+     * API can be used to perform VPD collection for the given FRU, only if the
+     * current state of the system matches with the state at which the FRU is
+     * allowed for VPD recollection.
+     *
+     * @param[in] i_dbusObjPath - D-bus object path
+     */
+    void collectSingleFruVpd(
+        const sdbusplus::message::object_path& i_dbusObjPath);
+
+    /**
+     * @brief  Perform VPD recollection
+     * This api will trigger parser to perform VPD recollection for FRUs that
+     * can be replaced at standby.
+     */
+    void performVpdRecollection();
+
   private:
     /**
      * @brief An API to parse and publish a FRU VPD over D-Bus.

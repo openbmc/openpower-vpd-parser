@@ -45,6 +45,18 @@ class IbmHandler
 
   private:
     /**
+     * @brief API to register callback for Host state change.
+     */
+    void registerHostStateChangeCallback();
+
+    /**
+     * @brief API to process host state change callback.
+     *
+     * @param[in] i_msg - Callback message.
+     */
+    void hostStateChangeCallBack(sdbusplus::message_t& i_msg);
+
+    /**
      * @brief API to set timer to detect system VPD over D-Bus.
      *
      * System VPD is required before bus name for VPD-Manager is claimed. Once
