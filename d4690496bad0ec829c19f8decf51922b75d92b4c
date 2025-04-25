@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bbf943e_4affac80",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-25T04:14:04Z",
+      "side": 1,
+      "message": "l_imValue would be better ?",
+      "revId": "d4690496bad0ec829c19f8decf51922b75d92b4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c57322cd_cd219a7e",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-25T04:14:04Z",
+      "side": 1,
+      "message": "check, can we make use of existing convertByteVectorToHex from common utility here .",
+      "revId": "d4690496bad0ec829c19f8decf51922b75d92b4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d84e337_9e5e55a0",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-25T04:14:04Z",
+      "side": 1,
+      "message": "IM value:[im_value] found in the EEPROM:[file] doesn\u0027t match to any of the valid system type. ?",
+      "revId": "d4690496bad0ec829c19f8decf51922b75d92b4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
