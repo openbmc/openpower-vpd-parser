@@ -45,6 +45,11 @@ class IbmHandler
 
   private:
     /**
+     * @brief API to register callback for Host state change.
+     */
+    void registerHostStateChangeCallback();
+
+    /**
      * @brief API to set timer to detect system VPD over D-Bus.
      *
      * System VPD is required before bus name for VPD-Manager is claimed. Once

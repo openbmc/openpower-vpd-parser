@@ -230,11 +230,6 @@ class Manager
     bool isValidUnexpandedLocationCode(const std::string& i_locationCode);
 
     /**
-     * @brief API to register callback for Host state change.
-     */
-    void registerHostStateChangeCallback();
-
-    /**
      * @brief API to process host state change callback.
      *
      * @param[in] i_msg - Callback message.

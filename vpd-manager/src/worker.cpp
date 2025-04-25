@@ -1869,4 +1869,149 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
     }
 }
 
+void Worker::performVpdRecollection()
+{
+    try
+    {
+        // Check if system config JSON is present
+        if (m_parsedJson.empty())
+        {
+            throw std::runtime_error(
+                "System config json object is empty, can't process recollection.");
+        }
+
+        const auto& l_frusReplaceableAtStandby =
+            jsonUtility::getListOfFrusReplaceableAtStandby(m_parsedJson);
+
+        for (const auto& l_fruInventoryPath : l_frusReplaceableAtStandby)
+        {
+            // ToDo: Add some logic/trace to know the flow to
+            // collectSingleFruVpd has been directed via
+            // performVpdRecollection.
+            collectSingleFruVpd(l_fruInventoryPath);
+        }
+        return;
+    }
+
+    catch (const std::exception& l_ex)
+    {
+        // TODO Log PEL
+        logging::logMessage(
+            "VPD recollection failed with error: " + std::string(l_ex.what()));
+    }
+}
+
+void Worker::collectSingleFruVpd(
+    const sdbusplus::message::object_path& i_dbusObjPath)
+{
+    try
+    {
+        // Check if system config JSON is present
+        if (m_parsedJson.empty())
+        {
+            logging::logMessage(
+                "System config JSON object not present. Single FRU VPD collection is not performed for " +
+                std::string(i_dbusObjPath));
+            return;
+        }
+
+        // Get FRU path for the given D-bus object path from JSON
+        const std::string& l_fruPath =
+            jsonUtility::getFruPathFromJson(m_parsedJson, i_dbusObjPath);
+
+        if (l_fruPath.empty())
+        {
+            logging::logMessage(
+                "D-bus object path not present in JSON. Single FRU VPD collection is not performed for " +
+                std::string(i_dbusObjPath));
+            return;
+        }
+
+        // Check if host is up and running
+        if (dbusUtility::isHostRunning())
+        {
+            if (!jsonUtility::isFruReplaceableAtRuntime(m_parsedJson,
+                                                        l_fruPath))
+            {
+                logging::logMessage(
+                    "Given FRU is not replaceable at host runtime. Single FRU VPD collection is not performed for " +
+                    std::string(i_dbusObjPath));
+                return;
+            }
+        }
+        else if (dbusUtility::isBMCReady())
+        {
+            if (!jsonUtility::isFruReplaceableAtStandby(m_parsedJson,
+                                                        l_fruPath) &&
+                (!jsonUtility::isFruReplaceableAtRuntime(m_parsedJson,
+                                                         l_fruPath)))
+            {
+                logging::logMessage(
+                    "Given FRU is neither replaceable at standby nor replaceable at runtime. Single FRU VPD collection is not performed for " +
+                    std::string(i_dbusObjPath));
+                return;
+            }
+        }
+
+        // Set CollectionStatus as InProgress. Since it's an intermediate state
+        // D-bus set-property call is good enough to update the status.
+        const std::string& l_collStatusProp = "CollectionStatus";
+
+        if (!dbusUtility::writeDbusProperty(
+                jsonUtility::getServiceName(m_parsedJson,
+                                            std::string(i_dbusObjPath)),
+                std::string(i_dbusObjPath), constants::vpdCollectionInterface,
+                l_collStatusProp,
+                types::DbusVariantType{constants::vpdCollectionInProgress}))
+        {
+            logging::logMessage(
+                "Unable to set CollectionStatus as InProgress for " +
+                std::string(i_dbusObjPath) +
+                ". Continue single FRU VPD collection.");
+        }
+
+        // Parse VPD
+        types::VPDMapVariant l_parsedVpd = m_worker->parseVpdFile(l_fruPath);
+
+        // If l_parsedVpd is pointing to std::monostate
+        if (l_parsedVpd.index() == 0)
+        {
+            throw std::runtime_error(
+                "VPD parsing failed for " + std::string(i_dbusObjPath));
+        }
+
+        // Get D-bus object map from worker class
+        types::ObjectMap l_dbusObjectMap;
+        m_worker->populateDbus(l_parsedVpd, l_dbusObjectMap, l_fruPath);
+
+        if (l_dbusObjectMap.empty())
+        {
+            throw std::runtime_error(
+                "Failed to create D-bus object map. Single FRU VPD collection failed for " +
+                std::string(i_dbusObjPath));
+        }
+
+        // Call PIM's Notify method
+        if (!dbusUtility::callPIM(move(l_dbusObjectMap)))
+        {
+            throw std::runtime_error(
+                "Notify PIM failed. Single FRU VPD collection failed for " +
+                std::string(i_dbusObjPath));
+        }
+    }
+    catch (const std::exception& l_error)
+    {
+        // Notify FRU's VPD CollectionStatus as Failure
+        if (!dbusUtility::notifyFRUCollectionStatus(
+                std::string(i_dbusObjPath), constants::vpdCollectionFailure))
+        {
+            logging::logMessage(
+                "Call to PIM Notify method failed to update Collection status as Failure for " +
+                std::string(i_dbusObjPath));
+        }
+
+        // TODO: Log PEL
+        logging::logMessage(std::string(l_error.what()));
+    }
+}
 } // namespace vpd
