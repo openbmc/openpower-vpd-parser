@@ -16,6 +16,24 @@
       "message": "File doesn\u0027t exists or empty file ?",
       "revId": "e2dad36c62002f5f542d1706775d1d726d91c264",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47f3f2c6_683c0134",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-25T09:36:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7292f6dd_e59efe24",
+      "revId": "e2dad36c62002f5f542d1706775d1d726d91c264",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
