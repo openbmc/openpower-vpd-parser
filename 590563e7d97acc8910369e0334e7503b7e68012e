@@ -423,6 +423,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f15ffdd_10575e63",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-25T13:27:55Z",
+      "side": 1,
+      "message": "\u003eis this API only adding entry in m_pausedInvData or taking pause action ?\napi definition says about it.\n\n\u003eIf no action is taken in this API use API name like addToPauseList, or what ever is suits ?\nnaming APIs changes from developer to developer. I don\u0027t find any issue with pauseResponse().",
+      "parentUuid": "edc00a9d_0a91100d",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "efd09028_985b3a5d",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 1
@@ -609,6 +627,24 @@
       "writtenOn": "2025-04-24T09:29:59Z",
       "side": 1,
       "message": "Do we need a single API, where we pause all the callbacks, ex. for poweron state ?",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41132efb_0fe8c7a3",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-25T13:27:55Z",
+      "side": 1,
+      "message": "pardon?",
+      "parentUuid": "63b36fc3_d7c2b26c",
       "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

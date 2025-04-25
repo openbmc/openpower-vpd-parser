@@ -16,6 +16,24 @@
       "message": "Apply const and noexcept in all API\u0027s, wherever is required .",
       "revId": "643aa5651ba51c5dfccf5822c56747b79317d0f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d4075a2_492a4148",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-25T13:27:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c04da95_20bbcffd",
+      "revId": "643aa5651ba51c5dfccf5822c56747b79317d0f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
