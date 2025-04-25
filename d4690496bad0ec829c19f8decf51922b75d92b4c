@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "04a12496_fcd906ec",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-25T04:29:28Z",
+      "side": 1,
+      "message": "should this go as utility API for future purpose ?",
+      "revId": "d4690496bad0ec829c19f8decf51922b75d92b4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bbf943e_4affac80",
         "filename": "vpd-manager/src/ipz_parser.cpp",
         "patchSetId": 3
@@ -48,6 +65,24 @@
       "writtenOn": "2025-04-25T04:14:04Z",
       "side": 1,
       "message": "IM value:[im_value] found in the EEPROM:[file] doesn\u0027t match to any of the valid system type. ?",
+      "revId": "d4690496bad0ec829c19f8decf51922b75d92b4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cc16b57_0d376411",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-25T04:29:28Z",
+      "side": 1,
+      "message": "I got mistaken here, as IM is input.\n\nPlease ignore my previous comment, can we add IM value in the exception. ?",
+      "parentUuid": "5d84e337_9e5e55a0",
       "revId": "d4690496bad0ec829c19f8decf51922b75d92b4c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
