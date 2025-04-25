@@ -70,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d910a9_1222acac",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-25T13:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec7e8dd3_7fe810e1",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03a3fb8a_d12457ae",
@@ -83,6 +101,24 @@
       "writtenOn": "2025-04-24T09:29:59Z",
       "side": 1,
       "message": "better to add what each string will hold in a comment.",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8404c1b_defcdc89",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-25T13:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03a3fb8a_d12457ae",
       "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -317,6 +353,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "37f91a17_4dcab2f8",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-25T13:20:54Z",
+      "side": 1,
+      "message": "we have agreed to have All in api name. and we have also agreed to shrink the word from register to reg.. please take a look at the latest patch set.",
+      "parentUuid": "6c6c9bb8_bbddede6",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7405ee9a_d816f570",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 1
@@ -328,6 +382,24 @@
       "writtenOn": "2025-04-24T09:29:59Z",
       "side": 1,
       "message": "dont we need return type for this API, \nwhat if given service is not part of m_listOfMatchObjects ?",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "769a6013_dc70221c",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-25T13:20:54Z",
+      "side": 1,
+      "message": "it will add new entry with the given service",
+      "parentUuid": "7405ee9a_d816f570",
       "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -403,6 +475,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e19aa24_38642027",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-25T13:20:54Z",
+      "side": 1,
+      "message": "not following",
+      "parentUuid": "2f660f5c_32863572",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f86f2cc_3be11ce6",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 1
@@ -449,6 +539,24 @@
       "writtenOn": "2025-04-24T09:29:59Z",
       "side": 1,
       "message": "propChangeCallback or propChangeCallbackHandle would be enough ?",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d35110a3_27c91d51",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-25T13:20:54Z",
+      "side": 1,
+      "message": "i don\u0027t find an issue with the existing name",
+      "parentUuid": "14c8b1ba_49bcaf55",
       "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
