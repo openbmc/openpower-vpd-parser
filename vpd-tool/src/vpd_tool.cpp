@@ -1531,6 +1531,11 @@ types::BinaryVector VpdTool::getVpdValueInBiosConfigManager(
                                               : l_disabledValue);
                 }
             }
+            else
+            {
+                std::cerr << "Invalid value received for attribute [" +
+                                 l_attributeName + "] from BIOS Config Manager";
+            }
         } // BIOS attribute loop end
     }
     return l_result;
