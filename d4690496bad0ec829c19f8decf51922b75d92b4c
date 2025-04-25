@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55d113f7_7174bb96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-04-25T09:10:49Z",
+      "side": 1,
+      "message": "I just want the block in vpd tool only , no where else it is needed at this time",
+      "revId": "d4690496bad0ec829c19f8decf51922b75d92b4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04a12496_fcd906ec",
