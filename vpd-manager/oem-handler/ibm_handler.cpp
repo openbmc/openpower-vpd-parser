@@ -4,6 +4,7 @@
 
 #include "parser.hpp"
 
+#include <utility/common_utility.hpp>
 #include <utility/dbus_utility.hpp>
 #include <utility/json_utility.hpp>
 #include <utility/vpd_specific_utility.hpp>
@@ -34,9 +35,9 @@ IbmHandler::IbmHandler(
     }
 
     // Set up minimal things that is needed before bus name is claimed.
-    m_worker->performInitialSetup();
+    performInitialSetup();
 
-    // Get the system config JSON object
+    // Get the system config JSON object.
     m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
 
     if (!m_sysCfgJsonObj.empty() &&
@@ -503,4 +504,109 @@ void IbmHandler::hostStateChangeCallBack(sdbusplus::message_t& i_msg)
         logging::logMessage(l_ex.what());
     }
 }
+
+void IbmHandler::primeSystemBlueprint()
+{
+    if (m_sysCfgJsonObj.empty())
+    {
+        return;
+    }
+
+    const nlohmann::json& l_listOfFrus =
+        m_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+
+    for (const auto& l_itemFRUS : l_listOfFrus.items())
+    {
+        const std::string& l_vpdFilePath = l_itemFRUS.key();
+
+        if (l_vpdFilePath == SYSTEM_VPD_FILE_PATH)
+        {
+            continue;
+        }
+
+        // Prime the inventry for FRUs which
+        // are not present/processing had some error.
+        if (m_worker.get() != nullptr &&
+            !m_worker->primeInventory(l_vpdFilePath))
+        {
+            logging::logMessage(
+                "Priming of inventory failed for FRU " + l_vpdFilePath);
+        }
+    }
+}
+
+void IbmHandler::enableMuxChips()
+{
+    if (m_sysCfgJsonObj.empty())
+    {
+        // config JSON should not be empty at this point of execution.
+        throw std::runtime_error("Config JSON is empty. Can't enable muxes");
+        return;
+    }
+
+    if (!m_sysCfgJsonObj.contains("muxes"))
+    {
+        logging::logMessage("No mux defined for the system in config JSON");
+        return;
+    }
+
+    // iterate over each MUX detail and enable them.
+    for (const auto& item : m_sysCfgJsonObj["muxes"])
+    {
+        if (item.contains("holdidlepath"))
+        {
+            std::string cmd = "echo 0 > ";
+            cmd += item["holdidlepath"];
+
+            logging::logMessage("Enabling mux with command = " + cmd);
+
+            commonUtility::executeCmd(cmd);
+            continue;
+        }
+
+        logging::logMessage(
+            "Mux Entry does not have hold idle path. Can't enable the mux");
+    }
+}
+
+void IbmHandler::performInitialSetup()
+{
+    try
+    {
+        if (!dbusUtility::isChassisPowerOn())
+        {
+            logging::logMessage("Chassis is in Off state.");
+            if (m_worker.get() != nullptr)
+            {
+                setDeviceTreeAndJson();
+            }
+            else
+            {
+                throw std::runtime_error(
+                    "Worker object not found. Can't set up device tree and Json.");
+            }
+            primeSystemBlueprint();
+        }
+
+        // Enable all mux which are used for connecting to the i2c on the
+        // pcie slots for pcie cards. These are not enabled by kernel due to
+        // an issue seen with Castello cards, where the i2c line hangs on a
+        // probe.
+        enableMuxChips();
+
+        // Nothing needs to be done. Service restarted or BMC re-booted for
+        // some reason at system power on.
+        return;
+    }
+    catch (const std::exception& l_ex)
+    {
+        // Any issue in system's inital set up is handled in this catch. Error
+        // will not propogate to manager.
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Critical,
+            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+    }
+}
+
 } // namespace vpd

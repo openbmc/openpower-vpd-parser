@@ -118,6 +118,33 @@ class IbmHandler
      */
     void ConfigurePowerVsSystem();
 
+    /**
+     * @brief API to perform initial setup before manager claims Bus name.
+     *
+     * Before BUS name for VPD-Manager is claimed, fitconfig whould be set for
+     * corret device tree, inventory JSON w.r.t system should be linked and
+     * system VPD should be on DBus.
+     */
+    void performInitialSetup();
+
+    /**
+     * @brief API to prime system blueprint.
+     *
+     * The API will traverse the system config JSON and will prime all the FRU
+     * paths which qualifies for priming.
+     */
+    void primeSystemBlueprint();
+
+    /**
+     * @brief Function to enable and bring MUX out of idle state.
+     *
+     * This finds all the MUX defined in the system json and enables them by
+     * setting the holdidle parameter to 0.
+     *
+     * @throw std::runtime_error
+     */
+    void enableMuxChips();
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 

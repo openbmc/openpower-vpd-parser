@@ -55,17 +55,6 @@ class Worker
      */
     ~Worker() = default;
 
-#ifdef IBM_SYSTEM
-    /**
-     * @brief API to perform initial setup before manager claims Bus name.
-     *
-     * Before BUS name for VPD-Manager is claimed, fitconfig whould be set for
-     * corret device tree, inventory JSON w.r.t system should be linked and
-     * system VPD should be on DBus.
-     */
-    void performInitialSetup();
-#endif
-
     /**
      * @brief An API to check if system VPD is already published.
      *
@@ -441,16 +430,6 @@ class Worker
         const std::optional<types::VPDMapVariant> i_parsedVpd = std::nullopt);
 
     /**
-     * @brief Function to enable and bring MUX out of idle state.
-     *
-     * This finds all the MUX defined in the system json and enables them by
-     * setting the holdidle parameter to 0.
-     *
-     * @throw std::runtime_error
-     */
-    void enableMuxChips();
-
-    /**
      * @brief An API to perform backup or restore of VPD.
      *
      * @param[in,out] io_srcVpdMap - Source VPD map.
@@ -498,14 +477,6 @@ class Worker
      */
     std::string createAssetTagString(
         const types::VPDMapVariant& i_parsedVpdMap);
-
-    /**
-     * @brief API to prime system blueprint.
-     *
-     * The API will traverse the system config JSON and will prime all the FRU
-     * paths which qualifies for priming.
-     */
-    void primeSystemBlueprint();
 
     /**
      * @brief API to set symbolic link for system config JSON.
