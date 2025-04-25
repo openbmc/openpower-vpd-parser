@@ -229,18 +229,6 @@ class Manager
      */
     bool isValidUnexpandedLocationCode(const std::string& i_locationCode);
 
-    /**
-     * @brief API to register callback for Host state change.
-     */
-    void registerHostStateChangeCallback();
-
-    /**
-     * @brief API to process host state change callback.
-     *
-     * @param[in] i_msg - Callback message.
-     */
-    void hostStateChangeCallBack(sdbusplus::message_t& i_msg);
-
     // Shared pointer to asio context object.
     const std::shared_ptr<boost::asio::io_context>& m_ioContext;
 
