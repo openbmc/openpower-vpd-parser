@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8881d9ca_b6743a13",
+        "filename": "vpd-manager/include/parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-26T17:58:28Z",
+      "side": 1,
+      "message": "Are you going to take any action other than logging at the place of calling this API?\nIf not, then why do we need to return anything from the API?",
+      "revId": "41ae94d1ecb65c74c31bede1d1f3d813477d0c27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c7069b2_dd4fdf41",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-26T17:58:28Z",
+      "side": 1,
+      "message": "CI exists only on Dbus.\nCurious why we need this API in parser class?",
+      "revId": "41ae94d1ecb65c74c31bede1d1f3d813477d0c27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
