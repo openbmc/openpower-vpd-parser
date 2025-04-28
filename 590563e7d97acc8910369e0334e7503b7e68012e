@@ -354,6 +354,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e50a43b_d592fea3",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-28T09:32:56Z",
+      "side": 1,
+      "message": "this api will convert json text into json object by parsing through the correlated json present in file system path",
+      "parentUuid": "f039b7b6_3c9e3a59",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c777fd7_c9f34ecb",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 1
@@ -560,6 +578,24 @@
       "side": 1,
       "message": "Any specific reason why 0 has been kept as success and 1 as failure?\nWe have success and failure defined in constants.hpp as 0 and -1, why we are not re-using them here as well?",
       "parentUuid": "f6f0633c_9fb5452b",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4e8371e_c870e7e5",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-28T09:32:56Z",
+      "side": 1,
+      "message": "no specific reason.. just following the conventional way of returning success. will reuse from const",
+      "parentUuid": "bd8ac2c9_33e88628",
       "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
