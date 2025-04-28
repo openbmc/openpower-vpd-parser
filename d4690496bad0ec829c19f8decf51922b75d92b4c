@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8df9ad51_2fbb3b62",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-04-28T11:33:27Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "91ee9faf_4d402893",
+      "revId": "d4690496bad0ec829c19f8decf51922b75d92b4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bbf943e_4affac80",
         "filename": "vpd-manager/src/ipz_parser.cpp",
         "patchSetId": 3
@@ -66,6 +84,24 @@
       "writtenOn": "2025-04-25T04:14:04Z",
       "side": 1,
       "message": "l_imValue would be better ?",
+      "revId": "d4690496bad0ec829c19f8decf51922b75d92b4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ace23cb5_32cc3c78",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-04-28T11:33:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bbf943e_4affac80",
       "revId": "d4690496bad0ec829c19f8decf51922b75d92b4c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -83,6 +119,24 @@
       "writtenOn": "2025-04-25T04:14:04Z",
       "side": 1,
       "message": "check, can we make use of existing convertByteVectorToHex from common utility here .",
+      "revId": "d4690496bad0ec829c19f8decf51922b75d92b4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d78b85bf_8182c803",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-04-28T11:33:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c57322cd_cd219a7e",
       "revId": "d4690496bad0ec829c19f8decf51922b75d92b4c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -118,6 +172,24 @@
       "side": 1,
       "message": "I got mistaken here, as IM is input.\n\nPlease ignore my previous comment, can we add IM value in the exception. ?",
       "parentUuid": "5d84e337_9e5e55a0",
+      "revId": "d4690496bad0ec829c19f8decf51922b75d92b4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec0c966c_5ebbe68d",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-04-28T11:33:27Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "8cc16b57_0d376411",
       "revId": "d4690496bad0ec829c19f8decf51922b75d92b4c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
