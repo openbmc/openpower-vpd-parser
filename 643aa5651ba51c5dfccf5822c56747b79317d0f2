@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4f69f18_e9718f78",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-28T05:59:38Z",
+      "side": 1,
+      "message": "nit: The policy says, wrap is nearest to 72 characters.",
+      "revId": "643aa5651ba51c5dfccf5822c56747b79317d0f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c04da95_20bbcffd",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 2
@@ -32,6 +49,23 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "7c04da95_20bbcffd",
+      "revId": "643aa5651ba51c5dfccf5822c56747b79317d0f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "007370d0_0557b76a",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-28T05:59:38Z",
+      "side": 1,
+      "message": "Same as above, why 0 as success and 1 as failure?",
       "revId": "643aa5651ba51c5dfccf5822c56747b79317d0f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

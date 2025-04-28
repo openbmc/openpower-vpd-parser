@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9527a5b0_87d0b905",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-28T05:59:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e986ec0f_47e9e28b",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cf34b31_1e79365b",
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "ec7e8dd3_7fe810e1",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fa810e8_e493992d",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-28T05:59:38Z",
+      "side": 1,
+      "message": "Moved to types.hpp.",
+      "parentUuid": "494f52b0_f8d6e790",
       "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -300,6 +336,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f039b7b6_3c9e3a59",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-28T05:59:38Z",
+      "side": 1,
+      "message": "Ok, still I am not understanding what \"parses through the JSON\" means.",
+      "parentUuid": "467ed864_281332f1",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c777fd7_c9f34ecb",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 1
@@ -365,6 +419,24 @@
       "side": 1,
       "message": "we have agreed to have All in api name. and we have also agreed to shrink the word from register to reg.. please take a look at the latest patch set.",
       "parentUuid": "6c6c9bb8_bbddede6",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a3aed9a_3e65a415",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-28T05:59:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "21e6b72d_fcd495b4",
       "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -476,6 +548,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd8ac2c9_33e88628",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-28T05:59:38Z",
+      "side": 1,
+      "message": "Any specific reason why 0 has been kept as success and 1 as failure?\nWe have success and failure defined in constants.hpp as 0 and -1, why we are not re-using them here as well?",
+      "parentUuid": "f6f0633c_9fb5452b",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f660f5c_32863572",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 1
@@ -540,6 +630,24 @@
       "side": 1,
       "message": "changed it to uint8_t",
       "parentUuid": "3f86f2cc_3be11ce6",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d241ca6_0f9ad2ff",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-28T05:59:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0eb981bc_6f4186b1",
       "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
