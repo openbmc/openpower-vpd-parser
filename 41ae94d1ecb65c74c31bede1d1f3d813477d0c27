@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26759942_82146cab",
+        "filename": "vpd-manager/include/parser.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-29T12:14:10Z",
+      "side": 1,
+      "message": "Addresed.",
+      "parentUuid": "8881d9ca_b6743a13",
+      "revId": "41ae94d1ecb65c74c31bede1d1f3d813477d0c27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c7069b2_dd4fdf41",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-26T17:58:28Z",
       "side": 1,
       "message": "CI exists only on Dbus.\nCurious why we need this API in parser class?",
+      "revId": "41ae94d1ecb65c74c31bede1d1f3d813477d0c27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c5ae4a0_ebf723e6",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-29T12:14:10Z",
+      "side": 1,
+      "message": "Addressed",
+      "parentUuid": "3c7069b2_dd4fdf41",
       "revId": "41ae94d1ecb65c74c31bede1d1f3d813477d0c27",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
