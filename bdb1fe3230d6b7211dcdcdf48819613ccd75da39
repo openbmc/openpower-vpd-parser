@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09d32573_97b6b1aa",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-29T07:17:28Z",
+      "side": 1,
+      "message": "update on a EEPROM path, ?",
+      "revId": "bdb1fe3230d6b7211dcdcdf48819613ccd75da39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e266470_19d0553d",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-29T07:17:28Z",
+      "side": 1,
+      "message": "if i_vpdPath is EEPROM path only, then use i_eepromPath .",
+      "revId": "bdb1fe3230d6b7211dcdcdf48819613ccd75da39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "483e7be8_6f2cc28b",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-29T07:17:28Z",
+      "side": 1,
+      "message": "should we silently return here, as we don\u0027t have non-ipz properties sync in the main JSON. ?",
+      "revId": "bdb1fe3230d6b7211dcdcdf48819613ccd75da39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74d95621_3cf441a9",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-29T07:17:28Z",
+      "side": 1,
+      "message": "add input path in the log.",
+      "revId": "bdb1fe3230d6b7211dcdcdf48819613ccd75da39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
