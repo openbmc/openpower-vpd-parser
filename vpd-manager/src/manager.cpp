@@ -205,6 +205,13 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
                 l_fruPath, i_paramsToWriteData, l_sysCfgJsonObj);
         }
 
+        // update common interface(s) properties
+        if (l_rc != constants::FAILURE)
+        {
+            vpdSpecificUtility::updateCiPropertyOfInheritedFrus(
+                l_fruPath, i_paramsToWriteData, l_sysCfgJsonObj);
+        }
+
         return l_rc;
     }
     catch (const std::exception& l_exception)
