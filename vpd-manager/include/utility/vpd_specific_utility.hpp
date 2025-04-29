@@ -888,5 +888,170 @@ inline void updateKeywordOnAllInheritedFrus(
             i_fruPath + "]. Error: " + std::string(l_ex.what()));
     }
 }
+
+/**
+ * @brief API to get common interface(s) properties corresponding to given
+ * record and keyword.
+ *
+ * For a given record and keyword, this API finds the corresponding common
+ * interfaces(s) properties from the system config JSON and populates an
+ * interface map.
+ *
+ * @param[in] i_paramsToWriteData - Input details.
+ * @param[in] i_commonInterfaceJson - Common interface JSON object.
+ *
+ * @return Returns a map of common interface(s) and properties corresponding to
+ * the record and keyword. An empty map is returned if no such common
+ * interface(s) and properties are found.
+ */
+inline types::InterfaceMap getCommonInterfaceProperties(
+    const types::WriteVpdParams& i_paramsToWriteData,
+    const nlohmann::json& i_commonInterfaceJson) noexcept
+{
+    types::InterfaceMap l_interfaceMap;
+    try
+    {
+        const types::IpzData* l_ipzData =
+            std::get_if<types::IpzData>(&i_paramsToWriteData);
+
+        if (!l_ipzData)
+        {
+            throw std::runtime_error("Invalid VPD type");
+        }
+        // iterate through all common interfaces
+        for (const auto& l_interfacesPropPair : i_commonInterfaceJson.items())
+        {
+            const std::string& l_interface = l_interfacesPropPair.key();
+
+            types::PropertyMap l_propertyMap;
+
+            // iterate through all properties of a common interface
+            for (const auto& l_propValuePair :
+                 l_interfacesPropPair.value().items())
+            {
+                // compare the record, keyword
+                if (l_propValuePair.value().value("recordName", "") ==
+                        std::get<0>(*l_ipzData) &&
+                    l_propValuePair.value().value("keywordName", "") ==
+                        std::get<1>(*l_ipzData))
+                {
+                    auto l_encodedValue = vpdSpecificUtility::encodeKeyword(
+                        std::string(std::get<2>(*l_ipzData).begin(),
+                                    std::get<2>(*l_ipzData).end()),
+                        l_propValuePair.value().value("encoding", ""));
+
+                    // update property map
+                    l_propertyMap.emplace(l_propValuePair.key(),
+                                          l_encodedValue);
+                }
+            } // properties
+
+            // update interface map
+            if (!l_propertyMap.empty())
+            {
+                l_interfaceMap.emplace(l_interface, std::move(l_propertyMap));
+                return;
+            }
+        } // common interfaces
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to find common interface properties. Error: " +
+            std::string(l_ex.what()));
+    }
+    return l_interfaceMap;
+}
+
+/**
+ * @brief API to update common interface(s) properties when keyword is updated.
+ *
+ * For a given keyword update on a EEPROM path, this API syncs the keyword
+ * update to respective common interface(s) properties of the base FRU and all
+ * inherited FRUs.
+ *
+ * @param[in] i_fruPath - EEPROM path of FRU.
+ * @param[in] i_paramsToWriteData - Input details.
+ * @param[in] i_sysCfgJsonObj - System config JSON.
+ *
+ */
+inline void updateCiPropertyOfInheritedFrus(
+    const std::string& i_fruPath,
+    const types::WriteVpdParams& i_paramsToWriteData,
+    const nlohmann::json& i_sysCfgJsonObj) noexcept
+{
+    try
+    {
+        if (!i_sysCfgJsonObj.contains("commonInterfaces"))
+        {
+            // no common interfaces in JSON, nothing to do
+            return;
+        }
+
+        if (!i_sysCfgJsonObj.contains("frus"))
+        {
+            throw std::runtime_error("Mandatory tag(s) missing from JSON");
+        }
+
+        if (!i_sysCfgJsonObj["frus"].contains(i_fruPath))
+        {
+            throw std::runtime_error(
+                "VPD path [" + i_fruPath + "] not found in system config JSON");
+        }
+
+        //  iterate through all inventory paths for given EEPROM path,
+        //  if for an inventory path, "inherit" tag is true,
+        //  update the inventory path's com.ibm.ipzvpd.<record>,keyword
+        //  property
+        if (std::get_if<types::IpzData>(&i_paramsToWriteData))
+        {
+            types::ObjectMap l_objectInterfaceMap;
+
+            const nlohmann::json& l_commonInterfaceJson =
+                i_sysCfgJsonObj["commonInterfaces"];
+
+            const types::InterfaceMap l_interfaceMap =
+                getCommonInterfaceProperties(i_paramsToWriteData,
+                                             l_commonInterfaceJson);
+
+            if (l_interfaceMap.empty())
+            {
+                // nothing to do
+                return;
+            }
+            for (const auto& l_Fru : i_sysCfgJsonObj["frus"][i_fruPath])
+            {
+                if (l_Fru.value("inherit", true))
+                {
+                    const sdbusplus::message::object_path l_objectPath{
+                        l_Fru["inventoryPath"]};
+
+                    l_objectInterfaceMap.emplace(std::move(l_objectPath),
+                                                 l_interfaceMap);
+                }
+            }
+
+            if (!l_objectInterfaceMap.empty())
+            {
+                // notify PIM
+                if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+                {
+                    throw std::runtime_error(
+                        "Call to PIM failed for VPD file " + i_fruPath);
+                }
+            }
+        }
+        else
+        {
+            throw std::runtime_error("Unsupported VPD type");
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to update common interface properties of FRU [" +
+            i_fruPath + "]. Error: " + std::string(l_ex.what()));
+    }
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd
