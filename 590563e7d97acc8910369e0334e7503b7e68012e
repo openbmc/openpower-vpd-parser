@@ -370,6 +370,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cc939d9_a2dcc3d2",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-29T17:33:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6e50a43b_d592fea3",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c777fd7_c9f34ecb",
@@ -614,6 +632,24 @@
       "side": 1,
       "message": "reusing the variable from const will be in implementation.. this is just header file..",
       "parentUuid": "f4e8371e_c870e7e5",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93898dbb_34958da7",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-29T17:33:47Z",
+      "side": 1,
+      "message": "\u003e just following the conventional way of returning success\n\nThen why 1 for failure and not -1?",
+      "parentUuid": "d4ad9b7d_7af60bcc",
       "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

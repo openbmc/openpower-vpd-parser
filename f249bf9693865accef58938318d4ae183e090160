@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3373374a_99293f81",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-29T17:33:47Z",
+      "side": 1,
+      "message": "Any event on the system? What if I change something in entity manager? Will I get the event here?",
+      "revId": "f249bf9693865accef58938318d4ae183e090160",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
