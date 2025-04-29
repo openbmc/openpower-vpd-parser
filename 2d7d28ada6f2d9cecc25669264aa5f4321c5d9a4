@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30f5363c_13c2e03f",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-29T17:16:38Z",
+      "side": 1,
+      "message": "getCiPropToUpdate?",
+      "range": {
+        "startLine": 912,
+        "startChar": 27,
+        "endLine": 912,
+        "endChar": 63
+      },
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "443d860c_113026b1",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-29T17:16:38Z",
+      "side": 1,
+      "message": "Five level of indentation, keep it max till 3.",
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f74d7b31_0a3df90a",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-29T17:16:38Z",
+      "side": 1,
+      "message": "Why is this check required?",
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9218edc8_9e86699b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-29T17:16:38Z",
+      "side": 1,
+      "message": "Do we need these? Only used once, can be done in place?",
+      "range": {
+        "startLine": 937,
+        "startChar": 24,
+        "endLine": 940,
+        "endChar": 77
+      },
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa27d505_50387850",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-29T17:16:38Z",
+      "side": 1,
+      "message": "Why you want to loop even after you got the pair?",
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "466c0ffb_dc42bdb9",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-29T17:16:38Z",
+      "side": 1,
+      "message": "Blank line.",
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a121e33f_e3826269",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-29T17:16:38Z",
+      "side": 1,
+      "message": "Too long for a function name.\nSuggestion -\u003e updateCiPropOfInheritedFrus",
+      "range": {
+        "startLine": 211,
+        "startChar": 32,
+        "endLine": 211,
+        "endChar": 79
+      },
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
