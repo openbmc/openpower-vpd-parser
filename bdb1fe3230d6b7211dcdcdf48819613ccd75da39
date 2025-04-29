@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27a0508e_e4ab6755",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-29T07:35:19Z",
+      "side": 1,
+      "message": "Addressed",
+      "parentUuid": "09d32573_97b6b1aa",
+      "revId": "bdb1fe3230d6b7211dcdcdf48819613ccd75da39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e266470_19d0553d",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-29T07:17:28Z",
       "side": 1,
       "message": "if i_vpdPath is EEPROM path only, then use i_eepromPath .",
+      "revId": "bdb1fe3230d6b7211dcdcdf48819613ccd75da39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59b0638b_15b891b8",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-29T07:35:19Z",
+      "side": 1,
+      "message": "Addressed",
+      "parentUuid": "1e266470_19d0553d",
       "revId": "bdb1fe3230d6b7211dcdcdf48819613ccd75da39",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7213809e_7e676403",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-29T07:35:19Z",
+      "side": 1,
+      "message": "As this is a utility method, it can be called from anywhere and its not guaranteed that IPZ VPD keyword update will be passed to this API.",
+      "parentUuid": "483e7be8_6f2cc28b",
+      "revId": "bdb1fe3230d6b7211dcdcdf48819613ccd75da39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74d95621_3cf441a9",
         "filename": "vpd-manager/include/utility/dbus_utility.hpp",
         "patchSetId": 7
@@ -65,6 +119,24 @@
       "writtenOn": "2025-04-29T07:17:28Z",
       "side": 1,
       "message": "add input path in the log.",
+      "revId": "bdb1fe3230d6b7211dcdcdf48819613ccd75da39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88f1b968_09fa8fd2",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-29T07:35:19Z",
+      "side": 1,
+      "message": "Addressed",
+      "parentUuid": "74d95621_3cf441a9",
       "revId": "bdb1fe3230d6b7211dcdcdf48819613ccd75da39",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
