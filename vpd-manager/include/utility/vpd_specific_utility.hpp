@@ -918,41 +918,39 @@ inline types::InterfaceMap getCommonInterfaceProperties(
         {
             throw std::runtime_error("Invalid VPD type");
         }
+
         // iterate through all common interfaces
-        for (const auto& l_interfacesPropPair : i_commonInterfaceJson.items())
-        {
-            const std::string& l_interface = l_interfacesPropPair.key();
+        std::for_each(
+            i_commonInterfaceJson.items().begin(),
+            i_commonInterfaceJson.items().end(),
+            [&l_ipzData, &l_interfaceMap](const auto& l_interfacesPropPair) {
+                // find matching property value pair
+                const auto l_matchPropValuePairIt = std::find_if(
+                    l_interfacesPropPair.value().items().begin(),
+                    l_interfacesPropPair.value().items().end(),
+                    [&l_ipzData](const auto& l_propValuePair) {
+                        return (
+                            l_propValuePair.value().value("recordName", "") ==
+                                std::get<0>(*l_ipzData) &&
+                            l_propValuePair.value().value("keywordName", "") ==
+                                std::get<1>(*l_ipzData));
+                    });
 
-            types::PropertyMap l_propertyMap;
-
-            // iterate through all properties of a common interface
-            for (const auto& l_propValuePair :
-                 l_interfacesPropPair.value().items())
-            {
-                // compare the record, keyword
-                if (l_propValuePair.value().value("recordName", "") ==
-                        std::get<0>(*l_ipzData) &&
-                    l_propValuePair.value().value("keywordName", "") ==
-                        std::get<1>(*l_ipzData))
+                if (l_matchPropValuePairIt !=
+                    l_interfacesPropPair.value().items().end())
                 {
-                    auto l_encodedValue = vpdSpecificUtility::encodeKeyword(
-                        std::string(std::get<2>(*l_ipzData).begin(),
-                                    std::get<2>(*l_ipzData).end()),
-                        l_propValuePair.value().value("encoding", ""));
-
-                    // update property map
-                    l_propertyMap.emplace(l_propValuePair.key(),
-                                          l_encodedValue);
+                    // add property map to interface map
+                    l_interfaceMap.emplace(
+                        l_interfacesPropPair.key(),
+                        types::PropertyMap{
+                            {l_matchPropValuePairIt.key(),
+                             vpdSpecificUtility::encodeKeyword(
+                                 std::string(std::get<2>(*l_ipzData).begin(),
+                                             std::get<2>(*l_ipzData).end()),
+                                 l_matchPropValuePairIt.value().value(
+                                     "encoding", ""))}});
                 }
-            } // properties
-
-            // update interface map
-            if (!l_propertyMap.empty())
-            {
-                l_interfaceMap.emplace(l_interface, std::move(l_propertyMap));
-                return;
-            }
-        } // common interfaces
+            }); // common interfaces
     }
     catch (const std::exception& l_ex)
     {
@@ -999,51 +997,47 @@ inline void updateCiPropertyOfInheritedFrus(
                 "VPD path [" + i_fruPath + "] not found in system config JSON");
         }
 
+        if (!std::get_if<types::IpzData>(&i_paramsToWriteData))
+        {
+            throw std::runtime_error("Unsupported VPD type");
+        }
+
         //  iterate through all inventory paths for given EEPROM path,
         //  if for an inventory path, "inherit" tag is true,
         //  update the inventory path's com.ibm.ipzvpd.<record>,keyword
         //  property
-        if (std::get_if<types::IpzData>(&i_paramsToWriteData))
+
+        types::ObjectMap l_objectInterfaceMap;
+
+        const types::InterfaceMap l_interfaceMap = getCommonInterfaceProperties(
+            i_paramsToWriteData, i_sysCfgJsonObj["commonInterfaces"]);
+
+        if (l_interfaceMap.empty())
         {
-            types::ObjectMap l_objectInterfaceMap;
+            // nothing to do
+            return;
+        }
 
-            const nlohmann::json& l_commonInterfaceJson =
-                i_sysCfgJsonObj["commonInterfaces"];
-
-            const types::InterfaceMap l_interfaceMap =
-                getCommonInterfaceProperties(i_paramsToWriteData,
-                                             l_commonInterfaceJson);
-
-            if (l_interfaceMap.empty())
-            {
-                // nothing to do
-                return;
-            }
-            for (const auto& l_Fru : i_sysCfgJsonObj["frus"][i_fruPath])
-            {
+        std::for_each(
+            i_sysCfgJsonObj["frus"][i_fruPath].begin(),
+            i_sysCfgJsonObj["frus"][i_fruPath].end(),
+            [&l_objectInterfaceMap, &l_interfaceMap](const auto& l_Fru) {
                 if (l_Fru.value("inherit", true))
                 {
-                    const sdbusplus::message::object_path l_objectPath{
-                        l_Fru["inventoryPath"]};
-
-                    l_objectInterfaceMap.emplace(std::move(l_objectPath),
-                                                 l_interfaceMap);
+                    l_objectInterfaceMap.emplace(
+                        sdbusplus::message::object_path{l_Fru["inventoryPath"]},
+                        l_interfaceMap);
                 }
-            }
+            });
 
-            if (!l_objectInterfaceMap.empty())
-            {
-                // notify PIM
-                if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
-                {
-                    throw std::runtime_error(
-                        "Call to PIM failed for VPD file " + i_fruPath);
-                }
-            }
-        }
-        else
+        if (!l_objectInterfaceMap.empty())
         {
-            throw std::runtime_error("Unsupported VPD type");
+            // notify PIM
+            if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+            {
+                throw std::runtime_error(
+                    "Call to PIM failed for VPD file " + i_fruPath);
+            }
         }
     }
     catch (const std::exception& l_ex)
