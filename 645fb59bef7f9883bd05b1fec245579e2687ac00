@@ -52,6 +52,24 @@
       "parentUuid": "5899e8ff_9d72bacb",
       "revId": "645fb59bef7f9883bd05b1fec245579e2687ac00",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31b1cd1a_79f6e3f9",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-30T13:44:54Z",
+      "side": 1,
+      "message": "ok, we can skip the base FRU by changing `first` iterator passed to `std::for_each(frus.begin() + 1,..)`",
+      "parentUuid": "25897e76_fa8a2c2e",
+      "revId": "645fb59bef7f9883bd05b1fec245579e2687ac00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
