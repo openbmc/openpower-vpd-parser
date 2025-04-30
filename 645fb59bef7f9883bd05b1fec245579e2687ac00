@@ -34,6 +34,24 @@
       "parentUuid": "f00a99c7_a5de5a9a",
       "revId": "645fb59bef7f9883bd05b1fec245579e2687ac00",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25897e76_fa8a2c2e",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-30T12:58:15Z",
+      "side": 1,
+      "message": "Is there a compulsion to use std::for_each? Why we can\u0027t use a for loop?\n\n\u003e if we are concerned about performance, this piece will be triggered only when vpd-tool -w is executed, and iterating through list of inherited FRUs for a given EEPROM path will not take more than a second.\n\nThe write can be performed in loop when chunk of keyword is updated, and even it if is not done in loop, why is that justification against writing less efficient code?",
+      "parentUuid": "5899e8ff_9d72bacb",
+      "revId": "645fb59bef7f9883bd05b1fec245579e2687ac00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
