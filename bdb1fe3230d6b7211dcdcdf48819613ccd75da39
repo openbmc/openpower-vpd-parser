@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc6cd3de_75d7a624",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-30T09:13:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7213809e_7e676403",
+      "revId": "bdb1fe3230d6b7211dcdcdf48819613ccd75da39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74d95621_3cf441a9",
