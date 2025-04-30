@@ -16,6 +16,24 @@
       "message": "Why are we comparing for 0th index in each iteration? A simple looping from index 1 will solve the purpose here?",
       "revId": "645fb59bef7f9883bd05b1fec245579e2687ac00",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5899e8ff_9d72bacb",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-30T12:45:32Z",
+      "side": 1,
+      "message": "We can\u0027t access index of elements when using `std::for_each()`. \nIf we are concerned about performance, this piece will be triggered only when `vpd-tool -w` is executed, and iterating through list of inherited FRUs for a given EEPROM path will not take more than a second.",
+      "parentUuid": "f00a99c7_a5de5a9a",
+      "revId": "645fb59bef7f9883bd05b1fec245579e2687ac00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
