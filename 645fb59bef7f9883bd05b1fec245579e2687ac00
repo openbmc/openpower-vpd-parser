@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f00a99c7_a5de5a9a",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-04-30T11:20:52Z",
+      "side": 1,
+      "message": "Why are we comparing for 0th index in each iteration? A simple looping from index 1 will solve the purpose here?",
+      "revId": "645fb59bef7f9883bd05b1fec245579e2687ac00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
