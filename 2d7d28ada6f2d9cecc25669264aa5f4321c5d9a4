@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc6e9e77_f027d406",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-30T09:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b4a31c2_7a0a12b3",
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30f5363c_13c2e03f",
@@ -65,6 +83,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af41ba3e_055330eb",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-30T09:13:40Z",
+      "side": 1,
+      "message": "Addressed. Changed to `getCommonInterfaceProperties`",
+      "parentUuid": "f5bbc95c_fb53629f",
+      "range": {
+        "startLine": 912,
+        "startChar": 27,
+        "endLine": 912,
+        "endChar": 63
+      },
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "443d860c_113026b1",
@@ -82,6 +124,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "841127b6_0ade3cd1",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-30T09:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "443d860c_113026b1",
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f74d7b31_0a3df90a",
@@ -95,6 +155,24 @@
       "writtenOn": "2025-04-29T17:16:38Z",
       "side": 1,
       "message": "Why is this check required?",
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fd9dc7e_0c792150",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-30T09:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f74d7b31_0a3df90a",
       "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -122,6 +200,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c4a6d4c_1b7343be",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-30T09:13:40Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9218edc8_9e86699b",
+      "range": {
+        "startLine": 937,
+        "startChar": 24,
+        "endLine": 940,
+        "endChar": 77
+      },
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa27d505_50387850",
@@ -135,6 +237,24 @@
       "writtenOn": "2025-04-29T17:16:38Z",
       "side": 1,
       "message": "Why you want to loop even after you got the pair?",
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2b669bf_50352de6",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-30T09:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa27d505_50387850",
       "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -156,6 +276,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbc8224c_6c85dfb7",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-30T09:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "466c0ffb_dc42bdb9",
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a121e33f_e3826269",
@@ -169,6 +307,30 @@
       "writtenOn": "2025-04-29T17:16:38Z",
       "side": 1,
       "message": "Too long for a function name.\nSuggestion -\u003e updateCiPropOfInheritedFrus",
+      "range": {
+        "startLine": 211,
+        "startChar": 32,
+        "endLine": 211,
+        "endChar": 79
+      },
+      "revId": "2d7d28ada6f2d9cecc25669264aa5f4321c5d9a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e44e0ca_c84beed3",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-30T09:13:40Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a121e33f_e3826269",
       "range": {
         "startLine": 211,
         "startChar": 32,
