@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41fc0f63_846f0918",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-30T06:51:32Z",
+      "side": 1,
+      "message": "gets match object from where ?",
+      "revId": "dc926ce93838cb33382bb16ceb992de2b563e4ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

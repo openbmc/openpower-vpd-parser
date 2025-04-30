@@ -514,6 +514,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "42e2f3e5_6e02bf1b",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-30T06:51:32Z",
+      "side": 1,
+      "message": "my question was, for deRegDbusEvent() API, if input i_serviceName \u0026 i_interface are not part of any existing match, what is the action taken in this API.\neither\n1. we can mention in the doxygen that, if not matched request will be ignored.\n2. and we need to return bool type for this API, for success or failure.",
+      "parentUuid": "769a6013_dc70221c",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "edc00a9d_0a91100d",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 1
@@ -703,6 +721,24 @@
       "side": 1,
       "message": "not following",
       "parentUuid": "2f660f5c_32863572",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5c57101_0b996e2c",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-30T06:51:32Z",
+      "side": 1,
+      "message": "as kept consistent names for serviceName across API\u0027s, closing this comment.",
+      "parentUuid": "9e19aa24_38642027",
       "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
