@@ -70,6 +70,24 @@
       "parentUuid": "25897e76_fa8a2c2e",
       "revId": "645fb59bef7f9883bd05b1fec245579e2687ac00",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17ff80b1_355ff345",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-04-30T14:05:58Z",
+      "side": 1,
+      "message": "Addressed this.",
+      "parentUuid": "31b1cd1a_79f6e3f9",
+      "revId": "645fb59bef7f9883bd05b1fec245579e2687ac00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
