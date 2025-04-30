@@ -16,6 +16,24 @@
       "message": "Any event on the system? What if I change something in entity manager? Will I get the event here?",
       "revId": "f249bf9693865accef58938318d4ae183e090160",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e9f9ab8_091ceedb",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000362
+      },
+      "writtenOn": "2025-04-30T05:05:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3373374a_99293f81",
+      "revId": "f249bf9693865accef58938318d4ae183e090160",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
