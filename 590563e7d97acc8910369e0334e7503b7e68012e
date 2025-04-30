@@ -899,6 +899,24 @@
       "parentUuid": "63b36fc3_d7c2b26c",
       "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f64df59b_a28c4e26",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-04-30T15:42:49Z",
+      "side": 1,
+      "message": "closing as new API is introduced for pausing all callbacks",
+      "parentUuid": "41132efb_0fe8c7a3",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
