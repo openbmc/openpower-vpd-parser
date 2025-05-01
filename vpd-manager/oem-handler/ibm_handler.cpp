@@ -3,6 +3,8 @@
 #include "ibm_handler.hpp"
 
 #include "parser.hpp"
+#include <chrono> 
+#include <ctime> 
 
 #include <utility/common_utility.hpp>
 #include <utility/dbus_utility.hpp>
@@ -34,8 +36,17 @@ IbmHandler::IbmHandler(
         m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT);
     }
 
+    std::cout<<"System VPD collection started"<<std::endl;
+    auto timenow = 
+      std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); 
+  
+    std::cout << ctime(&timenow) << std::endl; 
     // Set up minimal things that is needed before bus name is claimed.
     performInitialSetup();
+    timenow = 
+      std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); 
+    std::cout << ctime(&timenow) << std::endl; 
+    std::cout<<"System VPD collection ends"<<std::endl;
 
     if (!m_sysCfgJsonObj.empty() &&
         jsonUtility::isBackupAndRestoreRequired(m_sysCfgJsonObj))
@@ -140,7 +151,7 @@ void IbmHandler::SetTimerToDetectSVPDOnDbus()
         static boost::asio::steady_timer timer(*m_ioContext);
 
         // timer for 2 seconds
-        auto asyncCancelled = timer.expires_after(std::chrono::seconds(2));
+        auto asyncCancelled = timer.expires_after(std::chrono::milliseconds(100));
 
         (asyncCancelled == 0) ? logging::logMessage("Timer started")
                               : logging::logMessage("Timer re-started");
@@ -165,11 +176,19 @@ void IbmHandler::SetTimerToDetectSVPDOnDbus()
                 // cancel the timer
                 timer.cancel();
 
+                std::cout<<"Rest of the VPD collection started"<<std::endl;
+                auto timenow = 
+                std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); 
+            
+                std::cout << "T1"<<ctime(&timenow) << std::endl; 
+
                 // Triggering FRU VPD collection. Setting status to "In
                 // Progress".
                 m_interface->set_property("CollectionStatus",
                                           std::string("InProgress"));
-                m_worker->collectFrusFromJson();
+                //m_interface->set_property("CollectionStatus",
+                //std::string("Completed"));
+               m_worker->collectFrusFromJson();
             }
         });
     }
@@ -224,6 +243,12 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
             std::cout << "m_worker->isSystemVPDOnDBus() completed" << std::endl;
             m_interface->set_property("CollectionStatus",
                                       std::string("Completed"));
+            
+            std::cout<<"Rest of the VPD collection stopped"<<std::endl;
+            auto timenow = 
+            std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); 
+        
+            std::cout << "T2"<<ctime(&timenow) << std::endl; 
 
             if (m_backupAndRestoreObj)
             {
@@ -509,6 +534,26 @@ void IbmHandler::primeSystemBlueprint()
         return;
     }
 
+   /* if (m_worker.get() != nullptr)
+    {
+        if(m_worker->isSystemVPDOnDBus())
+        {
+            logging::logMessage(
+                "Priming not required");
+            return;
+        }
+    }*/
+
+    //just a random path.
+    types::MapperGetSubTree l_subTreeMap = dbusUtility::getObjectSubTree("/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm0", 0, std::vector<std::string>{});
+    if(l_subTreeMap.size() > 0)
+    {
+        std::cout<<"Subtree size ="<<l_subTreeMap.size()<<std::endl;
+        logging::logMessage(
+            "Already have subtree, Priming not required");
+        return;
+    }
+
     const nlohmann::json& l_listOfFrus =
         m_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
@@ -521,14 +566,11 @@ void IbmHandler::primeSystemBlueprint()
             continue;
         }
 
-        // Prime the inventry for FRUs which
-        // are not present/processing had some error.
-        if (m_worker.get() != nullptr &&
-            !m_worker->primeInventory(l_vpdFilePath))
+        if(!m_worker->primeInventory(l_vpdFilePath))
         {
             logging::logMessage(
                 "Priming of inventory failed for FRU " + l_vpdFilePath);
-        }
+        }   
     }
 }
 

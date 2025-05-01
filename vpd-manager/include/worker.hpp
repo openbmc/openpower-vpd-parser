@@ -48,7 +48,7 @@ class Worker
      * to handle to detect successful object creation.
      */
     Worker(std::string pathToConfigJson = std::string(),
-           uint8_t i_maxThreadCount = constants::MAX_THREADS);
+           int i_maxThreadCount = constants::MAX_THREADS);
 
     /**
      * @brief Destructor

@@ -27,7 +27,7 @@ Manager::Manager(
     m_ioContext(ioCon), m_interface(iFace), m_asioConnection(asioConnection)
 {
 #ifdef IBM_SYSTEM
-    if (!dbusUtility::isChassisPowerOn())
+/*    if (!dbusUtility::isChassisPowerOn())
     {
         SingleFab l_singleFab;
         const int& l_rc = l_singleFab.singleFabImOverride();
@@ -38,7 +38,7 @@ Manager::Manager(
                 std::string(__FUNCTION__) +
                 " : Found an invalid system configuration. Needs manual intervention. BMC is being quiesced.");
         }
-    }
+    }*/
 #endif
 
     try

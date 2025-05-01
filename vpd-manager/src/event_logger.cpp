@@ -257,6 +257,7 @@ void EventLogger::createSyncPel(
 {
     (void)i_symFru;
     (void)i_procedure;
+    (void)i_severity;
     try
     {
         if (m_errorMsgMap.find(i_errorType) == m_errorMsgMap.end())
@@ -265,12 +266,12 @@ void EventLogger::createSyncPel(
             // TODO: Need to handle, instead of throwing an exception.
         }
 
-        const std::string& l_message = m_errorMsgMap.at(i_errorType);
+       // const std::string& l_message = m_errorMsgMap.at(i_errorType);
 
-        const std::string& l_severity =
+       /* const std::string& l_severity =
             (m_severityMap.find(i_severity) != m_severityMap.end()
                  ? m_severityMap.at(i_severity)
-                 : m_severityMap.at(types::SeverityType::Informational));
+                 : m_severityMap.at(types::SeverityType::Informational));*/
 
         const std::string l_description =
             ((!i_description.empty() ? i_description : "VPD generic error"));
@@ -287,13 +288,13 @@ void EventLogger::createSyncPel(
             {"UserData1", l_userData1.c_str()},
             {"UserData2", l_userData2.c_str()}};
 
-        auto l_bus = sdbusplus::bus::new_default();
+    /*    auto l_bus = sdbusplus::bus::new_default();
         auto l_method =
             l_bus.new_method_call(constants::eventLoggingServiceName,
                                   constants::eventLoggingObjectPath,
                                   constants::eventLoggingInterface, "Create");
         l_method.append(l_message, l_severity, l_additionalData);
-        l_bus.call(l_method);
+        l_bus.call(l_method);*/
     }
     catch (const sdbusplus::exception::SdBusError& l_ex)
     {

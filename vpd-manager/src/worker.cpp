@@ -25,7 +25,7 @@
 namespace vpd
 {
 
-Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount) :
+Worker::Worker(std::string pathToConfigJson, int i_maxThreadCount) :
     m_configJsonPath(pathToConfigJson), m_semaphore(i_maxThreadCount)
 {
     // Implies the processing is based on some config JSON
@@ -196,9 +196,11 @@ void Worker::fillVPDMap(const std::string& vpdFilePath,
         throw std::runtime_error("Can't Find physical file");
     }
 
+    std::cout<<"Start parsing system VPD"<<std::endl;
     std::shared_ptr<Parser> vpdParser =
         std::make_shared<Parser>(vpdFilePath, m_parsedJson);
     vpdMap = vpdParser->parse();
+    std::cout<<"End parsing system VPD"<<std::endl;
 }
 
 void Worker::getSystemJson(std::string& systemJson,
@@ -375,6 +377,7 @@ void Worker::setDeviceTreeAndJson()
             "No system JSON found corresponding to IM read from VPD.");
     }
 
+    std::cout<<"re parse json"<<std::endl;
     // re-parse the JSON once appropriate JSON has been selected.
     m_parsedJson = jsonUtility::getParsedJson(systemJson);
 
@@ -382,7 +385,7 @@ void Worker::setDeviceTreeAndJson()
     {
         throw(JsonException("Json parsing failed", systemJson));
     }
-
+    std::cout<<"re parse ends"<<std::endl;
     std::string devTreeFromJson;
     if (m_parsedJson.contains("devTree"))
     {
@@ -399,7 +402,9 @@ void Worker::setDeviceTreeAndJson()
         }
     }
 
+    std::cout<<"read fitconfig"<<std::endl;
     auto fitConfigVal = readFitConfigValue();
+    std::cout<<"read fitconfig end"<<std::endl;
 
     if (devTreeFromJson.empty() ||
         fitConfigVal.find(devTreeFromJson) != std::string::npos)
@@ -408,11 +413,14 @@ void Worker::setDeviceTreeAndJson()
 
         setJsonSymbolicLink(systemJson);
 
+        std::cout<<"Perform B&R start"<<std::endl;
         if (isSystemVPDOnDBus() &&
             jsonUtility::isBackupAndRestoreRequired(m_parsedJson))
         {
+            std::cout<<"Perform B&R"<<std::endl;
             performBackupAndRestore(parsedVpdMap);
         }
+        std::cout<<"Perform B&R Done"<<std::endl;
 
         // proceed to publish system VPD.
         publishSystemVPD(parsedVpdMap);
@@ -687,10 +695,13 @@ bool Worker::primeInventory(const std::string& i_vpdFilePath)
         types::InterfaceMap l_interfaces;
         sdbusplus::message::object_path l_fruObjectPath(l_Fru["inventoryPath"]);
 
+        std::cout<<"Priming ="<<l_Fru["inventoryPath"]<<std::endl;
         if (l_Fru.contains("ccin"))
         {
+            std::cout<<"Contains CCIN skipping"<<l_Fru["inventoryPath"]<<std::endl;
             continue;
         }
+        std::cout<<"Continue with priming"<<std::endl;
 
         if (l_Fru.contains("noprime") && l_Fru.value("noprime", false))
         {
@@ -699,12 +710,14 @@ bool Worker::primeInventory(const std::string& i_vpdFilePath)
 
         // Reset data under PIM for this FRU only if the FRU is not synthesized
         // and we handle it's Present property.
-        if (isPresentPropertyHandlingRequired(l_Fru))
+    /*    if (isPresentPropertyHandlingRequired(l_Fru))
         {
+            std::cout<<"prime start, clear data"<<std::endl;
             // Clear data under PIM if already exists.
             vpdSpecificUtility::resetDataUnderPIM(
                 std::string(l_Fru["inventoryPath"]), l_interfaces);
-        }
+            std::cout<<"prime start, clear data done"<<std::endl;
+        }*/
 
         // Add extra interfaces mentioned in the Json config file
         if (l_Fru.contains("extraInterfaces"))
@@ -763,7 +776,7 @@ bool Worker::primeInventory(const std::string& i_vpdFilePath)
         logging::logMessage("Call to PIM failed for VPD file " + i_vpdFilePath);
         return false;
     }
-
+    
     return true;
 }
 
@@ -1006,6 +1019,7 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
     {
         types::InterfaceMap interfaces;
 
+        std::cout<<"Start looping"<<std::endl;
         for (const auto& aFru : m_parsedJson["frus"][vpdFilePath])
         {
             const auto& inventoryPath = aFru["inventoryPath"];
@@ -1022,19 +1036,19 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
             {
                 processInheritFlag(parsedVpdMap, interfaces);
             }
-
+            
             // If specific record needs to be copied.
             if (aFru.contains("copyRecords"))
             {
                 processCopyRecordFlag(aFru, parsedVpdMap, interfaces);
             }
-
+            
             if (aFru.contains("extraInterfaces"))
             {
                 // Process extra interfaces w.r.t a FRU.
                 processExtraInterfaces(aFru, interfaces, parsedVpdMap);
             }
-
+            
             // Process FRUS which are embedded in the parent FRU and whose VPD
             // will be synthesized.
             if ((aFru.value("embedded", true)) &&
@@ -1042,10 +1056,10 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
             {
                 processEmbeddedAndSynthesizedFrus(aFru, interfaces);
             }
-
+            
             processFunctionalProperty(inventoryPath, interfaces);
             processEnabledProperty(inventoryPath, interfaces);
-
+            
             // Update collection status as successful
             types::PropertyMap l_collectionProperty = {
                 {"CollectionStatus", constants::vpdCollectionSuccess}};
@@ -1117,13 +1131,17 @@ void Worker::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
 
     if (std::get_if<types::IPZVpdMap>(&parsedVpdMap))
     {
+        std::cout<<"Start populate DBus"<<std::endl;
         populateDbus(parsedVpdMap, objectInterfaceMap, SYSTEM_VPD_FILE_PATH);
+        std::cout<<"End populate DBus"<<std::endl;
 
         try
         {
             if (m_isFactoryResetDone)
             {
+                std::cout<<"Start asset tag"<<std::endl;
                 const auto& l_assetTag = createAssetTagString(parsedVpdMap);
+                std::cout<<"end asset tag"<<std::endl;
 
                 auto l_itrToSystemPath = objectInterfaceMap.find(
                     sdbusplus::message::object_path(constants::systemInvPath));
@@ -1149,11 +1167,27 @@ void Worker::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
                 std::nullopt, std::nullopt, std::nullopt, std::nullopt);
         }
 
+        std::cout<<"Start notify pim"<<std::endl;
         // Notify PIM
+    /*    std::thread{[objectInterfaceMap]() {
+            const auto& l_Res = dbusUtility::callPIM(move(const_cast<types::ObjectMap&>(objectInterfaceMap)));
+
+            if(!l_Res)
+            {
+                EventLogger::createSyncPel(
+                    types::ErrorType::InternalFailure,
+                    types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                    std::string("System VPD publish failed"),
+                    std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            }
+            
+        }}.detach();*/
+
         if (!dbusUtility::callPIM(move(objectInterfaceMap)))
         {
             throw std::runtime_error("Call to PIM failed for system VPD");
         }
+        std::cout<<"End notify pim"<<std::endl;
     }
     else
     {
@@ -1354,6 +1388,10 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
 {
     std::string l_inventoryPath{};
 
+    auto timenow = 
+    std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); 
+    std::cout<<"Thread started for path =["<<i_vpdFilePath<<"] Time =["<<ctime(&timenow)<<"]"<<std::endl;
+    
     try
     {
         m_semaphore.acquire();
@@ -1387,6 +1425,24 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         {
             types::ObjectMap objectInterfaceMap;
             populateDbus(parsedVpdMap, objectInterfaceMap, i_vpdFilePath);
+
+         /*   std::thread{[&objectInterfaceMap, i_vpdFilePath, l_inventoryPath, this]() {
+                const auto& l_publishResult = dbusUtility::callPIM(move(objectInterfaceMap));
+
+                if(l_publishResult == false)
+                {
+                    std::cout<<"publish failed"<<std::endl;
+                    if (!dbusUtility::notifyFRUCollectionStatus(
+                        l_inventoryPath, constants::vpdCollectionFailure))
+                    {
+                        logging::logMessage(
+                            "Call to PIM Notify method failed to update Collection status as Failure for " +
+                            i_vpdFilePath);
+                    }
+                }
+            
+                
+            }}.detach();*/
 
             // Notify PIM
             if (!dbusUtility::callPIM(move(objectInterfaceMap)))
@@ -1451,12 +1507,20 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         if (isPresentPropertyHandlingRequired(
                 m_parsedJson["frus"][i_vpdFilePath].at(0)))
         {
-            setPresentProperty(i_vpdFilePath, false);
+         //   setPresentProperty(i_vpdFilePath, false);
         }
+
+    timenow = 
+    std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); 
+    std::cout<<"Thread finished for path 1=["<<i_vpdFilePath<<"] Time =["<<ctime(&timenow)<<"]"<<std::endl;
 
         m_semaphore.release();
         return std::make_tuple(false, i_vpdFilePath);
     }
+    timenow = 
+    std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); 
+    std::cout<<"Thread finished for path 2=["<<i_vpdFilePath<<"] Time =["<<ctime(&timenow)<<"]"<<std::endl;
+
     m_semaphore.release();
     return std::make_tuple(true, i_vpdFilePath);
 }
@@ -1525,7 +1589,7 @@ void Worker::collectFrusFromJson()
         {
             std::thread{[vpdFilePath, this]() {
                 const auto& l_parseResult = parseAndPublishVPD(vpdFilePath);
-
+            
                 m_mutex.lock();
                 m_activeCollectionThreadCount--;
                 m_mutex.unlock();
