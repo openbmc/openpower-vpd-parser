@@ -917,6 +917,24 @@
       "parentUuid": "41132efb_0fe8c7a3",
       "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40d1d3e9_0d513249",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-05-02T06:59:49Z",
+      "side": 1,
+      "message": "API added.",
+      "parentUuid": "41132efb_0fe8c7a3",
+      "revId": "590563e7d97acc8910369e0334e7503b7e68012e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
