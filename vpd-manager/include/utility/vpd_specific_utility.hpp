@@ -626,12 +626,17 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
                         }
                         else if (std::holds_alternative<bool>(l_propertyValue))
                         {
-                            // ToDo -- Update the functional status property
-                            // to true.
                             if (l_propertyName.compare("Present") ==
                                 constants::STR_CMP_SUCCESS)
                             {
                                 l_propertyMap.emplace(l_propertyName, false);
+                            }
+                            else if (l_propertyName.compare("Functional") ==
+                                     constants::STR_CMP_SUCCESS)
+                            {
+                                // Since FRU is not present functional property
+                                // is considered as true.
+                                l_propertyMap.emplace(l_propertyName, true);
                             }
                         }
                     }
