@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "988bbaef_873c6415",
+        "filename": "vpd-tool/include/tool_constants.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-05-05T14:59:43Z",
+      "side": 1,
+      "message": "badVpdPath ? are we following *Path or *Dir convention ?\n\ndo we need / at the end ?\nsame is followed for other paths in the constants file.",
+      "revId": "c69082fec26420ff04b31cc966fd1defab84aea6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f7346ba_aa034d30",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-05-05T14:59:43Z",
+      "side": 1,
+      "message": "deletes all the files ?",
+      "revId": "c69082fec26420ff04b31cc966fd1defab84aea6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00953bc8_3e1cac1c",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-05-05T14:59:43Z",
+      "side": 1,
+      "message": "clearVpdDump() is enough ?",
+      "revId": "c69082fec26420ff04b31cc966fd1defab84aea6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d46889b0_42f574c0",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1558,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-05-05T14:59:43Z",
+      "side": 1,
+      "message": "should we also mention the path in the log ?",
+      "revId": "c69082fec26420ff04b31cc966fd1defab84aea6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
