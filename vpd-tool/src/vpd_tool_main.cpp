@@ -62,6 +62,10 @@ int doMfgClean(const auto& i_mfgCleanConfirmFlag,
     }
 
     vpd::VpdTool l_vpdToolObj;
+
+    // delete the vpd dump directory
+    l_vpdToolObj.clearVpdDumpDir();
+
     return l_vpdToolObj.cleanSystemVpd(!i_syncBiosAttributesFlag->empty());
 }
 
