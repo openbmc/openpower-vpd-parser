@@ -589,6 +589,9 @@ int VpdTool::cleanSystemVpd(bool i_syncBiosAttributesRequired) const noexcept
                     }
                 } // mfgClean required check
             } // keyword list loop
+
+            // delete the vpd dump directory
+            clearVpdDumpDir();
         }
         else // backupRestoreJson is not valid
         {
@@ -1540,4 +1543,22 @@ types::BinaryVector VpdTool::getVpdValueInBiosConfigManager(
     }
     return l_result;
 }
+
+void VpdTool::clearVpdDumpDir() const noexcept
+{
+    try
+    {
+        if (std::filesystem::exists(constants::badVpdPath))
+        {
+            std::filesystem::remove_all(constants::badVpdPath);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        std::cerr << "Failed to clear VPD dump path:[" +
+                         std::string(constants::badVpdPath) + "]. Error: "
+                  << l_ex.what() << std::endl;
+    }
+}
+
 } // namespace vpd
