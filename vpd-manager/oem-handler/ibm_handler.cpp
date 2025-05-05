@@ -570,37 +570,37 @@ void IbmHandler::performInitialSetup()
 {
     try
     {
-        if (!dbusUtility::isChassisPowerOn())
+        if (m_worker.get() != nullptr)
         {
-            logging::logMessage("Chassis is in Off state.");
-            if (m_worker.get() != nullptr)
+            if (!dbusUtility::isChassisPowerOn())
             {
                 m_worker->setDeviceTreeAndJson();
+
                 // Get the system config JSON object.
                 m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+
+                primeSystemBlueprint();
             }
             else
             {
-                throw std::runtime_error(
-                    "Worker object not found. Can't set up device tree and Json.");
+                // get the JSON from worker.
+                m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
             }
-            primeSystemBlueprint();
+
+            // Enable all mux which are used for connecting to the i2c on the
+            // pcie slots for pcie cards. These are not enabled by kernel due to
+            // an issue seen with Castello cards, where the i2c line hangs on a
+            // probe.
+            enableMuxChips();
         }
         else
         {
-            // get the JSON from worker.
-            m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+            throw std::runtime_error(
+                "Worker object not found. Can't set up device tree and JSON.");
         }
-
-        // Enable all mux which are used for connecting to the i2c on the
-        // pcie slots for pcie cards. These are not enabled by kernel due to
-        // an issue seen with Castello cards, where the i2c line hangs on a
-        // probe.
-        enableMuxChips();
 
         // Nothing needs to be done. Service restarted or BMC re-booted for
         // some reason at system power on.
-        return;
     }
     catch (const std::exception& l_ex)
     {
@@ -610,6 +610,12 @@ void IbmHandler::performInitialSetup()
             EventLogger::getErrorType(l_ex), types::SeverityType::Critical,
             __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        if (m_worker.get() != nullptr)
+        {
+            // Get the system config JSON object.
+            m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+        }
     }
 }
 
