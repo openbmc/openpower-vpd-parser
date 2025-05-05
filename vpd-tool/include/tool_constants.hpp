@@ -54,6 +54,7 @@ constexpr auto biosConfigMgrInterface =
     "xyz.openbmc_project.BIOSConfig.Manager";
 
 constexpr auto KwdIM = "IM";
+constexpr auto badVpdPath = "/var/lib/vpd/dumps";
 
 // Valid IM values list.
 static std::vector<std::string> validImValues{

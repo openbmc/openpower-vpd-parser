@@ -62,7 +62,13 @@ int doMfgClean(const auto& i_mfgCleanConfirmFlag,
     }
 
     vpd::VpdTool l_vpdToolObj;
-    return l_vpdToolObj.cleanSystemVpd(!i_syncBiosAttributesFlag->empty());
+    const int l_rc =
+        l_vpdToolObj.cleanSystemVpd(!i_syncBiosAttributesFlag->empty());
+
+    // delete the vpd dump directory
+    l_vpdToolObj.clearVpdDumpDir();
+
+    return l_rc;
 }
 
 /**

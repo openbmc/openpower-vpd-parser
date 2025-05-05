@@ -363,5 +363,13 @@ class VpdTool
      * @return On success returns 0, otherwise returns -1.
      */
     int resetVpdOnDbus();
+
+    /**
+     * @brief API to clear vpd dump directory
+     *
+     * This API deletes all the files inside vpd dump directory and then deletes
+     * the directory from the filesystem
+     */
+    void clearVpdDumpDir() const noexcept;
 };
 } // namespace vpd
