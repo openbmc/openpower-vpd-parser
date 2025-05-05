@@ -231,6 +231,15 @@ class VpdTool
      */
     static const types::BiosAttributeKeywordMap m_biosAttributeVpdKeywordMap;
 
+    /**
+     * @brief API to clear vpd dump directory
+     *
+     * This API deletes all the files inside vpd dump directory and then deletes
+     * the directory from the filesystem
+     *
+     */
+    void clearVpdDumpDir() const noexcept;
+
   public:
     /**
      * @brief Read keyword value.
