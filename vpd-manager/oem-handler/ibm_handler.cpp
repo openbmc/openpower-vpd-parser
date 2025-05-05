@@ -588,8 +588,11 @@ void IbmHandler::performInitialSetup()
         }
         else
         {
-            // get the JSON from worker.
-            m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+            if (m_worker.get() != nullptr)
+            {
+                // get the JSON from worker.
+                m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+            }
         }
 
         // Enable all mux which are used for connecting to the i2c on the
@@ -610,6 +613,12 @@ void IbmHandler::performInitialSetup()
             EventLogger::getErrorType(l_ex), types::SeverityType::Critical,
             __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        if (m_worker.get() != nullptr)
+        {
+            // Get the system config JSON object.
+            m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+        }
     }
 }
 
