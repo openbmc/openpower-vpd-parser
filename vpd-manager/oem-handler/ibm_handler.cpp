@@ -570,26 +570,21 @@ void IbmHandler::performInitialSetup()
 {
     try
     {
+        if (m_worker.get() != nullptr)
+        {
+            throw std::runtime_error(
+                "Worker object not found. Can't set up device tree and JSON.");
+        }
+
+        m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
         if (!dbusUtility::isChassisPowerOn())
         {
-            logging::logMessage("Chassis is in Off state.");
-            if (m_worker.get() != nullptr)
-            {
-                m_worker->setDeviceTreeAndJson();
-                // Get the system config JSON object.
-                m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
-            }
-            else
-            {
-                throw std::runtime_error(
-                    "Worker object not found. Can't set up device tree and Json.");
-            }
-            primeSystemBlueprint();
-        }
-        else
-        {
-            // get the JSON from worker.
+            m_worker->setDeviceTreeAndJson();
+
+            // Get the system config JSON object.
             m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+
+            primeSystemBlueprint();
         }
 
         // Enable all mux which are used for connecting to the i2c on the
@@ -600,7 +595,6 @@ void IbmHandler::performInitialSetup()
 
         // Nothing needs to be done. Service restarted or BMC re-booted for
         // some reason at system power on.
-        return;
     }
     catch (const std::exception& l_ex)
     {
