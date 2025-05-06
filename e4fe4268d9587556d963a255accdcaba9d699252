@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b4dc5d6_bcc98dd6",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-05-06T07:21:36Z",
+      "side": 1,
+      "message": "Ideally speaking, \nif m_worker is null at this point then there is some major issue with the system as worker constructor does not throw and always construct an object.\nEven then if we consider the scenario where worker instantiation fails, implies vpd-manager has no JSON loaded, in that case \"enableMuxChips\" will throw and critical PEL will be logged as code does not know which system it is running on.",
+      "parentUuid": "0838e649_85cbb0c1",
+      "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24074495_c38512ee",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 2
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "will try to get the system config JSON, even if there any exception from above code to continue with other operations, which may need the system config JSON.",
       "parentUuid": "24074495_c38512ee",
+      "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15bfc536_a01dfc62",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-05-06T07:21:36Z",
+      "side": 1,
+      "message": "I guess, @jinu.joy.thomas@in.ibm.com is concerned about the nullptr check?\nIf so, then looking at the flow, it can be skipped but it is a good practice to de-reference a pointer after check, so I am ok with the change here.",
+      "parentUuid": "2aea08c5_c63da33e",
       "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
