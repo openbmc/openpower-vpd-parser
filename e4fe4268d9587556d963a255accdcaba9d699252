@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ebd7cd55_557aca04",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-05-06T08:08:11Z",
+      "side": 1,
+      "message": "why should we throw from enableMuxChips why can we not do it for just what it is for?\nsomething like \ntry\n{\n if (m_worker.get() !\u003d nullptr)\n {\n \tif (!dbusUtility::isChassisPowerOn())\n \t{ m_worker-\u003esetDeviceTreeAndJson();}\n \t\n \tm_sysCfgJsonObj \u003d m_worker-\u003egetSysCfgJsonObj();\n \t\n \tif (!dbusUtility::isChassisPowerOn())\n \t{ primeSystemBlueprint();}\n \t\n \tenableMuxChips();\n else\n {\n\tthrow std::runtime_error( \"Worker object not found. Can\u0027t set up device tree and Json.\");\n }\n}\ncatch\n{\n  log the error;\n}",
+      "parentUuid": "0b4dc5d6_bcc98dd6",
+      "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24074495_c38512ee",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 2
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "I guess, @jinu.joy.thomas@in.ibm.com is concerned about the nullptr check?\nIf so, then looking at the flow, it can be skipped but it is a good practice to de-reference a pointer after check, so I am ok with the change here.",
       "parentUuid": "2aea08c5_c63da33e",
+      "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fba8fa48_979f7ecd",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-05-06T08:08:11Z",
+      "side": 1,
+      "message": "why do we even need to get the system json here, I do not see any flow which can come here directly. am I missing something",
+      "parentUuid": "15bfc536_a01dfc62",
       "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
