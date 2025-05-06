@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5ae5775_2e7afbcc",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-05-06T03:16:52Z",
+      "side": 1,
+      "message": "what happens to enableMuxChip if this fails?",
+      "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24074495_c38512ee",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-05-06T03:16:52Z",
+      "side": 1,
+      "message": "why do we need the check here ?",
+      "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
