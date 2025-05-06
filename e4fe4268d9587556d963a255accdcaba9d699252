@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0838e649_85cbb0c1",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-05-06T06:42:18Z",
+      "side": 1,
+      "message": "enableMuxChips() has empty check for m_sysCfgJsonObj .\nwe have checks in the enableMuxChips() for the required fields to run mux related system commands, so m_sysCfgJsonObj is mandatory.",
+      "parentUuid": "b5ae5775_2e7afbcc",
+      "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24074495_c38512ee",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2025-05-06T03:16:52Z",
       "side": 1,
       "message": "why do we need the check here ?",
+      "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aea08c5_c63da33e",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-05-06T06:42:18Z",
+      "side": 1,
+      "message": "will try to get the system config JSON, even if there any exception from above code to continue with other operations, which may need the system config JSON.",
+      "parentUuid": "24074495_c38512ee",
       "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
