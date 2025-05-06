@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8683ea2c_e0a2b16d",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-05-06T08:46:38Z",
+      "side": 1,
+      "message": "Added a null character check at the caller of this API.",
+      "parentUuid": "41089d72_61248597",
+      "revId": "c397b37ec533a81d75fa14eadd4b619219d48e71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d98940a0_45aa0fb3",
         "filename": "vpd-manager/include/utility/common_utility.hpp",
         "patchSetId": 4
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-10T08:55:10Z",
       "side": 1,
       "message": "Why do we need to compare with `constants::VALUE_16` ? We can use `l_map.size()` to get the upper limit.",
+      "revId": "c397b37ec533a81d75fa14eadd4b619219d48e71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "346fbb46_123f98dc",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-05-06T08:46:38Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "d98940a0_45aa0fb3",
       "revId": "c397b37ec533a81d75fa14eadd4b619219d48e71",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
