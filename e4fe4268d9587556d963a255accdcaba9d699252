@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2276ff48_70112444",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-05-06T09:01:38Z",
+      "side": 1,
+      "message": "I have some doubt in the proposed flow, system config json is read and updated by worker class and this class needs to perform oem specific jobs which needs latest system config json after initial set up. So in either case, chassis off or on, this class will have to fetch system config JSON from  worker.\n\nwe can optimise by pulling worker null check firstand then chassis off and on case.",
+      "parentUuid": "ebd7cd55_557aca04",
+      "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24074495_c38512ee",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 2
