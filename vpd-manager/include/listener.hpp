@@ -1,6 +1,7 @@
 #pragma once
 
 #include "types.hpp"
+#include "worker.hpp"
 
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/connection.hpp>
@@ -34,9 +35,15 @@ class Listener
      * @param[in] i_asioConn - D-bus object to perform asynchronous read/write
      * operations.
      */
-    Listener(const std::shared_ptr<sdbusplus::asio::connection>& i_asioConn) :
+    Listener(const std::shared_ptr<sdbusplus::asio::connection>& i_asioConn,
+             const std::shared_ptr<Worker>& i_worker) :
         m_asioConnection(i_asioConn)
-    {}
+    {
+        if (i_worker.get() != nullptr)
+        {
+            m_parsedInvJSON = i_worker->getSysCfgJsonObj();
+        }
+    }
 
     /**
      * @brief Register correlated properties change event
@@ -122,6 +129,8 @@ class Listener
      */
     void pauseAllCallbacks();
 
+    void handleCorrelatedDbusProps(sdbusplus::message_t& i_msg);
+
   private:
     /**
      * @brief Check if the response is paused
@@ -149,7 +158,10 @@ class Listener
     /** Set of inventory data, whose response has to be paused. */
     types::DbusData m_pausedInvData;
 
-    /** Parsed JSON object */
+    /** Parsed correlated JSON object */
     nlohmann::json m_parsedCorrelatedJson;
+
+    /** Parsed inventory json object */
+    nlohmann::json m_parsedInvJSON;
 };
 } // namespace vpd

@@ -141,7 +141,7 @@ Manager::Manager(
 #endif
 
         // Instantiate Listener class
-        m_listener = std::make_shared<Listener>(m_asioConnection);
+        m_listener = std::make_shared<Listener>(m_asioConnection, m_worker);
 
         // start listening to all correlated d-bus properties change events
         m_listener->regAllCorrelatedDbusProps();

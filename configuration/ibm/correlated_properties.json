@@ -61,7 +61,8 @@
                         }
                     }
                 }
-            }
+            },
+            "DbusSignature": "std::string"
         },
         "com.ibm.ipzvpd.VINI": {
             "PN": {
@@ -83,7 +84,8 @@
                 "defaultInterfaces": {
                     "xyz.openbmc_project.Inventory.Decorator.Asset": "SparePartNumber"
                 }
-            }
+            },
+            "DbusSignature": "std::vector<uint8_t>"
         },
         "com.ibm.ipzvpd.VSYS": {
             "SE": {
@@ -193,7 +195,8 @@
                         }
                     }
                 }
-            }
+            },
+            "DbusSignature": "std::vector<uint8_t>"
         }
     }
 }
