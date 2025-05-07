@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5cc94dc_fa5deef5",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-05-07T07:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "869a392f_9ae9fc04",
+      "revId": "0a2a137e39246e87ad20cd2872ea388fe829a431",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bae211d1_ef5e7a0b",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-05-07T05:35:29Z",
       "side": 1,
       "message": "Since the above function setDeviceTreeAndJson can change the json which is used, we would need to reacquire the json object again here.",
+      "revId": "0a2a137e39246e87ad20cd2872ea388fe829a431",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29ea3d43_6646d39e",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-05-07T07:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bae211d1_ef5e7a0b",
       "revId": "0a2a137e39246e87ad20cd2872ea388fe829a431",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

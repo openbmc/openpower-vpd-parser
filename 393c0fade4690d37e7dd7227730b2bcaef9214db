@@ -16,6 +16,24 @@
       "message": "why is return removed ?",
       "revId": "393c0fade4690d37e7dd7227730b2bcaef9214db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc87ac23_5571a73c",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-05-07T07:05:11Z",
+      "side": 0,
+      "message": "as this is end of the function. return is not required.",
+      "parentUuid": "3e89e670_87a295d3",
+      "revId": "393c0fade4690d37e7dd7227730b2bcaef9214db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
