@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81c6620e_cbbc0333",
+        "filename": "vpd-tool/include/tool_constants.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-05-08T06:40:20Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "988bbaef_873c6415",
+      "revId": "c69082fec26420ff04b31cc966fd1defab84aea6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f7346ba_aa034d30",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-05-05T14:59:43Z",
       "side": 1,
       "message": "deletes all the files ?",
+      "revId": "c69082fec26420ff04b31cc966fd1defab84aea6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15c9dc2e_0da524f3",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-05-08T06:40:20Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5f7346ba_aa034d30",
       "revId": "c69082fec26420ff04b31cc966fd1defab84aea6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc58250f_74ce09de",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-05-08T06:40:20Z",
+      "side": 1,
+      "message": "`clearVpdDumpDir` is a more descriptive name.",
+      "parentUuid": "00953bc8_3e1cac1c",
+      "revId": "c69082fec26420ff04b31cc966fd1defab84aea6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d46889b0_42f574c0",
         "filename": "vpd-tool/src/vpd_tool.cpp",
         "patchSetId": 1
@@ -65,6 +119,24 @@
       "writtenOn": "2025-05-05T14:59:43Z",
       "side": 1,
       "message": "should we also mention the path in the log ?",
+      "revId": "c69082fec26420ff04b31cc966fd1defab84aea6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b185544_234fe42c",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1558,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-05-08T06:40:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d46889b0_42f574c0",
       "revId": "c69082fec26420ff04b31cc966fd1defab84aea6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
