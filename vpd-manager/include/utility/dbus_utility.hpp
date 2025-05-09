@@ -340,17 +340,17 @@ inline bool isServiceRunning(const std::string& i_serviceName)
  * attribute value.
  */
 inline types::BiosAttributeCurrentValue biosGetAttributeMethodCall(
-    const std::string& i_attributeName)
+    const std::string& i_attributeName) noexcept
 {
-    auto l_bus = sdbusplus::bus::new_default();
-    auto l_method = l_bus.new_method_call(
-        constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
-        constants::biosConfigMgrInterface, "GetAttribute");
-    l_method.append(i_attributeName);
-
     types::BiosGetAttrRetType l_attributeVal;
     try
     {
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method = l_bus.new_method_call(
+            constants::biosConfigMgrService, constants::biosConfigMgrObjPath,
+            constants::biosConfigMgrInterface, "GetAttribute");
+        l_method.append(i_attributeName);
+
         auto l_result = l_bus.call(l_method);
         l_result.read(std::get<0>(l_attributeVal), std::get<1>(l_attributeVal),
                       std::get<2>(l_attributeVal));
