@@ -787,7 +787,8 @@ inline bool isActionRequired(
         }
 
         logging::logMessage("Flow flag: [" + i_flowFlag +
-                            "], not found in JSON for path: " + i_vpdFruPath);
+                            "], not found in JSON for path: " + i_vpdFruPath +
+                            " while checking for action: " + i_action);
         return false;
     }
     return false;
