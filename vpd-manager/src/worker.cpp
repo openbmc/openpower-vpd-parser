@@ -1404,14 +1404,8 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
     }
     catch (const std::exception& ex)
     {
-        // Notify FRU's VPD CollectionStatus as Failure
-        if (!dbusUtility::notifyFRUCollectionStatus(
-                l_inventoryPath, constants::vpdCollectionFailure))
-        {
-            logging::logMessage(
-                "Call to PIM Notify method failed to update Collection status as Failure for " +
-                i_vpdFilePath);
-        }
+        setCollectionStatusProperty(i_vpdFilePath,
+                                    constants::vpdCollectionFailure);
 
         // handle all the exceptions internally. Return only true/false
         // based on status of execution.
@@ -1915,6 +1909,77 @@ void Worker::collectSingleFruVpd(
 
         // TODO: Log PEL
         logging::logMessage(std::string(l_error.what()));
+    }
+}
+
+void Worker::setCollectionStatusProperty(
+    const std::string& i_vpdPath, const std::string& i_value) const noexcept
+{
+    try
+    {
+        if (i_vpdPath.empty())
+        {
+            throw std::runtime_error(
+                "Given path is empty. Can't set CollectionStatus property");
+        }
+
+        types::ObjectMap l_objectInterfaceMap;
+
+        if (m_parsedJson["frus"].contains(i_vpdPath))
+        {
+            for (const auto& l_Fru : m_parsedJson["frus"][i_vpdPath])
+            {
+                sdbusplus::message::object_path l_fruObjectPath(
+                    l_Fru["inventoryPath"]);
+
+                types::PropertyMap l_propertyValueMap;
+                l_propertyValueMap.emplace("CollectionStatus", i_value);
+
+                types::InterfaceMap l_interfaces;
+                vpdSpecificUtility::insertOrMerge(
+                    l_interfaces, constants::vpdCollectionInterface,
+                    move(l_propertyValueMap));
+
+                l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
+                                             std::move(l_interfaces));
+            }
+        }
+        else
+        {
+            // consider it as an inventory path.
+            if (i_vpdPath.find(constants::pimPath) != constants::VALUE_0)
+            {
+                throw std::runtime_error(
+                    "Invalid inventory path: " + i_vpdPath +
+                    ". Can't set CollectionStatus property");
+            }
+
+            types::PropertyMap l_propertyValueMap;
+            l_propertyValueMap.emplace("CollectionStatus", i_value);
+
+            types::InterfaceMap l_interfaces;
+            vpdSpecificUtility::insertOrMerge(l_interfaces,
+                                              constants::vpdCollectionInterface,
+                                              move(l_propertyValueMap));
+
+            l_objectInterfaceMap.emplace(i_vpdPath, std::move(l_interfaces));
+        }
+
+        // Notify PIM
+        if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+        {
+            throw DbusException(
+                std::string(__FUNCTION__) +
+                "Call to PIM failed while setting CollectionStatus property for path " +
+                i_vpdPath);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
+            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
 }
 } // namespace vpd
