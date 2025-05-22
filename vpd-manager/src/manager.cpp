@@ -124,9 +124,9 @@ Manager::Manager(
         // Indicates FRU VPD collection for the system has not started.
         iFace->register_property_rw<std::string>(
             "CollectionStatus", sdbusplus::vtable::property_::emits_change,
-            [this](const std::string l_currStatus, const auto&) {
+            [this](const std::string& l_currStatus, const auto&) {
                 m_vpdCollectionStatus = l_currStatus;
-                return 0;
+                return true;
             },
             [this](const auto&) { return m_vpdCollectionStatus; });
 
