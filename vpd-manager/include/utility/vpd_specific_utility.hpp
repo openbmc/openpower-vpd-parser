@@ -583,7 +583,7 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
 
         const std::vector<std::string>& l_vpdRelatedInterfaces{
             constants::operationalStatusInf, constants::inventoryItemInf,
-            constants::assetInf};
+            constants::assetInf, constants::vpdCollectionInterface};
 
         for (const auto& [l_service, l_interfaceList] : l_getObjectMap)
         {
@@ -621,8 +621,18 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
                         else if (std::holds_alternative<std::string>(
                                      l_propertyValue))
                         {
-                            l_propertyMap.emplace(l_propertyName,
-                                                  std::string{});
+                            if (l_propertyName.compare("CollectionStatus") ==
+                                constants::STR_CMP_SUCCESS)
+                            {
+                                l_propertyMap.emplace(
+                                    l_propertyName,
+                                    constants::vpdCollectionNotStarted);
+                            }
+                            else
+                            {
+                                l_propertyMap.emplace(l_propertyName,
+                                                      std::string{});
+                            }
                         }
                         else if (std::holds_alternative<bool>(l_propertyValue))
                         {
