@@ -145,6 +145,19 @@ class IbmHandler
      */
     void enableMuxChips();
 
+    /**
+     * @brief API to check if priming is required.
+     *
+     * The API will traverse the system config JSON and counts the FRU
+     * paths which qualifies for priming and compares with count of object paths
+     * found under PIM which hosts the "com.ibm.VPD.Collection" interface. If
+     * the dbus count is equal to or greater than the count from JSON config
+     * consider as priming is not required.
+     *
+     * @return true if priming is required, false otherwise.
+     */
+    bool isPrimingRequired() const noexcept;
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 

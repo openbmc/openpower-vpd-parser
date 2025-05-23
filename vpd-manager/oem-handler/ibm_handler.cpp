@@ -586,7 +586,10 @@ void IbmHandler::performInitialSetup()
             // here.
             m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
 
-            primeSystemBlueprint();
+            if (isPrimingRequired())
+            {
+                primeSystemBlueprint();
+            }
         }
 
         // Enable all mux which are used for connecting to the i2c on the
@@ -609,4 +612,44 @@ void IbmHandler::performInitialSetup()
     }
 }
 
+bool IbmHandler::isPrimingRequired() const noexcept
+{
+    try
+    {
+        // get all object paths under PIM
+        const auto l_objectPaths = dbusUtility::GetSubTreePaths(
+            constants::systemInvPath, 0,
+            std::vector<std::string>{constants::vpdCollectionInterface});
+
+        const nlohmann::json& l_listOfFrus =
+            m_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+
+        size_t l_invPathCount = 0;
+
+        for (const auto& l_itemFRUS : l_listOfFrus.items())
+        {
+            for (const auto& l_Fru : l_itemFRUS.value())
+            {
+                if (l_Fru.contains("ccin") || (l_Fru.contains("noprime") &&
+                                               l_Fru.value("noprime", false)))
+                {
+                    continue;
+                }
+
+                l_invPathCount += 1;
+            }
+        }
+        return ((l_objectPaths.size() >= l_invPathCount) ? false : true);
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Error while checking is priming required or not, error: " +
+            std::string(l_ex.what()));
+    }
+
+    // In case of any error, perform priming, as it's unclear whether priming is
+    // required.
+    return true;
+}
 } // namespace vpd
