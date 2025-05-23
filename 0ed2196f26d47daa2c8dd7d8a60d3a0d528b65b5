@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67b94c82_6ccd427a",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-05-23T07:38:03Z",
+      "side": 1,
+      "message": "Why are we not passing the value in place.\nWhy an extra string copy required?\n\nif (l_propertyName.compare(\"CollectionStatus\") \u003d\u003d constants::STR_CMP_SUCCESS)\n{\n     l_propertyMap.emplace(l_propertyName, constants::vpdCollectionNotStarted);\n     continue;\n}\n\nl_propertyMap.emplace(l_propertyName, l_value);",
+      "revId": "0ed2196f26d47daa2c8dd7d8a60d3a0d528b65b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
