@@ -711,5 +711,47 @@ inline bool isInventoryPresent(const std::string& i_invObjPath)
 
     return (*l_ptrPresence);
 }
+
+/** @brief API to get list of sub tree paths for a given object path
+ *
+ * Given a DBus object path, this API returns a list of object paths under that
+ * object path in the DBus tree. This API calls DBus method GetSubTreePaths
+ * hosted by ObjectMapper DBus service.
+ *
+ * @param[in] i_objectPath - DBus object path.
+ * @param[in] i_constrainingInterfaces - An array of result set constraining
+ * interfaces.
+ * @param[in] i_depth - The maximum subtree depth for which results should be
+ * fetched. For unconstrained fetches use a depth of zero.
+ *
+ * @return On success, returns a std::vector<std::string> of object paths,
+ * else returns an empty vector.
+ *
+ * Note: The caller of this API should check for empty vector.
+ */
+inline std::vector<std::string> GetSubTreePaths(
+    const std::string i_objectPath, const int i_depth = 0,
+    const std::vector<std::string>& i_constrainingInterfaces = {}) noexcept
+{
+    std::vector<std::string> l_objectPaths;
+    try
+    {
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method = l_bus.new_method_call(
+            constants::objectMapperService, constants::objectMapperPath,
+            constants::objectMapperInf, "GetSubTreePaths");
+
+        l_method.append(i_objectPath, i_depth, i_constrainingInterfaces);
+
+        auto l_result = l_bus.call(l_method);
+        l_result.read(l_objectPaths);
+    }
+    catch (const sdbusplus::exception::SdBusError& l_ex)
+    {
+        logging::logMessage("Error while getting GetSubTreePaths, error: " +
+                            std::string(l_ex.what()));
+    }
+    return l_objectPaths;
+}
 } // namespace dbusUtility
 } // namespace vpd
