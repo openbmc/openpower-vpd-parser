@@ -125,7 +125,11 @@ Manager::Manager(
         iFace->register_property_rw<std::string>(
             "CollectionStatus", sdbusplus::vtable::property_::emits_change,
             [this](const std::string& l_currStatus, const auto&) {
-                m_vpdCollectionStatus = l_currStatus;
+                if (m_vpdCollectionStatus != l_currStatus)
+                {
+                    m_vpdCollectionStatus = l_currStatus;
+                    m_interface->signal_property("CollectionStatus");
+                }
                 return true;
             },
             [this](const auto&) { return m_vpdCollectionStatus; });
