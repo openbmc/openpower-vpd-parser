@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae667d0d_20d1c868",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-05-27T16:11:31Z",
+      "side": 1,
+      "message": "`get_ref` can throw exception.",
+      "revId": "e045cfbf6ceb88ee6b40a40ba9967a2860038542",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8964e1a3_79eed4ff",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-05-27T16:11:31Z",
+      "side": 1,
+      "message": "Both `if` conditions can be combined into single `if` condition?",
+      "revId": "e045cfbf6ceb88ee6b40a40ba9967a2860038542",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "603a51fd_c07f67a0",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-05-27T16:11:31Z",
+      "side": 1,
+      "message": "nit:\n\u003eAPI to check is priming is required.\n\nAPI to check if priming is required.",
+      "revId": "e045cfbf6ceb88ee6b40a40ba9967a2860038542",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5d9d0ca_78dfc051",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-05-27T16:11:31Z",
+      "side": 1,
+      "message": "\u003efound under PIM which hosts the \"com.ibm.VPD.Collection\" interface\n\nfound under \"com.ibm.VPD.Collection\" interface hosted by PIM?",
+      "revId": "e045cfbf6ceb88ee6b40a40ba9967a2860038542",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e205a168_8f450115",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-05-27T16:11:31Z",
+      "side": 1,
+      "message": "\u003ethe dbus count matches(or greater) with the count\n\nthe dbus count is equal to or greater than the count",
+      "revId": "e045cfbf6ceb88ee6b40a40ba9967a2860038542",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fde037e_f989ee16",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-05-27T16:11:31Z",
+      "side": 1,
+      "message": "What will the API return in case of any error?",
+      "revId": "e045cfbf6ceb88ee6b40a40ba9967a2860038542",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
