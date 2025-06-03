@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1978d1ec_8612efd0",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-03T05:14:21Z",
+      "side": 1,
+      "message": "nit: brief starts from next line.",
+      "revId": "469e5a87c54d8fc93932f1fcfa104cf8a4c2d1d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a70000e_45163c8f",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-03T05:14:21Z",
+      "side": 1,
+      "message": "nit: sequence is not correct.",
+      "revId": "469e5a87c54d8fc93932f1fcfa104cf8a4c2d1d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8de8485d_1307c59a",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-03T05:14:21Z",
+      "side": 1,
+      "message": "In case of any error, safe side, we should go for priming by default as we don\u0027t know if it is required or not.",
+      "revId": "469e5a87c54d8fc93932f1fcfa104cf8a4c2d1d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
