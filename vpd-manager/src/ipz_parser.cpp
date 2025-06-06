@@ -842,11 +842,13 @@ bool IpzVpdParser::processInvalidRecords(
 
         // Log a Predictive PEL, including names and respective error messages
         // of all invalid records
-        EventLogger::createSyncPel(
-            types::ErrorType::InvalidVpdMessage, types::SeverityType::Warning,
+        EventLogger::createSyncPelWithInvCallOut(
+            types::ErrorType::EccCheckFailed, types::SeverityType::Warning,
             __FILE__, __FUNCTION__, constants::VALUE_0,
-            std::string("Invalid records found while parsing VPD for [" +
-                        m_vpdFilePath + "]"),
+            std::string(
+                "ECC check failed for record(s) while parsing VPD. Check user data for failed record(s). Re-program VPD."),
+            std::vector{
+                std::make_tuple(m_vpdFilePath, types::CalloutPriority::High)},
             l_invalidRecordListString, std::nullopt, std::nullopt,
             std::nullopt);
 
