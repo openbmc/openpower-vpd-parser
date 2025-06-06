@@ -302,6 +302,75 @@ void EventLogger::createSyncPel(
     }
 }
 
+void EventLogger::createSyncPelWithInvCallOut(
+    const types::ErrorType& i_errorType, const types::SeverityType& i_severity,
+    const std::string& i_fileName, const std::string& i_funcName,
+    const uint8_t i_internalRc, const std::string& i_description,
+    const std::vector<types::InventoryCalloutData>& i_callouts,
+    const std::optional<std::string> i_userData1,
+    const std::optional<std::string> i_userData2,
+    const std::optional<std::string> i_symFru,
+    const std::optional<std::string> i_procedure)
+{
+    try
+    {
+        if (i_callouts.empty())
+        {
+            logging::logMessage("Callout information is missing to create PEL");
+            return;
+        }
+
+        if (m_errorMsgMap.find(i_errorType) == m_errorMsgMap.end())
+        {
+            throw std::runtime_error("Unsupported error type received");
+        }
+
+        const std::string& l_message = m_errorMsgMap.at(i_errorType);
+
+        const std::string& l_severity =
+            (m_severityMap.find(i_severity) != m_severityMap.end()
+                 ? m_severityMap.at(i_severity)
+                 : m_severityMap.at(types::SeverityType::Informational));
+
+        const std::string l_description =
+            ((!i_description.empty() ? i_description : "VPD generic error"));
+
+        const std::string l_userData1 = ((i_userData1) ? (*i_userData1) : "");
+
+        const std::string l_userData2 = ((i_userData2) ? (*i_userData2) : "");
+
+        const types::InventoryCalloutData& l_invCallout = i_callouts[0];
+        const types::CalloutPriority& l_priorityEnum = get<1>(l_invCallout);
+
+        const std::string& l_priority =
+            (m_priorityMap.find(l_priorityEnum) != m_priorityMap.end()
+                 ? m_priorityMap.at(l_priorityEnum)
+                 : m_priorityMap.at(types::CalloutPriority::Low));
+
+        std::map<std::string, std::string> l_additionalData{
+            {"FileName", i_fileName},
+            {"FunctionName", i_funcName},
+            {"DESCRIPTION", l_description},
+            {"CALLOUT_INVENTORY_PATH", std::get<0>(l_invCallout)},
+            {"InteranlRc", std::to_string(i_internalRc)},
+            {"UserData1", l_userData1.c_str()},
+            {"UserData2", l_userData2.c_str()}};
+
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method =
+            l_bus.new_method_call(constants::eventLoggingServiceName,
+                                  constants::eventLoggingObjectPath,
+                                  constants::eventLoggingInterface, "Create");
+        l_method.append(l_message, l_severity, l_additionalData);
+        l_bus.call(l_method);
+    }
+    catch (const sdbusplus::exception::SdBusError& l_ex)
+    {
+        logging::logMessage("Sync PEL creation failed with an error: " +
+                            std::string(l_ex.what()));
+    }
+}
+
 types::ExceptionDataMap EventLogger::getExceptionData(
     const std::exception& i_exception)
 {
