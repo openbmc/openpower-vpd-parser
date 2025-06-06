@@ -190,14 +190,55 @@ class EventLogger
         const std::optional<std::string> i_symFru,
         const std::optional<std::string> i_procedure);
 
+    /**
+     * @brief An API to create a synchronus PEL with inventory path callout.
+     *
+     * This API calls phosphor-logging method to create PEL, and also handles
+     * inventory path callout. In case called with EEPROM path, will look for
+     * JSON at symbolic link and if present will fetch inventory path for that
+     * EEPROM.
+     *
+     * Note: In case of any error in fetching JSON or converting the EEPROM
+     * path, the API will log PEL with path passed in callout parameter.
+     * If inventory/EEPROM path is not provided in the callout, it will create
+     * PEL without call out. Currently only one callout is handled in this API.
+     *
+     * @todo: Symbolic FRU and procedure callout needs to be handled in this
+     * API.
+     *
+     * @param[in] i_errorType - Enum to map with event message name.
+     * @param[in] i_severity - Severity of the event.
+     * @param[in] i_fileName - File name.
+     * @param[in] i_funcName - Function name.
+     * @param[in] i_internalRc - Internal return code.
+     * @param[in] i_description - Error description.
+     * @param[in] i_callouts - Callout information.
+     * @param[in] i_userData1 - Additional user data [optional].
+     * @param[in] i_userData2 - Additional user data [optional].
+     * @param[in] i_symFru - Symblolic FRU callout data [optional].
+     * @param[in] i_procedure - Procedure callout data [optional].
+     *
+     * @throw exception in case of error.
+     */
+    static void createSyncPelWithInvCallOut(
+        const types::ErrorType& i_errorType,
+        const types::SeverityType& i_severity, const std::string& i_fileName,
+        const std::string& i_funcName, const uint8_t i_internalRc,
+        const std::string& i_description,
+        const std::vector<types::InventoryCalloutData>& i_callouts,
+        const std::optional<std::string> i_userData1,
+        const std::optional<std::string> i_userData2,
+        [[maybe_unused]] const std::optional<std::string> i_symFru,
+        [[maybe_unused]] const std::optional<std::string> i_procedure);
+
   private:
     /**
      * @brief API to get error info based on the exception.
      *
      * @param[in] i_exception - Exception object.
      *
-     * @return - Valid ExceptionDataMap on success, otherwise map having default
-     * value.
+     * @return - Valid ExceptionDataMap on success, otherwise map having
+     * default value.
      */
     static types::ExceptionDataMap getExceptionData(
         const std::exception& i_exception);
