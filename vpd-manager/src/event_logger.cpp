@@ -1,9 +1,15 @@
+#include "config.h"
+
 #include "event_logger.hpp"
 
 #include "exceptions.hpp"
 #include "logger.hpp"
 
 #include <systemd/sd-bus.h>
+
+#include <utility/json_utility.hpp>
+
+#include <filesystem>
 
 namespace vpd
 {
@@ -299,6 +305,97 @@ void EventLogger::createSyncPel(
     {
         logging::logMessage("Sync PEL creation failed with an error: " +
                             std::string(l_ex.what()));
+    }
+}
+
+void EventLogger::createSyncPelWithInvCallOut(
+    const types::ErrorType& i_errorType, const types::SeverityType& i_severity,
+    const std::string& i_fileName, const std::string& i_funcName,
+    const uint8_t i_internalRc, const std::string& i_description,
+    const std::vector<types::InventoryCalloutData>& i_callouts,
+    const std::optional<std::string> i_userData1,
+    const std::optional<std::string> i_userData2,
+    [[maybe_unused]] const std::optional<std::string> i_symFru,
+    [[maybe_unused]] const std::optional<std::string> i_procedure)
+{
+    try
+    {
+        if (i_callouts.empty())
+        {
+            createSyncPel(i_errorType, i_severity, i_fileName, i_funcName,
+                          i_internalRc, i_description, i_userData1, i_userData2,
+                          i_symFru, i_procedure);
+            logging::logMessage(
+                "Callout list is empty, creating PEL without call out");
+            return;
+        }
+
+        if (m_errorMsgMap.find(i_errorType) == m_errorMsgMap.end())
+        {
+            throw std::runtime_error("Unsupported error type received");
+        }
+
+        // Path to hold callout inventory path.
+        std::string l_calloutInvPath;
+
+        // check if callout path is a valid inventory path. if not, get the JSON
+        // object to get inventory path.
+        if (std::get<0>(i_callouts[0])
+                .compare(constants::VALUE_0, strlen(constants::pimPath),
+                         constants::pimPath) != constants::STR_CMP_SUCCESS)
+        {
+            std::error_code l_ec;
+            // implies json dependent execution.
+            if (std::filesystem::exists(INVENTORY_JSON_SYM_LINK, l_ec))
+            {
+                if (!l_ec)
+                {
+                    l_calloutInvPath = jsonUtility::getInventoryObjPathFromJson(
+                        jsonUtility::getParsedJson(INVENTORY_JSON_SYM_LINK),
+                        std::get<0>(i_callouts[0]));
+                }
+                else
+                {
+                    logging::logMessage(
+                        "Error finding symlink. Continue with given path");
+                }
+            }
+        }
+
+        if (l_calloutInvPath.empty())
+        {
+            l_calloutInvPath = std::get<0>(i_callouts[0]);
+        }
+
+        const std::map<std::string, std::string> l_additionalData{
+            {"FileName", i_fileName},
+            {"FunctionName", i_funcName},
+            {"DESCRIPTION",
+             (!i_description.empty() ? i_description : "VPD generic error")},
+            {"CALLOUT_INVENTORY_PATH", l_calloutInvPath},
+            {"InteranlRc", std::to_string(i_internalRc)},
+            {"UserData1", ((i_userData1) ? (*i_userData1) : "").c_str()},
+            {"UserData2", ((i_userData2) ? (*i_userData2) : "").c_str()}};
+
+        const std::string& l_severity =
+            (m_severityMap.find(i_severity) != m_severityMap.end()
+                 ? m_severityMap.at(i_severity)
+                 : m_severityMap.at(types::SeverityType::Informational));
+
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method =
+            l_bus.new_method_call(constants::eventLoggingServiceName,
+                                  constants::eventLoggingObjectPath,
+                                  constants::eventLoggingInterface, "Create");
+        l_method.append(m_errorMsgMap.at(i_errorType), l_severity,
+                        l_additionalData);
+        l_bus.call(l_method);
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Sync PEL creation with inventory path failed with error: " +
+            std::string(l_ex.what()));
     }
 }
 
