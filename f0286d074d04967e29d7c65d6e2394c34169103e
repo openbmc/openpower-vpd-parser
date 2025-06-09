@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bfeec33_6110ec99",
+        "filename": "vpd-manager/include/event_logger.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-06-09T18:16:04Z",
+      "side": 1,
+      "message": "nit: This change is due to `clang`?",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66c81345_ccb88df6",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-06-09T18:16:04Z",
+      "side": 1,
+      "message": "Should we do an empty check on other parameters like `i_fileName`, `i_funcName`?",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60fae380_37578857",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-06-09T18:16:04Z",
+      "side": 1,
+      "message": "Do we need `l_userData1` and `l_userData2` variables? These can be used inplace in the map construction?",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ed36484_619a2676",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-06-09T18:16:04Z",
+      "side": 1,
+      "message": "This can be `const`",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4db0bc33_883eed5d",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-06-09T18:16:04Z",
+      "side": 1,
+      "message": "`i_invalidRecordList` can contain records for which `EccException` or `DataException` was encountered, so should we create PEL with type `EccCheckFailed` only?",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
