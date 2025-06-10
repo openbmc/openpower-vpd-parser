@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34e0add3_eb990db2",
+        "filename": "vpd-manager/include/event_logger.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-06-10T07:34:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d6347915_8eb19fe0",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66c81345_ccb88df6",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "There is no special action required in that case. Hence skipped.",
       "parentUuid": "66c81345_ccb88df6",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39509603_afb34fe4",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-06-10T07:34:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "21dcb33a_57cb9539",
       "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -225,6 +261,24 @@
       "side": 1,
       "message": "Agree, but there is no entry in message registry which states that it can be both kind of error.\nThe one that was being logged before was only addressing data issue. So going with the high probability one. Going forward, we Will have to eventually add a new entry in message registry JSON and fix this.",
       "parentUuid": "4db0bc33_883eed5d",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1687c510_b4627ee1",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-06-10T07:34:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3cd8678f_be442aee",
       "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
