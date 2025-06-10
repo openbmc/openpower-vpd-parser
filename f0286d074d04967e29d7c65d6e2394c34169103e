@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6347915_8eb19fe0",
+        "filename": "vpd-manager/include/event_logger.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-10T05:57:57Z",
+      "side": 1,
+      "message": "yup.",
+      "parentUuid": "3bfeec33_6110ec99",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "66c81345_ccb88df6",
         "filename": "vpd-manager/src/event_logger.cpp",
         "patchSetId": 11
@@ -31,6 +49,24 @@
       "writtenOn": "2025-06-09T18:16:04Z",
       "side": 1,
       "message": "Should we do an empty check on other parameters like `i_fileName`, `i_funcName`?",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21dcb33a_57cb9539",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-10T05:57:57Z",
+      "side": 1,
+      "message": "There is no special action required in that case. Hence skipped.",
+      "parentUuid": "66c81345_ccb88df6",
       "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "17f2fa96_2186ff1e",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-10T05:57:57Z",
+      "side": 1,
+      "message": "no that will not work, in case \"getInventoryObjPathFromJson\" returns an empty string, it will overwrite l_calloutInvPath",
+      "parentUuid": "e8f2a569_d98f47f1",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "60fae380_37578857",
         "filename": "vpd-manager/src/event_logger.cpp",
         "patchSetId": 11
@@ -65,6 +119,24 @@
       "writtenOn": "2025-06-09T18:16:04Z",
       "side": 1,
       "message": "Do we need `l_userData1` and `l_userData2` variables? These can be used inplace in the map construction?",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d06b5ab_38770a25",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-10T05:57:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "60fae380_37578857",
       "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ad58339_536a8bfd",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-10T05:57:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3ed36484_619a2676",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4db0bc33_883eed5d",
@@ -99,6 +189,24 @@
       "writtenOn": "2025-06-09T18:16:04Z",
       "side": 1,
       "message": "`i_invalidRecordList` can contain records for which `EccException` or `DataException` was encountered, so should we create PEL with type `EccCheckFailed` only?",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cd8678f_be442aee",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-10T05:57:57Z",
+      "side": 1,
+      "message": "Agree, but there is no entry in message registry which states that it can be both kind of error.\nThe one that was being logged before was only addressing data issue. So going with the high probability one. Going forward, we Will have to eventually add a new entry in message registry JSON and fix this.",
+      "parentUuid": "4db0bc33_883eed5d",
       "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
