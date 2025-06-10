@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "892642c1_7dcb2c2e",
+        "filename": "vpd-manager/include/event_logger.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-10T07:41:05Z",
+      "side": 1,
+      "message": "For now it is throwing exception, so this is required. In next PS I am capturing all the exceptions in the API. will remove this as well.",
+      "parentUuid": "171026bd_624b1059",
+      "revId": "366c7fb32580e6d2cee36b2ff3d82e43ea96812b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a2c7362_69dfe368",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-06-10T07:24:27Z",
       "side": 1,
       "message": "not catching any other than SdBusError errors ?\nshould we catch all error and log.",
+      "revId": "366c7fb32580e6d2cee36b2ff3d82e43ea96812b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c13e90aa_5fbc8078",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-10T07:41:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6a2c7362_69dfe368",
       "revId": "366c7fb32580e6d2cee36b2ff3d82e43ea96812b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
