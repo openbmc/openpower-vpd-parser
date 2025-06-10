@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "048d4fc9_348ab7bc",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-06-10T07:24:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "17f2fa96_2186ff1e",
+      "revId": "f0286d074d04967e29d7c65d6e2394c34169103e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60fae380_37578857",
