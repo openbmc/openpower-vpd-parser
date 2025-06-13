@@ -188,7 +188,8 @@ enum ErrorType
     SystemTypeMismatch,
     UndefinedError,
     UnknownSystemSettings,
-    FirmwareError
+    FirmwareError,
+    VpdParseError /* Should be used in case of any generic VPD parsing error. */
 };
 
 using InventoryCalloutData = std::tuple<std::string, CalloutPriority>;

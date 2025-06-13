@@ -843,7 +843,7 @@ bool IpzVpdParser::processInvalidRecords(
         // Log a Predictive PEL, including names and respective error messages
         // of all invalid records
         EventLogger::createSyncPelWithInvCallOut(
-            types::ErrorType::EccCheckFailed, types::SeverityType::Warning,
+            types::ErrorType::VPDParseError, types::SeverityType::Warning,
             __FILE__, __FUNCTION__, constants::VALUE_0,
             std::string(
                 "Check failed for record(s) while parsing VPD. Check user data for reason and list of failed record(s). Re-program VPD."),
