@@ -55,7 +55,8 @@ const std::unordered_map<types::ErrorType, std::string>
          "com.ibm.VPD.Error.SystemTypeMismatch"},
         {types::ErrorType::UnknownSystemSettings,
          "com.ibm.VPD.Error.UnknownSystemSettings"},
-        {types::ErrorType::FirmwareError, "com.ibm.VPD.Error.FirmwareError"}};
+        {types::ErrorType::FirmwareError, "com.ibm.VPD.Error.FirmwareError"},
+        {types::ErrorType::VpdParseError, "com.ibm.VPD.Error.VPDParseError"}};
 
 const std::unordered_map<types::CalloutPriority, std::string>
     EventLogger::m_priorityMap = {
