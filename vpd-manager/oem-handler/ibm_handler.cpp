@@ -2,6 +2,7 @@
 
 #include "ibm_handler.hpp"
 
+#include "listener.hpp"
 #include "parser.hpp"
 
 #include <utility/common_utility.hpp>
@@ -57,16 +58,10 @@ IbmHandler::IbmHandler(
         }
     }
 
-    // callback to detect host state change.
-    registerHostStateChangeCallback();
-
-    // set callback to detect any asset tag change
-    registerAssetTagChangeCallback();
-
     // Instantiate Listener object
-    // ToDo: listening assetTag and HostState properties will move under
-    // Listener class
     m_eventListener = std::make_shared<Listener>(m_asioConnection);
+    m_eventListener->registerAssetTagChangeCallback();
+    m_eventListener->registerHostStateChangeCallback(m_worker);
 
     // set async timer to detect if system VPD is published on D-Bus.
     SetTimerToDetectSVPDOnDbus();
@@ -77,65 +72,6 @@ IbmHandler::IbmHandler(
     // Instantiate GpioMonitor class
     m_gpioMonitor =
         std::make_shared<GpioMonitor>(m_sysCfgJsonObj, m_worker, m_ioContext);
-}
-
-void IbmHandler::registerAssetTagChangeCallback()
-{
-    static std::shared_ptr<sdbusplus::bus::match_t> l_assetMatch =
-        std::make_shared<sdbusplus::bus::match_t>(
-            *m_asioConnection,
-            sdbusplus::bus::match::rules::propertiesChanged(
-                constants::systemInvPath, constants::assetTagInf),
-            [this](sdbusplus::message_t& l_msg) {
-                processAssetTagChangeCallback(l_msg);
-            });
-}
-
-void IbmHandler::processAssetTagChangeCallback(sdbusplus::message_t& i_msg)
-{
-    try
-    {
-        if (i_msg.is_method_error())
-        {
-            throw std::runtime_error(
-                "Error reading callback msg for asset tag.");
-        }
-
-        std::string l_objectPath;
-        types::PropertyMap l_propMap;
-        i_msg.read(l_objectPath, l_propMap);
-
-        const auto& l_itrToAssetTag = l_propMap.find("AssetTag");
-        if (l_itrToAssetTag != l_propMap.end())
-        {
-            if (auto l_assetTag =
-                    std::get_if<std::string>(&(l_itrToAssetTag->second)))
-            {
-                // Call Notify to persist the AssetTag
-                types::ObjectMap l_objectMap = {
-                    {sdbusplus::message::object_path(constants::systemInvPath),
-                     {{constants::assetTagInf, {{"AssetTag", *l_assetTag}}}}}};
-
-                // Notify PIM
-                if (!dbusUtility::callPIM(move(l_objectMap)))
-                {
-                    throw std::runtime_error(
-                        "Call to PIM failed for asset tag update.");
-                }
-            }
-        }
-        else
-        {
-            throw std::runtime_error(
-                "Could not find asset tag in callback message.");
-        }
-    }
-    catch (const std::exception& l_ex)
-    {
-        // TODO: Log PEL with below description.
-        logging::logMessage("Asset tag callback update failed with error: " +
-                            std::string(l_ex.what()));
-    }
 }
 
 void IbmHandler::SetTimerToDetectSVPDOnDbus()
@@ -437,73 +373,6 @@ void IbmHandler::processFailedEeproms()
         // failed
         // - For each failed EEPROM, trigger VPD collection
         m_worker->getFailedEepromPaths().clear();
-    }
-}
-
-void IbmHandler::registerHostStateChangeCallback()
-{
-    static std::shared_ptr<sdbusplus::bus::match_t> l_hostState =
-        std::make_shared<sdbusplus::bus::match_t>(
-            *m_asioConnection,
-            sdbusplus::bus::match::rules::propertiesChanged(
-                constants::hostObjectPath, constants::hostInterface),
-            [this](sdbusplus::message_t& i_msg) {
-                hostStateChangeCallBack(i_msg);
-            });
-}
-
-void IbmHandler::hostStateChangeCallBack(sdbusplus::message_t& i_msg)
-{
-    try
-    {
-        if (i_msg.is_method_error())
-        {
-            throw std::runtime_error(
-                "Error reading callback message for host state");
-        }
-
-        std::string l_objectPath;
-        types::PropertyMap l_propMap;
-        i_msg.read(l_objectPath, l_propMap);
-
-        const auto l_itr = l_propMap.find("CurrentHostState");
-
-        if (l_itr == l_propMap.end())
-        {
-            throw std::runtime_error(
-                "CurrentHostState field is missing in callback message");
-        }
-
-        if (auto l_hostState = std::get_if<std::string>(&(l_itr->second)))
-        {
-            // implies system is moving from standby to power on state
-            if (*l_hostState == "xyz.openbmc_project.State.Host.HostState."
-                                "TransitioningToRunning")
-            {
-                // TODO: check for all the essential FRUs in the system.
-
-                if (m_worker.get() != nullptr)
-                {
-                    // Perform recollection.
-                    m_worker->performVpdRecollection();
-                }
-                else
-                {
-                    logging::logMessage(
-                        "Failed to get worker object, Abort re-collection");
-                }
-            }
-        }
-        else
-        {
-            throw std::runtime_error(
-                "Invalid type recieved in variant for host state.");
-        }
-    }
-    catch (const std::exception& l_ex)
-    {
-        // TODO: Log PEL.
-        logging::logMessage(l_ex.what());
     }
 }
 
