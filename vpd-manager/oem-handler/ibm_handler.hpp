@@ -2,6 +2,7 @@
 
 #include "backup_restore.hpp"
 #include "gpio_monitor.hpp"
+#include "listener.hpp"
 #include "worker.hpp"
 
 #include <sdbusplus/asio/object_server.hpp>
@@ -178,5 +179,8 @@ class IbmHandler
 
     // Shared pointer to bus connection.
     const std::shared_ptr<sdbusplus::asio::connection>& m_asioConnection;
+
+    // Shared pointer to Listener object.
+    std::shared_ptr<Listener> m_eventListener;
 };
 } // namespace vpd

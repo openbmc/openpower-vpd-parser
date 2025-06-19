@@ -63,6 +63,11 @@ IbmHandler::IbmHandler(
     // set callback to detect any asset tag change
     registerAssetTagChangeCallback();
 
+    // Instantiate Listener object
+    // ToDo: listening assetTag and HostState properties will move under
+    // Listener class
+    m_eventListener = std::make_shared<Listener>(m_asioConnection);
+
     // set async timer to detect if system VPD is published on D-Bus.
     SetTimerToDetectSVPDOnDbus();
 
