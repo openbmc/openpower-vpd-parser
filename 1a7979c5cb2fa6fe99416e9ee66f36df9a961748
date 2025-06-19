@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57a5eaea_238f146b",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-06-19T16:23:16Z",
+      "side": 1,
+      "message": "Should we have this `Listener` class as an interface, and then use it as a base class for `EventListener`, `FileListener`, etc.?",
+      "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
