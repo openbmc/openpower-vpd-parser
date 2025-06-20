@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc0427d7_e58c38f4",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-20T04:43:07Z",
+      "side": 1,
+      "message": "This class \"will be\" used for?",
+      "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "57a5eaea_238f146b",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 5
@@ -14,6 +31,58 @@
       "writtenOn": "2025-06-19T16:23:16Z",
       "side": 1,
       "message": "Should we have this `Listener` class as an interface, and then use it as a base class for `EventListener`, `FileListener`, etc.?",
+      "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e65dcae1_54e5de61",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-20T04:43:07Z",
+      "side": 1,
+      "message": "Why an interface?\n-\u003e Do we need to decide instantiation at runtime? Also,\n-\u003e I don\u0027t see a need where we need to mandate a common implementation by derived classes.",
+      "parentUuid": "57a5eaea_238f146b",
+      "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50ace578_4da5f690",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-20T04:43:07Z",
+      "side": 1,
+      "message": "Why do we need this now?",
+      "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25d7f3aa_80402704",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-20T04:43:07Z",
+      "side": 1,
+      "message": "Where is this gong to be instantiated?",
       "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
