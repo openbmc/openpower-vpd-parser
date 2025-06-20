@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59be1651_04209009",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-06-20T05:09:17Z",
+      "side": 1,
+      "message": "Agree, there is no mandate as such. This is a design suggestion. Many of the functionalities maybe common for `EventListener` and the planned `FileListener`, so we can have the common functionalities in a Base class.",
+      "parentUuid": "e65dcae1_54e5de61",
+      "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50ace578_4da5f690",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 5
