@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0edc6725_00c06987",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-06-20T07:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc0427d7_e58c38f4",
+      "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57a5eaea_238f146b",
@@ -73,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "583c2caa_17dd2fe7",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-06-20T07:26:35Z",
+      "side": 1,
+      "message": "I don\u0027t see any common functionality between File Listener with dbus (other) events.\neach type will have own style of processing the events.",
+      "parentUuid": "59be1651_04209009",
+      "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50ace578_4da5f690",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 5
@@ -90,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "10d197ff_5efb7261",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-06-20T07:26:35Z",
+      "side": 1,
+      "message": "as we will handle dbus events in the listener, so added as part of stub.",
+      "parentUuid": "50ace578_4da5f690",
+      "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25d7f3aa_80402704",
         "filename": "vpd-manager/src/listener.cpp",
         "patchSetId": 5
@@ -101,6 +155,24 @@
       "writtenOn": "2025-06-20T04:43:07Z",
       "side": 1,
       "message": "Where is this gong to be instantiated?",
+      "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68fbc139_8d88eae2",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-06-20T07:26:35Z",
+      "side": 1,
+      "message": "updated.",
+      "parentUuid": "25d7f3aa_80402704",
       "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
