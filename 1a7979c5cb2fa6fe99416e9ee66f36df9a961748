@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "908c643d_508d5879",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-22T08:18:53Z",
+      "side": 1,
+      "message": "From design perspective, I don\u0027t see any mandatory implementation required by the derived class. So I don\u0027t find interface adding any value here.\nI am ok with the current implementation.",
+      "parentUuid": "583c2caa_17dd2fe7",
+      "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50ace578_4da5f690",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 5
@@ -138,6 +156,24 @@
       "side": 1,
       "message": "as we will handle dbus events in the listener, so added as part of stub.",
       "parentUuid": "50ace578_4da5f690",
+      "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23a3999f_21597e62",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-22T08:18:53Z",
+      "side": 1,
+      "message": "Ideally, it is a good practice to add parameters when it is consumed so that it sets the context.",
+      "parentUuid": "10d197ff_5efb7261",
       "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -173,6 +209,24 @@
       "side": 1,
       "message": "updated.",
       "parentUuid": "25d7f3aa_80402704",
+      "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f4db425_a75172b6",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-22T08:18:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "68fbc139_8d88eae2",
       "revId": "1a7979c5cb2fa6fe99416e9ee66f36df9a961748",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
