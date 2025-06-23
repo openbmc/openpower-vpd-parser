@@ -234,6 +234,11 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
             {
                 m_backupAndRestoreObj->backupAndRestore();
             }
+
+            if (m_eventListener)
+            {
+                m_eventListener->registerAllCorrPropCallBack();
+            }
         }
         else
         {
