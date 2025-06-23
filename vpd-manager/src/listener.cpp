@@ -2,13 +2,21 @@
 
 #include "event_logger.hpp"
 #include "logger.hpp"
+#include "utility/json_utility.hpp"
 
 namespace vpd
 {
 Listener::Listener(
-    const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection) :
+    const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
+    const std::string& i_correlatedPropJsonPath) :
     m_asioConnection(i_asioConnection)
-{}
+{
+    m_correlatedPropJson = jsonUtility::getParsedJson(i_correlatedPropJsonPath);
+    if (m_correlatedPropJson.empty())
+    {
+        logging::logMessage("Failed to parse correlated properties JSON");
+    }
+}
 
 void Listener::registerCorrPropCallBack() const noexcept
 {

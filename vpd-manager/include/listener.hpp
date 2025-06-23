@@ -1,5 +1,6 @@
 #pragma once
 
+#include <nlohmann/json.hpp>
 #include <sdbusplus/asio/object_server.hpp>
 
 #include <memory>
@@ -26,9 +27,12 @@ class Listener
      * @brief Constructor
      *
      * @param[in] i_asioConnection - Dbus Connection.
+     * @param[in] i_correlatedPropJsonPath - Path to correlated properties JSON
+     * file.
      */
     Listener(
-        const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection);
+        const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
+        const std::string& i_correlatedPropJsonPath);
 
     /**
      * @brief API to register call back for all interfaces hosting correlated
@@ -43,6 +47,9 @@ class Listener
   private:
     // Shared pointer to bus connection.
     const std::shared_ptr<sdbusplus::asio::connection>& m_asioConnection;
+
+    // Parsed correlated properties JSON.
+    nlohmann::json m_correlatedPropJson{};
 
     /**
      * @brief API which is called when correlated property change is detected
