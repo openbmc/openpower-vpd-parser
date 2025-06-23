@@ -30,8 +30,25 @@ class Listener
     Listener(
         const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection);
 
+    /**
+     * @brief API to register call back for all interfaces hosting correlated
+     * properties
+     *
+     * This API registers callback for all the interfaces in
+     * correlated_properties.json
+     *
+     */
+    void registerCorrPropCallBack() const noexcept;
+
   private:
     // Shared pointer to bus connection.
     const std::shared_ptr<sdbusplus::asio::connection>& m_asioConnection;
+
+    /**
+     * @brief API which is called when correlated property change is detected
+     *
+     */
+    void correlatedPropChangedCallBack(
+        const sdbusplus::message_t& i_msg) const noexcept;
 };
 } // namespace vpd
