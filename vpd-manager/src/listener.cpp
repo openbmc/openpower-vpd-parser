@@ -252,6 +252,13 @@ void Listener::registerCorrPropCallBack(
 {
     try
     {
+        m_correlatedPropJson =
+            jsonUtility::getParsedJson(i_correlatedPropJsonFile);
+        if (m_correlatedPropJson.empty())
+        {
+            throw JsonException("Failed to parse correlated properties JSON",
+                                i_correlatedPropJsonFile);
+        }
         /* TODO:
         Parse correlated_properties JSON, and register callback for all
         interfaces under all services */
