@@ -1,5 +1,7 @@
 #pragma once
 
+#include "constants.hpp"
+
 #include <sdbusplus/asio/object_server.hpp>
 
 #include <memory>
@@ -30,8 +32,31 @@ class Listener
     Listener(
         const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection);
 
+    /**
+     * @brief API to register call back for all interfaces hosting correlated
+     * properties
+     *
+     * This API registers callback for all the interfaces in
+     * correlated_properties.json
+     *
+     * @param[in] i_correlatedPropJsonPath - File path of correlated properties
+     * JSON.
+     *
+     */
+    void registerCorrPropCallBack(
+        [[maybe_unused]] const std::string& i_correlatedPropJsonPath =
+            constants::correlatedPropJsonPath) noexcept;
+
   private:
     // Shared pointer to bus connection.
     const std::shared_ptr<sdbusplus::asio::connection>& m_asioConnection;
+
+    /**
+     * @brief API which is called when correlated property change is detected
+     *
+     * @param[in] i_msg - Callback message.
+     */
+    void correlatedPropChangedCallBack(
+        const sdbusplus::message_t& i_msg) const noexcept;
 };
 } // namespace vpd
