@@ -4,6 +4,7 @@
 #include "exceptions.hpp"
 #include "logger.hpp"
 #include "utility/dbus_utility.hpp"
+#include "utility/json_utility.hpp"
 
 namespace vpd
 {
@@ -170,6 +171,13 @@ void Listener::registerAllCorrPropCallBack(
 {
     try
     {
+        m_correlatedPropJson =
+            jsonUtility::getParsedJson(i_correlatedPropJsonPath);
+        if (m_correlatedPropJson.empty())
+        {
+            throw JsonException("Failed to parse correlated properties JSON",
+                                i_correlatedPropJsonPath);
+        }
         /* TODO:
         Parse correlated_properties JSON, and register callback for all
         interfaces under all services */
