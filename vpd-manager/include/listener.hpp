@@ -1,5 +1,6 @@
 #pragma once
 
+#include "constants.hpp"
 #include "types.hpp"
 #include "worker.hpp"
 
@@ -53,6 +54,37 @@ class Listener
      */
     void registerPresenceChangeCallback() noexcept;
 
+    /**
+     * @brief API to register callback for all correlated properties.
+     *
+     * This API registers properties changed callback for all the interfaces in
+     * given correlated properties JSON file.
+     *
+     * @param[in] i_correlatedPropJsonFile - File path of correlated properties
+     * JSON.
+     */
+    void registerCorrPropCallBack(
+        [[maybe_unused]] const std::string& i_correlatedPropJsonFile =
+            constants::correlatedPropJsonFile) noexcept;
+
+    /**
+     * @brief API to register properties changed callback.
+     *
+     * This API registers a properties changed callback for a specific interface
+     * under a service.
+     *
+     * @param[in] i_service - Service name.
+     * @param[in] i_interface - Interface name.
+     * @param[in] i_callBackFunction - Callback function.
+     *
+     * @throw FirmwareException
+     */
+    void registerPropChangeCallBack(
+        [[maybe_unused]] const std::string& i_service,
+        [[maybe_unused]] const std::string& i_interface,
+        [[maybe_unused]] std::function<void(sdbusplus::message_t& i_msg)>
+            i_callBackFunction);
+
   private:
     /**
      * @brief API to process host state change callback.
@@ -84,5 +116,12 @@ class Listener
 
     // Map of inventory path to Present property match object
     types::FruPresenceMatchObjectMap m_fruPresenceMatchObjectMap;
+
+    /**
+     * @brief API which is called when correlated property change is detected
+     *
+     * @param[in] i_msg - Callback message.
+     */
+    void correlatedPropChangedCallBack(sdbusplus::message_t& i_msg) noexcept;
 };
 } // namespace vpd
