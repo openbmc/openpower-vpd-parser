@@ -2,6 +2,7 @@
 
 #include "constants.hpp"
 
+#include <nlohmann/json.hpp>
 #include <sdbusplus/asio/object_server.hpp>
 
 #include <memory>
@@ -44,12 +45,15 @@ class Listener
      *
      */
     void registerCorrPropCallBack(
-        [[maybe_unused]] const std::string& i_correlatedPropJsonPath =
+        const std::string& i_correlatedPropJsonPath =
             constants::correlatedPropJsonPath) noexcept;
 
   private:
     // Shared pointer to bus connection.
     const std::shared_ptr<sdbusplus::asio::connection>& m_asioConnection;
+
+    // Parsed correlated properties JSON.
+    nlohmann::json m_correlatedPropJson{};
 
     /**
      * @brief API which is called when correlated property change is detected

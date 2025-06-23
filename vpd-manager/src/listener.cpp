@@ -3,6 +3,7 @@
 #include "event_logger.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
+#include "utility/json_utility.hpp"
 
 namespace vpd
 {
@@ -12,12 +13,19 @@ Listener::Listener(
 {}
 
 void Listener::registerCorrPropCallBack(
-    [[maybe_unused]] const std::string& i_correlatedPropJsonPath) noexcept
+    const std::string& i_correlatedPropJsonPath) noexcept
 {
     try
     {
+        m_correlatedPropJson =
+            jsonUtility::getParsedJson(i_correlatedPropJsonPath);
+        if (m_correlatedPropJson.empty())
+        {
+            throw JsonException("Failed to parse correlated properties JSON",
+                                i_correlatedPropJsonPath);
+        }
         /* TODO:
-        Parse correlated_properties JSON, and register callback for all
+       Register callback for all
         interfaces */
     }
     catch (const std::exception& l_ex)
