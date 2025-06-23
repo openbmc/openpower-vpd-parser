@@ -2,6 +2,7 @@
 
 #include "constants.hpp"
 
+#include <nlohmann/json.hpp>
 #include <sdbusplus/asio/object_server.hpp>
 
 #include <memory>
@@ -68,6 +69,9 @@ class Listener
   private:
     // Shared pointer to bus connection.
     const std::shared_ptr<sdbusplus::asio::connection>& m_asioConnection;
+
+    // Parsed correlated properties JSON.
+    nlohmann::json m_correlatedPropJson{};
 
     /**
      * @brief API which is called when correlated property change is detected
