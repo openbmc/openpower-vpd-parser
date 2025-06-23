@@ -4,6 +4,7 @@
 #include "types.hpp"
 #include "worker.hpp"
 
+#include <nlohmann/json.hpp>
 #include <sdbusplus/asio/object_server.hpp>
 
 #include <memory>
@@ -116,6 +117,9 @@ class Listener
 
     // Map of inventory path to Present property match object
     types::FruPresenceMatchObjectMap m_fruPresenceMatchObjectMap;
+
+    // Parsed correlated properties JSON.
+    nlohmann::json m_correlatedPropJson{};
 
     /**
      * @brief API which is called when correlated property change is detected
