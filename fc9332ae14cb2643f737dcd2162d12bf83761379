@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91619612_3e76d661",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-06-24T05:30:06Z",
+      "side": 1,
+      "message": "why we returning bool, is there any action on failure on this API.\nor is it better handle failure(log a PEL or logging) in the API itself ?",
+      "revId": "fc9332ae14cb2643f737dcd2162d12bf83761379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
