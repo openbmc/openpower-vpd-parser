@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6bee965_d95a1cd5",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-06-25T07:27:46Z",
+      "side": 1,
+      "message": "i_correlatedPropJsonPath",
+      "revId": "c30ce5cc4711997c57a00ebaf8d22fdfaa297de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18459229_f98a5b13",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-06-25T07:27:46Z",
+      "side": 1,
+      "message": "doxygen for param is missing",
+      "revId": "c30ce5cc4711997c57a00ebaf8d22fdfaa297de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
