@@ -33,6 +33,24 @@
       "message": "Listener class is not restricted to work with correlated json. Construction of class should not mandate correlated json.",
       "revId": "88f64bb0ce54662687efcb789ca5721d7bbfe403",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3d43c7e_067fe32d",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-06-25T07:07:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e94f4cd_b301dfe2",
+      "revId": "88f64bb0ce54662687efcb789ca5721d7bbfe403",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
