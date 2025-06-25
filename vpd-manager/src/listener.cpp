@@ -248,7 +248,7 @@ void Listener::presentPropertyChangeCallback(
 }
 
 void Listener::registerCorrPropCallBack(
-    [[maybe_unused]] const std::string& i_correlatedPropJsonFile) noexcept
+    const std::string& i_correlatedPropJsonFile) noexcept
 {
     try
     {
@@ -259,9 +259,32 @@ void Listener::registerCorrPropCallBack(
             throw JsonException("Failed to parse correlated properties JSON",
                                 i_correlatedPropJsonFile);
         }
-        /* TODO:
-        Parse correlated_properties JSON, and register callback for all
-        interfaces under all services */
+
+        const nlohmann::json& l_serviceObj =
+            m_correlatedPropJson.get_ref<const nlohmann::json::object_t&>();
+
+        // Iterate through all services in the correlated properties json
+        for (const auto& l_service : l_serviceObj.items())
+        {
+            const auto& l_serviceName = l_service.key();
+
+            const nlohmann::json& l_invServiceObj =
+                m_correlatedPropJson[l_serviceName]
+                    .get_ref<const nlohmann::json::object_t&>();
+
+            // register properties changed D-Bus signal callback
+            // for all interfaces under this service.
+            std::for_each(l_invServiceObj.items().begin(),
+                          l_invServiceObj.items().end(),
+                          [this, &l_serviceName = std::as_const(l_serviceName)](
+                              const auto& i_invServiceObj) {
+                              registerPropChangeCallBack(
+                                  l_serviceName, i_invServiceObj.key(),
+                                  [this](sdbusplus::message_t& i_msg) {
+                                      correlatedPropChangedCallBack(i_msg);
+                                  });
+                          });
+        } // service loop
     }
     catch (const std::exception& l_ex)
     {
@@ -273,17 +296,27 @@ void Listener::registerCorrPropCallBack(
 }
 
 void Listener::registerPropChangeCallBack(
-    [[maybe_unused]] const std::string& i_service,
-    [[maybe_unused]] const std::string& i_interface,
-    [[maybe_unused]] std::function<void(sdbusplus::message_t& i_msg)>
-        i_callBackFunction)
+    const std::string& i_service, const std::string& i_interface,
+    std::function<void(sdbusplus::message_t& i_msg)> i_callBackFunction)
 {
     try
     {
-        /*TODO:
-        Create match object based on service name, interface and callback
-        function.
-        */
+        if (i_service.empty() || i_interface.empty())
+        {
+            throw std::runtime_error("Invalid service name or interface name");
+        }
+
+        types::MatchObjectPtr l_matchObj =
+            std::make_unique<sdbusplus::bus::match::match>(
+                static_cast<sdbusplus::bus_t&>(*m_asioConnection),
+                "type='signal',member='PropertiesChanged',"
+                "interface='org.freedesktop.DBus.Properties',"
+                "arg0='" +
+                    i_interface + "'",
+                i_callBackFunction);
+
+        // save the match object in map
+        m_matchObjectMap[i_service][i_interface] = l_matchObj;
     }
     catch (const std::exception& l_ex)
     {
@@ -301,9 +334,16 @@ void Listener::correlatedPropChangedCallBack(
             throw DbusException("Error in reading property change signal.");
         }
 
+        const std::string l_interface{i_msg.get_interface()};
+        const std::string l_objectPath{i_msg.get_path()};
+        const std::string l_signature{i_msg.get_signature()};
+
+        (void)l_interface;
+        (void)l_objectPath;
+        (void)l_signature;
+
         /*TODO:
-        1. Extract interface, object path and property name from the message
-        2. Use correlated JSON to find target {object path, interface,
+        Use correlated JSON to find target {object path, interface,
         property/properties} to update*/
     }
     catch (const std::exception& l_ex)
