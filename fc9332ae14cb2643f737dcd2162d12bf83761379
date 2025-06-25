@@ -16,6 +16,58 @@
       "message": "why we returning bool, is there any action on failure on this API.\nor is it better handle failure(log a PEL or logging) in the API itself ?",
       "revId": "fc9332ae14cb2643f737dcd2162d12bf83761379",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4e8a47e_9b01aaea",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-25T03:03:17Z",
+      "side": 1,
+      "message": "Agree with @anupama.b.r1@ibm.com",
+      "parentUuid": "91619612_3e76d661",
+      "revId": "fc9332ae14cb2643f737dcd2162d12bf83761379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a234c0_06e5e7ad",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-25T03:03:17Z",
+      "side": 1,
+      "message": "nit: Something in the name which suggests it is a callback which deals with correlated properties?",
+      "revId": "fc9332ae14cb2643f737dcd2162d12bf83761379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6773c101_5dae6f4d",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-25T03:03:17Z",
+      "side": 1,
+      "message": "Log an informational PEL here in case of exception and get rid of return value?",
+      "revId": "fc9332ae14cb2643f737dcd2162d12bf83761379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
