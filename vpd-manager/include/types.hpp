@@ -206,5 +206,11 @@ using InvalidRecordEntry = std::pair<Record,ErrorType>;
 using InvalidRecordList = std::vector<InvalidRecordEntry>;
 /* Map of inventory path -> Present property match object */
 using FruPresenceMatchObjectMap = std::map<Path, std::shared_ptr<sdbusplus::bus::match::match>>;
+/* Shared pointer to a match object*/
+using MatchObjectPtr = std::shared_ptr<sdbusplus::bus::match::match>;
+/* A map of interface to match object*/
+using MatchObjectInterfaceMap = std::map<std::string,MatchObjectPtr>;
+/* A map of service name to match object interface map*/
+using MatchObjectMap = std::map<std::string,MatchObjectInterfaceMap>;
 } // namespace types
 } // namespace vpd
