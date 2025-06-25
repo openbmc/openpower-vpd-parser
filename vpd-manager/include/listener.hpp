@@ -1,6 +1,7 @@
 #pragma once
 
 #include "constants.hpp"
+#include "types.hpp"
 #include "worker.hpp"
 
 #include <nlohmann/json.hpp>
@@ -56,14 +57,15 @@ class Listener
      * JSON.
      */
     void registerAllCorrPropCallBack(
-        [[maybe_unused]] const std::string& i_correlatedPropJsonFile =
+        const std::string& i_correlatedPropJsonFile =
             constants::correlatedPropJsonFile) noexcept;
 
     /**
      * @brief API to register properties changed callback.
      *
      * This API registers a properties changed callback for a specific interface
-     * under a service.
+     * under a service by constructing a match object. This API also saves the
+     * constructed match object into map object map data member.
      *
      * @param[in] i_service - Service name.
      * @param[in] i_interface - Interface name.
@@ -72,10 +74,8 @@ class Listener
      * @throw FirmwareException
      */
     void registerPropChangeCallBack(
-        [[maybe_unused]] const std::string& i_service,
-        [[maybe_unused]] const std::string& i_interface,
-        [[maybe_unused]] std::function<void(sdbusplus::message_t& i_msg)>
-            i_callBackFunction);
+        const std::string& i_service, const std::string& i_interface,
+        std::function<void(sdbusplus::message_t& i_msg)> i_callBackFunction);
 
   private:
     /**
@@ -100,6 +100,9 @@ class Listener
 
     // Parsed correlated properties JSON.
     nlohmann::json m_correlatedPropJson{};
+
+    // A map of {service name,{interface,match object}}
+    types::MatchObjectMap m_matchObjectMap;
 
     /**
      * @brief API which is called when correlated property change is detected

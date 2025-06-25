@@ -204,5 +204,11 @@ using ExceptionDataMap = std::map<std::string, ExceptionInfoVariant>;
 using InvalidRecordEntry = std::pair<Record,ErrorType>;
 /* List of invalid record entries*/
 using InvalidRecordList = std::vector<InvalidRecordEntry>;
+/* Shared pointer to a match object*/
+using MatchObjectPtr = std::shared_ptr<sdbusplus::bus::match::match>;
+/* A map of interface to match object*/
+using MatchObjectInterfaceMap = std::map<std::string,MatchObjectPtr>;
+/* A map of service name to match object interface map*/
+using MatchObjectMap = std::map<std::string,MatchObjectInterfaceMap>;
 } // namespace types
 } // namespace vpd
