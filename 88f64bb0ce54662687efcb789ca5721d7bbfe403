@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "440c9395_342120a1",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-25T03:31:25Z",
+      "side": 1,
+      "message": "As it is a path fetched from constants, why do we need to pass in the constructor?",
+      "revId": "88f64bb0ce54662687efcb789ca5721d7bbfe403",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e94f4cd_b301dfe2",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-25T03:31:25Z",
+      "side": 1,
+      "message": "Listener class is not restricted to work with correlated json. Construction of class should not mandate correlated json.",
+      "revId": "88f64bb0ce54662687efcb789ca5721d7bbfe403",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
