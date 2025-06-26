@@ -219,6 +219,19 @@ class Manager
     std::tuple<std::string, uint16_t> getUnexpandedLocationCode(
         const std::string& i_expandedLocationCode);
 
+    /**
+     * @brief Trigger VPD collection for all the FRUs.
+     *
+     * This api will trigger parser to perform VPD collection for all FRUs
+     * present in the system config JSON and publish it on DBus.
+     *
+     * Note:
+     * System VPD collection will always be skipped.
+     * If host is in power on state, FRUs marked as 'powerOffOnly' in the
+     * system config JSON will be skipped.
+     */
+    void triggerVpdCollection() const noexcept;
+
   private:
     /**
      * @brief An api to check validity of unexpanded location code.
