@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "874e8609_37c5d5ea",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-26T07:19:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c0eecb97_0c62fbb0",
+      "revId": "5b68f4bc3ee90d64d8f001356d00f196c8ca0a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15ff29ec_acb99b80",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Moved the worker object to constructor",
       "parentUuid": "15ff29ec_acb99b80",
+      "revId": "5b68f4bc3ee90d64d8f001356d00f196c8ca0a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95f58ea3_834d75ff",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-06-26T07:19:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "df431270_913df479",
       "revId": "5b68f4bc3ee90d64d8f001356d00f196c8ca0a2d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
