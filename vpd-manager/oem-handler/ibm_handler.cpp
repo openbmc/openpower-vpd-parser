@@ -526,4 +526,13 @@ bool IbmHandler::isPrimingRequired() const noexcept
     // required.
     return true;
 }
+
+void IbmHandler::collectAllFruVpd()
+{
+    // Triggering FRU VPD collection. Setting status to "In
+    // Progress".
+    m_interface->set_property("CollectionStatus", std::string("InProgress"));
+    m_worker->collectFrusFromJson();
+    SetTimerToDetectVpdCollectionStatus();
+}
 } // namespace vpd
