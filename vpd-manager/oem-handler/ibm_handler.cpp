@@ -657,4 +657,9 @@ bool IbmHandler::isPrimingRequired() const noexcept
     // required.
     return true;
 }
+
+void IbmHandler::updateCollectionStatus()
+{
+    SetTimerToDetectVpdCollectionStatus();
+}
 } // namespace vpd

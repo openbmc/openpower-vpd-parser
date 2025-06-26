@@ -44,6 +44,11 @@ class IbmHandler
         const std::shared_ptr<boost::asio::io_context>& i_ioCon,
         const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection);
 
+    /**
+     * @brief API to update FRUs VPD collection status of the system.
+     */
+    void updateCollectionStatus();
+
   private:
     /**
      * @brief API to register callback for Host state change.
