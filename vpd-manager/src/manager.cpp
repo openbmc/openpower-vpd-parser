@@ -121,6 +121,10 @@ Manager::Manager(
             this->performVpdRecollection();
         });
 
+        iFace->register_method("TriggerVPDCollection", [this]() {
+            this->triggerVpdCollection();
+        });
+
         // Indicates FRU VPD collection for the system has not started.
         iFace->register_property_rw<std::string>(
             "CollectionStatus", sdbusplus::vtable::property_::emits_change,
@@ -601,6 +605,46 @@ void Manager::performVpdRecollection()
     if (m_worker.get() != nullptr)
     {
         m_worker->performVpdRecollection();
+    }
+}
+
+void Manager::triggerVpdCollection() const noexcept
+{
+    try
+    {
+        bool l_handleCollStatus = false;
+        if (m_worker.get() != nullptr)
+        {
+            if (m_worker->getActiveThreadCount() == 0)
+            {
+#ifdef IBM_SYSTEM
+                l_handleCollStatus = true;
+                m_interface->set_property("CollectionStatus",
+                                          std::string("InProgress"));
+#endif
+                m_worker->collectFrusFromJson();
+            }
+        }
+
+        EventLogger::createSyncPel(
+            types::ErrorType::UndefinedError,
+            types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+            "Triggered all FRUs VPD collection", std::nullopt, std::nullopt,
+            std::nullopt, std::nullopt);
+
+        if (l_handleCollStatus)
+        {
+            m_ibmHandler->updateCollectionStatus();
+        }
+    }
+    catch (const std::runtime_error& l_ex)
+    {
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
+            __FILE__, __FUNCTION__, 0,
+            "VPD collection trigger is failed, reason: " +
+                std::string(l_ex.what()),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
 }
 } // namespace vpd
