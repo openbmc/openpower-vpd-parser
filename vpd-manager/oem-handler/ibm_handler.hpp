@@ -44,6 +44,22 @@ class IbmHandler
         const std::shared_ptr<boost::asio::io_context>& i_ioCon,
         const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection);
 
+    /**
+     * @brief Trigger VPD collection for all the FRUs.
+     *
+     * This api will trigger parser to perform VPD collection for all FRUs
+     * present in the system config JSON and publish it on DBus. Also updates
+     * the Dbus VPD collection status property hosted under vpd-manager.
+     *
+     * Note:
+     * System VPD collection will always be skipped.
+     * If host is in power on state, FRUs marked as 'powerOffOnly' in the
+     * system config JSON will be skipped.
+     *
+     * @throw JsonException, runtime_error
+     */
+    void triggerVpdCollection();
+
   private:
     /**
      * @brief API to set timer to detect system VPD over D-Bus.
