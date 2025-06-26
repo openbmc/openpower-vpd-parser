@@ -219,6 +219,21 @@ class Manager
     std::tuple<std::string, uint16_t> getUnexpandedLocationCode(
         const std::string& i_expandedLocationCode);
 
+    /**
+     * @brief API to collect all FRUs VPD.
+     *
+     * This api will call OEM handler API to perform VPD collection for all FRUs
+     * present in the system config JSON.
+     *
+     * Note:
+     * System VPD collection will always be skipped.
+     * If host is in power on state, FRUs marked as 'powerOffOnly' in the
+     * system config JSON will be skipped.
+     *
+     * @return true on successful request made, false otherwise.
+     */
+    bool collectAllFruVpd() const noexcept;
+
   private:
     /**
      * @brief An api to check validity of unexpanded location code.
