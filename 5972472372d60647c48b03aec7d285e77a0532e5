@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfab9c21_92b26931",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-01T08:40:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d0a2dc2_efcb51b3",
+      "revId": "5972472372d60647c48b03aec7d285e77a0532e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8ce295b_1cb364ab",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-07-01T06:02:15Z",
       "side": 1,
       "message": "registerCorrPropChangeCallback() All can be consider implicit and mentioned in the doxygen.",
+      "revId": "5972472372d60647c48b03aec7d285e77a0532e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54d1aab8_74705064",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-01T08:40:25Z",
+      "side": 1,
+      "message": "\u003eregisterCorrPropChangeCallback() All can be consider implicit\nI did not get this. Implicit what?",
+      "parentUuid": "e8ce295b_1cb364ab",
       "revId": "5972472372d60647c48b03aec7d285e77a0532e5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aeee44b2_87dd179c",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-01T08:40:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "592caf4e_0caa85be",
+      "revId": "5972472372d60647c48b03aec7d285e77a0532e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2f495af_7d7408e2",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-07-01T06:02:15Z",
       "side": 1,
       "message": "as this API is not depending on correlated JSON, instead on the input interface.\nshould the API name be registerPropChangeCallback() ?",
+      "revId": "5972472372d60647c48b03aec7d285e77a0532e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ff59d49_a0dfe60a",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-01T08:40:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2f495af_7d7408e2",
       "revId": "5972472372d60647c48b03aec7d285e77a0532e5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
