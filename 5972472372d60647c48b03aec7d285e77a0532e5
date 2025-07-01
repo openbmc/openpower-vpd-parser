@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d0a2dc2_efcb51b3",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-01T06:02:15Z",
+      "side": 1,
+      "message": "correlatedPropJsonFile ?",
+      "revId": "5972472372d60647c48b03aec7d285e77a0532e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8ce295b_1cb364ab",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-01T06:02:15Z",
+      "side": 1,
+      "message": "registerCorrPropChangeCallback() All can be consider implicit and mentioned in the doxygen.",
+      "revId": "5972472372d60647c48b03aec7d285e77a0532e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "592caf4e_0caa85be",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-01T06:02:15Z",
+      "side": 1,
+      "message": "i_correlatedPropJsonFile ?",
+      "revId": "5972472372d60647c48b03aec7d285e77a0532e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2f495af_7d7408e2",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-01T06:02:15Z",
+      "side": 1,
+      "message": "as this API is not depending on correlated JSON, instead on the input interface.\nshould the API name be registerPropChangeCallback() ?",
+      "revId": "5972472372d60647c48b03aec7d285e77a0532e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
