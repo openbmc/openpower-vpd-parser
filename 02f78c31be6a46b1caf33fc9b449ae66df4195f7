@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f39de37_fa234272",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-01T07:47:22Z",
+      "side": 1,
+      "message": "new public API is added in IbmHandler for collecting FRUs VPD and to update the collection status.",
+      "parentUuid": "a39aeb99_3b6d1a20",
+      "revId": "02f78c31be6a46b1caf33fc9b449ae66df4195f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f03d47e_472d1de3",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-06-30T06:16:29Z",
       "side": 1,
       "message": "Please specify `throws` or `noexcept` in doxygen whichever is applicable.",
+      "revId": "02f78c31be6a46b1caf33fc9b449ae66df4195f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a48eb26c_b0c1c079",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-01T07:47:22Z",
+      "side": 1,
+      "message": "this API is no longer used",
+      "parentUuid": "4f03d47e_472d1de3",
       "revId": "02f78c31be6a46b1caf33fc9b449ae66df4195f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1574d6c_1404a740",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-01T07:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "233ff1f9_f2ba74ec",
+      "revId": "02f78c31be6a46b1caf33fc9b449ae66df4195f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "acf899be_52733294",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-06-30T06:16:29Z",
       "side": 1,
       "message": "debug trace needs to be removed",
+      "revId": "02f78c31be6a46b1caf33fc9b449ae66df4195f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18a50c28_a88a01c6",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-01T07:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acf899be_52733294",
       "revId": "02f78c31be6a46b1caf33fc9b449ae66df4195f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
