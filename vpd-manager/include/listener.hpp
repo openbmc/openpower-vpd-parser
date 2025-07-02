@@ -44,6 +44,14 @@ class Listener
      */
     void registerAssetTagChangeCallback() const noexcept;
 
+    /**
+     * @brief API to register "Present" property change callback
+     *
+     * This API registers "Present" property change callback for FRUs for
+     * which "monitorPresence" is true in system config JSON.
+     */
+    void registerPresenceChangeCallback() noexcept;
+
   private:
     /**
      * @brief API to process host state change callback.
@@ -58,6 +66,14 @@ class Listener
      * @param[in] i_msg - Callback message.
      */
     void assetTagChangeCallback(sdbusplus::message_t& i_msg) const noexcept;
+
+    /**
+     * @brief Callback API to be triggered on "Present" property change.
+     *
+     * @param[in] i_msg - Callback message.
+     */
+    void presentPropertyChangeCallback(
+        sdbusplus::message_t& i_msg) const noexcept;
 
     // Shared pointer to worker class
     const std::shared_ptr<Worker>& m_worker;
