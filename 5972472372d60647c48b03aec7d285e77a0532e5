@@ -143,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0841a71c_35ecf36d",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-02T06:44:33Z",
+      "side": 1,
+      "message": "I meant we can ignore All in the API name, instead use registerCorrPropChangeCallback() name ?",
+      "parentUuid": "54d1aab8_74705064",
+      "revId": "5972472372d60647c48b03aec7d285e77a0532e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "592caf4e_0caa85be",
         "filename": "vpd-manager/include/listener.hpp",
         "patchSetId": 11
