@@ -22,6 +22,74 @@
       },
       "revId": "6b57e72bc79feb4c6413c63702749f2d49f837e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "067b712c_9a30c297",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-02T10:38:37Z",
+      "side": 1,
+      "message": "\u0027monitorPresence\u0027 value is true in the system config JSON.",
+      "revId": "6b57e72bc79feb4c6413c63702749f2d49f837e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d707049_a4113e8f",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-02T10:38:37Z",
+      "side": 1,
+      "message": "const API if not modifying any member.",
+      "revId": "6b57e72bc79feb4c6413c63702749f2d49f837e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edc41fb9_7f0426b9",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-02T10:38:37Z",
+      "side": 1,
+      "message": "presentPropertyChangeCallback() ?",
+      "revId": "6b57e72bc79feb4c6413c63702749f2d49f837e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec8212a2_36268917",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-02T10:38:37Z",
+      "side": 1,
+      "message": "move todo to the end.",
+      "revId": "6b57e72bc79feb4c6413c63702749f2d49f837e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
