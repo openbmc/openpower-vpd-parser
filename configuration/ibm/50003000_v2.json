@@ -2902,9 +2902,8 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "presence-fan3",
-                            "value": 0
+                        "systemCmd": {
+                            "cmd": "echo 31-0050 > /sys/bus/i2c/drivers/at24/bind"
                         }
                     }
                 },
@@ -2924,9 +2923,8 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "presence-fan2",
-                            "value": 0
+                        "systemCmd": {
+                            "cmd": "echo 32-0050 > /sys/bus/i2c/drivers/at24/bind"
                         }
                     }
                 },
@@ -2946,9 +2944,8 @@
                 "replaceableAtRuntime": true,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "presence-fan1",
-                            "value": 0
+                        "systemCmd": {
+                            "cmd": "echo 33-0050 > /sys/bus/i2c/drivers/at24/bind"
                         }
                     }
                 },
@@ -2968,9 +2965,8 @@
                 "handlePresence": false,
                 "preAction": {
                     "collection": {
-                        "gpioPresence": {
-                            "pin": "presence-fan0",
-                            "value": 0
+                        "systemCmd": {
+                            "cmd": "echo 34-0050 > /sys/bus/i2c/drivers/at24/bind"
                         }
                     }
                 },
