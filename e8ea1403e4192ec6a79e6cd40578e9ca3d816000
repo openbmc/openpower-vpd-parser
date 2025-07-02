@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e7cf45a_6a45e80c",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1612,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-02T14:54:05Z",
+      "side": 1,
+      "message": "Present should not be updated as well while clearing the VPD?",
+      "revId": "e8ea1403e4192ec6a79e6cd40578e9ca3d816000",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
