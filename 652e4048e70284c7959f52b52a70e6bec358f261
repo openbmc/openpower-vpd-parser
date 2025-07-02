@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "975f1788_6e2fe0bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-02T13:00:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f9fef3f_05e455df",
+      "revId": "652e4048e70284c7959f52b52a70e6bec358f261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e47648b2_299c0ce8",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-07-02T10:33:10Z",
       "side": 1,
       "message": "Please don\u0027t define typename for self defining types.",
+      "revId": "652e4048e70284c7959f52b52a70e6bec358f261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e727127b_cf90ccbc",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-02T13:00:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e47648b2_299c0ce8",
       "revId": "652e4048e70284c7959f52b52a70e6bec358f261",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -82,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97682cc1_000bcdb7",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-02T13:00:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31045fb8_a6b19757",
+      "range": {
+        "startLine": 171,
+        "startChar": 8,
+        "endLine": 201,
+        "endChar": 9
+      },
+      "revId": "652e4048e70284c7959f52b52a70e6bec358f261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24b5b360_6d0e6162",
@@ -113,6 +173,24 @@
       "side": 1,
       "message": "The `sdbusplus::msg` is of type {key,propMap}. Here `key`\u003d interface. I do not see any API other than `read()` to read out the message.",
       "parentUuid": "24b5b360_6d0e6162",
+      "revId": "652e4048e70284c7959f52b52a70e6bec358f261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58a686ed_c9eac3d0",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-02T13:00:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25db8793_3bd2706f",
       "revId": "652e4048e70284c7959f52b52a70e6bec358f261",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
