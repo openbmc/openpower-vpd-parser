@@ -22,6 +22,30 @@
       },
       "revId": "be1226f4635785a668956b75a8bfae7dc62a0f22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acb9ec29_bf83a32f",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-02T14:04:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "708dc95e_19cc7f8c",
+      "range": {
+        "startLine": 1163,
+        "startChar": 57,
+        "endLine": 1163,
+        "endChar": 58
+      },
+      "revId": "be1226f4635785a668956b75a8bfae7dc62a0f22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
