@@ -1,7 +1,5 @@
 #include "config.h"
 
-#include "worker.hpp"
-
 #include "backup_restore.hpp"
 #include "configuration.hpp"
 #include "constants.hpp"
@@ -11,6 +9,7 @@
 #include "parser.hpp"
 #include "parser_factory.hpp"
 #include "parser_interface.hpp"
+#include "worker.hpp"
 
 #include <utility/dbus_utility.hpp>
 #include <utility/json_utility.hpp>
@@ -1609,9 +1608,18 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
 
         if (auto l_value = std::get_if<bool>(&l_presentPropValue))
         {
-            if (!(*l_value))
+            // check if FRU's Present property is handled by vpd-manager
+            const auto& l_isFruPresenceHandled =
+                jsonUtility::isFruPresenceHandled(m_parsedJson, l_fruPath);
+
+            if (!(*l_value) && l_isFruPresenceHandled)
             {
                 throw std::runtime_error("Given FRU is not present");
+            }
+            else if (*l_value && !l_isFruPresenceHandled)
+            {
+                throw std::runtime_error(
+                    "Given FRU is present and its presence is not handled by vpd-manager.")
             }
             else
             {

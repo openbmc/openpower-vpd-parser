@@ -1198,5 +1198,44 @@ inline std::vector<types::Path> getFrusWithPresenceMonitoring(
     }
     return l_frusWithPresenceMonitoring;
 }
+
+/**
+ * @brief API which tells if the FRU's presence is handled
+ *
+ * For a given FRU, this API checks if it's presence is handled by vpd-manager
+ * by checking the "handlePresence" tag.
+ *
+ * @param[in] i_sysCfgJsonObj - System config JSON object.
+ * @param[in] i_vpdFruPath - EEPROM path.
+ *
+ * @return true if FRU presence is handled, false otherwise.
+ */
+inline bool isFruPresenceHandled(const nlohmann::json& i_sysCfgJsonObj,
+                                 const std::string& i_vpdFruPath)
+{
+    try
+    {
+        if (i_vpdFruPath.empty())
+        {
+            throw std::runtime_error("Given FRU path is empty.");
+        }
+
+        if (i_sysCfgJsonObj.empty() || (!i_sysCfgJsonObj.contains("frus")))
+        {
+            throw JsonException("Invalid system config JSON object.");
+        }
+
+        return i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0).value(
+            "handlePresence", true);
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to check if FRU's presence is handled, reason:" +
+            std::string(l_ex.what()));
+    }
+
+    return false;
+}
 } // namespace jsonUtility
 } // namespace vpd
