@@ -62,6 +62,7 @@ IbmHandler::IbmHandler(
     m_eventListener = std::make_shared<Listener>(m_worker, m_asioConnection);
     m_eventListener->registerAssetTagChangeCallback();
     m_eventListener->registerHostStateChangeCallback();
+    m_eventListener->registerPresenceChangeMonitorCallback();
 
     // set async timer to detect if system VPD is published on D-Bus.
     SetTimerToDetectSVPDOnDbus();
