@@ -1,5 +1,6 @@
 #include "listener.hpp"
 
+#include "constants.hpp"
 #include "event_logger.hpp"
 #include "utility/dbus_utility.hpp"
 
@@ -167,11 +168,39 @@ void Listener::registerPresenceChangeCallback() const noexcept
 {
     try
     {
-        /* TODO:
-            - iterate through all FRUs.
-            - if FRU is runtime replaceable and we do not handle presence for
-           the FRU, register a Present property change callback.
-        */
+        const auto& l_parsedSysCfgJson = m_worker->getSystemJson();
+        if (!l_parsedSysCfgJson.contains("frus"))
+        {
+            throw JsonException("Invalid system config JSON.");
+        }
+
+        const nlohmann::json& l_listOfFrus =
+            l_parsedSysCfgJson["frus"]
+                .get_ref<const nlohmann::json::object_t&>();
+
+        auto l_registerFruPresenceChangeCallback =
+            [](const types::Path& i_vpdPath) {
+                std::shared_ptr<sdbusplus::bus::match_t> l_fruPresenceMatch =
+                    std::make_shared<sdbusplus::bus::match_t>(
+                        *m_asioConnection,
+                        sdbusplus::bus::match::rules::propertiesChanged(
+                            i_vpdPath, constants::inventoryItemInf),
+                        [this](sdbusplus::message_t& i_msg) {
+                            presentPropertyChangeCallBack(i_msg);
+                        });
+
+                // save the match object to map
+                m_fruPresenceMatchObjectMap[i_vpdPath] = l_fruPresenceMatch;
+            };
+
+        std::for_each(l_listOfFrus.items().begin(), l_listOfFrus.items().end(),
+                      [this](const auto& i_fruObject) {
+                          if (i_fruObject.at(0).value("monitorPresence", false))
+                          {
+                              l_registerFruPresenceChangeCallback(
+                                  i_fruObject.at(0).value("inventoryPath", ""));
+                          }
+                      });
     }
     catch (const std::exception& l_ex)
     {

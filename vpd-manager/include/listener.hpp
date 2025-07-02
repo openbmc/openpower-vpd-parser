@@ -1,5 +1,6 @@
 #pragma once
 
+#include "types.hpp"
 #include "worker.hpp"
 
 #include <sdbusplus/asio/object_server.hpp>
@@ -80,5 +81,8 @@ class Listener
 
     // Shared pointer to bus connection.
     const std::shared_ptr<sdbusplus::asio::connection>& m_asioConnection;
+
+    // Map of FRU path to Present property match object
+    FruPresenceMatchObjectMap m_fruPresenceMatchObjectMap;
 };
 } // namespace vpd
