@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5815341b_3dd274b8",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-02T06:56:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d411f029_d2cb7584",
+      "revId": "3263a9a10a6cbdc2eb3e012b0b2d51383aa8f3ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd874673_38c929af",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-07-01T14:40:14Z",
       "side": 1,
       "message": "Can we keep the name consistent to what we already have.\nLike for single FRU we have \"collectSingleFruVpd\".\nSimilarly, here we can have \"collectAllFruVpd\"?",
+      "revId": "3263a9a10a6cbdc2eb3e012b0b2d51383aa8f3ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd989ba9_4425344e",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-02T06:56:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd874673_38c929af",
       "revId": "3263a9a10a6cbdc2eb3e012b0b2d51383aa8f3ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "21e8c218_fd5716d3",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-02T06:56:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d8e56e6_95c18ec2",
+      "revId": "3263a9a10a6cbdc2eb3e012b0b2d51383aa8f3ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d1cb54f2_6217aac9",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 4
@@ -65,6 +119,24 @@
       "writtenOn": "2025-07-01T14:40:14Z",
       "side": 1,
       "message": "\"TriggerVPDCollection\" - \"CollectAllFruVpd\"?",
+      "revId": "3263a9a10a6cbdc2eb3e012b0b2d51383aa8f3ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3fdb883_24bd3541",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-02T06:56:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1cb54f2_6217aac9",
       "revId": "3263a9a10a6cbdc2eb3e012b0b2d51383aa8f3ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7092c9ed_fde028f6",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-02T06:56:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "498bb290_1826dccc",
+      "revId": "3263a9a10a6cbdc2eb3e012b0b2d51383aa8f3ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23d44277_10487970",
@@ -103,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be33d4e8_1eb5b621",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-02T06:56:09Z",
+      "side": 1,
+      "message": "updated with checking m_ibmHandler check for null.",
+      "parentUuid": "23d44277_10487970",
+      "revId": "3263a9a10a6cbdc2eb3e012b0b2d51383aa8f3ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67bd9232_75ee263d",
@@ -116,6 +224,24 @@
       "writtenOn": "2025-07-01T14:40:14Z",
       "side": 1,
       "message": "Can we keep this short.\nSomething like: \"Invalid collection status + m_vpdCollectionStatus + \"Aborting\".",
+      "revId": "3263a9a10a6cbdc2eb3e012b0b2d51383aa8f3ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07ee60ce_837d0d37",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-02T06:56:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67bd9232_75ee263d",
       "revId": "3263a9a10a6cbdc2eb3e012b0b2d51383aa8f3ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -143,6 +269,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "562729d2_1705bdd4",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-02T06:56:09Z",
+      "side": 1,
+      "message": "updated with firmware error.",
+      "parentUuid": "8bf8ba1d_65bd3463",
+      "range": {
+        "startLine": 634,
+        "startChar": 12,
+        "endLine": 634,
+        "endChar": 44
+      },
+      "revId": "3263a9a10a6cbdc2eb3e012b0b2d51383aa8f3ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfa4b153_5dc2bbbc",
@@ -156,6 +306,30 @@
       "writtenOn": "2025-07-01T14:40:14Z",
       "side": 1,
       "message": "Not getting any context with the description here.",
+      "range": {
+        "startLine": 635,
+        "startChar": 30,
+        "endLine": 635,
+        "endChar": 57
+      },
+      "revId": "3263a9a10a6cbdc2eb3e012b0b2d51383aa8f3ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf18ef00_60281d85",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-02T06:56:09Z",
+      "side": 1,
+      "message": "Updated the message.",
+      "parentUuid": "bfa4b153_5dc2bbbc",
       "range": {
         "startLine": 635,
         "startChar": 30,
