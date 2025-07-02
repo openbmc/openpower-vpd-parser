@@ -97,6 +97,24 @@
       "message": "Is it actually required?",
       "revId": "652e4048e70284c7959f52b52a70e6bec358f261",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25db8793_3bd2706f",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-02T11:03:15Z",
+      "side": 1,
+      "message": "The `sdbusplus::msg` is of type {key,propMap}. Here `key`\u003d interface. I do not see any API other than `read()` to read out the message.",
+      "parentUuid": "24b5b360_6d0e6162",
+      "revId": "652e4048e70284c7959f52b52a70e6bec358f261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
