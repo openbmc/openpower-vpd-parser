@@ -1609,9 +1609,18 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
 
         if (auto l_value = std::get_if<bool>(&l_presentPropValue))
         {
-            if (!(*l_value))
+            // check if FRU's Present property is handled by vpd-manager
+            const auto& l_isFruPresenceHandled =
+                jsonUtility::isFruPresenceHandled(m_parsedJson, l_fruPath);
+
+            if (!(*l_value) && l_isFruPresenceHandled)
             {
                 throw std::runtime_error("Given FRU is not present");
+            }
+            else if (*l_value && !l_isFruPresenceHandled)
+            {
+                throw std::runtime_error(
+                    "Given FRU is present and its presence is not handled by vpd-manager.");
             }
             else
             {
