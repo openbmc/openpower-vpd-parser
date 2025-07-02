@@ -1603,9 +1603,16 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
 
     try
     {
-        auto l_presentPropValue = dbusUtility::readDbusProperty(
-            constants::pimServiceName, i_dbusObjPath,
-            constants::inventoryItemInf, "Present");
+        // check if FRU's Present property is monitored or not
+        const auto& l_isPresenceMonitoredFru =
+            jsonUtility::isPresenceMonitoredFru(m_parsedJson, l_fruPath);
+
+        auto l_presentPropValue =
+            l_isPresenceMonitoredFru
+                ? true
+                : dbusUtility::readDbusProperty(
+                      constants::pimServiceName, i_dbusObjPath,
+                      constants::inventoryItemInf, "Present");
 
         if (auto l_value = std::get_if<bool>(&l_presentPropValue))
         {
