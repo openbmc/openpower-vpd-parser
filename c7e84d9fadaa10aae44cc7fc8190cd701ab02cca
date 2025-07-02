@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10c73549_82ea38ff",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-02T09:51:19Z",
+      "side": 1,
+      "message": "Severity should be Warning even in failure case as the collection is being re-triggered.",
+      "revId": "c7e84d9fadaa10aae44cc7fc8190cd701ab02cca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8355415b_b0ec90be",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-02T09:51:19Z",
+      "side": 1,
+      "message": "Why are these under ibmHandler check?\nThese are common checks irrespective of handler.",
+      "range": {
+        "startLine": 617,
+        "startChar": 12,
+        "endLine": 637,
+        "endChar": 72
+      },
+      "revId": "c7e84d9fadaa10aae44cc7fc8190cd701ab02cca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a75ddf5_d4a298e4",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-02T09:51:19Z",
+      "side": 1,
+      "message": "What if \"m_ibmHandler\" is null? Still the call is successful?",
+      "revId": "c7e84d9fadaa10aae44cc7fc8190cd701ab02cca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
