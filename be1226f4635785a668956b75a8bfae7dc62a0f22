@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "708dc95e_19cc7f8c",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-02T13:42:46Z",
+      "side": 1,
+      "message": "nit: Lets keep it limited to english 😊 not symbols.",
+      "range": {
+        "startLine": 1163,
+        "startChar": 57,
+        "endLine": 1163,
+        "endChar": 58
+      },
+      "revId": "be1226f4635785a668956b75a8bfae7dc62a0f22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
