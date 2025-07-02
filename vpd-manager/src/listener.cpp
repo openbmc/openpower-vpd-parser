@@ -1,5 +1,6 @@
 #include "listener.hpp"
 
+#include "constants.hpp"
 #include "event_logger.hpp"
 #include "utility/dbus_utility.hpp"
 
@@ -167,11 +168,37 @@ void Listener::registerPresenceChangeCallback() noexcept
 {
     try
     {
-        /* TODO:
-            - iterate through all FRUs.
-            - if FRU is runtime replaceable and we do not handle presence for
-           the FRU, register a Present property change callback.
-        */
+        const auto& l_parsedSysCfgJson = m_worker->getSysCfgJsonObj();
+        if (!l_parsedSysCfgJson.contains("frus"))
+        {
+            throw JsonException("Invalid system config JSON.");
+        }
+
+        const nlohmann::json& l_listOfFrus =
+            l_parsedSysCfgJson["frus"]
+                .get_ref<const nlohmann::json::object_t&>();
+
+        for (const auto& l_aFru : l_listOfFrus)
+        {
+            if (l_aFru.at(0).value("monitorPresence", false))
+            {
+                const std::string& l_inventoryPath =
+                    l_aFru.at(0).value("inventoryPath", "");
+
+                std::shared_ptr<sdbusplus::bus::match_t> l_fruPresenceMatch =
+                    std::make_shared<sdbusplus::bus::match_t>(
+                        *m_asioConnection,
+                        sdbusplus::bus::match::rules::propertiesChanged(
+                            l_inventoryPath, constants::inventoryItemInf),
+                        [this](sdbusplus::message_t& i_msg) {
+                            presentPropertyChangeCallBack(i_msg);
+                        });
+
+                // save the match object to map
+                m_fruPresenceMatchObjectMap[l_inventoryPath] =
+                    l_fruPresenceMatch;
+            }
+        }
     }
     catch (const std::exception& l_ex)
     {
@@ -194,15 +221,32 @@ void Listener::presentPropertyChangeCallBack(
             throw DbusException(
                 "Error reading callback message for Present property change");
         }
-        /*TODO:
-         - extract object path and "Present" property value from message
-         - if "Present" property = true, trigger "collectSingleFruVpd" for the
-         FRU
-         - if "Present" property = false, trigger "deleteFruVpd" for the FRU
-        */
 
-        const auto& l_objectPath = i_msg.get_path();
-        (void)l_objectPath;
+        std::string l_interface;
+        types::PropertyMap l_propMap;
+        i_msg.read(l_interface, l_propMap);
+
+        (void)l_interface;
+
+        std::string l_objectPath{i_msg.get_path()};
+
+        const auto l_itr = l_propMap.find("Present");
+        if (l_itr == l_propMap.end())
+        {
+            // Present is not found in the callback message
+            return;
+        }
+
+        if (auto l_present = std::get_if<bool>(&(l_itr->second)))
+        {
+            *l_present ? m_worker->collectSingleFruVpd(l_objectPath)
+                       : m_worker->deleteFruVpd(l_objectPath);
+        }
+        else
+        {
+            throw DbusException(
+                "Invalid type recieved in variant for present property");
+        }
     }
     catch (const std::exception& l_ex)
     {
