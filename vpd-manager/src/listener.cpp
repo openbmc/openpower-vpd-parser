@@ -163,4 +163,42 @@ void Listener::assetTagChangeCallback(
     }
 }
 
+void Listener::registerPresenceChangeCallback() const noexcept
+{
+    try
+    {
+        /* TODO:
+            - iterate through all FRUs.
+            - if FRU is runtime replaceable and we do not handle presence for
+           the FRU, register a Present property change callback.
+        */
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Register presence change callback failed, reason: " +
+            std::string(l_ex.what()));
+    }
+}
+
+void Listener::presentPropertyChangeCallBack(
+    sdbusplus::message_t& i_msg) const noexcept
+{
+    try
+    {
+        /*TODO:
+         - extract object path and "Present" property value from message
+         - if "Present" property = true, trigger "collectSingleFruVpd" for the
+         FRU
+         - if "Present" property = false, trigger "deleteFruVpd" for the FRU
+        */
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Processing presence change callback failed, reason: " +
+            std::string(l_ex.what()));
+    }
+}
+
 } // namespace vpd
