@@ -163,4 +163,56 @@ void Listener::assetTagChangeCallback(
     }
 }
 
+void Listener::registerPresenceChangeCallback() noexcept
+{
+    try
+    {
+        /* TODO:
+            - iterate through all FRUs.
+            - if FRU is runtime replaceable and we do not handle presence for
+           the FRU, register a Present property change callback.
+        */
+    }
+    catch (const std::exception& l_ex)
+    {
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
+            __FILE__, __FUNCTION__, 0,
+            "Register presence change callback failed, reason: " +
+                std::string(l_ex.what()),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+    }
+}
+
+void Listener::presentPropertyChangeCallback(
+    sdbusplus::message_t& i_msg) const noexcept
+{
+    try
+    {
+        if (i_msg.is_method_error())
+        {
+            throw DbusException(
+                "Error reading callback message for Present property change");
+        }
+
+        const auto& l_objectPath = i_msg.get_path();
+        (void)l_objectPath;
+        /*TODO:
+         - read "Present" property
+         - if "Present" property = true, trigger "collectSingleFruVpd" for the
+         FRU
+         - if "Present" property = false, trigger "deleteFruVpd" for the FRU
+        */
+    }
+    catch (const std::exception& l_ex)
+    {
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
+            __FILE__, __FUNCTION__, 0,
+            "Process presence change callback failed, reason: " +
+                std::string(l_ex.what()),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+    }
+}
+
 } // namespace vpd
