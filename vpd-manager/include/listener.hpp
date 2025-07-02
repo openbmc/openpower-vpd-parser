@@ -44,6 +44,15 @@ class Listener
      */
     void registerAssetTagChangeCallback() const noexcept;
 
+    /**
+     * @brief API to register "Present" property change callback
+     *
+     * This API registers "Present" property change callback for FRUs for
+     * which vpd-manager does not handle presence and which are replaceable at
+     * runtime.
+     */
+    void registerPresenceChangeMonitorCallback() const noexcept;
+
   private:
     /**
      * @brief API to process host state change callback.
@@ -58,6 +67,14 @@ class Listener
      * @param[in] i_msg - Callback message.
      */
     void assetTagChangeCallback(sdbusplus::message_t& i_msg) const noexcept;
+
+    /**
+     * @brief Callback API to be triggered on "Present" property change.
+     *
+     * @param[in] i_msg - Callback message.
+     */
+    void presentPropertyChangeCallBack(
+        sdbusplus::message_t& i_msg) const noexcept;
 
     // Shared pointer to worker class
     const std::shared_ptr<Worker>& m_worker;
