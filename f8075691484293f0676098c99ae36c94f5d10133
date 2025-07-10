@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdc03f43_554500bf",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-10T06:58:50Z",
+      "side": 1,
+      "message": "Nit:blank line needs to be removed.",
+      "revId": "f8075691484293f0676098c99ae36c94f5d10133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "584a5a55_e814c193",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-10T06:58:50Z",
+      "side": 1,
+      "message": "Could not figure out with the name. Please come up with a better name.",
+      "range": {
+        "startLine": 263,
+        "startChar": 30,
+        "endLine": 263,
+        "endChar": 42
+      },
+      "revId": "f8075691484293f0676098c99ae36c94f5d10133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94bf0c85_65239517",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-10T06:58:50Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 271,
+        "startChar": 34,
+        "endLine": 271,
+        "endChar": 49
+      },
+      "revId": "f8075691484293f0676098c99ae36c94f5d10133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
