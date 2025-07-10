@@ -51,6 +51,24 @@
       "message": "If the type is self explanatory then lets avoid redefining in types.",
       "revId": "bc3586d896a7414d742ef3dba0c6f3bc341c363a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74f7a4c7_900db972",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-10T08:00:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5585fa30_a357432a",
+      "revId": "bc3586d896a7414d742ef3dba0c6f3bc341c363a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
