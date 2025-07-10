@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8918967_da7542e5",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-10T06:33:06Z",
+      "side": 1,
+      "message": "nit: wrapping required?",
+      "revId": "25e97d855c25c38902fe2c548d4122a81de66bf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99cc59a0_cb8e4f82",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-10T06:33:06Z",
+      "side": 1,
+      "message": "What if the API throws? Either catch here or update the doxygen.",
+      "revId": "25e97d855c25c38902fe2c548d4122a81de66bf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
