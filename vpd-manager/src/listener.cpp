@@ -306,8 +306,8 @@ void Listener::registerPropChangeCallBack(
             throw std::runtime_error("Invalid service name or interface name");
         }
 
-        std::shared_ptr<sdbusplus::bus::match::match> l_matchObj =
-            std::make_unique<sdbusplus::bus::match::match>(
+        std::shared_ptr<sdbusplus::bus::match_t> l_matchObj =
+            std::make_unique<sdbusplus::bus::match_t>(
                 static_cast<sdbusplus::bus_t&>(*m_asioConnection),
                 "type='signal',member='PropertiesChanged',"
                 "interface='org.freedesktop.DBus.Properties',"
