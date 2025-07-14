@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c7d2f10_a90797e3",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-14T07:23:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a412c878_06b03031",
+      "revId": "25e97d855c25c38902fe2c548d4122a81de66bf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99cc59a0_cb8e4f82",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "doxygen contains exception details.",
       "parentUuid": "99cc59a0_cb8e4f82",
+      "revId": "25e97d855c25c38902fe2c548d4122a81de66bf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e2769a5_87dded31",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-14T07:23:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cfd8c18e_2e809107",
       "revId": "25e97d855c25c38902fe2c548d4122a81de66bf0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
