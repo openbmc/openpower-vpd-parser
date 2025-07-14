@@ -30,9 +30,12 @@ void Listener::registerHostStateChangeCallback() const noexcept
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
+            __FILE__, __FUNCTION__, 0,
             "Register Host state change callback failed, reason: " +
-            std::string(l_ex.what()));
+                std::string(l_ex.what()),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
 }
 
@@ -111,9 +114,12 @@ void Listener::registerAssetTagChangeCallback() const noexcept
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
+            __FILE__, __FUNCTION__, 0,
             "Register AssetTag change callback failed, reason: " +
-            std::string(l_ex.what()));
+                std::string(l_ex.what()),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
 }
 
