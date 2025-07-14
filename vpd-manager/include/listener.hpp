@@ -115,6 +115,46 @@ class Listener
      */
     void correlatedPropChangedCallBack(sdbusplus::message_t& i_msg) noexcept;
 
+    /**
+     * @brief API to get correlated properties for given property.
+     *
+     * For a given service name, object path, interface and property, this API
+     * uses parsed correlated properties JSON object and returns a list of
+     * correlated object path, interface and property. Correlated properties are
+     * properties which are hosted under different interfaces with same or
+     * different data type, but share the same data. Hence if the data of a
+     * property is updated, then it's respective correlated property/properties
+     * should also be updated so that they remain in sync.
+     *
+     * @param[in] i_serviceName - Service name.
+     * @param[in] i_objectPath - Object path.
+     * @param[in] i_interface - Interface name.
+     * @param[in] i_property - Property name.
+     *
+     * @return On success, returns a vector of correlated object path, interface
+     * and property. Otherwise returns an empty vector.
+     *
+     * @throw FirmwareException
+     */
+    types::DbusPropertyList getCorrelatedProps(
+        const std::string& i_serviceName, const std::string& i_objectPath,
+        const std::string& i_interface, const std::string& i_property) const;
+
+    /**
+     * @brief API to update a given correlated property.
+     *
+     * @param[in] i_serviceName - Service name.
+     * @param[in] i_corrProperty - Details of correlated property to update
+     * @param[in] i_value - Property value
+     *
+     * @return true, if correlated property was successfully updated, false
+     * otherwise.
+     */
+    bool updateCorrelatedProperty(
+        const std::string& i_serviceName,
+        const types::DbusPropertyEntry& i_corrProperty,
+        const types::DbusVariantType& i_value) const noexcept;
+
     // Shared pointer to worker class
     const std::shared_ptr<Worker>& m_worker;
 
