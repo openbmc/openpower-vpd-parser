@@ -115,6 +115,29 @@ class Listener
      */
     void correlatedPropChangedCallBack(sdbusplus::message_t& i_msg) noexcept;
 
+    /**
+     * @brief API to get correlated properties for given property.
+     *
+     * For a given service name, object path, interface and property, this API
+     * uses parsed correlated properties JSON object and returns a list of
+     * correlated object path, interface and property.
+     *
+     * @param[in] i_serviceName - Service name.
+     * @param[in] i_objectPath - Object path.
+     * @param[in] i_interface - Interface name.
+     * @param[in] i_property - Property name.
+     *
+     * @return On success, returns a vector of correlated object path, interface
+     * and property. Otherwise returns an empty vector.
+     *
+     * @throw FirmwareException
+     */
+    std::vector<std::tuple<std::string, std::string, std::string>>
+        getCorrelatedProps(const std::string& i_serviceName,
+                           const std::string& i_objectPath,
+                           const std::string& i_interface,
+                           const std::string& i_property) const;
+
     // Shared pointer to worker class
     const std::shared_ptr<Worker>& m_worker;
 

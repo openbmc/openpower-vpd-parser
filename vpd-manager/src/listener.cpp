@@ -340,17 +340,37 @@ void Listener::correlatedPropChangedCallBack(
             throw DbusException("Error in reading property change signal.");
         }
 
-        const std::string l_interface{i_msg.get_interface()};
+        std::string l_interface;
+        types::PropertyMap l_propMap;
+        i_msg.read(l_interface, l_propMap);
+
         const std::string l_objectPath{i_msg.get_path()};
-        const std::string l_signature{i_msg.get_signature()};
 
-        (void)l_interface;
-        (void)l_objectPath;
-        (void)l_signature;
+        const std::string l_serviceName =
+            dbusUtility::getServiceNameFromConnectionId(i_msg.get_sender());
 
-        /*TODO:
-        Use correlated JSON to find target {object path, interface,
-        property/properties} to update*/
+        if (l_serviceName.empty())
+        {
+            throw DbusException(
+                "Failed to get service name from connection ID: " +
+                std::string(i_msg.get_sender()));
+        }
+
+        // iterate through all properties in map
+        for (const auto& l_propertyEntry : l_propMap)
+        {
+            const std::string& l_propertyName = l_propertyEntry.first;
+
+            // Use correlated JSON to find target {object path,
+            // interface,property/properties} to update
+            const auto& l_correlatedPropList = getCorrelatedProps(
+                l_serviceName, l_objectPath, l_interface, l_propertyName);
+            (void)l_correlatedPropList;
+            /*TODO:
+         - Read target {object path, interface,
+        property/properties}
+         - If there is any change, update target */
+        }
     }
     catch (const std::exception& l_ex)
     {
@@ -359,6 +379,26 @@ void Listener::correlatedPropChangedCallBack(
             __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
+}
+
+std::vector<std::tuple<std::string, std::string, std::string>>
+    Listener::getCorrelatedProps(
+        [[maybe_unused]] const std::string& i_serviceName,
+        [[maybe_unused]] const std::string& i_objectPath,
+        [[maybe_unused]] const std::string& i_interface,
+        [[maybe_unused]] const std::string& i_property) const
+{
+    std::vector<std::tuple<std::string, std::string, std::string>> l_result;
+    try
+    {
+        /*TODO: Use parsed correlated JSON to find target {object path(s),
+        interface(s), property/properties}*/
+    }
+    catch (const std::exception& l_ex)
+    {
+        throw FirmwareException(l_ex.what());
+    }
+    return l_result;
 }
 
 } // namespace vpd
