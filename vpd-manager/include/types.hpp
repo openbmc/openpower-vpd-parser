@@ -210,5 +210,7 @@ using FruPresenceMatchObjectMap = std::map<Path, std::shared_ptr<sdbusplus::bus:
 using MatchObjectInterfaceMap = std::map<std::string,std::shared_ptr<sdbusplus::bus::match_t>>;
 /* A map of service name to match object interface map*/
 using MatchObjectMap = std::map<std::string,MatchObjectInterfaceMap>;
+/* A tuple of Dbus object path, interface and property*/
+using DbusPropertyId = std::tuple<std::string, std::string, std::string>;
 } // namespace types
 } // namespace vpd
