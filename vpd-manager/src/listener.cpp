@@ -340,17 +340,58 @@ void Listener::correlatedPropChangedCallBack(
             throw DbusException("Error in reading property change signal.");
         }
 
-        const std::string l_interface{i_msg.get_interface()};
+        std::string l_interface;
+        types::PropertyMap l_propMap;
+        i_msg.read(l_interface, l_propMap);
+
         const std::string l_objectPath{i_msg.get_path()};
-        const std::string l_signature{i_msg.get_signature()};
 
-        (void)l_interface;
-        (void)l_objectPath;
-        (void)l_signature;
+        const std::string l_serviceName =
+            dbusUtility::getServiceNameFromConnectionId(i_msg.get_sender());
 
-        /*TODO:
-        Use correlated JSON to find target {object path, interface,
-        property/properties} to update*/
+        if (l_serviceName.empty())
+        {
+            throw DbusException(
+                "Failed to get service name from connection ID: " +
+                std::string(i_msg.get_sender()));
+        }
+
+        // if service name contains .service suffix, strip it
+        if (std::size_t l_pos = l_serviceName.find(".service") !=
+                                std::string::npos)
+        {
+            l_serviceName = l_serviceName.substr(0, l_pos);
+        }
+
+        // iterate through all properties in map
+        for (const auto& l_propertyEntry : l_propMap)
+        {
+            const std::string& l_propertyName = l_propertyEntry.first;
+            const auto& l_propertyValue = l_propertyEntry.second;
+
+            // Use correlated JSON to find target {object path,
+            // interface,property/properties} to update
+            const auto& l_correlatedPropList = getCorrelatedProps(
+                l_serviceName, l_objectPath, l_interface, l_propertyName);
+
+            // update all target correlated properties
+            std::for_each(
+                l_correlatedPropList.begin(), l_correlatedPropList.end(),
+                [&l_propertyValue = std::as_const(l_propertyValue),
+                 &l_serviceName = std::as_const(l_serviceName)](
+                    const auto& i_corrProperty) {
+                    if (!updateCorrelatedProperty(l_serviceName, i_corrProperty,
+                                                  l_propertyValue))
+                    {
+                        logging::logMessage(
+                            "Failed to update correlated property: " +
+                            l_serviceName + " : " +
+                            std::get<0>(i_corrProperty) + " : " +
+                            std::get<1>(i_corrProperty) + " : " +
+                            std::get<2>(i_corrProperty));
+                    }
+                });
+        }
     }
     catch (const std::exception& l_ex)
     {
@@ -359,6 +400,38 @@ void Listener::correlatedPropChangedCallBack(
             __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
+}
+
+types::DbusPropertyList Listener::getCorrelatedProps(
+    [[maybe_unused]] const std::string& i_serviceName,
+    [[maybe_unused]] const std::string& i_objectPath,
+    [[maybe_unused]] const std::string& i_interface,
+    [[maybe_unused]] const std::string& i_property) const
+{
+    types::DbusPropertyList l_result;
+    try
+    {
+        /*TODO: Use parsed correlated JSON to find target {object path(s),
+        interface(s), property/properties}*/
+    }
+    catch (const std::exception& l_ex)
+    {
+        throw FirmwareException(l_ex.what());
+    }
+    return l_result;
+}
+
+bool updateCorrelatedProperty(
+    [[maybe_unused]] const std::string& i_serviceName,
+    [[maybe_unused]] const types::DbusPropertyEntry& i_corrProperty,
+    [[maybe_unused]] const types::DbusVariantType& i_value) const noexcept
+{
+    /* TODO:
+        1. Check destination interface type
+        2. Convert value to required type
+        3. Read current property value on Dbus, and if needed update it.
+    */
+    return true;
 }
 
 } // namespace vpd
