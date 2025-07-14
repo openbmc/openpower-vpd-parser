@@ -755,5 +755,38 @@ inline std::vector<std::string> GetSubTreePaths(
     }
     return l_objectPaths;
 }
+
+/**
+ * @brief API to get Dbus service name for given connection identifier.
+ *
+ * @param[in] i_connectionId - Dbus connection ID.
+ *
+ * @return On success, returns the DBus service associated with given connection
+ * ID, empty string otherwise.
+ */
+inline std::string getServiceNameFromConnectionId(
+    [[maybe_unused]] const std::string& i_connectionId) noexcept
+{
+    std::string l_serviceName;
+    try
+    {
+        if (i_connectionId.empty())
+        {
+            throw std::runtime_error("Empty connection ID");
+        }
+
+        /* TODO:
+        - get PID corresponding to the connection ID
+        - use PID to get corresponding encoded service name string
+        - decode service name string */
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to get service name from connection ID: [" +
+            i_connectionId + "]. error: " + std::string(l_ex.what()));
+    }
+    return l_serviceName;
+}
 } // namespace dbusUtility
 } // namespace vpd
