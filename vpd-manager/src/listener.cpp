@@ -346,8 +346,15 @@ void Listener::correlatedPropChangedCallBack(
 
         const std::string l_objectPath{i_msg.get_path()};
 
-        const std::string l_serviceName =
+        std::string l_serviceName =
             dbusUtility::getServiceNameFromConnectionId(i_msg.get_sender());
+
+        // if service name contains .service suffix, strip it
+        const std::size_t l_pos = l_serviceName.find(".service");
+        if (l_pos != std::string::npos)
+        {
+            l_serviceName = l_serviceName.substr(0, l_pos);
+        }
 
         if (l_serviceName.empty())
         {
