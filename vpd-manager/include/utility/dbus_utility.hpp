@@ -765,9 +765,8 @@ inline std::vector<std::string> GetSubTreePaths(
  * ID, empty string otherwise.
  */
 inline std::string getServiceNameFromConnectionId(
-    [[maybe_unused]] const std::string& i_connectionId) noexcept
+    const std::string& i_connectionId) noexcept
 {
-    std::string l_serviceName;
     try
     {
         if (i_connectionId.empty())
@@ -775,10 +774,46 @@ inline std::string getServiceNameFromConnectionId(
             throw std::runtime_error("Empty connection ID");
         }
 
-        /* TODO:
-        - get PID corresponding to the connection ID
-        - use PID to get corresponding encoded service name string
-        - decode service name string */
+        auto l_bus = sdbusplus::bus::new_default();
+
+        // get PID corresponding to the connection ID
+        auto l_method = l_bus.new_method_call(
+            "org.freedesktop.DBus", "/org/freedesktop/DBus",
+            "org.freedesktop.DBus", "GetConnectionUnixProcessID");
+        l_method.append(i_connectionId);
+        auto l_result = l_bus.call(l_method);
+
+        unsigned l_pid;
+        l_result.read(l_pid);
+
+        // use PID to get corresponding unit object path
+        l_method = l_bus.new_method_call(
+            "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+            "org.freedesktop.systemd1.Manager", "GetUnitByPID");
+        l_method.append(l_pid);
+        l_result = l_bus.call(l_method);
+
+        sdbusplus::message::object_path l_unitObjectPath;
+        l_result.read(l_unitObjectPath);
+
+        // use unit object path to get service name
+        l_method = l_bus.new_method_call(
+            "org.freedesktop.systemd1", std::string(l_unitObjectPath).c_str(),
+            "org.freedesktop.DBus.Properties", "Get");
+        l_method.append("org.freedesktop.systemd1.Unit", "Id");
+        l_result = l_bus.call(l_method);
+        types::DbusVariantType l_serviceNameVar;
+        l_result.read(l_serviceNameVar);
+
+        if (auto l_serviceNameStr = std::get_if<std::string>(&l_serviceNameVar))
+        {
+            return *l_serviceNameStr;
+        }
+        else
+        {
+            throw std::runtime_error(
+                "Invalid type received while reading service name.");
+        }
     }
     catch (const std::exception& l_ex)
     {
@@ -786,7 +821,7 @@ inline std::string getServiceNameFromConnectionId(
             "Failed to get service name from connection ID: [" +
             i_connectionId + "]. error: " + std::string(l_ex.what()));
     }
-    return l_serviceName;
+    return std::string{};
 }
 } // namespace dbusUtility
 } // namespace vpd
