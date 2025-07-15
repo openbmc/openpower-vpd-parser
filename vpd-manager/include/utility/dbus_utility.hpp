@@ -765,7 +765,7 @@ inline std::vector<std::string> GetSubTreePaths(
  * ID, empty string otherwise.
  */
 inline std::string getServiceNameFromConnectionId(
-    [[maybe_unused]] const std::string& i_connectionId) noexcept
+    const std::string& i_connectionId) noexcept
 {
     std::string l_serviceName;
     try
@@ -775,10 +775,28 @@ inline std::string getServiceNameFromConnectionId(
             throw std::runtime_error("Empty connection ID");
         }
 
+        // get PID corresponding to the connection ID
+        unsigned l_pid;
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method = l_bus.new_method_call(
+            "org.freedesktop.DBus", "/org/freedesktop/DBus",
+            "org.freedesktop.DBus", "GetConnectionUnixProcessID");
+        l_method.append(i_connectionId);
+        auto l_result = l_bus.call(l_method);
+        l_result.read(l_pid);
+
+        // use PID to get corresponding encoded service name string
+        std::string l_encodedServiceName;
+        l_method = l_bus.new_method_call(
+            "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+            "org.freedesktop.systemd1.Manager", "GetUnitByPID");
+        l_method.append(l_pid);
+        l_result = l_bus.call(l_method);
+        l_result.read(l_encodedServiceName);
+
         /* TODO:
-        - get PID corresponding to the connection ID
-        - use PID to get corresponding encoded service name string
         - decode service name string */
+        l_serviceName = l_encodedServiceName;
     }
     catch (const std::exception& l_ex)
     {
