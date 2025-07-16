@@ -4,6 +4,7 @@
 #include "event_logger.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
+#include "utility/common_utility.hpp"
 #include "utility/dbus_utility.hpp"
 #include "utility/json_utility.hpp"
 
@@ -363,20 +364,40 @@ void Listener::correlatedPropChangedCallBack(
                 std::string(i_msg.get_sender()));
         }
 
+        // if service name contains .service suffix, strip it
+        if (std::size_t l_pos = l_serviceName.find(".service") !=
+                                std::string::npos)
+        {
+            l_serviceName = l_serviceName.substr(0, l_pos);
+        }
+
         // iterate through all properties in map
         for (const auto& l_propertyEntry : l_propMap)
         {
             const std::string& l_propertyName = l_propertyEntry.first;
+            const auto& l_propertyValue = l_propertyEntry.second;
 
             // Use correlated JSON to find target {object path,
             // interface,property/properties} to update
             const auto& l_correlatedPropList = getCorrelatedProps(
                 l_serviceName, l_objectPath, l_interface, l_propertyName);
-            (void)l_correlatedPropList;
-            /*TODO:
-         - Read target {object path, interface,
-        property/properties}
-         - If there is any change, update target */
+
+            // update all target correlated properties
+            std::for_each(
+                l_correlatedPropList.begin(), l_correlatedPropList.end(),
+                [&l_propertyValue = std::as_const(l_propertyValue),
+                 &l_serviceName = std::as_const(l_serviceName)](
+                    const auto& i_corrProperty) {
+                    if (!updateCorrelatedProperty(l_serviceName, i_corrProperty,
+                                                  l_propertyValue))
+                    {
+                        logging::logMessage(
+                            "Failed to update correlated property: " +
+                            i_serviceName + " : " + l_destinationObjectPath +
+                            " : " + l_destinationInterface + " : " +
+                            l_destinationPropertyName);
+                    }
+                });
         }
     }
     catch (const std::exception& l_ex)
@@ -450,6 +471,69 @@ types::DbusPropertyList Listener::getCorrelatedProps(
         throw FirmwareException(l_ex.what());
     }
     return l_result;
+}
+
+bool Listener::updateCorrelatedProperty(
+    const std::string& i_serviceName,
+    const types::DbusPropertyEntry& i_corrProperty,
+    const types::DbusVariantType& i_propertyValue) const
+{
+    try
+    {
+        const auto& l_destinationObjectPath{std::get<0>(i_corrProperty)};
+        const auto& l_destinationInterface{std::get<1>(i_corrProperty)};
+        const auto& l_destinationPropertyName{std::get<2>(i_corrProperty)};
+
+        // destination interface is ipz vpd
+        if (l_destinationInterface.find(constants::ipzVpdInf) !=
+            std::string::npos)
+        {
+            if (const auto l_val = std::get_if<std::string>(&i_propertyValue))
+            {
+                // convert value to binary vector before updating
+                return dbusUtility::readAndUpdateDbusProperty(
+                    i_serviceName, l_destinationObjectPath,
+                    l_destinationInterface, l_destinationPropertyName,
+                    commonUtility::convertToBinary(*l_val));
+            }
+            else if (const auto l_val =
+                         std::get_if<types::BinaryVector>(&i_propertyValue))
+            {
+                return dbusUtility::readAndUpdateDbusProperty(
+                    i_serviceName, l_destinationObjectPath,
+                    l_destinationInterface, l_destinationPropertyName, *l_val);
+            }
+        }
+        else
+        {
+            // destination interface is not ipz vpd, assume target
+            // property type is of string type
+            if (const auto l_val =
+                    std::get_if<types::BinaryVector>(&i_propertyValue))
+            {
+                // convert property value to string before updating
+                return dbusUtility::readAndUpdateDbusProperty(
+                    i_serviceName, l_destinationObjectPath,
+                    l_destinationInterface, l_destinationPropertyName,
+                    commonUtility::getPrintableValue(*l_val));
+            }
+            else if (const auto l_val =
+                         std::get_if<std::string>(&i_propertyValue))
+            {
+                return dbusUtility::readAndUpdateDbusProperty(
+                    i_serviceName, l_destinationObjectPath,
+                    l_destinationInterface, l_destinationPropertyName, *l_val);
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to update correlated property: " + i_serviceName + " : " +
+            l_destinationObjectPath + " : " + l_destinationInterface + " : " +
+            l_destinationPropertyName + ". Error: " + std::string(l_ex.what()));
+    }
+    return false;
 }
 
 } // namespace vpd

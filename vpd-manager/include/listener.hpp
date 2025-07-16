@@ -136,6 +136,21 @@ class Listener
         const std::string& i_serviceName, const std::string& i_objectPath,
         const std::string& i_interface, const std::string& i_property) const;
 
+    /**
+     * @brief API to update a given correlated property
+     *
+     * @param[in] i_serviceName - Service name.
+     * @param[in] i_corrProperty - Details of correlated property to update
+     * @param[in] i_value - Property value
+     *
+     * @return true, if correlated property was successfully updated, false
+     * otherwise.
+     */
+    bool updateCorrelatedProperty(
+        const std::string& i_serviceName,
+        const types::DbusPropertyEntry& i_corrProperty,
+        const types::DbusVariantType& i_value) const noexcept;
+
     // Shared pointer to worker class
     const std::shared_ptr<Worker>& m_worker;
 
