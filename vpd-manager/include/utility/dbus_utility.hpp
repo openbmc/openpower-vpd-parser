@@ -822,5 +822,51 @@ inline std::string getServiceNameFromConnectionId(
     }
     return std::string{};
 }
+
+/**
+ * @brief API to read and update a Dbus property.
+ *
+ * This API reads the current value of a given Dbus property and updates it if
+ * the current value is not the same as the new value.
+ *
+ * @param[in] i_serviceName - Name of the Dbus service.
+ * @param[in] i_objectPath - Object path under the service.
+ * @param[in] i_interface - Interface under which property exist.
+ * @param[in] i_property - Property whose value is to be written.
+ * @param[in] i_propertyValue - The value to be written.
+ *
+ * @return true if property update is required and successful, false otherwise.
+ */
+template <class PropertyType>
+inline bool readAndUpdateDbusProperty(
+    const std::string& i_serviceName, const std::string& i_objectPath,
+    const std::string& i_interface, const std::string& i_property,
+    const PropertyType& i_propertyValue) noexcept
+{
+    try
+    {
+        // read the current value
+        const auto l_currentValueVar = readDbusProperty(
+            i_serviceName, i_objectPath, i_interface, i_property);
+
+        if (const auto l_currentValue =
+                std::get_if<PropertyType>(&l_currentValueVar))
+        {
+            if (i_propertyValue != *l_currentValue)
+            {
+                // need to update the property
+                return writeDbusProperty(i_serviceName, i_objectPath,
+                                         i_interface, i_property,
+                                         i_propertyValue);
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage("Failed to read and update Dbus. Error: " +
+                            std::string(l_ex.what()));
+    }
+    return false;
+}
 } // namespace dbusUtility
 } // namespace vpd
