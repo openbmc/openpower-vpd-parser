@@ -346,15 +346,8 @@ void Listener::correlatedPropChangedCallBack(
 
         const std::string l_objectPath{i_msg.get_path()};
 
-        std::string l_serviceName =
+        const std::string l_serviceName =
             dbusUtility::getServiceNameFromConnectionId(i_msg.get_sender());
-
-        // if service name contains .service suffix, strip it
-        const std::size_t l_pos = l_serviceName.find(".service");
-        if (l_pos != std::string::npos)
-        {
-            l_serviceName = l_serviceName.substr(0, l_pos);
-        }
 
         if (l_serviceName.empty())
         {
@@ -372,11 +365,13 @@ void Listener::correlatedPropChangedCallBack(
             // interface,property/properties} to update
             const auto& l_correlatedPropList = getCorrelatedProps(
                 l_serviceName, l_objectPath, l_interface, l_propertyName);
+
             (void)l_correlatedPropList;
+
             /*TODO:
-         - Read target {object path, interface,
-        property/properties}
-         - If there is any change, update target */
+            -   Read target {object path, interface,
+                property/properties}
+            -   If there is any change, update target */
         }
     }
     catch (const std::exception& l_ex)
