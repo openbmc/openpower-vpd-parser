@@ -4,6 +4,7 @@
 #include "event_logger.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
+#include "utility/common_utility.hpp"
 #include "utility/dbus_utility.hpp"
 #include "utility/json_utility.hpp"
 
@@ -471,16 +472,73 @@ types::DbusPropertyList Listener::getCorrelatedProps(
 }
 
 bool Listener::updateCorrelatedProperty(
-    [[maybe_unused]] const std::string& i_serviceName,
-    [[maybe_unused]] const types::DbusPropertyEntry& i_corrProperty,
-    [[maybe_unused]] const types::DbusVariantType& i_value) const noexcept
+    const std::string& i_serviceName,
+    const types::DbusPropertyEntry& i_corrProperty,
+    const types::DbusVariantType& i_propertyValue) const noexcept
 {
-    /* TODO:
-        1. Check destination interface type
-        2. Convert value to required type
-        3. Read current property value on Dbus, and if needed update it.
-    */
-    return true;
+    const auto& l_destinationObjectPath{std::get<0>(i_corrProperty)};
+    const auto& l_destinationInterface{std::get<1>(i_corrProperty)};
+    const auto& l_destinationPropertyName{std::get<2>(i_corrProperty)};
+
+    try
+    {
+        types::DbusVariantType l_valueToUpdate;
+
+        // destination interface is ipz vpd
+        if (l_destinationInterface.find(constants::ipzVpdInf) !=
+            std::string::npos)
+        {
+            if (const auto l_val = std::get_if<std::string>(&i_propertyValue))
+            {
+                // convert value to binary vector before updating
+                l_valueToUpdate = commonUtility::convertToBinary(*l_val);
+            }
+            else if (const auto l_val =
+                         std::get_if<types::BinaryVector>(&i_propertyValue))
+            {
+                l_valueToUpdate = *l_val;
+            }
+        }
+        else
+        {
+            // destination interface is not ipz vpd, assume target
+            // property type is of string type
+            if (const auto l_val =
+                    std::get_if<types::BinaryVector>(&i_propertyValue))
+            {
+                // convert property value to string before updating
+
+                l_valueToUpdate = commonUtility::getPrintableValue(*l_val);
+            }
+            else if (const auto l_val =
+                         std::get_if<std::string>(&i_propertyValue))
+            {
+                l_valueToUpdate = *l_val;
+            }
+        }
+
+        if (i_serviceName == constants::pimServiceName)
+        {
+            return dbusUtility::callPIM(types::ObjectMap{
+                {l_destinationObjectPath,
+                 {{l_destinationInterface,
+                   {{l_destinationPropertyName, l_valueToUpdate}}}}}});
+        }
+        else
+        {
+            return dbusUtility::writeDbusProperty(
+                i_serviceName, l_destinationObjectPath, l_destinationInterface,
+                l_destinationPropertyName, l_valueToUpdate);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to update correlated property: " + i_serviceName + " : " +
+            l_destinationObjectPath + " : " + l_destinationInterface + " : " +
+            l_destinationPropertyName + ". Error: " + std::string(l_ex.what()));
+    }
+    return false;
 }
 
 } // namespace vpd
