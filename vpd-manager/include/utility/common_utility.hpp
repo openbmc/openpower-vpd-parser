@@ -137,5 +137,103 @@ inline std::string convertByteVectorToHex(
 
     return l_oss.str();
 }
+
+/**
+ * @brief An API to convert binary value into ascii/hex representation.
+ *
+ * If given data contains printable characters, ASCII formated string value of
+ * the input data will be returned. Otherwise if the data has any non-printable
+ * value, returns the hex represented value of the given data in string format.
+ *
+ * @param[in] i_keywordValue - Data in binary format.
+ *
+ * @throw - Throws std::bad_alloc or std::terminate in case of error.
+ *
+ * @return - Returns the converted string value.
+ */
+inline std::string getPrintableValue(const types::BinaryVector& i_keywordValue)
+{
+    bool l_allPrintable =
+        std::all_of(i_keywordValue.begin(), i_keywordValue.end(),
+                    [](const auto& l_byte) { return std::isprint(l_byte); });
+
+    std::ostringstream l_oss;
+    if (l_allPrintable)
+    {
+        l_oss << std::string(i_keywordValue.begin(), i_keywordValue.end());
+    }
+    else
+    {
+        l_oss << "0x";
+        for (const auto& l_byte : i_keywordValue)
+        {
+            l_oss << std::setfill('0') << std::setw(2) << std::hex
+                  << static_cast<int>(l_byte);
+        }
+    }
+
+    return l_oss.str();
+}
+
+/**
+ * @brief API to get data in binary format.
+ *
+ * This API converts given string value present in hexadecimal or decimal format
+ * into array of binary data.
+ *
+ * @param[in] i_value - Input data.
+ *
+ * @return - Array of binary data on success, throws as exception in case
+ * of any error.
+ *
+ * @throw std::runtime_error, std::out_of_range, std::bad_alloc,
+ * std::invalid_argument
+ */
+inline types::BinaryVector convertToBinary(const std::string& i_value)
+{
+    if (i_value.empty())
+    {
+        throw std::runtime_error("Empty input provided");
+    }
+
+    std::vector<uint8_t> l_binaryValue{};
+
+    if (i_value.substr(0, 2).compare("0x") == constants::STR_CMP_SUCCESS)
+    {
+        if (i_value.length() % 2 != 0)
+        {
+            throw std::runtime_error(
+                "Write option accepts 2 digit hex numbers. (Ex. 0x1 "
+                "should be given as 0x01).");
+        }
+
+        auto l_value = i_value.substr(2);
+
+        if (l_value.empty())
+        {
+            throw std::runtime_error(
+                "Provide a valid hexadecimal input. (Ex. 0x30313233)");
+        }
+
+        if (l_value.find_first_not_of("0123456789abcdefABCDEF") !=
+            std::string::npos)
+        {
+            throw std::runtime_error("Provide a valid hexadecimal input.");
+        }
+
+        for (size_t l_pos = 0; l_pos < l_value.length(); l_pos += 2)
+        {
+            uint8_t l_byte = static_cast<uint8_t>(
+                std::stoi(l_value.substr(l_pos, 2), nullptr, 16));
+            l_binaryValue.push_back(l_byte);
+        }
+    }
+    else
+    {
+        l_binaryValue.assign(i_value.begin(), i_value.end());
+    }
+    return l_binaryValue;
+}
+
 } // namespace commonUtility
 } // namespace vpd
