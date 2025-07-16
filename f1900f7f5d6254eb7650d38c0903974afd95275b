@@ -16,6 +16,24 @@
       "message": "Please explain the reason behind this change.",
       "revId": "f1900f7f5d6254eb7650d38c0903974afd95275b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6435f890_e2c8f420",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-16T09:51:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1dd12886_a8aacc4f",
+      "revId": "f1900f7f5d6254eb7650d38c0903974afd95275b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
