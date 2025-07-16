@@ -410,16 +410,61 @@ void Listener::correlatedPropChangedCallBack(
 }
 
 types::DbusPropertyList Listener::getCorrelatedProps(
-    [[maybe_unused]] const std::string& i_serviceName,
-    [[maybe_unused]] const std::string& i_objectPath,
-    [[maybe_unused]] const std::string& i_interface,
-    [[maybe_unused]] const std::string& i_property) const
+    const std::string& i_serviceName, const std::string& i_objectPath,
+    const std::string& i_interface, const std::string& i_property) const
 {
     types::DbusPropertyList l_result;
     try
     {
-        /*TODO: Use parsed correlated JSON to find target {object path(s),
-        interface(s), property/properties}*/
+        if (m_correlatedPropJson.contains(i_serviceName) &&
+            m_correlatedPropJson[i_serviceName].contains(i_interface) &&
+            m_correlatedPropJson[i_serviceName][i_interface].contains(
+                i_property))
+        {
+            const nlohmann::json& l_destinationJsonObj =
+                m_correlatedPropJson[i_serviceName][i_interface][i_property];
+
+            // check if any matching paths pair entry is present
+            if (l_destinationJsonObj.contains("pathsPair") &&
+                l_destinationJsonObj["pathsPair"].contains(i_objectPath) &&
+                l_destinationJsonObj["pathsPair"][i_objectPath].contains(
+                    "destinationInventoryPath") &&
+                l_destinationJsonObj["pathsPair"][i_objectPath].contains(
+                    "interfaces"))
+            {
+                // iterate through all the destination interface and property
+                // name
+                for (const auto& l_destinationInterfaceJsonObj :
+                     l_destinationJsonObj["pathsPair"][i_objectPath]
+                                         ["interfaces"]
+                                             .items())
+                {
+                    // iterate through all destination inventory paths
+                    for (const auto& l_destinationInventoryPath :
+                         l_destinationJsonObj["pathsPair"][i_objectPath]
+                                             ["destinationInventoryPath"])
+                    {
+                        l_result.emplace_back(
+                            l_destinationInventoryPath,
+                            l_destinationInterfaceJsonObj.key(),
+                            l_destinationInterfaceJsonObj.value());
+                    } // destination inventory paths
+                } // destination interfaces
+            }
+
+            // get the default interface, property to update
+            else if (l_destinationJsonObj.contains("defaultInterfaces"))
+            {
+                // iterate through all default interfaces to update
+                for (const auto& l_destinationIfcPropEntry :
+                     l_destinationJsonObj["defaultInterfaces"].items())
+                {
+                    l_result.emplace_back(std::make_tuple(
+                        i_objectPath, l_destinationIfcPropEntry.key(),
+                        l_destinationIfcPropEntry.value()));
+                }
+            }
+        }
     }
     catch (const std::exception& l_ex)
     {
