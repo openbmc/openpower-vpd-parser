@@ -141,7 +141,7 @@ class Listener
         const std::string& i_interface, const std::string& i_property) const;
 
     /**
-     * @brief API to update a given correlated property.
+     * @brief API to update a given correlated property
      *
      * @param[in] i_serviceName - Service name.
      * @param[in] i_corrProperty - Details of correlated property to update
