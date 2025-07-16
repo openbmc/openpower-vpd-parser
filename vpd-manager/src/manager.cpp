@@ -634,6 +634,8 @@ bool Manager::collectAllFruVpd() const noexcept
             __FUNCTION__, 0, "Collect all FRUs VPD is requested.", std::nullopt,
             std::nullopt, std::nullopt, std::nullopt);
 
+// ToDo: Handle with OEM interface
+#ifdef IBM_SYSTEM
         if (m_ibmHandler.get() != nullptr)
         {
             m_ibmHandler->collectAllFruVpd();
@@ -644,6 +646,7 @@ bool Manager::collectAllFruVpd() const noexcept
             throw std::runtime_error(
                 "Not found any OEM handler to collect all FRUs VPD.");
         }
+#endif
     }
     catch (const std::exception& l_ex)
     {
