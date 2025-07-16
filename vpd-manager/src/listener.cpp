@@ -346,15 +346,8 @@ void Listener::correlatedPropChangedCallBack(
 
         const std::string l_objectPath{i_msg.get_path()};
 
-        std::string l_serviceName =
+        const std::string l_serviceName =
             dbusUtility::getServiceNameFromConnectionId(i_msg.get_sender());
-
-        // if service name contains .service suffix, strip it
-        const std::size_t l_pos = l_serviceName.find(".service");
-        if (l_pos != std::string::npos)
-        {
-            l_serviceName = l_serviceName.substr(0, l_pos);
-        }
 
         if (l_serviceName.empty())
         {
@@ -372,11 +365,13 @@ void Listener::correlatedPropChangedCallBack(
             // interface,property/properties} to update
             const auto& l_correlatedPropList = getCorrelatedProps(
                 l_serviceName, l_objectPath, l_interface, l_propertyName);
+
             (void)l_correlatedPropList;
+
             /*TODO:
-         - Read target {object path, interface,
-        property/properties}
-         - If there is any change, update target */
+            -   Read target {object path, interface,
+                property/properties}
+            -   If there is any change, update target */
         }
     }
     catch (const std::exception& l_ex)
@@ -390,61 +385,16 @@ void Listener::correlatedPropChangedCallBack(
 
 std::vector<std::tuple<std::string, std::string, std::string>>
     Listener::getCorrelatedProps(
-        const std::string& i_serviceName, const std::string& i_objectPath,
-        const std::string& i_interface, const std::string& i_property) const
+        [[maybe_unused]] const std::string& i_serviceName,
+        [[maybe_unused]] const std::string& i_objectPath,
+        [[maybe_unused]] const std::string& i_interface,
+        [[maybe_unused]] const std::string& i_property) const
 {
     std::vector<std::tuple<std::string, std::string, std::string>> l_result;
     try
     {
-        if (m_correlatedPropJson.contains(i_serviceName) &&
-            m_correlatedPropJson[i_serviceName].contains(i_interface) &&
-            m_correlatedPropJson[i_serviceName][i_interface].contains(
-                i_property))
-        {
-            const nlohmann::json& l_destinationJsonObj =
-                m_correlatedPropJson[i_serviceName][i_interface][i_property];
-
-            // get the default interface, property to update
-            if (l_destinationJsonObj.contains("defaultInterfaces"))
-            {
-                // iterate through all default interfaces to update
-                for (const auto& l_destinationIfcPropEntry :
-                     l_destinationJsonObj["defaultInterfaces"].items())
-                {
-                    l_result.emplace_back(std::make_tuple(
-                        i_objectPath, l_destinationIfcPropEntry.key(),
-                        l_destinationIfcPropEntry.value()));
-                }
-            }
-
-            // check if any matching paths pair entry is present
-            if (l_destinationJsonObj.contains("pathsPair") &&
-                l_destinationJsonObj["pathsPair"].contains(i_objectPath) &&
-                l_destinationJsonObj["pathsPair"][i_objectPath].contains(
-                    "destinationInventoryPath") &&
-                l_destinationJsonObj["pathsPair"][i_objectPath].contains(
-                    "interfaces"))
-            {
-                // iterate through all the destination interface and property
-                // name
-                for (const auto& l_destinationInterfaceJsonObj :
-                     l_destinationJsonObj["pathsPair"][i_objectPath]
-                                         ["interfaces"]
-                                             .items())
-                {
-                    // iterate through all destination inventory paths
-                    for (const auto& l_destinationInventoryPath :
-                         l_destinationJsonObj["pathsPair"][i_objectPath]
-                                             ["destinationInventoryPath"])
-                    {
-                        l_result.emplace_back(
-                            l_destinationInventoryPath,
-                            l_destinationInterfaceJsonObj.key(),
-                            l_destinationInterfaceJsonObj.value());
-                    } // destination inventory paths
-                } // destination interfaces
-            }
-        }
+        /*TODO: Use parsed correlated JSON to find target {object path(s),
+        interface(s), property/properties}*/
     }
     catch (const std::exception& l_ex)
     {
