@@ -1329,6 +1329,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
     }
     catch (std::exception& l_ex)
     {
+        std::string l_msgSuffix;
         // If post fail action is required, execute it.
         if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
                                           "postFailAction", "collection"))
@@ -1336,16 +1337,26 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             if (!jsonUtility::executePostFailAction(m_parsedJson, i_vpdFilePath,
                                                     "collection"))
             {
-                throw std::runtime_error(
-                    std::string(__FUNCTION__) + "VPD parsing failed for " +
-                    i_vpdFilePath + " due to error: " + l_ex.what() +
-                    ". Post Fail Action also failed, aborting collection for this FRU");
+                l_msgSuffix =
+                    ". Post Fail Action also failed, aborting collection for this FRU";
             }
         }
 
+        if (typeid(l_ex) == std::type_index(typeid(DataException)))
+        {
+            throw DataException(
+                std::string(__FUNCTION__) + " : VPD parsing failed for " +
+                i_vpdFilePath + " due to error: " + l_ex.what() + l_msgSuffix);
+        }
+        else if (typeid(l_ex) == std::type_index(typeid(EccException)))
+        {
+            throw EccException(
+                std::string(__FUNCTION__) + " : VPD parsing failed for " +
+                i_vpdFilePath + " due to error: " + l_ex.what() + l_msgSuffix);
+        }
         throw std::runtime_error(
-            std::string(__FUNCTION__) + "VPD parsing failed for " +
-            i_vpdFilePath + " due to error: " + l_ex.what());
+            std::string(__FUNCTION__) + " : VPD parsing failed for " +
+            i_vpdFilePath + " due to error: " + l_ex.what() + l_msgSuffix);
     }
 }
 
@@ -1431,7 +1442,11 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         }
 
         EventLogger::createSyncPel(
-            EventLogger::getErrorType(ex), types::SeverityType::Informational,
+            EventLogger::getErrorType(ex),
+            (typeid(ex) == std::type_index(typeid(DataException)) ||
+             typeid(ex) == std::type_index(typeid(EccException)))
+                ? types::SeverityType::Warning
+                : types::SeverityType::Informational,
             __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
 
