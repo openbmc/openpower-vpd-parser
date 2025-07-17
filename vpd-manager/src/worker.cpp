@@ -1343,8 +1343,20 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             }
         }
 
+        if (typeid(l_ex) == std::type_index(typeid(DataException)))
+        {
+            throw DataException(
+                std::string(__FUNCTION__) + " : VPD parsing failed for " +
+                i_vpdFilePath + " due to error: " + l_ex.what());
+        }
+        else if (typeid(l_ex) == std::type_index(typeid(EccException)))
+        {
+            throw EccException(
+                std::string(__FUNCTION__) + " : VPD parsing failed for " +
+                i_vpdFilePath + " due to error: " + l_ex.what());
+        }
         throw std::runtime_error(
-            std::string(__FUNCTION__) + "VPD parsing failed for " +
+            std::string(__FUNCTION__) + " : VPD parsing failed for " +
             i_vpdFilePath + " due to error: " + l_ex.what());
     }
 }
@@ -1431,7 +1443,11 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         }
 
         EventLogger::createSyncPel(
-            EventLogger::getErrorType(ex), types::SeverityType::Informational,
+            EventLogger::getErrorType(ex),
+            (typeid(ex) == std::type_index(typeid(DataException)) ||
+             typeid(ex) == std::type_index(typeid(EccException)))
+                ? types::SeverityType::Warning
+                : types::SeverityType::Informational,
             __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
 
