@@ -472,7 +472,8 @@ types::ExceptionDataMap EventLogger::getExceptionData(
             // type is hardcoded.
             l_errorInfo["ErrorType"] = types::ErrorType::FirmwareError;
             l_errorInfo["ErrorMsg"] =
-                std::string("Eeprom Exception. Reason: ") + i_exception.what();
+                std::string("Standard runtime exception. Reason: ") +
+                i_exception.what();
         }
     }
     catch (const std::exception& l_ex)
