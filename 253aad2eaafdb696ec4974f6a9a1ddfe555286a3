@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb8ddc81_a8864aa8",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-18T05:41:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f6d3dae_56570ec7",
+      "revId": "253aad2eaafdb696ec4974f6a9a1ddfe555286a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56240e23_47fafff5",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-07-18T04:54:04Z",
       "side": 1,
       "message": "as return type is \u003cstd::string, std::string, std::string\u003e, should it be just property not properties.\nSame for above as well",
+      "revId": "253aad2eaafdb696ec4974f6a9a1ddfe555286a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37ec2ea3_396c9a85",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-18T05:41:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56240e23_47fafff5",
       "revId": "253aad2eaafdb696ec4974f6a9a1ddfe555286a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
