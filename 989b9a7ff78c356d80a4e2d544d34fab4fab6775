@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d3ac475_95944d15",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-18T08:30:12Z",
+      "side": 1,
+      "message": "we can directly compare using typeid.",
+      "revId": "989b9a7ff78c356d80a4e2d544d34fab4fab6775",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0a44823_4827af23",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-18T08:30:12Z",
+      "side": 1,
+      "message": "message is common in all cases, we can initialise in the begging itself \u0026 can append post fail action message to that.",
+      "revId": "989b9a7ff78c356d80a4e2d544d34fab4fab6775",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49928f32_c2f2bbc4",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1446,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-18T08:30:12Z",
+      "side": 1,
+      "message": "type_index is not required, can directly compare using typeid.",
+      "revId": "989b9a7ff78c356d80a4e2d544d34fab4fab6775",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
