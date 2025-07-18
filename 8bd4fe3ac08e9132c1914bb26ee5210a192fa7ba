@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64582be2_60c81513",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-18T08:43:05Z",
+      "side": 1,
+      "message": "Nits: JSON object.",
+      "revId": "8bd4fe3ac08e9132c1914bb26ee5210a192fa7ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "574e53ce_c346fa05",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-18T08:43:05Z",
+      "side": 1,
+      "message": "doxygen missing exceptions API can throw.",
+      "revId": "8bd4fe3ac08e9132c1914bb26ee5210a192fa7ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e30a96_6c47e1c4",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-18T08:43:05Z",
+      "side": 1,
+      "message": "add connection id in the exception.",
+      "revId": "8bd4fe3ac08e9132c1914bb26ee5210a192fa7ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31ccb222_9e3b1fbb",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-18T08:43:05Z",
+      "side": 1,
+      "message": "new line will distinguish comment from above implementation.",
+      "revId": "8bd4fe3ac08e9132c1914bb26ee5210a192fa7ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
