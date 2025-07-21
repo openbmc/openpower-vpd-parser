@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d6dca2a_0e0ee66c",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-21T06:21:39Z",
+      "side": 1,
+      "message": "Better variable name?\n\"is\" twice does not sound nice.\n\n\"l_inputPathIsSourcePath\" is ok for me.",
+      "revId": "7b293cdc5d6c90c72776292c2279ae755b3075f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dec514e6_3c507ee4",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-21T06:21:39Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "7b293cdc5d6c90c72776292c2279ae755b3075f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65a6a4b4_e9ffc2f7",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-21T06:21:39Z",
+      "side": 1,
+      "message": "Where is this being used l_paramsToWrite.",
+      "revId": "7b293cdc5d6c90c72776292c2279ae755b3075f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65fa8464_984fc380",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-21T06:21:39Z",
+      "side": 1,
+      "message": "Why the first check is required?",
+      "revId": "7b293cdc5d6c90c72776292c2279ae755b3075f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0ecc8b8_16008657",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-21T06:21:39Z",
+      "side": 1,
+      "message": "Why no \"inp\" here? would have been consistent?",
+      "revId": "7b293cdc5d6c90c72776292c2279ae755b3075f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ab31095_3d4530d8",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-07-21T06:21:39Z",
+      "side": 1,
+      "message": "I am a bit confused here. How do you know that the other path is always hardware path?\nAm I missing something here?",
+      "revId": "7b293cdc5d6c90c72776292c2279ae755b3075f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
