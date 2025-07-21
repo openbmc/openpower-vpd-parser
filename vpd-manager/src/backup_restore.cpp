@@ -407,9 +407,8 @@ int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
         return constants::FAILURE;
     }
 
-    bool l_isInputPathIsSourcePath = false;
-    bool l_isInputPathIsDestinationPath = false;
-    types::IpzData l_paramsToWrite;
+    bool l_inputPathIsSourcePath = false;
+    bool l_inputPathIsDestinationPath = false;
 
     if (m_backupAndRestoreCfgJsonObj.contains("source") &&
         m_backupAndRestoreCfgJsonObj["source"].value("hardwarePath", "") ==
@@ -419,7 +418,7 @@ int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
              .value("hardwarePath", "")
              .empty())
     {
-        l_isInputPathIsSourcePath = true;
+        l_inputPathIsSourcePath = true;
     }
     else if (m_backupAndRestoreCfgJsonObj.contains("destination") &&
              m_backupAndRestoreCfgJsonObj["destination"].value(
@@ -429,31 +428,31 @@ int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
                   .value("hardwarePath", "")
                   .empty())
     {
-        l_isInputPathIsDestinationPath = true;
+        l_inputPathIsDestinationPath = true;
     }
     else
     {
         // Input path is neither source or destination path of the
-        // backup&restore JSON.
+        // backup&restore JSON or source and destination paths are not hardware
+        // paths in the config JSON.
         return constants::SUCCESS;
     }
 
-    if (m_backupAndRestoreCfgJsonObj.contains("backupMap") &&
-        m_backupAndRestoreCfgJsonObj["backupMap"].is_array())
+    if (m_backupAndRestoreCfgJsonObj["backupMap"].is_array())
     {
         std::string l_inpRecordName;
         std::string l_inpKeywordName;
-        types::BinaryVector l_keywordValue;
+        types::BinaryVector l_inpKeywordValue;
 
         if (const types::IpzData* l_ipzData =
                 std::get_if<types::IpzData>(&i_paramsToWriteData))
         {
             l_inpRecordName = std::get<0>(*l_ipzData);
             l_inpKeywordName = std::get<1>(*l_ipzData);
-            l_keywordValue = std::get<2>(*l_ipzData);
+            l_inpKeywordValue = std::get<2>(*l_ipzData);
 
             if (l_inpRecordName.empty() || l_inpKeywordName.empty() ||
-                l_keywordValue.empty())
+                l_inpKeywordValue.empty())
             {
                 logging::logMessage("Invalid input received");
                 return constants::FAILURE;
@@ -486,7 +485,7 @@ int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
                 continue;
             }
 
-            if (l_isInputPathIsSourcePath &&
+            if (l_inputPathIsSourcePath &&
                 (l_aRecordKwInfo["sourceRecord"] == l_inpRecordName) &&
                 (l_aRecordKwInfo["sourceKeyword"] == l_inpKeywordName))
             {
@@ -497,9 +496,9 @@ int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
 
                 return l_parserObj.updateVpdKeyword(std::make_tuple(
                     l_aRecordKwInfo["destinationRecord"],
-                    l_aRecordKwInfo["destinationKeyword"], l_keywordValue));
+                    l_aRecordKwInfo["destinationKeyword"], l_inpKeywordValue));
             }
-            else if (l_isInputPathIsDestinationPath &&
+            else if (l_inputPathIsDestinationPath &&
                      (l_aRecordKwInfo["destinationRecord"] ==
                       l_inpRecordName) &&
                      (l_aRecordKwInfo["destinationKeyword"] ==
@@ -511,7 +510,7 @@ int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
 
                 return l_parserObj.updateVpdKeyword(std::make_tuple(
                     l_aRecordKwInfo["sourceRecord"],
-                    l_aRecordKwInfo["sourceKeyword"], l_keywordValue));
+                    l_aRecordKwInfo["sourceKeyword"], l_inpKeywordValue));
             }
         }
     }
