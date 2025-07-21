@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb026508_6bf463ad",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1332,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-21T07:36:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caef6e43_5c16d858",
+      "revId": "7a823677fbaf853deb680790e0411d9a52e21ed5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "636fe4fe_89a2eae2",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87636344_11454b35",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1340,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-21T07:36:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "636fe4fe_89a2eae2",
+      "revId": "7a823677fbaf853deb680790e0411d9a52e21ed5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2611c962_1c5f2618",
@@ -48,6 +84,24 @@
       "writtenOn": "2025-07-21T07:09:46Z",
       "side": 1,
       "message": "And then from every exception type, just throw the string that has been created.",
+      "revId": "7a823677fbaf853deb680790e0411d9a52e21ed5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e0b5e75_a3f1c778",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-21T07:36:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2611c962_1c5f2618",
       "revId": "7a823677fbaf853deb680790e0411d9a52e21ed5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
