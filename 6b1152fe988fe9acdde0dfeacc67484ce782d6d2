@@ -16,6 +16,24 @@
       "message": "should it be, invalid type received while reading service name from Dbus.",
       "revId": "6b1152fe988fe9acdde0dfeacc67484ce782d6d2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e340a6c3_3638a20b",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-21T10:51:50Z",
+      "side": 1,
+      "message": "Agree. Updated.",
+      "parentUuid": "9ff1dd55_ba69ef95",
+      "revId": "6b1152fe988fe9acdde0dfeacc67484ce782d6d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
