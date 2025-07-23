@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a34fe0a4_b8892da5",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-23T06:36:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f26220f4_bc71258d",
+      "range": {
+        "startLine": 135,
+        "startChar": 4,
+        "endLine": 135,
+        "endChar": 38
+      },
+      "revId": "86a4f9d51cee2525e72d15a3c8a65e722b38d19f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86f19c9c_118d4576",
@@ -54,6 +78,24 @@
       "writtenOn": "2025-07-22T06:09:08Z",
       "side": 1,
       "message": "Give it some thought on what this can be named as.\n\"DbusPropertyId\" is a bit confusing as it says that it is going to have some kind of ID.",
+      "revId": "86a4f9d51cee2525e72d15a3c8a65e722b38d19f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab1cb051_1f12ad71",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-23T06:36:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86f19c9c_118d4576",
       "revId": "86a4f9d51cee2525e72d15a3c8a65e722b38d19f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
