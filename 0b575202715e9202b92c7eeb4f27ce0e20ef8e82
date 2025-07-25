@@ -33,6 +33,23 @@
       "message": "I think \"updateDbusProperty\" function name is sufficient for this task.\nReading and comparing the value is internal way to decide we need update or not.\n\nreadDbusProperty seems to return the read value.",
       "revId": "0b575202715e9202b92c7eeb4f27ce0e20ef8e82",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6005c102_1a44f04d",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-07-25T05:10:05Z",
+      "side": 1,
+      "message": "if i_propertyValue and *l_currentValue are equal this API returns false, indicates failure in updating the value. But it should return true as there is no update?",
+      "revId": "0b575202715e9202b92c7eeb4f27ce0e20ef8e82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
