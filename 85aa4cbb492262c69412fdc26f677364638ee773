@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29531c7b_eb5adae8",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-25T11:31:11Z",
+      "side": 1,
+      "message": "make_tuple is missing here",
+      "revId": "85aa4cbb492262c69412fdc26f677364638ee773",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbf37933_301fb592",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-07-25T11:31:11Z",
+      "side": 1,
+      "message": "new line not required here",
+      "revId": "85aa4cbb492262c69412fdc26f677364638ee773",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
