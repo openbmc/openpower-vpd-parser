@@ -85,7 +85,11 @@ if get_option('ibm_system').allowed()
     )
 endif
 
-libgpiodcxx = dependency('libgpiodcxx', default_options: ['bindings=cxx'])
+libgpiodcxx = dependency(
+    'libgpiodcxx',
+    default_options: ['bindings=cxx'],
+    version: '<1.7.0',
+)
 
 libvpdecc_src = files('vpdecc/vpdecc.c', 'vpdecc/vpdecc_support.c')
 
