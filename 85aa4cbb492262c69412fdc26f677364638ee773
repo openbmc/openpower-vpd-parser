@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6f11332b_c028390b",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-28T07:09:59Z",
+      "side": 1,
+      "message": "Why is `make_tuple` needed here?",
+      "parentUuid": "29531c7b_eb5adae8",
+      "revId": "85aa4cbb492262c69412fdc26f677364638ee773",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fbf37933_301fb592",
         "filename": "vpd-manager/src/listener.cpp",
         "patchSetId": 12
@@ -31,6 +49,24 @@
       "writtenOn": "2025-07-25T11:31:11Z",
       "side": 1,
       "message": "new line not required here",
+      "revId": "85aa4cbb492262c69412fdc26f677364638ee773",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63466cd1_cb363665",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-28T07:09:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbf37933_301fb592",
       "revId": "85aa4cbb492262c69412fdc26f677364638ee773",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
