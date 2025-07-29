@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ca8bf473_9ff4fe6f",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-29T10:22:22Z",
+      "side": 1,
+      "message": "There is already an API called `writeDbusProperty` to update Dbus property.\nI think `readAndUpdateDbusProperty` name is more comprehensible.",
+      "parentUuid": "531e6fb9_54649079",
+      "revId": "0b575202715e9202b92c7eeb4f27ce0e20ef8e82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6005c102_1a44f04d",
         "filename": "vpd-manager/include/utility/dbus_utility.hpp",
         "patchSetId": 10
@@ -65,6 +83,24 @@
       "writtenOn": "2025-07-29T10:14:25Z",
       "side": 1,
       "message": "Acknowledged",
+      "parentUuid": "6005c102_1a44f04d",
+      "revId": "0b575202715e9202b92c7eeb4f27ce0e20ef8e82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ae14864_5d445699",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-29T10:22:22Z",
+      "side": 1,
+      "message": "I agree. Updated.",
       "parentUuid": "6005c102_1a44f04d",
       "revId": "0b575202715e9202b92c7eeb4f27ce0e20ef8e82",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
