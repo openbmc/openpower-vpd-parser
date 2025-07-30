@@ -2,6 +2,7 @@
 
 #include "constants.hpp"
 #include "logger.hpp"
+#include "types.hpp"
 
 #include <algorithm>
 #include <chrono>
