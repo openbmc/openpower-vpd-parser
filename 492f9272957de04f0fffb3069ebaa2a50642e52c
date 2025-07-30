@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09d871a2_9363d31b",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-30T15:58:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10d94cb6_3d6f5e3d",
+      "revId": "492f9272957de04f0fffb3069ebaa2a50642e52c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9312fcf2_0cc00d7a",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-07-30T07:40:25Z",
       "side": 1,
       "message": "if we try to update same property value on dbus, there will be no effect.\nso we can directly call dbusUtility::writeDbusProperty directly. we can avoid ready and then update keyword on dbus.",
+      "revId": "492f9272957de04f0fffb3069ebaa2a50642e52c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e74cb0b_7dcfa050",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-07-30T15:58:56Z",
+      "side": 1,
+      "message": "We had taken a design decision to read and update Dbus property to prevent any chance of infinite callback loop.",
+      "parentUuid": "9312fcf2_0cc00d7a",
       "revId": "492f9272957de04f0fffb3069ebaa2a50642e52c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
