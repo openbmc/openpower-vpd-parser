@@ -195,6 +195,10 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
             std::make_shared<Parser>(l_fruPath, l_sysCfgJsonObj);
         auto l_rc = l_parserObj->updateVpdKeyword(i_paramsToWriteData);
 
+        logging::logMessage(
+            std::string(constants::localLogId) + " : " + l_fruPath + " : " +
+            commonUtility::convertWriteVpdParamsToString(i_paramsToWriteData));
+
         if (l_rc != constants::FAILURE && m_backupAndRestoreObj)
         {
             if (m_backupAndRestoreObj->updateKeywordOnPrimaryOrBackupPath(
@@ -248,6 +252,10 @@ int Manager::updateKeywordOnHardware(
         {
             l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
         }
+
+        logging::logMessage(
+            std::string(constants::localLogId) + " : " + i_fruPath + " : " +
+            commonUtility::convertWriteVpdParamsToString(i_paramsToWriteData));
 
         std::shared_ptr<Parser> l_parserObj =
             std::make_shared<Parser>(i_fruPath, l_sysCfgJsonObj);
