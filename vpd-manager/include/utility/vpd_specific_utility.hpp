@@ -1129,5 +1129,49 @@ inline std::string getErrCodeMsg(const uint16_t& i_errCode)
 
     return std::string{};
 }
+
+/**
+ * @brief API to convert write VPD parameters to a string.
+ *
+ * @param[in] i_paramsToWriteData - write VPD parameters.
+ * @param[in,out] io_errCode - To set error code in case of error.
+ *
+ * @return On success returns string representation of write VPD parameters,
+ * otherwise returns an empty string.
+ */
+inline const std::string convertWriteVpdParamsToString(
+    const types::WriteVpdParams& i_paramsToWriteData, uint16_t& io_errCode) noexcept
+{
+    try
+    {
+        if (const types::IpzData* l_ipzDataPtr =
+                std::get_if<types::IpzData>(&i_paramsToWriteData))
+        {
+            return std::string{
+                "Record: " + std::get<0>(*l_ipzDataPtr) +
+                " Keyword: " + std::get<1>(*l_ipzDataPtr) + " Value: " +
+                commonUtility::convertByteVectorToHex(
+                    std::get<2>(*l_ipzDataPtr))};
+        }
+        else if (const types::KwData* l_kwDataPtr =
+                     std::get_if<types::KwData>(&i_paramsToWriteData))
+        {
+            return std::string{
+                "Keyword: " + std::get<0>(*l_kwDataPtr) + " Value: " +
+                commonUtility::convertByteVectorToHex(
+                    std::get<1>(*l_kwDataPtr))};
+        }
+        else
+        {
+            io_errCode = error_code::UNSUPPORTED_VPD_TYPE;
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        io_errCode = error_code::STANDARD_EXCEPTION;
+    }
+    return std::string{};
+}
+
 } // namespace vpdSpecificUtility
 } // namespace vpd
