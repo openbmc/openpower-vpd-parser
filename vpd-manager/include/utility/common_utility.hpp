@@ -2,6 +2,7 @@
 
 #include "constants.hpp"
 #include "logger.hpp"
+#include "types.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -255,5 +256,38 @@ inline size_t getCurrentTimeSinceEpoch() noexcept
     return static_cast<size_t>(l_timeStampSeconds);
 }
 
+/**
+ * @brief API to convert write VPD parameters to a string.
+ *
+ * @param[in] - write VPD parameters.
+ *
+ * @return On success returns string representation of write VPD parameters,
+ * otherwise returns an empty string.
+ */
+inline const std::string convertWriteVpdParamsToString(
+    const types::WriteVpdParams& i_paramsToWriteData) noexcept
+{
+    try
+    {
+        if (const types::IpzData* l_ipzDataPtr =
+                std::get_if<types::IpzData>(&i_paramsToWriteData))
+        {
+            return std::string{
+                "Record: " + std::get<0>(*l_ipzDataPtr) +
+                " Keyword: " + std::get<1>(*l_ipzDataPtr) + " Value: " +
+                convertByteVectorToHex(std::get<2>(*l_ipzDataPtr))};
+        }
+        else if (const types::KwData* l_kwDataPtr =
+                     std::get_if<types::KwData>(&i_paramsToWriteData))
+        {
+            return std::string{
+                "Keyword: " + std::get<0>(*l_kwDataPtr) +
+                " Value: " + convertByteVectorToHex(std::get<1>(*l_kwDataPtr))};
+        }
+    }
+    catch (const std::exception& l_ex)
+    {}
+    return std::string{};
+}
 } // namespace commonUtility
 } // namespace vpd
