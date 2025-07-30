@@ -14,6 +14,8 @@
 #include "utility/json_utility.hpp"
 #include "utility/vpd_specific_utility.hpp"
 
+#include <syslog.h>
+
 #include <boost/asio/steady_timer.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message.hpp>
@@ -195,6 +197,12 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
             std::make_shared<Parser>(l_fruPath, l_sysCfgJsonObj);
         auto l_rc = l_parserObj->updateVpdKeyword(i_paramsToWriteData);
 
+        // log the action
+        syslog(LOG_USER | LOG_INFO, "%s : %s : %s", __FUNCTION__,
+               constants::localLogId,
+               commonUtility::convertWriteVpdParamsToString(i_paramsToWriteData)
+                   .c_str());
+
         if (l_rc != constants::FAILURE && m_backupAndRestoreObj)
         {
             if (m_backupAndRestoreObj->updateKeywordOnPrimaryOrBackupPath(
@@ -248,6 +256,12 @@ int Manager::updateKeywordOnHardware(
         {
             l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
         }
+
+        // log the action
+        syslog(LOG_USER | LOG_INFO, "%s : %s : %s", __FUNCTION__,
+               constants::localLogId,
+               commonUtility::convertWriteVpdParamsToString(i_paramsToWriteData)
+                   .c_str());
 
         std::shared_ptr<Parser> l_parserObj =
             std::make_shared<Parser>(i_fruPath, l_sysCfgJsonObj);
