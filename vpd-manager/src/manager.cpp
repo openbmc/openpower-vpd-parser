@@ -268,6 +268,22 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
         {
             vpdSpecificUtility::updateCiPropertyOfInheritedFrus(
                 l_fruPath, l_writeParams, l_sysCfgJsonObj);
+
+            auto l_logger = Logger::getLoggerInstance();
+            l_logger->logMessage(
+                "VPD write successful on path[" + i_vpdPath + "] : " +
+                    vpdSpecificUtility::convertWriteVpdParamsToString(
+                        l_writeParams),
+                PlaceHolder::VPD_WRITE);
+        }
+        else
+        {
+            auto l_logger = Logger::getLoggerInstance();
+            l_logger->logMessage(
+                "VPD write failed on path[" + i_vpdPath + "] : " +
+                    vpdSpecificUtility ::convertWriteVpdParamsToString(
+                        l_writeParams),
+                PlaceHolder::VPD_WRITE);
         }
 
         return l_rc;
