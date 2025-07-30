@@ -29,7 +29,11 @@ enum error_code
     DEVICE_NOT_PRESENT,
     DEVICE_PRESENCE_UNKNOWN,
     GPIO_LINE_EXCEPTION,
-    ERROR_PROCESSING_SYSTEM_CMD
+    ERROR_PROCESSING_SYSTEM_CMD,
+    STANDARD_EXCEPTION,
+
+    // VPD specific errors
+    UNSUPPORTED_VPD_TYPE
 };
 
 const std::unordered_map<int, std::string> errorCodeMap = {
@@ -58,5 +62,7 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::DEVICE_PRESENCE_UNKNOWN, "Exception on presence line GPIO."},
     {error_code::GPIO_LINE_EXCEPTION, "There was an exception in GPIO line."},
     {error_code::ERROR_PROCESSING_SYSTEM_CMD,
-     "Error while executing system command tag."}};
+     "Error while executing system command tag."},
+    {error_code::UNSUPPORTED_VPD_TYPE, "This VPD type is not supported"},
+    {error_code::STANDARD_EXCEPTION, "Standard Exception thrown"}};
 } // namespace vpd
