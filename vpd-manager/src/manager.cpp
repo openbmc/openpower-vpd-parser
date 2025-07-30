@@ -270,6 +270,16 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
                 l_fruPath, l_writeParams, l_sysCfgJsonObj);
         }
 
+        // log the VPD write action
+        if (l_rc != constants::FAILURE)
+        {
+            auto l_logger = Logger::getLoggerInstance();
+            l_logger->logMessage(
+                "VPD write successful on path[" + i_vpdPath + "] : " +
+                    commonUtility::convertWriteVpdParamsToString(l_writeParams),
+                PlaceHolder::VPD_WRITE);
+        }
+
         return l_rc;
     }
     catch (const std::exception& l_exception)
