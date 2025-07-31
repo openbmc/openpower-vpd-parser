@@ -184,8 +184,6 @@ std::string Worker::getHWVersion(const types::IPZVpdMap& parsedVpd) const
 void Worker::fillVPDMap(const std::string& vpdFilePath,
                         types::VPDMapVariant& vpdMap)
 {
-    logging::logMessage(std::string("Parsing file = ") + vpdFilePath);
-
     if (vpdFilePath.empty())
     {
         throw std::runtime_error("Invalid file path passed to fillVPDMap API.");

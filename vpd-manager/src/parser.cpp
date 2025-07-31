@@ -142,9 +142,6 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData)
                     std::shared_ptr<ParserInterface> l_vpdParserInstance =
                         getVpdParserInstance();
 
-                    logging::logMessage(
-                        "Performing VPD read on " + m_vpdFilePath);
-
                     l_keywordValue =
                         l_vpdParserInstance->readKeywordFromHardware(
                             types::ReadVpdParams(
