@@ -621,7 +621,7 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
                         else if (std::holds_alternative<std::string>(
                                      l_propertyValue))
                         {
-                            if (l_propertyName.compare("CollectionStatus") ==
+                            if (l_propertyName.compare("Status") ==
                                 constants::STR_CMP_SUCCESS)
                             {
                                 l_propertyMap.emplace(
