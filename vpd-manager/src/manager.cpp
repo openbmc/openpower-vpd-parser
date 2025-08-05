@@ -618,7 +618,7 @@ bool Manager::collectAllFruVpd() const noexcept
             l_severityType = types::SeverityType::Informational;
         }
         else if (m_vpdCollectionStatus == "Completed" ||
-                 m_vpdCollectionStatus == "Failure")
+                 m_vpdCollectionStatus == "Failed")
         {
             l_severityType = types::SeverityType::Warning;
         }
