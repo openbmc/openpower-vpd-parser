@@ -220,18 +220,19 @@ static constexpr auto systemdObjectPath = "/org/freedesktop/systemd1";
 static constexpr auto systemdManagerInterface =
     "org.freedesktop.systemd1.Manager";
 
-static constexpr auto vpdCollectionInterface = "com.ibm.VPD.Collection";
+static constexpr auto vpdCollectionInterface =
+    "xyz.openbmc_project.Common.Progress";
 
 // enumerated values of CollectionStatus D-bus property defined under
 // com.ibm.VPD.Collection interface.
 static constexpr auto vpdCollectionSuccess =
-    "com.ibm.VPD.Collection.Status.Success";
+    "xyz.openbmc_project.Common.Progress.OperationStatus.Completed";
 static constexpr auto vpdCollectionFailure =
-    "com.ibm.VPD.Collection.Status.Failure";
+    "xyz.openbmc_project.Common.Progress.OperationStatus.Failed";
 static constexpr auto vpdCollectionInProgress =
-    "com.ibm.VPD.Collection.Status.InProgress";
+    "xyz.openbmc_project.Common.Progress.OperationStatus.InProgress";
 static constexpr auto vpdCollectionNotStarted =
-    "com.ibm.VPD.Collection.Status.NotStarted";
+    "xyz.openbmc_project.Common.Progress.OperationStatus.NotStarted";
 static constexpr auto power_vs_50003_json =
     "/usr/share/vpd/50003_power_vs.json";
 static constexpr auto power_vs_50001_json =

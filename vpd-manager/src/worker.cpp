@@ -747,7 +747,7 @@ bool Worker::primeInventory(const std::string& i_vpdFilePath)
 
         // Emplace the default state of FRU VPD collection
         types::PropertyMap l_fruCollectionProperty = {
-            {"CollectionStatus", constants::vpdCollectionNotStarted}};
+            {"Status", constants::vpdCollectionNotStarted}};
 
         vpdSpecificUtility::insertOrMerge(l_interfaces,
                                           constants::vpdCollectionInterface,
@@ -1048,7 +1048,7 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
 
             // Update collection status as successful
             types::PropertyMap l_collectionProperty = {
-                {"CollectionStatus", constants::vpdCollectionSuccess}};
+                {"Status", constants::vpdCollectionSuccess}};
 
             vpdSpecificUtility::insertOrMerge(interfaces,
                                               constants::vpdCollectionInterface,
@@ -1371,7 +1371,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         m_activeCollectionThreadCount++;
         m_mutex.unlock();
 
-        // Set CollectionStatus as InProgress. Since it's an intermediate state
+        // Set collection Status as InProgress. Since it's an intermediate state
         // D-bus set-property call is good enough to update the status.
         l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
             m_parsedJson, i_vpdFilePath);
@@ -1381,11 +1381,11 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             if (!dbusUtility::writeDbusProperty(
                     jsonUtility::getServiceName(m_parsedJson, l_inventoryPath),
                     l_inventoryPath, constants::vpdCollectionInterface,
-                    "CollectionStatus",
+                    "Status",
                     types::DbusVariantType{constants::vpdCollectionInProgress}))
             {
                 logging::logMessage(
-                    "Unable to set CollectionStatus as InProgress for " +
+                    "Unable to set collection Status as InProgress for " +
                     i_vpdFilePath + ". Error : " + "DBus write failed");
             }
         }
@@ -1871,9 +1871,9 @@ void Worker::collectSingleFruVpd(
             }
         }
 
-        // Set CollectionStatus as InProgress. Since it's an intermediate state
+        // Set collection Status as InProgress. Since it's an intermediate state
         // D-bus set-property call is good enough to update the status.
-        const std::string& l_collStatusProp = "CollectionStatus";
+        const std::string& l_collStatusProp = "Status";
 
         if (!dbusUtility::writeDbusProperty(
                 jsonUtility::getServiceName(m_parsedJson,
@@ -1883,7 +1883,7 @@ void Worker::collectSingleFruVpd(
                 types::DbusVariantType{constants::vpdCollectionInProgress}))
         {
             logging::logMessage(
-                "Unable to set CollectionStatus as InProgress for " +
+                "Unable to set collection Status as InProgress for " +
                 std::string(i_dbusObjPath) +
                 ". Continue single FRU VPD collection.");
         }
@@ -1919,7 +1919,7 @@ void Worker::collectSingleFruVpd(
     }
     catch (const std::exception& l_error)
     {
-        // Notify FRU's VPD CollectionStatus as Failure
+        // Notify FRU's VPD collection Status as Failure
         if (!dbusUtility::notifyFRUCollectionStatus(
                 std::string(i_dbusObjPath), constants::vpdCollectionFailure))
         {
@@ -1941,7 +1941,7 @@ void Worker::setCollectionStatusProperty(
         if (i_vpdPath.empty())
         {
             throw std::runtime_error(
-                "Given path is empty. Can't set CollectionStatus property");
+                "Given path is empty. Can't set collection Status property");
         }
 
         types::ObjectMap l_objectInterfaceMap;
@@ -1954,7 +1954,7 @@ void Worker::setCollectionStatusProperty(
                     l_Fru["inventoryPath"]);
 
                 types::PropertyMap l_propertyValueMap;
-                l_propertyValueMap.emplace("CollectionStatus", i_value);
+                l_propertyValueMap.emplace("Status", i_value);
 
                 types::InterfaceMap l_interfaces;
                 vpdSpecificUtility::insertOrMerge(
@@ -1972,11 +1972,11 @@ void Worker::setCollectionStatusProperty(
             {
                 throw std::runtime_error(
                     "Invalid inventory path: " + i_vpdPath +
-                    ". Can't set CollectionStatus property");
+                    ". Can't set collection Status property");
             }
 
             types::PropertyMap l_propertyValueMap;
-            l_propertyValueMap.emplace("CollectionStatus", i_value);
+            l_propertyValueMap.emplace("Status", i_value);
 
             types::InterfaceMap l_interfaces;
             vpdSpecificUtility::insertOrMerge(l_interfaces,
@@ -1991,7 +1991,7 @@ void Worker::setCollectionStatusProperty(
         {
             throw DbusException(
                 std::string(__FUNCTION__) +
-                "Call to PIM failed while setting CollectionStatus property for path " +
+                "Call to PIM failed while setting collection Status property for path " +
                 i_vpdPath);
         }
     }

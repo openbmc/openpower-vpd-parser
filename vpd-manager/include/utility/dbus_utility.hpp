@@ -577,7 +577,7 @@ inline bool notifyFRUCollectionStatus(const std::string& i_inventoryPath,
     types::InterfaceMap l_interfaceMap;
     types::PropertyMap l_propertyMap;
 
-    l_propertyMap.emplace("CollectionStatus", i_fruCollectionStatus);
+    l_propertyMap.emplace("Status", i_fruCollectionStatus);
     l_interfaceMap.emplace(constants::vpdCollectionInterface, l_propertyMap);
     l_objectMap.emplace(i_inventoryPath, l_interfaceMap);
 
