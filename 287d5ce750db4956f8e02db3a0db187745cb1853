@@ -16,6 +16,24 @@
       "message": "should it be just \"Empty input provided\" ?",
       "revId": "287d5ce750db4956f8e02db3a0db187745cb1853",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d68703f2_4554d7ce",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-06T07:18:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c874a139_4a39b434",
+      "revId": "287d5ce750db4956f8e02db3a0db187745cb1853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
