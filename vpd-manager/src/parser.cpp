@@ -336,4 +336,17 @@ int Parser::updateVpdKeywordOnHardware(
     return l_bytesUpdatedOnHardware;
 }
 
+#ifdef VPD_WRITE_SANITY_CHECK
+void Parser::checkVpdWriteSanity([[maybe_unused]] const std::string& i_fruPath,
+                                 [[maybe_unused]] const types::WriteVpdParams&
+                                     i_paramsToWriteData) const noexcept
+{}
+
+bool Parser::recordEccCheck(const std::string& i_fruPath,
+                            const std::string& i_recordName) const noexcept
+{
+    return true;
+}
+#endif
+
 } // namespace vpd
