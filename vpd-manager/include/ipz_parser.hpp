@@ -106,6 +106,16 @@ class IpzVpdParser : public ParserInterface
      */
     int writeKeywordOnHardware(const types::WriteVpdParams i_paramsToWriteData);
 
+    /**
+     * @brief Check ECC of a record.
+     *
+     * @param[in] i_paramsToWriteData - input details
+     *
+     * @return true if Record ECC check has passed, false otherwise.
+     */
+    bool recordEccCheck(
+        const types::WriteVpdParams& i_paramsToWriteData) const noexcept;
+
   private:
     /**
      * @brief Check ECC of VPD header.

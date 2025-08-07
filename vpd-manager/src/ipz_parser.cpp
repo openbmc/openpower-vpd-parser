@@ -861,4 +861,10 @@ bool IpzVpdParser::processInvalidRecords(
     }
     return l_rc;
 }
+
+bool IpzVpdParser::recordEccCheck([[maybe_unused]] const types::WriteVpdParams&
+                                      i_paramsToWriteData) const noexcept
+{
+    return true;
+}
 } // namespace vpd
