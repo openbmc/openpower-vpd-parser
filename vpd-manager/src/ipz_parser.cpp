@@ -861,4 +861,54 @@ bool IpzVpdParser::processInvalidRecords(
     }
     return l_rc;
 }
+
+#ifdef VPD_WRITE_SANITY_CHECK
+bool IpzVpdParser::recordEccCheck([[maybe_unused]] const types::WriteVpdParams&
+                                      i_paramsToWriteData) const noexcept
+{
+    bool l_rc{true};
+    try
+    {
+        if (const types::IpzData* l_ipzData =
+                std::get_if<types::IpzData>(&i_paramsToWriteData))
+        {
+            /*
+                TODO:
+                1. get record name
+                2. get record offset from name
+                3. check ECC of record
+            */
+        }
+        else
+        {
+            throw std::runtime_error("Non IPZ VPD datatype");
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage("Failed to check ECC for record. Error: " +
+                            std::string(l_ex.what()));
+    }
+    return l_rc;
+}
+
+types::BinaryVector::const_iterator IpzVpdParser::getRecordOffset(
+    [[maybe_unused]] const types::Record& i_recordName) const noexcept
+{
+    types::BinaryVector::const_iterator l_recordIt;
+    try
+    {
+        /*
+            TODO: get record offset from record name
+        */
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage("Failed to get offset for record " + i_recordName +
+                            " . Error: " + std::string(l_ex.what()));
+    }
+    return l_recordIt;
+}
+#endif
+
 } // namespace vpd

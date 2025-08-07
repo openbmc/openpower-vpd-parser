@@ -1,4 +1,5 @@
 #pragma once
+#include "config.h"
 
 #include "parser_factory.hpp"
 #include "parser_interface.hpp"
@@ -109,6 +110,18 @@ class Parser
     int updateVpdKeywordOnRedundantPath(
         const std::string& i_fruPath,
         const types::WriteVpdParams& i_paramsToWriteData);
+
+#ifdef VPD_WRITE_SANITY_CHECK
+    /**
+     * @brief API to do sanity check on VPD write operation.
+     *
+     * @param[in] i_paramsToWriteData - Input details.
+     *
+     */
+    void checkVpdWriteSanity(
+        const types::WriteVpdParams& i_paramsToWriteData) const noexcept;
+
+#endif
 
     // holds offfset to VPD if applicable.
     size_t m_vpdStartOffset = 0;

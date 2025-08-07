@@ -98,6 +98,9 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData)
         // Update keyword's value on hardware
         try
         {
+#ifdef VPD_WRITE_SANITY_CHECK
+            checkVpdWriteSanity(i_paramsToWriteData);
+#endif
             std::shared_ptr<ParserInterface> l_vpdParserInstance =
                 getVpdParserInstance();
             l_bytesUpdatedOnHardware =
@@ -204,6 +207,10 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData)
             }
         }
 
+#ifdef VPD_WRITE_SANITY_CHECK
+        checkVpdWriteSanity(i_paramsToWriteData);
+#endif
+
         // TODO: Check if revert is required when any of the writes fails.
         // TODO: Handle error logging
     }
@@ -295,11 +302,17 @@ int Parser::updateVpdKeywordOnHardware(
 
             return constants::FAILURE;
         }
-
+#ifdef VPD_WRITE_SANITY_CHECK
+        checkVpdWriteSanity(i_paramsToWriteData);
+#endif
         std::shared_ptr<ParserInterface> l_vpdParserInstance =
             getVpdParserInstance();
         l_bytesUpdatedOnHardware =
             l_vpdParserInstance->writeKeywordOnHardware(i_paramsToWriteData);
+
+#ifdef VPD_WRITE_SANITY_CHECK
+        checkVpdWriteSanity(i_paramsToWriteData);
+#endif
     }
     catch (const std::exception& l_exception)
     {
@@ -335,5 +348,38 @@ int Parser::updateVpdKeywordOnHardware(
 
     return l_bytesUpdatedOnHardware;
 }
+
+#ifdef VPD_WRITE_SANITY_CHECK
+void Parser::checkVpdWriteSanity(
+    const types::WriteVpdParams& i_paramsToWriteData) const noexcept
+{
+    try
+    {
+        // only ipz vpd data type is supported
+        const types::IpzData* l_ipzData =
+            std::get_if<types::IpzData>(&i_paramsToWriteData);
+        if (!l_ipzData)
+        {
+            return;
+        }
+        /*
+            TODO:
+            1. check ECC of record on primary EEPROM
+                1.a If ECC is invalid, log a PEL and dump VPD to file
+            2. check if there is any redundant EEPROM
+                2.a check ECC of record on secondary EEPROM
+                     If ECC is invalid, log a PEL and dump VPD to file
+                Compare Record, Keyword on Primary and Redundant EEPROM
+                    If not equal, log a PEL and dump VPD to file
+        */
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to do VPD write sanity check on FRU :" + m_vpdFilePath +
+            ". Error: " + std::string(l_ex.what()));
+    }
+}
+#endif
 
 } // namespace vpd
