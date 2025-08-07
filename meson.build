@@ -57,7 +57,6 @@ conf_data.set_quoted(
 conf_data.set_quoted('SYSTEM_VPD_FILE_PATH', get_option('SYSTEM_VPD_FILE_PATH'))
 conf_data.set_quoted('VPD_SYMLIMK_PATH', get_option('VPD_SYMLIMK_PATH'))
 conf_data.set_quoted('PIM_PATH_PREFIX', get_option('PIM_PATH_PREFIX'))
-configure_file(output: 'config.h', configuration: conf_data)
 
 services = ['service_files/vpd-manager.service']
 
@@ -83,7 +82,11 @@ if get_option('ibm_system').allowed()
         install_dir: package_datadir,
         strip_directory: true,
     )
+
+    conf_data.set('VPD_WRITE_SANITY_CHECK', get_option('vpd_write_sanity_check'))
+
 endif
+configure_file(output: 'config.h', configuration: conf_data)
 
 libgpiodcxx = dependency(
     'libgpiodcxx',

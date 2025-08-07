@@ -65,3 +65,9 @@ option(
     value: 'enabled',
     description: 'Enable code specific to IBM systems.',
 )
+option(
+    'vpd_write_sanity_check',
+    type: 'boolean',
+    value: true,
+    description: 'Enable code to do sanity check of vpd write action',
+)
