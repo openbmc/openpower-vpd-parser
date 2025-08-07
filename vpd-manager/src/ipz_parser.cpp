@@ -861,4 +861,36 @@ bool IpzVpdParser::processInvalidRecords(
     }
     return l_rc;
 }
+
+#ifdef VPD_WRITE_SANITY_CHECK
+bool IpzVpdParser::recordEccCheck([[maybe_unused]] const types::WriteVpdParams&
+                                      i_paramsToWriteData) const noexcept
+{
+    bool l_rc{true};
+    try
+    {
+        if (const IpzData* l_ipzData =
+                std::get_if<IpzData>(&i_paramsToWriteData))
+        {}
+        else
+        {
+            throw std::runtime_error("Non IPZ VPD datatype");
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage("Failed to check ECC for record. Error: " +
+                            std::string(l_ex.what()));
+    }
+    return l_rc;
+}
+
+types::BinaryVector::const_iterator IpzVpdParser::getRecordOffset(
+    [[maybe_unused]] const type::Record& i_recordName) const noexcept
+{
+    types::BinaryVector::const_iterator l_recordIt;
+    return l_recordIt;
+}
+#endif
+
 } // namespace vpd
