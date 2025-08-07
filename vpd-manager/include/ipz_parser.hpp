@@ -106,6 +106,19 @@ class IpzVpdParser : public ParserInterface
      */
     int writeKeywordOnHardware(const types::WriteVpdParams i_paramsToWriteData);
 
+#ifdef VPD_WRITE_SANITY_CHECK
+
+    /**
+     * @brief Check ECC of a record.
+     *
+     * @param[in] i_paramsToWriteData - input details
+     *
+     * @return true if Record ECC check has passed, false otherwise.
+     */
+    bool recordEccCheck(
+        const types::WriteVpdParams& i_paramsToWriteData) const noexcept;
+#endif
+
   private:
     /**
      * @brief Check ECC of VPD header.
@@ -269,6 +282,22 @@ class IpzVpdParser : public ParserInterface
      */
     bool processInvalidRecords(
         const types::InvalidRecordList& i_invalidRecordList) const noexcept;
+
+#ifdef VPD_WRITE_SANITY_CHECK
+    /**
+     * @brief API to get iterator to a record
+     *
+     * This API returns iterator to a record from the record name.
+     *
+     * @param[in] i_recordName - name of the record.
+     *
+     * @return On success returns iterator to the record in the VPD vector,
+     * otherwise returns iterator pointing to element past the end of the VPD
+     * vector.
+     */
+    types::BinaryVector::const_iterator getRecordOffset(
+        const types::Record& i_recordName) const noexcept;
+#endif
 
     // Holds VPD data.
     const types::BinaryVector& m_vpdVector;
