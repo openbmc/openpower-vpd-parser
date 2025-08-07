@@ -1,5 +1,7 @@
 #pragma once
 
+#include "config.h"
+
 #include "types.hpp"
 
 #include <variant>
@@ -60,6 +62,22 @@ class ParserInterface
         (void)i_paramsToWriteData;
         return -1;
     }
+
+#ifdef VPD_WRITE_SANITY_CHECK
+    /**
+     * @brief Check ECC of a record.
+     *
+     * @param[in] i_paramsToWriteData - input details
+     *
+     * @return true if Record ECC check has passed, false otherwise.
+     */
+    virtual bool recordEccCheck(
+        const types::WriteVpdParams& i_paramsToWriteData) noexcept
+    {
+        (void)i_paramsToWriteData;
+        return true;
+    }
+#endif
 
     /**
      * @brief Virtual destructor.
