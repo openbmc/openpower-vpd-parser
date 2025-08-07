@@ -98,6 +98,9 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData)
         // Update keyword's value on hardware
         try
         {
+#ifdef VPD_WRITE_SANITY_CHECK
+            checkVpdWriteSanity(i_paramsToWriteData);
+#endif
             std::shared_ptr<ParserInterface> l_vpdParserInstance =
                 getVpdParserInstance();
             l_bytesUpdatedOnHardware =
@@ -204,6 +207,10 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData)
             }
         }
 
+#ifdef VPD_WRITE_SANITY_CHECK
+        checkVpdWriteSanity(i_paramsToWriteData);
+#endif
+
         // TODO: Check if revert is required when any of the writes fails.
         // TODO: Handle error logging
     }
@@ -295,11 +302,17 @@ int Parser::updateVpdKeywordOnHardware(
 
             return constants::FAILURE;
         }
-
+#ifdef VPD_WRITE_SANITY_CHECK
+        checkVpdWriteSanity(i_paramsToWriteData);
+#endif
         std::shared_ptr<ParserInterface> l_vpdParserInstance =
             getVpdParserInstance();
         l_bytesUpdatedOnHardware =
             l_vpdParserInstance->writeKeywordOnHardware(i_paramsToWriteData);
+
+#ifdef VPD_WRITE_SANITY_CHECK
+        checkVpdWriteSanity(i_paramsToWriteData);
+#endif
     }
     catch (const std::exception& l_exception)
     {
@@ -335,5 +348,18 @@ int Parser::updateVpdKeywordOnHardware(
 
     return l_bytesUpdatedOnHardware;
 }
+
+#ifdef VPD_WRITE_SANITY_CHECK
+void Parser::checkVpdWriteSanity([[maybe_unused]] const types::WriteVpdParams&
+                                     i_paramsToWriteData) const noexcept
+{}
+
+bool Parser::recordEccCheck(
+    [[maybe_unused]] const std::string& i_fruPath,
+    [[maybe_unused]] const std::string& i_recordName) const noexcept
+{
+    return true;
+}
+#endif
 
 } // namespace vpd

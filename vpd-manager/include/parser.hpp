@@ -110,6 +110,28 @@ class Parser
         const std::string& i_fruPath,
         const types::WriteVpdParams& i_paramsToWriteData);
 
+#ifdef VPD_WRITE_SANITY_CHECK
+    /**
+     * @brief API to do sanity check on VPD write operation.
+     *
+     * @param[in] i_paramsToWriteData - Input details.
+     *
+     */
+    void checkVpdWriteSanity(
+        const types::WriteVpdParams& i_paramsToWriteData) const noexcept;
+
+    /**
+     * @brief Check ECC of a record.
+     *
+     * @param[in] i_fruPath - EEPROM path.
+     * @param[in] i_recordName - Record name.
+     *
+     * @return true if Record ECC check has passed, false otherwise.
+     */
+    bool recordEccCheck(const std::string& i_fruPath,
+                        const std::string& i_recordName) const noexcept;
+#endif
+
     // holds offfset to VPD if applicable.
     size_t m_vpdStartOffset = 0;
 
