@@ -193,7 +193,10 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
     {
         std::shared_ptr<Parser> l_parserObj =
             std::make_shared<Parser>(l_fruPath, l_sysCfgJsonObj);
-        auto l_rc = l_parserObj->updateVpdKeyword(i_paramsToWriteData);
+
+        types::DbusVariantType l_updatedValue;
+        auto l_rc =
+            l_parserObj->updateVpdKeyword(i_paramsToWriteData, l_updatedValue);
 
         if (l_rc != constants::FAILURE && m_backupAndRestoreObj)
         {
@@ -206,18 +209,54 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
             }
         }
 
+        types::WriteVpdParams l_writeParams;
+        types::BinaryVector l_valueToUpdate;
+
+        if (const types::IpzData* l_ipzData =
+                std::get_if<types::IpzData>(&i_paramsToWriteData))
+        {
+            if (const types::BinaryVector* l_val =
+                    std::get_if<types::BinaryVector>(&l_updatedValue))
+            {
+                l_valueToUpdate = *l_val;
+            }
+            else
+            {
+                l_valueToUpdate = std::get<2>(*l_ipzData);
+            }
+            l_writeParams =
+                std::make_tuple(std::get<0>(*l_ipzData),
+                                std::get<1>(*l_ipzData), l_valueToUpdate);
+        }
+        else if (const types::KwData* l_kwData =
+                     std::get_if<types::KwData>(&i_paramsToWriteData))
+        {
+            if (const types::BinaryVector* l_val =
+                    std::get_if<types::BinaryVector>(&l_updatedValue))
+            {
+                l_valueToUpdate = *l_val;
+            }
+            else
+            {
+                l_valueToUpdate = std::get<1>(*l_kwData);
+            }
+
+            l_writeParams =
+                std::make_tuple(std::get<0>(*l_kwData), l_valueToUpdate);
+        }
+
         // update keyword in inherited FRUs
         if (l_rc != constants::FAILURE)
         {
             vpdSpecificUtility::updateKwdOnInheritedFrus(
-                l_fruPath, i_paramsToWriteData, l_sysCfgJsonObj);
+                l_fruPath, l_writeParams, l_sysCfgJsonObj);
         }
 
         // update common interface(s) properties
         if (l_rc != constants::FAILURE)
         {
             vpdSpecificUtility::updateCiPropertyOfInheritedFrus(
-                l_fruPath, i_paramsToWriteData, l_sysCfgJsonObj);
+                l_fruPath, l_writeParams, l_sysCfgJsonObj);
         }
 
         return l_rc;

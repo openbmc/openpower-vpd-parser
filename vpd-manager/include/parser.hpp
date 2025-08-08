@@ -70,6 +70,29 @@ class Parser
     int updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData);
 
     /**
+     * @brief Update keyword value.
+     *
+     * This API is used to update keyword value on the EEPROM path and its
+     * redundant path(s) if any taken from system config JSON. And also updates
+     * keyword value on DBus.
+     *
+     * To update IPZ type VPD, input parameter for writing should be in the form
+     * of (Record, Keyword, Value). Eg: ("VINI", "SN", {0x01, 0x02, 0x03}).
+     *
+     * To update Keyword type VPD, input parameter for writing should be in the
+     * form of (Keyword, Value). Eg: ("PE", {0x01, 0x02, 0x03}).
+     *
+     * @param[in] i_paramsToWriteData - Input details.
+     * @param[in] o_updatedValue - Actual value which has been updated on
+     * hardware.
+     *
+     * @return On success returns number of bytes written, on failure returns
+     * -1.
+     */
+    int updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
+                         types::DbusVariantType& o_updatedValue);
+
+    /**
      * @brief Update keyword value on hardware.
      *
      * This API is used to update keyword value on the hardware path.
