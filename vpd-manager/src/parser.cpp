@@ -57,7 +57,8 @@ types::VPDMapVariant Parser::parse()
     return l_parser->parse();
 }
 
-int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData)
+int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
+                             types::DbusVariantType& o_updatedValue)
 {
     int l_bytesUpdatedOnHardware = constants::FAILURE;
 
@@ -146,6 +147,9 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData)
                         l_vpdParserInstance->readKeywordFromHardware(
                             types::ReadVpdParams(
                                 std::make_tuple(l_recordName, l_propertyName)));
+
+                    // return the actual value updated on hardware
+                    o_updatedValue = l_keywordValue;
                 }
                 catch (const std::exception& l_exception)
                 {
@@ -229,6 +233,12 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData)
     }
 
     return l_bytesUpdatedOnHardware;
+}
+
+int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData)
+{
+    types::DbusVariantType o_updatedValue;
+    return updateVpdKeyword(i_paramsToWriteData, o_updatedValue);
 }
 
 int Parser::updateVpdKeywordOnRedundantPath(
