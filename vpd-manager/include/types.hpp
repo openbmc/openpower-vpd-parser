@@ -210,5 +210,13 @@ using FruPresenceMatchObjectMap = std::map<Path, std::shared_ptr<sdbusplus::bus:
 using MatchObjectInterfaceMap = std::map<std::string,std::shared_ptr<sdbusplus::bus::match_t>>;
 /* A map of service name to match object interface map*/
 using MatchObjectMap = std::map<std::string,MatchObjectInterfaceMap>;
+
+/*
+* Tuple of Error type, severity, internal rc, userdata1, userdata2, symFru, Procedure
+*/
+using PelInfoTuple =
+    std::tuple<types::ErrorType, std::optional<types::SeverityType>, uint8_t, std::optional<std::string>,
+               std::optional<std::string>, std::optional<std::string>,
+               std::optional<std::string>>;
 } // namespace types
 } // namespace vpd
