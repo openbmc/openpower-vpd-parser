@@ -356,7 +356,6 @@ void Parser::checkVpdWriteSanity(
     // only ipz vpd data type is supported
     if (const IpzData* l_ipzData = std::get_if<IpzData>(&i_paramsToWriteData))
     {
-        (void)l_ipzData;
         /*
             TODO:
             1. check ECC of record on primary EEPROM
@@ -367,7 +366,63 @@ void Parser::checkVpdWriteSanity(
                 Compare Record, Keyword on Primary and Redundant EEPROM
                     If not equal, log a PEL and dump VPD to file
         */
-    }
+
+        // lambda to do ECC check on a specific record on a given FRU path.
+        // returns the Keyword value on hardware
+        auto l_checkRecordEccOnFru =
+            [this, &l_ipzData = std::as_const(l_ipzData)](
+                const std::string& i_fruPath) -> types::DbusVariantType {
+            const auto& l_recordName = std::get<0>(*l_ipzData);
+            const auto& l_keywordName = std::get<1>(*l_ipzData);
+
+            std::shared_ptr<Parser> l_parserObj =
+                std::make_shared<Parser>(i_fruPath, m_parsedJson);
+
+            std::shared_ptr<ParserInterface> l_vpdParserInstance =
+                l_parserObj->getVpdParserInstance();
+
+            // check ECC of record on primary EEPROM
+            if (!l_vpdParserInstance->recordEccCheck(i_paramsToWriteData))
+            {
+                // Log a Predictive PEL including name of record
+                EventLogger::createSyncPelWithInvCallOut(
+                    types::ErrorType::VpdParseError,
+                    types::SeverityType::Warning, __FILE__, __FUNCTION__,
+                    constants::VALUE_0,
+                    std::string(
+                        "ECC check failed for record. Check user data for reason and record name. Re-program VPD."),
+                    std::vector{std::make_tuple(i_fruPath,
+                                                types::CalloutPriority::High)},
+                    std::get<0>(*l_ipzData), std::nullopt, std::nullopt,
+                    std::nullopt);
+
+                // Dump Bad VPD to file
+                vpdSpecificUtility::dumpBadVpd(i_fruPath,
+                                               l_parserObj->getVpdVector());
+            }
+
+            return l_vpdParserInstance->readKeywordFromHardware(
+                std::make_tuple(l_recordName, l_keywordName));
+        };
+
+        // check record ECC on primary EEPROM and get keyword value on hardware
+        const auto l_primaryEepromKeywordValue =
+            l_checkRecordEccOnFru(m_vpdFilePath);
+
+        // check if there is any redundant EEPROM path
+        const auto l_redundantFruPath =
+            jsonUtility::getRedundantEepromPathFromJson(m_parsedJson,
+                                                        m_vpdFilePath);
+
+        if (!l_redundantFruPath.empty())
+        {
+            // check record ECC on redundant EEPROM and get keyword value on
+            // hardware
+            const auto l_redundantEepromKeywordValue =
+                l_checkRecordEccOnFru(l_redundantFruPath);
+        }
+    } // IPZ data type check
+}
 }
 #endif
 
