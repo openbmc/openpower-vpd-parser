@@ -116,7 +116,7 @@ class IpzVpdParser : public ParserInterface
      * @return true if Record ECC check has passed, false otherwise.
      */
     bool recordEccCheck(
-        const types::WriteVpdParams& i_paramsToWriteData) const noexcept;
+        const types::WriteVpdParams& i_paramsToWriteData) noexcept override;
 #endif
 
   private:
@@ -295,7 +295,7 @@ class IpzVpdParser : public ParserInterface
      * otherwise returns invalid iterator.
      */
     types::BinaryVector::const_iterator getRecordOffset(
-        const types::Record& i_recordName) const noexcept;
+        const types::Record& i_recordName) noexcept;
 #endif
 
     // Holds VPD data.
