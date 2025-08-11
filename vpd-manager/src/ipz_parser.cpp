@@ -872,12 +872,13 @@ bool IpzVpdParser::recordEccCheck(
         if (const types::IpzData* l_ipzData =
                 std::get_if<types::IpzData>(&i_paramsToWriteData))
         {
-            /*
-                TODO:
-                1. get record name
-                2. get record offset from name
-                3. check ECC of record
-            */
+            auto l_recordIterator = getRecordOffset(std::get<0>(*l_ipzData));
+            if (l_recordIterator == m_vpdVector.cend())
+            {
+                throw std::runtime_error("Failed to get offset for record " +
+                                         std::get<0>(*l_ipzData));
+            }
+            return recordEccCheck(l_recordIterator);
         }
         else
         {
@@ -894,13 +895,38 @@ bool IpzVpdParser::recordEccCheck(
 }
 
 types::BinaryVector::const_iterator IpzVpdParser::getRecordOffset(
-    [[maybe_unused]] const types::Record& i_recordName) noexcept
+    const types::Record& i_recordName) noexcept
 {
     try
     {
-        /*
-            TODO: get record offset from record name
-        */
+        auto l_itrToVpd = m_vpdVector.cbegin();
+
+        // Read the table of contents
+        auto l_ptLength = readTOC(l_itrToVpd);
+
+        auto l_end = l_itrToVpd;
+        std::advance(l_end, l_ptLength);
+
+        // Look at each entry in the PT keyword. In the entry, search for the
+        // Record
+        while (l_itrToVpd < l_end)
+        {
+            const std::string l_recordName(l_itrToVpd,
+                                           l_itrToVpd + Length::RECORD_NAME);
+
+            // Skip record name and record type
+            std::advance(l_itrToVpd,
+                         Length::RECORD_NAME + sizeof(types::RecordType));
+
+            if (l_recordName == i_recordName)
+                return l_itrToVpd;
+
+            // Jump record size, record length, ECC offset and ECC length
+            std::advance(
+                l_itrToVpd,
+                sizeof(types::RecordOffset) + sizeof(types::RecordLength) +
+                    sizeof(types::ECCOffset) + sizeof(types::ECCLength));
+        }
     }
     catch (const std::exception& l_ex)
     {
