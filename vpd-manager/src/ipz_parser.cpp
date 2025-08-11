@@ -863,8 +863,8 @@ bool IpzVpdParser::processInvalidRecords(
 }
 
 #ifdef VPD_WRITE_SANITY_CHECK
-bool IpzVpdParser::recordEccCheck([[maybe_unused]] const types::WriteVpdParams&
-                                      i_paramsToWriteData) const noexcept
+bool IpzVpdParser::recordEccCheck(
+    const types::WriteVpdParams& i_paramsToWriteData) noexcept
 {
     bool l_rc{true};
     try
@@ -894,7 +894,7 @@ bool IpzVpdParser::recordEccCheck([[maybe_unused]] const types::WriteVpdParams&
 }
 
 types::BinaryVector::const_iterator IpzVpdParser::getRecordOffset(
-    [[maybe_unused]] const types::Record& i_recordName) const noexcept
+    [[maybe_unused]] const types::Record& i_recordName) noexcept
 {
     try
     {
