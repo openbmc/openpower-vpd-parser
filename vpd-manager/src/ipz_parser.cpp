@@ -864,7 +864,7 @@ bool IpzVpdParser::processInvalidRecords(
 
 #ifdef VPD_WRITE_SANITY_CHECK
 bool IpzVpdParser::recordEccCheck(
-    [[maybe_unused]] const types::WriteVpdParams& i_paramsToWriteData) noexcept
+    const types::WriteVpdParams& i_paramsToWriteData) noexcept
 {
     bool l_rc{true};
     try
@@ -872,12 +872,8 @@ bool IpzVpdParser::recordEccCheck(
         if (const types::IpzData* l_ipzData =
                 std::get_if<types::IpzData>(&i_paramsToWriteData))
         {
-            /*
-                TODO:
-                1. get record name
-                2. get record offset from name
-                3. check ECC of record
-            */
+            auto l_recordIterator = getRecordOffset(std::get<0>(*l_ipzData));
+            return recordEccCheck(l_recordIterator);
         }
         else
         {
@@ -893,7 +889,7 @@ bool IpzVpdParser::recordEccCheck(
 }
 
 types::BinaryVector::const_iterator IpzVpdParser::getRecordOffset(
-    [[maybe_unused]] const types::Record& i_recordName) noexcept
+    const types::Record& i_recordName) noexcept
 {
     types::BinaryVector::const_iterator l_recordIt;
     try
@@ -901,6 +897,30 @@ types::BinaryVector::const_iterator IpzVpdParser::getRecordOffset(
         /*
             TODO: get record offset from record name
         */
+        auto l_itrToVpd = m_vpdVector.cbegin();
+
+        // Check vaidity of VHDR record
+        checkHeader(l_itrToVpd);
+
+        // Read the table of contents
+        auto l_ptLength = readTOC(l_itrToVpd);
+
+        auto l_end = l_itrToVpd;
+        std::advance(l_end, l_ptLength);
+
+        // Look at each entry in the PT keyword. In the entry, search for the
+        // Record
+        while (l_itrToVpd < l_end)
+        {
+            const std::string l_recordName(l_itrToVpd,
+                                           l_itrToVpd + Length::RECORD_NAME);
+            if (l_recordName == i_recordName)
+                return l_itrToVpd;
+
+            // Skip record name and record type
+            std::advance(l_itrToVpd,
+                         Length::RECORD_NAME + sizeof(types::RecordType));
+        }
     }
     catch (const std::exception& l_ex)
     {
