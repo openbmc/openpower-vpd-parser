@@ -88,6 +88,12 @@ class Parser
     int updateVpdKeywordOnHardware(
         const types::WriteVpdParams& i_paramsToWriteData);
 
+#ifdef VPD_WRITE_SANITY_CHECK
+    const types::BinaryVector& getVpdVector() const
+    {
+        return m_vpdVector;
+    }
+#endif
   private:
     /**
      * @brief Update keyword value on redundant path.
