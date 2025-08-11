@@ -379,7 +379,7 @@ void Parser::checkVpdWriteSanity(
             std::shared_ptr<ParserInterface> l_vpdParserInstance =
                 l_parserObj->getVpdParserInstance();
 
-            // check ECC of record on primary EEPROM
+            // check ECC of record on EEPROM
             if (!l_vpdParserInstance->recordEccCheck(*l_ipzData))
             {
                 // Log a Predictive PEL including name of record
