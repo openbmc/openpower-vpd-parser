@@ -864,7 +864,7 @@ bool IpzVpdParser::processInvalidRecords(
 
 #ifdef VPD_WRITE_SANITY_CHECK
 bool IpzVpdParser::recordEccCheck(
-    [[maybe_unused]] const types::WriteVpdParams& i_paramsToWriteData) noexcept
+    const types::WriteVpdParams& i_paramsToWriteData) noexcept
 {
     bool l_rc{true};
     try

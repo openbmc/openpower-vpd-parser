@@ -116,7 +116,7 @@ class IpzVpdParser : public ParserInterface
      * @return true if Record ECC check has passed, false otherwise.
      */
     bool recordEccCheck(
-        const types::WriteVpdParams& i_paramsToWriteData) noexcept;
+        const types::WriteVpdParams& i_paramsToWriteData) noexcept override;
 #endif
 
   private:
