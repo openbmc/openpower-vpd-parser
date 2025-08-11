@@ -379,7 +379,7 @@ void Parser::checkVpdWriteSanity(
             std::shared_ptr<ParserInterface> l_vpdParserInstance =
                 l_parserObj->getVpdParserInstance();
 
-            // check ECC of record on primary EEPROM
+            // check ECC of record on EEPROM
             if (!l_vpdParserInstance->recordEccCheck(*l_ipzData))
             {
                 // Log a Predictive PEL including name of record
@@ -391,7 +391,7 @@ void Parser::checkVpdWriteSanity(
                         "ECC check failed for record. Check user data for reason and record name. Re-program VPD."),
                     std::vector{std::make_tuple(i_fruPath,
                                                 types::CalloutPriority::High)},
-                    std::get<0>(*l_ipzData), std::nullopt, std::nullopt,
+                    std::get<0>(*l_ipzData), i_fruPath, std::nullopt,
                     std::nullopt);
 
                 // Dump Bad VPD to file
@@ -424,31 +424,28 @@ void Parser::checkVpdWriteSanity(
             auto l_redundantValue = std::get_if<types::BinaryVector>(
                 &l_redundantEepromKeywordValue);
 
-            if (l_primaryValue && l_redundantValue)
+            // Compare Record, Keyword on Primary and Redundant EEPROM
+            //  and if not equal, log a PEL
+            // log a predictive PEL
+            if (l_primaryValue && l_redundantValue &&
+                (*l_primaryValue != *l_redundantValue))
             {
-                // Compare Record, Keyword on Primary and Redundant EEPROM
-                //  and if not equal, log a PEL
-                if (l_primaryValue != l_redundantValue)
-                {
-                    // log a predictive PEL
-                    EventLogger::createSyncPelWithInvCallOut(
-                        types::ErrorType::VpdParseError,
-                        types::SeverityType::Warning, __FILE__, __FUNCTION__,
-                        constants::VALUE_0,
-                        std::string(
-                            "Keyword value different on Primary and Redundant EEPROM. Check user data for details. Re-program VPD."),
-                        std::vector{std::make_tuple(
-                            m_vpdFilePath, types::CalloutPriority::High)},
-                        std::string("Record : " + std::get<0>(*l_ipzData) +
-                                    " Keyword: " + std::get<1>(*l_ipzData) +
-                                    " Value on Primary EEPROM: " +
-                                    commonUtility::convertByteVectorToHex(
-                                        *l_primaryValue) +
-                                    " Value on Redundant EEPROM: " +
-                                    commonUtility::convertByteVectorToHex(
-                                        *l_redundantValue)),
-                        std::nullopt, std::nullopt, std::nullopt);
-                }
+                EventLogger::createSyncPelWithInvCallOut(
+                    types::ErrorType::VpdParseError,
+                    types::SeverityType::Warning, __FILE__, __FUNCTION__,
+                    constants::VALUE_0,
+                    std::string(
+                        "Keyword value different on Primary and Redundant EEPROM. Check user data for details. Re-program VPD."),
+                    std::vector{std::make_tuple(m_vpdFilePath,
+                                                types::CalloutPriority::High)},
+                    std::string(
+                        "Record : " + std::get<0>(*l_ipzData) + " Keyword: " +
+                        std::get<1>(*l_ipzData) + " Value on Primary EEPROM: " +
+                        commonUtility::convertByteVectorToHex(*l_primaryValue) +
+                        " Value on Redundant EEPROM: " +
+                        commonUtility::convertByteVectorToHex(
+                            *l_redundantValue)),
+                    std::nullopt, std::nullopt, std::nullopt);
             }
         }
     }
