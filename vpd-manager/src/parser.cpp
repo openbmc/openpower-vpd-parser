@@ -414,6 +414,7 @@ void Parser::checkVpdWriteSanity(
                     " ECC is valid for Record : " + l_recordName +
                     " on FRU: " + i_fruPath);
             }
+
             return l_vpdParserInstance->readKeywordFromHardware(
                 std::make_tuple(l_recordName, l_keywordName));
         };
