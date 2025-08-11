@@ -122,10 +122,13 @@ class Parser
      * @brief API to do sanity check on VPD write operation.
      *
      * @param[in] i_paramsToWriteData - Input details.
+     * @param[in] i_location - Object of source_location class
      *
      */
     void checkVpdWriteSanity(
-        const types::WriteVpdParams& i_paramsToWriteData) const noexcept;
+        const types::WriteVpdParams& i_paramsToWriteData,
+        const std::source_location& i_location =
+            std::source_location::current()) const noexcept;
 
 #endif
 
