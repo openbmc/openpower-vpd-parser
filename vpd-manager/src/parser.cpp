@@ -354,7 +354,7 @@ int Parser::updateVpdKeywordOnHardware(
 #ifdef VPD_WRITE_SANITY_CHECK
 void Parser::checkVpdWriteSanity(
     const types::WriteVpdParams& i_paramsToWriteData,
-    [[maybe_unused]] const std::source_location& i_location) const noexcept
+    const std::source_location& i_location) const noexcept
 {
     try
     {
@@ -369,7 +369,8 @@ void Parser::checkVpdWriteSanity(
         // lambda to do ECC check on a specific record on a given FRU path.
         // returns the Keyword value on hardware
         auto l_checkRecordEccOnFru =
-            [this, &l_ipzData = std::as_const(l_ipzData)](
+            [this, &l_ipzData = std::as_const(l_ipzData),
+             &i_location = std::as_const(i_location)](
                 const std::string& i_fruPath) -> types::DbusVariantType {
             const auto& l_recordName = std::get<0>(*l_ipzData);
             const auto& l_keywordName = std::get<1>(*l_ipzData);
@@ -380,24 +381,37 @@ void Parser::checkVpdWriteSanity(
             std::shared_ptr<ParserInterface> l_vpdParserInstance =
                 l_parserObj->getVpdParserInstance();
 
-            // check ECC of record on primary EEPROM
+            // check ECC of record on EEPROM
             if (!l_vpdParserInstance->recordEccCheck(*l_ipzData))
             {
                 // Log a Predictive PEL including name of record
                 EventLogger::createSyncPelWithInvCallOut(
                     types::ErrorType::VpdParseError,
-                    types::SeverityType::Warning, __FILE__, __FUNCTION__,
+                    types::SeverityType::Warning, __FILE__, __PRETTY_FUNCTION__,
                     constants::VALUE_0,
                     std::string(
                         "ECC check failed for record. Check user data for reason and record name. Re-program VPD."),
                     std::vector{std::make_tuple(i_fruPath,
                                                 types::CalloutPriority::High)},
-                    std::get<0>(*l_ipzData), std::nullopt, std::nullopt,
-                    std::nullopt);
+                    std::string("Check triggered from " +
+                                std::string(i_location.file_name()) + ":" +
+                                std::string(i_location.function_name()) + ":" +
+                                std::to_string(i_location.line()) +
+                                "for Record: " + l_recordName +
+                                " on FRU: " + i_fruPath),
+                    std::nullopt, std::nullopt, std::nullopt);
 
                 // Dump Bad VPD to file
                 vpdSpecificUtility::dumpBadVpd(i_fruPath,
                                                l_parserObj->getVpdVector());
+            }
+            else
+            {
+                logging::logMessage(
+                    std::string(i_location.function_name()) + ":" +
+                    std::to_string(i_location.line()) +
+                    " ECC is valid for Record : " + l_recordName +
+                    " on FRU: " + i_fruPath);
             }
 
             return l_vpdParserInstance->readKeywordFromHardware(
@@ -425,31 +439,32 @@ void Parser::checkVpdWriteSanity(
             auto l_redundantValue = std::get_if<types::BinaryVector>(
                 &l_redundantEepromKeywordValue);
 
-            if (l_primaryValue && l_redundantValue)
+            // Compare Record, Keyword on Primary and Redundant EEPROM
+            //  and if not equal, log a PEL
+            // log a predictive PEL
+            if (l_primaryValue && l_redundantValue &&
+                (*l_primaryValue != *l_redundantValue))
             {
-                // Compare Record, Keyword on Primary and Redundant EEPROM
-                //  and if not equal, log a PEL
-                if (l_primaryValue != l_redundantValue)
-                {
-                    // log a predictive PEL
-                    EventLogger::createSyncPelWithInvCallOut(
-                        types::ErrorType::VpdParseError,
-                        types::SeverityType::Warning, __FILE__, __FUNCTION__,
-                        constants::VALUE_0,
-                        std::string(
-                            "Keyword value different on Primary and Redundant EEPROM. Check user data for details. Re-program VPD."),
-                        std::vector{std::make_tuple(
-                            m_vpdFilePath, types::CalloutPriority::High)},
-                        std::string("Record : " + std::get<0>(*l_ipzData) +
-                                    " Keyword: " + std::get<1>(*l_ipzData) +
-                                    " Value on Primary EEPROM: " +
-                                    commonUtility::convertByteVectorToHex(
-                                        *l_primaryValue) +
-                                    " Value on Redundant EEPROM: " +
-                                    commonUtility::convertByteVectorToHex(
-                                        *l_redundantValue)),
-                        std::nullopt, std::nullopt, std::nullopt);
-                }
+                EventLogger::createSyncPelWithInvCallOut(
+                    types::ErrorType::VpdParseError,
+                    types::SeverityType::Warning, __FILE__, __PRETTY_FUNCTION__,
+                    constants::VALUE_0,
+                    std::string(
+                        "Keyword value different on Primary and Redundant EEPROM. Check user data for details. Re-program VPD."),
+                    std::vector{std::make_tuple(m_vpdFilePath,
+                                                types::CalloutPriority::High)},
+                    std::string(
+                        "Check triggered from " +
+                        std::string(i_location.file_name()) + ":" +
+                        std::string(i_location.function_name()) + ":" +
+                        std::to_string(i_location.line()) +
+                        " Record : " + std::get<0>(*l_ipzData) + " Keyword: " +
+                        std::get<1>(*l_ipzData) + " Value on Primary EEPROM: " +
+                        commonUtility::convertByteVectorToHex(*l_primaryValue) +
+                        " Value on Redundant EEPROM: " +
+                        commonUtility::convertByteVectorToHex(
+                            *l_redundantValue)),
+                    std::nullopt, std::nullopt, std::nullopt);
             }
         }
     }
