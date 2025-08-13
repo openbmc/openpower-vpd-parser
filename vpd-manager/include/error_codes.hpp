@@ -16,6 +16,6 @@ static constexpr auto MISSING_ACTION_TAG = 2003;
 static constexpr auto FRU_PATH_NOT_FOUND = 2004;
 
 // Generic errors.
-static constexpr auto INVALID_INPUT_PARAMATER = 3001;
+static constexpr auto INVALID_INPUT_PARAMETER = 3001;
 } // namespace error_code
 } // namespace vpd
