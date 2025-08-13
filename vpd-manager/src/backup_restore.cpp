@@ -21,8 +21,9 @@ BackupAndRestore::BackupAndRestore(const nlohmann::json& i_sysCfgJsonObj) :
     std::string l_backupAndRestoreCfgFilePath =
         i_sysCfgJsonObj.value("backupRestoreConfigPath", "");
 
-    m_backupAndRestoreCfgJsonObj =
-        jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath);
+    uint16_t io_error_code = 0;
+    m_backupAndRestoreCfgJsonObj = jsonUtility::getParsedJson(
+        l_backupAndRestoreCfgFilePath, io_error_code);
 
     if (m_backupAndRestoreCfgJsonObj.empty())
     {
@@ -162,10 +163,11 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         return;
     }
 
-    const std::string l_srcInvPath =
-        jsonUtility::getInventoryObjPathFromJson(m_sysCfgJsonObj, i_srcPath);
-    const std::string l_dstInvPath =
-        jsonUtility::getInventoryObjPathFromJson(m_sysCfgJsonObj, i_dstPath);
+    uint16_t io_error_code = 0;
+    const std::string l_srcInvPath = jsonUtility::getInventoryObjPathFromJson(
+        m_sysCfgJsonObj, i_srcPath, io_error_code);
+    const std::string l_dstInvPath = jsonUtility::getInventoryObjPathFromJson(
+        m_sysCfgJsonObj, i_dstPath, io_error_code);
     if (l_srcInvPath.empty() || l_dstInvPath.empty())
     {
         logging::logMessage(

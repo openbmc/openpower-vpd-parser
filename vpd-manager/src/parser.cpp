@@ -34,7 +34,9 @@ Parser::Parser(const std::string& vpdFilePath, nlohmann::json parsedJson) :
     // Read VPD offset if applicable.
     if (!m_parsedJson.empty())
     {
-        m_vpdStartOffset = jsonUtility::getVPDOffset(m_parsedJson, vpdFilePath);
+        uint16_t l_error_code = 0;
+        m_vpdStartOffset =
+            jsonUtility::getVPDOffset(m_parsedJson, vpdFilePath, l_error_code);
     }
 }
 
