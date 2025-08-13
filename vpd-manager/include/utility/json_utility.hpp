@@ -1,5 +1,6 @@
 #pragma once
 
+#include "error_codes.hpp"
 #include "event_logger.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
@@ -50,14 +51,17 @@ inline std::unordered_map<std::string, functionPtr> funcionMap{
  *
  * @param[in] i_sysCfgJsonObj - Parsed system config JSON object.
  * @param[in] i_vpdFilePath - VPD file path.
+ * @param[in] o_errCode - To set error code in case of error.
  * @return VPD offset if found in JSON, 0 otherwise.
  */
 inline size_t getVPDOffset(const nlohmann::json& i_sysCfgJsonObj,
-                           const std::string& i_vpdFilePath)
+                           const std::string& i_vpdFilePath,
+                           uint16_t& o_errCode)
 {
     if (i_vpdFilePath.empty() || (i_sysCfgJsonObj.empty()) ||
         (!i_sysCfgJsonObj.contains("frus")))
     {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return 0;
     }
 
@@ -89,42 +93,35 @@ inline size_t getVPDOffset(const nlohmann::json& i_sysCfgJsonObj,
  * @brief API to parse respective JSON.
  *
  * @param[in] pathToJson - Path to JSON.
+ * @param[in] o_errCode - To set error code in case of error.
  * @return on success parsed JSON. On failure empty JSON object.
  *
  * Note: Caller has to handle it in case an empty JSON object is received.
  */
-inline nlohmann::json getParsedJson(const std::string& pathToJson) noexcept
+inline nlohmann::json getParsedJson(const std::string& pathToJson,
+                                    uint16_t& o_errCode) noexcept
 {
-    try
+    if (pathToJson.empty())
     {
-        if (pathToJson.empty())
-        {
-            throw std::runtime_error("Path to JSON is missing");
-        }
-
-        if (!std::filesystem::exists(pathToJson) ||
-            std::filesystem::is_empty(pathToJson))
-        {
-            throw std::runtime_error(
-                "File does not exist or empty file: [" + pathToJson + "]");
-        }
-
-        std::ifstream l_jsonFile(pathToJson);
-        if (!l_jsonFile)
-        {
-            throw std::runtime_error(
-                "Failed to access Json path = " + pathToJson);
-        }
-
-        return nlohmann::json::parse(l_jsonFile);
-    }
-    catch (const std::exception& l_ex)
-    {
-        logging::logMessage(
-            "Failed to parse JSON file, error: " + std::string(l_ex.what()));
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return nlohmann::json{};
     }
 
-    return nlohmann::json{};
+    if (!std::filesystem::exists(pathToJson) ||
+        std::filesystem::is_empty(pathToJson))
+    {
+        o_errCode = error_code::FILE_NOT_FOUND;
+        return nlohmann::json{};
+    }
+
+    std::ifstream l_jsonFile(pathToJson);
+    if (!l_jsonFile)
+    {
+        o_errCode = error_code::FILE_ACCESS_ERROR;
+        return nlohmann::json{};
+    }
+
+    return nlohmann::json::parse(l_jsonFile);
 }
 
 /**
@@ -135,6 +132,7 @@ inline nlohmann::json getParsedJson(const std::string& pathToJson) noexcept
  *
  * @param[in] i_sysCfgJsonObj - System config JSON object
  * @param[in] i_vpdPath - Path to where VPD is stored.
+ * @param[in] o_errCode - To set error code in case of error.
  *
  * @return On success a valid path is returned, on failure an empty string is
  * returned.
@@ -142,55 +140,47 @@ inline nlohmann::json getParsedJson(const std::string& pathToJson) noexcept
  * Note: Caller has to handle it in case an empty string is received.
  */
 inline std::string getInventoryObjPathFromJson(
-    const nlohmann::json& i_sysCfgJsonObj,
-    const std::string& i_vpdPath) noexcept
+    const nlohmann::json& i_sysCfgJsonObj, const std::string& i_vpdPath,
+    uint16_t& o_errCode) noexcept
 {
-    try
+    if (i_vpdPath.empty())
     {
-        if (i_vpdPath.empty())
-        {
-            throw std::runtime_error("Path parameter is empty.");
-        }
-
-        if (!i_sysCfgJsonObj.contains("frus"))
-        {
-            throw std::runtime_error("Missing frus tag in system config JSON.");
-        }
-
-        // check if given path is FRU path
-        if (i_sysCfgJsonObj["frus"].contains(i_vpdPath))
-        {
-            return i_sysCfgJsonObj["frus"][i_vpdPath].at(0).value(
-                "inventoryPath", "");
-        }
-
-        const nlohmann::json& l_fruList =
-            i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
-
-        for (const auto& l_fru : l_fruList.items())
-        {
-            const auto l_fruPath = l_fru.key();
-            const auto l_invObjPath =
-                i_sysCfgJsonObj["frus"][l_fruPath].at(0).value("inventoryPath",
-                                                               "");
-
-            // check if given path is redundant FRU path or inventory path
-            if (i_vpdPath == i_sysCfgJsonObj["frus"][l_fruPath].at(0).value(
-                                 "redundantEeprom", "") ||
-                (i_vpdPath == l_invObjPath))
-            {
-                return l_invObjPath;
-            }
-        }
-    }
-    catch (const std::exception& l_ex)
-    {
-        logging::logMessage(
-            "Failed to get inventory object path from json, error: " +
-            std::string(l_ex.what()));
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return std::string{};
     }
 
-    return std::string();
+    if (!i_sysCfgJsonObj.contains("frus"))
+    {
+        o_errCode = error_code::INVALID_JSON;
+        return std::string{};
+    }
+
+    // check if given path is FRU path
+    if (i_sysCfgJsonObj["frus"].contains(i_vpdPath))
+    {
+        return i_sysCfgJsonObj["frus"][i_vpdPath].at(0).value(
+            "inventoryPath", "");
+    }
+
+    const nlohmann::json& l_fruList =
+        i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+
+    for (const auto& l_fru : l_fruList.items())
+    {
+        const auto l_fruPath = l_fru.key();
+        const auto l_invObjPath =
+            i_sysCfgJsonObj["frus"][l_fruPath].at(0).value("inventoryPath", "");
+
+        // check if given path is redundant FRU path or inventory path
+        if (i_vpdPath == i_sysCfgJsonObj["frus"][l_fruPath].at(0).value(
+                             "redundantEeprom", "") ||
+            (i_vpdPath == l_invObjPath))
+        {
+            return l_invObjPath;
+        }
+    }
+
+    return std::string{};
 }
 
 /**
@@ -392,10 +382,13 @@ inline bool processGpioPresenceTag(
         l_errMsg += l_ex.what();
         l_errMsg += " File: " + i_vpdFilePath + " Pel Logged";
 
+        uint16_t l_errCode = 0;
+
         // ToDo -- Update Internal Rc code.
         EventLogger::createAsyncPelWithInventoryCallout(
             EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
-            {{getInventoryObjPathFromJson(i_parsedConfigJson, i_vpdFilePath),
+            {{getInventoryObjPathFromJson(i_parsedConfigJson, i_vpdFilePath,
+                                          l_errCode),
               types::CalloutPriority::High}},
             std::source_location::current().file_name(),
             std::source_location::current().function_name(), 0, l_errMsg,
@@ -490,12 +483,14 @@ inline bool procesSetGpioTag(
             l_errMsg += l_ex.what();
             l_errMsg += " File: " + i_vpdFilePath + " Pel Logged";
 
+            uint16_t l_errCode = 0;
+
             // ToDo -- Update Internal RC code
             EventLogger::createAsyncPelWithInventoryCallout(
                 EventLogger::getErrorType(l_ex),
                 types::SeverityType::Informational,
-                {{getInventoryObjPathFromJson(i_parsedConfigJson,
-                                              i_vpdFilePath),
+                {{getInventoryObjPathFromJson(i_parsedConfigJson, i_vpdFilePath,
+                                              l_errCode),
                   types::CalloutPriority::High}},
                 std::source_location::current().file_name(),
                 std::source_location::current().function_name(), 0, l_errMsg,
@@ -884,9 +879,11 @@ inline std::tuple<std::string, std::string, std::string>
             {
                 io_vpdPath = l_fruPath;
 
+                uint16_t l_errCode = 0;
+
                 // Get inventory object path from system config JSON
                 l_inventoryObjPath = jsonUtility::getInventoryObjPathFromJson(
-                    i_sysCfgJsonObj, l_fruPath);
+                    i_sysCfgJsonObj, l_fruPath, l_errCode);
 
                 // Get redundant hardware path if present in system config JSON
                 l_redundantFruPath =
@@ -1139,17 +1136,20 @@ inline nlohmann::json getPowerVsJson(const types::BinaryVector& i_imValue)
 {
     try
     {
+        uint16_t l_errCode = 0;
         if ((i_imValue.at(0) == constants::HEX_VALUE_50) &&
             (i_imValue.at(1) == constants::HEX_VALUE_00) &&
             (i_imValue.at(2) == constants::HEX_VALUE_30))
         {
-            return jsonUtility::getParsedJson(constants::power_vs_50003_json);
+            return jsonUtility::getParsedJson(constants::power_vs_50003_json,
+                                              l_errCode);
         }
         else if (i_imValue.at(0) == constants::HEX_VALUE_50 &&
                  (i_imValue.at(1) == constants::HEX_VALUE_00) &&
                  (i_imValue.at(2) == constants::HEX_VALUE_10))
         {
-            return jsonUtility::getParsedJson(constants::power_vs_50001_json);
+            return jsonUtility::getParsedJson(constants::power_vs_50001_json,
+                                              l_errCode);
         }
         return nlohmann::json{};
     }

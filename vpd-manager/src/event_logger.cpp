@@ -351,9 +351,11 @@ void EventLogger::createSyncPelWithInvCallOut(
             {
                 if (!l_ec)
                 {
+                    uint16_t l_errCode = 0;
                     l_calloutInvPath = jsonUtility::getInventoryObjPathFromJson(
-                        jsonUtility::getParsedJson(INVENTORY_JSON_SYM_LINK),
-                        std::get<0>(i_callouts[0]));
+                        jsonUtility::getParsedJson(INVENTORY_JSON_SYM_LINK,
+                                                   l_errCode),
+                        std::get<0>(i_callouts[0]), l_errCode);
                 }
                 else
                 {

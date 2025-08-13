@@ -258,8 +258,9 @@ void Listener::registerCorrPropCallBack(
 {
     try
     {
+        uint16_t l_errCode = 0;
         m_correlatedPropJson =
-            jsonUtility::getParsedJson(i_correlatedPropJsonFile);
+            jsonUtility::getParsedJson(i_correlatedPropJsonFile, l_errCode);
         if (m_correlatedPropJson.empty())
         {
             throw JsonException("Failed to parse correlated properties JSON",
