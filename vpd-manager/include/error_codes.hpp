@@ -19,7 +19,7 @@ static constexpr auto MISSING_ACTION_TAG = 2003;
 static constexpr auto FRU_PATH_NOT_FOUND = 2004;
 
 // Generic errors.
-static constexpr auto INVALID_INPUT_PARAMATER = 3001;
+static constexpr auto INVALID_INPUT_PARAMETER = 3001;
 
 const std::unordered_map<int, std::string> errorCodeMap = {
     {FILE_NOT_FOUND, "File does not exist."},
@@ -30,7 +30,7 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {MISSING_ACTION_TAG,
      "JSON is missing the action tag to be performed for the FRU."},
     {FRU_PATH_NOT_FOUND, "The FRU path is not found in the JSON."},
-    {INVALID_INPUT_PARAMATER,
+    {INVALID_INPUT_PARAMETER,
      "Either one of the input parameter is invalid or empty."}};
 } // namespace error_code
 } // namespace vpd

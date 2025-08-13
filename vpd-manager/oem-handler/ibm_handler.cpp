@@ -212,12 +212,21 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
 
         // The utility method will handle emty JSON case. No explicit
         // handling required here.
+        uint16_t l_errCode = 0;
         auto l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
-            l_sysCfgJsonObj, l_fruPath);
+            l_sysCfgJsonObj, l_fruPath, l_errCode);
 
         // Mark it as failed if inventory path not found in JSON.
         if (l_inventoryPath.empty())
         {
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to get inventory object path from JSON for FRU [" +
+                    l_fruPath + "], error : " +
+                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            }
+
             o_failedPathList.push_back(l_fruPath);
             continue;
         }
