@@ -23,8 +23,9 @@ std::string SingleFab::getImFromPersistedLocation() const noexcept
 {
     try
     {
+        uint16_t io_error_code = 0;
         auto l_parsedVsbpJsonObj =
-            jsonUtility::getParsedJson(pimPersistVsbpPath);
+            jsonUtility::getParsedJson(pimPersistVsbpPath, io_error_code);
         if (!l_parsedVsbpJsonObj.contains("value0") ||
             !l_parsedVsbpJsonObj["value0"].contains(constants::kwdIM) ||
             !l_parsedVsbpJsonObj["value0"][constants::kwdIM].is_array())

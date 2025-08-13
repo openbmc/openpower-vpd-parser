@@ -212,8 +212,9 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
 
         // The utility method will handle emty JSON case. No explicit
         // handling required here.
+        uint16_t io_error_code = 0;
         auto l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
-            l_sysCfgJsonObj, l_fruPath);
+            l_sysCfgJsonObj, l_fruPath, io_error_code);
 
         // Mark it as failed if inventory path not found in JSON.
         if (l_inventoryPath.empty())
