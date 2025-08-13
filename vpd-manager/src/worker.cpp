@@ -1820,6 +1820,7 @@ void Worker::performVpdRecollection()
 void Worker::collectSingleFruVpd(
     const sdbusplus::message::object_path& i_dbusObjPath)
 {
+    std::string l_fruPath{};
     try
     {
         // Check if system config JSON is present
@@ -1832,7 +1833,7 @@ void Worker::collectSingleFruVpd(
         }
 
         // Get FRU path for the given D-bus object path from JSON
-        const std::string& l_fruPath =
+        l_fruPath =
             jsonUtility::getFruPathFromJson(m_parsedJson, i_dbusObjPath);
 
         if (l_fruPath.empty())
@@ -1917,15 +1918,7 @@ void Worker::collectSingleFruVpd(
     }
     catch (const std::exception& l_error)
     {
-        // Notify FRU's VPD collection Status as Failed
-        if (!dbusUtility::notifyFRUCollectionStatus(
-                std::string(i_dbusObjPath), constants::vpdCollectionFailed))
-        {
-            logging::logMessage(
-                "Call to PIM Notify method failed to update collection Status as Failed for " +
-                std::string(i_dbusObjPath));
-        }
-
+        setCollectionStatusProperty(l_fruPath, constants::vpdCollectionFailed);
         // TODO: Log PEL
         logging::logMessage(std::string(l_error.what()));
     }
