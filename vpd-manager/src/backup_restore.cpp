@@ -162,14 +162,38 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         return;
     }
 
-    const std::string l_srcInvPath =
-        jsonUtility::getInventoryObjPathFromJson(m_sysCfgJsonObj, i_srcPath);
-    const std::string l_dstInvPath =
-        jsonUtility::getInventoryObjPathFromJson(m_sysCfgJsonObj, i_dstPath);
-    if (l_srcInvPath.empty() || l_dstInvPath.empty())
+    uint16_t l_errCode = 0;
+    const std::string l_srcInvPath = jsonUtility::getInventoryObjPathFromJson(
+        m_sysCfgJsonObj, i_srcPath, l_errCode);
+
+    if (l_srcInvPath.empty())
     {
-        logging::logMessage(
-            "Couldn't find either source or destination inventory path.");
+        if (l_errCode)
+        {
+            logging::logMessage(
+                "Couldn't find source inventory path. Error : " +
+                vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            return;
+        }
+
+        logging::logMessage("Couldn't find  source inventory path.");
+        return;
+    }
+
+    const std::string l_dstInvPath = jsonUtility::getInventoryObjPathFromJson(
+        m_sysCfgJsonObj, i_dstPath, l_errCode);
+
+    if (l_dstInvPath.empty())
+    {
+        if (l_errCode)
+        {
+            logging::logMessage(
+                "Couldn't find destination inventory path. Error : " +
+                vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            return;
+        }
+
+        logging::logMessage("Couldn't find destination inventory path.");
         return;
     }
 
