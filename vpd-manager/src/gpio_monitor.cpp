@@ -42,8 +42,9 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
         }
         else
         {
+            uint16_t l_error_code = 0;
             m_worker->deleteFruVpd(jsonUtility::getInventoryObjPathFromJson(
-                m_worker->getSysCfgJsonObj(), m_fruPath));
+                m_worker->getSysCfgJsonObj(), m_fruPath, l_error_code));
         }
     }
     catch (std::exception& l_ex)

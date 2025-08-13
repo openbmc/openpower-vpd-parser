@@ -42,7 +42,9 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount) :
 
         try
         {
-            m_parsedJson = jsonUtility::getParsedJson(m_configJsonPath);
+            uint16_t l_error_code = 0;
+            m_parsedJson =
+                jsonUtility::getParsedJson(m_configJsonPath, l_error_code);
 
             // check for mandatory fields at this point itself.
             if (!m_parsedJson.contains("frus"))
@@ -374,7 +376,8 @@ void Worker::setDeviceTreeAndJson()
     }
 
     // re-parse the JSON once appropriate JSON has been selected.
-    m_parsedJson = jsonUtility::getParsedJson(systemJson);
+    uint16_t l_error_code = 0;
+    m_parsedJson = jsonUtility::getParsedJson(systemJson, l_error_code);
 
     if (m_parsedJson.empty())
     {
@@ -1369,10 +1372,12 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         m_activeCollectionThreadCount++;
         m_mutex.unlock();
 
+        uint16_t l_error_code = 0;
+
         // Set CollectionStatus as InProgress. Since it's an intermediate state
         // D-bus set-property call is good enough to update the status.
         l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
-            m_parsedJson, i_vpdFilePath);
+            m_parsedJson, i_vpdFilePath, l_error_code);
 
         if (!l_inventoryPath.empty())
         {
@@ -1417,14 +1422,15 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         // based on status of execution.
         if (typeid(ex) == std::type_index(typeid(DataException)))
         {
+            uint16_t l_error_code = 0;
             // In case of pass1 planar, VPD can be corrupted on PCIe cards. Skip
             // logging error for these cases.
             if (vpdSpecificUtility::isPass1Planar())
             {
                 const std::string& l_invPathLeafValue =
                     sdbusplus::message::object_path(
-                        jsonUtility::getInventoryObjPathFromJson(m_parsedJson,
-                                                                 i_vpdFilePath))
+                        jsonUtility::getInventoryObjPathFromJson(
+                            m_parsedJson, i_vpdFilePath, l_error_code))
                         .filename();
 
                 if ((l_invPathLeafValue.find("pcie_card", 0) !=
@@ -1487,10 +1493,12 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
             return true;
         }
 
+        uint16_t l_error_code = 0;
+
         const std::string& l_invPathLeafValue =
             sdbusplus::message::object_path(
-                jsonUtility::getInventoryObjPathFromJson(m_parsedJson,
-                                                         i_vpdFilePath))
+                jsonUtility::getInventoryObjPathFromJson(
+                    m_parsedJson, i_vpdFilePath, l_error_code))
                 .filename();
 
         if ((l_invPathLeafValue.find("pcie_card", 0) != std::string::npos))
@@ -1556,8 +1564,10 @@ void Worker::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
         std::string l_backupAndRestoreCfgFilePath =
             m_parsedJson.value("backupRestoreConfigPath", "");
 
+        uint16_t l_error_code = 0;
         nlohmann::json l_backupAndRestoreCfgJsonObj =
-            jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath);
+            jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath,
+                                       l_error_code);
 
         if (l_backupAndRestoreCfgJsonObj.empty())
         {
