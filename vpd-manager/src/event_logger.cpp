@@ -8,6 +8,7 @@
 #include <systemd/sd-bus.h>
 
 #include <utility/json_utility.hpp>
+#include <utility/vpd_specific_utility.hpp>
 
 #include <filesystem>
 
@@ -351,9 +352,18 @@ void EventLogger::createSyncPelWithInvCallOut(
             {
                 if (!l_ec)
                 {
+                    uint16_t l_errCode = 0;
                     l_calloutInvPath = jsonUtility::getInventoryObjPathFromJson(
                         jsonUtility::getParsedJson(INVENTORY_JSON_SYM_LINK),
-                        std::get<0>(i_callouts[0]));
+                        std::get<0>(i_callouts[0]), l_errCode);
+
+                    if (l_errCode)
+                    {
+                        logging::logMessage(
+                            "Failed to get inventory object path from JSON for FRU [" +
+                            std::get<0>(i_callouts[0]) + "], error : " +
+                            vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                    }
                 }
                 else
                 {

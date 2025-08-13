@@ -3,6 +3,7 @@
 #include "config.h"
 
 #include "constants.hpp"
+#include "error_codes.hpp"
 #include "event_logger.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
@@ -1108,6 +1109,27 @@ inline void saveTimeStampInPim(const std::string& i_inventoryPath,
     {
         logging::logMessage("Failed to save time stamp under PIM for reason: " +
                             std::string(l_ex.what()));
+    }
+}
+
+/**
+ * @brief API to get error code message.
+ *
+ * @param[in] i_errCode - error code.
+ *
+ * @return Error message set for that error code. Otherwise empty
+ * string.
+ */
+inline std::string getErrCodeMsg(const uint16_t& i_errCode)
+{
+    if (error_code::errorCodeMap.find(i_errCode) !=
+        error_code::errorCodeMap.end())
+    {
+        return error_code::errorCodeMap.at(i_errCode);
+    }
+    else
+    {
+        return std::string{};
     }
 }
 } // namespace vpdSpecificUtility

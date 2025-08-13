@@ -1,10 +1,12 @@
 #include "gpio_monitor.hpp"
 
 #include "constants.hpp"
+#include "error_codes.hpp"
 #include "logger.hpp"
 #include "types.hpp"
 #include "utility/dbus_utility.hpp"
 #include "utility/json_utility.hpp"
+#include "utility/vpd_specific_utility.hpp"
 
 #include <boost/asio.hpp>
 #include <boost/bind/bind.hpp>
@@ -42,8 +44,18 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
         }
         else
         {
-            m_worker->deleteFruVpd(jsonUtility::getInventoryObjPathFromJson(
-                m_worker->getSysCfgJsonObj(), m_fruPath));
+            uint16_t l_errCode = 0;
+            std::string l_invPath = jsonUtility::getInventoryObjPathFromJson(
+                m_worker->getSysCfgJsonObj(), m_fruPath, l_errCode);
+
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to get inventory path from JSON, error : " +
+                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            }
+
+            m_worker->deleteFruVpd(l_invPath);
         }
     }
     catch (std::exception& l_ex)
