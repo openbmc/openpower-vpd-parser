@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d796295_2ecaee70",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-25T06:32:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eea89f0f_24a2147f",
+      "revId": "469e263a1cf5ab71e22c58582db1b1f307691d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "150193ba_c8318cf9",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-08-22T17:59:59Z",
       "side": 1,
       "message": "should we return reference to object here ?",
+      "revId": "469e263a1cf5ab71e22c58582db1b1f307691d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d1ea486_2f3c4d22",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-25T06:32:52Z",
+      "side": 1,
+      "message": "Reference will need an initializer, Instead I will add a check to return the same object from getInstance API",
+      "parentUuid": "150193ba_c8318cf9",
       "revId": "469e263a1cf5ab71e22c58582db1b1f307691d97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ad33ce2_dedd9db4",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-25T06:32:52Z",
+      "side": 1,
+      "message": "Can be done.",
+      "parentUuid": "26425339_c3bf40a3",
+      "revId": "469e263a1cf5ab71e22c58582db1b1f307691d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3522976_a3dd5922",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-08-22T17:59:59Z",
       "side": 1,
       "message": "i_pelTuple",
+      "revId": "469e263a1cf5ab71e22c58582db1b1f307691d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b24e6531_b40711d2",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-25T06:32:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f3522976_a3dd5922",
       "revId": "469e263a1cf5ab71e22c58582db1b1f307691d97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90c0bc1d_0e06a7ad",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-25T06:32:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "12c94d48_8b599735",
+      "revId": "469e263a1cf5ab71e22c58582db1b1f307691d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c19f2935_e1290623",
@@ -99,6 +189,24 @@
       "writtenOn": "2025-08-22T17:59:59Z",
       "side": 1,
       "message": "i_message",
+      "revId": "469e263a1cf5ab71e22c58582db1b1f307691d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b22a0037_8c48fda5",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-25T06:32:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c19f2935_e1290623",
       "revId": "469e263a1cf5ab71e22c58582db1b1f307691d97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +228,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19b4e00b_5cd35edc",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-25T06:32:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "02346528_cf02a740",
+      "revId": "469e263a1cf5ab71e22c58582db1b1f307691d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6ee06fc_70ae46ad",
@@ -133,6 +259,24 @@
       "writtenOn": "2025-08-22T17:59:59Z",
       "side": 1,
       "message": "i_log",
+      "revId": "469e263a1cf5ab71e22c58582db1b1f307691d97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "deceb44b_23c9b694",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-25T06:32:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c6ee06fc_70ae46ad",
       "revId": "469e263a1cf5ab71e22c58582db1b1f307691d97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
