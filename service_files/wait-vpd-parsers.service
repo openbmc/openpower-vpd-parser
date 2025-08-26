@@ -8,7 +8,7 @@ After=vpd-manager.service
 After=set-spi-mux.service
 
 [Service]
-ExecStart=/usr/bin/wait-vpd-status.sh
+ExecStart=/usr/bin/wait-vpd-parser
 Type=oneshot
 
 [Install]
