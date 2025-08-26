@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b6182d8_1fdcca5e",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-26T06:53:58Z",
+      "side": 1,
+      "message": "We have types defined for it.\n\n\u003e using BinaryVector \u003d std::vector\u003cuint8_t\u003e;",
+      "range": {
+        "startLine": 200,
+        "startChar": 4,
+        "endLine": 200,
+        "endChar": 24
+      },
+      "revId": "c10b34afda4d53d38100333ab70952b23c8371d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
