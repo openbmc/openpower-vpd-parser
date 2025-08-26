@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9105e5da_0bc62f53",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-26T05:26:57Z",
+      "side": 1,
+      "message": "This should be only an output parameter here.\nApplies to other instances as well.",
+      "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bc178e9_e3ab25e3",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-26T05:26:57Z",
+      "side": 1,
+      "message": "In case error message is set. No need to throw. The error code should carry the message to the caller and based on that caller can decide.",
+      "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dacb785e_0ea3df58",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-26T05:26:57Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b101a8a7_47a918be",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-26T05:26:57Z",
+      "side": 1,
+      "message": "Same here",
+      "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d8fe05a_7ec60593",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-26T05:26:57Z",
+      "side": 1,
+      "message": "\"l_errCode\" should be fine.",
+      "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
