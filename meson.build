@@ -64,13 +64,7 @@ services = ['service_files/vpd-manager.service']
 if get_option('ibm_system').allowed()
     subdir('vpd-tool')
     subdir('wait-vpd-parser')
-    scripts = ['scripts/wait-vpd-status.sh']
 
-    install_data(
-        scripts,
-        install_mode: 'rwxr-xr-x',
-        install_dir: get_option('bindir'),
-    )
 
     services += [
         'service_files/system-vpd.service',
