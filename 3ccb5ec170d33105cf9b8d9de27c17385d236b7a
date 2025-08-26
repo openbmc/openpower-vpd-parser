@@ -16,6 +16,24 @@
       "message": "Why do we have this file?",
       "revId": "3ccb5ec170d33105cf9b8d9de27c17385d236b7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e32b098_fef6e0c7",
+        "filename": "wait-vpd-parser/include/wait_vpd_parser.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-26T14:38:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9efa50e5_f9208775",
+      "revId": "3ccb5ec170d33105cf9b8d9de27c17385d236b7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
