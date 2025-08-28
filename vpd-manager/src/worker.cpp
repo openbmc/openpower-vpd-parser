@@ -1362,6 +1362,8 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
 
     try
     {
+        std::cout<<"Start processing of "<<i_vpdFilePath<<std::endl;
+
         m_semaphore.acquire();
 
         // Thread launched.
@@ -1376,6 +1378,10 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
 
         if (!l_inventoryPath.empty())
         {
+            // save time stamp under PIM.
+            vpdSpecificUtility::saveTimeStampInPim(l_inventoryPath,
+                                                   "StartTime");
+
             if (!dbusUtility::writeDbusProperty(
                     jsonUtility::getServiceName(m_parsedJson, l_inventoryPath),
                     l_inventoryPath, constants::vpdCollectionInterface,
@@ -1393,6 +1399,10 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         {
             types::ObjectMap objectInterfaceMap;
             populateDbus(parsedVpdMap, objectInterfaceMap, i_vpdFilePath);
+
+            // save end time stamp under PIM.
+            vpdSpecificUtility::saveTimeStampInPim(l_inventoryPath,
+                                                   "CompletedTime");
 
             // Notify PIM
             if (!dbusUtility::callPIM(move(objectInterfaceMap)))
@@ -1412,6 +1422,10 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
     {
         setCollectionStatusProperty(i_vpdFilePath,
                                     constants::vpdCollectionFailed);
+
+        // save end time stamp under PIM.
+        vpdSpecificUtility::saveTimeStampInPim(l_inventoryPath,
+                                               "CompletedTime");
 
         // handle all the exceptions internally. Return only true/false
         // based on status of execution.

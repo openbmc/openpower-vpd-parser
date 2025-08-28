@@ -4,6 +4,7 @@
 #include "logger.hpp"
 
 #include <algorithm>
+#include <chrono>
 #include <cstdio>
 #include <cstdlib>
 #include <vector>
@@ -233,6 +234,23 @@ inline types::BinaryVector convertToBinary(const std::string& i_value)
         l_binaryValue.assign(i_value.begin(), i_value.end());
     }
     return l_binaryValue;
+}
+
+/**
+ * @brief API to get current time stamp since Epoch.
+ *
+ * @return time stamp in seconds.
+ */
+inline size_t getCurrentTimeSinceEpoch()
+{
+    // Use high_resolution_clock for better precision
+    auto now = std::chrono::high_resolution_clock::now();
+    auto durationSinceEpoch = now.time_since_epoch();
+
+    auto timeStampSeconds =
+        std::chrono::duration_cast<std::chrono::seconds>(durationSinceEpoch)
+            .count();
+    return static_cast<size_t>(timeStampSeconds);
 }
 
 } // namespace commonUtility
