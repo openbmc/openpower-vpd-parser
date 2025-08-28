@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df45d741_2ef274ed",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T14:23:07Z",
+      "side": 1,
+      "message": "Can this API throw exception? If not, `noexcept` specifier is recommended.",
+      "revId": "06863564418ae29d463a3f0e298adb3d1a7543e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe5c3095_c235d156",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T14:23:07Z",
+      "side": 1,
+      "message": "local variable names are not as per our \"l_\" convention. Also these can all be `const`?",
+      "revId": "06863564418ae29d463a3f0e298adb3d1a7543e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e9434b1_cc378d93",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T14:23:07Z",
+      "side": 1,
+      "message": "Utility APIs should handle exceptions locally, so should we wrap these code blocks in a `try-catch` and make this API `noexcept`?",
+      "revId": "06863564418ae29d463a3f0e298adb3d1a7543e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7eb4080_7ada3f13",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T14:23:07Z",
+      "side": 1,
+      "message": "`const l_objMap` ?",
+      "revId": "06863564418ae29d463a3f0e298adb3d1a7543e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
