@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+#include <unordered_map>
+
 namespace vpd
 {
 namespace error_code
@@ -17,5 +20,17 @@ static constexpr auto FRU_PATH_NOT_FOUND = 2004;
 
 // Generic errors.
 static constexpr auto INVALID_INPUT_PARAMATER = 3001;
+
+static const std::unordered_map<int, std::string> errorCodeMap = {
+    {FILE_NOT_FOUND, "File does not exist."},
+    {FILE_ACCESS_ERROR, "Failed to access the file."},
+    {EMPTY_FILE, "The given file is empty."},
+    {INVALID_JSON, "Either JSON is missing FRU tag or invalid JSON object."},
+    {MISSING_FLAG, "JSON is missing the flag to procees for the FRU."},
+    {MISSING_ACTION_TAG,
+     "JSON is missing the action to be performed for the FRU."},
+    {FRU_PATH_NOT_FOUND, "The FRU path is not found in the JSON"},
+    {INVALID_INPUT_PARAMATER,
+     "Either one of the input parameter is invalid or empty"}};
 } // namespace error_code
 } // namespace vpd
