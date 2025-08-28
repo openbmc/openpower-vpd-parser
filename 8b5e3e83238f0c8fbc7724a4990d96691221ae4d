@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10e2e929_d57c7e2d",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-28T05:26:09Z",
+      "side": 1,
+      "message": "Why do we need a return value from this API?\nAny error will be logged internally. Also there is no action other than logging dependent on return value. \nSo that makes return type moot in this case?",
+      "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ae5a45d_87c0d714",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-28T05:26:09Z",
+      "side": 1,
+      "message": "We have already merged the base framework for logger class. Could you please make use of the class API now for logging.\nApplies for other instances as well.",
+      "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e5c97d0_bceebdff",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-28T05:26:09Z",
+      "side": 1,
+      "message": "This is configurable, so the comment may not hold good in some situation. Let the comment be generic?",
+      "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b470a70c_386d889f",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-28T05:26:09Z",
+      "side": 1,
+      "message": "Just add a todo to revisit this code as we will be moving to xyz interface for collection status value.",
+      "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "041cfb67_eec47767",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-28T05:26:09Z",
+      "side": 1,
+      "message": "A blank line between different blocks?",
+      "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b88e24d_44015086",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-28T05:26:09Z",
+      "side": 1,
+      "message": "No action based on return type so I don\u0027t see a need to handling return value.",
+      "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4c5be2b_088866a4",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-28T05:26:09Z",
+      "side": 1,
+      "message": "Nothing is being thrown from the API. This is a dead code?",
+      "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
