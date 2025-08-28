@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f900ea09_339c8768",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-28T15:18:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "df45d741_2ef274ed",
+      "revId": "06863564418ae29d463a3f0e298adb3d1a7543e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe5c3095_c235d156",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-08-28T14:23:07Z",
       "side": 1,
       "message": "local variable names are not as per our \"l_\" convention. Also these can all be `const`?",
+      "revId": "06863564418ae29d463a3f0e298adb3d1a7543e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01de3943_384b99f6",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-28T15:18:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fe5c3095_c235d156",
       "revId": "06863564418ae29d463a3f0e298adb3d1a7543e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cd10d22_19a64f52",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-28T15:18:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9e9434b1_cc378d93",
+      "revId": "06863564418ae29d463a3f0e298adb3d1a7543e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7eb4080_7ada3f13",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-08-28T14:23:07Z",
       "side": 1,
       "message": "`const l_objMap` ?",
+      "revId": "06863564418ae29d463a3f0e298adb3d1a7543e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce4db7a2_2c6ce86d",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-28T15:18:05Z",
+      "side": 1,
+      "message": "Used in move. Can\u0027t use const here.",
+      "parentUuid": "f7eb4080_7ada3f13",
       "revId": "06863564418ae29d463a3f0e298adb3d1a7543e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
