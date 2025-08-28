@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5074bc6_a0c19753",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-08-28T06:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9105e5da_0bc62f53",
+      "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bc178e9_e3ab25e3",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-08-26T05:26:57Z",
       "side": 1,
       "message": "In case error message is set. No need to throw. The error code should carry the message to the caller and based on that caller can decide.",
+      "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dec0a86_f3b1ccd7",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-08-28T06:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bc178e9_e3ab25e3",
       "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21791de8_9511b908",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-08-28T06:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dacb785e_0ea3df58",
+      "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b101a8a7_47a918be",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-08-26T05:26:57Z",
       "side": 1,
       "message": "Same here",
+      "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "238e6223_2dfbb372",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-08-28T06:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b101a8a7_47a918be",
       "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37bafff1_d96eb457",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-08-28T06:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d8fe05a_7ec60593",
+      "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ac0a897_9103060a",
@@ -103,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9ff1dfc_17292408",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-08-28T06:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ac0a897_9103060a",
+      "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fd63c63_da4a021e",
@@ -116,6 +224,24 @@
       "writtenOn": "2025-08-26T05:29:52Z",
       "side": 1,
       "message": "Do we need uint16? or uint8 should suffice?",
+      "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b944c8a_6168950f",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-08-28T06:55:33Z",
+      "side": 1,
+      "message": "We need uint16 because error codes 1001 exceed the maximum value (255) of uint8.",
+      "parentUuid": "7fd63c63_da4a021e",
       "revId": "b2e7f9d06c200d454d0ee6e63b8b036d5d04e4e8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
