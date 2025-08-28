@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fe9a60e_fd3f334d",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-08-28T07:25:19Z",
+      "side": 1,
+      "message": "In this case now we need to check for error code and log accordingly.",
+      "revId": "9e0f97e87ce391467226b73cf18204814d7452c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
