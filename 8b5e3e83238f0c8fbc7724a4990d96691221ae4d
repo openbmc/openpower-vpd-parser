@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7213eac8_da6781b5",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T08:18:05Z",
+      "side": 1,
+      "message": "The bash script returns value 0 in case of success and 1 in case of failure. I kept return value here to preserve the same behavior.",
+      "parentUuid": "10e2e929_d57c7e2d",
+      "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2ae5a45d_87c0d714",
         "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
         "patchSetId": 12
@@ -31,6 +49,24 @@
       "writtenOn": "2025-08-28T05:26:09Z",
       "side": 1,
       "message": "We have already merged the base framework for logger class. Could you please make use of the class API now for logging.\nApplies for other instances as well.",
+      "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "001e5b9f_3cd4b7a3",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T08:18:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ae5a45d_87c0d714",
       "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96027e45_13a45f7e",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T08:18:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8e5c97d0_bceebdff",
+      "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b470a70c_386d889f",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f25da434_3712bc64",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T08:18:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b470a70c_386d889f",
+      "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "041cfb67_eec47767",
@@ -82,6 +154,24 @@
       "writtenOn": "2025-08-28T05:26:09Z",
       "side": 1,
       "message": "A blank line between different blocks?",
+      "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ea52e54_2e14f6f7",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T08:18:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "041cfb67_eec47767",
       "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +195,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9cc321b1_912139c5",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T08:18:05Z",
+      "side": 1,
+      "message": "The bash script returns value 0 in case of success and 1 in case of failure. I kept return value here to preserve the same behavior.",
+      "parentUuid": "3b88e24d_44015086",
+      "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4c5be2b_088866a4",
         "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
         "patchSetId": 12
@@ -116,6 +224,24 @@
       "writtenOn": "2025-08-28T05:26:09Z",
       "side": 1,
       "message": "Nothing is being thrown from the API. This is a dead code?",
+      "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcf59f07_1e254ac7",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T08:18:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4c5be2b_088866a4",
       "revId": "8b5e3e83238f0c8fbc7724a4990d96691221ae4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
