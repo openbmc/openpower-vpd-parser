@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fcb4ee7_12df87e9",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T15:35:06Z",
+      "side": 1,
+      "message": "These variables should be `const`",
+      "revId": "2a80325273d08650a23e8366870a13391e4fdb5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1da70897_e61c9a37",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T15:35:06Z",
+      "side": 1,
+      "message": "\"Can\u0027t save time stamp in PIM\"?",
+      "revId": "2a80325273d08650a23e8366870a13391e4fdb5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe4bd0bc_b754b7b2",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T15:35:06Z",
+      "side": 1,
+      "message": "nit: `l_ex`",
+      "revId": "2a80325273d08650a23e8366870a13391e4fdb5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f9cc449_0c3f81a9",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1425,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-08-28T15:35:06Z",
+      "side": 1,
+      "message": "If collection has failed, is it accurate to label this \"CompletedTime\"? What use will this timestamp be of?",
+      "revId": "2a80325273d08650a23e8366870a13391e4fdb5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
