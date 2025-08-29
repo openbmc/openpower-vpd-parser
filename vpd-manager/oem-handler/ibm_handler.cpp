@@ -67,9 +67,6 @@ IbmHandler::IbmHandler(
     // set async timer to detect if system VPD is published on D-Bus.
     SetTimerToDetectSVPDOnDbus();
 
-    // set async timer to detect if VPD collection is done.
-    SetTimerToDetectVpdCollectionStatus();
-
     // Instantiate GpioMonitor class
     m_gpioMonitor =
         std::make_shared<GpioMonitor>(m_sysCfgJsonObj, m_worker, m_ioContext);
@@ -106,12 +103,6 @@ void IbmHandler::SetTimerToDetectSVPDOnDbus()
             {
                 // cancel the timer
                 timer.cancel();
-
-                // Triggering FRU VPD collection. Setting status to "In
-                // Progress".
-                m_interface->set_property("CollectionStatus",
-                                          std::string("InProgress"));
-                m_worker->collectFrusFromJson();
             }
         });
     }
