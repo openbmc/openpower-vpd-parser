@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "049070a1_46ee57ed",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-08-29T07:00:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fe9a60e_fd3f334d",
+      "revId": "9e0f97e87ce391467226b73cf18204814d7452c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81244e75_a65fec8d",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-08-28T12:18:13Z",
       "side": 1,
       "message": "as we are not checking returned value is empty and error code, we miss actual error and only log \"Mandatory tag(s) missing from JSON\" always, which was not the case earlier.\n\nsame for below calls as well.",
+      "revId": "9e0f97e87ce391467226b73cf18204814d7452c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ea25caa_db17cf75",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-08-29T07:00:39Z",
+      "side": 1,
+      "message": "will update this via another commit. Currently this commit updates only the getVPDOffset and getInventoryObjPathFromJson APIs.\n\nupdated the APIs to log message based on the error code.",
+      "parentUuid": "81244e75_a65fec8d",
       "revId": "9e0f97e87ce391467226b73cf18204814d7452c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
