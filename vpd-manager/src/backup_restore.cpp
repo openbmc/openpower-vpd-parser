@@ -1,6 +1,7 @@
 #include "backup_restore.hpp"
 
 #include "constants.hpp"
+#include "error_codes.hpp"
 #include "event_logger.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
@@ -21,12 +22,14 @@ BackupAndRestore::BackupAndRestore(const nlohmann::json& i_sysCfgJsonObj) :
     std::string l_backupAndRestoreCfgFilePath =
         i_sysCfgJsonObj.value("backupRestoreConfigPath", "");
 
+    uint16_t l_errCode = 0;
     m_backupAndRestoreCfgJsonObj =
-        jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath);
+        jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath, l_errCode);
 
-    if (m_backupAndRestoreCfgJsonObj.empty())
+    if (l_errCode)
     {
-        throw JsonException("JSON parsing failed",
+        throw JsonException("JSON parsing failed, error : " +
+                                vpdSpecificUtility::getErrCodeMsg(l_errCode),
                             l_backupAndRestoreCfgFilePath);
     }
 }

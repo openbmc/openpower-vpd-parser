@@ -17,6 +17,7 @@ static constexpr auto INVALID_JSON = 2001;
 static constexpr auto MISSING_FLAG = 2002;
 static constexpr auto MISSING_ACTION_TAG = 2003;
 static constexpr auto FRU_PATH_NOT_FOUND = 2004;
+static constexpr auto JSON_PARSE_ERROR = 2005;
 
 // Generic errors.
 static constexpr auto INVALID_INPUT_PARAMETER = 3001;
@@ -30,6 +31,7 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {MISSING_ACTION_TAG,
      "JSON is missing the action tag to be performed for the FRU."},
     {FRU_PATH_NOT_FOUND, "The FRU path is not found in the JSON."},
+    {JSON_PARSE_ERROR, "Error while parsing JSON file."},
     {INVALID_INPUT_PARAMETER,
      "Either one of the input parameter is invalid or empty."}};
 } // namespace error_code
