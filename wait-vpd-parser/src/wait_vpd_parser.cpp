@@ -73,6 +73,36 @@ int checkVpdCollectionStatus(const unsigned i_retryLimit,
     return vpd::constants::VALUE_1;
 }
 
+/**
+ * @brief API to trigger VPD collection for all FRUs.
+ *
+ * This API triggers VPD collection for all FRUs by calling Dbus API
+ * "CollectAllFRUVPD" exposed by vpd-manager
+ *
+ * @return - On success returns true, otherwise returns false
+ */
+inline bool collectAllFruVpd() noexcept
+{
+    bool l_rc{true};
+    try
+    {
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method =
+            l_bus.new_method_call(IFACE, OBJPATH, IFACE, "CollectAllFRUVPD");
+
+        l_bus.call_noreply(l_method);
+    }
+    catch (const std::exception& l_ex)
+    {
+        auto l_logger = vpd::Logger::getLoggerInstance();
+        l_logger->logMessage(
+            "Failed to trigger all FRU VPD collection. Error: " +
+            std::string(l_ex.what()));
+        l_rc = false;
+    }
+    return l_rc;
+}
+
 int main(int argc, char** argv)
 {
     CLI::App l_app{"Wait VPD parser app"};
@@ -87,5 +117,8 @@ int main(int argc, char** argv)
 
     CLI11_PARSE(l_app, argc, argv);
 
-    return checkVpdCollectionStatus(l_retryLimit, l_sleepDurationInSeconds);
+    return collectAllFruVpd()
+               ? checkVpdCollectionStatus(l_retryLimit,
+                                          l_sleepDurationInSeconds)
+               : vpd::constants::VALUE_1;
 }
