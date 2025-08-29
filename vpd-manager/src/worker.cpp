@@ -42,7 +42,16 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount) :
 
         try
         {
-            m_parsedJson = jsonUtility::getParsedJson(m_configJsonPath);
+            uint16_t l_errCode = 0;
+            m_parsedJson =
+                jsonUtility::getParsedJson(m_configJsonPath, l_errCode);
+
+            if (l_errCode)
+            {
+                throw std::runtime_error(
+                    "JSON parsing failed, error : " +
+                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            }
 
             // check for mandatory fields at this point itself.
             if (!m_parsedJson.contains("frus"))
@@ -373,12 +382,16 @@ void Worker::setDeviceTreeAndJson()
             "No system JSON found corresponding to IM read from VPD.");
     }
 
-    // re-parse the JSON once appropriate JSON has been selected.
-    m_parsedJson = jsonUtility::getParsedJson(systemJson);
+    uint16_t l_errCode = 0;
 
-    if (m_parsedJson.empty())
+    // re-parse the JSON once appropriate JSON has been selected.
+    m_parsedJson = jsonUtility::getParsedJson(systemJson, l_errCode);
+
+    if (l_errCode)
     {
-        throw(JsonException("Json parsing failed", systemJson));
+        throw(JsonException("JSON parsing failed, error : " +
+                                vpdSpecificUtility::getErrCodeMsg(l_errCode),
+                            systemJson));
     }
 
     std::string devTreeFromJson;
@@ -1594,16 +1607,20 @@ void Worker::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
 {
     try
     {
+        uint16_t l_errCode = 0;
         std::string l_backupAndRestoreCfgFilePath =
             m_parsedJson.value("backupRestoreConfigPath", "");
 
         nlohmann::json l_backupAndRestoreCfgJsonObj =
-            jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath);
+            jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath,
+                                       l_errCode);
 
-        if (l_backupAndRestoreCfgJsonObj.empty())
+        if (l_errCode)
         {
-            throw JsonException("JSON parsing failed",
-                                l_backupAndRestoreCfgFilePath);
+            throw JsonException(
+                "JSON parsing failed, error : " +
+                    vpdSpecificUtility::getErrCodeMsg(l_errCode),
+                l_backupAndRestoreCfgFilePath);
         }
 
         // check if either of "source" or "destination" has inventory path.
