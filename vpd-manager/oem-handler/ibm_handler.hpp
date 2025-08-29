@@ -34,6 +34,7 @@ class IbmHandler
      * @param[in] o_backupAndRestoreObj - Ref to back up and restore class
      * object.
      * @param[in] i_iFace - interface to implement.
+     * @param[in] i_collectioniFace - Collection interface to implement.
      * @param[in] i_ioCon - IO context.
      * @param[in] i_asioConnection - Dbus Connection.
      */
@@ -41,6 +42,7 @@ class IbmHandler
         std::shared_ptr<Worker>& o_worker,
         std::shared_ptr<BackupAndRestore>& o_backupAndRestoreObj,
         const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_iFace,
+        const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_collectioniFace,
         const std::shared_ptr<boost::asio::io_context>& i_ioCon,
         const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection);
 
@@ -165,6 +167,9 @@ class IbmHandler
 
     // Shared pointer to Dbus interface class.
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& m_interface;
+
+    // Shared pointer to Dbus common interface class.
+    const std::shared_ptr<sdbusplus::asio::dbus_interface>& m_collectionInterface;
 
     // Shared pointer to asio context object.
     const std::shared_ptr<boost::asio::io_context>& m_ioContext;

@@ -23,8 +23,10 @@ namespace vpd
 Manager::Manager(
     const std::shared_ptr<boost::asio::io_context>& ioCon,
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& iFace,
+    const std::shared_ptr<sdbusplus::asio::dbus_interface>& collectioniFace,
     const std::shared_ptr<sdbusplus::asio::connection>& asioConnection) :
-    m_ioContext(ioCon), m_interface(iFace), m_asioConnection(asioConnection)
+    m_ioContext(ioCon), m_interface(iFace), m_collectionInterface(collectioniFace),
+    m_asioConnection(asioConnection)
 {
 #ifdef IBM_SYSTEM
     if (!dbusUtility::isChassisPowerOn())
@@ -126,13 +128,13 @@ Manager::Manager(
         });
 
         // Indicates FRU VPD collection for the system has not started.
-        iFace->register_property_rw<std::string>(
-            "CollectionStatus", sdbusplus::vtable::property_::emits_change,
+        collectioniFace->register_property_rw<std::string>(
+            "Status", sdbusplus::vtable::property_::emits_change,
             [this](const std::string& l_currStatus, const auto&) {
                 if (m_vpdCollectionStatus != l_currStatus)
                 {
                     m_vpdCollectionStatus = l_currStatus;
-                    m_interface->signal_property("CollectionStatus");
+                    m_interface->signal_property("Status");
                 }
                 return true;
             },
@@ -141,11 +143,12 @@ Manager::Manager(
         // If required, instantiate OEM specific handler here.
 #ifdef IBM_SYSTEM
         m_ibmHandler = std::make_shared<IbmHandler>(
-            m_worker, m_backupAndRestoreObj, m_interface, m_ioContext,
-            m_asioConnection);
+            m_worker, m_backupAndRestoreObj, m_interface, m_collectionInterface,
+            m_ioContext, m_asioConnection);
 #else
         m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT);
-        m_interface->set_property("CollectionStatus", std::string("Completed"));
+        m_collectionInterface->set_property(
+            "Status", std::string(constants::vpdCollectionCompleted));
 #endif
     }
     catch (const std::exception& e)
@@ -347,7 +350,7 @@ types::DbusVariantType Manager::readKeyword(
 void Manager::collectSingleFruVpd(
     const sdbusplus::message::object_path& i_dbusObjPath)
 {
-    if (m_vpdCollectionStatus != "Completed")
+    if (m_vpdCollectionStatus != constants::vpdCollectionCompleted)
     {
         logging::logMessage(
             "Currently VPD CollectionStatus is not completed. Cannot perform single FRU VPD collection for " +
@@ -650,12 +653,12 @@ bool Manager::collectAllFruVpd() const noexcept
     try
     {
         types::SeverityType l_severityType;
-        if (m_vpdCollectionStatus == "NotStarted")
+        if (m_vpdCollectionStatus == constants::vpdCollectionNotStarted)
         {
             l_severityType = types::SeverityType::Informational;
         }
-        else if (m_vpdCollectionStatus == "Completed" ||
-                 m_vpdCollectionStatus == "Failed")
+        else if (m_vpdCollectionStatus == constants::vpdCollectionCompleted ||
+                 m_vpdCollectionStatus == constants::vpdCollectionFailed)
         {
             l_severityType = types::SeverityType::Warning;
         }
