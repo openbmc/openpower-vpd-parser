@@ -13,7 +13,7 @@
  * @brief API to check for VPD collection status
  *
  * This API checks for VPD manager collection status by reading the
- * "CollectionStatus" property exposed by vpd-manager on Dbus. The read logic
+ * collection "Status" property exposed by vpd-manager on Dbus. The read logic
  * uses a retry loop with a specific number of retries with specific sleep time
  * between each retry.
  *
@@ -42,14 +42,13 @@ int checkVpdCollectionStatus(const unsigned i_retryLimit,
             std::this_thread::sleep_for(
                 std::chrono::seconds(i_sleepDurationInSeconds));
 
-            // TODO: revisit this once "CollectionStatus" property is moved to
-            // xyz interface
             const auto l_propValue = vpd::dbusUtility::readDbusProperty(
-                IFACE, OBJPATH, IFACE, "CollectionStatus");
+                IFACE, OBJPATH, vpd::constants::vpdCollectionInterface,
+                "Status");
 
             if (auto l_val = std::get_if<std::string>(&l_propValue))
             {
-                if (*l_val == "Completed")
+                if (*l_val == vpd::constants::vpdCollectionCompleted)
                 {
                     l_logger->logMessage("VPD collection is completed");
                     return vpd::constants::VALUE_0;
