@@ -627,6 +627,8 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
                                 l_propertyMap.emplace(
                                     l_propertyName,
                                     constants::vpdCollectionNotStarted);
+                                l_propertyMap.enplace("StartTime", 0);
+                                l_propertyMap.enplace("CompletedTime", 0);
                             }
                             else
                             {
