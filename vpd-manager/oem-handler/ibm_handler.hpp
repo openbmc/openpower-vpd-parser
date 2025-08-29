@@ -62,19 +62,6 @@ class IbmHandler
 
   private:
     /**
-     * @brief API to set timer to detect system VPD over D-Bus.
-     *
-     * System VPD is required before bus name for VPD-Manager is claimed. Once
-     * system VPD is published, VPD for other FRUs should be collected. This API
-     * detects id system VPD is already published on D-Bus and based on that
-     * triggers VPD collection for rest of the FRUs.
-     *
-     * Note: Throws exception in case of any failure. Needs to be handled by the
-     * caller.
-     */
-    void SetTimerToDetectSVPDOnDbus();
-
-    /**
      * @brief Set timer to detect and set VPD collection status for the system.
      *
      * Collection of FRU VPD is triggered in a separate thread. Resulting in
