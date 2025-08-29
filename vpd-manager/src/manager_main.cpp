@@ -1,6 +1,7 @@
 #include "config.h"
 
 #include "bios_handler.hpp"
+#include "constants.hpp"
 #include "event_logger.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
@@ -27,8 +28,12 @@ int main(int, char**)
         std::shared_ptr<sdbusplus::asio::dbus_interface> interface =
             server.add_interface(OBJPATH, IFACE);
 
-        auto vpdManager =
-            std::make_shared<vpd::Manager>(io_con, interface, connection);
+        std::shared_ptr<sdbusplus::asio::dbus_interface> collInterface =
+            server.add_interface(OBJPATH,
+                                 vpd::constants::vpdCollectionInterface);
+
+        auto vpdManager = std::make_shared<vpd::Manager>(
+            io_con, interface, collInterface, connection);
 
         // TODO: Take this under conditional compilation for IBM
         auto biosHandler =
@@ -36,6 +41,7 @@ int main(int, char**)
                 connection, vpdManager);
 
         interface->initialize();
+        collInterface->initialize();
 
         vpd::logging::logMessage("Start VPD-Manager event loop");
 
