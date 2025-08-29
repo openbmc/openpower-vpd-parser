@@ -33,10 +33,12 @@ class Manager
      *
      * @param[in] ioCon - IO context.
      * @param[in] iFace - interface to implement.
+     * @param[in] commoniFace - Common interface to implement.
      * @param[in] connection - Dbus Connection.
      */
     Manager(const std::shared_ptr<boost::asio::io_context>& ioCon,
             const std::shared_ptr<sdbusplus::asio::dbus_interface>& iFace,
+            const std::shared_ptr<sdbusplus::asio::dbus_interface>& commoniFace,
             const std::shared_ptr<sdbusplus::asio::connection>& asioConnection);
 
     /**
@@ -250,6 +252,9 @@ class Manager
     // Shared pointer to Dbus interface class.
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& m_interface;
 
+    // Shared pointer to common interface class.
+    const std::shared_ptr<sdbusplus::asio::dbus_interface>& m_commonInterface;
+
     // Shared pointer to bus connection.
     const std::shared_ptr<sdbusplus::asio::connection>& m_asioConnection;
 
@@ -260,7 +265,7 @@ class Manager
     std::shared_ptr<GpioMonitor> m_gpioMonitor;
 
     // Variable to hold current collection status
-    std::string m_vpdCollectionStatus = "NotStarted";
+    std::string m_vpdCollectionStatus{constants::vpdCollectionNotStarted};
 
     // Shared pointer to backup and restore class
     std::shared_ptr<BackupAndRestore> m_backupAndRestoreObj;
