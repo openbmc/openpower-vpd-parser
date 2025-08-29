@@ -627,8 +627,8 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
                                 l_propertyMap.emplace(
                                     l_propertyName,
                                     constants::vpdCollectionNotStarted);
-                                l_propertyMap.enplace("StartTime", 0);
-                                l_propertyMap.enplace("CompletedTime", 0);
+                                l_propertyMap.emplace("StartTime", 0);
+                                l_propertyMap.emplace("CompletedTime", 0);
                             }
                             else
                             {
@@ -1067,49 +1067,6 @@ inline void updateCiPropertyOfInheritedFrus(
         logging::logMessage(
             "Failed to update common interface properties of FRU [" +
             i_fruPath + "]. Error: " + std::string(l_ex.what()));
-    }
-}
-
-/**
- * @brief API to save current time stamp in PIM.
- *
- * This API will capture current time stamp and save it in progress interface
- * for the given inventory path.
- *
- * @param[in] i_inventoryPath - Inventory path of FRU.
- * @param[in] i_property - Property to save the time.
- */
-inline void saveTimeStampInPim(const std::string& i_inventoryPath,
-                               const std::string& i_property) noexcept
-{
-    if (i_inventoryPath.empty() || i_property.empty())
-    {
-        logging::logMessage("Invalid input parameter. Can't save time in PIM.");
-        return;
-    }
-
-    try
-    {
-        types::ObjectMap l_ObjMap = {std::make_pair(
-            i_inventoryPath,
-            types::InterfaceMap{std::make_pair(
-                constants::vpdCollectionInterface,
-                types::PropertyMap{std::make_pair(
-                    i_property,
-                    types::DbusVariantType{
-                        commonUtility::getCurrentTimeSinceEpoch()})})})};
-
-        if (!dbusUtility::callPIM(move(l_ObjMap)))
-        {
-            logging::logMessage(
-                "Call to PIM failed while saving time for path " +
-                i_inventoryPath);
-        }
-    }
-    catch (const std::exception& l_ex)
-    {
-        logging::logMessage("Failed to save time stamp under PIM for reason: " +
-                            std::string(l_ex.what()));
     }
 }
 } // namespace vpdSpecificUtility
