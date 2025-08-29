@@ -65,66 +65,9 @@ IbmHandler::IbmHandler(
     m_eventListener->registerHostStateChangeCallback();
     m_eventListener->registerPresenceChangeCallback();
 
-    // set async timer to detect if system VPD is published on D-Bus.
-    SetTimerToDetectSVPDOnDbus();
-
-    // set async timer to detect if VPD collection is done.
-    SetTimerToDetectVpdCollectionStatus();
-
     // Instantiate GpioMonitor class
     m_gpioMonitor =
         std::make_shared<GpioMonitor>(m_sysCfgJsonObj, m_worker, m_ioContext);
-}
-
-void IbmHandler::SetTimerToDetectSVPDOnDbus()
-{
-    try
-    {
-        static boost::asio::steady_timer timer(*m_ioContext);
-
-        // timer for 2 seconds
-        auto asyncCancelled = timer.expires_after(std::chrono::seconds(2));
-
-        (asyncCancelled == 0) ? logging::logMessage("Timer started")
-                              : logging::logMessage("Timer re-started");
-
-        timer.async_wait([this](const boost::system::error_code& ec) {
-            if (ec == boost::asio::error::operation_aborted)
-            {
-                throw std::runtime_error(
-                    std::string(__FUNCTION__) +
-                    ": Timer to detect system VPD collection status was aborted.");
-            }
-
-            if (ec)
-            {
-                throw std::runtime_error(
-                    std::string(__FUNCTION__) +
-                    ": Timer to detect System VPD collection failed");
-            }
-
-            if (m_worker->isSystemVPDOnDBus())
-            {
-                // cancel the timer
-                timer.cancel();
-
-                // Triggering FRU VPD collection. Setting status to "In
-                // Progress".
-                m_progressInterface->set_property(
-                    "Status", std::string(constants::vpdCollectionInProgress));
-                m_worker->collectFrusFromJson();
-            }
-        });
-    }
-    catch (const std::exception& l_ex)
-    {
-        EventLogger::createAsyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Critical,
-            __FILE__, __FUNCTION__, 0,
-            std::string("Collection for FRUs failed with reason:") +
-                EventLogger::getErrorMsg(l_ex),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
-    }
 }
 
 void IbmHandler::SetTimerToDetectVpdCollectionStatus()
