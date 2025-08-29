@@ -16,11 +16,12 @@ IbmHandler::IbmHandler(
     std::shared_ptr<Worker>& o_worker,
     std::shared_ptr<BackupAndRestore>& o_backupAndRestoreObj,
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_iFace,
+    const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_collectioniFace,
     const std::shared_ptr<boost::asio::io_context>& i_ioCon,
     const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection) :
     m_worker(o_worker), m_backupAndRestoreObj(o_backupAndRestoreObj),
-    m_interface(i_iFace), m_ioContext(i_ioCon),
-    m_asioConnection(i_asioConnection)
+    m_interface(i_iFace), m_collectionInterface(i_collectioniFace),
+    m_ioContext(i_ioCon), m_asioConnection(i_asioConnection)
 {
     if (dbusUtility::isChassisPowerOn())
     {
@@ -109,8 +110,8 @@ void IbmHandler::SetTimerToDetectSVPDOnDbus()
 
                 // Triggering FRU VPD collection. Setting status to "In
                 // Progress".
-                m_interface->set_property("CollectionStatus",
-                                          std::string("InProgress"));
+                m_collectionInterface->set_property(
+                    "Status", std::string(constants::vpdCollectionInProgress));
                 m_worker->collectFrusFromJson();
             }
         });
@@ -164,8 +165,8 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
             ConfigurePowerVsSystem();
 
             std::cout << "m_worker->isSystemVPDOnDBus() completed" << std::endl;
-            m_interface->set_property("CollectionStatus",
-                                      std::string("Completed"));
+            m_collectionInterface->set_property(
+                "Status", std::string(constants::vpdCollectionCompleted));
 
             if (m_backupAndRestoreObj)
             {
@@ -536,7 +537,8 @@ bool IbmHandler::isPrimingRequired() const noexcept
 void IbmHandler::collectAllFruVpd()
 {
     // Setting status to "InProgress", before trigeering VPD collection.
-    m_interface->set_property("CollectionStatus", std::string("InProgress"));
+    m_collectionInterface->set_property(
+        "Status", std::string(constants::vpdCollectionInProgress));
     m_worker->collectFrusFromJson();
     SetTimerToDetectVpdCollectionStatus();
 }
