@@ -23,14 +23,24 @@ std::string SingleFab::getImFromPersistedLocation() const noexcept
 {
     try
     {
+        uint16_t l_errCode = 0;
         auto l_parsedVsbpJsonObj =
-            jsonUtility::getParsedJson(pimPersistVsbpPath);
+            jsonUtility::getParsedJson(pimPersistVsbpPath, l_errCode);
+
+        if (l_errCode)
+        {
+            throw JsonException(
+                "Failed to parse JSON file [ " +
+                    std::string(pimPersistVsbpPath) + " ], error : " +
+                    vpdSpecificUtility::getErrCodeMsg(l_errCode),
+                pimPersistVsbpPath);
+        }
+
         if (!l_parsedVsbpJsonObj.contains("value0") ||
             !l_parsedVsbpJsonObj["value0"].contains(constants::kwdIM) ||
             !l_parsedVsbpJsonObj["value0"][constants::kwdIM].is_array())
         {
-            throw std::runtime_error(
-                "Json is empty or mandatory tag(s) missing from JSON");
+            throw std::runtime_error("Mandatory tag(s) missing from JSON");
         }
 
         const types::BinaryVector l_imValue =

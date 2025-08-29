@@ -269,12 +269,17 @@ void Listener::registerCorrPropCallBack(
 {
     try
     {
+        uint16_t l_errCode = 0;
         m_correlatedPropJson =
-            jsonUtility::getParsedJson(i_correlatedPropJsonFile);
-        if (m_correlatedPropJson.empty())
+            jsonUtility::getParsedJson(i_correlatedPropJsonFile, l_errCode);
+
+        if (l_errCode)
         {
-            throw JsonException("Failed to parse correlated properties JSON",
-                                i_correlatedPropJsonFile);
+            throw JsonException(
+                "Failed to parse correlated properties JSON [" +
+                    i_correlatedPropJsonFile + "], error : " +
+                    vpdSpecificUtility::getErrCodeMsg(l_errCode),
+                i_correlatedPropJsonFile);
         }
 
         const nlohmann::json& l_serviceJsonObjectList =

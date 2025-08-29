@@ -9,6 +9,7 @@
 #include <gpiod.hpp>
 #include <nlohmann/json.hpp>
 #include <utility/common_utility.hpp>
+#include <utility/vpd_specific_utility.hpp>
 
 #include <fstream>
 #include <type_traits>
@@ -93,42 +94,48 @@ inline size_t getVPDOffset(const nlohmann::json& i_sysCfgJsonObj,
  * @brief API to parse respective JSON.
  *
  * @param[in] pathToJson - Path to JSON.
+ * @param[out] o_errCode - To set error code in case of error.
  * @return on success parsed JSON. On failure empty JSON object.
  *
  * Note: Caller has to handle it in case an empty JSON object is received.
  */
-inline nlohmann::json getParsedJson(const std::string& pathToJson) noexcept
+inline nlohmann::json getParsedJson(const std::string& pathToJson,
+                                    uint16_t& o_errCode) noexcept
 {
+    if (pathToJson.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return nlohmann::json{};
+    }
+
+    if (!std::filesystem::exists(pathToJson))
+    {
+        o_errCode = error_code::FILE_NOT_FOUND;
+        return nlohmann::json{};
+    }
+
+    if (std::filesystem::is_empty(pathToJson))
+    {
+        o_errCode = error_code::EMPTY_FILE;
+        return nlohmann::json{};
+    }
+
+    std::ifstream l_jsonFile(pathToJson);
+    if (!l_jsonFile)
+    {
+        o_errCode = error_code::FILE_ACCESS_ERROR;
+        return nlohmann::json{};
+    }
+
     try
     {
-        if (pathToJson.empty())
-        {
-            throw std::runtime_error("Path to JSON is missing");
-        }
-
-        if (!std::filesystem::exists(pathToJson) ||
-            std::filesystem::is_empty(pathToJson))
-        {
-            throw std::runtime_error(
-                "File does not exist or empty file: [" + pathToJson + "]");
-        }
-
-        std::ifstream l_jsonFile(pathToJson);
-        if (!l_jsonFile)
-        {
-            throw std::runtime_error(
-                "Failed to access Json path = " + pathToJson);
-        }
-
         return nlohmann::json::parse(l_jsonFile);
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
-            "Failed to parse JSON file, error: " + std::string(l_ex.what()));
+        o_errCode = error_code::JSON_PARSE_ERROR;
+        return nlohmann::json{};
     }
-
-    return nlohmann::json{};
 }
 
 /**
@@ -1143,17 +1150,42 @@ inline nlohmann::json getPowerVsJson(const types::BinaryVector& i_imValue)
 {
     try
     {
+        uint16_t l_errCode = 0;
         if ((i_imValue.at(0) == constants::HEX_VALUE_50) &&
             (i_imValue.at(1) == constants::HEX_VALUE_00) &&
             (i_imValue.at(2) == constants::HEX_VALUE_30))
         {
-            return jsonUtility::getParsedJson(constants::power_vs_50003_json);
+            nlohmann::json l_parsedJson = jsonUtility::getParsedJson(
+                constants::power_vs_50003_json, l_errCode);
+
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to parse JSON file [ " +
+                    std::string(constants::power_vs_50003_json) +
+                    " ], error : " +
+                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            }
+
+            return l_parsedJson;
         }
         else if (i_imValue.at(0) == constants::HEX_VALUE_50 &&
                  (i_imValue.at(1) == constants::HEX_VALUE_00) &&
                  (i_imValue.at(2) == constants::HEX_VALUE_10))
         {
-            return jsonUtility::getParsedJson(constants::power_vs_50001_json);
+            nlohmann::json l_parsedJson = jsonUtility::getParsedJson(
+                constants::power_vs_50001_json, l_errCode);
+
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to parse JSON file [ " +
+                    std::string(constants::power_vs_50001_json) +
+                    " ], error : " +
+                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            }
+
+            return l_parsedJson;
         }
         return nlohmann::json{};
     }
