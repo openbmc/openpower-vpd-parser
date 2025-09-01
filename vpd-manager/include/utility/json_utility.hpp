@@ -1075,47 +1075,39 @@ inline bool isFruReplaceableAtStandby(const nlohmann::json& i_sysCfgJsonObj,
  * standby.
  *
  * @param[in] i_sysCfgJsonObj - System config JSON object.
+ * @param[out] o_errCode - To set error code in case of error.
  *
  * @return - On success, list of FRUs replaceable at standby. On failure, empty
  * vector.
  */
 inline std::vector<std::string> getListOfFrusReplaceableAtStandby(
-    const nlohmann::json& i_sysCfgJsonObj) noexcept
+    const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode)
 {
     std::vector<std::string> l_frusReplaceableAtStandby;
 
-    try
+    if (!i_sysCfgJsonObj.contains("frus"))
     {
-        if (!i_sysCfgJsonObj.contains("frus"))
-        {
-            throw std::runtime_error("Missing frus tag in system config JSON.");
-        }
+        o_errCode = error_code::INVALID_JSON;
+        return l_frusReplaceableAtStandby;
+    }
 
-        const nlohmann::json& l_fruList =
-            i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+    const nlohmann::json& l_fruList =
+        i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
-        for (const auto& l_fru : l_fruList.items())
+    for (const auto& l_fru : l_fruList.items())
+    {
+        if (i_sysCfgJsonObj["frus"][l_fru.key()].at(0).value(
+                "replaceableAtStandby", false))
         {
-            if (i_sysCfgJsonObj["frus"][l_fru.key()].at(0).value(
-                    "replaceableAtStandby", false))
+            const std::string& l_inventoryObjectPath =
+                i_sysCfgJsonObj["frus"][l_fru.key()].at(0).value(
+                    "inventoryPath", "");
+
+            if (!l_inventoryObjectPath.empty())
             {
-                const std::string& l_inventoryObjectPath =
-                    i_sysCfgJsonObj["frus"][l_fru.key()].at(0).value(
-                        "inventoryPath", "");
-
-                if (!l_inventoryObjectPath.empty())
-                {
-                    l_frusReplaceableAtStandby.emplace_back(
-                        l_inventoryObjectPath);
-                }
+                l_frusReplaceableAtStandby.emplace_back(l_inventoryObjectPath);
             }
         }
-    }
-    catch (const std::exception& l_ex)
-    {
-        logging::logMessage(
-            "Failed to get list of FRUs replaceable at standby, error: " +
-            std::string(l_ex.what()));
     }
 
     return l_frusReplaceableAtStandby;
