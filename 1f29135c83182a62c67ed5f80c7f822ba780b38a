@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d54f5a8_fdeda69e",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-09-01T14:39:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caace553_020b1069",
+      "revId": "1f29135c83182a62c67ed5f80c7f822ba780b38a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6773456c_2637eead",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-09-01T13:07:48Z",
       "side": 1,
       "message": "Put JSON name in the log.",
+      "revId": "1f29135c83182a62c67ed5f80c7f822ba780b38a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f60bde0c_d61f3324",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-09-01T14:39:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6773456c_2637eead",
       "revId": "1f29135c83182a62c67ed5f80c7f822ba780b38a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c43aede_c29cb4a0",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-09-01T14:39:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b23fe614_623dd495",
+      "revId": "1f29135c83182a62c67ed5f80c7f822ba780b38a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dff0aa2_f933072e",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-09-01T13:07:48Z",
       "side": 1,
       "message": "Same here, throw the name of JSON as well in the message.",
+      "revId": "1f29135c83182a62c67ed5f80c7f822ba780b38a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5496a43a_97e495c7",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-09-01T14:39:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dff0aa2_f933072e",
       "revId": "1f29135c83182a62c67ed5f80c7f822ba780b38a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
