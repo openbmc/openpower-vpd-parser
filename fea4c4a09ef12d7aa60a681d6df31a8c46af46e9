@@ -56,6 +56,24 @@
       "message": "CollectAllFruVpd?\nElse it is giving impression that it can be used to collect s single FRU as well.",
       "revId": "fea4c4a09ef12d7aa60a681d6df31a8c46af46e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e56bcd20_98c4d252",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-01T16:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0e0ce8d_727ad686",
+      "revId": "fea4c4a09ef12d7aa60a681d6df31a8c46af46e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
