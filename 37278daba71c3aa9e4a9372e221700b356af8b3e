@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa7cedbd_e907ec2c",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-01T13:26:02Z",
+      "side": 1,
+      "message": "Implement is in above parameter as we are going to add methods and properties to that interface in the code.\nThe same is not with \"collectioniFace\". This interface will just be populated.\n\"Interface to track collection progress\" should suffice.",
+      "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47931110_0b3358ea",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-01T13:26:02Z",
+      "side": 1,
+      "message": "Name does not reflect its actual work. Sounds ambiguous as \"collectioniFace\"",
+      "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0100b0a0_06473679",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-01T13:26:02Z",
+      "side": 1,
+      "message": "Same as in manager.",
+      "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18474eca_d63ba88c",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-01T13:26:02Z",
+      "side": 1,
+      "message": "This is not collection interface. We won\u0027t be using it for \"collection\" per se.\nInstead it is progress interface which is also aligned to its name in PDI.\n\nIn the doxygen you can mention as \" Interface to track collection progress\"",
+      "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a32d504b_8bb14560",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-01T13:26:02Z",
+      "side": 1,
+      "message": "Same here, this is progress interface. Please update at other instances as well.",
+      "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15bfb768_4dc116e4",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-01T13:26:02Z",
+      "side": 1,
+      "message": "progressiFace?",
+      "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a196a81_fd9897f3",
+        "filename": "vpd-manager/src/manager_main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-01T13:26:02Z",
+      "side": 1,
+      "message": "Better name? \"coll\" is ambiguous.\nAlso it is progress interface. \n\"progressInf\" can be used?",
+      "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
