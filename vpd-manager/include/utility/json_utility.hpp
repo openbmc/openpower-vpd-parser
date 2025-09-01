@@ -1167,39 +1167,34 @@ inline nlohmann::json getPowerVsJson(const types::BinaryVector& i_imValue)
  * @brief API to get list of FRUs for which "monitorPresence" is true.
  *
  * @param[in] i_sysCfgJsonObj - System config JSON object.
+ * @param[out] o_errCode - To set error code in case of error.
  *
  * @return On success, returns list of FRUs for which "monitorPresence" is true,
  * empty list on error.
  */
 inline std::vector<types::Path> getFrusWithPresenceMonitoring(
-    const nlohmann::json& i_sysCfgJsonObj) noexcept
+    const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode)
 {
     std::vector<types::Path> l_frusWithPresenceMonitoring;
-    try
+
+    if (!i_sysCfgJsonObj.contains("frus"))
     {
-        if (!i_sysCfgJsonObj.contains("frus"))
-        {
-            throw JsonException("Missing frus tag in system config JSON.");
-        }
+        o_errCode = error_code::INVALID_JSON;
+        return l_frusWithPresenceMonitoring;
+    }
 
-        const nlohmann::json& l_listOfFrus =
-            i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+    const nlohmann::json& l_listOfFrus =
+        i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
-        for (const auto& l_aFru : l_listOfFrus)
+    for (const auto& l_aFru : l_listOfFrus)
+    {
+        if (l_aFru.at(0).value("monitorPresence", false))
         {
-            if (l_aFru.at(0).value("monitorPresence", false))
-            {
-                l_frusWithPresenceMonitoring.emplace_back(
-                    l_aFru.at(0).value("inventoryPath", ""));
-            }
+            l_frusWithPresenceMonitoring.emplace_back(
+                l_aFru.at(0).value("inventoryPath", ""));
         }
     }
-    catch (const std::exception& l_ex)
-    {
-        logging::logMessage(
-            "Failed to get list of FRUs with presence monitoring, error: " +
-            std::string(l_ex.what()));
-    }
+
     return l_frusWithPresenceMonitoring;
 }
 
