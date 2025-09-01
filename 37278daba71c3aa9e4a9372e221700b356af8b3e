@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f0b9e52_231de05e",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-01T14:42:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa7cedbd_e907ec2c",
+      "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47931110_0b3358ea",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-09-01T13:26:02Z",
       "side": 1,
       "message": "Name does not reflect its actual work. Sounds ambiguous as \"collectioniFace\"",
+      "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74afcd11_b751683e",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-01T14:42:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47931110_0b3358ea",
       "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5a96f19_1e2820ea",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-01T14:42:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0100b0a0_06473679",
+      "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18474eca_d63ba88c",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-09-01T13:26:02Z",
       "side": 1,
       "message": "This is not collection interface. We won\u0027t be using it for \"collection\" per se.\nInstead it is progress interface which is also aligned to its name in PDI.\n\nIn the doxygen you can mention as \" Interface to track collection progress\"",
+      "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2512641a_85fa9418",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-01T14:42:51Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "18474eca_d63ba88c",
       "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47c84c35_ea9031c1",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-01T14:42:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a32d504b_8bb14560",
+      "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15bfb768_4dc116e4",
@@ -103,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "207391cd_15a47f68",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-01T14:42:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15bfb768_4dc116e4",
+      "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a196a81_fd9897f3",
@@ -116,6 +224,24 @@
       "writtenOn": "2025-09-01T13:26:02Z",
       "side": 1,
       "message": "Better name? \"coll\" is ambiguous.\nAlso it is progress interface. \n\"progressInf\" can be used?",
+      "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1f31249_2e29d7ce",
+        "filename": "vpd-manager/src/manager_main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-01T14:42:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a196a81_fd9897f3",
       "revId": "37278daba71c3aa9e4a9372e221700b356af8b3e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
