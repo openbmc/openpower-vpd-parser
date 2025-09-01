@@ -1935,8 +1935,18 @@ void Worker::performVpdRecollection()
                 "System config json object is empty, can't process recollection.");
         }
 
+        uint16_t l_errCode = 0;
         const auto& l_frusReplaceableAtStandby =
-            jsonUtility::getListOfFrusReplaceableAtStandby(m_parsedJson);
+            jsonUtility::getListOfFrusReplaceableAtStandby(m_parsedJson,
+                                                           l_errCode);
+
+        if (l_errCode)
+        {
+            logging::logMessage(
+                "Failed to get list of FRUs replaceable at runtime, error : " +
+                vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            return;
+        }
 
         for (const auto& l_fruInventoryPath : l_frusReplaceableAtStandby)
         {
