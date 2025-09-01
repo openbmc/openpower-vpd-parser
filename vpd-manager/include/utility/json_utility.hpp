@@ -1211,42 +1211,34 @@ inline std::vector<types::Path> getFrusWithPresenceMonitoring(
  *
  * @param[in] i_sysCfgJsonObj - System config JSON object.
  * @param[in] i_vpdFruPath - EEPROM path.
+ * @param[out] o_errCode - To set error code in case of failure.
  *
  * @return true if FRU presence is handled, false otherwise.
  */
 inline bool isFruPresenceHandled(const nlohmann::json& i_sysCfgJsonObj,
-                                 const std::string& i_vpdFruPath)
+                                 const std::string& i_vpdFruPath,
+                                 uint16_t& o_errCode)
 {
-    try
+    if (i_vpdFruPath.empty())
     {
-        if (i_vpdFruPath.empty())
-        {
-            throw std::runtime_error("Given FRU path is empty.");
-        }
-
-        if (!i_sysCfgJsonObj.contains("frus"))
-        {
-            throw JsonException("Invalid system config JSON object.");
-        }
-
-        if (!i_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
-        {
-            logging::logMessage(
-                "JSON object does not contain EEPROM path " + i_vpdFruPath);
-            return false;
-        }
-
-        return i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0).value(
-            "handlePresence", true);
-    }
-    catch (const std::exception& l_ex)
-    {
-        logging::logMessage(
-            "Failed to check if FRU's presence is handled, reason:" +
-            std::string(l_ex.what()));
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return false;
     }
 
-    return false;
+    if (!i_sysCfgJsonObj.contains("frus"))
+    {
+        o_errCode = error_code::INVALID_JSON;
+        return false;
+    }
+
+    if (!i_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
+    {
+        o_errCode = error_code::FRU_PATH_NOT_FOUND;
+        return false;
+    }
+
+    return i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0).value(
+        "handlePresence", true);
 }
 } // namespace jsonUtility
 } // namespace vpd
