@@ -208,50 +208,41 @@ inline std::string getInventoryObjPathFromJson(
  * @param[in] i_parsedConfigJson - config JSON
  * @param[in] i_vpdFilePath - EEPROM file path
  * @param[in] i_flagToProcess - To identify which flag(s) needs to be processed
+ * @param[out] o_errCode - To set error code in case of error
  * under PostFailAction tag of config JSON.
  * @return - success or failure
  */
-inline bool executePostFailAction(const nlohmann::json& i_parsedConfigJson,
-                                  const std::string& i_vpdFilePath,
-                                  const std::string& i_flagToProcess)
+inline bool executePostFailAction(
+    const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
+    const std::string& i_flagToProcess, uint16_t& o_errCode)
 {
-    try
+    if (i_parsedConfigJson.empty() || i_vpdFilePath.empty() ||
+        i_flagToProcess.empty())
     {
-        if (i_parsedConfigJson.empty() || i_vpdFilePath.empty() ||
-            i_flagToProcess.empty())
-        {
-            throw std::runtime_error(
-                "Invalid parameters. Abort processing for post fail action");
-        }
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return false;
+    }
 
-        if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))["postFailAction"]
-                 .contains(i_flagToProcess))
-        {
-            throw std::runtime_error(
-                "Config JSON missing flag " + i_flagToProcess +
-                " to execute post fail action for path = " + i_vpdFilePath);
-        }
+    if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))["postFailAction"]
+             .contains(i_flagToProcess))
+    {
+        o_errCode = error_code::MISSING_FLAG;
+        return false;
+    }
 
-        for (const auto& l_tags : (i_parsedConfigJson["frus"][i_vpdFilePath].at(
-                 0))["postFailAction"][i_flagToProcess]
-                                      .items())
+    for (const auto& l_tags : (i_parsedConfigJson["frus"][i_vpdFilePath].at(
+             0))["postFailAction"][i_flagToProcess]
+                                  .items())
+    {
+        auto itrToFunction = funcionMap.find(l_tags.key());
+        if (itrToFunction != funcionMap.end())
         {
-            auto itrToFunction = funcionMap.find(l_tags.key());
-            if (itrToFunction != funcionMap.end())
+            if (!itrToFunction->second(i_parsedConfigJson, i_vpdFilePath,
+                                       "postFailAction", i_flagToProcess))
             {
-                if (!itrToFunction->second(i_parsedConfigJson, i_vpdFilePath,
-                                           "postFailAction", i_flagToProcess))
-                {
-                    return false;
-                }
+                return false;
             }
         }
-    }
-    catch (const std::exception& l_ex)
-    {
-        logging::logMessage("Execute post fail action failed. Error : " +
-                            std::string(l_ex.what()));
-        return false;
     }
 
     return true;
