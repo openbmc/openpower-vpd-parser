@@ -492,6 +492,8 @@ void IbmHandler::performInitialSetup()
     }
     catch (const std::exception& l_ex)
     {
+        m_worker->setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
+                                              constants::vpdCollectionFailed);
         // Any issue in system's inital set up is handled in this catch. Error
         // will not propogate to manager.
         EventLogger::createSyncPel(

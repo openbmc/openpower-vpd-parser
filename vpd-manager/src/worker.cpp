@@ -349,6 +349,9 @@ void Worker::setJsonSymbolicLink(const std::string& i_systemJson)
 
 void Worker::setDeviceTreeAndJson()
 {
+    setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
+                                constants::vpdCollectionInProgress);
+
     // JSON is madatory for processing of this API.
     if (m_parsedJson.empty())
     {
@@ -414,6 +417,8 @@ void Worker::setDeviceTreeAndJson()
 
         // proceed to publish system VPD.
         publishSystemVPD(parsedVpdMap);
+        setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
+                                    constants::vpdCollectionCompleted);
         return;
     }
 
@@ -1044,14 +1049,6 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
             processFunctionalProperty(inventoryPath, interfaces);
             processEnabledProperty(inventoryPath, interfaces);
 
-            // Update collection status as successful
-            types::PropertyMap l_collectionProperty = {
-                {"Status", constants::vpdCollectionCompleted}};
-
-            vpdSpecificUtility::insertOrMerge(interfaces,
-                                              constants::vpdCollectionInterface,
-                                              std::move(l_collectionProperty));
-
             objectInterfaceMap.emplace(std::move(fruObjectPath),
                                        std::move(interfaces));
         }
@@ -1369,46 +1366,14 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         m_activeCollectionThreadCount++;
         m_mutex.unlock();
 
-        uint16_t l_errCode = 0;
-
-        // Set CollectionStatus as InProgress. Since it's an intermediate state
-        // D-bus set-property call is good enough to update the status.
-        l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
-            m_parsedJson, i_vpdFilePath, l_errCode);
-
-        if (!l_inventoryPath.empty())
-        {
-            // save time stamp under PIM.
-            vpdSpecificUtility::saveTimeStampInPim(l_inventoryPath,
-                                                   "StartTime");
-
-            if (!dbusUtility::writeDbusProperty(
-                    jsonUtility::getServiceName(m_parsedJson, l_inventoryPath),
-                    l_inventoryPath, constants::vpdCollectionInterface,
-                    "Status",
-                    types::DbusVariantType{constants::vpdCollectionInProgress}))
-            {
-                logging::logMessage(
-                    "Unable to set collection Status as InProgress for " +
-                    i_vpdFilePath + ". Error : " + "DBus write failed");
-            }
-        }
-        else if (l_errCode)
-        {
-            logging::logMessage(
-                "Failed to get inventory path for FRU [" + i_vpdFilePath +
-                "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
-        }
+        setCollectionStatusProperty(i_vpdFilePath,
+                                    constants::vpdCollectionInProgress);
 
         const types::VPDMapVariant& parsedVpdMap = parseVpdFile(i_vpdFilePath);
         if (!std::holds_alternative<std::monostate>(parsedVpdMap))
         {
             types::ObjectMap objectInterfaceMap;
             populateDbus(parsedVpdMap, objectInterfaceMap, i_vpdFilePath);
-
-            // save end time stamp under PIM.
-            vpdSpecificUtility::saveTimeStampInPim(l_inventoryPath,
-                                                   "CompletedTime");
 
             // Notify PIM
             if (!dbusUtility::callPIM(move(objectInterfaceMap)))
@@ -1422,16 +1387,16 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         {
             logging::logMessage("Empty parsedVpdMap recieved for path [" +
                                 i_vpdFilePath + "]. Check PEL for reason.");
+
+            // As empty parsedVpdMap recieved for some reason, but still
+            // considered VPD collection is completed. Hence FRU collection
+            // Status will be set as completed.
         }
     }
     catch (const std::exception& ex)
     {
         setCollectionStatusProperty(i_vpdFilePath,
                                     constants::vpdCollectionFailed);
-
-        // save end time stamp under PIM.
-        vpdSpecificUtility::saveTimeStampInPim(l_inventoryPath,
-                                               "CompletedTime");
 
         // handle all the exceptions internally. Return only true/false
         // based on status of execution.
@@ -1491,6 +1456,9 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         m_semaphore.release();
         return std::make_tuple(false, i_vpdFilePath);
     }
+
+    setCollectionStatusProperty(i_vpdFilePath,
+                                constants::vpdCollectionCompleted);
     m_semaphore.release();
     return std::make_tuple(true, i_vpdFilePath);
 }
@@ -1915,18 +1883,8 @@ void Worker::collectSingleFruVpd(
         // D-bus set-property call is good enough to update the status.
         const std::string& l_collStatusProp = "Status";
 
-        if (!dbusUtility::writeDbusProperty(
-                jsonUtility::getServiceName(m_parsedJson,
-                                            std::string(i_dbusObjPath)),
-                std::string(i_dbusObjPath), constants::vpdCollectionInterface,
-                l_collStatusProp,
-                types::DbusVariantType{constants::vpdCollectionInProgress}))
-        {
-            logging::logMessage(
-                "Unable to set collection Status as InProgress for " +
-                std::string(i_dbusObjPath) +
-                ". Continue single FRU VPD collection.");
-        }
+        setCollectionStatusProperty(l_fruPath,
+                                    constants::vpdCollectionInProgress);
 
         // Parse VPD
         types::VPDMapVariant l_parsedVpd = parseVpdFile(l_fruPath);
@@ -1956,6 +1914,8 @@ void Worker::collectSingleFruVpd(
                 "Notify PIM failed. Single FRU VPD collection failed for " +
                 std::string(i_dbusObjPath));
         }
+        setCollectionStatusProperty(l_fruPath,
+                                    constants::vpdCollectionCompleted);
     }
     catch (const std::exception& l_error)
     {
@@ -1976,6 +1936,27 @@ void Worker::setCollectionStatusProperty(
                 "Given path is empty. Can't set collection Status property");
         }
 
+        types::PropertyMap l_timeStampMap;
+        if (i_value == constants::vpdCollectionCompleted ||
+            i_value == constants::vpdCollectionFailed)
+        {
+            l_timeStampMap.emplace(
+                "CompletedTime",
+                types::DbusVariantType{
+                    commonUtility::getCurrentTimeSinceEpoch()});
+        }
+        else if (i_value == constants::vpdCollectionInProgress)
+        {
+            l_timeStampMap.emplace(
+                "StartTime", types::DbusVariantType{
+                                 commonUtility::getCurrentTimeSinceEpoch()});
+        }
+        else if (i_value == constants::vpdCollectionNotStarted)
+        {
+            l_timeStampMap.emplace("StartTime", 0);
+            l_timeStampMap.emplace("CompletedTime", 0);
+        }
+
         types::ObjectMap l_objectInterfaceMap;
 
         if (m_parsedJson["frus"].contains(i_vpdPath))
@@ -1987,6 +1968,8 @@ void Worker::setCollectionStatusProperty(
 
                 types::PropertyMap l_propertyValueMap;
                 l_propertyValueMap.emplace("Status", i_value);
+                l_propertyValueMap.insert(l_timeStampMap.begin(),
+                                          l_timeStampMap.end());
 
                 types::InterfaceMap l_interfaces;
                 vpdSpecificUtility::insertOrMerge(
@@ -2009,6 +1992,8 @@ void Worker::setCollectionStatusProperty(
 
             types::PropertyMap l_propertyValueMap;
             l_propertyValueMap.emplace("Status", i_value);
+            l_propertyValueMap.insert(l_timeStampMap.begin(),
+                                      l_timeStampMap.end());
 
             types::InterfaceMap l_interfaces;
             vpdSpecificUtility::insertOrMerge(l_interfaces,
