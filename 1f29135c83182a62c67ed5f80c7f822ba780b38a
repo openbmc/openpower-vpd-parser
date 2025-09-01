@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caace553_020b1069",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-01T13:07:48Z",
+      "side": 1,
+      "message": "Add the name of JSON file in the log message. Same for below.",
+      "revId": "1f29135c83182a62c67ed5f80c7f822ba780b38a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6773456c_2637eead",
+        "filename": "vpd-manager/src/event_logger.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-01T13:07:48Z",
+      "side": 1,
+      "message": "Put JSON name in the log.",
+      "revId": "1f29135c83182a62c67ed5f80c7f822ba780b38a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b23fe614_623dd495",
+        "filename": "vpd-manager/src/single_fab.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-01T13:07:48Z",
+      "side": 1,
+      "message": "Get the detail in the log that it failed for \"pimPersistVsbpPath\"",
+      "revId": "1f29135c83182a62c67ed5f80c7f822ba780b38a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dff0aa2_f933072e",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-01T13:07:48Z",
+      "side": 1,
+      "message": "Same here, throw the name of JSON as well in the message.",
+      "revId": "1f29135c83182a62c67ed5f80c7f822ba780b38a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
