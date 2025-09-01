@@ -189,6 +189,18 @@ class Worker
      */
     void setDeviceTreeAndJson();
 
+    /**
+     * @brief API to set CollectionStatus property.
+     *
+     * This API updates the CollectionStatus property of the given FRU with the
+     * given value.
+     *
+     * @param[in] i_vpdPath - EEPROM or inventory path.
+     * @param[in] i_value - Value to be set.
+     */
+    void setCollectionStatusProperty(const std::string& i_fruPath,
+                                     const std::string& i_value) const noexcept;
+
   private:
     /**
      * @brief An API to parse and publish a FRU VPD over D-Bus.
@@ -530,18 +542,6 @@ class Worker
         return !i_fru.value("synthesized", false) &&
                i_fru.value("handlePresence", true);
     }
-
-    /**
-     * @brief API to set CollectionStatus property.
-     *
-     * This API updates the CollectionStatus property of the given FRU with the
-     * given value.
-     *
-     * @param[in] i_vpdPath - EEPROM or inventory path.
-     * @param[in] i_value - Value to be set.
-     */
-    void setCollectionStatusProperty(const std::string& i_fruPath,
-                                     const std::string& i_value) const noexcept;
 
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
