@@ -1342,6 +1342,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
     }
     catch (std::exception& l_ex)
     {
+        uint16_t l_errCode = 0;
         std::string l_exMsg{
             std::string(__FUNCTION__) + " : VPD parsing failed for " +
             i_vpdFilePath + " due to error: " + l_ex.what()};
@@ -1351,10 +1352,20 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                                           "postFailAction", "collection"))
         {
             if (!jsonUtility::executePostFailAction(m_parsedJson, i_vpdFilePath,
-                                                    "collection"))
+                                                    "collection", l_errCode))
             {
-                l_exMsg +=
-                    ". Post Fail Action also failed, aborting collection for this FRU";
+                if (l_errCode)
+                {
+                    l_exMsg += ". Post fail action failed for FRU : [ " +
+                               i_vpdFilePath + " ], error : " +
+                               vpdSpecificUtility::getErrCodeMsg(l_errCode) +
+                               " Aborting collection for this FRU.";
+                }
+                else
+                {
+                    l_exMsg +=
+                        ". Post Fail Action also failed, aborting collection for this FRU";
+                }
             }
         }
 
@@ -1768,14 +1779,26 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
     }
     catch (const std::exception& l_ex)
     {
+        uint16_t l_errCode = 0;
+
         if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath,
                                           "postFailAction", "deletion"))
         {
             if (!jsonUtility::executePostFailAction(m_parsedJson, l_fruPath,
-                                                    "deletion"))
+                                                    "deletion", l_errCode))
             {
-                logging::logMessage(
-                    "Post fail action failed for: " + i_dbusObjPath);
+                if (l_errCode)
+                {
+                    logging::logMessage(
+                        "Post fail action failed for: " + i_dbusObjPath +
+                        ", error " +
+                        vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                }
+                else
+                {
+                    logging::logMessage(
+                        "Post fail action failed for: " + i_dbusObjPath);
+                }
             }
         }
 
