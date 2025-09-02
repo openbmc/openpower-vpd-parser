@@ -1669,8 +1669,18 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
         throw std::runtime_error("Given DBus object path is empty.");
     }
 
+    uint16_t l_errCode = 0;
     const std::string& l_fruPath =
-        jsonUtility::getFruPathFromJson(m_parsedJson, i_dbusObjPath);
+        jsonUtility::getFruPathFromJson(m_parsedJson, i_dbusObjPath, l_errCode);
+
+    if (l_errCode)
+    {
+        logging::logMessage(
+            "Failed to get FRU path for inventory path [" + i_dbusObjPath +
+            "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode) +
+            " Aborting FRU VPD deletion.");
+        return;
+    }
 
     try
     {
@@ -1891,6 +1901,8 @@ void Worker::collectSingleFruVpd(
     const sdbusplus::message::object_path& i_dbusObjPath)
 {
     std::string l_fruPath{};
+    uint16_t l_errCode = 0;
+
     try
     {
         // Check if system config JSON is present
@@ -1903,11 +1915,21 @@ void Worker::collectSingleFruVpd(
         }
 
         // Get FRU path for the given D-bus object path from JSON
-        l_fruPath =
-            jsonUtility::getFruPathFromJson(m_parsedJson, i_dbusObjPath);
+        l_fruPath = jsonUtility::getFruPathFromJson(m_parsedJson, i_dbusObjPath,
+                                                    l_errCode);
 
         if (l_fruPath.empty())
         {
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to get FRU path for [" +
+                    std::string(i_dbusObjPath) + "], error : " +
+                    vpdSpecificUtility::getErrCodeMsg(l_errCode) +
+                    " Aborting single FRU VPD collection.");
+                return;
+            }
+
             logging::logMessage(
                 "D-bus object path not present in JSON. Single FRU VPD collection is not performed for " +
                 std::string(i_dbusObjPath));
