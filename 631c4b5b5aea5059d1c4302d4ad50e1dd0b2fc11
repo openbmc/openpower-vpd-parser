@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99e0b59f_aa51ea0b",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-02T14:36:55Z",
+      "side": 1,
+      "message": "should we have value(\"serviceName\", \"\") , so it will return empty in case serviceName not found ?",
+      "revId": "631c4b5b5aea5059d1c4302d4ad50e1dd0b2fc11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9ca1290_f887a3eb",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1407,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-02T14:36:55Z",
+      "side": 1,
+      "message": "if service name not found, should we silently ignore and no need to call writeDbusProperty ?",
+      "revId": "631c4b5b5aea5059d1c4302d4ad50e1dd0b2fc11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
