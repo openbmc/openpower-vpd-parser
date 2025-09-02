@@ -16,6 +16,24 @@
       "message": "Combine this log and the log at 1787 and return from here itself.Also we need the info in log saying it failed for which path.",
       "revId": "b2374bad734bc6b0754fba5c6d0823298fb664dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a783cc4_febb449f",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1783,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-02T14:31:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75d1ddba_fa3d6134",
+      "revId": "b2374bad734bc6b0754fba5c6d0823298fb664dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
