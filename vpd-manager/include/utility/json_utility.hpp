@@ -1051,34 +1051,29 @@ inline bool isFruReplaceableAtRuntime(const nlohmann::json& i_sysCfgJsonObj,
  *
  * @param[in] i_sysCfgJsonObj - System config JSON object.
  * @param[in] i_vpdFruPath - EEPROM path.
+ * @param[out] o_errCode - set error code in case of error.
  *
  * @return true if FRU is replaceable at standby. false otherwise.
  */
 inline bool isFruReplaceableAtStandby(const nlohmann::json& i_sysCfgJsonObj,
-                                      const std::string& i_vpdFruPath)
+                                      const std::string& i_vpdFruPath,
+                                      uint16_t& o_errCode)
 {
-    try
+    if (i_vpdFruPath.empty())
     {
-        if (i_vpdFruPath.empty())
-        {
-            throw std::runtime_error("Given FRU path is empty.");
-        }
-
-        if (i_sysCfgJsonObj.empty() || (!i_sysCfgJsonObj.contains("frus")))
-        {
-            throw std::runtime_error("Invalid system config JSON object.");
-        }
-
-        return ((i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0))
-                    .contains("replaceableAtStandby") &&
-                (i_sysCfgJsonObj["frus"][i_vpdFruPath].at(
-                    0)["replaceableAtStandby"]));
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return false;
     }
-    catch (const std::exception& l_error)
+
+    if (i_sysCfgJsonObj.empty() || (!i_sysCfgJsonObj.contains("frus")))
     {
-        // TODO: Log PEL
-        logging::logMessage(l_error.what());
+        o_errCode = error_code::INVALID_JSON;
     }
+
+    return (
+        (i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0))
+            .contains("replaceableAtStandby") &&
+        (i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0)["replaceableAtStandby"]));
 
     return false;
 }
