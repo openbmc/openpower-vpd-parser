@@ -126,9 +126,24 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
             throw std::runtime_error(l_errMsg);
         }
 
+        uint16_t l_errCode = 0;
+
         auto [l_fruPath, l_inventoryObjPath, l_redundantFruPath] =
-            jsonUtility::getAllPathsToUpdateKeyword(m_parsedJson,
-                                                    m_vpdFilePath);
+            jsonUtility::getAllPathsToUpdateKeyword(m_parsedJson, m_vpdFilePath,
+                                                    l_errCode);
+
+        if (l_errCode == error_code::NO_EEPROM_PATH ||
+            l_errCode == error_code::FRU_PATH_NOT_FOUND)
+        {
+            return l_bytesUpdatedOnHardware;
+        }
+        else if (l_errCode == error_code::INVALID_INPUT_PARAMETER ||
+                 l_errCode == error_code::INVALID_JSON)
+        {
+            throw std::runtime_error(
+                "Failed to get paths to update keyword. Error : " +
+                vpdSpecificUtility::getErrCodeMsg(l_errCode));
+        }
 
         // If inventory D-bus object path is present, update keyword's value on
         // DBus
@@ -203,6 +218,12 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                                      l_inventoryObjPath);
                 throw std::runtime_error(l_errMsg);
             }
+        }
+
+        if (l_errCode == error_code::ERROR_GETTING_REDUNDANT_PATH)
+        {
+            throw std::runtime_error(
+                vpdSpecificUtility::getErrCodeMsg(l_errCode));
         }
 
         // Update keyword's value on redundant hardware if present
