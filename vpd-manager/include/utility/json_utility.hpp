@@ -832,76 +832,91 @@ inline std::vector<std::string> getListOfGpioPollingFrus(
  *
  * @param[in] i_sysCfgJsonObj - System config JSON object.
  * @param[in,out] io_vpdPath - Inventory object path or FRU EEPROM path.
+ * @param[out] o_errCode - To set error code in case of error.
  *
  * @return On success returns tuple of EEPROM path, inventory path & redundant
  * path, on failure returns tuple with given input path alone.
  */
 inline std::tuple<std::string, std::string, std::string>
     getAllPathsToUpdateKeyword(const nlohmann::json& i_sysCfgJsonObj,
-                               std::string io_vpdPath)
+                               std::string io_vpdPath, uint16_t& o_errCode)
 {
     types::Path l_inventoryObjPath;
     types::Path l_redundantFruPath;
-    try
+    o_errCode = 0;
+
+    if (i_sysCfgJsonObj.empty() || io_vpdPath.empty())
     {
-        uint16_t l_errCode = 0;
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return std::make_tuple(io_vpdPath, l_inventoryObjPath,
+                               l_redundantFruPath);
+    }
 
-        if (!i_sysCfgJsonObj.empty())
+    // Get hardware path from system config JSON.
+    const types::Path l_fruPath =
+        jsonUtility::getFruPathFromJson(i_sysCfgJsonObj, io_vpdPath, o_errCode);
+
+    if (!l_fruPath.empty())
+    {
+        io_vpdPath = l_fruPath;
+
+        // Get inventory object path from system config JSON
+        l_inventoryObjPath = jsonUtility::getInventoryObjPathFromJson(
+            i_sysCfgJsonObj, l_fruPath, o_errCode);
+
+        if (l_inventoryObjPath.empty())
         {
-            // Get hardware path from system config JSON.
-            const types::Path l_fruPath = jsonUtility::getFruPathFromJson(
-                i_sysCfgJsonObj, io_vpdPath, l_errCode);
-
-            if (!l_fruPath.empty())
+            if (o_errCode)
             {
-                io_vpdPath = l_fruPath;
-
-                // Get inventory object path from system config JSON
-                l_inventoryObjPath = jsonUtility::getInventoryObjPathFromJson(
-                    i_sysCfgJsonObj, l_fruPath, l_errCode);
-
-                if (l_errCode)
-                {
-                    logging::logMessage(
-                        "Failed to get inventory path from JSON for [" +
-                        io_vpdPath + "], error : " +
-                        vpdSpecificUtility::getErrCodeMsg(l_errCode));
-
-                    return std::make_tuple(io_vpdPath, l_inventoryObjPath,
-                                           l_redundantFruPath);
-                }
-
-                // Get redundant hardware path if present in system config JSON
-                l_redundantFruPath =
-                    jsonUtility::getRedundantEepromPathFromJson(
-                        i_sysCfgJsonObj, l_fruPath, l_errCode);
-
-                if (l_errCode)
-                {
-                    logging::logMessage(
-                        "Failed to get redundant EEPROM path for FRU [" +
-                        l_fruPath + "], error : " +
-                        vpdSpecificUtility::getErrCodeMsg(l_errCode));
-
-                    return std::make_tuple(io_vpdPath, l_inventoryObjPath,
-                                           l_redundantFruPath);
-                }
+                logging::logMessage(
+                    "Failed to get inventory path from JSON for [" +
+                    io_vpdPath + "], error : " +
+                    vpdSpecificUtility::getErrCodeMsg(o_errCode));
+            }
+            else
+            {
+                o_errCode = error_code::FRU_PATH_NOT_FOUND;
             }
 
-            logging::logMessage(
-                "Failed to get FRU path from JSON for [" + io_vpdPath +
-                "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            return std::make_tuple(io_vpdPath, l_inventoryObjPath,
+                                   l_redundantFruPath);
+        }
+
+        // Get redundant hardware path if present in system config JSON
+        l_redundantFruPath = jsonUtility::getRedundantEepromPathFromJson(
+            i_sysCfgJsonObj, l_fruPath, o_errCode);
+
+        if (l_redundantFruPath.empty())
+        {
+            if (o_errCode)
+            {
+                logging::logMessage(
+                    "Failed to get redundant EEPROM path for FRU [" +
+                    l_fruPath + "], error : " +
+                    vpdSpecificUtility::getErrCodeMsg(o_errCode));
+
+                o_errCode = error_code::ERROR_GETTING_REDUNDANT_PATH;
+            }
+            else
+            {
+                o_errCode = error_code::REDUNDANT_PATH_NOT_FOUND;
+            }
 
             return std::make_tuple(io_vpdPath, l_inventoryObjPath,
                                    l_redundantFruPath);
         }
     }
-    catch (const std::exception& l_exception)
+    else if (o_errCode)
     {
         logging::logMessage(
-            "Failed to get all paths to update keyword value, error " +
-            std::string(l_exception.what()));
+            "Failed to get FRU path from JSON for [" + io_vpdPath +
+            "], error : " + vpdSpecificUtility::getErrCodeMsg(o_errCode));
     }
+    else
+    {
+        o_errCode = error_code::NO_EEPROM_PATH;
+    }
+
     return std::make_tuple(io_vpdPath, l_inventoryObjPath, l_redundantFruPath);
 }
 
