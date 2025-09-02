@@ -1540,12 +1540,22 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
     {
         // If chassis is powered on, skip collecting FRUs which are
         // powerOffOnly.
-        if (jsonUtility::isFruPowerOffOnly(m_parsedJson, i_vpdFilePath))
+
+        uint16_t l_errCode = 0;
+        if (jsonUtility::isFruPowerOffOnly(m_parsedJson, i_vpdFilePath,
+                                           l_errCode))
         {
             return true;
         }
+        else if (l_errCode)
+        {
+            logging::logMessage(
+                "Failed to check if FRU is power off only for FRU [" +
+                i_vpdFilePath +
+                "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+        }
 
-        uint16_t l_errCode = 0;
+        l_errCode = 0;
         std::string l_invPath = jsonUtility::getInventoryObjPathFromJson(
             m_parsedJson, i_vpdFilePath, l_errCode);
 
