@@ -1899,8 +1899,20 @@ void Worker::collectSingleFruVpd(
         }
         else if (dbusUtility::isBMCReady())
         {
-            if (!jsonUtility::isFruReplaceableAtStandby(m_parsedJson,
-                                                        l_fruPath) &&
+            uint16_t l_errCode = 0;
+            bool isFruReplaceableAtStandby =
+                jsonUtility::isFruReplaceableAtStandby(m_parsedJson, l_fruPath,
+                                                       l_errCode);
+
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Error while checking if FRU is replaceable at standby for FRU [" +
+                    std::string(i_dbusObjPath) + "], error : " +
+                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            }
+
+            if (!isFruReplaceableAtStandby &&
                 (!jsonUtility::isFruReplaceableAtRuntime(m_parsedJson,
                                                          l_fruPath)))
             {
