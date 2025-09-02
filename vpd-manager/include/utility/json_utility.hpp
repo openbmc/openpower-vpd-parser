@@ -923,6 +923,7 @@ inline std::tuple<std::string, std::string, std::string>
  *
  * @param[in] i_sysCfgJsonObj - System config JSON object.
  * @param[in] l_inventoryPath - DBus inventory path.
+ * @param[out] o_errCode - To set error code in case of error.
  *
  * @return On success returns the service name present in the system config
  * JSON, otherwise empty string.
@@ -930,44 +931,37 @@ inline std::tuple<std::string, std::string, std::string>
  * Note: Caller has to handle in case of empty string received.
  */
 inline std::string getServiceName(const nlohmann::json& i_sysCfgJsonObj,
-                                  const std::string& l_inventoryPath)
+                                  const std::string& l_inventoryPath,
+                                  uint16_t& o_errCode)
 {
-    try
+    if (l_inventoryPath.empty())
     {
-        if (l_inventoryPath.empty())
-        {
-            throw std::runtime_error("Path parameter is empty.");
-        }
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return std::string{};
+    }
 
-        if (!i_sysCfgJsonObj.contains("frus"))
-        {
-            throw std::runtime_error("Missing frus tag in system config JSON.");
-        }
+    if (!i_sysCfgJsonObj.contains("frus"))
+    {
+        o_errCode = error_code::INVALID_JSON;
+        return std::string{};
+    }
 
-        const nlohmann::json& l_listOfFrus =
-            i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+    const nlohmann::json& l_listOfFrus =
+        i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
-        for (const auto& l_frus : l_listOfFrus.items())
+    for (const auto& l_frus : l_listOfFrus.items())
+    {
+        for (const auto& l_inventoryItem : l_frus.value())
         {
-            for (const auto& l_inventoryItem : l_frus.value())
+            if (l_inventoryPath.compare(l_inventoryItem["inventoryPath"]) ==
+                constants::STR_CMP_SUCCESS)
             {
-                if (l_inventoryPath.compare(l_inventoryItem["inventoryPath"]) ==
-                    constants::STR_CMP_SUCCESS)
-                {
-                    return l_inventoryItem["serviceName"];
-                }
+                return l_inventoryItem["serviceName"];
             }
         }
-        throw std::runtime_error(
-            "Inventory path not found in the system config JSON");
     }
-    catch (const std::exception& l_exception)
-    {
-        logging::logMessage(
-            "Error while getting DBus service name for given path " +
-            l_inventoryPath + ", error: " + std::string(l_exception.what()));
-        // TODO:log PEL
-    }
+
+    o_errCode = error_code::FRU_PATH_NOT_FOUND;
     return std::string{};
 }
 
