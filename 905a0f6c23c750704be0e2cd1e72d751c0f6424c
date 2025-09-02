@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9541202_054711f3",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-02T13:03:49Z",
+      "side": 1,
+      "message": "Just a thought, do we need if/else.\nJust in case the API fails, just go ahead and log the message with a prefix custom string and calling utility API to get the string.\nIn case string is there, it will append that in the message else there will be empty string?",
+      "revId": "905a0f6c23c750704be0e2cd1e72d751c0f6424c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
