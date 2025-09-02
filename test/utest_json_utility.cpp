@@ -24,8 +24,17 @@ TEST(IsFruPowerOffOnlyTest, PositiveTestCase)
             "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
     }
 
+    l_errCode = 0;
     const bool l_result =
-        jsonUtility::isFruPowerOffOnly(l_parsedJson, l_vpdPath);
+        jsonUtility::isFruPowerOffOnly(l_parsedJson, l_vpdPath, l_errCode);
+
+    if (l_errCode)
+    {
+        logging::logMessage(
+            "Failed to check if FRU is power off only for FRU [" + l_vpdPath +
+            "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+    }
+
     EXPECT_TRUE(l_result);
 }
 
@@ -44,7 +53,16 @@ TEST(IsFruPowerOffOnlyTest, NegativeTestCase)
             "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
     }
 
+    l_errCode = 0;
     const bool l_result =
-        jsonUtility::isFruPowerOffOnly(l_parsedJson, l_vpdPath);
+        jsonUtility::isFruPowerOffOnly(l_parsedJson, l_vpdPath, l_errCode);
+
+    if (l_errCode)
+    {
+        logging::logMessage(
+            "Failed to check if FRU is power off only for FRU [" + l_vpdPath +
+            "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+    }
+
     EXPECT_FALSE(l_result);
 }

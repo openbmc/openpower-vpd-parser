@@ -979,28 +979,29 @@ inline std::string getServiceName(const nlohmann::json& i_sysCfgJsonObj,
  *
  * @param[in] i_sysCfgJsonObj - System config JSON object.
  * @param[in] i_vpdFruPath - EEPROM path.
+ * @param[out] o_errCode - To set error code for the error.
  * @return - True if FRU VPD can be collected at Chassis Power Off state only.
  *           False otherwise
  */
 inline bool isFruPowerOffOnly(const nlohmann::json& i_sysCfgJsonObj,
-                              const std::string& i_vpdFruPath)
+                              const std::string& i_vpdFruPath,
+                              uint16_t& o_errCode)
 {
     if (i_vpdFruPath.empty())
     {
-        logging::logMessage("FRU path is empty.");
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
 
     if (!i_sysCfgJsonObj.contains("frus"))
     {
-        logging::logMessage("Missing frus tag in system config JSON.");
+        o_errCode = error_code::INVALID_JSON;
         return false;
     }
 
     if (!i_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
     {
-        logging::logMessage("JSON object does not contain EEPROM path \'" +
-                            i_vpdFruPath + "\'");
+        o_errCode = error_code::FRU_PATH_NOT_FOUND;
         return false;
     }
 
