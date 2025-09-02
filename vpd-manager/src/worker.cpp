@@ -1917,8 +1917,21 @@ void Worker::collectSingleFruVpd(
         // Check if host is up and running
         if (dbusUtility::isHostRunning())
         {
-            if (!jsonUtility::isFruReplaceableAtRuntime(m_parsedJson,
-                                                        l_fruPath))
+            uint16_t l_errCode = 0;
+            bool isFruReplaceableAtRuntime =
+                jsonUtility::isFruReplaceableAtRuntime(m_parsedJson, l_fruPath,
+                                                       l_errCode);
+
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to check if FRU is replaceable at runtime for FRU : [" +
+                    std::string(i_dbusObjPath) + "], error : " +
+                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                return;
+            }
+
+            if (!isFruReplaceableAtRuntime)
             {
                 logging::logMessage(
                     "Given FRU is not replaceable at host runtime. Single FRU VPD collection is not performed for " +
@@ -1941,9 +1954,21 @@ void Worker::collectSingleFruVpd(
                     vpdSpecificUtility::getErrCodeMsg(l_errCode));
             }
 
-            if (!isFruReplaceableAtStandby &&
-                (!jsonUtility::isFruReplaceableAtRuntime(m_parsedJson,
-                                                         l_fruPath)))
+            l_errCode = 0;
+            bool isFruReplaceableAtRuntime =
+                jsonUtility::isFruReplaceableAtRuntime(m_parsedJson, l_fruPath,
+                                                       l_errCode);
+
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to check if FRU is replaceable at runtime for FRU : [" +
+                    std::string(i_dbusObjPath) + "], error : " +
+                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                return;
+            }
+
+            if (!isFruReplaceableAtStandby && (!isFruReplaceableAtRuntime))
             {
                 logging::logMessage(
                     "Given FRU is neither replaceable at standby nor replaceable at runtime. Single FRU VPD collection is not performed for " +
