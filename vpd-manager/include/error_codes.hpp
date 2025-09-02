@@ -20,6 +20,8 @@ enum error_code
     JSON_PARSE_ERROR,
     JSON_MISSING_GPIO_INFO,
     JSON_MISSING_SERVICE_NAME,
+    INVENTORY_PATH_NOT_FOUND,
+    NO_PATH_FOUND,
 
     // Generic errors.
     INVALID_INPUT_PARAMETER,
@@ -45,6 +47,9 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::JSON_MISSING_GPIO_INFO, "JSON missing required GPIO info."},
     {error_code::JSON_MISSING_SERVICE_NAME,
      "JSON missing the service name for the FRU"},
+    {error_code::INVENTORY_PATH_NOT_FOUND,
+     "JSON missing inventory path for the FRU"},
+    {error_code::NO_PATH_FOUND, "No paths found for the FRU in the JSON."},
     {error_code::DEVICE_NOT_PRESENT,
      "Presence pin read successfully but device was absent."},
     {error_code::DEVICE_PRESENCE_UNKNOWN, "Exception on presence line GPIO."},
