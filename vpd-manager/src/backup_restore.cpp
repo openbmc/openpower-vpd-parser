@@ -154,10 +154,30 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         return;
     }
 
+    uint16_t l_errCode = 0;
+
     const std::string l_srcFruPath =
-        jsonUtility::getFruPathFromJson(m_sysCfgJsonObj, i_srcPath);
+        jsonUtility::getFruPathFromJson(m_sysCfgJsonObj, i_srcPath, l_errCode);
+
+    if (l_errCode)
+    {
+        logging::logMessage(
+            "Failed to get source FRU path for [" + i_srcPath +
+            "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+        return;
+    }
+
     const std::string l_dstFruPath =
-        jsonUtility::getFruPathFromJson(m_sysCfgJsonObj, i_dstPath);
+        jsonUtility::getFruPathFromJson(m_sysCfgJsonObj, i_dstPath, l_errCode);
+
+    if (l_errCode)
+    {
+        logging::logMessage(
+            "Failed to get destination FRU path for [" + i_dstPath +
+            "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+        return;
+    }
+
     if (l_srcFruPath.empty() || l_dstFruPath.empty())
     {
         logging::logMessage(
@@ -165,7 +185,6 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         return;
     }
 
-    uint16_t l_errCode = 0;
     const std::string l_srcInvPath = jsonUtility::getInventoryObjPathFromJson(
         m_sysCfgJsonObj, i_srcPath, l_errCode);
 
