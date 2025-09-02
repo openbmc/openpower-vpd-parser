@@ -172,6 +172,7 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
         return -1;
     }
 
+    uint16_t l_errCode = 0;
     types::Path l_fruPath;
     nlohmann::json l_sysCfgJsonObj{};
 
@@ -182,13 +183,20 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
         // Get the EEPROM path
         if (!l_sysCfgJsonObj.empty())
         {
-            l_fruPath =
-                jsonUtility::getFruPathFromJson(l_sysCfgJsonObj, i_vpdPath);
+            l_fruPath = jsonUtility::getFruPathFromJson(l_sysCfgJsonObj,
+                                                        i_vpdPath, l_errCode);
         }
     }
 
     if (l_fruPath.empty())
     {
+        if (l_errCode)
+        {
+            logging::logMessage(
+                "Failed to get FRU path from JSON for [" + i_vpdPath +
+                "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+        }
+
         l_fruPath = i_vpdPath;
     }
 
