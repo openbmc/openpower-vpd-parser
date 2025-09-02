@@ -220,9 +220,27 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
     }
 
     const std::string l_srcServiceName =
-        jsonUtility::getServiceName(m_sysCfgJsonObj, l_srcInvPath);
+        jsonUtility::getServiceName(m_sysCfgJsonObj, l_srcInvPath, l_errCode);
+
+    if (l_errCode)
+    {
+        logging::logMessage(
+            "Failed to get service name for FRU [" + l_srcInvPath +
+            "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+        return;
+    }
+
     const std::string l_dstServiceName =
-        jsonUtility::getServiceName(m_sysCfgJsonObj, l_dstInvPath);
+        jsonUtility::getServiceName(m_sysCfgJsonObj, l_dstInvPath, l_errCode);
+
+    if (l_errCode)
+    {
+        logging::logMessage(
+            "Failed to get service name for FRU [" + l_dstInvPath +
+            "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+        return;
+    }
+
     if (l_srcServiceName.empty() || l_dstServiceName.empty())
     {
         logging::logMessage(
