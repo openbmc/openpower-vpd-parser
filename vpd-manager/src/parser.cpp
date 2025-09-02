@@ -126,9 +126,18 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
             throw std::runtime_error(l_errMsg);
         }
 
+        uint16_t l_errCode = 0;
+
         auto [l_fruPath, l_inventoryObjPath, l_redundantFruPath] =
-            jsonUtility::getAllPathsToUpdateKeyword(m_parsedJson,
-                                                    m_vpdFilePath);
+            jsonUtility::getAllPathsToUpdateKeyword(m_parsedJson, m_vpdFilePath,
+                                                    l_errCode);
+
+        if (l_errCode && l_inventoryObjPath.empty())
+        {
+            throw std::runtime_error(
+                "Failed to get paths for [" + m_vpdFilePath +
+                "] Error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+        }
 
         // If inventory D-bus object path is present, update keyword's value on
         // DBus
