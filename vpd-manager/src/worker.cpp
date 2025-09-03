@@ -1287,6 +1287,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
 {
     try
     {
+        uint16_t l_errCode = 0;
+
         if (i_vpdFilePath.empty())
         {
             throw std::runtime_error(
@@ -1294,11 +1296,19 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                 " Empty VPD file path passed. Abort processing");
         }
 
-        bool isPreActionRequired = false;
-        if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
-                                          "preAction", "collection"))
+        bool isPreActionRequired = jsonUtility::isActionRequired(
+            m_parsedJson, i_vpdFilePath, "preAction", "collection", l_errCode);
+
+        if (l_errCode)
         {
-            isPreActionRequired = true;
+            logging::logMessage(
+                "Failed to check if pre action required for FRU [" +
+                i_vpdFilePath +
+                "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+        }
+
+        if (isPreActionRequired)
+        {
             uint16_t l_errCode = 0;
             if (!processPreAction(i_vpdFilePath, "collection", l_errCode))
             {
@@ -1339,8 +1349,12 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
         // any post action in the flow of collection.
         // Note: Don't change the order, post action needs to be processed only
         // after collection for FRU is successfully done.
-        if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
-                                          "postAction", "collection"))
+        l_errCode = 0;
+
+        bool isPostActionRequired = jsonUtility::isActionRequired(
+            m_parsedJson, i_vpdFilePath, "postAction", "collection", l_errCode);
+
+        if (isPostActionRequired)
         {
             if (!processPostAction(i_vpdFilePath, "collection", l_parsedVpd))
             {
@@ -1355,6 +1369,14 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             }
         }
 
+        if (l_errCode)
+        {
+            logging::logMessage(
+                "Error while checking if post action required for FRU [" +
+                i_vpdFilePath +
+                "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+        }
+
         return l_parsedVpd;
     }
     catch (std::exception& l_ex)
@@ -1364,9 +1386,19 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             std::string(__FUNCTION__) + " : VPD parsing failed for " +
             i_vpdFilePath + " due to error: " + l_ex.what()};
 
+        bool isPostFailActionRequired = jsonUtility::isActionRequired(
+            m_parsedJson, i_vpdFilePath, "postFailAction", "collection",
+            l_errCode);
+
+        if (l_errCode)
+        {
+            l_exMsg +=
+                ". Failed to check if post fail action required, error : " +
+                vpdSpecificUtility::getErrCodeMsg(l_errCode);
+        }
+
         // If post fail action is required, execute it.
-        if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
-                                          "postFailAction", "collection"))
+        if (isPostFailActionRequired)
         {
             if (!jsonUtility::executePostFailAction(m_parsedJson, i_vpdFilePath,
                                                     "collection", l_errCode))
@@ -1734,7 +1766,8 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
             else
             {
                 if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath,
-                                                  "preAction", "deletion"))
+                                                  "preAction", "deletion",
+                                                  l_errCode))
                 {
                     uint16_t l_errCode = 0;
                     if (!processPreAction(l_fruPath, "deletion", l_errCode))
@@ -1748,6 +1781,14 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
                         }
                         throw std::runtime_error(l_msg);
                     }
+                }
+
+                if (l_errCode)
+                {
+                    logging::logMessage(
+                        "Failed to check if pre action required for FRU [" +
+                        l_fruPath + "], error : " +
+                        vpdSpecificUtility::getErrCodeMsg(l_errCode));
                 }
 
                 std::vector<std::string> l_interfaceList{
@@ -1782,13 +1823,25 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
                     throw std::runtime_error("Call to PIM failed.");
                 }
 
-                if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath,
-                                                  "postAction", "deletion"))
+                l_errCode = 0;
+                bool isPostActionRequired = jsonUtility::isActionRequired(
+                    m_parsedJson, l_fruPath, "postAction", "deletion",
+                    l_errCode);
+
+                if (isPostActionRequired)
                 {
                     if (!processPostAction(l_fruPath, "deletion"))
                     {
                         throw std::runtime_error("Post action failed");
                     }
+                }
+
+                if (l_errCode)
+                {
+                    logging::logMessage(
+                        "Failed to check if post action required during deletion for FRU [" +
+                        l_fruPath + "], error : " +
+                        vpdSpecificUtility::getErrCodeMsg(l_errCode));
                 }
             }
         }
@@ -1810,8 +1863,17 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
             "Failed to delete VPD for FRU : " + i_dbusObjPath +
             " error: " + std::string(l_ex.what());
 
-        if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath,
-                                          "postFailAction", "deletion"))
+        bool isPostFailActionRequired = jsonUtility::isActionRequired(
+            m_parsedJson, l_fruPath, "postFailAction", "deletion", l_errCode);
+
+        if (l_errCode)
+        {
+            l_errMsg +=
+                ". Failed to check if post fail action required, error : " +
+                vpdSpecificUtility::getErrCodeMsg(l_errCode);
+        }
+
+        if (isPostFailActionRequired)
         {
             if (!jsonUtility::executePostFailAction(m_parsedJson, l_fruPath,
                                                     "deletion", l_errCode))
