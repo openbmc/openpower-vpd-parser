@@ -964,10 +964,13 @@ inline types::InterfaceMap getCommonInterfaceProperties(
             }
         };
 
-        // iterate through all common interfaces and populate interface map
-        std::for_each(i_commonInterfaceJson.items().begin(),
-                      i_commonInterfaceJson.items().end(),
-                      l_populateInterfaceMap);
+        if (!i_commonInterfaceJson.empty())
+        {
+            // iterate through all common interfaces and populate interface map
+            std::for_each(i_commonInterfaceJson.items().begin(),
+                          i_commonInterfaceJson.items().end(),
+                          l_populateInterfaceMap);
+        }
     }
     catch (const std::exception& l_ex)
     {
