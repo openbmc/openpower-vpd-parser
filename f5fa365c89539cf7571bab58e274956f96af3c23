@@ -16,6 +16,24 @@
       "message": "Ideally this is not correct as this will not give the actual time to complete the process.\nAfter this call to PIM will be made and that time will not get captured if we add the time here.",
       "revId": "f5fa365c89539cf7571bab58e274956f96af3c23",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f18c70c_5344dbbb",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-03T13:56:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "049e549d_485ee183",
+      "revId": "f5fa365c89539cf7571bab58e274956f96af3c23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
