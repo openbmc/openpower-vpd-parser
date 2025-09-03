@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c86278a_43f5d091",
+        "filename": "vpd-manager/include/error_codes.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-03T13:40:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "50c62cc2_74a6bea7",
+      "revId": "6ae9c011f2279a15ed4afc8f1d69faf7de8ea897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ae813c7_1bc11750",
@@ -156,6 +174,24 @@
       "side": 1,
       "message": "that is i_errorCode\nthis is l_errCode 😊",
       "parentUuid": "8aa84588_59c8e2cf",
+      "revId": "6ae9c011f2279a15ed4afc8f1d69faf7de8ea897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5118d777_b3022732",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-03T13:40:24Z",
+      "side": 1,
+      "message": "Correct but very close. I will update that.",
+      "parentUuid": "8ba0e3ba_c1425f4e",
       "revId": "6ae9c011f2279a15ed4afc8f1d69faf7de8ea897",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
