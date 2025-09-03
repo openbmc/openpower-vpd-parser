@@ -73,6 +73,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1dc8081_ea617b07",
+        "filename": "vpd-manager/include/bios_handler.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-09-03T08:50:09Z",
+      "side": 1,
+      "message": "why is try catch retained?",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 247,
+        "endChar": 36
+      },
+      "revId": "2445034d338fdc3acdfd9779331b564022b9c17c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6bf8cb15_180259d9",
         "filename": "vpd-manager/src/bios_handler.cpp",
         "patchSetId": 2
@@ -108,6 +131,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82b28fce_f1491424",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-09-03T08:50:09Z",
+      "side": 1,
+      "message": "Log a PEL here ?",
+      "revId": "2445034d338fdc3acdfd9779331b564022b9c17c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc8a7b24_67b46627",
         "filename": "vpd-manager/src/manager_main.cpp",
         "patchSetId": 2
@@ -136,6 +176,24 @@
       "writtenOn": "2025-09-03T08:46:00Z",
       "side": 1,
       "message": "Acknowledged",
+      "parentUuid": "dc8a7b24_67b46627",
+      "revId": "2445034d338fdc3acdfd9779331b564022b9c17c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3ba1741_6d820bf7",
+        "filename": "vpd-manager/src/manager_main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-09-03T08:50:09Z",
+      "side": 1,
+      "message": "why do we need the nullptr check ?",
       "parentUuid": "dc8a7b24_67b46627",
       "revId": "2445034d338fdc3acdfd9779331b564022b9c17c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
