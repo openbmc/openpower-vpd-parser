@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c245e76_63d967d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-03T08:33:42Z",
+      "side": 1,
+      "message": "\u003eFix unused variable error\n\nThis can have more details.",
+      "revId": "2445034d338fdc3acdfd9779331b564022b9c17c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25acdee8_e249e2d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-03T08:33:42Z",
+      "side": 1,
+      "message": "Which API?",
+      "revId": "2445034d338fdc3acdfd9779331b564022b9c17c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bf8cb15_180259d9",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-03T08:33:42Z",
+      "side": 1,
+      "message": "`noexcept` specifier missing",
+      "revId": "2445034d338fdc3acdfd9779331b564022b9c17c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc8a7b24_67b46627",
+        "filename": "vpd-manager/src/manager_main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-03T08:33:42Z",
+      "side": 1,
+      "message": "Should have a `nullptr` check on `biosHandler`.",
+      "revId": "2445034d338fdc3acdfd9779331b564022b9c17c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
