@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51881b7d_69577605",
+        "filename": "vpd-manager/src/manager_main.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-03T09:35:37Z",
+      "side": 1,
+      "message": "nit: error message can be constructed like : `const std:: string l_errMsg{}`",
+      "revId": "00f5292279360ecf0617b61faa235a1c858aaff4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
