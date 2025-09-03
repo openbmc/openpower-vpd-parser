@@ -81,9 +81,18 @@ void GpioEventHandler::handleTimerExpiry(
         return;
     }
 
+    uint16_t l_ec = 0;
     bool l_currentPresencePinValue = jsonUtility::processGpioPresenceTag(
         m_worker->getSysCfgJsonObj(), m_fruPath, "pollingRequired",
-        "hotPlugging");
+        "hotPlugging", l_ec);
+
+    if (l_ec && l_ec != error_code::PRESENCE_PIN_READ_FALSE)
+    {
+        logging::logMessage("processGpioPresenceTag returned false for FRU [" +
+                            m_fruPath + "] Due to error. Reason: " +
+                            vpdSpecificUtility::getErrCodeMsg(l_ec));
+        return;
+    }
 
     if (m_prevPresencePinValue != l_currentPresencePinValue)
     {
@@ -101,9 +110,17 @@ void GpioEventHandler::handleTimerExpiry(
 void GpioEventHandler::setEventHandlerForGpioPresence(
     const std::shared_ptr<boost::asio::io_context>& i_ioContext)
 {
-    m_prevPresencePinValue = jsonUtility::processGpioPresenceTag(
-        m_worker->getSysCfgJsonObj(), m_fruPath, "pollingRequired",
-        "hotPlugging");
+    uint16_t l_ec = 0;
+     m_prevPresencePinValue = jsonUtility::processGpioPresenceTag(
+         m_worker->getSysCfgJsonObj(), m_fruPath, "pollingRequired",
+         "hotPlugging", l_ec);
+
+     if (l_ec && l_ec != error_code::PRESENCE_PIN_READ_FALSE)
+     {
+        logging::logMessage("processGpioPresenceTag returned false for FRU [" +
+                            m_fruPath + "] Due to error. Reason: " +
+                            vpdSpecificUtility::getErrCodeMsg(l_ec));
+    }
 
     static std::vector<std::shared_ptr<boost::asio::steady_timer>> l_timers;
 
