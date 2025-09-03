@@ -240,28 +240,9 @@ class BiosHandler
         const std::shared_ptr<sdbusplus::asio::connection>& i_connection,
         const std::shared_ptr<Manager>& i_manager) : m_asioConn(i_connection)
     {
-        try
-        {
-            m_specificBiosHandler = std::make_shared<T>(i_manager);
-            checkAndListenPldmService();
-        }
-        catch (std::exception& l_ex)
-        {
-            // catch any exception here itself and don't pass it to main as it
-            // will mark the service failed. Since VPD-Manager is a critical
-            // service, failing it can push BMC to quiesced state whic is not
-            // required in this case.
-            std::string l_errMsg = "Instantiation of BIOS Handler failed. { ";
-            l_errMsg += l_ex.what() + std::string(" }");
-
-            EventLogger::createSyncPel(
-                types::ErrorType::FirmwareError, types::SeverityType::Warning,
-                __FILE__, __FUNCTION__, 0, l_errMsg, std::nullopt, std::nullopt,
-                std::nullopt, std::nullopt);
-        }
+        m_specificBiosHandler = std::make_shared<T>(i_manager);
     }
 
-  private:
     /**
      * @brief API to check if PLDM service is running and run BIOS sync.
      *
@@ -270,8 +251,9 @@ class BiosHandler
      * registers a listener to be notified when the service starts so that a
      * restore can be performed.
      */
-    void checkAndListenPldmService();
+    void checkAndListenPldmService() noexcept;
 
+  private:
     /**
      * @brief Register listener for BIOS attribute property change.
      *
