@@ -18,9 +18,12 @@ static constexpr auto MISSING_FLAG = 2002;
 static constexpr auto MISSING_ACTION_TAG = 2003;
 static constexpr auto FRU_PATH_NOT_FOUND = 2004;
 static constexpr auto JSON_PARSE_ERROR = 2005;
+static constexpr auto JSON_MISSING_GPIO_INFO = 2006;
 
 // Generic errors.
 static constexpr auto INVALID_INPUT_PARAMETER = 3001;
+static constexpr auto PRESENCE_PIN_READ_FALSE = 2006;
+static constexpr auto GPIO_LINE_EXCEPTION = 2007;
 
 const std::unordered_map<int, std::string> errorCodeMap = {
     {FILE_NOT_FOUND, "File does not exist."},
