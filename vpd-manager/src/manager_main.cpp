@@ -39,6 +39,10 @@ int main(int, char**)
         auto biosHandler =
             std::make_shared<vpd::BiosHandler<vpd::IbmBiosHandler>>(
                 connection, vpdManager);
+        if (biosHandler)
+        {
+            biosHandler->checkAndListenPldmService();
+        }
 
         interface->initialize();
         progressInf->initialize();
