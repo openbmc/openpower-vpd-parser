@@ -96,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13418b9b_af46eef0",
+        "filename": "vpd-manager/include/bios_handler.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-03T08:59:38Z",
+      "side": 1,
+      "message": "Worst case \"std::make_shared\" can throw.",
+      "parentUuid": "e1dc8081_ea617b07",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 247,
+        "endChar": 36
+      },
+      "revId": "2445034d338fdc3acdfd9779331b564022b9c17c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6bf8cb15_180259d9",
         "filename": "vpd-manager/src/bios_handler.cpp",
         "patchSetId": 2
@@ -142,6 +166,24 @@
       "writtenOn": "2025-09-03T08:50:09Z",
       "side": 1,
       "message": "Log a PEL here ?",
+      "revId": "2445034d338fdc3acdfd9779331b564022b9c17c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef7782e7_1b6b4e03",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-03T08:59:38Z",
+      "side": 1,
+      "message": "Eventually moving away from PELs in the service load phase due to performance, hence did not add it here.\nAll these logs will be captured as a part of new logging class going forward, hence will be retained.",
+      "parentUuid": "82b28fce_f1491424",
       "revId": "2445034d338fdc3acdfd9779331b564022b9c17c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -195,6 +237,24 @@
       "side": 1,
       "message": "why do we need the nullptr check ?",
       "parentUuid": "dc8a7b24_67b46627",
+      "revId": "2445034d338fdc3acdfd9779331b564022b9c17c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a74f8314_0e82ec19",
+        "filename": "vpd-manager/src/manager_main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-03T08:59:38Z",
+      "side": 1,
+      "message": "If std::make_shared in the constructor throws, this will be a nullPtr.",
+      "parentUuid": "d3ba1741_6d820bf7",
       "revId": "2445034d338fdc3acdfd9779331b564022b9c17c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
