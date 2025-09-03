@@ -16,6 +16,24 @@
       "message": "Today if `checkAndListenPldmService` throws, we catch in BiosHandler constructor and log a PEL. With your change, `checkAndListenPldmService` exceptions are caught locally and trace is logged, and no PEL is logged. So the error path has changed. Is this alright?",
       "revId": "ff7d799530c30c3e17189267f1418a4deb605af7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07936c72_0aa21179",
+        "filename": "vpd-manager/include/bios_handler.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-03T08:46:00Z",
+      "side": 0,
+      "message": "Yes that is fine.",
+      "parentUuid": "88f13c3d_2ccea386",
+      "revId": "ff7d799530c30c3e17189267f1418a4deb605af7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
