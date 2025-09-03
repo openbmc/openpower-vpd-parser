@@ -501,47 +501,35 @@ inline bool procesSetGpioTag(
  * @param[in] i_vpdFilePath - EEPROM file path
  * @param[in] i_flagToProcess - To identify which flag(s) needs to be processed
  * under PreAction tag of config JSON.
+ * @param[out] o_errCode - To set error code in case of error.
  * @return - success or failure
  */
 inline bool executeBaseAction(
     const nlohmann::json& i_parsedConfigJson, const std::string& i_action,
-    const std::string& i_vpdFilePath, const std::string& i_flagToProcess)
+    const std::string& i_vpdFilePath, const std::string& i_flagToProcess,
+    uint16_t& o_errCode)
 {
-    try
+    if (i_flagToProcess.empty() || i_action.empty() || i_vpdFilePath.empty() ||
+        !i_parsedConfigJson.contains("frus"))
     {
-        if (i_flagToProcess.empty() || i_action.empty() ||
-            i_vpdFilePath.empty() || !i_parsedConfigJson.contains("frus"))
-        {
-            throw std::runtime_error(
-                std::string(__FUNCTION__) + " Invalid parameter");
-        }
-        if (!i_parsedConfigJson["frus"].contains(i_vpdFilePath))
-        {
-            throw JsonException(std::string(__FUNCTION__) + " File path: " +
-                                i_vpdFilePath + " not found in JSON");
-        }
-        if (!i_parsedConfigJson["frus"][i_vpdFilePath].at(0).contains(i_action))
-        {
-            throw JsonException(
-                std::string(__FUNCTION__) + " Action [" + i_action +
-                "] not defined for file path:" + i_vpdFilePath);
-        }
-
-        if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))[i_action]
-                 .contains(i_flagToProcess))
-        {
-            throw JsonException(
-                std::string(__FUNCTION__) + "Config JSON missing flag [" +
-                i_flagToProcess +
-                "] to execute action for path = " + i_vpdFilePath);
-        }
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return false;
     }
-    catch (const std::exception& l_ex)
+    if (!i_parsedConfigJson["frus"].contains(i_vpdFilePath))
     {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
-            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+        o_errCode = error_code::FILE_NOT_FOUND;
+        return false;
+    }
+    if (!i_parsedConfigJson["frus"][i_vpdFilePath].at(0).contains(i_action))
+    {
+        o_errCode = error_code::MISSING_ACTION_TAG;
+        return false;
+    }
+
+    if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))[i_action].contains(
+            i_flagToProcess))
+    {
+        o_errCode = error_code::MISSING_FLAG;
         return false;
     }
 
@@ -554,7 +542,6 @@ inline bool executeBaseAction(
         auto itrToFunction = funcionMap.find(l_tag.key());
         if (itrToFunction != funcionMap.end())
         {
-            uint16_t o_errCode = 0;
             if (!itrToFunction->second(i_parsedConfigJson, i_vpdFilePath,
                                        i_action, i_flagToProcess, o_errCode))
             {

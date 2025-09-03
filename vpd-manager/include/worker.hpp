@@ -386,10 +386,12 @@ class Worker
      * @param[in] i_vpdFilePath - Path to the EEPROM file.
      * @param[in] i_flagToProcess - To identify which flag(s) needs to be
      * processed under PreAction tag of config JSON.
+     * @param[out] o_errCode - To set error code in case of error.
      * @return Execution status.
      */
     bool processPreAction(const std::string& i_vpdFilePath,
-                          const std::string& i_flagToProcess);
+                          const std::string& i_flagToProcess,
+                          uint16_t& o_errCode);
 
     /**
      * @brief API to process postAction(base_action) defined in config JSON.
