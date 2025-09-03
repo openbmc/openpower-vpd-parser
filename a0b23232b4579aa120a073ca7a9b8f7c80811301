@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79dc8e1b_baf12155",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-03T13:15:37Z",
+      "side": 1,
+      "message": "The code will also execute on system not having concept of active BMC.\nBetter to put it in a way that VPD collection will be triggered as a part of system-D target instead of internally by the app.",
+      "range": {
+        "startLine": 11,
+        "startChar": 18,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "a0b23232b4579aa120a073ca7a9b8f7c80811301",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
