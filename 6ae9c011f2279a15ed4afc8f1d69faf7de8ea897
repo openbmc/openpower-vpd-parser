@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9cb2855_8d524edc",
+        "filename": "vpd-manager/include/error_codes.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-03T10:43:38Z",
+      "side": 1,
+      "message": "GPIO_LINE_EXCEPTION is already there.\n\nDEVICE_NOT_PRESENT - won\u0027t be ambiguous? When to set that error code, when it was concluded based on file missing or when it was concluded based on presence pin returning false?\n\nDEVICE_PRESENCE_UNKNOWN - This condition will be automatically deduced by the caller based on error code returned by the utility API? \nLets say that caller gets an error code other than \"PRESENCE_PIN_READ_FALSE\" at its end, this itself implies there was some other exception and hence presence is unknown?\nDo this make sense or you have some other thought here?",
+      "parentUuid": "7ac9c65e_ceff7065",
+      "revId": "6ae9c011f2279a15ed4afc8f1d69faf7de8ea897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5ae813c7_1bc11750",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 8
@@ -48,6 +66,24 @@
       "writtenOn": "2025-09-03T09:13:04Z",
       "side": 1,
       "message": "why here not l_errCode and l_ec",
+      "revId": "6ae9c011f2279a15ed4afc8f1d69faf7de8ea897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aa84588_59c8e2cf",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-03T10:43:38Z",
+      "side": 1,
+      "message": "We already have \"i_errorCode\" above so just to make a clear difference.",
+      "parentUuid": "0ab80abb_fd193d4c",
       "revId": "6ae9c011f2279a15ed4afc8f1d69faf7de8ea897",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
