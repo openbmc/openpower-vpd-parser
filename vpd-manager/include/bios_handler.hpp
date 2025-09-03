@@ -243,7 +243,6 @@ class BiosHandler
         try
         {
             m_specificBiosHandler = std::make_shared<T>(i_manager);
-            checkAndListenPldmService();
         }
         catch (std::exception& l_ex)
         {
@@ -261,7 +260,6 @@ class BiosHandler
         }
     }
 
-  private:
     /**
      * @brief API to check if PLDM service is running and run BIOS sync.
      *
@@ -272,6 +270,7 @@ class BiosHandler
      */
     void checkAndListenPldmService();
 
+  private:
     /**
      * @brief Register listener for BIOS attribute property change.
      *
