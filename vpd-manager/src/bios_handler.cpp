@@ -19,49 +19,59 @@ template class BiosHandler<IbmBiosHandler>;
 template <typename T>
 void BiosHandler<T>::checkAndListenPldmService()
 {
-    // Setup a call back match on NameOwnerChanged to determine when PLDM is up.
-    static std::shared_ptr<sdbusplus::bus::match_t> l_nameOwnerMatch =
-        std::make_shared<sdbusplus::bus::match_t>(
-            *m_asioConn,
-            sdbusplus::bus::match::rules::nameOwnerChanged(
-                constants::pldmServiceName),
-            [this](sdbusplus::message_t& l_msg) {
-                if (l_msg.is_method_error())
-                {
-                    logging::logMessage(
-                        "Error in reading PLDM name owner changed signal.");
-                    return;
-                }
-
-                std::string l_name;
-                std::string l_newOwner;
-                std::string l_oldOwner;
-
-                l_msg.read(l_name, l_oldOwner, l_newOwner);
-
-                if (!l_newOwner.empty() &&
-                    (l_name.compare(constants::pldmServiceName) ==
-                     constants::STR_CMP_SUCCESS))
-                {
-                    m_specificBiosHandler->backUpOrRestoreBiosAttributes();
-
-                    // Start listener now that we have done the restore.
-                    listenBiosAttributes();
-
-                    //  We don't need the match anymore
-                    l_nameOwnerMatch.reset();
-                }
-            });
-
-    // Based on PLDM service status reset owner match registered above and
-    // trigger BIOS attribute sync.
-    if (dbusUtility::isServiceRunning(constants::pldmServiceName))
+    try
     {
-        l_nameOwnerMatch.reset();
-        m_specificBiosHandler->backUpOrRestoreBiosAttributes();
+        // Setup a call back match on NameOwnerChanged to determine when PLDM is
+        // up.
+        static std::shared_ptr<sdbusplus::bus::match_t> l_nameOwnerMatch =
+            std::make_shared<sdbusplus::bus::match_t>(
+                *m_asioConn,
+                sdbusplus::bus::match::rules::nameOwnerChanged(
+                    constants::pldmServiceName),
+                [this](sdbusplus::message_t& l_msg) {
+                    if (l_msg.is_method_error())
+                    {
+                        logging::logMessage(
+                            "Error in reading PLDM name owner changed signal.");
+                        return;
+                    }
 
-        // Start listener now that we have done the restore.
-        listenBiosAttributes();
+                    std::string l_name;
+                    std::string l_newOwner;
+                    std::string l_oldOwner;
+
+                    l_msg.read(l_name, l_oldOwner, l_newOwner);
+
+                    if (!l_newOwner.empty() &&
+                        (l_name.compare(constants::pldmServiceName) ==
+                         constants::STR_CMP_SUCCESS))
+                    {
+                        m_specificBiosHandler->backUpOrRestoreBiosAttributes();
+
+                        // Start listener now that we have done the restore.
+                        listenBiosAttributes();
+
+                        //  We don't need the match anymore
+                        l_nameOwnerMatch.reset();
+                    }
+                });
+
+        // Based on PLDM service status reset owner match registered above and
+        // trigger BIOS attribute sync.
+        if (dbusUtility::isServiceRunning(constants::pldmServiceName))
+        {
+            l_nameOwnerMatch.reset();
+            m_specificBiosHandler->backUpOrRestoreBiosAttributes();
+
+            // Start listener now that we have done the restore.
+            listenBiosAttributes();
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to register callback for PLDM servce. Error: " +
+            std::string(l_ex.what()));
     }
 }
 
