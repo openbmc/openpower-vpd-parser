@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f496c2f9_e972e271",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-03T13:07:11Z",
+      "side": 1,
+      "message": "Agree, this can throw error if service name is not there?\nBetter check for contains, based on that set an error code \"SERVICE_NAME_MISSING\" kind of and send back empty string.",
+      "parentUuid": "99e0b59f_aa51ea0b",
+      "revId": "631c4b5b5aea5059d1c4302d4ad50e1dd0b2fc11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e9ca1290_f887a3eb",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 1
