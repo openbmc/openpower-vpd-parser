@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50c62cc2_74a6bea7",
+        "filename": "vpd-manager/include/error_codes.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-09-03T12:34:28Z",
+      "side": 1,
+      "message": "instead of PRESENCE_PIN_READ_FALSE make it DEVICE_NOT_PRESENT \nfor GPIO exception on presence lest have the code as DEVICE_PRESENCE_UNKNOWN\nand for other generic GPIO exceptions for not related to presence lets have GPIO_LINE_EXCEPTION. This will be more readable and understandable to follow code for future folks",
+      "parentUuid": "ab16ea17_90b099f4",
+      "revId": "6ae9c011f2279a15ed4afc8f1d69faf7de8ea897",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5ae813c7_1bc11750",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 8
