@@ -16,6 +16,24 @@
       "message": "If the `std::make_shared\u003c\u003e` at Line 245 in `bios_handler.hpp` throws exception, `m_specificBiosHandler` will be `nullptr`.  We should have a `nullptr` check here.\n\n`m_specificBiosHandler` is also being used inside `listenBiosAttributes()`, so should have a check there as well.",
       "revId": "a18173e1885d2d2767f01c30b8df20f90eed9a50",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4353cc9_7872b0fd",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-03T09:19:09Z",
+      "side": 1,
+      "message": "The error handling has been moved to manager main.cpp.\nHence we will not hit this path.",
+      "parentUuid": "d9236c0a_eb8d7f36",
+      "revId": "a18173e1885d2d2767f01c30b8df20f90eed9a50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
