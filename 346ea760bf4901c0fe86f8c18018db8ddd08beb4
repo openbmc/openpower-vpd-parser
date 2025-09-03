@@ -16,6 +16,24 @@
       "message": "We should add a `@throw` section here?",
       "revId": "346ea760bf4901c0fe86f8c18018db8ddd08beb4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39eebfdd_0e248ead",
+        "filename": "vpd-manager/include/bios_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-03T09:48:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cd7ab482_72b0f2a4",
+      "revId": "346ea760bf4901c0fe86f8c18018db8ddd08beb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
