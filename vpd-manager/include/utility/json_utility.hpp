@@ -717,28 +717,29 @@ inline bool isBackupAndRestoreRequired(const nlohmann::json& i_sysCfgJsonObj)
  * @param[in] i_action - Action to be checked.
  * @param[in] i_flowFlag - Denotes the flow w.r.t which the action should be
  * triggered.
+ * @param[out] o_errCode - To set error code in case of error.
  * @return - True if action is defined for the flow, false otherwise.
  */
-inline bool isActionRequired(
-    const nlohmann::json& i_sysCfgJsonObj, const std::string& i_vpdFruPath,
-    const std::string& i_action, const std::string& i_flowFlag)
+inline bool isActionRequired(const nlohmann::json& i_sysCfgJsonObj,
+                             const std::string& i_vpdFruPath,
+                             const std::string& i_action,
+                             const std::string& i_flowFlag, uint16_t& o_errCode)
 {
     if (i_vpdFruPath.empty() || i_action.empty() || i_flowFlag.empty())
     {
-        logging::logMessage("Invalid parameters recieved.");
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
 
     if (!i_sysCfgJsonObj.contains("frus"))
     {
-        logging::logMessage("Invalid JSON object recieved.");
+        o_errCode = error_code::INVALID_JSON;
         return false;
     }
 
     if (!i_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
     {
-        logging::logMessage(
-            "JSON object does not contain EEPROM path " + i_vpdFruPath);
+        o_errCode = error_code::FRU_PATH_NOT_FOUND;
         return false;
     }
 
@@ -750,9 +751,6 @@ inline bool isActionRequired(
             return true;
         }
 
-        logging::logMessage("Flow flag: [" + i_flowFlag +
-                            "], not found in JSON for path: " + i_vpdFruPath +
-                            " while checking for action: " + i_action);
         return false;
     }
     return false;
@@ -790,10 +788,24 @@ inline std::vector<std::string> getListOfGpioPollingFrus(
 
         for (const auto& l_fru : i_sysCfgJsonObj["frus"].items())
         {
+            uint16_t l_errCode = 0;
             const auto l_fruPath = l_fru.key();
 
-            if (isActionRequired(i_sysCfgJsonObj, l_fruPath, "pollingRequired",
-                                 "hotPlugging"))
+            bool l_isHotPluggableFru =
+                isActionRequired(i_sysCfgJsonObj, l_fruPath, "pollingRequired",
+                                 "hotPlugging", l_errCode);
+
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Error while checking if action required for FRU [" +
+                    std::string(l_fruPath) + "], error : " +
+                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+
+                return l_gpioPollingRequiredFrusList;
+            }
+
+            if (l_isHotPluggableFru)
             {
                 if (i_sysCfgJsonObj["frus"][l_fruPath]
                         .at(0)["pollingRequired"]["hotPlugging"]
