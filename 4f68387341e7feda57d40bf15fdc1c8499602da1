@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d1c2c8b_ddbfdf73",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-09-04T01:11:20Z",
+      "side": 1,
+      "message": "The error code handling for this API \"getRedundantEepromPathFromJson\" has been updated in this commit : https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/83284",
+      "parentUuid": "6a4ff4f3_e97073af",
+      "revId": "4f68387341e7feda57d40bf15fdc1c8499602da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7e50d2c_428c3f07",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-09-03T13:02:23Z",
       "side": 1,
       "message": "log a message directly extracting error string from error code. We can get rid of errcode checking.",
+      "revId": "4f68387341e7feda57d40bf15fdc1c8499602da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8f20a5b_f1cc4705",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-09-04T01:11:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7e50d2c_428c3f07",
       "revId": "4f68387341e7feda57d40bf15fdc1c8499602da1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
