@@ -35,28 +35,10 @@ int main(int, char**)
         auto vpdManager = std::make_shared<vpd::Manager>(
             io_con, interface, progressInf, connection);
 
-        try
-        {
-            // TODO: Take this under conditional compilation for IBM
-            auto biosHandler =
-                std::make_shared<vpd::BiosHandler<vpd::IbmBiosHandler>>(
-                    connection, vpdManager);
-            biosHandler->checkAndListenPldmService();
-        }
-        catch (const std::exception& l_ex)
-        {
-            // Cathcing exception here explicitly to let VPD-Manager service
-            // continue even when bios handler fails.
-            const std::string& l_errMsg =
-                "Instantiation of BIOS Handler failed. { " +
-                std::string(l_ex.what()) + std::string(" }");
-
-            vpd::EventLogger::createSyncPel(
-                vpd::types::ErrorType::FirmwareError,
-                vpd::types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
-                l_errMsg, std::nullopt, std::nullopt, std::nullopt,
-                std::nullopt);
-        }
+        // TODO: Take this under conditional compilation for IBM
+        [[maybe_unused]] auto biosHandler =
+            std::make_shared<vpd::BiosHandler<vpd::IbmBiosHandler>>(
+                connection, vpdManager);
 
         interface->initialize();
         progressInf->initialize();
