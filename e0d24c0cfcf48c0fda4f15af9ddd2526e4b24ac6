@@ -16,6 +16,24 @@
       "message": "l_srcServiceName \u0026 l_dstServiceName are only used if \nio_srcVpdMap and io_dstVpdMap are not passed.\nshould we have a check here or let it fail in case needed but not found service below ?",
       "revId": "e0d24c0cfcf48c0fda4f15af9ddd2526e4b24ac6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3031571a_4a68dbd0",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-09-05T08:16:01Z",
+      "side": 1,
+      "message": "The flow is same before also. If service name is empty we are returning from there.",
+      "parentUuid": "26742e48_07124018",
+      "revId": "e0d24c0cfcf48c0fda4f15af9ddd2526e4b24ac6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
