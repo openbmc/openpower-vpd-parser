@@ -107,6 +107,108 @@
       "message": "As the API suggests get list. Should we not log, if any FRU doesn\u0027t contain any flags.",
       "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9277b657_9dc62cf8",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-05T07:26:02Z",
+      "side": 1,
+      "message": "should we just return from here ?",
+      "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4986716d_4cee0e49",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-05T07:26:02Z",
+      "side": 1,
+      "message": "else if would be better here",
+      "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c7d8b55_9a887c25",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1372,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-05T07:26:02Z",
+      "side": 1,
+      "message": "else if would be better here ?",
+      "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d275143_d81e4c6d",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1401,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-05T07:26:02Z",
+      "side": 1,
+      "message": "else if would be better here ?",
+      "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41c6814f_9bad5cdd",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1786,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-05T07:26:02Z",
+      "side": 1,
+      "message": "else if would be better here ?",
+      "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30500221_e9baf589",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1839,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-05T07:26:02Z",
+      "side": 1,
+      "message": "else if would be better here ?",
+      "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
