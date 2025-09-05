@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26742e48_07124018",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-05T08:08:35Z",
+      "side": 1,
+      "message": "l_srcServiceName \u0026 l_dstServiceName are only used if \nio_srcVpdMap and io_dstVpdMap are not passed.\nshould we have a check here or let it fail in case needed but not found service below ?",
+      "revId": "e0d24c0cfcf48c0fda4f15af9ddd2526e4b24ac6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
