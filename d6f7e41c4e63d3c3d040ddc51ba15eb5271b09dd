@@ -26,6 +26,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1d4d7e2f_b723a73d",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-05T07:03:36Z",
+      "side": 1,
+      "message": "Nit: case",
+      "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f438201_3a181133",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-05T07:03:36Z",
+      "side": 1,
+      "message": "should we update MISSING_FLAG as error code here ?",
+      "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4ea3f8f_b7467368",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-05T07:03:36Z",
+      "side": 1,
+      "message": "should we mention MISSING_ACTION_TAG in error code",
+      "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f451d03d_3009e04a",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 1
@@ -37,6 +88,23 @@
       "writtenOn": "2025-09-05T06:56:46Z",
       "side": 1,
       "message": "These paths can be optimizes from LOC point of view?\nif(!isActionRequired)\n{\nif (l_errCode)\n{\n//do something\n}\nreturn list;\n}\n\nI don\u0027t see a point continuing if there is error code set?",
+      "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0367cc72_d922f04d",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-05T07:03:36Z",
+      "side": 1,
+      "message": "As the API suggests get list. Should we not log, if any FRU doesn\u0027t contain any flags.",
       "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
