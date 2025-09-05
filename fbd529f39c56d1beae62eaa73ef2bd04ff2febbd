@@ -88,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1731be8_5b50e107",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1413,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-09-05T08:21:48Z",
+      "side": 1,
+      "message": "The code flow is changed with recent code update. These changes are no longer required.",
+      "parentUuid": "84cd384e_0f38f68d",
+      "revId": "fbd529f39c56d1beae62eaa73ef2bd04ff2febbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8acf5fe0_1f39ce6d",
@@ -101,6 +119,24 @@
       "writtenOn": "2025-09-05T05:46:27Z",
       "side": 1,
       "message": "Can be optimized? No need to have multiple error code variables?\n\nPut the else part (1443) at top (after 1411) consume the error code there itself and re-use the variable?",
+      "revId": "fbd529f39c56d1beae62eaa73ef2bd04ff2febbd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e10be0f_f3beef5f",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-09-05T08:21:48Z",
+      "side": 1,
+      "message": "The code flow is changed with recent code update. These changes are no longer required.",
+      "parentUuid": "8acf5fe0_1f39ce6d",
       "revId": "fbd529f39c56d1beae62eaa73ef2bd04ff2febbd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
