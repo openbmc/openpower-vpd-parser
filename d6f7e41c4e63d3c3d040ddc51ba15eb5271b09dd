@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1e5989e_0ae08ddd",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-05T06:56:46Z",
+      "side": 1,
+      "message": "nit:case",
+      "range": {
+        "startLine": 720,
+        "startChar": 48,
+        "endLine": 720,
+        "endChar": 51
+      },
+      "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f451d03d_3009e04a",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-05T06:56:46Z",
+      "side": 1,
+      "message": "These paths can be optimizes from LOC point of view?\nif(!isActionRequired)\n{\nif (l_errCode)\n{\n//do something\n}\nreturn list;\n}\n\nI don\u0027t see a point continuing if there is error code set?",
+      "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
