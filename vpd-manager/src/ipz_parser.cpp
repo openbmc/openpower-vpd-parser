@@ -613,7 +613,8 @@ void IpzVpdParser::updateRecordECC(
 
     if (l_eccStatus != VPD_ECC_OK)
     {
-        throw(EccException("ECC update failed with error " + l_eccStatus));
+        throw(EccException(
+            "ECC update failed with error " + std::to_string(l_eccStatus)));
     }
 
     auto l_recordECCEnd = std::next(l_recordECCBegin, i_recordECCLength);
