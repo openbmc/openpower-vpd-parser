@@ -766,48 +766,42 @@ inline bool isActionRequired(
  * no FRUs that requires polling.
  *
  * @param[in] i_sysCfgJsonObj - System config JSON object.
+ * @param[out] o_errCode - To set error codes in case of error.
  *
  * @return On success list of FRUs parameters that needs polling. On failure,
  * empty list.
  */
 inline std::vector<std::string> getListOfGpioPollingFrus(
-    const nlohmann::json& i_sysCfgJsonObj) noexcept
+    const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode)
 {
     std::vector<std::string> l_gpioPollingRequiredFrusList;
 
-    try
+    if (i_sysCfgJsonObj.empty())
     {
-        if (i_sysCfgJsonObj.empty())
-        {
-            throw std::runtime_error("Invalid Parameters");
-        }
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return l_gpioPollingRequiredFrusList;
+    }
 
-        if (!i_sysCfgJsonObj.contains("frus"))
-        {
-            throw std::runtime_error(
-                "Missing frus section in system config JSON");
-        }
+    if (!i_sysCfgJsonObj.contains("frus"))
+    {
+        o_errCode = error_code::INVALID_JSON;
+        return l_gpioPollingRequiredFrusList;
+    }
 
-        for (const auto& l_fru : i_sysCfgJsonObj["frus"].items())
-        {
-            const auto l_fruPath = l_fru.key();
+    for (const auto& l_fru : i_sysCfgJsonObj["frus"].items())
+    {
+        const auto l_fruPath = l_fru.key();
 
-            if (isActionRequired(i_sysCfgJsonObj, l_fruPath, "pollingRequired",
-                                 "hotPlugging"))
+        if (isActionRequired(i_sysCfgJsonObj, l_fruPath, "pollingRequired",
+                             "hotPlugging"))
+        {
+            if (i_sysCfgJsonObj["frus"][l_fruPath]
+                    .at(0)["pollingRequired"]["hotPlugging"]
+                    .contains("gpioPresence"))
             {
-                if (i_sysCfgJsonObj["frus"][l_fruPath]
-                        .at(0)["pollingRequired"]["hotPlugging"]
-                        .contains("gpioPresence"))
-                {
-                    l_gpioPollingRequiredFrusList.push_back(l_fruPath);
-                }
+                l_gpioPollingRequiredFrusList.push_back(l_fruPath);
             }
         }
-    }
-    catch (const std::exception& l_ex)
-    {
-        logging::logMessage("Failed to get list of GPIO polling FRUs, error: " +
-                            std::string(l_ex.what()));
     }
 
     return l_gpioPollingRequiredFrusList;

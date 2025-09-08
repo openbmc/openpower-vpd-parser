@@ -137,8 +137,17 @@ void GpioMonitor::initHandlerForGpio(
     const std::shared_ptr<boost::asio::io_context>& i_ioContext,
     const std::shared_ptr<Worker>& i_worker)
 {
+    uint16_t l_errCode = 0;
     std::vector<std::string> l_gpioPollingRequiredFrusList =
-        jsonUtility::getListOfGpioPollingFrus(m_sysCfgJsonObj);
+        jsonUtility::getListOfGpioPollingFrus(m_sysCfgJsonObj, l_errCode);
+
+    if (l_errCode)
+    {
+        logging::logMessage(
+            "Failed to get list of frus required for gpio polling. Error : " +
+            vpdSpecificUtility::getErrCodeMsg(l_errCode));
+        return;
+    }
 
     for (const auto& l_fruPath : l_gpioPollingRequiredFrusList)
     {
