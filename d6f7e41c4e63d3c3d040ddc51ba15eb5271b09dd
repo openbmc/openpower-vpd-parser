@@ -41,6 +41,48 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4715afd_52029725",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-08T05:33:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1d4d7e2f_b723a73d",
+      "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74f7bfbe_b96b59aa",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-08T05:33:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b1e5989e_0ae08ddd",
+      "range": {
+        "startLine": 720,
+        "startChar": 48,
+        "endLine": 720,
+        "endChar": 51
+      },
+      "revId": "d6f7e41c4e63d3c3d040ddc51ba15eb5271b09dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f438201_3a181133",

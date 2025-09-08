@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c08ba8dc_ca186763",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-08T05:33:16Z",
+      "side": 1,
+      "message": "This is a dead code now?",
+      "revId": "0fe47024790036c6c610c4c58720e614fbbb4c92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "626fa92d_af474203",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1308,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-08T05:33:16Z",
+      "side": 1,
+      "message": "Now that you have the variable at the top, should we get rid of this?",
+      "revId": "0fe47024790036c6c610c4c58720e614fbbb4c92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e320e3f9_0cc790a0",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1350,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-08T05:33:16Z",
+      "side": 1,
+      "message": "Why was this change needed where you are moving the function call out of if? Are you planning to use the value \"isPostActionRequired\" somewhere?",
+      "revId": "0fe47024790036c6c610c4c58720e614fbbb4c92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cc8b033_9c0eff9e",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-08T05:33:16Z",
+      "side": 1,
+      "message": "Same here. Why this change?",
+      "revId": "0fe47024790036c6c610c4c58720e614fbbb4c92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fc14f9f_404f43a8",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1733,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-08T05:33:16Z",
+      "side": 1,
+      "message": "Why this change of taking it out of if condition?",
+      "revId": "0fe47024790036c6c610c4c58720e614fbbb4c92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
