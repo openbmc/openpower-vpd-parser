@@ -762,62 +762,55 @@ inline bool isActionRequired(const nlohmann::json& i_sysCfgJsonObj,
  * no FRUs that requires polling.
  *
  * @param[in] i_sysCfgJsonObj - System config JSON object.
+ * @param[out] o_errCode - To set error codes in case of error.
  *
  * @return On success list of FRUs parameters that needs polling. On failure,
  * empty list.
  */
 inline std::vector<std::string> getListOfGpioPollingFrus(
-    const nlohmann::json& i_sysCfgJsonObj) noexcept
+    const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode)
 {
     std::vector<std::string> l_gpioPollingRequiredFrusList;
 
-    try
+    if (i_sysCfgJsonObj.empty())
     {
-        if (i_sysCfgJsonObj.empty())
-        {
-            throw std::runtime_error("Invalid Parameters");
-        }
-
-        if (!i_sysCfgJsonObj.contains("frus"))
-        {
-            throw std::runtime_error(
-                "Missing frus section in system config JSON");
-        }
-
-        for (const auto& l_fru : i_sysCfgJsonObj["frus"].items())
-        {
-            uint16_t l_errCode = 0;
-            const auto l_fruPath = l_fru.key();
-
-            bool l_isHotPluggableFru =
-                isActionRequired(i_sysCfgJsonObj, l_fruPath, "pollingRequired",
-                                 "hotPlugging", l_errCode);
-
-            if (l_errCode)
-            {
-                logging::logMessage(
-                    "Error while checking if action required for FRU [" +
-                    std::string(l_fruPath) + "], error : " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
-
-                return l_gpioPollingRequiredFrusList;
-            }
-
-            if (l_isHotPluggableFru)
-            {
-                if (i_sysCfgJsonObj["frus"][l_fruPath]
-                        .at(0)["pollingRequired"]["hotPlugging"]
-                        .contains("gpioPresence"))
-                {
-                    l_gpioPollingRequiredFrusList.push_back(l_fruPath);
-                }
-            }
-        }
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return l_gpioPollingRequiredFrusList;
     }
-    catch (const std::exception& l_ex)
+
+    if (!i_sysCfgJsonObj.contains("frus"))
     {
-        logging::logMessage("Failed to get list of GPIO polling FRUs, error: " +
-                            std::string(l_ex.what()));
+        o_errCode = error_code::INVALID_JSON;
+        return l_gpioPollingRequiredFrusList;
+    }
+
+    for (const auto& l_fru : i_sysCfgJsonObj["frus"].items())
+    {
+        const auto l_fruPath = l_fru.key();
+
+        bool l_isHotPluggableFru =
+            isActionRequired(i_sysCfgJsonObj, l_fruPath, "pollingRequired",
+                             "hotPlugging", o_errCode);
+
+        if (o_errCode)
+        {
+            logging::logMessage(
+                "Error while checking if action required for FRU [" +
+                std::string(l_fruPath) +
+                "], error : " + vpdSpecificUtility::getErrCodeMsg(o_errCode));
+
+            return l_gpioPollingRequiredFrusList;
+        }
+
+        if (l_isHotPluggableFru)
+        {
+            if (i_sysCfgJsonObj["frus"][l_fruPath]
+                    .at(0)["pollingRequired"]["hotPlugging"]
+                    .contains("gpioPresence"))
+            {
+                l_gpioPollingRequiredFrusList.push_back(l_fruPath);
+            }
+        }
     }
 
     return l_gpioPollingRequiredFrusList;
