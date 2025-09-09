@@ -38,9 +38,10 @@ IbmHandler::IbmHandler(
 
     // Set up minimal things that is needed before bus name is claimed.
     performInitialSetup();
+    uint16_t l_errCode = 0;
 
     if (!m_sysCfgJsonObj.empty() &&
-        jsonUtility::isBackupAndRestoreRequired(m_sysCfgJsonObj))
+        jsonUtility::isBackupAndRestoreRequired(m_sysCfgJsonObj,l_errCode))
     {
         try
         {
@@ -57,6 +58,10 @@ IbmHandler::IbmHandler(
                 __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
                 std::nullopt, std::nullopt, std::nullopt, std::nullopt);
         }
+    }
+    else if (l_errCode)
+    {
+        logging::logMessage("Couldn't preform backup & restore. Error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
     }
 
     // Instantiate Listener object
