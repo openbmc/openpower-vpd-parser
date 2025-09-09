@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7f4c2d7_ba4acece",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-09T08:59:14Z",
+      "side": 1,
+      "message": "We need to pass error to the caller as well?\nAlso in case inventory path is empty without error code should we go for redundant path?\nSet error code also in case inventory path is empty without error code?",
+      "revId": "bb53d502bbd116034d0036ccfae9b36f0178b529",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83b44081_fc39cbd2",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-09T08:59:14Z",
+      "side": 1,
+      "message": "Do we need to log anything in case \"l_fruPath\" is empty without error code? Instead if \"l_fruPath\" is empty without error code then return an error code to the caller something like \n\"No Path found\"?",
+      "revId": "bb53d502bbd116034d0036ccfae9b36f0178b529",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
