@@ -683,26 +683,29 @@ inline std::string getFruPathFromJson(const nlohmann::json& i_sysCfgJsonObj,
  * exists and size of contents in the path.
  *
  * @param[in] i_sysCfgJsonObj - System config JSON object.
+ * @param[out] o_errCode - To set error code in case of error.
  *
  * @return true if backup and restore is required, false otherwise.
  */
-inline bool isBackupAndRestoreRequired(const nlohmann::json& i_sysCfgJsonObj)
+inline bool isBackupAndRestoreRequired(const nlohmann::json& i_sysCfgJsonObj,
+                                       uint16_t& o_errCode)
 {
-    try
+    if (i_sysCfgJsonObj.empty())
     {
-        const std::string& l_backupAndRestoreCfgFilePath =
-            i_sysCfgJsonObj.value("backupRestoreConfigPath", "");
-        if (!l_backupAndRestoreCfgFilePath.empty() &&
-            std::filesystem::exists(l_backupAndRestoreCfgFilePath) &&
-            !std::filesystem::is_empty(l_backupAndRestoreCfgFilePath))
-        {
-            return true;
-        }
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return false;
     }
-    catch (std::exception& ex)
+
+    const std::string& l_backupAndRestoreCfgFilePath =
+        i_sysCfgJsonObj.value("backupRestoreConfigPath", "");
+
+    if (!l_backupAndRestoreCfgFilePath.empty() &&
+        std::filesystem::exists(l_backupAndRestoreCfgFilePath) &&
+        !std::filesystem::is_empty(l_backupAndRestoreCfgFilePath))
     {
-        logging::logMessage(ex.what());
+        return true;
     }
+
     return false;
 }
 

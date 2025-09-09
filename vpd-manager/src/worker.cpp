@@ -423,11 +423,21 @@ void Worker::setDeviceTreeAndJson()
       // Json or it is rightly set.
 
         setJsonSymbolicLink(systemJson);
+        uint16_t l_errCode = 0;
 
-        if (isSystemVPDOnDBus() &&
-            jsonUtility::isBackupAndRestoreRequired(m_parsedJson))
+        if (isSystemVPDOnDBus())
         {
-            performBackupAndRestore(parsedVpdMap);
+            if (jsonUtility::isBackupAndRestoreRequired(m_parsedJson,
+                                                        l_errCode))
+            {
+                performBackupAndRestore(parsedVpdMap);
+            }
+            else if (l_errCode)
+            {
+                logging::logMessage(
+                    "Cannot perform backup and restore. Reason : " +
+                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            }
         }
 
         // proceed to publish system VPD.
