@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5eed995_033b0b54",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-09T06:13:33Z",
+      "side": 1,
+      "message": "We don\u0027t need a local variable as well.",
+      "revId": "c49481cac87831916c66840d6d53e8d7523a347a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
