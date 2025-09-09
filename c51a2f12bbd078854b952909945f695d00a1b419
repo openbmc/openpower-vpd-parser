@@ -16,6 +16,24 @@
       "message": "nit: The scope of this variable can be reduced.",
       "revId": "c51a2f12bbd078854b952909945f695d00a1b419",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc1c7d89_532bf20a",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-09-09T06:31:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edfeb55e_61e65f98",
+      "revId": "c51a2f12bbd078854b952909945f695d00a1b419",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
