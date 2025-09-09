@@ -301,12 +301,15 @@ void IbmHandler::ConfigurePowerVsSystem()
             return;
         }
 
+        uint16_t l_errCode = 0;
         const nlohmann::json& l_powerVsJsonObj =
-            jsonUtility::getPowerVsJson(l_imValue);
+            jsonUtility::getPowerVsJson(l_imValue, l_errCode);
 
         if (l_powerVsJsonObj.empty())
         {
-            throw std::runtime_error("PowerVS Json not found");
+            throw std::runtime_error(
+                "PowerVS Json not found. Error : " +
+                vpdSpecificUtility::getErrCodeMsg(l_errCode));
         }
 
         checkAndUpdatePowerVsVpd(l_powerVsJsonObj, l_failedPathList);
