@@ -16,6 +16,24 @@
       "message": "We don\u0027t need a local variable as well.",
       "revId": "c49481cac87831916c66840d6d53e8d7523a347a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfdb773f_163855c3",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-09-09T07:36:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5eed995_033b0b54",
+      "revId": "c49481cac87831916c66840d6d53e8d7523a347a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
