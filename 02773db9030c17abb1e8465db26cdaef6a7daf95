@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb2390b2_ba3f1113",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1539,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-09T08:33:08Z",
+      "side": 1,
+      "message": "Scope can be reduced.",
+      "revId": "02773db9030c17abb1e8465db26cdaef6a7daf95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
