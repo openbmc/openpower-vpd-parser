@@ -1117,55 +1117,54 @@ inline std::vector<std::string> getListOfFrusReplaceableAtStandby(
  * to handle empty value.
  *
  * @param[in] i_imValue - IM value of the system.
+ * @param[out] o_errCode - to set error code in case of error.
  * @return Parsed JSON object, empty JSON otherwise.
  */
-inline nlohmann::json getPowerVsJson(const types::BinaryVector& i_imValue)
+inline nlohmann::json getPowerVsJson(const types::BinaryVector& i_imValue,
+                                     uint16_t& o_errCode)
 {
-    try
+    if (i_imValue.empty() || i_imValue.size() < 4)
     {
-        uint16_t l_errCode = 0;
-        if ((i_imValue.at(0) == constants::HEX_VALUE_50) &&
-            (i_imValue.at(1) == constants::HEX_VALUE_00) &&
-            (i_imValue.at(2) == constants::HEX_VALUE_30))
-        {
-            nlohmann::json l_parsedJson = jsonUtility::getParsedJson(
-                constants::power_vs_50003_json, l_errCode);
-
-            if (l_errCode)
-            {
-                logging::logMessage(
-                    "Failed to parse JSON file [ " +
-                    std::string(constants::power_vs_50003_json) +
-                    " ], error : " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
-            }
-
-            return l_parsedJson;
-        }
-        else if (i_imValue.at(0) == constants::HEX_VALUE_50 &&
-                 (i_imValue.at(1) == constants::HEX_VALUE_00) &&
-                 (i_imValue.at(2) == constants::HEX_VALUE_10))
-        {
-            nlohmann::json l_parsedJson = jsonUtility::getParsedJson(
-                constants::power_vs_50001_json, l_errCode);
-
-            if (l_errCode)
-            {
-                logging::logMessage(
-                    "Failed to parse JSON file [ " +
-                    std::string(constants::power_vs_50001_json) +
-                    " ], error : " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
-            }
-
-            return l_parsedJson;
-        }
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return nlohmann::json{};
     }
-    catch (const std::exception& l_ex)
+
+    o_errCode = 0;
+    if ((i_imValue.at(0) == constants::HEX_VALUE_50) &&
+        (i_imValue.at(1) == constants::HEX_VALUE_00) &&
+        (i_imValue.at(2) == constants::HEX_VALUE_30))
     {
-        return nlohmann::json{};
+        nlohmann::json l_parsedJson = jsonUtility::getParsedJson(
+            constants::power_vs_50003_json, o_errCode);
+
+        if (o_errCode)
+        {
+            logging::logMessage(
+                "Failed to parse JSON file [ " +
+                std::string(constants::power_vs_50003_json) +
+                " ], error : " + vpdSpecificUtility::getErrCodeMsg(o_errCode));
+        }
+
+        return l_parsedJson;
     }
+    else if (i_imValue.at(0) == constants::HEX_VALUE_50 &&
+             (i_imValue.at(1) == constants::HEX_VALUE_00) &&
+             (i_imValue.at(2) == constants::HEX_VALUE_10))
+    {
+        nlohmann::json l_parsedJson = jsonUtility::getParsedJson(
+            constants::power_vs_50001_json, o_errCode);
+
+        if (o_errCode)
+        {
+            logging::logMessage(
+                "Failed to parse JSON file [ " +
+                std::string(constants::power_vs_50001_json) +
+                " ], error : " + vpdSpecificUtility::getErrCodeMsg(o_errCode));
+        }
+
+        return l_parsedJson;
+    }
+    return nlohmann::json{};
 }
 
 /**
