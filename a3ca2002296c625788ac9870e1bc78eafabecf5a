@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8241ae3_0c4365e9",
+        "filename": "vpd-manager/include/error_codes.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-10T05:59:24Z",
+      "side": 1,
+      "message": "Agree, looks ambiguous, instead we can use \"FRU_PATH_NOT_FOUND\" for inventory paths, \"NO_EEPROM\" instead of \"NO_PATH_FOUND\" and can have error codes for redundant paths, Like\n\"REDUNTANT_PATH_NOT_FOUND\" - representing a good case where the FRI has no redundant path and \n\"ERROR_GETTING_REDUNDANT_PATH\" - representing error scenario in getting redundant path.",
+      "parentUuid": "474f74d4_66242e84",
+      "revId": "a3ca2002296c625788ac9870e1bc78eafabecf5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5288f499_bf9e007a",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 3
