@@ -1,5 +1,8 @@
 #pragma once
 
+#include "spdlog/sinks/rotating_file_sink.h"
+#include "spdlog/spdlog.h"
+
 #include "types.hpp"
 
 #include <iostream>
@@ -40,13 +43,12 @@ class LogFileHandler
      * placeholder passed to the API.
      *
      * @param[in] i_placeHolder - Information about the endpoint.
+     * @param[in] i_msg - Message to log.
      */
-    void writeLogToFile([[maybe_unused]] const PlaceHolder& i_placeHolder)
-    {
-        // Handle the file operations.
-    }
+    void writeLogToFile(const PlaceHolder& i_placeHolder,
+                        const std::string& i_msg) noexcept;
 
-    // Frined class Logger.
+    // Friend class Logger.
     friend class Logger;
 
   private:
@@ -54,9 +56,21 @@ class LogFileHandler
      * @brief Constructor
      * Private so that can't be initialized by class(es) other than friends.
      */
-    LogFileHandler() {}
+    LogFileHandler()
+    {
+        // Create a file rotating logger with 5mb size max and 3 rotated files.
+        m_collectionLogger = spdlog::rotating_logger_mt(
+            "collectionLogger", "/var/lib/vpd/collection.log", 1024 * 1024 * 5,
+            3);
 
-    /* Define APIs to handle file operation as per the placeholder. */
+        m_collectionLogger->set_pattern("[%Y-%m-%d %H:%M:%S.%e] %v");
+
+        // Flush all registered loggers every 3 seconds
+        spdlog::flush_every(std::chrono::seconds(3));
+    }
+
+    // logger object to handle collection logs
+    std::shared_ptr<spdlog::logger> m_collectionLogger;
 };
 
 /**
