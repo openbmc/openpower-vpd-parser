@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "474f74d4_66242e84",
+        "filename": "vpd-manager/include/error_codes.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-09-10T03:50:52Z",
+      "side": 1,
+      "message": "what\u0027s the difference between the two as both are for JSON path missing",
+      "revId": "a3ca2002296c625788ac9870e1bc78eafabecf5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5288f499_bf9e007a",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-09-10T03:50:52Z",
+      "side": 1,
+      "message": "why return errCode not checked ?",
+      "revId": "a3ca2002296c625788ac9870e1bc78eafabecf5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
