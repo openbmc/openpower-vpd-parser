@@ -16,6 +16,7 @@ common_SOURCES = [
     'src/gpio_monitor.cpp',
     'src/event_logger.cpp',
     'src/listener.cpp',
+    'src/file_logger.cpp',
 ]
 
 vpd_manager_SOURCES = [

@@ -50,7 +50,7 @@ void LogFileHandler::writeLogToFile(const PlaceHolder& i_placeHolder,
             {
                 if (m_collectionLogger)
                 {
-                    m_collectionLogger->info(i_msg);
+                    m_collectionLogger->logMessage(i_msg);
                 }
                 else
                 {
