@@ -18,7 +18,11 @@ void Logger::logMessage(std::string_view i_message,
     if (i_placeHolder == PlaceHolder::COLLECTION)
     {
         // Log it to a specific place.
-        m_logFileHandler->writeLogToFile(i_placeHolder);
+        m_logFileHandler->writeLogToFile(i_placeHolder, l_log.str());
+    }
+    else if (i_placeHolder == PlaceHolder::VPD_WRITE)
+    {
+        m_logFileHandler->writeLogToFile(i_placeHolder, l_log.str());
     }
     else if (i_placeHolder == PlaceHolder::PEL)
     {
@@ -36,6 +40,74 @@ void Logger::logMessage(std::string_view i_message,
     {
         // Default case, let it go to journal.
         std::cout << l_log.str() << std::endl;
+    }
+}
+
+void LogFileHandler::writeLogToFile(const PlaceHolder& i_placeHolder,
+                                    const std::string& i_msg) noexcept
+{
+    try
+    {
+        switch (i_placeHolder)
+        {
+            case PlaceHolder::COLLECTION:
+            {
+                if (m_collectionLogger)
+                {
+                    m_collectionLogger->logMessage(i_msg);
+                }
+                else
+                {
+                    auto l_logger = Logger::getLoggerInstance();
+                    l_logger->logMessage(i_msg);
+                }
+                break;
+            }
+            case PlaceHolder::VPD_WRITE:
+            {
+                if (m_vpdWriteLogger)
+                {
+                    m_vpdWriteLogger->logMessage(i_msg);
+                }
+                else
+                {
+                    auto l_logger = Logger::getLoggerInstance();
+                    l_logger->logMessage(i_msg);
+                }
+            }
+            default:
+                break;
+        };
+    }
+    catch (const std::exception& l_ex)
+    {
+        auto l_logger = Logger::getLoggerInstance();
+        l_logger->logMessage("Failed to write log [" + i_msg +
+                             "] to file. Error: " + std::string(l_ex.what()));
+    }
+}
+
+const std::unordered_map<LogLevel, std::string>
+    FileLogger::m_logLevelToStringMap{{LogLevel::DEBUG, "Debug"},
+                                      {LogLevel::INFO, "Info"},
+                                      {LogLevel::WARNING, "Warning"},
+                                      {LogLevel::ERROR, "Error"}};
+
+void FileLogger::logMessage([[maybe_unused]] const std::string& i_message,
+                            [[maybe_unused]] const LogLevel i_logLevel)
+{
+    try
+    {
+        /*TODO:
+            - add timestamp to message
+            - acquire mutex
+            - write message to file
+            - release mutex
+        */
+    }
+    catch (const std::exception& l_ex)
+    {
+        throw;
     }
 }
 

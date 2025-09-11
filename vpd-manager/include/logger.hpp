@@ -2,6 +2,7 @@
 
 #include "types.hpp"
 
+#include <fstream>
 #include <iostream>
 #include <memory>
 #include <source_location>
@@ -18,9 +19,90 @@ namespace vpd
  */
 enum class PlaceHolder
 {
-    DEFAULT,   /* logs to the journal */
-    PEL,       /* Creates a PEL */
-    COLLECTION /* Logs collection messages */
+    DEFAULT,    /* logs to the journal */
+    PEL,        /* Creates a PEL */
+    COLLECTION, /* Logs collection messages */
+    VPD_WRITE   /* Logs VPD write details */
+};
+
+// enum for log levels
+enum class LogLevel : uint8_t
+{
+    DEBUG = 1,
+    INFO,
+    WARNING,
+    ERROR
+};
+
+/**
+ * @brief A class to handle logging messages to file
+ *
+ * This class handles logging messages to a specific file
+ */
+class FileLogger
+{
+  protected:
+    // file name
+    std::string m_fileName{};
+
+    // file stream object to do file operations
+    std::fstream m_fileStream;
+
+    // max number of log entries in file
+    size_t m_maxEntries{256};
+
+    // current number of log entries in file
+    size_t m_currentNumEntries{0};
+
+    // map to convert log level to string
+    static const std::unordered_map<LogLevel, std::string>
+        m_logLevelToStringMap;
+
+    /**
+     * @brief Parameterized constructor to initialize a file logger object
+     *
+     * This API initializes a file logger object to handle logging to file. The
+     * constructor is kept as private so that only friend class objects can
+     * initialize this.
+     *
+     * @param[in] i_fileName - Name of the log file
+     * @param[in] i_maxEntries - Maximum number of entries in the log file after
+     * which the file will be rotated
+     */
+    FileLogger(const std::string& i_fileName,
+               const size_t i_maxEntries) noexcept :
+        m_fileName{i_fileName}, m_maxEntries{i_maxEntries}
+    {
+        // TODO: open the file in append mode
+    }
+
+    /**
+     * @brief API to log a message to file
+     *
+     * @param[in] i_message - Message to log
+     * @param[in] i_logLevel - Log level of the message
+     *
+     * @throw std::runtime_error
+     */
+    virtual void logMessage(
+        [[maybe_unused]] const std::string& i_message,
+        [[maybe_unused]] const LogLevel i_logLevel = LogLevel::INFO);
+
+  public:
+    // deleted methods
+    FileLogger() = delete;
+    FileLogger(const FileLogger&) = delete;
+    FileLogger(const FileLogger&&) = delete;
+    FileLogger operator=(const FileLogger&) = delete;
+    FileLogger operator=(const FileLogger&&) = delete;
+
+    // friend class LogFileHandler which can initialize objects of this class
+    friend class LogFileHandler;
+
+    virtual ~FileLogger()
+    {
+        // TODO: close the file stream
+    }
 };
 
 /**
@@ -40,11 +122,10 @@ class LogFileHandler
      * placeholder passed to the API.
      *
      * @param[in] i_placeHolder - Information about the endpoint.
+     * @param[in] i_message - Message to log.
      */
-    void writeLogToFile([[maybe_unused]] const PlaceHolder& i_placeHolder)
-    {
-        // Handle the file operations.
-    }
+    void writeLogToFile([[maybe_unused]] const PlaceHolder& i_placeHolder,
+                        const std::string& i_message) noexcept;
 
     // Frined class Logger.
     friend class Logger;
@@ -54,9 +135,22 @@ class LogFileHandler
      * @brief Constructor
      * Private so that can't be initialized by class(es) other than friends.
      */
-    LogFileHandler() {}
+    LogFileHandler()
+    {
+        // Create a file logger for logging VPD collection flow traces
+        m_collectionLogger = std::shared_ptr<FileLogger>(
+            new FileLogger("/var/lib/vpd/collection.log", 512));
 
-    /* Define APIs to handle file operation as per the placeholder. */
+        // Create a file logger for logging VPD write traces
+        m_vpdWriteLogger = std::shared_ptr<FileLogger>(
+            new FileLogger("/var/lib/vpd/vpdWrite.log", 128));
+    }
+
+    // logger object to handle collection logs
+    std::shared_ptr<FileLogger> m_collectionLogger;
+
+    // logger object to handle VPD write logs
+    std::shared_ptr<FileLogger> m_vpdWriteLogger;
 };
 
 /**
