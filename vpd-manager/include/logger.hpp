@@ -1,5 +1,6 @@
 #pragma once
 
+#include "file_logger.hpp"
 #include "types.hpp"
 
 #include <iostream>
@@ -40,11 +41,10 @@ class LogFileHandler
      * placeholder passed to the API.
      *
      * @param[in] i_placeHolder - Information about the endpoint.
+     * @param[in] i_message - Message to log.
      */
-    void writeLogToFile([[maybe_unused]] const PlaceHolder& i_placeHolder)
-    {
-        // Handle the file operations.
-    }
+    void writeLogToFile([[maybe_unused]] const PlaceHolder& i_placeHolder,
+                        const std::string& i_message) noexcept;
 
     // Frined class Logger.
     friend class Logger;
@@ -54,9 +54,15 @@ class LogFileHandler
      * @brief Constructor
      * Private so that can't be initialized by class(es) other than friends.
      */
-    LogFileHandler() {}
+    LogFileHandler()
+    {
+        // Create a file rotating logger with 5mb size max and 3 rotated files.
+        m_collectionLogger =
+            std::make_shared<FileLogger>("/var/lib/vpd/collection.log", 512);
+    }
 
-    /* Define APIs to handle file operation as per the placeholder. */
+    // logger object to handle collection logs
+    std::shared_ptr<FileLogger> m_collectionLogger;
 };
 
 /**
