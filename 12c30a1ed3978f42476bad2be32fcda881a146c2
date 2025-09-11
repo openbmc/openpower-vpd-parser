@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b328d97_168c19b2",
+        "filename": "vpd-manager/include/error_codes.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-11T08:52:57Z",
+      "side": 1,
+      "message": "Lets keep it generic so that it can be used outside json utility",
+      "revId": "12c30a1ed3978f42476bad2be32fcda881a146c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d76b11a3_745ce38c",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-11T08:52:57Z",
+      "side": 1,
+      "message": "Set error code here?",
+      "revId": "12c30a1ed3978f42476bad2be32fcda881a146c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
