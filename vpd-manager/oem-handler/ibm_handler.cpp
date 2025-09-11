@@ -512,6 +512,7 @@ void IbmHandler::collectAllFruVpd()
     // Setting status to "InProgress", before trigeering VPD collection.
     m_progressInterface->set_property(
         "Status", std::string(constants::vpdCollectionInProgress));
+
     m_worker->collectFrusFromJson();
     SetTimerToDetectVpdCollectionStatus();
 }
