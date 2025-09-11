@@ -2,8 +2,12 @@
 
 #include "types.hpp"
 
+#include <filesystem>
+#include <fstream>
 #include <iostream>
 #include <memory>
+#include <mutex>
+#include <queue>
 #include <source_location>
 #include <string_view>
 
@@ -18,9 +22,19 @@ namespace vpd
  */
 enum class PlaceHolder
 {
-    DEFAULT,   /* logs to the journal */
-    PEL,       /* Creates a PEL */
-    COLLECTION /* Logs collection messages */
+    DEFAULT,    /* logs to the journal */
+    PEL,        /* Creates a PEL */
+    COLLECTION, /* Logs collection messages */
+    VPD_WRITE   /* Logs VPD write details */
+};
+
+// enum for log levels
+enum class LogLevel : uint8_t
+{
+    DEBUG = 1,
+    INFO,
+    WARNING,
+    ERROR
 };
 
 /**
@@ -30,33 +44,228 @@ enum class PlaceHolder
  */
 class LogFileHandler
 {
-    // should hold fd's for files required as per placeholder.
-  public:
+  protected:
+    // file name
+    std::filesystem::path m_fileName{};
+
+    // file stream object to do file operations
+    std::fstream m_fileStream;
+
+    // mutex to make file logging multi-thread safe
+    std::mutex m_mutex;
+
+    // max number of log entries in file
+    size_t m_maxEntries{256};
+
+    // current number of log entries in file
+    size_t m_currentNumEntries{0};
+
+    // map to convert log level to string
+    static const std::unordered_map<LogLevel, std::string>
+        m_logLevelToStringMap;
+
     /**
-     * @brief API exposed to write a log message to a file.
+     * @brief API to rotate file
      *
-     * The API can be called by logger class in case log message needs to be
-     * redirected to a file. The endpoint can be decided based on the
-     * placeholder passed to the API.
+     * This API rotates the logs within a file by deleting specified number of
+     * oldest entries.
      *
-     * @param[in] i_placeHolder - Information about the endpoint.
+     * @param[in] i_numEntriesToDelete - Number of entries to delete
+     *
+     * @throw std::runtime_error
      */
-    void writeLogToFile([[maybe_unused]] const PlaceHolder& i_placeHolder)
-    {
-        // Handle the file operations.
-    }
+    virtual void rotateFile(
+        [[maybe_unused]] const unsigned i_numEntriesToDelete = 5);
 
-    // Frined class Logger.
-    friend class Logger;
-
-  private:
     /**
      * @brief Constructor
      * Private so that can't be initialized by class(es) other than friends.
+     *
+     * @param[in] i_fileName - Name of the log file
+     * @param[in] i_maxEntries - Maximum number of entries in the log file after
+     * which the file will be rotated
      */
-    LogFileHandler() {}
+    LogFileHandler(const std::filesystem::path& i_fileName,
+                   const size_t i_maxEntries) :
+        m_fileName{i_fileName}, m_maxEntries{i_maxEntries}
+    {
+        // TODO: open the file in append mode
+    }
 
-    /* Define APIs to handle file operation as per the placeholder. */
+    /**
+     * @brief API to generate timestamp in string format
+     *
+     * @return Returns timestamp in string format on success, otherwise returns
+     * empty string in case of any error
+     */
+    static std::string timestamp() noexcept
+    {
+        try
+        {
+            const auto l_now = std::chrono::system_clock::now();
+            const auto l_in_time_t =
+                std::chrono::system_clock::to_time_t(l_now);
+            const auto l_ms =
+                std::chrono::duration_cast<std::chrono::milliseconds>(
+                    l_now.time_since_epoch()) %
+                1000;
+
+            std::stringstream l_ss;
+            l_ss << std::put_time(std::localtime(&l_in_time_t),
+                                  "%Y-%m-%d %H:%M:%S")
+                 << "." << std::setfill('0') << std::setw(3) << l_ms.count();
+            return l_ss.str();
+        }
+        catch (const std::exception& l_ex)
+        {
+            return std::string{};
+        }
+    }
+
+  public:
+    // deleted methods
+    LogFileHandler() = delete;
+    LogFileHandler(const LogFileHandler&) = delete;
+    LogFileHandler(const LogFileHandler&&) = delete;
+    LogFileHandler operator=(const LogFileHandler&) = delete;
+    LogFileHandler operator=(const LogFileHandler&&) = delete;
+
+    /**
+     * @brief API to log a message to file
+     *
+     * @param[in] i_message - Message to log
+     * @param[in] i_logLevel - Log level of the message
+     *
+     * @throw std::runtime_error
+     */
+    virtual void logMessage(
+        [[maybe_unused]] const std::string_view& i_message,
+        [[maybe_unused]] const LogLevel i_logLevel = LogLevel::INFO) = 0;
+
+    // destructor
+    virtual ~LogFileHandler()
+    {
+        // TODO: close the filestream
+    }
+};
+
+/**
+ * @brief A class to handle logging messages to file synchronously
+ *
+ * This class handles logging messages to a specific file in a synchronous
+ * multi-thread safe manner.
+ */
+class FileLogger final : public LogFileHandler
+{
+    /**
+     * @brief Constructor
+     * Private so that can't be initialized by class(es) other than friends.
+     *
+     * @param[in] i_fileName - Name of the log file
+     * @param[in] i_maxEntries - Maximum number of entries in the log file after
+     * which the file will be rotated
+     */
+    FileLogger(const std::filesystem::path& i_fileName,
+               const size_t i_maxEntries) :
+        LogFileHandler(i_fileName, i_maxEntries)
+    {}
+
+  public:
+    // Friend class Logger.
+    friend class Logger;
+
+    // deleted methods
+    FileLogger() = delete;
+    FileLogger(const FileLogger&) = delete;
+    FileLogger(const FileLogger&&) = delete;
+    FileLogger operator=(const FileLogger&) = delete;
+    FileLogger operator=(const FileLogger&&) = delete;
+
+    /**
+     * @brief API to log a message to file
+     *
+     * @param[in] i_message - Message to log
+     * @param[in] i_logLevel - Log level of the message
+     *
+     * @throw std::runtime_error
+     */
+    void logMessage(
+        [[maybe_unused]] const std::string_view& i_message,
+        [[maybe_unused]] const LogLevel i_logLevel = LogLevel::INFO) override;
+
+    // destructor
+    ~FileLogger()
+    {
+        // TODO: close the filestream
+    }
+};
+/**
+ * @brief A class to handle asynchronous logging of messages to file
+ *
+ * This class implements methods to log messages asynchronously to a desired
+ * file in the filesystem. It uses a queue for buffering the messages from
+ * caller. The actual file operations are handled by a worker thread.
+ */
+class AsyncFileLogger final : public LogFileHandler
+{
+    // queue for log messages
+    std::queue<std::string> m_messageQueue;
+
+    // interval in seconds at which the queue is flushed into log file
+    unsigned m_flushTimeInSecs{1};
+
+    // flag which controls if the logger worker thread should be running
+    std::atomic_bool m_shouldWorkerThreadRun{true};
+
+    /**
+     * @brief Constructor
+     * Private so that can't be initialized by class(es) other than friends.
+     *
+     * @param[in] i_fileName - Name of the log file
+     * @param[in] i_maxEntries - Maximum number of entries in the log file after
+     * which the file will be rotated
+     */
+    AsyncFileLogger(const std::filesystem::path& i_fileName,
+                    const size_t i_maxEntries) :
+        LogFileHandler(i_fileName, i_maxEntries)
+    {}
+
+    /**
+     * @brief Logger worker thread body
+     */
+    void fileWorker() noexcept;
+
+  public:
+    // Friend class Logger.
+    friend class Logger;
+
+    // deleted methods
+    AsyncFileLogger() = delete;
+    AsyncFileLogger(const AsyncFileLogger&) = delete;
+    AsyncFileLogger(const AsyncFileLogger&&) = delete;
+    AsyncFileLogger operator=(const AsyncFileLogger&) = delete;
+    AsyncFileLogger operator=(const AsyncFileLogger&&) = delete;
+
+    /**
+     * @brief API to log a message to file
+     *
+     * @param[in] i_message - Message to log
+     * @param[in] i_logLevel - Log level of the message
+     *
+     * @throw std::runtime_error
+     */
+    void logMessage(
+        [[maybe_unused]] const std::string_view& i_message,
+        [[maybe_unused]] const LogLevel i_logLevel = LogLevel::INFO) override;
+
+    // destructor
+    ~AsyncFileLogger()
+    {
+        /*TODO:
+            - stop the worker thread
+            - close the filestream
+        */
+    }
 };
 
 /**
@@ -99,21 +308,44 @@ class Logger
                     const std::source_location& i_location =
                         std::source_location::current());
 
+    /**
+     * @brief API to initiate VPD collection logging
+     *
+     * This API initiates VPD collection logging. It checks for existing
+     * collection log files and if 3 such files are found, it deletes the oldest
+     * file and initiates a VPD collection logger object
+     */
+    void initiateVpdCollectionLogging() noexcept;
+
+    /**
+     * @brief API to terminate VPD collection logging
+     *
+     * This API terminates the VPD collection logging by destroying the
+     * associated VPD collection logger object
+     */
+    void terminateVpdCollectionLogging()
+    {
+        m_collectionLogger.reset();
+    }
+
   private:
     /**
      * @brief Constructor
      */
-    Logger() : m_logFileHandler(nullptr)
+    Logger() : m_vpdWriteLogger(nullptr), m_collectionLogger(nullptr)
     {
-        m_logFileHandler =
-            std::shared_ptr<LogFileHandler>(new LogFileHandler());
+        m_vpdWriteLogger = std::unique_ptr<LogFileHandler>(
+            new FileLogger("/var/lib/vpd/vpdWrite.log", 128));
     }
 
     // Instance to the logger class.
     static std::shared_ptr<Logger> m_loggerInstance;
 
-    // Instance to LogFileHandler class.
-    std::shared_ptr<LogFileHandler> m_logFileHandler;
+    // logger object to handle VPD write logs
+    std::unique_ptr<LogFileHandler> m_vpdWriteLogger;
+
+    // logger object to handle VPD collection logs
+    std::unique_ptr<LogFileHandler> m_collectionLogger;
 };
 
 /**
