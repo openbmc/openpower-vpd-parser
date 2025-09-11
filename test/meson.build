@@ -51,6 +51,7 @@ test_sources = [
     '../vpd-manager/src/keyword_vpd_parser.cpp',
     '../vpd-manager/src/event_logger.cpp',
     '../vpdecc/vpdecc.c',
+    '../vpd-manager/src/file_logger.cpp',
 ]
 
 tests = [
