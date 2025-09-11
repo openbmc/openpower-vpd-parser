@@ -2,8 +2,11 @@
 
 #include "types.hpp"
 
+#include <filesystem>
+#include <fstream>
 #include <iostream>
 #include <memory>
+#include <mutex>
 #include <source_location>
 #include <string_view>
 
@@ -24,6 +27,16 @@ enum class PlaceHolder
     VPD_WRITE   /* Logs VPD write details */
 };
 
+// enum for log levels
+enum class LogLevel : uint8_t
+{
+    DEBUG = 1,
+    INFO,
+    WARNING,
+    ERROR,
+    DEFAULT = INFO
+};
+
 /**
  * @brief Class to handle file operations w.r.t logging.
  * Based on the placeholder the class will handle different file operations to
@@ -31,33 +44,91 @@ enum class PlaceHolder
  */
 class LogFileHandler
 {
-    // should hold fd's for files required as per placeholder.
-  public:
+  protected:
+    // absolute file path of log file
+    std::filesystem::path m_filePath{};
+
+    // file stream object to do file operations
+    std::fstream m_fileStream;
+
+    // mutex to make file logging multi-thread safe
+    std::mutex m_mutex;
+
+    // max number of log entries in file
+    size_t m_maxEntries{256};
+
+    // current number of log entries in file
+    size_t m_currentNumEntries{0};
+
+    // map to convert log level to string
+    static const std::unordered_map<LogLevel, std::string>
+        m_logLevelToStringMap;
+
     /**
-     * @brief API exposed to write a log message to a file.
+     * @brief API to rotate file.
      *
-     * The API can be called by logger class in case log message needs to be
-     * redirected to a file. The endpoint can be decided based on the
-     * placeholder passed to the API.
+     * This API rotates the logs within a file by deleting specified number of
+     * oldest entries.
      *
-     * @param[in] i_placeHolder - Information about the endpoint.
+     * @param[in] i_numEntriesToDelete - Number of entries to delete.
+     *
+     * @throw std::runtime_error
      */
-    void writeLogToFile([[maybe_unused]] const PlaceHolder& i_placeHolder)
+    virtual void rotateFile(
+        [[maybe_unused]] const unsigned i_numEntriesToDelete = 5);
+
+    /**
+     * @brief Constructor.
+     * Private so that can't be initialized by class(es) other than friends.
+     *
+     * @param[in] i_filePath - Absolute path of the log file.
+     * @param[in] i_maxEntries - Maximum number of entries in the log file after
+     * which the file will be rotated.
+     */
+    LogFileHandler(const std::filesystem::path& i_filePath,
+                   const size_t i_maxEntries) :
+        m_filePath{i_filePath}, m_maxEntries{i_maxEntries}
     {
-        // Handle the file operations.
+        // TODO: open the file in append mode
     }
 
-    // Frined class Logger.
-    friend class Logger;
-
-  private:
     /**
-     * @brief Constructor
-     * Private so that can't be initialized by class(es) other than friends.
+     * @brief API to generate timestamp in string format.
+     *
+     * @return Returns timestamp in string format on success, otherwise returns
+     * empty string in case of any error.
      */
-    LogFileHandler() {}
+    static std::string timestamp() noexcept
+    {
+        // TODO: generate timestamp.
+        return std::string{};
+    }
 
-    /* Define APIs to handle file operation as per the placeholder. */
+  public:
+    // deleted methods
+    LogFileHandler() = delete;
+    LogFileHandler(const LogFileHandler&) = delete;
+    LogFileHandler(const LogFileHandler&&) = delete;
+    LogFileHandler operator=(const LogFileHandler&) = delete;
+    LogFileHandler operator=(const LogFileHandler&&) = delete;
+
+    /**
+     * @brief API to log a message to file.
+     *
+     * @param[in] i_message - Message to log.
+     * @param[in] i_logLevel - Log level of the message.
+     *
+     * @throw std::runtime_error
+     */
+    virtual void logMessage(
+        [[maybe_unused]] const std::string_view& i_message,
+        [[maybe_unused]] const LogLevel i_logLevel = LogLevel::DEFAULT) = 0;
+
+    // destructor
+    virtual ~LogFileHandler()
+    {
+        // TODO: close the filestream
+    }
 };
 
 /**
@@ -92,12 +163,14 @@ class Logger
      * @param[in] i_message - Message to be logged.
      * @param[in] i_placeHolder - States where the message needs to be logged.
      * Default is journal.
+     * @param[in] i_logLevel - Level of the log message.
      * @param[in] i_pelTuple - A structure only required in case message needs
      * to be logged as PEL.
      * @param[in] i_location - Locatuon from where message needs to be logged.
      */
     void logMessage(std::string_view i_message,
                     const PlaceHolder& i_placeHolder = PlaceHolder::DEFAULT,
+                    const LogLevel i_logLevel = LogLevel::DEFAULT,
                     const types::PelInfoTuple* i_pelTuple = nullptr,
                     const std::source_location& i_location =
                         std::source_location::current());
