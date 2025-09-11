@@ -2,8 +2,11 @@
 
 #include "types.hpp"
 
+#include <filesystem>
+#include <fstream>
 #include <iostream>
 #include <memory>
+#include <mutex>
 #include <source_location>
 #include <string_view>
 
@@ -31,33 +34,76 @@ enum class PlaceHolder
  */
 class ILogFileHandler
 {
-    // should hold fd's for files required as per placeholder.
-  public:
+  protected:
+    // absolute file path of log file
+    std::filesystem::path m_filePath{};
+
+    // max number of log entries in file
+    size_t m_maxEntries{256};
+
     /**
-     * @brief API exposed to write a log message to a file.
+     * @brief API to rotate file.
      *
-     * The API can be called by logger class in case log message needs to be
-     * redirected to a file. The endpoint can be decided based on the
-     * placeholder passed to the API.
+     * This API rotates the logs within a file by deleting specified number of
+     * oldest entries.
      *
-     * @param[in] i_placeHolder - Information about the endpoint.
+     * @param[in] i_numEntriesToDelete - Number of entries to delete.
+     *
+     * @throw std::runtime_error
      */
-    void writeLogToFile([[maybe_unused]] const PlaceHolder& i_placeHolder)
+    virtual void rotateFile(
+        [[maybe_unused]] const unsigned i_numEntriesToDelete = 5);
+
+    /**
+     * @brief Constructor.
+     * Private so that can't be initialized by class(es) other than friends.
+     *
+     * @param[in] i_filePath - Absolute path of the log file.
+     * @param[in] i_maxEntries - Maximum number of entries in the log file after
+     * which the file will be rotated.
+     */
+    ILogFileHandler(const std::filesystem::path& i_filePath,
+                    const size_t i_maxEntries) :
+        m_filePath{i_filePath}, m_maxEntries{i_maxEntries}
     {
-        // Handle the file operations.
+        // TODO: open the file in append mode
     }
 
-    // Frined class Logger.
-    friend class Logger;
-
-  private:
     /**
-     * @brief Constructor
-     * Private so that can't be initialized by class(es) other than friends.
+     * @brief API to generate timestamp in string format.
+     *
+     * @return Returns timestamp in string format on success, otherwise returns
+     * empty string in case of any error.
      */
-    ILogFileHandler() {}
+    static inline std::string timestamp() noexcept
+    {
+        // TODO: generate timestamp.
+        return std::string{};
+    }
 
-    /* Define APIs to handle file operation as per the placeholder. */
+  public:
+    // deleted methods
+    ILogFileHandler() = delete;
+    ILogFileHandler(const ILogFileHandler&) = delete;
+    ILogFileHandler(const ILogFileHandler&&) = delete;
+    ILogFileHandler operator=(const ILogFileHandler&) = delete;
+    ILogFileHandler operator=(const ILogFileHandler&&) = delete;
+
+    /**
+     * @brief API to log a message to file.
+     *
+     * @param[in] i_message - Message to log.
+     *
+     * @throw std::runtime_error
+     */
+    virtual void logMessage(
+        [[maybe_unused]] const std::string_view& i_message) = 0;
+
+    // destructor
+    virtual ~ILogFileHandler()
+    {
+        // TODO: close the filestream
+    }
 };
 
 /**

@@ -18,7 +18,7 @@ void Logger::logMessage(std::string_view i_message,
     if ((i_placeHolder == PlaceHolder::COLLECTION) && m_collectionLogger)
     {
         // Log it to a specific place.
-        m_collectionLogger->writeLogToFile(i_placeHolder);
+        m_collectionLogger->logMessage(l_log.str());
     }
     else if (i_placeHolder == PlaceHolder::PEL)
     {
@@ -34,7 +34,7 @@ void Logger::logMessage(std::string_view i_message,
     }
     else if ((i_placeHolder == PlaceHolder::VPD_WRITE) && m_vpdWriteLogger)
     {
-        m_vpdWriteLogger->writeLogToFile(i_placeHolder);
+        m_vpdWriteLogger->logMessage(l_log.str());
     }
     else
     {
@@ -64,6 +64,9 @@ void Logger::initiateVpdCollectionLogging() noexcept
     }
 }
 
+void ILogFileHandler::rotateFile(
+    [[maybe_unused]] const unsigned i_numEntriesToDelete)
+{}
 namespace logging
 {
 void logMessage(std::string_view message, const std::source_location& location)
