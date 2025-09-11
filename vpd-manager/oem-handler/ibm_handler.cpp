@@ -127,6 +127,11 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
             {
                 m_eventListener->registerCorrPropCallBack();
             }
+
+            // terminate collection logger
+            // initiate collection logger
+            auto l_logger = Logger::getLoggerInstance();
+            l_logger->terminateVpdCollectionLogging();
         }
         else
         {
@@ -503,6 +508,11 @@ void IbmHandler::collectAllFruVpd()
     // Setting status to "InProgress", before trigeering VPD collection.
     m_progressInterface->set_property(
         "Status", std::string(constants::vpdCollectionInProgress));
+
+    // initiate collection logger
+    auto l_logger = Logger::getLoggerInstance();
+    l_logger->initiateVpdCollectionLogging();
+
     m_worker->collectFrusFromJson();
     SetTimerToDetectVpdCollectionStatus();
 }
