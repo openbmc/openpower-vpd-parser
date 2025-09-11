@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85c73fb0_3826e4c2",
+        "filename": "vpd-manager/include/error_codes.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-09-11T05:33:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8241ae3_0c4365e9",
+      "revId": "a3ca2002296c625788ac9870e1bc78eafabecf5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5288f499_bf9e007a",
@@ -49,6 +67,24 @@
       "writtenOn": "2025-09-10T03:50:52Z",
       "side": 1,
       "message": "why return errCode not checked ?",
+      "revId": "a3ca2002296c625788ac9870e1bc78eafabecf5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed8f9963_1d57b2c8",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-09-11T05:33:59Z",
+      "side": 1,
+      "message": "Checking at line no 904",
+      "parentUuid": "5288f499_bf9e007a",
       "revId": "a3ca2002296c625788ac9870e1bc78eafabecf5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
