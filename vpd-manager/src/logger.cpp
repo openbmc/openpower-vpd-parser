@@ -6,10 +6,17 @@ namespace vpd
 {
 std::shared_ptr<Logger> Logger::m_loggerInstance;
 
-void Logger::logMessage(std::string_view i_message,
-                        const PlaceHolder& i_placeHolder,
-                        const types::PelInfoTuple* i_pelTuple,
-                        const std::source_location& i_location)
+// map to convert log level to string
+const std::unordered_map<LogLevel, std::string>
+    LogFileHandler::m_logLevelToStringMap{{LogLevel::DEBUG, "Debug"},
+                                          {LogLevel::INFO, "Info"},
+                                          {LogLevel::WARNING, "Warning"},
+                                          {LogLevel::ERROR, "Error"}};
+
+void Logger::logMessage(
+    std::string_view i_message, const PlaceHolder& i_placeHolder,
+    const LogLevel i_logLevel, const types::PelInfoTuple* i_pelTuple,
+    const std::source_location& i_location)
 {
     std::ostringstream l_log;
     l_log << "FileName: " << i_location.file_name() << ","
@@ -17,8 +24,27 @@ void Logger::logMessage(std::string_view i_message,
 
     if (i_placeHolder == PlaceHolder::COLLECTION)
     {
-        // Log it to a specific place.
-        m_logFileHandler->writeLogToFile(i_placeHolder);
+        if (m_collectionLogger)
+        {
+            m_collectionLogger->logMessage(l_log.str(), i_logLevel);
+        }
+        else
+        {
+            // redirect to journal
+            std::cout << l_log.str() << std::endl;
+        }
+    }
+    else if (i_placeHolder == PlaceHolder::VPD_WRITE)
+    {
+        if (m_vpdWriteLogger)
+        {
+            m_vpdWriteLogger->logMessage(l_log.str(), i_logLevel);
+        }
+        else
+        {
+            // redirect to journal
+            std::cout << l_log.str() << std::endl;
+        }
     }
     else if (i_placeHolder == PlaceHolder::PEL)
     {
@@ -39,6 +65,30 @@ void Logger::logMessage(std::string_view i_message,
     }
 }
 
+void Logger::initiateVpdCollectionLogging() noexcept
+{
+    try
+    {
+        /* TODO:
+            - check /var/lib/vpd for number "collection.*" log file
+            - if 3 collection_[0-2].log files are found
+                - delete collection_1.log
+                - create collection logger object with collection_1.log
+           parameter
+            - else
+                - create collection logger object with collection_(n+1).log
+           parameter*/
+    }
+    catch (const std::exception& l_ex)
+    {
+        logMessage("Failed to initialize collection logger. Error: " +
+                   std::string(l_ex.what()));
+    }
+}
+
+void LogFileHandler::rotateFile(
+    [[maybe_unused]] const unsigned i_numEntriesToDelete)
+{}
 namespace logging
 {
 void logMessage(std::string_view message, const std::source_location& location)
