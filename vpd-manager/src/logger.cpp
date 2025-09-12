@@ -64,9 +64,33 @@ void Logger::initiateVpdCollectionLogging() noexcept
     }
 }
 
+void SyncFileLogger::logMessage(const std::string_view& i_message)
+{
+    try
+    {
+        if (++m_currentNumEntries > m_maxEntries)
+        {
+            rotateFile();
+        }
+        m_fileStream << timestamp() << " : " << i_message << std::endl;
+    }
+    catch (const std::exception& l_ex)
+    {
+        // log message to journal if we fail to log to file
+        auto l_logger = Logger::getLoggerInstance();
+        l_logger->logMessage(i_message);
+    }
+}
+
 void ILogFileHandler::rotateFile(
     [[maybe_unused]] const unsigned i_numEntriesToDelete)
-{}
+{
+    /* TODO:
+        - delete specified number of oldest entries from beginning of file
+        - rewrite file to move existing logs to beginning of file
+    */
+    m_currentNumEntries = m_maxEntries - i_numEntriesToDelete;
+}
 namespace logging
 {
 void logMessage(std::string_view message, const std::source_location& location)
