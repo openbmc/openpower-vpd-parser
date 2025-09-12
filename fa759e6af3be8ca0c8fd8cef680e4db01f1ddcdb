@@ -16,6 +16,24 @@
       "message": "In case there is an error in getting redundant path, still if the execution has reached this point implies there is a primary path which has been updated successfully.\nSo don\u0027t fail the compete API, just log that we failed to get redundant path so if there is any redundant path for the FRU, it will not get updated and return success.",
       "revId": "fa759e6af3be8ca0c8fd8cef680e4db01f1ddcdb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48394e8e_d0e7e658",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-09-12T10:14:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bbadfe0_96fcc47f",
+      "revId": "fa759e6af3be8ca0c8fd8cef680e4db01f1ddcdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
