@@ -93,17 +93,21 @@ const std::unordered_map<LogLevel, std::string>
                                       {LogLevel::WARNING, "Warning"},
                                       {LogLevel::ERROR, "Error"}};
 
-void FileLogger::logMessage([[maybe_unused]] const std::string& i_message,
-                            [[maybe_unused]] const LogLevel i_logLevel)
+void FileLogger::logMessage(const std::string& i_message,
+                            const LogLevel i_logLevel)
 {
     try
     {
-        /*TODO:
-            - add timestamp to message
-            - acquire mutex
-            - write message to file
-            - release mutex
-        */
+        // acquire lock on file
+        std::lock_guard<std::mutex> l_lock(m_mutex);
+        if (++m_currentNumEntries > m_maxEntries)
+        {
+            // TODO: implement log rotation
+            m_currentNumEntries = 0;
+        }
+        m_fileStream << timestamp() << " ["
+                     << m_logLevelToStringMap.at(i_logLevel) << "] "
+                     << i_message << std::endl;
     }
     catch (const std::exception& l_ex)
     {
