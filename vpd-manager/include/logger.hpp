@@ -89,7 +89,11 @@ class LogFileHandler
                    const size_t i_maxEntries) :
         m_fileName{i_fileName}, m_maxEntries{i_maxEntries}
     {
-        // TODO: open the file in append mode
+        // open the file in append mode
+        m_fileStream.open(m_fileName, std::ios::out | std::ios::app);
+
+        // enable exception mask to throw on badbit and failbit
+        m_fileStream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
     }
 
     /**
@@ -145,7 +149,10 @@ class LogFileHandler
     // destructor
     virtual ~LogFileHandler()
     {
-        // TODO: close the filestream
+        if (m_fileStream.is_open())
+        {
+            m_fileStream.close();
+        }
     }
 };
 
@@ -194,10 +201,7 @@ class FileLogger final : public LogFileHandler
         [[maybe_unused]] const LogLevel i_logLevel = LogLevel::INFO) override;
 
     // destructor
-    ~FileLogger()
-    {
-        // TODO: close the filestream
-    }
+    ~FileLogger() = default;
 };
 /**
  * @brief A class to handle asynchronous logging of messages to file

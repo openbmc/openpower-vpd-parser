@@ -83,12 +83,15 @@ void FileLogger::logMessage([[maybe_unused]] const std::string_view& i_message,
 {
     try
     {
-        /*TODO:
-            - add timestamp to message
-            - acquire mutex
-            - write message to file
-            - release mutex
-        */
+        // acquire lock on file
+        std::lock_guard<std::mutex> l_lock(m_mutex);
+        if (++m_currentNumEntries > m_maxEntries)
+        {
+            rotateFile();
+        }
+        m_fileStream << timestamp() << " ["
+                     << m_logLevelToStringMap.at(i_logLevel) << "] "
+                     << i_message << std::endl;
     }
     catch (const std::exception& l_ex)
     {
@@ -129,7 +132,13 @@ void AsyncFileLogger::fileWorker() noexcept
 
 void LogFileHandler::rotateFile(
     [[maybe_unused]] const unsigned i_numEntriesToDelete)
-{}
+{
+    /* TODO:
+        - delete specified number of oldest entries from beginning of file
+        - rewrite file to move existing logs to beginning of file
+    */
+    m_currentNumEntries = m_maxEntries - i_numEntriesToDelete;
+}
 namespace logging
 {
 void logMessage(std::string_view message, const std::source_location& location)
