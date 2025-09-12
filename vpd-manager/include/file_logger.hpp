@@ -1,8 +1,10 @@
 #pragma once
 
-#include <stdint.h>
-
+#include <chrono>
 #include <fstream>
+#include <iomanip>
+#include <mutex>
+#include <sstream>
 #include <unordered_map>
 namespace vpd
 {
@@ -27,12 +29,51 @@ class FileLogger
     // file name
     std::string m_fileName{};
 
+    // file stream object to do file operations
+    std::ofstream m_fileStream;
+
     // max number of log entries in file
     size_t m_maxEntries{256};
+
+    // current number of log entries in file
+    size_t m_currentNumEntries{0};
+
+    // mutex to make file logging multi-thread safe
+    std::mutex m_fileMutex;
 
     // map to convert log level to string
     static const std::unordered_map<LogLevel, std::string>
         m_logLevelToStringMap;
+
+    /**
+     * @brief API to generate timestamp in string format
+     *
+     * @return Returns timestamp in string format on success, otherwise returns
+     * empty string in case of any error
+     */
+    static std::string timestamp() noexcept
+    {
+        try
+        {
+            const auto l_now = std::chrono::system_clock::now();
+            const auto l_in_time_t =
+                std::chrono::system_clock::to_time_t(l_now);
+            const auto l_ms =
+                std::chrono::duration_cast<std::chrono::milliseconds>(
+                    l_now.time_since_epoch()) %
+                1000;
+
+            std::stringstream l_ss;
+            l_ss << std::put_time(std::localtime(&l_in_time_t),
+                                  "%Y-%m-%d %H:%M:%S")
+                 << "." << std::setfill('0') << std::setw(3) << l_ms.count();
+            return l_ss.str();
+        }
+        catch (const std::exception& l_ex)
+        {
+            return std::string{};
+        }
+    }
 
   public:
     // deleted methods
@@ -42,15 +83,27 @@ class FileLogger
     FileLogger operator=(const FileLogger&) = delete;
     FileLogger operator=(const FileLogger&&) = delete;
 
-    FileLogger(const std::string& i_fileName, const size_t i_maxEntries) :
+    /**
+     * @brief Parameterized constructor to initialize a file logger object
+     *
+     * @param[in] i_fileName - Name of the log file
+     * @param[in] i_maxEntries - Maximum number of entries in the log file after
+     * which the file will be rotated
+     */
+    FileLogger(const std::string& i_fileName,
+               const size_t i_maxEntries) noexcept :
         m_fileName{i_fileName}, m_maxEntries{i_maxEntries}
     {
-        // TODO: open the file in append mode
+        // open the file in append mode
+        m_fileStream.open(m_fileName, std::ios::out | std::ios::app);
+
+        // enable exception mask to throw on badbit and
+        m_fileStream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
     }
 
     ~FileLogger()
     {
-        // TODO: close the file stream
+        m_fileStream.close();
     }
 
     /**
@@ -61,9 +114,8 @@ class FileLogger
      *
      * @throw std::runtime_error
      */
-    void logMessage(
-        [[maybe_unused]] const std::string& i_message,
-        [[maybe_unused]] const LogLevel i_logLevel = LogLevel::INFO);
+    void logMessage(const std::string& i_message,
+                    const LogLevel i_logLevel = LogLevel::INFO);
 };
 
 }; // namespace vpd
