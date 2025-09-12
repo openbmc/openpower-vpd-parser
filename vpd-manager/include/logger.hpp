@@ -75,7 +75,11 @@ class ILogFileHandler
                     const size_t i_maxEntries) :
         m_filePath{i_filePath}, m_maxEntries{i_maxEntries}
     {
-        // TODO: open the file in append mode
+        // open the file in append mode
+        m_fileStream.open(m_filePath, std::ios::out | std::ios::app);
+
+        // enable exception mask to throw on badbit and failbit
+        m_fileStream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
     }
 
     /**
@@ -86,8 +90,26 @@ class ILogFileHandler
      */
     static inline std::string timestamp() noexcept
     {
-        // TODO: generate timestamp.
-        return std::string{};
+        try
+        {
+            const auto l_now = std::chrono::system_clock::now();
+            const auto l_in_time_t =
+                std::chrono::system_clock::to_time_t(l_now);
+            const auto l_ms =
+                std::chrono::duration_cast<std::chrono::milliseconds>(
+                    l_now.time_since_epoch()) %
+                1000;
+
+            std::stringstream l_ss;
+            l_ss << std::put_time(std::localtime(&l_in_time_t),
+                                  "%Y-%m-%d %H:%M:%S")
+                 << "." << std::setfill('0') << std::setw(3) << l_ms.count();
+            return l_ss.str();
+        }
+        catch (const std::exception& l_ex)
+        {
+            return std::string{};
+        }
     }
 
   public:
@@ -111,8 +133,56 @@ class ILogFileHandler
     // destructor
     virtual ~ILogFileHandler()
     {
-        // TODO: close the filestream
+        if (m_fileStream.is_open())
+        {
+            m_fileStream.close();
+        }
     }
+};
+
+/**
+ * @brief A class to handle logging messages to file synchronously
+ *
+ * This class handles logging messages to a specific file in a synchronous
+ * multi-thread safe manner.
+ */
+class FileLogger final : public ILogFileHandler
+{
+    /**
+     * @brief Parameterized constructor.
+     * Private so that can't be initialized by class(es) other than friends.
+     *
+     * @param[in] i_filePath - Absolute path of the log file.
+     * @param[in] i_maxEntries - Maximum number of entries in the log file after
+     * which the file will be rotated.
+     */
+    FileLogger(const std::filesystem::path& i_filePath,
+               const size_t i_maxEntries) :
+        ILogFileHandler(i_filePath, i_maxEntries)
+    {}
+
+  public:
+    // Friend class Logger.
+    friend class Logger;
+
+    // deleted methods
+    FileLogger() = delete;
+    FileLogger(const FileLogger&) = delete;
+    FileLogger(const FileLogger&&) = delete;
+    FileLogger operator=(const FileLogger&) = delete;
+    FileLogger operator=(const FileLogger&&) = delete;
+
+    /**
+     * @brief API to log a message to file
+     *
+     * @param[in] i_message - Message to log
+     *
+     * @throw std::runtime_error
+     */
+    void logMessage(const std::string_view& i_message) override;
+
+    // destructor
+    ~FileLogger() = default;
 };
 
 /**
@@ -184,7 +254,8 @@ class Logger
      */
     Logger() : m_vpdWriteLogger(nullptr), m_collectionLogger(nullptr)
     {
-        // TODO: initiate synchronous logger for VPD write logs
+        m_vpdWriteLogger.reset(
+            new FileLogger("/var/lib/vpd/vpdWrite.log", 128));
     }
 
     // Instance to the logger class.
