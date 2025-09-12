@@ -56,7 +56,6 @@ class LogFileHandler
      */
     LogFileHandler()
     {
-        // Create a file rotating logger with 5mb size max and 3 rotated files.
         m_collectionLogger =
             std::make_shared<FileLogger>("/var/lib/vpd/collection.log", 512);
     }
