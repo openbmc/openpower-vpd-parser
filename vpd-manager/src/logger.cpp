@@ -56,6 +56,8 @@ void Logger::initiateVpdCollectionLogging() noexcept
             - else
                 - create collection logger object with collection_(n+1).log
            parameter*/
+        m_collectionLogger.reset(
+            new AsyncFileLogger("/var/lib/vpd/collection.log", 512));
     }
     catch (const std::exception& l_ex)
     {
@@ -80,6 +82,34 @@ void FileLogger::logMessage(const std::string_view& i_message)
     {
         throw;
     }
+}
+
+void AsyncFileLogger::logMessage(
+    [[maybe_unused]] const std::string_view& i_message)
+{
+    try
+    {
+        /* TODO:
+            - acquire lock on queue
+            - push message to queue
+            - notify log worker thread
+        */
+    }
+    catch (const std::exception& l_ex)
+    {
+        throw;
+    }
+}
+
+void AsyncFileLogger::fileWorker() noexcept
+{
+    /* TODO:
+        - start an infinite loop
+        - check exit conditions and exit if needed
+        - wait for notification from log producer
+        - if notification received, flush the messages from queue to file
+        - rotate file if needed
+    */
 }
 
 void ILogFileHandler::rotateFile(
