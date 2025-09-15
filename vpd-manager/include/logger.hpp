@@ -56,8 +56,8 @@ class LogFileHandler
      */
     LogFileHandler()
     {
-        m_collectionLogger =
-            std::make_shared<FileLogger>("/var/lib/vpd/collection.log", 512);
+        m_collectionLogger = std::make_shared<AsyncFileLogger>(
+            "/var/lib/vpd/collection.log", 512);
     }
 
     // logger object to handle collection logs

@@ -1,10 +1,13 @@
 #pragma once
 
+#include <atomic>
 #include <chrono>
 #include <fstream>
 #include <iomanip>
 #include <mutex>
+#include <queue>
 #include <sstream>
+#include <thread>
 #include <unordered_map>
 namespace vpd
 {
@@ -26,6 +29,7 @@ enum class LogLevel : uint8_t
  */
 class FileLogger
 {
+  protected:
     // file name
     std::string m_fileName{};
 
@@ -39,7 +43,7 @@ class FileLogger
     size_t m_currentNumEntries{0};
 
     // mutex to make file logging multi-thread safe
-    std::mutex m_fileMutex;
+    std::mutex m_mutex;
 
     // map to convert log level to string
     static const std::unordered_map<LogLevel, std::string>
@@ -97,11 +101,11 @@ class FileLogger
         // open the file in append mode
         m_fileStream.open(m_fileName, std::ios::out | std::ios::app);
 
-        // enable exception mask to throw on badbit and
+        // enable exception mask to throw on badbit and failbit
         m_fileStream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
     }
 
-    ~FileLogger()
+    virtual ~FileLogger()
     {
         m_fileStream.close();
     }
@@ -114,8 +118,82 @@ class FileLogger
      *
      * @throw std::runtime_error
      */
-    void logMessage(const std::string& i_message,
-                    const LogLevel i_logLevel = LogLevel::INFO);
+    virtual void logMessage(const std::string& i_message,
+                            const LogLevel i_logLevel = LogLevel::INFO);
+};
+
+/**
+ * @brief A class to handle asynchronous logging of messages to file
+ *
+ * This class implements methods to log messages asynchronously to a desired
+ * file in the filesystem. It uses a queue for buffering the messages from
+ * caller. The actual file operations are handled by a worker thread.
+ */
+class AsyncFileLogger : public FileLogger
+{
+    // queue for log messages
+    std::queue<std::string> m_messageQueue;
+
+    // interval in seconds at which the queue is flushed into log file
+    unsigned m_flushTimeInSecs{1};
+
+    // flag which controls if the logger worker thread should be running
+    std::atomic_bool m_shouldWorkerThreadRun{true};
+
+    /**
+     * @brief Logger worker thread body
+     */
+    void fileWorker() noexcept;
+
+  public:
+    // deleted methods
+    AsyncFileLogger() = delete;
+    AsyncFileLogger(const FileLogger&) = delete;
+    AsyncFileLogger(const FileLogger&&) = delete;
+    AsyncFileLogger operator=(const FileLogger&) = delete;
+    AsyncFileLogger operator=(const FileLogger&&) = delete;
+
+    /**
+     * @brief Parameterized constructor to initialize a file logger object
+     *
+     * @param[in] i_fileName - Name of the log file
+     * @param[in] i_maxEntries - Maximum number of entries in the log file after
+     * which the file will be rotated
+     */
+    AsyncFileLogger(const std::string& i_fileName,
+                    const size_t i_maxEntries) noexcept :
+        FileLogger(i_fileName, i_maxEntries)
+    {
+        // start worker thread in detached mode
+        std::thread{[this]() { this->fileWorker(); }}.detach();
+    }
+
+    ~AsyncFileLogger()
+    {
+        stopWorker();
+        m_fileStream.close();
+    }
+
+    /**
+     * @brief API to log a message to file
+     *
+     * @param[in] i_message - Message to log
+     * @param[in] i_logLevel - Log level of the message
+     *
+     * @throw
+     */
+    virtual void logMessage(
+        const std::string& i_message,
+        const LogLevel i_logLevel = LogLevel::INFO) override;
+
+    /**
+     * @brief API to stop logger worker thread
+     *
+     */
+    void stopWorker() noexcept
+    {
+        m_shouldWorkerThreadRun = false;
+    }
 };
 
 }; // namespace vpd
