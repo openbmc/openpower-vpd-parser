@@ -223,8 +223,8 @@ static constexpr auto systemdManagerInterface =
 static constexpr auto vpdCollectionInterface =
     "xyz.openbmc_project.Common.Progress";
 
-// enumerated values of CollectionStatus D-bus property defined under
-// com.ibm.VPD.Collection interface.
+// enumerated values of collection Status D-bus property defined under
+// xyz.openbmc_project.Common.Progress interface.
 static constexpr auto vpdCollectionCompleted =
     "xyz.openbmc_project.Common.Progress.OperationStatus.Completed";
 static constexpr auto vpdCollectionFailed =
