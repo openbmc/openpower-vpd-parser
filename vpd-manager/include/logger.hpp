@@ -7,6 +7,7 @@
 #include <iostream>
 #include <memory>
 #include <mutex>
+#include <queue>
 #include <source_location>
 #include <string_view>
 
@@ -184,6 +185,70 @@ class SyncFileLogger final : public ILogFileHandler
     // destructor
     ~SyncFileLogger() = default;
 };
+/**
+ * @brief A class to handle asynchronous logging of messages to file
+ *
+ * This class implements methods to log messages asynchronously to a desired
+ * file in the filesystem. It uses a queue for buffering the messages from
+ * caller. The actual file operations are handled by a worker thread.
+ */
+class AsyncFileLogger final : public ILogFileHandler
+{
+    /**
+     * @brief Constructor
+     * Private so that can't be initialized by class(es) other than friends.
+     *
+     * @param[in] i_fileName - Name of the log file
+     * @param[in] i_maxEntries - Maximum number of entries in the log file after
+     * which the file will be rotated
+     */
+    AsyncFileLogger(const std::filesystem::path& i_fileName,
+                    const size_t i_maxEntries) :
+        ILogFileHandler(i_fileName, i_maxEntries)
+    {
+        // start worker thread in detached mode
+        std::thread{[this]() { this->fileWorker(); }}.detach();
+    }
+
+    /**
+     * @brief Logger worker thread body
+     */
+    void fileWorker() noexcept;
+
+  public:
+    // Friend class Logger.
+    friend class Logger;
+
+    // deleted methods
+    AsyncFileLogger() = delete;
+    AsyncFileLogger(const AsyncFileLogger&) = delete;
+    AsyncFileLogger(const AsyncFileLogger&&) = delete;
+    AsyncFileLogger operator=(const AsyncFileLogger&) = delete;
+    AsyncFileLogger operator=(const AsyncFileLogger&&) = delete;
+
+    /**
+     * @brief API to log a message to file
+     *
+     * @param[in] i_message - Message to log
+     *
+     * @throw std::runtime_error
+     */
+    void logMessage(const std::string_view& i_message) override;
+
+    // destructor
+    ~AsyncFileLogger()
+    {
+        /* TODO
+            - acquire lock
+            - set log stop flag to true
+            - notify log worker thread
+        */
+        if (m_fileStream.is_open())
+        {
+            m_fileStream.close();
+        }
+    }
+};
 
 /**
  * @brief Singleton class to handle error logging for the repository.
@@ -245,7 +310,7 @@ class Logger
      */
     void terminateVpdCollectionLogging() noexcept
     {
-        // TODO: reset VPD collection logger
+        m_collectionLogger.reset();
     }
 
   private:
