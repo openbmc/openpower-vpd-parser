@@ -6,6 +6,7 @@
 #include <iostream>
 #include <memory>
 #include <mutex>
+#include <queue>
 #include <source_location>
 #include <string_view>
 
@@ -146,6 +147,85 @@ class FileLogger
 };
 
 /**
+ * @brief A class to handle asynchronous logging of messages to file
+ *
+ * This class implements methods to log messages asynchronously to a desired
+ * file in the filesystem. It uses a queue for buffering the messages from
+ * caller. The actual file operations are handled by a worker thread.
+ */
+class AsyncFileLogger : public FileLogger
+{
+    // queue for log messages
+    std::queue<std::string> m_messageQueue;
+
+    // interval in seconds at which the queue is flushed into log file
+    unsigned m_flushTimeInSecs{1};
+
+    // flag which controls if the logger worker thread should be running
+    std::atomic_bool m_shouldWorkerThreadRun{true};
+
+    /**
+     * @brief Logger worker thread body
+     */
+    void fileWorker() noexcept;
+
+    /**
+     * @brief Parameterized constructor to initialize a file logger object
+     *
+     * @param[in] i_fileName - Name of the log file
+     * @param[in] i_maxEntries - Maximum number of entries in the log file after
+     * which the file will be rotated
+     */
+    AsyncFileLogger(const std::string& i_fileName,
+                    const size_t i_maxEntries) noexcept :
+        FileLogger(i_fileName, i_maxEntries)
+    {
+        // start worker thread in detached mode
+        std::thread{[this]() { this->fileWorker(); }}.detach();
+    }
+
+    /**
+     * @brief API to log a message to file
+     *
+     * @param[in] i_message - Message to log
+     * @param[in] i_logLevel - Log level of the message
+     *
+     * @throw
+     */
+    virtual void logMessage(
+        const std::string& i_message,
+        const LogLevel i_logLevel = LogLevel::INFO) override;
+
+    /**
+     * @brief API to stop logger worker thread
+     *
+     */
+    void stopWorker() noexcept
+    {
+        m_shouldWorkerThreadRun = false;
+    }
+
+  public:
+    friend class LogFileHandler;
+
+    // deleted methods
+    AsyncFileLogger() = delete;
+    AsyncFileLogger(const FileLogger&) = delete;
+    AsyncFileLogger(const FileLogger&&) = delete;
+    AsyncFileLogger operator=(const FileLogger&) = delete;
+    AsyncFileLogger operator=(const FileLogger&&) = delete;
+
+    ~AsyncFileLogger()
+    {
+        stopWorker();
+        if (m_fileStream.is_open())
+        {
+            m_fileStream.close();
+        }
+    }
+};
+
+/**
  * @brief Class to handle file operations w.r.t logging.
  * Based on the placeholder the class will handle different file operations to
  * log error messages.
@@ -178,8 +258,8 @@ class LogFileHandler
     LogFileHandler()
     {
         // Create a file logger for logging VPD collection flow traces
-        m_collectionLogger = std::shared_ptr<FileLogger>(
-            new FileLogger("/var/lib/vpd/collection.log", 512));
+        m_collectionLogger = std::shared_ptr<AsyncFileLogger>(
+            new AsyncFileLogger("/var/lib/vpd/collection.log", 512));
 
         // Create a file logger for logging VPD write traces
         m_vpdWriteLogger = std::shared_ptr<FileLogger>(
