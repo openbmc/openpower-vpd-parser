@@ -99,18 +99,17 @@ void FileLogger::logMessage([[maybe_unused]] const std::string_view& i_message,
     }
 }
 
-void AsyncFileLogger::logMessage(
-    [[maybe_unused]] const std::string_view& i_message,
-    [[maybe_unused]] const LogLevel i_logLevel)
+void AsyncFileLogger::logMessage(const std::string_view& i_message,
+                                 const LogLevel i_logLevel)
 {
     try
     {
-        /*TODO:
-            - add timestamp to message
-            - acquire mutex
-            - push message to queue
-            - release mutex
-        */
+        // acquire lock on queue
+        std::lock_guard<std::mutex> l_lock(m_mutex);
+        // push message to queue
+        m_messageQueue.emplace(
+            timestamp() + "[" + m_logLevelToStringMap.at(i_logLevel) + "]" +
+            std::string(i_message));
     }
     catch (const std::exception& l_ex)
     {
@@ -120,14 +119,45 @@ void AsyncFileLogger::logMessage(
 
 void AsyncFileLogger::fileWorker() noexcept
 {
-    /*TODO:
-        - run a loop
-        - acquire mutex
-        - pop message from queue
-        - release mutex
-        - write message to file
-        - sleep for configured time
-    */
+    while (m_shouldWorkerThreadRun)
+    {
+        // acquire lock on queue
+        m_mutex.lock();
+
+        if (!m_messageQueue.empty())
+        {
+            // read the first message in queue
+            const auto l_logMessage = m_messageQueue.front();
+            try
+            {
+                // pop the message from queue
+                m_messageQueue.pop();
+
+                // release lock on queue
+                m_mutex.unlock();
+
+                if (++m_currentNumEntries > m_maxEntries)
+                {
+                    rotateFile();
+                }
+
+                // flush the message to file
+                m_fileStream << l_logMessage << std::endl;
+            }
+            catch (const std::exception& l_ex)
+            {
+                // redirect log to journal
+                std::cout << l_logMessage << std::endl;
+            }
+        }
+        else
+        {
+            // release lock on queue
+            m_mutex.unlock();
+        }
+
+        std::this_thread::sleep_for(std::chrono::seconds(m_flushTimeInSecs));
+    } // thread loop
 }
 
 void LogFileHandler::rotateFile(

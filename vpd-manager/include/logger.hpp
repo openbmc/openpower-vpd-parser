@@ -232,7 +232,10 @@ class AsyncFileLogger final : public LogFileHandler
     AsyncFileLogger(const std::filesystem::path& i_fileName,
                     const size_t i_maxEntries) :
         LogFileHandler(i_fileName, i_maxEntries)
-    {}
+    {
+        // start worker thread in detached mode
+        std::thread{[this]() { this->fileWorker(); }}.detach();
+    }
 
     /**
      * @brief Logger worker thread body
@@ -265,10 +268,11 @@ class AsyncFileLogger final : public LogFileHandler
     // destructor
     ~AsyncFileLogger()
     {
-        /*TODO:
-            - stop the worker thread
-            - close the filestream
-        */
+        m_shouldWorkerThreadRun = false;
+        if (m_fileStream.is_open())
+        {
+            m_fileStream.close();
+        }
     }
 };
 
