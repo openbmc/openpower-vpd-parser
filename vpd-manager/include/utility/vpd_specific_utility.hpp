@@ -939,6 +939,11 @@ inline types::InterfaceMap getCommonInterfaceProperties(
         auto l_populateInterfaceMap = [&l_ipzData = std::as_const(l_ipzData),
                                        &l_interfaceMap](
                                           const auto& l_interfacesPropPair) {
+            if (l_interfacesPropPair.value().empty())
+            {
+                return;
+            }
+
             // find matching property value pair
             const auto l_matchPropValuePairIt = std::find_if(
                 l_interfacesPropPair.value().items().begin(),
