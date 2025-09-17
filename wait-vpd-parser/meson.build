@@ -8,11 +8,7 @@ endif
 sdbusplus = dependency('sdbusplus', fallback: ['sdbusplus', 'sdbusplus_dep'])
 dependency_list = [CLI_dep, sdbusplus]
 
-sources = [
-    'src/wait_vpd_parser.cpp',
-    '../vpd-manager/src/logger.cpp',
-    '../vpd-manager/src/file_logger.cpp',
-]
+sources = ['src/wait_vpd_parser.cpp', '../vpd-manager/src/logger.cpp']
 
 wait_vpd_parser_exe = executable(
     'wait-vpd-parser',
