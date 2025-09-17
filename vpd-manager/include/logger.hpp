@@ -32,6 +32,12 @@ class LogFileHandler
 {
     // should hold fd's for files required as per placeholder.
   public:
+    // deleted methods
+    LogFileHandler(const LogFileHandler&) = delete;
+    LogFileHandler(const LogFileHandler&&) = delete;
+    LogFileHandler operator=(const LogFileHandler&) = delete;
+    LogFileHandler operator=(const LogFileHandler&&) = delete;
+
     /**
      * @brief API exposed to write a log message to a file.
      *
@@ -46,10 +52,23 @@ class LogFileHandler
         // Handle the file operations.
     }
 
-    // Frined class Logger.
-    friend class Logger;
+    /**
+     * @brief API to get instance of LogFileHandler class.
+     */
+    static std::shared_ptr<LogFileHandler> getLogFileHandlerInstance()
+    {
+        if (!m_logFileHandlerInstance)
+        {
+            m_logFileHandlerInstance =
+                std::shared_ptr<LogFileHandler>(new LogFileHandler());
+        }
+        return m_logFileHandlerInstance;
+    }
 
   private:
+    // Instance of log file handler class.
+    static std::shared_ptr<LogFileHandler> m_logFileHandlerInstance;
+
     /**
      * @brief Constructor
      * Private so that can't be initialized by class(es) other than friends.
@@ -103,17 +122,10 @@ class Logger
     /**
      * @brief Constructor
      */
-    Logger() : m_logFileHandler(nullptr)
-    {
-        m_logFileHandler =
-            std::shared_ptr<LogFileHandler>(new LogFileHandler());
-    }
+    Logger() {}
 
     // Instance to the logger class.
     static std::shared_ptr<Logger> m_loggerInstance;
-
-    // Instance to LogFileHandler class.
-    std::shared_ptr<LogFileHandler> m_logFileHandler;
 };
 
 /**

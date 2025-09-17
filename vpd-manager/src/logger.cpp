@@ -5,6 +5,7 @@
 namespace vpd
 {
 std::shared_ptr<Logger> Logger::m_loggerInstance;
+std::shared_ptr<LogFileHandler> LogFileHandler::m_logFileHandlerInstance;
 
 void Logger::logMessage(std::string_view i_message,
                         const PlaceHolder& i_placeHolder,
@@ -18,7 +19,8 @@ void Logger::logMessage(std::string_view i_message,
     if (i_placeHolder == PlaceHolder::COLLECTION)
     {
         // Log it to a specific place.
-        m_logFileHandler->writeLogToFile(i_placeHolder);
+        auto l_logFileHandler = LogFileHandler::getLogFileHandlerInstance();
+        l_logFileHandler->writeLogToFile(i_placeHolder);
     }
     else if (i_placeHolder == PlaceHolder::PEL)
     {
