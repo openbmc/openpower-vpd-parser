@@ -2,6 +2,7 @@
 
 #include "constants.hpp"
 #include "logger.hpp"
+#include "prime_inventory.hpp"
 #include "utility/dbus_utility.hpp"
 
 #include <CLI/CLI.hpp>
@@ -115,6 +116,24 @@ int main(int argc, char** argv)
                      "Sleep duration in seconds between each retry");
 
     CLI11_PARSE(l_app, argc, argv);
+
+    try
+    {
+        PrimeInventory l_primeObj;
+
+        // Regardless of priming errors, will continue with collectAllFruVpd after priming.
+        l_primeObj.primeSystemBlueprint();
+    }
+    catch (const std::exception& l_ex)
+    {
+        const auto l_logger = vpd::Logger::getLoggerInstance();
+        l_logger->logMessage(
+            std::string(l_ex.what()) +
+            " Exiting from wait-vpd-parser !. Check PEL for more details.");
+
+        // Cannot collect all FRUs' VPD if the system config JSON is invalid.
+        return vpd::constants::VALUE_1;
+    }
 
     return collectAllFruVpd()
                ? checkVpdCollectionStatus(l_retryLimit,
