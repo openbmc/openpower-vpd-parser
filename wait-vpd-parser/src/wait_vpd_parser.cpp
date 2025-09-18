@@ -1,7 +1,9 @@
 #include "config.h"
 
 #include "constants.hpp"
+#include "event_logger.hpp"
 #include "logger.hpp"
+#include "prime_inventory.hpp"
 #include "utility/dbus_utility.hpp"
 
 #include <CLI/CLI.hpp>
@@ -115,6 +117,35 @@ int main(int argc, char** argv)
                      "Sleep duration in seconds between each retry");
 
     CLI11_PARSE(l_app, argc, argv);
+
+    try
+    {
+        PrimeInventory l_primePtr;
+        l_primePtr.primeSystemBlueprint();
+    }
+    catch (const vpd::JsonException& l_ex)
+    {
+        vpd::EventLogger::createSyncPel(
+            vpd::types::ErrorType::JsonFailure,
+            vpd::types::SeverityType::Critical, __FILE__, __FUNCTION__, 0,
+            "Prime inventory failed, reason: " + std::string(l_ex.what()),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        const auto l_logger = vpd::Logger::getLoggerInstance();
+        l_logger->logMessage(
+            "Prime Inventory failed, exiting!. Check PEL for more details.");
+
+        // Cannot collect all FRUs' VPD if the system config JSON is invalid.
+        return vpd::constants::VALUE_1;
+    }
+    catch (const std::exception& l_ex)
+    {
+        const auto l_logger = vpd::Logger::getLoggerInstance();
+        l_logger->logMessage(
+            "Prime Inventory failed, error: " + std::string(l_ex.what()));
+
+        // Ignore any priming errors and continue with FRUs' VPD collection.
+    }
 
     return collectAllFruVpd()
                ? checkVpdCollectionStatus(l_retryLimit,
