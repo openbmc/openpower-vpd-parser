@@ -1,13 +1,17 @@
 #include "config.h"
 
 #include "constants.hpp"
+#include "event_logger.hpp"
 #include "logger.hpp"
+#include "prime_inventory.hpp"
 #include "utility/dbus_utility.hpp"
 
 #include <CLI/CLI.hpp>
 
 #include <chrono>
 #include <thread>
+
+#define INVENTORY_JSON_SYM_LINK "/var/lib/vpd/vpd_inventory.json"
 
 /**
  * @brief API to check for VPD collection status
@@ -102,6 +106,36 @@ inline bool collectAllFruVpd() noexcept
     return l_rc;
 }
 
+/**
+ * @brief API to prime system blueprint.
+ *
+ * @return true on success, false on failure.
+ */
+bool primeInventory() noexcept
+{
+    try
+    {
+        PrimeInventory l_primeObj(INVENTORY_JSON_SYM_LINK);
+        if (l_primeObj.isPrimingRequired())
+        {
+            l_primeObj.primeSystemBlueprint();
+            return true;
+        }
+
+        // System is already primed, not required to prime again.
+        return true;
+    }
+    catch (const std::exception& l_ex)
+    {
+        vpd::EventLogger::createSyncPel(
+            vpd::types::ErrorType::JsonFailure,
+            vpd::types::SeverityType::Critical, __FILE__, __FUNCTION__, 0,
+            "Prime inventory failed, reason: " + std::string(l_ex.what()),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+    }
+    return false;
+}
+
 int main(int argc, char** argv)
 {
     CLI::App l_app{"Wait VPD parser app"};
@@ -116,8 +150,17 @@ int main(int argc, char** argv)
 
     CLI11_PARSE(l_app, argc, argv);
 
-    return collectAllFruVpd()
-               ? checkVpdCollectionStatus(l_retryLimit,
-                                          l_sleepDurationInSeconds)
-               : vpd::constants::VALUE_1;
+    if (primeInventory())
+    {
+        return collectAllFruVpd()
+                   ? checkVpdCollectionStatus(l_retryLimit,
+                                              l_sleepDurationInSeconds)
+                   : vpd::constants::VALUE_1;
+    }
+    else
+    {
+        auto l_logger = vpd::Logger::getLoggerInstance();
+        l_logger->logMessage(
+            "Prime Inventory failed, exiting!. Check PEL for more details.");
+    }
 }

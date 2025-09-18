@@ -1,0 +1,133 @@
+#pragma once
+
+#include "types.hpp"
+#include "utility/json_utility.hpp"
+
+#include <nlohmann/json.hpp>
+
+#include <string>
+
+/**
+ * @brief Class to prime system blueprint.
+ *
+ * This class will be used for priming the system, by traversing the system
+ * config JSON and primes all the FRU paths which qualifies for priming
+ * publishes on the DBus.
+ */
+class PrimeInventory
+{
+  public:
+    /**
+     * Deleted methods
+     */
+    PrimeInventory(const PrimeInventory&) = delete;
+    PrimeInventory& operator=(const PrimeInventory&) = delete;
+    PrimeInventory& operator=(PrimeInventory&&) = delete;
+    PrimeInventory(PrimeInventory&&) = delete;
+
+    /**
+     * Contructor
+     *
+     * @param i_sysConfJsonPath - System config json path.
+     */
+    PrimeInventory(const std::string& i_sysConfJsonPath);
+
+    /**
+     * @brief API to prime system blueprint.
+     *
+     * The API will traverse the system config JSON and will prime all the FRU
+     * paths which qualifies for priming.
+     *
+     */
+    void primeSystemBlueprint() const noexcept;
+
+    /**
+     * @brief API to check if priming is required.
+     *
+     * The API will traverse the system config JSON and counts the FRU
+     * paths which qualifies for priming and compares with count of object paths
+     * found under PIM which hosts the "com.ibm.VPD.Collection" interface. If
+     * the dbus count is equal to or greater than the count from JSON config
+     * consider as priming is not required.
+     *
+     * @return true if priming is required, false otherwise.
+     */
+    bool isPrimingRequired() const noexcept;
+
+  private:
+    /**
+     * @brief API to prime inventory Objects.
+     *
+     * @param[in] i_vpdFilePath - EEPROM file path.
+     * @return true if the prime inventory is success, false otherwise.
+     */
+    bool primeInventory(const std::string& i_vpdFilePath) const noexcept;
+
+    /**
+     * @brief API to populate all required interface for a FRU.
+     *
+     * @param[in] interfaceJson - JSON containing interfaces to be populated.
+     * @param[out] interfaceMap - Map to hold populated interfaces.
+     * @param[in] parsedVpdMap - Parsed VPD as a map.
+     */
+    void populateInterfaces(
+        const nlohmann::json& interfaceJson,
+        vpd::types::InterfaceMap& interfaceMap,
+        const vpd::types::VPDMapVariant& parsedVpdMap) const noexcept;
+
+    /**
+     * @brief API to check if present property should be handled for given FRU.
+     *
+     * vpd-manager should update present property for a FRU if and only if it's
+     * not synthesized and vpd-manager handles present property for the FRU.
+     * This API assumes "handlePresence" tag is a subset of "synthesized" tag.
+     *
+     * @param[in] i_fru -  JSON block for a single FRU.
+     *
+     * @return true if present property should be handled, false otherwise.
+     */
+    inline bool isPresentPropertyHandlingRequired(
+        const nlohmann::json& i_fru) const noexcept
+    {
+        // TODO: revisit this to see if this logic can be optimized.
+        return !i_fru.value("synthesized", false) &&
+               i_fru.value("handlePresence", true);
+    }
+
+    /**
+     * @brief API to update "Functional" property.
+     *
+     * The API sets the default value for "Functional" property once if the
+     * property is not yet populated over DBus. As the property value is not
+     * controlled by the VPD-Collection process, if it is found already
+     * populated, the functions skips re-populating the property so that already
+     * existing value can be retained.
+     *
+     * @param[in] i_inventoryObjPath - Inventory path as read from config JSON.
+     * @param[in] io_interfaces - Map to hold all the interfaces for the FRU.
+     */
+    void processFunctionalProperty(
+        const std::string& i_inventoryObjPath,
+        vpd::types::InterfaceMap& io_interfaces) const noexcept;
+
+    /**
+     * @brief API to update "enabled" property.
+     *
+     * The API sets the default value for "enabled" property once if the
+     * property is not yet populated over DBus. As the property value is not
+     * controlled by the VPD-Collection process, if it is found already
+     * populated, the functions skips re-populating the property so that already
+     * existing value can be retained.
+     *
+     * @param[in] i_inventoryObjPath - Inventory path as read from config JSON.
+     * @param[in] io_interfaces - Map to hold all the interfaces for the FRU.
+     */
+    void processEnabledProperty(
+        const std::string& i_inventoryObjPath,
+        vpd::types::InterfaceMap& io_interfaces) const noexcept;
+
+    std::shared_ptr<vpd::Logger> m_logger;
+
+    // Parsed JSON file.
+    nlohmann::json m_sysCfgJsonObj{};
+};
