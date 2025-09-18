@@ -225,6 +225,25 @@ inline bool executePostFailAction(
         return false;
     }
 
+    if (!i_parsedConfigJson.contains("frus"))
+    {
+        o_errCode = error_code::INVALID_JSON;
+        return false;
+    }
+
+    if (!i_parsedConfigJson["frus"].contains(i_vpdFilePath))
+    {
+        o_errCode = error_code::FRU_PATH_NOT_FOUND;
+        return false;
+    }
+
+    if (!i_parsedConfigJson["frus"][i_vpdFilePath].at(0).contains(
+            "postFailAction"))
+    {
+        o_errCode = error_code::MISSING_ACTION_TAG;
+        return false;
+    }
+
     if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))["postFailAction"]
              .contains(i_flagToProcess))
     {
@@ -284,19 +303,27 @@ inline bool processSystemCmdTag(
         return false;
     }
 
-    if (!((i_parsedConfigJson["frus"][i_vpdFilePath].at(
-               0)[i_baseAction][i_flagToProcess]["systemCmd"])
-              .contains("cmd")))
+    try
     {
-        o_errCode = error_code::MISSING_FLAG;
+        if (!((i_parsedConfigJson["frus"][i_vpdFilePath].at(
+                   0)[i_baseAction][i_flagToProcess]["systemCmd"])
+                  .contains("cmd")))
+        {
+            o_errCode = error_code::MISSING_FLAG;
+            return false;
+        }
+
+        const std::string& l_systemCommand =
+            i_parsedConfigJson["frus"][i_vpdFilePath].at(
+                0)[i_baseAction][i_flagToProcess]["systemCmd"]["cmd"];
+
+        commonUtility::executeCmd(l_systemCommand);
+    }
+    catch (const std::exception& l_ex)
+    {
+        o_errCode = error_code::ERROR_PROCESSING_SYSTEM_CMD;
         return false;
     }
-
-    const std::string& l_systemCommand =
-        i_parsedConfigJson["frus"][i_vpdFilePath].at(
-            0)[i_baseAction][i_flagToProcess]["systemCmd"]["cmd"];
-
-    commonUtility::executeCmd(l_systemCommand);
     return true;
 }
 
@@ -1040,6 +1067,12 @@ inline bool isFruReplaceableAtRuntime(const nlohmann::json& i_sysCfgJsonObj,
         return false;
     }
 
+    if (!i_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
+    {
+        o_errCode = error_code::FRU_PATH_NOT_FOUND;
+        return false;
+    }
+
     return (
         (i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0))
             .contains("replaceableAtRuntime") &&
@@ -1070,6 +1103,13 @@ inline bool isFruReplaceableAtStandby(const nlohmann::json& i_sysCfgJsonObj,
     if (i_sysCfgJsonObj.empty() || (!i_sysCfgJsonObj.contains("frus")))
     {
         o_errCode = error_code::INVALID_JSON;
+        return false;
+    }
+
+    if (!i_sysCfgJsonObj["frus"].contains(i_vpdFruPath))
+    {
+        o_errCode = error_code::FRU_PATH_NOT_FOUND;
+        return false;
     }
 
     return (
