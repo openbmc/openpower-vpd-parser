@@ -2,6 +2,7 @@
 
 #include "constants.hpp"
 #include "logger.hpp"
+#include "prime_inventory.hpp"
 #include "utility/dbus_utility.hpp"
 
 #include <CLI/CLI.hpp>
@@ -104,20 +105,34 @@ inline bool collectAllFruVpd() noexcept
 
 int main(int argc, char** argv)
 {
-    CLI::App l_app{"Wait VPD parser app"};
+    try
+    {
+        CLI::App l_app{"Wait VPD parser app"};
 
-    // default retry limit and sleep duration values
-    unsigned l_retryLimit{100};
-    unsigned l_sleepDurationInSeconds{2};
+        // default retry limit and sleep duration values
+        unsigned l_retryLimit{100};
+        unsigned l_sleepDurationInSeconds{2};
 
-    l_app.add_option("--retryLimit, -r", l_retryLimit, "Retry limit");
-    l_app.add_option("--sleepDurationInSeconds, -s", l_sleepDurationInSeconds,
-                     "Sleep duration in seconds between each retry");
+        l_app.add_option("--retryLimit, -r", l_retryLimit, "Retry limit");
+        l_app.add_option("--sleepDurationInSeconds, -s",
+                         l_sleepDurationInSeconds,
+                         "Sleep duration in seconds between each retry");
 
-    CLI11_PARSE(l_app, argc, argv);
+        CLI11_PARSE(l_app, argc, argv);
 
-    return collectAllFruVpd()
-               ? checkVpdCollectionStatus(l_retryLimit,
-                                          l_sleepDurationInSeconds)
-               : vpd::constants::VALUE_1;
+        PrimeInventory l_primeObj;
+        l_primeObj.primeSystemBlueprint();
+
+        return collectAllFruVpd()
+                   ? checkVpdCollectionStatus(l_retryLimit,
+                                              l_sleepDurationInSeconds)
+                   : vpd::constants::VALUE_1;
+    }
+    catch (const std::exception& l_ex)
+    {
+        const auto l_logger = vpd::Logger::getLoggerInstance();
+        l_logger->logMessage("Exiting from wait-vpd-parser, reason: " +
+                             std::string(l_ex.what()));
+        return vpd::constants::VALUE_1;
+    }
 }
