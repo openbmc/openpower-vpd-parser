@@ -1,5 +1,6 @@
 #pragma once
 
+#include "logger.hpp"
 #include "types.hpp"
 
 #include <nlohmann/json.hpp>
@@ -57,11 +58,13 @@ class PrimeInventory
     /**
      * @brief API to prime inventory Objects.
      *
-     * @param[in] i_vpdFilePath - EEPROM file path.
+     * @param[out] o_objectInterfaceMap - Interface and its properties map.
+     * @param[in] i_fruJsonObj - FRU json object.
      *
      * @return true if the prime inventory is success, false otherwise.
      */
-    bool primeInventory(const std::string& i_vpdFilePath) const noexcept;
+    bool primeInventory(vpd::types::ObjectMap& o_objectInterfaceMap,
+                        const nlohmann::json& i_fruJsonObj) const noexcept;
 
     /**
      * @brief API to populate all required interface for a FRU.
@@ -129,4 +132,6 @@ class PrimeInventory
 
     // Parsed JSON file.
     nlohmann::json m_sysCfgJsonObj{};
+
+    std::shared_ptr<vpd::Logger> m_logger;
 };
