@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86971655_4a223c20",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-19T04:48:50Z",
+      "side": 1,
+      "message": "Why do we need a new class? This adds an extra level of redirection.\nThis also fails the logic of having \"LogFileHandler\" class.\nIn this proposed design, \"LogFileHandler\" is just acting as a passage to create instances of FileLogger, why would we need a class to do that?\n\nPlease check the next comment in continuation of this.",
+      "revId": "f9d1c27950c4284518b57a7d1f79989db0ff1deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccd0eded_748bac23",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-19T04:48:50Z",
+      "side": 1,
+      "message": "Instead, why can\u0027t we have specific file streams initialized with respective files in the constructor here itself and specific public APIs for each file pointers based on placeholder, exposed from this class and called in Logger class as required?",
+      "revId": "f9d1c27950c4284518b57a7d1f79989db0ff1deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
