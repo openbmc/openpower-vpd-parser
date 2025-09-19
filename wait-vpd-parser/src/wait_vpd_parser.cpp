@@ -11,8 +11,6 @@
 #include <chrono>
 #include <thread>
 
-#define INVENTORY_JSON_SYM_LINK "/var/lib/vpd/vpd_inventory.json"
-
 /**
  * @brief API to check for VPD collection status
  *
