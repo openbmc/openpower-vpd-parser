@@ -1,5 +1,6 @@
 #pragma once
 
+#include "logger.hpp"
 #include "types.hpp"
 
 #include <nlohmann/json.hpp>
@@ -9,8 +10,8 @@
 /**
  * @brief Class to prime system blueprint.
  *
- * This class will be used for priming the system, by traversing the system
- * config JSON and primes all the FRU paths which qualifies for priming and
+ * This class will be used for priming the system by traversing the system
+ * config JSON. And primes all FRU paths which qualifies for priming and
  * publishes inventory object paths on the DBus.
  */
 class PrimeInventory
@@ -57,11 +58,13 @@ class PrimeInventory
     /**
      * @brief API to prime inventory Objects.
      *
-     * @param[in] i_vpdFilePath - EEPROM file path.
+     * @param[out] o_objectInterfaceMap - Interface and its properties map.
+     * @param[in] i_fruJsonObj - FRU json object.
      *
      * @return true if the prime inventory is success, false otherwise.
      */
-    bool primeInventory(const std::string& i_vpdFilePath) const noexcept;
+    bool primeInventory(vpd::types::ObjectMap& o_objectInterfaceMap,
+                        const nlohmann::json& i_fruJsonObj) const noexcept;
 
     /**
      * @brief API to populate all required interface for a FRU.
@@ -129,4 +132,6 @@ class PrimeInventory
 
     // Parsed JSON file.
     nlohmann::json m_sysCfgJsonObj{};
+
+    std::shared_ptr<vpd::Logger> m_logger;
 };
