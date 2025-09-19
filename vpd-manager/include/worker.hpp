@@ -171,14 +171,6 @@ class Worker
     void performVpdRecollection();
 
     /**
-     * @brief API to prime inventory Objects.
-     *
-     * @param[in] i_vpdFilePath - EEPROM file path.
-     * @return true if the prime inventory is success, false otherwise.
-     */
-    bool primeInventory(const std::string& i_vpdFilePath);
-
-    /**
      * @brief An API to set appropriate device tree and JSON.
      *
      * This API based on system chooses corresponding device tree and JSON.
