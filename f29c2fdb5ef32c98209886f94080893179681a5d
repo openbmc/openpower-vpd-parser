@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ab0e7f4_43e23fa1",
+        "filename": "wait-vpd-parser/include/prime_inventory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-22T07:55:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a885ee73_0854bf50",
+      "revId": "f29c2fdb5ef32c98209886f94080893179681a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a164d64_e6a94ed6",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0040a9d_df4987ef",
+        "filename": "wait-vpd-parser/include/prime_inventory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-22T07:55:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57641f1e_6f5deba3",
+      "revId": "f29c2fdb5ef32c98209886f94080893179681a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf76b79b_a0672e22",
@@ -65,6 +101,24 @@
       "writtenOn": "2025-09-22T06:40:33Z",
       "side": 1,
       "message": "Where is this getting used?\nAlso please create a constant file for such #defines?",
+      "revId": "f29c2fdb5ef32c98209886f94080893179681a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "163ce193_5a38cb18",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-22T07:55:52Z",
+      "side": 1,
+      "message": "not required, will get it from meson file itself.",
+      "parentUuid": "bf76b79b_a0672e22",
       "revId": "f29c2fdb5ef32c98209886f94080893179681a5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c6ee4c3b_2e78560b",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-22T07:55:52Z",
+      "side": 1,
+      "message": "not used anywhere in this commit, removed.",
+      "parentUuid": "8ab3eae7_669efe9f",
+      "revId": "f29c2fdb5ef32c98209886f94080893179681a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f1b549e7_243bdf72",
         "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
         "patchSetId": 2
@@ -99,6 +171,24 @@
       "writtenOn": "2025-09-22T06:40:33Z",
       "side": 1,
       "message": "When there is a class which exposes API \"primeInventory\" why is this API required here?\nWhy can\u0027t we instantiate an object in main and call priming on that directly? Why all these redirections?",
+      "revId": "f29c2fdb5ef32c98209886f94080893179681a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7d701a0_d0cdaeb3",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-22T07:55:52Z",
+      "side": 1,
+      "message": "We are logging a PEL in case system JSON link not found or JSON parsing failed.\nwe can do all priming related error in this function, based on the result we can decide whether to call all FRUs VPD or not is looks things are sorted.",
+      "parentUuid": "f1b549e7_243bdf72",
       "revId": "f29c2fdb5ef32c98209886f94080893179681a5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -122,6 +212,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df984f7c_47427cf2",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-22T07:55:52Z",
+      "side": 1,
+      "message": "agree, we are getting INVENTORY_JSON_SYM_LINK path as meson option.\nwe can directly use inside the constructor, no need to pass as a argument.",
+      "parentUuid": "cc2c9afe_06c484e3",
+      "revId": "f29c2fdb5ef32c98209886f94080893179681a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3393f53c_46986d06",
         "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
         "patchSetId": 2
@@ -133,6 +241,24 @@
       "writtenOn": "2025-09-22T06:40:33Z",
       "side": 1,
       "message": "What is being returned in else case?",
+      "revId": "f29c2fdb5ef32c98209886f94080893179681a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31dfa540_edad8490",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-22T07:55:52Z",
+      "side": 1,
+      "message": "updated the return code.",
+      "parentUuid": "3393f53c_46986d06",
       "revId": "f29c2fdb5ef32c98209886f94080893179681a5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
