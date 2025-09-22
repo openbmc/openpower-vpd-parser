@@ -231,6 +231,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "27cef5a2_f3fa93c6",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-22T14:33:27Z",
+      "side": 1,
+      "message": "removed the API, doing in the main itself.",
+      "parentUuid": "2892b605_1a064a35",
+      "revId": "f29c2fdb5ef32c98209886f94080893179681a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cc2c9afe_06c484e3",
         "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
         "patchSetId": 2
