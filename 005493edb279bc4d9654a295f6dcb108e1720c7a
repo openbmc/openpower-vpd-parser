@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e44400d_c1df0bc4",
+        "filename": "wait-vpd-parser/include/prime_inventory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-22T13:54:23Z",
+      "side": 1,
+      "message": "Default constructor, do we need to define?",
+      "revId": "005493edb279bc4d9654a295f6dcb108e1720c7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c16a475a_dc017317",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-22T13:54:23Z",
+      "side": 1,
+      "message": "Where are we using this?",
+      "revId": "005493edb279bc4d9654a295f6dcb108e1720c7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3496fc9b_354eb9e2",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-22T13:54:23Z",
+      "side": 1,
+      "message": "I still don\u0027t find a good enough reason to write a function here.",
+      "revId": "005493edb279bc4d9654a295f6dcb108e1720c7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fb3b98a_170bfd39",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-22T13:54:23Z",
+      "side": 1,
+      "message": "This PEL can be logged in the function \"primeSystemBlueprint\" itself? If this function is not dealing with JSON why will it log PEL related to JSON failure?",
+      "revId": "005493edb279bc4d9654a295f6dcb108e1720c7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d3faa16_53ec186b",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-22T13:54:23Z",
+      "side": 1,
+      "message": "We can have just two lines here.\n\nPrimeInventory l_primeObj;\nif(l_primeObj.primeSystemBlueprint())  --\u003e This function can return true/false?\n{ //collect\n}",
+      "revId": "005493edb279bc4d9654a295f6dcb108e1720c7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
