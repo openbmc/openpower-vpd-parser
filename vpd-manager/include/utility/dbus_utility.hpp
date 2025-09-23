@@ -267,11 +267,10 @@ inline bool callPIM(types::ObjectMap&& objectMap)
     {
         for (const auto& l_objectKeyValue : objectMap)
         {
-            auto l_nodeHandle = objectMap.extract(l_objectKeyValue.first);
-
-            if (l_nodeHandle.key().str.find(constants::pimPath, 0) !=
+            if (l_objectKeyValue.first.str.find(constants::pimPath, 0) !=
                 std::string::npos)
             {
+                auto l_nodeHandle = objectMap.extract(l_objectKeyValue.first);
                 l_nodeHandle.key() = l_nodeHandle.key().str.replace(
                     0, std::strlen(constants::pimPath), "");
                 objectMap.insert(std::move(l_nodeHandle));
