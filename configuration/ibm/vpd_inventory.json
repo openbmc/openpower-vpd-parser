@@ -34,7 +34,7 @@
     "frus": {
         "/sys/bus/i2c/drivers/at24/8-0050/eeprom": [
             {
-                "inventoryPath": "/system/chassis/motherboard",
+                "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis/motherboard",
                 "isSystemVpd": true,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Board.Motherboard": null,
@@ -44,7 +44,7 @@
                 }
             },
             {
-                "inventoryPath": "/system",
+                "inventoryPath": "/xyz/openbmc_project/inventory/system",
                 "inherit": false,
                 "isSystemVpd": true,
                 "copyRecords": ["VSYS"],
@@ -70,7 +70,7 @@
                 }
             },
             {
-                "inventoryPath": "/system/chassis",
+                "inventoryPath": "/xyz/openbmc_project/inventory/system/chassis",
                 "inherit": false,
                 "isSystemVpd": true,
                 "extraInterfaces": {
