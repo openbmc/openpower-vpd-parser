@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a76834ab_35be18a7",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-24T10:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e30101e7_f5e32517",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ec115e4_0bdcd0ff",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34891bd2_d4fd1528",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-24T10:07:10Z",
+      "side": 1,
+      "message": "After discussion with \nSunny Srivastava\n, we decided to keep rotation as a common feature for both FileLogger and AsyncFileLogger.",
+      "parentUuid": "5ec115e4_0bdcd0ff",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8f236ec1_fe5468f0",
         "filename": "vpd-manager/include/logger.hpp",
         "patchSetId": 8
@@ -48,6 +84,24 @@
       "writtenOn": "2025-09-24T06:21:27Z",
       "side": 1,
       "message": "can we move this to cpp file",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baedcd65_9353e15d",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-24T10:07:10Z",
+      "side": 1,
+      "message": "It\u0027s supposed to be an `inline` method. I do not see any benefit of moving this to `.cpp` file.",
+      "parentUuid": "8f236ec1_fe5468f0",
       "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "06e64038_159252ca",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-24T10:07:10Z",
+      "side": 1,
+      "message": "After discussion with @sunnsr25@in.ibm.com, we decided to keep rotation as a common feature for both `FileLogger` and `AsyncFileLogger`. So it doesn\u0027t make sense to include \"Rotator*\" in the class name",
+      "parentUuid": "78c9e023_4d2bd935",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "974dab1a_0df53be7",
         "filename": "vpd-manager/include/logger.hpp",
         "patchSetId": 8
@@ -99,6 +171,24 @@
       "writtenOn": "2025-09-24T06:21:27Z",
       "side": 1,
       "message": "can we use reset() here, which is simpler than the operator\u003d() implementation.",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e49ceee7_44a905d5",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-24T10:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "974dab1a_0df53be7",
       "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -116,6 +206,24 @@
       "writtenOn": "2025-09-24T06:21:27Z",
       "side": 1,
       "message": "we can move these input to constants ?",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a54f9902_f56a7393",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-24T10:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce318f74_1fa8d152",
       "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -139,6 +247,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "984fcfac_670165fb",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-24T10:07:10Z",
+      "side": 1,
+      "message": "I think it\u0027s okay to have single FRU VPD collection go to journal as only minimal logs would be there for a single FRU VPD collection flow. @sunnsr25@in.ibm.com what\u0027s your opinion?",
+      "parentUuid": "50421d0d_37e42d59",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "353a90a3_8ad38ec7",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 8
@@ -150,6 +276,24 @@
       "writtenOn": "2025-09-24T06:21:27Z",
       "side": 1,
       "message": "we can use reset() here ?",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f02ae7ad_51d3ab45",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-24T10:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "353a90a3_8ad38ec7",
       "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -173,6 +317,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ac74b2f2_f7cc491b",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-24T10:07:10Z",
+      "side": 1,
+      "message": "Do you mean `constants.hpp` ? These are used locally by `Logger` and not required to be exposed to entire repo.",
+      "parentUuid": "64bdef04_81532c14",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99f5c56f_ed54b6e8",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 8
@@ -184,6 +346,24 @@
       "writtenOn": "2025-09-24T06:21:27Z",
       "side": 1,
       "message": "can\u0027t we use logMessage(), which redirect to journal ?",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9ce3c31_a3d166ba",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-24T10:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99f5c56f_ed54b6e8",
       "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
