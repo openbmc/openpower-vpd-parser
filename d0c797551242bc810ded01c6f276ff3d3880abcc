@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e30101e7_f5e32517",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-24T06:21:27Z",
+      "side": 1,
+      "message": "is it file name or is this log file path ?",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ec115e4_0bdcd0ff",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-24T06:21:27Z",
+      "side": 1,
+      "message": "rotation of log only specific to class FileLogger, why this will be common to other inherited classes ?",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f236ec1_fe5468f0",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-24T06:21:27Z",
+      "side": 1,
+      "message": "can we move this to cpp file",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "608e6d49_91489302",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-24T06:21:27Z",
+      "side": 1,
+      "message": "can me mention, same file will be rotated after reaching max entries.",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78c9e023_4d2bd935",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-24T06:21:27Z",
+      "side": 1,
+      "message": "can the class name be species and distinguish with other child class ex: RotatingFileLogger or LogRotator or LogFileRotator ?",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "974dab1a_0df53be7",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-24T06:21:27Z",
+      "side": 1,
+      "message": "can we use reset() here, which is simpler than the operator\u003d() implementation.",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce318f74_1fa8d152",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-24T06:21:27Z",
+      "side": 1,
+      "message": "we can move these input to constants ?",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50421d0d_37e42d59",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-24T06:21:27Z",
+      "side": 1,
+      "message": "don\u0027t we need collection log for single FRU VPD collection exposed buy CollectFRUVPD method ?",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "353a90a3_8ad38ec7",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-24T06:21:27Z",
+      "side": 1,
+      "message": "we can use reset() here ?",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64bdef04_81532c14",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-24T06:21:27Z",
+      "side": 1,
+      "message": "can we move these input to constants ?",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99f5c56f_ed54b6e8",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-24T06:21:27Z",
+      "side": 1,
+      "message": "can\u0027t we use logMessage(), which redirect to journal ?",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
