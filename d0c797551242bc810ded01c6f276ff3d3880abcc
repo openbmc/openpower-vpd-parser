@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c48bfb4b_b6e3183c",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-24T13:57:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "34891bd2_d4fd1528",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f236ec1_fe5468f0",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "It\u0027s supposed to be an `inline` method. I do not see any benefit of moving this to `.cpp` file.",
       "parentUuid": "8f236ec1_fe5468f0",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "504eecba_f2e28516",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-24T13:57:52Z",
+      "side": 1,
+      "message": "In that case why we are not having inline mentioned here?",
+      "parentUuid": "baedcd65_9353e15d",
       "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -172,6 +208,24 @@
       "side": 1,
       "message": "After discussion with @sunnsr25@in.ibm.com, we decided to keep rotation as a common feature for both `FileLogger` and `AsyncFileLogger`. So it doesn\u0027t make sense to include \"Rotator*\" in the class name",
       "parentUuid": "78c9e023_4d2bd935",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41afc6e8_e4e7564f",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-24T13:57:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "06e64038_159252ca",
       "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
