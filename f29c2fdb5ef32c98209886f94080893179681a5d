@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecb74355_da352083",
+        "filename": "wait-vpd-parser/include/prime_inventory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-24T07:00:17Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9d6e74ef_2bc8bdff",
+      "revId": "f29c2fdb5ef32c98209886f94080893179681a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57641f1e_6f5deba3",
@@ -172,6 +190,24 @@
       "side": 1,
       "message": "not used anywhere in this commit, removed.",
       "parentUuid": "8ab3eae7_669efe9f",
+      "revId": "f29c2fdb5ef32c98209886f94080893179681a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff85b828_8ef6421f",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-24T07:00:17Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c6ee4c3b_2e78560b",
       "revId": "f29c2fdb5ef32c98209886f94080893179681a5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
