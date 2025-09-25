@@ -2,6 +2,7 @@
 
 #include "types.hpp"
 
+#include <condition_variable>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -196,6 +197,18 @@ class SyncFileLogger final : public ILogFileHandler
  */
 class AsyncFileLogger final : public ILogFileHandler
 {
+    // queue for log messages
+    std::queue<std::string> m_messageQueue;
+
+    // mutex to control access to log message queue
+    std::mutex m_mutex;
+
+    // flag which indicates log worker thread if logging is finished
+    std::atomic_bool m_stopLogging{false};
+
+    // conditional variable to signal log worker thread
+    std::condition_variable m_cv;
+
     /**
      * @brief Constructor
      * Private so that can't be initialized by class(es) other than friends.
@@ -231,6 +244,8 @@ class AsyncFileLogger final : public ILogFileHandler
     /**
      * @brief API to log a message to file
      *
+     * This API logs given message to a file. This API is multi-thread safe.
+     *
      * @param[in] i_message - Message to log
      *
      * @throw std::runtime_error
@@ -240,15 +255,16 @@ class AsyncFileLogger final : public ILogFileHandler
     // destructor
     ~AsyncFileLogger()
     {
-        /* TODO
-            - acquire lock
-            - set log stop flag to true
-            - notify log worker thread
-        */
+        std::unique_lock<std::mutex> l_lock(m_mutex);
+
+        m_stopLogging = true;
+
         if (m_fileStream.is_open())
         {
             m_fileStream.close();
         }
+
+        m_cv.notify_one();
     }
 };
 
