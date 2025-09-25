@@ -423,7 +423,7 @@ void IbmBiosHandler::saveCreateDefaultLparToVpd(
     // Read required keyword from DBus as we need to set only a Bit.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::utilInf, constants::kwdClearNVRAM_CreateLPAR);
+        constants::vsysInf, constants::kwdClearNVRAM_CreateLPAR);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -455,11 +455,11 @@ void IbmBiosHandler::saveCreateDefaultLparToVpd(
             l_valToUpdateInVpd.emplace_back((*l_pVal).at(0) & ~(0x02));
         }
 
-        if (-1 ==
-            m_manager->updateKeyword(
-                SYSTEM_VPD_FILE_PATH,
-                types::IpzData("UTIL", constants::kwdClearNVRAM_CreateLPAR,
-                               l_valToUpdateInVpd)))
+        if (-1 ==  m_manager->updateKeyword(
+                     SYSTEM_VPD_FILE_PATH,
+                     types::IpzData(constants::vsysInf,
+                                    constants::kwdClearNVRAM_CreateLPAR,
+                                    l_valToUpdateInVpd)))
         {
             logging::logMessage(
                 "Failed to update " +
@@ -511,7 +511,7 @@ void IbmBiosHandler::processCreateDefaultLpar()
     // Read required keyword from DBus.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::utilInf, constants::kwdClearNVRAM_CreateLPAR);
+        constants::vsysInf, constants::kwdClearNVRAM_CreateLPAR);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -534,7 +534,7 @@ void IbmBiosHandler::saveClearNvramToVpd(const std::string& i_clearNvramVal)
     // Read required keyword from DBus as we need to set only a Bit.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::utilInf, constants::kwdClearNVRAM_CreateLPAR);
+        constants::vsysInf, constants::kwdClearNVRAM_CreateLPAR);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -566,11 +566,11 @@ void IbmBiosHandler::saveClearNvramToVpd(const std::string& i_clearNvramVal)
                 (*l_pVal).at(0) & ~(constants::VALUE_4));
         }
 
-        if (-1 ==
-            m_manager->updateKeyword(
-                SYSTEM_VPD_FILE_PATH,
-                types::IpzData("UTIL", constants::kwdClearNVRAM_CreateLPAR,
-                               l_valToUpdateInVpd)))
+        if (-1 == m_manager->updateKeyword(
+                     SYSTEM_VPD_FILE_PATH,
+                     types::IpzData(constants::vsysInf, 
+                                    constants::kwdClearNVRAM_CreateLPAR,
+                                    l_valToUpdateInVpd)))
         {
             logging::logMessage(
                 "Failed to update " +
@@ -620,7 +620,7 @@ void IbmBiosHandler::processClearNvram()
     // Read required keyword from VPD.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::utilInf, constants::kwdClearNVRAM_CreateLPAR);
+        constants::vsysInf, constants::kwdClearNVRAM_CreateLPAR);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -642,7 +642,7 @@ void IbmBiosHandler::saveKeepAndClearToVpd(const std::string& i_KeepAndClearVal)
     // Read required keyword from DBus as we need to set only a Bit.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::utilInf, constants::kwdKeepAndClear);
+        constants::vsysInf, constants::kwdKeepAndClear);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -676,7 +676,7 @@ void IbmBiosHandler::saveKeepAndClearToVpd(const std::string& i_KeepAndClearVal)
 
         if (-1 == m_manager->updateKeyword(
                       SYSTEM_VPD_FILE_PATH,
-                      types::IpzData("UTIL", constants::kwdKeepAndClear,
+                      types::IpzData(constants::vsysInf, constants::kwdKeepAndClear,
                                      l_valToUpdateInVpd)))
         {
             logging::logMessage(
@@ -726,7 +726,7 @@ void IbmBiosHandler::processKeepAndClear()
     // Read required keyword from VPD.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::utilInf, constants::kwdKeepAndClear);
+        constants::vsysInf, constants::kwdKeepAndClear);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
