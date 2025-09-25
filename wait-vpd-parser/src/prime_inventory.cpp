@@ -369,7 +369,7 @@ void PrimeInventory::processFunctionalProperty(
 {
     if (!vpd::dbusUtility::isChassisPowerOn())
     {
-        std::array<const char*, 1> l_operationalStatusInf = {
+        std::vector<std::string> l_operationalStatusInf = {
             vpd::constants::operationalStatusInf};
 
         auto l_mapperObjectMap = vpd::dbusUtility::getObjectMap(
@@ -410,7 +410,7 @@ void PrimeInventory::processEnabledProperty(
 {
     if (!vpd::dbusUtility::isChassisPowerOn())
     {
-        std::array<const char*, 1> l_enableInf = {vpd::constants::enableInf};
+        std::vector<std::string> l_enableInf = {vpd::constants::enableInf};
 
         auto l_mapperObjectMap =
             vpd::dbusUtility::getObjectMap(i_inventoryObjPath, l_enableInf);
