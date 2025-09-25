@@ -2,6 +2,7 @@
 
 #include "types.hpp"
 
+#include <condition_variable>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -194,6 +195,15 @@ class SyncFileLogger final : public ILogFileHandler
  */
 class AsyncFileLogger final : public ILogFileHandler
 {
+    // queue for log messages
+    std::queue<std::string> m_messageQueue;
+
+    // flag which indicates log worker thread if logging is finished
+    std::atomic_bool m_shouldStopLogging{false};
+
+    // conditional variable to signal log worker thread
+    std::condition_variable m_cv;
+
     /**
      * @brief Constructor
      * Private so that can't be initialized by class(es) other than friends.
@@ -238,15 +248,16 @@ class AsyncFileLogger final : public ILogFileHandler
     // destructor
     ~AsyncFileLogger()
     {
-        /* TODO
-            - acquire lock
-            - set log stop flag to true
-            - notify log worker thread
-        */
+        std::unique_lock<std::mutex> l_lock(m_mutex);
+
+        m_shouldStopLogging = true;
+
         if (m_fileStream.is_open())
         {
             m_fileStream.close();
         }
+
+        m_cv.notify_one();
     }
 };
 
