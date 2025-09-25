@@ -21,7 +21,8 @@ IbmHandler::IbmHandler(
     const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection) :
     m_worker(o_worker), m_backupAndRestoreObj(o_backupAndRestoreObj),
     m_interface(i_iFace), m_progressInterface(i_progressiFace),
-    m_ioContext(i_ioCon), m_asioConnection(i_asioConnection)
+    m_ioContext(i_ioCon), m_asioConnection(i_asioConnection),
+    m_logger(Logger::getLoggerInstance())
 {
     if (dbusUtility::isChassisPowerOn())
     {
@@ -127,6 +128,9 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
             {
                 m_eventListener->registerCorrPropCallBack();
             }
+
+            // terminate collection logger
+            m_logger->terminateVpdCollectionLogging();
         }
         else
         {
@@ -136,6 +140,9 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
                 l_timer.cancel();
                 logging::logMessage("Taking too long. Active thread = " +
                                     std::to_string(l_threadCount));
+
+                // terminate collection logger
+                m_logger->terminateVpdCollectionLogging();
             }
             else
             {
@@ -500,6 +507,9 @@ bool IbmHandler::isPrimingRequired() const noexcept
 
 void IbmHandler::collectAllFruVpd()
 {
+    // initialize VPD collection logger
+    m_logger->initiateVpdCollectionLogging();
+
     // Setting status to "InProgress", before trigeering VPD collection.
     m_progressInterface->set_property(
         "Status", std::string(constants::vpdCollectionInProgress));

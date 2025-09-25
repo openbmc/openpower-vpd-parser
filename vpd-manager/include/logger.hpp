@@ -18,9 +18,10 @@ namespace vpd
  */
 enum class PlaceHolder
 {
-    DEFAULT,   /* logs to the journal */
-    PEL,       /* Creates a PEL */
-    COLLECTION /* Logs collection messages */
+    DEFAULT,    /* logs to the journal */
+    PEL,        /* Creates a PEL */
+    COLLECTION, /* Logs collection messages */
+    VPD_WRITE   /* Logs VPD write details */
 };
 
 /**
@@ -28,7 +29,7 @@ enum class PlaceHolder
  * Based on the placeholder the class will handle different file operations to
  * log error messages.
  */
-class LogFileHandler
+class ILogFileHandler
 {
     // should hold fd's for files required as per placeholder.
   public:
@@ -54,7 +55,7 @@ class LogFileHandler
      * @brief Constructor
      * Private so that can't be initialized by class(es) other than friends.
      */
-    LogFileHandler() {}
+    ILogFileHandler() {}
 
     /* Define APIs to handle file operation as per the placeholder. */
 };
@@ -68,8 +69,10 @@ class Logger
     /**
      * @brief Deleted Methods
      */
-    Logger(const Logger&) = delete;  // Copy constructor
-    Logger(const Logger&&) = delete; // Move constructor
+    Logger(const Logger&) = delete;            // Copy constructor
+    Logger(const Logger&&) = delete;           // Move constructor
+    Logger operator=(const Logger&) = delete;  // Copy assignment operator
+    Logger operator=(const Logger&&) = delete; // Move assignment operator
 
     /**
      * @brief Method to get instance of Logger class.
@@ -99,21 +102,44 @@ class Logger
                     const std::source_location& i_location =
                         std::source_location::current());
 
+    /**
+     * @brief API to initiate VPD collection logging.
+     *
+     * This API initiates VPD collection logging. It checks for existing
+     * collection log files and if 3 such files are found, it deletes the oldest
+     * file and initiates a VPD collection logger object, so that every new VPD
+     * collection flow always gets logged into a new file.
+     */
+    void initiateVpdCollectionLogging() noexcept;
+
+    /**
+     * @brief API to terminate VPD collection logging.
+     *
+     * This API terminates the VPD collection logging by destroying the
+     * associated VPD collection logger object.
+     */
+    void terminateVpdCollectionLogging() noexcept
+    {
+        // TODO: reset VPD collection logger
+    }
+
   private:
     /**
      * @brief Constructor
      */
-    Logger() : m_logFileHandler(nullptr)
+    Logger() : m_vpdWriteLogger(nullptr), m_collectionLogger(nullptr)
     {
-        m_logFileHandler =
-            std::shared_ptr<LogFileHandler>(new LogFileHandler());
+        // TODO: initiate synchronous logger for VPD write logs
     }
 
     // Instance to the logger class.
     static std::shared_ptr<Logger> m_loggerInstance;
 
-    // Instance to LogFileHandler class.
-    std::shared_ptr<LogFileHandler> m_logFileHandler;
+    // logger object to handle VPD write logs
+    std::unique_ptr<ILogFileHandler> m_vpdWriteLogger;
+
+    // logger object to handle VPD collection logs
+    std::unique_ptr<ILogFileHandler> m_collectionLogger;
 };
 
 /**
