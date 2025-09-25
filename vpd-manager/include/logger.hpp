@@ -2,6 +2,7 @@
 
 #include "types.hpp"
 
+#include <condition_variable>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -219,6 +220,9 @@ class AsyncFileLogger final : public LogFileHandler
 
     // flag which controls if the logger worker thread should be running
     std::atomic_bool m_shouldWorkerThreadRun{true};
+
+    // conditional variable to signal log worker thread
+    std::condition_variable m_cv;
 
     /**
      * @brief Constructor
