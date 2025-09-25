@@ -26,12 +26,12 @@ namespace dbusUtility
  * generate appropriate error.
  *
  * @param [in] objectPath - Object path under the service.
- * @param [in] interfaces - Array of interface(s).
+ * @param [in] interfaces - Vector of interface(s).
  * @return - A Map of service name to object to interface(s), if success.
  *           If failed,  empty map.
  */
-inline types::MapperGetObject getObjectMap(const std::string& objectPath,
-                                           std::span<const char*> interfaces)
+inline types::MapperGetObject getObjectMap(
+    const std::string& objectPath, const std::vector<std::string>& interfaces)
 {
     types::MapperGetObject getObjectMap;
 
