@@ -144,6 +144,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8eb58280_1da1cb10",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-25T06:38:44Z",
+      "side": 1,
+      "message": "Methods defined in class are implicitly made `inline` by the compiler.",
+      "parentUuid": "504eecba_f2e28516",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "608e6d49_91489302",
         "filename": "vpd-manager/include/logger.hpp",
         "patchSetId": 8
@@ -331,6 +349,24 @@
       "side": 1,
       "message": "I think it\u0027s okay to have single FRU VPD collection go to journal as only minimal logs would be there for a single FRU VPD collection flow. @sunnsr25@in.ibm.com what\u0027s your opinion?",
       "parentUuid": "50421d0d_37e42d59",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f66b5bc1_2c8dd630",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-25T06:38:44Z",
+      "side": 1,
+      "message": "As discussed, we do not need to log single FRU VPD to collection log file.",
+      "parentUuid": "984fcfac_670165fb",
       "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
