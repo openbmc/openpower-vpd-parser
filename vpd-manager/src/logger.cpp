@@ -100,11 +100,15 @@ void AsyncFileLogger::logMessage(const std::string_view& i_message,
     try
     {
         // acquire lock on queue
-        std::lock_guard<std::mutex> l_lock(m_mutex);
+        std::unique_lock<std::mutex> l_lock(m_mutex);
+
         // push message to queue
         m_messageQueue.emplace(
             timestamp() + "[" + m_logLevelToStringMap.at(i_logLevel) + "]" +
             std::string(i_message));
+
+        // notify log worker thread
+        m_cv.notify_one();
     }
     catch (const std::exception& l_ex)
     {
@@ -114,12 +118,27 @@ void AsyncFileLogger::logMessage(const std::string_view& i_message,
 
 void AsyncFileLogger::fileWorker() noexcept
 {
-    while (m_shouldWorkerThreadRun)
-    {
-        // acquire lock on queue
-        m_mutex.lock();
+    // create lock object on mutex
+    std::unique_lock<std::mutex> l_lock(m_mutex);
 
-        if (!m_messageQueue.empty())
+    // infinite loop
+    while (true)
+    {
+        // check for exit conditions
+        if (!m_fileStream.is_open() || m_shouldStopLogging)
+        {
+            break;
+        }
+
+        // wait for notification from log producer
+        m_cv.wait(l_lock, [this] {
+            return m_shouldStopLogging || !m_messageQueue.empty();
+        });
+
+        std::cout << "_SR worker thread notified " << std::endl;
+
+        // flush the queue
+        while (!m_messageQueue.empty())
         {
             // read the first message in queue
             const auto l_logMessage = m_messageQueue.front();
@@ -128,8 +147,8 @@ void AsyncFileLogger::fileWorker() noexcept
                 // pop the message from queue
                 m_messageQueue.pop();
 
-                // release lock on queue
-                m_mutex.unlock();
+                // unlock mutex on queue
+                l_lock.unlock();
 
                 if (++m_currentNumEntries > m_maxEntries)
                 {
@@ -138,21 +157,26 @@ void AsyncFileLogger::fileWorker() noexcept
 
                 // flush the message to file
                 m_fileStream << l_logMessage << std::endl;
+
+                // lock mutex on queue
+                l_lock.lock();
             }
             catch (const std::exception& l_ex)
             {
                 // redirect log to journal
-                std::cout << l_logMessage << std::endl;
-            }
-        }
-        else
-        {
-            // release lock on queue
-            m_mutex.unlock();
-        }
+                std::cout << "Failed to log message : " << l_logMessage
+                          << " Error: " << l_ex.what() << std::endl;
 
-        std::this_thread::sleep_for(std::chrono::seconds(m_flushTimeInSecs));
+                // check if we need to reacquire lock before continuing to flush
+                // queue
+                if (!l_lock.owns_lock())
+                {
+                    l_lock.lock();
+                }
+            }
+        } // queue flush loop
     } // thread loop
+    std::cout << "_SR log worker thread exiting" << std::endl;
 }
 
 void LogFileHandler::rotateFile(
