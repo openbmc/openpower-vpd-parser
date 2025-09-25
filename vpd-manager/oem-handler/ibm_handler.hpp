@@ -3,6 +3,7 @@
 #include "backup_restore.hpp"
 #include "gpio_monitor.hpp"
 #include "listener.hpp"
+#include "logger.hpp"
 #include "worker.hpp"
 
 #include <sdbusplus/asio/object_server.hpp>
@@ -166,5 +167,8 @@ class IbmHandler
 
     // Shared pointer to Listener object.
     std::shared_ptr<Listener> m_eventListener;
+
+    // Shared pointer to Logger object.
+    std::shared_ptr<Logger> m_logger;
 };
 } // namespace vpd
