@@ -31,7 +31,7 @@ namespace dbusUtility
  *           If failed,  empty map.
  */
 inline types::MapperGetObject getObjectMap(const std::string& objectPath,
-                                           std::span<const char*> interfaces)
+                                           std::vector<std::string> interfaces)
 {
     types::MapperGetObject getObjectMap;
 
