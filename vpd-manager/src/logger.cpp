@@ -15,10 +15,10 @@ void Logger::logMessage(std::string_view i_message,
     l_log << "FileName: " << i_location.file_name() << ","
           << " Line: " << i_location.line() << " " << i_message;
 
-    if (i_placeHolder == PlaceHolder::COLLECTION)
+    if ((i_placeHolder == PlaceHolder::COLLECTION) && m_collectionLogger)
     {
         // Log it to a specific place.
-        m_logFileHandler->writeLogToFile(i_placeHolder);
+        m_collectionLogger->writeLogToFile(i_placeHolder);
     }
     else if (i_placeHolder == PlaceHolder::PEL)
     {
@@ -32,10 +32,35 @@ void Logger::logMessage(std::string_view i_message,
                          l_log.str() + ">"
                   << std::endl;
     }
+    else if ((i_placeHolder == PlaceHolder::VPD_WRITE) && m_vpdWriteLogger)
+    {
+        m_vpdWriteLogger->writeLogToFile(i_placeHolder);
+    }
     else
     {
         // Default case, let it go to journal.
         std::cout << l_log.str() << std::endl;
+    }
+}
+
+void Logger::initiateVpdCollectionLogging() noexcept
+{
+    try
+    {
+        /* TODO:
+            - check /var/lib/vpd for number "collection.*" log file
+            - if 3 collection_[0-2].log files are found
+                - delete collection_1.log
+                - create collection logger object with collection_1.log
+           parameter
+            - else
+                - create collection logger object with collection_(n+1).log
+           parameter*/
+    }
+    catch (const std::exception& l_ex)
+    {
+        logMessage("Failed to initialize collection logger. Error: " +
+                   std::string(l_ex.what()));
     }
 }
 

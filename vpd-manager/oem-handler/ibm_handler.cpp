@@ -75,6 +75,9 @@ IbmHandler::IbmHandler(
     // Instantiate GpioMonitor class
     m_gpioMonitor =
         std::make_shared<GpioMonitor>(m_sysCfgJsonObj, m_worker, m_ioContext);
+
+    // instantiate Logger object
+    m_logger = Logger::getLoggerInstance();
 }
 
 void IbmHandler::SetTimerToDetectVpdCollectionStatus()
@@ -127,6 +130,9 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
             {
                 m_eventListener->registerCorrPropCallBack();
             }
+
+            // terminate collection logger
+            m_logger->terminateVpdCollectionLogging();
         }
         else
         {
@@ -136,6 +142,9 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
                 l_timer.cancel();
                 logging::logMessage("Taking too long. Active thread = " +
                                     std::to_string(l_threadCount));
+
+                // terminate collection logger
+                m_logger->terminateVpdCollectionLogging();
             }
             else
             {
@@ -500,6 +509,9 @@ bool IbmHandler::isPrimingRequired() const noexcept
 
 void IbmHandler::collectAllFruVpd()
 {
+    // initialize VPD collection logger
+    m_logger->initiateVpdCollectionLogging();
+
     // Setting status to "InProgress", before trigeering VPD collection.
     m_progressInterface->set_property(
         "Status", std::string(constants::vpdCollectionInProgress));
