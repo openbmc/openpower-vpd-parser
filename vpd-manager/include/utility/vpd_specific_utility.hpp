@@ -611,9 +611,9 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
 {
     try
     {
-        std::array<const char*, 0> l_interfaces;
+        // std::array<const char*, 0> l_interfaces;
         const types::MapperGetObject& l_getObjectMap =
-            dbusUtility::getObjectMap(i_objectPath, l_interfaces);
+            dbusUtility::getObjectMap(i_objectPath, {});
 
         const std::vector<std::string>& l_vpdRelatedInterfaces{
             constants::operationalStatusInf, constants::inventoryItemInf,
