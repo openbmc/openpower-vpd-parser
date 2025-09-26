@@ -30,6 +30,7 @@ namespace dbusUtility
  * @return - A Map of service name to object to interface(s), if success.
  *           If failed,  empty map.
  */
+// template <typename T, std::size_t N>
 inline types::MapperGetObject getObjectMap(const std::string& objectPath,
                                            std::span<const char*> interfaces)
 {
@@ -50,7 +51,8 @@ inline types::MapperGetObject getObjectMap(const std::string& objectPath,
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetObject");
 
-        method.append(objectPath, interfaces);
+        std::vector<const char*> tmp(interfaces.begin(), interfaces.end());
+        method.append(objectPath, tmp);
         auto result = bus.call(method);
         result.read(getObjectMap);
     }
