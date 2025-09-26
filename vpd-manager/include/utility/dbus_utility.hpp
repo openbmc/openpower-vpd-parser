@@ -30,6 +30,7 @@ namespace dbusUtility
  * @return - A Map of service name to object to interface(s), if success.
  *           If failed,  empty map.
  */
+//template <typename T, std::size_t N>
 inline types::MapperGetObject getObjectMap(const std::string& objectPath,
                                            std::span<const char*> interfaces)
 {
