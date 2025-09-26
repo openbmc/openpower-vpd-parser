@@ -265,7 +265,7 @@ void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios)
             if (constants::FAILURE ==
                 m_manager->updateKeyword(
                     SYSTEM_VPD_FILE_PATH,
-                    types::IpzData("VSYS", constants::kwdRG,
+                    types::IpzData(constants::vsysInf, constants::kwdRG,
                                    l_biosValInVpdFormat)))
             {
                 logging::logMessage(
@@ -318,7 +318,7 @@ void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode)
     // Read existing value.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::utilInf, constants::kwdAMM);
+        constants::vsysInf, constants::kwdAMM);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -337,7 +337,7 @@ void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode)
         if (constants::FAILURE ==
             m_manager->updateKeyword(
                 SYSTEM_VPD_FILE_PATH,
-                types::IpzData("UTIL", constants::kwdAMM, l_valToUpdateInVpd)))
+                types::IpzData(constants::vsysInf, constants::kwdAMM, l_valToUpdateInVpd)))
         {
             logging::logMessage(
                 "Failed to update " + std::string(constants::kwdAMM) +
@@ -379,7 +379,7 @@ void IbmBiosHandler::processActiveMemoryMirror()
 {
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::utilInf, constants::kwdAMM);
+        constants::vsysInf, constants::kwdAMM);
 
     if (auto pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {

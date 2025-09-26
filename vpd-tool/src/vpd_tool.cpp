@@ -16,10 +16,10 @@ namespace vpd
 // position, enabled value, disabled value}
 // Note: we do not care about min/max value for the BIOS attribute here.
 const types::BiosAttributeKeywordMap VpdTool::m_biosAttributeVpdKeywordMap = {
-    {{"UTIL", "D0"},
+    {{"VSYS", "MM"},
      {{"hb_memory_mirror_mode", constants::VALUE_8, std::nullopt,
        constants::VALUE_2, constants::VALUE_1}}},
-    {{"UTIL", "D1"},
+    {{"VSYS", "BA"},
      {{"pvm_keep_and_clear", constants::VALUE_1, constants::VALUE_0,
        constants::VALUE_1, constants::VALUE_0},
       {"pvm_create_default_lpar", constants::VALUE_1, constants::VALUE_1,
