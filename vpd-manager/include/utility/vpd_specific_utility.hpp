@@ -384,7 +384,7 @@ inline std::string getExpandedLocationCode(
         }
         else
         {
-            std::array<const char*, 1> interfaceList = {kwdInterface.c_str()};
+            std::vector<const char*> interfaceList = {kwdInterface.c_str()};
 
             types::MapperGetObject mapperRetValue = dbusUtility::getObjectMap(
                 std::string(constants::systemVpdInvPath), interfaceList);
@@ -611,7 +611,7 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
 {
     try
     {
-        std::array<const char*, 0> l_interfaces;
+        std::vector<const char*> l_interfaces;
         const types::MapperGetObject& l_getObjectMap =
             dbusUtility::getObjectMap(i_objectPath, l_interfaces);
 
