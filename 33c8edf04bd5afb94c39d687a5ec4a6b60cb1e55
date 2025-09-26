@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cd6102b_1d07e59b",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-09-26T03:00:57Z",
+      "side": 1,
+      "message": "What happens if the timer is cancelled due to this case? terminate will not get called ever.",
+      "revId": "33c8edf04bd5afb94c39d687a5ec4a6b60cb1e55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
