@@ -369,8 +369,8 @@ void PrimeInventory::processFunctionalProperty(
 {
     if (!vpd::dbusUtility::isChassisPowerOn())
     {
-        std::array<const char*, 1> l_operationalStatusInf = {
-            vpd::constants::operationalStatusInf};
+        std::array<char*, 1> l_operationalStatusInf = {
+            const_cast<char*>(vpd::constants::operationalStatusInf)};
 
         auto l_mapperObjectMap = vpd::dbusUtility::getObjectMap(
             i_inventoryObjPath, l_operationalStatusInf);
@@ -381,6 +381,8 @@ void PrimeInventory::processFunctionalProperty(
             for (const auto& [l_serviceName, l_interfaceLsit] :
                  l_mapperObjectMap)
             {
+                std::cout << "interface size: " << l_interfaceLsit.size()
+                          << std::endl;
                 if (l_serviceName == vpd::constants::pimServiceName)
                 {
                     // The object is already under PIM. No need to process
@@ -410,7 +412,8 @@ void PrimeInventory::processEnabledProperty(
 {
     if (!vpd::dbusUtility::isChassisPowerOn())
     {
-        std::array<const char*, 1> l_enableInf = {vpd::constants::enableInf};
+        std::array<char*, 1> l_enableInf = {
+            const_cast<char*>(vpd::constants::enableInf)};
 
         auto l_mapperObjectMap =
             vpd::dbusUtility::getObjectMap(i_inventoryObjPath, l_enableInf);
