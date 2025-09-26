@@ -235,14 +235,72 @@ void AsyncFileLogger::fileWorker() noexcept
     } // thread loop
 }
 
-void ILogFileHandler::rotateFile(
-    [[maybe_unused]] const unsigned i_numEntriesToDelete)
+void ILogFileHandler::rotateFile(const unsigned i_numEntriesToDelete)
 {
-    /* TODO:
-        - delete specified number of oldest entries from beginning of file
-        - rewrite file to move existing logs to beginning of file
-    */
+    constexpr auto l_tempFilePath{"/var/lib/temp.log"};
+
+    // open a temporary file
+    std::ofstream l_tempFileStream{l_tempFilePath,
+                                   std::ios::trunc | std::ios::out};
+
+    if (!l_tempFileStream.is_open())
+    {
+        std::cout << "_SR failed to open temp file for rotation" << std::endl;
+    }
+
+    // enable exception mask to throw on badbit and failbit
+    l_tempFileStream.exceptions(std::ofstream::badbit | std::ofstream::failbit);
+
+    // temporary line
+    std::string l_line;
+
+    // move the file pointer to beginning of file for reading
+    m_fileStream.seekg(0);
+
+    // read the existing file line by line until end of file
+    for (unsigned l_numLinesRead = 0; std::getline(m_fileStream, l_line);
+         ++l_numLinesRead)
+    {
+        if (l_numLinesRead > i_numEntriesToDelete)
+        {
+            // write the line to temporary file
+            l_tempFileStream << l_line;
+        }
+    }
+
+    // close existing log file
+    m_fileStream.close();
+
+    // close temporary file
+    l_tempFileStream.close();
+
+    // delete existing log file
+    std::error_code l_ec;
+    if (!std::filesystem::remove(m_filePath, l_ec))
+    {
+        auto l_logger = Logger::getLoggerInstance();
+        l_logger->logMessage(
+            "Failed to delete existing log file. Error: " + l_ec.message());
+    }
+
+    // rename temporary file to log file
+    l_ec.clear();
+    std::filesystem::rename(l_tempFilePath, m_filePath, l_ec);
+    if (l_ec)
+    {
+        auto l_logger = Logger::getLoggerInstance();
+        l_logger->logMessage(
+            "Failed to rename temporary file to log file. Error: " +
+            l_ec.message());
+    }
+
+    // re-open the new file
+    m_fileStream.open(m_filePath, std::ios::in | std::ios::out | std::ios::app);
+
+    // update current number of entries
     m_currentNumEntries = m_maxEntries - i_numEntriesToDelete;
+
+    std::cout << "_SR done rotating file " << m_filePath << std::endl;
 }
 namespace logging
 {
