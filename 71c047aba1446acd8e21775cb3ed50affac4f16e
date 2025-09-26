@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dd938b4_efb5cfac",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-09-26T07:39:55Z",
+      "side": 1,
+      "message": "initiates a VPD collection logger object, to log VPD collection into a new file always.\n\nthis extra info gives complete understanding, your call.",
+      "revId": "71c047aba1446acd8e21775cb3ed50affac4f16e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
