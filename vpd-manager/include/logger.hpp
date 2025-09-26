@@ -78,7 +78,8 @@ class ILogFileHandler
         m_filePath{i_filePath}, m_maxEntries{i_maxEntries}
     {
         // open the file in append mode
-        m_fileStream.open(m_filePath, std::ios::out | std::ios::app);
+        m_fileStream.open(m_filePath,
+                          std::ios::in | std::ios::out | std::ios::app);
 
         // enable exception mask to throw on badbit and failbit
         m_fileStream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
