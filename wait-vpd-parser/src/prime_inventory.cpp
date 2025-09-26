@@ -381,6 +381,8 @@ void PrimeInventory::processFunctionalProperty(
             for (const auto& [l_serviceName, l_interfaceLsit] :
                  l_mapperObjectMap)
             {
+                std::cout << "interface size: " << l_interfaceLsit.size()
+                          << std::endl;
                 if (l_serviceName == vpd::constants::pimServiceName)
                 {
                     // The object is already under PIM. No need to process
