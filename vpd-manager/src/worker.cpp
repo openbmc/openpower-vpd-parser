@@ -107,8 +107,8 @@ bool Worker::isSystemVPDOnDBus() const
                             INVENTORY_JSON_SYM_LINK);
     }
 
-    std::array<const char*, 1> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
+    std::array<std::string, 1> interfaces = {
+        std::string("xyz.openbmc_project.Inventory.Item.Board.Motherboard")};
 
     const types::MapperGetObject& objectMap =
         dbusUtility::getObjectMap(mboardPath, interfaces);
@@ -840,8 +840,8 @@ void Worker::processFunctionalProperty(const std::string& i_inventoryObjPath,
 {
     if (!dbusUtility::isChassisPowerOn())
     {
-        std::array<const char*, 1> l_operationalStatusInf = {
-            constants::operationalStatusInf};
+        std::array<std::string, 1> l_operationalStatusInf = {
+            std::string(constants::operationalStatusInf)};
 
         auto mapperObjectMap = dbusUtility::getObjectMap(
             i_inventoryObjPath, l_operationalStatusInf);
@@ -879,7 +879,8 @@ void Worker::processEnabledProperty(const std::string& i_inventoryObjPath,
 {
     if (!dbusUtility::isChassisPowerOn())
     {
-        std::array<const char*, 1> l_enableInf = {constants::enableInf};
+        std::array<std::string, 1> l_enableInf = {
+            std::string(constants::enableInf)};
 
         auto mapperObjectMap =
             dbusUtility::getObjectMap(i_inventoryObjPath, l_enableInf);
