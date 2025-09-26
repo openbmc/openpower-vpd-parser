@@ -178,6 +178,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce79e58c_137a3dfc",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-09-26T07:25:47Z",
+      "side": 1,
+      "message": "I agree about point a. But with respect to point b. this method is a private method inside `class LogFileHandler` and also in namespace `vpd`, so no chance of collision unless someone adds another private method with same signature in the class.\n\nAnyways, I have added `inline` specifier.",
+      "parentUuid": "87137140_fbde514b",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "608e6d49_91489302",
