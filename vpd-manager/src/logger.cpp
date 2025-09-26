@@ -232,15 +232,124 @@ void AsyncFileLogger::fileWorker() noexcept
     } // thread loop
 }
 
-void ILogFileHandler::rotateFile(
-    [[maybe_unused]] const unsigned i_numEntriesToDelete)
+void ILogFileHandler::rotateFile(const unsigned i_numEntriesToDelete)
 {
-    /* TODO:
-        - delete specified number of oldest entries from beginning of file
-        - rewrite file to move existing logs to beginning of file
-    */
+    auto l_logger = Logger::getLoggerInstance();
+    constexpr auto l_tempFilePath{"/var/lib/vpd/temp.log"};
+
+    // open a temporary file
+    std::ofstream l_tempFileStream{l_tempFilePath,
+                                   std::ios::trunc | std::ios::out};
+
+    if (!l_tempFileStream.is_open())
+    {
+        l_logger->logMessage("_SR failed to open temp file for rotation");
+        return;
+    }
+
+    // enable exception mask to throw on badbit and failbit
+    l_tempFileStream.exceptions(std::ofstream::badbit | std::ofstream::failbit);
+
+    std::ifstream l_originalLogFileStream{m_filePath};
+    if (!l_originalLogFileStream.is_open())
+    {
+        l_logger->logMessage("Failed to open original log file");
+        return;
+    }
+
+    std::cout << "_SR writing required lines to keep" << std::endl;
+
+    // temporary line
+    std::string l_line;
+
+    // read the existing file line by line until end of file and write the lines
+    // to keep to temporary file
+    for (unsigned l_numLinesRead = 0;
+         std::getline(l_originalLogFileStream, l_line); ++l_numLinesRead)
+    {
+        if (l_numLinesRead >= i_numEntriesToDelete)
+        {
+            // write the line to temporary file
+            l_tempFileStream << l_line << std::endl;
+        }
+    }
+
+    std::cout << "_SR done writing required lines to keep" << std::endl;
+
+    // close the original log file
+    l_originalLogFileStream.close();
+
+    // close temporary file
+    l_tempFileStream.close();
+
+    // delete existing log file
+    std::error_code l_ec;
+    if (!std::filesystem::remove(m_filePath, l_ec))
+    {
+        l_logger->logMessage(
+            "Failed to delete existing log file. Error: " + l_ec.message());
+    }
+
+    // rename temporary file to log file
+    l_ec.clear();
+    std::filesystem::rename(l_tempFilePath, m_filePath, l_ec);
+    if (l_ec)
+    {
+        auto l_logger = Logger::getLoggerInstance();
+        l_logger->logMessage(
+            "Failed to rename temporary file to log file. Error: " +
+            l_ec.message());
+    }
+
+    // re-open the new file
+    m_fileStream.close();
+    m_fileStream.open(m_filePath, std::ios::in | std::ios::out | std::ios::app);
+
+    // update current number of entries
     m_currentNumEntries = m_maxEntries - i_numEntriesToDelete;
+
+    std::cout << "_SR done rotating file " << m_filePath << std::endl;
 }
+
+ILogFileHandler::ILogFileHandler(const std::filesystem::path& i_filePath,
+                                 const size_t i_maxEntries) :
+    m_filePath{i_filePath}, m_maxEntries{i_maxEntries}
+{
+    // check if log file already exists
+    std::error_code l_ec;
+    const bool l_logFileExists = std::filesystem::exists(m_filePath, l_ec);
+    if (l_ec)
+    {
+        Logger::getLoggerInstance()->logMessage(
+            "Failed to check if log file already exists. Error: " +
+            l_ec.message());
+    }
+
+    // open the file in append mode
+    m_fileStream.open(m_filePath, std::ios::out | std::ios::app);
+
+    // enable exception mask to throw on badbit and failbit
+    m_fileStream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
+
+    if (l_logFileExists)
+    {
+        // log file already exists, check and update the number of entries
+        std::ifstream l_readFileStream{m_filePath};
+
+        for (std::string l_line; std::getline(l_readFileStream, l_line);
+             ++m_currentNumEntries)
+            ;
+
+        l_readFileStream.close();
+
+        // rotate the file if required
+        if (m_currentNumEntries >= m_maxEntries)
+        {
+            rotateFile();
+        }
+    }
+}
+
 namespace logging
 {
 void logMessage(std::string_view message, const std::source_location& location)
