@@ -52,6 +52,7 @@ constexpr auto biosConfigMgrObjPath =
     "/xyz/openbmc_project/bios_config/manager";
 constexpr auto biosConfigMgrInterface =
     "xyz.openbmc_project.BIOSConfig.Manager";
+constexpr auto waitVpdParserProcessName = "wait-vpd-parsers";
 
 constexpr auto KwdIM = "IM";
 constexpr auto badVpdPath = "/var/lib/vpd/dumps";
