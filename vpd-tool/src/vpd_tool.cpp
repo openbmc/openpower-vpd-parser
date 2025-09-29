@@ -1366,6 +1366,22 @@ int VpdTool::resetVpdOnDbus()
         }
 
         std::error_code l_ec;
+        if (std::filesystem::exists(INVENTORY_JSON_SYM_LINK, l_ec) &&
+            !std::filesystem::remove(INVENTORY_JSON_SYM_LINK, l_ec))
+        {
+            std::cerr
+                << "Error occured while removing the system inventory JSON sym link ["
+                << INVENTORY_JSON_SYM_LINK << "]." << std::endl;
+
+            if (l_ec)
+            {
+                std::cerr << "Reason: " << l_ec.message() << std::endl;
+            }
+
+            std::cerr << "Reboot BMC to recover the system." << std::endl;
+            return l_rc;
+        }
+
         if (static_cast<std::uintmax_t>(-1) ==
             std::filesystem::remove_all(constants::pimPersistPath, l_ec))
         {
@@ -1430,6 +1446,21 @@ int VpdTool::resetVpdOnDbus()
             std::cerr << constants::vpdManagerProcessName
                       << " service is not active. Return code [" << l_rc
                       << "]. Exiting." << std::endl
+                      << "Reboot BMC to recover the system." << std::endl;
+            return l_rc;
+        }
+
+        std::string l_waitVpdParserStartCmd(
+            "systemctl restart " +
+            std::string(constants::waitVpdParserProcessName));
+
+        std::cout << std::flush;
+        if (auto l_rc = std::system(l_waitVpdParserStartCmd.c_str()); l_rc != 0)
+        {
+            std::cerr << "Failed to start "
+                      << constants::waitVpdParserProcessName
+                      << " service. Return code [" << l_rc << "]. Exiting."
+                      << std::endl
                       << "Reboot BMC to recover the system." << std::endl;
             return l_rc;
         }
