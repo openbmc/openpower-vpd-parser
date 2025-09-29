@@ -627,6 +627,10 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
                 continue;
             }
 
+            // const std::vector<std::string> l_vpdRelatedInterfaces{
+            //     constants::operationalStatusInf, constants::inventoryItemInf,
+            //     constants::assetInf, constants::vpdCollectionInterface};
+
             for (const auto& l_interface : l_interfaceList)
             {
                 if ((l_interface.find(constants::ipzVpdInf) !=

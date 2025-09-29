@@ -50,7 +50,15 @@ inline types::MapperGetObject getObjectMap(const std::string& objectPath,
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetObject");
 
-        method.append(objectPath, interfaces);
+        if (interfaces.empty())
+        {
+            method.append(objectPath, std::vector<std::string>());
+        }
+        else
+        {
+            method.append(objectPath, interfaces);
+        }
+
         auto result = bus.call(method);
         result.read(getObjectMap);
     }
