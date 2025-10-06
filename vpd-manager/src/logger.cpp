@@ -1,7 +1,7 @@
 #include "logger.hpp"
 
+#include <regex>
 #include <sstream>
-
 namespace vpd
 {
 std::shared_ptr<Logger> Logger::m_loggerInstance;
@@ -47,17 +47,57 @@ void Logger::initiateVpdCollectionLogging() noexcept
 {
     try
     {
-        /* TODO:
-            - check /var/lib/vpd for number "collection.*" log file
-            - if 3 collection_[0-2].log files are found
-                - delete collection_1.log
-                - create collection logger object with collection_1.log
-           parameter
-            - else
-                - create collection logger object with collection_(n+1).log
-           parameter*/
+        // maximum number of collection log files to maintain
+        constexpr auto l_maxCollectionLogFiles{3};
+
+        // collection log file directory
+        const std::filesystem::path l_collectionLogDirectory{"/var/lib/vpd"};
+
+        // base name of collection log file
+        std::string l_collectionLogFilePath{"/var/lib/vpd/collection"};
+
+        unsigned l_collectionLogFileCount{0};
+
+        // iterate through all entries in the log directory
+        for (const auto& l_dirEntry :
+             std::filesystem::directory_iterator(l_collectionLogDirectory))
+        {
+            // check /var/lib/vpd for number "collection.*" log file
+            std::regex l_collectionLogFileRegex{"collection.*\\.log"};
+
+            if (std::filesystem::is_regular_file(l_dirEntry.path()) &&
+                std::regex_match(l_dirEntry.path().filename().string(),
+                                 l_collectionLogFileRegex))
+            {
+                l_collectionLogFileCount++;
+            }
+        }
+
+        std::cout << "_SR num collection log files: "
+                  << l_collectionLogFileCount << std::endl;
+
+        if (l_collectionLogFileCount >= l_maxCollectionLogFiles)
+        {
+            // delete oldest collection log file
+            l_collectionLogFilePath += "_0.log";
+
+            std::error_code l_ec;
+            if (!std::filesystem::remove(l_collectionLogFilePath, l_ec))
+            {
+                std::cerr << "Failed to delete existing collection log file "
+                          << l_collectionLogFilePath
+                          << " Error: " << l_ec.message() << std::endl;
+            }
+        }
+        else
+        {
+            // create collection logger object with collection_(n+1).log
+            l_collectionLogFilePath +=
+                "_" + std::to_string(l_collectionLogFileCount) + ".log";
+        }
+
         m_collectionLogger.reset(
-            new AsyncFileLogger("/var/lib/vpd/collection.log", 512));
+            new AsyncFileLogger(l_collectionLogFilePath, 512));
     }
     catch (const std::exception& l_ex)
     {
