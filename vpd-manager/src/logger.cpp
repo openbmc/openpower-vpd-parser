@@ -1,5 +1,6 @@
 #include "logger.hpp"
 
+#include <regex>
 #include <sstream>
 
 namespace vpd
@@ -47,17 +48,86 @@ void Logger::initiateVpdCollectionLogging() noexcept
 {
     try
     {
-        /* TODO:
-            - check /var/lib/vpd for number "collection.*" log file
-            - if 3 collection_[0-2].log files are found
-                - delete collection_1.log
-                - create collection logger object with collection_1.log
-           parameter
-            - else
-                - create collection logger object with collection_(n+1).log
-           parameter*/
+        // collection log file directory
+        const std::filesystem::path l_collectionLogDirectory{"/var/lib/vpd"};
+
+        std::error_code l_ec;
+        if (!std::filesystem::exists(l_collectionLogDirectory))
+        {
+            if (l_ec)
+            {
+                throw std::runtime_error(
+                    "File system call to exist failed with error = " +
+                    l_ec.message());
+            }
+            throw std::runtime_error(
+                "Directory " + l_collectionLogDirectory.string() +
+                " does not exist");
+        }
+
+        // base name of collection log file
+        std::filesystem::path l_collectionLogFilePath{l_collectionLogDirectory};
+        l_collectionLogFilePath /= "collection";
+
+        unsigned l_collectionLogFileCount{0};
+
+        std::filesystem::file_time_type l_oldestFileTime;
+        std::filesystem::path l_oldestFilePath{l_collectionLogFilePath};
+
+        // iterate through all entries in the log directory
+        for (const auto& l_dirEntry :
+             std::filesystem::directory_iterator(l_collectionLogDirectory))
+        {
+            // check /var/lib/vpd for number "collection.*" log file
+            const std::regex l_collectionLogFileRegex{"collection.*\\.log"};
+
+            if (std::filesystem::is_regular_file(l_dirEntry.path()) &&
+                std::regex_match(l_dirEntry.path().filename().string(),
+                                 l_collectionLogFileRegex))
+            {
+                // check the write time of this file
+                const auto l_fileWriteTime =
+                    std::filesystem::last_write_time(l_dirEntry.path());
+
+                // update oldest file path if required
+                if (l_fileWriteTime < l_oldestFileTime)
+                {
+                    l_oldestFileTime = l_fileWriteTime;
+                    l_oldestFilePath = l_dirEntry.path();
+                }
+
+                l_collectionLogFileCount++;
+            }
+        }
+
+        // maximum number of collection log files to maintain
+        constexpr auto l_maxCollectionLogFiles{3};
+
+        if (l_collectionLogFileCount >= l_maxCollectionLogFiles)
+        {
+            // delete oldest collection log file
+            l_collectionLogFilePath = l_oldestFilePath;
+
+            logMessage("Deleting collection log file " +
+                       l_collectionLogFilePath.string());
+
+            std::error_code l_ec;
+            if (!std::filesystem::remove(l_collectionLogFilePath, l_ec))
+            {
+                logMessage("Failed to delete existing collection log file " +
+                           l_collectionLogFilePath.string() +
+                           " Error: " + l_ec.message());
+            }
+        }
+        else
+        {
+            // create collection logger object with collection_(n+1).log
+            l_collectionLogFilePath +=
+                "_" + std::to_string(l_collectionLogFileCount) + ".log";
+        }
+
         m_collectionLogger.reset(
-            new AsyncFileLogger("/var/lib/vpd/collection.log", 512));
+            new AsyncFileLogger(l_collectionLogFilePath, 512));
     }
     catch (const std::exception& l_ex)
     {
