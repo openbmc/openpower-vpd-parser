@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f46472b9_c44f25d3",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1372,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-06T16:57:22Z",
+      "side": 1,
+      "message": "Why the flow continues if there is a failure in removing the symlink?\nThis will end up in the same issue where asset tag will not get populated.",
+      "revId": "cf89b403ad87595ebca46569766a1443c3d0a6c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e7b8482_fd04ccae",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1451,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-06T16:57:22Z",
+      "side": 1,
+      "message": "Why restart? This is not a Daemon. It shouldn\u0027t be running at this moment.",
+      "revId": "cf89b403ad87595ebca46569766a1443c3d0a6c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
