@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "665ad9ef_c46a123d",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-06T17:31:37Z",
+      "side": 1,
+      "message": "If this class is going to act as an interface, can we have a \"I\" at the start.\n\"ILogFileHandler\"?",
+      "revId": "723fa4b18920d2b2a46d24289248a7def9cdf547",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2cb9878d_c9f40f0d",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 4
