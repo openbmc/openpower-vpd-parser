@@ -152,36 +152,32 @@ inline int dumpBadVpd(const std::string& i_vpdFilePath,
  *
  * @param[in] i_kwdValueMap - A map having Kwd value pair.
  * @param[in] i_kwd - keyword name.
+ * @param[out] o_errCode - To set error code in case of error.
  *
  * @return On success returns value of the keyword read from map, otherwise
  * returns empty string.
  */
 inline std::string getKwVal(const types::IPZKwdValueMap& i_kwdValueMap,
-                            const std::string& i_kwd) noexcept
+                            const std::string& i_kwd,
+                            uint16_t& o_errCode) noexcept
 {
     std::string l_kwdValue;
-    try
+    if (i_kwd.empty() || i_kwdValueMap.empty())
     {
-        if (i_kwd.empty())
-        {
-            throw std::runtime_error("Invalid parameters");
-        }
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return l_kwdValue;
+    }
 
-        auto l_itrToKwd = i_kwdValueMap.find(i_kwd);
-        if (l_itrToKwd != i_kwdValueMap.end())
-        {
-            l_kwdValue = l_itrToKwd->second;
-        }
-        else
-        {
-            throw std::runtime_error("Keyword not found");
-        }
-    }
-    catch (const std::exception& l_ex)
+    auto l_itrToKwd = i_kwdValueMap.find(i_kwd);
+    if (l_itrToKwd != i_kwdValueMap.end())
     {
-        logging::logMessage("Failed to get value for keyword [" + i_kwd +
-                            "]. Error : " + l_ex.what());
+        l_kwdValue = l_itrToKwd->second;
     }
+    else
+    {
+        o_errCode = error_code::KEYWORD_NOT_FOUND;
+    }
+
     return l_kwdValue;
 }
 
@@ -378,19 +374,22 @@ inline std::string getExpandedLocationCode(
         if (auto ipzVpdMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap);
             ipzVpdMap && (*ipzVpdMap).find(recordName) != (*ipzVpdMap).end())
         {
+            uint16_t l_errCode = 0;
             auto itrToVCEN = (*ipzVpdMap).find(recordName);
-            firstKwdValue = getKwVal(itrToVCEN->second, kwd1);
+            firstKwdValue = getKwVal(itrToVCEN->second, kwd1, l_errCode);
             if (firstKwdValue.empty())
             {
                 throw std::runtime_error(
-                    "Failed to get value for keyword [" + kwd1 + "]");
+                    "Failed to get value for keyword [" + kwd1 +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
             }
 
-            secondKwdValue = getKwVal(itrToVCEN->second, kwd2);
+            secondKwdValue = getKwVal(itrToVCEN->second, kwd2, l_errCode);
             if (secondKwdValue.empty())
             {
                 throw std::runtime_error(
-                    "Failed to get value for keyword [" + kwd2 + "]");
+                    "Failed to get value for keyword [" + kwd2 +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
             }
         }
         else
@@ -556,12 +555,13 @@ inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
                     "VINI record not found in parsed VPD. Can't find CCIN");
             }
 
-            std::string l_ccinFromVpd{
-                vpdSpecificUtility::getKwVal(l_itrToRec->second, "CC")};
+            uint16_t l_errCode = 0;
+            std::string l_ccinFromVpd{vpdSpecificUtility::getKwVal(
+                l_itrToRec->second, "CC", l_errCode)};
             if (l_ccinFromVpd.empty())
             {
-                throw DataException(
-                    "Empty CCIN value in VPD map. Can't find CCIN");
+                throw DataException("Can't find CCIN, error : " +
+                                    commonUtility::getErrCodeMsg(l_errCode));
             }
 
             transform(l_ccinFromVpd.begin(), l_ccinFromVpd.end(),

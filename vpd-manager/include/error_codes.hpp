@@ -34,7 +34,8 @@ enum error_code
     STANDARD_EXCEPTION,
 
     // VPD specific errors
-    UNSUPPORTED_VPD_TYPE
+    UNSUPPORTED_VPD_TYPE,
+    KEYWORD_NOT_FOUND
 };
 
 const std::unordered_map<int, std::string> errorCodeMap = {
@@ -64,6 +65,7 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::GPIO_LINE_EXCEPTION, "There was an exception in GPIO line."},
     {error_code::ERROR_PROCESSING_SYSTEM_CMD,
      "Error while executing system command tag."},
+    {error_code::KEYWORD_NOT_FOUND, "Keyword not found"},
     {error_code::UNSUPPORTED_VPD_TYPE, "This VPD type is not supported"},
     {error_code::STANDARD_EXCEPTION, "Standard Exception thrown"},
     {error_code::FILE_SYSTEM_ERROR, "File system error."}};

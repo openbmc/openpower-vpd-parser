@@ -302,13 +302,14 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         if (!io_srcVpdMap.empty())
         {
             l_srcStrValue = vpdSpecificUtility::getKwVal(
-                io_srcVpdMap.at(l_srcRecordName), l_srcKeywordName);
+                io_srcVpdMap.at(l_srcRecordName), l_srcKeywordName, l_errCode);
 
             if (l_srcStrValue.empty())
             {
                 std::runtime_error(
                     std::string("Failed to get value for keyword [") +
-                    l_srcKeywordName + std::string("]"));
+                    l_srcKeywordName + std::string("], error : ") +
+                    commonUtility::getErrCodeMsg(l_errCode));
             }
 
             l_srcBinaryValue =
@@ -334,13 +335,14 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         if (!io_dstVpdMap.empty())
         {
             l_dstStrValue = vpdSpecificUtility::getKwVal(
-                io_dstVpdMap.at(l_dstRecordName), l_dstKeywordName);
+                io_dstVpdMap.at(l_dstRecordName), l_dstKeywordName, l_errCode);
 
             if (l_dstStrValue.empty())
             {
                 std::runtime_error(
                     std::string("Failed to get value for keyword [") +
-                    l_dstKeywordName + std::string("]"));
+                    l_dstKeywordName + std::string("], error : ") +
+                    commonUtility::getErrCodeMsg(l_errCode));
             }
 
             l_dstBinaryValue =
