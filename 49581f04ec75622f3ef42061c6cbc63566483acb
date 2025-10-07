@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7bdd5ce_512f0a89",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-07T17:28:24Z",
+      "side": 1,
+      "message": "Its not about harm, its about the design usability. \nWhy should an interface mandate a mutex variable?",
+      "parentUuid": "8e3a0615_45426312",
+      "revId": "49581f04ec75622f3ef42061c6cbc63566483acb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4c8ac4e2_5437fb45",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 17
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Synchronous logging and multi-thread safety are mutually exclusive. Synchronous logging means the `logMessage()` is blocking. \n\n\u003eWe won\u0027t be using it with threads.\n\nYes, currently we plan to use this for logging VPD write actions, which are expected to be from a single thread, but there is not much additional cost in ensuring this API is multi-thread safe.",
       "parentUuid": "4c8ac4e2_5437fb45",
+      "revId": "49581f04ec75622f3ef42061c6cbc63566483acb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79cfee54_9ee4277c",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-07T17:28:24Z",
+      "side": 1,
+      "message": "Even if there is no cost, why should we have a mutex blocking in this case?\n\nThese are kind of hidden classes(since the construction is controlled and limited only to friend classes). Reason of having that is to cater very specific requirements.\nCurrently I don\u0027t see a use case as per our requirement. Can be extended in case any such requirement pops up in future?",
+      "parentUuid": "29880171_9ab9d2de",
       "revId": "49581f04ec75622f3ef42061c6cbc63566483acb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
