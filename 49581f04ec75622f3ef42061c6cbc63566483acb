@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e3a0615_45426312",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-07T14:24:46Z",
+      "side": 1,
+      "message": "Both the derived classes `SyncFileLogger` and `AsyncFileLogger` are using the `mutex` to make file logging multi-thread safe. Hence this member has been kept in the interface. I do not see any harm in keeping it in the interface.\n\n\u003eInterface should keep things flexible such that it can be extended where thread safety is not required?\n\nIf the derived class does not require multi thread safety, it can not use the mutex.",
+      "parentUuid": "df870152_6317f7e8",
+      "revId": "49581f04ec75622f3ef42061c6cbc63566483acb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4c8ac4e2_5437fb45",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 17
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29880171_9ab9d2de",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-07T14:24:46Z",
+      "side": 1,
+      "message": "Synchronous logging and multi-thread safety are mutually exclusive. Synchronous logging means the `logMessage()` is blocking. \n\n\u003eWe won\u0027t be using it with threads.\n\nYes, currently we plan to use this for logging VPD write actions, which are expected to be from a single thread, but there is not much additional cost in ensuring this API is multi-thread safe.",
+      "parentUuid": "4c8ac4e2_5437fb45",
+      "revId": "49581f04ec75622f3ef42061c6cbc63566483acb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "342a0cde_9d21ab55",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 17
@@ -48,6 +84,24 @@
       "writtenOn": "2025-10-07T13:54:50Z",
       "side": 1,
       "message": "Who will handle this? The caller trying to log?\nIn case of exception, just log to console? Anyways caller if handles the exception will have to so the same.",
+      "revId": "49581f04ec75622f3ef42061c6cbc63566483acb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cafe568e_a442734d",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-07T14:24:46Z",
+      "side": 1,
+      "message": "Agree with this. Will update this to log to console in case of exception caught.",
+      "parentUuid": "342a0cde_9d21ab55",
       "revId": "49581f04ec75622f3ef42061c6cbc63566483acb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
