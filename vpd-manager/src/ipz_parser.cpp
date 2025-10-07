@@ -853,10 +853,17 @@ bool IpzVpdParser::processInvalidRecords(
             l_invalidRecordListString, std::nullopt, std::nullopt,
             std::nullopt);
 
+        uint16_t l_errCode = 0;
+
         // Dump Bad VPD to file
         if (constants::SUCCESS !=
-            vpdSpecificUtility::dumpBadVpd(m_vpdFilePath, m_vpdVector))
+            vpdSpecificUtility::dumpBadVpd(m_vpdFilePath, m_vpdVector, l_errCode))
         {
+            if (l_errCode)
+            {
+                logging::logMessage("Failed to dump bad vpd file. Error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            }
+
             l_rc = false;
         }
     }

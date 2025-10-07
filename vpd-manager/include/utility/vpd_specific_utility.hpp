@@ -22,6 +22,25 @@ namespace vpd
 {
 namespace vpdSpecificUtility
 {
+
+/**
+ * @brief API to get error code message.
+ *
+ * @param[in] i_errCode - error code.
+ *
+ * @return Error message set for that error code. Otherwise empty
+ * string.
+ */
+inline std::string getErrCodeMsg(const uint16_t& i_errCode)
+{
+    if (errorCodeMap.find(i_errCode) != errorCodeMap.end())
+    {
+        return errorCodeMap.at(i_errCode);
+    }
+
+    return std::string{};
+}
+
 /**
  * @brief API to generate file name for bad VPD.
  *
@@ -30,13 +49,20 @@ namespace vpdSpecificUtility
  * For spi eeproms - the pattern of the vpd-name will be spi-<spi-number>.
  *
  * @param[in] i_vpdFilePath - file path of the vpd.
+ * @param[out] o_errCode - to set error code in case of error.
  *
  * @return On success, returns generated file name, otherwise returns empty
  * string.
  */
 inline std::string generateBadVPDFileName(
-    const std::string& i_vpdFilePath) noexcept
+    const std::string& i_vpdFilePath, uint16_t& o_errCode) noexcept
 {
+    if (i_vpdFilePath.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return std::string{};
+    }
+
     std::string l_badVpdFileName{constants::badVpdDir};
     try
     {
@@ -63,6 +89,7 @@ inline std::string generateBadVPDFileName(
     catch (const std::exception& l_ex)
     {
         l_badVpdFileName.clear();
+        o_errCode = error_code::STANDARD_EXCEPTION;
         logging::logMessage("Failed to generate bad VPD file name for [" +
                             i_vpdFilePath + "]. Error: " + l_ex.what());
     }
@@ -78,21 +105,33 @@ inline std::string generateBadVPDFileName(
  *
  * @param[in] i_vpdFilePath - vpd file path
  * @param[in] i_vpdVector - vpd vector
+ * @param[out] o_errCode - To set error code in case of error.
  *
  * @return On success returns 0, otherwise returns -1.
  */
 inline int dumpBadVpd(const std::string& i_vpdFilePath,
-                      const types::BinaryVector& i_vpdVector) noexcept
+                      const types::BinaryVector& i_vpdVector, uint16_t& o_errCode) noexcept
 {
+    if (i_vpdFilePath.empty() || i_vpdVector.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return constants::FAILURE;
+    }
+    
     int l_rc{constants::FAILURE};
     try
     {
         std::filesystem::create_directory(constants::badVpdDir);
-        auto l_badVpdPath = generateBadVPDFileName(i_vpdFilePath);
+        auto l_badVpdPath = generateBadVPDFileName(i_vpdFilePath, o_errCode);
 
         if (l_badVpdPath.empty())
         {
-            throw std::runtime_error("Failed to generate bad VPD file name");
+            if (o_errCode)
+            {
+                logging::logMessage("Failed to create bad VPD file name : " + vpdSpecificUtility::getErrCodeMsg(o_errCode));
+            }
+
+            return constants::FAILURE;
         }
 
         if (std::filesystem::exists(l_badVpdPath))
@@ -101,24 +140,21 @@ inline int dumpBadVpd(const std::string& i_vpdFilePath,
             std::filesystem::remove(l_badVpdPath, l_ec);
             if (l_ec) // error code
             {
-                const std::string l_errorMsg{
+                logging::logMessage(
                     "Error removing the existing broken vpd in " +
                     l_badVpdPath +
                     ". Error code : " + std::to_string(l_ec.value()) +
-                    ". Error message : " + l_ec.message()};
+                    ". Error message : " + l_ec.message());
 
-                throw std::runtime_error(l_errorMsg);
+                return constants::FAILURE;
             }
         }
 
         std::ofstream l_badVpdFileStream(l_badVpdPath, std::ofstream::binary);
         if (!l_badVpdFileStream.is_open())
         {
-            const std::string l_errorMsg{
-                "Failed to open bad vpd file path [" + l_badVpdPath +
-                "]. Unable to dump the broken/bad vpd file."};
-
-            throw std::runtime_error(l_errorMsg);
+            o_errCode = error_code::FILE_ACCESS_ERROR;
+            return constants::FAILURE;
         }
 
         l_badVpdFileStream.write(
@@ -129,6 +165,7 @@ inline int dumpBadVpd(const std::string& i_vpdFilePath,
     }
     catch (const std::exception& l_ex)
     {
+        o_errCode = error_code::STANDARD_EXCEPTION;
         logging::logMessage("Failed to dump bad VPD for [" + i_vpdFilePath +
                             "]. Error: " + l_ex.what());
     }
@@ -1112,22 +1149,5 @@ inline void updateCiPropertyOfInheritedFrus(
     }
 }
 
-/**
- * @brief API to get error code message.
- *
- * @param[in] i_errCode - error code.
- *
- * @return Error message set for that error code. Otherwise empty
- * string.
- */
-inline std::string getErrCodeMsg(const uint16_t& i_errCode)
-{
-    if (errorCodeMap.find(i_errCode) != errorCodeMap.end())
-    {
-        return errorCodeMap.at(i_errCode);
-    }
-
-    return std::string{};
-}
 } // namespace vpdSpecificUtility
 } // namespace vpd
