@@ -11,6 +11,7 @@ enum error_code
     FILE_NOT_FOUND = 2001, /*Just a random value*/
     FILE_ACCESS_ERROR,
     EMPTY_FILE,
+    FILE_SYSTEM_ERROR,
 
     // JSON exceptions
     INVALID_JSON,
@@ -64,5 +65,6 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::ERROR_PROCESSING_SYSTEM_CMD,
      "Error while executing system command tag."},
     {error_code::UNSUPPORTED_VPD_TYPE, "This VPD type is not supported"},
-    {error_code::STANDARD_EXCEPTION, "Standard Exception thrown"}};
+    {error_code::STANDARD_EXCEPTION, "Standard Exception thrown"},
+    {error_code::FILE_SYSTEM_ERROR, "File system error."}};
 } // namespace vpd
