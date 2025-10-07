@@ -16,6 +16,24 @@
       "message": "Declare variables as an when it is used?\nNow it is giving no context on how and where it will get used.\n\nApplies to rest of the member variables as well.",
       "revId": "6c06e48c4eac3ff1de674b756dd77ff43ba38219",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db5556a4_07b2da7c",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-07T07:06:32Z",
+      "side": 1,
+      "message": "Done. Some variables are being initialized in the param constructor. Kept those, removed rest.",
+      "parentUuid": "96f95dc1_c803a1e8",
+      "revId": "6c06e48c4eac3ff1de674b756dd77ff43ba38219",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

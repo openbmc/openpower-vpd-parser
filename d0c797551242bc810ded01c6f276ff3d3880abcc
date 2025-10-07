@@ -477,6 +477,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63b059d4_7f7beb93",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-07T07:06:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac74b2f2_f7cc491b",
+      "revId": "d0c797551242bc810ded01c6f276ff3d3880abcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99f5c56f_ed54b6e8",
