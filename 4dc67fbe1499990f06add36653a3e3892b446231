@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fbaf516_5839ebd2",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-08T08:12:01Z",
+      "side": 1,
+      "message": "Why this should be part of common utility and not VPD specific utility?\nThis strictly applies on a VPD, so IMO its a better fit there.",
+      "revId": "4dc67fbe1499990f06add36653a3e3892b446231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18f69d0c_4e6f911e",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-08T08:12:01Z",
+      "side": 1,
+      "message": "Information should be passed to caller that why the data could not be converted? May be a error code?",
+      "revId": "4dc67fbe1499990f06add36653a3e3892b446231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39fcadaa_22256177",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-08T08:12:01Z",
+      "side": 1,
+      "message": "We don\u0027t set l_rc in previous call, can we accommodate this logging there itself?\nI am not sure why we already have two checks for l_rc.\n\nAlso we need to log for failure as well.",
+      "revId": "4dc67fbe1499990f06add36653a3e3892b446231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
