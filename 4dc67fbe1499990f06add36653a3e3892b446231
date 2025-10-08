@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c52b0406_3c4c8ae7",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-08T10:54:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fbaf516_5839ebd2",
+      "revId": "4dc67fbe1499990f06add36653a3e3892b446231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18f69d0c_4e6f911e",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6f960b91_d53696c3",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-08T10:54:00Z",
+      "side": 1,
+      "message": "What action can the caller take if the data could not be converted? I do not see any meaningful action which can be taken.",
+      "parentUuid": "18f69d0c_4e6f911e",
+      "revId": "4dc67fbe1499990f06add36653a3e3892b446231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "39fcadaa_22256177",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 16
@@ -48,6 +84,24 @@
       "writtenOn": "2025-10-08T08:12:01Z",
       "side": 1,
       "message": "We don\u0027t set l_rc in previous call, can we accommodate this logging there itself?\nI am not sure why we already have two checks for l_rc.\n\nAlso we need to log for failure as well.",
+      "revId": "4dc67fbe1499990f06add36653a3e3892b446231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33976411_1a6dbdd1",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-08T10:54:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39fcadaa_22256177",
       "revId": "4dc67fbe1499990f06add36653a3e3892b446231",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
