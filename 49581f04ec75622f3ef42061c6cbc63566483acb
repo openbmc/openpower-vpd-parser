@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8017552b_2cb451a6",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-08T06:33:01Z",
+      "side": 1,
+      "message": "As discussed, removed mutex from interface.",
+      "parentUuid": "c7bdd5ce_512f0a89",
+      "revId": "49581f04ec75622f3ef42061c6cbc63566483acb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c8ac4e2_5437fb45",
@@ -107,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eb976af_74fd0f46",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-08T06:33:01Z",
+      "side": 1,
+      "message": "As discussed, removed `mutex` from `SyncFileLogger`, update doxygen to reflect that this class is not multi-thread safe.",
+      "parentUuid": "79cfee54_9ee4277c",
+      "revId": "49581f04ec75622f3ef42061c6cbc63566483acb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "342a0cde_9d21ab55",
@@ -138,6 +174,24 @@
       "side": 1,
       "message": "Agree with this. Will update this to log to console in case of exception caught.",
       "parentUuid": "342a0cde_9d21ab55",
+      "revId": "49581f04ec75622f3ef42061c6cbc63566483acb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5a1d0f9_0fdf4418",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-08T06:33:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cafe568e_a442734d",
       "revId": "49581f04ec75622f3ef42061c6cbc63566483acb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
