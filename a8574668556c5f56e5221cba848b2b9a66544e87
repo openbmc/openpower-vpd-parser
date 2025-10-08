@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae74d6c0_14c69ff7",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-08T08:19:20Z",
+      "side": 1,
+      "message": "As done for sync logger. Lets log it to journal in case of any exception instead if throwing it back to the caller.",
+      "revId": "a8574668556c5f56e5221cba848b2b9a66544e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
