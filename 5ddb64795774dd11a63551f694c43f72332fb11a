@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea3ee0ab_979b295d",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-08T14:56:29Z",
+      "side": 1,
+      "message": "nit: Blank line between block of codes.",
+      "revId": "5ddb64795774dd11a63551f694c43f72332fb11a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
