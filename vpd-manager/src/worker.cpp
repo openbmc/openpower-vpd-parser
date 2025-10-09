@@ -12,6 +12,7 @@
 #include "parser_factory.hpp"
 #include "parser_interface.hpp"
 
+#include <utility/common_utility.hpp>
 #include <utility/dbus_utility.hpp>
 #include <utility/json_utility.hpp>
 #include <utility/vpd_specific_utility.hpp>
@@ -50,8 +51,7 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount) :
             {
                 throw std::runtime_error(
                     "JSON parsing failed for file [ " + m_configJsonPath +
-                    " ], error : " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                    " ], error : " + commonUtility::getErrCodeMsg(l_errCode));
             }
 
             // check for mandatory fields at this point itself.
@@ -395,7 +395,7 @@ void Worker::setDeviceTreeAndJson()
     {
         throw(JsonException(
             "JSON parsing failed for file [ " + systemJson +
-                " ], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode),
+                " ], error : " + commonUtility::getErrCodeMsg(l_errCode),
             systemJson));
     }
 
@@ -436,7 +436,7 @@ void Worker::setDeviceTreeAndJson()
             {
                 logging::logMessage(
                     "Failed to check if backup and restore required. Reason : " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                    commonUtility::getErrCodeMsg(l_errCode));
             }
         }
 
@@ -1280,7 +1280,7 @@ bool Worker::processPostAction(
     {
         logging::logMessage(
             "Execution of post action failed for path: " + i_vpdFruPath +
-            " . Reason: " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            " . Reason: " + commonUtility::getErrCodeMsg(l_errCode));
 
         // If post action was required and failed only in that case return
         // false. In all other case post action is considered passed.
@@ -1314,7 +1314,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                 if (l_errCode == error_code::DEVICE_NOT_PRESENT)
                 {
                     logging::logMessage(
-                        vpdSpecificUtility::getErrCodeMsg(l_errCode) +
+                        commonUtility::getErrCodeMsg(l_errCode) +
                         i_vpdFilePath);
                     // Presence pin has been read successfully and has been read
                     // as false, so this is not a failure case, hence returning
@@ -1324,7 +1324,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                 throw std::runtime_error(
                     std::string(__FUNCTION__) +
                     " Pre-Action failed with error: " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                    commonUtility::getErrCodeMsg(l_errCode));
             }
         }
         else if (l_errCode)
@@ -1332,7 +1332,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             logging::logMessage(
                 "Failed to check if pre action required for FRU [" +
                 i_vpdFilePath +
-                "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
         if (!std::filesystem::exists(i_vpdFilePath))
@@ -1378,7 +1378,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             logging::logMessage(
                 "Error while checking if post action required for FRU [" +
                 i_vpdFilePath +
-                "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
         return l_parsedVpd;
@@ -1399,7 +1399,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                                                     "collection", l_errCode))
             {
                 l_exMsg += ". Post fail action also failed. Error : " +
-                           vpdSpecificUtility::getErrCodeMsg(l_errCode) +
+                           commonUtility::getErrCodeMsg(l_errCode) +
                            " Aborting collection for this FRU.";
             }
         }
@@ -1407,7 +1407,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
         {
             l_exMsg +=
                 ". Failed to check if post fail action required, error : " +
-                vpdSpecificUtility::getErrCodeMsg(l_errCode);
+                commonUtility::getErrCodeMsg(l_errCode);
         }
 
         if (typeid(l_ex) == typeid(DataException))
@@ -1485,8 +1485,8 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                 {
                     logging::logMessage(
                         "Failed to get inventory object path from JSON for FRU [" +
-                        i_vpdFilePath + "], error: " +
-                        vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                        i_vpdFilePath +
+                        "], error: " + commonUtility::getErrCodeMsg(l_errCode));
                 }
 
                 const std::string& l_invPathLeafValue =
@@ -1562,7 +1562,7 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
             logging::logMessage(
                 "Failed to check if FRU is power off only for FRU [" +
                 i_vpdFilePath +
-                "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
         l_errCode = 0;
@@ -1574,7 +1574,7 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
             logging::logMessage(
                 "Failed to get inventory path from JSON for FRU [" +
                 i_vpdFilePath +
-                "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
 
             return false;
         }
@@ -1654,8 +1654,8 @@ void Worker::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
         {
             throw JsonException(
                 "JSON parsing failed for file [ " +
-                    l_backupAndRestoreCfgFilePath + " ], error : " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode),
+                    l_backupAndRestoreCfgFilePath +
+                    " ], error : " + commonUtility::getErrCodeMsg(l_errCode),
                 l_backupAndRestoreCfgFilePath);
         }
 
@@ -1710,7 +1710,7 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
     {
         logging::logMessage(
             "Failed to get FRU path for inventory path [" + i_dbusObjPath +
-            "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode) +
+            "], error : " + commonUtility::getErrCodeMsg(l_errCode) +
             " Aborting FRU VPD deletion.");
         return;
     }
@@ -1733,7 +1733,7 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
             {
                 throw std::runtime_error(
                     "Failed to check if FRU's presence is handled, reason: " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                    commonUtility::getErrCodeMsg(l_errCode));
             }
 
             if (!(*l_value) && l_isFruPresenceHandled)
@@ -1756,9 +1756,8 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
                         std::string l_msg = "Pre action failed";
                         if (l_errCode)
                         {
-                            l_msg +=
-                                " Reason: " +
-                                vpdSpecificUtility::getErrCodeMsg(l_errCode);
+                            l_msg += " Reason: " +
+                                     commonUtility::getErrCodeMsg(l_errCode);
                         }
                         throw std::runtime_error(l_msg);
                     }
@@ -1768,7 +1767,7 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
                     logging::logMessage(
                         "Failed to check if pre action required for FRU [" +
                         l_fruPath + "], error : " +
-                        vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                        commonUtility::getErrCodeMsg(l_errCode));
                 }
 
                 std::vector<std::string> l_interfaceList{
@@ -1819,7 +1818,7 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
                     logging::logMessage(
                         "Failed to check if post action required during deletion for FRU [" +
                         l_fruPath + "], error : " +
-                        vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                        commonUtility::getErrCodeMsg(l_errCode));
                 }
             }
         }
@@ -1849,14 +1848,14 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
                                                     "deletion", l_errCode))
             {
                 l_errMsg += ". Post fail action also failed, error : " +
-                            vpdSpecificUtility::getErrCodeMsg(l_errCode);
+                            commonUtility::getErrCodeMsg(l_errCode);
             }
         }
         else if (l_errCode)
         {
             l_errMsg +=
                 ". Failed to check if post fail action required, error : " +
-                vpdSpecificUtility::getErrCodeMsg(l_errCode);
+                commonUtility::getErrCodeMsg(l_errCode);
         }
 
         logging::logMessage(l_errMsg);
@@ -1954,7 +1953,7 @@ void Worker::performVpdRecollection()
         {
             logging::logMessage(
                 "Failed to get list of FRUs replaceable at runtime, error : " +
-                vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                commonUtility::getErrCodeMsg(l_errCode));
             return;
         }
 
@@ -2003,8 +2002,8 @@ void Worker::collectSingleFruVpd(
             {
                 logging::logMessage(
                     "Failed to get FRU path for [" +
-                    std::string(i_dbusObjPath) + "], error : " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode) +
+                    std::string(i_dbusObjPath) +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode) +
                     " Aborting single FRU VPD collection.");
                 return;
             }
@@ -2027,8 +2026,8 @@ void Worker::collectSingleFruVpd(
             {
                 logging::logMessage(
                     "Failed to check if FRU is replaceable at runtime for FRU : [" +
-                    std::string(i_dbusObjPath) + "], error : " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                    std::string(i_dbusObjPath) +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
                 return;
             }
 
@@ -2051,8 +2050,8 @@ void Worker::collectSingleFruVpd(
             {
                 logging::logMessage(
                     "Error while checking if FRU is replaceable at standby for FRU [" +
-                    std::string(i_dbusObjPath) + "], error : " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                    std::string(i_dbusObjPath) +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
             }
 
             l_errCode = 0;
@@ -2064,8 +2063,8 @@ void Worker::collectSingleFruVpd(
             {
                 logging::logMessage(
                     "Failed to check if FRU is replaceable at runtime for FRU : [" +
-                    std::string(i_dbusObjPath) + "], error : " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                    std::string(i_dbusObjPath) +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
                 return;
             }
 

@@ -31,8 +31,8 @@ std::string SingleFab::getImFromPersistedLocation() const noexcept
         {
             throw JsonException(
                 "Failed to parse JSON file [ " +
-                    std::string(pimPersistVsbpPath) + " ], error : " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode),
+                    std::string(pimPersistVsbpPath) +
+                    " ], error : " + commonUtility::getErrCodeMsg(l_errCode),
                 pimPersistVsbpPath);
         }
 

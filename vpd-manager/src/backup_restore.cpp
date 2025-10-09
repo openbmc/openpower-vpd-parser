@@ -29,7 +29,7 @@ BackupAndRestore::BackupAndRestore(const nlohmann::json& i_sysCfgJsonObj) :
     {
         throw JsonException(
             "JSON parsing failed for file [" + l_backupAndRestoreCfgFilePath +
-                "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode),
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode),
             l_backupAndRestoreCfgFilePath);
     }
 }
@@ -163,7 +163,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
     {
         logging::logMessage(
             "Failed to get source FRU path for [" + i_srcPath +
-            "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         return;
     }
 
@@ -174,7 +174,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
     {
         logging::logMessage(
             "Failed to get destination FRU path for [" + i_dstPath +
-            "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         return;
     }
 
@@ -194,7 +194,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         {
             logging::logMessage(
                 "Couldn't find source inventory path. Error : " +
-                vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                commonUtility::getErrCodeMsg(l_errCode));
             return;
         }
 
@@ -211,7 +211,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         {
             logging::logMessage(
                 "Couldn't find destination inventory path. Error : " +
-                vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                commonUtility::getErrCodeMsg(l_errCode));
             return;
         }
 
@@ -226,7 +226,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
     {
         logging::logMessage(
             "Failed to get service name for source FRU [" + l_srcInvPath +
-            "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         return;
     }
 
@@ -237,7 +237,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
     {
         logging::logMessage(
             "Failed to get service name for destination FRU [" + l_dstInvPath +
-            "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         return;
     }
 

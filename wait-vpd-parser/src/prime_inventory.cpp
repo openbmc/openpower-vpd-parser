@@ -2,6 +2,7 @@
 
 #include "event_logger.hpp"
 #include "exceptions.hpp"
+#include "utility/common_utility.hpp"
 #include "utility/dbus_utility.hpp"
 #include "utility/json_utility.hpp"
 #include "utility/vpd_specific_utility.hpp"
@@ -20,8 +21,8 @@ PrimeInventory::PrimeInventory()
         {
             throw std::runtime_error(
                 "JSON parsing failed for file [ " +
-                std::string(INVENTORY_JSON_SYM_LINK) + " ], error : " +
-                vpd::vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                std::string(INVENTORY_JSON_SYM_LINK) +
+                " ], error : " + vpd::commonUtility::getErrCodeMsg(l_errCode));
         }
 
         // check for mandatory fields at this point itself.
