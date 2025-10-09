@@ -52,7 +52,7 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
             {
                 throw std::runtime_error(
                     "Failed to get inventory path from JSON, error : " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                    commonUtility::getErrCodeMsg(l_errCode));
             }
 
             m_worker->deleteFruVpd(l_invPath);
@@ -90,7 +90,7 @@ void GpioEventHandler::handleTimerExpiry(
     {
         logging::logMessage("processGpioPresenceTag returned false for FRU [" +
                             m_fruPath + "] Due to error. Reason: " +
-                            vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                            commonUtility::getErrCodeMsg(l_errCode));
     }
 
     if (m_prevPresencePinValue != l_currentPresencePinValue)
@@ -118,7 +118,7 @@ void GpioEventHandler::setEventHandlerForGpioPresence(
     {
         logging::logMessage("processGpioPresenceTag returned false for FRU [" +
                             m_fruPath + "] Due to error. Reason: " +
-                            vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                            commonUtility::getErrCodeMsg(l_errCode));
     }
 
     static std::vector<std::shared_ptr<boost::asio::steady_timer>> l_timers;
@@ -145,7 +145,7 @@ void GpioMonitor::initHandlerForGpio(
     {
         logging::logMessage(
             "Failed to get list of frus required for gpio polling. Error : " +
-            vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            commonUtility::getErrCodeMsg(l_errCode));
         return;
     }
 

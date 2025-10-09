@@ -194,7 +194,7 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
         {
             logging::logMessage(
                 "Failed to get FRU path from JSON for [" + i_vpdPath +
-                "], error : " + vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
         l_fruPath = i_vpdPath;
