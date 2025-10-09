@@ -1111,23 +1111,5 @@ inline void updateCiPropertyOfInheritedFrus(
             i_fruPath + "]. Error: " + std::string(l_ex.what()));
     }
 }
-
-/**
- * @brief API to get error code message.
- *
- * @param[in] i_errCode - error code.
- *
- * @return Error message set for that error code. Otherwise empty
- * string.
- */
-inline std::string getErrCodeMsg(const uint16_t& i_errCode)
-{
-    if (errorCodeMap.find(i_errCode) != errorCodeMap.end())
-    {
-        return errorCodeMap.at(i_errCode);
-    }
-
-    return std::string{};
-}
 } // namespace vpdSpecificUtility
 } // namespace vpd

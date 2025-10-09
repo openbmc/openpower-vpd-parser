@@ -267,7 +267,7 @@ inline bool executePostFailAction(
                     logging::logMessage(
                         l_tags.key() + " failed for [" + i_vpdFilePath +
                         "]. Reason " +
-                        vpdSpecificUtility::getErrCodeMsg(o_errCode));
+                        commonUtility::getErrCodeMsg(o_errCode));
                 }
                 return false;
             }
@@ -579,7 +579,7 @@ inline bool executeBaseAction(
                     logging::logMessage(
                         l_tag.key() + " failed for [" + i_vpdFilePath +
                         "]. Reason " +
-                        vpdSpecificUtility::getErrCodeMsg(o_errCode));
+                        commonUtility::getErrCodeMsg(o_errCode));
                 }
                 return false;
             }
@@ -827,7 +827,7 @@ inline std::vector<std::string> getListOfGpioPollingFrus(
             logging::logMessage(
                 "Error while checking if action required for FRU [" +
                 std::string(l_fruPath) +
-                "], error : " + vpdSpecificUtility::getErrCodeMsg(o_errCode));
+                "], error : " + commonUtility::getErrCodeMsg(o_errCode));
 
             return l_gpioPollingRequiredFrusList;
         }
@@ -898,7 +898,7 @@ inline std::tuple<std::string, std::string, std::string>
                 logging::logMessage(
                     "Failed to get inventory path from JSON for [" +
                     io_vpdPath + "], error : " +
-                    vpdSpecificUtility::getErrCodeMsg(o_errCode));
+                    commonUtility::getErrCodeMsg(o_errCode));
             }
             else
             {
@@ -920,7 +920,7 @@ inline std::tuple<std::string, std::string, std::string>
                 logging::logMessage(
                     "Failed to get redundant EEPROM path for FRU [" +
                     l_fruPath + "], error : " +
-                    vpdSpecificUtility::getErrCodeMsg(o_errCode));
+                    commonUtility::getErrCodeMsg(o_errCode));
 
                 o_errCode = error_code::ERROR_GETTING_REDUNDANT_PATH;
             }
@@ -937,7 +937,7 @@ inline std::tuple<std::string, std::string, std::string>
     {
         logging::logMessage(
             "Failed to get FRU path from JSON for [" + io_vpdPath +
-            "], error : " + vpdSpecificUtility::getErrCodeMsg(o_errCode));
+            "], error : " + commonUtility::getErrCodeMsg(o_errCode));
     }
     else
     {
@@ -1198,7 +1198,7 @@ inline nlohmann::json getPowerVsJson(const types::BinaryVector& i_imValue,
             logging::logMessage(
                 "Failed to parse JSON file [ " +
                 std::string(constants::power_vs_50003_json) +
-                " ], error : " + vpdSpecificUtility::getErrCodeMsg(o_errCode));
+                " ], error : " + commonUtility::getErrCodeMsg(o_errCode));
         }
 
         return l_parsedJson;
@@ -1215,7 +1215,7 @@ inline nlohmann::json getPowerVsJson(const types::BinaryVector& i_imValue,
             logging::logMessage(
                 "Failed to parse JSON file [ " +
                 std::string(constants::power_vs_50001_json) +
-                " ], error : " + vpdSpecificUtility::getErrCodeMsg(o_errCode));
+                " ], error : " + commonUtility::getErrCodeMsg(o_errCode));
         }
 
         return l_parsedJson;

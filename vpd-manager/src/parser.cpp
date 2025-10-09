@@ -43,7 +43,7 @@ Parser::Parser(const std::string& vpdFilePath, nlohmann::json parsedJson) :
         {
             logging::logMessage(
                 "Failed to get vpd offset for path [" + m_vpdFilePath +
-                "], error: " + vpdSpecificUtility::getErrCodeMsg(l_errorCode));
+                "], error: " + commonUtility::getErrCodeMsg(l_errorCode));
         }
     }
 }
@@ -137,7 +137,7 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
         {
             throw std::runtime_error(
                 "Failed to get paths to update keyword. Error : " +
-                vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                commonUtility::getErrCodeMsg(l_errCode));
         }
 
         // If inventory D-bus object path is present, update keyword's value on
@@ -217,7 +217,7 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
 
         if (l_errCode == error_code::ERROR_GETTING_REDUNDANT_PATH)
         {
-            logging::logMessage(vpdSpecificUtility::getErrCodeMsg(l_errCode));
+            logging::logMessage(commonUtility::getErrCodeMsg(l_errCode));
         }
 
         // Update keyword's value on redundant hardware if present
