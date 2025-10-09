@@ -188,7 +188,7 @@ void Listener::registerPresenceChangeCallback() noexcept
         {
             logging::logMessage(
                 "Failed to get list of FRUs with presence monitoring, error: " +
-                vpdSpecificUtility::getErrCodeMsg(l_errCode));
+                commonUtility::getErrCodeMsg(l_errCode));
             return;
         }
 
@@ -275,11 +275,10 @@ void Listener::registerCorrPropCallBack(
 
         if (l_errCode)
         {
-            throw JsonException(
-                "Failed to parse correlated properties JSON [" +
-                    i_correlatedPropJsonFile + "], error : " +
-                    vpdSpecificUtility::getErrCodeMsg(l_errCode),
-                i_correlatedPropJsonFile);
+            throw JsonException("Failed to parse correlated properties JSON [" +
+                                    i_correlatedPropJsonFile + "], error : " +
+                                    commonUtility::getErrCodeMsg(l_errCode),
+                                i_correlatedPropJsonFile);
         }
 
         const nlohmann::json& l_serviceJsonObjectList =
