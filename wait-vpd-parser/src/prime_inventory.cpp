@@ -302,6 +302,8 @@ void PrimeInventory::populateInterfaces(
                 const std::string& l_encoding =
                     l_propValuePair.value().value("encoding", "");
 
+                uint16_t l_errCode = 0;
+
                 if (auto l_ipzVpdMap =
                         std::get_if<vpd::types::IPZVpdMap>(&i_parsedVpdMap))
                 {
@@ -311,7 +313,16 @@ void PrimeInventory::populateInterfaces(
                     {
                         auto l_encoded = vpd::vpdSpecificUtility::encodeKeyword(
                             ((*l_ipzVpdMap).at(l_record).at(l_keyword)),
-                            l_encoding);
+                            l_encoding, l_errCode);
+
+                        if (l_errCode)
+                        {
+                            m_logger->logMessage(
+                                "Failed to get encoded keyword value for : " +
+                                l_keyword + ", error : " +
+                                vpd::commonUtility::getErrCodeMsg(l_errCode));
+                        }
+
                         l_propertyMap.emplace(l_property, l_encoded);
                     }
                 }
@@ -329,7 +340,16 @@ void PrimeInventory::populateInterfaces(
                                 vpd::vpdSpecificUtility::encodeKeyword(
                                     std::string((*l_kwValue).begin(),
                                                 (*l_kwValue).end()),
-                                    l_encoding);
+                                    l_encoding, l_errCode);
+
+                            if (l_errCode)
+                            {
+                                m_logger->logMessage(
+                                    "Failed to get encoded keyword value for : " +
+                                    l_keyword + ", error : " +
+                                    vpd::commonUtility::getErrCodeMsg(
+                                        l_errCode));
+                            }
 
                             l_propertyMap.emplace(l_property, l_encodedValue);
                         }
@@ -340,7 +360,16 @@ void PrimeInventory::populateInterfaces(
                                 vpd::vpdSpecificUtility::encodeKeyword(
                                     std::string((*l_kwValue).begin(),
                                                 (*l_kwValue).end()),
-                                    l_encoding);
+                                    l_encoding, l_errCode);
+
+                            if (l_errCode)
+                            {
+                                m_logger->logMessage(
+                                    "Failed to get encoded keyword value for : " +
+                                    l_keyword + ", error : " +
+                                    vpd::commonUtility::getErrCodeMsg(
+                                        l_errCode));
+                            }
 
                             l_propertyMap.emplace(l_property, l_encodedValue);
                         }
