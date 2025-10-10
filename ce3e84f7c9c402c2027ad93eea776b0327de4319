@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f24f4ea0_b37f2617",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-10T08:43:13Z",
+      "side": 1,
+      "message": "Do we need \"should\"?\n\"m_stopLogging\" seems ok.",
+      "revId": "ce3e84f7c9c402c2027ad93eea776b0327de4319",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81c2abd4_5bc51446",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-10T08:43:13Z",
+      "side": 1,
+      "message": "Can we have a class level instance instead of getting the instance in all the catch?",
+      "revId": "ce3e84f7c9c402c2027ad93eea776b0327de4319",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7e1582a_8f5f5505",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-10T08:43:13Z",
+      "side": 1,
+      "message": "right now this API is limited to logging collection logs so we should not rotate it or keep the number of entries so large that it does not get rotated even multiple info logs are added for debugging.",
+      "revId": "ce3e84f7c9c402c2027ad93eea776b0327de4319",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d54b5d81_7ce4040d",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-10T08:43:13Z",
+      "side": 1,
+      "message": "better to have a class member instance of logger instead of getting instance in all the catch.",
+      "revId": "ce3e84f7c9c402c2027ad93eea776b0327de4319",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
