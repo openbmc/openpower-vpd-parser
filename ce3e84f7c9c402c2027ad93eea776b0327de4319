@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "682aa7e9_5b70d750",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-10T10:14:49Z",
+      "side": 1,
+      "message": "As discussed, using in place instantiation and API call.",
+      "parentUuid": "33aa901f_3314b6f5",
+      "revId": "ce3e84f7c9c402c2027ad93eea776b0327de4319",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7e1582a_8f5f5505",
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "I do not see the point of having a class level logger object ptr inside AsyncFileLogger . This will only be required in few error scenarios inside exception handlers.\nIn good path, this additional class level member will never be used.",
       "parentUuid": "d54b5d81_7ce4040d",
+      "revId": "ce3e84f7c9c402c2027ad93eea776b0327de4319",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65fa111c_829450d2",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-10T10:14:49Z",
+      "side": 1,
+      "message": "As discussed, using in place instantiation and API call.",
+      "parentUuid": "b9ccce30_e9cf9670",
       "revId": "ce3e84f7c9c402c2027ad93eea776b0327de4319",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
