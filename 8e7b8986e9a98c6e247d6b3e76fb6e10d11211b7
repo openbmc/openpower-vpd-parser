@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bff60b88_7306b8de",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-10T06:20:11Z",
+      "side": 1,
+      "message": "Just return code, why logging is required here?",
+      "revId": "8e7b8986e9a98c6e247d6b3e76fb6e10d11211b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2235978_f84b2cc1",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-10T06:20:11Z",
+      "side": 1,
+      "message": "This is ok because this API is caller and can log but the error code should be passed back which is happening so its ok here.",
+      "revId": "8e7b8986e9a98c6e247d6b3e76fb6e10d11211b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "949ac2ae_d1fd6789",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-10T06:20:11Z",
+      "side": 1,
+      "message": "Why logging here?",
+      "revId": "8e7b8986e9a98c6e247d6b3e76fb6e10d11211b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f85e5cc_fcd24a74",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-10T06:20:11Z",
+      "side": 1,
+      "message": "Why logging here?",
+      "revId": "8e7b8986e9a98c6e247d6b3e76fb6e10d11211b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
