@@ -35,7 +35,8 @@ enum error_code
 
     // VPD specific errors
     UNSUPPORTED_VPD_TYPE,
-    KEYWORD_NOT_FOUND
+    KEYWORD_NOT_FOUND,
+    OUT_OF_BOUND_EXCEPTION
 };
 
 const std::unordered_map<int, std::string> errorCodeMap = {
@@ -66,6 +67,7 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::ERROR_PROCESSING_SYSTEM_CMD,
      "Error while executing system command tag."},
     {error_code::KEYWORD_NOT_FOUND, "Keyword not found"},
+    {error_code::OUT_OF_BOUND_EXCEPTION, "Out of bound error"},
     {error_code::UNSUPPORTED_VPD_TYPE, "This VPD type is not supported"},
     {error_code::STANDARD_EXCEPTION, "Standard Exception thrown"},
     {error_code::FILE_SYSTEM_ERROR, "File system error."}};
