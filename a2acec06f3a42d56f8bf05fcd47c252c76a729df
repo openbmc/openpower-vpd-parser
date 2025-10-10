@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71ded913_fcd7888d",
+        "filename": "vpd-manager/include/error_codes.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-10T05:22:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f71eed14_34453be6",
+      "revId": "a2acec06f3a42d56f8bf05fcd47c252c76a729df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5d3e855_4bcb08a9",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-10-08T05:32:49Z",
       "side": 1,
       "message": "Move this to common utility so that even utility files can use it?",
+      "revId": "a2acec06f3a42d56f8bf05fcd47c252c76a729df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c871d7fc_c4f06f01",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-10T05:22:52Z",
+      "side": 1,
+      "message": "the change has been pushed through different commit : https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/84322",
+      "parentUuid": "c5d3e855_4bcb08a9",
       "revId": "a2acec06f3a42d56f8bf05fcd47c252c76a729df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "490eaf1f_cad74416",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-10T05:22:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47422cd7_d5bbf5bc",
+      "revId": "a2acec06f3a42d56f8bf05fcd47c252c76a729df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fe9bc4b_1ecda750",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-10-08T05:32:49Z",
       "side": 1,
       "message": "Should we set an error code here as well?",
+      "revId": "a2acec06f3a42d56f8bf05fcd47c252c76a729df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dba5e9b_201bde82",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-10T05:22:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fe9bc4b_1ecda750",
       "revId": "a2acec06f3a42d56f8bf05fcd47c252c76a729df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
