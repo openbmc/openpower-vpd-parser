@@ -186,14 +186,23 @@ inline std::string getKwVal(const types::IPZKwdValueMap& i_kwdValueMap,
  *
  * @param[in] i_keyword - Keyword to be processed.
  * @param[in] i_encoding - Type of encoding.
+ * @param[out] o_errCode - To set error code in case of error.
  *
  * @return Value after being processed for encoded type.
  */
 inline std::string encodeKeyword(const std::string& i_keyword,
-                                 const std::string& i_encoding) noexcept
+                                 const std::string& i_encoding,
+                                 uint16_t& o_errCode) noexcept
 {
     // Default value is keyword value
     std::string l_result(i_keyword.begin(), i_keyword.end());
+
+    if (i_keyword.empty() || i_encoding.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return std::string{};
+    }
+    
     try
     {
         if (i_encoding == "MAC")
@@ -205,7 +214,8 @@ inline std::string encodeKeyword(const std::string& i_keyword,
 
             if (!l_hexValue)
             {
-                throw std::runtime_error("Out of bound error");
+                o_errCode = error_code::OUT_OF_BOUND_EXCEPTION;
+                return l_result;
             }
 
             l_result += l_hexValue;
@@ -214,7 +224,8 @@ inline std::string encodeKeyword(const std::string& i_keyword,
 
             if (!l_hexValue)
             {
-                throw std::runtime_error("Out of bound error");
+                o_errCode = error_code::OUT_OF_BOUND_EXCEPTION;
+                return l_result;
             }
 
             l_result += l_hexValue;
@@ -227,7 +238,8 @@ inline std::string encodeKeyword(const std::string& i_keyword,
 
                 if (!l_hexValue)
                 {
-                    throw std::runtime_error("Out of bound error");
+                    o_errCode = error_code::OUT_OF_BOUND_EXCEPTION;
+                    return l_result;
                 }
 
                 l_result += l_hexValue;
@@ -236,7 +248,8 @@ inline std::string encodeKeyword(const std::string& i_keyword,
 
                 if (!l_hexValue)
                 {
-                    throw std::runtime_error("Out of bound error");
+                    o_errCode = error_code::OUT_OF_BOUND_EXCEPTION;
+                    return l_result;
                 }
 
                 l_result += l_hexValue;
@@ -263,8 +276,7 @@ inline std::string encodeKeyword(const std::string& i_keyword,
     catch (const std::exception& l_ex)
     {
         l_result.clear();
-        logging::logMessage("Failed to encode keyword [" + i_keyword +
-                            "]. Error: " + l_ex.what());
+        o_errCode = error_code::STANDARD_EXCEPTION;
     }
 
     return l_result;
@@ -999,6 +1011,8 @@ inline types::InterfaceMap getCommonInterfaceProperties(
                                 std::get<1>(*l_ipzData));
                 });
 
+            uint16_t l_errCode = 0;
+
             if (l_matchPropValuePairIt !=
                 l_interfacesPropPair.value().items().end())
             {
@@ -1011,7 +1025,8 @@ inline types::InterfaceMap getCommonInterfaceProperties(
                              std::string(std::get<2>(*l_ipzData).begin(),
                                          std::get<2>(*l_ipzData).end()),
                              l_matchPropValuePairIt.value().value("encoding",
-                                                                  ""))}});
+                                                                  ""),
+                             l_errCode)}});
             }
         };
 
