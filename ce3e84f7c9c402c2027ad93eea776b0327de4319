@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d750a0a2_06f75931",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-11T17:27:04Z",
+      "side": 1,
+      "message": "May be for now but we don\u0027t want to revisit this limit again and again in case of scale up.\nPlease make it sufficiently large as we don\u0027t need rotation in any case during collection flow.",
+      "parentUuid": "4c89b61b_5badf383",
+      "revId": "ce3e84f7c9c402c2027ad93eea776b0327de4319",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d54b5d81_7ce4040d",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 23
