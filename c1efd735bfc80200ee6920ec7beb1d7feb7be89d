@@ -16,6 +16,24 @@
       "message": "nit: Doxygen should be updated. It is no longer array of interfaces.",
       "revId": "c1efd735bfc80200ee6920ec7beb1d7feb7be89d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d5cae30_a1897595",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-13T07:24:01Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "6d9963af_63a53ccf",
+      "revId": "c1efd735bfc80200ee6920ec7beb1d7feb7be89d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
