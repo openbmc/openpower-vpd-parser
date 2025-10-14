@@ -16,6 +16,24 @@
       "message": "Why to reboot BMC in this case? Nothing got removed... why the system needs to be recovered?",
       "revId": "6bd0069b5b5afd814eb95972eb8d7260feb13223",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f678477_c69022d6",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-14T04:14:08Z",
+      "side": 1,
+      "message": "As we are stopping the vpd-manager service before removing symbolic link, in case sym link remove fails we should go for reboot so that system will come with vpd-manager on reboot.\n\nand in any failure case, we are informing the user to go for reboot, so added this line.",
+      "parentUuid": "71b0edf5_ec07de87",
+      "revId": "6bd0069b5b5afd814eb95972eb8d7260feb13223",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
