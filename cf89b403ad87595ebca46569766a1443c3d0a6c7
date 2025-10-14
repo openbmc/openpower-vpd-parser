@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84fe5912_be1e3919",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1372,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-14T03:12:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b1c4e757_30b8aadc",
+      "revId": "cf89b403ad87595ebca46569766a1443c3d0a6c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e7b8482_fd04ccae",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "will restart this service to trigger all FRUs VPD collection.",
       "parentUuid": "8e7b8482_fd04ccae",
+      "revId": "cf89b403ad87595ebca46569766a1443c3d0a6c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "126c5eb3_2a226d25",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1451,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-14T03:12:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "74477879_08245a75",
       "revId": "cf89b403ad87595ebca46569766a1443c3d0a6c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

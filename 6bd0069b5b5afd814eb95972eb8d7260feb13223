@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71b0edf5_ec07de87",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-14T03:12:09Z",
+      "side": 1,
+      "message": "Why to reboot BMC in this case? Nothing got removed... why the system needs to be recovered?",
+      "revId": "6bd0069b5b5afd814eb95972eb8d7260feb13223",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
