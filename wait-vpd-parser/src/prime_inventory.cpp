@@ -213,9 +213,17 @@ bool PrimeInventory::primeInventory(
         }*/
     }
 
+    uint16_t l_errCode = 0;
+
     vpd::vpdSpecificUtility::insertOrMerge(
         l_interfaces, "xyz.openbmc_project.Inventory.Item",
-        move(l_propertyValueMap));
+        move(l_propertyValueMap), l_errCode);
+
+    if (l_errCode)
+    {
+        m_logger->logMessage("Failed to insert value into map, error : " +
+                             vpd::commonUtility::getErrCodeMsg(l_errCode));
+    }
 
     if (i_fruJsonObj.value("inherit", true) &&
         m_sysCfgJsonObj.contains("commonInterfaces"))
@@ -231,9 +239,16 @@ bool PrimeInventory::primeInventory(
     vpd::types::PropertyMap l_fruCollectionProperty = {
         {"Status", vpd::constants::vpdCollectionNotStarted}};
 
+    l_errCode = 0;
     vpd::vpdSpecificUtility::insertOrMerge(
         l_interfaces, vpd::constants::vpdCollectionInterface,
-        std::move(l_fruCollectionProperty));
+        std::move(l_fruCollectionProperty), l_errCode);
+
+    if (l_errCode)
+    {
+        m_logger->logMessage("Failed to insert value into map, error : " +
+                             vpd::commonUtility::getErrCodeMsg(l_errCode));
+    }
 
     o_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
                                  std::move(l_interfaces));
@@ -250,6 +265,7 @@ void PrimeInventory::populateInterfaces(
     {
         const std::string& l_interface = l_interfacesPropPair.key();
         vpd::types::PropertyMap l_propertyMap;
+        uint16_t l_errCode = 0;
 
         for (const auto& l_propValuePair : l_interfacesPropPair.value().items())
         {
@@ -275,7 +291,14 @@ void PrimeInventory::populateInterfaces(
                     vpd::vpdSpecificUtility::insertOrMerge(
                         io_interfaceMap,
                         std::string(vpd::constants::xyzLocationCodeInf),
-                        move(l_locCodeProperty));
+                        move(l_locCodeProperty), l_errCode);
+
+                    if (l_errCode)
+                    {
+                        m_logger->logMessage(
+                            "Failed to insert value into map, error : " +
+                            vpd::commonUtility::getErrCodeMsg(l_errCode));
+                    }
                 }
                 else
                 {
@@ -398,8 +421,15 @@ void PrimeInventory::populateInterfaces(
                 }
             }
         }
+        l_errCode = 0;
         vpd::vpdSpecificUtility::insertOrMerge(io_interfaceMap, l_interface,
-                                               move(l_propertyMap));
+                                               move(l_propertyMap), l_errCode);
+
+        if (l_errCode)
+        {
+            m_logger->logMessage("Failed to insert value into map, error : " +
+                                 vpd::commonUtility::getErrCodeMsg(l_errCode));
+        }
     }
 }
 
@@ -432,11 +462,18 @@ void PrimeInventory::processFunctionalProperty(
 
         // Implies value is not there in D-Bus. Populate it with default
         // value "true".
+        uint16_t l_errCode = 0;
         vpd::types::PropertyMap l_functionalProp;
         l_functionalProp.emplace("Functional", true);
         vpd::vpdSpecificUtility::insertOrMerge(
             io_interfaces, vpd::constants::operationalStatusInf,
-            move(l_functionalProp));
+            move(l_functionalProp), l_errCode);
+
+        if (l_errCode)
+        {
+            m_logger->logMessage("Failed to insert value into map, error : " +
+                                 vpd::commonUtility::getErrCodeMsg(l_errCode));
+        }
     }
 
     // if chassis is power on. Functional property should be there on D-Bus.
@@ -472,10 +509,18 @@ void PrimeInventory::processEnabledProperty(
 
         // Implies value is not there in D-Bus. Populate it with default
         // value "true".
+        uint16_t l_errCode = 0;
         vpd::types::PropertyMap l_enabledProp;
         l_enabledProp.emplace("Enabled", true);
         vpd::vpdSpecificUtility::insertOrMerge(
-            io_interfaces, vpd::constants::enableInf, move(l_enabledProp));
+            io_interfaces, vpd::constants::enableInf, move(l_enabledProp),
+            l_errCode);
+
+        if (l_errCode)
+        {
+            m_logger->logMessage("Failed to insert value into map, error : " +
+                                 vpd::commonUtility::getErrCodeMsg(l_errCode));
+        }
     }
 
     // if chassis is power on. Enabled property should be there on D-Bus.

@@ -299,14 +299,17 @@ inline std::string encodeKeyword(const std::string& i_keyword,
  * @param[in,out] io_map - Interface map.
  * @param[in] i_interface - Interface to be processed.
  * @param[in] i_propertyMap - new property map that needs to be emplaced.
+ * @param[out] o_errCode - To set error code in case of error.
  *
  * @return On success returns 0, otherwise returns -1.
  */
 inline int insertOrMerge(types::InterfaceMap& io_map,
                          const std::string& i_interface,
-                         types::PropertyMap&& i_propertyMap) noexcept
+                         types::PropertyMap&& i_propertyMap,
+                         uint16_t& o_errCode) noexcept
 {
     int l_rc{constants::FAILURE};
+
     try
     {
         if (io_map.find(i_interface) != io_map.end())
@@ -326,10 +329,7 @@ inline int insertOrMerge(types::InterfaceMap& io_map,
     }
     catch (const std::exception& l_ex)
     {
-        // ToDo:: Log PEL
-        logging::logMessage(
-            "Inserting properties into interface[" + i_interface +
-            "] map failed, reason: " + std::string(l_ex.what()));
+        o_errCode = error_code::STANDARD_EXCEPTION;
     }
     return l_rc;
 }
