@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c92c4cc2_17991616",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-14T05:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aeaeb1ce_9d34cca5",
+      "revId": "c2dd9d4b644d2b61e9d248f5d55168d94edfb53c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba682fc8_79a110fa",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-10-14T04:44:57Z",
       "side": 1,
       "message": "What do you mean be file rotation here?",
+      "range": {
+        "startLine": 9,
+        "startChar": 34,
+        "endLine": 9,
+        "endChar": 51
+      },
+      "revId": "c2dd9d4b644d2b61e9d248f5d55168d94edfb53c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8cc933e_375d72ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-14T05:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba682fc8_79a110fa",
       "range": {
         "startLine": 9,
         "startChar": 34,
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2110de0_fbd8d44b",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-14T05:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "926719df_255fa17c",
+      "revId": "c2dd9d4b644d2b61e9d248f5d55168d94edfb53c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d4b2443_c94c62c2",
@@ -71,6 +131,24 @@
       "writtenOn": "2025-10-14T04:44:57Z",
       "side": 1,
       "message": "This comment should move before line 129?",
+      "revId": "c2dd9d4b644d2b61e9d248f5d55168d94edfb53c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97930ff2_0e038f30",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-14T05:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d4b2443_c94c62c2",
       "revId": "c2dd9d4b644d2b61e9d248f5d55168d94edfb53c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
