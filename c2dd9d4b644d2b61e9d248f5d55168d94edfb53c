@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeaeb1ce_9d34cca5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-14T04:44:57Z",
+      "side": 1,
+      "message": "Why is this being called rotation?",
+      "revId": "c2dd9d4b644d2b61e9d248f5d55168d94edfb53c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba682fc8_79a110fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-14T04:44:57Z",
+      "side": 1,
+      "message": "What do you mean be file rotation here?",
+      "range": {
+        "startLine": 9,
+        "startChar": 34,
+        "endLine": 9,
+        "endChar": 51
+      },
+      "revId": "c2dd9d4b644d2b61e9d248f5d55168d94edfb53c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "926719df_255fa17c",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-14T04:44:57Z",
+      "side": 1,
+      "message": "This call will not set error code. For that l_ec needs to be passed to the api?",
+      "revId": "c2dd9d4b644d2b61e9d248f5d55168d94edfb53c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d4b2443_c94c62c2",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-14T04:44:57Z",
+      "side": 1,
+      "message": "This comment should move before line 129?",
+      "revId": "c2dd9d4b644d2b61e9d248f5d55168d94edfb53c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
