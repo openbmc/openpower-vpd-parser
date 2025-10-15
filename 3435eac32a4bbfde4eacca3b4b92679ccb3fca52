@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76c111db_e27bccbb",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-15T10:17:46Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "59326e5c_c0f91ff7",
+      "revId": "3435eac32a4bbfde4eacca3b4b92679ccb3fca52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17492137_9dfe84ae",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2025-10-14T11:33:19Z",
       "side": 1,
       "message": "Why there is a need to check both?",
+      "revId": "3435eac32a4bbfde4eacca3b4b92679ccb3fca52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42c855b6_38064141",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1025,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-15T10:17:46Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "17492137_9dfe84ae",
       "revId": "3435eac32a4bbfde4eacca3b4b92679ccb3fca52",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
