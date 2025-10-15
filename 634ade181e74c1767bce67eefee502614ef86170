@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48d6b8b8_e62c4736",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-15T01:44:37Z",
+      "side": 1,
+      "message": "System of SystemD?",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 21
+      },
+      "revId": "634ade181e74c1767bce67eefee502614ef86170",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9babef67_9e94a719",
+        "filename": "wait-vpd-parser/include/prime_inventory.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-15T01:44:37Z",
+      "side": 1,
+      "message": "Why was this changed? Also the change does not look correct, why a period is required after JSON.",
+      "revId": "634ade181e74c1767bce67eefee502614ef86170",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
