@@ -1,4 +1,73 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bece4454_7ff4ab1a",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-15T13:56:26Z",
+      "side": 1,
+      "message": "Can be simplified to `return ((l_objectPaths.size() \u003c l_invPathCount);`",
+      "revId": "5c81aba9fb91a6f03402025170230bb9776e176b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a680a4d_041e585f",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-15T13:56:26Z",
+      "side": 1,
+      "message": "Should we throw from here so that the logging is done at the `catch` block?",
+      "revId": "5c81aba9fb91a6f03402025170230bb9776e176b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93236911_db83f19b",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-15T13:56:26Z",
+      "side": 1,
+      "message": "Should we throw an exception with message \"empty map\"?",
+      "revId": "5c81aba9fb91a6f03402025170230bb9776e176b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "696e0ada_eb44ee08",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-15T13:56:26Z",
+      "side": 1,
+      "message": "This condition can be clubbed with the \"ccin\" check above?",
+      "revId": "5c81aba9fb91a6f03402025170230bb9776e176b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
