@@ -302,5 +302,57 @@ inline bool isFieldModeEnabled() noexcept
     return false;
 }
 
+/**
+ * @brief API to get VPD collection mode
+ *
+ * VPD collection mode can be hardware, mixed mode or file mode. This is
+ * determined by reading a u-boot variable.
+ *
+ * @param[out] o_errCode - To set error code in case of error.
+ *
+ * @return Hardware mode, mixed mode or file mode.
+ */
+inline types::VpdCollectionMode getVpdCollectionMode(
+    uint16_t& o_errCode) noexcept
+{
+    types::VpdCollectionMode l_result{types::VpdCollectionMode::DEFAULT_MODE};
+    try
+    {
+        std::vector<std::string> l_cmdOutput =
+            commonUtility::executeCmd("/sbin/fw_printenv vpdmode");
+
+        if (l_cmdOutput.size() > 0)
+        {
+            commonUtility::toLower(l_cmdOutput[0]);
+
+            // Remove the new line character from the string.
+            l_cmdOutput[0].erase(l_cmdOutput[0].length() - 1);
+
+            // map of u-boot variable result in string to VPD mode
+            const std::unordered_map<std::string, types::VpdCollectionMode>
+                l_ubootVariableToVpdModeMap{
+                    {"vpdmode=hardware",
+                     types::VpdCollectionMode::HARDWARE_MODE},
+                    {"vpdmode=mixed", types::VpdCollectionMode::MIXED_MODE},
+                    {"vpdmode=file", types::VpdCollectionMode::FILE_MODE}};
+
+            const auto l_entry =
+                l_ubootVariableToVpdModeMap.find(l_cmdOutput[0]);
+            if (l_entry != l_ubootVariableToVpdModeMap.end())
+            {
+                l_result = l_entry->second;
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        // TODO: add specific error code when other commonUtility APIs called in
+        // this API have implemented error codes.
+        o_errCode = error_code::STANDARD_EXCEPTION;
+    }
+
+    return l_result;
+}
+
 } // namespace commonUtility
 } // namespace vpd
