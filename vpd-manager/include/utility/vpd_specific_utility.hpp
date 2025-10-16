@@ -21,6 +21,18 @@ namespace vpd
 {
 namespace vpdSpecificUtility
 {
+
+/**
+ * @brief Enum which defines VPD modes
+ */
+enum class VpdMode : uint8_t
+{
+    HARDWARE_MODE,
+    MIXED_MODE,
+    FILE_MODE,
+    DEFAULT = HARDWARE_MODE
+};
+
 /**
  * @brief API to generate file name for bad VPD.
  *
@@ -1165,6 +1177,50 @@ inline const std::string convertWriteVpdParamsToString(
         o_errCode = error_code::STANDARD_EXCEPTION;
     }
     return std::string{};
+}
+
+/**
+ * @brief API to get VPD collection mode
+ *
+ * VPD collection mode can be hardware, mixed mode or file mode. This is
+ * determined by reading a u-boot variable.
+ *
+ * @return Hardware mode, mixed mode or file mode.
+ */
+inline VpdMode getVpdCollectionMode() noexcept
+{
+    VpdMode l_result{VpdMode::DEFAULT};
+    try
+    {
+        std::vector<std::string> l_cmdOutput =
+            commonUtility::executeCmd("/sbin/fw_printenv vpdmode");
+
+        if (l_cmdOutput.size() > 0)
+        {
+            commonUtility::toLower(l_cmdOutput[0]);
+
+            // Remove the new line character from the string.
+            l_cmdOutput[0].erase(l_cmdOutput[0].length() - 1);
+
+            // map of u-boot variable result in string to VPD mode
+            const std::unordered_map<std::string, VpdMode>
+                l_ubootVariableToVpdModeMap{
+                    {"vpdmode=hardware", VpdMode::HARDWARE_MODE},
+                    {"vpdmode=mixed", VpdMode::MIXED_MODE},
+                    {"vpdmode=file", VpdMode::FILE_MODE}};
+
+            const auto l_entry =
+                l_ubootVariableToVpdModeMap.find(l_cmdOutput[0]);
+            if (l_entry != l_ubootVariableToVpdModeMap.end())
+            {
+                l_result = l_entry->second;
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {}
+
+    return l_result;
 }
 
 } // namespace vpdSpecificUtility
