@@ -123,29 +123,6 @@ bool SingleFab::setImOnPlanar(const std::string& i_imValue) const noexcept
     }
 }
 
-bool SingleFab::isFieldModeEnabled() const noexcept
-{
-    try
-    {
-        std::vector<std::string> l_cmdOutput =
-            commonUtility::executeCmd("/sbin/fw_printenv fieldmode");
-
-        if (l_cmdOutput.size() > 0)
-        {
-            commonUtility::toLower(l_cmdOutput[0]);
-
-            // Remove the new line character from the string.
-            l_cmdOutput[0].erase(l_cmdOutput[0].length() - 1);
-
-            return l_cmdOutput[0] == "fieldmode=true" ? true : false;
-        }
-    }
-    catch (const std::exception& l_ex)
-    {}
-
-    return false;
-}
-
 void SingleFab::updateSystemImValueInVpdToP11Series(
     std::string i_currentImValuePlanar) const noexcept
 {
@@ -183,7 +160,7 @@ int SingleFab::singleFabImOverride() const noexcept
 {
     const std::string& l_planarImValue = getImFromPlanar();
     const std::string& l_eBmcImValue = getImFromPersistedLocation();
-    const bool& l_isFieldModeEnabled = isFieldModeEnabled();
+    const bool& l_isFieldModeEnabled = commonUtility::isFieldModeEnabled();
     const bool& l_isLabModeEnabled =
         !l_isFieldModeEnabled;                       // used for understanding
     const bool& l_isPowerVsImage = vpdSpecificUtility::isPowerVsImage();
