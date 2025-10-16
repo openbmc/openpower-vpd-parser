@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe00f2ae_42460f0f",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-16T06:38:15Z",
+      "side": 1,
+      "message": "as we are not handling specifics in the exception block, should be fine to log it here.",
+      "parentUuid": "9a680a4d_041e585f",
+      "revId": "5c81aba9fb91a6f03402025170230bb9776e176b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93236911_db83f19b",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc4b54e6_ee9f500d",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-16T06:38:15Z",
+      "side": 1,
+      "message": "as we are not handling specifics in exception block, should be fine to log it here.",
+      "parentUuid": "93236911_db83f19b",
+      "revId": "5c81aba9fb91a6f03402025170230bb9776e176b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "696e0ada_eb44ee08",
@@ -65,6 +101,24 @@
       "writtenOn": "2025-10-15T13:56:26Z",
       "side": 1,
       "message": "This condition can be clubbed with the \"ccin\" check above?",
+      "revId": "5c81aba9fb91a6f03402025170230bb9776e176b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ca0a4d7_1a3b5223",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-16T06:38:15Z",
+      "side": 1,
+      "message": "as they are independent checks should be fine checked separately, not seeing any gain by combining them.",
+      "parentUuid": "696e0ada_eb44ee08",
       "revId": "5c81aba9fb91a6f03402025170230bb9776e176b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
