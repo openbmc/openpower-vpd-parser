@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5e6e59c_fdce012d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-10-16T15:46:13Z",
+      "side": 1,
+      "message": "please check my comments",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30a48ec5_548ab77a",
@@ -105,6 +122,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7351e9e1_928272c8",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-10-16T15:46:13Z",
+      "side": 1,
+      "message": "why another logger instance? we got one in 241.\nAM I missing something?",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 303,
+        "endChar": 52
+      },
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c8b042c_900ff59f",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 32
@@ -116,6 +156,75 @@
       "writtenOn": "2025-10-16T12:22:30Z",
       "side": 1,
       "message": "failbit \u0026 badbit are not set.",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b21e1bae_1966a7fc",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-10-16T15:46:13Z",
+      "side": 1,
+      "message": "don\u0027t you think we should open it inside if(file_exists ?) block? line 337",
+      "range": {
+        "startLine": 331,
+        "startChar": 1,
+        "endLine": 333,
+        "endChar": 0
+      },
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "699fc496_ced7fa3c",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-10-16T15:46:13Z",
+      "side": 1,
+      "message": "NOT seeing use of m_fileStream?",
+      "range": {
+        "startLine": 335,
+        "startChar": 4,
+        "endLine": 335,
+        "endChar": 16
+      },
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03e74c11_7633d251",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-10-16T15:46:13Z",
+      "side": 1,
+      "message": "can we make use of earlier opened stream - m_fileStream?",
+      "range": {
+        "startLine": 340,
+        "startChar": 22,
+        "endLine": 340,
+        "endChar": 38
+      },
       "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
