@@ -75,7 +75,7 @@ bool PrimeInventory::isPrimingRequired() const noexcept
                 l_invPathCount += 1;
             }
         }
-        return ((l_objectPaths.size() >= l_invPathCount) ? false : true);
+        return (l_objectPaths.size() < l_invPathCount);
     }
     catch (const std::exception& l_ex)
     {
@@ -93,7 +93,7 @@ void PrimeInventory::primeSystemBlueprint() const noexcept
 {
     try
     {
-        if (m_sysCfgJsonObj.empty())
+        if (m_sysCfgJsonObj.empty() || !isPrimingRequired())
         {
             return;
         }
