@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2bf7218_6aa36d94",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-16T12:22:30Z",
+      "side": 1,
+      "message": "we are not capturing what is the exception.",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "394f8c6f_0399cf10",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-16T12:22:30Z",
+      "side": 1,
+      "message": "should we close m_fileStream, in case of exception ?\neg: in case exception occurred while renaming or opening a file from rotateFile().\nand what is the mechanism in case of failure for next logging as m_fileStream is not valid any more ?",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c0a73fb_c95f0b97",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-16T12:22:30Z",
+      "side": 1,
+      "message": "can we keep this in constants, so developer will know and void using this file path in vpd-manager ?",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b5e15d2_3121d7e9",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-16T12:22:30Z",
+      "side": 1,
+      "message": "filesystem::rename itself deletes new file if exists already.",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98abb1bd_da1a3f50",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-16T12:22:30Z",
+      "side": 1,
+      "message": "should we close m_fileStream before renaming.",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c8b042c_900ff59f",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-16T12:22:30Z",
+      "side": 1,
+      "message": "failbit \u0026 badbit are not set.",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
