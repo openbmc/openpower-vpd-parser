@@ -274,5 +274,33 @@ inline size_t getCurrentTimeSinceEpoch() noexcept
     return static_cast<size_t>(l_timeStampSeconds);
 }
 
+/**
+ * @brief API to check is field mode enabled.
+ *
+ * @return true, if field mode is enabled. otherwise false.
+ */
+inline bool isFieldModeEnabled() noexcept
+{
+    try
+    {
+        std::vector<std::string> l_cmdOutput =
+            executeCmd("/sbin/fw_printenv fieldmode");
+
+        if (l_cmdOutput.size() > 0)
+        {
+            toLower(l_cmdOutput[0]);
+
+            // Remove the new line character from the string.
+            l_cmdOutput[0].erase(l_cmdOutput[0].length() - 1);
+
+            return l_cmdOutput[0] == "fieldmode=true";
+        }
+    }
+    catch (const std::exception& l_ex)
+    {}
+
+    return false;
+}
+
 } // namespace commonUtility
 } // namespace vpd
