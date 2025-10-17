@@ -32,10 +32,13 @@ enum error_code
     GPIO_LINE_EXCEPTION,
     ERROR_PROCESSING_SYSTEM_CMD,
     STANDARD_EXCEPTION,
+    DBUS_FAILURE,
 
     // VPD specific errors
     UNSUPPORTED_VPD_TYPE,
-    KEYWORD_NOT_FOUND
+    KEYWORD_NOT_FOUND,
+    FAILED_TO_DETECT_LOCATION_CODE_TYPE,
+    RECEIVED_INVALID_KWD_TYPE_FROM_DBUS
 };
 
 const std::unordered_map<int, std::string> errorCodeMap = {
@@ -68,5 +71,10 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::KEYWORD_NOT_FOUND, "Keyword not found"},
     {error_code::UNSUPPORTED_VPD_TYPE, "This VPD type is not supported"},
     {error_code::STANDARD_EXCEPTION, "Standard Exception thrown"},
-    {error_code::FILE_SYSTEM_ERROR, "File system error."}};
+    {error_code::FILE_SYSTEM_ERROR, "File system error."},
+    {error_code::FAILED_TO_DETECT_LOCATION_CODE_TYPE,
+     "Failed to detect location code type"},
+    {error_code::DBUS_FAILURE, "Dbus call failed"},
+    {error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS,
+     "Received invalid keyword data type from DBus."}};
 } // namespace vpd

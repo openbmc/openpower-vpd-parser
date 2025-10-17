@@ -238,6 +238,7 @@ void PrimeInventory::populateInterfaces(
 {
     for (const auto& l_interfacesPropPair : i_interfaceJson.items())
     {
+        uint16_t l_errCode = 0;
         const std::string& l_interface = l_interfacesPropPair.key();
         vpd::types::PropertyMap l_propertyMap;
 
@@ -258,7 +259,17 @@ void PrimeInventory::populateInterfaces(
                     std::string l_value =
                         vpd::vpdSpecificUtility::getExpandedLocationCode(
                             l_propValuePair.value().get<std::string>(),
-                            i_parsedVpdMap);
+                            i_parsedVpdMap, l_errCode);
+
+                    if (l_errCode)
+                    {
+                        m_logger->logMessage(
+                            "Failed to get expanded location code for location code - " +
+                            l_propValuePair.value().get<std::string>() +
+                            " ,error : " +
+                            vpd::commonUtility::getErrCodeMsg(l_errCode));
+                    }
+
                     l_propertyMap.emplace(l_property, l_value);
 
                     auto l_locCodeProperty = l_propertyMap;
