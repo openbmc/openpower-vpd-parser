@@ -342,13 +342,21 @@ inline int insertOrMerge(types::InterfaceMap& io_map,
  *
  * @param[in] unexpandedLocationCode - Unexpanded location code.
  * @param[in] parsedVpdMap - Parsed VPD map.
+ * @param[out] o_errCode - To set error code in case of error.
  * @return Expanded location code. In case of any error, unexpanded is returned
  * as it is.
  */
 inline std::string getExpandedLocationCode(
     const std::string& unexpandedLocationCode,
-    const types::VPDMapVariant& parsedVpdMap)
+    const types::VPDMapVariant& parsedVpdMap, uint16_t& o_errCode)
 {
+    if (unexpandedLocationCode.empty() ||
+        std::holds_alternative<std::monostate>(parsedVpdMap))
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return unexpandedLocationCode;
+    }
+
     auto expanded{unexpandedLocationCode};
 
     try
@@ -381,8 +389,8 @@ inline std::string getExpandedLocationCode(
             }
             else
             {
-                throw std::runtime_error(
-                    "Error detecting type of unexpanded location code.");
+                o_errCode = error_code::FAILED_TO_DETECT_LOCATION_CODE_TYPE;
+                return expanded;
             }
         }
 
@@ -391,22 +399,19 @@ inline std::string getExpandedLocationCode(
         if (auto ipzVpdMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap);
             ipzVpdMap && (*ipzVpdMap).find(recordName) != (*ipzVpdMap).end())
         {
-            uint16_t l_errCode = 0;
             auto itrToVCEN = (*ipzVpdMap).find(recordName);
-            firstKwdValue = getKwVal(itrToVCEN->second, kwd1, l_errCode);
+            firstKwdValue = getKwVal(itrToVCEN->second, kwd1, o_errCode);
             if (firstKwdValue.empty())
             {
-                throw std::runtime_error(
-                    "Failed to get value for keyword [" + kwd1 +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                o_errCode = error_code::KEYWORD_NOT_FOUND;
+                return expanded;
             }
 
-            secondKwdValue = getKwVal(itrToVCEN->second, kwd2, l_errCode);
+            secondKwdValue = getKwVal(itrToVCEN->second, kwd2, o_errCode);
             if (secondKwdValue.empty())
             {
-                throw std::runtime_error(
-                    "Failed to get value for keyword [" + kwd2 +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                o_errCode = error_code::KEYWORD_NOT_FOUND;
+                return expanded;
             }
         }
         else
@@ -418,7 +423,8 @@ inline std::string getExpandedLocationCode(
 
             if (mapperRetValue.empty())
             {
-                throw std::runtime_error("Mapper failed to get service");
+                o_errCode = error_code::DBUS_FAILURE;
+                return expanded;
             }
 
             const std::string& serviceName = std::get<0>(mapperRetValue.at(0));
@@ -435,8 +441,8 @@ inline std::string getExpandedLocationCode(
             }
             else
             {
-                throw std::runtime_error(
-                    "Failed to read value of " + kwd1 + " from Bus");
+                o_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
+                return expanded;
             }
 
             retVal = dbusUtility::readDbusProperty(
@@ -451,8 +457,8 @@ inline std::string getExpandedLocationCode(
             }
             else
             {
-                throw std::runtime_error(
-                    "Failed to read value of " + kwd2 + " from Bus");
+                o_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
+                return expanded;
             }
         }
 
@@ -470,8 +476,7 @@ inline std::string getExpandedLocationCode(
     }
     catch (const std::exception& ex)
     {
-        logging::logMessage("Failed to expand location code with exception: " +
-                            std::string(ex.what()));
+        o_errCode = error_code::STANDARD_EXCEPTION;
     }
 
     return expanded;

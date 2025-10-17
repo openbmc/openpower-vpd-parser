@@ -558,12 +558,13 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
 {
     for (const auto& interfacesPropPair : interfaceJson.items())
     {
-        uint16_t l_errCode = 0;
         const std::string& interface = interfacesPropPair.key();
         types::PropertyMap propertyMap;
+        uint16_t l_errCode = 0;
 
         for (const auto& propValuePair : interfacesPropPair.value().items())
         {
+            l_errCode = 0;
             const std::string property = propValuePair.key();
 
             if (propValuePair.value().is_boolean())
@@ -579,8 +580,20 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
                     std::string value =
                         vpdSpecificUtility::getExpandedLocationCode(
                             propValuePair.value().get<std::string>(),
-                            parsedVpdMap);
+                            parsedVpdMap, l_errCode);
+
+                    if (l_errCode)
+                    {
+                        logging::logMessage(
+                            "Failed to get expanded location code for location code - " +
+                            propValuePair.value().get<std::string>() +
+                            " ,error : " +
+                            commonUtility::getErrCodeMsg(l_errCode));
+                    }
+
                     propertyMap.emplace(property, value);
+
+                    l_errCode = 0;
 
                     auto l_locCodeProperty = propertyMap;
                     vpdSpecificUtility::insertOrMerge(
@@ -630,7 +643,7 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
                 const std::string& encoding =
                     propValuePair.value().value("encoding", "");
 
-                uint16_t l_errCode = 0;
+                l_errCode = 0;
 
                 if (auto ipzVpdMap =
                         std::get_if<types::IPZVpdMap>(&parsedVpdMap))

@@ -269,6 +269,7 @@ void PrimeInventory::populateInterfaces(
 
         for (const auto& l_propValuePair : l_interfacesPropPair.value().items())
         {
+            l_errCode = 0;
             const std::string l_property = l_propValuePair.key();
 
             if (l_propValuePair.value().is_boolean())
@@ -284,8 +285,20 @@ void PrimeInventory::populateInterfaces(
                     std::string l_value =
                         vpd::vpdSpecificUtility::getExpandedLocationCode(
                             l_propValuePair.value().get<std::string>(),
-                            i_parsedVpdMap);
+                            i_parsedVpdMap, l_errCode);
+
+                    if (l_errCode)
+                    {
+                        m_logger->logMessage(
+                            "Failed to get expanded location code for location code - " +
+                            l_propValuePair.value().get<std::string>() +
+                            " ,error : " +
+                            vpd::commonUtility::getErrCodeMsg(l_errCode));
+                    }
+
                     l_propertyMap.emplace(l_property, l_value);
+
+                    l_errCode = 0;
 
                     auto l_locCodeProperty = l_propertyMap;
                     vpd::vpdSpecificUtility::insertOrMerge(
@@ -335,7 +348,7 @@ void PrimeInventory::populateInterfaces(
                 const std::string& l_encoding =
                     l_propValuePair.value().value("encoding", "");
 
-                uint16_t l_errCode = 0;
+                l_errCode = 0;
 
                 if (auto l_ipzVpdMap =
                         std::get_if<vpd::types::IPZVpdMap>(&i_parsedVpdMap))
