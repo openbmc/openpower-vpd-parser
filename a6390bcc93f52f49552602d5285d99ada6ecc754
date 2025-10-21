@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d428c4ee_96181704",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-21T18:12:30Z",
+      "side": 1,
+      "message": "Why do we want the data to be written to file immediately? These log files are only going to be used by humans, when a dump is generated. No other process is waiting for data to be written to the file. In any case, this comment is related to code which has not changed in this patch set?",
+      "parentUuid": "30a48ec5_548ab77a",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2bf7218_6aa36d94",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 32
@@ -48,6 +66,24 @@
       "writtenOn": "2025-10-16T12:22:30Z",
       "side": 1,
       "message": "we are not capturing what is the exception.",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cafcc06d_442bd9a8",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-21T18:12:30Z",
+      "side": 1,
+      "message": "This comment is on code which has not changed in this patch set? We can maybe file a github issue and take this up later.",
+      "parentUuid": "a2bf7218_6aa36d94",
       "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "884f90cf_4b8d643a",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-21T18:12:30Z",
+      "side": 1,
+      "message": "This comment is related to code which has not changed in this patch set? We can maybe file a github issue and take this up later.",
+      "parentUuid": "394f8c6f_0399cf10",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c0a73fb_c95f0b97",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 32
@@ -82,6 +136,24 @@
       "writtenOn": "2025-10-16T12:22:30Z",
       "side": 1,
       "message": "can we keep this in constants, so developer will know and void using this file path in vpd-manager ?",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cd908ad_e7403893",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-21T18:12:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c0a73fb_c95f0b97",
       "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -103,6 +175,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b8a669f_318bf197",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-21T18:12:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b5e15d2_3121d7e9",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98abb1bd_da1a3f50",
@@ -116,6 +206,24 @@
       "writtenOn": "2025-10-16T12:22:30Z",
       "side": 1,
       "message": "should we close m_fileStream before renaming.",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7492b6c2_a355234f",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-21T18:12:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98abb1bd_da1a3f50",
       "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -143,6 +251,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0afa0bf7_bb72474e",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-21T18:12:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7351e9e1_928272c8",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 303,
+        "endChar": 52
+      },
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c8b042c_900ff59f",
@@ -160,6 +292,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "097d3c39_b3848d0f",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-21T18:12:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c8b042c_900ff59f",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b21e1bae_1966a7fc",
@@ -173,6 +323,30 @@
       "writtenOn": "2025-10-16T15:46:13Z",
       "side": 1,
       "message": "don\u0027t you think we should open it inside if(file_exists ?) block? line 337",
+      "range": {
+        "startLine": 331,
+        "startChar": 1,
+        "endLine": 333,
+        "endChar": 0
+      },
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0a41280_186d6709",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-21T18:12:30Z",
+      "side": 1,
+      "message": "No. The check file exists check on line 337 before opening the file is meant to see if there is an existing file, and rotate it if needed (line 349).",
+      "parentUuid": "b21e1bae_1966a7fc",
       "range": {
         "startLine": 331,
         "startChar": 1,
@@ -208,6 +382,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a893b31e_6f297751",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-21T18:12:30Z",
+      "side": 1,
+      "message": "It\u0027s used in other APIs in `logger.cpp`",
+      "parentUuid": "699fc496_ced7fa3c",
+      "range": {
+        "startLine": 335,
+        "startChar": 4,
+        "endLine": 335,
+        "endChar": 16
+      },
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "03e74c11_7633d251",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 32
@@ -219,6 +417,30 @@
       "writtenOn": "2025-10-16T15:46:13Z",
       "side": 1,
       "message": "can we make use of earlier opened stream - m_fileStream?",
+      "range": {
+        "startLine": 340,
+        "startChar": 22,
+        "endLine": 340,
+        "endChar": 38
+      },
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9dee8cf_0eb3f6df",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-21T18:12:30Z",
+      "side": 1,
+      "message": "No. `m_fileStream` is for writing log data to file. `l_readFileStream` is for reading number of lines from the file.",
+      "parentUuid": "03e74c11_7633d251",
       "range": {
         "startLine": 340,
         "startChar": 22,
