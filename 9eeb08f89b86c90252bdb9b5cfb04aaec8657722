@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ba0aac7_30531415",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-22T06:18:13Z",
+      "side": 1,
+      "message": "In most of the cases encoding parameter is empty, setting the error code in such cases unnecessarily clutters the journal with logs, so returning from there without setting error code when the encoding parameter is not provided.",
+      "parentUuid": "84930bf7_4a650e7c",
+      "revId": "9eeb08f89b86c90252bdb9b5cfb04aaec8657722",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cfaa4243_e81cbb5a",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 5
@@ -31,6 +49,24 @@
       "writtenOn": "2025-10-22T05:38:49Z",
       "side": 1,
       "message": "A blank line between blocks of code.",
+      "revId": "9eeb08f89b86c90252bdb9b5cfb04aaec8657722",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bfe2f2d_ae23bbb6",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-22T06:18:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfaa4243_e81cbb5a",
       "revId": "9eeb08f89b86c90252bdb9b5cfb04aaec8657722",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
