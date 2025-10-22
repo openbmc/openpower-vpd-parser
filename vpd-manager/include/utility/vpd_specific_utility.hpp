@@ -469,11 +469,18 @@ inline std::string getExpandedLocationCode(
  * @param[in] vpdFilePath - EEPROM path of the FRU.
  * @param[out] vpdVector - VPD in vector form.
  * @param[in] vpdStartOffset - Offset of VPD data in EEPROM.
+ * @param[out] o_errCode - To set error code in case of error.
  */
 inline void getVpdDataInVector(const std::string& vpdFilePath,
                                types::BinaryVector& vpdVector,
-                               size_t& vpdStartOffset)
+                               size_t& vpdStartOffset, uint16_t& o_errCode)
 {
+    if (vpdFilePath.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return;
+    }
+
     try
     {
         std::fstream vpdFileStream;
@@ -493,9 +500,8 @@ inline void getVpdDataInVector(const std::string& vpdFilePath,
     }
     catch (const std::ifstream::failure& fail)
     {
-        std::cerr << "Exception in file handling [" << vpdFilePath
-                  << "] error : " << fail.what();
-        throw;
+        o_errCode = error_code::STANDARD_EXCEPTION;
+        return;
     }
 }
 
@@ -503,11 +509,18 @@ inline void getVpdDataInVector(const std::string& vpdFilePath,
  * @brief An API to get D-bus representation of given VPD keyword.
  *
  * @param[in] i_keywordName - VPD keyword name.
+ * @param[out] o_errCode - To set error code in case of error.
  *
  * @return D-bus representation of given keyword.
  */
-inline std::string getDbusPropNameForGivenKw(const std::string& i_keywordName)
+inline std::string getDbusPropNameForGivenKw(const std::string& i_keywordName,
+                                             uint16_t& o_errCode)
 {
+    if (i_keywordName.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return std::string{};
+    }
     // Check for "#" prefixed VPD keyword.
     if ((i_keywordName.size() == vpd::constants::TWO_BYTES) &&
         (i_keywordName.at(0) == constants::POUND_KW))
