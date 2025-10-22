@@ -3,6 +3,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1adf2cc1_8710962b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-22T12:12:16Z",
+      "side": 1,
+      "message": "The commit seems to be doing more than what is mentioned in the commit message.\nShould this be broken further into multiple individual commits?",
+      "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06e6a20a_73c17f4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-22T12:12:16Z",
+      "side": 1,
+      "message": "But why there is such requirement?",
+      "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56eb5f70_a9782fd4",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-22T12:12:16Z",
+      "side": 1,
+      "message": "a relevant file name? Like write_vpd.log or something like that?",
+      "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83c27d1d_fdf2de18",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 33
