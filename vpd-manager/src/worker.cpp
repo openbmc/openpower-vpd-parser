@@ -71,6 +71,13 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount) :
     }
 }
 
+Worker::Worker(types::VpdCollectionMode i_vpdCollectionMode,
+               std::string pathToConfigJson, uint8_t i_maxThreadCount) :
+    Worker{pathToConfigJson, i_maxThreadCount}
+{
+    m_vpdCollectionMode = i_vpdCollectionMode;
+}
+
 static std::string readFitConfigValue()
 {
     std::vector<std::string> output =

@@ -192,6 +192,17 @@ enum ErrorType
     VpdParseError /* Should be used in case of any generic VPD parsing error. */
 };
 
+/**
+ * @brief Enum which defines VPD collection modes
+ */
+enum class VpdCollectionMode : uint8_t
+{
+    HARDWARE_MODE,
+    MIXED_MODE,
+    FILE_MODE,
+    DEFAULT_MODE = HARDWARE_MODE
+};
+
 using InventoryCalloutData = std::tuple<std::string, CalloutPriority>;
 using DeviceCalloutData = std::tuple<std::string, std::string>;
 using I2cBusCalloutData = std::tuple<std::string, std::string, std::string>;
