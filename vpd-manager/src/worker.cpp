@@ -26,8 +26,10 @@
 namespace vpd
 {
 
-Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount) :
-    m_configJsonPath(pathToConfigJson), m_semaphore(i_maxThreadCount)
+Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
+               types::VpdCollectionMode i_vpdCollectionMode) :
+    m_configJsonPath(pathToConfigJson), m_semaphore(i_maxThreadCount),
+    m_vpdCollectionMode(i_vpdCollectionMode)
 {
     // Implies the processing is based on some config JSON
     if (!m_configJsonPath.empty())
