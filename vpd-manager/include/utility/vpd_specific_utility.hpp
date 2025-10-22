@@ -567,18 +567,22 @@ inline std::string getDbusPropNameForGivenKw(const std::string& i_keywordName,
  *
  * @param[in] i_JsonObject - Any JSON which contains CCIN tag to match.
  * @param[in] i_parsedVpdMap - Parsed VPD map.
+ * @param[out] o_errCode - To set error code in case of error.
  *
  * @return True if found, false otherwise.
  */
 inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
-                          const types::VPDMapVariant& i_parsedVpdMap) noexcept
+                          const types::VPDMapVariant& i_parsedVpdMap,
+                          uint16_t& o_errCode) noexcept
 {
     bool l_rc{false};
     try
     {
-        if (i_JsonObject.empty())
+        if (i_JsonObject.empty() ||
+            std::holds_alternative<std::monostate>(i_parsedVpdMap))
         {
-            throw std::runtime_error("Json object is empty. Can't find CCIN");
+            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            return l_rc;
         }
 
         if (auto l_ipzVPDMap = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap))
@@ -586,17 +590,16 @@ inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
             auto l_itrToRec = (*l_ipzVPDMap).find("VINI");
             if (l_itrToRec == (*l_ipzVPDMap).end())
             {
-                throw DataException(
-                    "VINI record not found in parsed VPD. Can't find CCIN");
+                o_errCode = error_code::RECORD_NOT_FOUND;
+                return l_rc;
             }
 
-            uint16_t l_errCode = 0;
             std::string l_ccinFromVpd{vpdSpecificUtility::getKwVal(
-                l_itrToRec->second, "CC", l_errCode)};
+                l_itrToRec->second, "CC", o_errCode)};
             if (l_ccinFromVpd.empty())
             {
-                throw DataException("Can't find CCIN, error : " +
-                                    commonUtility::getErrCodeMsg(l_errCode));
+                o_errCode = error_code::KEYWORD_NOT_FOUND;
+                return l_rc;
             }
 
             transform(l_ccinFromVpd.begin(), l_ccinFromVpd.end(),
@@ -622,24 +625,12 @@ inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
         }
         else
         {
-            logging::logMessage("VPD type not supported. Can't find CCIN");
+            o_errCode = error_code::UNSUPPORTED_VPD_TYPE;
         }
     }
     catch (const std::exception& l_ex)
     {
-        const std::string l_errMsg{
-            "Failed to find CCIN in VPD. Error : " + std::string(l_ex.what())};
-
-        if (typeid(l_ex) == std::type_index(typeid(DataException)))
-        {
-            EventLogger::createSyncPel(
-                types::ErrorType::InvalidVpdMessage,
-                types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
-                l_errMsg, std::nullopt, std::nullopt, std::nullopt,
-                std::nullopt);
-        }
-
-        logging::logMessage(l_errMsg);
+        o_errCode = error_code::STANDARD_EXCEPTION;
     }
     return l_rc;
 }
