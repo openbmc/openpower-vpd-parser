@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1fa59249_a602a796",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-22T15:20:53Z",
+      "side": 1,
+      "message": "\u003eThe commit seems to be doing more than what is mentioned in the commit message.\n\nCan you elaborate this?",
+      "parentUuid": "1adf2cc1_8710962b",
+      "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06e6a20a_73c17f4a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 33
@@ -31,6 +49,24 @@
       "writtenOn": "2025-10-22T12:12:16Z",
       "side": 1,
       "message": "But why there is such requirement?",
+      "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b61f5dd_55a8e2a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-22T15:20:53Z",
+      "side": 1,
+      "message": "The requirement came from stakeholders. If I have to guess, its to put a maximum limit on the size of the log file so that it (and subsequently size of BMC dump) doesn\u0027t increase infinitely.",
+      "parentUuid": "06e6a20a_73c17f4a",
       "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "383216a7_0a46cc65",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-22T15:20:53Z",
+      "side": 1,
+      "message": "We cannot have a common temporary file, since we have an instance of `SyncFileLogger` and `AsyncFileLogger`, if both instances hit `rotateFile()`, there will be a conflict. Hence, keeping the temporary file name as `m_filePath_temp.log`",
+      "parentUuid": "56eb5f70_a9782fd4",
+      "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83c27d1d_fdf2de18",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 33
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "157334f4_ea9d1e2d",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-22T15:20:53Z",
+      "side": 1,
+      "message": "Incase of error here, the current log message will be added to existing file, so the current log message is not lost. When the next `logMessage()` is called, `rotateFile()` will be triggered and we will re-try rotating the file.",
+      "parentUuid": "83c27d1d_fdf2de18",
+      "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "235d21a1_acd1064b",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 33
@@ -82,6 +154,24 @@
       "writtenOn": "2025-10-22T09:03:36Z",
       "side": 1,
       "message": "In case of failure, we continue open and write to old file(which exceeds max lines). Is this expected behaviour ?",
+      "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7a26d5b_ac1bb22e",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-22T15:20:53Z",
+      "side": 1,
+      "message": "Incase of error here, the current log message will be added to existing file, so the current log message is not lost. When the next `logMessage()` is called, `rotateFile()` will be triggered and we will re-try rotating the file.",
+      "parentUuid": "235d21a1_acd1064b",
       "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
