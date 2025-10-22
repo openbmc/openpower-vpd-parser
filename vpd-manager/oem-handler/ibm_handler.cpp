@@ -24,17 +24,24 @@ IbmHandler::IbmHandler(
     m_ioContext(i_ioCon), m_asioConnection(i_asioConnection),
     m_logger(Logger::getLoggerInstance())
 {
+    // check VPD collection mode
+    const auto l_vpdCollectionMode =
+        commonUtility::isFieldModeEnabled()
+            ? types::VpdCollectionMode::DEFAULT
+            : vpdSpecificUtility::getVpdCollectionMode();
+
     if (dbusUtility::isChassisPowerOn())
     {
         // At power on, less number of FRU(s) needs collection. we can scale
         // down the threads to reduce CPU utilization.
-        m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT,
-                                            constants::VALUE_1);
+        m_worker = std::make_shared<Worker>(
+            l_vpdCollectionMode, INVENTORY_JSON_DEFAULT, constants::VALUE_1);
     }
     else
     {
         // Initialize with default configuration
-        m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT);
+        m_worker = std::make_shared<Worker>(l_vpdCollectionMode,
+                                            INVENTORY_JSON_DEFAULT);
     }
 
     // Set up minimal things that is needed before bus name is claimed.
