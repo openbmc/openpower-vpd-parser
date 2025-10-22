@@ -41,7 +41,8 @@ enum error_code
     FAILED_TO_DETECT_LOCATION_CODE_TYPE,
     RECEIVED_INVALID_KWD_TYPE_FROM_DBUS,
     INVALID_KEYWORD_LENGTH,
-    INVALID_VALUE_READ_FROM_DBUS
+    INVALID_VALUE_READ_FROM_DBUS,
+    RECORD_NOT_FOUND
 };
 
 const std::unordered_map<int, std::string> errorCodeMap = {
@@ -78,6 +79,7 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::FILE_SYSTEM_ERROR, "File system error."},
     {error_code::INVALID_KEYWORD_LENGTH, "Invalid keyword length."},
     {error_code::INVALID_VALUE_READ_FROM_DBUS, "Invalid value read from DBus"},
+    {error_code::RECORD_NOT_FOUND, "Record not found."},
     {error_code::FAILED_TO_DETECT_LOCATION_CODE_TYPE,
      "Failed to detect location code type"},
     {error_code::DBUS_FAILURE, "Dbus call failed"},
