@@ -1233,6 +1233,8 @@ bool Worker::processPostAction(
 
     // Check if post action tag is to be triggered in the flow of collection
     // based on some CCIN value?
+    uint16_t l_errCode = 0;
+
     if (m_parsedJson["frus"][i_vpdFruPath]
             .at(0)["postAction"][i_flagToProcess]
             .contains("ccin"))
@@ -1248,15 +1250,21 @@ bool Worker::processPostAction(
         if (!vpdSpecificUtility::findCcinInVpd(
                 m_parsedJson["frus"][i_vpdFruPath].at(
                     0)["postAction"]["collection"],
-                i_parsedVpd.value()))
+                i_parsedVpd.value(), l_errCode))
         {
+            if (l_errCode)
+            {
+                logging::logMessage("Failed to find CCIN in VPD, error : " +
+                                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+
             // If CCIN is not found, implies post action processing is not
             // required for this FRU. Let the flow continue.
             return true;
         }
     }
 
-    uint16_t l_errCode = 0;
+    l_errCode = 0;
     if (!jsonUtility::executeBaseAction(m_parsedJson, "postAction",
                                         i_vpdFruPath, i_flagToProcess,
                                         l_errCode))
