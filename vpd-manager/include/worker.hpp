@@ -43,11 +43,33 @@ class Worker
      *
      * @param[in] pathToConfigJSON - Path to the config JSON, if applicable.
      * @param[in] i_maxThreadCount - Maximum thread while collecting FRUs VPD.
+     * place.
      *
      * Note: Throws std::exception in case of construction failure. Caller needs
      * to handle to detect successful object creation.
      */
     Worker(std::string pathToConfigJson = std::string(),
+           uint8_t i_maxThreadCount = constants::MAX_THREADS);
+
+    /**
+     * @brief Constructor.
+     *
+     * In case the processing is not JSON based, no argument needs to be passed.
+     * Constructor will also, based on symlink pick the correct JSON and
+     * initialize the parsed JSON variable.
+     *
+     * @param[in] i_vpdCollectionMode - Mode in which VPD collection should take
+     * place.
+     * @param[in] pathToConfigJSON - Path to the config JSON, if applicable.
+     * @param[in] i_maxThreadCount - Maximum thread while collecting FRUs VPD.
+     * place.
+     *
+     * Note: Throws std::exception in case of construction failure. Caller needs
+     * to handle to detect successful object creation.
+     */
+    Worker(types::VpdCollectionMode i_vpdCollectionMode =
+               types::VpdCollectionMode::HARDWARE_MODE,
+           std::string pathToConfigJson = std::string(),
            uint8_t i_maxThreadCount = constants::MAX_THREADS);
 
     /**
@@ -150,6 +172,16 @@ class Worker
     inline std::forward_list<std::string>& getFailedEepromPaths() noexcept
     {
         return m_failedEepromPaths;
+    }
+
+    /**
+     * @brief API to get VPD collection mode
+     *
+     * @return VPD collection mode enum value
+     */
+    inline types::VpdCollectionMode getVpdCollectionMode() const
+    {
+        return m_vpdCollectionMode;
     }
 
     /**
@@ -565,5 +597,9 @@ class Worker
 
     // List of EEPROM paths for which VPD collection thread creation has failed.
     std::forward_list<std::string> m_failedEepromPaths;
+
+    // VPD collection mode
+    types::VpdCollectionMode m_vpdCollectionMode{
+        types::VpdCollectionMode::DEFAULT};
 };
 } // namespace vpd
