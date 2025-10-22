@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "834eb25b_003d66a2",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-22T09:03:36Z",
+      "side": 1,
+      "message": "agree, as no other process is waiting for data to be written to the file.",
+      "parentUuid": "d428c4ee_96181704",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2bf7218_6aa36d94",
