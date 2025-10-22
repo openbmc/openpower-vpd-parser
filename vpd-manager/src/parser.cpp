@@ -51,8 +51,15 @@ Parser::Parser(const std::string& vpdFilePath, nlohmann::json parsedJson) :
 std::shared_ptr<vpd::ParserInterface> Parser::getVpdParserInstance()
 {
     // Read the VPD data into a vector.
+    uint16_t l_errCode = 0;
     vpdSpecificUtility::getVpdDataInVector(m_vpdFilePath, m_vpdVector,
-                                           m_vpdStartOffset);
+                                           m_vpdStartOffset, l_errCode);
+
+    if (l_errCode)
+    {
+        logging::logMessage("Failed to get VPD in vector, error : " +
+                            commonUtility::getErrCodeMsg(l_errCode));
+    }
 
     // This will detect the type of parser required.
     std::shared_ptr<vpd::ParserInterface> l_parser =
@@ -195,8 +202,16 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
             }
 
             // Get D-bus name for the given keyword
-            l_propertyName =
-                vpdSpecificUtility::getDbusPropNameForGivenKw(l_propertyName);
+            l_errCode = 0;
+            l_propertyName = vpdSpecificUtility::getDbusPropNameForGivenKw(
+                l_propertyName, l_errCode);
+
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to get Dbus property name for given keyword, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
 
             // Create D-bus object map
             types::ObjectMap l_dbusObjMap = {std::make_pair(
