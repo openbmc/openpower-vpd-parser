@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faa87532_398e4d18",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-22T11:52:22Z",
+      "side": 1,
+      "message": "nit: it is ideally better to check for empty value as well as error code together.",
+      "revId": "17ddfb53f1a30ec82e8eb6ec171d5b5d00212406",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
