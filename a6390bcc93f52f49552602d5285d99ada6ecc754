@@ -88,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2e3b6ee_98283647",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-22T06:10:35Z",
+      "side": 1,
+      "message": "Created https://github.com/openbmc/openpower-vpd-parser/issues/16 to track this.",
+      "parentUuid": "cafcc06d_442bd9a8",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "394f8c6f_0399cf10",
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "This comment is related to code which has not changed in this patch set? We can maybe file a github issue and take this up later.",
       "parentUuid": "394f8c6f_0399cf10",
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49a8cb1b_039bba17",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-22T06:10:35Z",
+      "side": 1,
+      "message": "Created https://github.com/openbmc/openpower-vpd-parser/issues/16 to track this.",
+      "parentUuid": "884f90cf_4b8d643a",
       "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -394,6 +430,30 @@
       "side": 1,
       "message": "It\u0027s used in other APIs in `logger.cpp`",
       "parentUuid": "699fc496_ced7fa3c",
+      "range": {
+        "startLine": 335,
+        "startChar": 4,
+        "endLine": 335,
+        "endChar": 16
+      },
+      "revId": "a6390bcc93f52f49552602d5285d99ada6ecc754",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73a9ea32_71bf43c0",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-22T06:10:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a893b31e_6f297751",
       "range": {
         "startLine": 335,
         "startChar": 4,
