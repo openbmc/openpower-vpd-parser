@@ -57,6 +57,7 @@ conf_data.set_quoted(
 conf_data.set_quoted('SYSTEM_VPD_FILE_PATH', get_option('SYSTEM_VPD_FILE_PATH'))
 conf_data.set_quoted('VPD_SYMLIMK_PATH', get_option('VPD_SYMLIMK_PATH'))
 conf_data.set_quoted('PIM_PATH_PREFIX', get_option('PIM_PATH_PREFIX'))
+conf_data.set_quoted('LOG_FILE_PATH', get_option('LOG_FILE_PATH'))
 configure_file(output: 'config.h', configuration: conf_data)
 
 services = ['service_files/vpd-manager.service']

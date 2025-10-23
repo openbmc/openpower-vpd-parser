@@ -1,6 +1,7 @@
 #pragma once
 
 #include "types.hpp"
+#include "config.h"
 
 #include <condition_variable>
 #include <filesystem>
@@ -329,6 +330,19 @@ class Logger
         m_collectionLogger.reset();
     }
 
+    void enableFileLogging()
+    {
+#ifdef ENABLE_FILE_LOGGING
+        std::string fileName = LOG_FILE_PATH;
+        fileName = fileName + "test.log"; //sync it with upstream
+        m_fileStream.open(fileName.data(), std::ios::app);
+
+        std::cout << "[INFO]Logging to" << fileName << std::endl;
+#else
+	std::cout << "[INFO]Logging to console" << std::endl;
+#endif
+    }
+
   private:
     /**
      * @brief Constructor
@@ -347,6 +361,9 @@ class Logger
 
     // logger object to handle VPD collection logs
     std::unique_ptr<ILogFileHandler> m_collectionLogger;
+    
+    // file stream for file operation
+    std::ofstream m_fileStream;
 };
 
 /**

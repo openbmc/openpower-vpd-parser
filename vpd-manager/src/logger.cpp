@@ -18,8 +18,12 @@ void Logger::logMessage(std::string_view i_message,
 
     if ((i_placeHolder == PlaceHolder::COLLECTION) && m_collectionLogger)
     {
+#ifdef ENABLE_FILE_LOGGING
         // Log it to a specific place.
         m_collectionLogger->logMessage(l_log.str());
+#else
+        std::cout << l_log.str() << std::endl;
+#endif
     }
     else if (i_placeHolder == PlaceHolder::PEL)
     {

@@ -65,3 +65,9 @@ option(
     value: 'enabled',
     description: 'Enable code specific to IBM systems.',
 )
+option(
+    'LOG_FILE_PATH',
+    type: 'string',
+    value: '/var/lib/vpd/',
+    description: 'File path to dump the log.',
+)
