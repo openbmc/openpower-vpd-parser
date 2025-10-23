@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0faec7a_f598f02b",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-23T09:15:54Z",
+      "side": 1,
+      "message": "hmm fair, but there can be other combinations as well to look into.\nLike even by having this constructor we cannot initialize worker with only different collection mode and custom threads.\n\nWhy not keep it simple, either use default value or pass value for all.",
+      "parentUuid": "ad063830_c157b94c",
+      "revId": "b73890679f2da6a2997a2049bda399d29fcabd69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2ead3a54_c4683f17",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 7
