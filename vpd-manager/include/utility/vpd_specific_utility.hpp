@@ -793,12 +793,15 @@ inline bool isPass1Planar() noexcept
  * @brief API to detect if system configuration is that of PowerVS system.
  *
  * @param[in] i_imValue - IM value of the system.
+ * @param[out] o_errCode - To set error code in case of error.
  * @return true if it is PowerVS configuration, false otherwise.
  */
-inline bool isPowerVsConfiguration(const types::BinaryVector& i_imValue)
+inline bool isPowerVsConfiguration(const types::BinaryVector& i_imValue,
+                                   uint16_t& o_errCode)
 {
     if (i_imValue.empty() || i_imValue.size() != constants::VALUE_4)
     {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return false;
     }
 
