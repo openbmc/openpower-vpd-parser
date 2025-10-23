@@ -36,7 +36,8 @@ enum error_code
     // VPD specific errors
     UNSUPPORTED_VPD_TYPE,
     KEYWORD_NOT_FOUND,
-    OUT_OF_BOUND_EXCEPTION
+    OUT_OF_BOUND_EXCEPTION,
+    INVALID_KEYWORD_LENGTH
 };
 
 const std::unordered_map<int, std::string> errorCodeMap = {
@@ -70,5 +71,6 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::OUT_OF_BOUND_EXCEPTION, "Out of bound error"},
     {error_code::UNSUPPORTED_VPD_TYPE, "This VPD type is not supported"},
     {error_code::STANDARD_EXCEPTION, "Standard Exception thrown"},
-    {error_code::FILE_SYSTEM_ERROR, "File system error."}};
+    {error_code::FILE_SYSTEM_ERROR, "File system error."},
+    {error_code::INVALID_KEYWORD_LENGTH, "Invalid keyword length."}};
 } // namespace vpd
