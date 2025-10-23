@@ -347,6 +347,7 @@ class Logger
 
     // logger object to handle VPD collection logs
     std::unique_ptr<ILogFileHandler> m_collectionLogger;
+
 };
 
 /**
