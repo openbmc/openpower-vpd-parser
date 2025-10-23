@@ -43,6 +43,7 @@ int main(int, char**)
         interface->initialize();
         progressInf->initialize();
 
+        vpd::Logger::getLoggerInstance()->enableFileLogging();
         vpd::logging::logMessage("Start VPD-Manager event loop");
 
         // Grab the bus name
