@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ad063830_c157b94c",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-23T08:55:36Z",
+      "side": 1,
+      "message": "I added a new constructor to avoid changes in the way `worker` is initialized in non-IBM code here https://github.com/openbmc/openpower-vpd-parser/blob/c4fa618189bc05dde54b59d490bf9e83c2513c20/vpd-manager/src/manager.cpp#L149\n\nand also at https://github.com/openbmc/openpower-vpd-parser/blob/c4fa618189bc05dde54b59d490bf9e83c2513c20/vpd-manager/oem-handler/ibm_handler.cpp#L37\n\nwe want to initialize `worker` with default number of threads by using the implicit value for `i_maxThreadCount`. If we change existing `worker` constructor, to `Worker(std::string pathToConfigJson \u003d std::string(),\n           uint8_t i_maxThreadCount \u003d constants::MAX_THREADS, types::VpdCollectionMode i_vpdCollectionMode)`, we cannot initialize `worker` with default number of threads while specifying `i_vpdCollectionMode`",
+      "parentUuid": "e9307ad5_6ae578ef",
+      "revId": "b73890679f2da6a2997a2049bda399d29fcabd69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2ead3a54_c4683f17",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 7
@@ -31,6 +49,24 @@
       "writtenOn": "2025-10-23T08:36:37Z",
       "side": 1,
       "message": "Don\u0027t see need of a new constructor when we are defaulting the value anyways.",
+      "revId": "b73890679f2da6a2997a2049bda399d29fcabd69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8dbd71b_f61ec6b6",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-23T08:55:36Z",
+      "side": 1,
+      "message": "Please see comment above",
+      "parentUuid": "2ead3a54_c4683f17",
       "revId": "b73890679f2da6a2997a2049bda399d29fcabd69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
