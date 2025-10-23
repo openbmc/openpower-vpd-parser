@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9307ad5_6ae578ef",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-23T08:36:37Z",
+      "side": 1,
+      "message": "Why new constructor? Why not modify the same one anyways the value is being defaulted.",
+      "revId": "b73890679f2da6a2997a2049bda399d29fcabd69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ead3a54_c4683f17",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-23T08:36:37Z",
+      "side": 1,
+      "message": "Don\u0027t see need of a new constructor when we are defaulting the value anyways.",
+      "revId": "b73890679f2da6a2997a2049bda399d29fcabd69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
