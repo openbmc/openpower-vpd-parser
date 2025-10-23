@@ -739,58 +739,53 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
  *
  * Based on HW version and IM keyword, This API detects is it is a pass1 planar
  * or not.
+ * @param[out] o_errCode - To set error code in case of error.
  *
  * @return True if pass 1 planar, false otherwise.
  */
-inline bool isPass1Planar() noexcept
+inline bool isPass1Planar(uint16_t& o_errCode) noexcept
 {
     bool l_rc{false};
-    try
+    auto l_retVal = dbusUtility::readDbusProperty(
+        constants::pimServiceName, constants::systemVpdInvPath,
+        constants::viniInf, constants::kwdHW);
+
+    auto l_hwVer = std::get_if<types::BinaryVector>(&l_retVal);
+
+    l_retVal = dbusUtility::readDbusProperty(
+        constants::pimServiceName, constants::systemInvPath, constants::vsbpInf,
+        constants::kwdIM);
+
+    auto l_imValue = std::get_if<types::BinaryVector>(&l_retVal);
+
+    if (l_hwVer && l_imValue)
     {
-        auto l_retVal = dbusUtility::readDbusProperty(
-            constants::pimServiceName, constants::systemVpdInvPath,
-            constants::viniInf, constants::kwdHW);
-
-        auto l_hwVer = std::get_if<types::BinaryVector>(&l_retVal);
-
-        l_retVal = dbusUtility::readDbusProperty(
-            constants::pimServiceName, constants::systemInvPath,
-            constants::vsbpInf, constants::kwdIM);
-
-        auto l_imValue = std::get_if<types::BinaryVector>(&l_retVal);
-
-        if (l_hwVer && l_imValue)
+        if (l_hwVer->size() != constants::VALUE_2)
         {
-            if (l_hwVer->size() != constants::VALUE_2)
-            {
-                throw std::runtime_error("Invalid HW keyword length.");
-            }
+            o_errCode = error_code::INVALID_KEYWORD_LENGTH;
+            return l_rc;
+        }
 
-            if (l_imValue->size() != constants::VALUE_4)
-            {
-                throw std::runtime_error("Invalid IM keyword length.");
-            }
+        if (l_imValue->size() != constants::VALUE_4)
+        {
+            o_errCode = error_code::INVALID_KEYWORD_LENGTH;
+            return l_rc;
+        }
 
-            const types::BinaryVector l_everest{80, 00, 48, 00};
-            const types::BinaryVector l_fuji{96, 00, 32, 00};
+        const types::BinaryVector l_everest{80, 00, 48, 00};
+        const types::BinaryVector l_fuji{96, 00, 32, 00};
 
-            if (((*l_imValue) == l_everest) || ((*l_imValue) == l_fuji))
-            {
-                if ((*l_hwVer).at(1) < constants::VALUE_21)
-                {
-                    l_rc = true;
-                }
-            }
-            else if ((*l_hwVer).at(1) < constants::VALUE_2)
+        if (((*l_imValue) == l_everest) || ((*l_imValue) == l_fuji))
+        {
+            if ((*l_hwVer).at(1) < constants::VALUE_21)
             {
                 l_rc = true;
             }
         }
-    }
-    catch (const std::exception& l_ex)
-    {
-        logging::logMessage("Failed to check for pass 1 planar. Error: " +
-                            std::string(l_ex.what()));
+        else if ((*l_hwVer).at(1) < constants::VALUE_2)
+        {
+            l_rc = true;
+        }
     }
 
     return l_rc;
