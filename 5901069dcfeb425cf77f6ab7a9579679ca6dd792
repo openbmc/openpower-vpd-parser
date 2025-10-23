@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c64d955d_b0cde71f",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-23T08:32:00Z",
+      "side": 1,
+      "message": "We don\u0027t need to log here? Caller can check for error code and log at the place of call?",
+      "revId": "5901069dcfeb425cf77f6ab7a9579679ca6dd792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1f7f99a_771c7987",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-23T08:32:00Z",
+      "side": 1,
+      "message": "Same here?",
+      "revId": "5901069dcfeb425cf77f6ab7a9579679ca6dd792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d6a2d22_ac7c2812",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-23T08:32:00Z",
+      "side": 1,
+      "message": "Anyways error code is being checked. So no point logging twice in this flow, we are extracting no useful information.",
+      "revId": "5901069dcfeb425cf77f6ab7a9579679ca6dd792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6796f023_ce66bf84",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-23T08:32:00Z",
+      "side": 1,
+      "message": "Can the scope be reduced?",
+      "revId": "5901069dcfeb425cf77f6ab7a9579679ca6dd792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfc59b94_eb9490c3",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-23T08:32:00Z",
+      "side": 1,
+      "message": "We need to optimize variable declaration here. If you want, keep at higher scope and use everywhere.",
+      "revId": "5901069dcfeb425cf77f6ab7a9579679ca6dd792",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
