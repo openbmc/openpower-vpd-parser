@@ -308,14 +308,21 @@ void IbmHandler::ConfigurePowerVsSystem()
             throw DbusException("Invalid IM value read from Dbus");
         }
 
-        if (!vpdSpecificUtility::isPowerVsConfiguration(l_imValue))
+        uint16_t l_errCode = 0;
+        if (!vpdSpecificUtility::isPowerVsConfiguration(l_imValue, l_errCode))
         {
             // TODO: Should booting be blocked in case of some
             // misconfigurations?
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to check if the system is powerVs Configuration, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+
             return;
         }
 
-        uint16_t l_errCode = 0;
         const nlohmann::json& l_powerVsJsonObj =
             jsonUtility::getPowerVsJson(l_imValue, l_errCode);
 
