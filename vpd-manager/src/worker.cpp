@@ -1717,16 +1717,34 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
                 for (const auto& [l_objectPath, l_serviceInterfaceMap] :
                      l_subTreeMap)
                 {
+                    l_errCode = 0;
                     types::InterfaceMap l_interfaceMap;
-                    vpdSpecificUtility::resetDataUnderPIM(l_objectPath,
-                                                          l_interfaceMap);
+                    vpdSpecificUtility::resetDataUnderPIM(
+                        l_objectPath, l_interfaceMap, l_errCode);
+
+                    if (l_errCode)
+                    {
+                        throw std::runtime_error(
+                            "Failed to reset data under PIM for sub FRU [" +
+                            l_objectPath + "], error : " +
+                            commonUtility::getErrCodeMsg(l_errCode));
+                    }
+
                     l_objectMap.emplace(l_objectPath,
                                         std::move(l_interfaceMap));
                 }
 
+                l_errCode = 0;
                 types::InterfaceMap l_interfaceMap;
-                vpdSpecificUtility::resetDataUnderPIM(i_dbusObjPath,
-                                                      l_interfaceMap);
+                vpdSpecificUtility::resetDataUnderPIM(
+                    i_dbusObjPath, l_interfaceMap, l_errCode);
+
+                if (l_errCode)
+                {
+                    throw std::runtime_error(
+                        "Failed to reset data under PIM, error : " +
+                        commonUtility::getErrCodeMsg(l_errCode));
+                }
 
                 l_objectMap.emplace(i_dbusObjPath, std::move(l_interfaceMap));
 
