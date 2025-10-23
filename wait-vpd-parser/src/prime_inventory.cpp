@@ -174,8 +174,18 @@ bool PrimeInventory::primeInventory(
     if (isPresentPropertyHandlingRequired(i_fruJsonObj))
     {
         // Clear data under PIM if already exists.
+        uint16_t l_errCode = 0;
         vpd::vpdSpecificUtility::resetDataUnderPIM(
-            std::string(i_fruJsonObj["inventoryPath"]), l_interfaces);
+            std::string(i_fruJsonObj["inventoryPath"]), l_interfaces,
+            l_errCode);
+
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Failed to reset data under PIM for path [" +
+                std::string(i_fruJsonObj["inventoryPath"]) +
+                "], error : " + vpd::commonUtility::getErrCodeMsg(l_errCode));
+        }
     }
 
     // Add extra interfaces mentioned in the Json config file
