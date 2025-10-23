@@ -1477,7 +1477,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             uint16_t l_errCode = 0;
             // In case of pass1 planar, VPD can be corrupted on PCIe cards. Skip
             // logging error for these cases.
-            if (vpdSpecificUtility::isPass1Planar())
+            if (vpdSpecificUtility::isPass1Planar(l_errCode))
             {
                 std::string l_invPath =
                     jsonUtility::getInventoryObjPathFromJson(
@@ -1500,6 +1500,12 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                     // skip logging any PEL for PCIe cards on pass 1 planar.
                     return std::make_tuple(false, i_vpdFilePath);
                 }
+            }
+            else if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to check if system is Pass 1 Planar, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
             }
         }
 
