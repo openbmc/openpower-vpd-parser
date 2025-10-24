@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "793f5400_89d32b14",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-24T05:39:57Z",
+      "side": 1,
+      "message": "Why not file system error here? Anyways explicitly file stream error is being caughht",
+      "revId": "2131dc7a0c1b231523e4f24c9902f38db04a95ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
