@@ -39,7 +39,8 @@ enum error_code
     KEYWORD_NOT_FOUND,
     OUT_OF_BOUND_EXCEPTION,
     FAILED_TO_DETECT_LOCATION_CODE_TYPE,
-    RECEIVED_INVALID_KWD_TYPE_FROM_DBUS
+    RECEIVED_INVALID_KWD_TYPE_FROM_DBUS,
+    ENCODE_KEYWORD_FAILED
 };
 
 const std::unordered_map<int, std::string> errorCodeMap = {
@@ -78,5 +79,6 @@ const std::unordered_map<int, std::string> errorCodeMap = {
      "Failed to detect location code type"},
     {error_code::DBUS_FAILURE, "Dbus call failed"},
     {error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS,
-     "Received invalid keyword data type from DBus."}};
+     "Received invalid keyword data type from DBus."},
+    {error_code::ENCODE_KEYWORD_FAILED, "Failed to encode keyword."}};
 } // namespace vpd
