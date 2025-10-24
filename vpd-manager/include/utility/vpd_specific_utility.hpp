@@ -1011,6 +1011,7 @@ inline void updateKwdOnInheritedFrus(
  *
  * @param[in] i_paramsToWriteData - Input details.
  * @param[in] i_commonInterfaceJson - Common interface JSON object.
+ * @param[out] o_errCode - To set error code in case of error.
  *
  * @return Returns a map of common interface(s) and properties corresponding to
  * the record and keyword. An empty map is returned if no such common
@@ -1018,21 +1019,28 @@ inline void updateKwdOnInheritedFrus(
  */
 inline types::InterfaceMap getCommonInterfaceProperties(
     const types::WriteVpdParams& i_paramsToWriteData,
-    const nlohmann::json& i_commonInterfaceJson) noexcept
+    const nlohmann::json& i_commonInterfaceJson, uint16_t& o_errCode) noexcept
 {
     types::InterfaceMap l_interfaceMap;
     try
     {
+        if (i_commonInterfaceJson.empty())
+        {
+            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            return l_interfaceMap;
+        }
+
         const types::IpzData* l_ipzData =
             std::get_if<types::IpzData>(&i_paramsToWriteData);
 
         if (!l_ipzData)
         {
-            throw std::runtime_error("Invalid VPD type");
+            o_errCode = error_code::UNSUPPORTED_VPD_TYPE;
+            return l_interfaceMap;
         }
 
         auto l_populateInterfaceMap = [&l_ipzData = std::as_const(l_ipzData),
-                                       &l_interfaceMap](
+                                       &l_interfaceMap, &o_errCode](
                                           const auto& l_interfacesPropPair) {
             if (l_interfacesPropPair.value().empty())
             {
@@ -1050,8 +1058,6 @@ inline types::InterfaceMap getCommonInterfaceProperties(
                                 std::get<1>(*l_ipzData));
                 });
 
-            uint16_t l_errCode = 0;
-
             if (l_matchPropValuePairIt !=
                 l_interfacesPropPair.value().items().end())
             {
@@ -1060,13 +1066,13 @@ inline types::InterfaceMap getCommonInterfaceProperties(
 
                 std::string l_encodedValue = vpdSpecificUtility::encodeKeyword(
                     l_kwd, l_matchPropValuePairIt.value().value("encoding", ""),
-                    l_errCode);
+                    o_errCode);
 
-                if (l_errCode)
+                if (l_encodedValue.empty() && o_errCode)
                 {
                     logging::logMessage(
-                        "Failed to get encoded value for key : " + l_kwd +
-                        " ,error : " + commonUtility::getErrCodeMsg(l_errCode));
+                        "Failed to get encoded value for keyword : " + l_kwd +
+                        ", error : " + commonUtility::getErrCodeMsg(o_errCode));
                 }
 
                 // add property map to interface map
@@ -1087,9 +1093,7 @@ inline types::InterfaceMap getCommonInterfaceProperties(
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
-            "Failed to find common interface properties. Error: " +
-            std::string(l_ex.what()));
+        o_errCode = error_code::STANDARD_EXCEPTION;
     }
     return l_interfaceMap;
 }
@@ -1104,15 +1108,21 @@ inline types::InterfaceMap getCommonInterfaceProperties(
  * @param[in] i_fruPath - EEPROM path of FRU.
  * @param[in] i_paramsToWriteData - Input details.
  * @param[in] i_sysCfgJsonObj - System config JSON.
- *
+ * @param[out] o_errCode - To set error code in case of error.
  */
 inline void updateCiPropertyOfInheritedFrus(
     const std::string& i_fruPath,
     const types::WriteVpdParams& i_paramsToWriteData,
-    const nlohmann::json& i_sysCfgJsonObj) noexcept
+    const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode) noexcept
 {
     try
     {
+        if (i_fruPath.empty() || i_sysCfgJsonObj.empty())
+        {
+            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            return;
+        }
+
         if (!i_sysCfgJsonObj.contains("commonInterfaces"))
         {
             // no common interfaces in JSON, nothing to do
@@ -1121,18 +1131,20 @@ inline void updateCiPropertyOfInheritedFrus(
 
         if (!i_sysCfgJsonObj.contains("frus"))
         {
-            throw std::runtime_error("Mandatory tag(s) missing from JSON");
+            o_errCode = error_code::INVALID_JSON;
+            return;
         }
 
         if (!i_sysCfgJsonObj["frus"].contains(i_fruPath))
         {
-            throw std::runtime_error(
-                "VPD path [" + i_fruPath + "] not found in system config JSON");
+            o_errCode = error_code::FRU_PATH_NOT_FOUND;
+            return;
         }
 
         if (!std::get_if<types::IpzData>(&i_paramsToWriteData))
         {
-            throw std::runtime_error("Unsupported VPD type");
+            o_errCode = error_code::UNSUPPORTED_VPD_TYPE;
+            return;
         }
 
         //  iterate through all inventory paths for given EEPROM path,
@@ -1143,10 +1155,17 @@ inline void updateCiPropertyOfInheritedFrus(
         types::ObjectMap l_objectInterfaceMap;
 
         const types::InterfaceMap l_interfaceMap = getCommonInterfaceProperties(
-            i_paramsToWriteData, i_sysCfgJsonObj["commonInterfaces"]);
+            i_paramsToWriteData, i_sysCfgJsonObj["commonInterfaces"],
+            o_errCode);
 
         if (l_interfaceMap.empty())
         {
+            if (o_errCode)
+            {
+                logging::logMessage(
+                    "Failed to get common interface property list, error : " +
+                    commonUtility::getErrCodeMsg(o_errCode));
+            }
             // nothing to do
             return;
         }
@@ -1172,16 +1191,14 @@ inline void updateCiPropertyOfInheritedFrus(
             // notify PIM
             if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
             {
-                throw std::runtime_error(
-                    "Call to PIM failed for VPD file " + i_fruPath);
+                o_errCode = error_code::DBUS_FAILURE;
+                return;
             }
         }
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
-            "Failed to update common interface properties of FRU [" +
-            i_fruPath + "]. Error: " + std::string(l_ex.what()));
+        o_errCode = error_code::STANDARD_EXCEPTION;
     }
 }
 

@@ -272,15 +272,23 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
             }
         }
 
+        // log VPD write success or failure
+        auto l_logger = Logger::getLoggerInstance();
+
         // update common interface(s) properties
         if (l_rc != constants::FAILURE)
         {
+            l_errCode = 0;
             vpdSpecificUtility::updateCiPropertyOfInheritedFrus(
-                l_fruPath, l_writeParams, l_sysCfgJsonObj);
-        }
+                l_fruPath, l_writeParams, l_sysCfgJsonObj, l_errCode);
 
-        // log VPD write success or failure
-        auto l_logger = Logger::getLoggerInstance();
+            if (l_errCode)
+            {
+                l_logger->logMessage(
+                    "Failed to update Ci property of inherited FRUs, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+        }
 
         l_errCode = 0;
         l_logger->logMessage(
