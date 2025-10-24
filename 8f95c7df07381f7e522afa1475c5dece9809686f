@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cbda255e_74d9b4c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-24T12:46:31Z",
+      "side": 1,
+      "message": "Other than file rotation, Constructor of the interface appears to be moved and modified. I don\u0027t see any explanation about that in the commit message.",
+      "parentUuid": "1fa59249_a602a796",
+      "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06e6a20a_73c17f4a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 33
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "The requirement came from stakeholders. If I have to guess, its to put a maximum limit on the size of the log file so that it (and subsequently size of BMC dump) doesn\u0027t increase infinitely.",
       "parentUuid": "06e6a20a_73c17f4a",
+      "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f806301e_825d8d14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-24T12:46:31Z",
+      "side": 1,
+      "message": "\u003e  its to put a maximum limit on the size of the log file so that it (and subsequently size of BMC dump) doesn\u0027t increase infinitely.\n\nThis is what should be part of commit messages as well. This is what I was looking for. \"What\" and \"Why\"",
+      "parentUuid": "4b61f5dd_55a8e2a7",
       "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
