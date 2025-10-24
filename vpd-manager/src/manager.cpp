@@ -275,8 +275,16 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
         // update common interface(s) properties
         if (l_rc != constants::FAILURE)
         {
+            l_errCode = 0;
             vpdSpecificUtility::updateCiPropertyOfInheritedFrus(
-                l_fruPath, l_writeParams, l_sysCfgJsonObj);
+                l_fruPath, l_writeParams, l_sysCfgJsonObj, l_errCode);
+
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to update Ci property of inherited FRUs, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
         }
 
         // log VPD write success or failure
