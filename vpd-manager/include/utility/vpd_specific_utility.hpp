@@ -845,15 +845,19 @@ inline bool isPowerVsConfiguration(const types::BinaryVector& i_imValue,
  * The API reads the CCIN for a FRU based on its inventory path.
  *
  * @param[in] i_invObjPath - Inventory path of the FRU.
+ * @param[out] o_errCode - To set error code in case of error.
+ *
  * @return CCIN of the FRU on success, empty string otherwise.
  */
-inline std::string getCcinFromDbus(const std::string& i_invObjPath)
+inline std::string getCcinFromDbus(const std::string& i_invObjPath,
+                                   uint16_t& o_errCode)
 {
     try
     {
         if (i_invObjPath.empty())
         {
-            throw std::runtime_error("Empty EEPROM path, can't read CCIN");
+            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            return std::string{};
         }
 
         const auto& l_retValue = dbusUtility::readDbusProperty(
@@ -863,14 +867,15 @@ inline std::string getCcinFromDbus(const std::string& i_invObjPath)
         auto l_ptrCcin = std::get_if<types::BinaryVector>(&l_retValue);
         if (!l_ptrCcin || (*l_ptrCcin).size() != constants::VALUE_4)
         {
-            throw DbusException("Invalid CCIN read from Dbus");
+            o_errCode = error_code::INVALID_VALUE_READ_FROM_DBUS;
+            return std::string{};
         }
 
         return std::string((*l_ptrCcin).begin(), (*l_ptrCcin).end());
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(l_ex.what());
+        o_errCode = error_code::STANDARD_EXCEPTION;
         return std::string{};
     }
 }
