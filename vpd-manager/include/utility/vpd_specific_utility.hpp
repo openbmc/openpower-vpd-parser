@@ -916,24 +916,32 @@ inline bool isPowerVsImage()
  * @param[in] i_fruPath - EEPROM path of FRU.
  * @param[in] i_paramsToWriteData - Input details.
  * @param[in] i_sysCfgJsonObj - System config JSON.
+ * @param[out] o_errCode - To set error code in case of error.
  *
  */
 inline void updateKwdOnInheritedFrus(
     const std::string& i_fruPath,
     const types::WriteVpdParams& i_paramsToWriteData,
-    const nlohmann::json& i_sysCfgJsonObj) noexcept
+    const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode) noexcept
 {
     try
     {
+        if (i_fruPath.empty() || i_sysCfgJsonObj.empty())
+        {
+            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            return;
+        }
+
         if (!i_sysCfgJsonObj.contains("frus"))
         {
-            throw std::runtime_error("Mandatory tag(s) missing from JSON");
+            o_errCode = error_code::INVALID_JSON;
+            return;
         }
 
         if (!i_sysCfgJsonObj["frus"].contains(i_fruPath))
         {
-            throw std::runtime_error(
-                "VPD path [" + i_fruPath + "] not found in system config JSON");
+            o_errCode = error_code::FRU_PATH_NOT_FOUND;
+            return;
         }
 
         const types::IpzData* l_ipzData =
@@ -941,7 +949,8 @@ inline void updateKwdOnInheritedFrus(
 
         if (!l_ipzData)
         {
-            throw std::runtime_error("Unsupported VPD type");
+            o_errCode = error_code::UNSUPPORTED_VPD_TYPE;
+            return;
         }
         //  iterate through all inventory paths for given EEPROM path,
         //  except the base FRU.
@@ -977,16 +986,15 @@ inline void updateKwdOnInheritedFrus(
             // notify PIM
             if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
             {
-                throw std::runtime_error(
-                    "Call to PIM failed for VPD file " + i_fruPath);
+                o_errCode = error_code::DBUS_FAILURE;
+                return;
             }
         }
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
-            "Failed to sync keyword update to inherited FRUs of FRU [" +
-            i_fruPath + "]. Error: " + std::string(l_ex.what()));
+        o_errCode = error_code::STANDARD_EXCEPTION;
+        return;
     }
 }
 
