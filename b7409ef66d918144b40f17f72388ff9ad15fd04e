@@ -16,6 +16,24 @@
       "message": "nit: when there is a l_rc used in this API then to be consistent make use of that instead of returning direct true or false or remove that variable as well.",
       "revId": "b7409ef66d918144b40f17f72388ff9ad15fd04e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63af25d0_f45f1b63",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-27T04:27:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8be87f8a_b55d7efb",
+      "revId": "b7409ef66d918144b40f17f72388ff9ad15fd04e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
