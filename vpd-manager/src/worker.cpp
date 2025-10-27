@@ -1143,6 +1143,18 @@ void Worker::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
                     .emplace(constants::assetTagInf,
                              std::move(l_assetTagProperty));
             }
+
+            if (isRbmcProtoTypeSystem())
+            {
+                if (canAccessMotherboardEeprom())
+                {
+                    // ToDo: set BMC postion
+                }
+                else
+                {
+                    // ToDo: set BMC position
+                }
+            }
         }
         catch (const std::exception& l_ex)
         {
@@ -2250,5 +2262,17 @@ void Worker::setCollectionStatusProperty(
             __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
+}
+
+bool isRbmcProtoTypeSystem(const types::VPDMapVariant& i_parsedVpdMap)
+{
+    // TODO: Add implementation
+    // Check the IM keyword value. If the IM value indicates an RBMC prototype
+    // system, return true.
+}
+
+bool Worker::canAccessMotherboardEeprom() const noexcept
+{
+    // TODO: Check whether the motherboard EEPROM is accessible.
 }
 } // namespace vpd
