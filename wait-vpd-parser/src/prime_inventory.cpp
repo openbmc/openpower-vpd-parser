@@ -261,6 +261,11 @@ void PrimeInventory::populateInterfaces(
     vpd::types::InterfaceMap& io_interfaceMap,
     const vpd::types::VPDMapVariant& i_parsedVpdMap) const noexcept
 {
+    if (i_interfaceJson.empty())
+    {
+        return;
+    }
+
     for (const auto& l_interfacesPropPair : i_interfaceJson.items())
     {
         const std::string& l_interface = l_interfacesPropPair.key();
