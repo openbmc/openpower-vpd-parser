@@ -1118,7 +1118,7 @@ void Worker::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
 {
     types::ObjectMap objectInterfaceMap;
 
-    if (std::get_if<types::IPZVpdMap>(&parsedVpdMap))
+    if (auto l_parsedVpdMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap))
     {
         populateDbus(parsedVpdMap, objectInterfaceMap, SYSTEM_VPD_FILE_PATH);
 
@@ -1142,6 +1142,18 @@ void Worker::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
                 (l_itrToSystemPath->second)
                     .emplace(constants::assetTagInf,
                              std::move(l_assetTagProperty));
+            }
+
+            if (isRbmcProtoTypeSystem(*l_parsedVpdMap))
+            {
+                if (canAccessMotherboardEeprom())
+                {
+                    // ToDo: set BMC postion
+                }
+                else
+                {
+                    // ToDo: set BMC position
+                }
             }
         }
         catch (const std::exception& l_ex)
@@ -2250,5 +2262,22 @@ void Worker::setCollectionStatusProperty(
             __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
+}
+
+bool Worker::isRbmcProtoTypeSystem(
+    [[maybe_unused]] const types::IPZVpdMap& i_parsedVpdMap) const noexcept
+{
+    // TODO: Add implementation
+    // Check the IM keyword value. If the IM value indicates an RBMC prototype
+    // system, return true.
+
+    return false;
+}
+
+bool Worker::canAccessMotherboardEeprom() const noexcept
+{
+    // TODO: Check whether the motherboard EEPROM is accessible.
+
+    return false;
 }
 } // namespace vpd

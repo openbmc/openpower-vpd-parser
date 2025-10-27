@@ -551,6 +551,24 @@ class Worker
                i_fru.value("handlePresence", true);
     }
 
+    /**
+     * @brief Checks whether the system is an RBMC prototype.
+     *
+     * @return true for RBMC prototype system, false otherwise.
+     */
+    bool isRbmcProtoTypeSystem(
+        [[maybe_unused]] const types::IPZVpdMap& i_parsedVpdMap) const noexcept;
+
+    /**
+     * @brief Checks whether the motherboard EEPROM is accessible.
+     *
+     * This function is used to update the BMC position for the RBMC prototype
+     * system based on whether the motherboard EEPROM can be accessed.
+     *
+     * @return true if able to access motherboard EEPROM, false otherwise.
+     */
+    bool canAccessMotherboardEeprom() const noexcept;
+
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
 
