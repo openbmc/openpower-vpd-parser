@@ -1118,7 +1118,7 @@ void Worker::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
 {
     types::ObjectMap objectInterfaceMap;
 
-    if (std::get_if<types::IPZVpdMap>(&parsedVpdMap))
+    if (auto l_parsedVpdMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap))
     {
         populateDbus(parsedVpdMap, objectInterfaceMap, SYSTEM_VPD_FILE_PATH);
 
@@ -1142,6 +1142,18 @@ void Worker::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
                 (l_itrToSystemPath->second)
                     .emplace(constants::assetTagInf,
                              std::move(l_assetTagProperty));
+            }
+
+            uint16_t l_errCode = 0;
+            if (isRbmcProtoTypeSystem(*l_parsedVpdMap, l_errCode) &&
+                l_errCode == 0)
+            {
+                size_t l_rbmcPosition = 1;
+                if (canAccessMotherboardEeprom())
+                {
+                    l_rbmcPosition = 0;
+                }
+                updateRbmcPosition(l_rbmcPosition, objectInterfaceMap);
             }
         }
         catch (const std::exception& l_ex)
@@ -2250,5 +2262,43 @@ void Worker::setCollectionStatusProperty(
             __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
+}
+
+bool Worker::isRbmcProtoTypeSystem(
+    [[maybe_unused]] const types::IPZVpdMap& i_parsedVpdMap,
+    [[maybe_unused]] uint16_t& o_errCode) const noexcept
+{
+    // TODO:
+    // Check the IM keyword value. If the IM value indicates an RBMC prototype
+    // system, return true otherwise false.
+    // In case IM value not found in the map, set error code and return false.
+
+    return false;
+}
+
+bool Worker::canAccessMotherboardEeprom() const noexcept
+{
+    // TODO: Check whether the motherboard EEPROM is accessible.
+
+    return false;
+}
+
+void Worker::updateRbmcPosition(
+    const size_t i_position,
+    types::ObjectMap& o_objectInterfaceMap) const noexcept
+{
+    auto l_itrToSystemPath = o_objectInterfaceMap.find(
+        sdbusplus::message::object_path(constants::systemInvPath));
+
+    if (l_itrToSystemPath == o_objectInterfaceMap.end())
+    {
+        return;
+    }
+
+    types::PropertyMap l_positionProperty;
+    l_positionProperty.emplace("Position", i_position);
+
+    (l_itrToSystemPath->second)
+        .emplace(constants::positionInterface, std::move(l_positionProperty));
 }
 } // namespace vpd
