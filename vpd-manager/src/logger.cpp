@@ -227,6 +227,37 @@ void AsyncFileLogger::fileWorker() noexcept
     } // thread loop
 }
 
+ILogFileHandler::ILogFileHandler(const std::filesystem::path& i_filePath,
+                                 const size_t i_maxEntries) :
+    m_filePath{i_filePath}, m_maxEntries{i_maxEntries}
+{
+    // check if log file already exists
+    std::error_code l_ec;
+    const bool l_logFileExists = std::filesystem::exists(m_filePath, l_ec);
+    if (l_ec)
+    {
+        Logger::getLoggerInstance()->logMessage(
+            "Failed to check if log file already exists. Error: " +
+            l_ec.message());
+    }
+
+    // open the file in append mode
+    m_fileStream.open(m_filePath, std::ios::out | std::ios::app);
+    // enable exception mask to throw on badbit and failbit
+    m_fileStream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
+
+    if (l_logFileExists)
+    {
+        // log file already exists, check and update the number of entries
+        std::ifstream l_readFileStream{m_filePath};
+        for (std::string l_line; std::getline(l_readFileStream, l_line);
+             ++m_currentNumEntries)
+        {}
+
+        l_readFileStream.close();
+    }
+}
+
 void ILogFileHandler::rotateFile(
     [[maybe_unused]] const unsigned i_numEntriesToDelete)
 {

@@ -71,15 +71,7 @@ class ILogFileHandler
      * which the file will be rotated.
      */
     ILogFileHandler(const std::filesystem::path& i_filePath,
-                    const size_t i_maxEntries) :
-        m_filePath{i_filePath}, m_maxEntries{i_maxEntries}
-    {
-        // open the file in append mode
-        m_fileStream.open(m_filePath, std::ios::out | std::ios::app);
-
-        // enable exception mask to throw on badbit and failbit
-        m_fileStream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
-    }
+                    const size_t i_maxEntries);
 
     /**
      * @brief API to generate timestamp in string format.
