@@ -551,6 +551,44 @@ class Worker
                i_fru.value("handlePresence", true);
     }
 
+    /**
+     * @brief Checks whether the system is an RBMC prototype.
+     *
+     * @param[in] i_parsedVpdMap - parsed IPZ VPD map.
+     * @param[out] o_errCode - To set error code in case of error.
+     *
+     * @return true for RBMC prototype system, false otherwise.
+     */
+    bool isRbmcProtoTypeSystem(
+        [[maybe_unused]] const types::IPZVpdMap& i_parsedVpdMap,
+        [[maybe_unused]] uint16_t& o_errCode) const noexcept;
+
+    /**
+     * @brief Checks whether the motherboard EEPROM is accessible.
+     *
+     * This function is used to update the BMC position for the RBMC prototype
+     * system based on whether the motherboard EEPROM can be accessed.
+     *
+     * @return true if able to access motherboard EEPROM, false otherwise.
+     */
+    bool canAccessMotherboardEeprom() const noexcept;
+
+    /**
+     * @brief API to update BMC position.
+     *
+     * Updates the RBMC position property value under the position interface
+     * in the given object interface map.
+     *
+     * Note: API will return without updating the position if object map doesn't
+     * contain the system VPD object path.
+     *
+     * @param[in] i_position - RBMC position value.
+     * @param[out] o_objectInterfaceMap - Object and its interfaces map.
+     */
+    void updateRbmcPosition(
+        const size_t i_position,
+        types::ObjectMap& o_objectInterfaceMap) const noexcept;
+
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
 

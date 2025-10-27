@@ -1118,7 +1118,7 @@ void Worker::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
 {
     types::ObjectMap objectInterfaceMap;
 
-    if (std::get_if<types::IPZVpdMap>(&parsedVpdMap))
+    if (auto l_parsedVpdMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap))
     {
         populateDbus(parsedVpdMap, objectInterfaceMap, SYSTEM_VPD_FILE_PATH);
 
@@ -1150,6 +1150,19 @@ void Worker::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
                 EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
                 __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
                 std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+        }
+
+        // Update BMC postion for RBMC prototype system
+        // Ignore BMC position update in case of any error
+        uint16_t l_errCode = 0;
+        if (isRbmcProtoTypeSystem(*l_parsedVpdMap, l_errCode) && l_errCode == 0)
+        {
+            size_t l_rbmcPosition = constants::VALUE_1;
+            if (canAccessMotherboardEeprom())
+            {
+                l_rbmcPosition = constants::VALUE_0;
+            }
+            updateRbmcPosition(l_rbmcPosition, objectInterfaceMap);
         }
 
         // Notify PIM
@@ -2250,5 +2263,31 @@ void Worker::setCollectionStatusProperty(
             __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
+}
+
+bool Worker::isRbmcProtoTypeSystem(
+    [[maybe_unused]] const types::IPZVpdMap& i_parsedVpdMap,
+    [[maybe_unused]] uint16_t& o_errCode) const noexcept
+{
+    // TODO:
+    // Check the IM keyword value. If the IM value indicates an RBMC prototype
+    // system, return true otherwise false.
+    // In case IM value not found in the map, set error code and return false.
+
+    return false;
+}
+
+bool Worker::canAccessMotherboardEeprom() const noexcept
+{
+    // TODO: Check whether the motherboard EEPROM is accessible.
+
+    return false;
+}
+
+void Worker::updateRbmcPosition(
+    [[maybe_unused]] const size_t i_position,
+    [[maybe_unused]] types::ObjectMap& o_objectInterfaceMap) const noexcept
+{
+    // ToDo: Add implementation
 }
 } // namespace vpd
