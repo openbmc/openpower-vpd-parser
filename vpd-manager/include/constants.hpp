@@ -239,5 +239,8 @@ static constexpr auto power_vs_50001_json =
     "/usr/share/vpd/50001_power_vs.json";
 static constexpr auto correlatedPropJsonFile =
     "/usr/share/vpd/correlated_properties.json";
+
+static constexpr auto positionInterface =
+    "xyz.openbmc_project.Inventory.Decorator.Position";
 } // namespace constants
 } // namespace vpd
