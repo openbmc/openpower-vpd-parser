@@ -822,5 +822,18 @@ inline std::string getServiceNameFromConnectionId(
     }
     return std::string{};
 }
+
+/**
+ * @brief API to notify BMC position.
+ *
+ * This API uses PIM's Notify method to update the BMC position on DBus.
+ *
+ * @param[in] i_position - BMC position value.
+ */
+inline void notifyRbmcPosition(
+    [[maybe_unused]] const size_t i_position) noexcept
+{
+    // ToDo: Add implementation
+}
 } // namespace dbusUtility
 } // namespace vpd
