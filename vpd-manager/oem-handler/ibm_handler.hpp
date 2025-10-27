@@ -120,6 +120,26 @@ class IbmHandler
      */
     void enableMuxChips();
 
+    /**
+     * @brief Checks whether the system is an RBMC prototype.
+     *
+     * @param[out] o_errCode - To set error code in case of error.
+     *
+     * @return true for RBMC prototype system, false otherwise.
+     */
+    bool isRbmcProtoTypeSystem(
+        [[maybe_unused]] uint16_t& o_errCode) const noexcept;
+
+    /**
+     * @brief Checks whether the motherboard EEPROM is accessible.
+     *
+     * This function is used to update the BMC position for the RBMC prototype
+     * system based on whether the motherboard EEPROM can be accessed.
+     *
+     * @return true if able to access motherboard EEPROM, false otherwise.
+     */
+    bool isMotherboardEepromAccessible() const noexcept;
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 

@@ -413,6 +413,22 @@ void IbmHandler::performInitialSetup()
             m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
         }
 
+        // Update BMC postion for RBMC prototype system
+        // Ignore BMC position update in case of any error
+        uint16_t l_errCode = 0;
+        if (isRbmcProtoTypeSystem(l_errCode) && l_errCode == 0)
+        {
+            size_t l_rbmcPosition = constants::VALUE_1;
+            if (isMotherboardEepromAccessible())
+            {
+                l_rbmcPosition = constants::VALUE_0;
+            }
+
+            (void)l_rbmcPosition;
+            // ToDo: Create Object interface map for position property and
+            // publish it on DBus.
+        }
+
         // Enable all mux which are used for connecting to the i2c on the
         // pcie slots for pcie cards. These are not enabled by kernel due to
         // an issue seen with Castello cards, where the i2c line hangs on a
@@ -445,5 +461,25 @@ void IbmHandler::collectAllFruVpd()
         "Status", std::string(constants::vpdCollectionInProgress));
     m_worker->collectFrusFromJson();
     SetTimerToDetectVpdCollectionStatus();
+}
+
+bool IbmHandler::isRbmcProtoTypeSystem(
+    [[maybe_unused]] uint16_t& o_errCode) const noexcept
+{
+    // TODO:
+    // Parse the system VPD from EEPROM.
+    // Check the IM keyword value. If the IM value indicates an RBMC prototype
+    // system, return true otherwise false.
+    // In case of any error or IM value not found in the map, set error code and
+    // return false.
+
+    return false;
+}
+
+bool IbmHandler::isMotherboardEepromAccessible() const noexcept
+{
+    // TODO: Check whether the motherboard EEPROM is accessible.
+
+    return false;
 }
 } // namespace vpd
