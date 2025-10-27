@@ -16,6 +16,24 @@
       "message": "The same variable is used at lin enumber 599, You have not cleared the value before re-using it. its best to clear the error code once the message has been logged or set it to 0 if you are re-using it.",
       "revId": "8291b5e39c1be03686790247af35cda3c2868ccb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16ddfd5e_52a0b727",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-27T04:23:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdcc07f6_25d7fec7",
+      "revId": "8291b5e39c1be03686790247af35cda3c2868ccb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
