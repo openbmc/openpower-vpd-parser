@@ -201,12 +201,21 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
         // check if the FRU needs CCIN check before updating PN.
         if (l_recJson.contains("CCIN"))
         {
+            l_errCode = 0;
+
             const auto& l_ccinFromDbus =
-                vpdSpecificUtility::getCcinFromDbus(l_inventoryPath);
+                vpdSpecificUtility::getCcinFromDbus(l_inventoryPath, l_errCode);
 
             // Not an ideal situation as CCIN can't be empty.
             if (l_ccinFromDbus.empty())
             {
+                if (l_errCode)
+                {
+                    m_logger->logMessage(
+                        "Failed to get CCIN value from DBus, error : " +
+                        commonUtility::getErrCodeMsg(l_errCode));
+                }
+
                 o_failedPathList.push_back(l_fruPath);
                 continue;
             }
