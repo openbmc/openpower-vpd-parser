@@ -259,8 +259,17 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
         // update keyword in inherited FRUs
         if (l_rc != constants::FAILURE)
         {
+            l_errCode = 0;
             vpdSpecificUtility::updateKwdOnInheritedFrus(
-                l_fruPath, l_writeParams, l_sysCfgJsonObj);
+                l_fruPath, l_writeParams, l_sysCfgJsonObj, l_errCode);
+
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to update keyword on inherited FRUs for FRU [" +
+                    l_fruPath +
+                    "] , error : " + commonUtility::getErrCodeMsg(l_errCode));
+            }
         }
 
         // update common interface(s) properties
@@ -273,14 +282,14 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
         // log VPD write success or failure
         auto l_logger = Logger::getLoggerInstance();
 
-        uint16_t l_errorCode;
+        l_errCode = 0;
         l_logger->logMessage(
             "VPD write " +
                 std::string(
                     (l_rc != constants::FAILURE) ? "successful" : "failed") +
                 " on path[" + i_vpdPath + "] : " +
                 vpdSpecificUtility::convertWriteVpdParamsToString(l_writeParams,
-                                                                  l_errorCode),
+                                                                  l_errCode),
             PlaceHolder::VPD_WRITE);
 
         return l_rc;
