@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31df69cc_a0a06315",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-27T09:23:39Z",
+      "side": 1,
+      "message": "Split out the constructor part into patch https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/84655/1",
+      "parentUuid": "cbda255e_74d9b4c9",
+      "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06e6a20a_73c17f4a",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "\u003e  its to put a maximum limit on the size of the log file so that it (and subsequently size of BMC dump) doesn\u0027t increase infinitely.\n\nThis is what should be part of commit messages as well. This is what I was looking for. \"What\" and \"Why\"",
       "parentUuid": "4b61f5dd_55a8e2a7",
+      "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3944af54_38ef05c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-27T09:23:39Z",
+      "side": 1,
+      "message": "Addressed this.",
+      "parentUuid": "f806301e_825d8d14",
       "revId": "8f95c7df07381f7e522afa1475c5dece9809686f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
