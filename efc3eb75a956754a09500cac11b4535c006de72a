@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbc88aec_baf7daf4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-28T14:09:08Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "fb4ab8f0_38016e00",
+      "revId": "efc3eb75a956754a09500cac11b4535c006de72a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "984586b8_5e53e6fa",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "754907bf_79dd9a5b",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-28T14:09:08Z",
+      "side": 1,
+      "message": "moved under oem.",
+      "parentUuid": "984586b8_5e53e6fa",
+      "revId": "efc3eb75a956754a09500cac11b4535c006de72a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a98e0fcb_0e9e7f80",
@@ -48,6 +84,24 @@
       "writtenOn": "2025-10-28T07:04:44Z",
       "side": 1,
       "message": "On a second thought, instead of here, since it is OEM specific code, can we do this from ibm-handler after we publish system VPD but before capturing the bus name?",
+      "revId": "efc3eb75a956754a09500cac11b4535c006de72a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82c1b0ea_265e7c26",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-28T14:09:08Z",
+      "side": 1,
+      "message": "moved under oem.",
+      "parentUuid": "a98e0fcb_0e9e7f80",
       "revId": "efc3eb75a956754a09500cac11b4535c006de72a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
