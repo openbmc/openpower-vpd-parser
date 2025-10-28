@@ -140,11 +140,31 @@ void SyncFileLogger::logMessage(const std::string_view& i_message)
 {
     try
     {
-        if (++m_currentNumEntries > m_maxEntries)
+        if (m_currentNumEntries >= m_maxEntries)
         {
             rotateFile();
         }
-        m_fileStream << timestamp() << " : " << i_message << std::endl;
+
+        std::string l_timeStampedMsg{
+            timestamp() + " : " + std::string(i_message)};
+
+        // check size of message and pad/trim as required
+        if (l_timeStampedMsg.length() > m_logEntrySize)
+        {
+            l_timeStampedMsg.resize(m_logEntrySize);
+        }
+        else if (l_timeStampedMsg.length() < m_logEntrySize)
+        {
+            constexpr char l_padChar{' '};
+            l_timeStampedMsg.append(m_logEntrySize - l_timeStampedMsg.length(),
+                                    l_padChar);
+        }
+
+        // write the message to file
+        m_fileStream << l_timeStampedMsg << std::endl;
+
+        // increment number of entries only if write to file is successful
+        ++m_currentNumEntries;
     }
     catch (const std::exception& l_ex)
     {
@@ -247,7 +267,7 @@ ILogFileHandler::ILogFileHandler(const std::filesystem::path& i_filePath,
     }
 
     // open the file in append mode
-    m_fileStream.open(m_filePath, std::ios::out | std::ios::app);
+    m_fileStream.open(m_filePath, std::ios::out | std::ios::ate);
     // enable exception mask to throw on badbit and failbit
     m_fileStream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
 
@@ -269,15 +289,6 @@ ILogFileHandler::ILogFileHandler(const std::filesystem::path& i_filePath,
     }
 }
 
-void ILogFileHandler::rotateFile(
-    [[maybe_unused]] const unsigned i_numEntriesToDelete)
-{
-    /* TODO:
-        - delete specified number of oldest entries from beginning of file
-        - rewrite file to move existing logs to beginning of file
-    */
-    m_currentNumEntries = m_maxEntries - i_numEntriesToDelete;
-}
 namespace logging
 {
 void logMessage(std::string_view message, const std::source_location& location)
