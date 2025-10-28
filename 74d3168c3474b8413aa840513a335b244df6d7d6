@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "17ab62c4_b87f9a64",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-28T13:28:01Z",
+      "side": 1,
+      "message": "I did not get the intention here, first a map is defined with all the entries and then the output is searched in that map?\nWhy can\u0027t a simple if/else work here with string comparison with a default initialization which is anyways there.",
+      "revId": "74d3168c3474b8413aa840513a335b244df6d7d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6851f88c_9680a14a",
         "filename": "vpd-manager/include/utility/common_utility.hpp",
         "patchSetId": 9
