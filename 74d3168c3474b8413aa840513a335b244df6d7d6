@@ -37,6 +37,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b0b4774_c0f338a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-28T14:50:50Z",
+      "side": 1,
+      "message": "Commit message would become too long. I do not see any commit message guideline for test cases?",
+      "parentUuid": "82834294_4ffd924d",
+      "revId": "74d3168c3474b8413aa840513a335b244df6d7d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcdd41bd_0e9e02b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-28T14:50:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82ece7a6_72df37df",
+      "revId": "74d3168c3474b8413aa840513a335b244df6d7d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17ab62c4_b87f9a64",
         "filename": "vpd-manager/include/utility/common_utility.hpp",
         "patchSetId": 9
@@ -48,6 +84,24 @@
       "writtenOn": "2025-10-28T13:28:01Z",
       "side": 1,
       "message": "I did not get the intention here, first a map is defined with all the entries and then the output is searched in that map?\nWhy can\u0027t a simple if/else work here with string comparison with a default initialization which is anyways there.",
+      "revId": "74d3168c3474b8413aa840513a335b244df6d7d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae197420_284ff7a2",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-28T14:50:50Z",
+      "side": 1,
+      "message": "Changed to `if else` block",
+      "parentUuid": "17ab62c4_b87f9a64",
       "revId": "74d3168c3474b8413aa840513a335b244df6d7d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f877aaeb_473fd8f0",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-28T14:50:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6851f88c_9680a14a",
+      "revId": "74d3168c3474b8413aa840513a335b244df6d7d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45a38454_0ce15117",
@@ -82,6 +154,24 @@
       "writtenOn": "2025-10-27T14:21:54Z",
       "side": 1,
       "message": "todo statement is not clear.",
+      "revId": "74d3168c3474b8413aa840513a335b244df6d7d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85b33921_f4f971bf",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-28T14:50:50Z",
+      "side": 1,
+      "message": "Can you elaborate what is not clear?",
+      "parentUuid": "45a38454_0ce15117",
       "revId": "74d3168c3474b8413aa840513a335b244df6d7d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
