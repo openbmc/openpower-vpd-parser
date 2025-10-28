@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb4ab8f0_38016e00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-28T07:04:44Z",
+      "side": 1,
+      "message": "Why is this change required?",
+      "revId": "efc3eb75a956754a09500cac11b4535c006de72a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "984586b8_5e53e6fa",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-28T07:04:44Z",
+      "side": 1,
+      "message": "As these are OEM specific, can we have this in oem code?",
+      "revId": "efc3eb75a956754a09500cac11b4535c006de72a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a98e0fcb_0e9e7f80",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-28T07:04:44Z",
+      "side": 1,
+      "message": "On a second thought, instead of here, since it is OEM specific code, can we do this from ibm-handler after we publish system VPD but before capturing the bus name?",
+      "revId": "efc3eb75a956754a09500cac11b4535c006de72a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
