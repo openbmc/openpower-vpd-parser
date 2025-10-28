@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2893f40e_bc7a7a2a",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-28T04:48:44Z",
+      "side": 1,
+      "message": "Any specific reason this reset is at this broader scope?",
+      "revId": "636df8d6d84a27450e7eb07487235ea4b45077d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8437f5a_e760bb13",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-28T04:48:44Z",
+      "side": 1,
+      "message": "Suggestion: If you reset error code write after you log the message for any error code, there is no explicit need of setting error codes before calling any other utility API. like at line 596.",
+      "revId": "636df8d6d84a27450e7eb07487235ea4b45077d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d683938_3932cb58",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-28T04:48:44Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "636df8d6d84a27450e7eb07487235ea4b45077d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
