@@ -16,6 +16,24 @@
       "message": "This is not a normal scenario we should log a message in case the JSON is empty?",
       "revId": "0f740563f7681c215d09bc7ac53d1f51e38a32f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cfbd50f_741d923f",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-28T14:06:33Z",
+      "side": 1,
+      "message": "I would agree if we could get the JSON file path but we can\u0027t determine JSON file path here. So how will the log message help?",
+      "parentUuid": "b8d5beb7_39e92589",
+      "revId": "0f740563f7681c215d09bc7ac53d1f51e38a32f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
