@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70d6a47e_1645da9c",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-28T13:30:59Z",
+      "side": 1,
+      "message": "Already have a variable defined at line 136, can that be re-used?",
+      "revId": "dc87cf5962f0c7cac2c1a814309d48b64245dbd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
