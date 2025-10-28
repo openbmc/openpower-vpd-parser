@@ -140,11 +140,36 @@ void SyncFileLogger::logMessage(const std::string_view& i_message)
 {
     try
     {
-        if (++m_currentNumEntries > m_maxEntries)
+        if (m_currentNumEntries > m_maxEntries)
         {
             rotateFile();
         }
-        m_fileStream << timestamp() << " : " << i_message << std::endl;
+
+        std::string_view l_timeStampedMsg{
+            timestamp() + " : " + std::string(i_message)};
+
+        // check size of message and pad/trim as required
+        if (l_timeStampedMsg.length() > m_logEntrySize)
+        {
+            l_timeStampedMsg.remove_suffix(
+                l_timeStampedMsg.length() - m_logEntrySize);
+        }
+        else if (l_timeStampedMsg.length() < m_logEntrySize)
+        {
+            const char l_padChar{' '};
+            const std::string l_paddedStr =
+                std::string(l_timeStampedMsg) +
+                std::string(m_logEntrySize - l_timeStampedMsg.length(),
+                            l_padChar);
+
+            l_timeStampedMsg = l_paddedStr;
+        }
+
+        // write the message to file
+        m_fileStream << l_timeStampedMsg << std::endl;
+
+        // increment number of entries only if write to file is successful
+        ++m_currentNumEntries;
     }
     catch (const std::exception& l_ex)
     {
@@ -269,15 +294,6 @@ ILogFileHandler::ILogFileHandler(const std::filesystem::path& i_filePath,
     }
 }
 
-void ILogFileHandler::rotateFile(
-    [[maybe_unused]] const unsigned i_numEntriesToDelete)
-{
-    /* TODO:
-        - delete specified number of oldest entries from beginning of file
-        - rewrite file to move existing logs to beginning of file
-    */
-    m_currentNumEntries = m_maxEntries - i_numEntriesToDelete;
-}
 namespace logging
 {
 void logMessage(std::string_view message, const std::source_location& location)

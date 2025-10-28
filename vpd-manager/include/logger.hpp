@@ -49,18 +49,24 @@ class ILogFileHandler
     // current number of log entries in file
     size_t m_currentNumEntries{0};
 
+    // number of chars in a single log entry
+    size_t m_logEntrySize{512};
+
     /**
      * @brief API to rotate file.
      *
      * This API rotates the logs within a file by deleting specified number of
      * oldest entries.
      *
-     * @param[in] i_numEntriesToDelete - Number of entries to delete.
      *
-     * @throw std::runtime_error
+     * @throw std::ios_base::failure
      */
-    virtual void rotateFile(
-        [[maybe_unused]] const unsigned i_numEntriesToDelete = 5);
+    virtual inline void rotateFile()
+    {
+        // reset file pointer to beginning of file
+        m_fileStream.seekg(0);
+        m_currentNumEntries = 0;
+    }
 
     /**
      * @brief Constructor.
