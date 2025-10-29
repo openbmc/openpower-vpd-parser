@@ -16,6 +16,24 @@
       "message": "Curious, why an interface should take care of rotation while construction.\nRespective class is anyways taking care of it while logging a message?",
       "revId": "ebccda149ee1751db29159de745a4f777e53cf23",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f82fa114_f1cbbc45",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-29T13:34:38Z",
+      "side": 1,
+      "message": "Suppose a log file already exists and BMC is rebooted or `vpd-manager` restarts: This code block checks for existing log file and rotates it if required. \n\n\u003eRespective class is anyways taking care of it while logging a message\n\nYes, that is handled inside `logMessage()` API, but suppose for some reason BMC dump is generated before `logMessage()` is called, file will not be rotated and dump may have a big log file.",
+      "parentUuid": "79ec5d79_b7b02803",
+      "revId": "ebccda149ee1751db29159de745a4f777e53cf23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
