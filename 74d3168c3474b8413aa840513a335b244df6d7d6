@@ -210,6 +210,24 @@
       "parentUuid": "34c3d79b_cf0c1a62",
       "revId": "74d3168c3474b8413aa840513a335b244df6d7d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4251a8f_0777a58f",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-29T12:29:42Z",
+      "side": 1,
+      "message": "No, I would disagree, once error code is implemented, even then handling won\u0027t be required in catch block.\nSince the catch block is handling std::exception, the error code that you are currently setting would suffice.\n\nIf we traverse both the scenarios.\n\nAs per current situation:\nIf those API throws then they are standard exception which is going to be caught in catch and error code will be set. Hence no TODO required.\n\nIn future:\nWhen those API\u0027s will return error codes for non std::exception type of error, then those error codes will be checked just after the API is called and if set will be logged and function will return from there. So even in that case code will not reach the catch block for those errors, making TODO invalid.",
+      "parentUuid": "8c1a61cd_3d3cec9c",
+      "revId": "74d3168c3474b8413aa840513a335b244df6d7d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
