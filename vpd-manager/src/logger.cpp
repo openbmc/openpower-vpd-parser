@@ -205,11 +205,6 @@ void AsyncFileLogger::fileWorker() noexcept
                 // unlock mutex on queue
                 l_lock.unlock();
 
-                if (++m_currentNumEntries > m_maxEntries)
-                {
-                    rotateFile();
-                }
-
                 // flush the message to file
                 m_fileStream << l_logMessage << std::endl;
 
