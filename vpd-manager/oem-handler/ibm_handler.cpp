@@ -116,6 +116,7 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
             ConfigurePowerVsSystem();
 
             std::cout << "m_worker->isSystemVPDOnDBus() completed" << std::endl;
+            std::cout << "Dummy text test" <<std::endl;
             m_progressInterface->set_property(
                 "Status", std::string(constants::vpdCollectionCompleted));
 
