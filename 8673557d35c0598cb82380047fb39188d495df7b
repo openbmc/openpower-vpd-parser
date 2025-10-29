@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "632990c1_a84d4260",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-29T06:24:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c29555a_262561c8",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 19
+      },
+      "revId": "8673557d35c0598cb82380047fb39188d495df7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20f2edde_b05293da",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-10-29T04:57:47Z",
       "side": 1,
       "message": "Why is a new function required to call notify PIM for an interface?\nWe do have a notify PIM API which takes the object map and has the interface.",
+      "revId": "8673557d35c0598cb82380047fb39188d495df7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbbc8f2d_0dcd357e",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-29T06:24:18Z",
+      "side": 1,
+      "message": "removed the API, implementing locally .",
+      "parentUuid": "20f2edde_b05293da",
       "revId": "8673557d35c0598cb82380047fb39188d495df7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de704c3c_a0b0b428",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-29T06:24:18Z",
+      "side": 1,
+      "message": "Acknowledged, removed the API. Added todo for preparing map \u0026 publishing it on dbus.",
+      "parentUuid": "fe30d922_3c8ed80c",
+      "revId": "8673557d35c0598cb82380047fb39188d495df7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f9d6631_41cb458c",
@@ -71,6 +131,24 @@
       "writtenOn": "2025-10-29T04:57:47Z",
       "side": 1,
       "message": "Ideally as per the norms, \"is\" is best suitable for APIs returning bool.\nSomething like isMotherboardEepromAccessible()?",
+      "revId": "8673557d35c0598cb82380047fb39188d495df7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe761aac_91c02b06",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-29T06:24:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f9d6631_41cb458c",
       "revId": "8673557d35c0598cb82380047fb39188d495df7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
