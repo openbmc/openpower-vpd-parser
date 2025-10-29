@@ -174,6 +174,24 @@
       "parentUuid": "45a38454_0ce15117",
       "revId": "74d3168c3474b8413aa840513a335b244df6d7d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34c3d79b_cf0c1a62",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-29T03:21:58Z",
+      "side": 1,
+      "message": "Why a TODO is required here. A standard exception is caught and that is being set in the error code. I find the code to be perfect here.\nAny future enhancement will be on need basis, a TODO reflects that something is missing and needs to be fixed in future, which I don\u0027t see here.",
+      "parentUuid": "85b33921_f4f971bf",
+      "revId": "74d3168c3474b8413aa840513a335b244df6d7d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
