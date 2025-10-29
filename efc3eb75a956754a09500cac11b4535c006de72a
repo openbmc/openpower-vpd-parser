@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3601df31_2947db80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-10-29T03:33:13Z",
+      "side": 1,
+      "message": "What has been removed? My concern here is that the explanation about \"why\" is missing in the commit message.\nI am not able to figure out that by reading the commit message.",
+      "parentUuid": "dbc88aec_baf7daf4",
+      "revId": "efc3eb75a956754a09500cac11b4535c006de72a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "984586b8_5e53e6fa",
         "filename": "vpd-manager/include/worker.hpp",
         "patchSetId": 4
