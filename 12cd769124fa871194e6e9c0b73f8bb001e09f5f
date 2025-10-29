@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c7f4781_64af7779",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1463,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-29T07:07:37Z",
+      "side": 1,
+      "message": "its not required as the other API will be called only if the above check is true, if the condition is true then errCode will be zero.",
+      "parentUuid": "957cac69_7755bcfd",
+      "revId": "12cd769124fa871194e6e9c0b73f8bb001e09f5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cda51359_e2bab411",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 3
@@ -31,6 +49,24 @@
       "writtenOn": "2025-10-27T16:18:10Z",
       "side": 1,
       "message": "should we return from here, as we received l_errCode \u0026 l_invPath could be empty in that case ?",
+      "revId": "12cd769124fa871194e6e9c0b73f8bb001e09f5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb2b575a_14190ea9",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1472,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-29T07:07:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cda51359_e2bab411",
       "revId": "12cd769124fa871194e6e9c0b73f8bb001e09f5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2025-10-27T16:18:10Z",
       "side": 1,
       "message": "else if can be combined here ?",
+      "revId": "12cd769124fa871194e6e9c0b73f8bb001e09f5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "879726bb_81261a65",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1485,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-29T07:07:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a26d688b_fda00cc7",
       "revId": "12cd769124fa871194e6e9c0b73f8bb001e09f5f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
