@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e05b219_01be75b9",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-30T07:10:03Z",
+      "side": 1,
+      "message": "This `if` is combining two conditions:\n1. Invalid keyword type read from D-Bus\n2. Valid keyword type but value is invalid.\n\nI think we should split the `if` and also check for `RECEIVED_INVALID_KWD_TYPE_FROM_DBUS` so that caller can have greater clarity on the failure.",
+      "revId": "cdf1878e72d6abfebc60b894f560561c8c82fd9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af53c86c_443487d3",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-10-30T07:10:03Z",
+      "side": 1,
+      "message": "We should use `Logger::logMessage()` as `logging::logMessage()` is going to be deprecated.",
+      "revId": "cdf1878e72d6abfebc60b894f560561c8c82fd9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
