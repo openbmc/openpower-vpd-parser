@@ -1223,5 +1223,46 @@ inline const std::string convertWriteVpdParamsToString(
     return std::string{};
 }
 
+/**
+ * @brief An API to read IM value from VPD.
+ *
+ * Note: Throws exception in case of error. Caller need to handle.
+ *
+ * @param[in] parsedVpd - Parsed VPD.
+ */
+
+inline std::string getIMValue(const types::IPZVpdMap& parsedVpd)
+{
+    if (parsedVpd.empty())
+    {
+        throw std::runtime_error("Empty VPD map. Can't Extract IM value");
+    }
+
+    const auto& itrToVSBP = parsedVpd.find("VSBP");
+    if (itrToVSBP == parsedVpd.end())
+    {
+        throw DataException("VSBP record missing.");
+    }
+
+    const auto& itrToIM = (itrToVSBP->second).find("IM");
+    if (itrToIM == (itrToVSBP->second).end())
+    {
+        throw DataException("IM keyword missing.");
+    }
+
+    types::BinaryVector imVal;
+    std::copy(itrToIM->second.begin(), itrToIM->second.end(),
+              back_inserter(imVal));
+
+    std::ostringstream imData;
+    for (auto& aByte : imVal)
+    {
+        imData << std::setw(2) << std::setfill('0') << std::hex
+               << static_cast<int>(aByte);
+    }
+
+    return imData.str();
+}
+
 } // namespace vpdSpecificUtility
 } // namespace vpd
