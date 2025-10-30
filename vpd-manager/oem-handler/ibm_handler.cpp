@@ -416,17 +416,29 @@ void IbmHandler::performInitialSetup()
         // Update BMC postion for RBMC prototype system
         // Ignore BMC position update in case of any error
         uint16_t l_errCode = 0;
-        if (isRbmcProtoTypeSystem(l_errCode) && l_errCode == 0)
+        if (isRbmcPrototypeSystem(l_errCode))
         {
-            size_t l_rbmcPosition = constants::VALUE_1;
-            if (isMotherboardEepromAccessible())
-            {
-                l_rbmcPosition = constants::VALUE_0;
-            }
+            size_t l_bmcPosition = std::numeric_limits<size_t>::max();
+            checkAndUpdateBmcPosition(l_bmcPosition);
 
-            (void)l_rbmcPosition;
-            // ToDo: Create Object interface map for position property and
-            // publish it on DBus.
+            if (dbusUtility::callPIM(types::ObjectMap{
+                    {sdbusplus::message::object_path(constants::systemInvPath),
+                     {{constants::rbmcPositionInterface,
+                       {{"Position", l_bmcPosition}}}}}}))
+            {
+                m_logger->logMessage(
+                    "Updating BMC position failed for path [" +
+                    std::string(constants::systemInvPath) +
+                    "], bmc position: " + std::to_string(l_bmcPosition));
+
+                // ToDo: Check is PEL required
+            }
+        }
+        else if (l_errCode != 0)
+        {
+            m_logger->logMessage(
+                "Couldn't able to determine whether system is RBMC system or not, reason: " +
+                commonUtility::getErrCodeMsg(l_errCode));
         }
 
         // Enable all mux which are used for connecting to the i2c on the
@@ -463,23 +475,52 @@ void IbmHandler::collectAllFruVpd()
     SetTimerToDetectVpdCollectionStatus();
 }
 
-bool IbmHandler::isRbmcProtoTypeSystem(
-    [[maybe_unused]] uint16_t& o_errCode) const noexcept
+bool IbmHandler::isRbmcPrototypeSystem(uint16_t& o_errCode) const noexcept
 {
-    // TODO:
-    // Parse the system VPD from EEPROM.
-    // Check the IM keyword value. If the IM value indicates an RBMC prototype
-    // system, return true otherwise false.
-    // In case of any error or IM value not found in the map, set error code and
-    // return false.
+    types::BinaryVector l_imValue = dbusUtility::getImFromDbus();
+    if (l_imValue.empty())
+    {
+        o_errCode = error_code::DBUS_FAILURE;
+        return false;
+    }
+
+    if (constants::rbmcPrototypeSystemImValue == l_imValue)
+    {
+        return true;
+    }
 
     return false;
 }
 
-bool IbmHandler::isMotherboardEepromAccessible() const noexcept
+void IbmHandler::checkAndUpdateBmcPosition(size_t& o_bmcPosition) const noexcept
 {
-    // TODO: Check whether the motherboard EEPROM is accessible.
+    if (m_worker.get() == nullptr)
+    {
+        m_logger->logMessage("Worker object not found");
+        return;
+    }
 
-    return false;
+    const nlohmann::json& l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+
+    uint16_t l_errCode = 0;
+    std::string l_motherboardEepromPath = jsonUtility::getFruPathFromJson(
+        l_sysCfgJsonObj, constants::systemVpdInvPath, l_errCode);
+
+    if (!l_motherboardEepromPath.empty())
+    {
+        o_bmcPosition = constants::VALUE_1;
+        std::error_code l_ec;
+        if (std::filesystem::exists(l_motherboardEepromPath, l_ec))
+        {
+            o_bmcPosition = constants::VALUE_0;
+        }
+    }
+    else
+    {
+        m_logger->logMessage(
+            "Couldn't able to determine BMC position, as FRU path[" +
+            std::string(constants::systemVpdInvPath) +
+            "], not found in the system config JSON.");
+    }
 }
 } // namespace vpd
