@@ -66,10 +66,7 @@ if get_option('ibm_system').allowed()
     subdir('wait-vpd-parser')
 
 
-    services += [
-        'service_files/system-vpd.service',
-        'service_files/wait-vpd-parsers.service',
-    ]
+    services += ['service_files/wait-vpd-parsers.service']
 
     package_datadir = join_paths('share', 'vpd')
     install_subdir(

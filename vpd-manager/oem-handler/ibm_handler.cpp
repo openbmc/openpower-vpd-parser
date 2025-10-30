@@ -403,15 +403,14 @@ void IbmHandler::performInitialSetup()
         }
 
         m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
-        if (!dbusUtility::isChassisPowerOn())
-        {
-            m_worker->setDeviceTreeAndJson();
 
-            // Since the above function setDeviceTreeAndJson can change the json
-            // which is used, we would need to reacquire the json object again
-            // here.
-            m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
-        }
+        // ToDo: Check is there way to find host state for RBMC system.
+        m_worker->setDeviceTreeAndJson();
+
+        // Since the above function setDeviceTreeAndJson can change the json
+        // which is used, we would need to reacquire the json object again
+        // here.
+        m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
 
         // Enable all mux which are used for connecting to the i2c on the
         // pcie slots for pcie cards. These are not enabled by kernel due to

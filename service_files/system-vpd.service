@@ -1,7 +1,0 @@
-#currently these services are added just for backward compatibility.
-#It will perform no task in the system and will be eventually removed.
-
-[Unit]
-Description=System VPD Collection
-After=vpd-manager.service
-Before=phosphor-discover-system-state@0.service
