@@ -122,39 +122,6 @@ bool Worker::isSystemVPDOnDBus() const
     return true;
 }
 
-std::string Worker::getIMValue(const types::IPZVpdMap& parsedVpd) const
-{
-    if (parsedVpd.empty())
-    {
-        throw std::runtime_error("Empty VPD map. Can't Extract IM value");
-    }
-
-    const auto& itrToVSBP = parsedVpd.find("VSBP");
-    if (itrToVSBP == parsedVpd.end())
-    {
-        throw DataException("VSBP record missing.");
-    }
-
-    const auto& itrToIM = (itrToVSBP->second).find("IM");
-    if (itrToIM == (itrToVSBP->second).end())
-    {
-        throw DataException("IM keyword missing.");
-    }
-
-    types::BinaryVector imVal;
-    std::copy(itrToIM->second.begin(), itrToIM->second.end(),
-              back_inserter(imVal));
-
-    std::ostringstream imData;
-    for (auto& aByte : imVal)
-    {
-        imData << std::setw(2) << std::setfill('0') << std::hex
-               << static_cast<int>(aByte);
-    }
-
-    return imData.str();
-}
-
 std::string Worker::getHWVersion(const types::IPZVpdMap& parsedVpd) const
 {
     if (parsedVpd.empty())
@@ -222,7 +189,7 @@ void Worker::getSystemJson(std::string& systemJson,
             throw DataException("HW value fetched is empty.");
         }
 
-        const std::string& imKwdValue = getIMValue(*pVal);
+        const std::string& imKwdValue = vpdSpecificUtility::getIMValue(*pVal);
         if (imKwdValue.empty())
         {
             throw DataException("IM value fetched is empty.");
