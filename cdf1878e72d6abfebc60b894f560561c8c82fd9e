@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e153ef33_39ba73b0",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-10-30T16:42:50Z",
+      "side": 1,
+      "message": "do we have something as \"empty parameter\"? Informing about EMPTY parameter would be  more concrete.",
+      "range": {
+        "startLine": 877,
+        "startChar": 4,
+        "endLine": 877,
+        "endChar": 60
+      },
+      "revId": "cdf1878e72d6abfebc60b894f560561c8c82fd9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e05b219_01be75b9",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 2
