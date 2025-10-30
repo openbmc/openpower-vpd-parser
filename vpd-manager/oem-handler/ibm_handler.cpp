@@ -424,9 +424,18 @@ void IbmHandler::performInitialSetup()
                 l_rbmcPosition = constants::VALUE_0;
             }
 
-            (void)l_rbmcPosition;
-            // ToDo: Create Object interface map for position property and
-            // publish it on DBus.
+            if (!dbusUtility::callPIM(types::ObjectMap{
+                    {sdbusplus::message::object_path(constants::systemInvPath),
+                     {{constants::rbmcPositionInterface,
+                       {{"Position", l_rbmcPosition}}}}}}))
+            {
+                m_logger->logMessage(
+                    "Updating BMC position failed for path [" +
+                    std::string(constants::systemInvPath) +
+                    "], bmc position: " + std::to_string(l_rbmcPosition));
+
+                // ToDo: Check is PEL required
+            }
         }
 
         // Enable all mux which are used for connecting to the i2c on the
@@ -463,22 +472,45 @@ void IbmHandler::collectAllFruVpd()
     SetTimerToDetectVpdCollectionStatus();
 }
 
-bool IbmHandler::isRbmcProtoTypeSystem(
-    [[maybe_unused]] uint16_t& o_errCode) const noexcept
+bool IbmHandler::isRbmcProtoTypeSystem(uint16_t& o_errCode) const noexcept
 {
-    // TODO:
-    // Parse the system VPD from EEPROM.
-    // Check the IM keyword value. If the IM value indicates an RBMC prototype
-    // system, return true otherwise false.
-    // In case of any error or IM value not found in the map, set error code and
-    // return false.
+    types::BinaryVector l_imValue = dbusUtility::getImFromDbus();
+    if (l_imValue.empty())
+    {
+        o_errCode = DBUS_FAILURE;
+        return false;
+    }
+
+    if (constants::rbmcProtoTypeSystemImValue == l_imValue)
+    {
+        return true;
+    }
 
     return false;
 }
 
 bool IbmHandler::isMotherboardEepromAccessible() const noexcept
 {
-    // TODO: Check whether the motherboard EEPROM is accessible.
+    if (m_worker.get() == nullptr)
+    {
+        return false;
+    }
+
+    nlohmann::json l_sysCfgJsonObj{};
+    l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+
+    uint16_t l_errCode = 0;
+    std::string l_motherboardEepromPath = jsonUtility::getFruPathFromJson(
+        l_sysCfgJsonObj, constants::systemVpdInvPath, l_errCode);
+
+    if (!l_motherboardEepromPath.empty())
+    {
+        std::error_code l_ec;
+        if (std::filesystem::exists(l_motherboardEepromPath, l_ec))
+        {
+            return true;
+        }
+    }
 
     return false;
 }
