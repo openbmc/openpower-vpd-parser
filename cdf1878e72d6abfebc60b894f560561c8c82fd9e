@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9ae8d67_17c17cb9",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-30T13:58:46Z",
+      "side": 1,
+      "message": "I think both can be same for this API, as expected CCIN value is of 4 bytes array should be received, in any case of mismatch from expected value we can considered as invalid value received for this API.",
+      "parentUuid": "0e05b219_01be75b9",
+      "revId": "cdf1878e72d6abfebc60b894f560561c8c82fd9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "af53c86c_443487d3",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 2
