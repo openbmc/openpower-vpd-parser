@@ -127,18 +127,17 @@ class IbmHandler
      *
      * @return true for RBMC prototype system, false otherwise.
      */
-    bool isRbmcProtoTypeSystem(
-        [[maybe_unused]] uint16_t& o_errCode) const noexcept;
+    bool isRbmcPrototypeSystem(uint16_t& o_errCode) const noexcept;
 
     /**
-     * @brief Checks whether the motherboard EEPROM is accessible.
+     * @brief Checks and updates BMC position.
      *
-     * This function is used to update the BMC position for the RBMC prototype
-     * system based on whether the motherboard EEPROM can be accessed.
+     * This API updates BMC position for the RBMC prototype
+     * system based on whether the motherboard EEPROM is accessible.
      *
-     * @return true if able to access motherboard EEPROM, false otherwise.
+     * @param[out] o_bmcPosition - BMC position.
      */
-    bool isMotherboardEepromAccessible() const noexcept;
+    void checkAndUpdateBmcPosition(size_t& o_bmcPosition) const noexcept;
 
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
