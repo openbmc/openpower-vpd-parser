@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00eedb55_8726f079",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-31T05:52:35Z",
+      "side": 1,
+      "message": "can we define the map in place here as we are updating only one value?",
+      "revId": "426b146f076db52978f02bb72d3d3e8f7f87ca19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e32b082_cd1e6bb4",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-31T05:52:35Z",
+      "side": 1,
+      "message": "can we have a log here?",
+      "revId": "426b146f076db52978f02bb72d3d3e8f7f87ca19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfd67391_b324cbc4",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-31T05:52:35Z",
+      "side": 1,
+      "message": "can we use STANDARD_EXCPETION, as parser can also throw exception?",
+      "revId": "426b146f076db52978f02bb72d3d3e8f7f87ca19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8abba58c_f69b7091",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-10-31T05:52:35Z",
+      "side": 1,
+      "message": "We could return early if m_worker is null, since the system config JSON cannot be retrieved without worker object.",
+      "revId": "426b146f076db52978f02bb72d3d3e8f7f87ca19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
