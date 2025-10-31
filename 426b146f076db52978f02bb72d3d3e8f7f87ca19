@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb41d3c4_6fd7e646",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-31T10:44:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00eedb55_8726f079",
+      "revId": "426b146f076db52978f02bb72d3d3e8f7f87ca19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e32b082_cd1e6bb4",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-10-31T05:52:35Z",
       "side": 1,
       "message": "can we have a log here?",
+      "revId": "426b146f076db52978f02bb72d3d3e8f7f87ca19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dad63bf_88fe847e",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-31T10:44:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e32b082_cd1e6bb4",
       "revId": "426b146f076db52978f02bb72d3d3e8f7f87ca19",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ec2101a_d398b165",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-31T10:44:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfd67391_b324cbc4",
+      "revId": "426b146f076db52978f02bb72d3d3e8f7f87ca19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8abba58c_f69b7091",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-10-31T05:52:35Z",
       "side": 1,
       "message": "We could return early if m_worker is null, since the system config JSON cannot be retrieved without worker object.",
+      "revId": "426b146f076db52978f02bb72d3d3e8f7f87ca19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee8369b9_4019cf49",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-10-31T10:44:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8abba58c_f69b7091",
       "revId": "426b146f076db52978f02bb72d3d3e8f7f87ca19",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
