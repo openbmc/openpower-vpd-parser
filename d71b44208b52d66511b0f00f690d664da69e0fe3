@@ -16,6 +16,23 @@
       "message": "Should use `Logger::logMessage()` as `logging::logMessage()` is going to be deprecated.",
       "revId": "d71b44208b52d66511b0f00f690d664da69e0fe3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39d115f8_833ff5ce",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-03T10:49:34Z",
+      "side": 1,
+      "message": "should we delegate this to create PEL in logMessage(), as we removed PEL creation in findCcinInVpd. in case record \u0026 keyword not found ?",
+      "revId": "d71b44208b52d66511b0f00f690d664da69e0fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
