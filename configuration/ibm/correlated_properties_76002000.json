@@ -1,0 +1,190 @@
+{
+    "xyz.openbmc_project.Inventory.Manager": {
+        "xyz.openbmc_project.Inventory.Decorator.Asset": {
+            "PartNumber": {
+                "defaultInterfaces": {
+                    "com.ibm.ipzvpd.VINI": "PN"
+                }
+            },
+            "SerialNumber": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VSYS": "SE"
+                        }
+                    }
+                },
+                "defaultInterfaces": {
+                    "com.ibm.ipzvpd.VINI": "SN"
+                }
+            },
+            "Model": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VSYS": "TM"
+                        }
+                    }
+                },
+                "defaultInterfaces": {
+                    "com.ibm.ipzvpd.VINI": "CC"
+                }
+            },
+            "SparePartNumber": {
+                "defaultInterfaces": {
+                    "com.ibm.ipzvpd.VINI": "FN"
+                }
+            },
+            "SubModel": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system"
+                        ],
+                        "interfaces": {
+                            "com.ibm.ipzvpd.VSYS": "BR"
+                        }
+                    }
+                }
+            }
+        },
+        "com.ibm.ipzvpd.VINI": {
+            "PN": {
+                "defaultInterfaces": {
+                    "xyz.openbmc_project.Inventory.Decorator.Asset": "PartNumber"
+                }
+            },
+            "SN": {
+                "defaultInterfaces": {
+                    "xyz.openbmc_project.Inventory.Decorator.Asset": "SerialNumber"
+                }
+            },
+            "CC": {
+                "defaultInterfaces": {
+                    "xyz.openbmc_project.Inventory.Decorator.Asset": "Model"
+                }
+            },
+            "FN": {
+                "defaultInterfaces": {
+                    "xyz.openbmc_project.Inventory.Decorator.Asset": "SparePartNumber"
+                }
+            }
+        },
+        "com.ibm.ipzvpd.VSYS": {
+            "SE": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SerialNumber"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SerialNumber"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SerialNumber"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SerialNumber"
+                        }
+                    }
+                }
+            },
+            "TM": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "Model"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "Model"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "Model"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "Model"
+                        }
+                    }
+                }
+            },
+            "BR": {
+                "pathsPair": {
+                    "/xyz/openbmc_project/inventory/system": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SubModel"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SubModel"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SubModel"
+                        }
+                    },
+                    "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery": {
+                        "destinationInventoryPath": [
+                            "/xyz/openbmc_project/inventory/system/chassis/motherboard/tod_battery"
+                        ],
+                        "interfaces": {
+                            "xyz.openbmc_project.Inventory.Decorator.Asset": "SubModel"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
