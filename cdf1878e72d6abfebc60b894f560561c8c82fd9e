@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1dd88dc_efe3f3c2",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-11-03T04:00:57Z",
+      "side": 1,
+      "message": "empty parameter means it is an invalid input. we are using the same error code in all the APIs.",
+      "parentUuid": "e153ef33_39ba73b0",
+      "range": {
+        "startLine": 877,
+        "startChar": 4,
+        "endLine": 877,
+        "endChar": 60
+      },
+      "revId": "cdf1878e72d6abfebc60b894f560561c8c82fd9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e05b219_01be75b9",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 2
@@ -59,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c39fb57a_35fbb467",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-11-03T04:00:57Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "b9ae8d67_17c17cb9",
+      "revId": "cdf1878e72d6abfebc60b894f560561c8c82fd9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af53c86c_443487d3",
@@ -72,6 +114,24 @@
       "writtenOn": "2025-10-30T07:10:03Z",
       "side": 1,
       "message": "We should use `Logger::logMessage()` as `logging::logMessage()` is going to be deprecated.",
+      "revId": "cdf1878e72d6abfebc60b894f560561c8c82fd9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fff6bcb_52d1feef",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-11-03T04:00:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af53c86c_443487d3",
       "revId": "cdf1878e72d6abfebc60b894f560561c8c82fd9e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
