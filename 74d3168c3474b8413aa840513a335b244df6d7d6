@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "327fd06f_6c0753d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-03T10:22:15Z",
+      "side": 1,
+      "message": "Agree, there is no rules written. As I see others are fine reading test section. Am approving this.",
+      "parentUuid": "3b0b4774_c0f338a8",
+      "revId": "74d3168c3474b8413aa840513a335b244df6d7d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17ab62c4_b87f9a64",
