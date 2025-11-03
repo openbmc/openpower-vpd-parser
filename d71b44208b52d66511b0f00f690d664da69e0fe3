@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee34d5a4_10aabf8b",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-03T10:09:23Z",
+      "side": 1,
+      "message": "Should use `Logger::logMessage()` as `logging::logMessage()` is going to be deprecated.",
+      "revId": "d71b44208b52d66511b0f00f690d664da69e0fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
