@@ -34,6 +34,24 @@
       "parentUuid": "79ec5d79_b7b02803",
       "revId": "ebccda149ee1751db29159de745a4f777e53cf23",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbe99ab6_9551f555",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-03T08:52:42Z",
+      "side": 1,
+      "message": "As discussed, we only need the code till where we update \"m_currentNumEntries\". Rotation can be taken care by respective class.",
+      "parentUuid": "f82fa114_f1cbbc45",
+      "revId": "ebccda149ee1751db29159de745a4f777e53cf23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
