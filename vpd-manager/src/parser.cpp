@@ -1,9 +1,9 @@
 #include "parser.hpp"
 
 #include "constants.hpp"
-#include "event_logger.hpp"
 
 #include <utility/dbus_utility.hpp>
+#include <utility/event_logger_utility.hpp>
 #include <utility/json_utility.hpp>
 #include <utility/vpd_specific_utility.hpp>
 

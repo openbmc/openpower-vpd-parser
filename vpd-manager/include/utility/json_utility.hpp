@@ -1,7 +1,6 @@
 #pragma once
 
 #include "error_codes.hpp"
-#include "event_logger.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
 #include "types.hpp"
@@ -9,7 +8,6 @@
 #include <gpiod.hpp>
 #include <nlohmann/json.hpp>
 #include <utility/common_utility.hpp>
-#include <utility/vpd_specific_utility.hpp>
 
 #include <fstream>
 #include <type_traits>
@@ -405,10 +403,10 @@ inline bool processGpioPresenceTag(
         l_errMsg += l_ex.what();
         l_errMsg += " File: " + i_vpdFilePath + " Pel Logged";
 
-        uint16_t l_errCode = 0;
-
-        // ToDo -- Update Internal Rc code.
-        EventLogger::createAsyncPelWithInventoryCallout(
+        // ToDo -- Check if PEL is required. Update Internal Rc code.
+        /**
+         uint16_t l_errCode = 0;
+         EventLogger::createAsyncPelWithInventoryCallout(
             EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
             {{getInventoryObjPathFromJson(i_parsedConfigJson, i_vpdFilePath,
                                           l_errCode),
@@ -416,6 +414,7 @@ inline bool processGpioPresenceTag(
             std::source_location::current().file_name(),
             std::source_location::current().function_name(), 0, l_errMsg,
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+         */
 
         logging::logMessage(l_errMsg);
 
@@ -496,10 +495,10 @@ inline bool procesSetGpioTag(
         l_errMsg += l_ex.what();
         l_errMsg += " File: " + i_vpdFilePath + " Pel Logged";
 
-        uint16_t l_errCode = 0;
-
         // ToDo -- Update Internal RC code
-        EventLogger::createAsyncPelWithInventoryCallout(
+        /**
+         uint16_t l_errCode = 0;
+         EventLogger::createAsyncPelWithInventoryCallout(
             EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
             {{getInventoryObjPathFromJson(i_parsedConfigJson, i_vpdFilePath,
                                           l_errCode),
@@ -507,6 +506,7 @@ inline bool procesSetGpioTag(
             std::source_location::current().file_name(),
             std::source_location::current().function_name(), 0, l_errMsg,
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+         */
 
         logging::logMessage(l_errMsg);
 

@@ -2,11 +2,11 @@
 
 #include "bios_handler.hpp"
 #include "constants.hpp"
-#include "event_logger.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
 #include "manager.hpp"
 #include "types.hpp"
+#include "utility/event_logger_utility.hpp"
 
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/asio/object_server.hpp>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "event_logger.hpp"
+#include "utility/event_logger_utility.hpp"
 #include "worker.hpp"
 
 #include <boost/asio/steady_timer.hpp>
