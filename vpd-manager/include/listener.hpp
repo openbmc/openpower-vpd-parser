@@ -65,8 +65,7 @@ class Listener
      * JSON.
      */
     void registerCorrPropCallBack(
-        const std::string& i_correlatedPropJsonFile =
-            constants::correlatedPropJsonFile) noexcept;
+        const std::string& i_correlatedPropJsonFile) noexcept;
 
     /**
      * @brief API to register properties changed callback.
