@@ -142,7 +142,20 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
 
             if (m_eventListener)
             {
-                m_eventListener->registerCorrPropCallBack();
+                // Check if system config JSON specifies
+                // correlatedPropertiesJson
+                if (m_sysCfgJsonObj.contains("correlatedPropertiesConfigPath"))
+                {
+                    // register correlated properties callback with specific
+                    // correlated properties JSON
+                    m_eventListener->registerCorrPropCallBack(
+                        m_sysCfgJsonObj["correlatedPropertiesConfigPath"]);
+                }
+                else
+                {
+                    m_logger->logMessage(
+                        "Correlated properties JSON path is not defined in system config JSON. Correlated properties listener is disabled.");
+                }
             }
 
             // terminate collection logger
