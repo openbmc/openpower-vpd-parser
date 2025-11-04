@@ -26,6 +26,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7fb11e14_18a4542a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-04T05:37:08Z",
+      "side": 1,
+      "message": "The commit message doesn\u0027t specify why this change is needed.",
+      "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e962ccdc_7fb22aa9",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 6
@@ -37,6 +54,23 @@
       "writtenOn": "2025-11-03T15:35:34Z",
       "side": 1,
       "message": "prototype is a single word, came case does not apply within a single word. Guess it was a miss in previous commit.",
+      "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa06e73e_09f0e2a7",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-04T05:37:08Z",
+      "side": 1,
+      "message": "This API maybe required by other classes in future (For eg. Correlated properties JSON for RBMC system). Should we move this to any utility file?",
       "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
