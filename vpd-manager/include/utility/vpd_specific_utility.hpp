@@ -3,7 +3,6 @@
 #include "config.h"
 
 #include "constants.hpp"
-#include "event_logger.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
 #include "types.hpp"
@@ -11,6 +10,7 @@
 #include <nlohmann/json.hpp>
 #include <utility/common_utility.hpp>
 #include <utility/dbus_utility.hpp>
+#include <utility/event_logger.hpp>
 
 #include <filesystem>
 #include <fstream>

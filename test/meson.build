@@ -49,7 +49,6 @@ test_sources = [
     '../vpd-manager/src/isdimm_parser.cpp',
     '../vpd-manager/src/ipz_parser.cpp',
     '../vpd-manager/src/keyword_vpd_parser.cpp',
-    '../vpd-manager/src/event_logger.cpp',
     '../vpdecc/vpdecc.c',
 ]
 
