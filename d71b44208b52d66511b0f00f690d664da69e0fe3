@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df730bbc_6cf9739e",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-04T08:12:18Z",
+      "side": 1,
+      "message": "The change of logging will be taken care in a separate commit.",
+      "parentUuid": "ee34d5a4_10aabf8b",
+      "revId": "d71b44208b52d66511b0f00f690d664da69e0fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "39d115f8_833ff5ce",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 2
