@@ -85,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c0d43c0_c8336751",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-04T08:13:30Z",
+      "side": 1,
+      "message": "Ok. But even then, I feel this commit message should explain a bit about its need, so that if these commits are cherry-picked in future, we have better clarity on each commit\u0027s purpose.",
+      "parentUuid": "5b74b9fc_0d8325ef",
+      "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e962ccdc_7fb22aa9",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 6
@@ -131,6 +149,24 @@
       "side": 1,
       "message": "updated the API name",
       "parentUuid": "e962ccdc_7fb22aa9",
+      "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "393800f9_85569417",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-04T08:13:30Z",
+      "side": 1,
+      "message": "As discussed, we will keep this API in `IbmHandler` for now.",
+      "parentUuid": "aa06e73e_09f0e2a7",
       "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
