@@ -103,6 +103,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "463c578e_012f5a04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-04T08:22:24Z",
+      "side": 1,
+      "message": "updated the commit message.",
+      "parentUuid": "1c0d43c0_c8336751",
+      "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e962ccdc_7fb22aa9",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 6
