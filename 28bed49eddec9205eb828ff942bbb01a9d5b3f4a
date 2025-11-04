@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af9594db_1de6ac14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-04T07:14:56Z",
+      "side": 1,
+      "message": "Updated the commit messgae",
+      "parentUuid": "a512fef0_49dbaa91",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 5
+      },
+      "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fb11e14_18a4542a",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-11-04T05:37:08Z",
       "side": 1,
       "message": "The commit message doesn\u0027t specify why this change is needed.",
+      "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b74b9fc_0d8325ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-04T07:14:56Z",
+      "side": 1,
+      "message": "this commit is implementation part, the stub commit holds why we need this change.",
+      "parentUuid": "7fb11e14_18a4542a",
       "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -75,6 +117,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e5b63c9_517d7e2d",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-04T07:14:56Z",
+      "side": 1,
+      "message": "updated the API name",
+      "parentUuid": "e962ccdc_7fb22aa9",
+      "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd5cbbc0_11f5bf67",
@@ -88,6 +148,24 @@
       "writtenOn": "2025-11-03T15:35:34Z",
       "side": 1,
       "message": "This shouldn\u0027t be a case at this point. If worker is found null, log a message on journal.",
+      "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "765982fa_222d9e00",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-04T07:14:56Z",
+      "side": 1,
+      "message": "updated log",
+      "parentUuid": "bd5cbbc0_11f5bf67",
       "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -109,6 +187,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5a259de_5d4b79c4",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-04T07:14:56Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "f6d38616_26e07923",
+      "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "905667cf_3f38197c",
@@ -122,6 +218,24 @@
       "writtenOn": "2025-11-03T15:35:34Z",
       "side": 1,
       "message": "What if the path is empty? Do we need to check error code and log it?",
+      "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bf959bd_afbc7b4a",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-04T07:14:56Z",
+      "side": 1,
+      "message": "added log.",
+      "parentUuid": "905667cf_3f38197c",
       "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
