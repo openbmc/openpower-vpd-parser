@@ -121,6 +121,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee8268c2_b4e06f18",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-04T14:23:56Z",
+      "side": 1,
+      "message": "Agree with @souvikroyofficial10@gmail.com, Each commit message should contain at least \"what\" and \"why\" as far as possible.\n\nAdding onto that, I don\u0027t agree with the explanation here.\n\n\u003e For RBMC prototype systems, the BMC position needs to be determined because some services run only on the active BMC.\n\nThe whole idea behind having the position is \"just\" to determine the role of BMC based on its position.",
+      "parentUuid": "463c578e_012f5a04",
+      "revId": "28bed49eddec9205eb828ff942bbb01a9d5b3f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e962ccdc_7fb22aa9",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 6

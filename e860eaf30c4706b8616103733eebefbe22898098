@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "045850c4_7bf81b26",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-04T14:23:56Z",
+      "side": 1,
+      "message": "Should the error code be logged in case it is set when path is empty to know if there has been any failure?",
+      "revId": "e860eaf30c4706b8616103733eebefbe22898098",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
