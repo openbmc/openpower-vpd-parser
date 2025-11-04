@@ -1,7 +1,7 @@
 #pragma once
 
 #include "constants.hpp"
-#include "event_logger.hpp"
+#include "utility/event_logger_utility.hpp"
 
 #include <string>
 

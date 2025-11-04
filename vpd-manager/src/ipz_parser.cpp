@@ -5,8 +5,8 @@
 #include "vpdecc/vpdecc.h"
 
 #include "constants.hpp"
-#include "event_logger.hpp"
 #include "exceptions.hpp"
+#include "utility/event_logger_utility.hpp"
 #include "utility/vpd_specific_utility.hpp"
 
 #include <nlohmann/json.hpp>

@@ -14,7 +14,6 @@ common_SOURCES = [
     'src/worker.cpp',
     'src/backup_restore.cpp',
     'src/gpio_monitor.cpp',
-    'src/event_logger.cpp',
     'src/listener.cpp',
 ]
 
