@@ -16,6 +16,24 @@
       "message": "if we move the below l_logger declaration to above, we can use this same variable for logging, as logging is going out of scope.",
       "revId": "fd672e5c8a2739b29cbeaf21e26dc631a6926ad4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39b3461f_51e9a2c7",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-11-05T04:38:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "824f7901_8f8e9bd9",
+      "revId": "fd672e5c8a2739b29cbeaf21e26dc631a6926ad4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
