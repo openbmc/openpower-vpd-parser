@@ -24,7 +24,6 @@ TEST(IsFruPowerOffOnlyTest, PositiveTestCase)
             "], error : " + commonUtility::getErrCodeMsg(l_errCode));
     }
 
-    l_errCode = 0;
     const bool l_result =
         jsonUtility::isFruPowerOffOnly(l_parsedJson, l_vpdPath, l_errCode);
 
@@ -53,7 +52,6 @@ TEST(IsFruPowerOffOnlyTest, NegativeTestCase)
             "], error : " + commonUtility::getErrCodeMsg(l_errCode));
     }
 
-    l_errCode = 0;
     const bool l_result =
         jsonUtility::isFruPowerOffOnly(l_parsedJson, l_vpdPath, l_errCode);
 
