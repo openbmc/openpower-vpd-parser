@@ -37,7 +37,6 @@ IbmHandler::IbmHandler(
         m_logger->logMessage(
             "Error while trying to read VPD collection mode: " +
             commonUtility::getErrCodeMsg(l_errCode));
-        l_errCode = 0;
     }
 
     if (dbusUtility::isChassisPowerOn())
@@ -218,8 +217,6 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
         // check if the FRU needs CCIN check before updating PN.
         if (l_recJson.contains("CCIN"))
         {
-            l_errCode = 0;
-
             const auto& l_ccinFromDbus =
                 vpdSpecificUtility::getCcinFromDbus(l_inventoryPath, l_errCode);
 

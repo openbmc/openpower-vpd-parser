@@ -202,7 +202,6 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
             }
 
             // Get D-bus name for the given keyword
-            l_errCode = 0;
             l_propertyName = vpdSpecificUtility::getDbusPropNameForGivenKw(
                 l_propertyName, l_errCode);
 
