@@ -588,8 +588,6 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
                             propValuePair.value().get<std::string>() +
                             " ,error : " +
                             commonUtility::getErrCodeMsg(l_errCode));
-
-                        l_errCode = 0;
                     }
 
                     propertyMap.emplace(property, value);
@@ -605,8 +603,6 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
                         logging::logMessage(
                             "Failed to insert value into map, error : " +
                             commonUtility::getErrCodeMsg(l_errCode));
-
-                        l_errCode = 0;
                     }
                 }
                 else
@@ -662,8 +658,6 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
                                     "Failed to get encoded keyword value for : ") +
                                 keyword + std::string(", error : ") +
                                 commonUtility::getErrCodeMsg(l_errCode));
-
-                            l_errCode = 0;
                         }
 
                         propertyMap.emplace(property, encoded);
@@ -690,8 +684,6 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
                                         "Failed to get encoded keyword value for : ") +
                                     keyword + std::string(", error : ") +
                                     commonUtility::getErrCodeMsg(l_errCode));
-
-                                l_errCode = 0;
                             }
 
                             propertyMap.emplace(property, encodedValue);
@@ -711,8 +703,6 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
                                     "Failed to get encoded keyword value for : " +
                                     keyword + ", error : " +
                                     commonUtility::getErrCodeMsg(l_errCode));
-
-                                l_errCode = 0;
                             }
 
                             propertyMap.emplace(property, encodedValue);
@@ -738,8 +728,6 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
         {
             logging::logMessage("Failed to insert value into map, error : " +
                                 commonUtility::getErrCodeMsg(l_errCode));
-
-            l_errCode = 0;
         }
     }
 }
@@ -1187,6 +1175,7 @@ bool Worker::processPreAction(const std::string& i_vpdFilePath,
                               const std::string& i_flagToProcess,
                               uint16_t& i_errCode)
 {
+    i_errCode = 0;
     if (i_vpdFilePath.empty() || i_flagToProcess.empty())
     {
         i_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -1285,7 +1274,6 @@ bool Worker::processPostAction(
         }
     }
 
-    l_errCode = 0;
     if (!jsonUtility::executeBaseAction(m_parsedJson, "postAction",
                                         i_vpdFruPath, i_flagToProcess,
                                         l_errCode))
@@ -1319,7 +1307,6 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
         if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
                                           "preAction", "collection", l_errCode))
         {
-            l_errCode = 0;
             isPreActionRequired = true;
             if (!processPreAction(i_vpdFilePath, "collection", l_errCode))
             {
@@ -1367,8 +1354,6 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
         // any post action in the flow of collection.
         // Note: Don't change the order, post action needs to be processed only
         // after collection for FRU is successfully done.
-        l_errCode = 0;
-
         if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
                                           "postAction", "collection",
                                           l_errCode))
@@ -1583,7 +1568,6 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
                 "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        l_errCode = 0;
         std::string l_invPath = jsonUtility::getInventoryObjPathFromJson(
             m_parsedJson, i_vpdFilePath, l_errCode);
 
@@ -1802,7 +1786,6 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
                 for (const auto& [l_objectPath, l_serviceInterfaceMap] :
                      l_subTreeMap)
                 {
-                    l_errCode = 0;
                     types::InterfaceMap l_interfaceMap;
                     vpdSpecificUtility::resetDataUnderPIM(
                         l_objectPath, l_interfaceMap, l_errCode);
@@ -1819,7 +1802,6 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
                                         std::move(l_interfaceMap));
                 }
 
-                l_errCode = 0;
                 types::InterfaceMap l_interfaceMap;
                 vpdSpecificUtility::resetDataUnderPIM(
                     i_dbusObjPath, l_interfaceMap, l_errCode);
@@ -1837,8 +1819,6 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
                 {
                     throw std::runtime_error("Call to PIM failed.");
                 }
-
-                l_errCode = 0;
 
                 if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath,
                                                   "postAction", "deletion",
@@ -2106,7 +2086,6 @@ void Worker::collectSingleFruVpd(
                     "], error : " + commonUtility::getErrCodeMsg(l_errCode));
             }
 
-            l_errCode = 0;
             bool isFruReplaceableAtRuntime =
                 jsonUtility::isFruReplaceableAtRuntime(m_parsedJson, l_fruPath,
                                                        l_errCode);

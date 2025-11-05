@@ -239,7 +239,6 @@ bool PrimeInventory::primeInventory(
     vpd::types::PropertyMap l_fruCollectionProperty = {
         {"Status", vpd::constants::vpdCollectionNotStarted}};
 
-    l_errCode = 0;
     vpd::vpdSpecificUtility::insertOrMerge(
         l_interfaces, vpd::constants::vpdCollectionInterface,
         std::move(l_fruCollectionProperty), l_errCode);
@@ -298,8 +297,6 @@ void PrimeInventory::populateInterfaces(
                             l_propValuePair.value().get<std::string>() +
                             " ,error : " +
                             vpd::commonUtility::getErrCodeMsg(l_errCode));
-
-                        l_errCode = 0;
                     }
 
                     l_propertyMap.emplace(l_property, l_value);
@@ -315,8 +312,6 @@ void PrimeInventory::populateInterfaces(
                         m_logger->logMessage(
                             "Failed to insert value into map, error : " +
                             vpd::commonUtility::getErrCodeMsg(l_errCode));
-
-                        l_errCode = 0;
                     }
                 }
                 else
@@ -371,8 +366,6 @@ void PrimeInventory::populateInterfaces(
                                 "Failed to get encoded keyword value for : " +
                                 l_keyword + ", error : " +
                                 vpd::commonUtility::getErrCodeMsg(l_errCode));
-
-                            l_errCode = 0;
                         }
 
                         l_propertyMap.emplace(l_property, l_encoded);
@@ -401,8 +394,6 @@ void PrimeInventory::populateInterfaces(
                                     l_keyword + ", error : " +
                                     vpd::commonUtility::getErrCodeMsg(
                                         l_errCode));
-
-                                l_errCode = 0;
                             }
 
                             l_propertyMap.emplace(l_property, l_encodedValue);
@@ -423,8 +414,6 @@ void PrimeInventory::populateInterfaces(
                                     l_keyword + ", error : " +
                                     vpd::commonUtility::getErrCodeMsg(
                                         l_errCode));
-
-                                l_errCode = 0;
                             }
 
                             l_propertyMap.emplace(l_property, l_encodedValue);
@@ -451,8 +440,6 @@ void PrimeInventory::populateInterfaces(
         {
             m_logger->logMessage("Failed to insert value into map, error : " +
                                  vpd::commonUtility::getErrCodeMsg(l_errCode));
-
-            l_errCode = 0;
         }
     }
 }
