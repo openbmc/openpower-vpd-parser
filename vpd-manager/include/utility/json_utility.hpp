@@ -61,6 +61,7 @@ inline size_t getVPDOffset(const nlohmann::json& i_sysCfgJsonObj,
                            const std::string& i_vpdFilePath,
                            uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_vpdFilePath.empty() || (i_sysCfgJsonObj.empty()) ||
         (!i_sysCfgJsonObj.contains("frus")))
     {
@@ -104,6 +105,7 @@ inline size_t getVPDOffset(const nlohmann::json& i_sysCfgJsonObj,
 inline nlohmann::json getParsedJson(const std::string& pathToJson,
                                     uint16_t& o_errCode) noexcept
 {
+    o_errCode = 0;
     if (pathToJson.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -159,6 +161,7 @@ inline std::string getInventoryObjPathFromJson(
     const nlohmann::json& i_sysCfgJsonObj, const std::string& i_vpdPath,
     uint16_t& o_errCode) noexcept
 {
+    o_errCode = 0;
     if (i_vpdPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -218,6 +221,7 @@ inline bool executePostFailAction(
     const nlohmann::json& i_parsedConfigJson, const std::string& i_vpdFilePath,
     const std::string& i_flagToProcess, uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_parsedConfigJson.empty() || i_vpdFilePath.empty() ||
         i_flagToProcess.empty())
     {
@@ -295,6 +299,7 @@ inline bool processSystemCmdTag(
     const std::string& i_baseAction, const std::string& i_flagToProcess,
     uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_vpdFilePath.empty() || i_parsedConfigJson.empty() ||
         i_baseAction.empty() || i_flagToProcess.empty())
     {
@@ -345,6 +350,7 @@ inline bool processGpioPresenceTag(
     const std::string& i_baseAction, const std::string& i_flagToProcess,
     uint16_t& o_errCode)
 {
+    o_errCode = 0;
     std::string l_presencePinName;
     try
     {
@@ -444,6 +450,7 @@ inline bool procesSetGpioTag(
     const std::string& i_baseAction, const std::string& i_flagToProcess,
     uint16_t& o_errCode)
 {
+    o_errCode = 0;
     std::string l_pinName;
     try
     {
@@ -535,6 +542,7 @@ inline bool executeBaseAction(
     const std::string& i_vpdFilePath, const std::string& i_flagToProcess,
     uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_flagToProcess.empty() || i_action.empty() || i_vpdFilePath.empty() ||
         !i_parsedConfigJson.contains("frus"))
     {
@@ -604,6 +612,7 @@ inline std::string getRedundantEepromPathFromJson(
     const nlohmann::json& i_sysCfgJsonObj, const std::string& i_vpdPath,
     uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_vpdPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -661,6 +670,7 @@ inline std::string getFruPathFromJson(const nlohmann::json& i_sysCfgJsonObj,
                                       const std::string& i_vpdPath,
                                       uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_vpdPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -715,6 +725,7 @@ inline std::string getFruPathFromJson(const nlohmann::json& i_sysCfgJsonObj,
 inline bool isBackupAndRestoreRequired(const nlohmann::json& i_sysCfgJsonObj,
                                        uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_sysCfgJsonObj.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -753,6 +764,7 @@ inline bool isActionRequired(const nlohmann::json& i_sysCfgJsonObj,
                              const std::string& i_action,
                              const std::string& i_flowFlag, uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_vpdFruPath.empty() || i_action.empty() || i_flowFlag.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -799,6 +811,7 @@ inline std::vector<std::string> getListOfGpioPollingFrus(
     const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode)
 {
     std::vector<std::string> l_gpioPollingRequiredFrusList;
+    o_errCode = 0;
 
     if (i_sysCfgJsonObj.empty())
     {
@@ -964,6 +977,7 @@ inline std::string getServiceName(const nlohmann::json& i_sysCfgJsonObj,
                                   const std::string& l_inventoryPath,
                                   uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (l_inventoryPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -1017,6 +1031,7 @@ inline bool isFruPowerOffOnly(const nlohmann::json& i_sysCfgJsonObj,
                               const std::string& i_vpdFruPath,
                               uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_vpdFruPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -1053,6 +1068,7 @@ inline bool isFruReplaceableAtRuntime(const nlohmann::json& i_sysCfgJsonObj,
                                       const std::string& i_vpdFruPath,
                                       uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_vpdFruPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -1092,6 +1108,7 @@ inline bool isFruReplaceableAtStandby(const nlohmann::json& i_sysCfgJsonObj,
                                       const std::string& i_vpdFruPath,
                                       uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_vpdFruPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -1134,6 +1151,7 @@ inline std::vector<std::string> getListOfFrusReplaceableAtStandby(
     const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode)
 {
     std::vector<std::string> l_frusReplaceableAtStandby;
+    o_errCode = 0;
 
     if (!i_sysCfgJsonObj.contains("frus"))
     {
@@ -1177,13 +1195,13 @@ inline std::vector<std::string> getListOfFrusReplaceableAtStandby(
 inline nlohmann::json getPowerVsJson(const types::BinaryVector& i_imValue,
                                      uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_imValue.empty() || i_imValue.size() < 4)
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return nlohmann::json{};
     }
 
-    o_errCode = 0;
     if ((i_imValue.at(0) == constants::HEX_VALUE_50) &&
         (i_imValue.at(1) == constants::HEX_VALUE_00) &&
         (i_imValue.at(2) == constants::HEX_VALUE_30))
@@ -1234,6 +1252,7 @@ inline std::vector<types::Path> getFrusWithPresenceMonitoring(
     const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode)
 {
     std::vector<types::Path> l_frusWithPresenceMonitoring;
+    o_errCode = 0;
 
     if (!i_sysCfgJsonObj.contains("frus"))
     {
@@ -1272,6 +1291,7 @@ inline bool isFruPresenceHandled(const nlohmann::json& i_sysCfgJsonObj,
                                  const std::string& i_vpdFruPath,
                                  uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_vpdFruPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
