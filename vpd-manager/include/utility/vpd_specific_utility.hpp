@@ -37,6 +37,7 @@ namespace vpdSpecificUtility
 inline std::string generateBadVPDFileName(const std::string& i_vpdFilePath,
                                           uint16_t& o_errCode) noexcept
 {
+    o_errCode = 0;
     std::string l_badVpdFileName{constants::badVpdDir};
 
     if (i_vpdFilePath.empty())
@@ -92,6 +93,7 @@ inline int dumpBadVpd(const std::string& i_vpdFilePath,
                       const types::BinaryVector& i_vpdVector,
                       uint16_t& o_errCode) noexcept
 {
+    o_errCode = 0;
     if (i_vpdFilePath.empty() || i_vpdVector.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -161,6 +163,7 @@ inline std::string getKwVal(const types::IPZKwdValueMap& i_kwdValueMap,
                             const std::string& i_kwd,
                             uint16_t& o_errCode) noexcept
 {
+    o_errCode = 0;
     std::string l_kwdValue;
     if (i_kwd.empty() || i_kwdValueMap.empty())
     {
@@ -194,6 +197,7 @@ inline std::string encodeKeyword(const std::string& i_keyword,
                                  const std::string& i_encoding,
                                  uint16_t& o_errCode) noexcept
 {
+    o_errCode = 0;
     if (i_keyword.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -308,6 +312,7 @@ inline int insertOrMerge(types::InterfaceMap& io_map,
                          types::PropertyMap&& i_propertyMap,
                          uint16_t& o_errCode) noexcept
 {
+    o_errCode = 0;
     int l_rc{constants::FAILURE};
 
     try
@@ -350,6 +355,7 @@ inline std::string getExpandedLocationCode(
     const std::string& unexpandedLocationCode,
     const types::VPDMapVariant& parsedVpdMap, uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (unexpandedLocationCode.empty() ||
         std::holds_alternative<std::monostate>(parsedVpdMap))
     {
@@ -497,6 +503,7 @@ inline void getVpdDataInVector(const std::string& vpdFilePath,
                                types::BinaryVector& vpdVector,
                                size_t& vpdStartOffset, uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (vpdFilePath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -538,6 +545,7 @@ inline void getVpdDataInVector(const std::string& vpdFilePath,
 inline std::string getDbusPropNameForGivenKw(const std::string& i_keywordName,
                                              uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_keywordName.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -575,6 +583,7 @@ inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
                           const types::VPDMapVariant& i_parsedVpdMap,
                           uint16_t& o_errCode) noexcept
 {
+    o_errCode = 0;
     bool l_rc{false};
     try
     {
@@ -648,6 +657,7 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
                               types::InterfaceMap& io_interfaceMap,
                               uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_objectPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -754,6 +764,7 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
  */
 inline bool isPass1Planar(uint16_t& o_errCode) noexcept
 {
+    o_errCode = 0;
     bool l_rc{false};
     auto l_retVal = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
@@ -810,6 +821,7 @@ inline bool isPass1Planar(uint16_t& o_errCode) noexcept
 inline bool isPowerVsConfiguration(const types::BinaryVector& i_imValue,
                                    uint16_t& o_errCode)
 {
+    o_errCode = 0;
     if (i_imValue.empty() || i_imValue.size() != constants::VALUE_4)
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -856,6 +868,7 @@ inline bool isPowerVsConfiguration(const types::BinaryVector& i_imValue,
 inline std::string getCcinFromDbus(const std::string& i_invObjPath,
                                    uint16_t& o_errCode)
 {
+    o_errCode = 0;
     try
     {
         if (i_invObjPath.empty())
@@ -927,6 +940,7 @@ inline void updateKwdOnInheritedFrus(
     const types::WriteVpdParams& i_paramsToWriteData,
     const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode) noexcept
 {
+    o_errCode = 0;
     try
     {
         if (i_fruPath.empty() || i_sysCfgJsonObj.empty())
@@ -1022,6 +1036,7 @@ inline types::InterfaceMap getCommonInterfaceProperties(
     const nlohmann::json& i_commonInterfaceJson, uint16_t& o_errCode) noexcept
 {
     types::InterfaceMap l_interfaceMap;
+    o_errCode = 0;
     try
     {
         if (i_commonInterfaceJson.empty())
@@ -1115,6 +1130,7 @@ inline void updateCiPropertyOfInheritedFrus(
     const types::WriteVpdParams& i_paramsToWriteData,
     const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode) noexcept
 {
+    o_errCode = 0;
     try
     {
         if (i_fruPath.empty() || i_sysCfgJsonObj.empty())
@@ -1215,6 +1231,7 @@ inline const std::string convertWriteVpdParamsToString(
     const types::WriteVpdParams& i_paramsToWriteData,
     uint16_t& o_errCode) noexcept
 {
+    o_errCode = 0;
     try
     {
         if (const types::IpzData* l_ipzDataPtr =
