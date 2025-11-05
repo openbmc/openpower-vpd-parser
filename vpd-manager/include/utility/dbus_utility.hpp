@@ -811,8 +811,7 @@ inline std::string getServiceNameFromConnectionId(
         l_method.append(i_connectionId);
         auto l_result = l_bus.call(l_method);
 
-        unsigned l_pid;
-        l_result.read(l_pid);
+        auto l_pid = l_result.unpack<unsigned>();
 
         // use PID to get corresponding unit object path
         l_method = l_bus.new_method_call(
@@ -821,8 +820,8 @@ inline std::string getServiceNameFromConnectionId(
         l_method.append(l_pid);
         l_result = l_bus.call(l_method);
 
-        sdbusplus::message::object_path l_unitObjectPath;
-        l_result.read(l_unitObjectPath);
+        auto l_unitObjectPath =
+            l_result.unpack<sdbusplus::message::object_path>();
 
         // use unit object path to get service name
         l_method = l_bus.new_method_call(
@@ -830,8 +829,7 @@ inline std::string getServiceNameFromConnectionId(
             "org.freedesktop.DBus.Properties", "Get");
         l_method.append("org.freedesktop.systemd1.Unit", "Id");
         l_result = l_bus.call(l_method);
-        types::DbusVariantType l_serviceNameVar;
-        l_result.read(l_serviceNameVar);
+        auto l_serviceNameVar = l_result.unpack<types::DbusVariantType>();
 
         if (auto l_serviceNameStr = std::get_if<std::string>(&l_serviceNameVar))
         {
