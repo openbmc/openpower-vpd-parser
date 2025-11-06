@@ -118,6 +118,23 @@
       "message": "as /motherboard(/chassis, /tod_battery) EEPROM wont be having system VPD details from VSYS and also common interfaces from system config JSON doesn\u0027t have \"SubModel\" we don\u0027t need this entry for these paths.",
       "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b4071ce_12ae00f7",
+        "filename": "configuration/ibm/correlated_properties_76002000.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-06T13:49:18Z",
+      "side": 1,
+      "message": "Lets say even if motherboard EEPROM contains VSYS record for some reason, then destinationInventoryPath should be [\"/motherboard\", \"/tod_battery\"] and interface\u0026property should be \"com.ibm.ipzvpd.VSYS\":\"BR\" to sync all correlated paths.\n\nsame for below paths as well (only in case motherboard eeprom holds \"VSYS\" record for RBMC type system).",
+      "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
