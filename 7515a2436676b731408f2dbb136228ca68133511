@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "233beb37_1b486f55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-06T09:58:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "64326815_fcfcb885",
+      "revId": "7515a2436676b731408f2dbb136228ca68133511",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7447f91_59578504",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-11-06T06:26:26Z",
       "side": 1,
       "message": "Why do we need this API?",
+      "revId": "7515a2436676b731408f2dbb136228ca68133511",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d766fa6c_6651f7de",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-06T09:58:31Z",
+      "side": 1,
+      "message": "I will remove this.\nand will use existing file stream \u0026 code to open the file, then\nExising code has file-path \u003d /var/lib/vpd  \nand I have defined this path in meson.option. Which one you want to keep?\n\n     // collection log file directory\n        const std::filesystem::path l_collectionLogDirectory{\"/var/lib/vpd\"};\n\n        l_collectionLogFilePath /\u003d \"collection\";",
+      "parentUuid": "a7447f91_59578504",
       "revId": "7515a2436676b731408f2dbb136228ca68133511",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f77c59a9_79ddc595",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-06T09:58:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "556439ad_4838e8aa",
+      "revId": "7515a2436676b731408f2dbb136228ca68133511",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0367ac7f_443082e8",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eae7c556_f00bdee7",
+        "filename": "vpd-manager/meson.build",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-06T09:58:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0367ac7f_443082e8",
+      "revId": "7515a2436676b731408f2dbb136228ca68133511",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83793bbd_42f988d2",
@@ -82,6 +154,24 @@
       "writtenOn": "2025-11-06T06:26:26Z",
       "side": 1,
       "message": "This won\u0027t be required.",
+      "revId": "7515a2436676b731408f2dbb136228ca68133511",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cd0f02a_a60d4a93",
+        "filename": "vpd-manager/src/manager_main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-06T09:58:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "83793bbd_42f988d2",
       "revId": "7515a2436676b731408f2dbb136228ca68133511",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
