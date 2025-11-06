@@ -16,6 +16,24 @@
       "message": "as system config doesn\u0027t contain the correlated path implies that there is no listener property required for that system \u0026 its not mandatory to have it. Should we skip this log ?",
       "revId": "8026f9d28b6c369434c55d351379609cf6ae01e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58b61a3a_6ef1e9b9",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-06T06:17:52Z",
+      "side": 1,
+      "message": "If we inadvertently hit this scenario, this log is the only thing which lets us know that correlation listener is not running. This is just a single log which may hit during vpd-manager service start. We have similar log for backup and restore feature as well.",
+      "parentUuid": "bec99faf_3df22cce",
+      "revId": "8026f9d28b6c369434c55d351379609cf6ae01e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
