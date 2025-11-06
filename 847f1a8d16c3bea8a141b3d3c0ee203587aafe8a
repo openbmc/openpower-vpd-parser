@@ -101,6 +101,23 @@
       "message": "tod_battery Model comes from VINI.",
       "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09aadba7_47dbc323",
+        "filename": "configuration/ibm/correlated_properties_76002000.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-06T13:07:10Z",
+      "side": 1,
+      "message": "as /motherboard(/chassis, /tod_battery) EEPROM wont be having system VPD details from VSYS and also common interfaces from system config JSON doesn\u0027t have \"SubModel\" we don\u0027t need this entry for these paths.",
+      "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
