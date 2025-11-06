@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64326815_fcfcb885",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-06T06:26:26Z",
+      "side": 1,
+      "message": "Please wrap the line close to 72 characters.",
+      "revId": "7515a2436676b731408f2dbb136228ca68133511",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7447f91_59578504",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-06T06:26:26Z",
+      "side": 1,
+      "message": "Why do we need this API?",
+      "revId": "7515a2436676b731408f2dbb136228ca68133511",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "556439ad_4838e8aa",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-06T06:26:26Z",
+      "side": 1,
+      "message": "This variable should not be required.",
+      "revId": "7515a2436676b731408f2dbb136228ca68133511",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0367ac7f_443082e8",
+        "filename": "vpd-manager/meson.build",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-06T06:26:26Z",
+      "side": 1,
+      "message": "Let it be true by default.",
+      "revId": "7515a2436676b731408f2dbb136228ca68133511",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83793bbd_42f988d2",
+        "filename": "vpd-manager/src/manager_main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-06T06:26:26Z",
+      "side": 1,
+      "message": "This won\u0027t be required.",
+      "revId": "7515a2436676b731408f2dbb136228ca68133511",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
