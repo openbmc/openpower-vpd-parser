@@ -583,5 +583,8 @@ class Worker
     // VPD collection mode
     types::VpdCollectionMode m_vpdCollectionMode{
         types::VpdCollectionMode::DEFAULT_MODE};
+
+    // Shared pointer to logger class instance.
+    std::shared_ptr<Logger> m_loggerInstance;
 };
 } // namespace vpd

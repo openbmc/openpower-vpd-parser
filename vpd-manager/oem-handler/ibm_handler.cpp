@@ -22,7 +22,7 @@ IbmHandler::IbmHandler(
     m_worker(o_worker), m_backupAndRestoreObj(o_backupAndRestoreObj),
     m_interface(i_iFace), m_progressInterface(i_progressiFace),
     m_ioContext(i_ioCon), m_asioConnection(i_asioConnection),
-    m_logger(Logger::getLoggerInstance())
+    m_loggerInstance(Logger::getLoggerInstance())
 {
     uint16_t l_errCode{0};
 
@@ -42,6 +42,7 @@ IbmHandler::IbmHandler(
 
     if (dbusUtility::isChassisPowerOn())
     {
+        m_loggerInstance->logMessage("Instantiating worker at chassis on");
         // At power on, less number of FRU(s) needs collection. we can scale
         // down the threads to reduce CPU utilization.
         m_worker = std::make_shared<Worker>(
@@ -49,6 +50,7 @@ IbmHandler::IbmHandler(
     }
     else
     {
+        m_loggerInstance->logMessage("Instantiating worker.");
         // Initialize with default configuration
         m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT,
                                             constants::MAX_THREADS,
@@ -68,8 +70,9 @@ IbmHandler::IbmHandler(
         }
         catch (const std::exception& l_ex)
         {
-            logging::logMessage("Back up and restore instantiation failed. {" +
-                                std::string(l_ex.what()) + "}");
+            m_loggerInstance->logMessage(
+                "Back up and restore instantiation failed. {" +
+                std::string(l_ex.what()) + "}");
 
             EventLogger::createSyncPel(
                 EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
@@ -79,7 +82,7 @@ IbmHandler::IbmHandler(
     }
     else if (l_errCode)
     {
-        logging::logMessage(
+        m_loggerInstance->logMessage(
             "Failed to check if backup & restore required. Error : " +
             commonUtility::getErrCodeMsg(l_errCode));
     }
@@ -478,6 +481,8 @@ void IbmHandler::performInitialSetup()
     }
     catch (const std::exception& l_ex)
     {
+        m_loggerInstance->logMessage("Initial setup failed. Check PEL");
+
         m_worker->setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
                                               constants::vpdCollectionFailed);
         // Any issue in system's inital set up is handled in this catch. Error

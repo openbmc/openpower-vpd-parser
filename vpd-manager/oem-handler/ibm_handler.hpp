@@ -167,6 +167,6 @@ class IbmHandler
     std::shared_ptr<Listener> m_eventListener;
 
     // Shared pointer to Logger object.
-    std::shared_ptr<Logger> m_logger;
+    std::shared_ptr<Logger> m_loggerInstance;
 };
 } // namespace vpd

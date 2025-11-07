@@ -26,7 +26,9 @@ Manager::Manager(
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressiFace,
     const std::shared_ptr<sdbusplus::asio::connection>& asioConnection) :
     m_ioContext(ioCon), m_interface(iFace), m_progressInterface(progressiFace),
-    m_asioConnection(asioConnection)
+    m_asioConnection(asioConnection),
+    m_loggerInstance(Logger::getLoggerInstance())
+
 {
 #ifdef IBM_SYSTEM
     if (!dbusUtility::isChassisPowerOn())
@@ -142,9 +144,11 @@ Manager::Manager(
 
         // If required, instantiate OEM specific handler here.
 #ifdef IBM_SYSTEM
+        m_loggerInstance->logMessage("Instantiating IBM handler");
         m_ibmHandler = std::make_shared<IbmHandler>(
             m_worker, m_backupAndRestoreObj, m_interface, m_progressInterface,
             m_ioContext, m_asioConnection);
+        m_loggerInstance->logMessage("IBM handler instantiated successfully.");
 #else
         m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT);
         m_progressInterface->set_property(

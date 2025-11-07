@@ -273,6 +273,9 @@ class Manager
 
     // Shared pointer to oem specific class.
     std::shared_ptr<IbmHandler> m_ibmHandler;
+
+    // Shared pointer to logger class instance.
+    std::shared_ptr<Logger> m_loggerInstance;
 };
 
 } // namespace vpd

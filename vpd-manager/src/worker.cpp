@@ -29,7 +29,8 @@ namespace vpd
 Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
                types::VpdCollectionMode i_vpdCollectionMode) :
     m_configJsonPath(pathToConfigJson), m_semaphore(i_maxThreadCount),
-    m_vpdCollectionMode(i_vpdCollectionMode)
+    m_vpdCollectionMode(i_vpdCollectionMode),
+    m_loggerInstance(Logger::getLoggerInstance())
 {
     // Implies the processing is based on some config JSON
     if (!m_configJsonPath.empty())
@@ -354,6 +355,8 @@ void Worker::setJsonSymbolicLink(const std::string& i_systemJson)
             "create_symlink system call failed with error: " + l_ec.message());
     }
 
+    m_loggerInstance->logMessage("Symlink created for JSON: " + i_systemJson);
+
     // If the flow is at this point implies the symlink was not present there.
     // Considering this as factory reset.
     m_isFactoryResetDone = true;
@@ -380,6 +383,7 @@ void Worker::setDeviceTreeAndJson()
     // This is required to support movement from rainier to Blue Ridge on the
     // fly.
 
+    m_loggerInstance->logMessage("JSON selected: " + systemJson);
     getSystemJson(systemJson, parsedVpdMap);
 
     if (!systemJson.compare(JSON_ABSOLUTE_PATH_PREFIX))
@@ -432,6 +436,7 @@ void Worker::setDeviceTreeAndJson()
             if (jsonUtility::isBackupAndRestoreRequired(m_parsedJson,
                                                         l_errCode))
             {
+                m_loggerInstance->logMessage("Performing back up and restore");
                 performBackupAndRestore(parsedVpdMap);
             }
             else if (l_errCode)
