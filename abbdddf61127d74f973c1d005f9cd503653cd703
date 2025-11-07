@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dedd8045_0fd6c5ee",
+        "filename": "vpd-manager/meson.build",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-07T13:16:55Z",
+      "side": 1,
+      "message": "This option will be eventually set from recipe file.",
+      "revId": "abbdddf61127d74f973c1d005f9cd503653cd703",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
