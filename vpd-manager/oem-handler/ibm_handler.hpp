@@ -65,6 +65,40 @@ class IbmHandler
 
   private:
     /**
+     * @brief API to select system specific JSON.
+     *
+     * The API based on the IM value of VPD, will select appropriate JSON for
+     * the system. In case no system is found corresponding to the extracted IM
+     * value, error will be logged.
+     *
+     * @param[in,out] io_systemJson - System JSON name.
+     * @param[in] i_parsedVpdMap - Parsed VPD map.
+     */
+    void getSystemJson(std::string& io_systemJson,
+                       const types::VPDMapVariant& i_parsedVpdMap);
+
+    /**
+     * @brief An API to parse and publish system VPD on D-Bus.
+     *
+     * Note: Throws exception in case of invalid VPD format.
+     *
+     * @param[in] i_parsedVpdMap - Parsed VPD as a map.
+     */
+    void publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap);
+
+    /**
+     * @brief API to form asset tag string for the system.
+     *
+     * @param[in] i_parsedVpdMap - Parsed VPD map.
+     *
+     * @throw std::runtime_error
+     *
+     * @return - Formed asset tag string.
+     */
+    std::string createAssetTagString(
+        const types::VPDMapVariant& i_parsedVpdMap);
+
+    /**
      * @brief Set timer to detect and set VPD collection status for the system.
      *
      * Collection of FRU VPD is triggered in a separate thread. Resulting in

@@ -58,7 +58,9 @@ IbmHandler::IbmHandler(
     // Set up minimal things that is needed before bus name is claimed.
     performInitialSetup();
 
-    if (!m_sysCfgJsonObj.empty() &&
+    // If the object is created, implies back up and restore took place in
+    // system VPD flow.
+    if (m_backupAndRestoreObj != nullptr && !m_sysCfgJsonObj.empty() &&
         jsonUtility::isBackupAndRestoreRequired(m_sysCfgJsonObj, l_errCode))
     {
         try
@@ -418,6 +420,412 @@ void IbmHandler::enableMuxChips()
     }
 }
 
+void IbmHandler::getSystemJson(std::string& io_systemJson,
+                               const types::VPDMapVariant& i_parsedVpdMap)
+{
+    if (auto l_pVal = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap))
+    {
+        std::string l_hwKWdValue = vpdSpecificUtility::getHWVersion(*l_pVal);
+        if (l_hwKWdValue.empty())
+        {
+            throw DataException("HW value fetched is empty.");
+        }
+
+        const std::string& l_imKwdValue = vpdSpecificUtility::getIMValue(*pVal);
+        if (l_imKwdValue.empty())
+        {
+            throw DataException("IM value fetched is empty.");
+        }
+
+        auto l_itrToIM = config::systemType.find(l_imKwdValue);
+        if (l_itrToIM == config::systemType.end())
+        {
+            throw DataException("IM keyword does not map to any system type");
+        }
+
+        const types::HWVerList l_hwVersionList = l_itrToIM->second.second;
+        if (!l_hwVersionList.empty())
+        {
+            transform(hwKWdValue.begin(), hwKWdValue.end(), hwKWdValue.begin(),
+                      ::toupper);
+
+            auto l_itrToHW =
+                std::find_if(l_hwVersionList.begin(), l_hwVersionList.end(),
+                             [&hwKWdValue](const auto& aPair) {
+                                 return aPair.first == hwKWdValue;
+                             });
+
+            if (l_itrToHW != l_hwVersionList.end())
+            {
+                if (!(*l_itrToHW).second.empty())
+                {
+                    io_systemJson += (*l_itrToIM).first + "_" +
+                                     (*l_itrToHW).second + ".json";
+                }
+                else
+                {
+                    io_systemJson += (*l_itrToIM).first + ".json";
+                }
+                return;
+            }
+        }
+        io_systemJson += itrToIM->second.first + ".json";
+        return;
+    }
+
+    throw DataException(
+        "Invalid VPD type returned from Parser. Can't get system JSON.");
+}
+
+static std::string readFitConfigValue()
+{
+    std::vector<std::string> output =
+        commonUtility::executeCmd("/sbin/fw_printenv");
+    std::string fitConfigValue;
+
+    for (const auto& entry : output)
+    {
+        auto pos = entry.find("=");
+        auto key = entry.substr(0, pos);
+        if (key != "fitconfig")
+        {
+            continue;
+        }
+
+        if (pos + 1 < entry.size())
+        {
+            fitConfigValue = entry.substr(pos + 1);
+        }
+    }
+
+    return fitConfigValue;
+}
+
+static void setEnvAndReboot(const std::string& key, const std::string& value)
+{
+    // set env and reboot and break.
+    commonUtility::executeCmd("/sbin/fw_setenv", key, value);
+    logging::logMessage("Rebooting BMC to pick up new device tree");
+
+    // make dbus call to reboot
+    auto bus = sdbusplus::bus::new_default_system();
+    auto method = bus.new_method_call(
+        "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+        "org.freedesktop.systemd1.Manager", "Reboot");
+    bus.call_noreply(method);
+}
+
+void IbmHandler::setDeviceTreeAndJson()
+{
+    m_worker->setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
+                                          constants::vpdCollectionInProgress);
+
+    // JSON is madatory for processing of this API.
+    if (m_sysCfgJsonObj.empty())
+    {
+        throw JsonException("System config JSON is empty", m_sysCfgJsonObj);
+    }
+
+    // parse system VPD
+    auto parsedVpdMap = m_worker->parseVpdFile(SYSTEM_VPD_FILE_PATH);
+
+    // Implies it is default JSON.
+    std::string systemJson{JSON_ABSOLUTE_PATH_PREFIX};
+
+    // get system JSON as per the system configuration.
+    getSystemJson(systemJson, parsedVpdMap);
+
+    if (!systemJson.compare(JSON_ABSOLUTE_PATH_PREFIX))
+    {
+        throw DataException(
+            "No system JSON found corresponding to IM read from VPD.");
+    }
+
+    uint16_t l_errCode = 0;
+    // re-parse the JSON once appropriate JSON has been selected.
+    m_sysCfgJsonObj = jsonUtility::getParsedJson(systemJson, l_errCode);
+
+    if (l_errCode)
+    {
+        throw(JsonException(
+            "JSON parsing failed for file [ " + systemJson +
+                " ], error : " + commonUtility::getErrCodeMsg(l_errCode),
+            systemJson));
+    }
+
+    std::string devTreeFromJson;
+    if (m_sysCfgJsonObj.contains("devTree"))
+    {
+        devTreeFromJson = m_sysCfgJsonObj["devTree"];
+
+        if (devTreeFromJson.empty())
+        {
+            EventLogger::createSyncPel(
+                types::ErrorType::JsonFailure, types::SeverityType::Error,
+                __FILE__, __FUNCTION__, 0,
+                "Mandatory value for device tree missing from JSON[" +
+                    systemJson + "]",
+                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+        }
+    }
+
+    auto fitConfigVal = readFitConfigValue();
+
+    if (devTreeFromJson.empty() ||
+        fitConfigVal.find(devTreeFromJson) != std::string::npos)
+    { // Skipping setting device tree as either devtree info is missing from
+        // Json or it is rightly set.
+
+        m_worker->setJsonSymbolicLink();
+
+        const std::string& l_systemVpdInvPath =
+            jsonUtility::getInventoryObjPathFromJson(
+                m_sysCfgJsonObj, SYSTEM_VPD_FILE_PATH, l_errCode);
+
+        if (l_systemVpdInvPath.empty())
+        {
+            throw JsonException("System vpd file path missing in JSON",
+                                INVENTORY_JSON_SYM_LINK);
+        }
+
+        // TODO: for backward compatibility this should also support motherboard
+        // interface.
+        const types::MapperGetObject& l_sysVpdObjMap =
+            dbusUtility::getObjectMap(l_systemVpdInvPath,
+                                      constants::systemInterface);
+
+        if (!l_sysVpdObjMap.empty())
+        {
+            if (isBackupOnCache() && jsonUtility::isBackupAndRestoreRequired(
+                                         m_sysCfgJsonObj, l_errCode))
+            {
+                m_backupAndRestoreObj =
+                    std::make_shared<BackupAndRestore>(m_sysCfgJsonObj);
+                auto [l_srcVpdVariant, l_dstVpdVariant] =
+                    m_backupAndRestoreObj.backupAndRestore();
+
+                // ToDo: Revisit is this check is required or not.
+                if (auto l_srcVpdMap =
+                        std::get_if<types::IPZVpdMap>(&l_srcVpdVariant);
+                    l_srcVpdMap && !(*l_srcVpdMap).empty())
+                {
+                    parsedVpdMap = std::move(l_srcVpdVariant);
+                }
+            }
+            else if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to check if backup and restore required. Reason : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+        }
+
+        // proceed to publish system VPD.
+        publishSystemVPD(parsedVpdMap);
+        m_worker->setCollectionStatusProperty(
+            SYSTEM_VPD_FILE_PATH, constants::vpdCollectionCompleted);
+        return;
+    }
+
+    setEnvAndReboot("fitconfig", devTreeFromJson);
+    exit(EXIT_SUCCESS);
+}
+
+bool IbmHandler::isBackupOnCache()
+{
+    try
+    {
+        uint16_t l_errCode = 0;
+        std::string l_backupAndRestoreCfgFilePath =
+            m_parsedJson.value("backupRestoreConfigPath", "");
+
+        nlohmann::json l_backupAndRestoreCfgJsonObj =
+            jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath,
+                                       l_errCode);
+
+        if (l_errCode)
+        {
+            throw JsonException(
+                "JSON parsing failed for file [ " +
+                    l_backupAndRestoreCfgFilePath +
+                    " ], error : " + commonUtility::getErrCodeMsg(l_errCode),
+                l_backupAndRestoreCfgFilePath);
+        }
+
+        // check if either of "source" or "destination" has inventory path.
+        // this indicates that this sytem has System VPD on hardware
+        // and other copy on D-Bus (BMC cache).
+        if (!l_backupAndRestoreCfgJsonObj.empty() &&
+            ((l_backupAndRestoreCfgJsonObj.contains("source") &&
+              l_backupAndRestoreCfgJsonObj["source"].contains(
+                  "inventoryPath")) ||
+             (l_backupAndRestoreCfgJsonObj.contains("destination") &&
+              l_backupAndRestoreCfgJsonObj["destination"].contains(
+                  "inventoryPath"))))
+        {
+            return true;
+        }
+    }
+    catch (const std::exception& e)
+    {
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
+            __FILE__, __FUNCTION__, 0,
+            std::string(
+                "Exception caught while backup and restore VPD keyword's.") +
+                EventLogger::getErrorMsg(l_ex),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+    }
+
+    // In case of any failure/ambiguity. Don't perform back up and restore.
+    return false;
+}
+
+void IbmHandler::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
+{
+    try
+    {
+        // check if either of "source" or "destination" has inventory path.
+        // this indicates that this sytem has System VPD on hardware
+        // and other copy on D-Bus (BMC cache).
+        if (!l_backupAndRestoreCfgJsonObj.empty() &&
+            ((l_backupAndRestoreCfgJsonObj.contains("source") &&
+              l_backupAndRestoreCfgJsonObj["source"].contains(
+                  "inventoryPath")) ||
+             (l_backupAndRestoreCfgJsonObj.contains("destination") &&
+              l_backupAndRestoreCfgJsonObj["destination"].contains(
+                  "inventoryPath"))))
+        {
+            BackupAndRestore l_backupAndRestoreObj(m_parsedJson);
+            auto [l_srcVpdVariant,
+                  l_dstVpdVariant] = l_backupAndRestoreObj.backupAndRestore();
+
+            // ToDo: Revisit is this check is required or not.
+            if (auto l_srcVpdMap =
+                    std::get_if<types::IPZVpdMap>(&l_srcVpdVariant);
+                l_srcVpdMap && !(*l_srcVpdMap).empty())
+            {
+                io_srcVpdMap = std::move(l_srcVpdVariant);
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        EventLogger::createSyncPel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
+            __FILE__, __FUNCTION__, 0,
+            std::string(
+                "Exception caught while backup and restore VPD keyword's.") +
+                EventLogger::getErrorMsg(l_ex),
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+    }
+}
+
+std::string Worker::createAssetTagString(
+    const types::VPDMapVariant& i_parsedVpdMap)
+{
+    std::string l_assetTag;
+
+    // system VPD will be in IPZ format.
+    if (auto l_parsedVpdMap = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap))
+    {
+        auto l_itrToVsys = (*l_parsedVpdMap).find(constants::recVSYS);
+        if (l_itrToVsys != (*l_parsedVpdMap).end())
+        {
+            uint16_t l_errCode = 0;
+            const std::string l_tmKwdValue{vpdSpecificUtility::getKwVal(
+                l_itrToVsys->second, constants::kwdTM, l_errCode)};
+
+            if (l_tmKwdValue.empty())
+            {
+                throw std::runtime_error(
+                    std::string("Failed to get value for keyword [") +
+                    constants::kwdTM +
+                    std::string("] while creating Asset tag. Error : " +
+                                commonUtility::getErrCodeMsg(l_errCode)));
+            }
+
+            const std::string l_seKwdValue{vpdSpecificUtility::getKwVal(
+                l_itrToVsys->second, constants::kwdSE, l_errCode)};
+
+            if (l_seKwdValue.empty())
+            {
+                throw std::runtime_error(
+                    std::string("Failed to get value for keyword [") +
+                    constants::kwdSE +
+                    std::string("] while creating Asset tag. Error : " +
+                                commonUtility::getErrCodeMsg(l_errCode)));
+            }
+
+            l_assetTag = std::string{"Server-"} + l_tmKwdValue +
+                         std::string{"-"} + l_seKwdValue;
+        }
+        else
+        {
+            throw std::runtime_error(
+                "VSYS record not found in parsed VPD map to create Asset tag.");
+        }
+    }
+    else
+    {
+        throw std::runtime_error(
+            "Invalid VPD type recieved to create Asset tag.");
+    }
+
+    return l_assetTag;
+}
+
+void Worker::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
+{
+    types::ObjectMap l_objectInterfaceMap;
+
+    if (std::get_if<types::IPZVpdMap>(&parsedVpdMap))
+    {
+        m_worker->populateDbus(i_parsedVpdMap, l_objectInterfaceMap,
+                               SYSTEM_VPD_FILE_PATH);
+
+        try
+        {
+            if (m_isFactoryResetDone)
+            {
+                const auto& l_assetTag = createAssetTagString(parsedVpdMap);
+
+                auto l_itrToSystemPath = objectInterfaceMap.find(
+                    sdbusplus::message::object_path(constants::systemInvPath));
+                if (l_itrToSystemPath == objectInterfaceMap.end())
+                {
+                    throw std::runtime_error(
+                        "Asset tag update failed. System Path not found in object map.");
+                }
+
+                types::PropertyMap l_assetTagProperty;
+                l_assetTagProperty.emplace("AssetTag", l_assetTag);
+
+                (l_itrToSystemPath->second)
+                    .emplace(constants::assetTagInf,
+                             std::move(l_assetTagProperty));
+            }
+        }
+        catch (const std::exception& l_ex)
+        {
+            EventLogger::createSyncPel(
+                EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
+                __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
+                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+        }
+
+        // Notify PIM
+        if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+        {
+            throw std::runtime_error("Call to PIM failed for system VPD");
+        }
+    }
+    else
+    {
+        throw DataException("Invalid format of parsed VPD map.");
+    }
+}
+
 void IbmHandler::performInitialSetup()
 {
     try
@@ -431,7 +839,8 @@ void IbmHandler::performInitialSetup()
         m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
         if (!dbusUtility::isChassisPowerOn())
         {
-            m_worker->setDeviceTreeAndJson();
+            // m_worker->setDeviceTreeAndJson();
+            setDeviceTreeAndJson();
 
             // Since the above function setDeviceTreeAndJson can change the json
             // which is used, we would need to reacquire the json object again

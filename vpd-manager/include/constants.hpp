@@ -224,6 +224,9 @@ static constexpr auto systemdManagerInterface =
 static constexpr auto vpdCollectionInterface =
     "xyz.openbmc_project.Common.Progress";
 
+static constexpr auto systemInterface =
+    "xyz.openbmc_project.Inventory.Item.System";
+
 // enumerated values of collection Status D-bus property defined under
 // xyz.openbmc_project.Common.Progress interface.
 static constexpr auto vpdCollectionCompleted =
