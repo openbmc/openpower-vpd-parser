@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c78f249e_95d3e35a",
+        "filename": "configuration/ibm/correlated_properties_76002000.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-10T08:58:34Z",
+      "side": 1,
+      "message": "Agree. PST system, Motherboard EEPROM should not contain VSYS record.",
+      "parentUuid": "0b183b05_c9820a06",
+      "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50b5a0da_340383a3",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-11-06T12:48:31Z",
       "side": 1,
       "message": "chassis serial number comes from VINI.",
+      "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b06a57c7_cda4aed8",
+        "filename": "configuration/ibm/correlated_properties_76002000.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-10T08:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50b5a0da_340383a3",
       "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5a8ec23_3d0769ab",
+        "filename": "configuration/ibm/correlated_properties_76002000.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-10T08:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "136e0d16_cfd26883",
+      "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "853167c5_f613dfd3",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-11-06T12:48:31Z",
       "side": 1,
       "message": "chassis Model comes from VINI record.",
+      "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1281cee7_b78598c4",
+        "filename": "configuration/ibm/correlated_properties_76002000.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-10T08:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "853167c5_f613dfd3",
       "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b434cb4_fcd51c41",
+        "filename": "configuration/ibm/correlated_properties_76002000.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-10T08:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60469a75_e41b22f3",
+      "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71cdfc70_7a9fefd7",
@@ -99,6 +189,24 @@
       "writtenOn": "2025-11-06T12:48:31Z",
       "side": 1,
       "message": "tod_battery Model comes from VINI.",
+      "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ae7860f_9d9c49c4",
+        "filename": "configuration/ibm/correlated_properties_76002000.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-10T08:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71cdfc70_7a9fefd7",
       "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -133,6 +241,42 @@
       "writtenOn": "2025-11-06T13:49:18Z",
       "side": 1,
       "message": "Lets say even if motherboard EEPROM contains VSYS record for some reason, then destinationInventoryPath should be [\"/motherboard\", \"/tod_battery\"] and interface\u0026property should be \"com.ibm.ipzvpd.VSYS\":\"BR\" to sync all correlated paths.\n\nsame for below paths as well (only in case motherboard eeprom holds \"VSYS\" record for RBMC type system).",
+      "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "234c6806_61b34e54",
+        "filename": "configuration/ibm/correlated_properties_76002000.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-10T08:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09aadba7_47dbc323",
+      "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eefd86b_c60b23bb",
+        "filename": "configuration/ibm/correlated_properties_76002000.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-10T08:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b4071ce_12ae00f7",
       "revId": "847f1a8d16c3bea8a141b3d3c0ee203587aafe8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
