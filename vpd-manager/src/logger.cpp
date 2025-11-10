@@ -37,8 +37,13 @@ void Logger::logMessage(std::string_view i_message,
                          l_log.str() + ">"
                   << std::endl;
     }
-    else if ((i_placeHolder == PlaceHolder::VPD_WRITE) && m_vpdWriteLogger)
+    else if (i_placeHolder == PlaceHolder::VPD_WRITE)
     {
+        if (!m_vpdWriteLogger)
+        {
+            m_vpdWriteLogger.reset(
+                new SyncFileLogger("/var/lib/vpd/vpdWrite.log", 128));
+        }
         m_vpdWriteLogger->logMessage(l_log.str());
     }
     else
