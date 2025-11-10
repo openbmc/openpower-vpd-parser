@@ -308,6 +308,7 @@ class Logger
                     const std::source_location& i_location =
                         std::source_location::current());
 
+#ifdef ENABLE_FILE_LOGGING
     /**
      * @brief API to initiate VPD collection logging.
      *
@@ -328,6 +329,7 @@ class Logger
     {
         m_collectionLogger.reset();
     }
+#endif
 
   private:
     /**
