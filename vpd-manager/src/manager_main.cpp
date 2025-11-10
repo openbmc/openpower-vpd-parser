@@ -43,7 +43,8 @@ int main(int, char**)
         interface->initialize();
         progressInf->initialize();
 
-        vpd::logging::logMessage("Start VPD-Manager event loop");
+        vpd::Logger::getLoggerInstance()->logMessage(
+            "Start VPD-Manager event loop");
 
         // Grab the bus name
         connection->request_name(BUSNAME);
@@ -55,7 +56,8 @@ int main(int, char**)
     }
     catch (const std::exception& l_ex)
     {
-        vpd::logging::logMessage("VPD-Manager service failed to start.");
+        vpd::Logger::getLoggerInstance()->logMessage(
+            "VPD-Manager service failed to start.");
         vpd::EventLogger::createSyncPel(
             vpd::EventLogger::getErrorType(l_ex),
             vpd::types::SeverityType::Critical, __FILE__, __FUNCTION__, 0,
