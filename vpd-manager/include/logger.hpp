@@ -308,6 +308,7 @@ class Logger
                     const std::source_location& i_location =
                         std::source_location::current());
 
+#ifdef ENABLE_FILE_LOGGING
     /**
      * @brief API to initiate VPD collection logging.
      *
@@ -328,12 +329,18 @@ class Logger
     {
         m_collectionLogger.reset();
     }
+#endif
 
   private:
     /**
      * @brief Constructor
      */
-    Logger() : m_vpdWriteLogger(nullptr), m_collectionLogger(nullptr) {}
+    Logger() : m_vpdWriteLogger(nullptr)
+    {
+#ifdef ENABLE_FILE_LOGGING
+        m_collectionLogger(nullptr);
+#endif
+    }
 
     // Instance to the logger class.
     static std::shared_ptr<Logger> m_loggerInstance;
@@ -341,8 +348,10 @@ class Logger
     // logger object to handle VPD write logs
     std::unique_ptr<ILogFileHandler> m_vpdWriteLogger;
 
+#ifdef ENABLE_FILE_LOGGING
     // logger object to handle VPD collection logs
     std::unique_ptr<ILogFileHandler> m_collectionLogger;
+#endif
 };
 
 /**
