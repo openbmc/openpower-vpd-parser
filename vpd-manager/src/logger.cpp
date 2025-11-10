@@ -16,11 +16,27 @@ void Logger::logMessage(std::string_view i_message,
     l_log << "FileName: " << i_location.file_name() << ","
           << " Line: " << i_location.line() << " " << i_message;
 
-    if ((i_placeHolder == PlaceHolder::COLLECTION) && m_collectionLogger)
+    if (i_placeHolder == PlaceHolder::COLLECTION)
     {
 #ifdef ENABLE_FILE_LOGGING
-        // Log it to a specific place.
-        m_collectionLogger->logMessage(l_log.str());
+        if (m_collectionLogger.get() == nullptr)
+        {
+            initiateVpdCollectionLogging();
+
+            if (m_collectionLogger.get() != nullptr)
+            {
+                // Log it to a specific place.
+                m_collectionLogger->logMessage(l_log.str());
+            }
+            else
+            {
+                std::cout << l_log.str() << std::endl;
+            }
+        }
+        else
+        {
+            m_collectionLogger->logMessage(l_log.str());
+        }
 #else
         std::cout << l_log.str() << std::endl;
 #endif
@@ -53,6 +69,7 @@ void Logger::logMessage(std::string_view i_message,
     }
 }
 
+#ifdef ENABLE_FILE_LOGGING
 void Logger::initiateVpdCollectionLogging() noexcept
 {
     try
@@ -144,6 +161,7 @@ void Logger::initiateVpdCollectionLogging() noexcept
                    std::string(l_ex.what()));
     }
 }
+#endif
 
 void SyncFileLogger::logMessage(const std::string_view& i_message)
 {
