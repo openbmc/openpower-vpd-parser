@@ -53,6 +53,7 @@ void Logger::logMessage(std::string_view i_message,
     }
 }
 
+#ifdef ENABLE_FILE_LOGGING
 void Logger::initiateVpdCollectionLogging() noexcept
 {
     try
@@ -144,6 +145,7 @@ void Logger::initiateVpdCollectionLogging() noexcept
                    std::string(l_ex.what()));
     }
 }
+#endif
 
 void SyncFileLogger::logMessage(const std::string_view& i_message)
 {
