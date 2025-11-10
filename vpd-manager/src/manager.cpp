@@ -28,7 +28,7 @@ Manager::Manager(
     m_ioContext(ioCon), m_interface(iFace), m_progressInterface(progressiFace),
     m_asioConnection(asioConnection)
 {
-#ifdef IBM_SYSTEM
+#ifdef IBM_SYSTEM_SINGLE_FAB
     if (!dbusUtility::isChassisPowerOn())
     {
         SingleFab l_singleFab;
