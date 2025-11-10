@@ -685,7 +685,8 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
             for (const auto& l_interface : l_interfaceList)
             {
                 if ((l_interface.find(constants::ipzVpdInf) !=
-                     std::string::npos) ||
+                         std::string::npos &&
+                     l_interface != constants::locationCodeInf) ||
                     ((std::find(l_vpdRelatedInterfaces.begin(),
                                 l_vpdRelatedInterfaces.end(), l_interface)) !=
                      l_vpdRelatedInterfaces.end()))
