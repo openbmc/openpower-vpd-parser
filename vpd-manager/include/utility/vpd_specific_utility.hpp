@@ -356,8 +356,7 @@ inline std::string getExpandedLocationCode(
     const types::VPDMapVariant& parsedVpdMap, uint16_t& o_errCode)
 {
     o_errCode = 0;
-    if (unexpandedLocationCode.empty() ||
-        std::holds_alternative<std::monostate>(parsedVpdMap))
+    if (unexpandedLocationCode.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return unexpandedLocationCode;
