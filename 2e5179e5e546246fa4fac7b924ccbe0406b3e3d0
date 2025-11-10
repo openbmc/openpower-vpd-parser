@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d72c6f7a_a358c8cb",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-10T14:48:10Z",
+      "side": 1,
+      "message": "Not exactly related to this patch, but this `if` condition is bit overloaded and can be made more readable.",
+      "revId": "2e5179e5e546246fa4fac7b924ccbe0406b3e3d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa9aa9d8_5411f72f",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 2
@@ -68,6 +85,23 @@
         "endLine": 689,
         "endChar": 62
       },
+      "revId": "2e5179e5e546246fa4fac7b924ccbe0406b3e3d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7841433_f80fe3c9",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-10T14:48:10Z",
+      "side": 1,
+      "message": "The commit message doesn\u0027t explain why this change is being made.",
       "revId": "2e5179e5e546246fa4fac7b924ccbe0406b3e3d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
