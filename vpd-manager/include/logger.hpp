@@ -308,16 +308,7 @@ class Logger
                     const std::source_location& i_location =
                         std::source_location::current());
 
-    /**
-     * @brief API to initiate VPD collection logging.
-     *
-     * This API initiates VPD collection logging. It checks for existing
-     * collection log files and if 3 such files are found, it deletes the oldest
-     * file and initiates a VPD collection logger object, so that every new VPD
-     * collection flow always gets logged into a new file.
-     */
-    void initiateVpdCollectionLogging() noexcept;
-
+#ifdef ENABLE_FILE_LOGGING
     /**
      * @brief API to terminate VPD collection logging.
      *
@@ -328,21 +319,40 @@ class Logger
     {
         m_collectionLogger.reset();
     }
+#endif
 
   private:
     /**
      * @brief Constructor
      */
-    Logger() : m_vpdWriteLogger(nullptr), m_collectionLogger(nullptr) {}
+    Logger() : m_vpdWriteLogger(nullptr)
+    {
+#ifdef ENABLE_FILE_LOGGING
+        m_collectionLogger = nullptr;
+#endif
+    }
+
+#ifdef ENABLE_FILE_LOGGING
+    /**
+     * @brief API to initiate VPD collection logging.
+     *
+     * This API initiates VPD collection logging. It checks for existing
+     * collection log files and if 3 such files are found, it deletes the oldest
+     * file and initiates a VPD collection logger object, so that every new VPD
+     * collection flow always gets logged into a new file.
+     */
+    void initiateVpdCollectionLogging() noexcept;
+
+    // logger object to handle VPD collection logs
+    std::unique_ptr<ILogFileHandler> m_collectionLogger;
+
+#endif
 
     // Instance to the logger class.
     static std::shared_ptr<Logger> m_loggerInstance;
 
     // logger object to handle VPD write logs
     std::unique_ptr<ILogFileHandler> m_vpdWriteLogger;
-
-    // logger object to handle VPD collection logs
-    std::unique_ptr<ILogFileHandler> m_collectionLogger;
 };
 
 /**

@@ -157,9 +157,10 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
                         "Correlated properties JSON path is not defined in system config JSON. Correlated properties listener is disabled.");
                 }
             }
-
+#ifdef ENABLE_FILE_LOGGING
             // terminate collection logger
             m_logger->terminateVpdCollectionLogging();
+#endif
         }
         else
         {
@@ -169,9 +170,10 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
                 l_timer.cancel();
                 logging::logMessage("Taking too long. Active thread = " +
                                     std::to_string(l_threadCount));
-
+#ifdef ENABLE_FILE_LOGGING
                 // terminate collection logger
                 m_logger->terminateVpdCollectionLogging();
+#endif
             }
             else
             {
@@ -501,9 +503,6 @@ void IbmHandler::performInitialSetup()
 
 void IbmHandler::collectAllFruVpd()
 {
-    // initialize VPD collection logger
-    m_logger->initiateVpdCollectionLogging();
-
     // Setting status to "InProgress", before trigeering VPD collection.
     m_progressInterface->set_property(
         "Status", std::string(constants::vpdCollectionInProgress));
