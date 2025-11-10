@@ -333,11 +333,7 @@ class Logger
     /**
      * @brief Constructor
      */
-    Logger() : m_vpdWriteLogger(nullptr), m_collectionLogger(nullptr)
-    {
-        m_vpdWriteLogger.reset(
-            new SyncFileLogger("/var/lib/vpd/vpdWrite.log", 128));
-    }
+    Logger() : m_vpdWriteLogger(nullptr), m_collectionLogger(nullptr) {}
 
     // Instance to the logger class.
     static std::shared_ptr<Logger> m_loggerInstance;
