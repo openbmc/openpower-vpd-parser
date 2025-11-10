@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f5346c9b_d5b6aea7",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-10T15:22:35Z",
+      "side": 1,
+      "message": "yes, I agree bit crowed here, but whether all checks in one go or do in nested conditions does the same thing.",
+      "parentUuid": "d72c6f7a_a358c8cb",
+      "revId": "2e5179e5e546246fa4fac7b924ccbe0406b3e3d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa9aa9d8_5411f72f",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 2
@@ -102,6 +120,24 @@
       "writtenOn": "2025-11-10T14:48:10Z",
       "side": 1,
       "message": "The commit message doesn\u0027t explain why this change is being made.",
+      "revId": "2e5179e5e546246fa4fac7b924ccbe0406b3e3d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86b27f15_d3630825",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-10T15:22:35Z",
+      "side": 1,
+      "message": "I guess below details from commit message explains why.\n\nLocationCode in the com.ibm.ipzvpd.Location interface was being set to\nan empty string when deleteFRUVPD was called for a FRU in vpd-manager.\nThis should not happen because the LocationCode is fixed for a FRU,\nregardless of whether the FRU is present or not.",
+      "parentUuid": "b7841433_f80fe3c9",
       "revId": "2e5179e5e546246fa4fac7b924ccbe0406b3e3d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
