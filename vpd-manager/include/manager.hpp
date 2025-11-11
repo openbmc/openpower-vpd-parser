@@ -3,6 +3,7 @@
 #include "backup_restore.hpp"
 #include "constants.hpp"
 #include "gpio_monitor.hpp"
+#include "logger.hpp"
 #include "types.hpp"
 #include "worker.hpp"
 
@@ -273,6 +274,9 @@ class Manager
 
     // Shared pointer to oem specific class.
     std::shared_ptr<IbmHandler> m_ibmHandler;
+
+    // Shared pointer to Logger object.
+    std::shared_ptr<Logger> m_logger;
 };
 
 } // namespace vpd
