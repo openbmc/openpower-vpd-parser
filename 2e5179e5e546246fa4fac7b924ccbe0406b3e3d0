@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a434943a_2c181a88",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-11T04:30:50Z",
+      "side": 1,
+      "message": "No, removing any FRU was setting location code to empty. Updated the commit message.",
+      "parentUuid": "4cf49735_88d43af8",
+      "range": {
+        "startLine": 14,
+        "startChar": 10,
+        "endLine": 14,
+        "endChar": 30
+      },
+      "revId": "2e5179e5e546246fa4fac7b924ccbe0406b3e3d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43e1c1e3_f4b9b110",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2025-11-10T15:26:56Z",
       "side": 1,
       "message": "This is not correct.",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 42
+      },
+      "revId": "2e5179e5e546246fa4fac7b924ccbe0406b3e3d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c970ce93_4035cf11",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-11T04:30:50Z",
+      "side": 1,
+      "message": "updated the commit message",
+      "parentUuid": "43e1c1e3_f4b9b110",
       "range": {
         "startLine": 15,
         "startChar": 10,
