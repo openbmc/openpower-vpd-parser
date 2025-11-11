@@ -131,7 +131,7 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
             // update VPD for powerVS system.
             ConfigurePowerVsSystem();
 
-            std::cout << "m_worker->isSystemVPDOnDBus() completed" << std::endl;
+            m_logger->logMessage("m_worker->isSystemVPDOnDBus() completed",PlaceHolder::COLLECTION);
             m_progressInterface->set_property(
                 "Status", std::string(constants::vpdCollectionCompleted));
 
@@ -168,8 +168,8 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
             if (l_timerRetry == MAX_RETRY)
             {
                 l_timer.cancel();
-                logging::logMessage("Taking too long. Active thread = " +
-                                    std::to_string(l_threadCount));
+                m_logger->logMessage("Taking too long. Active thread = " +
+                                    std::to_string(l_threadCount), PlaceHolder::COLLECTION);
 #ifdef ENABLE_FILE_LOGGING
                 // terminate collection logger
                 m_logger->terminateVpdCollectionLogging();
@@ -178,8 +178,8 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
             else
             {
                 l_timerRetry++;
-                logging::logMessage("Collection is in progress for [" +
-                                    std::to_string(l_threadCount) + "] FRUs.");
+                m_logger->logMessage("Collection is in progress for [" +
+                                    std::to_string(l_threadCount) + "] FRUs.", PlaceHolder::COLLECTION);
 
                 SetTimerToDetectVpdCollectionStatus();
             }
@@ -210,10 +210,10 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
         {
             if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to get inventory object path from JSON for FRU [" +
                     l_fruPath +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode), PlaceHolder::COLLECTION);
             }
 
             o_failedPathList.push_back(l_fruPath);
@@ -223,9 +223,9 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
         // check if the FRU is present
         if (!dbusUtility::isInventoryPresent(l_inventoryPath))
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Inventory not present, skip updating part number. Path: " +
-                l_inventoryPath);
+                l_inventoryPath, PlaceHolder::COLLECTION);
             continue;
         }
 
@@ -242,7 +242,7 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
                 {
                     m_logger->logMessage(
                         "Failed to get CCIN value from DBus, error : " +
-                        commonUtility::getErrCodeMsg(l_errCode));
+                        commonUtility::getErrCodeMsg(l_errCode), PlaceHolder::COLLECTION);
                 }
 
                 o_failedPathList.push_back(l_fruPath);
@@ -316,9 +316,9 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
                              std::string(l_binaryKwdValue.begin(),
                                          l_binaryKwdValue.end())}}}}}}))
                 {
-                    logging::logMessage(
+                    m_logger->logMessage(
                         "Updating Spare Part Number under Asset interface failed for path [" +
-                        l_inventoryPath + "]");
+                        l_inventoryPath + "]", PlaceHolder::COLLECTION);
                 }
 
                 // Just needed for logging.
@@ -326,10 +326,10 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
                                              (*l_ptrToFn).end());
                 std::string l_finalPartNum(l_binaryKwdValue.begin(),
                                            l_binaryKwdValue.end());
-                logging::logMessage(
+                m_logger->logMessage(
                     "FRU Part number updated for path [" + l_inventoryPath +
                     "]" + "From [" + l_initialPartNum + "]" + " to [" +
-                    l_finalPartNum + "]");
+                    l_finalPartNum + "]", PlaceHolder::COLLECTION);
             }
         }
     }
@@ -353,9 +353,9 @@ void IbmHandler::ConfigurePowerVsSystem()
             // misconfigurations?
             if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to check if the system is powerVs Configuration, error : " +
-                    commonUtility::getErrCodeMsg(l_errCode));
+                    commonUtility::getErrCodeMsg(l_errCode), PlaceHolder::COLLECTION);
             }
 
             return;

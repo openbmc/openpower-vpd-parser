@@ -326,6 +326,7 @@ class Logger
      * @brief Constructor
      */
     Logger() : m_vpdWriteLogger(nullptr)
+//	       m_logger(Logger::getLoggerInstance())
     {
 #ifdef ENABLE_FILE_LOGGING
         m_collectionLogger = nullptr;
@@ -345,8 +346,10 @@ class Logger
 
     // logger object to handle VPD collection logs
     std::unique_ptr<ILogFileHandler> m_collectionLogger;
-
 #endif
+
+    // Shared pointer to Logger object.
+    //std::shared_ptr<Logger> m_logger;
 
     // Instance to the logger class.
     static std::shared_ptr<Logger> m_loggerInstance;
