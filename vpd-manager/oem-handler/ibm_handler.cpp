@@ -212,9 +212,10 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
             // update VPD for powerVS system.
             ConfigurePowerVsSystem();
 
-            m_logger->logMessage("m_worker->isSystemVPDOnDBus() completed");
-
-            m_progressInterface->set_property(
+            m_logger->logMessage("m_worker->isSystemVPDOnDBus() completed",
+                                 PlaceHolder::COLLECTION);
+            
+	    m_progressInterface->set_property(
                 "Status", std::string(constants::vpdCollectionCompleted));
 
             if (m_backupAndRestoreObj)
