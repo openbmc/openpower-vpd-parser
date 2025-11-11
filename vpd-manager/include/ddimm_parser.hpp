@@ -119,5 +119,8 @@ class DdimmVpdParser : public ParserInterface
 
     // Stores parsed VPD data.
     types::DdimmVpdMap m_parsedVpdMap{};
+
+    // Shared pointer to Logger object.
+    std::shared_ptr<Logger> m_logger;
 };
 } // namespace vpd
