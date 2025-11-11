@@ -135,14 +135,14 @@ void Logger::initiateVpdCollectionLogging() noexcept
             l_collectionLogFilePath = l_oldestFilePath;
 
             logMessage("Deleting collection log file " +
-                       l_collectionLogFilePath.string());
+                       l_collectionLogFilePath.string(), PlaceHolder::COLLECTION);
 
             std::error_code l_ec;
             if (!std::filesystem::remove(l_collectionLogFilePath, l_ec))
             {
                 logMessage("Failed to delete existing collection log file " +
                            l_collectionLogFilePath.string() +
-                           " Error: " + l_ec.message());
+                           " Error: " + l_ec.message(), PlaceHolder::COLLECTION);
             }
         }
         else
@@ -158,7 +158,7 @@ void Logger::initiateVpdCollectionLogging() noexcept
     catch (const std::exception& l_ex)
     {
         logMessage("Failed to initialize collection logger. Error: " +
-                   std::string(l_ex.what()));
+                   std::string(l_ex.what()), PlaceHolder::COLLECTION);
     }
 }
 #endif
