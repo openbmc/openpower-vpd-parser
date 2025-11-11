@@ -335,7 +335,11 @@ class Logger
     /**
      * @brief Constructor
      */
-    Logger() : m_vpdWriteLogger(nullptr), m_collectionLogger(nullptr) {}
+    Logger() : m_vpdWriteLogger(nullptr), m_collectionLogger(nullptr) {} //,
+//	       m_logger(Logger::getLoggerInstance()) {}
+
+    // Shared pointer to Logger object.
+    //std::shared_ptr<Logger> m_logger;
 
     // Instance to the logger class.
     static std::shared_ptr<Logger> m_loggerInstance;
