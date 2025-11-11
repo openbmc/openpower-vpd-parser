@@ -5,7 +5,6 @@
 #include "backup_restore.hpp"
 #include "constants.hpp"
 #include "exceptions.hpp"
-#include "logger.hpp"
 #include "parser.hpp"
 #include "parser_factory.hpp"
 #include "parser_interface.hpp"
@@ -28,7 +27,8 @@ namespace vpd
 Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
                types::VpdCollectionMode i_vpdCollectionMode) :
     m_configJsonPath(pathToConfigJson), m_semaphore(i_maxThreadCount),
-    m_vpdCollectionMode(i_vpdCollectionMode)
+    m_vpdCollectionMode(i_vpdCollectionMode),
+    m_logger(Logger::getLoggerInstance())
 {
     // Implies the processing is based on some config JSON
     if (!m_configJsonPath.empty())
@@ -951,8 +951,9 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         }
         else
         {
-            logging::logMessage("Empty parsedVpdMap recieved for path [" +
-                                i_vpdFilePath + "]. Check PEL for reason.");
+            m_logger->logMessage("Empty parsedVpdMap recieved for path [" +
+                                     i_vpdFilePath + "]. Check PEL for reason.",
+                                 PlaceHolder::COLLECTION);
 
             // As empty parsedVpdMap recieved for some reason, but still
             // considered VPD collection is completed. Hence FRU collection
@@ -979,10 +980,11 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
 
                 if (l_errCode != 0)
                 {
-                    logging::logMessage(
+                    m_logger->logMessage(
                         "Failed to get inventory object path from JSON for FRU [" +
-                        i_vpdFilePath +
-                        "], error: " + commonUtility::getErrCodeMsg(l_errCode));
+                            i_vpdFilePath + "], error: " +
+                            commonUtility::getErrCodeMsg(l_errCode),
+                        PlaceHolder::COLLECTION);
                 }
 
                 const std::string& l_invPathLeafValue =
@@ -997,9 +999,10 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             }
             else if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to check if system is Pass 1 Planar, error : " +
-                    commonUtility::getErrCodeMsg(l_errCode));
+                        commonUtility::getErrCodeMsg(l_errCode),
+                    PlaceHolder::COLLECTION);
             }
         }
 
@@ -1061,10 +1064,11 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
         }
         else if (l_errCode)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to check if FRU is power off only for FRU [" +
-                i_vpdFilePath +
-                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                    i_vpdFilePath +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode),
+                PlaceHolder::COLLECTION);
         }
 
         std::string l_invPath = jsonUtility::getInventoryObjPathFromJson(
@@ -1072,10 +1076,11 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
 
         if (l_errCode)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to get inventory path from JSON for FRU [" +
-                i_vpdFilePath +
-                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                    i_vpdFilePath +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode),
+                PlaceHolder::COLLECTION);
 
             return false;
         }
