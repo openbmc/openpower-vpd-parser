@@ -5,7 +5,6 @@
 #include "backup_restore.hpp"
 #include "constants.hpp"
 #include "exceptions.hpp"
-#include "logger.hpp"
 #include "parser.hpp"
 #include "parser_factory.hpp"
 #include "parser_interface.hpp"
@@ -28,7 +27,8 @@ namespace vpd
 Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
                types::VpdCollectionMode i_vpdCollectionMode) :
     m_configJsonPath(pathToConfigJson), m_semaphore(i_maxThreadCount),
-    m_vpdCollectionMode(i_vpdCollectionMode)
+    m_vpdCollectionMode(i_vpdCollectionMode),
+    m_logger(Logger::getLoggerInstance())
 {
     // Implies the processing is based on some config JSON
     if (!m_configJsonPath.empty())
@@ -186,11 +186,12 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
 
                     if (l_errCode)
                     {
-                        logging::logMessage(
+                        m_logger->logMessage(
                             "Failed to get expanded location code for location code - " +
-                            propValuePair.value().get<std::string>() +
-                            " ,error : " +
-                            commonUtility::getErrCodeMsg(l_errCode));
+                                propValuePair.value().get<std::string>() +
+                                " ,error : " +
+                                commonUtility::getErrCodeMsg(l_errCode),
+                            PlaceHolder::COLLECTION);
                     }
 
                     propertyMap.emplace(property, value);
@@ -203,9 +204,10 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
 
                     if (l_errCode)
                     {
-                        logging::logMessage(
+                        m_logger->logMessage(
                             "Failed to insert value into map, error : " +
-                            commonUtility::getErrCodeMsg(l_errCode));
+                                commonUtility::getErrCodeMsg(l_errCode),
+                            PlaceHolder::COLLECTION);
                     }
                 }
                 else
@@ -224,7 +226,9 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
                 }
                 catch (const nlohmann::detail::type_error& e)
                 {
-                    std::cerr << "Type exception: " << e.what() << "\n";
+                    m_logger->logMessage(
+                        "Type exception: " + std::string(e.what()),
+                        PlaceHolder::COLLECTION);
                 }
             }
             else if (propValuePair.value().is_number())
@@ -256,11 +260,12 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
 
                         if (l_errCode)
                         {
-                            logging::logMessage(
+                            m_logger->logMessage(
                                 std::string(
                                     "Failed to get encoded keyword value for : ") +
-                                keyword + std::string(", error : ") +
-                                commonUtility::getErrCodeMsg(l_errCode));
+                                    keyword + std::string(", error : ") +
+                                    commonUtility::getErrCodeMsg(l_errCode),
+                                PlaceHolder::COLLECTION);
                         }
 
                         propertyMap.emplace(property, encoded);
@@ -282,11 +287,12 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
 
                             if (l_errCode)
                             {
-                                logging::logMessage(
+                                m_logger->logMessage(
                                     std::string(
                                         "Failed to get encoded keyword value for : ") +
-                                    keyword + std::string(", error : ") +
-                                    commonUtility::getErrCodeMsg(l_errCode));
+                                        keyword + std::string(", error : ") +
+                                        commonUtility::getErrCodeMsg(l_errCode),
+                                    PlaceHolder::COLLECTION);
                             }
 
                             propertyMap.emplace(property, encodedValue);
@@ -302,10 +308,11 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
 
                             if (l_errCode)
                             {
-                                logging::logMessage(
+                                m_logger->logMessage(
                                     "Failed to get encoded keyword value for : " +
-                                    keyword + ", error : " +
-                                    commonUtility::getErrCodeMsg(l_errCode));
+                                        keyword + ", error : " +
+                                        commonUtility::getErrCodeMsg(l_errCode),
+                                    PlaceHolder::COLLECTION);
                             }
 
                             propertyMap.emplace(property, encodedValue);
@@ -317,8 +324,9 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
                         }
                         else
                         {
-                            logging::logMessage(
-                                "Unknown keyword found, Keywrod = " + keyword);
+                            m_logger->logMessage(
+                                "Unknown keyword found, Keywrod = " + keyword,
+                                PlaceHolder::COLLECTION);
                         }
                     }
                 }
@@ -329,8 +337,9 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
 
         if (l_errCode)
         {
-            logging::logMessage("Failed to insert value into map, error : " +
-                                commonUtility::getErrCodeMsg(l_errCode));
+            m_logger->logMessage("Failed to insert value into map, error : " +
+                                     commonUtility::getErrCodeMsg(l_errCode),
+                                 PlaceHolder::COLLECTION);
         }
     }
 }
@@ -382,8 +391,9 @@ void Worker::processEmbeddedAndSynthesizedFrus(const nlohmann::json& singleFru,
 
         if (l_errCode)
         {
-            logging::logMessage("Failed to insert value into map, error : " +
-                                commonUtility::getErrCodeMsg(l_errCode));
+            m_logger->logMessage("Failed to insert value into map, error : " +
+                                     commonUtility::getErrCodeMsg(l_errCode),
+                                 PlaceHolder::COLLECTION);
         }
     }
 }
@@ -486,8 +496,9 @@ bool Worker::processFruWithCCIN(const nlohmann::json& singleFru,
 
         if (ccinFromVpd.empty())
         {
-            logging::logMessage("Failed to get CCIN kwd value, error : " +
-                                commonUtility::getErrCodeMsg(l_errCode));
+            m_logger->logMessage("Failed to get CCIN kwd value, error : " +
+                                     commonUtility::getErrCodeMsg(l_errCode),
+                                 PlaceHolder::COLLECTION);
             return false;
         }
 
@@ -551,9 +562,10 @@ void Worker::processFunctionalProperty(const std::string& i_inventoryObjPath,
 
         if (l_errCode)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to insert interface into map, error : " +
-                commonUtility::getErrCodeMsg(l_errCode));
+                    commonUtility::getErrCodeMsg(l_errCode),
+                PlaceHolder::COLLECTION);
         }
     }
 
@@ -596,9 +608,10 @@ void Worker::processEnabledProperty(const std::string& i_inventoryObjPath,
 
         if (l_errCode)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to insert interface into map, error : " +
-                commonUtility::getErrCodeMsg(l_errCode));
+                    commonUtility::getErrCodeMsg(l_errCode),
+                PlaceHolder::COLLECTION);
         }
     }
 
@@ -712,14 +725,16 @@ bool Worker::processPreAction(const std::string& i_vpdFilePath,
 
             if (!dbusUtility::callPIM(std::move(l_pimObjMap)))
             {
-                logging::logMessage(
-                    "Call to PIM failed for file " + i_vpdFilePath);
+                m_logger->logMessage(
+                    "Call to PIM failed for file " + i_vpdFilePath,
+                    PlaceHolder::COLLECTION);
             }
         }
         else
         {
-            logging::logMessage(
-                "Inventory path is empty in Json for file " + i_vpdFilePath);
+            m_logger->logMessage(
+                "Inventory path is empty in Json for file " + i_vpdFilePath,
+                PlaceHolder::COLLECTION);
         }
 
         return false;
@@ -733,8 +748,9 @@ bool Worker::processPostAction(
 {
     if (i_vpdFruPath.empty() || i_flagToProcess.empty())
     {
-        logging::logMessage(
-            "Invalid input parameter. Abort processing post action");
+        m_logger->logMessage(
+            "Invalid input parameter. Abort processing post action",
+            PlaceHolder::COLLECTION);
         return false;
     }
 
@@ -748,7 +764,7 @@ bool Worker::processPostAction(
     {
         if (!i_parsedVpd.has_value())
         {
-            logging::logMessage("Empty VPD Map");
+            m_logger->logMessage("Empty VPD Map", PlaceHolder::COLLECTION);
             return false;
         }
 
@@ -763,8 +779,10 @@ bool Worker::processPostAction(
             {
                 // ToDo - Check if PEL is required in case of RECORD_NOT_FOUND
                 // and KEYWORD_NOT_FOUND error codes.
-                logging::logMessage("Failed to find CCIN in VPD, error : " +
-                                    commonUtility::getErrCodeMsg(l_errCode));
+                m_logger->logMessage(
+                    "Failed to find CCIN in VPD, error : " +
+                        commonUtility::getErrCodeMsg(l_errCode),
+                    PlaceHolder::COLLECTION);
             }
 
             // If CCIN is not found, implies post action processing is not
@@ -777,9 +795,10 @@ bool Worker::processPostAction(
                                         i_vpdFruPath, i_flagToProcess,
                                         l_errCode))
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Execution of post action failed for path: " + i_vpdFruPath +
-            " . Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+                " . Reason: " + commonUtility::getErrCodeMsg(l_errCode),
+            PlaceHolder::COLLECTION);
 
         // If post action was required and failed only in that case return
         // false. In all other case post action is considered passed.
@@ -811,9 +830,9 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             {
                 if (l_errCode == error_code::DEVICE_NOT_PRESENT)
                 {
-                    logging::logMessage(
-                        commonUtility::getErrCodeMsg(l_errCode) +
-                        i_vpdFilePath);
+                    m_logger->logMessage(
+                        commonUtility::getErrCodeMsg(l_errCode) + i_vpdFilePath,
+                        PlaceHolder::COLLECTION);
                     // Presence pin has been read successfully and has been read
                     // as false, so this is not a failure case, hence returning
                     // empty variant so that pre action is not marked as failed.
@@ -827,10 +846,11 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
         }
         else if (l_errCode)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to check if pre action required for FRU [" +
-                i_vpdFilePath +
-                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                    i_vpdFilePath +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode),
+                PlaceHolder::COLLECTION);
         }
 
         if (!std::filesystem::exists(i_vpdFilePath))
@@ -871,10 +891,11 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
         }
         else if (l_errCode)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Error while checking if post action required for FRU [" +
-                i_vpdFilePath +
-                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                    i_vpdFilePath +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode),
+                PlaceHolder::COLLECTION);
         }
 
         return l_parsedVpd;
@@ -951,8 +972,9 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         }
         else
         {
-            logging::logMessage("Empty parsedVpdMap recieved for path [" +
-                                i_vpdFilePath + "]. Check PEL for reason.");
+            m_logger->logMessage("Empty parsedVpdMap recieved for path [" +
+                                     i_vpdFilePath + "]. Check PEL for reason.",
+                                 PlaceHolder::COLLECTION);
 
             // As empty parsedVpdMap recieved for some reason, but still
             // considered VPD collection is completed. Hence FRU collection
@@ -979,10 +1001,11 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
 
                 if (l_errCode != 0)
                 {
-                    logging::logMessage(
+                    m_logger->logMessage(
                         "Failed to get inventory object path from JSON for FRU [" +
-                        i_vpdFilePath +
-                        "], error: " + commonUtility::getErrCodeMsg(l_errCode));
+                            i_vpdFilePath + "], error: " +
+                            commonUtility::getErrCodeMsg(l_errCode),
+                        PlaceHolder::COLLECTION);
                 }
 
                 const std::string& l_invPathLeafValue =
@@ -997,9 +1020,10 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             }
             else if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to check if system is Pass 1 Planar, error : " +
-                    commonUtility::getErrCodeMsg(l_errCode));
+                        commonUtility::getErrCodeMsg(l_errCode),
+                    PlaceHolder::COLLECTION);
             }
         }
 
@@ -1061,10 +1085,11 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
         }
         else if (l_errCode)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to check if FRU is power off only for FRU [" +
-                i_vpdFilePath +
-                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                    i_vpdFilePath +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode),
+                PlaceHolder::COLLECTION);
         }
 
         std::string l_invPath = jsonUtility::getInventoryObjPathFromJson(
@@ -1072,10 +1097,11 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
 
         if (l_errCode)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to get inventory path from JSON for FRU [" +
-                i_vpdFilePath +
-                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                    i_vpdFilePath +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode),
+                PlaceHolder::COLLECTION);
 
             return false;
         }
@@ -1351,9 +1377,10 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
 
                 if (l_errCode)
                 {
-                    logging::logMessage(
+                    m_logger->logMessage(
                         "Failed to insert value into map, error : " +
-                        commonUtility::getErrCodeMsg(l_errCode));
+                            commonUtility::getErrCodeMsg(l_errCode),
+                        PlaceHolder::COLLECTION);
                 }
 
                 l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
@@ -1380,9 +1407,10 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
 
             if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to insert value into map, error : " +
-                    commonUtility::getErrCodeMsg(l_errCode));
+                        commonUtility::getErrCodeMsg(l_errCode),
+                    PlaceHolder::COLLECTION);
             }
 
             l_objectInterfaceMap.emplace(i_vpdPath, std::move(l_interfaces));
@@ -1424,9 +1452,10 @@ void Worker::performVpdRecollection()
 
         if (l_errCode)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to get list of FRUs replaceable at runtime, error : " +
-                commonUtility::getErrCodeMsg(l_errCode));
+                    commonUtility::getErrCodeMsg(l_errCode),
+                PlaceHolder::COLLECTION);
             return;
         }
 
@@ -1443,8 +1472,9 @@ void Worker::performVpdRecollection()
     catch (const std::exception& l_ex)
     {
         // TODO Log PEL
-        logging::logMessage(
-            "VPD recollection failed with error: " + std::string(l_ex.what()));
+        m_logger->logMessage(
+            "VPD recollection failed with error: " + std::string(l_ex.what()),
+            PlaceHolder::COLLECTION);
     }
 }
 
@@ -1459,9 +1489,10 @@ void Worker::collectSingleFruVpd(
         // Check if system config JSON is present
         if (m_parsedJson.empty())
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "System config JSON object not present. Single FRU VPD collection is not performed for " +
-                std::string(i_dbusObjPath));
+                    std::string(i_dbusObjPath),
+                PlaceHolder::COLLECTION);
             return;
         }
 
@@ -1473,17 +1504,19 @@ void Worker::collectSingleFruVpd(
         {
             if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to get FRU path for [" +
-                    std::string(i_dbusObjPath) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode) +
-                    " Aborting single FRU VPD collection.");
+                        std::string(i_dbusObjPath) + "], error : " +
+                        commonUtility::getErrCodeMsg(l_errCode) +
+                        " Aborting single FRU VPD collection.",
+                    PlaceHolder::COLLECTION);
                 return;
             }
 
-            logging::logMessage(
+            m_logger->logMessage(
                 "D-bus object path not present in JSON. Single FRU VPD collection is not performed for " +
-                std::string(i_dbusObjPath));
+                    std::string(i_dbusObjPath),
+                PlaceHolder::COLLECTION);
             return;
         }
 
@@ -1497,18 +1530,20 @@ void Worker::collectSingleFruVpd(
 
             if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to check if FRU is replaceable at runtime for FRU : [" +
-                    std::string(i_dbusObjPath) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                        std::string(i_dbusObjPath) +
+                        "], error : " + commonUtility::getErrCodeMsg(l_errCode),
+                    PlaceHolder::COLLECTION);
                 return;
             }
 
             if (!isFruReplaceableAtRuntime)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Given FRU is not replaceable at host runtime. Single FRU VPD collection is not performed for " +
-                    std::string(i_dbusObjPath));
+                        std::string(i_dbusObjPath),
+                    PlaceHolder::COLLECTION);
                 return;
             }
         }
@@ -1521,10 +1556,11 @@ void Worker::collectSingleFruVpd(
 
             if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Error while checking if FRU is replaceable at standby for FRU [" +
-                    std::string(i_dbusObjPath) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                        std::string(i_dbusObjPath) +
+                        "], error : " + commonUtility::getErrCodeMsg(l_errCode),
+                    PlaceHolder::COLLECTION);
             }
 
             bool isFruReplaceableAtRuntime =
@@ -1533,18 +1569,20 @@ void Worker::collectSingleFruVpd(
 
             if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to check if FRU is replaceable at runtime for FRU : [" +
-                    std::string(i_dbusObjPath) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+                        std::string(i_dbusObjPath) +
+                        "], error : " + commonUtility::getErrCodeMsg(l_errCode),
+                    PlaceHolder::COLLECTION);
                 return;
             }
 
             if (!isFruReplaceableAtStandby && (!isFruReplaceableAtRuntime))
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Given FRU is neither replaceable at standby nor replaceable at runtime. Single FRU VPD collection is not performed for " +
-                    std::string(i_dbusObjPath));
+                        std::string(i_dbusObjPath),
+                    PlaceHolder::COLLECTION);
                 return;
             }
         }
@@ -1591,7 +1629,8 @@ void Worker::collectSingleFruVpd(
     {
         setCollectionStatusProperty(l_fruPath, constants::vpdCollectionFailed);
         // TODO: Log PEL
-        logging::logMessage(std::string(l_error.what()));
+        m_logger->logMessage(std::string(l_error.what()),
+                             PlaceHolder::COLLECTION);
     }
 }
 
@@ -1649,9 +1688,10 @@ void Worker::setCollectionStatusProperty(
 
                 if (l_errCode)
                 {
-                    logging::logMessage(
+                    m_logger->logMessage(
                         "Failed to insert value into map, error : " +
-                        commonUtility::getErrCodeMsg(l_errCode));
+                            commonUtility::getErrCodeMsg(l_errCode),
+                        PlaceHolder::COLLECTION);
                 }
 
                 l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
@@ -1681,9 +1721,10 @@ void Worker::setCollectionStatusProperty(
 
             if (l_errCode)
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to insert value into map, error : " +
-                    commonUtility::getErrCodeMsg(l_errCode));
+                        commonUtility::getErrCodeMsg(l_errCode),
+                    PlaceHolder::COLLECTION);
             }
 
             l_objectInterfaceMap.emplace(i_vpdPath, std::move(l_interfaces));
