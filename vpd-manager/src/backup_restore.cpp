@@ -42,7 +42,7 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
 
     if (m_backupAndRestoreStatus >= BackupAndRestoreStatus::Invoked)
     {
-        logging::logMessage("Backup and restore invoked already.");
+        m_logger->logMessage("Backup and restore invoked already.", placeHolder::COLLECTION);
         return l_emptyVariantPair;
     }
 
@@ -55,8 +55,8 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
             !m_backupAndRestoreCfgJsonObj.contains("type") ||
             !m_backupAndRestoreCfgJsonObj.contains("backupMap"))
         {
-            logging::logMessage(
-                "Backup restore config JSON is missing necessary tag(s), can't initiate backup and restore.");
+            m_logger->logMessage(
+                "Backup restore config JSON is missing necessary tag(s), can't initiate backup and restore.", placeHolder::COLLECTION);
             return l_emptyVariantPair;
         }
 
@@ -74,8 +74,8 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
                      "inventoryPath", "");
                  l_srcVpdPath.empty())
         {
-            logging::logMessage(
-                "Couldn't extract source path, can't initiate backup and restore.");
+            m_logger->logMessage(
+                "Couldn't extract source path, can't initiate backup and restore.", placeHolder::COLLECTION);
             return l_emptyVariantPair;
         }
 
@@ -93,8 +93,8 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
                                     .value("inventoryPath", "");
                  l_dstVpdPath.empty())
         {
-            logging::logMessage(
-                "Couldn't extract destination path, can't initiate backup and restore.");
+            m_logger->logMessage(
+                "Couldn't extract destination path, can't initiate backup and restore.", placeHolder::COLLECTION);
             return l_emptyVariantPair;
         }
 
@@ -111,7 +111,7 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
             }
             else if (!std::holds_alternative<std::monostate>(l_srcVpdVariant))
             {
-                logging::logMessage("Source VPD is not of IPZ type.");
+                m_logger->logMessage("Source VPD is not of IPZ type.", placeHolder::COLLECTION);
                 return l_emptyVariantPair;
             }
 
@@ -123,7 +123,7 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
             }
             else if (!std::holds_alternative<std::monostate>(l_dstVpdVariant))
             {
-                logging::logMessage("Destination VPD is not of IPZ type.");
+                m_logger->logMessage("Destination VPD is not of IPZ type.", placeHolder::COLLECTION);
                 return l_emptyVariantPair;
             }
 
@@ -137,8 +137,8 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
     }
     catch (const std::exception& ex)
     {
-        logging::logMessage("Back up and restore failed with exception: " +
-                            std::string(ex.what()));
+        m_logger->logMessage("Back up and restore failed with exception: " +
+                            std::string(ex.what()), placeHolder::COLLECTION);
     }
     return l_emptyVariantPair;
 }
@@ -149,8 +149,8 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
 {
     if (!m_backupAndRestoreCfgJsonObj["backupMap"].is_array())
     {
-        logging::logMessage(
-            "Invalid value found for tag backupMap, in backup and restore config JSON.");
+        m_logger->logMessage(
+            "Invalid value found for tag backupMap, in backup and restore config JSON.", placeHolder::COLLECTION);
         return;
     }
 
@@ -161,9 +161,9 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
 
     if (l_errCode)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Failed to get source FRU path for [" + i_srcPath +
-            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+            "], error : " + commonUtility::getErrCodeMsg(l_errCode), placeHolder::COLLECTION);
         return;
     }
 
@@ -172,16 +172,16 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
 
     if (l_errCode)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Failed to get destination FRU path for [" + i_dstPath +
-            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+            "], error : " + commonUtility::getErrCodeMsg(l_errCode), placeHolder::COLLECTION);
         return;
     }
 
     if (l_srcFruPath.empty() || l_dstFruPath.empty())
     {
-        logging::logMessage(
-            "Couldn't find either source or destination FRU path.");
+        m_logger->logMessage(
+            "Couldn't find either source or destination FRU path.", placeHolder::COLLECTION);
         return;
     }
 
@@ -192,13 +192,13 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
     {
         if (l_errCode)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Couldn't find source inventory path. Error : " +
-                commonUtility::getErrCodeMsg(l_errCode));
+                commonUtility::getErrCodeMsg(l_errCode), placeHolder::COLLECTION);
             return;
         }
 
-        logging::logMessage("Couldn't find  source inventory path.");
+        m_logger->logMessage("Couldn't find  source inventory path.", placeHolder::COLLECTION);
         return;
     }
 
@@ -209,13 +209,13 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
     {
         if (l_errCode)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Couldn't find destination inventory path. Error : " +
-                commonUtility::getErrCodeMsg(l_errCode));
+                commonUtility::getErrCodeMsg(l_errCode), placeHolder::COLLECTION);
             return;
         }
 
-        logging::logMessage("Couldn't find destination inventory path.");
+        m_logger->logMessage("Couldn't find destination inventory path.", placeHolder::COLLECTION);
         return;
     }
 
@@ -224,9 +224,9 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
 
     if (l_errCode)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Failed to get service name for source FRU [" + l_srcInvPath +
-            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+            "], error : " + commonUtility::getErrCodeMsg(l_errCode), placeHolder::COLLECTION);
         return;
     }
 
@@ -235,9 +235,9 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
 
     if (l_errCode)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Failed to get service name for destination FRU [" + l_dstInvPath +
-            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+            "], error : " + commonUtility::getErrCodeMsg(l_errCode),placeHolder::COLLECTION);
         return;
     }
 
@@ -256,26 +256,26 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         if (l_srcRecordName.empty() || l_dstRecordName.empty() ||
             l_srcKeywordName.empty() || l_dstKeywordName.empty())
         {
-            logging::logMessage(
-                "Record or keyword not found in the backup and restore config JSON.");
+            m_logger->logMessage(
+                "Record or keyword not found in the backup and restore config JSON.", placeHolder::COLLECTION);
             continue;
         }
 
         if (!io_srcVpdMap.empty() &&
             io_srcVpdMap.find(l_srcRecordName) == io_srcVpdMap.end())
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Record: " + l_srcRecordName +
-                ", is not found in the source path: " + i_srcPath);
+                ", is not found in the source path: " + i_srcPath, placeHolder::COLLECTION);
             continue;
         }
 
         if (!io_dstVpdMap.empty() &&
             io_dstVpdMap.find(l_dstRecordName) == io_dstVpdMap.end())
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Record: " + l_dstRecordName +
-                ", is not found in the destination path: " + i_dstPath);
+                ", is not found in the destination path: " + i_dstPath, placeHolder::COLLECTION);
             continue;
         }
 
@@ -288,10 +288,10 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         }
         else
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Couldn't read default value for record name: " +
                 l_srcRecordName + ", keyword name: " + l_srcKeywordName +
-                " from backup and restore config JSON file.");
+                " from backup and restore config JSON file.", placeHolder::COLLECTION);
             continue;
         }
 

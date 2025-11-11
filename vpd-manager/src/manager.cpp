@@ -387,9 +387,9 @@ void Manager::collectSingleFruVpd(
 {
     if (m_vpdCollectionStatus != constants::vpdCollectionCompleted)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Currently VPD CollectionStatus is not completed. Cannot perform single FRU VPD collection for " +
-            std::string(i_dbusObjPath));
+            std::string(i_dbusObjPath), placeHolder::COLLECTION);
         return;
     }
 
