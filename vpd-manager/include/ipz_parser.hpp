@@ -36,7 +36,7 @@ class IpzVpdParser : public ParserInterface
     IpzVpdParser(const types::BinaryVector& vpdVector,
                  const std::string& vpdFilePath, size_t vpdStartOffset = 0) :
         m_vpdVector(vpdVector), m_vpdFilePath(vpdFilePath),
-        m_vpdStartOffset(vpdStartOffset)
+        m_vpdStartOffset(vpdStartOffset), m_logger(Logger::getLoggerInstance())
     {
         try
         {
@@ -284,5 +284,8 @@ class IpzVpdParser : public ParserInterface
 
     // VPD start offset. Required for ECC correction.
     size_t m_vpdStartOffset = 0;
+
+    // Shared pointer to Logger object.
+    std::shared_ptr<Logger> m_logger;
 };
 } // namespace vpd

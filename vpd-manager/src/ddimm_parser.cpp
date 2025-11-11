@@ -30,10 +30,11 @@ bool DdimmVpdParser::checkValidValue(uint8_t i_ByteValue, uint8_t i_shift,
     uint8_t l_ByteValue = i_ByteValue >> i_shift;
     if ((l_ByteValue > i_maxValue) || (l_ByteValue < i_minValue))
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Non valid Value encountered value[" + std::to_string(l_ByteValue) +
-            "] range [" + std::to_string(i_minValue) + ".." +
-            std::to_string(i_maxValue) + "] found ");
+                "] range [" + std::to_string(i_minValue) + ".." +
+                std::to_string(i_maxValue) + "] found ",
+            PlaceHolder::COLLECTION);
         return false;
     }
     return l_isValid;
@@ -67,8 +68,9 @@ uint8_t DdimmVpdParser::getDdr5DensityPerDie(uint8_t i_ByteValue)
                 break;
 
             default:
-                logging::logMessage(
-                    "default value encountered for density per die");
+                m_logger->logMessage(
+                    "default value encountered for density per die",
+                    PlaceHolder::COLLECTION);
                 l_densityPerDie = SDRAM_DENSITY_PER_DIE_UNDEFINED;
                 break;
         }
@@ -107,10 +109,11 @@ size_t DdimmVpdParser::getDdr5BasedDdimmSize(
                              constants::SHIFT_BITS_3, constants::VALUE_1,
                              constants::VALUE_3))
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Capacity calculation failed for channels per DIMM. DDIMM Byte "
                 "235 value [" +
-                std::to_string(i_iterator[constants::SPD_BYTE_235]) + "]");
+                    std::to_string(i_iterator[constants::SPD_BYTE_235]) + "]",
+                PlaceHolder::COLLECTION);
             break;
         }
         uint8_t l_channelsPerPhy =
@@ -137,10 +140,11 @@ size_t DdimmVpdParser::getDdr5BasedDdimmSize(
                              constants::SHIFT_BITS_0, constants::VALUE_1,
                              constants::VALUE_3))
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Capacity calculation failed for bus width per channel. DDIMM "
                 "Byte 235 value [" +
-                std::to_string(i_iterator[constants::SPD_BYTE_235]) + "]");
+                    std::to_string(i_iterator[constants::SPD_BYTE_235]) + "]",
+                PlaceHolder::COLLECTION);
             break;
         }
         uint8_t l_busWidthPerChannel =
@@ -154,10 +158,11 @@ size_t DdimmVpdParser::getDdr5BasedDdimmSize(
                              constants::SHIFT_BITS_5, constants::VALUE_0,
                              constants::VALUE_5))
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Capacity calculation failed for die per package. DDIMM Byte 4 "
                 "value [" +
-                std::to_string(i_iterator[constants::SPD_BYTE_4]) + "]");
+                    std::to_string(i_iterator[constants::SPD_BYTE_4]) + "]",
+                PlaceHolder::COLLECTION);
             break;
         }
         uint8_t l_diePerPackage = getDdr5DiePerPackage(
@@ -170,10 +175,11 @@ size_t DdimmVpdParser::getDdr5BasedDdimmSize(
                              constants::SHIFT_BITS_0, constants::VALUE_1,
                              constants::VALUE_8))
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Capacity calculation failed for SDRAM Density per Die. DDIMM "
                 "Byte 4 value [" +
-                std::to_string(i_iterator[constants::SPD_BYTE_4]) + "]");
+                    std::to_string(i_iterator[constants::SPD_BYTE_4]) + "]",
+                PlaceHolder::COLLECTION);
             break;
         }
         uint8_t l_densityPerDie = getDdr5DensityPerDie(
@@ -205,10 +211,11 @@ size_t DdimmVpdParser::getDdr5BasedDdimmSize(
                              constants::SHIFT_BITS_5, constants::VALUE_0,
                              constants::VALUE_3))
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Capacity calculation failed for dram width DDIMM Byte 6 value "
                 "[" +
-                std::to_string(i_iterator[constants::SPD_BYTE_6]) + "]");
+                    std::to_string(i_iterator[constants::SPD_BYTE_6]) + "]",
+                PlaceHolder::COLLECTION);
             break;
         }
         uint8_t l_dramWidth =
@@ -319,8 +326,9 @@ size_t DdimmVpdParser::getDdr4BasedDdimmSize(
     catch (const std::exception& l_ex)
     {
         // TODO:: Need an error log here
-        logging::logMessage("DDR4 DDIMM calculation is failed, reason: " +
-                            std::string(l_ex.what()));
+        m_logger->logMessage("DDR4 DDIMM calculation is failed, reason: " +
+                                 std::string(l_ex.what()),
+                             PlaceHolder::COLLECTION);
     }
     return l_dimmSize;
 }
@@ -339,9 +347,10 @@ size_t DdimmVpdParser::getDdimmSize(
     }
     else
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Error: DDIMM is neither DDR4 nor DDR5. DDIMM Byte 2 value [" +
-            std::to_string(i_iterator[constants::SPD_BYTE_2]) + "]");
+                std::to_string(i_iterator[constants::SPD_BYTE_2]) + "]",
+            PlaceHolder::COLLECTION);
     }
     return l_dimmSize;
 }
@@ -392,7 +401,7 @@ types::VPDMapVariant DdimmVpdParser::parse()
     }
     catch (const std::exception& exp)
     {
-        logging::logMessage(exp.what());
+        m_logger->logMessage(exp.what(), PlaceHolder::COLLECTION);
         throw exp;
     }
 }

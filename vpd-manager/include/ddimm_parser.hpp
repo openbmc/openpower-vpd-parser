@@ -35,7 +35,7 @@ class DdimmVpdParser : public ParserInterface
      * @param[in] i_vpdVector - VPD data.
      */
     DdimmVpdParser(const types::BinaryVector& i_vpdVector) :
-        m_vpdVector(i_vpdVector)
+        m_vpdVector(i_vpdVector), m_logger(Logger::getLoggerInstance())
     {
         if ((constants::DDIMM_11S_BARCODE_START +
              constants::DDIMM_11S_BARCODE_LEN) > m_vpdVector.size())
@@ -119,5 +119,8 @@ class DdimmVpdParser : public ParserInterface
 
     // Stores parsed VPD data.
     types::DdimmVpdMap m_parsedVpdMap{};
+
+    // Shared pointer to Logger object.
+    std::shared_ptr<Logger> m_logger;
 };
 } // namespace vpd

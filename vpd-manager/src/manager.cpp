@@ -4,7 +4,6 @@
 
 #include "constants.hpp"
 #include "exceptions.hpp"
-#include "logger.hpp"
 #include "parser.hpp"
 #include "parser_factory.hpp"
 #include "parser_interface.hpp"
@@ -26,7 +25,7 @@ Manager::Manager(
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressiFace,
     const std::shared_ptr<sdbusplus::asio::connection>& asioConnection) :
     m_ioContext(ioCon), m_interface(iFace), m_progressInterface(progressiFace),
-    m_asioConnection(asioConnection)
+    m_asioConnection(asioConnection), m_logger(Logger::getLoggerInstance())
 {
 #ifdef IBM_SYSTEM_SINGLE_FAB
     if (!dbusUtility::isChassisPowerOn())
@@ -387,9 +386,10 @@ void Manager::collectSingleFruVpd(
 {
     if (m_vpdCollectionStatus != constants::vpdCollectionCompleted)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Currently VPD CollectionStatus is not completed. Cannot perform single FRU VPD collection for " +
-            std::string(i_dbusObjPath));
+                std::string(i_dbusObjPath),
+            PlaceHolder::COLLECTION);
         return;
     }
 
