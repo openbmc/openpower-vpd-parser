@@ -1,5 +1,6 @@
 #pragma once
 
+#include "logger.hpp"
 #include "parser_interface.hpp"
 #include "types.hpp"
 
@@ -152,6 +153,9 @@ class JedecSpdParser : public ParserInterface
 
     // SPD file to be parsed
     const types::BinaryVector& m_memSpd;
+
+    // Shared pointer to Logger object.
+    std::shared_ptr<Logger> m_logger;
 };
 
 } // namespace vpd

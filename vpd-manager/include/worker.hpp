@@ -1,6 +1,7 @@
 #pragma once
 
 #include "constants.hpp"
+#include "logger.hpp"
 #include "types.hpp"
 
 #include <nlohmann/json.hpp>
@@ -583,5 +584,8 @@ class Worker
     // VPD collection mode
     types::VpdCollectionMode m_vpdCollectionMode{
         types::VpdCollectionMode::DEFAULT_MODE};
+
+    // Shared pointer to Logger object.
+    std::shared_ptr<Logger> m_logger;
 };
 } // namespace vpd

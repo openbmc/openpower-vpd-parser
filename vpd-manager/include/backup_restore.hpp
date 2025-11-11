@@ -1,5 +1,6 @@
 #pragma once
 
+#include "logger.hpp"
 #include "types.hpp"
 
 #include <nlohmann/json.hpp>
@@ -121,6 +122,9 @@ class BackupAndRestore
 
     // Backup and restore status.
     static BackupAndRestoreStatus m_backupAndRestoreStatus;
+
+    // Shared pointer to Logger object.
+    std::shared_ptr<Logger> m_logger;
 };
 
 } // namespace vpd
