@@ -284,5 +284,8 @@ class IpzVpdParser : public ParserInterface
 
     // VPD start offset. Required for ECC correction.
     size_t m_vpdStartOffset = 0;
+
+    // Shared pointer to Logger object.
+    std::shared_ptr<Logger> m_logger;
 };
 } // namespace vpd

@@ -1,7 +1,6 @@
 #include "isdimm_parser.hpp"
 
 #include "constants.hpp"
-#include "logger.hpp"
 
 #include <algorithm>
 #include <iostream>
@@ -79,9 +78,10 @@ auto JedecSpdParser::getDDR4DimmCapacity(
     /* Make sure the bits are not Reserved */
     if (l_tmp >= SPD_JEDEC_DDR4_SDRAMCAP_RESERVED)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Bad data in spd byte 4. Can't calculate SDRAM capacity "
-            "and so dimm size.\n ");
+            "and so dimm size.\n ",
+            PlaceHolder::COLLECTION);
         return l_dimmSize;
     }
     l_sdramCap = (l_sdramCap << l_tmp) * SPD_JEDEC_DDR4_SDRAMCAP_MULTIPLIER;
@@ -91,9 +91,10 @@ auto JedecSpdParser::getDDR4DimmCapacity(
             SPD_JEDEC_DDR4_PRI_BUS_WIDTH_MASK;
     if (l_tmp >= SPD_JEDEC_DDR4_4_RESERVED_BITS)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Bad data in spd byte 13. Can't calculate primary bus "
-            "width and so dimm size.\n ");
+            "width and so dimm size.\n ",
+            PlaceHolder::COLLECTION);
         return l_dimmSize;
     }
     l_priBusWid = (l_priBusWid << l_tmp) *
@@ -104,9 +105,10 @@ auto JedecSpdParser::getDDR4DimmCapacity(
             SPD_JEDEC_DDR4_SDRAM_WIDTH_MASK;
     if (l_tmp >= SPD_JEDEC_DDR4_4_RESERVED_BITS)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Bad data in spd byte 12. Can't calculate SDRAM width and "
-            "so dimm size.\n ");
+            "so dimm size.\n ",
+            PlaceHolder::COLLECTION);
         return l_dimmSize;
     }
     l_sdramWid = (l_sdramWid << l_tmp) * SPD_JEDEC_DDR4_SDRAM_WIDTH_MULTIPLIER;
@@ -128,8 +130,9 @@ auto JedecSpdParser::getDDR4DimmCapacity(
 
     if (l_tmp >= SPD_JEDEC_DDR4_4_RESERVED_BITS)
     {
-        logging::logMessage(
-            "Can't calculate number of ranks. Invalid data found.\n ");
+        m_logger->logMessage(
+            "Can't calculate number of ranks. Invalid data found.\n ",
+            PlaceHolder::COLLECTION);
         return l_dimmSize;
     }
     l_logicalRanksPerDimm = (l_tmp + 1) * l_dieCount;
@@ -213,8 +216,9 @@ types::BinaryVector JedecSpdParser::getDDR4ManufacturerId()
     if (m_memSpd.size() < (SPD_JEDEC_DDR4_DRAM_MANUFACTURER_ID_OFFSET +
                            SPD_JEDEC_DRAM_MANUFACTURER_ID_LENGTH))
     {
-        logging::logMessage(
-            "VPD length is less than the offset of Manufacturer ID. Can't fetch it");
+        m_logger->logMessage(
+            "VPD length is less than the offset of Manufacturer ID. Can't fetch it",
+            PlaceHolder::COLLECTION);
         return l_mfgId;
     }
 
@@ -294,7 +298,8 @@ types::JedecSpdMap JedecSpdParser::readKeywords(
     size_t dimmSize = getDDR4DimmCapacity(i_iterator);
     if (!dimmSize)
     {
-        logging::logMessage("Error: Calculated dimm size is 0.");
+        m_logger->logMessage("Error: Calculated dimm size is 0.",
+                             PlaceHolder::COLLECTION);
     }
     else
     {
