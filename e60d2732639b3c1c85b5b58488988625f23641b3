@@ -16,6 +16,23 @@
       "message": "\"initiation and termination of FRU VPD collection logging\"?",
       "revId": "e60d2732639b3c1c85b5b58488988625f23641b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4aac380b_0f346c7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-11T08:54:59Z",
+      "side": 1,
+      "message": "Nit about the commit message, otherwise looks fine.",
+      "revId": "e60d2732639b3c1c85b5b58488988625f23641b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
