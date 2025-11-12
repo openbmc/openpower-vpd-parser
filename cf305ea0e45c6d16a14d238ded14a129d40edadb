@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a488425_fc6a2ae2",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-12T06:35:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d95b3f3d_7e5cc504",
+      "revId": "cf305ea0e45c6d16a14d238ded14a129d40edadb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b2c2cd2_a8d73587",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "ok",
       "parentUuid": "0b2c2cd2_a8d73587",
+      "revId": "cf305ea0e45c6d16a14d238ded14a129d40edadb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b119672_ef2065f9",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-12T06:35:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "217f4e58_7711d5f3",
       "revId": "cf305ea0e45c6d16a14d238ded14a129d40edadb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
