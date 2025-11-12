@@ -288,6 +288,37 @@ ILogFileHandler::ILogFileHandler(const std::filesystem::path& i_filePath,
             l_ec.message());
     }
 
+    if (!l_logFileExists)
+    {
+        l_ec.clear();
+
+        // check if the parent directory of the file exists
+        if (!std::filesystem::exists(m_filePath.parent_path(), l_ec))
+        {
+            if (l_ec)
+            {
+                Logger::getLoggerInstance()->logMessage(
+                    "Failed to check if log file parent directory [" +
+                    m_filePath.parent_path().string() +
+                    "] exists. Error: " + l_ec.message());
+
+                l_ec.clear();
+            }
+
+            // create parent directories
+            if (!std::filesystem::create_directories(m_filePath.parent_path(),
+                                                     l_ec))
+            {
+                if (l_ec)
+                {
+                    throw std::runtime_error(
+                        "Failed to create parent directory of log file path:[" +
+                        m_filePath.string() + "]. Error: " + l_ec.message());
+                }
+            }
+        }
+    }
+
     // open the file in append mode
     m_fileStream.open(m_filePath, std::ios::out | std::ios::ate);
     // enable exception mask to throw on badbit and failbit
