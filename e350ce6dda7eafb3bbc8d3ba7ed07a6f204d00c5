@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fafa2c56_41059dbf",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-13T11:14:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "270615d9_8d08ba23",
+      "revId": "e350ce6dda7eafb3bbc8d3ba7ed07a6f204d00c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0414a512_1e5f0942",
@@ -106,6 +124,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ef84ad_5299115c",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-13T11:14:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c51337b_a3db47d7",
+      "revId": "e350ce6dda7eafb3bbc8d3ba7ed07a6f204d00c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc693252_961b98bb",
@@ -141,6 +177,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c661c239_a007db96",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-13T11:14:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6fa929a_2f3518b8",
+      "revId": "e350ce6dda7eafb3bbc8d3ba7ed07a6f204d00c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aeae95c8_010cd6a8",
@@ -158,6 +212,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b91287f2_169fd1a5",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-13T11:14:52Z",
+      "side": 1,
+      "message": "I will change it in new code.\n\nI returned from here after sending message to the journal. It was not required to go ahead.",
+      "parentUuid": "aeae95c8_010cd6a8",
+      "revId": "e350ce6dda7eafb3bbc8d3ba7ed07a6f204d00c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b62ae9d1_b3615be9",
@@ -171,6 +243,24 @@
       "writtenOn": "2025-11-13T05:13:51Z",
       "side": 1,
       "message": "initiateVpdCollectionLogging() doesn\u0027t guarantes to initialise m_collectionLogger in case of error.",
+      "revId": "e350ce6dda7eafb3bbc8d3ba7ed07a6f204d00c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f698b9a3_3671529c",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-13T11:14:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b62ae9d1_b3615be9",
       "revId": "e350ce6dda7eafb3bbc8d3ba7ed07a6f204d00c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
