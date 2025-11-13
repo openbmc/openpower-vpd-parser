@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "270615d9_8d08ba23",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-13T08:44:35Z",
+      "side": 1,
+      "message": "Since we are modifying this API, can we add a detail saying that this API will terminate logging of collection logs into file.",
+      "revId": "e350ce6dda7eafb3bbc8d3ba7ed07a6f204d00c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0414a512_1e5f0942",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 13
@@ -73,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c51337b_a3db47d7",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-13T08:44:35Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5a7685af_dabd4a89",
+      "revId": "e350ce6dda7eafb3bbc8d3ba7ed07a6f204d00c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cc693252_961b98bb",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 13
@@ -84,6 +119,24 @@
       "writtenOn": "2025-11-13T05:13:51Z",
       "side": 1,
       "message": "why cout, logging to journal here ?",
+      "revId": "e350ce6dda7eafb3bbc8d3ba7ed07a6f204d00c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6fa929a_2f3518b8",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-13T08:44:35Z",
+      "side": 1,
+      "message": "+1, after initialization, if the init is success, move the log to file not journal.",
+      "parentUuid": "cc693252_961b98bb",
       "revId": "e350ce6dda7eafb3bbc8d3ba7ed07a6f204d00c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
