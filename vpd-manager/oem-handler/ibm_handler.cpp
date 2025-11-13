@@ -4,6 +4,7 @@
 
 #include "configuration.hpp"
 #include "listener.hpp"
+#include "logger.hpp"
 #include "parser.hpp"
 
 #include <utility/common_utility.hpp>
@@ -417,6 +418,7 @@ void IbmHandler::enableMuxChips()
     // iterate over each MUX detail and enable them.
     for (const auto& item : m_sysCfgJsonObj["muxes"])
     {
+        uint16_t l_errCode = 0;
         if (item.contains("holdidlepath"))
         {
             std::string cmd = "echo 0 > ";
@@ -424,7 +426,15 @@ void IbmHandler::enableMuxChips()
 
             logging::logMessage("Enabling mux with command = " + cmd);
 
-            commonUtility::executeCmd(cmd);
+            commonUtility::executeCmd(cmd, l_errCode);
+
+            if (l_errCode)
+            {
+                m_logger->logMessage(
+                    "Failed to execute command [" + cmd +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+            }
+
             continue;
         }
 
@@ -507,7 +517,16 @@ static void setEnvAndReboot(const std::string& i_key,
                             const std::string& i_value)
 {
     // set env and reboot and break.
-    commonUtility::executeCmd("/sbin/fw_setenv", i_key, i_value);
+    uint16_t l_errCode = 0;
+    commonUtility::executeCmd("/sbin/fw_setenv", l_errCode, i_key, i_value);
+
+    if (l_errCode)
+    {
+        Logger::getLoggerInstance()->logMessage(
+            "Failed to execute command [/sbin/fw_setenv " + i_key + " " +
+            i_value + "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+    }
+
     logging::logMessage("Rebooting BMC to pick up new device tree");
 
     // make dbus call to reboot
@@ -520,8 +539,17 @@ static void setEnvAndReboot(const std::string& i_key,
 
 static std::string readFitConfigValue()
 {
+    uint16_t l_errCode = 0;
     std::vector<std::string> l_output =
-        commonUtility::executeCmd("/sbin/fw_printenv");
+        commonUtility::executeCmd("/sbin/fw_printenv", l_errCode);
+
+    if (l_errCode)
+    {
+        Logger::getLoggerInstance()->logMessage(
+            "Failed to execute command [/sbin/fw_printenv], error : " +
+            commonUtility::getErrCodeMsg(l_errCode));
+    }
+
     std::string l_fitConfigValue;
 
     for (const auto& l_entry : l_output)
