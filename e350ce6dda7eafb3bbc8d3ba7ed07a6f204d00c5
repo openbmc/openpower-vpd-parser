@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0414a512_1e5f0942",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-13T04:47:57Z",
+      "side": 1,
+      "message": "why initiateVpdCollectionLogging should be called each time when logMessage() called ?",
+      "revId": "e350ce6dda7eafb3bbc8d3ba7ed07a6f204d00c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

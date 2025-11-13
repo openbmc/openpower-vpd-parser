@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cd42f33_267d6b7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-13T04:47:57Z",
+      "side": 1,
+      "message": "instead moving can we say, enabling compile time flags for logging .",
+      "revId": "306d8c56b1098a28c2ee912309590da657afb919",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa1d900c_bec4fa72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-13T04:47:57Z",
+      "side": 1,
+      "message": "user can decide whether to log into file or journal.",
+      "revId": "306d8c56b1098a28c2ee912309590da657afb919",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
