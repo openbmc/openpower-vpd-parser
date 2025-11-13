@@ -56,6 +56,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a7685af_dabd4a89",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-13T05:21:11Z",
+      "side": 1,
+      "message": "Why do we need to get logger instance here?\n`initiateVpdCollectionLogging()` is a private member method of `Logger` class.",
+      "revId": "e350ce6dda7eafb3bbc8d3ba7ed07a6f204d00c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cc693252_961b98bb",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 13
@@ -67,6 +84,23 @@
       "writtenOn": "2025-11-13T05:13:51Z",
       "side": 1,
       "message": "why cout, logging to journal here ?",
+      "revId": "e350ce6dda7eafb3bbc8d3ba7ed07a6f204d00c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeae95c8_010cd6a8",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-13T05:21:11Z",
+      "side": 1,
+      "message": "Why a `return` statement is needed here?",
       "revId": "e350ce6dda7eafb3bbc8d3ba7ed07a6f204d00c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
