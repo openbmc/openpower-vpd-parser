@@ -75,8 +75,17 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
 
 static std::string readFitConfigValue()
 {
+    uint16_t l_errCode = 0;
     std::vector<std::string> output =
-        commonUtility::executeCmd("/sbin/fw_printenv");
+        commonUtility::executeCmd("/sbin/fw_printenv", l_errCode);
+
+    if (l_errCode)
+    {
+        logging::logMessage(
+            "Failed to execute command [/sbin/fw_printenv], error : " +
+            commonUtility::getErrCodeMsg(l_errCode));
+    }
+
     std::string fitConfigValue;
 
     for (const auto& entry : output)
@@ -213,7 +222,16 @@ void Worker::getSystemJson(std::string& systemJson,
 static void setEnvAndReboot(const std::string& key, const std::string& value)
 {
     // set env and reboot and break.
-    commonUtility::executeCmd("/sbin/fw_setenv", key, value);
+    uint16_t l_errCode = 0;
+    commonUtility::executeCmd("/sbin/fw_setenv", l_errCode, key, value);
+
+    if (l_errCode)
+    {
+        logging::logMessage(
+            "Failed to execute command [/sbin/fw_setenv " + key + " " + value +
+            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+    }
+
     logging::logMessage("Rebooting BMC to pick up new device tree");
 
     // make dbus call to reboot
