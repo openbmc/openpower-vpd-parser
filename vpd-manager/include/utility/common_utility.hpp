@@ -99,28 +99,45 @@ inline std::string getCommand(T i_arg1, Types... i_args)
  * @throw std::runtime_error.
  *
  * @param[in] arguments for command
+ * @param[out] o_errCode - To set error code in case of error.
  * @returns output of that command
  */
 template <typename T, typename... Types>
-inline std::vector<std::string> executeCmd(T&& i_path, Types... i_args)
+inline std::vector<std::string> executeCmd(T&& i_path, uint16_t& o_errCode,
+                                           Types... i_args)
 {
+    o_errCode = 0;
     std::vector<std::string> l_cmdOutput;
-    std::array<char, constants::CMD_BUFFER_LENGTH> l_buffer;
 
-    std::string l_cmd = i_path + getCommand(i_args...);
-
-    std::unique_ptr<FILE, decltype(&pclose)> l_cmdPipe(
-        popen(l_cmd.c_str(), "r"), pclose);
-
-    if (!l_cmdPipe)
+    try
     {
-        logging::logMessage(
-            "popen failed with error " + std::string(strerror(errno)));
-        throw std::runtime_error("popen failed!");
+        std::array<char, constants::CMD_BUFFER_LENGTH> l_buffer;
+
+        std::string l_cmd = i_path + getCommand(i_args...);
+
+        std::unique_ptr<FILE, decltype(&pclose)> l_cmdPipe(
+            popen(l_cmd.c_str(), "r"), pclose);
+
+        if (!l_cmdPipe)
+        {
+            o_errCode = error_code::POPEN_FAILED;
+            Logger::getLoggerInstance()->logMessage(
+                "popen failed with error " + std::string(strerror(errno)));
+            return l_cmdOutput;
+        }
+
+        while (fgets(l_buffer.data(), l_buffer.size(), l_cmdPipe.get()) !=
+               nullptr)
+        {
+            l_cmdOutput.emplace_back(l_buffer.data());
+        }
     }
-    while (fgets(l_buffer.data(), l_buffer.size(), l_cmdPipe.get()) != nullptr)
+    catch (const std::exception& l_ex)
     {
-        l_cmdOutput.emplace_back(l_buffer.data());
+        o_errCode = error_code::STANDARD_EXCEPTION;
+        Logger::getLoggerInstance()->logMessage(
+            "Error while trying to execute command [" + std::string(i_path) +
+            "], error : " + std::string(l_ex.what()));
     }
 
     return l_cmdOutput;
@@ -283,8 +300,9 @@ inline bool isFieldModeEnabled() noexcept
 {
     try
     {
+        uint16_t l_errCode = 0;
         std::vector<std::string> l_cmdOutput =
-            executeCmd("/sbin/fw_printenv fieldmode");
+            executeCmd("/sbin/fw_printenv fieldmode", l_errCode);
 
         if (l_cmdOutput.size() > 0)
         {
@@ -292,8 +310,14 @@ inline bool isFieldModeEnabled() noexcept
 
             // Remove the new line character from the string.
             l_cmdOutput[0].erase(l_cmdOutput[0].length() - 1);
-
             return l_cmdOutput[0] == "fieldmode=true";
+        }
+        else if (l_errCode)
+        {
+            // ToDo : Remove log and set error code.
+            Logger::getLoggerInstance()->logMessage(
+                "Failed to execute command, error : " +
+                getErrCodeMsg(l_errCode));
         }
     }
     catch (const std::exception& l_ex)
@@ -315,11 +339,12 @@ inline bool isFieldModeEnabled() noexcept
 inline types::VpdCollectionMode getVpdCollectionMode(
     uint16_t& o_errCode) noexcept
 {
+    o_errCode = 0;
     types::VpdCollectionMode l_result{types::VpdCollectionMode::DEFAULT_MODE};
     try
     {
         std::vector<std::string> l_cmdOutput =
-            commonUtility::executeCmd("/sbin/fw_printenv vpdmode");
+            commonUtility::executeCmd("/sbin/fw_printenv vpdmode", o_errCode);
 
         if (l_cmdOutput.size() > 0)
         {
