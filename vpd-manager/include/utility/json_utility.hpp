@@ -319,11 +319,17 @@ inline bool processSystemCmdTag(
             i_parsedConfigJson["frus"][i_vpdFilePath].at(
                 0)[i_baseAction][i_flagToProcess]["systemCmd"]["cmd"];
 
-        commonUtility::executeCmd(l_systemCommand);
+        commonUtility::executeCmd(l_systemCommand, o_errCode);
+
+        if (o_errCode)
+        {
+            o_errCode = error_code::ERROR_PROCESSING_SYSTEM_CMD;
+            return false;
+        }
     }
     catch (const std::exception& l_ex)
     {
-        o_errCode = error_code::ERROR_PROCESSING_SYSTEM_CMD;
+        o_errCode = error_code::STANDARD_EXCEPTION;
         return false;
     }
     return true;

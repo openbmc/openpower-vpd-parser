@@ -412,6 +412,7 @@ void IbmHandler::enableMuxChips()
     // iterate over each MUX detail and enable them.
     for (const auto& item : m_sysCfgJsonObj["muxes"])
     {
+        uint16_t l_errCode = 0;
         if (item.contains("holdidlepath"))
         {
             std::string cmd = "echo 0 > ";
@@ -419,7 +420,14 @@ void IbmHandler::enableMuxChips()
 
             logging::logMessage("Enabling mux with command = " + cmd);
 
-            commonUtility::executeCmd(cmd);
+            commonUtility::executeCmd(cmd, l_errCode);
+
+            if (l_errCode)
+            {
+                logging::logMessage("Failed to execute command, error : " +
+                                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+
             continue;
         }
 
