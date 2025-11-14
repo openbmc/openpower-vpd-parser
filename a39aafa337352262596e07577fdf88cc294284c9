@@ -16,6 +16,24 @@
       "message": "Since this initiation has moved around, please test the log file rotation logic inside this method.",
       "revId": "a39aafa337352262596e07577fdf88cc294284c9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "354901cd_ab486183",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-14T11:36:58Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "6490b666_6b2c75c1",
+      "revId": "a39aafa337352262596e07577fdf88cc294284c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
