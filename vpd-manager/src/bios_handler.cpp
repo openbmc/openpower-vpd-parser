@@ -265,7 +265,7 @@ void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios)
             if (constants::FAILURE ==
                 m_manager->updateKeyword(
                     SYSTEM_VPD_FILE_PATH,
-                    types::IpzData(constants::vsysInf, constants::kwdRG,
+                    types::IpzData(constants::recVSYS, constants::kwdRG,
                                    l_biosValInVpdFormat)))
             {
                 logging::logMessage(
@@ -337,7 +337,7 @@ void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode)
         if (constants::FAILURE ==
             m_manager->updateKeyword(
                 SYSTEM_VPD_FILE_PATH,
-                types::IpzData(constants::vsysInf, constants::kwdAMM,
+                types::IpzData(constants::recVSYS, constants::kwdAMM,
                                l_valToUpdateInVpd)))
         {
             logging::logMessage(
