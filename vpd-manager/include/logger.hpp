@@ -306,7 +306,7 @@ class Logger
                     const PlaceHolder& i_placeHolder = PlaceHolder::DEFAULT,
                     const types::PelInfoTuple* i_pelTuple = nullptr,
                     const std::source_location& i_location =
-                        std::source_location::current());
+                        std::source_location::current()) noexcept;
 
     /**
      * @brief API to initiate VPD collection logging.
