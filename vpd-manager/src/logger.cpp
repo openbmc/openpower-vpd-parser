@@ -10,62 +10,71 @@ std::shared_ptr<Logger> Logger::m_loggerInstance;
 void Logger::logMessage(std::string_view i_message,
                         const PlaceHolder& i_placeHolder,
                         const types::PelInfoTuple* i_pelTuple,
-                        const std::source_location& i_location)
+                        const std::source_location& i_location) noexcept
 {
     std::ostringstream l_log;
     l_log << "FileName: " << i_location.file_name() << ","
           << " Line: " << i_location.line() << " " << i_message;
 
-    if (i_placeHolder == PlaceHolder::COLLECTION)
+    try
     {
-#ifdef ENABLE_FILE_LOGGING
-        if (m_collectionLogger.get() == nullptr)
+        if (i_placeHolder == PlaceHolder::COLLECTION)
         {
-            initiateVpdCollectionLogging();
-
-            if (m_collectionLogger.get() != nullptr)
+#ifdef ENABLE_FILE_LOGGING
+            if (m_collectionLogger.get() == nullptr)
             {
-                // Log it to a specific place.
-                m_collectionLogger->logMessage(l_log.str());
+                initiateVpdCollectionLogging();
+
+                if (m_collectionLogger.get() != nullptr)
+                {
+                    // Log it to a specific place.
+                    m_collectionLogger->logMessage(l_log.str());
+                }
+                else
+                {
+                    std::cout << l_log.str() << std::endl;
+                }
             }
             else
             {
-                std::cout << l_log.str() << std::endl;
+                m_collectionLogger->logMessage(l_log.str());
             }
+#else
+            std::cout << l_log.str() << std::endl;
+#endif
+        }
+        else if (i_placeHolder == PlaceHolder::PEL)
+        {
+            if (i_pelTuple)
+            {
+                // LOG PEL
+                // This should call create PEL API from the event logger.
+                return;
+            }
+            std::cout << "Pel info tuple required to log PEL for message <" +
+                             l_log.str() + ">"
+                      << std::endl;
+        }
+        else if (i_placeHolder == PlaceHolder::VPD_WRITE)
+        {
+            if (!m_vpdWriteLogger)
+            {
+                m_vpdWriteLogger.reset(
+                    new SyncFileLogger("/var/lib/vpd/vpdWrite.log", 128));
+            }
+            m_vpdWriteLogger->logMessage(l_log.str());
         }
         else
         {
-            m_collectionLogger->logMessage(l_log.str());
+            // Default case, let it go to journal.
+            std::cout << l_log.str() << std::endl;
         }
-#else
-        std::cout << l_log.str() << std::endl;
-#endif
     }
-    else if (i_placeHolder == PlaceHolder::PEL)
+    catch (const std::exception& l_ex)
     {
-        if (i_pelTuple)
-        {
-            // LOG PEL
-            // This should call create PEL API from the event logger.
-            return;
-        }
-        std::cout << "Pel info tuple required to log PEL for message <" +
-                         l_log.str() + ">"
+        std::cout << "Failed to log message:[" + l_log.str() +
+                         "]. Error: " + std::string(l_ex.what())
                   << std::endl;
-    }
-    else if (i_placeHolder == PlaceHolder::VPD_WRITE)
-    {
-        if (!m_vpdWriteLogger)
-        {
-            m_vpdWriteLogger.reset(
-                new SyncFileLogger("/var/lib/vpd/vpdWrite.log", 128));
-        }
-        m_vpdWriteLogger->logMessage(l_log.str());
-    }
-    else
-    {
-        // Default case, let it go to journal.
-        std::cout << l_log.str() << std::endl;
     }
 }
 
@@ -319,10 +328,10 @@ ILogFileHandler::ILogFileHandler(const std::filesystem::path& i_filePath,
         }
     }
 
-    // open the file in append mode
-    m_fileStream.open(m_filePath, std::ios::out | std::ios::ate);
     // enable exception mask to throw on badbit and failbit
     m_fileStream.exceptions(std::ios_base::badbit | std::ios_base::failbit);
+    // open the file in append mode
+    m_fileStream.open(m_filePath, std::ios::out | std::ios::ate);
 
     if (l_logFileExists)
     {
