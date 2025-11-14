@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52a4dc6d_b6c1c16a",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-14T05:25:16Z",
+      "side": 1,
+      "message": "Why don\u0027t we fail the construction of object in this case? Because till this point the construction is partially done for the members.",
+      "revId": "1291fc18322a86a519da86d451b6066ee08563ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
