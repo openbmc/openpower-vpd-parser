@@ -361,9 +361,6 @@ void Worker::setJsonSymbolicLink(const std::string& i_systemJson)
 
 void Worker::setDeviceTreeAndJson()
 {
-    setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
-                                constants::vpdCollectionInProgress);
-
     // JSON is madatory for processing of this API.
     if (m_parsedJson.empty())
     {
@@ -400,6 +397,9 @@ void Worker::setDeviceTreeAndJson()
                 " ], error : " + commonUtility::getErrCodeMsg(l_errCode),
             systemJson));
     }
+
+    setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
+                                constants::vpdCollectionInProgress);
 
     std::string devTreeFromJson;
     if (m_parsedJson.contains("devTree"))
