@@ -207,6 +207,21 @@ class Worker
     void setCollectionStatusProperty(const std::string& i_fruPath,
                                      const std::string& i_value) const noexcept;
 
+    /**
+     * @brief API to get effective VPD collection mode and file path for a FRU
+     *
+     * This API gets the effective VPD collection mode and file path for a FRU
+     * by checking the VPD collection mode member, and whether the effective VPD
+     * file path for this FRU exists.
+     *
+     * @param[in,out] io_vpdfilePath - VPD file path of FRU
+     *
+     * @return Hardware mode, if the FRU VPD needs to be collected from
+     * hardware, File mode if the FRU VPD needs to be collected from file.
+     */
+    inline types::VpdCollectionMode getEffectiveVpdCollectionModeAndFilePath(
+        std::filesystem::path& io_vpdFilePath) const noexcept;
+
   private:
     /**
      * @brief An API to parse and publish a FRU VPD over D-Bus.

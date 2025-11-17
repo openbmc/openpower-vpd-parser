@@ -1303,6 +1303,16 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                 " Empty VPD file path passed. Abort processing");
         }
 
+        // get the effective VPD file path and effective VPD collection mode
+        /* TODO:
+           - use the effective VPD file path for collection
+           - use the effective VPD collection mode to determine whether
+           preAction, postAction and postFailAction needs to be executed
+        */
+        std::filesystem::path l_effectiveVpdFilePath{i_vpdFilePath};
+        [[maybe_unused]] const auto l_effectiveCollectionMode =
+            getEffectiveVpdCollectionModeAndFilePath(l_effectiveVpdFilePath);
+
         bool isPreActionRequired = false;
         if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
                                           "preAction", "collection", l_errCode))
@@ -2264,5 +2274,57 @@ void Worker::setCollectionStatusProperty(
             __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
+}
+
+types::VpdCollectionMode Worker::getEffectiveVpdCollectionModeAndFilePath(
+    std::filesystem::path& io_vpdFilePath) const noexcept
+{
+    types::VpdCollectionMode l_effCollectionMode{
+        types::VpdCollectionMode::HARDWARE_MODE};
+    try
+    {
+        switch (m_vpdCollectionMode)
+        {
+            case types::VpdCollectionMode::FILE_MODE:
+            {
+                io_vpdFilePath = std::filesystem::path(
+                    constants::fileModeVpdPath) /= io_vpdFilePath;
+                l_effCollectionMode = types::VpdCollectionMode::FILE_MODE;
+                break;
+            }
+            case types::VpdCollectionMode::MIXED_MODE:
+            {
+                const auto l_vpdFilePath = std::filesystem::path(
+                    constants::fileModeVpdPath) /= io_vpdFilePath;
+
+                // first check if the VPD image for this FRU exists on
+                // filesystem
+                if (std::filesystem::exists(l_vpdFilePath))
+                {
+                    io_vpdFilePath = l_vpdFilePath;
+                    l_effCollectionMode = types::VpdCollectionMode::FILE_MODE;
+                    break;
+                }
+                else
+                {
+                    // VPD image for FRU doesn't exist on file, use hardware
+                    // mode
+                    break;
+                }
+            }
+            case types::VpdCollectionMode::HARDWARE_MODE:
+            default:
+            {
+                // do not modify the VPD file path
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        Logger::getLoggerInstance()->logMessage(
+            "Error while trying to determine effective FRU VPD file path: " +
+            std::string(l_ex.what()));
+    }
+    return l_effCollectionMode;
 }
 } // namespace vpd
