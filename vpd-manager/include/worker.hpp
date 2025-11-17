@@ -551,6 +551,20 @@ class Worker
                i_fru.value("handlePresence", true);
     }
 
+    /**
+     * @brief API to get effective VPD file path for a FRU
+     *
+     * This API gets the effective VPD file path for a FRU by checking the VPD
+     * collection mode member.
+     *
+     * @param[in,out] io_vpdfilePath - VPD file path of FRU
+     *
+     * @return Hardware mode, if the FRU VPD needs to be collected from
+     * hardware, File mode if the FRU VPD needs to be collected from file.
+     */
+    inline types::VpdCollectionMode getEffectiveVpdFilePath(
+        std::filesystem::path& io_vpdFilePath) const noexcept;
+
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
 
