@@ -562,7 +562,7 @@ class Worker
      * @return Hardware mode, if the FRU VPD needs to be collected from
      * hardware, File mode if the FRU VPD needs to be collected from file.
      */
-    inline types::VpdCollectionMode getEffectiveVpdFilePath(
+    inline types::VpdCollectionMode getEffectiveVpdCollectionModeAndFilePath(
         std::filesystem::path& io_vpdFilePath) const noexcept;
 
     // Parsed JSON file.

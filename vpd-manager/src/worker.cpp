@@ -1292,6 +1292,8 @@ bool Worker::processPostAction(
 
 types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
 {
+    types::VpdCollectionMode l_effectiveCollectionMode{
+        types::VpdCollectionMode::HARDWARE_MODE};
     try
     {
         uint16_t l_errCode = 0;
@@ -1303,8 +1305,18 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                 " Empty VPD file path passed. Abort processing");
         }
 
+        // get the effective VPD file path and effective VPD collection mode
+        std::filesystem::path l_effectiveVpdFilePath{i_vpdFilePath};
+        l_effectiveCollectionMode =
+            getEffectiveVpdCollectionModeAndFilePath(l_effectiveVpdFilePath);
+
         bool isPreActionRequired = false;
-        if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
+
+        // preAction is required only if collection mode is hardware mode
+        if ((l_effectiveCollectionMode ==
+             types::VpdCollectionMode::HARDWARE_MODE) &&
+            jsonUtility::isActionRequired(m_parsedJson,
+                                          l_effectiveVpdFilePath.string(),
                                           "preAction", "collection", l_errCode))
         {
             isPreActionRequired = true;
@@ -1334,7 +1346,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                 "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        if (!std::filesystem::exists(i_vpdFilePath))
+        if (!std::filesystem::exists(l_effectiveVpdFilePath))
         {
             if (isPreActionRequired)
             {
@@ -1345,8 +1357,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             return types::VPDMapVariant{};
         }
 
-        std::shared_ptr<Parser> vpdParser =
-            std::make_shared<Parser>(i_vpdFilePath, m_parsedJson);
+        std::shared_ptr<Parser> vpdParser = std::make_shared<Parser>(
+            l_effectiveVpdFilePath.string(), m_parsedJson);
 
         types::VPDMapVariant l_parsedVpd = vpdParser->parse();
 
@@ -1354,7 +1366,10 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
         // any post action in the flow of collection.
         // Note: Don't change the order, post action needs to be processed only
         // after collection for FRU is successfully done.
-        if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
+        // postAction is required only if collection mode is hardware mode
+        if ((l_effectiveCollectionMode ==
+             types::VpdCollectionMode::HARDWARE_MODE) &&
+            jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
                                           "postAction", "collection",
                                           l_errCode))
         {
@@ -1388,7 +1403,10 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             i_vpdFilePath + " due to error: " + l_ex.what()};
 
         // If post fail action is required, execute it.
-        if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
+        // postFailAction is required only if collection mode is hardware mode.
+        if ((l_effectiveCollectionMode ==
+             types::VpdCollectionMode::HARDWARE_MODE) &&
+            jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
                                           "postFailAction", "collection",
                                           l_errCode))
         {
@@ -2266,7 +2284,7 @@ void Worker::setCollectionStatusProperty(
     }
 }
 
-types::VpdCollectionMode Worker::getEffectiveVpdFilePath(
+types::VpdCollectionMode Worker::getEffectiveVpdCollectionModeAndFilePath(
     std::filesystem::path& io_vpdFilePath) const noexcept
 {
     types::VpdCollectionMode l_effCollectionMode{
