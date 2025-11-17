@@ -243,5 +243,7 @@ static constexpr auto rbmcPositionInterface =
     "xyz.openbmc_project.Inventory.Decorator.Position";
 static std::vector<uint8_t> rbmcPrototypeSystemImValue{
     55, 54, 48, 48, 50, 48, 48, 48};
+
+static constexpr auto fileModeVpdPath = "/var/lib/vpd/filemode";
 } // namespace constants
 } // namespace vpd
