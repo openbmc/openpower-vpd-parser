@@ -235,24 +235,6 @@ class Worker
                        const types::VPDMapVariant& parsedVpdMap);
 
     /**
-     * @brief An API to read IM value from VPD.
-     *
-     * Note: Throws exception in case of error. Caller need to handle.
-     *
-     * @param[in] parsedVpd - Parsed VPD.
-     */
-    std::string getIMValue(const types::IPZVpdMap& parsedVpd) const;
-
-    /**
-     * @brief An API to read HW version from VPD.
-     *
-     * Note: Throws exception in case of error. Caller need to handle.
-     *
-     * @param[in] parsedVpd - Parsed VPD.
-     */
-    std::string getHWVersion(const types::IPZVpdMap& parsedVpd) const;
-
-    /**
      * @brief An API to parse given VPD file path.
      *
      * @throw std::exception

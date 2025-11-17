@@ -122,77 +122,6 @@ bool Worker::isSystemVPDOnDBus() const
     return true;
 }
 
-std::string Worker::getIMValue(const types::IPZVpdMap& parsedVpd) const
-{
-    if (parsedVpd.empty())
-    {
-        throw std::runtime_error("Empty VPD map. Can't Extract IM value");
-    }
-
-    const auto& itrToVSBP = parsedVpd.find("VSBP");
-    if (itrToVSBP == parsedVpd.end())
-    {
-        throw DataException("VSBP record missing.");
-    }
-
-    const auto& itrToIM = (itrToVSBP->second).find("IM");
-    if (itrToIM == (itrToVSBP->second).end())
-    {
-        throw DataException("IM keyword missing.");
-    }
-
-    types::BinaryVector imVal;
-    std::copy(itrToIM->second.begin(), itrToIM->second.end(),
-              back_inserter(imVal));
-
-    std::ostringstream imData;
-    for (auto& aByte : imVal)
-    {
-        imData << std::setw(2) << std::setfill('0') << std::hex
-               << static_cast<int>(aByte);
-    }
-
-    return imData.str();
-}
-
-std::string Worker::getHWVersion(const types::IPZVpdMap& parsedVpd) const
-{
-    if (parsedVpd.empty())
-    {
-        throw std::runtime_error("Empty VPD map. Can't Extract HW value");
-    }
-
-    const auto& itrToVINI = parsedVpd.find("VINI");
-    if (itrToVINI == parsedVpd.end())
-    {
-        throw DataException("VINI record missing.");
-    }
-
-    const auto& itrToHW = (itrToVINI->second).find("HW");
-    if (itrToHW == (itrToVINI->second).end())
-    {
-        throw DataException("HW keyword missing.");
-    }
-
-    types::BinaryVector hwVal;
-    std::copy(itrToHW->second.begin(), itrToHW->second.end(),
-              back_inserter(hwVal));
-
-    // The planar pass only comes from the LSB of the HW keyword,
-    // where as the MSB is used for other purposes such as signifying clock
-    // termination.
-    hwVal[0] = 0x00;
-
-    std::ostringstream hwString;
-    for (auto& aByte : hwVal)
-    {
-        hwString << std::setw(2) << std::setfill('0') << std::hex
-                 << static_cast<int>(aByte);
-    }
-
-    return hwString.str();
-}
-
 void Worker::fillVPDMap(const std::string& vpdFilePath,
                         types::VPDMapVariant& vpdMap)
 {
@@ -216,13 +145,13 @@ void Worker::getSystemJson(std::string& systemJson,
 {
     if (auto pVal = std::get_if<types::IPZVpdMap>(&parsedVpdMap))
     {
-        std::string hwKWdValue = getHWVersion(*pVal);
+        std::string hwKWdValue = vpdSpecificUtility::getHWVersion(*pVal);
         if (hwKWdValue.empty())
         {
             throw DataException("HW value fetched is empty.");
         }
 
-        const std::string& imKwdValue = getIMValue(*pVal);
+        const std::string& imKwdValue = vpdSpecificUtility::getIMValue(*pVal);
         if (imKwdValue.empty())
         {
             throw DataException("IM value fetched is empty.");
