@@ -1263,5 +1263,82 @@ inline const std::string convertWriteVpdParamsToString(
     return std::string{};
 }
 
+/**
+ * @brief API to get effective VPD collection mode and file path for a FRU
+ *
+ * This API gets the effective VPD collection mode and file path for a FRU
+ * by checking the VPD collection mode member, and whether the effective VPD
+ * file path for this FRU exists.
+ *
+ * @param[in,out] io_vpdfilePath - VPD file path of FRU
+ * @param[in] i_vpdCollectionMode - VPD collection mode
+ * @param[out] o_errCode - To set error code in case of error.
+ *
+ * @return On success, returns the mode in which the FRU VPD needs to be
+ * collected, and updates the effective VPD file path accordingly. On failure,
+ * sets an error code, and sets return value to Hardware mode.
+ */
+inline types::VpdCollectionMode getEffectiveVpdCollectionModeAndFilePath(
+    std::string& io_vpdFilePath, types::VpdCollectionMode i_vpdCollectionMode,
+    uint16_t& o_errCode) noexcept
+{
+    types::VpdCollectionMode l_effCollectionMode{
+        types::VpdCollectionMode::HARDWARE_MODE};
+
+    o_errCode = constants::SUCCESS;
+    try
+    {
+        switch (i_vpdCollectionMode)
+        {
+            case types::VpdCollectionMode::FILE_MODE:
+            {
+                std::filesystem::path l_effVpdFilePath{
+                    constants::fileModeVpdPath};
+                l_effVpdFilePath += io_vpdFilePath;
+                io_vpdFilePath = l_effVpdFilePath;
+                l_effCollectionMode = types::VpdCollectionMode::FILE_MODE;
+                break;
+            }
+            case types::VpdCollectionMode::MIXED_MODE:
+            {
+                std::filesystem::path l_effVpdFilePath{
+                    constants::fileModeVpdPath};
+                l_effVpdFilePath += io_vpdFilePath;
+
+                // first check if the VPD image for this FRU exists on
+                // filesystem
+                if (std::filesystem::exists(l_effVpdFilePath))
+                {
+                    io_vpdFilePath = l_effVpdFilePath;
+                    l_effCollectionMode = types::VpdCollectionMode::FILE_MODE;
+                    break;
+                }
+                else
+                {
+                    // VPD image for FRU doesn't exist on file, use hardware
+                    // mode
+                    break;
+                }
+            }
+            case types::VpdCollectionMode::HARDWARE_MODE:
+            default:
+            {
+                // do not modify the VPD file path
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        Logger::getLoggerInstance()->logMessage(
+            "Error while trying to determine effective FRU VPD file path for FRU [" +
+            io_vpdFilePath + "]. Error: " + std::string(l_ex.what()));
+
+        l_effCollectionMode = types::VpdCollectionMode::HARDWARE_MODE;
+
+        o_errCode = error_code::STANDARD_EXCEPTION;
+    }
+    return l_effCollectionMode;
+}
+
 } // namespace vpdSpecificUtility
 } // namespace vpd

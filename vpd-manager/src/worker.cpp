@@ -1303,6 +1303,17 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                 " Empty VPD file path passed. Abort processing");
         }
 
+        // get the effective VPD file path and effective VPD collection mode
+        /* TODO:
+           - use the effective VPD file path for collection
+           - use the effective VPD collection mode to determine whether
+           preAction, postAction and postFailAction needs to be executed
+        */
+        std::string l_effectiveVpdFilePath{i_vpdFilePath};
+        [[maybe_unused]] const auto l_effectiveCollectionMode =
+            vpdSpecificUtility::getEffectiveVpdCollectionModeAndFilePath(
+                l_effectiveVpdFilePath, m_vpdCollectionMode, l_errCode);
+
         bool isPreActionRequired = false;
         if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
                                           "preAction", "collection", l_errCode))
