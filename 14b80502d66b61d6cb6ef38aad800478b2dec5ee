@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5201fa2_e859d629",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-17T10:39:42Z",
+      "side": 1,
+      "message": "can we use std::string so this api modifies that path \u0026 gives correct path, \nso caller no need to add any extra changes to get modified path from std::filesystem::path variable",
+      "revId": "14b80502d66b61d6cb6ef38aad800478b2dec5ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cf65064_92085e0d",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1327,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-17T10:39:42Z",
+      "side": 1,
+      "message": "can we add input file path passed.",
+      "revId": "14b80502d66b61d6cb6ef38aad800478b2dec5ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
