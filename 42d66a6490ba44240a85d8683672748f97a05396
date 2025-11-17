@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0f79624_1774ca06",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-17T16:39:56Z",
+      "side": 1,
+      "message": "as handling all vpd mode scenarios, in exception case we consider hardware mode and input wont be modified.\ncan we avoid error code for this API ?",
+      "revId": "42d66a6490ba44240a85d8683672748f97a05396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "921ffb49_b628a900",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1297,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-17T16:39:56Z",
+      "side": 1,
+      "message": "we can use string insert API to append at the beginning of the string.",
+      "revId": "42d66a6490ba44240a85d8683672748f97a05396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec05f16c_03de9981",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-17T16:39:56Z",
+      "side": 1,
+      "message": "can we pass error_code to this API, and avoid any exception so safely we can consider as hardware mode in case any failure while checking file exists ?",
+      "revId": "42d66a6490ba44240a85d8683672748f97a05396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8be24277_66dfa346",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-17T16:39:56Z",
+      "side": 1,
+      "message": "as set to hardware mode while initialising the variable, this is not required.",
+      "revId": "42d66a6490ba44240a85d8683672748f97a05396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
