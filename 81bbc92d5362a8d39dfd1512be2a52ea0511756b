@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85616749_8b2d9824",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-17T08:41:52Z",
+      "side": 1,
+      "message": "No logging in utility file, so keep a track that error code needs to be returned from here as well.",
+      "revId": "81bbc92d5362a8d39dfd1512be2a52ea0511756b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07c6a4b2_d5d0624e",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-17T08:41:52Z",
+      "side": 1,
+      "message": "Avoid logging in utility unless there is any requirement to move further even in case of error. return error code.\nIf required, you can set error code based on error code that you receive from the API.",
+      "revId": "81bbc92d5362a8d39dfd1512be2a52ea0511756b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
