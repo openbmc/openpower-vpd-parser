@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbe1510d_4921db54",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-17T16:50:39Z",
+      "side": 1,
+      "message": "can we specify noexcept for this API.",
+      "revId": "8d9096c269279f1c909f0803230edc204fbd32b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
