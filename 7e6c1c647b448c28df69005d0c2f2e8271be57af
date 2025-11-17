@@ -107,6 +107,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f70ba94c_80793228",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-17T08:31:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd96885e_cb6d0c7b",
+      "revId": "7e6c1c647b448c28df69005d0c2f2e8271be57af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46095431_139d3e2f",
@@ -174,6 +192,24 @@
       "side": 1,
       "message": "same here.",
       "parentUuid": "46095431_139d3e2f",
+      "revId": "7e6c1c647b448c28df69005d0c2f2e8271be57af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc6714b6_74864a14",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-17T08:31:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b879d22_8cc7f962",
       "revId": "7e6c1c647b448c28df69005d0c2f2e8271be57af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
