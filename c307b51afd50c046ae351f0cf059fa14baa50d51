@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5d56360_b41cc4ab",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-17T08:36:09Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "revId": "c307b51afd50c046ae351f0cf059fa14baa50d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25312da7_6e20de5f",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-17T08:36:09Z",
+      "side": 1,
+      "message": "Same here, do we need this?",
+      "revId": "c307b51afd50c046ae351f0cf059fa14baa50d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13039e19_17c6a73d",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-17T08:36:09Z",
+      "side": 1,
+      "message": "We don\u0027t need power VS in collection log",
+      "revId": "c307b51afd50c046ae351f0cf059fa14baa50d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ddaa91b_3c0f86c5",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-17T08:36:09Z",
+      "side": 1,
+      "message": "No, these logs should go to console.\nHere we are deleting the log file.\n\nSame for other logs in the file as well.",
+      "revId": "c307b51afd50c046ae351f0cf059fa14baa50d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
