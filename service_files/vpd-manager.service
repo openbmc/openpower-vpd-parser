@@ -16,4 +16,6 @@ RestartSec=5
 ExecStart=/usr/bin/vpd-manager
 
 [Install]
+# TODO revert the below
 WantedBy=multi-user.target
+WantedBy=basic.target

@@ -12,4 +12,6 @@ ExecStart=/usr/bin/wait-vpd-parser
 Type=oneshot
 
 [Install]
-WantedBy=multi-user.target
+# TODO revert the below
+#WantedBy=multi-user.target
+WantedBy=basic.target
