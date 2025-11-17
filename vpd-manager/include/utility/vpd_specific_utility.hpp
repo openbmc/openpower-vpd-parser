@@ -1263,5 +1263,116 @@ inline const std::string convertWriteVpdParamsToString(
     return std::string{};
 }
 
+/**
+ * @brief An API to read IM value from VPD.
+ *
+ * @param[in] i_parsedVpd - Parsed VPD.
+ * @param[out] o_errCode - To set error code in case of error.
+ */
+inline std::string getIMValue(const types::IPZVpdMap& i_parsedVpd,
+                              uint16_t& o_errCode) noexcept
+{
+    o_errCode = 0;
+    std::ostringstream l_imData;
+    try
+    {
+        if (i_parsedVpd.empty())
+        {
+            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            return {};
+        }
+
+        const auto& l_itrToVSBP = i_parsedVpd.find("VSBP");
+        if (l_itrToVSBP == i_parsedVpd.end())
+        {
+            o_errCode = error_code::RECORD_NOT_FOUND;
+            return {};
+        }
+
+        const auto& l_itrToIM = (l_itrToVSBP->second).find("IM");
+        if (l_itrToIM == (l_itrToVSBP->second).end())
+        {
+            o_errCode = error_code::KEYWORD_NOT_FOUND;
+            return {};
+        }
+
+        types::BinaryVector l_imVal;
+        std::copy(l_itrToIM->second.begin(), l_itrToIM->second.end(),
+                  back_inserter(l_imVal));
+
+        for (auto& l_aByte : l_imVal)
+        {
+            l_imData << std::setw(2) << std::setfill('0') << std::hex
+                     << static_cast<int>(l_aByte);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to get IM value with exception:" + l_ex.what());
+        o_errCode = error_code::STANDARD_EXCEPTION;
+    }
+
+    return l_imData.str();
+}
+
+/**
+ * @brief An API to read HW version from VPD.
+ *
+ * @param[in] i_parsedVpd - Parsed VPD.
+ * @param[out] o_errCode - To set error code in case of error.
+ */
+inline std::string getHWVersion(const types::IPZVpdMap& i_parsedVpd,
+                                uint16_t& o_errCode) noexcept
+{
+    o_errCode = 0;
+    std::ostringstream l_hwString;
+    try
+    {
+        if (i_parsedVpd.empty())
+        {
+            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            return {};
+        }
+
+        const auto& l_itrToVINI = i_parsedVpd.find("VINI");
+        if (l_itrToVINI == i_parsedVpd.end())
+        {
+            o_errCode = error_code::RECORD_NOT_FOUND;
+            return {};
+        }
+
+        const auto& l_itrToHW = (l_itrToVINI->second).find("HW");
+        if (l_itrToHW == (l_itrToVINI->second).end())
+        {
+            o_errCode = error_code::KEYWORD_NOT_FOUND;
+            return {};
+        }
+
+        types::BinaryVector l_hwVal;
+        std::copy(l_itrToHW->second.begin(), l_itrToHW->second.end(),
+                  back_inserter(l_hwVal));
+
+        // The planar pass only comes from the LSB of the HW keyword,
+        // where as the MSB is used for other purposes such as signifying clock
+        // termination.
+        l_hwVal[0] = 0x00;
+
+        for (auto& l_aByte : l_hwVal)
+        {
+            l_hwString << std::setw(2) << std::setfill('0') << std::hex
+                       << static_cast<int>(l_aByte);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to get IM value with exception:" + l_ex.what());
+        o_errCode = error_code::STANDARD_EXCEPTION;
+    }
+
+    return l_hwString.str();
+}
+
 } // namespace vpdSpecificUtility
 } // namespace vpd
