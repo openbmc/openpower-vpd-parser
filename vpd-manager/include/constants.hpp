@@ -164,6 +164,8 @@ constexpr auto objectMapperPath = "/xyz/openbmc_project/object_mapper";
 constexpr auto objectMapperInf = "xyz.openbmc_project.ObjectMapper";
 constexpr auto systemVpdInvPath =
     "/xyz/openbmc_project/inventory/system/chassis/motherboard";
+constexpr auto motherboardInterface =
+    "xyz.openbmc_project.Inventory.Item.Board.Motherboard";
 constexpr auto assetTagInf = "xyz.openbmc_project.Inventory.Decorator.AssetTag";
 constexpr auto hostObjectPath = "/xyz/openbmc_project/state/host0";
 constexpr auto hostInterface = "xyz.openbmc_project.State.Host";
