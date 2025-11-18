@@ -60,13 +60,6 @@ class Worker
     ~Worker() = default;
 
     /**
-     * @brief An API to check if system VPD is already published.
-     *
-     * @return Status, true if system is already collected else false.
-     */
-    bool isSystemVPDOnDBus() const;
-
-    /**
      * @brief API to process all FRUs presnt in config JSON file.
      *
      * This API based on config JSON passed/selected for the system, will
@@ -185,17 +178,6 @@ class Worker
     void performVpdRecollection();
 
     /**
-     * @brief An API to set appropriate device tree and JSON.
-     *
-     * This API based on system chooses corresponding device tree and JSON.
-     * If device tree change is required, it updates the "fitconfig" and reboots
-     * the system. Else it is NOOP.
-     *
-     * @throw std::exception
-     */
-    void setDeviceTreeAndJson();
-
-    /**
      * @brief API to set CollectionStatus property.
      *
      * This API updates the CollectionStatus property of the given FRU with the
@@ -206,6 +188,26 @@ class Worker
      */
     void setCollectionStatusProperty(const std::string& i_fruPath,
                                      const std::string& i_value) const noexcept;
+
+    /**
+     * @brief API to set symbolic link for system config JSON.
+     *
+     * Once correct device tree is set, symbolic link to the correct sytsem
+     * config JSON is set to be used in subsequent BMC boot.
+     *
+     * @param[in] i_systemJson - system config JSON.
+     */
+    void setJsonSymbolicLink(const std::string& i_systemJson);
+
+    /**
+     * @brief An API to parse and publish system VPD on D-Bus.
+     *
+     * Note: Throws exception in case of invalid VPD format.
+     * Moved temporarily to public space. Will be eventually moved to
+     * ibm-handler.
+     * @param[in] parsedVpdMap - Parsed VPD as a map.
+     */
+    void publishSystemVPD(const types::VPDMapVariant& parsedVpdMap);
 
   private:
     /**
@@ -220,39 +222,6 @@ class Worker
      */
     std::tuple<bool, std::string> parseAndPublishVPD(
         const std::string& i_vpdFilePath);
-
-    /**
-     * @brief API to select system specific JSON.
-     *
-     * The API based on the IM value of VPD, will select appropriate JSON for
-     * the system. In case no system is found corresponding to the extracted IM
-     * value, error will be logged.
-     *
-     * @param[out] systemJson - System JSON name.
-     * @param[in] parsedVpdMap - Parsed VPD map.
-     */
-    void getSystemJson(std::string& systemJson,
-                       const types::VPDMapVariant& parsedVpdMap);
-
-    /**
-     * @brief An API to parse given VPD file path.
-     *
-     * @throw std::exception
-     *
-     * @param[in] vpdFilePath - EEPROM file path.
-     * @param[out] parsedVpd - Parsed VPD as a map.
-     */
-    void fillVPDMap(const std::string& vpdFilePath,
-                    types::VPDMapVariant& parsedVpd);
-
-    /**
-     * @brief An API to parse and publish system VPD on D-Bus.
-     *
-     * Note: Throws exception in case of invalid VPD format.
-     *
-     * @param[in] parsedVpdMap - Parsed VPD as a map.
-     */
-    void publishSystemVPD(const types::VPDMapVariant& parsedVpdMap);
 
     /**
      * @brief An API to process extrainterfaces w.r.t a FRU.
@@ -432,13 +401,6 @@ class Worker
         const std::optional<types::VPDMapVariant> i_parsedVpd = std::nullopt);
 
     /**
-     * @brief An API to perform backup or restore of VPD.
-     *
-     * @param[in,out] io_srcVpdMap - Source VPD map.
-     */
-    void performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap);
-
-    /**
      * @brief API to update "Functional" property.
      *
      * The API sets the default value for "Functional" property once if the
@@ -479,16 +441,6 @@ class Worker
      */
     std::string createAssetTagString(
         const types::VPDMapVariant& i_parsedVpdMap);
-
-    /**
-     * @brief API to set symbolic link for system config JSON.
-     *
-     * Once correct device tree is set, symbolic link to the correct sytsem
-     * config JSON is set to be used in subsequent BMC boot.
-     *
-     * @param[in] i_systemJson - system config JSON.
-     */
-    void setJsonSymbolicLink(const std::string& i_systemJson);
 
     /**
      * @brief API to set present property.

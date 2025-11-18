@@ -3,7 +3,6 @@
 #include "worker.hpp"
 
 #include "backup_restore.hpp"
-#include "configuration.hpp"
 #include "constants.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
@@ -71,157 +70,6 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
     {
         logging::logMessage("Processing in not based on any config JSON");
     }
-}
-
-static std::string readFitConfigValue()
-{
-    std::vector<std::string> output =
-        commonUtility::executeCmd("/sbin/fw_printenv");
-    std::string fitConfigValue;
-
-    for (const auto& entry : output)
-    {
-        auto pos = entry.find("=");
-        auto key = entry.substr(0, pos);
-        if (key != "fitconfig")
-        {
-            continue;
-        }
-
-        if (pos + 1 < entry.size())
-        {
-            fitConfigValue = entry.substr(pos + 1);
-        }
-    }
-
-    return fitConfigValue;
-}
-
-bool Worker::isSystemVPDOnDBus() const
-{
-    const std::string& mboardPath =
-        m_parsedJson["frus"][SYSTEM_VPD_FILE_PATH].at(0).value(
-            "inventoryPath", "");
-
-    if (mboardPath.empty())
-    {
-        throw JsonException("System vpd file path missing in JSON",
-                            INVENTORY_JSON_SYM_LINK);
-    }
-
-    std::vector<std::string> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
-
-    const types::MapperGetObject& objectMap =
-        dbusUtility::getObjectMap(mboardPath, interfaces);
-
-    if (objectMap.empty())
-    {
-        return false;
-    }
-    return true;
-}
-
-void Worker::fillVPDMap(const std::string& vpdFilePath,
-                        types::VPDMapVariant& vpdMap)
-{
-    if (vpdFilePath.empty())
-    {
-        throw std::runtime_error("Invalid file path passed to fillVPDMap API.");
-    }
-
-    if (!std::filesystem::exists(vpdFilePath))
-    {
-        throw std::runtime_error("Can't Find physical file");
-    }
-
-    std::shared_ptr<Parser> vpdParser =
-        std::make_shared<Parser>(vpdFilePath, m_parsedJson);
-    vpdMap = vpdParser->parse();
-}
-
-void Worker::getSystemJson(std::string& systemJson,
-                           const types::VPDMapVariant& parsedVpdMap)
-{
-    if (auto pVal = std::get_if<types::IPZVpdMap>(&parsedVpdMap))
-    {
-        uint16_t l_errCode = 0;
-        std::string hwKWdValue =
-            vpdSpecificUtility::getHWVersion(*pVal, l_errCode);
-        if (hwKWdValue.empty())
-        {
-            if (l_errCode)
-            {
-                throw DataException("Failed to fetch HW value. Reason: " +
-                                    commonUtility::getErrCodeMsg(l_errCode));
-            }
-            throw DataException("HW value fetched is empty.");
-        }
-
-        const std::string& imKwdValue =
-            vpdSpecificUtility::getIMValue(*pVal, l_errCode);
-        if (imKwdValue.empty())
-        {
-            if (l_errCode)
-            {
-                throw DataException("Failed to fetch IM value. Reason: " +
-                                    commonUtility::getErrCodeMsg(l_errCode));
-            }
-            throw DataException("IM value fetched is empty.");
-        }
-
-        auto itrToIM = config::systemType.find(imKwdValue);
-        if (itrToIM == config::systemType.end())
-        {
-            throw DataException("IM keyword does not map to any system type");
-        }
-
-        const types::HWVerList hwVersionList = itrToIM->second.second;
-        if (!hwVersionList.empty())
-        {
-            transform(hwKWdValue.begin(), hwKWdValue.end(), hwKWdValue.begin(),
-                      ::toupper);
-
-            auto itrToHW =
-                std::find_if(hwVersionList.begin(), hwVersionList.end(),
-                             [&hwKWdValue](const auto& aPair) {
-                                 return aPair.first == hwKWdValue;
-                             });
-
-            if (itrToHW != hwVersionList.end())
-            {
-                if (!(*itrToHW).second.empty())
-                {
-                    systemJson += (*itrToIM).first + "_" + (*itrToHW).second +
-                                  ".json";
-                }
-                else
-                {
-                    systemJson += (*itrToIM).first + ".json";
-                }
-                return;
-            }
-        }
-        systemJson += itrToIM->second.first + ".json";
-        return;
-    }
-
-    throw DataException(
-        "Invalid VPD type returned from Parser. Can't get system JSON.");
-}
-
-static void setEnvAndReboot(const std::string& key, const std::string& value)
-{
-    // set env and reboot and break.
-    commonUtility::executeCmd("/sbin/fw_setenv", key, value);
-    logging::logMessage("Rebooting BMC to pick up new device tree");
-
-    // make dbus call to reboot
-    auto bus = sdbusplus::bus::new_default_system();
-    auto method = bus.new_method_call(
-        "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
-        "org.freedesktop.systemd1.Manager", "Reboot");
-    bus.call_noreply(method);
 }
 
 void Worker::setJsonSymbolicLink(const std::string& i_systemJson)
@@ -296,103 +144,23 @@ void Worker::setJsonSymbolicLink(const std::string& i_systemJson)
             "create_symlink system call failed with error: " + l_ec.message());
     }
 
+    // update Worker json with the newly created symlink
+    uint16_t l_errCode = 0;
+    m_parsedJson =
+        jsonUtility::getParsedJson(INVENTORY_JSON_SYM_LINK, l_errCode);
+    if (l_errCode)
+    {
+        throw std::runtime_error(
+            "JSON parsing failed for file [ " +
+            std::string(INVENTORY_JSON_SYM_LINK) +
+            " ], error : " + commonUtility::getErrCodeMsg(l_errCode));
+    }
+
+    logging::logMessage("Worker JSON modified to: " + i_systemJson);
+
     // If the flow is at this point implies the symlink was not present there.
     // Considering this as factory reset.
     m_isFactoryResetDone = true;
-}
-
-void Worker::setDeviceTreeAndJson()
-{
-    // JSON is madatory for processing of this API.
-    if (m_parsedJson.empty())
-    {
-        throw JsonException("System config JSON is empty", m_configJsonPath);
-    }
-
-    types::VPDMapVariant parsedVpdMap;
-    fillVPDMap(SYSTEM_VPD_FILE_PATH, parsedVpdMap);
-
-    // Implies it is default JSON.
-    std::string systemJson{JSON_ABSOLUTE_PATH_PREFIX};
-
-    // ToDo: Need to check if INVENTORY_JSON_SYM_LINK pointing to correct system
-    // This is required to support movement from rainier to Blue Ridge on the
-    // fly.
-
-    getSystemJson(systemJson, parsedVpdMap);
-
-    if (!systemJson.compare(JSON_ABSOLUTE_PATH_PREFIX))
-    {
-        throw DataException(
-            "No system JSON found corresponding to IM read from VPD.");
-    }
-
-    uint16_t l_errCode = 0;
-
-    // re-parse the JSON once appropriate JSON has been selected.
-    m_parsedJson = jsonUtility::getParsedJson(systemJson, l_errCode);
-
-    if (l_errCode)
-    {
-        throw(JsonException(
-            "JSON parsing failed for file [ " + systemJson +
-                " ], error : " + commonUtility::getErrCodeMsg(l_errCode),
-            systemJson));
-    }
-
-    setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
-                                constants::vpdCollectionInProgress);
-
-    std::string devTreeFromJson;
-    if (m_parsedJson.contains("devTree"))
-    {
-        devTreeFromJson = m_parsedJson["devTree"];
-
-        if (devTreeFromJson.empty())
-        {
-            EventLogger::createSyncPel(
-                types::ErrorType::JsonFailure, types::SeverityType::Error,
-                __FILE__, __FUNCTION__, 0,
-                "Mandatory value for device tree missing from JSON[" +
-                    systemJson + "]",
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
-        }
-    }
-
-    auto fitConfigVal = readFitConfigValue();
-
-    if (devTreeFromJson.empty() ||
-        fitConfigVal.find(devTreeFromJson) != std::string::npos)
-    { // Skipping setting device tree as either devtree info is missing from
-      // Json or it is rightly set.
-
-        setJsonSymbolicLink(systemJson);
-
-        if (isSystemVPDOnDBus())
-        {
-            uint16_t l_errCode = 0;
-            if (jsonUtility::isBackupAndRestoreRequired(m_parsedJson,
-                                                        l_errCode))
-            {
-                performBackupAndRestore(parsedVpdMap);
-            }
-            else if (l_errCode)
-            {
-                logging::logMessage(
-                    "Failed to check if backup and restore required. Reason : " +
-                    commonUtility::getErrCodeMsg(l_errCode));
-            }
-        }
-
-        // proceed to publish system VPD.
-        publishSystemVPD(parsedVpdMap);
-        setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
-                                    constants::vpdCollectionCompleted);
-        return;
-    }
-
-    setEnvAndReboot("fitconfig", devTreeFromJson);
-    exit(EXIT_SUCCESS);
 }
 
 void Worker::populateIPZVPDpropertyMap(
@@ -1578,64 +1346,6 @@ void Worker::collectFrusFromJson()
             // add vpdFilePath(EEPROM path) to failed list
             m_failedEepromPaths.push_front(vpdFilePath);
         }
-    }
-}
-
-// ToDo: Move the API under IBM_SYSTEM
-void Worker::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
-{
-    try
-    {
-        uint16_t l_errCode = 0;
-        std::string l_backupAndRestoreCfgFilePath =
-            m_parsedJson.value("backupRestoreConfigPath", "");
-
-        nlohmann::json l_backupAndRestoreCfgJsonObj =
-            jsonUtility::getParsedJson(l_backupAndRestoreCfgFilePath,
-                                       l_errCode);
-
-        if (l_errCode)
-        {
-            throw JsonException(
-                "JSON parsing failed for file [ " +
-                    l_backupAndRestoreCfgFilePath +
-                    " ], error : " + commonUtility::getErrCodeMsg(l_errCode),
-                l_backupAndRestoreCfgFilePath);
-        }
-
-        // check if either of "source" or "destination" has inventory path.
-        // this indicates that this sytem has System VPD on hardware
-        // and other copy on D-Bus (BMC cache).
-        if (!l_backupAndRestoreCfgJsonObj.empty() &&
-            ((l_backupAndRestoreCfgJsonObj.contains("source") &&
-              l_backupAndRestoreCfgJsonObj["source"].contains(
-                  "inventoryPath")) ||
-             (l_backupAndRestoreCfgJsonObj.contains("destination") &&
-              l_backupAndRestoreCfgJsonObj["destination"].contains(
-                  "inventoryPath"))))
-        {
-            BackupAndRestore l_backupAndRestoreObj(m_parsedJson);
-            auto [l_srcVpdVariant,
-                  l_dstVpdVariant] = l_backupAndRestoreObj.backupAndRestore();
-
-            // ToDo: Revisit is this check is required or not.
-            if (auto l_srcVpdMap =
-                    std::get_if<types::IPZVpdMap>(&l_srcVpdVariant);
-                l_srcVpdMap && !(*l_srcVpdMap).empty())
-            {
-                io_srcVpdMap = std::move(l_srcVpdVariant);
-            }
-        }
-    }
-    catch (const std::exception& l_ex)
-    {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
-            __FILE__, __FUNCTION__, 0,
-            std::string(
-                "Exception caught while backup and restore VPD keyword's.") +
-                EventLogger::getErrorMsg(l_ex),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
 }
 
