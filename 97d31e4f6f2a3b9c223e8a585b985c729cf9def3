@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db7b750e_7cba4596",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-11-18T09:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfb1e22d_e87a6640",
+      "revId": "97d31e4f6f2a3b9c223e8a585b985c729cf9def3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d08b5d1_460cce0f",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-11-17T09:08:20Z",
       "side": 1,
       "message": "This will cause loss of data.",
+      "revId": "97d31e4f6f2a3b9c223e8a585b985c729cf9def3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5e94d77_74e6e601",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-11-18T09:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d08b5d1_460cce0f",
       "revId": "97d31e4f6f2a3b9c223e8a585b985c729cf9def3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f72c7954_f27092f2",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-11-18T09:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ceab4fc2_34d19546",
+      "revId": "97d31e4f6f2a3b9c223e8a585b985c729cf9def3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c88f140_3969f101",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-11-17T16:27:22Z",
       "side": 1,
       "message": "can we had, what command here .",
+      "revId": "97d31e4f6f2a3b9c223e8a585b985c729cf9def3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b472ca1_f7a72a95",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-11-18T09:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c88f140_3969f101",
       "revId": "97d31e4f6f2a3b9c223e8a585b985c729cf9def3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f3b6a79_8cc24704",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-11-18T09:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ce2f368_aa97b48c",
+      "revId": "97d31e4f6f2a3b9c223e8a585b985c729cf9def3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a5fa0ac_4662ccb0",
@@ -99,6 +189,24 @@
       "writtenOn": "2025-11-17T16:27:22Z",
       "side": 1,
       "message": "can we add command to the log",
+      "revId": "97d31e4f6f2a3b9c223e8a585b985c729cf9def3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20869374_70413e3a",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-11-18T09:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a5fa0ac_4662ccb0",
       "revId": "97d31e4f6f2a3b9c223e8a585b985c729cf9def3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
