@@ -430,6 +430,122 @@ void IbmHandler::enableMuxChips()
     }
 }
 
+void IbmHandler::setDeviceTreeAndJson()
+{
+    // JSON is madatory for processing of this API.
+    if (m_sysCfgJsonObj.empty())
+    {
+        throw JsonException("System config JSON is empty", m_sysCfgJsonObj);
+    }
+
+    // parse system VPD
+    auto parsedVpdMap = m_worker->parseVpdFile(SYSTEM_VPD_FILE_PATH);
+
+    // Implies it is default JSON.
+    std::string systemJson{JSON_ABSOLUTE_PATH_PREFIX};
+
+    // get system JSON as per the system configuration.
+    getSystemJson(systemJson, parsedVpdMap);
+
+    if (!systemJson.compare(JSON_ABSOLUTE_PATH_PREFIX))
+    {
+        throw DataException(
+            "No system JSON found corresponding to IM read from VPD.");
+    }
+
+    uint16_t l_errCode = 0;
+    // re-parse the JSON once appropriate JSON has been selected.
+    m_sysCfgJsonObj = jsonUtility::getParsedJson(systemJson, l_errCode);
+
+    if (l_errCode)
+    {
+        throw(JsonException(
+            "JSON parsing failed for file [ " + systemJson +
+                " ], error : " + commonUtility::getErrCodeMsg(l_errCode),
+            systemJson));
+    }
+
+    m_worker->setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
+                                          constants::vpdCollectionInProgress);
+
+    std::string devTreeFromJson;
+    if (m_sysCfgJsonObj.contains("devTree"))
+    {
+        devTreeFromJson = m_sysCfgJsonObj["devTree"];
+
+        if (devTreeFromJson.empty())
+        {
+            EventLogger::createSyncPel(
+                types::ErrorType::JsonFailure, types::SeverityType::Error,
+                __FILE__, __FUNCTION__, 0,
+                "Mandatory value for device tree missing from JSON[" +
+                    systemJson + "]",
+                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+        }
+    }
+
+    auto fitConfigVal = readFitConfigValue();
+
+    if (devTreeFromJson.empty() ||
+        fitConfigVal.find(devTreeFromJson) != std::string::npos)
+    { // Skipping setting device tree as either devtree info is missing from
+        // Json or it is rightly set.
+
+        m_worker->setJsonSymbolicLink();
+
+        const std::string& l_systemVpdInvPath =
+            jsonUtility::getInventoryObjPathFromJson(
+                m_sysCfgJsonObj, SYSTEM_VPD_FILE_PATH, l_errCode);
+
+        if (l_systemVpdInvPath.empty())
+        {
+            throw JsonException("System vpd file path missing in JSON",
+                                INVENTORY_JSON_SYM_LINK);
+        }
+
+        // TODO: for backward compatibility this should also support motherboard
+        // interface.
+        const types::MapperGetObject& l_sysVpdObjMap =
+            dbusUtility::getObjectMap(l_systemVpdInvPath,
+                                      constants::systemInterface);
+
+        if (!l_sysVpdObjMap.empty())
+        {
+            if (isBackupOnCache() && jsonUtility::isBackupAndRestoreRequired(
+                                         m_sysCfgJsonObj, l_errCode))
+            {
+                m_backupAndRestoreObj =
+                    std::make_shared<BackupAndRestore>(m_sysCfgJsonObj);
+                auto [l_srcVpdVariant, l_dstVpdVariant] =
+                    m_backupAndRestoreObj.backupAndRestore();
+
+                // ToDo: Revisit is this check is required or not.
+                if (auto l_srcVpdMap =
+                        std::get_if<types::IPZVpdMap>(&l_srcVpdVariant);
+                    l_srcVpdMap && !(*l_srcVpdMap).empty())
+                {
+                    parsedVpdMap = std::move(l_srcVpdVariant);
+                }
+            }
+            else if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to check if backup and restore required. Reason : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+        }
+
+        // proceed to publish system VPD.
+        m_worker->publishSystemVPD(parsedVpdMap);
+        m_worker->setCollectionStatusProperty(
+            SYSTEM_VPD_FILE_PATH, constants::vpdCollectionCompleted);
+        return;
+    }
+
+    setEnvAndReboot("fitconfig", devTreeFromJson);
+    exit(EXIT_SUCCESS);
+}
+
 void IbmHandler::performInitialSetup()
 {
     try
@@ -443,7 +559,7 @@ void IbmHandler::performInitialSetup()
         m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
         if (!dbusUtility::isChassisPowerOn())
         {
-            m_worker->setDeviceTreeAndJson();
+            setDeviceTreeAndJson();
 
             // Since the above function setDeviceTreeAndJson can change the json
             // which is used, we would need to reacquire the json object again

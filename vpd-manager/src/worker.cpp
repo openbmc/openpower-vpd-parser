@@ -97,7 +97,7 @@ static std::string readFitConfigValue()
     return fitConfigValue;
 }
 
-bool Worker::isSystemVPDOnDBus() const
+/*bool Worker::isSystemVPDOnDBus() const
 {
     const std::string& mboardPath =
         m_parsedJson["frus"][SYSTEM_VPD_FILE_PATH].at(0).value(
@@ -120,7 +120,7 @@ bool Worker::isSystemVPDOnDBus() const
         return false;
     }
     return true;
-}
+}*/
 
 void Worker::fillVPDMap(const std::string& vpdFilePath,
                         types::VPDMapVariant& vpdMap)
@@ -301,7 +301,7 @@ void Worker::setJsonSymbolicLink(const std::string& i_systemJson)
     m_isFactoryResetDone = true;
 }
 
-void Worker::setDeviceTreeAndJson()
+/*void Worker::setDeviceTreeAndJson()
 {
     // JSON is madatory for processing of this API.
     if (m_parsedJson.empty())
@@ -379,8 +379,8 @@ void Worker::setDeviceTreeAndJson()
             else if (l_errCode)
             {
                 logging::logMessage(
-                    "Failed to check if backup and restore required. Reason : " +
-                    commonUtility::getErrCodeMsg(l_errCode));
+                    "Failed to check if backup and restore required. Reason : "
++ commonUtility::getErrCodeMsg(l_errCode));
             }
         }
 
@@ -393,7 +393,7 @@ void Worker::setDeviceTreeAndJson()
 
     setEnvAndReboot("fitconfig", devTreeFromJson);
     exit(EXIT_SUCCESS);
-}
+}*/
 
 void Worker::populateIPZVPDpropertyMap(
     types::InterfaceMap& interfacePropMap,

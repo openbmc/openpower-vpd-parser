@@ -65,6 +65,17 @@ class IbmHandler
 
   private:
     /**
+     * @brief An API to set appropriate device tree and JSON.
+     *
+     * This API based on system chooses corresponding device tree and JSON.
+     * If device tree change is required, it updates the "fitconfig" and reboots
+     * the system. Else it is NOOP.
+     *
+     * @throw std::exception
+     */
+    void setDeviceTreeAndJson();
+
+    /**
      * @brief Set timer to detect and set VPD collection status for the system.
      *
      * Collection of FRU VPD is triggered in a separate thread. Resulting in

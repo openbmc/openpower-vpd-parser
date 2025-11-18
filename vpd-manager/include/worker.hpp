@@ -60,13 +60,6 @@ class Worker
     ~Worker() = default;
 
     /**
-     * @brief An API to check if system VPD is already published.
-     *
-     * @return Status, true if system is already collected else false.
-     */
-    bool isSystemVPDOnDBus() const;
-
-    /**
      * @brief API to process all FRUs presnt in config JSON file.
      *
      * This API based on config JSON passed/selected for the system, will
@@ -185,17 +178,6 @@ class Worker
     void performVpdRecollection();
 
     /**
-     * @brief An API to set appropriate device tree and JSON.
-     *
-     * This API based on system chooses corresponding device tree and JSON.
-     * If device tree change is required, it updates the "fitconfig" and reboots
-     * the system. Else it is NOOP.
-     *
-     * @throw std::exception
-     */
-    void setDeviceTreeAndJson();
-
-    /**
      * @brief API to set CollectionStatus property.
      *
      * This API updates the CollectionStatus property of the given FRU with the
@@ -233,17 +215,6 @@ class Worker
      */
     void getSystemJson(std::string& systemJson,
                        const types::VPDMapVariant& parsedVpdMap);
-
-    /**
-     * @brief An API to parse given VPD file path.
-     *
-     * @throw std::exception
-     *
-     * @param[in] vpdFilePath - EEPROM file path.
-     * @param[out] parsedVpd - Parsed VPD as a map.
-     */
-    void fillVPDMap(const std::string& vpdFilePath,
-                    types::VPDMapVariant& parsedVpd);
 
     /**
      * @brief An API to parse and publish system VPD on D-Bus.
