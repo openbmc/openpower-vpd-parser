@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc71d4c7_5716d328",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-18T06:41:50Z",
+      "side": 1,
+      "message": "This is an utility API. As per our repo standards, all utility APIs should have error codes. \n\n\u003eas handling all vpd mode scenarios, in exception case we consider hardware mode and input wont be modified.\n\nThis is true as of today, but may change in the future.",
+      "parentUuid": "b0f79624_1774ca06",
+      "revId": "42d66a6490ba44240a85d8683672748f97a05396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "921ffb49_b628a900",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 4
@@ -31,6 +49,24 @@
       "writtenOn": "2025-11-17T16:39:56Z",
       "side": 1,
       "message": "we can use string insert API to append at the beginning of the string.",
+      "revId": "42d66a6490ba44240a85d8683672748f97a05396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "761998ef_993879e1",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1297,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-18T06:41:50Z",
+      "side": 1,
+      "message": "What is the advantage of using `std::string` here? This is supposed to be a filesystem path.",
+      "parentUuid": "921ffb49_b628a900",
       "revId": "42d66a6490ba44240a85d8683672748f97a05396",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b99cf0e1_6c063627",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-18T06:41:50Z",
+      "side": 1,
+      "message": "If this API throws, it will be caught in the `catch` block and handled accordingly. I do not see an issue here.",
+      "parentUuid": "ec05f16c_03de9981",
+      "revId": "42d66a6490ba44240a85d8683672748f97a05396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8be24277_66dfa346",
         "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
         "patchSetId": 4
@@ -65,6 +119,24 @@
       "writtenOn": "2025-11-17T16:39:56Z",
       "side": 1,
       "message": "as set to hardware mode while initialising the variable, this is not required.",
+      "revId": "42d66a6490ba44240a85d8683672748f97a05396",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4515e639_c25a5819",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-18T06:41:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8be24277_66dfa346",
       "revId": "42d66a6490ba44240a85d8683672748f97a05396",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
