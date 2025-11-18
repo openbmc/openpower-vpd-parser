@@ -16,6 +16,24 @@
       "message": "as try-catch block is handling error, why noexcept is removed ?",
       "revId": "ccb3cb2670d0c383aeedbd45671f959bd21da436",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a89de448_236fb4f4",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-18T05:46:34Z",
+      "side": 1,
+      "message": "`noexcept` has been added, not removed",
+      "parentUuid": "3a210d06_c7894c65",
+      "revId": "ccb3cb2670d0c383aeedbd45671f959bd21da436",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
