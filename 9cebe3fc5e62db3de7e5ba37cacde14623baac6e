@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbca04a8_c575c694",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1309,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-18T06:08:53Z",
+      "side": 1,
+      "message": "coding guidelines for variable not followed here.",
+      "revId": "9cebe3fc5e62db3de7e5ba37cacde14623baac6e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e72d485_fc7113f0",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1365,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-18T06:08:53Z",
+      "side": 1,
+      "message": "coding guidelines for variable has to be followed.",
+      "revId": "9cebe3fc5e62db3de7e5ba37cacde14623baac6e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b003ecb_5b9937e2",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-18T06:08:53Z",
+      "side": 1,
+      "message": "coding guideline for hwKWdValue is not followed",
+      "revId": "9cebe3fc5e62db3de7e5ba37cacde14623baac6e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
