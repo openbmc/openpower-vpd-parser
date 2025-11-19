@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "054c8580_783c12aa",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-19T08:07:06Z",
+      "side": 1,
+      "message": "We should use `Logger::getLoggerInstance()-\u003elogMessage()` as `logging::logMessage()` is going to be deprecated.",
+      "revId": "a58909b9d5f54efdd0b73d13d042f58225cf32f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b7c00ef_c9639050",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-19T08:07:06Z",
+      "side": 1,
+      "message": "We should use `Logger::getLoggerInstance()-\u003elogMessage()` as `logging::logMessage()` is going to be deprecated.",
+      "revId": "a58909b9d5f54efdd0b73d13d042f58225cf32f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
