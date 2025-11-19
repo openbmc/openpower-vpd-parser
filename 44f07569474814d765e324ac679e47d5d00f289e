@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b86b41d_0b5607d3",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-19T12:09:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c4644fea_6062add2",
+      "revId": "44f07569474814d765e324ac679e47d5d00f289e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4cadd0a_e43e4398",
