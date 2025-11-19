@@ -834,56 +834,6 @@ std::string Worker::createAssetTagString(
     return l_assetTag;
 }
 
-void Worker::publishSystemVPD(const types::VPDMapVariant& parsedVpdMap)
-{
-    types::ObjectMap objectInterfaceMap;
-
-    if (std::get_if<types::IPZVpdMap>(&parsedVpdMap))
-    {
-        populateDbus(parsedVpdMap, objectInterfaceMap, SYSTEM_VPD_FILE_PATH);
-
-        try
-        {
-            if (m_isFactoryResetDone)
-            {
-                const auto& l_assetTag = createAssetTagString(parsedVpdMap);
-
-                auto l_itrToSystemPath = objectInterfaceMap.find(
-                    sdbusplus::message::object_path(constants::systemInvPath));
-                if (l_itrToSystemPath == objectInterfaceMap.end())
-                {
-                    throw std::runtime_error(
-                        "Asset tag update failed. System Path not found in object map.");
-                }
-
-                types::PropertyMap l_assetTagProperty;
-                l_assetTagProperty.emplace("AssetTag", l_assetTag);
-
-                (l_itrToSystemPath->second)
-                    .emplace(constants::assetTagInf,
-                             std::move(l_assetTagProperty));
-            }
-        }
-        catch (const std::exception& l_ex)
-        {
-            EventLogger::createSyncPel(
-                EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
-                __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
-        }
-
-        // Notify PIM
-        if (!dbusUtility::callPIM(move(objectInterfaceMap)))
-        {
-            throw std::runtime_error("Call to PIM failed for system VPD");
-        }
-    }
-    else
-    {
-        throw DataException("Invalid format of parsed VPD map.");
-    }
-}
-
 bool Worker::processPreAction(const std::string& i_vpdFilePath,
                               const std::string& i_flagToProcess,
                               uint16_t& i_errCode)
