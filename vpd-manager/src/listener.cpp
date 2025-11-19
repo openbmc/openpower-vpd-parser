@@ -521,8 +521,16 @@ bool Listener::updateCorrelatedProperty(
                     std::get_if<types::BinaryVector>(&i_propertyValue))
             {
                 // convert property value to string before updating
+                uint16_t l_errCode = 0;
+                l_valueToUpdate =
+                    commonUtility::getPrintableValue(*l_val, l_errCode);
 
-                l_valueToUpdate = commonUtility::getPrintableValue(*l_val);
+                if (l_errCode)
+                {
+                    throw std::runtime_error(
+                        "Failed to get binary value in string, error : " +
+                        commonUtility::getErrCodeMsg(l_errCode));
+                }
             }
             else if (const auto l_val =
                          std::get_if<std::string>(&i_propertyValue))
