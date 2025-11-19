@@ -33,6 +33,8 @@ enum error_code
     ERROR_PROCESSING_SYSTEM_CMD,
     STANDARD_EXCEPTION,
     DBUS_FAILURE,
+    INVALID_HEXADECIMAL_VALUE_LENGTH,
+    INVALID_HEXADECIMAL_VALUE,
 
     // VPD specific errors
     UNSUPPORTED_VPD_TYPE,
@@ -84,5 +86,8 @@ const std::unordered_map<int, std::string> errorCodeMap = {
      "Failed to detect location code type"},
     {error_code::DBUS_FAILURE, "Dbus call failed"},
     {error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS,
-     "Received invalid keyword data type from DBus."}};
+     "Received invalid keyword data type from DBus."},
+    {error_code::INVALID_HEXADECIMAL_VALUE_LENGTH,
+     "Invalid hexadecimal value length."},
+    {error_code::INVALID_HEXADECIMAL_VALUE, "Invalid hexadecimal value."}};
 } // namespace vpd
