@@ -101,6 +101,18 @@ class IbmHandler
                        const types::VPDMapVariant& i_parsedVpdMap);
 
     /**
+     * @brief API to form asset tag string for the system.
+     *
+     * @param[in] i_parsedVpdMap - Parsed VPD map.
+     *
+     * @throw std::runtime_error
+     *
+     * @return - Formed asset tag string.
+     */
+    std::string createAssetTagString(
+        const types::VPDMapVariant& i_parsedVpdMap);
+
+    /**
      * @brief Set timer to detect and set VPD collection status for the system.
      *
      * Collection of FRU VPD is triggered in a separate thread. Resulting in

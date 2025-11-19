@@ -438,18 +438,6 @@ class Worker
                                 types::InterfaceMap& io_interfaces);
 
     /**
-     * @brief API to form asset tag string for the system.
-     *
-     * @param[in] i_parsedVpdMap - Parsed VPD map.
-     *
-     * @throw std::runtime_error
-     *
-     * @return - Formed asset tag string.
-     */
-    std::string createAssetTagString(
-        const types::VPDMapVariant& i_parsedVpdMap);
-
-    /**
      * @brief API to set present property.
      *
      * This API updates the present property of the given FRU with the given
