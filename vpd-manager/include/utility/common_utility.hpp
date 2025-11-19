@@ -229,56 +229,67 @@ inline std::string getPrintableValue(const types::BinaryVector& i_keywordValue,
  * into array of binary data.
  *
  * @param[in] i_value - Input data.
+ * @param[out] o_errCode - To set error code in case of error.
  *
- * @return - Array of binary data on success, throws as exception in case
- * of any error.
- *
- * @throw std::runtime_error, std::out_of_range, std::bad_alloc,
- * std::invalid_argument
+ * @return - Array of binary data on success, empty vector in case of error.
  */
-inline types::BinaryVector convertToBinary(const std::string& i_value)
+inline types::BinaryVector convertToBinary(const std::string& i_value,
+                                           uint16_t& o_errCode)
 {
-    if (i_value.empty())
-    {
-        throw std::runtime_error("Empty input provided");
-    }
-
+    o_errCode = 0;
     types::BinaryVector l_binaryValue{};
 
-    if (i_value.substr(0, 2).compare("0x") == constants::STR_CMP_SUCCESS)
+    if (i_value.empty())
     {
-        if (i_value.length() % 2 != 0)
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return l_binaryValue;
+    }
+
+    try
+    {
+        if (i_value.substr(0, 2).compare("0x") == constants::STR_CMP_SUCCESS)
         {
-            throw std::runtime_error(
-                "Write option accepts 2 digit hex numbers. (Ex. 0x1 "
-                "should be given as 0x01).");
+            if (i_value.length() % 2 != 0)
+            {
+                o_errCode = error_code::INVALID_HEXADECIMAL_VALUE_LENGTH;
+                return l_binaryValue;
+            }
+
+            auto l_value = i_value.substr(2);
+
+            if (l_value.empty())
+            {
+                o_errCode = error_code::INVALID_HEXADECIMAL_VALUE;
+                return l_binaryValue;
+            }
+
+            if (l_value.find_first_not_of("0123456789abcdefABCDEF") !=
+                std::string::npos)
+            {
+                o_errCode = error_code::INVALID_HEXADECIMAL_VALUE;
+                return l_binaryValue;
+            }
+
+            for (size_t l_pos = 0; l_pos < l_value.length(); l_pos += 2)
+            {
+                uint8_t l_byte = static_cast<uint8_t>(
+                    std::stoi(l_value.substr(l_pos, 2), nullptr, 16));
+                l_binaryValue.push_back(l_byte);
+            }
         }
-
-        auto l_value = i_value.substr(2);
-
-        if (l_value.empty())
+        else
         {
-            throw std::runtime_error(
-                "Provide a valid hexadecimal input. (Ex. 0x30313233)");
-        }
-
-        if (l_value.find_first_not_of("0123456789abcdefABCDEF") !=
-            std::string::npos)
-        {
-            throw std::runtime_error("Provide a valid hexadecimal input.");
-        }
-
-        for (size_t l_pos = 0; l_pos < l_value.length(); l_pos += 2)
-        {
-            uint8_t l_byte = static_cast<uint8_t>(
-                std::stoi(l_value.substr(l_pos, 2), nullptr, 16));
-            l_binaryValue.push_back(l_byte);
+            l_binaryValue.assign(i_value.begin(), i_value.end());
         }
     }
-    else
+    catch (const std::exception& l_ex)
     {
-        l_binaryValue.assign(i_value.begin(), i_value.end());
+        o_errCode = error_code::STANDARD_EXCEPTION;
+        Logger::getLoggerInstance()->logMessage(
+            "Error while trying to convert value [" + i_value +
+            "] to binary, error : " + getErrCodeMsg(o_errCode));
     }
+
     return l_binaryValue;
 }
 

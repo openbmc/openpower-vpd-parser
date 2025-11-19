@@ -34,6 +34,8 @@ enum error_code
     STANDARD_EXCEPTION,
     DBUS_FAILURE,
     POPEN_FAILED,
+    INVALID_HEXADECIMAL_VALUE_LENGTH,
+    INVALID_HEXADECIMAL_VALUE,
 
     // VPD specific errors
     UNSUPPORTED_VPD_TYPE,
@@ -86,5 +88,8 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::DBUS_FAILURE, "Dbus call failed"},
     {error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS,
      "Received invalid keyword data type from DBus."},
-    {error_code::POPEN_FAILED, "popen failed"}};
+    {error_code::POPEN_FAILED, "popen failed"},
+    {error_code::INVALID_HEXADECIMAL_VALUE_LENGTH,
+     "Invalid hexadecimal value length."},
+    {error_code::INVALID_HEXADECIMAL_VALUE, "Invalid hexadecimal value."}};
 } // namespace vpd
