@@ -101,6 +101,27 @@ class IbmHandler
                        const types::VPDMapVariant& i_parsedVpdMap);
 
     /**
+     * @brief An API to parse and publish system VPD on D-Bus.
+     *
+     * @throw DataException, std::runtime_error
+     *
+     * @param[in] parsedVpdMap - Parsed VPD as a map.
+     */
+    void publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap);
+
+    /**
+     * @brief API to form asset tag string for the system.
+     *
+     * @param[in] i_parsedVpdMap - Parsed VPD map.
+     *
+     * @throw std::runtime_error
+     *
+     * @return - Formed asset tag string.
+     */
+    std::string createAssetTagString(
+        const types::VPDMapVariant& i_parsedVpdMap);
+
+    /**
      * @brief Set timer to detect and set VPD collection status for the system.
      *
      * Collection of FRU VPD is triggered in a separate thread. Resulting in
