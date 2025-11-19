@@ -86,6 +86,36 @@ class IbmHandler
     bool isBackupOnCache();
 
     /**
+     * @brief An API to parse and publish system VPD on D-Bus.
+     *
+     * Note: Throws exception in case of invalid VPD format.
+     * @param[in] i_parsedVpdMap - Parsed VPD as a map.
+     */
+    void publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap);
+
+    /**
+     * @brief API to set symbolic link for system config JSON.
+     *
+     * Once correct device tree is set, symbolic link to the correct sytsem
+     * config JSON is set to be used in subsequent BMC boot.
+     *
+     * @param[in] i_systemJson - system config JSON.
+     */
+    void setJsonSymbolicLink(const std::string& i_systemJson);
+
+    /**
+     * @brief API to form asset tag string for the system.
+     *
+     * @param[in] i_parsedVpdMap - Parsed VPD map.
+     *
+     * @throw std::runtime_error
+     *
+     * @return - Formed asset tag string.
+     */
+    std::string createAssetTagString(
+        const types::VPDMapVariant& i_parsedVpdMap);
+
+    /**
      * @brief API to select system specific JSON.
      *
      * The API based on the IM value of VPD, will select appropriate JSON for
@@ -204,5 +234,13 @@ class IbmHandler
 
     // Shared pointer to Logger object.
     std::shared_ptr<Logger> m_logger;
+
+    // To distinguish the factory reset path.
+    bool m_isFactoryResetDone = false;
+
+    // Hold if symlink is present or not.
+    bool m_isSymlinkPresent = false;
+
+    std::string m_configJsonPath{INVENTORY_JSON_DEFAULT};
 };
 } // namespace vpd

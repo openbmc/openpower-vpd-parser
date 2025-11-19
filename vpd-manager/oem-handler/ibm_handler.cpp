@@ -40,23 +40,42 @@ IbmHandler::IbmHandler(
             commonUtility::getErrCodeMsg(l_errCode));
     }
 
-    if (dbusUtility::isChassisPowerOn())
+    // Check if symlink is already there to confirm fresh boot/factory
+    // reset.
+    std::error_code l_ec = 0;
+    if (!std::filesystem::exists(INVENTORY_JSON_SYM_LINK, l_ec))
     {
-        // At power on, less number of FRU(s) needs collection. we can scale
-        // down the threads to reduce CPU utilization.
-        m_worker = std::make_shared<Worker>(
-            INVENTORY_JSON_DEFAULT, constants::VALUE_1, l_vpdCollectionMode);
+        if (dbusUtility::isChassisPowerOn())
+        {
+            // Critical scenario. Error should be logged as symlink is missing
+            // at chassis on.
+        }
+
+        if (l_ec)
+        {
+            // log error as well.
+        }
     }
     else
     {
-        // Initialize with default configuration
-        m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT,
-                                            constants::MAX_THREADS,
-                                            l_vpdCollectionMode);
+        logging::logMessage("Sym Link already present");
+        m_configJsonPath = INVENTORY_JSON_SYM_LINK;
+        m_isSymlinkPresent = true;
     }
 
     // Set up minimal things that is needed before bus name is claimed.
     performInitialSetup();
+
+    uint8_t l_maxThreadCount = constants::MAX_THREADS;
+    if (dbusUtility::isChassisPowerOn())
+    {
+        // At power on, less number of FRU(s) needs collection. we can scale
+        // down the threads to reduce CPU utilization.
+        l_maxThreadCount = constants::VALUE_1;
+    }
+
+    m_worker = std::make_shared<Worker>(
+        INVENTORY_JSON_DEFAULT, constants::MAX_THREADS, l_vpdCollectionMode);
 
     // If the object is created, implies back up and restore took place in
     // system VPD flow.
@@ -588,6 +607,99 @@ bool IbmHandler::isBackupOnCache()
     return false;
 }
 
+std::string IbmHandler::createAssetTagString(
+    const types::VPDMapVariant& i_parsedVpdMap)
+{
+    std::string l_assetTag;
+    // system VPD will be in IPZ format.
+    if (auto l_parsedVpdMap = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap))
+    {
+        auto l_itrToVsys = (*l_parsedVpdMap).find(constants::recVSYS);
+        if (l_itrToVsys != (*l_parsedVpdMap).end())
+        {
+            uint16_t l_errCode = 0;
+            const std::string l_tmKwdValue{vpdSpecificUtility::getKwVal(
+                l_itrToVsys->second, constants::kwdTM, l_errCode)};
+            if (l_tmKwdValue.empty())
+            {
+                throw std::runtime_error(
+                    std::string("Failed to get value for keyword [") +
+                    constants::kwdTM +
+                    std::string("] while creating Asset tag. Error : " +
+                                commonUtility::getErrCodeMsg(l_errCode)));
+            }
+            const std::string l_seKwdValue{vpdSpecificUtility::getKwVal(
+                l_itrToVsys->second, constants::kwdSE, l_errCode)};
+            if (l_seKwdValue.empty())
+            {
+                throw std::runtime_error(
+                    std::string("Failed to get value for keyword [") +
+                    constants::kwdSE +
+                    std::string("] while creating Asset tag. Error : " +
+                                commonUtility::getErrCodeMsg(l_errCode)));
+            }
+            l_assetTag = std::string{"Server-"} + l_tmKwdValue +
+                         std::string{"-"} + l_seKwdValue;
+        }
+        else
+        {
+            throw std::runtime_error(
+                "VSYS record not found in parsed VPD map to create Asset tag.");
+        }
+    }
+    else
+    {
+        throw std::runtime_error(
+            "Invalid VPD type recieved to create Asset tag.");
+    }
+    return l_assetTag;
+}
+
+void IbmHandler::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
+{
+    types::ObjectMap l_objectInterfaceMap;
+    if (std::get_if<types::IPZVpdMap>(&parsedVpdMap))
+    {
+        m_worker->populateDbus(i_parsedVpdMap, l_objectInterfaceMap,
+                               SYSTEM_VPD_FILE_PATH);
+        try
+        {
+            if (m_isFactoryResetDone)
+            {
+                const auto& l_assetTag = createAssetTagString(i_parsedVpdMap);
+                auto l_itrToSystemPath = objectInterfaceMap.find(
+                    sdbusplus::message::object_path(constants::systemInvPath));
+                if (l_itrToSystemPath == objectInterfaceMap.end())
+                {
+                    throw std::runtime_error(
+                        "Asset tag update failed. System Path not found in object map.");
+                }
+                types::PropertyMap l_assetTagProperty;
+                l_assetTagProperty.emplace("AssetTag", l_assetTag);
+                (l_itrToSystemPath->second)
+                    .emplace(constants::assetTagInf,
+                             std::move(l_assetTagProperty));
+            }
+        }
+        catch (const std::exception& l_ex)
+        {
+            EventLogger::createSyncPel(
+                EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
+                __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
+                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+        }
+        // Notify PIM
+        if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+        {
+            throw std::runtime_error("Call to PIM failed for system VPD");
+        }
+    }
+    else
+    {
+        throw DataException("Invalid format of parsed VPD map.");
+    }
+}
+
 void IbmHandler::setDeviceTreeAndJson()
 {
     // JSON is madatory for processing of this API.
@@ -649,7 +761,7 @@ void IbmHandler::setDeviceTreeAndJson()
     { // Skipping setting device tree as either devtree info is missing from
         // Json or it is rightly set.
 
-        m_worker->setJsonSymbolicLink(l_systemJson);
+        setJsonSymbolicLink(l_systemJson);
 
         const std::string& l_systemVpdInvPath =
             jsonUtility::getInventoryObjPathFromJson(
@@ -702,7 +814,7 @@ void IbmHandler::setDeviceTreeAndJson()
         }
 
         // proceed to publish system VPD.
-        m_worker->publishSystemVPD(l_parsedVpdMap);
+        publishSystemVPD(l_parsedVpdMap);
         m_worker->setCollectionStatusProperty(
             SYSTEM_VPD_FILE_PATH, constants::vpdCollectionCompleted);
         return;
@@ -712,17 +824,87 @@ void IbmHandler::setDeviceTreeAndJson()
     exit(EXIT_SUCCESS);
 }
 
+void IbmHandler::setJsonSymbolicLink(const std::string& i_systemJson)
+{
+    std::error_code l_ec;
+    l_ec.clear();
+
+    // Check if symlink file path exists and if the JSON at this location is a
+    // symlink.
+    if (m_isSymlinkPresent &&
+        std::filesystem::is_symlink(INVENTORY_JSON_SYM_LINK, l_ec))
+    { // Don't care about exception in "is_symlink". Will continue with creation
+      // of symlink.
+
+        const auto& l_symlinkFilePth =
+            std::filesystem::read_symlink(INVENTORY_JSON_SYM_LINK, l_ec);
+
+        if (l_ec)
+        {
+            logging::logMessage(
+                "Can't read existing symlink. Error =" + l_ec.message() +
+                "Trying removal of symlink and creation of new symlink.");
+        }
+
+        // If currently set JSON is the required one. No further processing
+        // required.
+        if (i_systemJson == l_symlinkFilePth)
+        {
+            // Correct symlink already set.
+            return;
+        }
+
+        if (!std::filesystem::remove(INVENTORY_JSON_SYM_LINK, l_ec))
+        {
+            // No point going further. If removal fails for existing symlink,
+            // create will anyways throw.
+            throw std::runtime_error(
+                "Removal of symlink failed with Error = " + l_ec.message() +
+                ". Can't proceed with create_symlink.");
+        }
+    }
+
+    if (!std::filesystem::exists(VPD_SYMLIMK_PATH, l_ec))
+    {
+        if (l_ec)
+        {
+            throw std::runtime_error(
+                "File system call to exist failed with error = " +
+                l_ec.message());
+        }
+
+        // implies it is a fresh boot/factory reset.
+        // Create the directory for hosting the symlink
+        if (!std::filesystem::create_directories(VPD_SYMLIMK_PATH, l_ec))
+        {
+            if (l_ec)
+            {
+                throw std::runtime_error(
+                    "File system call to create directory failed with error = " +
+                    l_ec.message());
+            }
+        }
+    }
+
+    // create a new symlink based on the system
+    std::filesystem::create_symlink(i_systemJson, INVENTORY_JSON_SYM_LINK,
+                                    l_ec);
+
+    if (l_ec)
+    {
+        throw std::runtime_error(
+            "create_symlink system call failed with error: " + l_ec.message());
+    }
+
+    // If the flow is at this point implies the symlink was not present there.
+    // Considering this as factory reset.
+    m_isFactoryResetDone = true;
+}
+
 void IbmHandler::performInitialSetup()
 {
     try
     {
-        if (m_worker.get() == nullptr)
-        {
-            throw std::runtime_error(
-                "Worker object not found. Can't perform initial setup.");
-        }
-
-        m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
         if (!dbusUtility::isChassisPowerOn())
         {
             setDeviceTreeAndJson();

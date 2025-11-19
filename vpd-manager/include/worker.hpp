@@ -189,26 +189,6 @@ class Worker
     void setCollectionStatusProperty(const std::string& i_fruPath,
                                      const std::string& i_value) const noexcept;
 
-    /**
-     * @brief API to set symbolic link for system config JSON.
-     *
-     * Once correct device tree is set, symbolic link to the correct sytsem
-     * config JSON is set to be used in subsequent BMC boot.
-     *
-     * @param[in] i_systemJson - system config JSON.
-     */
-    void setJsonSymbolicLink(const std::string& i_systemJson);
-
-    /**
-     * @brief An API to parse and publish system VPD on D-Bus.
-     *
-     * Note: Throws exception in case of invalid VPD format.
-     * Moved temporarily to public space. Will be eventually moved to
-     * ibm-handler.
-     * @param[in] parsedVpdMap - Parsed VPD as a map.
-     */
-    void publishSystemVPD(const types::VPDMapVariant& parsedVpdMap);
-
   private:
     /**
      * @brief An API to parse and publish a FRU VPD over D-Bus.
@@ -495,9 +475,6 @@ class Worker
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
 
-    // Hold if symlink is present or not.
-    bool m_isSymlinkPresent = false;
-
     // Path to config JSON if applicable.
     std::string& m_configJsonPath;
 
@@ -508,9 +485,6 @@ class Worker
     // Note: This variable does not give information about successfull or failed
     // collection. It just states, if the VPD collection process is over or not.
     bool m_isAllFruCollected = false;
-
-    // To distinguish the factory reset path.
-    bool m_isFactoryResetDone = false;
 
     // Mutex to guard critical resource m_activeCollectionThreadCount.
     std::mutex m_mutex;
