@@ -3,7 +3,7 @@ Description=VPD Manager
 StopWhenUnneeded=false
 Wants=mapper-wait@-xyz-openbmc_project-inventory.service
 After=mapper-wait@-xyz-openbmc_project-inventory.service
-After=set-spi-mux.service
+#After=set-spi-mux.service
 Before=phosphor-discover-system-state@0.service
 Before=xyz.openbmc_project.State.BMC.Redundancy.service
 
