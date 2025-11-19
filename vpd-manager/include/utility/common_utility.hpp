@@ -185,30 +185,38 @@ inline std::string convertByteVectorToHex(
  * value, returns the hex represented value of the given data in string format.
  *
  * @param[in] i_keywordValue - Data in binary format.
- *
- * @throw - Throws std::bad_alloc or std::terminate in case of error.
+ * @param[out] o_errCode - To set error code in case of error.
  *
  * @return - Returns the converted string value.
  */
-inline std::string getPrintableValue(const types::BinaryVector& i_keywordValue)
+inline std::string getPrintableValue(const types::BinaryVector& i_keywordValue,
+                                     uint16_t& o_errCode)
 {
-    bool l_allPrintable =
-        std::all_of(i_keywordValue.begin(), i_keywordValue.end(),
-                    [](const auto& l_byte) { return std::isprint(l_byte); });
-
+    o_errCode = 0;
     std::ostringstream l_oss;
-    if (l_allPrintable)
+    try
     {
-        l_oss << std::string(i_keywordValue.begin(), i_keywordValue.end());
-    }
-    else
-    {
-        l_oss << "0x";
-        for (const auto& l_byte : i_keywordValue)
+        bool l_allPrintable = std::all_of(
+            i_keywordValue.begin(), i_keywordValue.end(),
+            [](const auto& l_byte) { return std::isprint(l_byte); });
+
+        if (l_allPrintable)
         {
-            l_oss << std::setfill('0') << std::setw(2) << std::hex
-                  << static_cast<int>(l_byte);
+            l_oss << std::string(i_keywordValue.begin(), i_keywordValue.end());
         }
+        else
+        {
+            l_oss << "0x";
+            for (const auto& l_byte : i_keywordValue)
+            {
+                l_oss << std::setfill('0') << std::setw(2) << std::hex
+                      << static_cast<int>(l_byte);
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        o_errCode = error_code::STANDARD_EXCEPTION;
     }
 
     return l_oss.str();
