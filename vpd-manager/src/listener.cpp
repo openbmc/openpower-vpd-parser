@@ -502,10 +502,20 @@ bool Listener::updateCorrelatedProperty(
         if (l_destinationInterface.find(constants::ipzVpdInf) !=
             std::string::npos)
         {
+            uint16_t l_errCode = 0;
             if (const auto l_val = std::get_if<std::string>(&i_propertyValue))
             {
                 // convert value to binary vector before updating
-                l_valueToUpdate = commonUtility::convertToBinary(*l_val);
+                l_valueToUpdate =
+                    commonUtility::convertToBinary(*l_val, l_errCode);
+
+                if (l_errCode)
+                {
+                    throw std::runtime_error(
+                        "Failed to get value [" + std::string(*l_val) +
+                        "] in binary vector, error : " +
+                        commonUtility::getErrCodeMsg(l_errCode));
+                }
             }
             else if (const auto l_val =
                          std::get_if<types::BinaryVector>(&i_propertyValue))
