@@ -106,6 +106,28 @@ class IbmHandler
      * @param[in,out] io_srcVpdMap - Source VPD map.
      */
     void performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap);
+  
+    /**
+     *  @brief An API to parse and publish system VPD on D-Bus.
+     *
+     * @throw DataException, std::runtime_error
+     *
+     * @param[in] parsedVpdMap - Parsed VPD as a map.
+     */
+    void publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap);
+
+    /**
+     * @brief API to form asset tag string for the system.
+     *
+     * @param[in] i_parsedVpdMap - Parsed VPD map.
+     *
+     * @throw std::runtime_error
+     *
+     * @return - Formed asset tag string.
+     */
+    std::string createAssetTagString(
+        const types::VPDMapVariant& i_parsedVpdMap);
+>>>>>>> 108454a (Move code to OEM)
 
     /**
      * @brief Set timer to detect and set VPD collection status for the system.

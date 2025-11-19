@@ -199,16 +199,6 @@ class Worker
      */
     void setJsonSymbolicLink(const std::string& i_systemJson);
 
-    /**
-     * @brief An API to parse and publish system VPD on D-Bus.
-     *
-     * Note: Throws exception in case of invalid VPD format.
-     * Moved temporarily to public space. Will be eventually moved to
-     * ibm-handler.
-     * @param[in] parsedVpdMap - Parsed VPD as a map.
-     */
-    void publishSystemVPD(const types::VPDMapVariant& parsedVpdMap);
-
   private:
     /**
      * @brief An API to parse and publish a FRU VPD over D-Bus.
@@ -429,18 +419,6 @@ class Worker
      */
     void processEnabledProperty(const std::string& i_inventoryObjPath,
                                 types::InterfaceMap& io_interfaces);
-
-    /**
-     * @brief API to form asset tag string for the system.
-     *
-     * @param[in] i_parsedVpdMap - Parsed VPD map.
-     *
-     * @throw std::runtime_error
-     *
-     * @return - Formed asset tag string.
-     */
-    std::string createAssetTagString(
-        const types::VPDMapVariant& i_parsedVpdMap);
 
     /**
      * @brief API to set present property.
