@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "317f59e1_700926a9",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-19T08:57:08Z",
+      "side": 1,
+      "message": "if there no backup\u0026restore for a system, why PEL should be logged ?",
+      "revId": "44f07569474814d765e324ac679e47d5d00f289e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4cadd0a_e43e4398",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-19T08:57:08Z",
+      "side": 1,
+      "message": "Exception caught while checking is backup on cache.",
+      "revId": "44f07569474814d765e324ac679e47d5d00f289e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
