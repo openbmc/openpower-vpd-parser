@@ -16,6 +16,24 @@
       "message": "setJsonSymbolicLink API take JSON path to create sym link, here json object is passed.\n\nwhy this setJsonSymbolicLink API is not under the OEM ?",
       "revId": "804f7639deb2afdf67fa3b24803bdb38daa4729e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93e44f76_0f7d5baa",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-19T06:28:40Z",
+      "side": 1,
+      "message": "Fixed.\n\u003e why this setJsonSymbolicLink API is not under the OEM ?\nWill be moved in subsequent commits.",
+      "parentUuid": "b255302a_91ec9c11",
+      "revId": "804f7639deb2afdf67fa3b24803bdb38daa4729e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
