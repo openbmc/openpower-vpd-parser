@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b66a414_344a5423",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-19T08:40:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c6f316c6_df5b7a2a",
+      "revId": "88d158a7c048acb4357a13a4183943ac91dd1893",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "251b569f_dc683414",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-11-19T07:33:52Z",
       "side": 1,
       "message": "system VPD path or inventory path missing in JSON",
+      "revId": "88d158a7c048acb4357a13a4183943ac91dd1893",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf2cb1c6_f3662446",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-19T08:40:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "251b569f_dc683414",
       "revId": "88d158a7c048acb4357a13a4183943ac91dd1893",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7ef9b35_0687b912",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-19T08:40:23Z",
+      "side": 1,
+      "message": "There is no actual order here. Order exist only when information of one is used by other.\n\nWhat you said is correct, but that is valid even in this case. \n\nIf former i.e. \"isBackupOnCache()\" returns false, I need to know if back up and restore is required or not in this flow.",
+      "parentUuid": "3892a24e_9f388196",
+      "revId": "88d158a7c048acb4357a13a4183943ac91dd1893",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2793ee1b_5d51b4d4",
         "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
         "patchSetId": 7
@@ -65,6 +119,24 @@
       "writtenOn": "2025-11-19T07:33:52Z",
       "side": 1,
       "message": "should the variable o_systemJson ?",
+      "revId": "88d158a7c048acb4357a13a4183943ac91dd1893",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e28d06f_20a38058",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-19T08:40:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2793ee1b_5d51b4d4",
       "revId": "88d158a7c048acb4357a13a4183943ac91dd1893",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -82,6 +154,24 @@
       "writtenOn": "2025-11-19T07:33:52Z",
       "side": 1,
       "message": "as we are using isBackupOnCache() API instead, should we remove this API?",
+      "revId": "88d158a7c048acb4357a13a4183943ac91dd1893",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd3be107_71c6cae4",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1356,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-19T08:40:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "80b830de_8e4ae23e",
       "revId": "88d158a7c048acb4357a13a4183943ac91dd1893",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
