@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6f316c6_df5b7a2a",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-19T07:33:52Z",
+      "side": 1,
+      "message": "system VPD path or inventory path",
+      "revId": "88d158a7c048acb4357a13a4183943ac91dd1893",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "251b569f_dc683414",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-19T07:33:52Z",
+      "side": 1,
+      "message": "system VPD path or inventory path missing in JSON",
+      "revId": "88d158a7c048acb4357a13a4183943ac91dd1893",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3892a24e_9f388196",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-19T07:33:52Z",
+      "side": 1,
+      "message": "can we move isBackupOnCache check after isBackupAndRestoreRequired(), if farmer returns false no need to check isBackupOnCache or not.",
+      "revId": "88d158a7c048acb4357a13a4183943ac91dd1893",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2793ee1b_5d51b4d4",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-19T07:33:52Z",
+      "side": 1,
+      "message": "should the variable o_systemJson ?",
+      "revId": "88d158a7c048acb4357a13a4183943ac91dd1893",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80b830de_8e4ae23e",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1356,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-19T07:33:52Z",
+      "side": 1,
+      "message": "as we are using isBackupOnCache() API instead, should we remove this API?",
+      "revId": "88d158a7c048acb4357a13a4183943ac91dd1893",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
