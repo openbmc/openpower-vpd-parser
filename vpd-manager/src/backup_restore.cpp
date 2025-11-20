@@ -15,8 +15,10 @@ namespace vpd
 BackupAndRestoreStatus BackupAndRestore::m_backupAndRestoreStatus =
     BackupAndRestoreStatus::NotStarted;
 
-BackupAndRestore::BackupAndRestore(const nlohmann::json& i_sysCfgJsonObj) :
-    m_sysCfgJsonObj(i_sysCfgJsonObj)
+BackupAndRestore::BackupAndRestore(
+    const nlohmann::json& i_sysCfgJsonObj,
+    const types::VpdCollectionMode& i_vpdCollectionMode) :
+    m_sysCfgJsonObj(i_sysCfgJsonObj), m_vpdCollectionMode(i_vpdCollectionMode)
 {
     std::string l_backupAndRestoreCfgFilePath =
         i_sysCfgJsonObj.value("backupRestoreConfigPath", "");
@@ -66,8 +68,20 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
                 "hardwarePath", "");
             !l_srcVpdPath.empty() && std::filesystem::exists(l_srcVpdPath))
         {
+            uint16_t l_errCode = 0;
+            std::string l_effectiveSrcPath{l_srcVpdPath};
+            commonUtility::getEffectiveFruPath(m_vpdCollectionMode,
+                                               l_effectiveSrcPath, l_errCode);
+            if (l_errCode)
+            {
+                throw std::runtime_error(
+                    "Failed to get effective source FRU path for [" +
+                    l_srcVpdPath +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+            }
+
             std::shared_ptr<Parser> l_vpdParser =
-                std::make_shared<Parser>(l_srcVpdPath, m_sysCfgJsonObj);
+                std::make_shared<Parser>(l_effectiveSrcPath, m_sysCfgJsonObj);
             l_srcVpdVariant = l_vpdParser->parse();
         }
         else if (l_srcVpdPath = m_backupAndRestoreCfgJsonObj["source"].value(
@@ -85,8 +99,20 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
                 "hardwarePath", "");
             !l_dstVpdPath.empty() && std::filesystem::exists(l_dstVpdPath))
         {
+            uint16_t l_errCode = 0;
+            std::string l_effectiveDstPath{l_dstVpdPath};
+            commonUtility::getEffectiveFruPath(m_vpdCollectionMode,
+                                               l_effectiveDstPath, l_errCode);
+            if (l_errCode)
+            {
+                throw std::runtime_error(
+                    "Failed to get effective destination FRU path for [" +
+                    l_dstVpdPath +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+            }
+
             std::shared_ptr<Parser> l_vpdParser =
-                std::make_shared<Parser>(l_dstVpdPath, m_sysCfgJsonObj);
+                std::make_shared<Parser>(l_effectiveDstPath, m_sysCfgJsonObj);
             l_dstVpdVariant = l_vpdParser->parse();
         }
         else if (l_dstVpdPath = m_backupAndRestoreCfgJsonObj["destination"]
@@ -156,33 +182,51 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
 
     uint16_t l_errCode = 0;
 
-    const std::string l_srcFruPath =
+    std::string l_srcFruPath =
         jsonUtility::getFruPathFromJson(m_sysCfgJsonObj, i_srcPath, l_errCode);
-
-    if (l_errCode)
+    if (l_srcFruPath.empty())
     {
-        logging::logMessage(
-            "Failed to get source FRU path for [" + i_srcPath +
-            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+        logging::logMessage("Failed to get source FRU path for [" + i_srcPath +
+                            "] from system config JSON");
+        if (l_errCode)
+        {
+            logging::logMessage(
+                ", reason : " + commonUtility::getErrCodeMsg(l_errCode));
+        }
         return;
     }
 
-    const std::string l_dstFruPath =
+    commonUtility::getEffectiveFruPath(m_vpdCollectionMode, l_srcFruPath,
+                                       l_errCode);
+    if (l_errCode)
+    {
+        throw std::runtime_error(
+            "Failed to get effective source FRU path for [" + i_srcPath +
+            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+    }
+
+    std::string l_dstFruPath =
         jsonUtility::getFruPathFromJson(m_sysCfgJsonObj, i_dstPath, l_errCode);
-
-    if (l_errCode)
+    if (l_dstFruPath.empty())
     {
-        logging::logMessage(
-            "Failed to get destination FRU path for [" + i_dstPath +
-            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+        logging::logMessage("Failed to get destination FRU path for [" +
+                            i_dstPath + "] from system config JSON");
+        if (l_errCode)
+        {
+            logging::logMessage(
+                ", reason : " + commonUtility::getErrCodeMsg(l_errCode));
+        }
         return;
     }
 
-    if (l_srcFruPath.empty() || l_dstFruPath.empty())
+    commonUtility::getEffectiveFruPath(m_vpdCollectionMode, l_dstFruPath,
+                                       l_errCode);
+    if (l_errCode)
     {
-        logging::logMessage(
-            "Couldn't find either source or destination FRU path.");
-        return;
+        throw std::runtime_error(
+            "Failed to get effective destination FRU path for [" +
+            l_dstFruPath +
+            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
     }
 
     const std::string l_srcInvPath = jsonUtility::getInventoryObjPathFromJson(
