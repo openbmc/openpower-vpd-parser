@@ -232,5 +232,9 @@ class IbmHandler
 
     // Shared pointer to Logger object.
     std::shared_ptr<Logger> m_logger;
+
+    // VPD collection mode
+    types::VpdCollectionMode m_vpdCollectionMode{
+        types::VpdCollectionMode::DEFAULT_MODE};
 };
 } // namespace vpd
