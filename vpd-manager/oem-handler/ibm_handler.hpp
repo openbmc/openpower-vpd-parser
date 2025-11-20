@@ -232,5 +232,14 @@ class IbmHandler
 
     // Shared pointer to Logger object.
     std::shared_ptr<Logger> m_logger;
+
+    // Hold if symlink is present or not.
+    bool m_isSymlinkPresent = false;
+
+    // Default json path.
+    std::string m_configJsonPath{INVENTORY_JSON_DEFAULT};
+
+    // vpd collection mode
+    types::VpdCollectionMode m_vpdCollectionMode;
 };
 } // namespace vpd

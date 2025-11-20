@@ -33,15 +33,6 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
     // Implies the processing is based on some config JSON
     if (!m_configJsonPath.empty())
     {
-        // Check if symlink is already there to confirm fresh boot/factory
-        // reset.
-        if (std::filesystem::exists(INVENTORY_JSON_SYM_LINK))
-        {
-            logging::logMessage("Sym Link already present");
-            m_configJsonPath = INVENTORY_JSON_SYM_LINK;
-            m_isSymlinkPresent = true;
-        }
-
         try
         {
             uint16_t l_errCode = 0;
