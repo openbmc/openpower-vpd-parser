@@ -36,10 +36,13 @@ class BackupAndRestore
      * @brief Constructor.
      *
      * @param[in] i_sysCfgJsonObj - System config JSON object.
+     * @param[in] i_vpdCollectionMode - VPD collection mode.
      *
      * @throw std::runtime_error in case constructor failure.
      */
-    BackupAndRestore(const nlohmann::json& i_sysCfgJsonObj);
+    BackupAndRestore(const nlohmann::json& i_sysCfgJsonObj,
+                     const types::VpdCollectionMode& i_vpdCollectionMode =
+                         types::VpdCollectionMode::DEFAULT_MODE);
 
     /**
      * @brief Default destructor.
@@ -121,6 +124,9 @@ class BackupAndRestore
 
     // Backup and restore status.
     static BackupAndRestoreStatus m_backupAndRestoreStatus;
+
+    // VPD collection mode
+    const types::VpdCollectionMode& m_vpdCollectionMode;
 };
 
 } // namespace vpd

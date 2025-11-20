@@ -64,8 +64,8 @@ IbmHandler::IbmHandler(
     {
         try
         {
-            m_backupAndRestoreObj =
-                std::make_shared<BackupAndRestore>(m_sysCfgJsonObj);
+            m_backupAndRestoreObj = std::make_shared<BackupAndRestore>(
+                m_sysCfgJsonObj, m_vpdCollectionMode);
         }
         catch (const std::exception& l_ex)
         {
@@ -597,8 +597,8 @@ void IbmHandler::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
 {
     try
     {
-        m_backupAndRestoreObj =
-            std::make_shared<BackupAndRestore>(m_sysCfgJsonObj);
+        m_backupAndRestoreObj = std::make_shared<BackupAndRestore>(
+            m_sysCfgJsonObj, m_vpdCollectionMode);
         auto [l_srcVpdVariant,
               l_dstVpdVariant] = m_backupAndRestoreObj->backupAndRestore();
 
