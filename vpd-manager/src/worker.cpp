@@ -932,7 +932,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                     commonUtility::getErrCodeMsg(l_errCode));
             }
         }
-        else if (l_errCode)
+        else if (types::VpdCollectionMode::FILE_MODE != m_vpdCollectionMode &&
+                 l_errCode)
         {
             logging::logMessage(
                 "Failed to check if pre action required for FRU [" +
@@ -976,7 +977,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                     std::nullopt, std::nullopt, std::nullopt, std::nullopt);
             }
         }
-        else if (l_errCode)
+        else if (types::VpdCollectionMode::FILE_MODE != m_vpdCollectionMode &&
+                 l_errCode)
         {
             logging::logMessage(
                 "Error while checking if post action required for FRU [" +

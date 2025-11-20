@@ -350,5 +350,21 @@ inline types::VpdCollectionMode getVpdCollectionMode(
     return l_result;
 }
 
+inline void getEffectiveFruPath(
+    const types::VpdCollectionMode& i_vpdCollectionMode,
+    std::string& o_fruPath) noexcept
+{
+    if (types::VpdCollectionMode::FILE_MODE == i_vpdCollectionMode)
+    {
+        o_fruPath.insert(0, constants::fileModeDirectoryPath);
+    }
+
+    // For Hardware mode and mixed mode FRU path is considered as EEPROM path.
+    // No change is needed.
+
+    // ToDo: Need to handle path for mixed mode, when mixed mode is fully
+    // implemented.
+}
+
 } // namespace commonUtility
 } // namespace vpd
