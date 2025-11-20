@@ -1,5 +1,7 @@
 #include "logger.hpp"
 
+#include <utility/event_logger_utility.hpp>
+
 #include <regex>
 #include <sstream>
 
@@ -47,8 +49,19 @@ void Logger::logMessage(std::string_view i_message,
         {
             if (i_pelTuple)
             {
-                // LOG PEL
-                // This should call create PEL API from the event logger.
+                types::SeverityType l_severity =
+                    types::SeverityType::Informational;
+
+                if (std::get<1>(*i_pelTuple).has_value())
+                {
+                    l_severity = (std::get<1>(*i_pelTuple)).value();
+                }
+
+                EventLogger::createSyncPel(
+                    std::get<0>(*i_pelTuple), l_severity,
+                    i_location.file_name(), i_location.function_name(),
+                    std::get<2>(*i_pelTuple), std::string(i_message),
+                    std::nullopt, std::nullopt, std::nullopt, std::nullopt);
                 return;
             }
             std::cout << "Pel info tuple required to log PEL for message <" +
