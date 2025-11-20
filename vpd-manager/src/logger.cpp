@@ -47,8 +47,11 @@ void Logger::logMessage(std::string_view i_message,
         {
             if (i_pelTuple)
             {
-                // LOG PEL
-                // This should call create PEL API from the event logger.
+                EventLogger::createSyncPel(
+                    std::get<0>(*i_pelTuple), std::get<1>(*i_pelTuple),
+                    i_location.file_name(), i_location.function_name(),
+                    std::get<2>(*i_pelTuple), std::string(i_message),
+                    std::nullopt, std::nullopt, std::nullopt, std::nullopt);
                 return;
             }
             std::cout << "Pel info tuple required to log PEL for message <" +
