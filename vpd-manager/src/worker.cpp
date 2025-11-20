@@ -942,6 +942,10 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
 
         if (!std::filesystem::exists(i_vpdFilePath))
         {
+            Logger::getLoggerInstance()->logMessage(
+                "Parsing VPD file failed, as [" + i_vpdFilePath +
+                "] doesn't exists.");
+
             if (isPreActionRequired)
             {
                 throw std::runtime_error(
