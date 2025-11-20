@@ -28,10 +28,9 @@ IbmHandler::IbmHandler(
     uint16_t l_errCode{0};
 
     // check VPD collection mode
-    const auto l_vpdCollectionMode =
-        commonUtility::isFieldModeEnabled()
-            ? types::VpdCollectionMode::DEFAULT_MODE
-            : commonUtility::getVpdCollectionMode(l_errCode);
+    m_vpdCollectionMode = commonUtility::isFieldModeEnabled()
+                              ? types::VpdCollectionMode::DEFAULT_MODE
+                              : commonUtility::getVpdCollectionMode(l_errCode);
 
     if (l_errCode)
     {
@@ -45,14 +44,14 @@ IbmHandler::IbmHandler(
         // At power on, less number of FRU(s) needs collection. we can scale
         // down the threads to reduce CPU utilization.
         m_worker = std::make_shared<Worker>(
-            INVENTORY_JSON_DEFAULT, constants::VALUE_1, l_vpdCollectionMode);
+            INVENTORY_JSON_DEFAULT, constants::VALUE_1, m_vpdCollectionMode);
     }
     else
     {
         // Initialize with default configuration
         m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT,
                                             constants::MAX_THREADS,
-                                            l_vpdCollectionMode);
+                                            m_vpdCollectionMode);
     }
 
     // Set up minimal things that is needed before bus name is claimed.
@@ -723,8 +722,26 @@ void IbmHandler::setDeviceTreeAndJson()
         throw JsonException("System config JSON is empty", m_sysCfgJsonObj);
     }
 
+    uint16_t l_errCode = 0;
+    std::string l_systemVpdPath{SYSTEM_VPD_FILE_PATH};
+    commonUtility::getEffectiveFruPath(m_vpdCollectionMode, l_systemVpdPath,
+                                       l_errCode);
+
+    if (l_errCode)
+    {
+        throw std::runtime_error(
+            "Failed to get effective System VPD path, for [" + l_systemVpdPath +
+            "], reason: " + commonUtility::getErrCodeMsg(l_errCode));
+    }
+
     // parse system VPD
-    auto l_parsedVpdMap = m_worker->parseVpdFile(SYSTEM_VPD_FILE_PATH);
+    auto l_parsedVpdMap = m_worker->parseVpdFile(l_systemVpdPath);
+    if (std::holds_alternative<std::monostate>(l_parsedVpdMap))
+    {
+        throw std::runtime_error(
+            "System VPD parsing failed, from path [" + l_systemVpdPath +
+            "]. Either file doesn't exist or error occurred while parsing the file.");
+    }
 
     // Implies it is default JSON.
     std::string l_systemJson{JSON_ABSOLUTE_PATH_PREFIX};
@@ -738,7 +755,6 @@ void IbmHandler::setDeviceTreeAndJson()
             "No system JSON found corresponding to IM read from VPD.");
     }
 
-    uint16_t l_errCode = 0;
     // re-parse the JSON once appropriate JSON has been selected.
     m_sysCfgJsonObj = jsonUtility::getParsedJson(l_systemJson, l_errCode);
 

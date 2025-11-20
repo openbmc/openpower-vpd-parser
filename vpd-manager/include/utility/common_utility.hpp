@@ -350,5 +350,42 @@ inline types::VpdCollectionMode getVpdCollectionMode(
     return l_result;
 }
 
+/**
+ * @brief API to get effective FRU path
+ *
+ * API to get effective VPD path for a FRU based on the VPD collection mode.
+ *
+ * @param[in] i_vpdCollectionMode - VPD collection mode.
+ * @param[in,out] io_fruPath - Path to the EEPROM file.
+ * @param[out] o_errCode - To set error code in case of error.
+ *
+ */
+inline void getEffectiveFruPath(
+    const types::VpdCollectionMode& i_vpdCollectionMode,
+    std::string& io_fruPath, uint16_t& o_errCode) noexcept
+{
+    try
+    {
+        o_errCode = 0;
+        if (types::VpdCollectionMode::FILE_MODE == i_vpdCollectionMode)
+        {
+            io_fruPath.insert(0, constants::fileModeDirectoryPath);
+        }
+
+        // For Hardware mode and mixed mode FRU path is considered as EEPROM
+        // path. No change is needed.
+
+        // ToDo: Need to handle path for mixed mode, when mixed mode is fully
+        // implemented.
+    }
+    catch (std::exception& l_ex)
+    {
+        o_errCode = error_code::STANDARD_EXCEPTION;
+        Logger::getLoggerInstance()->logMessage(
+            "Error while getting effective path, reason: " +
+            std::string(l_ex.what()));
+    }
+}
+
 } // namespace commonUtility
 } // namespace vpd
