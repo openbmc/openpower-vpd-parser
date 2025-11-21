@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3f802a4_f9b7b2ca",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-21T16:33:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c537dc_0d03026a",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "121f6631_038f6c64",
@@ -54,6 +72,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b38a6593_80c98c95",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-21T16:33:55Z",
+      "side": 1,
+      "message": "in case of error, we only return unmodified o_fruPath path, no need for error code for this API.",
+      "parentUuid": "121f6631_038f6c64",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7624e7c1_30882770",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-21T16:33:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "89ce6ede_a5483696",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cfe93a38_812852fb",
         "filename": "vpd-manager/include/utility/common_utility.hpp",
         "patchSetId": 3
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e99c118_3acb4651",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-21T16:33:55Z",
+      "side": 1,
+      "message": "I tested with empty variable and empty path to insert. not throwing any error.\nStill as library says it can throw error, added try-catch block.",
+      "parentUuid": "cfe93a38_812852fb",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1148c37b_3dbe997e",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 3
@@ -82,6 +154,24 @@
       "writtenOn": "2025-11-21T06:01:37Z",
       "side": 1,
       "message": "Should use `m_logger` to log messages.",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d7faf38_11d8ad27",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-21T16:33:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1148c37b_3dbe997e",
       "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +195,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8c10ff1_0fd539c8",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-21T16:33:55Z",
+      "side": 1,
+      "message": "as system VPD is not collected, hence we couldn\u0027t determine the system type.\nAs this is critical, quiesced the system. system VPD file needs to be available to fix this issue.",
+      "parentUuid": "2b5cd014_d142fc00",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6cd6a72_182108e2",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 3
@@ -122,6 +230,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f44ffc84_0969f29a",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-21T16:33:55Z",
+      "side": 1,
+      "message": "to skip pre action \u0026 post action error message in filemode added this check.\nas discussed, will remove this check and fine to have this log to avoid unnecessary changes.",
+      "parentUuid": "c6cd6a72_182108e2",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3fedefad_b070a858",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 3
@@ -133,6 +259,24 @@
       "writtenOn": "2025-11-21T06:01:37Z",
       "side": 1,
       "message": "Why these changes in the FRU VPD collection flow?",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f03d33a_fff10e12",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-21T16:33:55Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "3fedefad_b070a858",
       "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
