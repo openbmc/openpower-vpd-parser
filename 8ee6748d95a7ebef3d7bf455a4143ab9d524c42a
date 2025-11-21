@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b84403be_9c774631",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-21T03:30:40Z",
+      "side": 1,
+      "message": "Log standard exception as well \"what\". Else we might miss what went wrong.",
+      "revId": "8ee6748d95a7ebef3d7bf455a4143ab9d524c42a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1111b178_3797e960",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-21T03:30:40Z",
+      "side": 1,
+      "message": "If you log above then we don\u0027t need to log here.\nYou might skip and send back just std::Exception error code.",
+      "revId": "8ee6748d95a7ebef3d7bf455a4143ab9d524c42a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
