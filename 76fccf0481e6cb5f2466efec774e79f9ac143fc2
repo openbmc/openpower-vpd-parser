@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee71d9d7_ac4375e0",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-21T06:04:40Z",
+      "side": 1,
+      "message": "createSyncPel() takes std::optional for userdata1 and userdata2, we can directly pass std::get\u003c3\u003e(*i_pelTuple) to the API directly .",
+      "revId": "76fccf0481e6cb5f2466efec774e79f9ac143fc2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
