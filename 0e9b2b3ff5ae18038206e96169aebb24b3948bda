@@ -1,4 +1,91 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68d6e927_ad1bb513",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T18:08:41Z",
+      "side": 1,
+      "message": "please check my comments",
+      "revId": "0e9b2b3ff5ae18038206e96169aebb24b3948bda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d417945b_07365b21",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T18:08:41Z",
+      "side": 1,
+      "message": "we can use m_logger for \"Logger::getLoggerInstance()\"",
+      "range": {
+        "startLine": 268,
+        "startChar": 8,
+        "endLine": 268,
+        "endChar": 35
+      },
+      "revId": "0e9b2b3ff5ae18038206e96169aebb24b3948bda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8c4c789_583b0372",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T18:08:41Z",
+      "side": 1,
+      "message": "we can use m_logger for \"Logger::getLoggerInstance()\"",
+      "range": {
+        "startLine": 282,
+        "startChar": 15,
+        "endLine": 282,
+        "endChar": 43
+      },
+      "revId": "0e9b2b3ff5ae18038206e96169aebb24b3948bda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4f5bd8f_7efffe9c",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T18:08:41Z",
+      "side": 1,
+      "message": "if we are here, line 278 returned 0, means it is not present.\nThen we can\u0027t say \"Failed to check\" here -\n\"Failed to check if log file parent directory exists\" \n\n\nmay be we can say something like -\n\"Found error - \"  + l_ec.message()",
+      "range": {
+        "startLine": 282,
+        "startChar": 15,
+        "endLine": 287,
+        "endChar": 29
+      },
+      "revId": "0e9b2b3ff5ae18038206e96169aebb24b3948bda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
