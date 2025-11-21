@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "121f6631_038f6c64",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-21T06:01:37Z",
+      "side": 1,
+      "message": "Utility API should have an error code to indicate error to the caller.",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfe93a38_812852fb",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-21T06:01:37Z",
+      "side": 1,
+      "message": "`std::string::insert` can throw exception, but the method has a `noexcept` specifier. This API should have a `try` `catch` block.",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1148c37b_3dbe997e",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-21T06:01:37Z",
+      "side": 1,
+      "message": "Should use `m_logger` to log messages.",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b5cd014_d142fc00",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-21T06:01:37Z",
+      "side": 1,
+      "message": "Why are we calling `exit()` here? As per our existing flow, this API should `throw` so that it is caught by `IbmHandler::performInitialSetup()` where System VPD collection property gets updated properly, and PEL gets logged.",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6cd6a72_182108e2",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-21T06:01:37Z",
+      "side": 1,
+      "message": "Why these changes in the FRU VPD collection flow?",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fedefad_b070a858",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-21T06:01:37Z",
+      "side": 1,
+      "message": "Why these changes in the FRU VPD collection flow?",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
