@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74c8a90e_ab2fab9d",
+        "filename": "docs/file-mode-vpd.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T19:29:26Z",
+      "side": 1,
+      "message": "In 1 of the commit I saw, this path has been modified to\n`/var/lib/vpd/file/\nyou can update it at all the paths.",
+      "range": {
+        "startLine": 50,
+        "startChar": 25,
+        "endLine": 50,
+        "endChar": 47
+      },
+      "revId": "0488075a6303063fb602f26051a1b6ff9b6ebbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
