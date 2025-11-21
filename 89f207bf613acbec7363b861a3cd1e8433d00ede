@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5123f0d_f5c3b7e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T19:03:03Z",
+      "side": 1,
+      "message": "please check my comments",
+      "revId": "89f207bf613acbec7363b861a3cd1e8433d00ede",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d67ccf9_98b63ac6",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T19:03:03Z",
+      "side": 1,
+      "message": "full logic of this API is - returning valid file path and collectionMode.\n\n- get the MODE (l_effCollectionMode) from utility ,and switch case on it.\n- create the full file path and use it based on case.\nnow, \n- if MIX mode : update the FilePath, and the MODE(based on file existence),\n- if FILE mode: update the FilePath, return the MODE as it is.\n- if HARDWARE : return the MODE and FilePath as it is.\n- if DEFAULT : Update the MODE and return FilePath as it is.",
+      "range": {
+        "startLine": 1267,
+        "startChar": 3,
+        "endLine": 1268,
+        "endChar": 2
+      },
+      "revId": "89f207bf613acbec7363b861a3cd1e8433d00ede",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d23a1423_6df68fc9",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1282,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T19:03:03Z",
+      "side": 1,
+      "message": "VPD Mode can be collected here itself by calling the utility, no need to accept it as input parameter.\nThis is to avoid passing more no of parameters",
+      "range": {
+        "startLine": 1282,
+        "startChar": 34,
+        "endLine": 1282,
+        "endChar": 77
+      },
+      "revId": "89f207bf613acbec7363b861a3cd1e8433d00ede",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03bd6c14_e4c4fd3d",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1285,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T19:03:03Z",
+      "side": 1,
+      "message": "keep it full-\nl_effCollectionMode -\u003e l_effectiveCollectionMode",
+      "range": {
+        "startLine": 1285,
+        "startChar": 29,
+        "endLine": 1285,
+        "endChar": 49
+      },
+      "revId": "89f207bf613acbec7363b861a3cd1e8433d00ede",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "504a0a80_7bf571ec",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1297,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T19:03:03Z",
+      "side": 1,
+      "message": "these line are repeating in case 1 and 2.\nyou can do it once and outside this scope, so that both the blocks can use it.",
+      "range": {
+        "startLine": 1295,
+        "startChar": 15,
+        "endLine": 1297,
+        "endChar": 51
+      },
+      "revId": "89f207bf613acbec7363b861a3cd1e8433d00ede",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd1cfc94_6dfb5501",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T19:03:03Z",
+      "side": 1,
+      "message": "you can avoid passing this parameter to the API.\nThat API can directly get this information there by calling that utility.",
+      "range": {
+        "startLine": 1315,
+        "startChar": 40,
+        "endLine": 1315,
+        "endChar": 59
+      },
+      "revId": "89f207bf613acbec7363b861a3cd1e8433d00ede",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
