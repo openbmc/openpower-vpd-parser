@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2e3fbc7_69a09426",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T17:36:59Z",
+      "side": 1,
+      "message": "please check my comments",
+      "revId": "7de18a799f57c19249732772e94fc86cccf6989c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3d2cba6_d99f4c6c",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T17:36:59Z",
+      "side": 1,
+      "message": "can we use m_logger for \"Logger::getLoggerInstance()\"?\nIN case we need to call log message again, no need to call get instance again.",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 381,
+        "endChar": 35
+      },
+      "revId": "7de18a799f57c19249732772e94fc86cccf6989c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e776bcea_04275281",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T17:36:59Z",
+      "side": 1,
+      "message": "it is already initialised with DEFAULT_MODE in header file.",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 23
+      },
+      "revId": "7de18a799f57c19249732772e94fc86cccf6989c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e9030d4_b85400d7",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T17:36:59Z",
+      "side": 1,
+      "message": "why don\u0027t we directly call commonUtility::getVpdCollectionMode(l_errCode) to get the Mode?",
+      "revId": "7de18a799f57c19249732772e94fc86cccf6989c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7371e80_d9470fcd",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T17:36:59Z",
+      "side": 1,
+      "message": "line 42 to 56 is almost same code, just 1 parameter is varying. so, can be optimised as -\n- decide the thread value \u003d 1 or max based on dbusUtility::isChassisPowerOn() , using ternary conditional operator\n- m_worker \u003d std::make_shared\u003cWorker\u003e(\n            INVENTORY_JSON_DEFAULT, no_of_thread, m_vpdCollectionMode);\n            \n same as line 744,only one call to parseVPDFile()",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 67
+      },
+      "revId": "7de18a799f57c19249732772e94fc86cccf6989c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42376601_da1408df",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-21T17:36:59Z",
+      "side": 1,
+      "message": "instead of passing this parameter \"m_vpdCollectionMode\" to getEffectiveFruPath(),\nyou can call commonUtility::getVpdCollectionMode() inside getEffectiveFruPath(),\nto get to know the Mode. And No need to pass this extra parameter.",
+      "range": {
+        "startLine": 726,
+        "startChar": 39,
+        "endLine": 726,
+        "endChar": 58
+      },
+      "revId": "7de18a799f57c19249732772e94fc86cccf6989c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
