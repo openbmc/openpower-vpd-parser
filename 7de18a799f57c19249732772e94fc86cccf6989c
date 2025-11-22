@@ -232,6 +232,30 @@
       },
       "revId": "7de18a799f57c19249732772e94fc86cccf6989c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f3ade32_ddeea355",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-22T14:55:13Z",
+      "side": 1,
+      "message": "utility API should only do specific operation, \nwhich is already discovered, shouldn\u0027t execute again.",
+      "parentUuid": "42376601_da1408df",
+      "range": {
+        "startLine": 726,
+        "startChar": 39,
+        "endLine": 726,
+        "endChar": 58
+      },
+      "revId": "7de18a799f57c19249732772e94fc86cccf6989c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
