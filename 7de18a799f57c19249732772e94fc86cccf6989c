@@ -58,6 +58,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07d97383_690677fd",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-22T14:50:52Z",
+      "side": 1,
+      "message": "this is utility, getLoggerInstance gets you the same object for every caller.",
+      "parentUuid": "c3d2cba6_d99f4c6c",
+      "range": {
+        "startLine": 381,
+        "startChar": 8,
+        "endLine": 381,
+        "endChar": 35
+      },
+      "revId": "7de18a799f57c19249732772e94fc86cccf6989c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e776bcea_04275281",
@@ -71,6 +95,30 @@
       "writtenOn": "2025-11-21T17:36:59Z",
       "side": 1,
       "message": "it is already initialised with DEFAULT_MODE in header file.",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 23
+      },
+      "revId": "7de18a799f57c19249732772e94fc86cccf6989c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "778b3c3c_1e6b1552",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-22T14:50:52Z",
+      "side": 1,
+      "message": "It needs to get updated with actual value.",
+      "parentUuid": "e776bcea_04275281",
       "range": {
         "startLine": 31,
         "startChar": 3,
@@ -98,6 +146,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56af962a_552624e9",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-22T14:50:52Z",
+      "side": 1,
+      "message": "getVpdCollectionMode() gets you vpdmode enabled or not, but it only applicable if system is not in fieldmode.",
+      "parentUuid": "8e9030d4_b85400d7",
+      "revId": "7de18a799f57c19249732772e94fc86cccf6989c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7371e80_d9470fcd",
@@ -111,6 +177,30 @@
       "writtenOn": "2025-11-21T17:36:59Z",
       "side": 1,
       "message": "line 42 to 56 is almost same code, just 1 parameter is varying. so, can be optimised as -\n- decide the thread value \u003d 1 or max based on dbusUtility::isChassisPowerOn() , using ternary conditional operator\n- m_worker \u003d std::make_shared\u003cWorker\u003e(\n            INVENTORY_JSON_DEFAULT, no_of_thread, m_vpdCollectionMode);\n            \n same as line 744,only one call to parseVPDFile()",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 67
+      },
+      "revId": "7de18a799f57c19249732772e94fc86cccf6989c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dd25046_eeb1604e",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-22T14:50:52Z",
+      "side": 1,
+      "message": "this PR is not related the changes suggested.",
+      "parentUuid": "d7371e80_d9470fcd",
       "range": {
         "startLine": 52,
         "startChar": 0,
