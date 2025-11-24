@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02b825ae_5e0d3d6e",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-24T05:53:29Z",
+      "side": 1,
+      "message": "`Logger::getLoggerInstance()` will return same instance of `Logger` everytime since `Logger` is a singleton. Having a `m_logger` member in each and every class is unnecessary.",
+      "parentUuid": "d417945b_07365b21",
+      "range": {
+        "startLine": 268,
+        "startChar": 8,
+        "endLine": 268,
+        "endChar": 35
+      },
+      "revId": "0e9b2b3ff5ae18038206e96169aebb24b3948bda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8c4c789_583b0372",
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46d48017_cddbbabe",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-24T05:53:29Z",
+      "side": 1,
+      "message": "`Logger::getLoggerInstance()` will return same instance of `Logger` everytime since `Logger` is a singleton. Having a `m_logger` member in each and every class is unnecessary.",
+      "parentUuid": "c8c4c789_583b0372",
+      "range": {
+        "startLine": 282,
+        "startChar": 15,
+        "endLine": 282,
+        "endChar": 43
+      },
+      "revId": "0e9b2b3ff5ae18038206e96169aebb24b3948bda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4f5bd8f_7efffe9c",
@@ -77,6 +125,30 @@
       "writtenOn": "2025-11-21T18:08:41Z",
       "side": 1,
       "message": "if we are here, line 278 returned 0, means it is not present.\nThen we can\u0027t say \"Failed to check\" here -\n\"Failed to check if log file parent directory exists\" \n\n\nmay be we can say something like -\n\"Found error - \"  + l_ec.message()",
+      "range": {
+        "startLine": 282,
+        "startChar": 15,
+        "endLine": 287,
+        "endChar": 29
+      },
+      "revId": "0e9b2b3ff5ae18038206e96169aebb24b3948bda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cabd8e15_f5567321",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-11-24T05:53:29Z",
+      "side": 1,
+      "message": "If `std::filesystem::exists()` has set an error code it means it encountered some error while trying to check if the file exists, and that\u0027s what the log message is saying.",
+      "parentUuid": "a4f5bd8f_7efffe9c",
       "range": {
         "startLine": 282,
         "startChar": 15,
