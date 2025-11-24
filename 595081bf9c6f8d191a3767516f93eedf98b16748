@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf384ab2_c07249a1",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-24T06:39:08Z",
+      "side": 1,
+      "message": "Ideally it should if we go be the design. \nIn case of standard exception error code can be set.",
+      "parentUuid": "b38a6593_80c98c95",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cfe93a38_812852fb",
         "filename": "vpd-manager/include/utility/common_utility.hpp",
         "patchSetId": 3
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "I tested with empty variable and empty path to insert. not throwing any error.\nStill as library says it can throw error, added try-catch block.",
       "parentUuid": "cfe93a38_812852fb",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63da4f10_b86ab36b",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-24T06:39:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2e99c118_3acb4651",
       "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -207,6 +243,24 @@
       "side": 1,
       "message": "as system VPD is not collected, hence we couldn\u0027t determine the system type.\nAs this is critical, quiesced the system. system VPD file needs to be available to fix this issue.",
       "parentUuid": "2b5cd014_d142fc00",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c428695c_3e787339",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-24T06:39:08Z",
+      "side": 1,
+      "message": "\u003e system VPD file needs to be available to fix this issue.\n\nCorrect, but if we stop the service, support for tool also goes away in this case.\nGoing forward we plan to keep the service alive even in error cases while logging a critical log in the system.",
+      "parentUuid": "c8c10ff1_0fd539c8",
       "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
