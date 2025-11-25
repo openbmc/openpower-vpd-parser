@@ -33,37 +33,21 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
     // Implies the processing is based on some config JSON
     if (!m_configJsonPath.empty())
     {
-        // Check if symlink is already there to confirm fresh boot/factory
-        // reset.
-        if (std::filesystem::exists(INVENTORY_JSON_SYM_LINK))
+        uint16_t l_errCode = 0;
+        m_parsedJson = jsonUtility::getParsedJson(m_configJsonPath, l_errCode);
+
+        if (l_errCode)
         {
-            logging::logMessage("Sym Link already present");
-            m_configJsonPath = INVENTORY_JSON_SYM_LINK;
-            m_isSymlinkPresent = true;
+            throw JsonException("JSON parsing failed. error : " +
+                                    commonUtility::getErrCodeMsg(l_errCode),
+                                m_configJsonPath);
         }
 
-        try
+        // check for mandatory fields at this point itself.
+        if (!m_parsedJson.contains("frus"))
         {
-            uint16_t l_errCode = 0;
-            m_parsedJson =
-                jsonUtility::getParsedJson(m_configJsonPath, l_errCode);
-
-            if (l_errCode)
-            {
-                throw std::runtime_error(
-                    "JSON parsing failed for file [ " + m_configJsonPath +
-                    " ], error : " + commonUtility::getErrCodeMsg(l_errCode));
-            }
-
-            // check for mandatory fields at this point itself.
-            if (!m_parsedJson.contains("frus"))
-            {
-                throw std::runtime_error("Mandatory tag(s) missing from JSON");
-            }
-        }
-        catch (const std::exception& ex)
-        {
-            throw(JsonException(ex.what(), m_configJsonPath));
+            throw JsonException("Mandatory tag(s) missing from JSON",
+                                m_configJsonPath);
         }
     }
     else

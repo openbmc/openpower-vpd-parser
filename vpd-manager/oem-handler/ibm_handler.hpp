@@ -227,6 +227,13 @@ class IbmHandler
      */
     void setJsonSymbolicLink(const std::string& i_systemJson);
 
+    /**
+     * @brief API to initialize worker object.
+     *
+     * @throws std::runtime_error.
+     */
+    void initWorker();
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
