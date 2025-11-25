@@ -216,6 +216,17 @@ class IbmHandler
      */
     void isSymlinkPresent() noexcept;
 
+    /** @brief API to set symbolic link for system config JSON.
+     *
+     * Once correct device tree is set, symbolic link to the correct sytsem
+     * config JSON is set to be used in subsequent BMC boot.
+     *
+     * @throws std::runtime_error
+     *
+     * @param[in] i_systemJson - system config JSON.
+     */
+    void setJsonSymbolicLink(const std::string& i_systemJson);
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
@@ -255,5 +266,8 @@ class IbmHandler
 
     // Holds path to the config JSON being used.
     std::string m_configJsonPath{INVENTORY_JSON_DEFAULT};
+
+    // To distinguish the factory reset path.
+    bool m_isFactoryResetDone = false;
 };
 } // namespace vpd
