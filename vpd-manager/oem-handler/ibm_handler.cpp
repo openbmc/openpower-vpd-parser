@@ -36,36 +36,8 @@ IbmHandler::IbmHandler(
         // Set up minimal things that is needed before bus name is claimed.
         performInitialSetup();
 
-        uint16_t l_errCode{0};
-        // If the object is created, implies back up and restore took place in
-        // system VPD flow.
-        if ((m_backupAndRestoreObj == nullptr) && !m_sysCfgJsonObj.empty() &&
-            jsonUtility::isBackupAndRestoreRequired(m_sysCfgJsonObj, l_errCode))
-        {
-            try
-            {
-                m_backupAndRestoreObj =
-                    std::make_shared<BackupAndRestore>(m_sysCfgJsonObj);
-            }
-            catch (const std::exception& l_ex)
-            {
-                logging::logMessage(
-                    "Back up and restore instantiation failed. {" +
-                    std::string(l_ex.what()) + "}");
-
-                EventLogger::createSyncPel(
-                    EventLogger::getErrorType(l_ex),
-                    types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
-                    EventLogger::getErrorMsg(l_ex), std::nullopt, std::nullopt,
-                    std::nullopt, std::nullopt);
-            }
-        }
-        else if (l_errCode)
-        {
-            logging::logMessage(
-                "Failed to check if backup & restore required. Error : " +
-                commonUtility::getErrCodeMsg(l_errCode));
-        }
+        // Init back up and restore.
+        initBackupAndRestore();
 
         // Instantiate Listener object
         m_eventListener =
@@ -156,6 +128,62 @@ void IbmHandler::initWorker()
         throw std::runtime_error(
             std::string("Exception while creating worker object") +
             EventLogger::getErrorMsg(l_ex));
+    }
+}
+
+void IbmHandler::initBackupAndRestore() noexcept
+{
+    try
+    {
+        uint16_t l_errCode = 0;
+
+        // If the object is already there, implies back up and restore took
+        // place in inital set up flow.
+        if ((m_backupAndRestoreObj == nullptr))
+        {
+            if (m_sysCfgJsonObj.empty())
+            {
+                // Throwing as sysconfig JSON empty is not expected at this
+                // point of execution and also not having backup and restore
+                // object will effect system VPD sync.
+                throw std::runtime_error(
+                    "sysconfig JSON found empty while initializing back up and restore onject. JSON path: " +
+                    m_configJsonPath);
+            }
+
+            if (!jsonUtility::isBackupAndRestoreRequired(m_sysCfgJsonObj,
+                                                         l_errCode))
+            {
+                if (l_errCode)
+                {
+                    // Throwing as setting of error code confirms that back up
+                    // and restore object will not get initialized. This will
+                    // effect system VPD sync.
+                    throw std::runtime_error(
+                        "Failed to check if backup & restore required. Error : " +
+                        commonUtility::getErrCodeMsg(l_errCode));
+                }
+
+                // Implies backup and restore not required.
+                return;
+            }
+
+            m_backupAndRestoreObj =
+                std::make_shared<BackupAndRestore>(m_sysCfgJsonObj);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        // PEL logged as system VPD sync will be effected without this
+        // feature.
+        types::PelInfoTuple l_pel(EventLogger::getErrorType(l_ex),
+                                  types::SeverityType::Warning, 0, std::nullopt,
+                                  std::nullopt, std::nullopt, std::nullopt);
+
+        m_logger->logMessage(
+            std::string("Back up and restore instantiation failed.") +
+                EventLogger::getErrorMsg(l_ex),
+            PlaceHolder::PEL, &l_pel);
     }
 }
 
