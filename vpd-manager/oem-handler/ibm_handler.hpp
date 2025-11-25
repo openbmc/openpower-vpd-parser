@@ -211,6 +211,11 @@ class IbmHandler
      */
     void setVpdCollectionMode() noexcept;
 
+    /**
+     * @brief API to initialize back up and restore class.
+     */
+    void initBackupAndRestore() noexcept;
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
