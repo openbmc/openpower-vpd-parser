@@ -244,5 +244,11 @@ class IbmHandler
     // vpd collection mode
     types::VpdCollectionMode m_vpdCollectionMode =
         types::VpdCollectionMode::DEFAULT_MODE;
+
+    // To distinguish the factory reset path.
+    bool m_isFactoryResetDone = false;
+
+    // Holds, if symlink is present or not.
+    bool m_isSymlinkPresent = false;
 };
 } // namespace vpd
