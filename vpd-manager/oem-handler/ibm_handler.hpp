@@ -203,6 +203,38 @@ class IbmHandler
      */
     void checkAndUpdateBmcPosition(size_t& o_bmcPosition) const noexcept;
 
+    /**
+     * @brief API to read VPD collection mode.
+     *
+     * Collection mode denotes if the VPD needs to be read from file or actual
+     * hardware.
+     */
+    void setVpdCollectionMode() noexcept;
+
+    /**
+     * @brief API to check if symlink exist for system config JSON.
+     *
+     * @return True if found, false otherwise.
+     */
+    bool isSymlinkPresent() noexcept;
+
+    /**
+     * @brief API to initialize worker class.
+     *
+     * @throws std::runtime_error.
+     */
+    void initWorker();
+
+    /**
+     * @brief API to initialize back up and restore class.
+     */
+    void initBackupAndRestore() noexcept;
+
+    /**
+     * @brief API to initialize listner class.
+     */
+    void initListner() noexcept;
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
@@ -232,5 +264,17 @@ class IbmHandler
 
     // Shared pointer to Logger object.
     std::shared_ptr<Logger> m_logger;
+
+    // Hold if symlink is present or not.
+    bool m_isSymlinkPresent = false;
+
+    // Default json path.
+    std::string m_configJsonPath{INVENTORY_JSON_DEFAULT};
+
+    // vpd collection mode
+    types::VpdCollectionMode m_vpdCollectionMode;
+
+    // To distinguish the factory reset path.
+    bool m_isFactoryResetDone = false;
 };
 } // namespace vpd
