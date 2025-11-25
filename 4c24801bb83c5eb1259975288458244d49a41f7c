@@ -16,6 +16,24 @@
       "message": "API to set",
       "revId": "4c24801bb83c5eb1259975288458244d49a41f7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "261bb702_08e6a0c5",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-25T08:13:48Z",
+      "side": 1,
+      "message": "Instead, I think the API should be readVpdcollectionMode as it reads the mode from uboot variable.",
+      "parentUuid": "65980092_3e834271",
+      "revId": "4c24801bb83c5eb1259975288458244d49a41f7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
