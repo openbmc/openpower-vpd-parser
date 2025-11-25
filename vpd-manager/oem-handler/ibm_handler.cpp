@@ -26,67 +26,68 @@ IbmHandler::IbmHandler(
     m_ioContext(i_ioCon), m_asioConnection(i_asioConnection),
     m_logger(Logger::getLoggerInstance())
 {
-    readVpdCollectionMode();
-
-    // check if symlink is present
-    isSymlinkPresent();
-
-    if (dbusUtility::isChassisPowerOn())
+    try
     {
-        // At power on, less number of FRU(s) needs collection. we can scale
-        // down the threads to reduce CPU utilization.
-        m_worker = std::make_shared<Worker>(
-            INVENTORY_JSON_DEFAULT, constants::VALUE_1, m_vpdCollectionMode);
-    }
-    else
-    {
-        // Initialize with default configuration
-        m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT,
-                                            constants::MAX_THREADS,
-                                            m_vpdCollectionMode);
-    }
+        readVpdCollectionMode();
 
-    // Set up minimal things that is needed before bus name is claimed.
-    performInitialSetup();
+        // check if symlink is present
+        isSymlinkPresent();
 
-    uint16_t l_errCode{0};
-    // If the object is created, implies back up and restore took place in
-    // system VPD flow.
-    if ((m_backupAndRestoreObj == nullptr) && !m_sysCfgJsonObj.empty() &&
-        jsonUtility::isBackupAndRestoreRequired(m_sysCfgJsonObj, l_errCode))
-    {
-        try
+        // Set up minimal things that is needed before bus name is claimed.
+        performInitialSetup();
+
+        // Init worker class.
+        initWorker();
+
+        uint16_t l_errCode{0};
+        // If the object is created, implies back up and restore took place in
+        // system VPD flow.
+        if ((m_backupAndRestoreObj == nullptr) && !m_sysCfgJsonObj.empty() &&
+            jsonUtility::isBackupAndRestoreRequired(m_sysCfgJsonObj, l_errCode))
         {
-            m_backupAndRestoreObj =
-                std::make_shared<BackupAndRestore>(m_sysCfgJsonObj);
+            try
+            {
+                m_backupAndRestoreObj =
+                    std::make_shared<BackupAndRestore>(m_sysCfgJsonObj);
+            }
+            catch (const std::exception& l_ex)
+            {
+                logging::logMessage(
+                    "Back up and restore instantiation failed. {" +
+                    std::string(l_ex.what()) + "}");
+
+                EventLogger::createSyncPel(
+                    EventLogger::getErrorType(l_ex),
+                    types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                    EventLogger::getErrorMsg(l_ex), std::nullopt, std::nullopt,
+                    std::nullopt, std::nullopt);
+            }
         }
-        catch (const std::exception& l_ex)
+        else if (l_errCode)
         {
-            logging::logMessage("Back up and restore instantiation failed. {" +
-                                std::string(l_ex.what()) + "}");
-
-            EventLogger::createSyncPel(
-                EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
-                __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            logging::logMessage(
+                "Failed to check if backup & restore required. Error : " +
+                commonUtility::getErrCodeMsg(l_errCode));
         }
+
+        // Instantiate Listener object
+        m_eventListener =
+            std::make_shared<Listener>(m_worker, m_asioConnection);
+        m_eventListener->registerAssetTagChangeCallback();
+        m_eventListener->registerHostStateChangeCallback();
+        m_eventListener->registerPresenceChangeCallback();
+
+        // Instantiate GpioMonitor class
+        m_gpioMonitor = std::make_shared<GpioMonitor>(m_sysCfgJsonObj, m_worker,
+                                                      m_ioContext);
     }
-    else if (l_errCode)
+    catch (const std::exception& l_ec)
     {
-        logging::logMessage(
-            "Failed to check if backup & restore required. Error : " +
-            commonUtility::getErrCodeMsg(l_errCode));
+        // PEL must have been logged if the code is at this point. So no need to
+        // log again. Let the service continue to execute.
+        m_logger->logMessage(
+            "IBM Handler instantiation failed. Reason: " + l_ec.what());
     }
-
-    // Instantiate Listener object
-    m_eventListener = std::make_shared<Listener>(m_worker, m_asioConnection);
-    m_eventListener->registerAssetTagChangeCallback();
-    m_eventListener->registerHostStateChangeCallback();
-    m_eventListener->registerPresenceChangeCallback();
-
-    // Instantiate GpioMonitor class
-    m_gpioMonitor =
-        std::make_shared<GpioMonitor>(m_sysCfgJsonObj, m_worker, m_ioContext);
 }
 
 void IbmHandler::readVpdCollectionMode() noexcept
@@ -138,6 +139,43 @@ void IbmHandler::isSymlinkPresent() noexcept
     // update JSON path to symlink path.
     m_configJsonPath = INVENTORY_JSON_SYM_LINK;
     m_isSymlinkPresent = true;
+}
+
+void IbmHandler::initWorker()
+{
+    try
+    {
+        // At power on, less number of FRU(s) needs collection. Hence defaulted
+        // to 1.
+        uint8_t l_threadCount = constants::VALUE_1;
+        if (!dbusUtility::isChassisPowerOn())
+        {
+            // TODO: Can be configured from recipe? Check.
+            l_threadCount = constants::MAX_THREADS;
+        }
+
+        // Initialize worker with required parameters.
+        m_worker = std::make_shared<Worker>(m_configJsonPath, l_threadCount,
+                                            m_vpdCollectionMode);
+    }
+    catch (const std::exception& l_ex)
+    {
+        // Critical PEL logged as collection can't progress without worker
+        // object.
+        const types::PelInfoTuple l_pel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Critical, 0,
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        m_logger->logMessage(
+            std::string("Exception while creating worker object") +
+                EventLogger::getErrorMsg(l_ex),
+            PlaceHolder::PEL, &l_pel);
+
+        // Throwing error back to avoid any further processing.
+        throw std::runtime_error(
+            std::string("Exception while creating worker object") +
+            EventLogger::getErrorMsg(l_ex));
+    }
 }
 
 void IbmHandler::SetTimerToDetectVpdCollectionStatus()
