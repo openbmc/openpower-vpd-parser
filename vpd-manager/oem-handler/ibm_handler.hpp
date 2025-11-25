@@ -211,6 +211,18 @@ class IbmHandler
      */
     void setVpdCollectionMode() noexcept;
 
+    /**
+     * @brief API to set symbolic link for system config JSON.
+     *
+     * Once correct device tree is set, symbolic link to the correct sytsem
+     * config JSON is set to be used in subsequent BMC boot.
+     *
+     * @throws std::runtime_error
+     *
+     * @param[in] i_systemJson - system config JSON.
+     */
+    void setJsonSymbolicLink(const std::string& i_systemJson);
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
@@ -244,5 +256,11 @@ class IbmHandler
     // vpd collection mode
     types::VpdCollectionMode m_vpdCollectionMode =
         types::VpdCollectionMode::DEFAULT_MODE;
+
+    // To distinguish the factory reset path.
+    bool m_isFactoryResetDone = false;
+
+    // Holds, if symlink is present or not.
+    bool m_isSymlinkPresent = false;
 };
 } // namespace vpd
