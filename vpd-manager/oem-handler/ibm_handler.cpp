@@ -26,39 +26,27 @@ IbmHandler::IbmHandler(
     m_ioContext(i_ioCon), m_asioConnection(i_asioConnection),
     m_logger(Logger::getLoggerInstance())
 {
-    uint16_t l_errCode{0};
-
-    // check VPD collection mode
-    const auto l_vpdCollectionMode =
-        commonUtility::isFieldModeEnabled()
-            ? types::VpdCollectionMode::DEFAULT_MODE
-            : commonUtility::getVpdCollectionMode(l_errCode);
-
-    if (l_errCode)
-    {
-        m_logger->logMessage(
-            "Error while trying to read VPD collection mode: " +
-            commonUtility::getErrCodeMsg(l_errCode));
-    }
+    setVpdCollectionMode();
 
     if (dbusUtility::isChassisPowerOn())
     {
         // At power on, less number of FRU(s) needs collection. we can scale
         // down the threads to reduce CPU utilization.
         m_worker = std::make_shared<Worker>(
-            INVENTORY_JSON_DEFAULT, constants::VALUE_1, l_vpdCollectionMode);
+            INVENTORY_JSON_DEFAULT, constants::VALUE_1, m_vpdCollectionMode);
     }
     else
     {
         // Initialize with default configuration
         m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT,
                                             constants::MAX_THREADS,
-                                            l_vpdCollectionMode);
+                                            m_vpdCollectionMode);
     }
 
     // Set up minimal things that is needed before bus name is claimed.
     performInitialSetup();
 
+    uint16_t l_errCode{0};
     // If the object is created, implies back up and restore took place in
     // system VPD flow.
     if ((m_backupAndRestoreObj == nullptr) && !m_sysCfgJsonObj.empty() &&
@@ -96,6 +84,22 @@ IbmHandler::IbmHandler(
     // Instantiate GpioMonitor class
     m_gpioMonitor =
         std::make_shared<GpioMonitor>(m_sysCfgJsonObj, m_worker, m_ioContext);
+}
+
+void IbmHandler::setVpdCollectionMode() noexcept
+{
+    uint16_t l_errCode{0};
+    // check VPD collection mode
+    m_vpdCollectionMode = commonUtility::isFieldModeEnabled()
+                              ? types::VpdCollectionMode::DEFAULT_MODE
+                              : commonUtility::getVpdCollectionMode(l_errCode);
+
+    if (l_errCode)
+    {
+        m_logger->logMessage(
+            "Error while trying to read VPD collection mode: " +
+            commonUtility::getErrCodeMsg(l_errCode));
+    }
 }
 
 void IbmHandler::SetTimerToDetectVpdCollectionStatus()
