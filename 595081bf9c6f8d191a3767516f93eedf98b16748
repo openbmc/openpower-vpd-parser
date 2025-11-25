@@ -124,6 +124,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46bee7e3_e47a473a",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-25T06:24:56Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "bf384ab2_c07249a1",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfe93a38_812852fb",
@@ -261,6 +279,24 @@
       "side": 1,
       "message": "\u003e system VPD file needs to be available to fix this issue.\n\nCorrect, but if we stop the service, support for tool also goes away in this case.\nGoing forward we plan to keep the service alive even in error cases while logging a critical log in the system.",
       "parentUuid": "c8c10ff1_0fd539c8",
+      "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbbb2064_e831c74d",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-11-25T06:24:56Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "c428695c_3e787339",
       "revId": "595081bf9c6f8d191a3767516f93eedf98b16748",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
