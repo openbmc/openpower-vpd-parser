@@ -456,9 +456,6 @@ class Worker
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
 
-    // Hold if symlink is present or not.
-    bool m_isSymlinkPresent = false;
-
     // Path to config JSON if applicable.
     std::string& m_configJsonPath;
 
