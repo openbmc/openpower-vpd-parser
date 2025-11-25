@@ -3,6 +3,7 @@
 #include "single_fab.hpp"
 
 #include "constants.hpp"
+#include "logger.hpp"
 #include "parser.hpp"
 #include "types.hpp"
 
@@ -158,9 +159,19 @@ void SingleFab::updateSystemImValueInVpdToP11Series(
 
 int SingleFab::singleFabImOverride() const noexcept
 {
+    uint16_t l_errCode = 0;
     const std::string& l_planarImValue = getImFromPlanar();
     const std::string& l_eBmcImValue = getImFromPersistedLocation();
-    const bool& l_isFieldModeEnabled = commonUtility::isFieldModeEnabled();
+    const bool& l_isFieldModeEnabled =
+        commonUtility::isFieldModeEnabled(l_errCode);
+
+    if (l_errCode)
+    {
+        Logger::getLoggerInstance()->logMessage(
+            "Failed to check is field mode enabled, error : " +
+            commonUtility::getErrCodeMsg(l_errCode));
+    }
+
     const bool& l_isLabModeEnabled =
         !l_isFieldModeEnabled;                       // used for understanding
     const bool& l_isPowerVsImage = vpdSpecificUtility::isPowerVsImage();

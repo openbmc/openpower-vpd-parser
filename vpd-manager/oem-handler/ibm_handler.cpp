@@ -93,15 +93,27 @@ void IbmHandler::readVpdCollectionMode() noexcept
 {
     uint16_t l_errCode{0};
     // check VPD collection mode
-    m_vpdCollectionMode = commonUtility::isFieldModeEnabled()
-                              ? types::VpdCollectionMode::DEFAULT_MODE
-                              : commonUtility::getVpdCollectionMode(l_errCode);
-
-    if (l_errCode)
+    if (!commonUtility::isFieldModeEnabled(l_errCode))
     {
-        m_logger->logMessage(
-            "Default mode set. Error while trying to read VPD collection mode: " +
-            commonUtility::getErrCodeMsg(l_errCode));
+        m_vpdCollectionMode = commonUtility::getVpdCollectionMode(l_errCode);
+
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Default mode set. Error while trying to read VPD collection mode: " +
+                commonUtility::getErrCodeMsg(l_errCode));
+        }
+    }
+    else
+    {
+        m_vpdCollectionMode = types::VpdCollectionMode::DEFAULT_MODE;
+
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Error while trying to check if field mode is enabled, error : " +
+                commonUtility::getErrCodeMsg(l_errCode));
+        }
     }
 }
 
