@@ -313,15 +313,17 @@ inline size_t getCurrentTimeSinceEpoch() noexcept
 /**
  * @brief API to check is field mode enabled.
  *
+ * @param[out] o_errCode - To set error code in case of error.
+ *
  * @return true, if field mode is enabled. otherwise false.
  */
-inline bool isFieldModeEnabled() noexcept
+inline bool isFieldModeEnabled(uint16_t& o_errCode) noexcept
 {
+    o_errCode = 0;
     try
     {
-        uint16_t l_errCode = 0;
         std::vector<std::string> l_cmdOutput =
-            executeCmd("/sbin/fw_printenv fieldmode", l_errCode);
+            executeCmd("/sbin/fw_printenv fieldmode", o_errCode);
 
         if (l_cmdOutput.size() > 0)
         {
@@ -331,16 +333,14 @@ inline bool isFieldModeEnabled() noexcept
             l_cmdOutput[0].erase(l_cmdOutput[0].length() - 1);
             return l_cmdOutput[0] == "fieldmode=true";
         }
-        else if (l_errCode)
-        {
-            // ToDo : Remove log and set error code.
-            Logger::getLoggerInstance()->logMessage(
-                "Failed to execute command, error : " +
-                getErrCodeMsg(l_errCode));
-        }
     }
     catch (const std::exception& l_ex)
-    {}
+    {
+        o_errCode = error_code::STANDARD_EXCEPTION;
+        Logger::getLoggerInstance()->logMessage(
+            "Failed to check if field mode is enabled, error : " +
+            getErrCodeMsg(o_errCode));
+    }
 
     return false;
 }
