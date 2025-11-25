@@ -33,134 +33,27 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
     // Implies the processing is based on some config JSON
     if (!m_configJsonPath.empty())
     {
-        // Check if symlink is already there to confirm fresh boot/factory
-        // reset.
-        if (std::filesystem::exists(INVENTORY_JSON_SYM_LINK))
+        uint16_t l_errCode = 0;
+        m_parsedJson = jsonUtility::getParsedJson(m_configJsonPath, l_errCode);
+
+        if (l_errCode)
         {
-            logging::logMessage("Sym Link already present");
-            m_configJsonPath = INVENTORY_JSON_SYM_LINK;
-            m_isSymlinkPresent = true;
+            throw JsonException("JSON parsing failed. error : " +
+                                    commonUtility::getErrCodeMsg(l_errCode),
+                                m_configJsonPath);
         }
 
-        try
+        // check for mandatory fields at this point itself.
+        if (!m_parsedJson.contains("frus"))
         {
-            uint16_t l_errCode = 0;
-            m_parsedJson =
-                jsonUtility::getParsedJson(m_configJsonPath, l_errCode);
-
-            if (l_errCode)
-            {
-                throw std::runtime_error(
-                    "JSON parsing failed for file [ " + m_configJsonPath +
-                    " ], error : " + commonUtility::getErrCodeMsg(l_errCode));
-            }
-
-            // check for mandatory fields at this point itself.
-            if (!m_parsedJson.contains("frus"))
-            {
-                throw std::runtime_error("Mandatory tag(s) missing from JSON");
-            }
-        }
-        catch (const std::exception& ex)
-        {
-            throw(JsonException(ex.what(), m_configJsonPath));
+            throw JsonException("Mandatory tag(s) missing from JSON",
+                                m_configJsonPath);
         }
     }
     else
     {
         logging::logMessage("Processing in not based on any config JSON");
     }
-}
-
-void Worker::setJsonSymbolicLink(const std::string& i_systemJson)
-{
-    std::error_code l_ec;
-    l_ec.clear();
-
-    // Check if symlink file path exists and if the JSON at this location is a
-    // symlink.
-    if (m_isSymlinkPresent &&
-        std::filesystem::is_symlink(INVENTORY_JSON_SYM_LINK, l_ec))
-    { // Don't care about exception in "is_symlink". Will continue with creation
-      // of symlink.
-
-        const auto& l_symlinkFilePth =
-            std::filesystem::read_symlink(INVENTORY_JSON_SYM_LINK, l_ec);
-
-        if (l_ec)
-        {
-            logging::logMessage(
-                "Can't read existing symlink. Error =" + l_ec.message() +
-                "Trying removal of symlink and creation of new symlink.");
-        }
-
-        // If currently set JSON is the required one. No further processing
-        // required.
-        if (i_systemJson == l_symlinkFilePth)
-        {
-            // Correct symlink already set.
-            return;
-        }
-
-        if (!std::filesystem::remove(INVENTORY_JSON_SYM_LINK, l_ec))
-        {
-            // No point going further. If removal fails for existing symlink,
-            // create will anyways throw.
-            throw std::runtime_error(
-                "Removal of symlink failed with Error = " + l_ec.message() +
-                ". Can't proceed with create_symlink.");
-        }
-    }
-
-    if (!std::filesystem::exists(VPD_SYMLIMK_PATH, l_ec))
-    {
-        if (l_ec)
-        {
-            throw std::runtime_error(
-                "File system call to exist failed with error = " +
-                l_ec.message());
-        }
-
-        // implies it is a fresh boot/factory reset.
-        // Create the directory for hosting the symlink
-        if (!std::filesystem::create_directories(VPD_SYMLIMK_PATH, l_ec))
-        {
-            if (l_ec)
-            {
-                throw std::runtime_error(
-                    "File system call to create directory failed with error = " +
-                    l_ec.message());
-            }
-        }
-    }
-
-    // create a new symlink based on the system
-    std::filesystem::create_symlink(i_systemJson, INVENTORY_JSON_SYM_LINK,
-                                    l_ec);
-
-    if (l_ec)
-    {
-        throw std::runtime_error(
-            "create_symlink system call failed with error: " + l_ec.message());
-    }
-
-    // update Worker json with the newly created symlink
-    uint16_t l_errCode = 0;
-    m_parsedJson =
-        jsonUtility::getParsedJson(INVENTORY_JSON_SYM_LINK, l_errCode);
-    if (l_errCode)
-    {
-        throw std::runtime_error(
-            "JSON parsing failed for file [ " +
-            std::string(INVENTORY_JSON_SYM_LINK) +
-            " ], error : " + commonUtility::getErrCodeMsg(l_errCode));
-    }
-
-    logging::logMessage("Worker JSON modified to: " + i_systemJson);
-
-    // If the flow is at this point implies the symlink was not present there.
-    // Considering this as factory reset.
-    m_isFactoryResetDone = true;
 }
 
 void Worker::populateIPZVPDpropertyMap(

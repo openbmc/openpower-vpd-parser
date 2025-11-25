@@ -28,23 +28,14 @@ IbmHandler::IbmHandler(
 {
     readVpdCollectionMode();
 
-    if (dbusUtility::isChassisPowerOn())
-    {
-        // At power on, less number of FRU(s) needs collection. we can scale
-        // down the threads to reduce CPU utilization.
-        m_worker = std::make_shared<Worker>(
-            INVENTORY_JSON_DEFAULT, constants::VALUE_1, m_vpdCollectionMode);
-    }
-    else
-    {
-        // Initialize with default configuration
-        m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT,
-                                            constants::MAX_THREADS,
-                                            m_vpdCollectionMode);
-    }
+    // check if symlink is present
+    m_isSymlinkPresent = isSymlinkPresent();
 
     // Set up minimal things that is needed before bus name is claimed.
     performInitialSetup();
+
+    // Init worker class.
+    initWorker();
 
     uint16_t l_errCode{0};
     // If the object is created, implies back up and restore took place in
@@ -99,6 +90,73 @@ void IbmHandler::readVpdCollectionMode() noexcept
         m_logger->logMessage(
             "Default mode set. Error while trying to read VPD collection mode: " +
             commonUtility::getErrCodeMsg(l_errCode));
+    }
+}
+
+bool IbmHandler::isSymlinkPresent() noexcept
+{
+    // Check if symlink is already there to confirm fresh boot/factory reset.
+    std::error_code l_ec = 0;
+    if (!std::filesystem::exists(INVENTORY_JSON_SYM_LINK, l_ec))
+    {
+        if (l_ec)
+        {
+            m_logger->logMessage("Error reading symlink location.");
+        }
+
+        if (dbusUtility::isChassisPowerOn())
+        {
+            // Predictive PEL logged as symlink can't go missing while chassis
+            // is on as system VPD will not get processed in chassis on state.
+            types::PelInfoTuple l_pel(EventLogger::getErrorType(l_ex),
+                                      types::SeverityType::Warning, 0);
+            m_logger->logMessage(
+                std::string("Exception while reading config JSON symlink.") +
+                    EventLogger::getErrorMsg(l_ex),
+                PlaceHolder::PEL, &l_pel);
+        }
+        return false;
+    }
+
+    m_logger->logMessage("Sym Link present.");
+
+    // update JSON path to symlink path.
+    m_configJsonPath = INVENTORY_JSON_SYM_LINK;
+    return true;
+}
+
+void IbmHandler::initWorker()
+{
+    try
+    {
+        // At power on, less number of FRU(s) needs collection. Hence defaulted
+        // to 1.
+        uint8_t l_threadCount = constants::VALUE_1;
+        if (!dbusUtility::isChassisPowerOn())
+        {
+            // TODO: Can be configured from recipe? Check.
+            l_threadCount = constants::MAX_THREADS;
+        }
+
+        // Initialize with default configuration
+        m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT,
+                                            l_threadCount, m_vpdCollectionMode);
+    }
+    catch (const std::exception& l_ex)
+    {
+        // Critical PEL logged as collection can't progress without worker
+        // object.
+        types::PelInfoTuple l_pel(EventLogger::getErrorType(l_ex),
+                                  types::SeverityType::Critical, 0);
+        m_logger->logMessage(
+            std::string("Exception while creating worker object") +
+                EventLogger::getErrorMsg(l_ex),
+            PlaceHolder::PEL, &l_pel);
+
+        // Throwing error back to avoid any further processing.
+        throw std::runtime_error(
+            std::string("Exception while creating worker object") +
+            EventLogger::getErrorMsg(l_ex));
     }
 }
 
