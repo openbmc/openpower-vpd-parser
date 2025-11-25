@@ -203,6 +203,14 @@ class IbmHandler
      */
     void checkAndUpdateBmcPosition(size_t& o_bmcPosition) const noexcept;
 
+    /**
+     * @brief API to read VPD collection mode.
+     *
+     * Collection mode denotes if the VPD needs to be read from file or actual
+     * hardware.
+     */
+    void setVpdCollectionMode() noexcept;
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
@@ -232,5 +240,8 @@ class IbmHandler
 
     // Shared pointer to Logger object.
     std::shared_ptr<Logger> m_logger;
+
+    // vpd collection mode
+    types::VpdCollectionMode m_vpdCollectionMode;
 };
 } // namespace vpd
