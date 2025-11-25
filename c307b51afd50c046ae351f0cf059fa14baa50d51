@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bc33def_1bd39be0",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-25T13:36:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b5d56360_b41cc4ab",
+      "revId": "c307b51afd50c046ae351f0cf059fa14baa50d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25312da7_6e20de5f",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-11-17T08:36:09Z",
       "side": 1,
       "message": "Same here, do we need this?",
+      "revId": "c307b51afd50c046ae351f0cf059fa14baa50d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "014509fd_28df34b2",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-25T13:36:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "25312da7_6e20de5f",
       "revId": "c307b51afd50c046ae351f0cf059fa14baa50d51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -65,6 +101,24 @@
       "writtenOn": "2025-11-17T08:36:09Z",
       "side": 1,
       "message": "No, these logs should go to console.\nHere we are deleting the log file.\n\nSame for other logs in the file as well.",
+      "revId": "c307b51afd50c046ae351f0cf059fa14baa50d51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca621002_1adf77b4",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-11-25T13:36:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7ddaa91b_3c0f86c5",
       "revId": "c307b51afd50c046ae351f0cf059fa14baa50d51",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
