@@ -234,6 +234,11 @@ class IbmHandler
      */
     void initWorker();
 
+    /**
+     * @brief API to init backup and restore class.
+     */
+    void initBackupAndRestore() noexcept;
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
