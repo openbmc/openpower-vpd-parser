@@ -16,6 +16,24 @@
       "message": "Can we add l_ec.message() to the log message.",
       "revId": "a9f44d3dddfb6e972cecaaf337e2e3f6deac7d37",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df9ea43_e753cebd",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-28T08:46:01Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5bcb04c7_cb710674",
+      "revId": "a9f44d3dddfb6e972cecaaf337e2e3f6deac7d37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
