@@ -28,6 +28,9 @@ IbmHandler::IbmHandler(
 {
     readVpdCollectionMode();
 
+    // check if symlink is present
+    isSymlinkPresent();
+
     if (dbusUtility::isChassisPowerOn())
     {
         // At power on, less number of FRU(s) needs collection. we can scale
@@ -100,6 +103,41 @@ void IbmHandler::readVpdCollectionMode() noexcept
             "Default mode set. Error while trying to read VPD collection mode: " +
             commonUtility::getErrCodeMsg(l_errCode));
     }
+}
+
+void IbmHandler::isSymlinkPresent() noexcept
+{
+    // Check if symlink is already there to confirm fresh boot/factory reset.
+    std::error_code l_ec;
+    if (!std::filesystem::exists(INVENTORY_JSON_SYM_LINK, l_ec))
+    {
+        if (l_ec)
+        {
+            m_logger->logMessage(
+                "Error reading symlink location. Reason: " + l_ec.message());
+        }
+
+        if (dbusUtility::isChassisPowerOn())
+        {
+            // Predictive PEL logged. Symlink can't go missing while chassis
+            // is on as system VPD will not get processed in chassis on state.
+            types::PelInfoTuple l_pel(
+                types::ErrorType::FirmwareError, types::SeverityType::Warning,
+                0, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+            m_logger->logMessage(
+                std::string(
+                    "Error reading config JSON symlink in chassis on state."),
+                PlaceHolder::PEL, &l_pel);
+        }
+        return;
+    }
+
+    m_logger->logMessage("Sym Link present.");
+
+    // update JSON path to symlink path.
+    m_configJsonPath = INVENTORY_JSON_SYM_LINK;
+    m_isSymlinkPresent = true;
 }
 
 void IbmHandler::SetTimerToDetectVpdCollectionStatus()
