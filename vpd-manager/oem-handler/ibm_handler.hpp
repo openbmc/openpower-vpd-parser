@@ -211,6 +211,11 @@ class IbmHandler
      */
     void readVpdCollectionMode() noexcept;
 
+    /**
+     * @brief API to check sysconfig json symlink.
+     */
+    void isSymlinkPresent() noexcept;
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
@@ -244,5 +249,8 @@ class IbmHandler
     // vpd collection mode
     types::VpdCollectionMode m_vpdCollectionMode =
         types::VpdCollectionMode::DEFAULT_MODE;
+
+    // Holds if sysmlink to config JSON is present or not.
+    bool m_isSymlinkPresent = false;
 };
 } // namespace vpd
