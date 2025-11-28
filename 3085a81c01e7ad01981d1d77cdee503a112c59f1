@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a57dff2_5f353103",
+        "filename": "docs/file-mode-vpd.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-28T05:39:04Z",
+      "side": 1,
+      "message": "\u003e from the EEPROM path mentioned in the system configuration JSON.\n\nWe do have system VPD path in JSON but that is just like any other FRU path.\nInitially, system VPD path is not read from JSON, It is a hardcoded path that is passed via meson or recipe file.\nSo irrespective of what is in the JSON, System VPD is collected from the path set via configuration.",
+      "revId": "3085a81c01e7ad01981d1d77cdee503a112c59f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc9f4ecf_383f9416",
+        "filename": "docs/file-mode-vpd.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-11-28T05:39:04Z",
+      "side": 1,
+      "message": "We need to update mixed mode documentation?",
+      "revId": "3085a81c01e7ad01981d1d77cdee503a112c59f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
