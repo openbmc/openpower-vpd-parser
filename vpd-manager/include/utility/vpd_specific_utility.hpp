@@ -719,6 +719,10 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
                                 l_propertyMap.emplace("StartTime", 0);
                                 l_propertyMap.emplace("CompletedTime", 0);
                             }
+                            else if (l_propertyName.compare("PrettyName") == constants::STR_CMP_SUCCESS)
+                            {
+                                continue;
+                            }
                             else
                             {
                                 l_propertyMap.emplace(l_propertyName,
