@@ -45,7 +45,8 @@ enum error_code
     RECEIVED_INVALID_KWD_TYPE_FROM_DBUS,
     INVALID_KEYWORD_LENGTH,
     INVALID_VALUE_READ_FROM_DBUS,
-    RECORD_NOT_FOUND
+    RECORD_NOT_FOUND,
+    INVALID_FILE_MODE_PATH
 };
 
 const std::unordered_map<int, std::string> errorCodeMap = {
@@ -91,5 +92,7 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::POPEN_FAILED, "popen failed"},
     {error_code::INVALID_HEXADECIMAL_VALUE_LENGTH,
      "Invalid hexadecimal value length."},
-    {error_code::INVALID_HEXADECIMAL_VALUE, "Invalid hexadecimal value."}};
+    {error_code::INVALID_HEXADECIMAL_VALUE, "Invalid hexadecimal value."},
+    {error_code::INVALID_FILE_MODE_PATH,
+     "File mode path is not mapping to JSON path."}};
 } // namespace vpd

@@ -179,6 +179,29 @@ inline std::string getInventoryObjPathFromJson(
             "inventoryPath", "");
     }
 
+    if ((commonUtility::getVpdCollectionMode() ==
+         types::VpdCollectionMode::FILE_MODE) &&
+        !isFieldModeEnabled())
+    {
+        size_t l_startPos = i_vpdPath.find(constants::fileModeDirectoryPath);
+        if (l_startPos != std::string::npos)
+        {
+            std::string l_actualPath = i_vpdPath.substr(
+                l_startPos +
+                std::string(constants::fileModeDirectoryPath).length());
+
+            // check if given path is FRU path
+            if (i_sysCfgJsonObj["frus"].contains(l_actualPath))
+            {
+                return i_sysCfgJsonObj["frus"][l_actualPath].at(0).value(
+                    "inventoryPath", "");
+            }
+
+            o_errCode = error_code::INVALID_FILE_MODE_PATH;
+            return;
+        }
+    }
+
     const nlohmann::json& l_fruList =
         i_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
 
@@ -687,6 +710,26 @@ inline std::string getFruPathFromJson(const nlohmann::json& i_sysCfgJsonObj,
     if (i_sysCfgJsonObj["frus"].contains(i_vpdPath))
     {
         return i_vpdPath;
+    }
+
+    if ((commonUtility::getVpdCollectionMode() ==
+         types::VpdCollectionMode::FILE_MODE) &&
+        !isFieldModeEnabled())
+    {
+        size_t l_startPos = i_vpdPath.find(constants::fileModeDirectoryPath);
+        if (l_startPos != std::string::npos)
+        {
+            // check if given path is FRU path
+            if (i_sysCfgJsonObj["frus"].contains(i_vpdPath.substr(
+                    l_startPos +
+                    std::string(constants::fileModeDirectoryPath).length())))
+            {
+                return i_vpdPath;
+            }
+
+            o_errCode = error_code::INVALID_FILE_MODE_PATH;
+            return;
+        }
     }
 
     const nlohmann::json& l_fruList =
