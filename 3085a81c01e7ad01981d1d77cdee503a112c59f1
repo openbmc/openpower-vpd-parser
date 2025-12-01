@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e990c155_f420c6b5",
+        "filename": "docs/file-mode-vpd.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-01T08:48:33Z",
+      "side": 1,
+      "message": "Addressed",
+      "parentUuid": "30b391c3_4366c959",
+      "revId": "3085a81c01e7ad01981d1d77cdee503a112c59f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc9f4ecf_383f9416",
