@@ -607,6 +607,7 @@ static void setEnvAndReboot(const std::string& i_key,
             i_value + "], error : " + commonUtility::getErrCodeMsg(l_errCode));
     }
 
+#ifdef REBOOT_IF_DTS_MISMATCH
     logging::logMessage("Rebooting BMC to pick up new device tree");
 
     // make dbus call to reboot
@@ -615,6 +616,9 @@ static void setEnvAndReboot(const std::string& i_key,
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
         "org.freedesktop.systemd1.Manager", "Reboot");
     l_bus.call_noreply(l_method);
+#else
+    m_logger->logMessage("NOT Rebooting BMC to pick up new device tree");
+#endif
 }
 
 static std::string readFitConfigValue()
