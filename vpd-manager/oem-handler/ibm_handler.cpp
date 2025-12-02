@@ -605,6 +605,10 @@ static void setEnvAndReboot(const std::string& i_key,
             i_value + "], error : " + commonUtility::getErrCodeMsg(l_errCode));
     }
 
+#ifdef SKIP_REBOOT_ON_FITCONFIG_CHANGE
+    Logger::getLoggerInstance()->logMessage(
+        "NOT Rebooting BMC to pick up new device tree");
+#else
     logging::logMessage("Rebooting BMC to pick up new device tree");
 
     // make dbus call to reboot
@@ -613,6 +617,7 @@ static void setEnvAndReboot(const std::string& i_key,
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
         "org.freedesktop.systemd1.Manager", "Reboot");
     l_bus.call_noreply(l_method);
+#endif
 }
 
 static std::string readFitConfigValue()

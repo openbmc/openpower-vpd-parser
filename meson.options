@@ -65,3 +65,9 @@ option(
     value: 'enabled',
     description: 'Enable code specific to IBM systems.',
 )
+option(
+    'skip_reboot_on_fitconfig_change',
+    type: 'feature',
+    value: 'disabled',
+    description: 'Flag which specifies if BMC reboot needs to be skipped if a fitconfig change is executed.',
+)

@@ -37,6 +37,10 @@ if get_option('ibm_system').allowed()
     vpd_manager_SOURCES += 'src/single_fab.cpp'
 endif
 
+if get_option('skip_reboot_on_fitconfig_change').allowed()
+    parser_build_arguments += ['-DSKIP_REBOOT_ON_FITCONFIG_CHANGE']
+endif
+
 vpd_manager_exe = executable(
     'vpd-manager',
     vpd_manager_SOURCES,
