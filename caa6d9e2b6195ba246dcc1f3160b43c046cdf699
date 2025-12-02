@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01c4c1a1_ac60f00b",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-02T08:23:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "678dc71f_30c88afe",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8805994_f4ab5359",
@@ -106,6 +124,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20851186_4f0d9543",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-02T08:23:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb0b3dd2_229da28f",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4db369e9_b6280710",
@@ -137,6 +173,24 @@
       "side": 1,
       "message": "How?",
       "parentUuid": "4db369e9_b6280710",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1445da03_7319ceae",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-02T08:23:38Z",
+      "side": 1,
+      "message": "Agreed that there is no benefit wrt time or space complexity.",
+      "parentUuid": "62a61c4d_63a48862",
       "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -207,6 +261,24 @@
       "side": 1,
       "message": "Ideally, worker can only throw \"JsonException\". which will be captured in the PEL that is logged above.\nSo basically it is not a firmware exception.\n\nFurther, just to pass the information to caller, runtime exception is being thrown . \nAnyways the type matters only if we are going to log any PEL.",
       "parentUuid": "1d8c3d29_4ee763d7",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "648193cd_2752c0e9",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-02T08:23:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7eefa97_7b64e572",
       "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
