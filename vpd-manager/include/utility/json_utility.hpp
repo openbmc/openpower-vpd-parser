@@ -706,6 +706,7 @@ inline std::string getFruPathFromJson(const nlohmann::json& i_sysCfgJsonObj,
         }
     }
 
+    o_errCode = error_code::FRU_PATH_NOT_FOUND;
     return std::string();
 }
 
