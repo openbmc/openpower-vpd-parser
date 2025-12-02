@@ -37,6 +37,10 @@ if get_option('ibm_system').allowed()
     vpd_manager_SOURCES += 'src/single_fab.cpp'
 endif
 
+if get_option('reboot_if_dts_mismatch').allowed()
+    parser_build_arguments += ['-DREBOOT_IF_DTS_MISMATCH']
+endif
+
 vpd_manager_exe = executable(
     'vpd-manager',
     vpd_manager_SOURCES,
