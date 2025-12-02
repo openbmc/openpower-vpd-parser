@@ -935,22 +935,43 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         setCollectionStatusProperty(i_vpdFilePath,
                                     constants::vpdCollectionInProgress);
 
+        uint16_t l_errCode = 0;
+        types::ObjectMap objectInterfaceMap;
         const types::VPDMapVariant& parsedVpdMap = parseVpdFile(i_vpdFilePath);
         if (!std::holds_alternative<std::monostate>(parsedVpdMap))
         {
-            types::ObjectMap objectInterfaceMap;
             populateDbus(parsedVpdMap, objectInterfaceMap, i_vpdFilePath);
-
-            // Notify PIM
-            if (!dbusUtility::callPIM(move(objectInterfaceMap)))
-            {
-                throw std::runtime_error(
-                    std::string(__FUNCTION__) +
-                    "Call to PIM failed while publishing VPD.");
-            }
         }
         else
         {
+            // Stale data from the previous boot can be present on the system.
+            // so clearing of data incase of empty map received.
+            types::InterfaceMap l_interfaeMap{};
+            l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
+                m_parsedJson, i_vpdFilePath, l_errCode);
+
+            if (l_errCode != 0)
+            {
+                Logger::getLoggerInstance()->logMessage(
+                    "Failed to get inventory object path from JSON for FRU [" +
+                        i_vpdFilePath +
+                        "], error: " + commonUtility::getErrCodeMsg(l_errCode),
+                    PlaceHolder::COLLECTION);
+            }
+
+            vpdSpecificUtility::resetDataUnderPIM(l_inventoryPath,
+                                                  l_interfaeMap, l_errCode);
+
+            if (l_errCode)
+            {
+                Logger::getLoggerInstance()->logMessage(
+                    "Failed to reset data under PIM, error : " +
+                        commonUtility::getErrCodeMsg(l_errCode),
+                    PlaceHolder::COLLECTION);
+            }
+
+            objectInterfaceMap.insert({l_inventoryPath, {{l_interfaeMap}}});
+
             logging::logMessage("Empty parsedVpdMap recieved for path [" +
                                 i_vpdFilePath + "]. Check PEL for reason.");
 
@@ -958,9 +979,48 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             // considered VPD collection is completed. Hence FRU collection
             // Status will be set as completed.
         }
+
+        // Notify PIM
+        if (!dbusUtility::callPIM(move(objectInterfaceMap)))
+        {
+            throw std::runtime_error(
+                std::string(__FUNCTION__) +
+                "Call to PIM failed while publishing VPD.");
+        }
     }
     catch (const std::exception& ex)
     {
+        uint16_t l_errCode = 0;
+        std::string l_invPath = jsonUtility::getInventoryObjPathFromJson(
+            m_parsedJson, i_vpdFilePath, l_errCode);
+
+        if (l_errCode != 0)
+        {
+            logging::logMessage(
+                "Failed to get inventory object path from JSON for FRU [" +
+                i_vpdFilePath +
+                "], error: " + commonUtility::getErrCodeMsg(l_errCode));
+        }
+
+        types::InterfaceMap l_interfaeMap{};
+        vpdSpecificUtility::resetDataUnderPIM(l_invPath, l_interfaeMap,
+                                              l_errCode);
+
+        if (l_errCode)
+        {
+            Logger::getLoggerInstance()->logMessage(
+                "Failed to reset data under PIM, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode),
+                PlaceHolder::COLLECTION);
+        }
+
+        if (!dbusUtility::callPIM({{l_invPath, {l_interfaeMap}}}))
+        {
+            Logger::getLoggerInstance()->logMessage(
+                "call to PIM failed while clearing data on DBus.",
+                PlaceHolder::COLLECTION);
+        }
+
         setCollectionStatusProperty(i_vpdFilePath,
                                     constants::vpdCollectionFailed);
 
@@ -968,23 +1028,10 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         // based on status of execution.
         if (typeid(ex) == std::type_index(typeid(DataException)))
         {
-            uint16_t l_errCode = 0;
             // In case of pass1 planar, VPD can be corrupted on PCIe cards. Skip
             // logging error for these cases.
             if (vpdSpecificUtility::isPass1Planar(l_errCode))
             {
-                std::string l_invPath =
-                    jsonUtility::getInventoryObjPathFromJson(
-                        m_parsedJson, i_vpdFilePath, l_errCode);
-
-                if (l_errCode != 0)
-                {
-                    logging::logMessage(
-                        "Failed to get inventory object path from JSON for FRU [" +
-                        i_vpdFilePath +
-                        "], error: " + commonUtility::getErrCodeMsg(l_errCode));
-                }
-
                 const std::string& l_invPathLeafValue =
                     sdbusplus::message::object_path(l_invPath).filename();
 
@@ -1558,23 +1605,45 @@ void Worker::collectSingleFruVpd(
 
         // Parse VPD
         types::VPDMapVariant l_parsedVpd = parseVpdFile(l_fruPath);
+        types::ObjectMap l_dbusObjectMap;
 
+        throw std::runtime_error("test error");
         // If l_parsedVpd is pointing to std::monostate
         if (l_parsedVpd.index() == 0)
         {
-            throw std::runtime_error(
-                "VPD parsing failed for " + std::string(i_dbusObjPath));
-        }
-
-        // Get D-bus object map from worker class
-        types::ObjectMap l_dbusObjectMap;
-        populateDbus(l_parsedVpd, l_dbusObjectMap, l_fruPath);
-
-        if (l_dbusObjectMap.empty())
-        {
-            throw std::runtime_error(
-                "Failed to create D-bus object map. Single FRU VPD collection failed for " +
+            // As empty parsedVpdMap recieved for some reason, but still
+            // considered VPD collection is completed. Hence FRU collection
+            // Status will be set as completed.
+            Logger::getLoggerInstance()->logMessage(
+                "Empty parsed VPD map received for " +
                 std::string(i_dbusObjPath));
+
+            // Stale data from the previous boot can be present on the system.
+            // so clearing of data.
+            types::InterfaceMap l_interfaeMap{};
+            vpdSpecificUtility::resetDataUnderPIM(std::string(i_dbusObjPath),
+                                                  l_interfaeMap, l_errCode);
+
+            if (l_errCode)
+            {
+                Logger::getLoggerInstance()->logMessage(
+                    "Failed to reset data under PIM, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+
+            l_dbusObjectMap.insert({i_dbusObjPath, {{l_interfaeMap}}});
+        }
+        else
+        {
+            // Get D-bus object map from worker class
+            populateDbus(l_parsedVpd, l_dbusObjectMap, l_fruPath);
+
+            if (l_dbusObjectMap.empty())
+            {
+                throw std::runtime_error(
+                    "Failed to create D-bus object map. Single FRU VPD collection failed for " +
+                    std::string(i_dbusObjPath));
+            }
         }
 
         // Call PIM's Notify method
@@ -1584,11 +1653,30 @@ void Worker::collectSingleFruVpd(
                 "Notify PIM failed. Single FRU VPD collection failed for " +
                 std::string(i_dbusObjPath));
         }
+
         setCollectionStatusProperty(l_fruPath,
                                     constants::vpdCollectionCompleted);
     }
     catch (const std::exception& l_error)
     {
+        // Stale data from the previous boot can be present on the system. so
+        // clearing of data incase of failure.
+        types::InterfaceMap l_interfaeMap{};
+        vpdSpecificUtility::resetDataUnderPIM(i_dbusObjPath, l_interfaeMap,
+                                              l_errCode);
+
+        if (l_errCode)
+        {
+            Logger::getLoggerInstance()->logMessage(
+                "Failed to reset data under PIM, error : " +
+                commonUtility::getErrCodeMsg(l_errCode));
+        }
+
+        if (!dbusUtility::callPIM({{i_dbusObjPath, {l_interfaeMap}}}))
+        {
+            Logger::getLoggerInstance()->logMessage("call to PIM failed.");
+        }
+
         setCollectionStatusProperty(l_fruPath, constants::vpdCollectionFailed);
         // TODO: Log PEL
         logging::logMessage(std::string(l_error.what()));
