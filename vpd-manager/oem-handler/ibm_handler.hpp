@@ -72,8 +72,10 @@ class IbmHandler
      * the system. Else it is NOOP.
      *
      * @throw std::exception
+     * 
+     * @param[out] o_parsedSystemVpdMap - Parsed system VPD map.
      */
-    void setDeviceTreeAndJson();
+    void setDeviceTreeAndJson(types::VPDMapVariant& o_parsedSystemVpdMap);
 
     /**
      * @brief API to detect if system vpd is backed up in cache.
