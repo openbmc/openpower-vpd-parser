@@ -918,8 +918,25 @@ void IbmHandler::setDeviceTreeAndJson()
             "], reason: " + commonUtility::getErrCodeMsg(l_errCode));
     }
 
+    std::error_code l_ec;
+    l_ec.clear();
+    if (!std::filesystem::exists(l_systemVpdPath, l_ec))
+    {
+        std::string l_errMsg = "Can't Find System VPD file/eeprom. ";
+        if (l_ec)
+        {
+            l_errMsg += l_ec.message();
+        }
+
+        // No point continuing without system VPD file
+        throw std::runtime_error(l_errMsg);
+    }
+
     // parse system VPD
-    auto l_parsedVpdMap = m_worker->parseVpdFile(l_systemVpdPath);
+    std::shared_ptr<Parser> l_vpdParser =
+        std::make_shared<Parser>(l_systemVpdPath, m_sysCfgJsonObj);
+    auto l_parsedVpdMap = l_vpdParser->parse();
+
     if (std::holds_alternative<std::monostate>(l_parsedVpdMap))
     {
         throw std::runtime_error(
@@ -950,8 +967,8 @@ void IbmHandler::setDeviceTreeAndJson()
             l_systemJson));
     }
 
-    m_worker->setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
-                                          constants::vpdCollectionInProgress);
+    // m_worker->setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
+    //                                       constants::vpdCollectionInProgress);
 
     std::string l_devTreeFromJson;
     if (m_sysCfgJsonObj.contains("devTree"))
@@ -1019,8 +1036,8 @@ void IbmHandler::setDeviceTreeAndJson()
 
         // proceed to publish system VPD.
         publishSystemVPD(l_parsedVpdMap);
-        m_worker->setCollectionStatusProperty(
-            SYSTEM_VPD_FILE_PATH, constants::vpdCollectionCompleted);
+        // m_worker->setCollectionStatusProperty(
+        //     SYSTEM_VPD_FILE_PATH, constants::vpdCollectionCompleted);
         return;
     }
 
@@ -1032,13 +1049,19 @@ void IbmHandler::performInitialSetup()
 {
     try
     {
-        if (m_worker.get() == nullptr)
+        // Parse whatever JSON is set as of now.
+        uint16_t l_errCode = 0;
+        m_sysCfgJsonObj =
+            jsonUtility::getParsedJson(m_configJsonPath, l_errCode);
+
+        if (l_errCode)
         {
-            throw std::runtime_error(
-                "Worker object not found. Can't perform initial setup.");
+            // Throwing as there is no point proceeding without any JSON.
+            throw JsonException("JSON parsing failed. error : " +
+                                    commonUtility::getErrCodeMsg(l_errCode),
+                                m_configJsonPath);
         }
 
-        m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
         if (!dbusUtility::isChassisPowerOn())
         {
             setDeviceTreeAndJson();
@@ -1046,7 +1069,6 @@ void IbmHandler::performInitialSetup()
 
         // Update BMC postion for RBMC prototype system
         // Ignore BMC position update in case of any error
-        uint16_t l_errCode = 0;
         if (isRbmcPrototypeSystem(l_errCode))
         {
             size_t l_bmcPosition = std::numeric_limits<size_t>::max();
@@ -1083,14 +1105,19 @@ void IbmHandler::performInitialSetup()
     }
     catch (const std::exception& l_ex)
     {
-        m_worker->setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
-                                              constants::vpdCollectionFailed);
+        // m_worker->setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
+        //                                       constants::vpdCollectionFailed);
+
         // Any issue in system's inital set up is handled in this catch. Error
         // will not propogate to manager.
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Critical,
-            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
+        const types::PelInfoTuple l_pel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Critical, 0,
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        m_logger->logMessage(
+            std::string("Exception while performing initial set up. ") +
+                EventLogger::getErrorMsg(l_ex),
+            PlaceHolder::PEL, &l_pel);
     }
 }
 
