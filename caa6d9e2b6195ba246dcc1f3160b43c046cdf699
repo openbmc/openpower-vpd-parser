@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f118c1c6_f831f5be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-02T07:11:20Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b94a7b61_811b4367",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd199bbc_75176ae6",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-12-02T06:39:42Z",
       "side": 1,
       "message": "There is a change in behavior of the flow here. Currently, if this `std::make_shared\u003cListener\u003e` throws, its caught by `Manager()` `catch` block and a PEL is logged.\n\nWith the addition of the `try` `catch` here, this exception will be caught at line 84 and a trace will be generated, and no PEL is logged.",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "678dc71f_30c88afe",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-02T07:11:20Z",
+      "side": 1,
+      "message": "Yes,\nThe plan is to either handle the PELs locally in the class (for critical issues), the same has been mentioned as comment in catch block and move away from PELs for internal or non critical issues as they are time consuming.\n\nSo we will be handling any error w.r.t listener by logging something internally. There will be subsequent commit to move it to a different API.\n\nAlso, any error in IBM handler, if required PEL will be logged locally. Unless there is an action on Manager end based on that error, there is no benifit propagating it.",
+      "parentUuid": "bd199bbc_75176ae6",
       "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb0b3dd2_229da28f",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-02T07:11:20Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "c8805994_f4ab5359",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4db369e9_b6280710",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 8
@@ -65,6 +119,24 @@
       "writtenOn": "2025-12-02T06:39:42Z",
       "side": 1,
       "message": "This block can be simplified to `const uint8_t l_threadCount \u003d dbusUtility::isChassisPowerOn() ? constants::VALUE_1 : constants::MAX_THREADS;`",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62a61c4d_63a48862",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-02T07:11:20Z",
+      "side": 1,
+      "message": "How?",
+      "parentUuid": "4db369e9_b6280710",
       "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0e23059_3629941b",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-02T07:11:20Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "16d924c7_5c0e98bd",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d8c3d29_4ee763d7",
@@ -99,6 +189,24 @@
       "writtenOn": "2025-12-02T06:39:42Z",
       "side": 1,
       "message": "Why not use `FirmwareException` here?",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7eefa97_7b64e572",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-02T07:11:20Z",
+      "side": 1,
+      "message": "Ideally, worker can only throw \"JsonException\". which will be captured in the PEL that is logged above.\nSo basically it is not a firmware exception.\n\nFurther, just to pass the information to caller, runtime exception is being thrown . \nAnyways the type matters only if we are going to log any PEL.",
+      "parentUuid": "1d8c3d29_4ee763d7",
       "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
