@@ -65,15 +65,17 @@ class IbmHandler
 
   private:
     /**
-     * @brief An API to set appropriate device tree and JSON.
+     * @brief API tocollect system VPD and set appropriate device tree and JSON.
      *
      * This API based on system chooses corresponding device tree and JSON.
      * If device tree change is required, it updates the "fitconfig" and reboots
      * the system. Else it is NOOP.
      *
      * @throw std::exception
+     *
+     * @param[out] o_parsedSystemVpdMap - Parsed system VPD map.
      */
-    void setDeviceTreeAndJson();
+    void setDeviceTreeAndJson(types::VPDMapVariant& o_parsedSystemVpdMap);
 
     /**
      * @brief API to detect if system vpd is backed up in cache.
