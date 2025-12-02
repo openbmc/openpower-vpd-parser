@@ -35,10 +35,7 @@ IbmHandler::IbmHandler(
 
         // Set up minimal things that is needed before bus name is claimed.
         performInitialSetup();
-
-        // Init worker class.
-        initWorker();
-
+        
         uint16_t l_errCode{0};
         // If the object is created, implies back up and restore took place in
         // system VPD flow.
@@ -215,7 +212,6 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
             // update VPD for powerVS system.
             ConfigurePowerVsSystem();
 
-            std::cout << "m_worker->isSystemVPDOnDBus() completed" << std::endl;
             m_progressInterface->set_property(
                 "Status", std::string(constants::vpdCollectionCompleted));
 
@@ -893,12 +889,15 @@ void IbmHandler::setJsonSymbolicLink(const std::string& i_systemJson)
             "create_symlink system call failed with error: " + l_ec.message());
     }
 
+    //update path to symlink.
+    m_configJsonPath = INVENTORY_JSON_SYM_LINK;
+
     // If the flow is at this point implies the symlink was not present there.
     // Considering this as factory reset.
     m_isFactoryResetDone = true;
 }
 
-void IbmHandler::setDeviceTreeAndJson()
+void IbmHandler::setDeviceTreeAndJson(types::VPDMapVariant& o_parsedSystemVpdMap)
 {
     // JSON is madatory for processing of this API.
     if (m_sysCfgJsonObj.empty())
@@ -918,9 +917,26 @@ void IbmHandler::setDeviceTreeAndJson()
             "], reason: " + commonUtility::getErrCodeMsg(l_errCode));
     }
 
+    std::error_code l_ec;
+    l_ec.clear();
+    if (!std::filesystem::exists(l_systemVpdPath, l_ec))
+    {
+        std::string l_errMsg = "Can't Find System VPD file/eeprom. ";
+        if (l_ec)
+        {
+            l_errMsg += l_ec.message();
+        }
+
+        // No point continuing without system VPD file
+        throw std::runtime_error(l_errMsg);
+    }
+
     // parse system VPD
-    auto l_parsedVpdMap = m_worker->parseVpdFile(l_systemVpdPath);
-    if (std::holds_alternative<std::monostate>(l_parsedVpdMap))
+    std::shared_ptr<Parser> l_vpdParser =
+        std::make_shared<Parser>(l_systemVpdPath, m_sysCfgJsonObj);
+    o_parsedSystemVpdMap = l_vpdParser->parse();
+
+    if (std::holds_alternative<std::monostate>(o_parsedSystemVpdMap))
     {
         throw std::runtime_error(
             "System VPD parsing failed, from path [" + l_systemVpdPath +
@@ -931,7 +947,7 @@ void IbmHandler::setDeviceTreeAndJson()
     std::string l_systemJson{JSON_ABSOLUTE_PATH_PREFIX};
 
     // get system JSON as per the system configuration.
-    getSystemJson(l_systemJson, l_parsedVpdMap);
+    getSystemJson(l_systemJson, o_parsedSystemVpdMap);
 
     if (!l_systemJson.compare(JSON_ABSOLUTE_PATH_PREFIX))
     {
@@ -950,8 +966,8 @@ void IbmHandler::setDeviceTreeAndJson()
             l_systemJson));
     }
 
-    m_worker->setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
-                                          constants::vpdCollectionInProgress);
+    // m_worker->setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
+    //                                       constants::vpdCollectionInProgress);
 
     std::string l_devTreeFromJson;
     if (m_sysCfgJsonObj.contains("devTree"))
@@ -1007,7 +1023,7 @@ void IbmHandler::setDeviceTreeAndJson()
             if (isBackupOnCache() && jsonUtility::isBackupAndRestoreRequired(
                                          m_sysCfgJsonObj, l_errCode))
             {
-                performBackupAndRestore(l_parsedVpdMap);
+                performBackupAndRestore(o_parsedSystemVpdMap);
             }
             else if (l_errCode)
             {
@@ -1016,11 +1032,6 @@ void IbmHandler::setDeviceTreeAndJson()
                     commonUtility::getErrCodeMsg(l_errCode));
             }
         }
-
-        // proceed to publish system VPD.
-        publishSystemVPD(l_parsedVpdMap);
-        m_worker->setCollectionStatusProperty(
-            SYSTEM_VPD_FILE_PATH, constants::vpdCollectionCompleted);
         return;
     }
 
@@ -1032,21 +1043,34 @@ void IbmHandler::performInitialSetup()
 {
     try
     {
-        if (m_worker.get() == nullptr)
-        {
-            throw std::runtime_error(
-                "Worker object not found. Can't perform initial setup.");
-        }
+        // Parse whatever JSON is set as of now.
+        uint16_t l_errCode = 0;
+        m_sysCfgJsonObj =
+            jsonUtility::getParsedJson(m_configJsonPath, l_errCode);
 
-        m_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
-        if (!dbusUtility::isChassisPowerOn())
+        if (l_errCode)
         {
-            setDeviceTreeAndJson();
+            // Throwing as there is no point proceeding without any JSON.
+            throw JsonException("JSON parsing failed. error : " +
+                                    commonUtility::getErrCodeMsg(l_errCode),
+                                m_configJsonPath);
         }
+        
+        types::VPDMapVariant l_parsedSysVpdMap;
+        setDeviceTreeAndJson(l_parsedSysVpdMap);
 
+        //now that correct JSON is selected, initialize worker class.
+        initWorker();
+
+        // proceed to publish system VPD.
+        publishSystemVPD(l_parsedSysVpdMap);
+        
+        //Seeting of collection status should be utility method
+       // m_worker->setCollectionStatusProperty(
+       //      SYSTEM_VPD_FILE_PATH, constants::vpdCollectionCompleted);
+        
         // Update BMC postion for RBMC prototype system
         // Ignore BMC position update in case of any error
-        uint16_t l_errCode = 0;
         if (isRbmcPrototypeSystem(l_errCode))
         {
             size_t l_bmcPosition = std::numeric_limits<size_t>::max();
@@ -1083,14 +1107,19 @@ void IbmHandler::performInitialSetup()
     }
     catch (const std::exception& l_ex)
     {
-        m_worker->setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
-                                              constants::vpdCollectionFailed);
+        // m_worker->setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
+        //                                       constants::vpdCollectionFailed);
+
         // Any issue in system's inital set up is handled in this catch. Error
         // will not propogate to manager.
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Critical,
-            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
+        const types::PelInfoTuple l_pel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Critical, 0,
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        m_logger->logMessage(
+            std::string("Exception while performing initial set up. ") +
+                EventLogger::getErrorMsg(l_ex),
+            PlaceHolder::PEL, &l_pel);
     }
 }
 
@@ -1121,15 +1150,8 @@ bool IbmHandler::isRbmcPrototypeSystem(uint16_t& o_errCode) const noexcept
 }
 
 void IbmHandler::checkAndUpdateBmcPosition(size_t& o_bmcPosition) const noexcept
-{
-    if (m_worker.get() == nullptr)
-    {
-        m_logger->logMessage("Worker object not found");
-        return;
-    }
-
-    const nlohmann::json& l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
-    if (l_sysCfgJsonObj.empty())
+{   
+    if (m_sysCfgJsonObj.empty())
     {
         m_logger->logMessage(
             "System config JSON is empty, unable to find BMC position");
@@ -1138,7 +1160,7 @@ void IbmHandler::checkAndUpdateBmcPosition(size_t& o_bmcPosition) const noexcept
 
     uint16_t l_errCode = 0;
     std::string l_motherboardEepromPath = jsonUtility::getFruPathFromJson(
-        l_sysCfgJsonObj, constants::systemVpdInvPath, l_errCode);
+        m_sysCfgJsonObj, constants::systemVpdInvPath, l_errCode);
 
     if (!l_motherboardEepromPath.empty())
     {
