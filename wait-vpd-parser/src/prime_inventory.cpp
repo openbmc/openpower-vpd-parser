@@ -177,7 +177,7 @@ bool PrimeInventory::primeInventory(
         uint16_t l_errCode = 0;
         vpd::vpdSpecificUtility::resetDataUnderPIM(
             std::string(i_fruJsonObj["inventoryPath"]), l_interfaces,
-            l_errCode);
+            i_fruJsonObj.value("handlePresence", true), l_errCode);
 
         if (l_errCode)
         {

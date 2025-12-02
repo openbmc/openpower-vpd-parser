@@ -958,24 +958,67 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         }
         else
         {
-            m_logger->logMessage("Empty parsedVpdMap recieved for path [" +
-                                     i_vpdFilePath + "]. Check PEL for reason.",
-                                 PlaceHolder::COLLECTION);
-
+            // Stale data from the previous boot can be present on the system.
+            // so clearing of data incase of empty map received.
             // As empty parsedVpdMap recieved for some reason, but still
             // considered VPD collection is completed. Hence FRU collection
             // Status will be set as completed.
+
+            vpdSpecificUtility::resetObjTreeVpd(i_vpdFilePath, m_parsedJson,
+                                                l_errCode);
+
+            if (l_errCode)
+            {
+                m_logger->logMessage(
+                    "Failed to reset data under PIM for path [" +
+                    i_vpdFilePath +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+            }
+
+            m_logger->logMessage("Empty parsedVpdMap recieved for path [" +
+                                     i_vpdFilePath + "]. Check PEL for reason.",
+                                 PlaceHolder::COLLECTION);
         }
+
+        vpdSpecificUtility::setCollectionStatusProperty(
+            i_vpdFilePath, types::VpdCollectionStatus::Completed, m_parsedJson,
+            l_errCode);
+
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Failed to set collection status as completed for path " +
+                i_vpdFilePath +
+                "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+        }
+
+        m_semaphore.release();
+        return std::make_tuple(true, i_vpdFilePath);
     }
     catch (const std::exception& ex)
     {
+        uint16_t l_errCode = 0;
+
+        // stale data can be present on the system from previous boot. so
+        // clearing of data in case of failure.
+        vpdSpecificUtility::resetObjTreeVpd(i_vpdFilePath, m_parsedJson,
+                                            l_errCode);
+
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Failed to reset under PIM for path [" + i_vpdFilePath +
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+        }
+
         vpdSpecificUtility::setCollectionStatusProperty(
             i_vpdFilePath, types::VpdCollectionStatus::Failed, m_parsedJson,
             l_errCode);
         if (l_errCode)
         {
             m_logger->logMessage(
-                "Failed to set collection status for path " + i_vpdFilePath +
+                "Failed to set collection status as failed for path " +
+                i_vpdFilePath +
                 "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
@@ -983,7 +1026,6 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         // based on status of execution.
         if (typeid(ex) == std::type_index(typeid(DataException)))
         {
-            uint16_t l_errCode = 0;
             // In case of pass1 planar, VPD can be corrupted on PCIe cards. Skip
             // logging error for these cases.
             if (vpdSpecificUtility::isPass1Planar(l_errCode))
@@ -1045,19 +1087,6 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         m_semaphore.release();
         return std::make_tuple(false, i_vpdFilePath);
     }
-
-    vpdSpecificUtility::setCollectionStatusProperty(
-        i_vpdFilePath, types::VpdCollectionStatus::Completed, m_parsedJson,
-        l_errCode);
-    if (l_errCode)
-    {
-        m_logger->logMessage(
-            "Failed to set collection status for path " + i_vpdFilePath +
-            "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
-    }
-
-    m_semaphore.release();
-    return std::make_tuple(true, i_vpdFilePath);
 }
 
 bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
@@ -1187,131 +1216,50 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
 
     try
     {
-        auto l_presentPropValue = dbusUtility::readDbusProperty(
-            constants::pimServiceName, i_dbusObjPath,
-            constants::inventoryItemInf, "Present");
-
-        if (auto l_value = std::get_if<bool>(&l_presentPropValue))
+        if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath, "preAction",
+                                          "deletion", l_errCode))
         {
-            uint16_t l_errCode = 0;
-            // check if FRU's Present property is handled by vpd-manager
-            const auto& l_isFruPresenceHandled =
-                jsonUtility::isFruPresenceHandled(m_parsedJson, l_fruPath,
-                                                  l_errCode);
-
-            if (l_errCode)
+            if (!processPreAction(l_fruPath, "deletion", l_errCode))
             {
-                throw std::runtime_error(
-                    "Failed to check if FRU's presence is handled, reason: " +
-                    commonUtility::getErrCodeMsg(l_errCode));
-            }
-
-            if (!(*l_value) && l_isFruPresenceHandled)
-            {
-                throw std::runtime_error("Given FRU is not present");
-            }
-            else if (*l_value && !l_isFruPresenceHandled)
-            {
-                throw std::runtime_error(
-                    "Given FRU is present and its presence is not handled by vpd-manager.");
-            }
-            else
-            {
-                if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath,
-                                                  "preAction", "deletion",
-                                                  l_errCode))
-                {
-                    if (!processPreAction(l_fruPath, "deletion", l_errCode))
-                    {
-                        std::string l_msg = "Pre action failed";
-                        if (l_errCode)
-                        {
-                            l_msg += " Reason: " +
-                                     commonUtility::getErrCodeMsg(l_errCode);
-                        }
-                        throw std::runtime_error(l_msg);
-                    }
-                }
-                else if (l_errCode)
-                {
-                    logging::logMessage(
-                        "Failed to check if pre action required for FRU [" +
-                        l_fruPath + "], error : " +
-                        commonUtility::getErrCodeMsg(l_errCode));
-                }
-
-                std::vector<std::string> l_interfaceList{
-                    constants::operationalStatusInf};
-
-                types::MapperGetSubTree l_subTreeMap =
-                    dbusUtility::getObjectSubTree(i_dbusObjPath, 0,
-                                                  l_interfaceList);
-
-                types::ObjectMap l_objectMap;
-
-                // Updates VPD specific interfaces property value under PIM for
-                // sub FRUs.
-                for (const auto& [l_objectPath, l_serviceInterfaceMap] :
-                     l_subTreeMap)
-                {
-                    types::InterfaceMap l_interfaceMap;
-                    vpdSpecificUtility::resetDataUnderPIM(
-                        l_objectPath, l_interfaceMap, l_errCode);
-
-                    if (l_errCode)
-                    {
-                        throw std::runtime_error(
-                            "Failed to reset data under PIM for sub FRU [" +
-                            l_objectPath + "], error : " +
-                            commonUtility::getErrCodeMsg(l_errCode));
-                    }
-
-                    l_objectMap.emplace(l_objectPath,
-                                        std::move(l_interfaceMap));
-                }
-
-                types::InterfaceMap l_interfaceMap;
-                vpdSpecificUtility::resetDataUnderPIM(
-                    i_dbusObjPath, l_interfaceMap, l_errCode);
-
+                std::string l_msg = "Pre action failed";
                 if (l_errCode)
                 {
-                    throw std::runtime_error(
-                        "Failed to reset data under PIM, error : " +
-                        commonUtility::getErrCodeMsg(l_errCode));
+                    l_msg += " Reason: " +
+                             commonUtility::getErrCodeMsg(l_errCode);
                 }
-
-                l_objectMap.emplace(i_dbusObjPath, std::move(l_interfaceMap));
-
-                if (!dbusUtility::callPIM(std::move(l_objectMap)))
-                {
-                    throw std::runtime_error("Call to PIM failed.");
-                }
-
-                if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath,
-                                                  "postAction", "deletion",
-                                                  l_errCode))
-                {
-                    if (!processPostAction(l_fruPath, "deletion"))
-                    {
-                        throw std::runtime_error("Post action failed");
-                    }
-                }
-                else if (l_errCode)
-                {
-                    logging::logMessage(
-                        "Failed to check if post action required during deletion for FRU [" +
-                        l_fruPath + "], error : " +
-                        commonUtility::getErrCodeMsg(l_errCode));
-                }
+                throw std::runtime_error(l_msg);
             }
         }
-        else
+        else if (l_errCode)
         {
             logging::logMessage(
-                "Can't process delete VPD for FRU [" + i_dbusObjPath +
-                "] as unable to read present property");
-            return;
+                "Failed to check if pre action required for FRU [" + l_fruPath +
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+        }
+
+        vpdSpecificUtility::resetObjTreeVpd(l_fruPath, m_parsedJson, l_errCode);
+
+        if (l_errCode)
+        {
+            throw std::runtime_error(
+                "Failed to clear data under PIM for FRU [" + l_fruPath +
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+        }
+
+        if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath, "postAction",
+                                          "deletion", l_errCode))
+        {
+            if (!processPostAction(l_fruPath, "deletion"))
+            {
+                throw std::runtime_error("Post action failed");
+            }
+        }
+        else if (l_errCode)
+        {
+            logging::logMessage(
+                "Failed to check if post action required during deletion for FRU [" +
+                l_fruPath +
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
         logging::logMessage(
@@ -1592,27 +1540,45 @@ void Worker::collectSingleFruVpd(
         // If l_parsedVpd is pointing to std::monostate
         if (l_parsedVpd.index() == 0)
         {
-            throw std::runtime_error(
-                "VPD parsing failed for " + std::string(i_dbusObjPath));
+            // As empty parsedVpdMap recieved for some reason, but still
+            // considered VPD collection is completed. Hence FRU collection
+            // Status will be set as completed.
+            m_logger->logMessage("Empty parsed VPD map received for " +
+                                 std::string(i_dbusObjPath));
+
+            // Stale data from the previous boot can be present on the system.
+            // so clearing of data.
+            vpdSpecificUtility::resetObjTreeVpd(std::string(i_dbusObjPath),
+                                                m_parsedJson, l_errCode);
+
+            if (l_errCode)
+            {
+                m_logger->logMessage(
+                    "Failed to reset data under PIM for path [" +
+                    std::string(i_dbusObjPath) +
+                    "] error : " + commonUtility::getErrCodeMsg(l_errCode));
+            }
         }
-
-        // Get D-bus object map from worker class
-        types::ObjectMap l_dbusObjectMap;
-        populateDbus(l_parsedVpd, l_dbusObjectMap, l_fruPath);
-
-        if (l_dbusObjectMap.empty())
+        else
         {
-            throw std::runtime_error(
-                "Failed to create D-bus object map. Single FRU VPD collection failed for " +
-                std::string(i_dbusObjPath));
-        }
+            types::ObjectMap l_dbusObjectMap;
+            // Get D-bus object map from worker class
+            populateDbus(l_parsedVpd, l_dbusObjectMap, l_fruPath);
 
-        // Call PIM's Notify method
-        if (!dbusUtility::callPIM(move(l_dbusObjectMap)))
-        {
-            throw std::runtime_error(
-                "Notify PIM failed. Single FRU VPD collection failed for " +
-                std::string(i_dbusObjPath));
+            if (l_dbusObjectMap.empty())
+            {
+                throw std::runtime_error(
+                    "Failed to create D-bus object map. Single FRU VPD collection failed for " +
+                    std::string(i_dbusObjPath));
+            }
+
+            // Call PIM's Notify method
+            if (!dbusUtility::callPIM(move(l_dbusObjectMap)))
+            {
+                throw std::runtime_error(
+                    "Notify PIM failed. Single FRU VPD collection failed for " +
+                    std::string(i_dbusObjPath));
+            }
         }
 
         vpdSpecificUtility::setCollectionStatusProperty(
@@ -1621,23 +1587,35 @@ void Worker::collectSingleFruVpd(
         if (l_errCode)
         {
             m_logger->logMessage(
-                "Failed to set collection status for path " + l_fruPath +
+                "Failed to set collection status as completed for path " +
+                l_fruPath +
                 "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
     }
     catch (const std::exception& l_error)
     {
+        std::string l_errMsg;
+        vpdSpecificUtility::resetObjTreeVpd(std::string(i_dbusObjPath),
+                                            m_parsedJson, l_errCode);
+
+        if (l_errCode)
+        {
+            l_errMsg += "Failed to reset data under PIM for path [" +
+                        std::string(i_dbusObjPath) + "], error : " +
+                        commonUtility::getErrCodeMsg(l_errCode) + ". ";
+        }
+
         vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, types::VpdCollectionStatus::Completed, m_parsedJson,
+            l_fruPath, types::VpdCollectionStatus::Failed, m_parsedJson,
             l_errCode);
         if (l_errCode)
         {
-            m_logger->logMessage(
-                "Failed to set collection status for path " + l_fruPath +
-                "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+            l_errMsg += "Failed to set collection status as failed for path " +
+                        l_fruPath +
+                        "Reason: " + commonUtility::getErrCodeMsg(l_errCode);
         }
         // TODO: Log PEL
-        logging::logMessage(std::string(l_error.what()));
+        m_logger->logMessage(l_errMsg + std::string(l_error.what()));
     }
 }
 } // namespace vpd
