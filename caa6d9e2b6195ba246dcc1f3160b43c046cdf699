@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b94a7b61_811b4367",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-02T06:39:42Z",
+      "side": 1,
+      "message": "\"Initialize worker post initial set up\" is more clear?",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd199bbc_75176ae6",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-02T06:39:42Z",
+      "side": 1,
+      "message": "There is a change in behavior of the flow here. Currently, if this `std::make_shared\u003cListener\u003e` throws, its caught by `Manager()` `catch` block and a PEL is logged.\n\nWith the addition of the `try` `catch` here, this exception will be caught at line 84 and a trace will be generated, and no PEL is logged.",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8805994_f4ab5359",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-02T06:39:42Z",
+      "side": 1,
+      "message": "My earlier comment on line 74 also applies here.",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4db369e9_b6280710",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-02T06:39:42Z",
+      "side": 1,
+      "message": "This block can be simplified to `const uint8_t l_threadCount \u003d dbusUtility::isChassisPowerOn() ? constants::VALUE_1 : constants::MAX_THREADS;`",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16d924c7_5c0e98bd",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-02T06:39:42Z",
+      "side": 1,
+      "message": "`const l_pel`",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d8c3d29_4ee763d7",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-02T06:39:42Z",
+      "side": 1,
+      "message": "Why not use `FirmwareException` here?",
+      "revId": "caa6d9e2b6195ba246dcc1f3160b43c046cdf699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
