@@ -650,11 +650,13 @@ inline bool findCcinInVpd(const nlohmann::json& i_JsonObject,
  *
  * @param[in] i_objectPath - DBus object path of the FRU.
  * @param[in] io_interfaceMap - Interface and its properties map.
+ * @param[in] i_clearPresence - Indicates whether to clear present property or
+ * not.
  * @param[out] o_errCode - To set error code in case of error.
  */
 inline void resetDataUnderPIM(const std::string& i_objectPath,
                               types::InterfaceMap& io_interfaceMap,
-                              uint16_t& o_errCode)
+                              bool i_clearPresence, uint16_t& o_errCode)
 {
     o_errCode = 0;
     if (i_objectPath.empty())
@@ -738,7 +740,11 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
                             if (l_propertyName.compare("Present") ==
                                 constants::STR_CMP_SUCCESS)
                             {
-                                l_propertyMap.emplace(l_propertyName, false);
+                                if (i_clearPresence)
+                                {
+                                    l_propertyMap.emplace(l_propertyName,
+                                                          false);
+                                }
                             }
                             else if (l_propertyName.compare("Functional") ==
                                      constants::STR_CMP_SUCCESS)
@@ -1475,5 +1481,84 @@ inline void setCollectionStatusProperty(
     }
 }
 
+/**
+ * @brief API to reset data of a FRU and its sub-FRU populated under PIM.
+ *
+ * The API resets the data for specific interfaces of a FRU and its sub-FRUs
+ * under PIM.
+ *
+ * Note: i_vpdPath should be either the base inventory path or the EEPROM path.
+ *
+ * @param[in] i_vpdPath - EEPROM/root inventory path of the FRU.
+ * @param[in] i_sysCfgJsonObj - system config JSON.
+ * @param[out] o_errCode - To set error code in case of error.
+ */
+inline void resetObjTreeVpd(const std::string& i_vpdPath,
+                            const nlohmann::json& i_sysCfgJsonObj,
+                            uint16_t& o_errCode) noexcept
+{
+    o_errCode = 0;
+    if (i_vpdPath.empty() || i_sysCfgJsonObj.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return;
+    }
+
+    try
+    {
+        const std::string& l_fruPath = jsonUtility::getFruPathFromJson(
+            i_sysCfgJsonObj, i_vpdPath, o_errCode);
+
+        if (o_errCode)
+        {
+            return;
+        }
+
+        types::ObjectMap l_objectMap;
+
+        const auto& l_fruItems = i_sysCfgJsonObj["frus"][l_fruPath];
+
+        for (const auto& l_inventoryItem : l_fruItems)
+        {
+            const std::string& l_objectPath =
+                l_inventoryItem.value("inventoryPath", "");
+
+            if (l_inventoryItem.value("synthesized", false))
+            {
+                continue;
+            }
+
+            types::InterfaceMap l_interfaceMap;
+            resetDataUnderPIM(l_objectPath, l_interfaceMap,
+                              l_inventoryItem.value("handlePresence", true),
+                              o_errCode);
+
+            if (o_errCode)
+            {
+                logging::logMessage(
+                    "Failed to get data to clear on DBus for path [" +
+                    l_objectPath +
+                    "], error : " + commonUtility::getErrCodeMsg(o_errCode));
+
+                continue;
+            }
+
+            l_objectMap.emplace(l_objectPath, l_interfaceMap);
+        }
+
+        if (!dbusUtility::callPIM(std::move(l_objectMap)))
+        {
+            o_errCode = error_code::DBUS_FAILURE;
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Failed to reset FRU data on DBus for FRU [" + i_vpdPath +
+            "], error : " + std::string(l_ex.what()));
+
+        o_errCode = error_code::STANDARD_EXCEPTION;
+    }
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd
