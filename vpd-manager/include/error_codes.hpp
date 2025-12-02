@@ -46,7 +46,8 @@ enum error_code
     RECEIVED_INVALID_KWD_TYPE_FROM_DBUS,
     INVALID_KEYWORD_LENGTH,
     INVALID_VALUE_READ_FROM_DBUS,
-    RECORD_NOT_FOUND
+    RECORD_NOT_FOUND,
+    FRU_PRESENCE_NOT_HANDLED
 };
 
 const std::unordered_map<int, std::string> errorCodeMap = {
@@ -93,5 +94,7 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::INVALID_HEXADECIMAL_VALUE_LENGTH,
      "Invalid hexadecimal value length."},
     {error_code::INVALID_HEXADECIMAL_VALUE, "Invalid hexadecimal value."},
-    {error_code::INVALID_INVENTORY_PATH, "Invalid inventory path."}};
+    {error_code::INVALID_INVENTORY_PATH, "Invalid inventory path."},
+    {error_code::FRU_PRESENCE_NOT_HANDLED,
+     "FRU presence is not handled by vpd-manager"}};
 } // namespace vpd
