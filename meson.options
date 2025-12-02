@@ -65,3 +65,9 @@ option(
     value: 'enabled',
     description: 'Enable code specific to IBM systems.',
 )
+option(
+    'reboot_if_dts_mismatch',
+    type: 'feature',
+    value: 'enabled',
+    description: 'Flag which specifies if BMC needs to be rebooted on device tree mismatch.',
+)
