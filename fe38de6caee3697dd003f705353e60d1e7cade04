@@ -16,6 +16,24 @@
       "message": "Why has this trace been removed? This trace helps us quickly see when the FRU VPD collection process is done.",
       "revId": "fe38de6caee3697dd003f705353e60d1e7cade04",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35f69fa9_96b19e95",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-03T08:48:50Z",
+      "side": 0,
+      "message": "I removed all the std::cout\u0027s so this got removed. I will add it back.",
+      "parentUuid": "ca12e19a_b9a5047d",
+      "revId": "fe38de6caee3697dd003f705353e60d1e7cade04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

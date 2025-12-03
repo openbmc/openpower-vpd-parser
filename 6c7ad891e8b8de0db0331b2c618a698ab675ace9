@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a50f4425_5be73093",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-03T08:48:50Z",
+      "side": 1,
+      "message": "Now state manager service won\u0027t be available at the time of system VPD collection. For now we will go for collection on all boot/re-boot.",
+      "parentUuid": "705eeaba_37520ac5",
+      "revId": "6c7ad891e8b8de0db0331b2c618a698ab675ace9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80d62e1e_7b137fd9",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 6
@@ -31,6 +49,24 @@
       "writtenOn": "2025-12-03T07:02:19Z",
       "side": 1,
       "message": "why is this commented ?",
+      "revId": "6c7ad891e8b8de0db0331b2c618a698ab675ace9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8424aa1_45e40580",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-03T08:48:50Z",
+      "side": 1,
+      "message": "This method will be moved to utility API. Will be addressed in subsequent commit. Left a comment at line 1066.",
+      "parentUuid": "80d62e1e_7b137fd9",
       "revId": "6c7ad891e8b8de0db0331b2c618a698ab675ace9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "05d9c7fe_23ddf4ec",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-03T08:48:50Z",
+      "side": 1,
+      "message": "Default for BMC position is set to \"std::numeric_limits\u003csize_t\u003e::max() before calling this API.",
+      "parentUuid": "d01a41f2_8a8f2795",
+      "revId": "6c7ad891e8b8de0db0331b2c618a698ab675ace9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8c2d6cc1_d1666e18",
         "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
         "patchSetId": 6
@@ -65,6 +119,24 @@
       "writtenOn": "2025-12-03T06:02:52Z",
       "side": 1,
       "message": "I think the doxygen of this API should also be updated to say \"it also collects system VPD\".",
+      "revId": "6c7ad891e8b8de0db0331b2c618a698ab675ace9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb8a7f30_8f51b7a9",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-03T08:48:50Z",
+      "side": 1,
+      "message": "It was collecting before as well. But ok, I guess since we are updating the API, will update the doxygen as well.",
+      "parentUuid": "8c2d6cc1_d1666e18",
       "revId": "6c7ad891e8b8de0db0331b2c618a698ab675ace9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
