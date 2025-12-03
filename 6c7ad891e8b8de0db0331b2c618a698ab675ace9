@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1bf64299_34404a59",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-12-03T08:52:16Z",
+      "side": 1,
+      "message": "better to have a TODO here as we will require some sort of check later to skip",
+      "parentUuid": "a50f4425_5be73093",
+      "revId": "6c7ad891e8b8de0db0331b2c618a698ab675ace9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80d62e1e_7b137fd9",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 6
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "This method will be moved to utility API. Will be addressed in subsequent commit. Left a comment at line 1066.",
       "parentUuid": "80d62e1e_7b137fd9",
+      "revId": "6c7ad891e8b8de0db0331b2c618a698ab675ace9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "417f4514_7ad52763",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-12-03T08:52:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b8424aa1_45e40580",
       "revId": "6c7ad891e8b8de0db0331b2c618a698ab675ace9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -102,6 +138,24 @@
       "side": 1,
       "message": "Default for BMC position is set to \"std::numeric_limits\u003csize_t\u003e::max() before calling this API.",
       "parentUuid": "d01a41f2_8a8f2795",
+      "revId": "6c7ad891e8b8de0db0331b2c618a698ab675ace9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bea827a2_3127efad",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-12-03T08:52:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "05d9c7fe_23ddf4ec",
       "revId": "6c7ad891e8b8de0db0331b2c618a698ab675ace9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
