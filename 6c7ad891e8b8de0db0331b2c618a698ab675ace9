@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "705eeaba_37520ac5",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-03T06:02:52Z",
+      "side": 1,
+      "message": "Why has Chassis power on check been removed?",
+      "revId": "6c7ad891e8b8de0db0331b2c618a698ab675ace9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c2d6cc1_d1666e18",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-03T06:02:52Z",
+      "side": 1,
+      "message": "I think the doxygen of this API should also be updated to say \"it also collects system VPD\".",
+      "revId": "6c7ad891e8b8de0db0331b2c618a698ab675ace9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
