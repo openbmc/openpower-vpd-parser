@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9037488e_1987f166",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-03T10:14:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e08f631f_8f7fae89",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13f2f567_7dd3fbc4",
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "I am not collecting all this PowerVS logs, as part of collection file.\n\nAs I have instantiated an object m_logger so using it to call logMessage. So it will not change the behaviour of the code.",
       "parentUuid": "13f2f567_7dd3fbc4",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb045545_e312528d",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-03T10:14:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a399ede_028ba2bd",
       "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -123,6 +159,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a6d42a4_752da0f9",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-03T10:14:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d0a921c_16df6d15",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af896785_8b86ba1f",
@@ -158,6 +212,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da4c4a01_ea72bf4a",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-03T10:14:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c0b7ca0_64fba3cd",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4614074d_a6c99a77",
@@ -189,6 +261,24 @@
       "side": 1,
       "message": "I am not collecting all this PowerVS logs, as part of collection file.\n\nAs I have instantiated an object m_logger so using it to call logMessage. So it will not change the behaviour of the code.",
       "parentUuid": "4614074d_a6c99a77",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7b16018_4038da75",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-03T10:14:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c5121ee_0442db6d",
       "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
