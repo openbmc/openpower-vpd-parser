@@ -969,6 +969,13 @@ void IbmHandler::setDeviceTreeAndJson(
             l_systemJson));
     }
 
+    vpdSpecificUtility::setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH, constants::vpdCollectionInProgress, m_sysCfgJsonObj, l_errCode);
+
+    if(l_errCode)
+    {
+        m_logger->logMessage("Failed to set collection status for path " + std::string(SYSTEM_VPD_FILE_PATH) + "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+    }
+
     std::string l_devTreeFromJson;
     if (m_sysCfgJsonObj.contains("devTree"))
     {
@@ -1041,10 +1048,11 @@ void IbmHandler::setDeviceTreeAndJson(
 
 void IbmHandler::performInitialSetup()
 {
+    // Parse whatever JSON is set as of now.
+    uint16_t l_errCode = 0;
+        
     try
     {
-        // Parse whatever JSON is set as of now.
-        uint16_t l_errCode = 0;
         m_sysCfgJsonObj =
             jsonUtility::getParsedJson(m_configJsonPath, l_errCode);
 
@@ -1064,11 +1072,22 @@ void IbmHandler::performInitialSetup()
 
         // proceed to publish system VPD.
         publishSystemVPD(l_parsedSysVpdMap);
+<<<<<<< HEAD
 
         // Setting of collection status should be utility method
         // m_worker->setCollectionStatusProperty(
         //      SYSTEM_VPD_FILE_PATH, constants::vpdCollectionCompleted);
 
+=======
+        
+       vpdSpecificUtility::setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH, constants::vpdCollectionCompleted, m_sysCfgJsonObj, l_errCode);
+
+       if(l_errCode)
+       {
+         m_logger->logMessage("Failed to set collection status for path " + std::string(SYSTEM_VPD_FILE_PATH) + "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+       }
+        
+>>>>>>> d622fea (Move collection status)
         // Update BMC postion for RBMC prototype system
         // Ignore BMC position update in case of any error
         if (isRbmcPrototypeSystem(l_errCode))
@@ -1107,8 +1126,13 @@ void IbmHandler::performInitialSetup()
     }
     catch (const std::exception& l_ex)
     {
-        // m_worker->setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH,
-        //                                       constants::vpdCollectionFailed);
+        //Seeting of collection status should be utility method
+       vpdSpecificUtility::setCollectionStatusProperty(SYSTEM_VPD_FILE_PATH, constants::vpdCollectionFailed, m_sysCfgJsonObj, l_errCode);
+
+       if(l_errCode)
+       {
+         m_logger->logMessage("Failed to set collection status for path " + std::string(SYSTEM_VPD_FILE_PATH) + "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+       }
 
         // Any issue in system's inital set up is handled in this catch. Error
         // will not propogate to manager.

@@ -2,7 +2,7 @@
 
 #include "constants.hpp"
 #include "types.hpp"
-
+#include "logger.hpp"
 #include <nlohmann/json.hpp>
 
 #include <mutex>
@@ -176,18 +176,6 @@ class Worker
      * can be replaced at standby.
      */
     void performVpdRecollection();
-
-    /**
-     * @brief API to set CollectionStatus property.
-     *
-     * This API updates the CollectionStatus property of the given FRU with the
-     * given value.
-     *
-     * @param[in] i_vpdPath - EEPROM or inventory path.
-     * @param[in] i_value - Value to be set.
-     */
-    void setCollectionStatusProperty(const std::string& i_fruPath,
-                                     const std::string& i_value) const noexcept;
 
   private:
     /**
@@ -479,5 +467,8 @@ class Worker
     // VPD collection mode
     types::VpdCollectionMode m_vpdCollectionMode{
         types::VpdCollectionMode::DEFAULT_MODE};
+
+    //Shared pointer to Logger object
+    std::shared_ptr<Logger> m_logger;
 };
 } // namespace vpd
