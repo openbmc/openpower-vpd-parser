@@ -922,7 +922,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
     const std::string& i_vpdFilePath)
 {
     std::string l_inventoryPath{};
-
+    uint16_t l_errCode = 0;
     try
     {
         m_semaphore.acquire();
@@ -932,8 +932,15 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         m_activeCollectionThreadCount++;
         m_mutex.unlock();
 
-        setCollectionStatusProperty(i_vpdFilePath,
-                                    constants::vpdCollectionInProgress);
+        vpdSpecificUtility::setCollectionStatusProperty(
+            i_vpdFilePath, constants::vpdCollectionInProgress, m_parsedJson,
+            l_errCode);
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Failed to set collection status for path " + i_vpdFilePath +
+                "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+        }
 
         const types::VPDMapVariant& parsedVpdMap = parseVpdFile(i_vpdFilePath);
         if (!std::holds_alternative<std::monostate>(parsedVpdMap))
@@ -962,8 +969,15 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
     }
     catch (const std::exception& ex)
     {
-        setCollectionStatusProperty(i_vpdFilePath,
-                                    constants::vpdCollectionFailed);
+        vpdSpecificUtility::setCollectionStatusProperty(
+            i_vpdFilePath, constants::vpdCollectionFailed, m_parsedJson,
+            l_errCode);
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Failed to set collection status for path " + i_vpdFilePath +
+                "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+        }
 
         // handle all the exceptions internally. Return only true/false
         // based on status of execution.
@@ -1032,8 +1046,16 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         return std::make_tuple(false, i_vpdFilePath);
     }
 
-    setCollectionStatusProperty(i_vpdFilePath,
-                                constants::vpdCollectionCompleted);
+    vpdSpecificUtility::setCollectionStatusProperty(
+        i_vpdFilePath, constants::vpdCollectionCompleted, m_parsedJson,
+        l_errCode);
+    if (l_errCode)
+    {
+        m_logger->logMessage(
+            "Failed to set collection status for path " + i_vpdFilePath +
+            "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+    }
+
     m_semaphore.release();
     return std::make_tuple(true, i_vpdFilePath);
 }
@@ -1554,12 +1576,15 @@ void Worker::collectSingleFruVpd(
             }
         }
 
-        // Set collection Status as InProgress. Since it's an intermediate state
-        // D-bus set-property call is good enough to update the status.
-        const std::string& l_collStatusProp = "Status";
-
-        setCollectionStatusProperty(l_fruPath,
-                                    constants::vpdCollectionInProgress);
+        vpdSpecificUtility::setCollectionStatusProperty(
+            l_fruPath, constants::vpdCollectionInProgress, m_parsedJson,
+            l_errCode);
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Failed to set collection status for path " + l_fruPath +
+                "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+        }
 
         // Parse VPD
         types::VPDMapVariant l_parsedVpd = parseVpdFile(l_fruPath);
@@ -1589,126 +1614,30 @@ void Worker::collectSingleFruVpd(
                 "Notify PIM failed. Single FRU VPD collection failed for " +
                 std::string(i_dbusObjPath));
         }
-        setCollectionStatusProperty(l_fruPath,
-                                    constants::vpdCollectionCompleted);
+
+        vpdSpecificUtility::setCollectionStatusProperty(
+            l_fruPath, constants::vpdCollectionCompleted, m_parsedJson,
+            l_errCode);
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Failed to set collection status for path " + l_fruPath +
+                "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+        }
     }
     catch (const std::exception& l_error)
     {
-        setCollectionStatusProperty(l_fruPath, constants::vpdCollectionFailed);
+        vpdSpecificUtility::setCollectionStatusProperty(
+            l_fruPath, constants::vpdCollectionCompleted, m_parsedJson,
+            l_errCode);
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Failed to set collection status for path " + l_fruPath +
+                "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+        }
         // TODO: Log PEL
         logging::logMessage(std::string(l_error.what()));
-    }
-}
-
-void Worker::setCollectionStatusProperty(
-    const std::string& i_vpdPath, const std::string& i_value) const noexcept
-{
-    try
-    {
-        if (i_vpdPath.empty())
-        {
-            throw std::runtime_error(
-                "Given path is empty. Can't set collection Status property");
-        }
-
-        types::PropertyMap l_timeStampMap;
-        if (i_value == constants::vpdCollectionCompleted ||
-            i_value == constants::vpdCollectionFailed)
-        {
-            l_timeStampMap.emplace(
-                "CompletedTime",
-                types::DbusVariantType{
-                    commonUtility::getCurrentTimeSinceEpoch()});
-        }
-        else if (i_value == constants::vpdCollectionInProgress)
-        {
-            l_timeStampMap.emplace(
-                "StartTime", types::DbusVariantType{
-                                 commonUtility::getCurrentTimeSinceEpoch()});
-        }
-        else if (i_value == constants::vpdCollectionNotStarted)
-        {
-            l_timeStampMap.emplace("StartTime", 0);
-            l_timeStampMap.emplace("CompletedTime", 0);
-        }
-
-        types::ObjectMap l_objectInterfaceMap;
-
-        if (m_parsedJson["frus"].contains(i_vpdPath))
-        {
-            for (const auto& l_Fru : m_parsedJson["frus"][i_vpdPath])
-            {
-                sdbusplus::message::object_path l_fruObjectPath(
-                    l_Fru["inventoryPath"]);
-
-                types::PropertyMap l_propertyValueMap;
-                l_propertyValueMap.emplace("Status", i_value);
-                l_propertyValueMap.insert(l_timeStampMap.begin(),
-                                          l_timeStampMap.end());
-
-                uint16_t l_errCode = 0;
-                types::InterfaceMap l_interfaces;
-                vpdSpecificUtility::insertOrMerge(
-                    l_interfaces, constants::vpdCollectionInterface,
-                    move(l_propertyValueMap), l_errCode);
-
-                if (l_errCode)
-                {
-                    logging::logMessage(
-                        "Failed to insert value into map, error : " +
-                        commonUtility::getErrCodeMsg(l_errCode));
-                }
-
-                l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
-                                             std::move(l_interfaces));
-            }
-        }
-        else
-        {
-            // consider it as an inventory path.
-            if (i_vpdPath.find(constants::pimPath) != constants::VALUE_0)
-            {
-                throw std::runtime_error(
-                    "Invalid inventory path: " + i_vpdPath +
-                    ". Can't set collection Status property");
-            }
-
-            types::PropertyMap l_propertyValueMap;
-            l_propertyValueMap.emplace("Status", i_value);
-            l_propertyValueMap.insert(l_timeStampMap.begin(),
-                                      l_timeStampMap.end());
-
-            uint16_t l_errCode = 0;
-            types::InterfaceMap l_interfaces;
-            vpdSpecificUtility::insertOrMerge(
-                l_interfaces, constants::vpdCollectionInterface,
-                move(l_propertyValueMap), l_errCode);
-
-            if (l_errCode)
-            {
-                logging::logMessage(
-                    "Failed to insert value into map, error : " +
-                    commonUtility::getErrCodeMsg(l_errCode));
-            }
-
-            l_objectInterfaceMap.emplace(i_vpdPath, std::move(l_interfaces));
-        }
-
-        // Notify PIM
-        if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
-        {
-            throw DbusException(
-                std::string(__FUNCTION__) +
-                "Call to PIM failed while setting collection Status property for path " +
-                i_vpdPath);
-        }
-    }
-    catch (const std::exception& l_ex)
-    {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
-            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
 }
 } // namespace vpd
