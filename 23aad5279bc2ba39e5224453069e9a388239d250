@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb421fc5_28deb8eb",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-03T05:38:59Z",
+      "side": 1,
+      "message": "This change is unrelated with the changes mentioned in commit message.",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13f2f567_7dd3fbc4",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-03T05:38:59Z",
+      "side": 1,
+      "message": "This change is unrelated with the changes mentioned in commit message.",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2603e621_e5306278",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-03T05:38:59Z",
+      "side": 1,
+      "message": "This change is unrelated with the changes mentioned in commit message.",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af896785_8b86ba1f",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-03T05:38:59Z",
+      "side": 1,
+      "message": "This change is unrelated with the changes mentioned in commit message.",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4614074d_a6c99a77",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-03T05:38:59Z",
+      "side": 1,
+      "message": "This change is unrelated with the changes mentioned in commit message.",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ec2406e_be1873e5",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-03T05:38:59Z",
+      "side": 1,
+      "message": "This method is in the \"publish FRU VPD path\". I think we should decide what logs should go into the \"collection\" log files. Whether it\u0027s only \"parse VPD from EEPROM\" logs or should we also include \"publish VPD on D-Bus\" flow.  @sunnsr25@in.ibm.com what\u0027s your opinion?",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
