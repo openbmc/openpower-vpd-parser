@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c199595_7d58bcbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-03T09:44:22Z",
+      "side": 1,
+      "message": "Commit message updated.",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb421fc5_28deb8eb",
@@ -14,6 +31,24 @@
       "writtenOn": "2025-12-03T05:38:59Z",
       "side": 1,
       "message": "This change is unrelated with the changes mentioned in commit message.",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e08f631f_8f7fae89",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-03T09:44:22Z",
+      "side": 1,
+      "message": "I am not collecting all this PowerVS logs, as part of collection file.\n\nAs I have instantiated an object m_logger so using it to call logMessage. So it will not change the behaviour of the code.",
+      "parentUuid": "bb421fc5_28deb8eb",
       "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -37,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a399ede_028ba2bd",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-03T09:44:22Z",
+      "side": 1,
+      "message": "I am not collecting all this PowerVS logs, as part of collection file.\n\nAs I have instantiated an object m_logger so using it to call logMessage. So it will not change the behaviour of the code.",
+      "parentUuid": "13f2f567_7dd3fbc4",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2603e621_e5306278",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 13
@@ -48,6 +101,24 @@
       "writtenOn": "2025-12-03T05:38:59Z",
       "side": 1,
       "message": "This change is unrelated with the changes mentioned in commit message.",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d0a921c_16df6d15",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-03T09:44:22Z",
+      "side": 1,
+      "message": "I am not collecting all this PowerVS logs, as part of collection file.\n\nAs I have instantiated an object m_logger so using it to call logMessage. So it will not change the behaviour of the code.",
+      "parentUuid": "2603e621_e5306278",
       "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c0b7ca0_64fba3cd",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-03T09:44:22Z",
+      "side": 1,
+      "message": "I am not collecting all this PowerVS logs, as part of collection file.\n\nAs I have instantiated an object m_logger so using it to call logMessage. So it will not change the behaviour of the code.",
+      "parentUuid": "af896785_8b86ba1f",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4614074d_a6c99a77",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 13
@@ -88,6 +177,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c5121ee_0442db6d",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-03T09:44:22Z",
+      "side": 1,
+      "message": "I am not collecting all this PowerVS logs, as part of collection file.\n\nAs I have instantiated an object m_logger so using it to call logMessage. So it will not change the behaviour of the code.",
+      "parentUuid": "4614074d_a6c99a77",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ec2406e_be1873e5",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 13
@@ -99,6 +206,24 @@
       "writtenOn": "2025-12-03T05:38:59Z",
       "side": 1,
       "message": "This method is in the \"publish FRU VPD path\". I think we should decide what logs should go into the \"collection\" log files. Whether it\u0027s only \"parse VPD from EEPROM\" logs or should we also include \"publish VPD on D-Bus\" flow.  @sunnsr25@in.ibm.com what\u0027s your opinion?",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "965a22e6_57b48a8c",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-03T09:44:22Z",
+      "side": 1,
+      "message": "As we have placeholder defined for collection path and write path, and there is no any other terms for populating it on bus.\nSo Reading from hardware and populating it on dbus is 1 task .",
+      "parentUuid": "3ec2406e_be1873e5",
       "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
