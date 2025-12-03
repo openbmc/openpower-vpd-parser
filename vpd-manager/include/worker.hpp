@@ -30,9 +30,10 @@ class Worker
     /**
      * List of deleted functions.
      */
-    Worker(const Worker&);
-    Worker& operator=(const Worker&);
+    Worker(const Worker&) = delete;
+    Worker& operator=(const Worker&) = delete;
     Worker(Worker&&) = delete;
+    Worker& operator=(const Worker&&) = delete;
 
     /**
      * @brief Constructor.
