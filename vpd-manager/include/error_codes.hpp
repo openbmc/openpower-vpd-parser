@@ -36,6 +36,7 @@ enum error_code
     POPEN_FAILED,
     INVALID_HEXADECIMAL_VALUE_LENGTH,
     INVALID_HEXADECIMAL_VALUE,
+    INVALID_INVENTORY_PATH,
 
     // VPD specific errors
     UNSUPPORTED_VPD_TYPE,
@@ -91,5 +92,6 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::POPEN_FAILED, "popen failed"},
     {error_code::INVALID_HEXADECIMAL_VALUE_LENGTH,
      "Invalid hexadecimal value length."},
-    {error_code::INVALID_HEXADECIMAL_VALUE, "Invalid hexadecimal value."}};
+    {error_code::INVALID_HEXADECIMAL_VALUE, "Invalid hexadecimal value."},
+    {error_code::INVALID_INVENTORY_PATH, "Invalid inventory path."}};
 } // namespace vpd
