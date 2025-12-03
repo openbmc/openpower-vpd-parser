@@ -1382,5 +1382,123 @@ inline std::string getHWVersion(const types::IPZVpdMap& i_parsedVpd,
     return l_hwString.str();
 }
 
+/**
+ * @brief An API to set VPD collection status for a fru.
+ *
+ * This API updates the CollectionStatus property of the given FRU with the
+ * given value.
+ *
+ * @param[in] i_vpdPath - Fru path (EEPROM/Dbus).
+ * @param[in] i_value - State to set.
+ * @param[in] i_sysCfgJsonObj - System config json object.
+ * @param[out] o_errCode - To set error code in case of error.
+ */
+inline void setCollectionStatusProperty(
+    const std::string& i_vpdPath, const std::string& i_value,
+    const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode) noexcept
+{
+    o_errCode = 0;
+    if (i_vpdPath.empty() || i_value.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return;
+    }
+
+    if (i_sysCfgJsonObj.empty() || !i_sysCfgJsonObj.contains("frus"))
+    {
+        o_errCode = error_code::INVALID_JSON;
+        return;
+    }
+
+    types::PropertyMap l_timeStampMap;
+    if (i_value == constants::vpdCollectionCompleted ||
+        i_value == constants::vpdCollectionFailed)
+    {
+        l_timeStampMap.emplace(
+            "CompletedTime",
+            types::DbusVariantType{commonUtility::getCurrentTimeSinceEpoch()});
+    }
+    else if (i_value == constants::vpdCollectionInProgress)
+    {
+        l_timeStampMap.emplace(
+            "StartTime",
+            types::DbusVariantType{commonUtility::getCurrentTimeSinceEpoch()});
+    }
+    else if (i_value == constants::vpdCollectionNotStarted)
+    {
+        l_timeStampMap.emplace("StartTime", 0);
+        l_timeStampMap.emplace("CompletedTime", 0);
+    }
+
+    types::ObjectMap l_objectInterfaceMap;
+
+    if (i_sysCfgJsonObj["frus"].contains(i_vpdPath))
+    {
+        for (const auto& l_Fru : i_sysCfgJsonObj["frus"][i_vpdPath])
+        {
+            sdbusplus::message::object_path l_fruObjectPath(
+                l_Fru["inventoryPath"]);
+
+            types::PropertyMap l_propertyValueMap;
+            l_propertyValueMap.emplace("Status", i_value);
+            l_propertyValueMap.insert(l_timeStampMap.begin(),
+                                      l_timeStampMap.end());
+
+            types::InterfaceMap l_interfaces;
+            vpdSpecificUtility::insertOrMerge(
+                l_interfaces, constants::vpdCollectionInterface,
+                move(l_propertyValueMap), o_errCode);
+
+            if (o_errCode)
+            {
+                Logger::getLoggerInstance()->logMessage(
+                    "Failed to insert value into map, error : " +
+                    commonUtility::getErrCodeMsg(o_errCode));
+                return;
+            }
+
+            l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
+                                         std::move(l_interfaces));
+        }
+    }
+    else
+    {
+        // consider it as an inventory path.
+        if (i_vpdPath.find(constants::pimPath) != constants::VALUE_0)
+        {
+            Logger::getLoggerInstance()->logMessage(
+                "Invalid inventory path: " + i_vpdPath);
+            o_errCode = INVALID_INVENTORY_PATH;
+            return;
+        }
+
+        types::PropertyMap l_propertyValueMap;
+        l_propertyValueMap.emplace("Status", i_value);
+        l_propertyValueMap.insert(l_timeStampMap.begin(), l_timeStampMap.end());
+
+        types::InterfaceMap l_interfaces;
+        vpdSpecificUtility::insertOrMerge(l_interfaces,
+                                          constants::vpdCollectionInterface,
+                                          move(l_propertyValueMap), o_errCode);
+
+        if (o_errCode)
+        {
+            Logger::getLoggerInstance()->logMessage(
+                "Failed to insert value into map, error : " +
+                commonUtility::getErrCodeMsg(o_errCode));
+            return;
+        }
+
+        l_objectInterfaceMap.emplace(i_vpdPath, std::move(l_interfaces));
+    }
+
+    // Notify PIM
+    if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+    {
+        o_errCode = error_code::DBUS_FAILURE;
+        return;
+    }
+}
+
 } // namespace vpdSpecificUtility
 } // namespace vpd
