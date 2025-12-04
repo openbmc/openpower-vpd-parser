@@ -591,8 +591,8 @@ void IbmHandler::getSystemJson(std::string& o_systemJson,
         "Invalid VPD type returned from Parser. Can't get system JSON.");
 }
 
-static void setEnvAndReboot(const std::string& i_key,
-                            const std::string& i_value)
+void IbmHandler::setEnvAndReboot(const std::string& i_key,
+                                 const std::string& i_value)
 {
     // set env and reboot and break.
     uint16_t l_errCode = 0;
@@ -606,10 +606,9 @@ static void setEnvAndReboot(const std::string& i_key,
     }
 
 #ifdef SKIP_REBOOT_ON_FITCONFIG_CHANGE
-    Logger::getLoggerInstance()->logMessage(
-        "NOT Rebooting BMC to pick up new device tree");
+    m_logger->logMessage("NOT Rebooting BMC to pick up new device tree");
 #else
-    logging::logMessage("Rebooting BMC to pick up new device tree");
+    m_logger->logMessage("Rebooting BMC to pick up new device tree");
 
     // make dbus call to reboot
     auto l_bus = sdbusplus::bus::new_default_system();
@@ -620,7 +619,7 @@ static void setEnvAndReboot(const std::string& i_key,
 #endif
 }
 
-static std::string readFitConfigValue()
+std::string IbmHandler::readFitConfigValue()
 {
     uint16_t l_errCode = 0;
     std::vector<std::string> l_output =
@@ -628,7 +627,7 @@ static std::string readFitConfigValue()
 
     if (l_errCode)
     {
-        Logger::getLoggerInstance()->logMessage(
+        m_logger->logMessage(
             "Failed to execute command [/sbin/fw_printenv], error : " +
             commonUtility::getErrCodeMsg(l_errCode));
     }
