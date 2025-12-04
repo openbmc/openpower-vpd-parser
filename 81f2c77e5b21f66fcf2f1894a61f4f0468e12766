@@ -16,6 +16,24 @@
       "message": "We have a logger object, lets be consistent in a file.",
       "revId": "81f2c77e5b21f66fcf2f1894a61f4f0468e12766",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f283f2f2_38972773",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-04T13:03:22Z",
+      "side": 1,
+      "message": "`setEnvAndReboot` is a non-member method, so we can\u0027t use `m_logger`",
+      "parentUuid": "723b209d_6b3955be",
+      "revId": "81f2c77e5b21f66fcf2f1894a61f4f0468e12766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
