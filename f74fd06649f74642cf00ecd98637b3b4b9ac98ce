@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adeb46da_0ccfb289",
+        "filename": "meson.options",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2025-12-04T04:01:22Z",
+      "side": 1,
+      "message": "this should be more like \nskip_reboot_on_fitconfig_change\nyou will reboot only if you set the fitconfig to a its file.\nthis feature will be disabled by default.",
+      "revId": "f74fd06649f74642cf00ecd98637b3b4b9ac98ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
