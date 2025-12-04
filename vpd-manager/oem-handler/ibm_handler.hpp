@@ -236,6 +236,24 @@ class IbmHandler
      */
     void initWorker();
 
+    /**
+     * @brief API to set environment variable and reboot the BMC
+     *
+     * @param[in] i_key - Name of the environment variable
+     * @param[in] i_value - Value of the environment variable
+     *
+     * @throw std::runtime_error
+     */
+    void setEnvAndReboot(const std::string& i_key, const std::string& i_value);
+
+    /**
+     * @brief API to read the fitconfig environment variable
+     *
+     * @return On success, returns the value of the fitconfig environment
+     * variable, otherwise returns empty string
+     */
+    std::string readFitConfigValue();
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 

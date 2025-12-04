@@ -591,8 +591,8 @@ void IbmHandler::getSystemJson(std::string& o_systemJson,
         "Invalid VPD type returned from Parser. Can't get system JSON.");
 }
 
-static void setEnvAndReboot(const std::string& i_key,
-                            const std::string& i_value)
+void IbmHandler::setEnvAndReboot(const std::string& i_key,
+                                 const std::string& i_value)
 {
     // set env and reboot and break.
     uint16_t l_errCode = 0;
@@ -615,7 +615,7 @@ static void setEnvAndReboot(const std::string& i_key,
     l_bus.call_noreply(l_method);
 }
 
-static std::string readFitConfigValue()
+std::string IbmHandler::readFitConfigValue()
 {
     uint16_t l_errCode = 0;
     std::vector<std::string> l_output =
