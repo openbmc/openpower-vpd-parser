@@ -334,6 +334,24 @@
       "parentUuid": "965a22e6_57b48a8c",
       "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e111b905_1fb6ea01",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-04T18:41:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "03dc5f69_3b7e158d",
+      "revId": "23aad5279bc2ba39e5224453069e9a388239d250",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
