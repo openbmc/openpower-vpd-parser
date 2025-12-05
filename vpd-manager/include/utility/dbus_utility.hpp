@@ -292,6 +292,75 @@ inline bool callPIM(types::ObjectMap&& objectMap)
 }
 
 /**
+ * @brief API to publish data on DBus using PIM.
+ *
+ * param[in] args - list of arguments
+ */
+template <typename... Args>
+inline bool callPimNotify(Args&&... args)
+{
+    try
+    {
+        // Extract objectMap and verify
+        types::ObjectMap* objectMapPtr = nullptr;
+        ((std::is_same_v<Args, types::ObjectMap> ? objectMapPtr = &args
+                                                 : objectMapPtr),
+         ...);
+
+        if (objectMapPtr == nullptr)
+            return false; // throw error;
+
+        auto objectMap = *objectMapPtr;
+        for (const auto& l_objectKeyValue : objectMap)
+        {
+            if (l_objectKeyValue.first.str.find(constants::pimPath, 0) !=
+                std::string::npos)
+            {
+                auto l_nodeHandle = objectMap.extract(l_objectKeyValue.first);
+                l_nodeHandle.key() = l_nodeHandle.key().str.replace(
+                    0, std::strlen(constants::pimPath), "");
+                objectMap.insert(std::move(l_nodeHandle));
+            }
+        }
+
+        auto bus = sdbusplus::bus::new_default();
+        auto pimMsg =
+            bus.new_method_call(constants::pimServiceName, constants::pimPath,
+                                constants::pimIntf, "Notify");
+        pimMsg.append(std::move(objectMap));
+        bus.call(pimMsg);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        logging::logMessage("Exception thrown:" + std::string(ex.what()));
+        return false;
+    }
+    return true;
+}
+
+/*
+ * @brief API to update the dbus data on dbus
+ *
+ * This method internally decides which method to call for dbus update
+ * based on the configuration.
+ * NOTE- In future, support else part to call other service/method.
+ *
+ * param[in] objectMap - map of object and it's data
+ */
+inline bool publishVpdOnDBus(types::ObjectMap&& objectMap)
+{
+    bool (*dBusCall)(types::ObjectMap&&);
+
+#if IBM_SYSTEM
+    dBusCall = callPimNotify;
+#endif
+
+    auto reply = dBusCall(move(objectMap));
+
+    return reply;
+}
+
+/**
  * @brief API to check if a D-Bus service is running or not.
  *
  * Any failure in calling the method "NameHasOwner" implies that the service is
