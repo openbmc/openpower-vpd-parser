@@ -292,6 +292,97 @@ inline bool callPIM(types::ObjectMap&& objectMap)
 }
 
 /**
+ * @brief API to call Entity manager method
+ */
+template <typename... Args>
+inline bool callEmMethod(Args&&... args)
+{
+    // Once decided, define it as constants
+    constexpr auto serviceName = "";
+    constexpr auto objectPath = "";
+    constexpr auto interface = "";
+    constexpr auto methodName = "";
+
+    auto bus = sdbusplus::bus::new_default();
+    auto methodCall =
+        bus.new_method_call(serviceName, objectPath, interface, methodName);
+
+    // Will decide (move(args) ?) once we have a final method signature decided.
+    // Based on signature, we will know what is the return type, or it's void.
+    // Currently we dont know which method and what are the arguments.
+    methodCall.append(args...);
+    bus.call(methodCall);
+
+    return true;
+}
+
+/**
+ * @brief API to publish data on DBus using PIM.
+ */
+template <typename... Args>
+inline bool callPimNotify(Args&&... args)
+{
+    logging::logMessage("DBG:callPimNotify called");
+    try
+    {
+        // Extract objectMap and verify
+        types::ObjectMap* objectMapPtr = nullptr;
+        ((std::is_same_v<Args, types::ObjectMap> ? objectMapPtr = &args
+                                                 : objectMapPtr),
+         ...);
+
+        if (objectMapPtr == nullptr)
+            return false; // throw error;
+
+        auto objectMap = *objectMapPtr;
+        for (const auto& l_objectKeyValue : objectMap)
+        {
+            if (l_objectKeyValue.first.str.find(constants::pimPath, 0) !=
+                std::string::npos)
+            {
+                auto l_nodeHandle = objectMap.extract(l_objectKeyValue.first);
+                l_nodeHandle.key() = l_nodeHandle.key().str.replace(
+                    0, std::strlen(constants::pimPath), "");
+                objectMap.insert(std::move(l_nodeHandle));
+            }
+        }
+
+        auto bus = sdbusplus::bus::new_default();
+        auto pimMsg =
+            bus.new_method_call(constants::pimServiceName, constants::pimPath,
+                                constants::pimIntf, "Notify");
+        pimMsg.append(std::move(objectMap));
+        bus.call(pimMsg);
+        logging::logMessage("DBG:callPimNotify Done");
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        logging::logMessage("Exception thrown:" + std::string(ex.what()));
+        return false;
+    }
+    return true;
+}
+
+inline bool callDbusMethod(types::ObjectMap&& objectMap)
+{
+    logging::logMessage("DBG:Alpana patch running");
+
+    bool (*dBusCall)(types::ObjectMap&&);
+
+#if IBM_SYSTEM
+    dBusCall = callPimNotify;
+#else
+    dBusCall = callEmMethod;
+#endif
+
+    auto reply = dBusCall(move(objectMap));
+    logging::logMessage(
+        "DBG:dbus method call completed, check the output on dbus");
+
+    return reply;
+}
+
+/**
  * @brief API to check if a D-Bus service is running or not.
  *
  * Any failure in calling the method "NameHasOwner" implies that the service is
@@ -822,5 +913,6 @@ inline std::string getServiceNameFromConnectionId(
     }
     return std::string{};
 }
+
 } // namespace dbusUtility
 } // namespace vpd
