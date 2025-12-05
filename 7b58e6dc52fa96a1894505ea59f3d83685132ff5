@@ -16,6 +16,24 @@
       "message": "a) Why this has been changed?\nb) If changed, use m_logger instead?",
       "revId": "7b58e6dc52fa96a1894505ea59f3d83685132ff5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0dc4e0b_12c2585b",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-05T07:43:31Z",
+      "side": 1,
+      "message": "if not modifying this API, lets leave it as it is.",
+      "parentUuid": "13cb36f0_d93d06d9",
+      "revId": "7b58e6dc52fa96a1894505ea59f3d83685132ff5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
