@@ -291,6 +291,34 @@ inline bool callPIM(types::ObjectMap&& objectMap)
     return true;
 }
 
+/*
+ * @brief API to update the VPD data on dbus.
+ *
+ * This method internally decides which method to call for dbus update
+ * based on the configuration.
+ * NOTE- In future, support else part to call other service/method.
+ *
+ * @param[in] i_objectMap - map of object and it's data
+ *
+ * @return bool - true if success, false otherwise.
+ */
+inline bool publishVpdOnDBus(types::ObjectMap&& i_objectMap)
+{
+    // Initialise it as default, otherwise compiler fails it assuming if
+    // "if condition" doesn't match then it will be left uninitialised.
+    // Once other service will be supported, it will be overwritten in
+    // else section.
+    [[maybe_unused]] bool (*dBusCall)(types::ObjectMap&&) = callPIM;
+
+#if IBM_SYSTEM
+    dBusCall = callPIM;
+#endif
+
+    auto reply = dBusCall(move(i_objectMap));
+
+    return reply;
+}
+
 /**
  * @brief API to check if a D-Bus service is running or not.
  *
