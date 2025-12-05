@@ -253,6 +253,40 @@ inline bool writeDbusProperty(
     }
 }
 
+/*
+template <typename... Args>
+void callDBusMethod(const std::string& serviceName,
+                    const std::string& objectPath, const std::string& interface,
+                    const std::string& methodName, Args... args)*/
+inline bool callDBusMethod(types::ObjectMap&& objectMap)
+{
+    /*auto bus = sdbusplus::bus::new_default();
+    auto methodCall =
+        bus.new_method_call(serviceName.c_str(), objectPath.c_str(),
+                            interface.c_str(), methodName.c_str());
+    methodCall.append(args...);
+    */
+    for (const auto& l_objectKeyValue : objectMap)
+    {
+        if (l_objectKeyValue.first.str.find(constants::pimPath, 0) !=
+            std::string::npos)
+        {
+            auto l_nodeHandle = objectMap.extract(l_objectKeyValue.first);
+            l_nodeHandle.key() = l_nodeHandle.key().str.replace(
+                0, std::strlen(constants::pimPath), "");
+            objectMap.insert(std::move(l_nodeHandle));
+        }
+    }
+    auto bus = sdbusplus::bus::new_default();
+    auto pimMsg =
+        bus.new_method_call(constants::pimServiceName, constants::pimPath,
+                            constants::pimIntf, "Notify");
+    pimMsg.append(std::move(objectMap));
+    bus.call(pimMsg);
+
+    return true;
+}
+
 /**
  * @brief API to publish data on PIM
  *
@@ -277,6 +311,9 @@ inline bool callPIM(types::ObjectMap&& objectMap)
             }
         }
 
+        // callDBusMethod(constants::pimServiceName, constants::pimPath,
+        //              constants::pimIntf, "Notify", objectMap);
+
         auto bus = sdbusplus::bus::new_default();
         auto pimMsg =
             bus.new_method_call(constants::pimServiceName, constants::pimPath,
@@ -289,6 +326,25 @@ inline bool callPIM(types::ObjectMap&& objectMap)
         return false;
     }
     return true;
+}
+
+inline bool runtimeDbusCall(types::ObjectMap&& objectMap)
+{
+    logging::logMessage("DBG:Alpana patch runing");
+
+    bool (*dBusCall)(types::ObjectMap&&);
+
+#if IBM_SYSTEM
+    dBusCall = callPIM;
+#else
+    dBusCall = callDBusMethod;
+#endif
+
+    auto reply = dBusCall(move(objectMap));
+    logging::logMessage(
+        "DBG:dbus method call completed, check the output on dbus");
+
+    return reply;
 }
 
 /**
@@ -822,5 +878,6 @@ inline std::string getServiceNameFromConnectionId(
     }
     return std::string{};
 }
+
 } // namespace dbusUtility
 } // namespace vpd
