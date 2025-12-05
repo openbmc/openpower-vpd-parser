@@ -942,7 +942,8 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             populateDbus(parsedVpdMap, objectInterfaceMap, i_vpdFilePath);
 
             // Notify PIM
-            if (!dbusUtility::callPIM(move(objectInterfaceMap)))
+            // if (!dbusUtility::callPIM(move(objectInterfaceMap)))
+            if (!dbusUtility::runtimeDbusCall(move(objectInterfaceMap)))
             {
                 throw std::runtime_error(
                     std::string(__FUNCTION__) +
