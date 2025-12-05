@@ -162,8 +162,7 @@ constexpr auto biosConfigMgrInterface =
 constexpr auto objectMapperService = "xyz.openbmc_project.ObjectMapper";
 constexpr auto objectMapperPath = "/xyz/openbmc_project/object_mapper";
 constexpr auto objectMapperInf = "xyz.openbmc_project.ObjectMapper";
-constexpr auto systemVpdInvPath =
-    "/xyz/openbmc_project/inventory/system/chassis/motherboard";
+constexpr auto systemVpdInvPath = systemInvPath;
 constexpr auto motherboardInterface =
     "xyz.openbmc_project.Inventory.Item.Board.Motherboard";
 constexpr auto assetTagInf = "xyz.openbmc_project.Inventory.Decorator.AssetTag";
