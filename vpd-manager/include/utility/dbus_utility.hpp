@@ -253,6 +253,22 @@ inline bool writeDbusProperty(
     }
 }
 
+template<typename... Args>
+void callDBusMethod(const std::string& serviceName,
+		    const std::string& objectPath,
+		    const std::string& interface,
+		    const std::string& methodName,
+		    Args... args)
+{
+    logging::logMessage("DBG:Alpana patch runing");
+    auto bus = sdbusplus::bus::new_default();
+    auto methodCall = bus.new_method_call(serviceName.c_str(),objectPath.c_str(),interface.c_str(),methodName.c_str());
+    methodCall.append(args...);
+
+    auto reply = bus.call(methodCall);
+    logging::logMessage("DBG:dbus method call completed, check the output on dbus");
+}
+
 /**
  * @brief API to publish data on PIM
  *
@@ -277,12 +293,17 @@ inline bool callPIM(types::ObjectMap&& objectMap)
             }
         }
 
+	callDBusMethod(constants::pimServiceName,
+                       constants::pimPath,
+		       constants::pimIntf,
+		       "Notify", objectMap);
+/*
         auto bus = sdbusplus::bus::new_default();
         auto pimMsg =
             bus.new_method_call(constants::pimServiceName, constants::pimPath,
                                 constants::pimIntf, "Notify");
         pimMsg.append(std::move(objectMap));
-        bus.call(pimMsg);
+        bus.call(pimMsg);*/
     }
     catch (const sdbusplus::exception::SdBusError& e)
     {
@@ -822,5 +843,6 @@ inline std::string getServiceNameFromConnectionId(
     }
     return std::string{};
 }
+
 } // namespace dbusUtility
 } // namespace vpd
