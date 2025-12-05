@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13cb36f0_d93d06d9",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-05T04:18:09Z",
+      "side": 1,
+      "message": "a) Why this has been changed?\nb) If changed, use m_logger instead?",
+      "revId": "7b58e6dc52fa96a1894505ea59f3d83685132ff5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
