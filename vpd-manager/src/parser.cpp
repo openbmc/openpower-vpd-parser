@@ -220,7 +220,7 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                                          l_propertyName, l_keywordValue)})})};
 
             // Call PIM's Notify method to perform update
-            if (!dbusUtility::callPIM(std::move(l_dbusObjMap)))
+            if (!dbusUtility::callDbusMethod(std::move(l_dbusObjMap)))
             {
                 // Call to PIM's Notify method failed.
                 std::string l_errMsg("Notify PIM is failed for object path: " +
