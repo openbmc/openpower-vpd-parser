@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d61cebe4_4abd9269",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1391,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-08T12:53:50Z",
+      "side": 1,
+      "message": "nit: \"EEPROM or inventory path\"",
+      "revId": "0f7a59a558464e21e769bd7b47325638e9cf2631",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2702b21d_71cfafe2",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-08T12:53:50Z",
+      "side": 1,
+      "message": "Can we restrict the value to be passed by caller to an enum which will be internally mapped to appropriate string by this API?",
+      "revId": "0f7a59a558464e21e769bd7b47325638e9cf2631",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59fa900f_acf64213",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1434,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-08T12:53:50Z",
+      "side": 1,
+      "message": "The logic from lines #1439-#1460 is repeated at #1475-#1492. We can use `jsonUtility::getFruPathFromJson()` to get inventory path from EEPROM path and eliminate #1475-#1492.",
+      "revId": "0f7a59a558464e21e769bd7b47325638e9cf2631",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a73c0256_3e354299",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1457,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-08T12:53:50Z",
+      "side": 1,
+      "message": "I think even if we fail to insert \"Status\" property for a sub FRU, we should still try and attempt to insert for subsequent sub FRUs.",
+      "revId": "0f7a59a558464e21e769bd7b47325638e9cf2631",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a30ee81d_e584bb8d",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-08T12:53:50Z",
+      "side": 1,
+      "message": "`l_errCode` should be reset after use.",
+      "revId": "0f7a59a558464e21e769bd7b47325638e9cf2631",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
