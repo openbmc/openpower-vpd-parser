@@ -203,6 +203,18 @@ enum class VpdCollectionMode : uint8_t
     DEFAULT_MODE = HARDWARE_MODE
 };
 
+/**
+ * @brief Enum which defines VPD collection status
+ */
+enum class CollectionStatus : uint8_t
+{
+    COMPLETED,
+    FAILED,
+    IN_PROGRESS,
+    NOT_STARTED,
+    DEFAULT = NOT_STARTED
+};
+
 using InventoryCalloutData = std::tuple<std::string, CalloutPriority>;
 using DeviceCalloutData = std::tuple<std::string, std::string>;
 using I2cBusCalloutData = std::tuple<std::string, std::string, std::string>;
