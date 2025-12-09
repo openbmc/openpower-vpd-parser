@@ -933,7 +933,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         m_mutex.unlock();
 
         vpdSpecificUtility::setCollectionStatusProperty(
-            i_vpdFilePath, constants::vpdCollectionInProgress, m_parsedJson,
+            i_vpdFilePath, Progress::OperationStatus::InProgress, m_parsedJson,
             l_errCode);
         if (l_errCode)
         {
@@ -970,7 +970,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
     catch (const std::exception& ex)
     {
         vpdSpecificUtility::setCollectionStatusProperty(
-            i_vpdFilePath, constants::vpdCollectionFailed, m_parsedJson,
+            i_vpdFilePath, Progress::OperationStatus::Failed, m_parsedJson,
             l_errCode);
         if (l_errCode)
         {
@@ -1047,7 +1047,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
     }
 
     vpdSpecificUtility::setCollectionStatusProperty(
-        i_vpdFilePath, constants::vpdCollectionCompleted, m_parsedJson,
+        i_vpdFilePath, Progress::OperationStatus::Completed, m_parsedJson,
         l_errCode);
     if (l_errCode)
     {
@@ -1577,7 +1577,7 @@ void Worker::collectSingleFruVpd(
         }
 
         vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, constants::vpdCollectionInProgress, m_parsedJson,
+            l_fruPath, Progress::OperationStatus::InProgress, m_parsedJson,
             l_errCode);
         if (l_errCode)
         {
@@ -1616,7 +1616,7 @@ void Worker::collectSingleFruVpd(
         }
 
         vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, constants::vpdCollectionCompleted, m_parsedJson,
+            l_fruPath, Progress::OperationStatus::Completed, m_parsedJson,
             l_errCode);
         if (l_errCode)
         {
@@ -1628,7 +1628,7 @@ void Worker::collectSingleFruVpd(
     catch (const std::exception& l_error)
     {
         vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, constants::vpdCollectionCompleted, m_parsedJson,
+            l_fruPath, Progress::OperationStatus::Completed, m_parsedJson,
             l_errCode);
         if (l_errCode)
         {
