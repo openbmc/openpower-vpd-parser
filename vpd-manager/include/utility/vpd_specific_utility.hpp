@@ -1432,45 +1432,17 @@ inline void setCollectionStatusProperty(
 
     types::ObjectMap l_objectInterfaceMap;
 
-    if (i_sysCfgJsonObj["frus"].contains(i_vpdPath))
+    const auto& l_eepromPath =
+        jsonUtility::getFruPathFromJson(i_sysCfgJsonObj, i_vpdPath, o_errCode);
+
+    if (l_eepromPath.empty() || o_errCode)
     {
-        for (const auto& l_Fru : i_sysCfgJsonObj["frus"][i_vpdPath])
-        {
-            sdbusplus::message::object_path l_fruObjectPath(
-                l_Fru["inventoryPath"]);
-
-            types::PropertyMap l_propertyValueMap;
-            l_propertyValueMap.emplace("Status", i_value);
-            l_propertyValueMap.insert(l_timeStampMap.begin(),
-                                      l_timeStampMap.end());
-
-            types::InterfaceMap l_interfaces;
-            vpdSpecificUtility::insertOrMerge(
-                l_interfaces, constants::vpdCollectionInterface,
-                move(l_propertyValueMap), o_errCode);
-
-            if (o_errCode)
-            {
-                Logger::getLoggerInstance()->logMessage(
-                    "Failed to insert value into map, error : " +
-                    commonUtility::getErrCodeMsg(o_errCode));
-                return;
-            }
-
-            l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
-                                         std::move(l_interfaces));
-        }
+        return;
     }
-    else
+
+    for (const auto& l_Fru : i_sysCfgJsonObj["frus"][l_eepromPath])
     {
-        // consider it as an inventory path.
-        if (i_vpdPath.find(constants::pimPath) != constants::VALUE_0)
-        {
-            Logger::getLoggerInstance()->logMessage(
-                "Invalid inventory path: " + i_vpdPath);
-            o_errCode = INVALID_INVENTORY_PATH;
-            return;
-        }
+        sdbusplus::message::object_path l_fruObjectPath(l_Fru["inventoryPath"]);
 
         types::PropertyMap l_propertyValueMap;
         l_propertyValueMap.emplace("Status", i_value);
@@ -1489,7 +1461,8 @@ inline void setCollectionStatusProperty(
             return;
         }
 
-        l_objectInterfaceMap.emplace(i_vpdPath, std::move(l_interfaces));
+        l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
+                                     std::move(l_interfaces));
     }
 
     // Notify PIM
