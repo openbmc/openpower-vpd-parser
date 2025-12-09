@@ -984,7 +984,7 @@ void IbmHandler::setDeviceTreeAndJson(
     }
 
     vpdSpecificUtility::setCollectionStatusProperty(
-        SYSTEM_VPD_FILE_PATH, constants::vpdCollectionInProgress,
+        SYSTEM_VPD_FILE_PATH, types::VpdCollectionStatus::InProgress,
         m_sysCfgJsonObj, l_errCode);
 
     if (l_errCode)
@@ -1091,7 +1091,7 @@ void IbmHandler::performInitialSetup()
         publishSystemVPD(l_parsedSysVpdMap);
 
         vpdSpecificUtility::setCollectionStatusProperty(
-            SYSTEM_VPD_FILE_PATH, constants::vpdCollectionCompleted,
+            SYSTEM_VPD_FILE_PATH, types::VpdCollectionStatus::Completed,
             m_sysCfgJsonObj, l_errCode);
 
         if (l_errCode)
@@ -1142,7 +1142,7 @@ void IbmHandler::performInitialSetup()
     {
         // Seeting of collection status should be utility method
         vpdSpecificUtility::setCollectionStatusProperty(
-            SYSTEM_VPD_FILE_PATH, constants::vpdCollectionFailed,
+            SYSTEM_VPD_FILE_PATH, types::VpdCollectionStatus::Failed,
             m_sysCfgJsonObj, l_errCode);
 
         if (l_errCode)

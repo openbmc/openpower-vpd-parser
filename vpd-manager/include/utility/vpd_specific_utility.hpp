@@ -1394,11 +1394,11 @@ inline std::string getHWVersion(const types::IPZVpdMap& i_parsedVpd,
  * @param[out] o_errCode - To set error code in case of error.
  */
 inline void setCollectionStatusProperty(
-    const std::string& i_vpdPath, const std::string& i_value,
+    const std::string& i_vpdPath, const types::VpdCollectionStatus& i_value,
     const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode) noexcept
 {
     o_errCode = 0;
-    if (i_vpdPath.empty() || i_value.empty())
+    if (i_vpdPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return;
@@ -1411,20 +1411,20 @@ inline void setCollectionStatusProperty(
     }
 
     types::PropertyMap l_timeStampMap;
-    if (i_value == constants::vpdCollectionCompleted ||
-        i_value == constants::vpdCollectionFailed)
+    if (i_value == types::VpdCollectionStatus::Completed ||
+        i_value == types::VpdCollectionStatus::Failed)
     {
         l_timeStampMap.emplace(
             "CompletedTime",
             types::DbusVariantType{commonUtility::getCurrentTimeSinceEpoch()});
     }
-    else if (i_value == constants::vpdCollectionInProgress)
+    else if (i_value == types::VpdCollectionStatus::InProgress)
     {
         l_timeStampMap.emplace(
             "StartTime",
             types::DbusVariantType{commonUtility::getCurrentTimeSinceEpoch()});
     }
-    else if (i_value == constants::vpdCollectionNotStarted)
+    else if (i_value == types::VpdCollectionStatus::NotStarted)
     {
         l_timeStampMap.emplace("StartTime", 0);
         l_timeStampMap.emplace("CompletedTime", 0);
@@ -1445,12 +1445,14 @@ inline void setCollectionStatusProperty(
         sdbusplus::message::object_path l_fruObjectPath(l_Fru["inventoryPath"]);
 
         types::PropertyMap l_propertyValueMap;
-        l_propertyValueMap.emplace("Status", i_value);
+        l_propertyValueMap.emplace(
+            "Status",
+            types::CommonProgress::convertOperationStatusToString(i_value));
         l_propertyValueMap.insert(l_timeStampMap.begin(), l_timeStampMap.end());
 
         types::InterfaceMap l_interfaces;
         vpdSpecificUtility::insertOrMerge(l_interfaces,
-                                          constants::vpdCollectionInterface,
+                                          types::CommonProgress::interface,
                                           move(l_propertyValueMap), o_errCode);
 
         if (o_errCode)

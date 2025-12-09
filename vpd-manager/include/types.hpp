@@ -4,6 +4,7 @@
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/server.hpp>
 #include <xyz/openbmc_project/Common/Device/error.hpp>
+#include <xyz/openbmc_project/Common/Progress/common.hpp>
 #include <xyz/openbmc_project/Common/error.hpp>
 
 #include <tuple>
@@ -233,5 +234,8 @@ using PelInfoTuple =
 using DbusPropertyEntry = std::tuple<std::string, std::string, std::string>;
 /* A list of Dbus property entries */
 using DbusPropertyList = std::vector<DbusPropertyEntry>;
+
+using CommonProgress = sdbusplus::common::xyz::openbmc_project::common::Progress;
+using VpdCollectionStatus = CommonProgress::OperationStatus;
 } // namespace types
 } // namespace vpd
