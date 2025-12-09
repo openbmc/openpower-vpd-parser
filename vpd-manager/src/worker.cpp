@@ -933,8 +933,9 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         m_mutex.unlock();
 
         vpdSpecificUtility::setCollectionStatusProperty(
-            i_vpdFilePath, constants::vpdCollectionInProgress, m_parsedJson,
-            l_errCode);
+            i_vpdFilePath,
+            types::VpdCollectionProgress::OperationStatus::InProgress,
+            m_parsedJson, l_errCode);
         if (l_errCode)
         {
             m_logger->logMessage(
@@ -970,7 +971,8 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
     catch (const std::exception& ex)
     {
         vpdSpecificUtility::setCollectionStatusProperty(
-            i_vpdFilePath, constants::vpdCollectionFailed, m_parsedJson,
+            i_vpdFilePath,
+            types::VpdCollectionProgress::OperationStatus::Failed, m_parsedJson,
             l_errCode);
         if (l_errCode)
         {
@@ -1047,8 +1049,8 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
     }
 
     vpdSpecificUtility::setCollectionStatusProperty(
-        i_vpdFilePath, constants::vpdCollectionCompleted, m_parsedJson,
-        l_errCode);
+        i_vpdFilePath, types::VpdCollectionProgress::OperationStatus::Completed,
+        m_parsedJson, l_errCode);
     if (l_errCode)
     {
         m_logger->logMessage(
@@ -1577,8 +1579,9 @@ void Worker::collectSingleFruVpd(
         }
 
         vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, constants::vpdCollectionInProgress, m_parsedJson,
-            l_errCode);
+            l_fruPath,
+            types::VpdCollectionProgress::OperationStatus::InProgress,
+            m_parsedJson, l_errCode);
         if (l_errCode)
         {
             m_logger->logMessage(
@@ -1616,8 +1619,8 @@ void Worker::collectSingleFruVpd(
         }
 
         vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, constants::vpdCollectionCompleted, m_parsedJson,
-            l_errCode);
+            l_fruPath, types::VpdCollectionProgress::OperationStatus::Completed,
+            m_parsedJson, l_errCode);
         if (l_errCode)
         {
             m_logger->logMessage(
@@ -1628,8 +1631,8 @@ void Worker::collectSingleFruVpd(
     catch (const std::exception& l_error)
     {
         vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, constants::vpdCollectionCompleted, m_parsedJson,
-            l_errCode);
+            l_fruPath, types::VpdCollectionProgress::OperationStatus::Completed,
+            m_parsedJson, l_errCode);
         if (l_errCode)
         {
             m_logger->logMessage(
