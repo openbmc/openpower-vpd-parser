@@ -23,11 +23,18 @@ vpd_manager_SOURCES = [
     'src/bios_handler.cpp',
 ] + common_SOURCES + oem_SOURCES
 
+phosphor_interfaces_dep = dependency(
+    'phosphor-dbus-interfaces',
+    method: 'pkg-config',
+    required: true,
+)
+sdbusplus_dep = dependency('sdbusplus', method: 'pkg-config', required: true)
+
 parser_dependencies = [
-    sdbusplus,
+    phosphor_interfaces_dep,
     libgpiodcxx,
     phosphor_logging,
-    phosphor_dbus_interfaces,
+    sdbusplus_dep,
 ]
 
 parser_build_arguments = []

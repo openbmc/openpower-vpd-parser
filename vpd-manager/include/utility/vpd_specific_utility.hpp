@@ -11,12 +11,14 @@
 #include <utility/common_utility.hpp>
 #include <utility/dbus_utility.hpp>
 #include <utility/event_logger_utility.hpp>
+#include <xyz/openbmc_project/Common/Progress/common.hpp>
 
 #include <filesystem>
 #include <fstream>
 #include <regex>
 #include <typeindex>
 
+using namespace sdbusplus::common::xyz::openbmc_project::common;
 namespace vpd
 {
 namespace vpdSpecificUtility
@@ -1394,11 +1396,11 @@ inline std::string getHWVersion(const types::IPZVpdMap& i_parsedVpd,
  * @param[out] o_errCode - To set error code in case of error.
  */
 inline void setCollectionStatusProperty(
-    const std::string& i_vpdPath, const std::string& i_value,
+    const std::string& i_vpdPath, const Progress::OperationStatus& i_value,
     const nlohmann::json& i_sysCfgJsonObj, uint16_t& o_errCode) noexcept
 {
     o_errCode = 0;
-    if (i_vpdPath.empty() || i_value.empty())
+    if (i_vpdPath.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
         return;
@@ -1411,20 +1413,20 @@ inline void setCollectionStatusProperty(
     }
 
     types::PropertyMap l_timeStampMap;
-    if (i_value == constants::vpdCollectionCompleted ||
-        i_value == constants::vpdCollectionFailed)
+    if (i_value == Progress::OperationStatus::Completed ||
+        i_value == Progress::OperationStatus::Failed)
     {
         l_timeStampMap.emplace(
             "CompletedTime",
             types::DbusVariantType{commonUtility::getCurrentTimeSinceEpoch()});
     }
-    else if (i_value == constants::vpdCollectionInProgress)
+    else if (i_value == Progress::OperationStatus::InProgress)
     {
         l_timeStampMap.emplace(
             "StartTime",
             types::DbusVariantType{commonUtility::getCurrentTimeSinceEpoch()});
     }
-    else if (i_value == constants::vpdCollectionNotStarted)
+    else if (i_value == Progress::OperationStatus::NotStarted)
     {
         l_timeStampMap.emplace("StartTime", 0);
         l_timeStampMap.emplace("CompletedTime", 0);
@@ -1432,53 +1434,20 @@ inline void setCollectionStatusProperty(
 
     types::ObjectMap l_objectInterfaceMap;
 
-    if (i_sysCfgJsonObj["frus"].contains(i_vpdPath))
+    const auto& l_eepromPath =
+        jsonUtility::getFruPathFromJson(i_sysCfgJsonObj, i_vpdPath, o_errCode);
+
+    for (const auto& l_Fru : i_sysCfgJsonObj["frus"][l_eepromPath])
     {
-        for (const auto& l_Fru : i_sysCfgJsonObj["frus"][i_vpdPath])
-        {
-            sdbusplus::message::object_path l_fruObjectPath(
-                l_Fru["inventoryPath"]);
-
-            types::PropertyMap l_propertyValueMap;
-            l_propertyValueMap.emplace("Status", i_value);
-            l_propertyValueMap.insert(l_timeStampMap.begin(),
-                                      l_timeStampMap.end());
-
-            types::InterfaceMap l_interfaces;
-            vpdSpecificUtility::insertOrMerge(
-                l_interfaces, constants::vpdCollectionInterface,
-                move(l_propertyValueMap), o_errCode);
-
-            if (o_errCode)
-            {
-                Logger::getLoggerInstance()->logMessage(
-                    "Failed to insert value into map, error : " +
-                    commonUtility::getErrCodeMsg(o_errCode));
-                return;
-            }
-
-            l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
-                                         std::move(l_interfaces));
-        }
-    }
-    else
-    {
-        // consider it as an inventory path.
-        if (i_vpdPath.find(constants::pimPath) != constants::VALUE_0)
-        {
-            Logger::getLoggerInstance()->logMessage(
-                "Invalid inventory path: " + i_vpdPath);
-            o_errCode = INVALID_INVENTORY_PATH;
-            return;
-        }
+        sdbusplus::message::object_path l_fruObjectPath(l_Fru["inventoryPath"]);
 
         types::PropertyMap l_propertyValueMap;
-        l_propertyValueMap.emplace("Status", i_value);
+        l_propertyValueMap.emplace(
+            "Status", Progress::convertOperationStatusToString(i_value));
         l_propertyValueMap.insert(l_timeStampMap.begin(), l_timeStampMap.end());
 
         types::InterfaceMap l_interfaces;
-        vpdSpecificUtility::insertOrMerge(l_interfaces,
-                                          constants::vpdCollectionInterface,
+        vpdSpecificUtility::insertOrMerge(l_interfaces, Progress::interface,
                                           move(l_propertyValueMap), o_errCode);
 
         if (o_errCode)
@@ -1489,9 +1458,9 @@ inline void setCollectionStatusProperty(
             return;
         }
 
-        l_objectInterfaceMap.emplace(i_vpdPath, std::move(l_interfaces));
+        l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
+                                     std::move(l_interfaces));
     }
-
     // Notify PIM
     if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
     {
