@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f14c8aef_5f6c6aa3",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-10T06:55:46Z",
+      "side": 1,
+      "message": "This change is not mentioned in the commit message.",
+      "revId": "cca7900c9d77ae3f7a727059a7c61a21438a70ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
