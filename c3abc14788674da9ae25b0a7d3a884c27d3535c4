@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98e1af2a_52d6229e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-10T10:15:35Z",
+      "side": 1,
+      "message": "This is more than 50. characters.\nWe don\u0027t have any mandate to give a context about area of change.\nA simple statement would suffice.",
+      "revId": "c3abc14788674da9ae25b0a7d3a884c27d3535c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d58496e_938b22bf",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-10T10:15:35Z",
+      "side": 1,
+      "message": "Can we define two types here?\na) using VpdCollectionStatus \u003d sdbusplus::common::xyz::openbmc_project::common::Progress::OperationStatus;\nb) using CommonProgress \u003d sdbusplus::common::xyz::openbmc_project::common::Progress;\n\nOr any better name.\n\nThis will help in getting rid of those long names in parameter list and other places.",
+      "revId": "c3abc14788674da9ae25b0a7d3a884c27d3535c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
