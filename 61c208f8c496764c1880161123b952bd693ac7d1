@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44f0d593_82dc30de",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-10T10:48:02Z",
+      "side": 1,
+      "message": "Mention that this is an optional field",
+      "revId": "61c208f8c496764c1880161123b952bd693ac7d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c30fd1eb_5aaf01d9",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-10T10:48:02Z",
+      "side": 1,
+      "message": "This explanation is not correct.",
+      "revId": "61c208f8c496764c1880161123b952bd693ac7d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa7e7885_b83c8710",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-10T10:48:02Z",
+      "side": 1,
+      "message": "Lets not tie it up with Asset interface, instead you can mention that this is an optional field where we can mention interfaces which are common to all the FRUs defined in the system config JSON.",
+      "revId": "61c208f8c496764c1880161123b952bd693ac7d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4fd76dd_5b4f949e",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-10T10:48:02Z",
+      "side": 1,
+      "message": "Don\u0027t need this section.",
+      "revId": "61c208f8c496764c1880161123b952bd693ac7d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d02c04d4_09b8a793",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-10T10:48:02Z",
+      "side": 1,
+      "message": "Add that it is again optional field.",
+      "revId": "61c208f8c496764c1880161123b952bd693ac7d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12a981a7_c02bef69",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-10T10:48:02Z",
+      "side": 1,
+      "message": "Madatory tag",
+      "revId": "61c208f8c496764c1880161123b952bd693ac7d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4cfce72_94519f62",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-10T10:48:02Z",
+      "side": 1,
+      "message": "Name of the service hosting the Inventory object path",
+      "revId": "61c208f8c496764c1880161123b952bd693ac7d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c252719b_561d8914",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-10T10:48:02Z",
+      "side": 1,
+      "message": "Not limited to, new tags can be added.",
+      "revId": "61c208f8c496764c1880161123b952bd693ac7d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fbe2cd7_c97b52ea",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-10T10:48:02Z",
+      "side": 1,
+      "message": "For all the flags, instead of explaining them separately, can we have a sample JSON defined with a sample FRU where all the flags are mentioned and a one line next or above the flag to explain the usage?\nWill be easy to understand.",
+      "revId": "61c208f8c496764c1880161123b952bd693ac7d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "828238c7_e1c234fc",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-10T10:48:02Z",
+      "side": 1,
+      "message": "No need to mention any specific section.\nThat can be covered in extra interfaces section.",
+      "revId": "61c208f8c496764c1880161123b952bd693ac7d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
