@@ -465,15 +465,12 @@ class Worker
     std::string& m_configJsonPath;
 
     // Keeps track of active thread(s) doing VPD collection.
-    size_t m_activeCollectionThreadCount = 0;
+    std::atomic_size_t m_activeCollectionThreadCount = 0;
 
     // Holds status, if VPD collection has been done or not.
     // Note: This variable does not give information about successfull or failed
     // collection. It just states, if the VPD collection process is over or not.
     bool m_isAllFruCollected = false;
-
-    // Mutex to guard critical resource m_activeCollectionThreadCount.
-    std::mutex m_mutex;
 
     // Counting semaphore to limit the number of threads.
     std::counting_semaphore<constants::MAX_THREADS> m_semaphore;
