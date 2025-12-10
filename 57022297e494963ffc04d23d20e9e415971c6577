@@ -16,6 +16,24 @@
       "message": "Why has this check been removed?",
       "revId": "57022297e494963ffc04d23d20e9e415971c6577",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02c3861b_c5b0cb38",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-10T09:38:51Z",
+      "side": 0,
+      "message": "updated code to handle this.",
+      "parentUuid": "6c1e8ef4_53cb138d",
+      "revId": "57022297e494963ffc04d23d20e9e415971c6577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
