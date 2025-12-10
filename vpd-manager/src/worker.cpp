@@ -928,9 +928,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         m_semaphore.acquire();
 
         // Thread launched.
-        m_mutex.lock();
         m_activeCollectionThreadCount++;
-        m_mutex.unlock();
 
         vpdSpecificUtility::setCollectionStatusProperty(
             i_vpdFilePath, constants::vpdCollectionInProgress, m_parsedJson,
@@ -1147,9 +1145,7 @@ void Worker::collectFrusFromJson()
             std::thread{[vpdFilePath, this]() {
                 const auto& l_parseResult = parseAndPublishVPD(vpdFilePath);
 
-                m_mutex.lock();
                 m_activeCollectionThreadCount--;
-                m_mutex.unlock();
 
                 if (!m_activeCollectionThreadCount)
                 {
