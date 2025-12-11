@@ -7,6 +7,7 @@
 #include <sdbusplus/bus.hpp>
 #include <sdbusplus/exception.hpp>
 
+#include <cctype>
 #include <fstream>
 #include <iostream>
 
@@ -994,6 +995,41 @@ inline types::BinaryVector convertIntegralTypeToBytes(
             (i_integralData >> (l_byte * constants::VALUE_8)) & l_byteMask;
     }
     return l_result;
+}
+
+/**
+ * @brief An API to get D-bus representation of given VPD keyword.
+ *
+ * @param[in] i_keywordName - VPD keyword name.
+ *
+ * @return D-bus representation of given keyword.
+ */
+inline std::string getDbusPropNameForGivenKw(
+    const std::string& i_keywordName) noexcept
+{
+    if (i_keywordName.size() != vpd::constants::KEYWORD_SIZE)
+    {
+        return i_keywordName;
+    }
+
+    // Check for "#" prefixed VPD keyword.
+    if (i_keywordName.at(0) == constants::POUND_KW)
+    {
+        // D-bus doesn't support "#". Replace "#" with "PD_" for those "#"
+        // prefixed keywords.
+        return (std::string(constants::POUND_KW_PREFIX) +
+                i_keywordName.substr(1));
+    }
+    else if (std::isdigit(i_keywordName[0]))
+    {
+        // D-bus doesn't support numeric property. Add Prefix "N_" for those
+        // numeric keywords.
+        return (std::string(constants::NUMERIC_KW_PREFIX) + i_keywordName);
+    }
+
+    // Return the keyword name back, if D-bus representation is same as the VPD
+    // keyword name.
+    return i_keywordName;
 }
 
 } // namespace utils

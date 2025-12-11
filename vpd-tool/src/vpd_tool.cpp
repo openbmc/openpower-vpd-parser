@@ -49,9 +49,13 @@ int VpdTool::readKeyword(
             std::string l_inventoryObjectPath(
                 constants::baseInventoryPath + i_vpdPath);
 
+            // Get D-bus name for the given keyword
+            std::string l_keywordName =
+                utils::getDbusPropNameForGivenKw(i_keywordName);
+
             l_keywordValue = utils::readDbusProperty(
                 constants::inventoryManagerService, l_inventoryObjectPath,
-                constants::ipzVpdInfPrefix + i_recordName, i_keywordName);
+                constants::ipzVpdInfPrefix + i_recordName, l_keywordName);
         }
 
         if (const auto l_value =
