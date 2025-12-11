@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00b9d0bf_addebe8f",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1526,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-11T14:23:39Z",
+      "side": 1,
+      "message": "`const l_objectPath`",
+      "revId": "84e1f125922bb1e85e1925b8c15aea3c23871319",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
