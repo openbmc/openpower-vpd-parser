@@ -101,6 +101,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9a20903_d75d2a95",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-12-11T13:06:57Z",
+      "side": 1,
+      "message": "If resetObjTreeVpd is successfull, do we need this logMessage? -- yes it is required, this tells you that empty map is received. \n\nresetObjTreeVpd -- is to clear the data to make sure that stale data is not present from previous boot. \n\nThe other message is incase of failure, without the error message we can not know, what is the failure",
+      "parentUuid": "318e8d43_d5db3ecd",
+      "range": {
+        "startLine": 976,
+        "startChar": 1,
+        "endLine": 978,
+        "endChar": 58
+      },
+      "revId": "350aad92af674df93a001cb73a117a1c6208c7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d1ad14c_32f864c3",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 7
@@ -136,6 +160,30 @@
       "side": 1,
       "message": "updated the error message",
       "parentUuid": "0d1ad14c_32f864c3",
+      "range": {
+        "startLine": 993,
+        "startChar": 1,
+        "endLine": 993,
+        "endChar": 58
+      },
+      "revId": "350aad92af674df93a001cb73a117a1c6208c7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7842fdd_2255d0ac",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2025-12-11T13:06:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6f0fa3d9_9b7b195a",
       "range": {
         "startLine": 993,
         "startChar": 1,
