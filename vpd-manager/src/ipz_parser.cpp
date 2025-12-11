@@ -63,12 +63,11 @@ static uint16_t readUInt16LE(types::BinaryVector::const_iterator iterator)
 bool IpzVpdParser::vhdrEccCheck()
 {
     // To avoid 1 bit flip correction from corrupting the main buffer.
-    const types::BinaryVector tempVector = m_vpdVector;
-    auto vpdPtr = tempVector.cbegin();
+    types::BinaryVector tempVector = m_vpdVector;
+    auto vpdPtr = tempVector.begin();
 
     auto l_status = vpdecc_check_data(
-        const_cast<uint8_t*>(&vpdPtr[Offset::VHDR_RECORD]),
-        Length::VHDR_RECORD_LENGTH,
+        &vpdPtr[Offset::VHDR_RECORD], Length::VHDR_RECORD_LENGTH,
         const_cast<uint8_t*>(&vpdPtr[Offset::VHDR_ECC]),
         Length::VHDR_ECC_LENGTH);
     if (l_status == VPD_ECC_CORRECTABLE_DATA)
@@ -111,14 +110,14 @@ bool IpzVpdParser::vtocEccCheck()
     auto vtocECCLength = readUInt16LE(vpdPtr);
 
     // To avoid 1 bit flip correction from corrupting the main buffer.
-    const types::BinaryVector tempVector = m_vpdVector;
+    types::BinaryVector tempVector = m_vpdVector;
     // Reset pointer to start of the vpd,
     // so that Offset will point to correct address
-    vpdPtr = tempVector.cbegin();
+    auto l_tmpVpdPtr = tempVector.begin();
 
     auto l_status = vpdecc_check_data(
-        const_cast<uint8_t*>(&vpdPtr[vtocOffset]), vtocLength,
-        const_cast<uint8_t*>(&vpdPtr[vtocECCOffset]), vtocECCLength);
+        &l_tmpVpdPtr[vtocOffset], vtocLength,
+        const_cast<uint8_t*>(&l_tmpVpdPtr[vtocECCOffset]), vtocECCLength);
     if (l_status == VPD_ECC_CORRECTABLE_DATA)
     {
         Logger::getLoggerInstance()->logMessage(
@@ -161,12 +160,12 @@ bool IpzVpdParser::recordEccCheck(types::BinaryVector::const_iterator iterator)
     }
 
     // To avoid 1 bit flip correction from corrupting the main buffer.
-    const types::BinaryVector tempVector = m_vpdVector;
-    auto vpdPtr = tempVector.cbegin();
+    types::BinaryVector tempVector = m_vpdVector;
+    auto vpdPtr = tempVector.begin();
 
-    auto l_status = vpdecc_check_data(
-        const_cast<uint8_t*>(&vpdPtr[recordOffset]), recordLength,
-        const_cast<uint8_t*>(&vpdPtr[eccOffset]), eccLength);
+    auto l_status =
+        vpdecc_check_data(&vpdPtr[recordOffset], recordLength,
+                          const_cast<uint8_t*>(&vpdPtr[eccOffset]), eccLength);
 
     if (l_status == VPD_ECC_CORRECTABLE_DATA)
     {
