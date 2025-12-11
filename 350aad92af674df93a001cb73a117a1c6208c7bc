@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c79d549_978794a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-11T11:46:25Z",
+      "side": 1,
+      "message": "please check my comments",
+      "revId": "350aad92af674df93a001cb73a117a1c6208c7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d17034b5_c1b3d401",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1524,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-11T11:46:25Z",
+      "side": 1,
+      "message": "can we name it as something to represent it is an object(contains key:value)\nlike l_fruObject, l_fruItems , something like that.\nThen for loop will process each item at a time.\nIt\u0027s a suggestion for better readability.",
+      "range": {
+        "startLine": 1524,
+        "startChar": 43,
+        "endLine": 1524,
+        "endChar": 49
+      },
+      "revId": "350aad92af674df93a001cb73a117a1c6208c7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "578f04d0_76002b3e",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-11T11:46:25Z",
+      "side": 1,
+      "message": "I think we should not remove this line",
+      "revId": "350aad92af674df93a001cb73a117a1c6208c7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "318e8d43_d5db3ecd",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-11T11:46:25Z",
+      "side": 1,
+      "message": "If resetObjTreeVpd is successfull, do we need this logMessage?\n\nAnd If it returned error code, then we need these 2 logMessages?",
+      "range": {
+        "startLine": 976,
+        "startChar": 1,
+        "endLine": 978,
+        "endChar": 58
+      },
+      "revId": "350aad92af674df93a001cb73a117a1c6208c7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d1ad14c_32f864c3",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-11T11:46:25Z",
+      "side": 1,
+      "message": "How do we know, we \"Failed to get the data to reset under PIM\" without checking l_errCode.?",
+      "range": {
+        "startLine": 993,
+        "startChar": 1,
+        "endLine": 993,
+        "endChar": 58
+      },
+      "revId": "350aad92af674df93a001cb73a117a1c6208c7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb15b621_3d7856b9",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-11T11:46:25Z",
+      "side": 1,
+      "message": "line 1073 to 1084 - why it\u0027s here, and Not at the end of the TRY body?\nI Know it\u0027s not part of this commit, but want to know what is behind it.",
+      "range": {
+        "startLine": 1073,
+        "startChar": 2,
+        "endLine": 1084,
+        "endChar": 48
+      },
+      "revId": "350aad92af674df93a001cb73a117a1c6208c7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
