@@ -8,6 +8,10 @@ namespace vpd
 {
 namespace constants
 {
+static constexpr auto POUND_KW = '#';
+static constexpr auto POUND_KW_PREFIX = "PD_";
+static constexpr auto NUMERIC_KW_PREFIX = "N_";
+
 static constexpr auto KEYWORD_SIZE = 2;
 static constexpr auto RECORD_SIZE = 4;
 static constexpr auto INDENTATION = 4;
