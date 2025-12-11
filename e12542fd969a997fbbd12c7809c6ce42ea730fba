@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7697075c_42ec1816",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-11T14:16:16Z",
+      "side": 1,
+      "message": "Why is the error handling flow being changed in this API? Earlier, we used to log message and return. With this change, this API is throwing.\nThe API which will catch this exception, will again log another message.",
+      "revId": "e12542fd969a997fbbd12c7809c6ce42ea730fba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f96541d_2c417bce",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-11T14:16:16Z",
+      "side": 1,
+      "message": "Same question with respect to error handling here.",
+      "revId": "e12542fd969a997fbbd12c7809c6ce42ea730fba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
