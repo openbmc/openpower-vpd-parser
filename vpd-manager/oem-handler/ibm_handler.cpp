@@ -908,6 +908,7 @@ void IbmHandler::setJsonSymbolicLink(const std::string& i_systemJson)
 
     // update path to symlink.
     m_configJsonPath = INVENTORY_JSON_SYM_LINK;
+    m_isSymlinkPresent = true;
 
     // If the flow is at this point implies the symlink was not present there.
     // Considering this as factory reset.
@@ -1062,6 +1063,9 @@ void IbmHandler::setDeviceTreeAndJson(
     }
 
     setEnvAndReboot("fitconfig", l_devTreeFromJson);
+#ifdef SKIP_REBOOT_ON_FITCONFIG_CHANGE
+    setJsonSymbolicLink(l_systemJson);
+#endif
 }
 
 void IbmHandler::performInitialSetup()
