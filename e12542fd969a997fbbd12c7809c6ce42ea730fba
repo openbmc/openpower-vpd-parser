@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "21c00fdc_5ef712c9",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-12T08:49:13Z",
+      "side": 1,
+      "message": "this API can throw exception, so added throw from this API so that caller API can log a PEL if required later (which has exception handling), instead of silently logging and returning.\n\nwith this flow only once message is logged.",
+      "parentUuid": "7697075c_42ec1816",
+      "revId": "e12542fd969a997fbbd12c7809c6ce42ea730fba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f96541d_2c417bce",
         "filename": "vpd-manager/src/backup_restore.cpp",
         "patchSetId": 9
@@ -31,6 +49,24 @@
       "writtenOn": "2025-12-11T14:16:16Z",
       "side": 1,
       "message": "Same question with respect to error handling here.",
+      "revId": "e12542fd969a997fbbd12c7809c6ce42ea730fba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f649cff5_a53d52e6",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-12T08:49:13Z",
+      "side": 1,
+      "message": "this API can throw exception, so added throw from this API so that caller API can log a PEL if required later (which has exception handling), instead of silently logging and returning.",
+      "parentUuid": "7f96541d_2c417bce",
       "revId": "e12542fd969a997fbbd12c7809c6ce42ea730fba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
