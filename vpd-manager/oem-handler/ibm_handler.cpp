@@ -626,6 +626,7 @@ void IbmHandler::setEnvAndReboot(const std::string& i_key,
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
         "org.freedesktop.systemd1.Manager", "Reboot");
     l_bus.call_noreply(l_method);
+    exit(EXIT_SUCCESS);
 #endif
 }
 
@@ -1061,7 +1062,6 @@ void IbmHandler::setDeviceTreeAndJson(
     }
 
     setEnvAndReboot("fitconfig", l_devTreeFromJson);
-    exit(EXIT_SUCCESS);
 }
 
 void IbmHandler::performInitialSetup()
