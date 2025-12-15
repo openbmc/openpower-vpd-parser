@@ -147,6 +147,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "905dd676_b5e86e03",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-15T06:39:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9a20903_d75d2a95",
+      "range": {
+        "startLine": 976,
+        "startChar": 1,
+        "endLine": 978,
+        "endChar": 58
+      },
+      "revId": "350aad92af674df93a001cb73a117a1c6208c7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d1ad14c_32f864c3",
@@ -231,6 +255,30 @@
       "writtenOn": "2025-12-11T11:46:25Z",
       "side": 1,
       "message": "line 1073 to 1084 - why it\u0027s here, and Not at the end of the TRY body?\nI Know it\u0027s not part of this commit, but want to know what is behind it.",
+      "range": {
+        "startLine": 1073,
+        "startChar": 2,
+        "endLine": 1084,
+        "endChar": 48
+      },
+      "revId": "350aad92af674df93a001cb73a117a1c6208c7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8be78d0d_f958a051",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2025-12-15T06:39:42Z",
+      "side": 1,
+      "message": "so as confirmed with Sunny, we can keep it as part of try{},\nso lets move it to try, either with this commit, or some other commit.\n\nHere purpose is to keep it clean, \ntry{}\ncatch{}",
+      "parentUuid": "eb15b621_3d7856b9",
       "range": {
         "startLine": 1073,
         "startChar": 2,
