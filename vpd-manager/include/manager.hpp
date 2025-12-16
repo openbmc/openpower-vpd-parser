@@ -89,7 +89,7 @@ class Manager
      * -1.
      */
     int updateKeywordOnHardware(
-        const types::Path i_fruPath,
+        types::Path i_fruPath,
         const types::WriteVpdParams i_paramsToWriteData) noexcept;
 
     /**
