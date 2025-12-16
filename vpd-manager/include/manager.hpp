@@ -3,6 +3,7 @@
 #include "backup_restore.hpp"
 #include "constants.hpp"
 #include "gpio_monitor.hpp"
+#include "logger.hpp"
 #include "types.hpp"
 #include "worker.hpp"
 
@@ -273,6 +274,13 @@ class Manager
 
     // Shared pointer to oem specific class.
     std::shared_ptr<IbmHandler> m_ibmHandler;
+
+    // Shared pointer to logger class.
+    std::shared_ptr<Logger> m_logger;
+
+    // VPD collection mode, default is hardware mode.
+    types::VpdCollectionMode m_vpdCollectionMode{
+        types::VpdCollectionMode::DEFAULT_MODE};
 };
 
 } // namespace vpd

@@ -926,6 +926,7 @@ void IbmHandler::setDeviceTreeAndJson(
 
     uint16_t l_errCode = 0;
     std::string l_systemVpdPath{SYSTEM_VPD_FILE_PATH};
+
     commonUtility::getEffectiveFruPath(m_vpdCollectionMode, l_systemVpdPath,
                                        l_errCode);
 
