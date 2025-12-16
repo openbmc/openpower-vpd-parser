@@ -1,5 +1,6 @@
 #pragma once
 
+#include "logger.hpp"
 #include "parser_factory.hpp"
 #include "parser_interface.hpp"
 #include "types.hpp"
@@ -24,10 +25,16 @@ class Parser
     /**
      * @brief Constructor
      *
-     * @param[in] vpdFilePath - Path to the VPD file.
-     * @param[in] parsedJson - Parsed JSON.
+     * @param[in] i_vpdFilePath - Path to the VPD file.
+     * @param[in] i_parsedJson - Parsed JSON.
+     * @param[in] i_vpdCollectionMode - VPD collection mode, default is hardware
+     * mode.
+     * 
+     * @throw std::runtime_error
      */
-    Parser(const std::string& vpdFilePath, nlohmann::json parsedJson);
+    Parser(const std::string& i_vpdFilePath, nlohmann::json i_parsedJson,
+           types::VpdCollectionMode i_vpdCollectionMode =
+               types::VpdCollectionMode::DEFAULT_MODE);
 
     /**
      * @brief API to implement a generic parsing logic.
@@ -136,7 +143,7 @@ class Parser
     // holds offfset to VPD if applicable.
     size_t m_vpdStartOffset = 0;
 
-    // Path to the VPD file
+    // Base VPD file path used for JSON lookups.
     const std::string& m_vpdFilePath;
 
     // Path to configuration file, can be empty.
@@ -145,5 +152,16 @@ class Parser
     // Vector to hold VPD.
     types::BinaryVector m_vpdVector;
 
+    // VPD collection mode, default is hardware mode.
+    types::VpdCollectionMode m_vpdCollectionMode;
+
+    /**
+     * For mode-based VPD collection, m_vpdModeBasedFruPath is derived from base
+     * path m_vpdFilePath and represents the actual file location.
+     */
+    std::string m_vpdModeBasedFruPath;
+
+    // shared pointer to Logger object.
+    std::shared_ptr<Logger> m_logger;
 }; // parser
 } // namespace vpd
