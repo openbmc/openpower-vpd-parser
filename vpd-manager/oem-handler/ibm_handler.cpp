@@ -926,15 +926,6 @@ void IbmHandler::setDeviceTreeAndJson(
 
     uint16_t l_errCode = 0;
     std::string l_systemVpdPath{SYSTEM_VPD_FILE_PATH};
-    commonUtility::getEffectiveFruPath(m_vpdCollectionMode, l_systemVpdPath,
-                                       l_errCode);
-
-    if (l_errCode)
-    {
-        throw std::runtime_error(
-            "Failed to get effective System VPD path, for [" + l_systemVpdPath +
-            "], reason: " + commonUtility::getErrCodeMsg(l_errCode));
-    }
 
     std::error_code l_ec;
     l_ec.clear();

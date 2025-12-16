@@ -8,6 +8,7 @@
 #include <utility/vpd_specific_utility.hpp>
 
 #include <fstream>
+#include <string>
 
 namespace vpd
 {
@@ -15,13 +16,36 @@ Parser::Parser(const std::string& vpdFilePath, nlohmann::json parsedJson) :
     m_vpdFilePath(vpdFilePath), m_parsedJson(parsedJson)
 {
     std::error_code l_errCode;
+    uint16_t l_errorCode = 0;
+
+    // m_vpdFilePath: Base VPD file path used for JSON lookups.
+    // For mode-based VPD collection, m_vpdModeBasedFruPath is derived from base
+    // path and represents the actual file location.
+    m_vpdModeBasedFruPath = m_vpdFilePath;
+
+    m_vpdCollectionMode = commonUtility::getVpdCollectionMode(l_errorCode);
+
+    if (l_errCode)
+    {
+        Logger::getLoggerInstance()->logMessage(
+            "Failed to get VPD collection mode, error : " +
+            commonUtility::getErrCodeMsg(l_errorCode));
+    }
+
+    commonUtility::getEffectiveFruPath(m_vpdCollectionMode,
+                                       m_vpdModeBasedFruPath, l_errorCode);
+
+    if (l_errorCode)
+    {
+        throw std::runtime_error("Failed to get effective FRU path");
+    }
 
     // ToDo: Add minimum file size check in all the concert praser classes,
     // depends on their VPD type.
-    if (!std::filesystem::exists(m_vpdFilePath, l_errCode))
+    if (!std::filesystem::exists(m_vpdModeBasedFruPath, l_errCode))
     {
         std::string l_message{"Parser object creation failed, file [" +
-                              m_vpdFilePath + "] doesn't exists."};
+                              m_vpdModeBasedFruPath + "] doesn't exists."};
 
         if (l_errCode)
         {
@@ -34,8 +58,6 @@ Parser::Parser(const std::string& vpdFilePath, nlohmann::json parsedJson) :
     // Read VPD offset if applicable.
     if (!m_parsedJson.empty())
     {
-        uint16_t l_errorCode = 0;
-
         m_vpdStartOffset =
             jsonUtility::getVPDOffset(m_parsedJson, vpdFilePath, l_errorCode);
 
@@ -52,7 +74,7 @@ std::shared_ptr<vpd::ParserInterface> Parser::getVpdParserInstance()
 {
     // Read the VPD data into a vector.
     uint16_t l_errCode = 0;
-    vpdSpecificUtility::getVpdDataInVector(m_vpdFilePath, m_vpdVector,
+    vpdSpecificUtility::getVpdDataInVector(m_vpdModeBasedFruPath, m_vpdVector,
                                            m_vpdStartOffset, l_errCode);
 
     if (l_errCode)
@@ -62,8 +84,8 @@ std::shared_ptr<vpd::ParserInterface> Parser::getVpdParserInstance()
     }
 
     // This will detect the type of parser required.
-    std::shared_ptr<vpd::ParserInterface> l_parser =
-        ParserFactory::getParser(m_vpdVector, m_vpdFilePath, m_vpdStartOffset);
+    std::shared_ptr<vpd::ParserInterface> l_parser = ParserFactory::getParser(
+        m_vpdVector, m_vpdModeBasedFruPath, m_vpdStartOffset);
 
     return l_parser;
 }
@@ -134,7 +156,6 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
         }
 
         uint16_t l_errCode = 0;
-
         auto [l_fruPath, l_inventoryObjPath, l_redundantFruPath] =
             jsonUtility::getAllPathsToUpdateKeyword(m_parsedJson, m_vpdFilePath,
                                                     l_errCode);
@@ -183,7 +204,7 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                     // Unable to read keyword's value from hardware.
                     std::string l_errMsg(
                         "Error while reading keyword's value from hadware path " +
-                        m_vpdFilePath +
+                        m_vpdModeBasedFruPath +
                         ", error: " + std::string(l_exception.what()));
 
                     // TODO: Log PEL
@@ -367,7 +388,8 @@ int Parser::updateVpdKeywordOnHardware(
             l_errorType, types::SeverityType::Informational, __FILE__,
             __FUNCTION__, 0,
             "Error while updating keyword's value on hardware path [" +
-                m_vpdFilePath + "], error: " + std::string(l_exception.what()),
+                m_vpdModeBasedFruPath +
+                "], error: " + std::string(l_exception.what()),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
     }
 
