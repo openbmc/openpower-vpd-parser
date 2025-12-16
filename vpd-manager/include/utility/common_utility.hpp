@@ -1,5 +1,7 @@
 #pragma once
 
+#include "config.h"
+
 #include "constants.hpp"
 #include "error_codes.hpp"
 #include "logger.hpp"

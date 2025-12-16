@@ -8,6 +8,7 @@
 #include <utility/vpd_specific_utility.hpp>
 
 #include <fstream>
+#include <string>
 
 namespace vpd
 {
@@ -133,10 +134,20 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
             throw std::runtime_error(l_errMsg);
         }
 
-        uint16_t l_errCode = 0;
+        // Since the effective FRU path is not present in JSON, a check was
+        // added to strip the file mode directory from the hardware path to
+        // obtain the remaining paths for updating the keyword.
+        std::string l_vpdPath{m_vpdFilePath};
+        if (l_vpdPath.find(constants::fileModeDirectoryPath, 0) !=
+            std::string::npos)
+        {
+            l_vpdPath.replace(0, std::strlen(constants::fileModeDirectoryPath),
+                              "");
+        }
 
+        uint16_t l_errCode = 0;
         auto [l_fruPath, l_inventoryObjPath, l_redundantFruPath] =
-            jsonUtility::getAllPathsToUpdateKeyword(m_parsedJson, m_vpdFilePath,
+            jsonUtility::getAllPathsToUpdateKeyword(m_parsedJson, l_vpdPath,
                                                     l_errCode);
 
         if (l_errCode == error_code::INVALID_INPUT_PARAMETER ||

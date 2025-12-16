@@ -202,8 +202,36 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
 
     try
     {
+        std::string l_effectiveFruPath = l_fruPath;
+
+        if (l_fruPath == SYSTEM_VPD_FILE_PATH)
+        {
+            const types::VpdCollectionMode l_vpdMode =
+                commonUtility::getVpdCollectionMode(l_errCode);
+
+            if (!l_errCode)
+            {
+                commonUtility::getEffectiveFruPath(
+                    l_vpdMode, l_effectiveFruPath, l_errCode);
+
+                if (l_errCode)
+                {
+                    throw std::runtime_error(
+                        "Failed to get effective FRU path for [" + l_fruPath +
+                        "], error : " +
+                        commonUtility::getErrCodeMsg(l_errCode));
+                }
+            }
+            else if (l_errCode)
+            {
+                Logger::getLoggerInstance()->logMessage(
+                    "Failed to get VPD collection mode, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+        }
+
         std::shared_ptr<Parser> l_parserObj =
-            std::make_shared<Parser>(l_fruPath, l_sysCfgJsonObj);
+            std::make_shared<Parser>(l_effectiveFruPath, l_sysCfgJsonObj);
 
         types::DbusVariantType l_updatedValue;
         auto l_rc =
@@ -326,8 +354,36 @@ int Manager::updateKeywordOnHardware(
             l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
         }
 
+        uint16_t l_errCode = 0;
+        std::string l_effectiveFruPath{i_fruPath};
+
+        if (i_fruPath == SYSTEM_VPD_FILE_PATH)
+        {
+            const types::VpdCollectionMode l_vpdMode =
+                commonUtility::getVpdCollectionMode(l_errCode);
+
+            if (l_errCode)
+            {
+                Logger::getLoggerInstance()->logMessage(
+                    "Failed to get VPD collection mode, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+            else
+            {
+                commonUtility::getEffectiveFruPath(
+                    l_vpdMode, l_effectiveFruPath, l_errCode);
+
+                if (l_errCode)
+                {
+                    throw std::runtime_error(
+                        "Failed to get effective FRU path, error : " +
+                        commonUtility::getErrCodeMsg(l_errCode));
+                }
+            }
+        }
+
         std::shared_ptr<Parser> l_parserObj =
-            std::make_shared<Parser>(i_fruPath, l_sysCfgJsonObj);
+            std::make_shared<Parser>(l_effectiveFruPath, l_sysCfgJsonObj);
         return l_parserObj->updateVpdKeywordOnHardware(i_paramsToWriteData);
     }
     catch (const std::exception& l_exception)
