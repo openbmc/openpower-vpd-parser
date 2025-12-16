@@ -1110,7 +1110,9 @@ void IbmHandler::performInitialSetup()
         // Ignore BMC position update in case of any error
         if (isRbmcPrototypeSystem(l_errCode))
         {
-            size_t l_bmcPosition = std::numeric_limits<size_t>::max();
+            size_t l_bmcPosition = dbusUtility::getBmcPosition();
+            // ToDo: Once Cable management service is up and running, will get
+            // BMC position from cable management service.
             checkAndUpdateBmcPosition(l_bmcPosition);
 
             if (dbusUtility::callPIM(types::ObjectMap{
