@@ -202,8 +202,18 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
 
     try
     {
+        std::string l_effectiveFruPath = l_fruPath;
+        const types::VpdCollectionMode l_vpdMode = commonUtility::getVpdCollectionMode(l_errCode);
+
+        commonUtility::getEffectiveFruPath(l_vpdMode, l_effectiveFruPath, l_errCode);
+
+        if (l_errCode)
+        {
+            Logger::getLoggerInstance()->logMessage("Failed to get effective FRU path for system VPD : " + commonUtility::getErrCodeMsg(l_errCode));
+        }
+
         std::shared_ptr<Parser> l_parserObj =
-            std::make_shared<Parser>(l_fruPath, l_sysCfgJsonObj);
+            std::make_shared<Parser>(l_effectiveFruPath, l_sysCfgJsonObj);
 
         types::DbusVariantType l_updatedValue;
         auto l_rc =
@@ -309,7 +319,7 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
 }
 
 int Manager::updateKeywordOnHardware(
-    const types::Path i_fruPath,
+    types::Path i_fruPath,
     const types::WriteVpdParams i_paramsToWriteData) noexcept
 {
     try
@@ -324,6 +334,16 @@ int Manager::updateKeywordOnHardware(
         if (m_worker.get() != nullptr)
         {
             l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+        }
+
+        uint16_t l_errCode = 0;
+        const types::VpdCollectionMode l_vpdMode = commonUtility::getVpdCollectionMode(l_errCode);
+
+        commonUtility::getEffectiveFruPath(l_vpdMode, i_fruPath, l_errCode);
+
+        if (l_errCode)
+        {
+            Logger::getLoggerInstance()->logMessage("Failed to get effective FRU path for system VPD : " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
         std::shared_ptr<Parser> l_parserObj =
