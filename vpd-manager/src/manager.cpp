@@ -4,7 +4,6 @@
 
 #include "constants.hpp"
 #include "exceptions.hpp"
-#include "logger.hpp"
 #include "parser.hpp"
 #include "parser_factory.hpp"
 #include "parser_interface.hpp"
@@ -26,7 +25,7 @@ Manager::Manager(
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressiFace,
     const std::shared_ptr<sdbusplus::asio::connection>& asioConnection) :
     m_ioContext(ioCon), m_interface(iFace), m_progressInterface(progressiFace),
-    m_asioConnection(asioConnection)
+    m_asioConnection(asioConnection), m_logger(Logger::getLoggerInstance())
 {
 #ifdef IBM_SYSTEM_SINGLE_FAB
     if (!dbusUtility::isChassisPowerOn())
@@ -140,6 +139,30 @@ Manager::Manager(
             },
             [this](const auto&) { return m_vpdCollectionStatus; });
 
+        uint16_t l_errCode = 0;
+
+        if (!commonUtility::isFieldModeEnabled(l_errCode))
+        {
+            if (l_errCode)
+            {
+                m_logger->logMessage(
+                    "Default mode set. Error while trying to check if field mode is enabled, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+            else
+            {
+                m_vpdCollectionMode =
+                    commonUtility::getVpdCollectionMode(l_errCode);
+
+                if (l_errCode)
+                {
+                    m_logger->logMessage(
+                        "Default mode set. Error while trying to read VPD collection mode: " +
+                        commonUtility::getErrCodeMsg(l_errCode));
+                }
+            }
+        }
+
         // If required, instantiate OEM specific handler here.
 #ifdef IBM_SYSTEM
         m_ibmHandler = std::make_shared<IbmHandler>(
@@ -202,8 +225,8 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
 
     try
     {
-        std::shared_ptr<Parser> l_parserObj =
-            std::make_shared<Parser>(l_fruPath, l_sysCfgJsonObj);
+        std::shared_ptr<Parser> l_parserObj = std::make_shared<Parser>(
+            l_fruPath, l_sysCfgJsonObj, m_vpdCollectionMode);
 
         types::DbusVariantType l_updatedValue;
         auto l_rc =
@@ -326,8 +349,8 @@ int Manager::updateKeywordOnHardware(
             l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
         }
 
-        std::shared_ptr<Parser> l_parserObj =
-            std::make_shared<Parser>(i_fruPath, l_sysCfgJsonObj);
+        std::shared_ptr<Parser> l_parserObj = std::make_shared<Parser>(
+            i_fruPath, l_sysCfgJsonObj, m_vpdCollectionMode);
         return l_parserObj->updateVpdKeywordOnHardware(i_paramsToWriteData);
     }
     catch (const std::exception& l_exception)
@@ -365,7 +388,8 @@ types::DbusVariantType Manager::readKeyword(
         }
 
         std::shared_ptr<vpd::Parser> l_parserObj =
-            std::make_shared<vpd::Parser>(i_fruPath, l_jsonObj);
+            std::make_shared<vpd::Parser>(i_fruPath, l_jsonObj,
+                                          m_vpdCollectionMode);
 
         std::shared_ptr<vpd::ParserInterface> l_vpdParserInstance =
             l_parserObj->getVpdParserInstance();
