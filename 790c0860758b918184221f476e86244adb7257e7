@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df1bdeb8_acdc6668",
+        "filename": "vpd-tool/include/tool_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-16T08:53:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "35ad9579_985984a4",
+      "revId": "790c0860758b918184221f476e86244adb7257e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7494a191_bb74ec54",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "done",
       "parentUuid": "7494a191_bb74ec54",
+      "revId": "790c0860758b918184221f476e86244adb7257e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11ccb80f_e7bfdb19",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2025-12-16T08:53:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22c6ac27_3207a3a2",
       "revId": "790c0860758b918184221f476e86244adb7257e7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
