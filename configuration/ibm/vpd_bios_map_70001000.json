@@ -1,0 +1,63 @@
+{
+    "bios_vpd_entries": [
+        {
+            "biosAttributeName": "hb_field_core_override",
+            "Record": "VSYS",
+            "keyword": "RG",
+            "BiosDataType": "Integer",
+            "enabled_value": null,
+            "disabled_value": null
+
+        },
+        {
+            "biosAttributeName": "hb_memory_mirror_mode",
+            "Record": "VSYS",
+            "keyword": "MM",
+            "BiosDataType": "Enumeration",
+            "enabled_value": 2,
+            "disabled_value": 1
+
+        },
+        {
+            "biosAttributeName": "pvm_clear_nvram",
+            "Record": "VSYS",
+            "keyword": "BA",
+            "BiosDataType": "Enumeration",
+            "enabled_value": 1,
+            "disabled_value": 0,
+            "value_decode": {
+                "byte_index": 0,
+                "mask": "0x04"
+             }
+            }
+        },
+        {
+            "biosAttributeName": "pvm_keep_and_clear",
+            "Record": "VSYS",
+            "keyword": "BA",
+            "BiosDataType": "Enumeration",
+            "enabled_value": 1,
+            "disabled_value": 0,
+            "value_decode": {
+                "byte_index": 0,
+                "mask": "0x01"
+            }
+
+        },
+        {
+            "biosAttributeName": "pvm_create_default_lpar",
+            "Record": "VSYS",
+            "keyword": "BA",
+            "BiosDataType": "Enumeration",
+            "enabled_value": 1,
+            "disabled_value": 0,
+            "value_decode": {
+                "byte_index": 0,
+                "mask": "0x02"
+            }
+
+        }
+
+    ]
+}
+
