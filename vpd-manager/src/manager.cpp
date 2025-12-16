@@ -229,8 +229,8 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
 
     try
     {
-        std::shared_ptr<Parser> l_parserObj =
-            std::make_shared<Parser>(l_fruPath, l_sysCfgJsonObj);
+        std::shared_ptr<Parser> l_parserObj = std::make_shared<Parser>(
+            l_fruPath, l_sysCfgJsonObj, m_vpdCollectionMode);
 
         types::DbusVariantType l_updatedValue;
         auto l_rc =
@@ -353,8 +353,8 @@ int Manager::updateKeywordOnHardware(
             l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
         }
 
-        std::shared_ptr<Parser> l_parserObj =
-            std::make_shared<Parser>(i_fruPath, l_sysCfgJsonObj);
+        std::shared_ptr<Parser> l_parserObj = std::make_shared<Parser>(
+            i_fruPath, l_sysCfgJsonObj, m_vpdCollectionMode);
         return l_parserObj->updateVpdKeywordOnHardware(i_paramsToWriteData);
     }
     catch (const std::exception& l_exception)
@@ -392,7 +392,8 @@ types::DbusVariantType Manager::readKeyword(
         }
 
         std::shared_ptr<vpd::Parser> l_parserObj =
-            std::make_shared<vpd::Parser>(i_fruPath, l_jsonObj);
+            std::make_shared<vpd::Parser>(i_fruPath, l_jsonObj,
+                                          m_vpdCollectionMode);
 
         std::shared_ptr<vpd::ParserInterface> l_vpdParserInstance =
             l_parserObj->getVpdParserInstance();
