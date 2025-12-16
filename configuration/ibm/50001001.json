@@ -1,6 +1,7 @@
 {
     "devTree": "conf-aspeed-bmc-ibm-rainier-p1.dtb",
     "backupRestoreConfigPath": "/usr/share/vpd/backup_restore_50001000.json",
+    "correlatedPropertiesConfigPath": "/usr/share/vpd/correlated_properties.json",
     "commonInterfaces": {
         "xyz.openbmc_project.Inventory.Decorator.Asset": {
             "PartNumber": {

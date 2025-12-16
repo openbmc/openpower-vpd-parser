@@ -8,6 +8,7 @@
 #include <utility/vpd_specific_utility.hpp>
 
 #include <fstream>
+#include <string>
 
 namespace vpd
 {
@@ -113,6 +114,7 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
             return constants::FAILURE;
         }
 
+        std::cout << "Path before updating keyword : " << m_vpdFilePath << std::endl;
         // Update keyword's value on hardware
         try
         {
@@ -133,10 +135,21 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
             throw std::runtime_error(l_errMsg);
         }
 
-        uint16_t l_errCode = 0;
+        std::string l_vpdPath{m_vpdFilePath};
+        if (l_vpdPath.find(constants::fileModeDirectoryPath, 0) !=
+            std::string::npos)
+        {
+            l_vpdPath.replace(0, std::strlen(constants::fileModeDirectoryPath),
+                              "");
+        }
 
+        std::cout << "VPD path before calling API to get All paths to update keyword" << std::endl;
+        std::cout << "member variable path : " << m_vpdFilePath << std::endl;
+        std::cout << "local variable file path : " << l_vpdPath << std::endl;
+        
+        uint16_t l_errCode = 0;
         auto [l_fruPath, l_inventoryObjPath, l_redundantFruPath] =
-            jsonUtility::getAllPathsToUpdateKeyword(m_parsedJson, m_vpdFilePath,
+            jsonUtility::getAllPathsToUpdateKeyword(m_parsedJson, l_vpdPath,
                                                     l_errCode);
 
         if (l_errCode == error_code::INVALID_INPUT_PARAMETER ||
