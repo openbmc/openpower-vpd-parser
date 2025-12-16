@@ -1,5 +1,7 @@
 #pragma once
 
+#include "config.h"
+
 #include "constants.hpp"
 #include "error_codes.hpp"
 #include "logger.hpp"
@@ -411,7 +413,8 @@ inline void getEffectiveFruPath(
     try
     {
         o_errCode = 0;
-        if (types::VpdCollectionMode::FILE_MODE == i_vpdCollectionMode)
+        if (types::VpdCollectionMode::FILE_MODE == i_vpdCollectionMode &&
+            io_fruPath == SYSTEM_VPD_FILE_PATH)
         {
             io_fruPath.insert(0, constants::fileModeDirectoryPath);
         }

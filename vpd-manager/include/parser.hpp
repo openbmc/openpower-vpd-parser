@@ -145,5 +145,11 @@ class Parser
     // Vector to hold VPD.
     types::BinaryVector m_vpdVector;
 
+    // VPD collection mode, default is hardware mode.
+    types::VpdCollectionMode m_vpdCollectionMode{
+        types::VpdCollectionMode::DEFAULT_MODE};
+
+    std::string m_vpdModeBasedFruPath;
+
 }; // parser
 } // namespace vpd
