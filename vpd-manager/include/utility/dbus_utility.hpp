@@ -822,5 +822,38 @@ inline std::string getServiceNameFromConnectionId(
     }
     return std::string{};
 }
+
+/**
+ * @brief API to get the BMC position.
+ *
+ * This API queries the cable management service to find the BMC position.
+ *
+ * @return BMC position on success, otherwise returns default value.
+ */
+inline size_t getBmcPositionFromCableMgntService()
+{
+    size_t l_bmcPosition = std::numeric_limits<size_t>::max();
+    try
+    {
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method = l_bus.new_method_call(
+            constants::cableMgntService, constants::cableMgntPath,
+            constants::cableMgntInterface, "Position");
+        l_bus.call(l_method);
+
+        // TODO: Return value based on data read from the cable management
+        // service.
+        l_bmcPosition = constants::VALUE_0;
+    }
+    catch (const sdbusplus::exception::SdBusError& l_ex)
+    {
+        std::string l_errMsg =
+            "DBus call to cable management service failed, reason: ";
+        l_errMsg += l_ex.what();
+
+        logging::logMessage(l_errMsg);
+    }
+    return l_bmcPosition;
+}
 } // namespace dbusUtility
 } // namespace vpd

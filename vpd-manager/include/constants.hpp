@@ -246,5 +246,10 @@ static std::vector<uint8_t> rbmcPrototypeSystemImValue{
     55, 54, 48, 48, 50, 48, 48, 48};
 
 static constexpr auto fileModeDirectoryPath = "/var/lib/vpd/file";
+
+// TODO: Update once the cable management service is available.
+static constexpr auto cableMgntService = "com.ibm.Cable.Management";
+static constexpr auto cableMgntPath = "/com/ibm/cable";
+static constexpr auto cableMgntInterface = "com.ibm.Cable.Management";
 } // namespace constants
 } // namespace vpd
