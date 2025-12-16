@@ -1,0 +1,29 @@
+{
+    "bioskwrecordmap": [
+        {
+            "biosAttributeName": "hb_field_core_override",
+            "Record": "VSYS",
+            "keyword": "RG"
+        },
+        {
+            "biosAttributeName": "hb_memory_mirror_mode",
+            "Record": "VSYS",
+            "keyword": "MM"
+        },
+        {
+            "biosAttributeName": "pvm_clear_nvram",
+            "Record": "VSYS",
+            "keyword": "BA"
+        },
+        {
+            "biosAttributeName": "pvm_keep_and_clear",
+            "Record": "VSYS",
+            "keyword": "BA"
+        },
+        {
+            "biosAttributeName": "pvm_create_default_lpar",
+            "Record": "VSYS",
+            "keyword": "BA"
+        }
+    ]
+}
