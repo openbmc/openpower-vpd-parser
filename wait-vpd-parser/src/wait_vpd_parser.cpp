@@ -1,8 +1,10 @@
 #include "config.h"
 
 #include "constants.hpp"
+#include "inventory_backup_handler.hpp"
 #include "logger.hpp"
 #include "prime_inventory.hpp"
+#include "utility/common_utility.hpp"
 #include "utility/dbus_utility.hpp"
 
 #include <CLI/CLI.hpp>
@@ -109,6 +111,9 @@ int main(int argc, char** argv)
     {
         CLI::App l_app{"Wait VPD parser app"};
 
+        // logger instance
+        auto l_logger = vpd::Logger::getLoggerInstance();
+
         // default retry limit and sleep duration values
         unsigned l_retryLimit{100};
         unsigned l_sleepDurationInSeconds{2};
@@ -119,6 +124,71 @@ int main(int argc, char** argv)
                          "Sleep duration in seconds between each retry");
 
         CLI11_PARSE(l_app, argc, argv);
+
+        // check and see if there is any inventory backup data. If it's there
+        // restore the data.
+        uint16_t l_errCode{0};
+
+        InventoryBackupHandler l_inventoryBackupHandler{
+            vpd::constants::pimServiceName, vpd::constants::pimPrimaryPath,
+            vpd::constants::pimBackupPath};
+
+        if (l_inventoryBackupHandler.restoreInventoryBackupData(l_errCode))
+        {
+            // restart the inventory manager service so that the new inventory
+            // data is reflected on D-Bus
+            if (l_inventoryBackupHandler.restartInventoryManagerService(
+                    l_errCode))
+            {
+                // clear the backup inventory data
+                if (!l_inventoryBackupHandler.clearInventoryBackupData(
+                        l_errCode))
+                {
+                    const vpd::types::PelInfoTuple l_pelInfo{
+                        vpd::types::ErrorType::FirmwareError,
+                        vpd::types::SeverityType::Warning,
+                        0,
+                        std::nullopt,
+                        std::nullopt,
+                        std::nullopt,
+                        std::nullopt};
+
+                    l_logger->logMessage(
+                        "Failed to clear inventory backup data. Error: " +
+                            vpd::commonUtility::getErrCodeMsg(l_errCode),
+                        vpd::PlaceHolder::PEL, &l_pelInfo);
+                }
+
+                // inventory backup restoration and service restart are
+                // successful, so return success from here as FRU VPD collection
+                // is not needed
+                return vpd::constants::VALUE_0;
+            }
+            else
+            {
+                // TODO: Restarting the inventory manager service has failed,
+                // check error code to determine whether to go for VPD
+                //  collection or to fail this service
+            }
+        }
+
+        // check if there was any error while restoring backup inventory data
+        if (l_errCode)
+        {
+            const vpd::types::PelInfoTuple l_pelInfo{
+                vpd::types::ErrorType::FirmwareError,
+                vpd::types::SeverityType::Warning,
+                0,
+                std::nullopt,
+                std::nullopt,
+                std::nullopt,
+                std::nullopt};
+
+            l_logger->logMessage(
+                "Failed to restore inventory backup data. Error: " +
+                    vpd::commonUtility::getErrCodeMsg(l_errCode),
+                vpd::PlaceHolder::PEL, &l_pelInfo);
+        }
 
         PrimeInventory l_primeObj;
         l_primeObj.primeSystemBlueprint();
