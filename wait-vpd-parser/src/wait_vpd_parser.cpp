@@ -1,6 +1,7 @@
 #include "config.h"
 
 #include "constants.hpp"
+#include "inventory_backup_handler.hpp"
 #include "logger.hpp"
 #include "prime_inventory.hpp"
 #include "utility/dbus_utility.hpp"
@@ -120,13 +121,23 @@ int main(int argc, char** argv)
 
         CLI11_PARSE(l_app, argc, argv);
 
-        PrimeInventory l_primeObj;
-        l_primeObj.primeSystemBlueprint();
+        InventoryBackupHandler l_inventoryBackupHandler;
+        if (l_inventoryBackupHandler.checkAndRestoreInventoryBackupData())
+        {
+            vpd::Logger::getLoggerInstance()->logMessage(
+                "Inventory backup data found and restored successfully");
+            exit(EXIT_SUCCESS);
+        }
+        else
+        {
+            PrimeInventory l_primeObj;
+            l_primeObj.primeSystemBlueprint();
 
-        return collectAllFruVpd()
-                   ? checkVpdCollectionStatus(l_retryLimit,
-                                              l_sleepDurationInSeconds)
-                   : vpd::constants::VALUE_1;
+            return collectAllFruVpd()
+                       ? checkVpdCollectionStatus(l_retryLimit,
+                                                  l_sleepDurationInSeconds)
+                       : vpd::constants::VALUE_1;
+        }
     }
     catch (const std::exception& l_ex)
     {
