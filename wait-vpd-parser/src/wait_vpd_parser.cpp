@@ -103,6 +103,55 @@ inline bool collectAllFruVpd() noexcept
     return l_rc;
 }
 
+/**
+ * @brief API to check if PIM backup path has data
+ *
+ * This API checks PIM backup path to see if it has any data.
+ * On redundant BMC systems, phosphor data sync will sync PIM data from Active
+ * BMC to Passive BMC at a specific backup file path.
+ *
+ * @return true if PIM backup data is found, false otherwise
+ */
+inline bool checkPimBackupPath() noexcept
+{
+    bool l_rc{false};
+    try
+    {}
+    catch (const std::exception& l_ex)
+    {}
+    return l_rc;
+}
+
+/**
+ * @brief API to restore PIM data from backup file path to PIM persisted path
+ *
+ * @return true if the restoration was successful, false otherwise
+ */
+inline bool restorePimBackupData() noexcept
+{
+    bool l_rc{false};
+    try
+    {}
+    catch (const std::exception& l_ex)
+    {}
+    return l_rc;
+}
+
+/**
+ * @brief API to clear PIM backup data from backup file path
+ *
+ * @return true if backup data has been cleared, false otherwise
+ */
+inline bool clearPimBackupData() noexcept
+{
+    bool l_rc{false};
+    try
+    {}
+    catch (const std::exception& l_ex)
+    {}
+    return l_rc;
+}
+
 int main(int argc, char** argv)
 {
     try
