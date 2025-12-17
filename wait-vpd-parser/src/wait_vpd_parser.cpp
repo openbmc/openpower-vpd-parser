@@ -1,8 +1,10 @@
 #include "config.h"
 
 #include "constants.hpp"
+#include "inventory_backup_handler.hpp"
 #include "logger.hpp"
 #include "prime_inventory.hpp"
+#include "utility/common_utility.hpp"
 #include "utility/dbus_utility.hpp"
 
 #include <CLI/CLI.hpp>
@@ -103,6 +105,57 @@ inline bool collectAllFruVpd() noexcept
     return l_rc;
 }
 
+/**
+ * @brief API to handle inventory backup data
+ *
+ * This API handles inventory backup data. It checks if there is any inventory
+ * backup data and restores it if so. It also restarts the inventory manager
+ * service so that the restored data is reflected on D-Bus, and then clears the
+ * backup data.
+ *
+ * @return true if inventory backup data is found and restored successfully, and
+ * inventory manager service is successfully restarted. It returns false if
+ * there is any error encountered while restoring backup data or restarting
+ * inventory manager service
+ *
+ * @throw std::runtime_error
+ */
+bool checkAndHandleInventoryBackup()
+{
+    bool l_rc{false};
+    uint16_t l_errCode{0};
+    auto l_logger = vpd::Logger::getLoggerInstance();
+
+    InventoryBackupHandler l_inventoryBackupHandler{
+        vpd::constants::pimServiceName, vpd::constants::pimPrimaryPath,
+        vpd::constants::pimBackupPath};
+
+    if (!l_inventoryBackupHandler.restoreInventoryBackupData(l_errCode))
+    {
+        return l_rc;
+    }
+
+    // restart the inventory manager service so that the new inventory
+    // data is reflected on D-Bus
+    if (l_inventoryBackupHandler.restartInventoryManagerService(l_errCode))
+    {
+        // clear the backup inventory data
+        l_inventoryBackupHandler.clearInventoryBackupData(l_errCode);
+
+        // inventory backup restoration and service restart are
+        // successful, so return success from here as FRU VPD collection
+        // is not needed
+        l_rc = true;
+    }
+    else
+    {
+        // TODO: Restarting the inventory manager service has failed,
+        // check error code to determine whether to go for VPD
+        //  collection or to fail this service
+    }
+    return l_rc;
+}
+
 int main(int argc, char** argv)
 {
     try
@@ -119,6 +172,15 @@ int main(int argc, char** argv)
                          "Sleep duration in seconds between each retry");
 
         CLI11_PARSE(l_app, argc, argv);
+
+        // check and see if there is any inventory backup data. If it's there
+        // restore the data.
+        if (checkAndHandleInventoryBackup())
+        {
+            // backup data is found and restored successfully, return success
+            // here as we don't need to go for FRU VPD collection.
+            return vpd::constants::VALUE_0;
+        }
 
         PrimeInventory l_primeObj;
         l_primeObj.primeSystemBlueprint();

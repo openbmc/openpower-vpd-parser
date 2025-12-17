@@ -246,5 +246,8 @@ static std::vector<uint8_t> rbmcPrototypeSystemImValue{
     55, 54, 48, 48, 50, 48, 48, 48};
 
 static constexpr auto fileModeDirectoryPath = "/var/lib/vpd/file";
+static constexpr auto pimBackupPath =
+    "/var/lib/phosphor-data-sync/bmc_data_bkp/var/lib/phosphor-inventory-manager";
+static constexpr auto pimPrimaryPath = "/var/lib/phosphor-inventory-manager";
 } // namespace constants
 } // namespace vpd
