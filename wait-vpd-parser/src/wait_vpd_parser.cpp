@@ -103,6 +103,101 @@ inline bool collectAllFruVpd() noexcept
     return l_rc;
 }
 
+/**
+ * @brief API to check if PIM backup path has data
+ *
+ * @return true if PIM backup data is found, false otherwise
+ */
+inline bool checkPimBackupPath() noexcept
+{
+    bool l_rc{false};
+    try
+    {
+        /* TODO:
+            Check /var/lib/phosphor-data-sync/bmc_data_bkp/ path to see if it
+           has sub directories with PIM data and return true if so.
+        */
+    }
+    catch (const std::exception& l_ex)
+    {
+        vpd::Logger::getLoggerInstance()->logMessage(
+            "Failed to check if PIM backup path has data. Error: " +
+            std::string(l_ex.what()));
+    }
+    return l_rc;
+}
+
+/**
+ * @brief API to restore PIM data from backup file path to PIM persisted path
+ *
+ * @return true if the restoration is successful, false otherwise
+ */
+inline bool restorePimBackupData() noexcept
+{
+    bool l_rc{false};
+    try
+    {
+        /* TODO:
+            1. Iterate through directories under
+           /var/lib/phosphor-data-sync/bmc_data_bkp/
+            2. Extract the object path and interface information
+            3. Restore the data to PIM persisted path.
+        */
+    }
+    catch (const std::exception& l_ex)
+    {
+        vpd::Logger::getLoggerInstance()->logMessage(
+            "Failed to restore data to PIM persisted path from backup path. Error: " +
+            std::string(l_ex.what()));
+    }
+    return l_rc;
+}
+
+/**
+ * @brief API to clear PIM backup data from backup file path
+ *
+ * @return true if backup data has been cleared, false otherwise
+ */
+inline bool clearPimBackupData() noexcept
+{
+    bool l_rc{false};
+    try
+    {
+        /* TODO:
+           Clear all directories under /var/lib/phosphor-data-sync/bmc_data_bkp/
+        */
+    }
+    catch (const std::exception& l_ex)
+    {
+        vpd::Logger::getLoggerInstance()->logMessage(
+            "Failed to clear data under PIM backup path. Error: " +
+            std::string(l_ex.what()));
+    }
+    return l_rc;
+}
+
+/**
+ * @brief API to restart PIM service
+ *
+ * @return true if service was restarted successfully, false otherwise
+ */
+inline bool restartPimService() noexcept
+{
+    bool l_rc{false};
+    try
+    {
+        /* TODO:
+           Restart PIM service
+        */
+    }
+    catch (const std::exception& l_ex)
+    {
+        vpd::Logger::getLoggerInstance()->logMessage(
+            "Failed to restart PIM. Error: " + std::string(l_ex.what()));
+    }
+    return l_rc;
+}
+
 int main(int argc, char** argv)
 {
     try
@@ -120,13 +215,35 @@ int main(int argc, char** argv)
 
         CLI11_PARSE(l_app, argc, argv);
 
-        PrimeInventory l_primeObj;
-        l_primeObj.primeSystemBlueprint();
+        if (checkPimBackupPath())
+        {
+            if (restorePimBackupData())
+            {
+                // Once backup data is restored, restart PIM service so that the
+                // inventory data gets published on D-Bus
+                if (!restartPimService())
+                {
+                    // TODO: log PEL?
+                }
 
-        return collectAllFruVpd()
-                   ? checkVpdCollectionStatus(l_retryLimit,
-                                              l_sleepDurationInSeconds)
-                   : vpd::constants::VALUE_1;
+                clearPimBackupData();
+            }
+            else
+            {
+                // TODO: log PEL?
+            }
+            exit(EXIT_SUCCESS);
+        }
+        else
+        {
+            PrimeInventory l_primeObj;
+            l_primeObj.primeSystemBlueprint();
+
+            return collectAllFruVpd()
+                       ? checkVpdCollectionStatus(l_retryLimit,
+                                                  l_sleepDurationInSeconds)
+                       : vpd::constants::VALUE_1;
+        }
     }
     catch (const std::exception& l_ex)
     {
