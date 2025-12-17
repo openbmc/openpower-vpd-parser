@@ -1,8 +1,10 @@
 #include "config.h"
 
 #include "constants.hpp"
+#include "inventory_backup_handler.hpp"
 #include "logger.hpp"
 #include "prime_inventory.hpp"
+#include "utility/common_utility.hpp"
 #include "utility/dbus_utility.hpp"
 
 #include <CLI/CLI.hpp>
@@ -120,19 +122,71 @@ int main(int argc, char** argv)
 
         CLI11_PARSE(l_app, argc, argv);
 
-        PrimeInventory l_primeObj;
-        l_primeObj.primeSystemBlueprint();
+        // check and see if there is any inventory backup data. If it's there
+        // restore the data.
+        uint16_t l_errCode{0};
+        InventoryBackupHandler l_inventoryBackupHandler{
+            vpd::constants::pimServiceName, vpd::constants::pimPrimaryPath,
+            vpd::constants::pimBackupPath};
+        if (l_inventoryBackupHandler.restoreInventoryBackupData(l_errCode))
+        {
+            vpd::Logger::getLoggerInstance()->logMessage(
+                "Inventory backup data found and restored successfully");
 
-        return collectAllFruVpd()
-                   ? checkVpdCollectionStatus(l_retryLimit,
-                                              l_sleepDurationInSeconds)
-                   : vpd::constants::VALUE_1;
+            // restart the inventory manager service so that the new inventory
+            // data is reflected on D-Bus
+            if (l_inventoryBackupHandler.restartInventoryManagerService(
+                    l_errCode))
+            {
+                vpd::Logger::getLoggerInstance()->logMessage(
+                    "Successfully restarted inventory manager service : " +
+                    l_inventoryBackupHandler.getInventoryManagerServiceName());
+            }
+            else
+            {
+                throw std::runtime_error(
+                    "Failed to restart inventory manager service: " +
+                    l_inventoryBackupHandler.getInventoryManagerServiceName() +
+                    " Error: " + vpd::commonUtility::getErrCodeMsg(l_errCode));
+            }
+
+            // clear the backup inventory data
+            if (l_inventoryBackupHandler.clearInventoryBackupData(l_errCode))
+            {
+                vpd::Logger::getLoggerInstance()->logMessage(
+                    "Successfully cleared inventory manager backup data");
+            }
+            else
+            {
+                throw std::runtime_error(
+                    "Failed to clear inventory backup data. Error: " +
+                    vpd::commonUtility::getErrCodeMsg(l_errCode));
+            }
+        }
+        else if (l_errCode)
+        {
+            throw std::runtime_error(
+                "Failed to restore inventory backup data. Error: " +
+                vpd::commonUtility::getErrCodeMsg(l_errCode));
+        }
+        else
+        {
+            PrimeInventory l_primeObj;
+            l_primeObj.primeSystemBlueprint();
+
+            return collectAllFruVpd()
+                       ? checkVpdCollectionStatus(l_retryLimit,
+                                                  l_sleepDurationInSeconds)
+                       : vpd::constants::VALUE_1;
+        }
     }
     catch (const std::exception& l_ex)
     {
         const auto l_logger = vpd::Logger::getLoggerInstance();
         l_logger->logMessage("Exiting from wait-vpd-parser, reason: " +
                              std::string(l_ex.what()));
+
+        // TODO: log PEL
         return vpd::constants::VALUE_1;
     }
 }
