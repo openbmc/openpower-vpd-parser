@@ -19,6 +19,7 @@ sources = [
     'src/wait_vpd_parser.cpp',
     '../vpd-manager/src/logger.cpp',
     'src/prime_inventory.cpp',
+    'src/inventory_backup_handler.cpp',
 ]
 
 wait_vpd_parser_exe = executable(
