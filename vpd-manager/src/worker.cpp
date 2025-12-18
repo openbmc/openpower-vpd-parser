@@ -941,12 +941,12 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             types::ObjectMap objectInterfaceMap;
             populateDbus(parsedVpdMap, objectInterfaceMap, i_vpdFilePath);
 
-            // Notify PIM
-            if (!dbusUtility::callPIM(move(objectInterfaceMap)))
+            // Generic Method will decide which dbus method to call.
+            if (!dbusUtility::callDbusMethod((move(objectInterfaceMap)))
             {
                 throw std::runtime_error(
                     std::string(__FUNCTION__) +
-                    "Call to PIM failed while publishing VPD.");
+                    "Call to dbus method failed while publishing VPD.");
             }
         }
         else
