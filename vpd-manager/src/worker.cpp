@@ -1390,8 +1390,9 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
             l_objectInterfaceMap.emplace(i_vpdPath, std::move(l_interfaces));
         }
 
+	logging::logMessage("DBG: setPresentProperty via callDbusMethod");
         // Notify PIM
-        if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+        if (!dbusUtility::callDbusMethod(move(l_objectInterfaceMap)))
         {
             throw DbusException(
                 std::string(__FUNCTION__) +
