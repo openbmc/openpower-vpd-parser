@@ -1692,8 +1692,10 @@ void Worker::setCollectionStatusProperty(
             l_objectInterfaceMap.emplace(i_vpdPath, std::move(l_interfaces));
         }
 
-        // Notify PIM
-        if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+        logging::logMessage("DBG:  Setting Collection status via callDbusMethod");
+	
+        // Call dbus method
+        if (!dbusUtility::callDbusMethod(move(l_objectInterfaceMap)))
         {
             throw DbusException(
                 std::string(__FUNCTION__) +
