@@ -1213,8 +1213,9 @@ inline void updateCiPropertyOfInheritedFrus(
 
         if (!l_objectInterfaceMap.empty())
         {
-            // notify PIM
-            if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+            logging::logMesssage("DBG: updateCiPropertyOfInheritedFrus via callDbusMethod");
+	    // Update the dbus
+            if (!dbusUtility::callDbusMethod(move(l_objectInterfaceMap)))
             {
                 o_errCode = error_code::DBUS_FAILURE;
                 return;
