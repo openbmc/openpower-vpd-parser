@@ -1257,8 +1257,9 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
 
                 l_objectMap.emplace(i_dbusObjPath, std::move(l_interfaceMap));
 
-                if (!dbusUtility::callPIM(std::move(l_objectMap)))
+                if (!dbusUtility::callDbusMethod(std::move(l_objectMap)))
                 {
+		    logging::logMessage("DBG: Deleting Dbus data via callDbusMethod");
                     throw std::runtime_error("Call to PIM failed.");
                 }
 
