@@ -1008,8 +1008,9 @@ inline void updateKwdOnInheritedFrus(
 
         if (!l_objectInterfaceMap.empty())
         {
-            // notify PIM
-            if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+            logging::logMesssage("DBG: updateKwdOnInheritedFrus via callDbusMethod");
+            // Update dbus
+            if (!dbusUtility::callDbusMethod(move(l_objectInterfaceMap)))
             {
                 o_errCode = error_code::DBUS_FAILURE;
                 return;
