@@ -671,7 +671,8 @@ inline bool notifyFRUCollectionStatus(const std::string& i_inventoryPath,
     l_interfaceMap.emplace(constants::vpdCollectionInterface, l_propertyMap);
     l_objectMap.emplace(i_inventoryPath, l_interfaceMap);
 
-    if (!dbusUtility::callPIM(std::move(l_objectMap)))
+    logging::logMessage("DBG: notifyFRUCollectionStatus via callDbusMethod");
+    if (!dbusUtility::callDbusMethod(std::move(l_objectMap)))
     {
         return false;
     }
