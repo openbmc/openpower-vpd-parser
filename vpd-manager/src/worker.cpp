@@ -710,8 +710,9 @@ bool Worker::processPreAction(const std::string& i_vpdFilePath,
                  {{constants::kwdVpdInf,
                    {{constants::kwdCCIN, types::BinaryVector{}}}}}}};
 
-            if (!dbusUtility::callPIM(std::move(l_pimObjMap)))
+            if (!dbusUtility::callDbusMethod(std::move(l_pimObjMap)))
             {
+            logging::logMessage("DBG: PreAction: Clearing CCIN via callDbusMethod");
                 logging::logMessage(
                     "Call to PIM failed for file " + i_vpdFilePath);
             }
