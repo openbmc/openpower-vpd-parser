@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "595598f8_41be1d91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 31
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-22T14:24:17Z",
+      "side": 1,
+      "message": "file",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb9a7409_2b57f5ef",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-22T14:24:17Z",
+      "side": 1,
+      "message": "this is not optional, for IBM system Error PEL gets created if not found in the JSON.",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "431d303e_764a31db",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-22T14:24:17Z",
+      "side": 1,
+      "message": "if both are replace, we can\u0027t do backup\u0026restore.",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98acc736_ff96e053",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-22T14:24:17Z",
+      "side": 1,
+      "message": "can we include, will use this info for enabling the muxes in the system ?",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6d4d29f_83d8ca72",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-22T14:24:17Z",
+      "side": 1,
+      "message": "json",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90400c4f_b3148417",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-22T14:24:17Z",
+      "side": 1,
+      "message": "Nit: space before \"It is\"",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b7ffdc7_e56a6b50",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-22T14:24:17Z",
+      "side": 1,
+      "message": "hosted under FRU\u0027s inventory object path ?",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe1052e6_16724def",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-22T14:24:17Z",
+      "side": 1,
+      "message": "Dbus interface is missing, where all these below details can be there.",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "481bbb14_1aa20e08",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-22T14:24:17Z",
+      "side": 1,
+      "message": "Unique physical FRU\u0027s location code.",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b99dcae_0158ce5c",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-22T14:24:17Z",
+      "side": 1,
+      "message": "Nit: string:",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fc8b8da_59348927",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-22T14:24:17Z",
+      "side": 1,
+      "message": "nit: bool: Indicates",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "becbc387_68505e35",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-22T14:24:17Z",
+      "side": 1,
+      "message": "Nit: chassis is powered off.",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
