@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "471d5de4_3dfbe3d7",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-29T08:56:38Z",
+      "side": 1,
+      "message": "Indicates whether to clear",
+      "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c25d6278_711a348b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-29T08:56:38Z",
+      "side": 1,
+      "message": "Failed to clear data on DBus",
+      "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f80585f0_0727eb98",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-29T08:56:38Z",
+      "side": 1,
+      "message": "Failed to set collection status as completed",
+      "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8e79316_00e3f0bb",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-29T08:56:38Z",
+      "side": 1,
+      "message": "Failed to set collection status as Failed",
+      "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddb22f87_fcec6af7",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-29T08:56:38Z",
+      "side": 1,
+      "message": "do we need to skip reset VPD in this case ?",
+      "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c30f3bf0_8e479b5f",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1602,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-29T08:56:38Z",
+      "side": 1,
+      "message": "add fullstop and space at the end, as l_errMsg may get appended below as well.",
+      "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46ec93c6_52896315",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1610,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-29T08:56:38Z",
+      "side": 1,
+      "message": "Failed to set collection status as Failed for path.",
+      "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
