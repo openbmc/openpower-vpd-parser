@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26faa50e_b36098a6",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-30T05:15:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "494513f5_05cc3ae8",
+      "revId": "b2187ae4d6eb7e8a163704f7f29a36d2e72d7d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3965635_0bc0fdfc",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-12-29T04:55:35Z",
       "side": 1,
       "message": "the third point should be enough, as we copy data from backup to main location here.",
+      "revId": "b2187ae4d6eb7e8a163704f7f29a36d2e72d7d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a245fd16_236ee7f5",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-30T05:15:16Z",
+      "side": 1,
+      "message": "This is a draft TODO to keep note of scenarios we may need to handle. \n\nWe have to take care of the directory hierarchy while copying the data from backup to primary location.\nFor example, backup path may have `/var/lib/phosphor-data-sync/bmc_data_bkp/var/lib/phosphor-inventory-manager/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot1` the corresponding primary(main) PIM path is `/var/lib/phosphor-inventory-manager/xyz/openbmc_project/inventory/system/chassis/motherboard/pcieslot1`.\n\nIdeally, this should be handled by logic similar to `cp /var/lib/phosphor-data-sync/bmc_data_bkp/var/lib/phosphor-inventory-manager* /var/lib/phosphor-inventory-manager/*`, but we need to discuss and finalize this design.",
+      "parentUuid": "a3965635_0bc0fdfc",
       "revId": "b2187ae4d6eb7e8a163704f7f29a36d2e72d7d74",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "02b0caf1_9323c2a1",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-30T05:15:16Z",
+      "side": 1,
+      "message": "If we are inside this block, it means this BMC is moving from Passive to Active, and Passive BMC has failed to restore PIM backup data.\n1. `restorePimBackupData()` would involve copying files locally, so I think chances of failure are miniscule.\n2. Incase, it fails,  I would argue we should re-trying `restorePimBackupData()` would be a less expensive approach than triggering FRUs VPD collection.",
+      "parentUuid": "eddaae05_ef6fa695",
+      "revId": "b2187ae4d6eb7e8a163704f7f29a36d2e72d7d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "655b468e_e47fa54c",
         "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
         "patchSetId": 3
@@ -65,6 +119,24 @@
       "writtenOn": "2025-12-29T04:55:35Z",
       "side": 1,
       "message": "can this be called as part of restorePimBackupData()",
+      "revId": "b2187ae4d6eb7e8a163704f7f29a36d2e72d7d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10b4f645_3652ce37",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-30T05:15:16Z",
+      "side": 1,
+      "message": "Why? Each API should have logically distinct functionalities.",
+      "parentUuid": "655b468e_e47fa54c",
       "revId": "b2187ae4d6eb7e8a163704f7f29a36d2e72d7d74",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
