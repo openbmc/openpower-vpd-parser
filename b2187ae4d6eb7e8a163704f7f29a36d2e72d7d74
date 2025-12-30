@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16edc8fd_e04369a0",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-30T10:02:05Z",
+      "side": 1,
+      "message": "okay.",
+      "parentUuid": "a245fd16_236ee7f5",
+      "revId": "b2187ae4d6eb7e8a163704f7f29a36d2e72d7d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eddaae05_ef6fa695",
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "Why? Each API should have logically distinct functionalities.",
       "parentUuid": "655b468e_e47fa54c",
+      "revId": "b2187ae4d6eb7e8a163704f7f29a36d2e72d7d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fea6737_339a02d2",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2025-12-30T10:02:05Z",
+      "side": 1,
+      "message": "we can get single point exit for next action.",
+      "parentUuid": "10b4f645_3652ce37",
       "revId": "b2187ae4d6eb7e8a163704f7f29a36d2e72d7d74",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
