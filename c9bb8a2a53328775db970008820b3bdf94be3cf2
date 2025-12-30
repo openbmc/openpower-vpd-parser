@@ -50,6 +50,23 @@
       "message": "biosRecordKwMap ?",
       "revId": "c9bb8a2a53328775db970008820b3bdf94be3cf2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a186f97e_1ae34008",
+        "filename": "configuration/ibm/bios_map_70001000.json",
+        "patchSetId": 21
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2025-12-30T07:44:55Z",
+      "side": 1,
+      "message": "\"Record\" is in upper case, while other keys are in lowercase. All the key names should be consistent.",
+      "revId": "c9bb8a2a53328775db970008820b3bdf94be3cf2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
