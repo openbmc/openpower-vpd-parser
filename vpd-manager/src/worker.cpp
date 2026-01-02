@@ -711,7 +711,6 @@ bool Worker::processPreAction(const std::string& i_vpdFilePath,
                    {{constants::kwdCCIN, types::BinaryVector{}}}}}}};
 
             // Call dbus method to update on dbus
-	    logging::logMessage("DBG: processPreAction via callDbusMethod");
             if (!dbusUtility::callDbusMethod(std::move(l_pimObjMap)))
             {
                 logging::logMessage(
@@ -951,7 +950,6 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             populateDbus(parsedVpdMap, objectInterfaceMap, i_vpdFilePath);
 
             // Call dbus method to update on dbus
-	    logging::logMessage("DBG: parseAndPublishVPD via callDbusMethod");
             if (!dbusUtility::callDbusMethod(move(objectInterfaceMap)))
             {
                 throw std::runtime_error(
@@ -1287,7 +1285,6 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
                 l_objectMap.emplace(i_dbusObjPath, std::move(l_interfaceMap));
 
                 // Call dbus method to update on dbus
-	        logging::logMessage("DBG: deleteFruVpd via callDbusMethod");
                 if (!dbusUtility::callDbusMethod(std::move(l_objectMap)))
                 {
                     throw std::runtime_error("Call to PIM failed.");
@@ -1421,7 +1418,6 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
         }
 
         // Call dbus method to update on dbus
-        logging::logMessage("DBG: parseAndPublishVPD via callDbusMethod");
         if (!dbusUtility::callDbusMethod(move(l_objectInterfaceMap)))
         {
             throw DbusException(
@@ -1613,8 +1609,8 @@ void Worker::collectSingleFruVpd(
                 std::string(i_dbusObjPath));
         }
 
-        // Call PIM's Notify method
-        if (!dbusUtility::callPIM(move(l_dbusObjectMap)))
+        // Call dbus method to update the dbus
+        if (!dbusUtility::callDbusMethod(move(l_dbusObjectMap)))
         {
             throw std::runtime_error(
                 "Notify PIM failed. Single FRU VPD collection failed for " +
