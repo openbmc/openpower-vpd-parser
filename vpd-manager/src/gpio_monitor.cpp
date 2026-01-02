@@ -37,7 +37,8 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
                 throw std::runtime_error("Failed to create D-bus object map.");
             }
 
-            if (!dbusUtility::callPIM(move(l_dbusObjectMap)))
+            // Call method to update the dbus
+            if (!dbusUtility::publishVpdOnDBus(move(l_dbusObjectMap)))
             {
                 throw std::runtime_error("call PIM failed");
             }
