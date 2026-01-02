@@ -1546,7 +1546,7 @@ inline void resetObjTreeVpd(const std::string& i_vpdPath,
             l_objectMap.emplace(l_objectPath, l_interfaceMap);
         }
 
-        if (!dbusUtility::callPIM(std::move(l_objectMap)))
+        if (!dbusUtility::publishVpdOnDBus(std::move(l_objectMap)))
         {
             o_errCode = error_code::DBUS_FAILURE;
         }
