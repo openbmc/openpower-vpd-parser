@@ -16,6 +16,24 @@
       "message": "Instead of adding functionalities in the main file. Lets wrap this up in a class for better abstraction.",
       "revId": "d725b2d8b845bfba7267d7c8b9ca7387d3090ba9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6736f44_91cd5bbd",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-02T15:17:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "476e6ca4_7a63f8d2",
+      "revId": "d725b2d8b845bfba7267d7c8b9ca7387d3090ba9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
