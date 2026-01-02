@@ -1559,93 +1559,93 @@ void Worker::collectSingleFruVpd(
                     std::string(i_dbusObjPath));
             }
 
-            // Call PIM's Notify method
-            if (!dbusUtility::callPIM(move(l_dbusObjectMap)))
+            // Call method to update the dbus
+            if (!dbusUtility::publishVpdOnDBus(move(l_dbusObjectMap)))
             {
                 throw std::runtime_error(
                     "Notify PIM failed. Single FRU VPD collection failed for " +
                     std::string(i_dbusObjPath));
             }
-        }
 
-        vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, types::VpdCollectionStatus::Completed, m_parsedJson,
-            l_errCode);
-        if (l_errCode)
-        {
-            m_logger->logMessage(
-                "Failed to set collection status as completed for path " +
-                l_fruPath +
-                "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
-        }
-    }
-    catch (const std::exception& l_error)
-    {
-        std::string l_errMsg;
-        vpdSpecificUtility::resetObjTreeVpd(std::string(i_dbusObjPath),
-                                            m_parsedJson, l_errCode);
-
-        if (l_errCode)
-        {
-            l_errMsg += "Failed to reset data under PIM for path [" +
-                        std::string(i_dbusObjPath) + "], error : " +
-                        commonUtility::getErrCodeMsg(l_errCode) + ". ";
-        }
-
-        vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, types::VpdCollectionStatus::Failed, m_parsedJson,
-            l_errCode);
-        if (l_errCode)
-        {
-            l_errMsg += "Failed to set collection status as failed for path " +
-                        l_fruPath +
-                        "Reason: " + commonUtility::getErrCodeMsg(l_errCode);
-        }
-        // TODO: Log PEL
-        m_logger->logMessage(l_errMsg + std::string(l_error.what()));
-    }
-}
-
-void Worker::checkAndExecutePostFailAction(
-    const std::string& i_vpdFilePath,
-    const std::string& i_flowFlag) const noexcept
-{
-    try
-    {
-        uint16_t l_errCode{0};
-        if (!jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
-                                           "postFailAction", i_flowFlag,
-                                           l_errCode))
-        {
+            vpdSpecificUtility::setCollectionStatusProperty(
+                l_fruPath, types::VpdCollectionStatus::Completed, m_parsedJson,
+                l_errCode);
             if (l_errCode)
             {
                 m_logger->logMessage(
-                    "Failed to check if postFailAction is required. Error: " +
+                    "Failed to set collection status as completed for path " +
+                    l_fruPath +
+                    "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+            }
+        }
+        catch (const std::exception& l_error)
+        {
+            std::string l_errMsg;
+            vpdSpecificUtility::resetObjTreeVpd(std::string(i_dbusObjPath),
+                                                m_parsedJson, l_errCode);
+
+            if (l_errCode)
+            {
+                l_errMsg += "Failed to reset data under PIM for path [" +
+                            std::string(i_dbusObjPath) + "], error : " +
+                            commonUtility::getErrCodeMsg(l_errCode) + ". ";
+            }
+
+            vpdSpecificUtility::setCollectionStatusProperty(
+                l_fruPath, types::VpdCollectionStatus::Failed, m_parsedJson,
+                l_errCode);
+            if (l_errCode)
+            {
+                l_errMsg +=
+                    "Failed to set collection status as failed for path " +
+                    l_fruPath +
+                    "Reason: " + commonUtility::getErrCodeMsg(l_errCode);
+            }
+            // TODO: Log PEL
+            m_logger->logMessage(l_errMsg + std::string(l_error.what()));
+        }
+    }
+
+    void Worker::checkAndExecutePostFailAction(const std::string& i_vpdFilePath,
+                                               const std::string& i_flowFlag)
+        const noexcept
+    {
+        try
+        {
+            uint16_t l_errCode{0};
+            if (!jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
+                                               "postFailAction", i_flowFlag,
+                                               l_errCode))
+            {
+                if (l_errCode)
+                {
+                    m_logger->logMessage(
+                        "Failed to check if postFailAction is required. Error: " +
+                            commonUtility::getErrCodeMsg(l_errCode),
+                        i_flowFlag == "collection" ? PlaceHolder::COLLECTION
+                                                   : PlaceHolder::DEFAULT);
+                }
+                return;
+            }
+
+            if (!jsonUtility::executePostFailAction(m_parsedJson, i_vpdFilePath,
+                                                    i_flowFlag, l_errCode))
+            {
+                m_logger->logMessage(
+                    "Failed to execute postFailAction. Error: " +
                         commonUtility::getErrCodeMsg(l_errCode),
                     i_flowFlag == "collection" ? PlaceHolder::COLLECTION
                                                : PlaceHolder::DEFAULT);
             }
-            return;
         }
-
-        if (!jsonUtility::executePostFailAction(m_parsedJson, i_vpdFilePath,
-                                                i_flowFlag, l_errCode))
+        catch (const std::exception& l_ex)
         {
-            m_logger->logMessage("Failed to execute postFailAction. Error: " +
-                                     commonUtility::getErrCodeMsg(l_errCode),
-                                 i_flowFlag == "collection"
-                                     ? PlaceHolder::COLLECTION
-                                     : PlaceHolder::DEFAULT);
+            m_logger->logMessage(
+                "Failed to check and execute postFailAction. Error: " +
+                    std::string(l_ex.what()),
+                i_flowFlag == "collection" ? PlaceHolder::COLLECTION
+                                           : PlaceHolder::DEFAULT);
         }
     }
-    catch (const std::exception& l_ex)
-    {
-        m_logger->logMessage(
-            "Failed to check and execute postFailAction. Error: " +
-                std::string(l_ex.what()),
-            i_flowFlag == "collection" ? PlaceHolder::COLLECTION
-                                       : PlaceHolder::DEFAULT);
-    }
-}
 
 } // namespace vpd
