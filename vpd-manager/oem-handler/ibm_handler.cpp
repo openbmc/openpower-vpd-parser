@@ -401,7 +401,8 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
                 }
 
                 // update the Asset interface Spare part number explicitly.
-                if (!dbusUtility::callPIM(types::ObjectMap{
+                // Call dbus method to update on dbus
+                if (!dbusUtility::publishVpdOnDBus(types::ObjectMap{
                         {l_inventoryPath,
                          {{constants::assetInf,
                            {{"SparePartNumber",
