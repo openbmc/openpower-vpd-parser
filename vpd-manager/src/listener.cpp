@@ -551,7 +551,9 @@ bool Listener::updateCorrelatedProperty(
 
         if (i_serviceName == constants::pimServiceName)
         {
-            return dbusUtility::callPIM(types::ObjectMap{
+            // Call dbus method to update on dbus
+	    logging::logMessage("DBG: updateCorrelatedProperty via callDbusMethod");
+            return dbusUtility::callDbusMethod(types::ObjectMap{
                 {l_destinationObjectPath,
                  {{l_destinationInterface,
                    {{l_destinationPropertyName, l_valueToUpdate}}}}}});

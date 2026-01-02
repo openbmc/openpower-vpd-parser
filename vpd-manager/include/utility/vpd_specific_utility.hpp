@@ -1473,8 +1473,9 @@ inline void setCollectionStatusProperty(
                                      std::move(l_interfaces));
     }
 
-    // Notify PIM
-    if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+    // Call dbus method to update on dbus
+    logging::logMessage("DBG: setCollectionStatusProperty via callDbusMethod");
+    if (!dbusUtility::callDbusMethod(move(l_objectInterfaceMap)))
     {
         o_errCode = error_code::DBUS_FAILURE;
         return;
