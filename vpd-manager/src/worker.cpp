@@ -1607,8 +1607,8 @@ void Worker::collectSingleFruVpd(
                 std::string(i_dbusObjPath));
         }
 
-        // Call PIM's Notify method
-        if (!dbusUtility::callPIM(move(l_dbusObjectMap)))
+        // Call dbus method to update the dbus
+        if (!dbusUtility::callDbusMethod(move(l_dbusObjectMap)))
         {
             throw std::runtime_error(
                 "Notify PIM failed. Single FRU VPD collection failed for " +
