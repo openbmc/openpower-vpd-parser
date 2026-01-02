@@ -151,8 +151,8 @@ void Listener::assetTagChangeCallback(
                     {sdbusplus::message::object_path(constants::systemInvPath),
                      {{constants::assetTagInf, {{"AssetTag", *l_assetTag}}}}}};
 
-                // Notify PIM
-                if (!dbusUtility::callPIM(move(l_objectMap)))
+                // Call dbus method to update the dbus
+                if (!dbusUtility::callDbusMethod(move(l_objectMap)))
                 {
                     throw std::runtime_error(
                         "Call to PIM failed for asset tag update.");
@@ -552,7 +552,6 @@ bool Listener::updateCorrelatedProperty(
         if (i_serviceName == constants::pimServiceName)
         {
             // Call dbus method to update on dbus
-	    logging::logMessage("DBG: updateCorrelatedProperty via callDbusMethod");
             return dbusUtility::callDbusMethod(types::ObjectMap{
                 {l_destinationObjectPath,
                  {{l_destinationInterface,
