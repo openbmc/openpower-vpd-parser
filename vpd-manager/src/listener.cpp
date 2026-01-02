@@ -151,8 +151,8 @@ void Listener::assetTagChangeCallback(
                     {sdbusplus::message::object_path(constants::systemInvPath),
                      {{constants::assetTagInf, {{"AssetTag", *l_assetTag}}}}}};
 
-                // Notify PIM
-                if (!dbusUtility::callPIM(move(l_objectMap)))
+                // Call method to update the dbus
+                if (!dbusUtility::publishVpdOnDBus(move(l_objectMap)))
                 {
                     throw std::runtime_error(
                         "Call to PIM failed for asset tag update.");
