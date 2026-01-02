@@ -1559,11 +1559,11 @@ void Worker::collectSingleFruVpd(
                     std::string(i_dbusObjPath));
             }
 
-            // Call PIM's Notify method
-            if (!dbusUtility::callPIM(move(l_dbusObjectMap)))
+            // Call method to update the dbus
+            if (!dbusUtility::publishVpdOnDBus(move(l_dbusObjectMap)))
             {
                 throw std::runtime_error(
-                    "Notify PIM failed. Single FRU VPD collection failed for " +
+                    "publishVpdOnDBus failed. Single FRU VPD collection failed for " +
                     std::string(i_dbusObjPath));
             }
         }
