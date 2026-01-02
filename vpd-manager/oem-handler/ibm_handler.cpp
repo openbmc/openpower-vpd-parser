@@ -826,8 +826,10 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
                 __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
                 std::nullopt, std::nullopt, std::nullopt, std::nullopt);
         }
-        // Notify PIM
-        if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+
+        // Call dbus method to update the dbus
+        logger::logMessage("DBG: publishSystemVPD via callDbusMethod");
+        if (!dbusUtility::callDbusMethod(move(l_objectInterfaceMap)))
         {
             throw std::runtime_error("Call to PIM failed for system VPD");
         }
@@ -1115,7 +1117,9 @@ void IbmHandler::performInitialSetup()
             size_t l_bmcPosition = std::numeric_limits<size_t>::max();
             checkAndUpdateBmcPosition(l_bmcPosition);
 
-            if (dbusUtility::callPIM(types::ObjectMap{
+            // Call dbus method to update the dbus
+            logger::logMessage("DBG: performInitialSetup via callDbusMethod");
+            if (!dbusUtility::callDbusMethod(types::ObjectMap{
                     {sdbusplus::message::object_path(constants::systemInvPath),
                      {{constants::rbmcPositionInterface,
                        {{"Position", l_bmcPosition}}}}}}))
