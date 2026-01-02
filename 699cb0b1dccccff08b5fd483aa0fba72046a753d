@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c59ec3a_a01af9c5",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-02T07:48:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "471d5de4_3dfbe3d7",
+      "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c25d6278_711a348b",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-12-29T08:56:38Z",
       "side": 1,
       "message": "Failed to clear data on DBus",
+      "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e17e07e_37c8c0fc",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-02T07:48:26Z",
+      "side": 1,
+      "message": "resetDataUnderPIM -- API gives the data to clear on the DBus, it will not clear the data on DBus.",
+      "parentUuid": "c25d6278_711a348b",
       "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "541d08c7_59f957c6",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-02T07:48:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f80585f0_0727eb98",
+      "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8e79316_00e3f0bb",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-12-29T08:56:38Z",
       "side": 1,
       "message": "Failed to set collection status as Failed",
+      "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f7394e7_cdb74508",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-02T07:48:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8e79316_00e3f0bb",
       "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -103,6 +175,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0d52d1b_ac05cd55",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1602,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-02T07:48:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c30f3bf0_8e479b5f",
+      "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46ec93c6_52896315",
@@ -116,6 +206,24 @@
       "writtenOn": "2025-12-29T08:56:38Z",
       "side": 1,
       "message": "Failed to set collection status as Failed for path.",
+      "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9321858_0d7cdb59",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1610,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-02T07:48:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46ec93c6_52896315",
       "revId": "699cb0b1dccccff08b5fd483aa0fba72046a753d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
