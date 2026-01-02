@@ -710,7 +710,8 @@ bool Worker::processPreAction(const std::string& i_vpdFilePath,
                  {{constants::kwdVpdInf,
                    {{constants::kwdCCIN, types::BinaryVector{}}}}}}};
 
-            if (!dbusUtility::callPIM(std::move(l_pimObjMap)))
+            // Call dbus method to update on dbus
+            if (!dbusUtility::publishVpdOnDBus(std::move(l_pimObjMap)))
             {
                 logging::logMessage(
                     "Call to PIM failed for file " + i_vpdFilePath);
@@ -935,8 +936,8 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             types::ObjectMap objectInterfaceMap;
             populateDbus(parsedVpdMap, objectInterfaceMap, i_vpdFilePath);
 
-            // Notify PIM
-            if (!dbusUtility::callPIM(move(objectInterfaceMap)))
+            // Call dbus method to update on dbus
+            if (!dbusUtility::publishVpdOnDBus(move(objectInterfaceMap)))
             {
                 throw std::runtime_error(
                     std::string(__FUNCTION__) +
@@ -1350,8 +1351,8 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
             l_objectInterfaceMap.emplace(i_vpdPath, std::move(l_interfaces));
         }
 
-        // Notify PIM
-        if (!dbusUtility::callPIM(move(l_objectInterfaceMap)))
+        // Call dbus method to update on dbus
+        if (!dbusUtility::publishVpdOnDBus(move(l_objectInterfaceMap)))
         {
             throw DbusException(
                 std::string(__FUNCTION__) +
