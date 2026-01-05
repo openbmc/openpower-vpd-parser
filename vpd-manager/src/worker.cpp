@@ -1306,28 +1306,11 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
     }
     catch (const std::exception& l_ex)
     {
-        uint16_t l_errCode = 0;
         std::string l_errMsg =
             "Failed to delete VPD for FRU : " + i_dbusObjPath +
             " error: " + std::string(l_ex.what());
 
-        if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath,
-                                          "postFailAction", "deletion",
-                                          l_errCode))
-        {
-            if (!jsonUtility::executePostFailAction(m_parsedJson, l_fruPath,
-                                                    "deletion", l_errCode))
-            {
-                l_errMsg += ". Post fail action also failed, error : " +
-                            commonUtility::getErrCodeMsg(l_errCode);
-            }
-        }
-        else if (l_errCode)
-        {
-            l_errMsg +=
-                ". Failed to check if post fail action required, error : " +
-                commonUtility::getErrCodeMsg(l_errCode);
-        }
+        checkAndExecutePostFailAction(l_fruPath, "deletion");
 
         logging::logMessage(l_errMsg);
     }
