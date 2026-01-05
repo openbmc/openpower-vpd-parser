@@ -126,6 +126,12 @@ Manager::Manager(
             return this->collectAllFruVpd();
         });
 
+        iFace->register_method(
+            "ValidateRedundantEEPROM",
+            [this](const types::Path& i_fruPath) -> bool {
+                return this->validateRedundantEeprom(i_fruPath);
+            });
+
         // Indicates FRU VPD collection for the system has not started.
         progressiFace->register_property_rw<std::string>(
             "Status", sdbusplus::vtable::property_::emits_change,
@@ -775,5 +781,27 @@ bool Manager::collectAllFruVpd() const noexcept
             std::nullopt, std::nullopt, std::nullopt);
     }
     return false;
+}
+
+bool Manager::validateRedundantEeprom(
+    [[maybe_unused]] const types::Path& i_fruPath) const noexcept
+{
+    bool l_rc{false};
+    try
+    {
+        /**
+         * @todo Implement validation to ensure the primary EEPROM and its
+         *       redundant EEPROM contain identical VPD.
+         *
+         * 1. Retrieve the redundant EEPROM.
+         * 2. Parse the VPD from both the primary and redundant EEPROMs.
+         * 3. Compare the parsed VPD to verify they match.
+         */
+    }
+    catch (const std::exception& l_ex)
+    {
+        // @todo log a informational PEL.
+    }
+    return l_rc;
 }
 } // namespace vpd
