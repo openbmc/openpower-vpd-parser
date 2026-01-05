@@ -443,6 +443,23 @@ class Worker
                i_fru.value("handlePresence", true);
     }
 
+    /**
+     * @brief API to check and execute post fail action if needed.
+     *
+     * This API checks if post fail action is required for a given FRU path, and
+     * if needed it executes the given post fail action.
+     *
+     * @param[in] i_vpdFilePath - EEPROM file path.
+     * @param[in] i_action - Action to be executed.
+     * @param[out] o_errCode - To set error code in case of error.
+     *
+     * @return true if post fail execution is not required or is successful,
+     * false otherwise.
+     */
+    bool checkAndExecutePostFailAction(const std::string& i_vpdFilePath,
+                                       const std::string& i_action,
+                                       uint16_t& o_errCode) const noexcept;
+
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
 
