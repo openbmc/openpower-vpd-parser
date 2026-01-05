@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8cbe72a_487853cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2026-01-05T20:12:40Z",
+      "side": 1,
+      "message": "I typically don\u0027t enforce but always best if your Gerrit Name matches your signed-off / CCLA name. Thanks!\nI know some maintainers do enforce. \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/86150?usp\u003dsearch",
+      "revId": "0ef9bf975ea30ea2c82ae1c4e98483427e5a2ee9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
