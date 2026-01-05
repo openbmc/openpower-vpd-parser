@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dac0da48_3e5bbc0a",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-05T07:32:20Z",
+      "side": 1,
+      "message": "We need to check if we can make use of error code to have a common PEL with exact reason.",
+      "revId": "5b67d993c8e8a6bfd2e9c5ca45b776c5f2b9db50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c159ca9_fe037ffa",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-05T07:32:20Z",
+      "side": 1,
+      "message": "It is at 4th level, Please reduce the indentation.\nCan we have methods all at one level if possible?\n\nif (!checkInventoryBackupPath())\n{\n}\n\nif (!restoreInventoryBackupData())\n\n{\n}",
+      "revId": "5b67d993c8e8a6bfd2e9c5ca45b776c5f2b9db50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
