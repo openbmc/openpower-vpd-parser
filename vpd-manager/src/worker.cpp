@@ -814,6 +814,18 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                     logging::logMessage(
                         commonUtility::getErrCodeMsg(l_errCode) +
                         i_vpdFilePath);
+
+                    // since pre action is reporting device not present, execute
+                    // post fail action
+                    if (!checkAndExecutePostFailAction(i_vpdFilePath,
+                                                       "collection", l_errCode))
+                    {
+                        Logger::getLoggerInstance()->logMessage(
+                            "Post fail action failed. Error: " +
+                                commonUtility::getErrCodeMsg(l_errCode),
+                            PlaceHolder::COLLECTION);
+                    }
+
                     // Presence pin has been read successfully and has been read
                     // as false, so this is not a failure case, hence returning
                     // empty variant so that pre action is not marked as failed.
@@ -887,23 +899,12 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             i_vpdFilePath + " due to error: " + l_ex.what()};
 
         // If post fail action is required, execute it.
-        if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
-                                          "postFailAction", "collection",
-                                          l_errCode))
+        if (!checkAndExecutePostFailAction(i_vpdFilePath, "collection",
+                                           l_errCode))
         {
-            if (!jsonUtility::executePostFailAction(m_parsedJson, i_vpdFilePath,
-                                                    "collection", l_errCode))
-            {
-                l_exMsg += ". Post fail action also failed. Error : " +
-                           commonUtility::getErrCodeMsg(l_errCode) +
-                           " Aborting collection for this FRU.";
-            }
-        }
-        else if (l_errCode)
-        {
-            l_exMsg +=
-                ". Failed to check if post fail action required, error : " +
-                commonUtility::getErrCodeMsg(l_errCode);
+            l_exMsg += ". Post fail action also failed. Error : " +
+                       commonUtility::getErrCodeMsg(l_errCode) +
+                       " Aborting collection for this FRU.";
         }
 
         if (typeid(l_ex) == typeid(DataException))
@@ -1324,22 +1325,10 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
             "Failed to delete VPD for FRU : " + i_dbusObjPath +
             " error: " + std::string(l_ex.what());
 
-        if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath,
-                                          "postFailAction", "deletion",
-                                          l_errCode))
+        if (!checkAndExecutePostFailAction(l_fruPath, "deletion", l_errCode))
         {
-            if (!jsonUtility::executePostFailAction(m_parsedJson, l_fruPath,
-                                                    "deletion", l_errCode))
-            {
-                l_errMsg += ". Post fail action also failed, error : " +
-                            commonUtility::getErrCodeMsg(l_errCode);
-            }
-        }
-        else if (l_errCode)
-        {
-            l_errMsg +=
-                ". Failed to check if post fail action required, error : " +
-                commonUtility::getErrCodeMsg(l_errCode);
+            l_errMsg += ". Post fail action also failed, error : " +
+                        commonUtility::getErrCodeMsg(l_errCode);
         }
 
         logging::logMessage(l_errMsg);
@@ -1640,4 +1629,29 @@ void Worker::collectSingleFruVpd(
         logging::logMessage(std::string(l_error.what()));
     }
 }
+
+bool Worker::checkAndExecutePostFailAction(const std::string& i_vpdFilePath,
+                                           const std::string& i_action,
+                                           uint16_t& o_errCode) const noexcept
+{
+    bool l_rc{true};
+    o_errCode = 0;
+    try
+    {
+        if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
+                                          "postFailAction", i_action,
+                                          o_errCode))
+        {
+            return jsonUtility::executePostFailAction(
+                m_parsedJson, i_vpdFilePath, i_action, o_errCode);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        o_errCode = error_code::STANDARD_EXCEPTION;
+        l_rc = false;
+    }
+    return l_rc;
+}
+
 } // namespace vpd
