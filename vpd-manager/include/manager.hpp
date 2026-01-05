@@ -249,6 +249,25 @@ class Manager
         return m_worker;
     }
 
+    /**
+     * @brief Checks whether the primary EEPROM's VPD matches that of its
+     * redundant EEPROM.
+     *
+     * This API checks whether the given primary EEPROM and its corresponding
+     * redundant EEPROM (as defined in the system configuration JSON) contain
+     * the same VPD.
+     *
+     * Note:
+     * - If there is no corresponding redundant EEPROM path, or
+     * - If the given EEPROM path is not part of the system configuration JSON,
+     *   the API returns false.
+     * - The reason for the failure is recorded in an informational PEL.
+     *
+     * @return true if the VPD on given EEPROM and its redundant EEPROM are the
+     * same; false otherwise.
+     */
+    bool validateRedundantEeprom(const types::Path& i_fruPath) const noexcept;
+
   private:
     /**
      * @brief An api to check validity of unexpanded location code.
