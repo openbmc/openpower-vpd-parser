@@ -1325,22 +1325,10 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
             "Failed to delete VPD for FRU : " + i_dbusObjPath +
             " error: " + std::string(l_ex.what());
 
-        if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath,
-                                          "postFailAction", "deletion",
-                                          l_errCode))
+        if (!checkAndExecutePostFailAction(l_fruPath, "deletion", l_errCode))
         {
-            if (!jsonUtility::executePostFailAction(m_parsedJson, l_fruPath,
-                                                    "deletion", l_errCode))
-            {
-                l_errMsg += ". Post fail action also failed, error : " +
-                            commonUtility::getErrCodeMsg(l_errCode);
-            }
-        }
-        else if (l_errCode)
-        {
-            l_errMsg +=
-                ". Failed to check if post fail action required, error : " +
-                commonUtility::getErrCodeMsg(l_errCode);
+            l_errMsg += ". Post fail action also failed, error : " +
+                        commonUtility::getErrCodeMsg(l_errCode);
         }
 
         logging::logMessage(l_errMsg);
@@ -1643,7 +1631,7 @@ void Worker::collectSingleFruVpd(
 }
 
 bool Worker::checkAndExecutePostFailAction(const std::string& i_vpdFilePath,
-                                           const std::string& i_action,
+                                           const std::string& i_flowFlag,
                                            uint16_t& o_errCode) const noexcept
 {
     bool l_rc{true};
@@ -1651,11 +1639,11 @@ bool Worker::checkAndExecutePostFailAction(const std::string& i_vpdFilePath,
     try
     {
         if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
-                                          "postFailAction", i_action,
+                                          "postFailAction", i_flowFlag,
                                           o_errCode))
         {
             return jsonUtility::executePostFailAction(
-                m_parsedJson, i_vpdFilePath, i_action, o_errCode);
+                m_parsedJson, i_vpdFilePath, i_flowFlag, o_errCode);
         }
         else if (o_errCode)
         {
