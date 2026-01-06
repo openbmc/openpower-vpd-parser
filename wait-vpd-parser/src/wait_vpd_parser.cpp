@@ -133,6 +133,7 @@ bool checkAndHandleInventoryBackup()
     const auto l_restoreInventoryStartTime = std::chrono::steady_clock::now();
     if (!l_inventoryBackupHandler.restoreInventoryBackupData(l_errCode))
     {
+        l_logger->logMessage("_SR failed to restore inv backup");
         return l_rc;
     }
 
@@ -148,6 +149,8 @@ bool checkAndHandleInventoryBackup()
     // data is reflected on D-Bus
     if (l_inventoryBackupHandler.restartInventoryManagerService(l_errCode))
     {
+        l_logger->logMessage("_SR restart PIM successful, clearing inv data");
+
         // clear the backup inventory data
         l_inventoryBackupHandler.clearInventoryBackupData(l_errCode);
 
