@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70aae5e8_2f634c68",
+        "filename": "wait-vpd-parser/include/inventory_backup_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-06T11:58:14Z",
+      "side": 1,
+      "message": "nits: restoring saved data",
+      "parentUuid": "4d0b1693_2abb6483",
+      "revId": "2201d67a4dda64bd451debc5bc460f683421dc33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ef37a494_5de840d9",
         "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
         "patchSetId": 10
@@ -108,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f1433d4_14f751be",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-06T11:58:14Z",
+      "side": 1,
+      "message": "later if we go with filesystem::rename, then we will end up removing clearInventoryBackupData().",
+      "parentUuid": "463d160a_26a7c3fc",
+      "revId": "2201d67a4dda64bd451debc5bc460f683421dc33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0bc5531d_49f6ac86",
         "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
         "patchSetId": 10
@@ -137,6 +173,24 @@
       "side": 1,
       "message": "Yes. Otherwise the BMC transitioning from Passive to Active will not have FRUs VPD.",
       "parentUuid": "0bc5531d_49f6ac86",
+      "revId": "2201d67a4dda64bd451debc5bc460f683421dc33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6451493f_00659a58",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-06T11:58:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2266cf62_331b9737",
       "revId": "2201d67a4dda64bd451debc5bc460f683421dc33",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
