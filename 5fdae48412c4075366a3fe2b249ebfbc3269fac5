@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2ecde51a_b9d9a4b8",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1650,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-06T14:59:05Z",
+      "side": 1,
+      "message": "I do not see much benefit from \"postFail action not required\" log. We do not have this log in the current implementation as well.",
+      "parentUuid": "eaeaab82_5c365540",
+      "revId": "5fdae48412c4075366a3fe2b249ebfbc3269fac5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6e543008_32361bcf",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 6
@@ -31,6 +49,24 @@
       "writtenOn": "2026-01-06T14:46:25Z",
       "side": 1,
       "message": "Suggestion: Duplicate code can be avoided by throwing \"commonUtility::getErrCodeMsg(l_errCode)\" from here.",
+      "revId": "5fdae48412c4075366a3fe2b249ebfbc3269fac5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6defcb50_5e0f8c20",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1656,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-06T14:59:05Z",
+      "side": 1,
+      "message": "This log is explicitly telling that executing postFailAction failed and the associated error. If we throw from here, the resultant log message in the `catch` block would be quite long.\n\nThe `catch` block log message is for catching any exceptions.",
+      "parentUuid": "6e543008_32361bcf",
       "revId": "5fdae48412c4075366a3fe2b249ebfbc3269fac5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
