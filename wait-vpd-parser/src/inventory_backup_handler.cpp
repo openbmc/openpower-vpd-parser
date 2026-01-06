@@ -103,6 +103,9 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
 
                         if (l_ec)
                         {
+                            m_logger->logMessage(
+                                "_SR failed to rename, trying brute copy");
+
                             // rename failed, possibly because destination path
                             // already exists and is not empty
                             //  let's try to remove primary path, copy the data

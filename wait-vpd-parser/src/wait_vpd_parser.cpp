@@ -132,6 +132,7 @@ bool checkAndHandleInventoryBackup()
 
     if (!l_inventoryBackupHandler.restoreInventoryBackupData(l_errCode))
     {
+        l_logger->logMessage("_SR failed to restore inv backup");
         return l_rc;
     }
 
@@ -139,6 +140,8 @@ bool checkAndHandleInventoryBackup()
     // data is reflected on D-Bus
     if (l_inventoryBackupHandler.restartInventoryManagerService(l_errCode))
     {
+        l_logger->logMessage("_SR restart PIM successful, clearing inv data");
+
         // clear the backup inventory data
         l_inventoryBackupHandler.clearInventoryBackupData(l_errCode);
 
@@ -152,6 +155,8 @@ bool checkAndHandleInventoryBackup()
         // TODO: Restarting the inventory manager service has failed,
         // check error code to determine whether to go for VPD
         //  collection or to fail this service
+        l_logger->logMessage("_SR restart PIM failed, error: " +
+                             vpd::commonUtility::getErrCodeMsg(l_errCode));
     }
     return l_rc;
 }
