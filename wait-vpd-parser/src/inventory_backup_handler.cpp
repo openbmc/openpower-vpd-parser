@@ -10,10 +10,23 @@ bool InventoryBackupHandler::checkInventoryBackupPath(
     o_errCode = 0;
     try
     {
-        /* TODO:
-            Check inventory backup path to see if it
-           has sub directories with inventory backup data and return true if so.
-        */
+        const auto l_systemInventoryBackupPath{
+            m_inventoryBackupPath / vpd::constants::systemInvPath};
+
+        if (std::filesystem::exists(l_systemInventoryBackupPath) &&
+            std::filesystem::is_directory(l_systemInventoryBackupPath) &&
+            !std::filesystem::is_empty(l_systemInventoryBackupPath))
+        {
+            // check number of directories under system inventory
+            auto l_dirIt = std::filesystem::directory_iterator{
+                l_systemInventoryBackupPath};
+
+            const auto l_numSubDirectories = std::count_if(
+                std::filesystem::begin(l_dirIt), std::filesystem::end(l_dirIt),
+                [](const auto& l_entry) { return l_entry.is_directory(); });
+
+            l_rc = (l_numSubDirectories != 0);
+        }
     }
     catch (const std::exception& l_ex)
     {
@@ -49,6 +62,19 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             2. Extract the object path and interface information
             3. Restore the data to inventory manager persisted path.
         */
+        const auto l_systemInventoryPrimaryPath{
+            m_inventoryPrimaryPath / vpd::constants::systemVpdInvPath};
+
+        const auto l_systemInventoryBackupPath{
+            m_inventoryBackupPath / vpd::constants::systemInvPath};
+
+        if (std::filesystem::exists(l_systemInventoryPrimaryPath) &&
+            std::filesystem::is_directory(l_systemInventoryPrimaryPath))
+        {
+            std::filesystem::rename(l_systemInventoryBackupPath,
+                                    l_systemInventoryPrimaryPath);
+            l_rc = true;
+        }
     }
     catch (const std::exception& l_ex)
     {
@@ -79,9 +105,13 @@ bool InventoryBackupHandler::clearInventoryBackupData(
     o_errCode = 0;
     try
     {
-        /* TODO:
-           Clear all directories under inventory backup path
-        */
+        //     auto l_systemInventoryBackupPath{m_inventoryBackupPath};
+        //     l_systemInventoryBackupPath +=
+        //         std::filesystem::path{vpd::constants::systemInvPath};
+
+        //    std::filesystem::remove_all(l_systemInventoryBackupPath);
+
+        l_rc = true;
     }
     catch (const std::exception& l_ex)
     {
@@ -120,6 +150,8 @@ bool InventoryBackupHandler::restartInventoryManagerService(
            re-collection. If not running then along with critical PEL, fail this
            service as well.
         */
+        const auto l_cmd = "systemctl restart " + m_inventoryManagerServiceName;
+        vpd::commonUtility::executeCmd(l_cmd, o_errCode);
     }
     catch (const std::exception& l_ex)
     {
