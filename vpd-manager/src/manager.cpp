@@ -344,7 +344,7 @@ int Manager::updateKeywordOnHardware(
 }
 
 types::DbusVariantType Manager::readKeyword(
-    const types::Path i_fruPath, const types::ReadVpdParams i_paramsToReadData)
+    types::Path i_fruPath, const types::ReadVpdParams i_paramsToReadData)
 {
     try
     {
@@ -356,6 +356,33 @@ types::DbusVariantType Manager::readKeyword(
         }
 
         std::error_code ec;
+
+        uint16_t l_errCode = 0;
+
+        if (i_fruPath == SYSTEM_VPD_FILE_PATH)
+        {
+            const types::VpdCollectionMode l_vpdMode =
+                commonUtility::getVpdCollectionMode(l_errCode);
+
+            if (l_errCode)
+            {
+                Logger::getLoggerInstance()->logMessage(
+                    "Failed to get VPD collection mode, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+            else
+            {
+                commonUtility::getEffectiveFruPath(l_vpdMode, i_fruPath,
+                                                   l_errCode);
+
+                if (l_errCode)
+                {
+                    throw std::runtime_error(
+                        "Failed to get effective FRU path, error : " +
+                        commonUtility::getErrCodeMsg(l_errCode));
+                }
+            }
+        }
 
         // Check if given path is filesystem path
         if (!std::filesystem::exists(i_fruPath, ec) && (ec))
