@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaeaab82_5c365540",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1650,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-06T14:46:25Z",
+      "side": 1,
+      "message": "Should we also log the case where action is not required to differentiate the flow where \"isActionRequired\" returns false without error code and the flow where post fail action actually executed but did not take effect on the hardware?",
+      "revId": "5fdae48412c4075366a3fe2b249ebfbc3269fac5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e543008_32361bcf",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1656,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-06T14:46:25Z",
+      "side": 1,
+      "message": "Suggestion: Duplicate code can be avoided by throwing \"commonUtility::getErrCodeMsg(l_errCode)\" from here.",
+      "revId": "5fdae48412c4075366a3fe2b249ebfbc3269fac5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
