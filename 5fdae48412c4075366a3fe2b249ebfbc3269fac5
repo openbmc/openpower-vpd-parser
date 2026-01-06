@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "509292dc_1cfea3d6",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1650,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-06T15:27:52Z",
+      "side": 1,
+      "message": "Ignore, that will be over logging.",
+      "parentUuid": "eaeaab82_5c365540",
+      "revId": "5fdae48412c4075366a3fe2b249ebfbc3269fac5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e543008_32361bcf",
@@ -66,6 +84,24 @@
       "writtenOn": "2026-01-06T14:59:05Z",
       "side": 1,
       "message": "This log is explicitly telling that executing postFailAction failed and the associated error. If we throw from here, the resultant log message in the `catch` block would be quite long.\n\nThe `catch` block log message is for catching any exceptions.",
+      "parentUuid": "6e543008_32361bcf",
+      "revId": "5fdae48412c4075366a3fe2b249ebfbc3269fac5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f97efb5c_9a6e3e96",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1656,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-06T15:27:52Z",
+      "side": 1,
+      "message": "Msgs are different, missed that.",
       "parentUuid": "6e543008_32361bcf",
       "revId": "5fdae48412c4075366a3fe2b249ebfbc3269fac5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
