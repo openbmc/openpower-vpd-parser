@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a16e94c_0d0fe26d",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-06T07:43:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f922c7c2_7f4cffa7",
+      "revId": "5304be4cab030936f7a9c2e00da2da3147a26d69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "891c7812_06d2e885",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-01-06T06:48:27Z",
       "side": 1,
       "message": "I have some concerns with the message here.\nEven in case where postFailAction is not required, this code will end up logging that postFailAction failed. Which is a mis-representation of the state.\n\n\nCan we move the logging to the function itself?\na) That way we will be able to log specific issue?\nb) We will not need errCode as parameter. Anyways we need that parameter only to log.\n\nAlso, we don\u0027t need to receive the return type here. Anyways we are not branching off the code based on returns type other than adding a log.",
+      "revId": "5304be4cab030936f7a9c2e00da2da3147a26d69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77e45f23_fde36a68",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-06T07:43:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "891c7812_06d2e885",
       "revId": "5304be4cab030936f7a9c2e00da2da3147a26d69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
