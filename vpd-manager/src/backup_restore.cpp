@@ -84,6 +84,7 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
         std::string l_srcVpdPath;
         types::VPDMapVariant l_srcVpdVariant;
         auto l_srcVpdPath = getModeBasedHardwarePath("source");
+
         if (!l_srcVpdPath.empty() && std::filesystem::exists(l_srcVpdPath))
         {
             std::shared_ptr<Parser> l_vpdParser =
@@ -101,7 +102,7 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
 
         std::string l_dstVpdPath;
         types::VPDMapVariant l_dstVpdVariant;
-        auto l_srcVpdPath = getModeBasedHardwarePath("source");
+        auto l_srcVpdPath = getModeBasedHardwarePath("destination");
         if (!l_dstVpdPath.empty() && std::filesystem::exists(l_dstVpdPath))
         {
             std::shared_ptr<Parser> l_vpdParser =
@@ -162,20 +163,12 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
     return l_emptyVariantPair;
 }
 
-void BackupAndRestore::backupAndRestoreIpzVpd(
-    types::IPZVpdMap& io_srcVpdMap, types::IPZVpdMap& io_dstVpdMap,
-    const std::string& i_srcPath, const std::string& i_dstPath)
+bool BackupAndRestore::isSrcAndDestEepromPathsPresent(std::string& l_srcFruPath,
+                                                      std::string& l_dstFruPath)
 {
-    if (!m_backupAndRestoreCfgJsonObj["backupMap"].is_array())
-    {
-        logging::logMessage(
-            "Invalid value found for tag backupMap, in backup and restore config JSON.");
-        return;
-    }
-
     uint16_t l_errCode = 0;
 
-    const std::string l_srcFruPath =
+    l_srcFruPath =
         jsonUtility::getFruPathFromJson(m_sysCfgJsonObj, i_srcPath, l_errCode);
 
     if (l_errCode)
@@ -183,10 +176,10 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         logging::logMessage(
             "Failed to get source FRU path for [" + i_srcPath +
             "], error : " + commonUtility::getErrCodeMsg(l_errCode));
-        return;
+        return false;
     }
 
-    const std::string l_dstFruPath =
+    l_dstFruPath =
         jsonUtility::getFruPathFromJson(m_sysCfgJsonObj, i_dstPath, l_errCode);
 
     if (l_errCode)
@@ -194,17 +187,22 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         logging::logMessage(
             "Failed to get destination FRU path for [" + i_dstPath +
             "], error : " + commonUtility::getErrCodeMsg(l_errCode));
-        return;
+        return false;
     }
 
     if (l_srcFruPath.empty() || l_dstFruPath.empty())
     {
         logging::logMessage(
             "Couldn't find either source or destination FRU path.");
-        return;
+        return false;
     }
 
-    const std::string l_srcInvPath = jsonUtility::getInventoryObjPathFromJson(
+    return true;
+}
+
+bool isInventoryPathsPresent(l_srcInvPath, l_dstInvPath, i_srcPath, i_dstPath)
+{
+    l_srcInvPath = jsonUtility::getInventoryObjPathFromJson(
         m_sysCfgJsonObj, i_srcPath, l_errCode);
 
     if (l_srcInvPath.empty())
@@ -214,14 +212,14 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
             logging::logMessage(
                 "Couldn't find source inventory path. Error : " +
                 commonUtility::getErrCodeMsg(l_errCode));
-            return;
+            return false;
         }
 
         logging::logMessage("Couldn't find  source inventory path.");
-        return;
+        return false;
     }
 
-    const std::string l_dstInvPath = jsonUtility::getInventoryObjPathFromJson(
+    l_dstInvPath = jsonUtility::getInventoryObjPathFromJson(
         m_sysCfgJsonObj, i_dstPath, l_errCode);
 
     if (l_dstInvPath.empty())
@@ -235,9 +233,14 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         }
 
         logging::logMessage("Couldn't find destination inventory path.");
-        return;
+        return false;
     }
 
+    true;
+}
+
+bool getServiceNameForSrcAndDest()
+{
     const std::string l_srcServiceName =
         jsonUtility::getServiceName(m_sysCfgJsonObj, l_srcInvPath, l_errCode);
 
@@ -246,7 +249,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         logging::logMessage(
             "Failed to get service name for source FRU [" + l_srcInvPath +
             "], error : " + commonUtility::getErrCodeMsg(l_errCode));
-        return;
+        return false;
     }
 
     const std::string l_dstServiceName =
@@ -257,44 +260,174 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         logging::logMessage(
             "Failed to get service name for destination FRU [" + l_dstInvPath +
             "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+        return false;
+    }
+
+    return true;
+}
+
+bool extractAndFindRecordInMap(recordKeywordTuple, io_srcVpdMap, io_dstVpdMap)
+{
+    const std::string& l_srcRecordName =
+        l_aRecordKwInfo.value("sourceRecord", "");
+    const std::string& l_srcKeywordName =
+        l_aRecordKwInfo.value("sourceKeyword", "");
+    const std::string& l_dstRecordName =
+        l_aRecordKwInfo.value("destinationRecord", "");
+    const std::string& l_dstKeywordName =
+        l_aRecordKwInfo.value("destinationKeyword", "");
+
+    if (l_srcRecordName.empty() || l_dstRecordName.empty() ||
+        l_srcKeywordName.empty() || l_dstKeywordName.empty())
+    {
+        logging::logMessage(
+            "Record or keyword not found in the backup and restore config JSON.");
+        return false;
+    }
+
+    if (!io_srcVpdMap.empty() &&
+        io_srcVpdMap.find(l_srcRecordName) == io_srcVpdMap.end())
+    {
+        logging::logMessage("Record: " + l_srcRecordName +
+                            ", is not found in the source path: " + i_srcPath);
+        return false;
+    }
+
+    if (!io_dstVpdMap.empty() &&
+        io_dstVpdMap.find(l_dstRecordName) == io_dstVpdMap.end())
+    {
+        logging::logMessage(
+            "Record: " + l_dstRecordName +
+            ", is not found in the destination path: " + i_dstPath);
+        return false;
+    }
+
+    return true;
+}
+
+void getBinaryAndStringValues()
+{
+    if (!io_srcVpdMap.empty())
+    {
+        l_srcStrValue = vpdSpecificUtility::getKwVal(
+            io_srcVpdMap.at(l_srcRecordName), l_srcKeywordName, l_errCode);
+
+        if (l_srcStrValue.empty())
+        {
+            std::runtime_error(
+                std::string("Failed to get value for keyword [") +
+                l_srcKeywordName + std::string("], error : ") +
+                commonUtility::getErrCodeMsg(l_errCode));
+        }
+
+        l_srcBinaryValue =
+            types::BinaryVector(l_srcStrValue.begin(), l_srcStrValue.end());
+    }
+    else
+    {
+        // Read keyword value from DBus
+        const auto l_value = dbusUtility::readDbusProperty(
+            l_srcServiceName, l_srcInvPath,
+            constants::ipzVpdInf + l_srcRecordName, l_srcKeywordName);
+        if (const auto l_binaryValue =
+                std::get_if<types::BinaryVector>(&l_value))
+        {
+            l_srcBinaryValue = *l_binaryValue;
+            l_srcStrValue =
+                std::string(l_srcBinaryValue.begin(), l_srcBinaryValue.end());
+        }
+    }
+
+    if (!io_dstVpdMap.empty())
+    {
+        l_dstStrValue = vpdSpecificUtility::getKwVal(
+            io_dstVpdMap.at(l_dstRecordName), l_dstKeywordName, l_errCode);
+
+        if (l_dstStrValue.empty())
+        {
+            std::runtime_error(
+                std::string("Failed to get value for keyword [") +
+                l_dstKeywordName + std::string("], error : ") +
+                commonUtility::getErrCodeMsg(l_errCode));
+        }
+
+        l_dstBinaryValue =
+            types::BinaryVector(l_dstStrValue.begin(), l_dstStrValue.end());
+    }
+    else
+    {
+        // Read keyword value from DBus
+        const auto l_value = dbusUtility::readDbusProperty(
+            l_dstServiceName, l_dstInvPath,
+            constants::ipzVpdInf + l_dstRecordName, l_dstKeywordName);
+        if (const auto l_binaryValue =
+                std::get_if<types::BinaryVector>(&l_value))
+        {
+            l_dstBinaryValue = *l_binaryValue;
+            l_dstStrValue =
+                std::string(l_dstBinaryValue.begin(), l_dstBinaryValue.end());
+        }
+    }
+}
+
+void syncData(FruPath, RecordName, KeywordName, BinaryValue, StrValue, VpdMap)
+{
+    // Update keyword's value on hardware
+    auto l_vpdParser = std::make_shared<Parser>(FruPath, m_sysCfgJsonObj);
+
+    auto l_bytesUpdatedOnHardware = l_vpdParser->updateVpdKeyword(
+        types::IpzData(RecordName, KeywordName, BinaryValue));
+
+    /* To keep the data in sync between hardware and parsed map
+     updating the io_dstVpdMap. This should only be done if write
+     on hardware returns success.*/
+    if (!VpdMap.empty() && l_bytesUpdatedOnHardware > 0)
+    {
+        VpdMap[RecordName][KeywordName] = StrValue;
+    }
+}
+
+void BackupAndRestore::backupAndRestoreIpzVpd(
+    types::IPZVpdMap& io_srcVpdMap, types::IPZVpdMap& io_dstVpdMap,
+    const std::string& i_srcPath, const std::string& i_dstPath)
+{
+    if (!m_backupAndRestoreCfgJsonObj["backupMap"].is_array())
+    {
+        logging::logMessage(
+            "Invalid value found for tag backupMap, in backup and restore config JSON.");
+        return;
+    }
+
+    const std::string l_srcFruPath;
+    const std::string l_dstFruPath;
+    if (!isSrcAndDestEepromPathsPresent(l_srcFruPath, l_dstFruPath))
+    {
+        return;
+    }
+
+    const std::string l_srcInvPath;
+    const std::string l_dstInvPath;
+    if (isInventoryPathsPresent(l_srcInvPath, l_dstInvPath))
+    {
+        return;
+    }
+
+    const std::string l_srcServiceName;
+    const std::string l_dstServiceName;
+
+    if (getServiceNameForSrcAndDest())
+    {
         return;
     }
 
     for (const auto& l_aRecordKwInfo :
          m_backupAndRestoreCfgJsonObj["backupMap"])
     {
-        const std::string& l_srcRecordName =
-            l_aRecordKwInfo.value("sourceRecord", "");
-        const std::string& l_srcKeywordName =
-            l_aRecordKwInfo.value("sourceKeyword", "");
-        const std::string& l_dstRecordName =
-            l_aRecordKwInfo.value("destinationRecord", "");
-        const std::string& l_dstKeywordName =
-            l_aRecordKwInfo.value("destinationKeyword", "");
+        std::tuple<std::string, std::string, std::string, std::string>
+            recordKeywordTuple;
 
-        if (l_srcRecordName.empty() || l_dstRecordName.empty() ||
-            l_srcKeywordName.empty() || l_dstKeywordName.empty())
+        if (!extractAndFindRecordInMap(recordKeywordTuple))
         {
-            logging::logMessage(
-                "Record or keyword not found in the backup and restore config JSON.");
-            continue;
-        }
-
-        if (!io_srcVpdMap.empty() &&
-            io_srcVpdMap.find(l_srcRecordName) == io_srcVpdMap.end())
-        {
-            logging::logMessage(
-                "Record: " + l_srcRecordName +
-                ", is not found in the source path: " + i_srcPath);
-            continue;
-        }
-
-        if (!io_dstVpdMap.empty() &&
-            io_dstVpdMap.find(l_dstRecordName) == io_dstVpdMap.end())
-        {
-            logging::logMessage(
-                "Record: " + l_dstRecordName +
-                ", is not found in the destination path: " + i_dstPath);
             continue;
         }
 
@@ -318,69 +451,16 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
 
         types::BinaryVector l_srcBinaryValue;
         std::string l_srcStrValue;
-        if (!io_srcVpdMap.empty())
-        {
-            l_srcStrValue = vpdSpecificUtility::getKwVal(
-                io_srcVpdMap.at(l_srcRecordName), l_srcKeywordName, l_errCode);
 
-            if (l_srcStrValue.empty())
-            {
-                std::runtime_error(
-                    std::string("Failed to get value for keyword [") +
-                    l_srcKeywordName + std::string("], error : ") +
-                    commonUtility::getErrCodeMsg(l_errCode));
-            }
-
-            l_srcBinaryValue =
-                types::BinaryVector(l_srcStrValue.begin(), l_srcStrValue.end());
-        }
-        else
-        {
-            // Read keyword value from DBus
-            const auto l_value = dbusUtility::readDbusProperty(
-                l_srcServiceName, l_srcInvPath,
-                constants::ipzVpdInf + l_srcRecordName, l_srcKeywordName);
-            if (const auto l_binaryValue =
-                    std::get_if<types::BinaryVector>(&l_value))
-            {
-                l_srcBinaryValue = *l_binaryValue;
-                l_srcStrValue = std::string(l_srcBinaryValue.begin(),
-                                            l_srcBinaryValue.end());
-            }
-        }
+        getBinaryAndStringValues(l_srcBinaryValue, l_srcStrValue,
+                                 l_srcRecordName, l_srcKeywordName,
+                                 io_srcVpdMap);
 
         types::BinaryVector l_dstBinaryValue;
         std::string l_dstStrValue;
-        if (!io_dstVpdMap.empty())
-        {
-            l_dstStrValue = vpdSpecificUtility::getKwVal(
-                io_dstVpdMap.at(l_dstRecordName), l_dstKeywordName, l_errCode);
-
-            if (l_dstStrValue.empty())
-            {
-                std::runtime_error(
-                    std::string("Failed to get value for keyword [") +
-                    l_dstKeywordName + std::string("], error : ") +
-                    commonUtility::getErrCodeMsg(l_errCode));
-            }
-
-            l_dstBinaryValue =
-                types::BinaryVector(l_dstStrValue.begin(), l_dstStrValue.end());
-        }
-        else
-        {
-            // Read keyword value from DBus
-            const auto l_value = dbusUtility::readDbusProperty(
-                l_dstServiceName, l_dstInvPath,
-                constants::ipzVpdInf + l_dstRecordName, l_dstKeywordName);
-            if (const auto l_binaryValue =
-                    std::get_if<types::BinaryVector>(&l_value))
-            {
-                l_dstBinaryValue = *l_binaryValue;
-                l_dstStrValue = std::string(l_dstBinaryValue.begin(),
-                                            l_dstBinaryValue.end());
-            }
-        }
+        getBinaryAndStringValues(l_dstBinaryValue, l_dstStrValue,
+                                 l_dstRecordName, l_dstKeywordName,
+                                 io_dstVpdMap);
 
         if (l_srcBinaryValue != l_dstBinaryValue)
         {
@@ -388,43 +468,17 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
             // restore config JSON.
             if (l_dstBinaryValue == l_defaultBinaryValue)
             {
-                // Update keyword's value on hardware
-                auto l_vpdParser =
-                    std::make_shared<Parser>(l_dstFruPath, m_sysCfgJsonObj);
+                SyncData(l_dstFruPath, l_dstRecordNamem, l_dstKeywordName,
+                         l_srcBinaryValue, l_srcStrValue, io_dstVpdMap);
 
-                auto l_bytesUpdatedOnHardware = l_vpdParser->updateVpdKeyword(
-                    types::IpzData(l_dstRecordName, l_dstKeywordName,
-                                   l_srcBinaryValue));
-
-                /* To keep the data in sync between hardware and parsed map
-                 updating the io_dstVpdMap. This should only be done if write
-                 on hardware returns success.*/
-                if (!io_dstVpdMap.empty() && l_bytesUpdatedOnHardware > 0)
-                {
-                    io_dstVpdMap[l_dstRecordName][l_dstKeywordName] =
-                        l_srcStrValue;
-                }
                 continue;
             }
 
             if (l_srcBinaryValue == l_defaultBinaryValue)
             {
-                // Update keyword's value on hardware
-                auto l_vpdParser =
-                    std::make_shared<Parser>(l_srcFruPath, m_sysCfgJsonObj);
-
-                auto l_bytesUpdatedOnHardware = l_vpdParser->updateVpdKeyword(
-                    types::IpzData(l_srcRecordName, l_srcKeywordName,
-                                   l_dstBinaryValue));
-
-                /* To keep the data in sync between hardware and parsed map
-                 updating the io_srcVpdMap. This should only be done if write
-                 on hardware returns success.*/
-                if (!io_srcVpdMap.empty() && l_bytesUpdatedOnHardware > 0)
-                {
-                    io_srcVpdMap[l_srcRecordName][l_srcKeywordName] =
-                        l_dstStrValue;
-                }
+                SyncData(l_srcFruPath, l_srcRecordName, l_srcKeywordName,
+                         l_dstBinaryValue, l_dstStrValue, io_srcVpdMap);
+                continue;
             }
             else
             {
