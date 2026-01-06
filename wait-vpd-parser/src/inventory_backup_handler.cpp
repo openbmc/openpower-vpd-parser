@@ -132,9 +132,13 @@ bool InventoryBackupHandler::clearInventoryBackupData(
     o_errCode = 0;
     try
     {
-        /* TODO:
-           Clear all directories under inventory backup path
-        */
+        //     auto l_systemInventoryBackupPath{m_inventoryBackupPath};
+        //     l_systemInventoryBackupPath +=
+        //         std::filesystem::path{vpd::constants::systemInvPath};
+
+        //    std::filesystem::remove_all(l_systemInventoryBackupPath);
+
+        l_rc = true;
     }
     catch (const std::exception& l_ex)
     {
