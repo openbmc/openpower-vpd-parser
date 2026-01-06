@@ -86,6 +86,24 @@
       "message": "The API should only deal with check and restoration, restart and clear of inventory should be two different API.\n\n\nReason:\na) One API should not do so many jobs.\nThis API just restores the data, checking is a pre-requisite in the flow of restoration so can be clubbed. Still I would suggest name the API just \"RestoreInventoryBackupData\".\n\nb) Since you have a parameterized constructor, you are giving flexibility to use this code outside PIM.\nWe can\u0027t mandate all these 4 things to happen in this particular sequence always. \nLet the flexibility be with the caller.",
       "revId": "eab85e82df11ec7ab4c3a9f7c7a2d32822ba3e9f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58d16051_1f9c8ba8",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-06T17:19:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f938337_33f9c64c",
+      "revId": "eab85e82df11ec7ab4c3a9f7c7a2d32822ba3e9f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
