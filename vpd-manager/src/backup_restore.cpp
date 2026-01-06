@@ -34,6 +34,27 @@ BackupAndRestore::BackupAndRestore(const nlohmann::json& i_sysCfgJsonObj) :
     }
 }
 
+std::string getModeBasedHardwarePath(std::string i_location)
+{
+    std::string l_path =
+        m_backupAndRestoreCfgJsonObj[i_location].value("hardwarePath", "");
+
+    if (!l_path.empty())
+    {
+        uint16_t l_errCode = 0;
+        commonUtility::getEffectiveFruPath(m_vpdCollectionMode, l_path,
+                                           l_errCode);
+
+        if (l_errCode)
+        {
+            throw std::runtime_error(
+                "Failed to get effective FRU path for [" + l_path +
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+        }
+    }
+    return l_path;
+}
+
 std::tuple<types::VPDMapVariant, types::VPDMapVariant>
     BackupAndRestore::backupAndRestore()
 {
@@ -62,9 +83,8 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
 
         std::string l_srcVpdPath;
         types::VPDMapVariant l_srcVpdVariant;
-        if (l_srcVpdPath = m_backupAndRestoreCfgJsonObj["source"].value(
-                "hardwarePath", "");
-            !l_srcVpdPath.empty() && std::filesystem::exists(l_srcVpdPath))
+        auto l_srcVpdPath = getModeBasedHardwarePath("source");
+        if (!l_srcVpdPath.empty() && std::filesystem::exists(l_srcVpdPath))
         {
             std::shared_ptr<Parser> l_vpdParser =
                 std::make_shared<Parser>(l_srcVpdPath, m_sysCfgJsonObj);
@@ -81,9 +101,8 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
 
         std::string l_dstVpdPath;
         types::VPDMapVariant l_dstVpdVariant;
-        if (l_dstVpdPath = m_backupAndRestoreCfgJsonObj["destination"].value(
-                "hardwarePath", "");
-            !l_dstVpdPath.empty() && std::filesystem::exists(l_dstVpdPath))
+        auto l_srcVpdPath = getModeBasedHardwarePath("source");
+        if (!l_dstVpdPath.empty() && std::filesystem::exists(l_dstVpdPath))
         {
             std::shared_ptr<Parser> l_vpdParser =
                 std::make_shared<Parser>(l_dstVpdPath, m_sysCfgJsonObj);
