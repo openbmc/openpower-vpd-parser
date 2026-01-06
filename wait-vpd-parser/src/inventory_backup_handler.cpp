@@ -10,10 +10,12 @@ inline bool InventoryBackupHandler::checkInventoryBackupPath(
     o_errCode = 0;
     try
     {
-        /* TODO:
-            Check inventory backup path to see if it
-           has sub directories with inventory backup data and return true if so.
-        */
+        auto l_systemInventoryBackupPath{m_inventoryBackupPath};
+        l_systemInventoryBackupPath +=
+            std::filesystem::path{vpd::constants::systemInvPath};
+
+        return std::filesystem::exists(l_systemInventoryBackupPath) &&
+               std::filesystem::is_directory(l_systemInventoryBackupPath);
     }
     catch (const std::exception& l_ex)
     {
