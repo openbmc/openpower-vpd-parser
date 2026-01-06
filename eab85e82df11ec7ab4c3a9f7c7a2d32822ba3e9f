@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a444be6c_af10df8c",
+        "filename": "wait-vpd-parser/include/inventory_backup_handler.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-06T15:48:44Z",
+      "side": 1,
+      "message": "Why no logger instance in this case?",
+      "revId": "eab85e82df11ec7ab4c3a9f7c7a2d32822ba3e9f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dffd114_dc8b0c4a",
+        "filename": "wait-vpd-parser/include/inventory_backup_handler.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-06T15:48:44Z",
+      "side": 1,
+      "message": "Blank line in between and a one liner for each members please.",
+      "revId": "eab85e82df11ec7ab4c3a9f7c7a2d32822ba3e9f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f938337_33f9c64c",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-06T15:48:44Z",
+      "side": 1,
+      "message": "The API should only deal with check and restoration, restart and clear of inventory should be two different API.\n\n\nReason:\na) One API should not do so many jobs.\nThis API just restores the data, checking is a pre-requisite in the flow of restoration so can be clubbed. Still I would suggest name the API just \"RestoreInventoryBackupData\".\n\nb) Since you have a parameterized constructor, you are giving flexibility to use this code outside PIM.\nWe can\u0027t mandate all these 4 things to happen in this particular sequence always. \nLet the flexibility be with the caller.",
+      "revId": "eab85e82df11ec7ab4c3a9f7c7a2d32822ba3e9f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
