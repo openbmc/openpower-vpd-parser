@@ -175,6 +175,24 @@
       "parentUuid": "10b4f645_3652ce37",
       "revId": "b2187ae4d6eb7e8a163704f7f29a36d2e72d7d74",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9002bb50_b16abbbb",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-06T04:14:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fea6737_339a02d2",
+      "revId": "b2187ae4d6eb7e8a163704f7f29a36d2e72d7d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
