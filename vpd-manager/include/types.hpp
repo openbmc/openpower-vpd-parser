@@ -237,5 +237,8 @@ using DbusPropertyList = std::vector<DbusPropertyEntry>;
 
 using CommonProgress = sdbusplus::common::xyz::openbmc_project::common::Progress;
 using VpdCollectionStatus = CommonProgress::OperationStatus;
+
+/* A tuple of EEPROM and Dbus object path*/
+using EepromInventoryPaths = std::tuple<std::string, std::string>;
 } // namespace types
 } // namespace vpd

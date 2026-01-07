@@ -1,6 +1,7 @@
 #include "backup_restore.hpp"
 
 #include "constants.hpp"
+#include "error_codes.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
 #include "parser.hpp"
@@ -16,7 +17,7 @@ BackupAndRestoreStatus BackupAndRestore::m_backupAndRestoreStatus =
     BackupAndRestoreStatus::NotStarted;
 
 BackupAndRestore::BackupAndRestore(const nlohmann::json& i_sysCfgJsonObj) :
-    m_sysCfgJsonObj(i_sysCfgJsonObj)
+    m_sysCfgJsonObj(i_sysCfgJsonObj), m_logger(Logger::getLoggerInstance())
 {
     std::string l_backupAndRestoreCfgFilePath =
         i_sysCfgJsonObj.value("backupRestoreConfigPath", "");
@@ -34,6 +35,107 @@ BackupAndRestore::BackupAndRestore(const nlohmann::json& i_sysCfgJsonObj) :
     }
 }
 
+types::EepromInventoryPaths BackupAndRestore::getFruAndInvPaths(
+    const std::string& i_location) const noexcept
+{
+    if (i_location.empty())
+    {
+        m_logger->logMessage("Empty location received.");
+        return {};
+    }
+
+    if (!m_backupAndRestoreCfgJsonObj.contains(i_location))
+    {
+        m_logger->logMessage(
+            i_location +
+            " location is missing in the backup and restore config JSON.");
+        return {};
+    }
+
+    std::string l_fruPath{};
+    std::string l_invObjPath{};
+
+    if (l_fruPath =
+            m_backupAndRestoreCfgJsonObj[i_location].value("hardwarePath", "");
+        !l_fruPath.empty())
+    {
+        uint16_t l_errCode{0};
+        l_invObjPath = jsonUtility::getInventoryObjPathFromJson(
+            m_sysCfgJsonObj, l_fruPath, l_errCode);
+
+        if (l_invObjPath.empty())
+        {
+            std::string l_message{
+                "Failed to get Dbus inventory object path for [" + i_location +
+                "]."};
+            if (l_errCode)
+            {
+                l_message.append(
+                    " Error: " + commonUtility::getErrCodeMsg(l_errCode));
+            }
+            m_logger->logMessage(l_message);
+            return {};
+        }
+
+        return std::make_tuple(l_fruPath, l_invObjPath);
+    }
+    else if (l_invObjPath = m_backupAndRestoreCfgJsonObj[i_location].value(
+                 "inventoryPath", "");
+             !l_invObjPath.empty())
+    {
+        uint16_t l_errCode{0};
+        l_fruPath = jsonUtility::getFruPathFromJson(m_sysCfgJsonObj,
+                                                    l_invObjPath, l_errCode);
+        if (l_fruPath.empty())
+        {
+            std::string l_message{
+                "Failed to get FRU path for [" + i_location + "]."};
+            if (l_errCode)
+            {
+                l_message.append(
+                    " Error: " + commonUtility::getErrCodeMsg(l_errCode));
+            }
+            m_logger->logMessage(l_message);
+            return {};
+        }
+
+        return std::make_tuple(l_fruPath, l_invObjPath);
+    }
+
+    m_logger->logMessage(
+        "Neither hardwarePath nor inventoryPath is present in the backup and restore config JSON.");
+    return {};
+}
+
+std::tuple<std::string, std::string> BackupAndRestore::getSrcAndDstServiceName()
+    const noexcept
+{
+    uint16_t l_errCode{0};
+
+    std::string l_srcServiceName =
+        jsonUtility::getServiceName(m_sysCfgJsonObj, m_srcInvPath, l_errCode);
+    if (l_errCode)
+    {
+        m_logger->logMessage("Failed to get source service name, error : " +
+                             commonUtility::getErrCodeMsg(l_errCode));
+
+        return {};
+    }
+
+    std::string l_dstServiceName =
+        jsonUtility::getServiceName(m_sysCfgJsonObj, m_dstInvPath, l_errCode);
+    if (l_errCode)
+    {
+        m_logger->logMessage(
+            "Failed to get destination service name, error : " +
+            commonUtility::getErrCodeMsg(l_errCode));
+
+        return {};
+    }
+
+    return std::make_tuple(l_srcServiceName, l_dstServiceName);
+}
+
 std::tuple<types::VPDMapVariant, types::VPDMapVariant>
     BackupAndRestore::backupAndRestore()
 {
@@ -42,7 +144,7 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
 
     if (m_backupAndRestoreStatus >= BackupAndRestoreStatus::Invoked)
     {
-        logging::logMessage("Backup and restore invoked already.");
+        m_logger->logMessage("Backup and restore invoked already.");
         return l_emptyVariantPair;
     }
 
@@ -55,47 +157,42 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
             !m_backupAndRestoreCfgJsonObj.contains("type") ||
             !m_backupAndRestoreCfgJsonObj.contains("backupMap"))
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Backup restore config JSON is missing necessary tag(s), can't initiate backup and restore.");
             return l_emptyVariantPair;
         }
 
-        std::string l_srcVpdPath;
-        types::VPDMapVariant l_srcVpdVariant;
-        if (l_srcVpdPath = m_backupAndRestoreCfgJsonObj["source"].value(
-                "hardwarePath", "");
-            !l_srcVpdPath.empty() && std::filesystem::exists(l_srcVpdPath))
+        std::tie(m_srcFruPath, m_srcInvPath) = getFruAndInvPaths("source");
+        if (m_srcFruPath.empty() || m_srcInvPath.empty())
         {
-            std::shared_ptr<Parser> l_vpdParser =
-                std::make_shared<Parser>(l_srcVpdPath, m_sysCfgJsonObj);
-            l_srcVpdVariant = l_vpdParser->parse();
-        }
-        else if (l_srcVpdPath = m_backupAndRestoreCfgJsonObj["source"].value(
-                     "inventoryPath", "");
-                 l_srcVpdPath.empty())
-        {
-            logging::logMessage(
-                "Couldn't extract source path, can't initiate backup and restore.");
+            m_logger->logMessage(
+                "Failed to initiate backup and restore: unable to extract source FRU or inventory path.");
             return l_emptyVariantPair;
         }
 
-        std::string l_dstVpdPath;
-        types::VPDMapVariant l_dstVpdVariant;
-        if (l_dstVpdPath = m_backupAndRestoreCfgJsonObj["destination"].value(
-                "hardwarePath", "");
-            !l_dstVpdPath.empty() && std::filesystem::exists(l_dstVpdPath))
+        std::tie(m_dstFruPath, m_dstInvPath) = getFruAndInvPaths("destination");
+        if (m_dstFruPath.empty() || m_dstInvPath.empty())
+        {
+            m_logger->logMessage(
+                "Failed to initiate backup and restore: unable to extract destination FRU or inventory path.");
+            return l_emptyVariantPair;
+        }
+
+        types::VPDMapVariant l_srcVpdVariant;
+        if (m_backupAndRestoreCfgJsonObj["source"].contains("hardwarePath"))
         {
             std::shared_ptr<Parser> l_vpdParser =
-                std::make_shared<Parser>(l_dstVpdPath, m_sysCfgJsonObj);
-            l_dstVpdVariant = l_vpdParser->parse();
+                std::make_shared<Parser>(m_srcFruPath, m_sysCfgJsonObj);
+            l_srcVpdVariant = l_vpdParser->parse();
         }
-        else if (l_dstVpdPath = m_backupAndRestoreCfgJsonObj["destination"]
-                                    .value("inventoryPath", "");
-                 l_dstVpdPath.empty())
+
+        types::VPDMapVariant l_dstVpdVariant;
+        if (m_backupAndRestoreCfgJsonObj["destination"].contains(
+                "hardwarePath"))
         {
-            logging::logMessage(
-                "Couldn't extract destination path, can't initiate backup and restore.");
-            return l_emptyVariantPair;
+            std::shared_ptr<Parser> l_vpdParser =
+                std::make_shared<Parser>(m_dstFruPath, m_sysCfgJsonObj);
+            l_dstVpdVariant = l_vpdParser->parse();
         }
 
         // Implement backup and restore for IPZ type VPD
@@ -111,7 +208,7 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
             }
             else if (!std::holds_alternative<std::monostate>(l_srcVpdVariant))
             {
-                logging::logMessage("Source VPD is not of IPZ type.");
+                m_logger->logMessage("Source VPD is not of IPZ type.");
                 return l_emptyVariantPair;
             }
 
@@ -123,12 +220,11 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
             }
             else if (!std::holds_alternative<std::monostate>(l_dstVpdVariant))
             {
-                logging::logMessage("Destination VPD is not of IPZ type.");
+                m_logger->logMessage("Destination VPD is not of IPZ type.");
                 return l_emptyVariantPair;
             }
 
-            backupAndRestoreIpzVpd(l_srcVpdMap, l_dstVpdMap, l_srcVpdPath,
-                                   l_dstVpdPath);
+            backupAndRestoreIpzVpd(l_srcVpdMap, l_dstVpdMap);
             m_backupAndRestoreStatus = BackupAndRestoreStatus::Completed;
 
             return std::make_tuple(l_srcVpdMap, l_dstVpdMap);
@@ -137,107 +233,35 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
     }
     catch (const std::exception& ex)
     {
-        logging::logMessage("Back up and restore failed with exception: " +
-                            std::string(ex.what()));
+        m_logger->logMessage("Back up and restore failed with exception: " +
+                             std::string(ex.what()));
     }
     return l_emptyVariantPair;
 }
 
-void BackupAndRestore::backupAndRestoreIpzVpd(
-    types::IPZVpdMap& io_srcVpdMap, types::IPZVpdMap& io_dstVpdMap,
-    const std::string& i_srcPath, const std::string& i_dstPath)
+void BackupAndRestore::backupAndRestoreIpzVpd(types::IPZVpdMap& io_srcVpdMap,
+                                              types::IPZVpdMap& io_dstVpdMap)
 {
     if (!m_backupAndRestoreCfgJsonObj["backupMap"].is_array())
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Invalid value found for tag backupMap, in backup and restore config JSON.");
         return;
     }
 
-    uint16_t l_errCode = 0;
-
-    const std::string l_srcFruPath =
-        jsonUtility::getFruPathFromJson(m_sysCfgJsonObj, i_srcPath, l_errCode);
-
-    if (l_errCode)
+    if (m_srcFruPath.empty() || m_srcInvPath.empty() || m_dstFruPath.empty() ||
+        m_dstInvPath.empty())
     {
-        logging::logMessage(
-            "Failed to get source FRU path for [" + i_srcPath +
-            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+        m_logger->logMessage(
+            "Couldn't find either source or destination FRU or inventory path.");
         return;
     }
 
-    const std::string l_dstFruPath =
-        jsonUtility::getFruPathFromJson(m_sysCfgJsonObj, i_dstPath, l_errCode);
-
-    if (l_errCode)
+    auto [l_srcServiceName, l_dstServiceName] = getSrcAndDstServiceName();
+    if (l_srcServiceName.empty() || l_dstServiceName.empty())
     {
-        logging::logMessage(
-            "Failed to get destination FRU path for [" + i_dstPath +
-            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
-        return;
-    }
-
-    if (l_srcFruPath.empty() || l_dstFruPath.empty())
-    {
-        logging::logMessage(
-            "Couldn't find either source or destination FRU path.");
-        return;
-    }
-
-    const std::string l_srcInvPath = jsonUtility::getInventoryObjPathFromJson(
-        m_sysCfgJsonObj, i_srcPath, l_errCode);
-
-    if (l_srcInvPath.empty())
-    {
-        if (l_errCode)
-        {
-            logging::logMessage(
-                "Couldn't find source inventory path. Error : " +
-                commonUtility::getErrCodeMsg(l_errCode));
-            return;
-        }
-
-        logging::logMessage("Couldn't find  source inventory path.");
-        return;
-    }
-
-    const std::string l_dstInvPath = jsonUtility::getInventoryObjPathFromJson(
-        m_sysCfgJsonObj, i_dstPath, l_errCode);
-
-    if (l_dstInvPath.empty())
-    {
-        if (l_errCode)
-        {
-            logging::logMessage(
-                "Couldn't find destination inventory path. Error : " +
-                commonUtility::getErrCodeMsg(l_errCode));
-            return;
-        }
-
-        logging::logMessage("Couldn't find destination inventory path.");
-        return;
-    }
-
-    const std::string l_srcServiceName =
-        jsonUtility::getServiceName(m_sysCfgJsonObj, l_srcInvPath, l_errCode);
-
-    if (l_errCode)
-    {
-        logging::logMessage(
-            "Failed to get service name for source FRU [" + l_srcInvPath +
-            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
-        return;
-    }
-
-    const std::string l_dstServiceName =
-        jsonUtility::getServiceName(m_sysCfgJsonObj, l_dstInvPath, l_errCode);
-
-    if (l_errCode)
-    {
-        logging::logMessage(
-            "Failed to get service name for destination FRU [" + l_dstInvPath +
-            "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+        m_logger->logMessage(
+            "Failed to get Dbus service name; aborting IPZ backup and restore.");
         return;
     }
 
@@ -256,7 +280,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         if (l_srcRecordName.empty() || l_dstRecordName.empty() ||
             l_srcKeywordName.empty() || l_dstKeywordName.empty())
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Record or keyword not found in the backup and restore config JSON.");
             continue;
         }
@@ -264,18 +288,18 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         if (!io_srcVpdMap.empty() &&
             io_srcVpdMap.find(l_srcRecordName) == io_srcVpdMap.end())
         {
-            logging::logMessage(
-                "Record: " + l_srcRecordName +
-                ", is not found in the source path: " + i_srcPath);
+            m_logger->logMessage(
+                "Record: " + l_srcRecordName + ", is not found in the source " +
+                m_srcFruPath);
             continue;
         }
 
         if (!io_dstVpdMap.empty() &&
             io_dstVpdMap.find(l_dstRecordName) == io_dstVpdMap.end())
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Record: " + l_dstRecordName +
-                ", is not found in the destination path: " + i_dstPath);
+                ", is not found in the destination path: " + m_dstFruPath);
             continue;
         }
 
@@ -288,7 +312,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         }
         else
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Couldn't read default value for record name: " +
                 l_srcRecordName + ", keyword name: " + l_srcKeywordName +
                 " from backup and restore config JSON file.");
@@ -297,6 +321,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
 
         bool l_isPelRequired = l_aRecordKwInfo.value("isPelRequired", false);
 
+        uint16_t l_errCode{0};
         types::BinaryVector l_srcBinaryValue;
         std::string l_srcStrValue;
         if (!io_srcVpdMap.empty())
@@ -319,7 +344,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         {
             // Read keyword value from DBus
             const auto l_value = dbusUtility::readDbusProperty(
-                l_srcServiceName, l_srcInvPath,
+                l_srcServiceName, m_srcInvPath,
                 constants::ipzVpdInf + l_srcRecordName, l_srcKeywordName);
             if (const auto l_binaryValue =
                     std::get_if<types::BinaryVector>(&l_value))
@@ -352,7 +377,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
         {
             // Read keyword value from DBus
             const auto l_value = dbusUtility::readDbusProperty(
-                l_dstServiceName, l_dstInvPath,
+                l_dstServiceName, m_dstInvPath,
                 constants::ipzVpdInf + l_dstRecordName, l_dstKeywordName);
             if (const auto l_binaryValue =
                     std::get_if<types::BinaryVector>(&l_value))
@@ -371,7 +396,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
             {
                 // Update keyword's value on hardware
                 auto l_vpdParser =
-                    std::make_shared<Parser>(l_dstFruPath, m_sysCfgJsonObj);
+                    std::make_shared<Parser>(m_dstFruPath, m_sysCfgJsonObj);
 
                 auto l_bytesUpdatedOnHardware = l_vpdParser->updateVpdKeyword(
                     types::IpzData(l_dstRecordName, l_dstKeywordName,
@@ -392,7 +417,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(
             {
                 // Update keyword's value on hardware
                 auto l_vpdParser =
-                    std::make_shared<Parser>(l_srcFruPath, m_sysCfgJsonObj);
+                    std::make_shared<Parser>(m_srcFruPath, m_sysCfgJsonObj);
 
                 auto l_bytesUpdatedOnHardware = l_vpdParser->updateVpdKeyword(
                     types::IpzData(l_srcRecordName, l_srcKeywordName,
@@ -462,7 +487,7 @@ int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
 {
     if (i_fruPath.empty())
     {
-        logging::logMessage("Given FRU path is empty.");
+        m_logger->logMessage("Given FRU path is empty.");
         return constants::FAILURE;
     }
 
@@ -513,7 +538,7 @@ int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
             if (l_inpRecordName.empty() || l_inpKeywordName.empty() ||
                 l_inpKeywordValue.empty())
             {
-                logging::logMessage("Invalid input received");
+                m_logger->logMessage("Invalid input received");
                 return constants::FAILURE;
             }
         }
@@ -532,7 +557,7 @@ int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
                 l_aRecordKwInfo.value("destinationKeyword", "").empty())
             {
                 // invalid backup map found
-                logging::logMessage(
+                m_logger->logMessage(
                     "Invalid backup map found, one or more field(s) found empty or not present in the config JSON: sourceRecord: " +
                     l_aRecordKwInfo.value("sourceRecord", "") +
                     ", sourceKeyword: " +

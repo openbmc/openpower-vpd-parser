@@ -1,5 +1,6 @@
 #pragma once
 
+#include "logger.hpp"
 #include "types.hpp"
 
 #include <nlohmann/json.hpp>
@@ -104,14 +105,42 @@ class BackupAndRestore
      *
      * @param[in,out] io_srcVpdMap - Source VPD map.
      * @param[in,out] io_dstVpdMap - Destination VPD map.
-     * @param[in] i_srcPath - Source EEPROM file path or inventory path.
-     * @param[in] i_dstPath - Destination EEPROM file path or inventory path.
      *
      * @throw std::runtime_error
      */
-    void backupAndRestoreIpzVpd(
-        types::IPZVpdMap& io_srcVpdMap, types::IPZVpdMap& io_dstVpdMap,
-        const std::string& i_srcPath, const std::string& i_dstPath);
+    void backupAndRestoreIpzVpd(types::IPZVpdMap& io_srcVpdMap,
+                                types::IPZVpdMap& io_dstVpdMap);
+
+    /**
+     * @brief Get source and destination dbus service name.
+     *
+     * This API extracts the source and destination Dbus service names from the
+     * system configuration JSON using the inventory paths stored in
+     * m_srcInvPath and m_dstInvPath.
+     *
+     * @param[out] o_srcServiceName - Source service name.
+     * @param[out] o_dstServiceName - Destination service name.
+     *
+     * @return A tuple containing the source and destination Dbus service name
+     * on successful retrieval, or an empty tuple otherwise..
+     */
+    std::tuple<std::string, std::string> getSrcAndDstServiceName()
+        const noexcept;
+
+    /**
+     * @brief Retrieve EEPROM and inventory object paths.
+     *
+     * This API retrieves the EEPROM and inventory object paths for the given
+     * location (source or destination) from the backup and restore
+     * configuration and the system configuration JSONs.
+     *
+     * @param[in] i_location - Source or destination location.
+     *
+     * @return A tuple containing the EEPROM and inventory paths on successful
+     *         retrieval, or an empty tuple otherwise.
+     */
+    types::EepromInventoryPaths getFruAndInvPaths(
+        const std::string& i_location) const noexcept;
 
     // System JSON config JSON object.
     nlohmann::json m_sysCfgJsonObj{};
@@ -121,6 +150,17 @@ class BackupAndRestore
 
     // Backup and restore status.
     static BackupAndRestoreStatus m_backupAndRestoreStatus;
+
+    // Shared pointer to Logger object
+    std::shared_ptr<Logger> m_logger;
+
+    // Source path
+    std::string m_srcFruPath{};
+    std::string m_srcInvPath{};
+
+    // Destination path
+    std::string m_dstFruPath{};
+    std::string m_dstInvPath{};
 };
 
 } // namespace vpd
