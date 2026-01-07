@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6245a7bb_1b8ba921",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1526,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-07T06:18:49Z",
+      "side": 1,
+      "message": "Can we simplify this code? It will be more readable. Right now just looks complex.\n\nIdeally, code should not enter the if condition in case \"synthesized\" is true.\nSo can we have a check after extracting object path itself.\n\n\nif(l_inventoryItem.value(\"synthesized\", false))\n{\ncontinue;\n}\n\nand then directly the following code, no need of additional if checking?\n\ntypes::InterfaceMap l_interfaceMap;\nresetDataUnderPIM(l_objectPath, l_interfaceMap,\n                  l_inventoryItem.value(\"handlePresence\", true), o_errCode);",
+      "revId": "44a0f5b4612fe696583a27072e4690a7b72e1d32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
