@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed238662_0d39beba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 31
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-07T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "595598f8_41be1d91",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb9a7409_2b57f5ef",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-12-22T14:24:17Z",
       "side": 1,
       "message": "this is not optional, for IBM system Error PEL gets created if not found in the JSON.",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03694e0b_836f8ad2",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-07T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb9a7409_2b57f5ef",
       "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1da24ad3_35e617dd",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-07T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "431d303e_764a31db",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98acc736_ff96e053",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-12-22T14:24:17Z",
       "side": 1,
       "message": "can we include, will use this info for enabling the muxes in the system ?",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02cf6986_9af111bc",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-07T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98acc736_ff96e053",
       "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84686950_2f37fcd7",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-07T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6d4d29f_83d8ca72",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90400c4f_b3148417",
@@ -103,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "deba7e4a_6f7e189e",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-07T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90400c4f_b3148417",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b7ffdc7_e56a6b50",
@@ -116,6 +224,24 @@
       "writtenOn": "2025-12-22T14:24:17Z",
       "side": 1,
       "message": "hosted under FRU\u0027s inventory object path ?",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3a0f0c3_5cf3ed39",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-07T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b7ffdc7_e56a6b50",
       "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -154,6 +280,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d4db325_07957b12",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-07T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "481bbb14_1aa20e08",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f811b94e_e852cde3",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-07T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe1052e6_16724def",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b99dcae_0158ce5c",
@@ -167,6 +329,24 @@
       "writtenOn": "2025-12-22T14:24:17Z",
       "side": 1,
       "message": "Nit: string:",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed947a17_d3a93e49",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-07T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b99dcae_0158ce5c",
       "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -188,6 +368,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8af26ae_2ffd97bc",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-07T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fc8b8da_59348927",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "becbc387_68505e35",
@@ -201,6 +399,24 @@
       "writtenOn": "2025-12-22T14:24:17Z",
       "side": 1,
       "message": "Nit: chassis is powered off.",
+      "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c44d1d0_6389959f",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 31
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-07T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "becbc387_68505e35",
       "revId": "15235a9ca561bc72c7785d8e254051bd82dc44a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
