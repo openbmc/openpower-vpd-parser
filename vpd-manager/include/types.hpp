@@ -240,5 +240,12 @@ using VpdCollectionStatus = CommonProgress::OperationStatus;
 
 /* A tuple of EEPROM and Dbus object path*/
 using EepromInventoryPaths = std::tuple<std::string, std::string>;
+using BinaryStringKwValuePair = std::tuple<types::BinaryVector, std::string>;
+
+/* Tuple of<source record name, source keyword name, destination record name, destination keyword
+     * name, default value> */
+using SrcDstRecordDetails = std::tuple<std::string&, std::string&, std::string&, std::string&,
+                   types::BinaryVector&>;
+
 } // namespace types
 } // namespace vpd
