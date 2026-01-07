@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9188e8c9_e38dc975",
+        "filename": "wait-vpd-parser/include/inventory_backup_handler.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-07T08:52:17Z",
+      "side": 1,
+      "message": "Inline should be defined here?",
+      "revId": "99e2b6c842753f44e1e8d280d647f86a3c1b3ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05fe6d5b_9c51128e",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-07T08:52:17Z",
+      "side": 1,
+      "message": "In this complete flow, if we are not able to restore the data on PIM due to any error other than PIM service not present. We will mark the error with required severity but will go for re-collection as we can\u0027t let the system in a state without inventory just because we were not able to restore the data from back up.",
+      "revId": "99e2b6c842753f44e1e8d280d647f86a3c1b3ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b55b041_0d502579",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-07T08:52:17Z",
+      "side": 1,
+      "message": "Why are we logging good cases?\nI guess we should keep it to minimum like one for the complete process done or if we are directing that log to file. Else avoid it as it will just pollute journal.",
+      "revId": "99e2b6c842753f44e1e8d280d647f86a3c1b3ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "956c56be_53f08070",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-07T08:52:17Z",
+      "side": 1,
+      "message": "This will be a tricky one.\nIf we are unable to restart the service then,\nwe need to retry 3 times at least to get the service up. \nEven after that, if we are unable to get this working then we need to log a critical PEL and see if the service is in running state or failure state.\n(All this will be in the respective API).\n\nIf running state, then log critical PEL and go for re-collection. If not running then along with PEL, fail this service as well.",
+      "revId": "99e2b6c842753f44e1e8d280d647f86a3c1b3ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a955a685_ffe5edd8",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-07T08:52:17Z",
+      "side": 1,
+      "message": "I would not like to throw and fail the service in this case. It is required to clear the data but not as critical that we mark the service failed for just not able to do this part.",
+      "revId": "99e2b6c842753f44e1e8d280d647f86a3c1b3ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98d3d3f1_3ad0b8fd",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-07T08:52:17Z",
+      "side": 1,
+      "message": "If we are not able to restore the data than instead of failing the service and let the system hang without inventory. We will go for a re-collection as that will save the system from going to a failed state.",
+      "revId": "99e2b6c842753f44e1e8d280d647f86a3c1b3ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

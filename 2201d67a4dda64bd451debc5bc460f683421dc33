@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "924053b2_dd528064",
+        "filename": "wait-vpd-parser/include/inventory_backup_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-07T08:52:17Z",
+      "side": 1,
+      "message": "We will have to wrap it under a namespace. But since it is required for the whole exe we will keep it outside the scope of this commit.",
+      "parentUuid": "0f9a4009_f9fcedb5",
+      "revId": "2201d67a4dda64bd451debc5bc460f683421dc33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d67e56fa_54fb8d81",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "I intentionally wrote \"said\" to refer to the \"backed up data\"",
       "parentUuid": "70aae5e8_2f634c68",
+      "revId": "2201d67a4dda64bd451debc5bc460f683421dc33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81f088fa_4e2d2d4d",
+        "filename": "wait-vpd-parser/include/inventory_backup_handler.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-07T08:52:17Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e9d8af4a_5b337782",
       "revId": "2201d67a4dda64bd451debc5bc460f683421dc33",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
