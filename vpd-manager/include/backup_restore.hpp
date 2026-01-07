@@ -156,6 +156,75 @@ class BackupAndRestore
      */
     bool extractSrcAndDstPaths(uint16_t& o_errCode) noexcept;
 
+    /**
+     * @brief Extract and validate record details.
+     *
+     * This API extracts the source and destination record name, keyword name,
+     * and default value from the input JSON object. It also validates that the
+     * extracted source and destination records are present in the provided VPD
+     * maps when they are not empty.
+     *
+     * @param[in] i_aRecordKwInfo - Json object containing record and keyword
+     * details.
+     * @param[out] o_recordKeywordTuple - Tuple containing (source record name,
+     * source keyword name, destination record name, destination keyword name,
+     * default value).
+     * @param[in] i_srcVpdMap - Source IPZ VPD map.
+     * @param[in] i_dstVpdMap - Destination IPZ VPD map.
+     *
+     * @return true if record details are successfully extracted and validated,
+     *         false otherwise.
+     */
+    bool extractAndFindRecordInMap(
+        const auto& i_aRecordKwInfo,
+        std::tuple<std::string&, std::string&, std::string&, std::string&,
+                   types::BinaryVector&>
+            o_recordKeywordTuple,
+        const std::optional<types::IPZVpdMap>& i_srcVpdMap,
+        const std::optional<types::IPZVpdMap>& i_dstVpdMap) const noexcept;
+
+    /**
+     * @brief Retrieve the binary and string values of a keyword.
+     *
+     * This API returns a tuple containing the binary and string values for the
+     * given record and keyword. If the input VPD map is not empty, the keyword
+     * value is extracted from the map; otherwise, the keyword value is
+     * retrieved through a D-Bus query.
+     *
+     * @param[in] i_recordName -  Record name.
+     * @param[in] i_keywordName - Keyword name.
+     * @param[in] i_vpdMap - IPZ VPD map.
+     * @param[in] i_serviceName - Dbus service name.
+     * @param[out] o_errCode - Error code set on failure.
+     *
+     * @return A tuple containing the keyword's binary value and its string
+     *         representation on success, or an empty tuple on failure.
+     */
+    std::tuple<types::BinaryVector, std::string> getBinaryAndStrKwValue(
+        const std::string& i_recordName, const std::string& i_keywordName,
+        const types::IPZVpdMap& i_vpdMap, const std::string& i_serviceName,
+        uint16_t& o_errCode) const noexcept;
+
+    /**
+     * @brief Synchronize a keyword value to EEPROM.
+     *
+     * This API updates the specified record's keyword value on the given
+     * EEPROM. On success, it updates the corresponding string value in the
+     * provided VPD map if not empty.
+     *
+     * @param[in] i_fruPath - EEPROM path.
+     * @param[in] i_recordName - Record name.
+     * @param[in] i_keywordName - Keyword name.
+     * @param[in] i_binaryValue - Keyword value in Binary format.
+     * @param[in] i_strValue - Keyword value in string format.
+     * @param[out] o_vpdMap - IPZ VPD map.
+     */
+    void syncData(const std::string& i_fruPath, const std::string& i_recordName,
+                  const std::string& i_keywordName,
+                  const types::BinaryVector& i_binaryValue,
+                  const std::string& i_strValue,
+                  types::IPZVpdMap& o_vpdMap) const noexcept;
+
     // System JSON config JSON object.
     nlohmann::json m_sysCfgJsonObj{};
 
