@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3700ae9_59be981d",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 33
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-08T17:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dffc1ba6_3ca6b858",
+      "range": {
+        "startLine": 11,
+        "startChar": 44,
+        "endLine": 13,
+        "endChar": 21
+      },
+      "revId": "b267408d6852a2c1071f4832e82efcf9eb815b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77ac4e7b_cb6ef374",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-01-08T08:44:32Z",
       "side": 1,
       "message": "It is not specific to system VPD, any FRU can it is a functionality which can work between any two entities.",
+      "range": {
+        "startLine": 17,
+        "startChar": 36,
+        "endLine": 17,
+        "endChar": 47
+      },
+      "revId": "b267408d6852a2c1071f4832e82efcf9eb815b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39a65486_136fe067",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 33
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-08T17:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77ac4e7b_cb6ef374",
       "range": {
         "startLine": 17,
         "startChar": 36,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e00e453d_b37c011c",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 33
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-08T17:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cc4ce18_d005388c",
+      "range": {
+        "startLine": 56,
+        "startChar": 27,
+        "endLine": 56,
+        "endChar": 65
+      },
+      "revId": "b267408d6852a2c1071f4832e82efcf9eb815b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29a8ff68_333d4de3",
@@ -83,6 +155,24 @@
       "writtenOn": "2026-01-08T08:44:32Z",
       "side": 1,
       "message": "There should be a section called, sample JSON where we can put this example.",
+      "revId": "b267408d6852a2c1071f4832e82efcf9eb815b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5444070_a1dee26e",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 33
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-08T17:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29a8ff68_333d4de3",
       "revId": "b267408d6852a2c1071f4832e82efcf9eb815b1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
