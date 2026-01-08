@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0de3e8c_20742d5a",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-08T09:15:00Z",
+      "side": 1,
+      "message": "We don\u0027t need to put this example in the final code.\n\nWe will just give in the brief of another method how to use it.\n\nSo get rid of \"callEmMethod\".",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf24e601_fdc3252e",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-08T09:15:00Z",
+      "side": 1,
+      "message": "\"callDbusMethod\" this is a very generic term. Gives no information about what Dbus method and why.\n\nMethos name is an action, can we name it as publishVpdOnDBus?",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93b452cf_d3d0b5fb",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-08T09:15:00Z",
+      "side": 1,
+      "message": "Please clean up the patch.",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82df0877_9072cb4f",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-08T09:15:00Z",
+      "side": 1,
+      "message": "We don\u0027t need this part in the final commit. You can get rid of else part.",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2076a904_967fd55b",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-08T09:15:00Z",
+      "side": 1,
+      "message": "Get rid of these changes.",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
