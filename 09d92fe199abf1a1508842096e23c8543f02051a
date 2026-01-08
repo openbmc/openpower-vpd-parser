@@ -20,6 +20,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ae2e030_9e5c0c9b",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-08T09:20:27Z",
+      "side": 1,
+      "message": "Missing `@param[in]`",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17a9f0f1_cab9778f",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-08T09:20:27Z",
+      "side": 1,
+      "message": "Debug trace needs to be removed.",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf24e601_fdc3252e",
         "filename": "vpd-manager/include/utility/dbus_utility.hpp",
         "patchSetId": 12
@@ -31,6 +65,23 @@
       "writtenOn": "2026-01-08T09:15:00Z",
       "side": 1,
       "message": "\"callDbusMethod\" this is a very generic term. Gives no information about what Dbus method and why.\n\nMethos name is an action, can we name it as publishVpdOnDBus?",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c582035_1b7249b7",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-08T09:20:27Z",
+      "side": 1,
+      "message": "This `callDbusMethod` is not being called anywhere in this patch.",
       "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
