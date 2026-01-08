@@ -141,6 +141,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "424edfca_2c761c7a",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-08T09:21:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68785760_37c4bc0e",
+      "revId": "99e2b6c842753f44e1e8d280d647f86a3c1b3ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a955a685_ffe5edd8",
