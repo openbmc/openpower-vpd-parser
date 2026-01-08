@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7672244c_8d5fbe95",
+        "filename": "wait-vpd-parser/include/inventory_backup_handler.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-08T16:00:47Z",
+      "side": 1,
+      "message": "give a new line after this",
+      "revId": "680c875e19a95360a861744c14d3f4aa3a3abc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b28f83dd_c8322e14",
+        "filename": "wait-vpd-parser/include/inventory_backup_handler.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-08T16:00:47Z",
+      "side": 1,
+      "message": "do we need this API outside of the class ?",
+      "revId": "680c875e19a95360a861744c14d3f4aa3a3abc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8b47259_d6e0b3cb",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-08T16:00:47Z",
+      "side": 1,
+      "message": "why not logging the actual error.",
+      "revId": "680c875e19a95360a861744c14d3f4aa3a3abc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f2ce789_c19383ea",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-08T16:00:47Z",
+      "side": 1,
+      "message": "missing logging the actual error",
+      "revId": "680c875e19a95360a861744c14d3f4aa3a3abc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a64564ad_d6b3a893",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-08T16:00:47Z",
+      "side": 1,
+      "message": "missing logging the actual error.",
+      "revId": "680c875e19a95360a861744c14d3f4aa3a3abc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
