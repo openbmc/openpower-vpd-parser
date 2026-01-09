@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e9b1cc9_ba46f3f3",
+        "filename": "wait-vpd-parser/include/inventory_backup_handler.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-09T06:02:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7672244c_8d5fbe95",
+      "revId": "680c875e19a95360a861744c14d3f4aa3a3abc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b28f83dd_c8322e14",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-01-08T16:00:47Z",
       "side": 1,
       "message": "do we need this API outside of the class ?",
+      "revId": "680c875e19a95360a861744c14d3f4aa3a3abc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fc8ebb1_9064f87a",
+        "filename": "wait-vpd-parser/include/inventory_backup_handler.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-09T06:02:11Z",
+      "side": 1,
+      "message": "API is not needed. Removed the API.",
+      "parentUuid": "b28f83dd_c8322e14",
       "revId": "680c875e19a95360a861744c14d3f4aa3a3abc8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -70,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4490c6a1_a2bbefa6",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-09T06:02:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e5b24ee_02d3d486",
+      "revId": "680c875e19a95360a861744c14d3f4aa3a3abc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f2ce789_c19383ea",
@@ -87,6 +141,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6428e972_07736c1b",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-09T06:02:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f2ce789_c19383ea",
+      "revId": "680c875e19a95360a861744c14d3f4aa3a3abc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a64564ad_d6b3a893",
@@ -100,6 +172,24 @@
       "writtenOn": "2026-01-08T16:00:47Z",
       "side": 1,
       "message": "missing logging the actual error.",
+      "revId": "680c875e19a95360a861744c14d3f4aa3a3abc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba95e8b5_5676f7af",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-09T06:02:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a64564ad_d6b3a893",
       "revId": "680c875e19a95360a861744c14d3f4aa3a3abc8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

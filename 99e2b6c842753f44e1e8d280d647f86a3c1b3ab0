@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6d191b1_fbc5790e",
+        "filename": "wait-vpd-parser/include/inventory_backup_handler.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-09T06:02:11Z",
+      "side": 1,
+      "message": "Agreed. Removed the `inline` keyword.",
+      "parentUuid": "ffd8a86e_ee4966b7",
+      "revId": "99e2b6c842753f44e1e8d280d647f86a3c1b3ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05fe6d5b_9c51128e",
