@@ -214,6 +214,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbb589f0_1ff94f70",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-09T08:43:28Z",
+      "side": 1,
+      "message": "Seems valid, we will take care once implementation is done.\nIf rename is efficient lets go with that itself as it will save the effort of clearing the data post copying.",
+      "parentUuid": "41bcb3ac_073d1657",
+      "revId": "2201d67a4dda64bd451debc5bc460f683421dc33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bc5531d_49f6ac86",
