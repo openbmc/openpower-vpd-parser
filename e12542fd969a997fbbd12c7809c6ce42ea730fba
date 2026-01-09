@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4060ae0f_590f73ab",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-09T14:50:07Z",
+      "side": 1,
+      "message": "It should be \"! \" for callPIM return value, then only we can log error messages here",
+      "range": {
+        "startLine": 1112,
+        "startChar": 1,
+        "endLine": 1112,
+        "endChar": 54
+      },
+      "revId": "e12542fd969a997fbbd12c7809c6ce42ea730fba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7697075c_42ec1816",
         "filename": "vpd-manager/src/backup_restore.cpp",
         "patchSetId": 9
