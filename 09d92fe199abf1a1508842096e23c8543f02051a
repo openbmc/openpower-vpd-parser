@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38e5760a_8bdf5739",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-09T07:10:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0de3e8c_20742d5a",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ae2e030_9e5c0c9b",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b851f8c7_23510b5a",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-09T07:10:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7ae2e030_9e5c0c9b",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17a9f0f1_cab9778f",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-01-08T09:20:27Z",
       "side": 1,
       "message": "Debug trace needs to be removed.",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d00e43f1_19ed5ec4",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-09T07:10:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17a9f0f1_cab9778f",
       "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +140,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "148b6fa8_28266a42",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-09T07:10:47Z",
+      "side": 1,
+      "message": "yes, it is being used at multiple instances, so coming in different commits. please check other commits for that",
+      "parentUuid": "7c582035_1b7249b7",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0b78eac_9d5d5e72",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-09T07:10:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf24e601_fdc3252e",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93b452cf_d3d0b5fb",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-01-08T09:15:00Z",
       "side": 1,
       "message": "Please clean up the patch.",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b564ed7_a48671b2",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-09T07:10:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93b452cf_d3d0b5fb",
       "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +228,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0aeaad5_a9049507",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-09T07:10:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82df0877_9072cb4f",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2076a904_967fd55b",
@@ -133,6 +259,24 @@
       "writtenOn": "2026-01-08T09:15:00Z",
       "side": 1,
       "message": "Get rid of these changes.",
+      "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ae40e82_b5acb6af",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-09T07:10:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2076a904_967fd55b",
       "revId": "09d92fe199abf1a1508842096e23c8543f02051a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
