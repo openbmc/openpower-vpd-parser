@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "106651d4_3f1d9bde",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-09T16:02:21Z",
+      "side": 1,
+      "message": "Define a type in types.hpp?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 36
+      },
+      "revId": "152448801c620ec561f885e9e2d27fda7f388fb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12d43dee_64a8487c",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-09T16:02:21Z",
+      "side": 1,
+      "message": "Why do we need to carry a variable to represent empty tuple?",
+      "revId": "152448801c620ec561f885e9e2d27fda7f388fb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e109f330_0688942a",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-09T16:02:21Z",
+      "side": 1,
+      "message": "How does this guarantee that in this case JSON is invalid? The string passed can also be wrong.",
+      "revId": "152448801c620ec561f885e9e2d27fda7f388fb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4047fd2_304f82ec",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-09T16:02:21Z",
+      "side": 1,
+      "message": "If it is already an EEPROM path why is it again being fetched from JSON?",
+      "revId": "152448801c620ec561f885e9e2d27fda7f388fb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36628070_94c74cc4",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-09T16:02:21Z",
+      "side": 1,
+      "message": "Same here, I am not able to get the logic behind it. Am I missing something here?",
+      "revId": "152448801c620ec561f885e9e2d27fda7f388fb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb2551ae_e39cd06c",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-09T16:02:21Z",
+      "side": 1,
+      "message": "Why tie? Why not a tuple as that is being returned from the API.",
+      "revId": "152448801c620ec561f885e9e2d27fda7f388fb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f78d1483_d6d1621d",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-09T16:02:21Z",
+      "side": 1,
+      "message": "A class member is being passed as input parameter why?",
+      "revId": "152448801c620ec561f885e9e2d27fda7f388fb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8e54068_28cbe564",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-09T16:02:21Z",
+      "side": 1,
+      "message": "Why class members needs to be passed between class methods?",
+      "revId": "152448801c620ec561f885e9e2d27fda7f388fb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
