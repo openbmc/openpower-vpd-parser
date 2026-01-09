@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e5b24ee_02d3d486",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-09T04:47:18Z",
+      "side": 1,
+      "message": "+1, else we willmiss out the actual reason for exception.",
+      "parentUuid": "f8b47259_d6e0b3cb",
+      "revId": "680c875e19a95360a861744c14d3f4aa3a3abc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f2ce789_c19383ea",
         "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
         "patchSetId": 18
