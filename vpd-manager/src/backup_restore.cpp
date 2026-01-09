@@ -597,27 +597,22 @@ int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
         for (const auto& l_aRecordKwInfo :
              m_backupAndRestoreCfgJsonObj["backupMap"])
         {
-            if (l_aRecordKwInfo.value("sourceRecord", "").empty() ||
-                l_aRecordKwInfo.value("sourceKeyword", "").empty() ||
-                l_aRecordKwInfo.value("destinationRecord", "").empty() ||
-                l_aRecordKwInfo.value("destinationKeyword", "").empty())
+            std::string l_srcRecordName{}, l_srcKeywordName{},
+                l_dstRecordName{}, l_dstKeywordName{};
+            types::BinaryVector l_defaultBinaryValue;
+
+            if (!extractAndFindRecordInMap(
+                    l_aRecordKwInfo,
+                    std::tie(l_srcRecordName, l_srcKeywordName, l_dstRecordName,
+                             l_dstKeywordName, l_defaultBinaryValue),
+                    std::nullopt, std::nullopt))
             {
-                // invalid backup map found
-                m_logger->logMessage(
-                    "Invalid backup map found, one or more field(s) found empty or not present in the config JSON: sourceRecord: " +
-                    l_aRecordKwInfo.value("sourceRecord", "") +
-                    ", sourceKeyword: " +
-                    l_aRecordKwInfo.value("sourceKeyword", "") +
-                    ", destinationRecord: " +
-                    l_aRecordKwInfo.value("destinationRecord", "") +
-                    ", destinationKeyword: " +
-                    l_aRecordKwInfo.value("destinationKeyword", ""));
                 continue;
             }
 
             if (l_inputPathIsSourcePath &&
-                (l_aRecordKwInfo["sourceRecord"] == l_inpRecordName) &&
-                (l_aRecordKwInfo["sourceKeyword"] == l_inpKeywordName))
+                (l_srcRecordName == l_inpRecordName) &&
+                (l_srcKeywordName == l_inpKeywordName))
             {
                 std::string l_fruPath(
                     m_backupAndRestoreCfgJsonObj["destination"]
@@ -625,22 +620,18 @@ int BackupAndRestore::updateKeywordOnPrimaryOrBackupPath(
                 Parser l_parserObj(l_fruPath, m_sysCfgJsonObj);
 
                 return l_parserObj.updateVpdKeyword(std::make_tuple(
-                    l_aRecordKwInfo["destinationRecord"],
-                    l_aRecordKwInfo["destinationKeyword"], l_inpKeywordValue));
+                    l_dstRecordName, l_dstKeywordName, l_inpKeywordValue));
             }
             else if (l_inputPathIsDestinationPath &&
-                     (l_aRecordKwInfo["destinationRecord"] ==
-                      l_inpRecordName) &&
-                     (l_aRecordKwInfo["destinationKeyword"] ==
-                      l_inpKeywordName))
+                     (l_dstRecordName == l_inpRecordName) &&
+                     (l_dstKeywordName == l_inpKeywordName))
             {
                 std::string l_fruPath(
                     m_backupAndRestoreCfgJsonObj["source"]["hardwarePath"]);
                 Parser l_parserObj(l_fruPath, m_sysCfgJsonObj);
 
                 return l_parserObj.updateVpdKeyword(std::make_tuple(
-                    l_aRecordKwInfo["sourceRecord"],
-                    l_aRecordKwInfo["sourceKeyword"], l_inpKeywordValue));
+                    l_srcRecordName, l_srcKeywordName, l_inpKeywordValue));
             }
         }
     }
