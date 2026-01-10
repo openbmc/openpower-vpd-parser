@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93ad977c_ce3b5a4d",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-10T07:29:32Z",
+      "side": 1,
+      "message": "Do we need variable number of arguments as parameter or keep it simple to accept only object map?",
+      "revId": "f14d378a87f7c687fa1a9babc0a89db830bfff50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4fcb989_2466e398",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-10T07:29:32Z",
+      "side": 1,
+      "message": "Why are we doing this check?",
+      "range": {
+        "startLine": 314,
+        "startChar": 8,
+        "endLine": 324,
+        "endChar": 9
+      },
+      "revId": "f14d378a87f7c687fa1a9babc0a89db830bfff50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3351f96_a5bc69b7",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-10T07:29:32Z",
+      "side": 1,
+      "message": "Coding guidelines against declaring variable need to be followed.",
+      "revId": "f14d378a87f7c687fa1a9babc0a89db830bfff50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5916e34d_cd4c3c89",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-10T07:29:32Z",
+      "side": 1,
+      "message": "Please get rid of this extra line.",
+      "revId": "f14d378a87f7c687fa1a9babc0a89db830bfff50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
