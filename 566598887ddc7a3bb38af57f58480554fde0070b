@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5171b894_d23bb0a7",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 35
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-10T06:55:51Z",
+      "side": 1,
+      "message": "Did not understand, path or reference?",
+      "revId": "566598887ddc7a3bb38af57f58480554fde0070b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb8e32ff_f966da54",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 35
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-10T06:55:51Z",
+      "side": 1,
+      "message": "\u003e It is the file path where essential FRU VPD records are backed up?\n\n\nAs per my understanding it is path to a JSON file which will contain details required to perform back up/restoration of EEPROM(s).\nYou can mention that for more details refer documentation of back up and restore JSON.",
+      "revId": "566598887ddc7a3bb38af57f58480554fde0070b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dfb20e9_6c96152a",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 35
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-10T06:55:51Z",
+      "side": 1,
+      "message": "JSON showed here should pe part of sample JSON. We can have the explanation here.",
+      "revId": "566598887ddc7a3bb38af57f58480554fde0070b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ff3cf53_3c5e734a",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 35
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-10T06:55:51Z",
+      "side": 1,
+      "message": "We need nested section under this where we can add explanation of Action group etc.",
+      "revId": "566598887ddc7a3bb38af57f58480554fde0070b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fc08c45_da26ad2a",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 35
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-10T06:55:51Z",
+      "side": 1,
+      "message": "Don\u0027t need this. \"DBUS_INTERFACE\" and \"PROPERTY_NAME\" are self explanatory.",
+      "revId": "566598887ddc7a3bb38af57f58480554fde0070b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38998abc_e7a8a898",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 35
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-10T06:55:51Z",
+      "side": 1,
+      "message": "This will also move out in the section above where we will define action tag(s).",
+      "revId": "566598887ddc7a3bb38af57f58480554fde0070b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
