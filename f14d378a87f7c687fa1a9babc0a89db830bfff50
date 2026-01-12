@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "729ce976_4d1ace2f",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-12T07:36:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93ad977c_ce3b5a4d",
+      "revId": "f14d378a87f7c687fa1a9babc0a89db830bfff50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4fcb989_2466e398",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-01-10T07:29:32Z",
       "side": 1,
       "message": "Why are we doing this check?",
+      "range": {
+        "startLine": 314,
+        "startChar": 8,
+        "endLine": 324,
+        "endChar": 9
+      },
+      "revId": "f14d378a87f7c687fa1a9babc0a89db830bfff50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "522b2e8d_9d171aa9",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-12T07:36:47Z",
+      "side": 1,
+      "message": "This check is required, to remove pim prefix path",
+      "parentUuid": "d4fcb989_2466e398",
       "range": {
         "startLine": 314,
         "startChar": 8,
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc555ba6_f3b290e3",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-12T07:36:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e3351f96_a5bc69b7",
+      "revId": "f14d378a87f7c687fa1a9babc0a89db830bfff50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5916e34d_cd4c3c89",
@@ -71,6 +131,24 @@
       "writtenOn": "2026-01-10T07:29:32Z",
       "side": 1,
       "message": "Please get rid of this extra line.",
+      "revId": "f14d378a87f7c687fa1a9babc0a89db830bfff50",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "426d5871_e93df38c",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-12T07:36:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5916e34d_cd4c3c89",
       "revId": "f14d378a87f7c687fa1a9babc0a89db830bfff50",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
