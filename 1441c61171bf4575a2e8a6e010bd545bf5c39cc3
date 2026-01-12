@@ -101,6 +101,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bdb6eaa0_4cf4ccc1",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-12T11:03:23Z",
+      "side": 1,
+      "message": "please check the comment.",
+      "parentUuid": "f182d58a_5c0ae61a",
+      "revId": "1441c61171bf4575a2e8a6e010bd545bf5c39cc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d2ac146e_9ee0547c",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 4
@@ -146,6 +164,24 @@
       "writtenOn": "2026-01-06T15:50:31Z",
       "side": 1,
       "message": "A comment explaining this code would be helpful",
+      "revId": "1441c61171bf4575a2e8a6e010bd545bf5c39cc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43e5b01a_a4ec34dd",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-12T11:03:23Z",
+      "side": 1,
+      "message": "removed the code.",
+      "parentUuid": "15ee3496_847b0a43",
       "revId": "1441c61171bf4575a2e8a6e010bd545bf5c39cc3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
