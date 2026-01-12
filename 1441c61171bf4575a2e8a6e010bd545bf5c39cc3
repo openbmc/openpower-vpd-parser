@@ -90,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd48316d_e4d000ab",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-12T12:22:34Z",
+      "side": 1,
+      "message": "Unable to understand the comment, could you please elaborate more.",
+      "parentUuid": "fe183a70_8025ff53",
+      "range": {
+        "startLine": 221,
+        "startChar": 3,
+        "endLine": 227,
+        "endChar": 0
+      },
+      "revId": "1441c61171bf4575a2e8a6e010bd545bf5c39cc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f18af0fc_fe9630f4",
         "filename": "vpd-manager/include/utility/common_utility.hpp",
         "patchSetId": 4
@@ -137,6 +161,24 @@
       "side": 1,
       "message": "please check the comment.",
       "parentUuid": "f182d58a_5c0ae61a",
+      "revId": "1441c61171bf4575a2e8a6e010bd545bf5c39cc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbee7c34_2638d898",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-12T12:22:34Z",
+      "side": 1,
+      "message": "Currently we are just planning to support System VPD in file mode. Support for other FRUs in file mode is still under analysis. Till that point to remove the overhead from caller\u0027s end the check is being added in the utility side.",
+      "parentUuid": "bdb6eaa0_4cf4ccc1",
       "revId": "1441c61171bf4575a2e8a6e010bd545bf5c39cc3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
