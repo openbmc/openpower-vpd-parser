@@ -225,6 +225,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b14656f_d9ad7960",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-12T12:11:03Z",
+      "side": 1,
+      "message": "ok, but why to return values at all if it has to be saved in member variables?",
+      "parentUuid": "654662ac_89a05953",
+      "revId": "152448801c620ec561f885e9e2d27fda7f388fb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f78d1483_d6d1621d",
         "filename": "vpd-manager/src/backup_restore.cpp",
         "patchSetId": 6
