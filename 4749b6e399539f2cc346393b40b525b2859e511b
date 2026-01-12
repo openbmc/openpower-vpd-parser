@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1988d2de_0b7e6c98",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-12T14:36:48Z",
+      "side": 1,
+      "message": "based on the location(source or destination) it returns the eeprom \u0026 inv path.",
+      "parentUuid": "449200eb_1aae00b3",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 27
+      },
+      "revId": "4749b6e399539f2cc346393b40b525b2859e511b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0211b446_e69366c3",
         "filename": "vpd-manager/src/backup_restore.cpp",
         "patchSetId": 7
@@ -37,6 +61,24 @@
       "writtenOn": "2026-01-12T12:11:03Z",
       "side": 1,
       "message": "This can be in the respective function which is using the values.",
+      "revId": "4749b6e399539f2cc346393b40b525b2859e511b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e77927e4_3eeef37c",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-12T14:36:48Z",
+      "side": 1,
+      "message": "This API is removed, checking emptiness in the caller API itself",
+      "parentUuid": "0211b446_e69366c3",
       "revId": "4749b6e399539f2cc346393b40b525b2859e511b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c347572e_6d4ef6fe",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-12T14:36:48Z",
+      "side": 1,
+      "message": "Done, This API is removed, checking emptiness in the caller API itself.",
+      "parentUuid": "bc7f821c_49c38792",
+      "revId": "4749b6e399539f2cc346393b40b525b2859e511b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "950d2716_9a847b1f",
@@ -71,6 +131,30 @@
       "writtenOn": "2026-01-12T12:11:03Z",
       "side": 1,
       "message": "Why not directly call \"getFruAndInvPaths\" here and save the values to member variable inside \"getFruAndInvPaths\"?\nWe can get rid of \"extractSrcAndDstPaths\"?",
+      "range": {
+        "startLine": 161,
+        "startChar": 13,
+        "endLine": 161,
+        "endChar": 35
+      },
+      "revId": "4749b6e399539f2cc346393b40b525b2859e511b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf4f0292_8f4db87c",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-12T14:36:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "950d2716_9a847b1f",
       "range": {
         "startLine": 161,
         "startChar": 13,

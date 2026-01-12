@@ -241,6 +241,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abec8228_6a78dc0d",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-12T14:36:48Z",
+      "side": 1,
+      "message": "getFruAndInvPaths called directly, this API is removed.",
+      "parentUuid": "8b14656f_d9ad7960",
+      "revId": "152448801c620ec561f885e9e2d27fda7f388fb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f78d1483_d6d1621d",
