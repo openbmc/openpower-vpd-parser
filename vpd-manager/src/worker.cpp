@@ -1294,6 +1294,21 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
 
         types::ObjectMap l_objectInterfaceMap;
 
+        types::PropertyMap l_propertyValueMap;
+        l_propertyValueMap.emplace("Present", i_value);
+
+        uint16_t l_errCode = 0;
+        types::InterfaceMap l_interfaces;
+        vpdSpecificUtility::insertOrMerge(l_interfaces,
+                                          constants::inventoryItemInf,
+                                          move(l_propertyValueMap), l_errCode);
+
+        if (l_errCode)
+        {
+            logging::logMessage("Failed to insert value into map, error : " +
+                                commonUtility::getErrCodeMsg(l_errCode));
+        }
+
         // If the given path is EEPROM path.
         if (m_parsedJson["frus"].contains(i_vpdPath))
         {
@@ -1301,22 +1316,6 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
             {
                 sdbusplus::message::object_path l_fruObjectPath(
                     l_Fru["inventoryPath"]);
-
-                types::PropertyMap l_propertyValueMap;
-                l_propertyValueMap.emplace("Present", i_value);
-
-                uint16_t l_errCode = 0;
-                types::InterfaceMap l_interfaces;
-                vpdSpecificUtility::insertOrMerge(
-                    l_interfaces, constants::inventoryItemInf,
-                    move(l_propertyValueMap), l_errCode);
-
-                if (l_errCode)
-                {
-                    logging::logMessage(
-                        "Failed to insert value into map, error : " +
-                        commonUtility::getErrCodeMsg(l_errCode));
-                }
 
                 l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
                                              std::move(l_interfaces));
@@ -1330,23 +1329,6 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
                 throw std::runtime_error(
                     "Invalid inventory path: " + i_vpdPath);
             }
-
-            types::PropertyMap l_propertyValueMap;
-            l_propertyValueMap.emplace("Present", i_value);
-
-            uint16_t l_errCode = 0;
-            types::InterfaceMap l_interfaces;
-            vpdSpecificUtility::insertOrMerge(
-                l_interfaces, constants::inventoryItemInf,
-                move(l_propertyValueMap), l_errCode);
-
-            if (l_errCode)
-            {
-                logging::logMessage(
-                    "Failed to insert value into map, error : " +
-                    commonUtility::getErrCodeMsg(l_errCode));
-            }
-
             l_objectInterfaceMap.emplace(i_vpdPath, std::move(l_interfaces));
         }
 
@@ -1449,23 +1431,22 @@ void Worker::collectSingleFruVpd(
             return;
         }
 
+        uint16_t l_errCode = 0;
+        bool isFruReplaceableAtRuntime = jsonUtility::isFruReplaceableAtRuntime(
+            m_parsedJson, l_fruPath, l_errCode);
+
+        if (l_errCode)
+        {
+            logging::logMessage(
+                "Failed to check if FRU is replaceable at runtime for FRU : [" +
+                std::string(i_dbusObjPath) +
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+            return;
+        }
+
         // Check if host is up and running
         if (dbusUtility::isHostRunning())
         {
-            uint16_t l_errCode = 0;
-            bool isFruReplaceableAtRuntime =
-                jsonUtility::isFruReplaceableAtRuntime(m_parsedJson, l_fruPath,
-                                                       l_errCode);
-
-            if (l_errCode)
-            {
-                logging::logMessage(
-                    "Failed to check if FRU is replaceable at runtime for FRU : [" +
-                    std::string(i_dbusObjPath) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
-                return;
-            }
-
             if (!isFruReplaceableAtRuntime)
             {
                 logging::logMessage(
@@ -1476,7 +1457,7 @@ void Worker::collectSingleFruVpd(
         }
         else if (dbusUtility::isBMCReady())
         {
-            uint16_t l_errCode = 0;
+            l_errCode = 0;
             bool isFruReplaceableAtStandby =
                 jsonUtility::isFruReplaceableAtStandby(m_parsedJson, l_fruPath,
                                                        l_errCode);
@@ -1487,19 +1468,6 @@ void Worker::collectSingleFruVpd(
                     "Error while checking if FRU is replaceable at standby for FRU [" +
                     std::string(i_dbusObjPath) +
                     "], error : " + commonUtility::getErrCodeMsg(l_errCode));
-            }
-
-            bool isFruReplaceableAtRuntime =
-                jsonUtility::isFruReplaceableAtRuntime(m_parsedJson, l_fruPath,
-                                                       l_errCode);
-
-            if (l_errCode)
-            {
-                logging::logMessage(
-                    "Failed to check if FRU is replaceable at runtime for FRU : [" +
-                    std::string(i_dbusObjPath) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
-                return;
             }
 
             if (!isFruReplaceableAtStandby && (!isFruReplaceableAtRuntime))
