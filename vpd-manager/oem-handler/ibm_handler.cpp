@@ -71,14 +71,15 @@ void IbmHandler::isSymlinkPresent() noexcept
         {
             // Predictive PEL logged. Symlink can't go missing while chassis
             // is on as system VPD will not get processed in chassis on state.
-            types::PelInfoTuple l_pel(
-                types::ErrorType::FirmwareError, types::SeverityType::Warning,
-                0, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
 
             m_logger->logMessage(
                 std::string(
                     "Error reading config JSON symlink in chassis on state."),
-                PlaceHolder::PEL, &l_pel);
+                PlaceHolder::PEL,
+                types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                    types::SeverityType::Warning, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt});
         }
         return;
     }
@@ -111,14 +112,14 @@ void IbmHandler::initWorker()
     {
         // Critical PEL logged as collection can't progress without worker
         // object.
-        const types::PelInfoTuple l_pel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Critical, 0,
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
 
         m_logger->logMessage(
             std::string("Exception while creating worker object") +
                 EventLogger::getErrorMsg(l_ex),
-            PlaceHolder::PEL, &l_pel);
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Critical, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
 
         // Throwing error back to avoid any further processing.
         throw std::runtime_error(
@@ -172,14 +173,14 @@ void IbmHandler::initBackupAndRestore() noexcept
     {
         // PEL logged as system VPD sync will be effected without this
         // feature.
-        types::PelInfoTuple l_pel(EventLogger::getErrorType(l_ex),
-                                  types::SeverityType::Warning, 0, std::nullopt,
-                                  std::nullopt, std::nullopt, std::nullopt);
 
         m_logger->logMessage(
             std::string("Back up and restore instantiation failed.") +
                 EventLogger::getErrorMsg(l_ex),
-            PlaceHolder::PEL, &l_pel);
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Warning, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
     }
 }
 
@@ -1152,14 +1153,14 @@ void IbmHandler::performInitialSetup()
 
         // Any issue in system's inital set up is handled in this catch. Error
         // will not propogate to manager.
-        const types::PelInfoTuple l_pel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Critical, 0,
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
 
         m_logger->logMessage(
             std::string("Exception while performing initial set up. ") +
                 EventLogger::getErrorMsg(l_ex),
-            PlaceHolder::PEL, &l_pel);
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Critical, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
     }
 }
 
