@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f90bb885_d08aa33e",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-13T15:37:15Z",
+      "side": 1,
+      "message": "Instead should we can keep static const member, will be read and stored once.\nso no need to read VPD collection Mode each time when parser object is created.",
+      "revId": "854f79ba70ff7656f21f78f97c7d0a4ebd2a4f00",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
