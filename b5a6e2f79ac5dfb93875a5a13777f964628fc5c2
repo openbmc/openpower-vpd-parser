@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaaf6a51_355636b5",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-13T02:01:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ce55356_a664579f",
+      "revId": "b5a6e2f79ac5dfb93875a5a13777f964628fc5c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91847aa4_acba920a",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-01-12T12:22:34Z",
       "side": 1,
       "message": "Create a class member.\nMost of the file has that, lets be consistent through out the repository and it will also help when we move all the other logs in the file.",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "b5a6e2f79ac5dfb93875a5a13777f964628fc5c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99e0ffe3_d78ea627",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-13T02:01:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91847aa4_acba920a",
       "range": {
         "startLine": 30,
         "startChar": 8,
