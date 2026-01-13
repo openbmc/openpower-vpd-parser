@@ -11,7 +11,7 @@ std::shared_ptr<Logger> Logger::m_loggerInstance;
 
 void Logger::logMessage(std::string_view i_message,
                         const PlaceHolder& i_placeHolder,
-                        const types::PelInfoTuple* i_pelTuple,
+                        std::optional<const types::PelInfoTuple*> i_pelTuple,
                         const std::source_location& i_location) noexcept
 {
     std::ostringstream l_log;
@@ -47,23 +47,21 @@ void Logger::logMessage(std::string_view i_message,
         }
         else if (i_placeHolder == PlaceHolder::PEL)
         {
-            if (i_pelTuple)
+            if (i_pelTuple.has_value())
+            // if (i_pelTuple)
             {
                 // By default set severity to informational
                 types::SeverityType l_severity =
-                    types::SeverityType::Informational;
-
-                if (std::get<1>(*i_pelTuple).has_value())
-                {
-                    l_severity = (std::get<1>(*i_pelTuple)).value();
-                }
+                    std::get<1>(**i_pelTuple).has_value()
+                        ? std::get<1>(**i_pelTuple).value()
+                        : types::SeverityType::Informational;
 
                 EventLogger::createSyncPel(
-                    std::get<0>(*i_pelTuple), l_severity,
+                    std::get<0>(**i_pelTuple), l_severity,
                     i_location.file_name(), i_location.function_name(),
-                    std::get<2>(*i_pelTuple), std::string(i_message),
-                    std::get<3>(*i_pelTuple), std::get<4>(*i_pelTuple),
-                    std::get<5>(*i_pelTuple), std::get<6>(*i_pelTuple));
+                    std::get<2>(**i_pelTuple), std::string(i_message),
+                    std::get<3>(**i_pelTuple), std::get<4>(**i_pelTuple),
+                    std::get<5>(**i_pelTuple), std::get<6>(**i_pelTuple));
                 return;
             }
             std::cout << "Pel info tuple required to log PEL for message <" +

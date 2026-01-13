@@ -61,11 +61,12 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             std::nullopt,
             std::nullopt};
 
-        m_logger->logMessage("Failed to restore inventory backup data from [" +
-                                 m_inventoryBackupPath.string() + "] to [" +
-                                 m_inventoryPrimaryPath.string() +
-                                 "] Error: " + std::string(l_ex.what()),
-                             vpd::PlaceHolder::PEL, &l_pelInfo);
+        m_logger->logMessage(
+            "Failed to restore inventory backup data from [" +
+                m_inventoryBackupPath.string() + "] to [" +
+                m_inventoryPrimaryPath.string() +
+                "] Error: " + std::string(l_ex.what()),
+            vpd::PlaceHolder::PEL, std::make_optional(&l_pelInfo));
 
         o_errCode = vpd::error_code::STANDARD_EXCEPTION;
     }
@@ -98,7 +99,7 @@ bool InventoryBackupHandler::clearInventoryBackupData(
             "Failed to clear inventory backup data from path [" +
                 m_inventoryBackupPath.string() +
                 "]. Error: " + std::string(l_ex.what()),
-            vpd::PlaceHolder::PEL, &l_pelInfo);
+            vpd::PlaceHolder::PEL, std::make_optional(&l_pelInfo));
 
         o_errCode = vpd::error_code::STANDARD_EXCEPTION;
     }
