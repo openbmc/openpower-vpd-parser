@@ -136,7 +136,7 @@ void IbmHandler::isSymlinkPresent() noexcept
             m_logger->logMessage(
                 std::string(
                     "Error reading config JSON symlink in chassis on state."),
-                PlaceHolder::PEL, &l_pel);
+                PlaceHolder::PEL, std::make_optional(&l_pel));
         }
         return;
     }
@@ -176,7 +176,7 @@ void IbmHandler::initWorker()
         m_logger->logMessage(
             std::string("Exception while creating worker object") +
                 EventLogger::getErrorMsg(l_ex),
-            PlaceHolder::PEL, &l_pel);
+            PlaceHolder::PEL, std::make_optional(&l_pel));
 
         // Throwing error back to avoid any further processing.
         throw std::runtime_error(
@@ -1168,7 +1168,7 @@ void IbmHandler::performInitialSetup()
         m_logger->logMessage(
             std::string("Exception while performing initial set up. ") +
                 EventLogger::getErrorMsg(l_ex),
-            PlaceHolder::PEL, &l_pel);
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
 }
 
