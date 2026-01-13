@@ -1331,6 +1331,21 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
 
         types::ObjectMap l_objectInterfaceMap;
 
+        types::PropertyMap l_propertyValueMap;
+        l_propertyValueMap.emplace("Present", i_value);
+
+        uint16_t l_errCode = 0;
+        types::InterfaceMap l_interfaces;
+        vpdSpecificUtility::insertOrMerge(l_interfaces,
+                                          constants::inventoryItemInf,
+                                          move(l_propertyValueMap), l_errCode);
+
+        if (l_errCode)
+        {
+            logging::logMessage("Failed to insert value into map, error : " +
+                                commonUtility::getErrCodeMsg(l_errCode));
+        }
+
         // If the given path is EEPROM path.
         if (m_parsedJson["frus"].contains(i_vpdPath))
         {
@@ -1338,22 +1353,6 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
             {
                 sdbusplus::message::object_path l_fruObjectPath(
                     l_Fru["inventoryPath"]);
-
-                types::PropertyMap l_propertyValueMap;
-                l_propertyValueMap.emplace("Present", i_value);
-
-                uint16_t l_errCode = 0;
-                types::InterfaceMap l_interfaces;
-                vpdSpecificUtility::insertOrMerge(
-                    l_interfaces, constants::inventoryItemInf,
-                    move(l_propertyValueMap), l_errCode);
-
-                if (l_errCode)
-                {
-                    logging::logMessage(
-                        "Failed to insert value into map, error : " +
-                        commonUtility::getErrCodeMsg(l_errCode));
-                }
 
                 l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
                                              std::move(l_interfaces));
@@ -1367,23 +1366,6 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
                 throw std::runtime_error(
                     "Invalid inventory path: " + i_vpdPath);
             }
-
-            types::PropertyMap l_propertyValueMap;
-            l_propertyValueMap.emplace("Present", i_value);
-
-            uint16_t l_errCode = 0;
-            types::InterfaceMap l_interfaces;
-            vpdSpecificUtility::insertOrMerge(
-                l_interfaces, constants::inventoryItemInf,
-                move(l_propertyValueMap), l_errCode);
-
-            if (l_errCode)
-            {
-                logging::logMessage(
-                    "Failed to insert value into map, error : " +
-                    commonUtility::getErrCodeMsg(l_errCode));
-            }
-
             l_objectInterfaceMap.emplace(i_vpdPath, std::move(l_interfaces));
         }
 
