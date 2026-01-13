@@ -1422,7 +1422,7 @@ void Worker::collectSingleFruVpd(
         if (m_parsedJson.empty())
         {
             logging::logMessage(
-                "System config JSON object not present. Single FRU VPD collection is not performed for " +
+                "System config JSON object not present.Single FRU VPD collection is not performed for " +
                 std::string(i_dbusObjPath));
             return;
         }
@@ -1431,41 +1431,51 @@ void Worker::collectSingleFruVpd(
         l_fruPath = jsonUtility::getFruPathFromJson(m_parsedJson, i_dbusObjPath,
                                                     l_errCode);
 
+        if (l_errCode)
+        {
+            logging::logMessage(
+                "Failed to get FRU path for [" + std::string(i_dbusObjPath) +
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode) +
+                " Aborting single FRU VPD collection.");
+            return;
+        }
+
         if (l_fruPath.empty())
         {
-            if (l_errCode)
-            {
-                logging::logMessage(
-                    "Failed to get FRU path for [" +
-                    std::string(i_dbusObjPath) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode) +
-                    " Aborting single FRU VPD collection.");
-                return;
-            }
-
             logging::logMessage(
                 "D-bus object path not present in JSON. Single FRU VPD collection is not performed for " +
                 std::string(i_dbusObjPath));
             return;
         }
 
+        l_errCode = 0;
+        bool isFruReplaceableAtStandby = jsonUtility::isFruReplaceableAtStandby(
+            m_parsedJson, l_fruPath, l_errCode);
+
+        if (l_errCode)
+        {
+            logging::logMessage(
+                "Error while checking if FRU is replaceable at standby for FRU [" +
+                std::string(i_dbusObjPath) +
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+        }
+
+        l_errCode = 0;
+        bool isFruReplaceableAtRuntime = jsonUtility::isFruReplaceableAtRuntime(
+            m_parsedJson, l_fruPath, l_errCode);
+
+        if (l_errCode)
+        {
+            logging::logMessage(
+                "Failed to check if FRU is replaceable at runtime for FRU : [" +
+                std::string(i_dbusObjPath) +
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+            return;
+        }
+
         // Check if host is up and running
         if (dbusUtility::isHostRunning())
         {
-            uint16_t l_errCode = 0;
-            bool isFruReplaceableAtRuntime =
-                jsonUtility::isFruReplaceableAtRuntime(m_parsedJson, l_fruPath,
-                                                       l_errCode);
-
-            if (l_errCode)
-            {
-                logging::logMessage(
-                    "Failed to check if FRU is replaceable at runtime for FRU : [" +
-                    std::string(i_dbusObjPath) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
-                return;
-            }
-
             if (!isFruReplaceableAtRuntime)
             {
                 logging::logMessage(
@@ -1476,32 +1486,6 @@ void Worker::collectSingleFruVpd(
         }
         else if (dbusUtility::isBMCReady())
         {
-            uint16_t l_errCode = 0;
-            bool isFruReplaceableAtStandby =
-                jsonUtility::isFruReplaceableAtStandby(m_parsedJson, l_fruPath,
-                                                       l_errCode);
-
-            if (l_errCode)
-            {
-                logging::logMessage(
-                    "Error while checking if FRU is replaceable at standby for FRU [" +
-                    std::string(i_dbusObjPath) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
-            }
-
-            bool isFruReplaceableAtRuntime =
-                jsonUtility::isFruReplaceableAtRuntime(m_parsedJson, l_fruPath,
-                                                       l_errCode);
-
-            if (l_errCode)
-            {
-                logging::logMessage(
-                    "Failed to check if FRU is replaceable at runtime for FRU : [" +
-                    std::string(i_dbusObjPath) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
-                return;
-            }
-
             if (!isFruReplaceableAtStandby && (!isFruReplaceableAtRuntime))
             {
                 logging::logMessage(
@@ -1514,6 +1498,7 @@ void Worker::collectSingleFruVpd(
         vpdSpecificUtility::setCollectionStatusProperty(
             l_fruPath, types::VpdCollectionStatus::InProgress, m_parsedJson,
             l_errCode);
+
         if (l_errCode)
         {
             m_logger->logMessage(
@@ -1571,6 +1556,7 @@ void Worker::collectSingleFruVpd(
         vpdSpecificUtility::setCollectionStatusProperty(
             l_fruPath, types::VpdCollectionStatus::Completed, m_parsedJson,
             l_errCode);
+
         if (l_errCode)
         {
             m_logger->logMessage(
@@ -1595,12 +1581,14 @@ void Worker::collectSingleFruVpd(
         vpdSpecificUtility::setCollectionStatusProperty(
             l_fruPath, types::VpdCollectionStatus::Failed, m_parsedJson,
             l_errCode);
+
         if (l_errCode)
         {
             l_errMsg += "Failed to set collection status as failed for path " +
                         l_fruPath +
                         "Reason: " + commonUtility::getErrCodeMsg(l_errCode);
         }
+
         // TODO: Log PEL
         m_logger->logMessage(l_errMsg + std::string(l_error.what()));
     }
