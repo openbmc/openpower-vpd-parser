@@ -237,6 +237,11 @@ class Manager
      */
     bool collectAllFruVpd() const noexcept;
 
+    inline const std::shared_ptr<Worker>& getWorkerObj() const
+    {
+     return m_worker;
+    }
+
   private:
     /**
      * @brief An api to check validity of unexpanded location code.
