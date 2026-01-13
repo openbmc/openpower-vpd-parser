@@ -52,20 +52,16 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
     }
     catch (const std::exception& l_ex)
     {
-        const vpd::types::PelInfoTuple l_pelInfo{
-            vpd::types::ErrorType::FirmwareError,
-            vpd::types::SeverityType::Warning,
-            0,
-            std::nullopt,
-            std::nullopt,
-            std::nullopt,
-            std::nullopt};
-
-        m_logger->logMessage("Failed to restore inventory backup data from [" +
-                                 m_inventoryBackupPath.string() + "] to [" +
-                                 m_inventoryPrimaryPath.string() +
-                                 "] Error: " + std::string(l_ex.what()),
-                             vpd::PlaceHolder::PEL, &l_pelInfo);
+        m_logger->logMessage(
+            "Failed to restore inventory backup data from [" +
+                m_inventoryBackupPath.string() + "] to [" +
+                m_inventoryPrimaryPath.string() +
+                "] Error: " + std::string(l_ex.what()),
+            vpd::PlaceHolder::PEL,
+            std::optional<const vpd::types::PelInfoTuple>{
+                std::in_place, vpd::types::ErrorType::FirmwareError,
+                vpd::types::SeverityType::Warning, 0, std::nullopt,
+                std::nullopt, std::nullopt, std::nullopt});
 
         o_errCode = vpd::error_code::STANDARD_EXCEPTION;
     }
@@ -85,20 +81,15 @@ bool InventoryBackupHandler::clearInventoryBackupData(
     }
     catch (const std::exception& l_ex)
     {
-        const vpd::types::PelInfoTuple l_pelInfo{
-            vpd::types::ErrorType::FirmwareError,
-            vpd::types::SeverityType::Warning,
-            0,
-            std::nullopt,
-            std::nullopt,
-            std::nullopt,
-            std::nullopt};
-
         m_logger->logMessage(
             "Failed to clear inventory backup data from path [" +
                 m_inventoryBackupPath.string() +
                 "]. Error: " + std::string(l_ex.what()),
-            vpd::PlaceHolder::PEL, &l_pelInfo);
+            vpd::PlaceHolder::PEL,
+            std::optional<const vpd::types::PelInfoTuple>{
+                std::in_place, vpd::types::ErrorType::FirmwareError,
+                vpd::types::SeverityType::Warning, 0, std::nullopt,
+                std::nullopt, std::nullopt, std::nullopt});
 
         o_errCode = vpd::error_code::STANDARD_EXCEPTION;
     }
