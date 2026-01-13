@@ -53,8 +53,49 @@ class IbmBiosHandler : public BiosHandlerInterface
      * @param[in] i_manager - Manager object.
      */
     explicit IbmBiosHandler(const std::shared_ptr<Manager>& i_manager) :
-        m_manager(i_manager)
-    {}
+        m_manager(i_manager), m_worker(i_manager->getWorkerObj())
+    {
+        if (!m_worker)
+        {
+            throw std::runtime_error("Worker object is null in IbmBiosHandler");
+        }
+        nlohmann::json l_sysCfgJsonObj{};
+        l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+
+        if (l_sysCfgJsonObj.empty())
+        {
+            throw std::runtime_error("System Configuration JSON is empty");
+        }
+
+        std::string l_backupAndRestoreCfgFilePath =
+            l_sysCfgJsonObj.value("biosHandlerJsonPath", "");
+
+        if (l_backupAndRestoreCfgFilePath.empty())
+        {
+            logging::logMessage(
+                "Critical: BiosHandlerJsonPath key is missing in config.");
+            throw std::runtime_error("Required configuration path is empty");
+        }
+        try
+        {
+            uint16_t l_errCode = 0;
+            m_biosConfigJson = jsonUtility::getParsedJson(
+                l_backupAndRestoreCfgFilePath, l_errCode);
+            if (l_errCode)
+            {
+                throw JsonException(
+                    "Failed to parse Bios Config JSON, error : " +
+                        commonUtility::getErrCodeMsg(l_errCode),
+                    l_backupAndRestoreCfgFilePath);
+            }
+        }
+        catch (const std::exception& ex)
+        {
+            logging::logMessage(
+                "Parsing Bios config file failed with exception: " +
+                std::string(ex.what()));
+        }
+    }
 
     /**
      * @brief API to back up or restore BIOS attributes.
@@ -199,6 +240,11 @@ class IbmBiosHandler : public BiosHandlerInterface
 
     // const reference to shared pointer to Manager object.
     const std::shared_ptr<Manager>& m_manager;
+
+    // const reference to shared pointer to Worker object.
+    const std::shared_ptr<Worker>& m_worker;
+    // Bios config json object
+    nlohmann::json m_biosConfigJson{};
 };
 
 /**
