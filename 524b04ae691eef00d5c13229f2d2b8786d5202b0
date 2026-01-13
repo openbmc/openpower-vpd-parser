@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7021c0e_56efbaa9",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-13T09:23:03Z",
+      "side": 1,
+      "message": "Error code logic will not work in nested functions as you will loose the error scenario.\nAnyways these are private functions specific to a use case. You don\u0027t need to have error codes, you can log in place.",
+      "revId": "524b04ae691eef00d5c13229f2d2b8786d5202b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6f6d540_3959555c",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-13T09:23:03Z",
+      "side": 1,
+      "message": "Same here for error codes.",
+      "revId": "524b04ae691eef00d5c13229f2d2b8786d5202b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
