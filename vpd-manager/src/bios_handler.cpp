@@ -187,11 +187,40 @@ types::BiosAttributeCurrentValue IbmBiosHandler::readBiosAttribute(
 void IbmBiosHandler::processFieldCoreOverride()
 {
     // TODO: Should we avoid doing this at runtime?
+    std::string l_keyWordName = "";
+    std::string l_RecordName = "";
+
+    if (m_biosConfigJson.empty() ||
+        !m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        logging::logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "hb_field_core_override")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        logging::logMessage(
+            "VPD mapping for hb_field_core_override not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
 
     // Read required keyword from Dbus.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdRG);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_fcoInVpd = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -239,10 +268,41 @@ void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios)
         return;
     }
 
+    std::string l_keyWordName = "";
+    std::string l_RecordName = "";
+
+    if (m_biosConfigJson.empty() ||
+        !m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        logging::logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "hb_field_core_override")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        logging::logMessage(
+            "VPD mapping for hb_field_core_override not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
+
     // Read required keyword from Dbus.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdRG);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_fcoInVpd = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -315,10 +375,41 @@ void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode)
         return;
     }
 
+    std::string l_keyWordName = "";
+    std::string l_RecordName = "";
+
+    if (m_biosConfigJson.empty() ||
+        !m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        logging::logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "hb_memory_mirror_mode")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        logging::logMessage(
+            "VPD mapping for hb_memory_mirror_mode not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
+
     // Read existing value.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdAMM);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -378,9 +469,41 @@ void IbmBiosHandler::saveAmmToBios(const uint8_t& i_ammVal)
 
 void IbmBiosHandler::processActiveMemoryMirror()
 {
+    std::string l_keyWordName = "";
+    std::string l_RecordName = "";
+
+    if (m_biosConfigJson.empty() ||
+        !m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        logging::logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "hb_memory_mirror_mode")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        logging::logMessage(
+            "VPD mapping for hb_memory_mirror_mode not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
+
+    // Read existing value.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdAMM);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -421,10 +544,41 @@ void IbmBiosHandler::saveCreateDefaultLparToVpd(
         return;
     }
 
+    std::string l_keyWordName = "";
+    std::string l_RecordName = "";
+
+    if (m_biosConfigJson.empty() ||
+        !m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        logging::logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "pvm_create_default_lpar")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        logging::logMessage(
+            "VPD mapping for pvm_create_default_lpar not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
+
     // Read required keyword from DBus as we need to set only a Bit.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdClearNVRAM_CreateLPAR);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -509,10 +663,41 @@ void IbmBiosHandler::saveCreateDefaultLparToBios(
 
 void IbmBiosHandler::processCreateDefaultLpar()
 {
+    std::string l_keyWordName = "";
+    std::string l_RecordName = "";
+
+    if (m_biosConfigJson.empty() ||
+        !m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        logging::logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "pvm_create_default_lpar")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        logging::logMessage(
+            "VPD mapping for pvm_create_default_lpar not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
+
     // Read required keyword from DBus.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdClearNVRAM_CreateLPAR);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -532,10 +717,41 @@ void IbmBiosHandler::saveClearNvramToVpd(const std::string& i_clearNvramVal)
         return;
     }
 
+    std::string l_keyWordName = "";
+    std::string l_RecordName = "";
+
+    if (m_biosConfigJson.empty() ||
+        !m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        logging::logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "pvm_clear_nvram")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        logging::logMessage(
+            "VPD mapping for pvm_clear_nvram not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
+
     // Read required keyword from DBus as we need to set only a Bit.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdClearNVRAM_CreateLPAR);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -618,10 +834,41 @@ void IbmBiosHandler::saveClearNvramToBios(const std::string& i_clearNvramVal)
 
 void IbmBiosHandler::processClearNvram()
 {
+    std::string l_keyWordName = "";
+    std::string l_RecordName = "";
+
+    if (m_biosConfigJson.empty() ||
+        !m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        logging::logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "pvm_clear_nvram")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        logging::logMessage(
+            "VPD mapping for pvm_clear_nvram not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
+
     // Read required keyword from VPD.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdClearNVRAM_CreateLPAR);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -640,10 +887,40 @@ void IbmBiosHandler::saveKeepAndClearToVpd(const std::string& i_KeepAndClearVal)
         return;
     }
 
+    std::string l_keyWordName = "";
+    std::string l_RecordName = "";
+
+    if (m_biosConfigJson.empty() ||
+        !m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        logging::logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "pvm_keep_and_clear")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        logging::logMessage(
+            "VPD mapping for pvm_keep_and_clear not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
     // Read required keyword from DBus as we need to set only a Bit.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdKeepAndClear);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -725,10 +1002,41 @@ void IbmBiosHandler::saveKeepAndClearToBios(
 
 void IbmBiosHandler::processKeepAndClear()
 {
+    std::string l_keyWordName = "";
+    std::string l_RecordName = "";
+
+    if (m_biosConfigJson.empty() ||
+        !m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        logging::logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "pvm_keep_and_clear")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        logging::logMessage(
+            "VPD mapping for pvm_keep_and_clear not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
+
     // Read required keyword from VPD.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdKeepAndClear);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
