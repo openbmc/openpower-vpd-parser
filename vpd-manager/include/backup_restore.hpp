@@ -204,6 +204,15 @@ class BackupAndRestore
                      const types::BinaryStringKwValuePair& i_binaryStrValue,
                      types::IPZVpdMap& o_vpdMap) const noexcept;
 
+    /* @brief API to check if the JSON parsed is valid.
+     *
+     * The API check for required details in the parsed JSON and flags any error
+     * if not found with mandatory tags to process backup and restore.
+     *
+     * @return True if valid, false otherwise.
+     */
+    bool isJsonValid();
+
     // System JSON config JSON object.
     nlohmann::json m_sysCfgJsonObj{};
 
