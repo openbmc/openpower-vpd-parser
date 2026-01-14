@@ -103,6 +103,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5fdd6901_3511393c",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-14T14:52:05Z",
+      "side": 1,
+      "message": "Agreed. The previous name was misleading. I have renamed the API to better reflect its responsibility and updated the Doxygen to clearly document that validation against the VPD map is only performed when a map is provided. This should make the behaviour and intent of the function clear without splitting the functionality.",
+      "parentUuid": "5145881c_51e371aa",
+      "revId": "3367571aa337cafee43968eff7817b5222daa392",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7cb5dae_58ac0130",
         "filename": "vpd-manager/src/backup_restore.cpp",
         "patchSetId": 10
