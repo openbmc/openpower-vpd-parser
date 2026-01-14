@@ -142,40 +142,37 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
     auto l_emptyVariantPair =
         std::make_tuple(std::monostate{}, std::monostate{});
 
-    if (m_backupAndRestoreStatus >= BackupAndRestoreStatus::Invoked)
-    {
-        m_logger->logMessage("Backup and restore invoked already.");
-        return l_emptyVariantPair;
-    }
-
-    m_backupAndRestoreStatus = BackupAndRestoreStatus::Invoked;
     try
     {
+        if (m_backupAndRestoreStatus >= BackupAndRestoreStatus::Invoked)
+        {
+            throw std::runtime_error("Backup and restore invoked already.");
+        }
+
+        m_backupAndRestoreStatus = BackupAndRestoreStatus::Invoked;
+
         if (m_backupAndRestoreCfgJsonObj.empty() ||
             !m_backupAndRestoreCfgJsonObj.contains("source") ||
             !m_backupAndRestoreCfgJsonObj.contains("destination") ||
             !m_backupAndRestoreCfgJsonObj.contains("type") ||
             !m_backupAndRestoreCfgJsonObj.contains("backupMap"))
         {
-            m_logger->logMessage(
+            throw std::runtime_error(
                 "Backup restore config JSON is missing necessary tag(s), can't initiate backup and restore.");
-            return l_emptyVariantPair;
         }
 
         std::tie(m_srcFruPath, m_srcInvPath) = getFruAndInvPaths("source");
         if (m_srcFruPath.empty() || m_srcInvPath.empty())
         {
-            m_logger->logMessage(
+            throw std::runtime_error(
                 "Failed to initiate backup and restore: unable to extract source FRU or inventory path.");
-            return l_emptyVariantPair;
         }
 
         std::tie(m_dstFruPath, m_dstInvPath) = getFruAndInvPaths("destination");
         if (m_dstFruPath.empty() || m_dstInvPath.empty())
         {
-            m_logger->logMessage(
+            throw std::runtime_error(
                 "Failed to initiate backup and restore: unable to extract destination FRU or inventory path.");
-            return l_emptyVariantPair;
         }
 
         types::VPDMapVariant l_srcVpdVariant;
@@ -208,8 +205,7 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
             }
             else if (!std::holds_alternative<std::monostate>(l_srcVpdVariant))
             {
-                m_logger->logMessage("Source VPD is not of IPZ type.");
-                return l_emptyVariantPair;
+                throw std::runtime_error("Source VPD is not of IPZ type.");
             }
 
             types::IPZVpdMap l_dstVpdMap;
@@ -220,8 +216,7 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
             }
             else if (!std::holds_alternative<std::monostate>(l_dstVpdVariant))
             {
-                m_logger->logMessage("Destination VPD is not of IPZ type.");
-                return l_emptyVariantPair;
+                throw std::runtime_error("Destination VPD is not of IPZ type.");
             }
 
             backupAndRestoreIpzVpd(l_srcVpdMap, l_dstVpdMap);
@@ -231,10 +226,10 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
         }
         // Note: add implementation here to support any other VPD type.
     }
-    catch (const std::exception& ex)
+    catch (const std::exception& l_ex)
     {
         m_logger->logMessage("Back up and restore failed with exception: " +
-                             std::string(ex.what()));
+                             std::string(l_ex.what()));
     }
     return l_emptyVariantPair;
 }
