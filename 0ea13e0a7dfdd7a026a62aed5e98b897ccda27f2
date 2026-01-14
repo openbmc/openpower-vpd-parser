@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "506e388c_78d1e0a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-14T14:19:05Z",
+      "side": 1,
+      "message": "The heading is very generic. I mean all the PRs in this chain can actually be termed as \"vpd-manager\" update.",
+      "revId": "0ea13e0a7dfdd7a026a62aed5e98b897ccda27f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
