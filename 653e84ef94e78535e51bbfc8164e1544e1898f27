@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a73f05dc_5318156f",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-14T15:54:06Z",
+      "side": 1,
+      "message": "nit: All these APIs are tightly couple with IPZ type,since the code base is generic, please rename the APIs to suggest that these are specific for IPZ.",
+      "revId": "653e84ef94e78535e51bbfc8164e1544e1898f27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
