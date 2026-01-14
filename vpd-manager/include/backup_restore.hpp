@@ -142,6 +142,16 @@ class BackupAndRestore
     types::EepromInventoryPaths getFruAndInvPaths(
         const std::string& i_location) const noexcept;
 
+    /**
+     * @brief API to check of the JSON object has valid JSON.
+     *
+     * The API check for required details in the parsed JSON and flags any error
+     * if found with mandatory tags to process backup and restore.
+     *
+     * @return True if valid, false otherwise.
+     */
+    bool isJsonValid();
+
     // System JSON config JSON object.
     nlohmann::json m_sysCfgJsonObj{};
 
