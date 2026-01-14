@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9fde545_654b28d6",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-14T06:16:19Z",
+      "side": 1,
+      "message": "updated.",
+      "parentUuid": "79934df3_4ed67143",
+      "revId": "c9ab8c58d894e652fc52d9d25a5762e96ba4f19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d4e8217_ef434726",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3af33023_1ece0d7f",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-14T06:16:19Z",
+      "side": 1,
+      "message": "Acknowledged. updated.",
+      "parentUuid": "2d4e8217_ef434726",
+      "revId": "c9ab8c58d894e652fc52d9d25a5762e96ba4f19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "567d8f5d_2d775093",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-01-14T04:46:34Z",
       "side": 1,
       "message": "We can use `std::filesystem::path` for handling file paths. `std::filesystem::path` has built-in path manipulation functions, and makes the code\u0027s intent clearer.",
+      "revId": "c9ab8c58d894e652fc52d9d25a5762e96ba4f19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d78f342_c7b3ba46",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-14T06:16:19Z",
+      "side": 1,
+      "message": "The FRU path is used mainly for validation and logging, and the Parser class operate on strings. As there are no filesystem manipulations involved, using std::filesystem::path does not add much value at the moment. That said, it can be reconsidered if filesystem operations are introduced later.",
+      "parentUuid": "567d8f5d_2d775093",
       "revId": "c9ab8c58d894e652fc52d9d25a5762e96ba4f19c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
