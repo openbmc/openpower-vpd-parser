@@ -33,6 +33,27 @@ BackupAndRestore::BackupAndRestore(const nlohmann::json& i_sysCfgJsonObj) :
                 "], error : " + commonUtility::getErrCodeMsg(l_errCode),
             l_backupAndRestoreCfgFilePath);
     }
+
+    if (!isJsonValid())
+    {
+        throw JsonException("JSON is not valid.",
+                            l_backupAndRestoreCfgFilePath);
+    }
+}
+
+bool BackupAndRestore::isJsonValid()
+{
+    if (m_backupAndRestoreCfgJsonObj.empty() ||
+        !m_backupAndRestoreCfgJsonObj.contains("source") ||
+        !m_backupAndRestoreCfgJsonObj.contains("destination") ||
+        !m_backupAndRestoreCfgJsonObj.contains("type") ||
+        !m_backupAndRestoreCfgJsonObj.contains("backupMap"))
+    {
+        m_logger->logMessage(
+            "Backup restore config JSON is missing necessary tag(s), can't initiate backup and restore.");
+        return false;
+    }
+    return true;
 }
 
 types::EepromInventoryPaths BackupAndRestore::getFruAndInvPaths(
@@ -314,16 +335,6 @@ std::tuple<types::VPDMapVariant, types::VPDMapVariant>
         }
 
         m_backupAndRestoreStatus = BackupAndRestoreStatus::Invoked;
-
-        if (m_backupAndRestoreCfgJsonObj.empty() ||
-            !m_backupAndRestoreCfgJsonObj.contains("source") ||
-            !m_backupAndRestoreCfgJsonObj.contains("destination") ||
-            !m_backupAndRestoreCfgJsonObj.contains("type") ||
-            !m_backupAndRestoreCfgJsonObj.contains("backupMap"))
-        {
-            throw std::runtime_error(
-                "Backup restore config JSON is missing necessary tag(s), can't initiate backup and restore.");
-        }
 
         std::tie(m_srcFruPath, m_srcInvPath) = getFruAndInvPaths("source");
         if (m_srcFruPath.empty() || m_srcInvPath.empty())
