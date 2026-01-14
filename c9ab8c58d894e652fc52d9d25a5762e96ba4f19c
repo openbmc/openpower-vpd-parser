@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79934df3_4ed67143",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-14T04:46:34Z",
+      "side": 1,
+      "message": "This seems incomplete. Get source and destination dbus service name from where?",
+      "revId": "c9ab8c58d894e652fc52d9d25a5762e96ba4f19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d4e8217_ef434726",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-14T04:46:34Z",
+      "side": 1,
+      "message": "Why not return a `std::tuple` containing the service name and destination service name on success? This is consistent with what we are doing in `getFruAndInvPaths` API.",
+      "revId": "c9ab8c58d894e652fc52d9d25a5762e96ba4f19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "567d8f5d_2d775093",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-14T04:46:34Z",
+      "side": 1,
+      "message": "We can use `std::filesystem::path` for handling file paths. `std::filesystem::path` has built-in path manipulation functions, and makes the code\u0027s intent clearer.",
+      "revId": "c9ab8c58d894e652fc52d9d25a5762e96ba4f19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
