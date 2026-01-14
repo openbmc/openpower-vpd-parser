@@ -39,6 +39,63 @@
       "message": "Why are these optional?",
       "revId": "3367571aa337cafee43968eff7817b5222daa392",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7cb5dae_58ac0130",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-14T07:19:24Z",
+      "side": 1,
+      "message": "Instead of logging and returning from multiple places can be optimize this?",
+      "revId": "3367571aa337cafee43968eff7817b5222daa392",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c662cf32_37d34894",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-14T07:19:24Z",
+      "side": 1,
+      "message": "The variable is named src in case of both, when called for source or destination?",
+      "range": {
+        "startLine": 210,
+        "startChar": 24,
+        "endLine": 210,
+        "endChar": 40
+      },
+      "revId": "3367571aa337cafee43968eff7817b5222daa392",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35ffb322_4478d24f",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-14T07:19:24Z",
+      "side": 1,
+      "message": "Instead of logging at multiple places can we optimize this?",
+      "revId": "3367571aa337cafee43968eff7817b5222daa392",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
