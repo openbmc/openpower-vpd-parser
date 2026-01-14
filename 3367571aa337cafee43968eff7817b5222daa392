@@ -85,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5145881c_51e371aa",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-14T14:15:45Z",
+      "side": 1,
+      "message": "In that case, IMO, \nThe name of the function is misleading?\nIf there will be no map then how it will extract and find in \"map\"?\n\n\n\nBetter name or further split those functionalities?",
+      "parentUuid": "404b7d52_3f330abc",
+      "revId": "3367571aa337cafee43968eff7817b5222daa392",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7cb5dae_58ac0130",
         "filename": "vpd-manager/src/backup_restore.cpp",
         "patchSetId": 10
