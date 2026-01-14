@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0424500_cc36011c",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-14T03:57:56Z",
+      "side": 1,
+      "message": "removed error code, instead logged in place.",
+      "parentUuid": "f7021c0e_56efbaa9",
+      "revId": "524b04ae691eef00d5c13229f2d2b8786d5202b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6f6d540_3959555c",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-01-13T09:23:03Z",
       "side": 1,
       "message": "Same here for error codes.",
+      "revId": "524b04ae691eef00d5c13229f2d2b8786d5202b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afa8f760_26abaa79",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-14T03:57:56Z",
+      "side": 1,
+      "message": "removed error code, logged error in place.",
+      "parentUuid": "e6f6d540_3959555c",
       "revId": "524b04ae691eef00d5c13229f2d2b8786d5202b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
