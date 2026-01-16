@@ -16,6 +16,24 @@
       "message": "The change is not limited to \"collectAllFruVpd\".",
       "revId": "6d6cf87f6c71801339e13cdfbc283dd5bec855b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f0b0d34_33794edc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-16T17:25:14Z",
+      "side": 1,
+      "message": "This \"collectAllFruVpd\" refers to manager method \"collectAllFruVpd\".\nWhen we trigger collectAllFruVpd all these functions gets called in a flow. SO I covered all them together",
+      "parentUuid": "ef9b3826_5ece17e6",
+      "revId": "6d6cf87f6c71801339e13cdfbc283dd5bec855b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
