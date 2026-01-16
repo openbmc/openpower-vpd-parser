@@ -16,6 +16,24 @@
       "message": "The heading is very generic. I mean all the PRs in this chain can actually be termed as \"vpd-manager\" update.",
       "revId": "0ea13e0a7dfdd7a026a62aed5e98b897ccda27f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01be88a1_8631e38d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-16T17:32:40Z",
+      "side": 1,
+      "message": "vpd-manager means vpd-manager program comes up, that flow got covered here.",
+      "parentUuid": "506e388c_78d1e0a4",
+      "revId": "0ea13e0a7dfdd7a026a62aed5e98b897ccda27f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
