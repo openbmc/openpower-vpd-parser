@@ -16,6 +16,24 @@
       "message": "How it is a tool updated? Files being updated are in vpd-manager.",
       "revId": "b078eacafd631869237ddf5b03545b93c7011129",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9820711c_2cb85d82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-01-16T17:29:45Z",
+      "side": 1,
+      "message": "the function updated here is being called by vpd-tool updateVpdKwd.\nI meant that",
+      "parentUuid": "d487e2bd_59adc747",
+      "revId": "b078eacafd631869237ddf5b03545b93c7011129",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
