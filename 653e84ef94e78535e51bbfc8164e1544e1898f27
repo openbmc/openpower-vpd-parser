@@ -16,6 +16,24 @@
       "message": "nit: All these APIs are tightly couple with IPZ type,since the code base is generic, please rename the APIs to suggest that these are specific for IPZ.",
       "revId": "653e84ef94e78535e51bbfc8164e1544e1898f27",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01477691_bcaafb50",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-16T06:45:51Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "a73f05dc_5318156f",
+      "revId": "653e84ef94e78535e51bbfc8164e1544e1898f27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
