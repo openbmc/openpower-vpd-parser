@@ -34,6 +34,24 @@
       "parentUuid": "a73f05dc_5318156f",
       "revId": "653e84ef94e78535e51bbfc8164e1544e1898f27",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fd50cfc_7aa2e2e3",
+        "filename": "vpd-manager/include/backup_restore.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-16T07:45:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "01477691_bcaafb50",
+      "revId": "653e84ef94e78535e51bbfc8164e1544e1898f27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
