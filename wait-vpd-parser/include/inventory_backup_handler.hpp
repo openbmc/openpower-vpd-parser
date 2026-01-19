@@ -85,6 +85,21 @@ class InventoryBackupHandler
      */
     bool checkInventoryBackupPath(uint16_t& o_errCode) const noexcept;
 
+    /**
+     * @brief API to sync directories from source path to destination path. This
+     * API will ignore all files in the source path and only sync the sub
+     * directories of the source path to the destination path.
+     *
+     * @param[in] i_src - Source path
+     * @param[in] i_dest - Destination path
+     * @param[out] o_errCode - To set error code in case of error
+     *
+     * @return true if the files are successfully synced, false otherwise
+     */
+    bool syncFiles(const std::filesystem::path& l_src,
+                   const std::filesystem::path& l_dest,
+                   uint16_t& o_errCode) const noexcept;
+
     /* Members */
     // inventory manager service name
     std::string m_inventoryManagerServiceName;

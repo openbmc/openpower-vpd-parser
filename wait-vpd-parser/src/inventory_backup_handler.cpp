@@ -60,12 +60,23 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             return l_rc;
         }
 
-        /* TODO:
-            1. Iterate through directories under
-           /var/lib/phosphor-data-sync/bmc_data_bkp/
-            2. Extract the object path and interface information
-            3. Restore the data to inventory manager persisted path.
-        */
+        const auto l_systemInventoryPrimaryPath{
+            m_inventoryPrimaryPath /
+            std::filesystem::path(vpd::constants::systemVpdInvPath)
+                .relative_path()};
+
+        if (std::filesystem::is_directory(l_systemInventoryPrimaryPath))
+        {
+            const auto l_systemInventoryBackupPath{
+                m_inventoryBackupPath /
+                std::filesystem::path(vpd::constants::systemVpdInvPath)
+                    .relative_path()};
+
+            // copy all sub directories under /system from backup path to
+            // primary path
+            l_rc = syncFiles(l_systemInventoryBackupPath,
+                             l_systemInventoryPrimaryPath, o_errCode);
+        }
     }
     catch (const std::exception& l_ex)
     {
@@ -96,9 +107,14 @@ bool InventoryBackupHandler::clearInventoryBackupData(
     o_errCode = 0;
     try
     {
-        /* TODO:
-           Clear all directories under inventory backup path
-        */
+        std::error_code l_ec;
+
+        const auto l_systemInventoryBackupPath{
+            m_inventoryBackupPath /
+            std::filesystem::path(vpd::constants::systemVpdInvPath)
+                .relative_path()};
+
+        std::filesystem::remove_all(l_systemInventoryBackupPath);
     }
     catch (const std::exception& l_ex)
     {
@@ -145,5 +161,40 @@ bool InventoryBackupHandler::restartInventoryManagerService(
                              ". Error: " + std::string(l_ex.what()));
         o_errCode = vpd::error_code::STANDARD_EXCEPTION;
     }
+    return l_rc;
+}
+
+bool InventoryBackupHandler::syncFiles(const std::filesystem::path& l_src,
+                                       const std::filesystem::path& l_dest,
+                                       uint16_t& o_errCode) const noexcept
+{
+    bool l_rc{false};
+    o_errCode = vpd::constants::VALUE_0;
+    try
+    {
+        // use rsync command to sync files
+        // -a for archive mode to preserve permissions
+        // --delete to make the destination an exact mirror of the source
+        // --include flag ensures all directories (and their contents) are
+        // selected for sync
+        // --exclude flag ensures any file located in the root of the source
+        // directory is excluded
+        const auto l_cmd = "rsync -a --delete --include='*/' --exclude='/*' " +
+                           l_src.string() + "/ " + l_dest.string();
+
+        m_logger->logMessage("_SR executing cmd: \"" + l_cmd + "\"");
+
+        vpd::commonUtility::executeCmd(l_cmd, o_errCode);
+        l_rc = (vpd::constants::VALUE_0 == o_errCode);
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            "Failed to sync files from [" + l_src.string() + "] to [" +
+            l_dest.string() + "]. Error: " + l_ex.what());
+
+        o_errCode = vpd::error_code::STANDARD_EXCEPTION;
+    }
+
     return l_rc;
 }
