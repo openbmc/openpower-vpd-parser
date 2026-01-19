@@ -60,12 +60,46 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             return l_rc;
         }
 
-        /* TODO:
-            1. Iterate through directories under
-           /var/lib/phosphor-data-sync/bmc_data_bkp/
-            2. Extract the object path and interface information
-            3. Restore the data to inventory manager persisted path.
-        */
+        const auto l_systemInventoryPrimaryPath{
+            m_inventoryPrimaryPath /
+            std::filesystem::path(vpd::constants::systemVpdInvPath)
+                .relative_path()};
+
+        const auto l_systemInventoryBackupPath{
+            m_inventoryBackupPath /
+            std::filesystem::path(vpd::constants::systemVpdInvPath)
+                .relative_path()};
+
+        if (std::filesystem::is_directory(l_systemInventoryPrimaryPath))
+        {
+            // copy all sub directories under /system from backup path to
+            // primary path
+            auto l_backupDirIt = std::filesystem::directory_iterator{
+                l_systemInventoryBackupPath};
+
+            std::for_each(
+                std::filesystem::begin(l_backupDirIt),
+                std::filesystem::end(l_backupDirIt),
+                [this, l_systemInventoryPrimaryPath = std::as_const(
+                           l_systemInventoryPrimaryPath)](const auto& l_entry) {
+                    if (l_entry.is_directory())
+                    {
+                        uint16_t l_errCode{vpd::constants::VALUE_0};
+
+                        if (!syncFiles(l_entry.path(),
+                                       l_systemInventoryPrimaryPath /
+                                           l_entry.path().filename(),
+                                       l_errCode))
+                        {
+                            throw std::runtime_error(
+                                "Failed to move inventory data. Error: " +
+                                vpd::commonUtility::getErrCodeMsg(l_errCode));
+                        }
+                    }
+                });
+
+            l_rc = true;
+        }
     }
     catch (const std::exception& l_ex)
     {
@@ -96,9 +130,14 @@ bool InventoryBackupHandler::clearInventoryBackupData(
     o_errCode = 0;
     try
     {
-        /* TODO:
-           Clear all directories under inventory backup path
-        */
+        std::error_code l_ec;
+
+        const auto l_systemInventoryBackupPath{
+            m_inventoryBackupPath /
+            std::filesystem::path(vpd::constants::systemVpdInvPath)
+                .relative_path()};
+
+        std::filesystem::remove_all(l_systemInventoryBackupPath);
     }
     catch (const std::exception& l_ex)
     {
@@ -145,5 +184,36 @@ bool InventoryBackupHandler::restartInventoryManagerService(
                              ". Error: " + std::string(l_ex.what()));
         o_errCode = vpd::error_code::STANDARD_EXCEPTION;
     }
+    return l_rc;
+}
+
+bool InventoryBackupHandler::syncFiles(const std::filesystem::path& l_src,
+                                       const std::filesystem::path& l_dest,
+                                       uint16_t& o_errCode) const noexcept
+{
+    bool l_rc{false};
+    o_errCode = vpd::constants::VALUE_0;
+    try
+    {
+        // use rsync command to sync files
+        // -a for archive mode to preserve permissions
+        // --delete to make the destination an exact mirror of the source
+        const auto l_cmd =
+            "rsync -a --delete " + l_src.string() + "/ " + l_dest.string();
+
+        m_logger->logMessage("_SR executing cmd: \"" + l_cmd + "\"");
+
+        vpd::commonUtility::executeCmd(l_cmd, o_errCode);
+        l_rc = (vpd::constants::VALUE_0 == o_errCode);
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            "Failed to move files from [" + l_src.string() + "] to [" +
+            l_dest.string() + "]. Error: " + l_ex.what());
+
+        o_errCode = vpd::error_code::STANDARD_EXCEPTION;
+    }
+
     return l_rc;
 }
