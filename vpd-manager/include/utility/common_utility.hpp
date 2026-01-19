@@ -480,5 +480,45 @@ std::string toString(const Container& i_container) noexcept
     return l_result.str();
 }
 
+/**
+ * @brief API to restart a systemd service
+ *
+ * This API restarts a systemd service
+ *
+ * @param[in] i_serviceName - Name of the systemd service
+ * @param[out] o_errCode - To set error code in case of error
+ *
+ * @return true if service is restarted, false otherwise
+ */
+inline bool restartService(const std::string& i_serviceName,
+                           uint16_t& o_errCode) noexcept
+{
+    o_errCode = 0;
+    bool l_rc{false};
+    if (i_serviceName.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return l_rc;
+    }
+
+    try
+    {
+        const auto l_cmd = "systemctl restart " + i_serviceName;
+
+        executeCmd(l_cmd, o_errCode);
+
+        return o_errCode == vpd::constants::VALUE_0;
+    }
+    catch (const std::exception& l_ex)
+    {
+        o_errCode = error_code::STANDARD_EXCEPTION;
+        Logger::getLoggerInstance()->logMessage(
+            "Failed to restart service [" + i_serviceName +
+            "]. Error: " + std::string(l_ex.what()));
+    }
+
+    return l_rc;
+}
+
 } // namespace commonUtility
 } // namespace vpd
