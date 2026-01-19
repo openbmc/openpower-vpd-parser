@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "562dfa6e_a297b1af",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-19T13:46:10Z",
+      "side": 1,
+      "message": "we should avoid this change, \nfor system which has backup on cache, this API will be called twice instead repressing it as error, we should return quietly ?\nand also in future there can be PEL logged from the catch, it is safe to return from here.",
+      "revId": "f25fa54bdd1a7a8861c0c2e2a157ed271b626a49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
