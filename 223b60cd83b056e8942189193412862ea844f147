@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dff6f769_d7bc10b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 45
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-19T19:21:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d341127a_be9281c0",
+      "revId": "223b60cd83b056e8942189193412862ea844f147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8fc20f1_46a2fe86",
@@ -58,6 +76,48 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e020e06_b126cffa",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 45
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-19T19:21:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8fc20f1_46a2fe86",
+      "revId": "223b60cd83b056e8942189193412862ea844f147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40f00172_cb23ffc2",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 45
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-19T19:21:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09d49dff_06bb2c47",
+      "range": {
+        "startLine": 5,
+        "startChar": 22,
+        "endLine": 5,
+        "endChar": 25
+      },
+      "revId": "223b60cd83b056e8942189193412862ea844f147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b92f21e_ef1d88ff",
@@ -71,6 +131,24 @@
       "writtenOn": "2026-01-14T06:21:29Z",
       "side": 1,
       "message": "Please update as discussed.",
+      "revId": "223b60cd83b056e8942189193412862ea844f147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a6f5c53_35c0356d",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 45
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-19T19:21:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b92f21e_ef1d88ff",
       "revId": "223b60cd83b056e8942189193412862ea844f147",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -92,6 +170,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecdf08b3_9c019781",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 45
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-19T19:21:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83154520_6d4c83d7",
+      "revId": "223b60cd83b056e8942189193412862ea844f147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfdb2c04_a1e65996",
@@ -105,6 +201,30 @@
       "writtenOn": "2026-01-14T06:21:29Z",
       "side": 1,
       "message": "Why limited to collection?",
+      "range": {
+        "startLine": 56,
+        "startChar": 45,
+        "endLine": 56,
+        "endChar": 59
+      },
+      "revId": "223b60cd83b056e8942189193412862ea844f147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45451208_c3bb625d",
+        "filename": "docs/system-json_README.md",
+        "patchSetId": 45
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-19T19:21:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfdb2c04_a1e65996",
       "range": {
         "startLine": 56,
         "startChar": 45,
