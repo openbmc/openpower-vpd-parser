@@ -130,10 +130,19 @@ bool checkAndHandleInventoryBackup()
         vpd::constants::pimServiceName, vpd::constants::pimPrimaryPath,
         vpd::constants::pimBackupPath};
 
+    const auto l_restoreInventoryStartTime = std::chrono::steady_clock::now();
     if (!l_inventoryBackupHandler.restoreInventoryBackupData(l_errCode))
     {
         return l_rc;
     }
+
+    l_logger->logMessage(
+        "Time taken to restore inventory backup data: " +
+        std::to_string(
+            std::chrono::duration_cast<std::chrono::milliseconds>(
+                std::chrono::steady_clock::now() - l_restoreInventoryStartTime)
+                .count()) +
+        "ms");
 
     // restart the inventory manager service so that the new inventory
     // data is reflected on D-Bus
