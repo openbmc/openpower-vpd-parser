@@ -10,10 +10,27 @@ bool InventoryBackupHandler::checkInventoryBackupPath(
     o_errCode = 0;
     try
     {
-        /* TODO:
-            Check inventory backup path to see if it
-           has sub directories with inventory backup data and return true if so.
-        */
+        const auto l_systemInventoryBackupPath{
+            m_inventoryBackupPath /
+            std::filesystem::path(vpd::constants::systemInvPath)
+                .relative_path()};
+
+        if (std::filesystem::exists(l_systemInventoryBackupPath) &&
+            std::filesystem::is_directory(l_systemInventoryBackupPath) &&
+            !std::filesystem::is_empty(l_systemInventoryBackupPath))
+        {
+            // check number of directories under /system path, as we are only
+            // interested in the FRUs VPD which is populated under respective
+            // /system/chassis* directories
+            auto l_dirIt = std::filesystem::directory_iterator{
+                l_systemInventoryBackupPath};
+
+            const auto l_numSubDirectories = std::count_if(
+                std::filesystem::begin(l_dirIt), std::filesystem::end(l_dirIt),
+                [](const auto& l_entry) { return l_entry.is_directory(); });
+
+            l_rc = (l_numSubDirectories != 0);
+        }
     }
     catch (const std::exception& l_ex)
     {
