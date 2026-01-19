@@ -37,6 +37,8 @@ enum error_code
     INVALID_HEXADECIMAL_VALUE_LENGTH,
     INVALID_HEXADECIMAL_VALUE,
     INVALID_INVENTORY_PATH,
+    SERVICE_RUNNING,
+    SERVICE_NOT_RUNNING,
 
     // VPD specific errors
     UNSUPPORTED_VPD_TYPE,
@@ -93,5 +95,7 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::INVALID_HEXADECIMAL_VALUE_LENGTH,
      "Invalid hexadecimal value length."},
     {error_code::INVALID_HEXADECIMAL_VALUE, "Invalid hexadecimal value."},
-    {error_code::INVALID_INVENTORY_PATH, "Invalid inventory path."}};
+    {error_code::INVALID_INVENTORY_PATH, "Invalid inventory path."},
+    {error_code::SERVICE_RUNNING, "Service is running"},
+    {error_code::SERVICE_NOT_RUNNING, "Service is not running"}};
 } // namespace vpd
