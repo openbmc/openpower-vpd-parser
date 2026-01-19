@@ -431,5 +431,47 @@ inline void getEffectiveFruPath(
     }
 }
 
+/**
+ * @brief API to convert a container to string
+ *
+ * API to convert a container to string. The container should be iterable.
+ *
+ * @param[in] i_vector - container which needs to be converted to a string.
+ * @param[out] o_errCode - To set error code in case of error.
+ *
+ * @return String representation of the container elements, empty string
+ * otherwise.
+ */
+template <class Container>
+std::string toString(const Container& i_container) noexcept
+{
+    std::string l_result;
+    try
+    {
+        if (i_container.empty())
+        {
+            l_result = "[]";
+        }
+        else
+        {
+            l_result = "[";
+            std::for_each(i_container.cbegin(), i_container.cend(),
+                          [&l_result](const auto& l_element) {
+                              constexpr char l_seperator{','};
+                              l_result += l_element.string() + l_seperator;
+                          });
+
+            l_result += "]";
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        Logger::getLoggerInstance()->logMessage(
+            "Error while converting container to string, reason: " +
+            std::string(l_ex.what()));
+    }
+    return l_result;
+}
+
 } // namespace commonUtility
 } // namespace vpd
