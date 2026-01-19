@@ -85,6 +85,17 @@ class InventoryBackupHandler
      */
     bool checkInventoryBackupPath(uint16_t& o_errCode) const noexcept;
 
+    /**
+     * @brief API to move files from source path to destination path
+     *
+     * @param[in] i_src - Source path
+     * @param[in] i_dest - Destination path
+     *
+     * @return true if the files are successfully moved, false otherwise
+     */
+    bool moveFiles(const std::filesystem::path& l_src,
+                   const std::filesystem::path& l_dest) const noexcept;
+
     /* Members */
     // inventory manager service name
     std::string m_inventoryManagerServiceName;
