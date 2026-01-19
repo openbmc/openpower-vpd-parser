@@ -2,6 +2,7 @@
 
 #include "error_codes.hpp"
 #include "utility/common_utility.hpp"
+#include "utility/dbus_utility.hpp"
 
 bool InventoryBackupHandler::checkInventoryBackupPath(
     uint16_t& o_errCode) const noexcept
@@ -145,14 +146,38 @@ bool InventoryBackupHandler::restartInventoryManagerService(
     o_errCode = 0;
     try
     {
-        /* TODO:
-           1. Restart inventory manager service, with a re-try limit of 3
-           attempts
-           2. If above step fails, check inventory manager service state
-           3. If service is in running state, then log critical PEL and go for
-           re-collection. If not running then along with critical PEL, fail this
-           service as well.
-        */
+        auto l_restartInvManager = [this]() -> bool {
+            uint16_t l_errCode{0};
+            const auto l_cmd =
+                "systemctl restart " + m_inventoryManagerServiceName;
+            vpd::commonUtility::executeCmd(l_cmd, l_errCode);
+
+            return l_errCode == vpd::constants::VALUE_0;
+        };
+
+        // Restart inventory manager service, with a re-try limit of 3 attempts
+        constexpr auto l_numRetries{3};
+
+        for (unsigned l_attempt = 0; l_attempt < l_numRetries; ++l_attempt)
+        {
+            if (l_restartInvManager())
+            {
+                // restarting inventory manager service is successful, return
+                // success
+                return true;
+            }
+        }
+
+        // re-try limit crossed
+        m_logger->logMessage(
+            "Failed to restart [" + m_inventoryManagerServiceName + "] after " +
+            std::to_string(l_numRetries) + " attempts");
+
+        // check inventory manager service state and set appropriate error code
+        o_errCode =
+            vpd::dbusUtility::isServiceRunning(m_inventoryManagerServiceName)
+                ? vpd::error_code::SERVICE_RUNNING
+                : vpd::error_code::SERVICE_NOT_RUNNING;
     }
     catch (const std::exception& l_ex)
     {
