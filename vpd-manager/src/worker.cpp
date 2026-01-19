@@ -862,16 +862,21 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                                           "postAction", "collection",
                                           l_errCode))
         {
+            // if (!processPostAction(i_vpdFilePath, "collection", l_parsedVpd))
             if (!processPostAction(i_vpdFilePath, "collection", l_parsedVpd))
             {
                 // Post action was required but failed while executing.
                 // Behaviour can be undefined.
-                EventLogger::createSyncPel(
+
+                const types::PelInfoTuple l_pel(
                     types::ErrorType::InternalFailure,
-                    types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                    types::SeverityType::Warning, 0, std::nullopt, std::nullopt,
+                    std::nullopt, std::nullopt);
+
+                m_logger->logMessage(
                     std::string("Required post action failed for path [" +
-                                i_vpdFilePath + "]"),
-                    std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+                                i_vpdFilePath + "]."),
+                    PlaceHolder::PEL, std::make_optional(&l_pel));
             }
         }
         else if (l_errCode)
@@ -929,7 +934,10 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                 "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        const types::VPDMapVariant& parsedVpdMap = parseVpdFile(i_vpdFilePath);
+	//TODO- remove this debug  code after testing
+	throw std::runtime_error("DBG: Alpana's patch testing");
+        
+	const types::VPDMapVariant& parsedVpdMap = parseVpdFile(i_vpdFilePath);
         if (!std::holds_alternative<std::monostate>(parsedVpdMap))
         {
             types::ObjectMap objectInterfaceMap;
@@ -982,7 +990,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         m_semaphore.release();
         return std::make_tuple(true, i_vpdFilePath);
     }
-    catch (const std::exception& ex)
+    catch (const std::exception& l_ex)
     {
         uint16_t l_errCode = 0;
 
@@ -1011,7 +1019,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
 
         // handle all the exceptions internally. Return only true/false
         // based on status of execution.
-        if (typeid(ex) == std::type_index(typeid(DataException)))
+        if (typeid(l_ex) == std::type_index(typeid(DataException)))
         {
             // In case of pass1 planar, VPD can be corrupted on PCIe cards. Skip
             // logging error for these cases.
@@ -1049,14 +1057,18 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             }
         }
 
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(ex),
-            (typeid(ex) == typeid(DataException)) ||
-                    (typeid(ex) == typeid(EccException))
+        const types::PelInfoTuple l_pel(
+            EventLogger::getErrorType(l_ex),
+            (typeid(l_ex) == typeid(DataException)) ||
+                    (typeid(l_ex) == typeid(EccException))
                 ? types::SeverityType::Warning
                 : types::SeverityType::Informational,
-            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(ex),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            0, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        m_logger->logMessage(
+            std::string("ParseAndPublish VPD failed for [reason] ") +
+                EventLogger::getErrorMsg(l_ex),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
 
         // TODO: Figure out a way to clear data in case of any failure at
         // runtime.
@@ -1361,10 +1373,14 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
     }
     catch (const std::exception& l_ex)
     {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
-            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
+        const types::PelInfoTuple l_pel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Warning, 0,
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        m_logger->logMessage(
+            std::string("Exception while setting the present property.") +
+                EventLogger::getErrorMsg(l_ex),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
 }
 
