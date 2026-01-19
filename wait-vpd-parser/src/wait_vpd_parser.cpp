@@ -180,9 +180,14 @@ bool checkAndHandleInventoryBackup()
     }
     else
     {
-        // TODO: Restarting the inventory manager service has failed,
-        // check error code to determine whether to go for VPD
-        //  collection or to fail this service
+        // Restarting the inventory manager service has failed,
+        // and error code indicates inventory manager service is not running,
+        // throw an exception so that wait-vpd-parsers service also fails
+        if (l_errCode == vpd::error_code::SERVICE_NOT_RUNNING)
+        {
+            throw std::runtime_error(
+                "Failed to restart inventory manager service after restoring backup inventory data. Failing this service");
+        }
     }
     return l_rc;
 }
