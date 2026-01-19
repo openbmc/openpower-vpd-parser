@@ -60,12 +60,77 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             return l_rc;
         }
 
-        /* TODO:
-            1. Iterate through directories under
-           /var/lib/phosphor-data-sync/bmc_data_bkp/
-            2. Extract the object path and interface information
-            3. Restore the data to inventory manager persisted path.
-        */
+        const auto l_systemInventoryPrimaryPath{
+            m_inventoryPrimaryPath /
+            std::filesystem::path(vpd::constants::systemVpdInvPath)
+                .relative_path()};
+
+        if (std::filesystem::is_directory(l_systemInventoryPrimaryPath))
+        {
+            const auto l_systemInventoryBackupPath{
+                m_inventoryBackupPath /
+                std::filesystem::path(vpd::constants::systemVpdInvPath)
+                    .relative_path()};
+
+            // copy all sub directories under /system from backup path to
+            // primary path
+            auto l_backupDirIt = std::filesystem::directory_iterator{
+                l_systemInventoryBackupPath};
+
+            // vector to hold a list of sub directories under /system for which
+            // restoration failed
+            using FailedPathList = std::vector<std::filesystem::path>;
+            FailedPathList l_failedPaths;
+
+            std::for_each(std::filesystem::begin(l_backupDirIt),
+                          std::filesystem::end(l_backupDirIt),
+                          [this,
+                           l_systemInventoryPrimaryPath =
+                               std::as_const(l_systemInventoryPrimaryPath),
+                           &l_failedPaths](const auto& l_entry) {
+                              if (l_entry.is_directory())
+                              {
+                                  uint16_t l_errCode{vpd::constants::VALUE_0};
+
+                                  if (!moveFiles(l_entry.path(),
+                                                 l_systemInventoryPrimaryPath /
+                                                     l_entry.path().filename(),
+                                                 l_errCode))
+                                  {
+                                      l_failedPaths.emplace_back(
+                                          l_entry.path().filename());
+                                  }
+                              }
+                          });
+
+            // check if there are any paths for which restoration failed, if yes
+            // log a PEL
+            if (!l_failedPaths.empty())
+            {
+                std::string l_formattedFailedPaths;
+
+                // create a string representation of the failed path list
+                for (const auto& l_path : l_failedPaths)
+                {
+                    l_formattedFailedPaths +=
+                        std::format("[{}],", l_path.string());
+                }
+
+                m_logger->logMessage(
+                    "Failed to restore inventory data for some chassis. Check user data for details",
+                    vpd::PlaceHolder::PEL,
+                    vpd::types::PelInfoTuple{
+                        vpd::types::ErrorType::FirmwareError,
+                        vpd::types::SeverityType::Warning, 0,
+                        l_formattedFailedPaths, std::nullopt, std::nullopt,
+                        std::nullopt});
+            }
+            l_rc = true;
+        }
+        else
+        {
+            o_errCode = vpd::error_code::INVALID_INVENTORY_PATH;
+        }
     }
     catch (const std::exception& l_ex)
     {
@@ -92,9 +157,14 @@ bool InventoryBackupHandler::clearInventoryBackupData(
     o_errCode = 0;
     try
     {
-        /* TODO:
-           Clear all directories under inventory backup path
-        */
+        std::error_code l_ec;
+
+        const auto l_systemInventoryBackupPath{
+            m_inventoryBackupPath /
+            std::filesystem::path(vpd::constants::systemVpdInvPath)
+                .relative_path()};
+
+        std::filesystem::remove_all(l_systemInventoryBackupPath);
     }
     catch (const std::exception& l_ex)
     {
@@ -136,5 +206,64 @@ bool InventoryBackupHandler::restartInventoryManagerService(
                              ". Error: " + std::string(l_ex.what()));
         o_errCode = vpd::error_code::STANDARD_EXCEPTION;
     }
+    return l_rc;
+}
+
+bool InventoryBackupHandler::moveFiles(const std::filesystem::path& l_src,
+                                       const std::filesystem::path& l_dest,
+                                       uint16_t& o_errCode) const noexcept
+{
+    bool l_rc{false};
+    o_errCode = vpd::constants::VALUE_0;
+    try
+    {
+        std::error_code l_ec;
+
+        // try to rename first as it is more efficient
+        std::filesystem::rename(l_src, l_dest, l_ec);
+
+        if (l_ec)
+        {
+            if (l_ec == std::errc::directory_not_empty)
+            {
+                // rename failed, because destination path
+                // already exists and is not empty
+                //  let's try to copy the data while overwriting
+
+                std::filesystem::copy(
+                    l_src, l_dest,
+                    std::filesystem::copy_options::recursive |
+                        std::filesystem::copy_options::overwrite_existing);
+
+                // remove the original after successful copy
+                if (static_cast<std::uintmax_t>(-1) ==
+                    std::filesystem::remove_all(l_src, l_ec))
+                {
+                    m_logger->logMessage(
+                        "Failed to remove file [" + l_src.string() +
+                            "]. Error: " + l_ec.message(),
+                        vpd::PlaceHolder::COLLECTION);
+                }
+            }
+            else
+            {
+                // for all other errors, we need to throw so
+                // that it fails the operation
+                throw std::runtime_error(l_ec.message());
+            }
+        }
+
+        l_rc = true;
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            "Failed to move files from [" + l_src.string() + "] to [" +
+                l_dest.string() + "]. Error: " + l_ex.what(),
+            vpd::PlaceHolder::COLLECTION);
+
+        o_errCode = vpd::error_code::STANDARD_EXCEPTION;
+    }
+
     return l_rc;
 }
