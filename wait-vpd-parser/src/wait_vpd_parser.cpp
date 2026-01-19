@@ -130,17 +130,48 @@ bool checkAndHandleInventoryBackup()
         vpd::constants::pimServiceName, vpd::constants::pimPrimaryPath,
         vpd::constants::pimBackupPath};
 
+    const auto l_restoreInventoryStartTime = std::chrono::steady_clock::now();
     if (!l_inventoryBackupHandler.restoreInventoryBackupData(l_errCode))
     {
         return l_rc;
     }
 
+    l_logger->logMessage(
+        "Time taken to restore inventory backup data: " +
+        std::to_string(
+            std::chrono::duration_cast<std::chrono::milliseconds>(
+                std::chrono::steady_clock::now() - l_restoreInventoryStartTime)
+                .count()) +
+        "ms");
+
     // restart the inventory manager service so that the new inventory
     // data is reflected on D-Bus
+    const auto l_restartInventoryServiceStartTime =
+        std::chrono::steady_clock::now();
     if (l_inventoryBackupHandler.restartInventoryManagerService(l_errCode))
     {
+        l_logger->logMessage(
+            "Time taken to restart inventory manager service: " +
+            std::to_string(
+                std::chrono::duration_cast<std::chrono::milliseconds>(
+                    std::chrono::steady_clock::now() -
+                    l_restartInventoryServiceStartTime)
+                    .count()) +
+            "ms");
+
         // clear the backup inventory data
+        const auto l_clearInventoryBackupStartTime =
+            std::chrono::steady_clock::now();
         l_inventoryBackupHandler.clearInventoryBackupData(l_errCode);
+
+        l_logger->logMessage(
+            "Time taken to clear inventory backup data: " +
+            std::to_string(
+                std::chrono::duration_cast<std::chrono::milliseconds>(
+                    std::chrono::steady_clock::now() -
+                    l_clearInventoryBackupStartTime)
+                    .count()) +
+            "ms");
 
         // inventory backup restoration and service restart are
         // successful, so return success from here as FRU VPD collection
