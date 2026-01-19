@@ -60,12 +60,47 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             return l_rc;
         }
 
-        /* TODO:
-            1. Iterate through directories under
-           /var/lib/phosphor-data-sync/bmc_data_bkp/
-            2. Extract the object path and interface information
-            3. Restore the data to inventory manager persisted path.
-        */
+        const auto l_systemInventoryPrimaryPath{
+            m_inventoryPrimaryPath /
+            std::filesystem::path(vpd::constants::systemVpdInvPath)
+                .relative_path()};
+
+        const auto l_systemInventoryBackupPath{
+            m_inventoryBackupPath /
+            std::filesystem::path(vpd::constants::systemVpdInvPath)
+                .relative_path()};
+
+        m_logger->logMessage(
+            "_SR primPath: " + l_systemInventoryPrimaryPath.string() +
+            " backPath: " + l_systemInventoryBackupPath.string());
+
+        if (std::filesystem::exists(l_systemInventoryPrimaryPath) &&
+            std::filesystem::is_directory(l_systemInventoryPrimaryPath))
+        {
+            // TODO: copy all sub directories under system from backup to
+            // primary
+            auto l_dirIt = std::filesystem::directory_iterator{
+                l_systemInventoryBackupPath};
+
+            std::for_each(
+                std::filesystem::begin(l_dirIt), std::filesystem::end(l_dirIt),
+                [this, l_systemInventoryPrimaryPath = std::as_const(
+                           l_systemInventoryPrimaryPath)](const auto& l_entry) {
+                    if (l_entry.is_directory())
+                    {
+                        m_logger->logMessage(
+                            "_SR subDir: " +
+                            l_entry.path().filename().string());
+
+                        // std::filesystem::rename(l_entry.path(),
+                        //                         l_systemInventoryPrimaryPath
+                        //                         /
+                        //                             l_entry.path().filename());
+                    }
+                });
+
+            l_rc = true;
+        }
     }
     catch (const std::exception& l_ex)
     {
