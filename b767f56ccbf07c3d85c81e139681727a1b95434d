@@ -16,6 +16,24 @@
       "message": "why this removed, below filesystem::exists call will fail for filemode.\nor remove this check, which is already taken care in Parser constructor which throws error if file doesn\u0027t exist.",
       "revId": "b767f56ccbf07c3d85c81e139681727a1b95434d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ba1d1f0_aab1703e",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-20T05:42:40Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "a3df0f2e_b44729e9",
+      "revId": "b767f56ccbf07c3d85c81e139681727a1b95434d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
