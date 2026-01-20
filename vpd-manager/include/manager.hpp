@@ -3,6 +3,7 @@
 #include "backup_restore.hpp"
 #include "constants.hpp"
 #include "gpio_monitor.hpp"
+#include "logger.hpp"
 #include "types.hpp"
 #include "worker.hpp"
 
@@ -247,6 +248,14 @@ class Manager
      */
     bool isValidUnexpandedLocationCode(const std::string& i_locationCode);
 
+    /**
+     * @brief API to read VPD collection mode.
+     *
+     * Collection mode denotes if the VPD needs to be read from file or actual
+     * hardware.
+     */
+    void readVpdCollectionMode() noexcept;
+
     // Shared pointer to asio context object.
     const std::shared_ptr<boost::asio::io_context>& m_ioContext;
 
@@ -273,6 +282,13 @@ class Manager
 
     // Shared pointer to oem specific class.
     std::shared_ptr<IbmHandler> m_ibmHandler;
+
+    // VPD collection mode. Default is hardware mode.
+    types::VpdCollectionMode m_vpdCollectionMode =
+        types::VpdCollectionMode::DEFAULT_MODE;
+
+    // Shared pointer to logger class.
+    std::shared_ptr<Logger> m_logger;
 };
 
 } // namespace vpd
