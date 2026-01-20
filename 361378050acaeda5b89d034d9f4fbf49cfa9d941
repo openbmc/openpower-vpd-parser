@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69ca4f3b_fb08494a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-20T17:13:17Z",
+      "side": 1,
+      "message": "Nit: \u0027data\u0027 is not required.",
+      "revId": "361378050acaeda5b89d034d9f4fbf49cfa9d941",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf00bda3_452175d6",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-20T17:13:17Z",
+      "side": 1,
+      "message": "I think this is redundant check, as is_directory() return false if directory doesn\u0027t exists.",
+      "revId": "361378050acaeda5b89d034d9f4fbf49cfa9d941",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
