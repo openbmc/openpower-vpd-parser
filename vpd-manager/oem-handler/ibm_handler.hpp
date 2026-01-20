@@ -38,6 +38,7 @@ class IbmHandler
      * @param[in] i_progressiFace - Interface to track collection progress.
      * @param[in] i_ioCon - IO context.
      * @param[in] i_asioConnection - Dbus Connection.
+     * @param[in] i_vpdCollectionMode - VPD collection mode.
      */
     IbmHandler(
         std::shared_ptr<Worker>& o_worker,
@@ -45,7 +46,8 @@ class IbmHandler
         const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_iFace,
         const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_progressiFace,
         const std::shared_ptr<boost::asio::io_context>& i_ioCon,
-        const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection);
+        const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
+        const types::VpdCollectionMode& i_vpdCollectionMode);
 
     /**
      * @brief API to collect all FRUs VPD.
@@ -206,14 +208,6 @@ class IbmHandler
     void checkAndUpdateBmcPosition(size_t& o_bmcPosition) const noexcept;
 
     /**
-     * @brief API to read VPD collection mode.
-     *
-     * Collection mode denotes if the VPD needs to be read from file or actual
-     * hardware.
-     */
-    void readVpdCollectionMode() noexcept;
-
-    /**
      * @brief API to check sysconfig json symlink.
      */
     void isSymlinkPresent() noexcept;
@@ -285,8 +279,7 @@ class IbmHandler
     std::shared_ptr<Logger> m_logger;
 
     // vpd collection mode
-    types::VpdCollectionMode m_vpdCollectionMode =
-        types::VpdCollectionMode::DEFAULT_MODE;
+    const types::VpdCollectionMode m_vpdCollectionMode;
 
     // Holds if sysmlink to config JSON is present or not.
     bool m_isSymlinkPresent = false;
