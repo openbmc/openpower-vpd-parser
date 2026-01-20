@@ -34,6 +34,24 @@
       "parentUuid": "d487e2bd_59adc747",
       "revId": "b078eacafd631869237ddf5b03545b93c7011129",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a216222_fdfd63bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-20T06:53:36Z",
+      "side": 1,
+      "message": "These are exposed by VPD-Manager and are used by CFT as well.\nBut how are you updating the tool here?",
+      "parentUuid": "9820711c_2cb85d82",
+      "revId": "b078eacafd631869237ddf5b03545b93c7011129",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
