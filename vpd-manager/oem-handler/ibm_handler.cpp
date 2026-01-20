@@ -20,16 +20,16 @@ IbmHandler::IbmHandler(
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_iFace,
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_progressiFace,
     const std::shared_ptr<boost::asio::io_context>& i_ioCon,
-    const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection) :
+    const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
+    const types::VpdCollectionMode& i_vpdCollectionMode) :
     m_worker(o_worker), m_backupAndRestoreObj(o_backupAndRestoreObj),
     m_interface(i_iFace), m_progressInterface(i_progressiFace),
     m_ioContext(i_ioCon), m_asioConnection(i_asioConnection),
-    m_logger(Logger::getLoggerInstance())
+    m_logger(Logger::getLoggerInstance()),
+    m_vpdCollectionMode(i_vpdCollectionMode)
 {
     try
     {
-        readVpdCollectionMode();
-
         // check if symlink is present
         isSymlinkPresent();
 
@@ -84,32 +84,6 @@ IbmHandler::IbmHandler(
         // log again. Let the service continue to execute.
         m_logger->logMessage("IBM Handler instantiation failed. Reason: " +
                              std::string(l_ec.what()));
-    }
-}
-
-void IbmHandler::readVpdCollectionMode() noexcept
-{
-    uint16_t l_errCode{0};
-    // check VPD collection mode
-    if (!commonUtility::isFieldModeEnabled(l_errCode))
-    {
-        if (l_errCode)
-        {
-            m_logger->logMessage(
-                "Default mode set. Error while trying to check if field mode is enabled, error : " +
-                commonUtility::getErrCodeMsg(l_errCode));
-
-            return;
-        }
-
-        m_vpdCollectionMode = commonUtility::getVpdCollectionMode(l_errCode);
-
-        if (l_errCode)
-        {
-            m_logger->logMessage(
-                "Default mode set. Error while trying to read VPD collection mode: " +
-                commonUtility::getErrCodeMsg(l_errCode));
-        }
     }
 }
 
