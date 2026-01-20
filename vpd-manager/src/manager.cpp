@@ -4,7 +4,6 @@
 
 #include "constants.hpp"
 #include "exceptions.hpp"
-#include "logger.hpp"
 #include "parser.hpp"
 #include "parser_factory.hpp"
 #include "parser_interface.hpp"
@@ -26,7 +25,7 @@ Manager::Manager(
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressiFace,
     const std::shared_ptr<sdbusplus::asio::connection>& asioConnection) :
     m_ioContext(ioCon), m_interface(iFace), m_progressInterface(progressiFace),
-    m_asioConnection(asioConnection)
+    m_asioConnection(asioConnection), m_logger(Logger::getLoggerInstance())
 {
 #ifdef IBM_SYSTEM_SINGLE_FAB
     if (!dbusUtility::isChassisPowerOn())
@@ -140,11 +139,13 @@ Manager::Manager(
             },
             [this](const auto&) { return m_vpdCollectionStatus; });
 
+        readVpdCollectionMode();
+
         // If required, instantiate OEM specific handler here.
 #ifdef IBM_SYSTEM
         m_ibmHandler = std::make_shared<IbmHandler>(
             m_worker, m_backupAndRestoreObj, m_interface, m_progressInterface,
-            m_ioContext, m_asioConnection);
+            m_ioContext, m_asioConnection, m_vpdCollectionMode);
 #else
         m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT);
         m_progressInterface->set_property(
@@ -160,6 +161,32 @@ Manager::Manager(
             vpd::EventLogger::getErrorType(e), vpd::types::SeverityType::Error,
             __FILE__, __FUNCTION__, 0, vpd::EventLogger::getErrorMsg(e),
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+    }
+}
+
+void Manager::readVpdCollectionMode() noexcept
+{
+    uint16_t l_errCode{0};
+    // check VPD collection mode
+    if (!commonUtility::isFieldModeEnabled(l_errCode))
+    {
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Default mode set. Error while trying to check if field mode is enabled, error : " +
+                commonUtility::getErrCodeMsg(l_errCode));
+
+            return;
+        }
+
+        m_vpdCollectionMode = commonUtility::getVpdCollectionMode(l_errCode);
+
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Default mode set. Error while trying to read VPD collection mode: " +
+                commonUtility::getErrCodeMsg(l_errCode));
+        }
     }
 }
 
