@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4780d279_f1767529",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-21T11:07:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "296de673_917b6a8b",
+      "revId": "2eb3fd57d9066e5611fa1da7de163baf5b10ac9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f42291ed_b3a49626",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-01-21T09:49:54Z",
       "side": 1,
       "message": "Move it under IBM systems.",
+      "revId": "2eb3fd57d9066e5611fa1da7de163baf5b10ac9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80ebec4b_72370fff",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-21T11:07:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f42291ed_b3a49626",
       "revId": "2eb3fd57d9066e5611fa1da7de163baf5b10ac9d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
