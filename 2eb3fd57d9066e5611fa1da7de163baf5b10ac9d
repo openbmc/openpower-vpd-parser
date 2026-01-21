@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "296de673_917b6a8b",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-21T09:49:54Z",
+      "side": 1,
+      "message": "update the doxygen as well?",
+      "revId": "2eb3fd57d9066e5611fa1da7de163baf5b10ac9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f42291ed_b3a49626",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-21T09:49:54Z",
+      "side": 1,
+      "message": "Move it under IBM systems.",
+      "revId": "2eb3fd57d9066e5611fa1da7de163baf5b10ac9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
