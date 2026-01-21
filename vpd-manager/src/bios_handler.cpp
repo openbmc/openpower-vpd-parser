@@ -147,11 +147,15 @@ void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
         else
         {
             logging::logMessage("Invalid type received for BIOS table.");
-            EventLogger::createSyncPel(
+
+            const types::PelInfoTuple l_pel(
                 types::ErrorType::FirmwareError, types::SeverityType::Warning,
-                __FILE__, __FUNCTION__, 0,
+                0, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+            Logger::getLoggerInstance()->logMessage(
                 std::string("Invalid type received for BIOS table."),
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+                PlaceHolder::PEL, std::make_optional(&l_pel));
+
             break;
         }
     }
@@ -303,6 +307,14 @@ void IbmBiosHandler::saveFcoToBios(const types::BinaryVector& i_fcoVal)
         // TODO: Should we log informational PEL here as well?
         logging::logMessage(
             "DBus call to update FCO value in pending attribute failed. ");
+        const types::PelInfoTuple l_pel(
+            types::ErrorType::FirmwareError, types::SeverityType::Informational,
+            0, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "DBus call to update FCO value in pending attribute failed"),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
 }
 
@@ -350,6 +362,15 @@ void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode)
         // TODO: Add PEL
         logging::logMessage(
             "Invalid type read for memory mirror mode value from DBus. Skip writing to VPD");
+
+        const types::PelInfoTuple l_pel(
+            types::ErrorType::FirmwareError, types::SeverityType::Informational,
+            0, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "Invalid type read for memory mirror mode value from DBus. Skip writing to VPD."),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
 }
 
@@ -373,6 +394,15 @@ void IbmBiosHandler::saveAmmToBios(const uint8_t& i_ammVal)
         // TODO: Should we log informational PEL here as well?
         logging::logMessage(
             "DBus call to update AMM value in pending attribute failed.");
+
+        const types::PelInfoTuple l_pel(
+            types::ErrorType::FirmwareError, types::SeverityType::Informational,
+            0, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "DBus call to update AMM value in pending attribute failed."),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
 }
 
@@ -409,6 +439,15 @@ void IbmBiosHandler::processActiveMemoryMirror()
     }
     logging::logMessage(
         "Invalid type recieved for auto memory mirror mode from VPD.");
+
+    const types::PelInfoTuple l_pel(
+        types::ErrorType::FirmwareError, types::SeverityType::Informational, 0,
+        std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+    Logger::getLoggerInstance()->logMessage(
+        std::string(
+            "Invalid type recieved for auto memory mirror mode from VPD."),
+        PlaceHolder::PEL, std::make_optional(&l_pel));
 }
 
 void IbmBiosHandler::saveCreateDefaultLparToVpd(
@@ -502,6 +541,15 @@ void IbmBiosHandler::saveCreateDefaultLparToBios(
     {
         logging::logMessage(
             "DBus call to update lpar value in pending attribute failed.");
+
+        const types::PelInfoTuple l_pel(
+            types::ErrorType::FirmwareError, types::SeverityType::Informational,
+            0, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "DBus call to update lpar value in pending attribute failed."),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
 
     return;
@@ -613,6 +661,15 @@ void IbmBiosHandler::saveClearNvramToBios(const std::string& i_clearNvramVal)
     {
         logging::logMessage(
             "DBus call to update NVRAM value in pending attribute failed.");
+
+        const types::PelInfoTuple l_pel(
+            types::ErrorType::FirmwareError, types::SeverityType::Informational,
+            0, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "DBus call to update NVRAM value in pending attribute failed."),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
 }
 
@@ -720,6 +777,15 @@ void IbmBiosHandler::saveKeepAndClearToBios(
     {
         logging::logMessage(
             "DBus call to update keep and clear value in pending attribute failed.");
+
+        const types::PelInfoTuple l_pel(
+            types::ErrorType::FirmwareError, types::SeverityType::Informational,
+            0, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "DBus call to update keep and clear value in pending attribute failed."),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
 }
 
