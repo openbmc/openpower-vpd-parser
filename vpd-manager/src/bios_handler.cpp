@@ -146,12 +146,14 @@ void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
         }
         else
         {
-            logging::logMessage("Invalid type received for BIOS table.");
-            EventLogger::createSyncPel(
-                types::ErrorType::FirmwareError, types::SeverityType::Warning,
-                __FILE__, __FUNCTION__, 0,
+            Logger::getLoggerInstance()->logMessage(
                 std::string("Invalid type received for BIOS table."),
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+                PlaceHolder::PEL,
+                types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                    types::SeverityType::Warning, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt});
+
             break;
         }
     }
@@ -300,9 +302,14 @@ void IbmBiosHandler::saveFcoToBios(const types::BinaryVector& i_fcoVal)
             constants::biosConfigMgrInterface, "PendingAttributes",
             l_pendingBiosAttribute))
     {
-        // TODO: Should we log informational PEL here as well?
-        logging::logMessage(
-            "DBus call to update FCO value in pending attribute failed. ");
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "DBus call to update FCO value in pending attribute failed"),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -347,9 +354,14 @@ void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode)
     }
     else
     {
-        // TODO: Add PEL
-        logging::logMessage(
-            "Invalid type read for memory mirror mode value from DBus. Skip writing to VPD");
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "Invalid type read for memory mirror mode value from DBus. Skip writing to VPD."),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -370,9 +382,14 @@ void IbmBiosHandler::saveAmmToBios(const uint8_t& i_ammVal)
             constants::biosConfigMgrInterface, "PendingAttributes",
             l_pendingBiosAttribute))
     {
-        // TODO: Should we log informational PEL here as well?
-        logging::logMessage(
-            "DBus call to update AMM value in pending attribute failed.");
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "DBus call to update AMM value in pending attribute failed."),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -407,8 +424,14 @@ void IbmBiosHandler::processActiveMemoryMirror()
         }
         return;
     }
-    logging::logMessage(
-        "Invalid type recieved for auto memory mirror mode from VPD.");
+
+    Logger::getLoggerInstance()->logMessage(
+        std::string(
+            "Invalid type recieved for auto memory mirror mode from VPD."),
+        PlaceHolder::PEL,
+        types::PelInfoTuple{types::ErrorType::FirmwareError,
+                            types::SeverityType::Informational, 0, std::nullopt,
+                            std::nullopt, std::nullopt, std::nullopt});
 }
 
 void IbmBiosHandler::saveCreateDefaultLparToVpd(
@@ -500,8 +523,14 @@ void IbmBiosHandler::saveCreateDefaultLparToBios(
             constants::biosConfigMgrInterface, "PendingAttributes",
             l_pendingBiosAttribute))
     {
-        logging::logMessage(
-            "DBus call to update lpar value in pending attribute failed.");
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "DBus call to update lpar value in pending attribute failed."),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 
     return;
@@ -611,8 +640,14 @@ void IbmBiosHandler::saveClearNvramToBios(const std::string& i_clearNvramVal)
             constants::biosConfigMgrInterface, "PendingAttributes",
             l_pendingBiosAttribute))
     {
-        logging::logMessage(
-            "DBus call to update NVRAM value in pending attribute failed.");
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "DBus call to update NVRAM value in pending attribute failed."),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -718,8 +753,14 @@ void IbmBiosHandler::saveKeepAndClearToBios(
             constants::biosConfigMgrInterface, "PendingAttributes",
             l_pendingBiosAttribute))
     {
-        logging::logMessage(
-            "DBus call to update keep and clear value in pending attribute failed.");
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "DBus call to update keep and clear value in pending attribute failed."),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
