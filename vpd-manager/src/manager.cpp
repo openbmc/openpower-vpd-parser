@@ -151,15 +151,19 @@ Manager::Manager(
             "Status", std::string(constants::vpdCollectionCompleted));
 #endif
     }
-    catch (const std::exception& e)
+    catch (const std::exception& l_ex)
     {
         logging::logMessage(
-            "Manager class instantiation failed. " + std::string(e.what()));
+            "Manager class instantiation failed. " + std::string(l_ex.what()));
 
-        vpd::EventLogger::createSyncPel(
-            vpd::EventLogger::getErrorType(e), vpd::types::SeverityType::Error,
-            __FILE__, __FUNCTION__, 0, vpd::EventLogger::getErrorMsg(e),
+        const types::PelInfoTuple l_pel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Error, 0,
             std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string("Manager class instantiation failed. Reason:") +
+                EventLogger::getErrorMsg(l_ex),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
 }
 
@@ -304,6 +308,14 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
         // TODO:: error log needed
         logging::logMessage("Update keyword failed for file[" + i_vpdPath +
                             "], reason: " + std::string(l_exception.what()));
+        const types::PelInfoTuple l_pel(
+            EventLogger::getErrorType(l_exception), types::SeverityType::Error,
+            0, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string("Update keyword failed for file[") + i_vpdPath +
+                "], reason:" + std::string(l_exception.what()),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
         return -1;
     }
 }
@@ -332,12 +344,14 @@ int Manager::updateKeywordOnHardware(
     }
     catch (const std::exception& l_exception)
     {
-        EventLogger::createAsyncPel(
+        const types::PelInfoTuple l_pel(
             types::ErrorType::InvalidEeprom, types::SeverityType::Informational,
-            __FILE__, __FUNCTION__, 0,
-            "Update keyword on hardware failed for file[" + i_fruPath +
-                "], reason: " + std::string(l_exception.what()),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            0, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string("Update keyword on hardware failed for file[") +
+                i_fruPath + "], Reason:" + std::string(l_exception.what()),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
 
         return constants::FAILURE;
     }
@@ -373,11 +387,22 @@ types::DbusVariantType Manager::readKeyword(
         return (
             l_vpdParserInstance->readKeywordFromHardware(i_paramsToReadData));
     }
-    catch (const std::exception& e)
+    catch (const std::exception& l_ex)
     {
         logging::logMessage(
-            e.what() + std::string(". VPD manager read operation failed for ") +
+            l_ex.what() +
+            std::string(". VPD manager read operation failed for ") +
             i_fruPath);
+
+        const types::PelInfoTuple l_pel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
+            0, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string("VPD manager read operation failed for file[") +
+                i_fruPath + "], Reason:" + std::string(l_ex.what()),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
+
         throw types::DeviceError::ReadFailure();
     }
 }
@@ -423,6 +448,16 @@ void Manager::deleteSingleFruVpd(
     {
         // TODO: Log PEL
         logging::logMessage(l_ex.what());
+
+        const types::PelInfoTuple l_pel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
+            0, std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string("VPD manager delete operation failed for object[") +
+                std::string(i_dbusObjPath) +
+                "], Reason:" + std::string(l_ex.what()),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
 }
 
@@ -704,10 +739,13 @@ bool Manager::collectAllFruVpd() const noexcept
                 ". Aborting all FRUs VPD collection.");
         }
 
-        EventLogger::createSyncPel(
-            types::ErrorType::FirmwareError, l_severityType, __FILE__,
-            __FUNCTION__, 0, "Collect all FRUs VPD is requested.", std::nullopt,
+        const types::PelInfoTuple l_pel(
+            types::ErrorType::FirmwareError, l_severityType, 0, std::nullopt,
             std::nullopt, std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string("Collect all FRUs VPD is requested."), PlaceHolder::PEL,
+            std::make_optional(&l_pel));
 
 // ToDo: Handle with OEM interface
 #ifdef IBM_SYSTEM
@@ -725,10 +763,14 @@ bool Manager::collectAllFruVpd() const noexcept
     }
     catch (const std::exception& l_ex)
     {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
-            __FILE__, __FUNCTION__, 0, std::string(l_ex.what()), std::nullopt,
-            std::nullopt, std::nullopt, std::nullopt);
+        const types::PelInfoTuple l_pel(
+            EventLogger::getErrorType(l_ex), types::SeverityType::Warning, 0,
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string("Collect all FRUs VPD failed, reason- ") +
+                std::string(l_ex.what()),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
     return false;
 }
