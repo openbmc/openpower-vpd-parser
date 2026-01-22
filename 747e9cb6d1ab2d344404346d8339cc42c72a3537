@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb1c69a2_bf950717",
+        "filename": "vpd-manager/include/parser.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-22T16:50:05Z",
+      "side": 1,
+      "message": "can we add as \"base path m_vpdFilePath\" ?",
+      "revId": "747e9cb6d1ab2d344404346d8339cc42c72a3537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71ef5461_01411fcc",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-22T16:50:05Z",
+      "side": 1,
+      "message": "should it get changed ? mode based vpd path internally handled.\ninstead should we add what is the mode ?",
+      "revId": "747e9cb6d1ab2d344404346d8339cc42c72a3537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
