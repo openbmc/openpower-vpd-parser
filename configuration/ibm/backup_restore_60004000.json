@@ -112,16 +112,6 @@
         },
         {
             "sourceRecord": "UTIL",
-            "sourceKeyword": "D0",
-            "destinationRecord": "VSBK",
-            "destinationKeyword": "D0",
-            "defaultValue": [0],
-            "isPelRequired": true,
-            "isManufactureResetRequired": true,
-            "isBiosSyncRequired": true
-        },
-        {
-            "sourceRecord": "UTIL",
             "sourceKeyword": "D1",
             "destinationRecord": "VSBK",
             "destinationKeyword": "D1",
