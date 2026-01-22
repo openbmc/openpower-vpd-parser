@@ -16,6 +16,24 @@
       "message": "Please create an API to accommodate this.",
       "revId": "762cf982b7e63ba130cdecc59164eb3dd749c8d2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec073144_4d2cd40b",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-22T04:08:48Z",
+      "side": 1,
+      "message": "This has been done via separate commit -- https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/86813",
+      "parentUuid": "b41e3306_0ed3b4eb",
+      "revId": "762cf982b7e63ba130cdecc59164eb3dd749c8d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
