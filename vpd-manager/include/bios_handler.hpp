@@ -160,7 +160,7 @@ class IbmBiosHandler : public BiosHandlerInterface
      * The API reads the value from VPD and restores it to the BIOS pending
      * attribute table.
      */
-    void processClearNvram();
+    void processClearNvram(const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to save given value to "pvm_clear_nvram" attribute.
@@ -174,7 +174,8 @@ class IbmBiosHandler : public BiosHandlerInterface
      *
      * @param[in] i_clearNvramVal - Value to be saved.
      */
-    void saveClearNvramToVpd(const std::string& i_clearNvramVal);
+    void saveClearNvramToVpd(const std::string& i_clearNvramVal,
+                             const nlohmann::json& entry);
 
     /**
      * @brief API to process "pvm_keep_and_clear" attribute.
