@@ -196,8 +196,11 @@ class IbmBiosHandler : public BiosHandlerInterface
      * @brief API to save given value to VPD.
      *
      * @param[in] i_clearNvramVal - Value to be saved.
+     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * keyword mapping for "pvm_clear_nvram" attribute.
      */
-    void saveClearNvramToVpd(const std::string& i_clearNvramVal);
+    void saveClearNvramToVpd(const std::string& i_clearNvramVal,
+                             const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to process "pvm_keep_and_clear" attribute.
