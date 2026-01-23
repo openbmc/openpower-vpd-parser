@@ -225,8 +225,11 @@ class IbmBiosHandler : public BiosHandlerInterface
      * @brief API to save given value to VPD.
      *
      * @param[in] i_KeepAndClearVal - Value to be saved.
+     *  @param[in] i_attributeData - JSON object containing the VPD record and
+     * keyword mapping for "pvm_keep_and_clear" attribute.
      */
-    void saveKeepAndClearToVpd(const std::string& i_KeepAndClearVal);
+    void saveKeepAndClearToVpd(const std::string& i_KeepAndClearVal,
+                               const nlohmann::json& i_attributeData);
 
     // const reference to shared pointer to Manager object.
     const std::shared_ptr<Manager>& m_manager;
