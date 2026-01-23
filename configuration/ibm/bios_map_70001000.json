@@ -7,23 +7,23 @@
         },
         {
             "biosAttributeName": "hb_memory_mirror_mode",
-            "record": "VSYS",
-            "keyword": "MM"
+            "record": "UTIL",
+            "keyword": "D1"
         },
         {
             "biosAttributeName": "pvm_clear_nvram",
-            "record": "VSYS",
-            "keyword": "BA"
+            "record": "UTIL",
+            "keyword": "D0"
         },
         {
             "biosAttributeName": "pvm_keep_and_clear",
-            "record": "VSYS",
-            "keyword": "BA"
+            "record": "UTIL",
+            "keyword": "D0"
         },
         {
             "biosAttributeName": "pvm_create_default_lpar",
-            "record": "VSYS",
-            "keyword": "BA"
+            "record": "UTIL",
+            "keyword": "D0"
         }
     ]
 }
