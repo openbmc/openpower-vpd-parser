@@ -90,14 +90,14 @@ class IbmBiosHandler : public BiosHandlerInterface
      * is saved to VPD else VPD value is restored in BIOS pending attribute
      * table.
      */
-    void processFieldCoreOverride();
+    void processFieldCoreOverride(const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to save FCO data into VPD.
      *
      * @param[in] i_fcoInBios - FCO value.
      */
-    void saveFcoToVpd(int64_t i_fcoInBios);
+    void saveFcoToVpd(int64_t i_fcoInBios, const nlohmann::json& entry);
 
     /**
      * @brief API to save given value to "hb_field_core_override" attribute.
@@ -127,7 +127,7 @@ class IbmBiosHandler : public BiosHandlerInterface
      * is saved to VPD else VPD value is restored in BIOS pending attribute
      * table.
      */
-    void processActiveMemoryMirror();
+    void processActiveMemoryMirror(const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to process "pvm_create_default_lpar" attribute.
@@ -135,7 +135,7 @@ class IbmBiosHandler : public BiosHandlerInterface
      * The API reads the value from VPD and restore it to the BIOS attribute
      * in BIOS pending attribute table.
      */
-    void processCreateDefaultLpar();
+    void processCreateDefaultLpar(const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to save given value to "pvm_create_default_lpar" attribute.
@@ -158,7 +158,7 @@ class IbmBiosHandler : public BiosHandlerInterface
      * The API reads the value from VPD and restores it to the BIOS pending
      * attribute table.
      */
-    void processClearNvram();
+    void processClearNvram(const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to save given value to "pvm_clear_nvram" attribute.
@@ -180,7 +180,7 @@ class IbmBiosHandler : public BiosHandlerInterface
      * The API reads the value from VPD and restore it to the BIOS pending
      * attribute table.
      */
-    void processKeepAndClear();
+    void processKeepAndClear(const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to save given value to "pvm_keep_and_clear" attribute.
