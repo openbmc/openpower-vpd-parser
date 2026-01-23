@@ -80,11 +80,59 @@ void BiosHandler<T>::listenBiosAttributes()
             });
 }
 
+IbmBiosHandler::IbmBiosHandler(const std::shared_ptr<Manager>& i_manager) :
+    m_manager(i_manager), m_worker(i_manager->getWorkerObj() , m_logger(Logger::getLoggerInstance())
+{
+    if (!m_worker)
+    {
+        throw std::runtime_error("Worker object is null in IbmBiosHandler");
+    }
+    nlohmann::json l_sysCfgJsonObj{};
+    l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+
+    if (l_sysCfgJsonObj.empty())
+    {
+        throw std::runtime_error("System Configuration JSON is empty");
+    }
+
+    std::string l_backupAndRestoreCfgFilePath =
+        l_sysCfgJsonObj.value("biosHandlerJsonPath", "");
+
+    if (l_backupAndRestoreCfgFilePath.empty())
+    {
+        m_logger->logMessage(
+            "Critical: BiosHandlerJsonPath key is missing in config.");
+        throw std::runtime_error("Required configuration path is empty");
+    }
+    try
+    {
+        uint16_t l_errCode = 0;
+        m_biosConfigJson = jsonUtility::getParsedJson(
+            l_backupAndRestoreCfgFilePath, l_errCode);
+        if (l_errCode)
+        {
+            throw JsonException("Failed to parse Bios Config JSON, error : " +
+                                    commonUtility::getErrCodeMsg(l_errCode),
+                                l_backupAndRestoreCfgFilePath);
+        }
+        if (m_biosConfigJson.is_null() || m_biosConfigJson.empty())
+        {
+            throw JsonException("Bios Config JSON is empty or invalid",
+                                l_backupAndRestoreCfgFilePath);
+        }
+    }
+    catch (const std::exception& ex)
+    {
+        m_logger->logMessage("Parsing Bios config file failed with exception: " +
+                            std::string(ex.what()));
+    }
+}
+
 void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
 {
     if (i_msg.is_method_error())
     {
-        logging::logMessage("Error in reading BIOS attribute signal. ");
+        m_logger->logMessage("Error in reading BIOS attribute signal. ");
         return;
     }
 
@@ -146,7 +194,7 @@ void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
         }
         else
         {
-            logging::logMessage("Invalid type received for BIOS table.");
+            m_logger->logMessage("Invalid type received for BIOS table.");
             EventLogger::createSyncPel(
                 types::ErrorType::FirmwareError, types::SeverityType::Warning,
                 __FILE__, __FUNCTION__, 0,
@@ -187,18 +235,46 @@ types::BiosAttributeCurrentValue IbmBiosHandler::readBiosAttribute(
 void IbmBiosHandler::processFieldCoreOverride()
 {
     // TODO: Should we avoid doing this at runtime?
+    std::string l_keyWordName = "";
+    std::string l_RecordName = "";
+
+    if (!m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        m_logger->logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "hb_field_core_override")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        m_logger->logMessage(
+            "VPD mapping for hb_field_core_override not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
 
     // Read required keyword from Dbus.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdRG);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_fcoInVpd = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
         // default length of the keyword is 4 bytes.
         if (l_fcoInVpd->size() != constants::VALUE_4)
         {
-            logging::logMessage(
+             m_logger->logMessage(
                 "Invalid value read for FCO from D-Bus. Skipping.");
         }
 
