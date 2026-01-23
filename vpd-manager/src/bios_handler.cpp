@@ -100,11 +100,7 @@ IbmBiosHandler::IbmBiosHandler(const std::shared_ptr<Manager>& i_manager) :
 
     if (l_backupAndRestoreCfgFilePath.empty())
     {
-<<<<<<< HEAD
         m_logger->logMessage(
-=======
-        logging::logMessage(
->>>>>>> a8804dc (Parse the bios json)
             "Critical: BiosHandlerJsonPath key is missing in config.");
         throw std::runtime_error("Required configuration path is empty");
     }
@@ -127,12 +123,9 @@ IbmBiosHandler::IbmBiosHandler(const std::shared_ptr<Manager>& i_manager) :
     }
     catch (const std::exception& ex)
     {
-<<<<<<< HEAD
-        m_logger->logMessage("Parsing Bios config file failed with exception: " +
-=======
-        logging::logMessage("Parsing Bios config file failed with exception: " +
->>>>>>> a8804dc (Parse the bios json)
-                            std::string(ex.what()));
+         m_logger->logMessage(
+            "Parsing Bios config file failed with exception: " +
+            std::string(ex.what()));
     }
 }
 
@@ -243,8 +236,8 @@ types::BiosAttributeCurrentValue IbmBiosHandler::readBiosAttribute(
 void IbmBiosHandler::processFieldCoreOverride()
 {
     // TODO: Should we avoid doing this at runtime?
-    std::string l_keyWordName = "";
-    std::string l_RecordName = "";
+    std::string l_keyWordName;
+    std::string l_RecordName;
 
     if (!m_biosConfigJson.contains("biosRecordKwMap"))
     {
@@ -282,7 +275,7 @@ void IbmBiosHandler::processFieldCoreOverride()
         // default length of the keyword is 4 bytes.
         if (l_fcoInVpd->size() != constants::VALUE_4)
         {
-             m_logger->logMessage(
+            m_logger->logMessage(
                 "Invalid value read for FCO from D-Bus. Skipping.");
         }
 
@@ -308,11 +301,11 @@ void IbmBiosHandler::processFieldCoreOverride()
 
                 return;
             }
-            logging::logMessage("Invalid type recieved for FCO from BIOS.");
+            m_logger->logMessage("Invalid type recieved for FCO from BIOS.");
         }
         return;
     }
-    logging::logMessage("Invalid type recieved for FCO from VPD.");
+    m_logger->logMessage("Invalid type recieved for FCO from VPD.");
 }
 
 void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios)
@@ -323,17 +316,47 @@ void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios)
         return;
     }
 
+    std::string l_keyWordName;
+    std::string l_RecordName;
+
+    if (!m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        m_logger->logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "hb_field_core_override")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        m_logger->logMessage(
+            "VPD mapping for hb_field_core_override not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
+
     // Read required keyword from Dbus.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdRG);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_fcoInVpd = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
         // default length of the keyword is 4 bytes.
         if (l_fcoInVpd->size() != constants::VALUE_4)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Invalid value read for FCO from D-Bus. Skipping.");
             return;
         }
@@ -352,7 +375,7 @@ void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios)
                     types::IpzData(constants::recVSYS, constants::kwdRG,
                                    l_biosValInVpdFormat)))
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to update " + std::string(constants::kwdRG) +
                     " keyword to VPD.");
             }
@@ -360,7 +383,7 @@ void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios)
     }
     else
     {
-        logging::logMessage("Invalid type read for FCO from DBus.");
+        m_logger->logMessage("Invalid type read for FCO from DBus.");
     }
 }
 
@@ -368,7 +391,7 @@ void IbmBiosHandler::saveFcoToBios(const types::BinaryVector& i_fcoVal)
 {
     if (i_fcoVal.size() != constants::VALUE_4)
     {
-        logging::logMessage("Bad size for FCO received. Skip writing to BIOS");
+        m_logger->logMessage("Bad size for FCO received. Skip writing to BIOS");
         return;
     }
 
@@ -385,7 +408,7 @@ void IbmBiosHandler::saveFcoToBios(const types::BinaryVector& i_fcoVal)
             l_pendingBiosAttribute))
     {
         // TODO: Should we log informational PEL here as well?
-        logging::logMessage(
+        m_logger->logMessage(
             "DBus call to update FCO value in pending attribute failed. ");
     }
 }
