@@ -100,7 +100,11 @@ IbmBiosHandler::IbmBiosHandler(const std::shared_ptr<Manager>& i_manager) :
 
     if (l_backupAndRestoreCfgFilePath.empty())
     {
+<<<<<<< HEAD
         m_logger->logMessage(
+=======
+        logging::logMessage(
+>>>>>>> a8804dc (Parse the bios json)
             "Critical: BiosHandlerJsonPath key is missing in config.");
         throw std::runtime_error("Required configuration path is empty");
     }
@@ -123,7 +127,11 @@ IbmBiosHandler::IbmBiosHandler(const std::shared_ptr<Manager>& i_manager) :
     }
     catch (const std::exception& ex)
     {
+<<<<<<< HEAD
         m_logger->logMessage("Parsing Bios config file failed with exception: " +
+=======
+        logging::logMessage("Parsing Bios config file failed with exception: " +
+>>>>>>> a8804dc (Parse the bios json)
                             std::string(ex.what()));
     }
 }
