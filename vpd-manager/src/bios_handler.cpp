@@ -133,6 +133,17 @@ void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
     types::BiosBaseTableType l_propMap;
     i_msg.read(l_objPath, l_propMap);
 
+    // Build a lookup map once
+    std::unordered_map<std::string, nlohmann::json> l_attributeConfigMap;
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        std::string attrName = entry.value("biosAttributeName", "");
+        if (!attrName.empty())
+        {
+            l_attributeConfigMap[attrName] = entry;
+        }
+    }
+
     for (auto l_property : l_propMap)
     {
         if (l_property.first != "BaseBIOSTable")
@@ -147,10 +158,20 @@ void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
         {
             for (const auto& l_attribute : *l_attributeList)
             {
+                std::string l_attributeName = std::get<0>(l_attribute);
+
+                // Find config entry once
+                auto configIt = l_attributeConfigMap.find(l_attributeName);
+                if (configIt == l_attributeConfigMap.end())
+                {
+                    continue; // No config for this attribute
+                }
+
+                const auto& configEntry = configIt->second;
+
                 if (auto l_val = std::get_if<std::string>(
                         &(std::get<5>(std::get<1>(l_attribute)))))
                 {
-                    std::string l_attributeName = std::get<0>(l_attribute);
                     if (l_attributeName == "hb_memory_mirror_mode")
                     {
                         saveAmmToVpd(*l_val);
@@ -180,7 +201,7 @@ void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
                     std::string l_attributeName = std::get<0>(l_attribute);
                     if (l_attributeName == "hb_field_core_override")
                     {
-                        saveFcoToVpd(*l_val);
+                        saveFcoToVpd(*l_val, configEntry);
                     }
                 }
             }
@@ -200,12 +221,19 @@ void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
 
 void IbmBiosHandler::backUpOrRestoreBiosAttributes()
 {
-    const std::unordered_map<std::string, std::function<void()>> handlers = {
-        {"hb_field_core_override", [this]() { processFieldCoreOverride(); }},
-        {"hb_memory_mirror_mode", [this]() { processActiveMemoryMirror(); }},
-        {"pvm_create_default_lpar", [this]() { processCreateDefaultLpar(); }},
-        {"pvm_clear_nvram", [this]() { processClearNvram(); }},
-        {"pvm_keep_and_clear", [this]() { processKeepAndClear(); }}};
+    const std::unordered_map<std::string,
+                             std::function<void(const nlohmann::json&)>>
+        handlers = {
+            {"hb_field_core_override",
+             [this](const auto& entry) { processFieldCoreOverride(entry); }},
+            {"hb_memory_mirror_mode",
+             [this](const auto& entry) { processActiveMemoryMirror(entry); }},
+            {"pvm_create_default_lpar",
+             [this](const auto& entry) { processCreateDefaultLpar(entry); }},
+            {"pvm_clear_nvram",
+             [this](const auto& entry) { processClearNvram(entry); }},
+            {"pvm_keep_and_clear",
+             [this](const auto& entry) { processKeepAndClear(entry); }}};
 
     for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
     {
@@ -213,7 +241,7 @@ void IbmBiosHandler::backUpOrRestoreBiosAttributes()
         auto it = handlers.find(attrName);
         if (it != handlers.end())
         {
-            it->second(); // Run the respective function
+            it->second(entry); // Run the respective function
         }
     }
 }
@@ -227,21 +255,32 @@ types::BiosAttributeCurrentValue IbmBiosHandler::readBiosAttribute(
     return l_attrValueVariant;
 }
 
-void IbmBiosHandler::processFieldCoreOverride()
+void IbmBiosHandler::processFieldCoreOverride(
+    const nlohmann::json& i_attributeData)
 {
     // TODO: Should we avoid doing this at runtime?
+    std::string l_keyWordName = i_attributeData.value("keyword", "");
+    std::string l_RecordName = i_attributeData.value("record", "");
+
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        m_logger->logMessage(
+            "VPD mapping for hb_field_core_override not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
 
     // Read required keyword from Dbus.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdRG);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_fcoInVpd = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
         // default length of the keyword is 4 bytes.
         if (l_fcoInVpd->size() != constants::VALUE_4)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Invalid value read for FCO from D-Bus. Skipping.");
         }
 
@@ -263,36 +302,48 @@ void IbmBiosHandler::processFieldCoreOverride()
             if (auto l_fcoInBios = std::get_if<int64_t>(&l_attrValueVariant))
             {
                 // save the BIOS data to VPD
-                saveFcoToVpd(*l_fcoInBios);
+                saveFcoToVpd(*l_fcoInBios, i_attributeData);
 
                 return;
             }
-            logging::logMessage("Invalid type recieved for FCO from BIOS.");
+            m_logger->logMessage("Invalid type recieved for FCO from BIOS.");
         }
         return;
     }
-    logging::logMessage("Invalid type recieved for FCO from VPD.");
+    m_logger->logMessage("Invalid type recieved for FCO from VPD.");
 }
 
-void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios)
+void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios,
+                                  const nlohmann::json& entry)
 {
     if (i_fcoInBios < 0)
     {
-        logging::logMessage("Invalid FCO value in BIOS. Skip updating to VPD");
+        m_logger->logMessage("Invalid FCO value in BIOS. Skip updating to VPD");
+        return;
+    }
+    std::string l_RecordName = entry.value("record", "");
+    std::string l_keyWordName = entry.value("keyword", "");
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        m_logger->logMessage(
+            "VPD mapping for hb_field_core_override not found in JSON config."
+            "Skip VPD writing. ");
         return;
     }
 
     // Read required keyword from Dbus.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdRG);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_fcoInVpd = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
         // default length of the keyword is 4 bytes.
         if (l_fcoInVpd->size() != constants::VALUE_4)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Invalid value read for FCO from D-Bus. Skipping.");
             return;
         }
@@ -311,7 +362,7 @@ void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios)
                     types::IpzData(constants::recVSYS, constants::kwdRG,
                                    l_biosValInVpdFormat)))
             {
-                logging::logMessage(
+                m_logger->logMessage(
                     "Failed to update " + std::string(constants::kwdRG) +
                     " keyword to VPD.");
             }
@@ -319,7 +370,7 @@ void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios)
     }
     else
     {
-        logging::logMessage("Invalid type read for FCO from DBus.");
+        m_logger->logMessage("Invalid type read for FCO from DBus.");
     }
 }
 
@@ -327,7 +378,7 @@ void IbmBiosHandler::saveFcoToBios(const types::BinaryVector& i_fcoVal)
 {
     if (i_fcoVal.size() != constants::VALUE_4)
     {
-        logging::logMessage("Bad size for FCO received. Skip writing to BIOS");
+        m_logger->logMessage("Bad size for FCO received. Skip writing to BIOS");
         return;
     }
 
@@ -344,7 +395,7 @@ void IbmBiosHandler::saveFcoToBios(const types::BinaryVector& i_fcoVal)
             l_pendingBiosAttribute))
     {
         // TODO: Should we log informational PEL here as well?
-        logging::logMessage(
+        m_logger->logMessage(
             "DBus call to update FCO value in pending attribute failed. ");
     }
 }
