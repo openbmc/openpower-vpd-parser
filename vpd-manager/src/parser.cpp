@@ -102,13 +102,15 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
         // Enable Reboot Guard
         if (constants::FAILURE == dbusUtility::EnableRebootGuard())
         {
-            EventLogger::createAsyncPel(
-                types::ErrorType::DbusFailure,
-                types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+            Logger::getLoggerInstance()->logMessage(
                 std::string(
-                    "Failed to enable BMC Reboot Guard while updating " +
-                    l_keyWordIdentifier(i_paramsToWriteData)),
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+                    "Failed to enable BMC Reboot Guard while updating ") +
+                    l_keyWordIdentifier(i_paramsToWriteData),
+                PlaceHolder::PEL,
+                types::PelInfoTuple{types::ErrorType::DbusFailure,
+                                    types::SeverityType::Informational, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt});
 
             return constants::FAILURE;
         }
@@ -128,7 +130,11 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                 "Error while updating keyword's value on hardware path " +
                 m_vpdFilePath + ", error: " + std::string(l_exception.what()));
 
-            // TODO : Log PEL
+            Logger::getLoggerInstance()->logMessage(
+                l_errMsg, PlaceHolder::PEL,
+                types::PelInfoTuple{types::ErrorType::InternalFailure,
+                                    types::SeverityType::Error, 0, std::nullopt,
+                                    std::nullopt, std::nullopt, std::nullopt});
 
             throw std::runtime_error(l_errMsg);
         }
@@ -186,7 +192,12 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                         m_vpdFilePath +
                         ", error: " + std::string(l_exception.what()));
 
-                    // TODO: Log PEL
+                    Logger::getLoggerInstance()->logMessage(
+                        l_errMsg, PlaceHolder::PEL,
+                        types::PelInfoTuple{types::ErrorType::InternalFailure,
+                                            types::SeverityType::Error, 0,
+                                            std::nullopt, std::nullopt,
+                                            std::nullopt, std::nullopt});
 
                     throw std::runtime_error(l_errMsg);
                 }
@@ -263,12 +274,15 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
     // Disable Reboot Guard
     if (constants::FAILURE == dbusUtility::DisableRebootGuard())
     {
-        EventLogger::createAsyncPel(
-            types::ErrorType::DbusFailure, types::SeverityType::Critical,
-            __FILE__, __FUNCTION__, 0,
-            std::string("Failed to disable BMC Reboot Guard while updating " +
-                        l_keyWordIdentifier(i_paramsToWriteData)),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+        std::string l_errMsg(
+            "Failed to disable BMC Reboot Guard while updating " +
+            l_keyWordIdentifier(i_paramsToWriteData));
+
+        Logger::getLoggerInstance()->logMessage(
+            l_errMsg, PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::DbusFailure,
+                                types::SeverityType::Critical, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
     }
 
     return l_bytesUpdatedOnHardware;
@@ -296,12 +310,17 @@ int Parser::updateVpdKeywordOnRedundantPath(
     }
     catch (const std::exception& l_exception)
     {
-        EventLogger::createSyncPel(
-            types::ErrorType::InvalidVpdMessage,
-            types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+        std::string l_errMsg(
             "Error while updating keyword's value on redundant path " +
-                i_fruPath + ", error: " + std::string(l_exception.what()),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            i_fruPath + ", error: " + std::string(l_exception.what()));
+
+        Logger::getLoggerInstance()->logMessage(
+            l_errMsg, PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::InvalidVpdMessage,
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
+
         return -1;
     }
 }
@@ -334,13 +353,16 @@ int Parser::updateVpdKeywordOnHardware(
         // Enable Reboot Guard
         if (constants::FAILURE == dbusUtility::EnableRebootGuard())
         {
-            EventLogger::createAsyncPel(
-                types::ErrorType::DbusFailure,
-                types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
-                std::string(
-                    "Failed to enable BMC Reboot Guard while updating " +
-                    l_keyWordIdentifier(i_paramsToWriteData)),
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            std::string l_errMsg(
+                "Failed to enable BMC Reboot Guard while updating " +
+                l_keyWordIdentifier(i_paramsToWriteData));
+
+            Logger::getLoggerInstance()->logMessage(
+                l_errMsg, PlaceHolder::PEL,
+                types::PelInfoTuple{types::ErrorType::DbusFailure,
+                                    types::SeverityType::Informational, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt});
 
             return constants::FAILURE;
         }
@@ -363,23 +385,29 @@ int Parser::updateVpdKeywordOnHardware(
             l_errorType = types::ErrorType::InvalidVpdMessage;
         }
 
-        EventLogger::createAsyncPel(
-            l_errorType, types::SeverityType::Informational, __FILE__,
-            __FUNCTION__, 0,
+        std::string l_errMsg(
             "Error while updating keyword's value on hardware path [" +
-                m_vpdFilePath + "], error: " + std::string(l_exception.what()),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            m_vpdFilePath + "], error: " + std::string(l_exception.what()));
+
+        Logger::getLoggerInstance()->logMessage(
+            l_errMsg, PlaceHolder::PEL,
+            types::PelInfoTuple{l_errorType, types::SeverityType::Informational,
+                                0, std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 
     // Disable Reboot Guard
     if (constants::FAILURE == dbusUtility::DisableRebootGuard())
     {
-        EventLogger::createAsyncPel(
-            types::ErrorType::DbusFailure, types::SeverityType::Critical,
-            __FILE__, __FUNCTION__, 0,
-            std::string("Failed to disable BMC Reboot Guard while updating " +
-                        l_keyWordIdentifier(i_paramsToWriteData)),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+        std::string l_errMsg(
+            "Failed to disable BMC Reboot Guard while updating " +
+            l_keyWordIdentifier(i_paramsToWriteData));
+
+        Logger::getLoggerInstance()->logMessage(
+            l_errMsg, PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::DbusFailure,
+                                types::SeverityType::Critical, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
     }
 
     return l_bytesUpdatedOnHardware;
