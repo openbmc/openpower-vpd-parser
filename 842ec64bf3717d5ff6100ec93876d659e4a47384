@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b634235f_b2360cb8",
+        "filename": "vpd-manager/include/bios_handler.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-23T06:35:17Z",
+      "side": 1,
+      "message": "Please move the definition to cpp file as it is too big.",
+      "revId": "842ec64bf3717d5ff6100ec93876d659e4a47384",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7ceec2e_3b0edee3",
+        "filename": "vpd-manager/include/bios_handler.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-23T06:35:17Z",
+      "side": 1,
+      "message": "Blank line in between.",
+      "revId": "842ec64bf3717d5ff6100ec93876d659e4a47384",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e71b0f5e_c18916a8",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-23T06:35:17Z",
+      "side": 1,
+      "message": "Strings are auto initialized.",
+      "revId": "842ec64bf3717d5ff6100ec93876d659e4a47384",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8fc81cf_3e11235b",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-23T06:35:17Z",
+      "side": 1,
+      "message": "Code should not reach this point if the JSON is empty?",
+      "range": {
+        "startLine": 1008,
+        "startChar": 8,
+        "endLine": 1008,
+        "endChar": 33
+      },
+      "revId": "842ec64bf3717d5ff6100ec93876d659e4a47384",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20bd8009_f3ab66df",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-23T06:35:17Z",
+      "side": 1,
+      "message": "Use logger class.",
+      "revId": "842ec64bf3717d5ff6100ec93876d659e4a47384",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab95df0e_bddce988",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-23T06:35:17Z",
+      "side": 1,
+      "message": "A loop is needed?",
+      "revId": "842ec64bf3717d5ff6100ec93876d659e4a47384",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
