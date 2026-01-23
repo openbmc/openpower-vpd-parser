@@ -149,11 +149,13 @@ void SingleFab::updateSystemImValueInVpdToP11Series(
 
     if (!l_retVal)
     {
-        EventLogger::createSyncPel(
-            types::ErrorType::InternalFailure,
-            types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+        Logger::getLoggerInstance()->logMessage(
             std::string("Failed to update IM value to P11 series."),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::InternalFailure,
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -180,12 +182,13 @@ int SingleFab::singleFabImOverride() const noexcept
     if (!isValidImSeries(l_planarImValue))
     {
         // Create Errorlog for invalid IM series encountered
-        EventLogger::createSyncPel(
-            types::ErrorType::InvalidSystem, types::SeverityType::Error,
-            __FILE__, __FUNCTION__, 0,
+        Logger::getLoggerInstance()->logMessage(
             std::string("Invalid IM found on the system planar, IM value : ") +
                 l_planarImValue,
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::InvalidSystem,
+                                types::SeverityType::Error, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
 
         return constants::SUCCESS;
     }
@@ -198,16 +201,16 @@ int SingleFab::singleFabImOverride() const noexcept
             {
                 if (l_isFieldModeEnabled && l_isNormalImage)
                 {
-                    EventLogger::createSyncPel(
-                        types::ErrorType::SystemTypeMismatch,
-                        types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                    Logger::getLoggerInstance()->logMessage(
                         std::string("Mismatch in IM value found eBMC IM [") +
-                            l_eBmcImValue + std::string("] planar IM [") +
-                            l_planarImValue +
-                            std::string("] Field mode enabled [") +
-                            ((l_isFieldModeEnabled) ? "true" : "false") +
-                            std::string("]"),
-                        std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+                            l_eBmcImValue + "] planar IM [" + l_planarImValue +
+                            "] Field mode enabled [" +
+                            ((l_isFieldModeEnabled) ? "true" : "false") + "]",
+                        PlaceHolder::PEL,
+                        types::PelInfoTuple{
+                            types::ErrorType::SystemTypeMismatch,
+                            types::SeverityType::Warning, 0, std::nullopt,
+                            std::nullopt, std::nullopt, std::nullopt});
 
                     return constants::FAILURE;
                 }
@@ -216,16 +219,16 @@ int SingleFab::singleFabImOverride() const noexcept
             {
                 if (!(l_isLabModeEnabled && l_isNormalImage))
                 {
-                    EventLogger::createSyncPel(
-                        types::ErrorType::SystemTypeMismatch,
-                        types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                    Logger::getLoggerInstance()->logMessage(
                         std::string("Mismatch in IM value found eBMC IM [") +
-                            l_eBmcImValue + std::string("] planar IM [") +
-                            l_planarImValue +
-                            std::string("] Field mode enabled [") +
-                            ((l_isFieldModeEnabled) ? "true" : "false") +
-                            std::string("]"),
-                        std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+                            l_eBmcImValue + "] planar IM [" + l_planarImValue +
+                            "] Field mode enabled [" +
+                            ((l_isFieldModeEnabled) ? "true" : "false") + "]",
+                        PlaceHolder::PEL,
+                        types::PelInfoTuple{
+                            types::ErrorType::SystemTypeMismatch,
+                            types::SeverityType::Warning, 0, std::nullopt,
+                            std::nullopt, std::nullopt, std::nullopt});
 
                     return constants::FAILURE;
                 }
@@ -235,16 +238,16 @@ int SingleFab::singleFabImOverride() const noexcept
         {
             if (l_isPowerVsImage)
             {
-                EventLogger::createSyncPel(
-                    types::ErrorType::SystemTypeMismatch,
-                    types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                Logger::getLoggerInstance()->logMessage(
                     std::string("Mismatch in IM value found eBMC IM [") +
-                        l_eBmcImValue + std::string("] planar IM [") +
-                        l_planarImValue +
-                        std::string("] Field mode enabled [") +
-                        ((l_isFieldModeEnabled) ? "true" : "false") +
-                        std::string("]"),
-                    std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+                        l_eBmcImValue + "] planar IM [" + l_planarImValue +
+                        "] Field mode enabled [" +
+                        ((l_isFieldModeEnabled) ? "true" : "false") + "]",
+                    PlaceHolder::PEL,
+                    types::PelInfoTuple{types::ErrorType::SystemTypeMismatch,
+                                        types::SeverityType::Warning, 0,
+                                        std::nullopt, std::nullopt,
+                                        std::nullopt, std::nullopt});
 
                 return constants::FAILURE;
             }
@@ -261,15 +264,16 @@ int SingleFab::singleFabImOverride() const noexcept
     {
         if (isP11System(l_planarImValue) && l_isPowerVsImage)
         {
-            EventLogger::createSyncPel(
-                types::ErrorType::SystemTypeMismatch,
-                types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+            Logger::getLoggerInstance()->logMessage(
                 std::string("Mismatch in IM value found eBMC IM [") +
-                    l_eBmcImValue + std::string("] planar IM [") +
-                    l_planarImValue + std::string("] Field mode enabled [") +
-                    ((l_isFieldModeEnabled) ? "true" : "false") +
-                    std::string("]"),
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+                    l_eBmcImValue + "] planar IM [" + l_planarImValue +
+                    "] Field mode enabled" +
+                    ((l_isFieldModeEnabled) ? "true" : "false") + "]",
+                PlaceHolder::PEL,
+                types::PelInfoTuple{types::ErrorType::SystemTypeMismatch,
+                                    types::SeverityType::Warning, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt});
 
             return constants::FAILURE;
         }
@@ -277,16 +281,16 @@ int SingleFab::singleFabImOverride() const noexcept
         {
             if (l_isLabModeEnabled)
             {
-                EventLogger::createSyncPel(
-                    types::ErrorType::UnknownSystemSettings,
-                    types::SeverityType::Warning, __FILE__, __FUNCTION__, 0,
+                Logger::getLoggerInstance()->logMessage(
                     std::string("Mismatch in IM value found eBMC IM [") +
-                        l_eBmcImValue + std::string("] planar IM [") +
-                        l_planarImValue +
-                        std::string("] Field mode enabled [") +
-                        ((l_isFieldModeEnabled) ? "true" : "false") +
-                        std::string("]"),
-                    std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+                        l_eBmcImValue + "] planar IM [" + l_planarImValue +
+                        "] Field mode enabled [" +
+                        ((l_isFieldModeEnabled) ? "true" : "false") + "]",
+                    PlaceHolder::PEL,
+                    types::PelInfoTuple{types::ErrorType::UnknownSystemSettings,
+                                        types::SeverityType::Warning, 0,
+                                        std::nullopt, std::nullopt,
+                                        std::nullopt, std::nullopt});
             }
             else
             {
