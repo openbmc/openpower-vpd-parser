@@ -751,15 +751,44 @@ void IbmBiosHandler::saveClearNvramToVpd(const std::string& i_clearNvramVal)
 {
     if (i_clearNvramVal.empty())
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Empty value received for clear NVRAM from BIOS. Skip updating to VPD.");
         return;
     }
 
+    std::string l_keyWordName;
+    std::string l_RecordName;
+
+    if (!m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        m_logger->logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "pvm_clear_nvram")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        m_logger->logMessage(
+            "VPD mapping for pvm_clear_nvram not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
     // Read required keyword from DBus as we need to set only a Bit.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdClearNVRAM_CreateLPAR);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -797,7 +826,7 @@ void IbmBiosHandler::saveClearNvramToVpd(const std::string& i_clearNvramVal)
                                      constants::kwdClearNVRAM_CreateLPAR,
                                      l_valToUpdateInVpd)))
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to update " +
                 std::string(constants::kwdClearNVRAM_CreateLPAR) +
                 " keyword to VPD");
@@ -805,7 +834,7 @@ void IbmBiosHandler::saveClearNvramToVpd(const std::string& i_clearNvramVal)
 
         return;
     }
-    logging::logMessage("Invalid type recieved for clear NVRAM from VPD.");
+    m_logger->logMessage("Invalid type recieved for clear NVRAM from VPD.");
 }
 
 void IbmBiosHandler::saveClearNvramToBios(const std::string& i_clearNvramVal)
@@ -814,7 +843,7 @@ void IbmBiosHandler::saveClearNvramToBios(const std::string& i_clearNvramVal)
     // value.
     if (i_clearNvramVal.size() != constants::VALUE_1)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Bad size for clear NVRAM in VPD. Skip writing to BIOS.");
         return;
     }
@@ -835,24 +864,53 @@ void IbmBiosHandler::saveClearNvramToBios(const std::string& i_clearNvramVal)
             constants::biosConfigMgrInterface, "PendingAttributes",
             l_pendingBiosAttribute))
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "DBus call to update NVRAM value in pending attribute failed.");
     }
 }
 
 void IbmBiosHandler::processClearNvram()
 {
+    std::string l_keyWordName;
+    std::string l_RecordName;
+
+    if (!m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        m_logger->logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "pvm_clear_nvram")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        m_logger->logMessage(
+            "VPD mapping for pvm_clear_nvram not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
     // Read required keyword from VPD.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdClearNVRAM_CreateLPAR);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
         saveClearNvramToBios(std::to_string(l_pVal->at(0)));
         return;
     }
-    logging::logMessage("Invalid type recieved for clear NVRAM from VPD.");
+    m_logger->logMessage("Invalid type recieved for clear NVRAM from VPD.");
 }
 
 void IbmBiosHandler::saveKeepAndClearToVpd(const std::string& i_KeepAndClearVal)
