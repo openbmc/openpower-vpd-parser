@@ -80,6 +80,69 @@ void BiosHandler<T>::listenBiosAttributes()
             });
 }
 
+IbmBiosHandler::IbmBiosHandler(const std::shared_ptr<Manager>& i_manager) :
+    m_manager(i_manager), m_logger(Logger::getLoggerInstance()),
+    m_isBiosJsonValid(false)
+{
+    types::PelInfoTuple l_pel(types::ErrorType::InternalFailure,
+                              types::SeverityType::Warning, 0, std::nullopt,
+                              std::nullopt, std::nullopt, std::nullopt);
+
+    const std::shared_ptr<Worker>& l_workerObj = m_manager->getWorkerObj();
+    if (!l_workerObj)
+    {
+        m_logger->logMessage(
+            std::string("Error Worker object is null in IbmBiosHandler."),
+            PlaceHolder::PEL, &l_pel);
+        return;
+    }
+    nlohmann::json l_sysCfgJsonObj = l_workerObj->getSysCfgJsonObj();
+
+    if (l_sysCfgJsonObj.empty())
+    {
+        m_logger->logMessage(std::string("System Configuration JSON is empty."),
+                             PlaceHolder::PEL, &l_pel);
+        return;
+    }
+
+    std::string l_biosHandlerJsonCfgFilePath =
+        l_sysCfgJsonObj.value("biosHandlerJsonPath", "");
+
+    if (l_biosHandlerJsonCfgFilePath.empty())
+    {
+        m_logger->logMessage(
+            std::string("BiosHandlerJsonPath key is missing in config file."),
+            PlaceHolder::PEL, &l_pel);
+        return;
+    }
+
+    try
+    {
+        uint16_t l_errCode = 0;
+        m_biosConfigJson =
+            jsonUtility::getParsedJson(l_biosHandlerJsonCfgFilePath, l_errCode);
+        if (l_errCode)
+        {
+            throw JsonException("Failed to parse Bios Config JSON, error : " +
+                                    commonUtility::getErrCodeMsg(l_errCode),
+                                l_biosHandlerJsonCfgFilePath);
+        }
+
+        if (!m_biosConfigJson.contains("biosRecordKwMap"))
+        {
+            throw JsonException("Bios JSON is not valid.",
+                                l_biosHandlerJsonCfgFilePath);
+        }
+        m_isBiosJsonValid = true;
+    }
+    catch (const std::exception& ex)
+    {
+        m_logger->logMessage(
+            std::string("Parsing Bios config file failed with exception: "),
+            PlaceHolder::PEL, &l_pel);
+    }
+}
+
 void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
 {
     if (i_msg.is_method_error())
@@ -159,20 +222,29 @@ void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
 
 void IbmBiosHandler::backUpOrRestoreBiosAttributes()
 {
-    // process FCO
-    processFieldCoreOverride();
+    if (!m_isBiosJsonValid)
+    {
+        m_logger->logMessage(
+            "Skipping BIOS attribute backup/restore due to invalid BIOS config JSON");
+        return;
+    }
 
-    // process AMM
-    processActiveMemoryMirror();
+    const std::unordered_map<std::string, std::function<void()>> handlers = {
+        {"hb_field_core_override", [this]() { processFieldCoreOverride(); }},
+        {"hb_memory_mirror_mode", [this]() { processActiveMemoryMirror(); }},
+        {"pvm_create_default_lpar", [this]() { processCreateDefaultLpar(); }},
+        {"pvm_clear_nvram", [this]() { processClearNvram(); }},
+        {"pvm_keep_and_clear", [this]() { processKeepAndClear(); }}};
 
-    // process LPAR
-    processCreateDefaultLpar();
-
-    // process clear NVRAM
-    processClearNvram();
-
-    // process keep and clear
-    processKeepAndClear();
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        std::string attrName = entry.value("biosAttributeName", "");
+        auto it = handlers.find(attrName);
+        if (it != handlers.end())
+        {
+            it->second(); // Run the respective function
+        }
+    }
 }
 
 types::BiosAttributeCurrentValue IbmBiosHandler::readBiosAttribute(
