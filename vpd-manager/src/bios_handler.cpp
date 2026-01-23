@@ -80,6 +80,56 @@ void BiosHandler<T>::listenBiosAttributes()
             });
 }
 
+IbmBiosHandler::IbmBiosHandler(const std::shared_ptr<Manager>& i_manager) :
+    m_manager(i_manager),m_logger(Logger::getLoggerInstance())
+{
+    const std::shared_ptr<Worker>& l_workerObj = m_manager->getWorkerObj();
+    if (!l_workerObj)
+    {
+        throw std::runtime_error("Worker object is null in IbmBiosHandler");
+    }
+    nlohmann::json l_sysCfgJsonObj = l_workerObj->getSysCfgJsonObj();
+
+    if (l_sysCfgJsonObj.empty())
+    {
+        throw std::runtime_error("System Configuration JSON is empty");
+    }
+
+    std::string l_biosHandlerJsonCfgFilePath =
+        l_sysCfgJsonObj.value("biosHandlerJsonPath", "");
+
+    if (l_biosHandlerJsonCfgFilePath.empty())
+    {
+        throw std::runtime_error(
+            "Critical: BiosHandlerJsonPath key is missing in config file.");
+    }
+
+    try
+    {
+        uint16_t l_errCode = 0;
+        m_biosConfigJson =
+            jsonUtility::getParsedJson(l_biosHandlerJsonCfgFilePath, l_errCode);
+        if (l_errCode)
+        {
+            throw JsonException("Failed to parse Bios Config JSON, error : " +
+                                    commonUtility::getErrCodeMsg(l_errCode),
+                                l_biosHandlerJsonCfgFilePath);
+        }
+
+        if (!m_biosConfigJson.contains("biosRecordKwMap"))
+        {
+            throw JsonException("Bios JSON is not valid.",
+                                l_biosHandlerJsonCfgFilePath);
+        }
+    }
+    catch (const std::exception& ex)
+    {
+        m_logger->logMessage(
+            "Parsing Bios config file failed with exception: " +
+            std::string(ex.what()));
+    }
+}
+
 void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
 {
     if (i_msg.is_method_error())
@@ -159,20 +209,22 @@ void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
 
 void IbmBiosHandler::backUpOrRestoreBiosAttributes()
 {
-    // process FCO
-    processFieldCoreOverride();
+    const std::unordered_map<std::string, std::function<void()>> handlers = {
+        {"hb_field_core_override", [this]() { processFieldCoreOverride(); }},
+        {"hb_memory_mirror_mode", [this]() { processActiveMemoryMirror(); }},
+        {"pvm_create_default_lpar", [this]() { processCreateDefaultLpar(); }},
+        {"pvm_clear_nvram", [this]() { processClearNvram(); }},
+        {"pvm_keep_and_clear", [this]() { processKeepAndClear(); }}};
 
-    // process AMM
-    processActiveMemoryMirror();
-
-    // process LPAR
-    processCreateDefaultLpar();
-
-    // process clear NVRAM
-    processClearNvram();
-
-    // process keep and clear
-    processKeepAndClear();
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        std::string attrName = entry.value("biosAttributeName", "");
+            auto it = handlers.find(attrName);
+            if (it != handlers.end())
+            {
+              it->second(); // Run the respective function
+            }
+    }
 }
 
 types::BiosAttributeCurrentValue IbmBiosHandler::readBiosAttribute(
