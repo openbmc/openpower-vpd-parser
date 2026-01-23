@@ -183,7 +183,7 @@ class IbmBiosHandler : public BiosHandlerInterface
      * The API reads the value from VPD and restore it to the BIOS pending
      * attribute table.
      */
-    void processKeepAndClear();
+    void processKeepAndClear(const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to save given value to "pvm_keep_and_clear" attribute.
@@ -197,7 +197,8 @@ class IbmBiosHandler : public BiosHandlerInterface
      *
      * @param[in] i_KeepAndClearVal - Value to be saved.
      */
-    void saveKeepAndClearToVpd(const std::string& i_KeepAndClearVal);
+    void saveKeepAndClearToVpd(const std::string& i_KeepAndClearVal,
+                               const nlohmann::json& entry);
 
     // const reference to shared pointer to Manager object.
     const std::shared_ptr<Manager>& m_manager;
