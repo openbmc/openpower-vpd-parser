@@ -1,4 +1,5 @@
 #pragma once
+#include "logger.hpp"
 #include "manager.hpp"
 #include "types.hpp"
 
@@ -52,9 +53,7 @@ class IbmBiosHandler : public BiosHandlerInterface
      * This constructor constructs a new IBM BIOS Handler object
      * @param[in] i_manager - Manager object.
      */
-    explicit IbmBiosHandler(const std::shared_ptr<Manager>& i_manager) :
-        m_manager(i_manager)
-    {}
+    explicit IbmBiosHandler(const std::shared_ptr<Manager>& i_manager);
 
     /**
      * @brief API to back up or restore BIOS attributes.
@@ -199,6 +198,12 @@ class IbmBiosHandler : public BiosHandlerInterface
 
     // const reference to shared pointer to Manager object.
     const std::shared_ptr<Manager>& m_manager;
+
+    // Shared pointer to Logger object
+    std::shared_ptr<Logger> m_logger;
+
+    // Bios config json object
+    nlohmann::json m_biosConfigJson{};
 };
 
 /**
