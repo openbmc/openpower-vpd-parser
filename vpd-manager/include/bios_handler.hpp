@@ -151,7 +151,8 @@ class IbmBiosHandler : public BiosHandlerInterface
      * @param[in] i_createDefaultLparVal - Value to be saved.
      *
      */
-    void saveCreateDefaultLparToVpd(const std::string& i_createDefaultLparVal);
+    void saveCreateDefaultLparToVpd(const std::string& i_createDefaultLparVal,
+                                    const nlohmann::json& entry);
 
     /**
      * @brief API to process "pvm_clear_nvram" attribute.
