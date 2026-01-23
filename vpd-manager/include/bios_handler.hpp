@@ -117,8 +117,12 @@ class IbmBiosHandler : public BiosHandlerInterface
      * @brief API to save AMM data into VPD.
      *
      * @param[in] i_memoryMirrorMode - Memory mirror mode value.
+     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * keyword mapping for AMM attribute.
+     *
      */
-    void saveAmmToVpd(const std::string& i_memoryMirrorMode);
+    void saveAmmToVpd(const std::string& i_memoryMirrorMode,
+                      const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to save given value to "hb_memory_mirror_mode" attribute.

@@ -174,7 +174,7 @@ void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
                 {
                     if (l_attributeName == "hb_memory_mirror_mode")
                     {
-                        saveAmmToVpd(*l_val);
+                        saveAmmToVpd(*l_val, configEntry);
                     }
 
                     if (l_attributeName == "pvm_keep_and_clear")
@@ -259,20 +259,21 @@ void IbmBiosHandler::processFieldCoreOverride(
     const nlohmann::json& i_attributeData)
 {
     // TODO: Should we avoid doing this at runtime?
-    std::string l_keyWordName = i_attributeData.value("keyword", "");
-    std::string l_RecordName = i_attributeData.value("record", "");
-    if (l_RecordName.empty() || l_keyWordName.empty())
+    std::string l_keywordName = i_attributeData.value("keyword", "");
+    std::string l_recordName = i_attributeData.value("record", "");
+
+    if (l_recordName.empty() || l_keywordName.empty())
     {
         m_logger->logMessage(
             "VPD mapping for hb_field_core_override not found in JSON config."
-            "Skip VPD writing. ");
+            "Skipping BIOS and VPD sync for the same.");
         return;
     }
 
     // Read required keyword from Dbus.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::ipzVpdInf + l_RecordName, l_keyWordName);
+        constants::ipzVpdInf + l_recordName, l_keywordName);
 
     if (auto l_fcoInVpd = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -320,21 +321,23 @@ void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios,
         m_logger->logMessage("Invalid FCO value in BIOS. Skip updating to VPD");
         return;
     }
-    std::string l_RecordName = i_attributeData.value("record", "");
-    std::string l_keyWordName = i_attributeData.value("keyword", "");
+
+    std::string l_recordName = i_attributeData.value("record", "");
+    std::string l_keywordName = i_attributeData.value("keyword", "");
+
     // The missing attribute check
-    if (l_RecordName.empty() || l_keyWordName.empty())
+    if (l_recordName.empty() || l_keywordName.empty())
     {
         m_logger->logMessage(
             "VPD mapping for hb_field_core_override not found in JSON config."
-            "Skip VPD writing. ");
+            "Skipping BIOS and VPD sync for the same. ");
         return;
     }
 
     // Read required keyword from Dbus.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::ipzVpdInf + l_RecordName, l_keyWordName);
+        constants::ipzVpdInf + l_recordName, l_keywordName);
 
     if (auto l_fcoInVpd = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -398,19 +401,32 @@ void IbmBiosHandler::saveFcoToBios(const types::BinaryVector& i_fcoVal)
     }
 }
 
-void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode)
+void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode,
+                                  const nlohmann::json& i_attributeData)
 {
     if (i_memoryMirrorMode.empty())
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Empty memory mirror mode value from BIOS. Skip writing to VPD");
+        return;
+    }
+
+    std::string l_keywordName = i_attributeData.value("keyword", "");
+    std::string l_recordName = i_attributeData.value("record", "");
+
+    // The missing attribute check
+    if (l_recordName.empty() || l_keywordName.empty())
+    {
+        m_logger->logMessage(
+            "VPD mapping for hb_memory_mirror_mode not found in JSON config."
+            "Skipping BIOS and VPD sync for the same. ");
         return;
     }
 
     // Read existing value.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdAMM);
+        constants::ipzVpdInf + l_recordName, l_keywordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -432,7 +448,7 @@ void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode)
                 types::IpzData(constants::recVSYS, constants::kwdAMM,
                                l_valToUpdateInVpd)))
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to update " + std::string(constants::kwdAMM) +
                 " keyword to VPD");
         }
@@ -440,7 +456,7 @@ void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode)
     else
     {
         // TODO: Add PEL
-        logging::logMessage(
+        m_logger->logMessage(
             "Invalid type read for memory mirror mode value from DBus. Skip writing to VPD");
     }
 }
@@ -463,7 +479,7 @@ void IbmBiosHandler::saveAmmToBios(const uint8_t& i_ammVal)
             l_pendingBiosAttribute))
     {
         // TODO: Should we log informational PEL here as well?
-        logging::logMessage(
+        m_logger->logMessage(
             "DBus call to update AMM value in pending attribute failed.");
     }
 }
@@ -471,11 +487,21 @@ void IbmBiosHandler::saveAmmToBios(const uint8_t& i_ammVal)
 void IbmBiosHandler::processActiveMemoryMirror(
     const nlohmann::json& i_attributeData)
 {
-    (void)i_attributeData; //-- band-aid for compilation will remove in next
-                           // commit
+    std::string l_keywordName = i_attributeData.value("keyword", "");
+    std::string l_recordName = i_attributeData.value("record", "");
+
+    // The missing attribute check
+    if (l_recordName.empty() || l_keywordName.empty())
+    {
+        m_logger->logMessage(
+            "VPD mapping for hb_memory_mirror_mode not found in JSON config."
+            "Skipping BIOS and VPD sync for the same. ");
+        return;
+    }
+
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdAMM);
+        constants::ipzVpdInf + l_recordName, l_keywordName);
 
     if (auto pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -489,10 +515,10 @@ void IbmBiosHandler::processActiveMemoryMirror(
 
             if (auto pVal = std::get_if<std::string>(&l_attrValueVariant))
             {
-                saveAmmToVpd(*pVal);
+                saveAmmToVpd(*pVal, i_attributeData);
                 return;
             }
-            logging::logMessage(
+            m_logger->logMessage(
                 "Invalid type recieved for auto memory mirror mode from BIOS.");
             return;
         }
@@ -502,7 +528,7 @@ void IbmBiosHandler::processActiveMemoryMirror(
         }
         return;
     }
-    logging::logMessage(
+    m_logger->logMessage(
         "Invalid type recieved for auto memory mirror mode from VPD.");
 }
 
