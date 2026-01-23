@@ -166,9 +166,12 @@ class IbmBiosHandler : public BiosHandlerInterface
      * @brief API to save given value to VPD.
      *
      * @param[in] i_createDefaultLparVal - Value to be saved.
+     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * keyword mapping for "pvm_create_default_lpar" attribute.
      *
      */
-    void saveCreateDefaultLparToVpd(const std::string& i_createDefaultLparVal);
+    void saveCreateDefaultLparToVpd(const std::string& i_createDefaultLparVal,
+                                    const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to process "pvm_clear_nvram" attribute.
