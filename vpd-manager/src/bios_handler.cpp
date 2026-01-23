@@ -420,15 +420,43 @@ void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode)
 {
     if (i_memoryMirrorMode.empty())
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Empty memory mirror mode value from BIOS. Skip writing to VPD");
         return;
     }
+    std::string l_keyWordName;
+    std::string l_RecordName;
 
+    if (!m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+       m_logger->logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "hb_memory_mirror_mode")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        m_logger->logMessage(
+            "VPD mapping for hb_memory_mirror_mode not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
     // Read existing value.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdAMM);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -450,7 +478,7 @@ void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode)
                 types::IpzData(constants::recVSYS, constants::kwdAMM,
                                l_valToUpdateInVpd)))
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to update " + std::string(constants::kwdAMM) +
                 " keyword to VPD");
         }
@@ -458,7 +486,7 @@ void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode)
     else
     {
         // TODO: Add PEL
-        logging::logMessage(
+        m_logger->logMessage(
             "Invalid type read for memory mirror mode value from DBus. Skip writing to VPD");
     }
 }
@@ -481,16 +509,45 @@ void IbmBiosHandler::saveAmmToBios(const uint8_t& i_ammVal)
             l_pendingBiosAttribute))
     {
         // TODO: Should we log informational PEL here as well?
-        logging::logMessage(
+        m_logger->logMessage(
             "DBus call to update AMM value in pending attribute failed.");
     }
 }
 
 void IbmBiosHandler::processActiveMemoryMirror()
 {
+    std::string l_keyWordName;
+    std::string l_RecordName;
+
+    if (!m_biosConfigJson.contains("biosRecordKwMap"))
+    {
+        m_logger->logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "hb_memory_mirror_mode")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        m_logger->logMessage(
+            "VPD mapping for hb_memory_mirror_mode not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdAMM);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -507,7 +564,7 @@ void IbmBiosHandler::processActiveMemoryMirror()
                 saveAmmToVpd(*pVal);
                 return;
             }
-            logging::logMessage(
+            m_logger->logMessage(
                 "Invalid type recieved for auto memory mirror mode from BIOS.");
             return;
         }
@@ -517,7 +574,7 @@ void IbmBiosHandler::processActiveMemoryMirror()
         }
         return;
     }
-    logging::logMessage(
+    m_logger->logMessage(
         "Invalid type recieved for auto memory mirror mode from VPD.");
 }
 
