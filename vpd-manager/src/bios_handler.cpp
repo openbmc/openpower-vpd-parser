@@ -934,15 +934,43 @@ void IbmBiosHandler::saveKeepAndClearToVpd(const std::string& i_KeepAndClearVal)
 {
     if (i_KeepAndClearVal.empty())
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Empty value received for keep and clear from BIOS. Skip updating to VPD.");
         return;
     }
+    std::string l_keyWordName;
+    std::string l_RecordName;
 
+    if (!m_isBiosJsonValid)
+    {
+        m_logger->logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "pvm_keep_and_clear")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        m_logger->logMessage(
+            "VPD mapping for pvm_keep_and_clear not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
     // Read required keyword from DBus as we need to set only a Bit.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdKeepAndClear);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -980,14 +1008,14 @@ void IbmBiosHandler::saveKeepAndClearToVpd(const std::string& i_KeepAndClearVal)
                 types::IpzData(constants::vsysInf, constants::kwdKeepAndClear,
                                l_valToUpdateInVpd)))
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to update " + std::string(constants::kwdKeepAndClear) +
                 " keyword to VPD");
         }
 
         return;
     }
-    logging::logMessage("Invalid type recieved for keep and clear from VPD.");
+    m_logger->logMessage("Invalid type recieved for keep and clear from VPD.");
 }
 
 void IbmBiosHandler::saveKeepAndClearToBios(
@@ -996,7 +1024,7 @@ void IbmBiosHandler::saveKeepAndClearToBios(
     // checking for exact length as it is a string and can have garbage value.
     if (i_KeepAndClearVal.size() != constants::VALUE_1)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Bad size for keep and clear in VPD. Skip writing to BIOS.");
         return;
     }
@@ -1017,23 +1045,51 @@ void IbmBiosHandler::saveKeepAndClearToBios(
             constants::biosConfigMgrInterface, "PendingAttributes",
             l_pendingBiosAttribute))
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "DBus call to update keep and clear value in pending attribute failed.");
     }
 }
 
 void IbmBiosHandler::processKeepAndClear()
 {
+    std::string l_keyWordName;
+    std::string l_RecordName;
+    if (!m_isBiosJsonValid)
+    {
+        m_logger->logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "pvm_keep_and_clear")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        m_logger->logMessage(
+            "VPD mapping for pvm_keep_and_clear not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
     // Read required keyword from VPD.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdKeepAndClear);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
         saveKeepAndClearToBios(std::to_string(l_pVal->at(0)));
         return;
     }
-    logging::logMessage("Invalid type recieved for keep and clear from VPD.");
+    m_logger->logMessage("Invalid type recieved for keep and clear from VPD.");
 }
 } // namespace vpd
