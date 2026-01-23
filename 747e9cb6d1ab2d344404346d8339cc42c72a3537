@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "189589f8_baa30563",
+        "filename": "vpd-manager/include/parser.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-23T07:20:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb1c69a2_bf950717",
+      "revId": "747e9cb6d1ab2d344404346d8339cc42c72a3537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71ef5461_01411fcc",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-01-22T16:50:05Z",
       "side": 1,
       "message": "should it get changed ? mode based vpd path internally handled.\ninstead should we add what is the mode ?",
+      "revId": "747e9cb6d1ab2d344404346d8339cc42c72a3537",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39256a78_1cdf1b76",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-01-23T07:20:38Z",
+      "side": 1,
+      "message": "with the help of m_vpdModeBasedFruPath we can know the mode. If the system is in file mode, this variable contains the file mode path prefix added to it, else it holds actual base FRU path, so we can know the system is in which mode.",
+      "parentUuid": "71ef5461_01411fcc",
       "revId": "747e9cb6d1ab2d344404346d8339cc42c72a3537",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
