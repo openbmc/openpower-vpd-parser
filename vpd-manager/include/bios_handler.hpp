@@ -90,14 +90,14 @@ class IbmBiosHandler : public BiosHandlerInterface
      * is saved to VPD else VPD value is restored in BIOS pending attribute
      * table.
      */
-    void processFieldCoreOverride();
+    void processFieldCoreOverride(const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to save FCO data into VPD.
      *
      * @param[in] i_fcoInBios - FCO value.
      */
-    void saveFcoToVpd(int64_t i_fcoInBios);
+    void saveFcoToVpd(int64_t i_fcoInBios, const nlohmann::json& entry);
 
     /**
      * @brief API to save given value to "hb_field_core_override" attribute.
