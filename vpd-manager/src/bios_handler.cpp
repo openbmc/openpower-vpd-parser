@@ -601,15 +601,44 @@ void IbmBiosHandler::saveCreateDefaultLparToVpd(
 {
     if (i_createDefaultLparVal.empty())
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Empty value received for Lpar from BIOS. Skip writing in VPD.");
+        return;
+    }
+    std::string l_keyWordName;
+    std::string l_RecordName;
+
+    if (!m_isBiosJsonValid)
+    {
+        m_logger->logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "pvm_create_default_lpar")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        m_logger->logMessage(
+            "VPD mapping for pvm_create_default_lpar not found in JSON config."
+            "Skip VPD writing. ");
         return;
     }
 
     // Read required keyword from DBus as we need to set only a Bit.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdClearNVRAM_CreateLPAR);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
@@ -647,7 +676,7 @@ void IbmBiosHandler::saveCreateDefaultLparToVpd(
                                      constants::kwdClearNVRAM_CreateLPAR,
                                      l_valToUpdateInVpd)))
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to update " +
                 std::string(constants::kwdClearNVRAM_CreateLPAR) +
                 " keyword to VPD");
@@ -655,7 +684,7 @@ void IbmBiosHandler::saveCreateDefaultLparToVpd(
 
         return;
     }
-    logging::logMessage(
+    m_logger->logMessage(
         "Invalid type recieved for create default Lpar from VPD.");
 }
 
@@ -665,7 +694,7 @@ void IbmBiosHandler::saveCreateDefaultLparToBios(
     // checking for exact length as it is a string and can have garbage value.
     if (i_createDefaultLparVal.size() != constants::VALUE_1)
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "Bad size for Create default LPAR in VPD. Skip writing to BIOS.");
         return;
     }
@@ -685,7 +714,7 @@ void IbmBiosHandler::saveCreateDefaultLparToBios(
             constants::biosConfigMgrInterface, "PendingAttributes",
             l_pendingBiosAttribute))
     {
-        logging::logMessage(
+        m_logger->logMessage(
             "DBus call to update lpar value in pending attribute failed.");
     }
 
@@ -694,17 +723,46 @@ void IbmBiosHandler::saveCreateDefaultLparToBios(
 
 void IbmBiosHandler::processCreateDefaultLpar()
 {
+    std::string l_keyWordName;
+    std::string l_RecordName;
+
+    if (!m_isBiosJsonValid)
+    {
+        m_logger->logMessage(
+            "Bios config JSON is empty or missing necessary tag(s), return");
+        return;
+    }
+
+    for (const auto& entry : m_biosConfigJson["biosRecordKwMap"])
+    {
+        // We look for the attribute name this function is "assigned" to
+        if (entry.value("biosAttributeName", "") == "pvm_create_default_lpar")
+        {
+            l_RecordName = entry.value("record", "");
+            l_keyWordName = entry.value("keyword", "");
+            break;
+        }
+    }
+
+    // The missing attribute check
+    if (l_RecordName.empty() || l_keyWordName.empty())
+    {
+        m_logger->logMessage(
+            "VPD mapping for pvm_create_default_lpar not found in JSON config."
+            "Skip VPD writing. ");
+        return;
+    }
     // Read required keyword from DBus.
     auto l_kwdValueVariant = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemVpdInvPath,
-        constants::vsysInf, constants::kwdClearNVRAM_CreateLPAR);
+        constants::ipzVpdInf + l_RecordName, l_keyWordName);
 
     if (auto l_pVal = std::get_if<types::BinaryVector>(&l_kwdValueVariant))
     {
         saveCreateDefaultLparToBios(std::to_string(l_pVal->at(0)));
         return;
     }
-    logging::logMessage(
+    m_logger->logMessage(
         "Invalid type recieved for create default Lpar from VPD.");
 }
 
