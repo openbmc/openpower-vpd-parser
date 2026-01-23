@@ -89,15 +89,22 @@ class IbmBiosHandler : public BiosHandlerInterface
      * The API checks value stored in VPD. If found default then the BIOS value
      * is saved to VPD else VPD value is restored in BIOS pending attribute
      * table.
+     *
+     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * keyword mapping for FCO attribute.
+     *
      */
-    void processFieldCoreOverride();
+    void processFieldCoreOverride(const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to save FCO data into VPD.
      *
      * @param[in] i_fcoInBios - FCO value.
+     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * keyword mapping for FCO attribute.
      */
-    void saveFcoToVpd(int64_t i_fcoInBios);
+    void saveFcoToVpd(int64_t i_fcoInBios,
+                      const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to save given value to "hb_field_core_override" attribute.
@@ -126,16 +133,23 @@ class IbmBiosHandler : public BiosHandlerInterface
      * The API checks value stored in VPD. If found default then the BIOS value
      * is saved to VPD else VPD value is restored in BIOS pending attribute
      * table.
+     *
+     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * keyword mapping for "hb_memory_mirror_mode" attribute.
+     *
      */
-    void processActiveMemoryMirror();
+    void processActiveMemoryMirror(const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to process "pvm_create_default_lpar" attribute.
      *
      * The API reads the value from VPD and restore it to the BIOS attribute
      * in BIOS pending attribute table.
+     *
+     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * keyword mapping for "pvm_create_default_lpar" attribute.
      */
-    void processCreateDefaultLpar();
+    void processCreateDefaultLpar(const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to save given value to "pvm_create_default_lpar" attribute.
@@ -157,8 +171,12 @@ class IbmBiosHandler : public BiosHandlerInterface
      *
      * The API reads the value from VPD and restores it to the BIOS pending
      * attribute table.
+     *
+     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * keyword mapping for "pvm_clear_nvram" attribute.
+     *
      */
-    void processClearNvram();
+    void processClearNvram(const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to save given value to "pvm_clear_nvram" attribute.
@@ -179,8 +197,12 @@ class IbmBiosHandler : public BiosHandlerInterface
      *
      * The API reads the value from VPD and restore it to the BIOS pending
      * attribute table.
+     *
+     * @param[in] i_attributeData - JSON object containing the VPD record and
+     * keyword mapping for "pvm_keep_and_clear" attribute.
+     *
      */
-    void processKeepAndClear();
+    void processKeepAndClear(const nlohmann::json& i_attributeData);
 
     /**
      * @brief API to save given value to "pvm_keep_and_clear" attribute.
