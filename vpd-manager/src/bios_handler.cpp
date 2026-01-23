@@ -123,11 +123,11 @@ IbmBiosHandler::IbmBiosHandler(const std::shared_ptr<Manager>& i_manager) :
     }
     catch (const std::exception& ex)
     {
-        m_logger->logMessage("Parsing Bios config file failed with exception: " +
-                            std::string(ex.what()));
-    }
-}
 
+        m_logger->logMessage(
+           "Parsing Bios config file failed with exception: " +
+            std::string(ex.what()));
+    }
 void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
 {
     if (i_msg.is_method_error())
@@ -274,7 +274,7 @@ void IbmBiosHandler::processFieldCoreOverride()
         // default length of the keyword is 4 bytes.
         if (l_fcoInVpd->size() != constants::VALUE_4)
         {
-             m_logger->logMessage(
+            m_logger->logMessage(
                 "Invalid value read for FCO from D-Bus. Skipping.");
         }
 

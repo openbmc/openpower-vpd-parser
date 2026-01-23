@@ -1,7 +1,7 @@
 #pragma once
+#include "logger.hpp"
 #include "manager.hpp"
 #include "types.hpp"
-#include "logger.hpp"
 
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/bus.hpp>
@@ -53,10 +53,7 @@ class IbmBiosHandler : public BiosHandlerInterface
      * This constructor constructs a new IBM BIOS Handler object
      * @param[in] i_manager - Manager object.
      */
-    explicit IbmBiosHandler(const std::shared_ptr<Manager>& i_manager) :
-        m_manager(i_manager)
-    {}
-
+    explicit IbmBiosHandler(const std::shared_ptr<Manager>& i_manager);
     /**
      * @brief API to back up or restore BIOS attributes.
      *
