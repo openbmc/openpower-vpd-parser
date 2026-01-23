@@ -174,7 +174,8 @@ class IbmBiosHandler : public BiosHandlerInterface
      *
      * @param[in] i_clearNvramVal - Value to be saved.
      */
-    void saveClearNvramToVpd(const std::string& i_clearNvramVal);
+    void saveClearNvramToVpd(const std::string& i_clearNvramVal,
+                             const nlohmann::json& entry);
 
     /**
      * @brief API to process "pvm_keep_and_clear" attribute.
