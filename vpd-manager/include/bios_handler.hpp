@@ -1,4 +1,5 @@
 #pragma once
+#include "logger.hpp"
 #include "manager.hpp"
 #include "types.hpp"
 
@@ -199,6 +200,15 @@ class IbmBiosHandler : public BiosHandlerInterface
 
     // const reference to shared pointer to Manager object.
     const std::shared_ptr<Manager>& m_manager;
+
+    // const reference to shared pointer to Worker object.
+    const std::shared_ptr<Worker>& m_worker;
+
+    // Shared pointer to Logger object
+    std::shared_ptr<Logger> m_logger;
+
+    // Bios config json object
+    nlohmann::json m_biosConfigJson{};
 };
 
 /**
