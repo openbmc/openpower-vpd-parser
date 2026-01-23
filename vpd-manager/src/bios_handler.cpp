@@ -80,6 +80,54 @@ void BiosHandler<T>::listenBiosAttributes()
             });
 }
 
+IbmBiosHandler::IbmBiosHandler(const std::shared_ptr<Manager>& i_manager) :
+    m_manager(i_manager), m_worker(i_manager->getWorkerObj())
+{
+    if (!m_worker)
+    {
+        throw std::runtime_error("Worker object is null in IbmBiosHandler");
+    }
+    nlohmann::json l_sysCfgJsonObj{};
+    l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+
+    if (l_sysCfgJsonObj.empty())
+    {
+        throw std::runtime_error("System Configuration JSON is empty");
+    }
+
+    std::string l_backupAndRestoreCfgFilePath =
+        l_sysCfgJsonObj.value("biosHandlerJsonPath", "");
+
+    if (l_backupAndRestoreCfgFilePath.empty())
+    {
+        logging::logMessage(
+            "Critical: BiosHandlerJsonPath key is missing in config.");
+        throw std::runtime_error("Required configuration path is empty");
+    }
+    try
+    {
+        uint16_t l_errCode = 0;
+        m_biosConfigJson = jsonUtility::getParsedJson(
+            l_backupAndRestoreCfgFilePath, l_errCode);
+        if (l_errCode)
+        {
+            throw JsonException("Failed to parse Bios Config JSON, error : " +
+                                    commonUtility::getErrCodeMsg(l_errCode),
+                                l_backupAndRestoreCfgFilePath);
+        }
+        if (m_biosConfigJson.is_null() || m_biosConfigJson.empty())
+        {
+            throw JsonException("Bios Config JSON is empty or invalid",
+            l_backupAndRestoreCfgFilePath);
+        }
+    }
+    catch (const std::exception& ex)
+    {
+        logging::logMessage("Parsing Bios config file failed with exception: " +
+                            std::string(ex.what()));
+    }
+}
+
 void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
 {
     if (i_msg.is_method_error())
