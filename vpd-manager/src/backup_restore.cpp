@@ -523,10 +523,12 @@ void BackupAndRestore::backupAndRestoreIpzVpd(types::IPZVpdMap& io_srcVpdMap,
                     " . Value read from destination : " +
                     commonUtility::convertByteVectorToHex(l_dstBinaryValue));
 
-                EventLogger::createSyncPel(
-                    types::ErrorType::VpdMismatch, types::SeverityType::Warning,
-                    __FILE__, __FUNCTION__, 0, l_errorMsg, std::nullopt,
-                    std::nullopt, std::nullopt, std::nullopt);
+                m_logger->logMessage(
+                    l_errorMsg, PlaceHolder::PEL,
+                    types::PelInfoTuple{types::ErrorType::VpdMismatch,
+                                        types::SeverityType::Warning, 0,
+                                        std::nullopt, std::nullopt,
+                                        std::nullopt, std::nullopt});
             }
         }
         else if (l_srcBinaryValue == l_defaultBinaryValue &&
@@ -536,10 +538,11 @@ void BackupAndRestore::backupAndRestoreIpzVpd(types::IPZVpdMap& io_srcVpdMap,
                 "Default value found on both source and destination VPD, for record: " +
                 l_srcRecordName + " and keyword: " + l_srcKeywordName);
 
-            EventLogger::createSyncPel(
-                types::ErrorType::DefaultValue, types::SeverityType::Error,
-                __FILE__, __FUNCTION__, 0, l_errorMsg, std::nullopt,
-                std::nullopt, std::nullopt, std::nullopt);
+            m_logger->logMessage(
+                l_errorMsg, PlaceHolder::PEL,
+                types::PelInfoTuple{
+                    types::ErrorType::VpdMismatch, types::SeverityType::Warning,
+                    0, std::nullopt, std::nullopt, std::nullopt, std::nullopt});
         }
     }
 }
