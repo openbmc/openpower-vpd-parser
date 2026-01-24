@@ -1123,35 +1123,8 @@ void IbmHandler::performInitialSetup()
                 "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        // Update BMC postion for RBMC prototype system
-        // Ignore BMC position update in case of any error
-        if (isRbmcPrototypeSystem(l_errCode))
-        {
-            size_t l_bmcPosition = dbusUtility::getBmcPosition();
-            // ToDo: Once Cable management service is up and running, will get
-            // BMC position from cable management service.
-            checkAndUpdateBmcPosition(l_bmcPosition);
-
-            // Call method to update the dbus
-            if (!dbusUtility::publishVpdOnDBus(types::ObjectMap{
-                    {sdbusplus::message::object_path(constants::systemInvPath),
-                     {{constants::rbmcPositionInterface,
-                       {{"Position", l_bmcPosition}}}}}}))
-            {
-                m_logger->logMessage(
-                    "Updating BMC position failed for path [" +
-                    std::string(constants::systemInvPath) +
-                    "], bmc position: " + std::to_string(l_bmcPosition));
-
-                // ToDo: Check is PEL required
-            }
-        }
-        else if (l_errCode != 0)
-        {
-            m_logger->logMessage(
-                "Unable to determine whether system is RBMC system or not, reason: " +
-                commonUtility::getErrCodeMsg(l_errCode));
-        }
+        // Set appropriate position of BMC.
+        setBmcPosition();
 
         // Enable all mux which are used for connecting to the i2c on the
         // pcie slots for pcie cards. These are not enabled by kernel due to
@@ -1187,6 +1160,39 @@ void IbmHandler::performInitialSetup()
             std::string("Exception while performing initial set up. ") +
                 EventLogger::getErrorMsg(l_ex),
             PlaceHolder::PEL, &l_pel);
+    }
+}
+
+void IbmHandler::setBmcPosition()
+{
+    size_t l_bmcPosition = dbusUtility::getBmcPosition();
+
+    uint16_t l_errCode = 0;
+    // Special Handling required for RBMC prototype system as Cable Management
+    // Daemon is not there.
+    if (isRbmcPrototypeSystem(l_errCode))
+    {
+        checkAndUpdateBmcPosition(l_bmcPosition);
+    }
+    else if (l_errCode != 0)
+    {
+        m_logger->logMessage(
+            "Unable to determine whether system is RBMC system or not, reason: " +
+            commonUtility::getErrCodeMsg(l_errCode));
+    }
+
+    // Call method to update the dbus
+    if (!dbusUtility::publishVpdOnDBus(types::ObjectMap{
+            {sdbusplus::message::object_path(constants::systemInvPath),
+             {{constants::rbmcPositionInterface,
+               {{"Position", l_bmcPosition}}}}}}))
+    {
+        m_logger->logMessage(
+            "Updating BMC position failed for path [" +
+            std::string(constants::systemInvPath) +
+            "], bmc position: " + std::to_string(l_bmcPosition));
+
+        // ToDo: Check if PEL required
     }
 }
 
