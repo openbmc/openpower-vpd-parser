@@ -253,6 +253,11 @@ class IbmHandler
      */
     void initBackupAndRestore() noexcept;
 
+    /**
+     * @brief API to register listener objects.
+     */
+    void initEventListeners() noexcept;
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 

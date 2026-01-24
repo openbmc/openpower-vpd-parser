@@ -39,12 +39,8 @@ IbmHandler::IbmHandler(
         // Init back up and restore.
         initBackupAndRestore();
 
-        // Instantiate Listener object
-        m_eventListener =
-            std::make_shared<Listener>(m_worker, m_asioConnection);
-        m_eventListener->registerAssetTagChangeCallback();
-        m_eventListener->registerHostStateChangeCallback();
-        m_eventListener->registerPresenceChangeCallback();
+        // Instantiate Listener objects
+        initEventListeners();
 
         // Instantiate GpioMonitor class
         m_gpioMonitor = std::make_shared<GpioMonitor>(m_sysCfgJsonObj, m_worker,
@@ -185,6 +181,14 @@ void IbmHandler::initBackupAndRestore() noexcept
                 EventLogger::getErrorMsg(l_ex),
             PlaceHolder::PEL, &l_pel);
     }
+}
+
+void IbmHandler::initEventListeners() noexcept
+{
+    m_eventListener = std::make_shared<Listener>(m_worker, m_asioConnection);
+    m_eventListener->registerAssetTagChangeCallback();
+    m_eventListener->registerHostStateChangeCallback();
+    m_eventListener->registerPresenceChangeCallback();
 }
 
 void IbmHandler::SetTimerToDetectVpdCollectionStatus()
