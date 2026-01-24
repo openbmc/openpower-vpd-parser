@@ -248,6 +248,14 @@ class IbmHandler
      */
     std::string readFitConfigValue();
 
+    /**
+     * @brief API to set BMC position.
+     *
+     * The API sets BMC position under system inventory path. In case of any
+     * error, default value will be set as BMC position.
+     */
+    void setBmcPosition();
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
