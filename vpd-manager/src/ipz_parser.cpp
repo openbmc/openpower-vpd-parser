@@ -73,11 +73,14 @@ bool IpzVpdParser::vhdrEccCheck()
         Length::VHDR_ECC_LENGTH);
     if (l_status == VPD_ECC_CORRECTABLE_DATA)
     {
-        EventLogger::createSyncPel(
+        const types::PelInfoTuple l_pel(
             types::ErrorType::EccCheckFailed,
-            types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
-            "One bit correction for VHDR performed", std::nullopt, std::nullopt,
+            types::SeverityType::Informational, 0, std::nullopt, std::nullopt,
             std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string("One bit correction for VHDR performed"),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
     else if (l_status != VPD_ECC_OK)
     {
@@ -119,11 +122,14 @@ bool IpzVpdParser::vtocEccCheck()
         const_cast<uint8_t*>(&vpdPtr[vtocECCOffset]), vtocECCLength);
     if (l_status == VPD_ECC_CORRECTABLE_DATA)
     {
-        EventLogger::createSyncPel(
+        const types::PelInfoTuple l_pel(
             types::ErrorType::EccCheckFailed,
-            types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
-            "One bit correction for VTOC performed", std::nullopt, std::nullopt,
+            types::SeverityType::Informational, 0, std::nullopt, std::nullopt,
             std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string("One bit correction for VTOC performed"),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
     else if (l_status != VPD_ECC_OK)
     {
@@ -166,11 +172,14 @@ bool IpzVpdParser::recordEccCheck(types::BinaryVector::const_iterator iterator)
 
     if (l_status == VPD_ECC_CORRECTABLE_DATA)
     {
-        EventLogger::createSyncPel(
+        const types::PelInfoTuple l_pel(
             types::ErrorType::EccCheckFailed,
-            types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
-            "One bit correction for record performed", std::nullopt,
-            std::nullopt, std::nullopt, std::nullopt);
+            types::SeverityType::Informational, 0, std::nullopt, std::nullopt,
+            std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string("One bit correction for record performed"),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
     else if (l_status != VPD_ECC_OK)
     {
