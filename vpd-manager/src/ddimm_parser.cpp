@@ -321,6 +321,14 @@ size_t DdimmVpdParser::getDdr4BasedDdimmSize(
         // TODO:: Need an error log here
         logging::logMessage("DDR4 DDIMM calculation is failed, reason: " +
                             std::string(l_ex.what()));
+        const types::PelInfoTuple l_pel(
+            types::ErrorType::InternalFailure, types::SeverityType::Warning, 0,
+            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+
+        Logger::getLoggerInstance()->logMessage(
+            std::string("DDR4 DDIMM calculation is failed, reason: ") +
+                std::string(l_ex.what()),
+            PlaceHolder::PEL, std::make_optional(&l_pel));
     }
     return l_dimmSize;
 }
