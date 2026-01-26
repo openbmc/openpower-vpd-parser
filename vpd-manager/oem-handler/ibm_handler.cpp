@@ -1194,6 +1194,49 @@ void IbmHandler::setBmcPosition()
 
         // ToDo: Check if PEL required
     }
+
+    writeBmcPositionToFile(l_bmcPosition);
+}
+
+void IbmHandler::writeBmcPositionToFile(size_t i_bmcPosition)
+{
+    try
+    {
+        const std::filesystem::path l_filePath = "/run/openbmc/bmc_position";
+
+        std::error_code l_ec;
+        if (!std::filesystem::exists(l_filePath.parent_path(), l_ec))
+        {
+            if (!std::filesystem::create_directories(l_filePath.parent_path(), l_ec))
+            {
+                m_logger->logMessage(
+                    "Failed to create directory [" + l_filePath.parent_path().string() +
+                    "]. Error: " + l_ec.message());
+                return;
+            }
+        }
+
+        std::ofstream l_outFile(l_filePath);
+        if (!l_outFile)
+        {
+            m_logger->logMessage("Failed to open file [" + l_filePath.string() +
+                                 "] for writing");
+            return;
+        }
+
+        l_outFile << i_bmcPosition;
+        if (!l_outFile)
+        {
+            m_logger->logMessage("Failed to write BMC position to file [" +
+                                 l_filePath.string() + "]");
+            return;
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage("Exception while writing BMC position to file: " +
+                             std::string(l_ex.what()));
+    }
 }
 
 void IbmHandler::collectAllFruVpd()
