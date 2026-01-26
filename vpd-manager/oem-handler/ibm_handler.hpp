@@ -266,6 +266,16 @@ class IbmHandler
      */
     void setBmcPosition();
 
+    /**
+     * @brief API to write the BMC position to a file.
+     *
+     * Writes the BMC position value to /run/openbmc/bmc_position file,
+     * creating the directory if it doesn't exist.
+     *
+     * @param[in] i_bmcPosition - BMC position value to write.
+     */
+    void writeBmcPositionToFile(size_t i_bmcPosition);
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
