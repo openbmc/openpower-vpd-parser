@@ -1167,6 +1167,13 @@ void IbmHandler::setBmcPosition()
 {
     size_t l_bmcPosition = dbusUtility::getBmcPosition();
 
+    // Workaround until getBmcPosition() is filled in and
+    // doesn't just return max().
+    if (l_bmcPosition == std::numeric_limits<size_t>::max())
+    {
+        l_bmcPosition = 0;
+    }
+
     uint16_t l_errCode = 0;
     // Special Handling required for RBMC prototype system as Cable Management
     // Daemon is not there.
@@ -1193,6 +1200,41 @@ void IbmHandler::setBmcPosition()
             "], bmc position: " + std::to_string(l_bmcPosition));
 
         // ToDo: Check if PEL required
+    }
+
+    writeBmcPositionToFile(l_bmcPosition);
+}
+
+void IbmHandler::writeBmcPositionToFile(size_t i_bmcPosition)
+{
+    const std::filesystem::path l_filePath = "/run/openbmc/bmc_position";
+
+    std::error_code l_ec;
+    if (!std::filesystem::exists(l_filePath.parent_path(), l_ec))
+    {
+        std::filesystem::create_directories(l_filePath.parent_path(), l_ec);
+        if (l_ec)
+        {
+            m_logger->logMessage("create_directories() failed on " +
+                                 l_filePath.parent_path().string() +
+                                 ". Error =" + l_ec.message());
+            return;
+        }
+    }
+
+    std::ofstream l_outFile(l_filePath);
+    if (!l_outFile)
+    {
+        m_logger->logMessage(
+            "Failed to open file [" + l_filePath.string() + "] for writing");
+        return;
+    }
+
+    l_outFile << i_bmcPosition;
+    if (!l_outFile)
+    {
+        m_logger->logMessage("Failed to write BMC position to file [" +
+                             l_filePath.string() + "]");
     }
 }
 
