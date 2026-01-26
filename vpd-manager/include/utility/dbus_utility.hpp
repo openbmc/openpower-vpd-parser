@@ -864,8 +864,12 @@ inline size_t getBmcPosition() noexcept
     size_t l_bmcPosition = std::numeric_limits<size_t>::max();
     try
     {
-        // TODO: Return value based on data read from the cable management
-        // service.
+        // For now, get the position from where it was
+        // written in publishSystemVPD().
+        auto l_positionVariant = dbusUtility::readDbusProperty(
+            constants::pimServiceName, constants::systemVpdInvPath,
+            constants::rbmcPositionInterface, "Position");
+        l_bmcPosition = std::get<size_t>(l_positionVariant);
     }
     catch (const sdbusplus::exception::SdBusError& l_ex)
     {
