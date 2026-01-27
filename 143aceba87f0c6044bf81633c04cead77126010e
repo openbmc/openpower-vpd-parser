@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9da19d71_97abf480",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-27T16:22:41Z",
+      "side": 1,
+      "message": "Instead of modifying this API, which is intended to be used once we have cable management service.\nCould you please make use of \"readDbusProperty\"",
+      "revId": "143aceba87f0c6044bf81633c04cead77126010e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
