@@ -138,6 +138,12 @@ void GpioMonitor::initHandlerForGpio(
     const std::shared_ptr<boost::asio::io_context>& i_ioContext,
     const std::shared_ptr<Worker>& i_worker)
 {
+    if (i_worker == nullptr)
+    {
+        throw std::runtime_error(
+            "Cannot initialize GPIO handler as Worker is not initialized.");
+    }
+
     uint16_t l_errCode = 0;
     std::vector<std::string> l_gpioPollingRequiredFrusList =
         jsonUtility::getListOfGpioPollingFrus(m_sysCfgJsonObj, l_errCode);
