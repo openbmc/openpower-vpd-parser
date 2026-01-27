@@ -484,6 +484,12 @@ std::string Manager::getExpandedLocationCode(
                 i_unexpandedLocationCode.c_str()));
     }
 
+    if (m_worker == nullptr)
+    {
+        m_logger->logMessage(
+            "Cannot get expanded location code as Worker instance is not initialized.");
+        return std::string{};
+    }
     const nlohmann::json& l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
     if (!l_sysCfgJsonObj.contains("frus"))
     {
@@ -526,6 +532,13 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
             types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
             types::InvalidArgument::ARGUMENT_VALUE(
                 i_unexpandedLocationCode.c_str()));
+    }
+
+    if (m_worker == nullptr)
+    {
+        m_logger->logMessage(
+            "Cannot get FRUs by unexpanded location code as Worker instance is not initialized");
+        return l_inventoryPaths;
     }
 
     const nlohmann::json& l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
