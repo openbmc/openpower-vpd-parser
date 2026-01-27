@@ -35,12 +35,20 @@ class GpioEventHandler
      * @param[in] i_fruPath - EEPROM path of the FRU.
      * @param[in] i_worker - pointer to the worker object.
      * @param[in] i_ioContext - pointer to the io context object
+     *
+     * @throw std::runtime_error
      */
     GpioEventHandler(
         const std::string i_fruPath, const std::shared_ptr<Worker>& i_worker,
         const std::shared_ptr<boost::asio::io_context>& i_ioContext) :
         m_fruPath(i_fruPath), m_worker(i_worker)
     {
+        if (m_worker == nullptr)
+        {
+            throw std::runtime_error(
+                "Worker not initialized in GPIO Event Handler");
+        }
+
         setEventHandlerForGpioPresence(i_ioContext);
     }
 
@@ -104,22 +112,33 @@ class GpioMonitor
      * @param[in] i_sysCfgJsonObj - System config JSON Object.
      * @param[in] i_worker - pointer to the worker object.
      * @param[in] i_ioContext - pointer to IO context object.
+     *
      */
-    GpioMonitor(const nlohmann::json i_sysCfgJsonObj,
-                const std::shared_ptr<Worker>& i_worker,
-                const std::shared_ptr<boost::asio::io_context>& i_ioContext) :
+    GpioMonitor(
+        const nlohmann::json i_sysCfgJsonObj,
+        const std::shared_ptr<Worker>& i_worker,
+        const std::shared_ptr<boost::asio::io_context>& i_ioContext) noexcept :
         m_sysCfgJsonObj(i_sysCfgJsonObj)
     {
-        if (!m_sysCfgJsonObj.empty())
+        try
         {
-            initHandlerForGpio(i_ioContext, i_worker);
+            if (!m_sysCfgJsonObj.empty())
+            {
+                initHandlerForGpio(i_ioContext, i_worker);
+            }
+            else
+            {
+                throw std::runtime_error(
+                    "Gpio Monitoring can't be instantiated with empty config JSON");
+            }
         }
-        else
+        catch (const std::exception& l_ex)
         {
             EventLogger::createSyncPel(
                 types::ErrorType::InternalFailure, types::SeverityType::Warning,
                 __FILE__, __FUNCTION__, 0,
-                "Gpio Monitoring can't be instantiated with empty config JSON",
+                "Gpio Monitoring can't be instantiated. Error: " +
+                    std::string(l_ex.what()),
                 std::nullopt, std::nullopt, std::nullopt, std::nullopt);
         }
     }
@@ -133,6 +152,8 @@ class GpioMonitor
      *
      * @param[in] i_ioContext - Pointer to IO context object.
      * @param[in] i_worker - Pointer to worker class.
+     *
+     * @throw std::runtime_error
      */
     void initHandlerForGpio(
         const std::shared_ptr<boost::asio::io_context>& i_ioContext,
