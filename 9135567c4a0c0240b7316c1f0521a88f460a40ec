@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76ba5616_863394d4",
+        "filename": "vpd-manager/include/gpio_monitor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-27T15:22:38Z",
+      "side": 1,
+      "message": "From a quick fix perspective it can work on current code but from a design perspective, a class getting a parameter in its constructor is relying on constructor of another class to check for the validity of it parameter is too much to ask for.\nIt also leaves window open for failures where any code added inside \"initHandlerForGpio\" or any other API called before \"initHandlerForGpio\" can lead to failure.\n\nCounter argument can be that the newly added code should check the validity of object before using but again an argument can be that why the base function is not checking the validity and relying on subsequent functions to do that?\n\nFood for thought?",
+      "parentUuid": "ff13130c_b500b09f",
+      "revId": "9135567c4a0c0240b7316c1f0521a88f460a40ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d38f1889_5951aa8e",
         "filename": "vpd-manager/include/gpio_monitor.hpp",
         "patchSetId": 2
