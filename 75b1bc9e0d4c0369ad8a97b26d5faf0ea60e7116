@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dde44476_2bce0433",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-27T07:16:30Z",
+      "side": 1,
+      "message": "A meaningful heading.",
+      "revId": "75b1bc9e0d4c0369ad8a97b26d5faf0ea60e7116",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0bff9c3_b9565a5e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-27T07:16:30Z",
+      "side": 1,
+      "message": "That was there before as well, the reason it has been moved to optional is that we can create the structure in place.",
+      "revId": "75b1bc9e0d4c0369ad8a97b26d5faf0ea60e7116",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd8b15d0_c9bc555c",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-27T07:16:30Z",
+      "side": 1,
+      "message": "A ~ The structure is only...",
+      "range": {
+        "startLine": 301,
+        "startChar": 42,
+        "endLine": 301,
+        "endChar": 53
+      },
+      "revId": "75b1bc9e0d4c0369ad8a97b26d5faf0ea60e7116",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c9b341a_bb5be3d2",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-27T07:16:30Z",
+      "side": 1,
+      "message": "The purpose of make it std::optional is to be able to create the PEL in place.\nPlease check if that works and make the required changes.\n\nApplicable for other places as well.",
+      "revId": "75b1bc9e0d4c0369ad8a97b26d5faf0ea60e7116",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
