@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e917e36_384fc100",
+        "filename": "vpd-manager/include/gpio_monitor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-01-27T15:44:44Z",
+      "side": 1,
+      "message": "As discussed, added a parameter check in `initHandlerForGpio`",
+      "parentUuid": "76ba5616_863394d4",
+      "revId": "9135567c4a0c0240b7316c1f0521a88f460a40ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d38f1889_5951aa8e",
         "filename": "vpd-manager/include/gpio_monitor.hpp",
         "patchSetId": 2
