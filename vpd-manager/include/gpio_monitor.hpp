@@ -35,6 +35,8 @@ class GpioEventHandler
      * @param[in] i_fruPath - EEPROM path of the FRU.
      * @param[in] i_worker - pointer to the worker object.
      * @param[in] i_ioContext - pointer to the io context object
+     *
+     * @throw std::runtime_error
      */
     GpioEventHandler(
         const std::string i_fruPath, const std::shared_ptr<Worker>& i_worker,
@@ -42,6 +44,12 @@ class GpioEventHandler
         m_fruPath(i_fruPath), m_worker(i_worker)
     {
         setEventHandlerForGpioPresence(i_ioContext);
+
+        if (m_worker == nullptr)
+        {
+            throw std::runtime_error(
+                "Worker not initialized in GPIO Event Handler");
+        }
     }
 
   private:
@@ -104,6 +112,8 @@ class GpioMonitor
      * @param[in] i_sysCfgJsonObj - System config JSON Object.
      * @param[in] i_worker - pointer to the worker object.
      * @param[in] i_ioContext - pointer to IO context object.
+     *
+     * @throw std::runtime_error
      */
     GpioMonitor(const nlohmann::json i_sysCfgJsonObj,
                 const std::shared_ptr<Worker>& i_worker,
@@ -133,6 +143,8 @@ class GpioMonitor
      *
      * @param[in] i_ioContext - Pointer to IO context object.
      * @param[in] i_worker - Pointer to worker class.
+     *
+     * @throw std::runtime_error
      */
     void initHandlerForGpio(
         const std::shared_ptr<boost::asio::io_context>& i_ioContext,
