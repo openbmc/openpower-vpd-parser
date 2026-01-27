@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca9494b2_5f0bdd76",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-27T07:23:03Z",
+      "side": 1,
+      "message": "Initialization can be done at declaration itself?",
+      "revId": "a9d814433b5a0b48bb3c60f29894f75c4e7f981e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61eebd17_6aa74bb6",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-27T07:23:03Z",
+      "side": 1,
+      "message": "You can throw the same message, why log and throw both? We will end up logging twice for same error.",
+      "revId": "a9d814433b5a0b48bb3c60f29894f75c4e7f981e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "833e1317_201f4e77",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-27T07:23:03Z",
+      "side": 1,
+      "message": "Blank line between blocks of code.",
+      "revId": "a9d814433b5a0b48bb3c60f29894f75c4e7f981e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e4ada62_432516d0",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-27T07:23:03Z",
+      "side": 1,
+      "message": "Blank line between blocks of code.",
+      "revId": "a9d814433b5a0b48bb3c60f29894f75c4e7f981e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f47c360_045a8756",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-27T07:23:03Z",
+      "side": 1,
+      "message": "This will get handled in API \"getParsedJson\" itself, why are we checking again?",
+      "range": {
+        "startLine": 119,
+        "startChar": 42,
+        "endLine": 119,
+        "endChar": 58
+      },
+      "revId": "a9d814433b5a0b48bb3c60f29894f75c4e7f981e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac48f3c6_5eddcce4",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-27T07:23:03Z",
+      "side": 1,
+      "message": "Avoid changes which are not relevant to the commit.\nSuch modifications should be done via separate commit.",
+      "revId": "a9d814433b5a0b48bb3c60f29894f75c4e7f981e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
