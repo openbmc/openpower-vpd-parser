@@ -15,7 +15,13 @@ Listener::Listener(
     const std::shared_ptr<Worker>& i_worker,
     const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection) :
     m_worker(i_worker), m_asioConnection(i_asioConnection)
-{}
+{
+    if (m_worker == nullptr)
+    {
+        throw std::runtime_error(
+            "Cannot instantiate Listener as Worker is not initialized");
+    }
+}
 
 void Listener::registerHostStateChangeCallback() const noexcept
 {
