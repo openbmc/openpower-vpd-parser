@@ -490,10 +490,12 @@ std::string Manager::getExpandedLocationCode(
             "Cannot get expanded location code as Worker instance is not initialized.");
         return std::string{};
     }
+
     const nlohmann::json& l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
     if (!l_sysCfgJsonObj.contains("frus"))
     {
         logging::logMessage("Missing frus tag in system config JSON");
+        return {};
     }
 
     const nlohmann::json& l_listOfFrus =
@@ -545,6 +547,7 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
     if (!l_sysCfgJsonObj.contains("frus"))
     {
         logging::logMessage("Missing frus tag in system config JSON");
+        return l_inventoryPaths;
     }
 
     const nlohmann::json& l_listOfFrus =
