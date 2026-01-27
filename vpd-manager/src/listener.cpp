@@ -38,12 +38,15 @@ void Listener::registerHostStateChangeCallback() const noexcept
     }
     catch (const std::exception& l_ex)
     {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
-            __FILE__, __FUNCTION__, 0,
-            "Register Host state change callback failed, reason: " +
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "Register Host state change callback failed, reason: ") +
                 std::string(l_ex.what()),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -98,12 +101,14 @@ void Listener::hostStateChangeCallBack(
     }
     catch (const std::exception& l_ex)
     {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
-            __FILE__, __FUNCTION__, 0,
-            "Host state change callback failed, reason: " +
+        Logger::getLoggerInstance()->logMessage(
+            std::string("Host state change callback failed, reason: ") +
                 std::string(l_ex.what()),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -122,12 +127,14 @@ void Listener::registerAssetTagChangeCallback() const noexcept
     }
     catch (const std::exception& l_ex)
     {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
-            __FILE__, __FUNCTION__, 0,
-            "Register AssetTag change callback failed, reason: " +
+        Logger::getLoggerInstance()->logMessage(
+            std::string("Register AssetTag change callback failed, reason: ") +
                 std::string(l_ex.what()),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -173,11 +180,14 @@ void Listener::assetTagChangeCallback(
     }
     catch (const std::exception& l_ex)
     {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
-            __FILE__, __FUNCTION__, 0,
-            "AssetTag update failed, reason: " + std::string(l_ex.what()),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+        Logger::getLoggerInstance()->logMessage(
+            std::string("AssetTag update failed, reason: ") +
+                std::string(l_ex.what()),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -215,12 +225,14 @@ void Listener::registerPresenceChangeCallback() noexcept
     }
     catch (const std::exception& l_ex)
     {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
-            __FILE__, __FUNCTION__, 0,
-            "Register presence change callback failed, reason: " +
+        Logger::getLoggerInstance()->logMessage(
+            std::string("Register presence change callback failed, reason: ") +
                 std::string(l_ex.what()),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -261,12 +273,14 @@ void Listener::presentPropertyChangeCallback(
     }
     catch (const std::exception& l_ex)
     {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
-            __FILE__, __FUNCTION__, 0,
-            "Process presence change callback failed, reason: " +
+        Logger::getLoggerInstance()->logMessage(
+            std::string("Process presence change callback failed, reason: ") +
                 std::string(l_ex.what()),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -315,10 +329,12 @@ void Listener::registerCorrPropCallBack(
     }
     catch (const std::exception& l_ex)
     {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
-            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+        Logger::getLoggerInstance()->logMessage(
+            EventLogger::getErrorMsg(l_ex), PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -421,10 +437,12 @@ void Listener::correlatedPropChangedCallBack(
     }
     catch (const std::exception& l_ex)
     {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Informational,
-            __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+        Logger::getLoggerInstance()->logMessage(
+            EventLogger::getErrorMsg(l_ex), PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -572,10 +590,19 @@ bool Listener::updateCorrelatedProperty(
     }
     catch (const std::exception& l_ex)
     {
-        logging::logMessage(
+        std::string l_msg =
             "Failed to update correlated property: " + i_serviceName + " : " +
             l_destinationObjectPath + " : " + l_destinationInterface + " : " +
-            l_destinationPropertyName + ". Error: " + std::string(l_ex.what()));
+            l_destinationPropertyName + ". Error: " + std::string(l_ex.what());
+
+        logging::logMessage(l_msg);
+
+        Logger::getLoggerInstance()->logMessage(
+            l_msg, PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
     return false;
 }
