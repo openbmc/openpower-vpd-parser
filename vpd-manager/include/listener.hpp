@@ -31,6 +31,8 @@ class Listener
      * @brief Constructor
      * @param[in] i_worker - Reference to worker class object.
      * @param[in] i_asioConnection - Dbus Connection.
+     *
+     * @throw std::runtime_error
      */
     Listener(
         const std::shared_ptr<Worker>& i_worker,

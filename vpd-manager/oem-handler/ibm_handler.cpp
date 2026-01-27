@@ -185,10 +185,19 @@ void IbmHandler::initBackupAndRestore() noexcept
 
 void IbmHandler::initEventListeners() noexcept
 {
-    m_eventListener = std::make_shared<Listener>(m_worker, m_asioConnection);
-    m_eventListener->registerAssetTagChangeCallback();
-    m_eventListener->registerHostStateChangeCallback();
-    m_eventListener->registerPresenceChangeCallback();
+    try
+    {
+        m_eventListener =
+            std::make_shared<Listener>(m_worker, m_asioConnection);
+        m_eventListener->registerAssetTagChangeCallback();
+        m_eventListener->registerHostStateChangeCallback();
+        m_eventListener->registerPresenceChangeCallback();
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage("Failed to initialize event listener. Error: " +
+                             std::string(l_ex.what()));
+    }
 }
 
 void IbmHandler::SetTimerToDetectVpdCollectionStatus()
