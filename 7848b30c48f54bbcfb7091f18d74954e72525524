@@ -34,6 +34,41 @@
       "parentUuid": "79698bfb_980609e5",
       "revId": "7848b30c48f54bbcfb7091f18d74954e72525524",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd93079a_6fe11e2b",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-28T15:25:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0d39559e_9b59f3ea",
+      "revId": "7848b30c48f54bbcfb7091f18d74954e72525524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f3f1566_0ac45639",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-01-28T15:25:38Z",
+      "side": 1,
+      "message": "we can create PelInfoTuple object inplace, we don\u0027t need std::optional declaration here.\n\nsame for below as well.",
+      "revId": "7848b30c48f54bbcfb7091f18d74954e72525524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
