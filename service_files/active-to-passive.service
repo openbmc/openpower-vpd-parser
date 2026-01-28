@@ -1,0 +1,9 @@
+[Unit]
+Description= Active to Passive
+
+[Service]
+ExecStart=/usr/bin/active-to-passive
+
+[Install]
+WantedBy=multi-user.target
+
