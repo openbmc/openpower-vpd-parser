@@ -1,0 +1,11 @@
+[Unit]
+Description= Clear PIM persistent path on Passive BMC
+Requires=obmc-bmc-passive.target
+After=vpd-manager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/wait-vpd-parser --role="passive"
+
+[Install]
+WantedBy=obmc-bmc-passive.target

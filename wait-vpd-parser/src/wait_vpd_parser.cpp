@@ -178,6 +178,35 @@ bool checkAndHandleInventoryBackup()
     return l_rc;
 }
 
+/**
+ * @brief API to delete VPD for all FRUs.
+ *
+ * This API deletes VPD for all FRUs by calling Dbus API
+ * "DeleteAllFRUVPD" exposed by vpd-manager
+ *
+ * @return - On success returns true, otherwise returns false
+ */
+inline int deleteAllFruVpd() noexcept
+{
+    bool l_rc{true};
+    try
+    {
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method =
+            l_bus.new_method_call(BUSNAME, OBJPATH, IFACE, "DeleteAllFRUVPD");
+
+        l_bus.call_noreply(l_method);
+    }
+    catch (const std::exception& l_ex)
+    {
+        auto l_logger = vpd::Logger::getLoggerInstance();
+        l_logger->logMessage("Failed to trigger delete all FRU VPD. Error: " +
+                             std::string(l_ex.what()));
+        l_rc = false;
+    }
+    return l_rc;
+}
+
 int main(int argc, char** argv)
 {
     try
@@ -188,12 +217,27 @@ int main(int argc, char** argv)
         unsigned l_retryLimit{100};
         unsigned l_sleepDurationInSeconds{2};
 
+        // The BMC role can be either active or passive. By default the BMC is
+        // active.
+        std::string l_role{"active"};
+
         l_app.add_option("--retryLimit, -r", l_retryLimit, "Retry limit");
         l_app.add_option("--sleepDurationInSeconds, -s",
                          l_sleepDurationInSeconds,
                          "Sleep duration in seconds between each retry");
+        l_app.add_option("--role, -b", l_role, "BMC role");
 
         CLI11_PARSE(l_app, argc, argv);
+
+        if (l_role == "passive")
+        {
+            return deleteAllFruVpd()
+                       ? !(vpd::dbusUtility::writeDbusProperty(
+                             BUSNAME, OBJPATH,
+                             vpd::constants::vpdCollectionInterface, "Status",
+                             vpd::constants::vpdCollectionCompleted))
+                       : vpd::constants::VALUE_1;
+        }
 
         // check and see if there is any inventory backup data. If it's there
         // restore the data.
