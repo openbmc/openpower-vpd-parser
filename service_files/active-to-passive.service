@@ -1,0 +1,11 @@
+[Unit]
+Description= Clear PIM persistent path on Passive
+
+[Service]
+ExecStart=busctl call service_name object_name interface_name DeleteObject object_path_to_delete
+ExecStart=systemctl restart PIM_service
+ExecStart=busctl set-property service_name object_name interface_name Status "Collected" 
+
+[Install]
+WantedBy=multi-user.target
+
