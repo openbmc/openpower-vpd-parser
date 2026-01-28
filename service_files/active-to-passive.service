@@ -1,0 +1,12 @@
+[Unit]
+Description= Clear PIM persistent path on Passive
+Requires=obmc-bmc-passive.target
+After=vpd-manager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/busctl call com.ibm.VPD.Manager /com/ibm/VPD/Manager com.ibm.VPD.Manager DeleteAllFRUVPD
+ExecStart=/usr/bin/busctl set-property com.ibm.VPD.Manager /com/ibm/VPD/Manager xyz.openbmc_project.Common.Progress Status s "xyz.openbmc_project.Common.Progress.OperationStatus.Completed"
+
+[Install]
+WantedBy=obmc-bmc-passive.target
