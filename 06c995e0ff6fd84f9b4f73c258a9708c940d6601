@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f973d85_8bbe7f5a",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-28T07:50:34Z",
+      "side": 1,
+      "message": "We don\u0027t need to break vpd-manager service in ase bios handler has any issue.\nLets create a local PEL in case of any failure and let vpd-manager continue.",
+      "revId": "06c995e0ff6fd84f9b4f73c258a9708c940d6601",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
