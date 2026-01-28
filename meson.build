@@ -64,11 +64,13 @@ services = ['service_files/vpd-manager.service']
 if get_option('ibm_system').allowed()
     subdir('vpd-tool')
     subdir('wait-vpd-parser')
+    subdir('active-to-passive')
 
 
     services += [
         'service_files/system-vpd.service',
         'service_files/wait-vpd-parsers.service',
+        'service_files/active-to-passive.service',
     ]
 
     package_datadir = join_paths('share', 'vpd')
