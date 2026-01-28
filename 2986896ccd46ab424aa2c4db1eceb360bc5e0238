@@ -16,6 +16,24 @@
       "message": "why this is removed, we can pass l_pel object itself, instead of ref to logMessage API ?\n\nsame for below changes as well, if caller doesn\u0027t has types::PelInfoTuple, they can simply send std::nullopt.",
       "revId": "2986896ccd46ab424aa2c4db1eceb360bc5e0238",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8f6ac4f_82483ccc",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-28T13:29:50Z",
+      "side": 0,
+      "message": "That\u0027s the whole idea behind this change. SO that caller need not explicitly create a structure and send it. Instead just create in place if required else don\u0027t care about that parameter.",
+      "parentUuid": "315fc7c8_7c36df03",
+      "revId": "2986896ccd46ab424aa2c4db1eceb360bc5e0238",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

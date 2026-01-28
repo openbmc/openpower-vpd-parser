@@ -16,6 +16,24 @@
       "message": "is it still this parameter passed decaled as optional (\u003dstd::nullopt), instead should we ask caller to pass std::nullopt if there is no PelInfoTuple ?",
       "revId": "7848b30c48f54bbcfb7091f18d74954e72525524",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d39559e_9b59f3ea",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-28T13:29:50Z",
+      "side": 1,
+      "message": "In that case it will be an overhead for all the logMessage call to pass a nullptr even when just logging a normal message.\nWhereas in this case, only when PEL is required then structure needs to be sent else caller need not care.",
+      "parentUuid": "79698bfb_980609e5",
+      "revId": "7848b30c48f54bbcfb7091f18d74954e72525524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
