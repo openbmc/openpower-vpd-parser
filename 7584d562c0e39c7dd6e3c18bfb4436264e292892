@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80df759b_8c86f389",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1225,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2026-01-29T15:06:55Z",
+      "side": 1,
+      "message": "i don\u0027t believe  ofstream can throw?  but sure I will add a try/catch.",
+      "parentUuid": "963df72c_bf895274",
+      "revId": "7584d562c0e39c7dd6e3c18bfb4436264e292892",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bdc1a996_9b6f1675",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 4
@@ -31,6 +49,30 @@
       "writtenOn": "2026-01-29T14:46:28Z",
       "side": 1,
       "message": "what check is this",
+      "range": {
+        "startLine": 1234,
+        "startChar": 1,
+        "endLine": 1234,
+        "endChar": 2
+      },
+      "revId": "7584d562c0e39c7dd6e3c18bfb4436264e292892",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c349e988_c93a680b",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2026-01-29T15:06:55Z",
+      "side": 1,
+      "message": "Checks if the stream is still good after the write.  Will remove since it doesn\u0027t sound like you think it\u0027s necessary.",
+      "parentUuid": "bdc1a996_9b6f1675",
       "range": {
         "startLine": 1234,
         "startChar": 1,
