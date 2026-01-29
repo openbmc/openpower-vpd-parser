@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63d3d007_8541309b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-29T19:34:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ebab294_7ddf7692",
+      "revId": "06c995e0ff6fd84f9b4f73c258a9708c940d6601",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f973d85_8bbe7f5a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-01-28T07:50:34Z",
       "side": 1,
       "message": "We don\u0027t need to break vpd-manager service in ase bios handler has any issue.\nLets create a local PEL in case of any failure and let vpd-manager continue.",
+      "revId": "06c995e0ff6fd84f9b4f73c258a9708c940d6601",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24441a05_27139c35",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-29T19:34:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f973d85_8bbe7f5a",
       "revId": "06c995e0ff6fd84f9b4f73c258a9708c940d6601",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
