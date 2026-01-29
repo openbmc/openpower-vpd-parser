@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "963df72c_bf895274",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1225,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2026-01-29T14:46:28Z",
+      "side": 1,
+      "message": "we may need to have exception checks here",
+      "revId": "7584d562c0e39c7dd6e3c18bfb4436264e292892",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdc1a996_9b6f1675",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2026-01-29T14:46:28Z",
+      "side": 1,
+      "message": "what check is this",
+      "range": {
+        "startLine": 1234,
+        "startChar": 1,
+        "endLine": 1234,
+        "endChar": 2
+      },
+      "revId": "7584d562c0e39c7dd6e3c18bfb4436264e292892",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
