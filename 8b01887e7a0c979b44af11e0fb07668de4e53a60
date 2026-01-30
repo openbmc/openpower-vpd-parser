@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75997ea3_7cf68f50",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-30T07:24:04Z",
+      "side": 1,
+      "message": "Why do we need this object at this scope? If everything goes well, it will never be used.\n\nInstead we can throw from all the required places and create this once in catch and log there itself?",
+      "revId": "8b01887e7a0c979b44af11e0fb07668de4e53a60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "520505de_2a5507c8",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-30T07:24:04Z",
+      "side": 1,
+      "message": "This variable holds implicit information, if the constructor fails no further processing will be done anyways.",
+      "revId": "8b01887e7a0c979b44af11e0fb07668de4e53a60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fdcd1e2_f8bd2e93",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-30T07:24:04Z",
+      "side": 1,
+      "message": "Don;t catch anything in here? Let the Bios Handler constructor catch that as we don\u0027t want \"checkAndListenPldmService\" to execute if any failure occurs in this function.",
+      "revId": "8b01887e7a0c979b44af11e0fb07668de4e53a60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccbeb406_b69bbad4",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-01-30T07:24:04Z",
+      "side": 1,
+      "message": "This should not be required.",
+      "revId": "8b01887e7a0c979b44af11e0fb07668de4e53a60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
