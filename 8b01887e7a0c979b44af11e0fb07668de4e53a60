@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efc50c81_06d3e745",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-30T11:18:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75997ea3_7cf68f50",
+      "revId": "8b01887e7a0c979b44af11e0fb07668de4e53a60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "520505de_2a5507c8",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-01-30T07:24:04Z",
       "side": 1,
       "message": "This variable holds implicit information, if the constructor fails no further processing will be done anyways.",
+      "revId": "8b01887e7a0c979b44af11e0fb07668de4e53a60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "278391d5_3d700a48",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-30T11:18:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "520505de_2a5507c8",
       "revId": "8b01887e7a0c979b44af11e0fb07668de4e53a60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a5071a6_f89381d8",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-30T11:18:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fdcd1e2_f8bd2e93",
+      "revId": "8b01887e7a0c979b44af11e0fb07668de4e53a60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccbeb406_b69bbad4",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-01-30T07:24:04Z",
       "side": 1,
       "message": "This should not be required.",
+      "revId": "8b01887e7a0c979b44af11e0fb07668de4e53a60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13a2ac98_041ccc40",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-01-30T11:18:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccbeb406_b69bbad4",
       "revId": "8b01887e7a0c979b44af11e0fb07668de4e53a60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
