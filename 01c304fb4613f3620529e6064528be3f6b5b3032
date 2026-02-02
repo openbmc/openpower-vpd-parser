@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f386418_6c623ff1",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-02T04:46:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3b3a202_fb0c70f4",
+      "revId": "01c304fb4613f3620529e6064528be3f6b5b3032",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70fb0cab_d596a596",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-01-23T05:23:42Z",
       "side": 1,
       "message": "what if remove fails, does still this API should fail, or use error_code and log PEL/journal log in case remove fails ?",
+      "revId": "01c304fb4613f3620529e6064528be3f6b5b3032",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9e14453_b8ea730e",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-02T04:46:40Z",
+      "side": 1,
+      "message": "Added journal log incase remove fails",
+      "parentUuid": "70fb0cab_d596a596",
       "revId": "01c304fb4613f3620529e6064528be3f6b5b3032",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
