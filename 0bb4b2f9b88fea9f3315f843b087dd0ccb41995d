@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef45c16f_a5e227d5",
+        "filename": "vpd-manager/include/bios_handler.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-02T05:31:56Z",
+      "side": 1,
+      "message": "Doxygen needs to be updated at all the instances.",
+      "revId": "0bb4b2f9b88fea9f3315f843b087dd0ccb41995d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
