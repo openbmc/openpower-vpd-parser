@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "812d4dc8_6e2ed19c",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-02T05:51:38Z",
+      "side": 1,
+      "message": "Should we throw and exit even for one failure? Or Log whatever failed and continue with as much as possible?\nWe can log a PEL with all that failed?",
+      "revId": "052a827d201598b81f9a337f43d24dafc1278281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "244f8156_7949fb72",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-02T05:51:38Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "revId": "052a827d201598b81f9a337f43d24dafc1278281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7af45f61_bd12fd38",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-02T05:51:38Z",
+      "side": 1,
+      "message": "Should we put these logs to collection file?",
+      "revId": "052a827d201598b81f9a337f43d24dafc1278281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6654decf_5920e729",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-02T05:51:38Z",
+      "side": 1,
+      "message": "Same here, in case of multiple failure we will not pollute the journal?",
+      "revId": "052a827d201598b81f9a337f43d24dafc1278281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
