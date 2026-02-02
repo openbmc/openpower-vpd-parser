@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7b5e267_8ea23f5c",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-02T05:55:02Z",
+      "side": 1,
+      "message": "Let\u0027s move the body as a utility method as vpd-tool is also using a similar functionality, mat be in future we will use the utility there as well.",
+      "revId": "e90e146c331a2fd41802e79c56d5b81e87be967c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
