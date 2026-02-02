@@ -16,6 +16,24 @@
       "message": "These functions are called as a part of attribute name being found in JSON and then again in the function we are looping through the JSON to find the attribute name?\n\nThis solution does not look efficient. Need to re-think on this.",
       "revId": "d2a5cb2780d2e7e81b1b500ca06550fa0805091b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecbec195_27576412",
+        "filename": "vpd-manager/src/bios_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-02T14:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d7e7c97_f9ec9a1f",
+      "revId": "d2a5cb2780d2e7e81b1b500ca06550fa0805091b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
