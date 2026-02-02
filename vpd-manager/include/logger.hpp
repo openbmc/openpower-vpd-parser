@@ -298,16 +298,15 @@ class Logger
      * @param[in] i_message - Message to be logged.
      * @param[in] i_placeHolder - States where the message needs to be logged.
      * Default is journal.
-     * @param[in] i_pelTuple - [Optional] The structure is only required in
-     * case message needs to be logged as PEL.
-     * @param[in] i_location - Location from where message needs to be logged.
+     * @param[in] i_pelTuple - A structure only required in case message needs
+     * to be logged as PEL.
+     * @param[in] i_location - Locatuon from where message needs to be logged.
      */
-    void logMessage(
-        std::string_view i_message,
-        const PlaceHolder& i_placeHolder = PlaceHolder::DEFAULT,
-        std::optional<const types::PelInfoTuple> i_pelTuple = std::nullopt,
-        const std::source_location& i_location =
-            std::source_location::current()) noexcept;
+    void logMessage(std::string_view i_message,
+                    const PlaceHolder& i_placeHolder = PlaceHolder::DEFAULT,
+                    const types::PelInfoTuple* i_pelTuple = nullptr,
+                    const std::source_location& i_location =
+                        std::source_location::current()) noexcept;
 
 #ifdef ENABLE_FILE_LOGGING
     /**
