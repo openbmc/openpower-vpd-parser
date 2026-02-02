@@ -16,6 +16,24 @@
       "message": "This change seems to be unrelated to this patch?",
       "revId": "8392fdf74480aa53331ba98926314a51213eec49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e18fa610_ef45cc97",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-02-02T09:19:36Z",
+      "side": 0,
+      "message": "variable is consumed by other API also at line no : 24, so moved it to broader scope.",
+      "parentUuid": "b0a65f5e_ac296271",
+      "revId": "8392fdf74480aa53331ba98926314a51213eec49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
