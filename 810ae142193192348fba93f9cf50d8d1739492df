@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cba6553d_4ec683d0",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-03T09:21:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d553d3ea_31e52cfc",
+      "revId": "810ae142193192348fba93f9cf50d8d1739492df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f21d318f_4da321b6",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-02-03T06:04:08Z",
       "side": 1,
       "message": "is this is generic ?\nbcz container data type should implement string() api ?",
+      "revId": "810ae142193192348fba93f9cf50d8d1739492df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "607e5bc9_54d7fb63",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-03T09:21:43Z",
+      "side": 1,
+      "message": "Made the API more generic. We can revisit if it needs to be made even more generic.",
+      "parentUuid": "f21d318f_4da321b6",
       "revId": "810ae142193192348fba93f9cf50d8d1739492df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc623f77_6c45d3b3",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-03T09:21:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1fc0932_04c64012",
+      "revId": "810ae142193192348fba93f9cf50d8d1739492df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "613b62ce_cfecdf5e",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8780bbf_1902759e",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-03T09:21:43Z",
+      "side": 1,
+      "message": "Its a compile time variable just to make the code more readable.",
+      "parentUuid": "613b62ce_cfecdf5e",
+      "revId": "810ae142193192348fba93f9cf50d8d1739492df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9806ec31_b2f87305",
@@ -82,6 +154,24 @@
       "writtenOn": "2026-02-03T06:04:08Z",
       "side": 1,
       "message": "do we need this case, instead we can modify else condition ?",
+      "revId": "810ae142193192348fba93f9cf50d8d1739492df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72020e91_0305656e",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-03T09:21:43Z",
+      "side": 1,
+      "message": "Didn\u0027t catch you. First we are checking if there is any error code set, and then we are checking the type of error.",
+      "parentUuid": "9806ec31_b2f87305",
       "revId": "810ae142193192348fba93f9cf50d8d1739492df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
