@@ -16,6 +16,24 @@
       "message": "Has a member pointing to logger class. Can we use that?\nApplicable for other instances as well.",
       "revId": "aadabf1843fb9ea2f3556464b9ba7446129ce10c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f233ac9a_8299a9e2",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-02-03T07:25:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "24ab3ba8_7605de56",
+      "revId": "aadabf1843fb9ea2f3556464b9ba7446129ce10c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
