@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24ab3ba8_7605de56",
+        "filename": "vpd-manager/src/backup_restore.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-03T06:49:11Z",
+      "side": 1,
+      "message": "Has a member pointing to logger class. Can we use that?\nApplicable for other instances as well.",
+      "revId": "aadabf1843fb9ea2f3556464b9ba7446129ce10c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
