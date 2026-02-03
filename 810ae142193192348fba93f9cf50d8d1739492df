@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d553d3ea_31e52cfc",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-03T06:04:08Z",
+      "side": 1,
+      "message": "variable name is different",
+      "revId": "810ae142193192348fba93f9cf50d8d1739492df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f21d318f_4da321b6",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-03T06:04:08Z",
+      "side": 1,
+      "message": "is this is generic ?\nbcz container data type should implement string() api ?",
+      "revId": "810ae142193192348fba93f9cf50d8d1739492df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1fc0932_04c64012",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-03T06:04:08Z",
+      "side": 1,
+      "message": "do we need this ? for loop will take care of this ?",
+      "revId": "810ae142193192348fba93f9cf50d8d1739492df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "613b62ce_cfecdf5e",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-03T06:04:08Z",
+      "side": 1,
+      "message": "do we need this variable, we can directly use instead.?",
+      "revId": "810ae142193192348fba93f9cf50d8d1739492df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9806ec31_b2f87305",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-03T06:04:08Z",
+      "side": 1,
+      "message": "do we need this case, instead we can modify else condition ?",
+      "revId": "810ae142193192348fba93f9cf50d8d1739492df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
