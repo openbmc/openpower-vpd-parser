@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69437a9d_a1565280",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-03T06:26:33Z",
+      "side": 1,
+      "message": "we should retune from here ?",
+      "revId": "9061f1a131eafb25ee68d12d77602adc51f74c7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31fbf3d2_99676593",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-03T06:26:33Z",
+      "side": 1,
+      "message": "why we resetting actual error code returned from restartService() ?",
+      "revId": "9061f1a131eafb25ee68d12d77602adc51f74c7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b432a9d9_16987c17",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-03T06:26:33Z",
+      "side": 1,
+      "message": "why we need to check this, if l_errCode is SERVICE_RUNNING still restarting the service has been failed .",
+      "revId": "9061f1a131eafb25ee68d12d77602adc51f74c7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
