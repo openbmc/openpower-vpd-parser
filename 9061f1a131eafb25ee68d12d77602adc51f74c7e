@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b43b640b_dff43468",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-03T06:58:47Z",
+      "side": 1,
+      "message": "Addressed in patchset 19.",
+      "parentUuid": "69437a9d_a1565280",
+      "revId": "9061f1a131eafb25ee68d12d77602adc51f74c7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31fbf3d2_99676593",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f06bbff_9ad31637",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-03T06:58:47Z",
+      "side": 1,
+      "message": "Error code returned by `restartService` utility API is logged in 212.\n\nIf `restartService` has failed, we check if the inventory manager service is running and indicate the same information to the caller of `restartService()`",
+      "parentUuid": "31fbf3d2_99676593",
+      "revId": "9061f1a131eafb25ee68d12d77602adc51f74c7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b432a9d9_16987c17",
         "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
         "patchSetId": 18
@@ -48,6 +84,24 @@
       "writtenOn": "2026-02-03T06:26:33Z",
       "side": 1,
       "message": "why we need to check this, if l_errCode is SERVICE_RUNNING still restarting the service has been failed .",
+      "revId": "9061f1a131eafb25ee68d12d77602adc51f74c7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12283c13_b2808b92",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-03T06:58:47Z",
+      "side": 1,
+      "message": "If `l_errCode` is `SERVICE_RUNNING`, it implies re-starting the inventory manager service has failed, but the inventory manager service is running and has \"stale\" data, so we need to trigger FRU VPD collection.\n\nIf `l_errCode` is `SERVICE_NOT_RUNNING`, it implies inventory manager service is not running and it is a critical scenario, so we want to fail `wait-vpd-parsers.service`",
+      "parentUuid": "b432a9d9_16987c17",
       "revId": "9061f1a131eafb25ee68d12d77602adc51f74c7e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
