@@ -243,8 +243,7 @@ static constexpr auto power_vs_50001_json =
 
 static constexpr auto rbmcPositionInterface =
     "xyz.openbmc_project.Inventory.Decorator.Position";
-static std::vector<uint8_t> rbmcPrototypeSystemImValue{
-    55, 54, 48, 48, 50, 48, 48, 48};
+static std::vector<uint8_t> rbmcPrototypeSystemImValue{118, 0, 32, 0};
 
 static constexpr auto fileModeDirectoryPath = "/var/lib/vpd/file";
 static constexpr auto pimBackupPath =
