@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42ee59b9_74e02b49",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-02-04T06:56:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e41b023f_24b62e14",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 7
+      },
+      "revId": "f46ba532a7734f2c3ca587064d5f3ca235496d04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abc31b85_ad615d83",
@@ -88,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "144268b2_5fe7efab",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-02-04T06:56:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b79c060_36bd563a",
+      "revId": "f46ba532a7734f2c3ca587064d5f3ca235496d04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fea5898c_f4faef78",
@@ -101,6 +143,24 @@
       "writtenOn": "2026-02-04T05:51:45Z",
       "side": 1,
       "message": "Please remove TODO when the TODO has been implemented.",
+      "revId": "f46ba532a7734f2c3ca587064d5f3ca235496d04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4372ed85_7feb5463",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-02-04T06:56:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fea5898c_f4faef78",
       "revId": "f46ba532a7734f2c3ca587064d5f3ca235496d04",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
