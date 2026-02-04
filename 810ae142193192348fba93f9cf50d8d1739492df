@@ -174,6 +174,24 @@
       "parentUuid": "9806ec31_b2f87305",
       "revId": "810ae142193192348fba93f9cf50d8d1739492df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5735d2a_b795a381",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-04T04:17:08Z",
+      "side": 1,
+      "message": "we can remove this if condition, instead of else at line 248 we can add else if(l_ec) which can handles the all other error_codes.\nso we can reduce this nested if.",
+      "parentUuid": "72020e91_0305656e",
+      "revId": "810ae142193192348fba93f9cf50d8d1739492df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
