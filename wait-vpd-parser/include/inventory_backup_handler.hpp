@@ -2,8 +2,10 @@
 
 #include "constants.hpp"
 #include "logger.hpp"
+#include "utility/common_utility.hpp"
 
 #include <filesystem>
+#include <mutex>
 
 /**
  * @brief Class to handle backup inventory data.
@@ -98,6 +100,40 @@ class InventoryBackupHandler
                    const std::filesystem::path& l_dest,
                    uint16_t& o_errCode) const noexcept;
 
+    // Structure to hold result of path restoration
+    struct RestoreResult
+    {
+        // file path
+        std::filesystem::path path;
+
+        // flag which indicates restoration success
+        bool success;
+
+        // error code encountered during restoration
+        uint16_t errCode;
+
+        // any additional error message (for eg. exception reason)
+        std::string errMessage;
+
+        // API to convert result to string
+        std::string toString() const
+        {
+            return std::format(
+                "Path: {}, Error code: {}, Error message: {}", path.string(),
+                vpd::commonUtility::getErrCodeMsg(errCode), errMessage);
+        }
+    };
+
+    /**
+     * @brief API to restore inventory data of a single chassis
+     *
+     * This API restores inventory data of a single chassis by moving the data
+     * from inventory backup path to primary path
+     */
+    RestoreResult restoreSingleChassis(
+        const std::filesystem::path& l_src,
+        const std::filesystem::path& l_dest) const noexcept;
+
     /* Members */
     // inventory manager service name
     std::string m_inventoryManagerServiceName;
@@ -110,4 +146,7 @@ class InventoryBackupHandler
 
     // logger instance
     std::shared_ptr<vpd::Logger> m_logger{nullptr};
+
+    // mutex for logger instance (mutable for const methods)
+    mutable std::mutex m_loggerMutex;
 };

@@ -4,6 +4,8 @@
 #include "utility/common_utility.hpp"
 #include "utility/dbus_utility.hpp"
 
+#include <future>
+
 bool InventoryBackupHandler::checkInventoryBackupPath(
     uint16_t& o_errCode) const noexcept
 {
@@ -78,31 +80,48 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             auto l_backupDirIt = std::filesystem::directory_iterator{
                 l_systemInventoryBackupPath};
 
-            // vector to hold a list of sub directories under /system for which
+            // Launch async operations for each chassis
+            constexpr auto l_numChassis{12}; // typical chassis count
+            std::vector<std::future<RestoreResult>> l_restoreFutures;
+            l_restoreFutures.reserve(
+                l_numChassis); // to optimize vector memory allocation
+
+            std::for_each(
+                std::filesystem::begin(l_backupDirIt),
+                std::filesystem::end(l_backupDirIt),
+                [this,
+                 l_systemInventoryPrimaryPath =
+                     std::as_const(l_systemInventoryPrimaryPath),
+                 &l_restoreFutures](const auto& l_entry) {
+                    if (l_entry.is_directory())
+                    {
+                        const auto l_srcPath = l_entry.path();
+                        const auto l_destPath = l_systemInventoryPrimaryPath /
+                                                l_entry.path().filename();
+
+                        l_restoreFutures.push_back(std::async(
+                            std::launch::async,
+                            &InventoryBackupHandler::restoreSingleChassis, this,
+                            l_srcPath, l_destPath));
+                    }
+                });
+
+            // vector to hold a list of failed paths under /system for which
             // restoration failed
-            using FailedPathList = std::vector<std::filesystem::path>;
+            using FailedPathList = std::vector<RestoreResult>;
             FailedPathList l_failedPaths;
 
-            std::for_each(std::filesystem::begin(l_backupDirIt),
-                          std::filesystem::end(l_backupDirIt),
-                          [this,
-                           l_systemInventoryPrimaryPath =
-                               std::as_const(l_systemInventoryPrimaryPath),
-                           &l_failedPaths](const auto& l_entry) {
-                              if (l_entry.is_directory())
-                              {
-                                  uint16_t l_errCode{vpd::constants::VALUE_0};
+            // collect results from all async operations
+            for (auto& l_restoreFuture : l_restoreFutures)
+            {
+                // wait for completion and get result
+                const RestoreResult l_result = l_restoreFuture.get();
 
-                                  if (!moveFiles(l_entry.path(),
-                                                 l_systemInventoryPrimaryPath /
-                                                     l_entry.path().filename(),
-                                                 l_errCode))
-                                  {
-                                      l_failedPaths.emplace_back(
-                                          l_entry.path().filename());
-                                  }
-                              }
-                          });
+                if (!l_result.success)
+                {
+                    l_failedPaths.push_back(l_result);
+                }
+            }
 
             // check if there are any paths for which restoration failed, if yes
             // log a PEL
@@ -114,7 +133,7 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
                 for (const auto& l_path : l_failedPaths)
                 {
                     l_formattedFailedPaths +=
-                        std::format("[{}],", l_path.string());
+                        std::format("[{}],", l_path.toString());
                 }
 
                 m_logger->logMessage(
@@ -126,6 +145,7 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
                         l_formattedFailedPaths, std::nullopt, std::nullopt,
                         std::nullopt});
             }
+
             // We have logged a PEL for the paths(chassis) which we have failed
             // to move. Consider restoration is successful even if have failed
             // to move some of the paths (chassis) under /system, so that
@@ -259,6 +279,8 @@ bool InventoryBackupHandler::moveFiles(const std::filesystem::path& l_src,
             if (static_cast<std::uintmax_t>(-1) ==
                 std::filesystem::remove_all(l_src, l_ec))
             {
+                // thread safe logging
+                std::lock_guard<std::mutex> l_lock{m_loggerMutex};
                 m_logger->logMessage(
                     "Failed to remove file [" + l_src.string() +
                         "]. Error: " + l_ec.message(),
@@ -276,6 +298,8 @@ bool InventoryBackupHandler::moveFiles(const std::filesystem::path& l_src,
     }
     catch (const std::exception& l_ex)
     {
+        // thread safe logging
+        std::lock_guard<std::mutex> l_lock{m_loggerMutex};
         m_logger->logMessage(
             "Failed to move files from [" + l_src.string() + "] to [" +
                 l_dest.string() + "]. Error: " + l_ex.what(),
@@ -285,4 +309,36 @@ bool InventoryBackupHandler::moveFiles(const std::filesystem::path& l_src,
     }
 
     return l_rc;
+}
+
+InventoryBackupHandler::RestoreResult
+    InventoryBackupHandler::restoreSingleChassis(
+        const std::filesystem::path& l_src,
+        const std::filesystem::path& l_dest) const noexcept
+{
+    RestoreResult l_result{.path = l_src.filename(),
+                           .success = false,
+                           .errCode = vpd::constants::VALUE_0,
+                           .errMessage = ""};
+
+    try
+    {
+        uint16_t l_errCode{vpd::constants::VALUE_0};
+
+        if (moveFiles(l_src, l_dest, l_errCode))
+        {
+            l_result.success = true;
+        }
+        else
+        {
+            l_result.errCode = l_errCode;
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        l_result.errMessage = std::format("Failed to restore {}. Error: {}",
+                                          l_src.string(), l_ex.what());
+    }
+
+    return l_result;
 }
