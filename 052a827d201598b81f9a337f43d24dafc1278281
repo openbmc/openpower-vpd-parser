@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7e0593d_1e788ec0",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-04T06:09:20Z",
+      "side": 1,
+      "message": "As discussed, removed unused variable. Not sure why this wasn\u0027t flagged by compiler.",
+      "parentUuid": "c8d8a7ce_aff6e98e",
+      "revId": "052a827d201598b81f9a337f43d24dafc1278281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7af45f61_bd12fd38",
