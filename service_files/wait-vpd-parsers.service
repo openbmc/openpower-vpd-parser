@@ -5,7 +5,7 @@
 Description=Wait for VPD Collection Services to complete
 Wants=vpd-manager.service
 After=vpd-manager.service
-#After=set-spi-mux.service
+After=set-spi-mux.service
 
 [Service]
 ExecStart=/usr/bin/wait-vpd-parser
