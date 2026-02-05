@@ -1282,7 +1282,7 @@ void IbmHandler::checkAndUpdateBmcPosition(size_t& o_bmcPosition) const noexcept
 
     uint16_t l_errCode = 0;
     std::string l_motherboardEepromPath = jsonUtility::getFruPathFromJson(
-        m_sysCfgJsonObj, constants::systemVpdInvPath, l_errCode);
+        m_sysCfgJsonObj, constants::rainierPlanarInvPath, l_errCode);
 
     if (!l_motherboardEepromPath.empty())
     {
