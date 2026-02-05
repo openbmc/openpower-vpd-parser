@@ -120,6 +120,7 @@ static constexpr auto HEX_VALUE_10 = 0x10;
 static constexpr auto HEX_VALUE_00 = 0x00;
 
 constexpr auto systemInvPath = "/xyz/openbmc_project/inventory/system";
+constexpr auto rainierPlanarInvPath = "/xyz/openbmc_project/inventory/system/chassis/motherboard";
 constexpr auto pimPath = "/xyz/openbmc_project/inventory";
 constexpr auto pimIntf = "xyz.openbmc_project.Inventory.Manager";
 constexpr auto ipzVpdInf = "com.ibm.ipzvpd.";
