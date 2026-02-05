@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8824bfd6_530f4647",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-05T09:06:54Z",
+      "side": 1,
+      "message": "Commit message should indicate why this change is needed.",
+      "revId": "ab0c9024706b01e6e15cc0cf2a16b8ee152c1443",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68c74c2d_778a5de8",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-05T09:06:54Z",
+      "side": 1,
+      "message": "nit : \"if the VPD on given EEPROM and redundant EEPROM are the same\"",
+      "revId": "ab0c9024706b01e6e15cc0cf2a16b8ee152c1443",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
