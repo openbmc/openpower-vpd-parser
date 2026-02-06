@@ -1,0 +1,29 @@
+{
+    "biosRecordKwMap": [
+        {
+            "biosAttributeName": "hb_field_core_override",
+            "record": "VSYS",
+            "keyword": "RG"
+        },
+        {
+            "biosAttributeName": "hb_memory_mirror_mode",
+            "record": "UTIL",
+            "keyword": "D0"
+        },
+        {
+            "biosAttributeName": "pvm_clear_nvram",
+            "record": "UTIL",
+            "keyword": "D1"
+        },
+        {
+            "biosAttributeName": "pvm_keep_and_clear",
+            "record": "UTIL",
+            "keyword": "D1"
+        },
+        {
+            "biosAttributeName": "pvm_create_default_lpar",
+            "record": "UTIL",
+            "keyword": "F0"
+        }
+    ]
+}

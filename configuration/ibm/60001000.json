@@ -1,5 +1,6 @@
 {
     "devTree": "conf-aspeed-bmc-ibm-blueridge-4u-p1.dtb",
+    "biosHandlerJsonPath": "/usr/share/vpd/bios_map_50001001.json",
     "backupRestoreConfigPath": "/usr/share/vpd/backup_restore_50001000.json",
     "commonInterfaces": {
         "xyz.openbmc_project.Inventory.Decorator.Asset": {
