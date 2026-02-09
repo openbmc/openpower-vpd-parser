@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce945872_b2add04a",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-09T09:17:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc2af217_7959f382",
+      "revId": "eee8ef1689ae53ec2904520e7c901a060ab099f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f13b5642_cddb4b67",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-02-09T09:00:20Z",
       "side": 1,
       "message": "Why do we need to carry this extra parameter when it is not being used in the caller?",
+      "revId": "eee8ef1689ae53ec2904520e7c901a060ab099f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93cbb69f_5ac3b1fa",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-09T09:17:27Z",
+      "side": 1,
+      "message": "Agreed. Removed the unused error code parameter.",
+      "parentUuid": "f13b5642_cddb4b67",
       "revId": "eee8ef1689ae53ec2904520e7c901a060ab099f0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
