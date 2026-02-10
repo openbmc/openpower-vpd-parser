@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27822488_03b4135f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-10T15:28:05Z",
+      "side": 1,
+      "message": "\u003eVPD Manager must be able to compare...\n\nVPD Manager is not comparing the EEPROMs right? It\u0027s exposing an API to allow other services to do the comparison.",
+      "revId": "39bdab35e963f5613ba2ec03eacc5ce67056689a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17052f60_cb45a449",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-10T15:28:05Z",
+      "side": 1,
+      "message": "\"Checks whether the **VPD** on the primary and corresponding redundant EEPROMs are identical\" ?",
+      "revId": "39bdab35e963f5613ba2ec03eacc5ce67056689a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
