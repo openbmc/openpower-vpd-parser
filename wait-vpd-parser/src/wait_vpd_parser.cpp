@@ -46,7 +46,7 @@ int checkVpdCollectionStatus(const unsigned i_retryLimit,
                 std::chrono::seconds(i_sleepDurationInSeconds));
 
             const auto l_propValue = vpd::dbusUtility::readDbusProperty(
-                IFACE, OBJPATH, vpd::constants::vpdCollectionInterface,
+                BUSNAME, OBJPATH, vpd::constants::vpdCollectionInterface,
                 "Status");
 
             if (auto l_val = std::get_if<std::string>(&l_propValue))
@@ -90,7 +90,7 @@ inline bool collectAllFruVpd() noexcept
     {
         auto l_bus = sdbusplus::bus::new_default();
         auto l_method =
-            l_bus.new_method_call(IFACE, OBJPATH, IFACE, "CollectAllFRUVPD");
+            l_bus.new_method_call(BUSNAME, OBJPATH, IFACE, "CollectAllFRUVPD");
 
         l_bus.call_noreply(l_method);
     }
