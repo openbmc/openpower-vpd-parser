@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46328008_86b086bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-11T06:35:04Z",
+      "side": 1,
+      "message": "updated the commit message",
+      "parentUuid": "27822488_03b4135f",
+      "revId": "39bdab35e963f5613ba2ec03eacc5ce67056689a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7ee1f02_566690a9",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa87621c_d47b6397",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-11T06:35:04Z",
+      "side": 1,
+      "message": "Method returns true if VPD of primary and redundant EEPROMs are same, false otherwise.\nReason for failure will be logged in a information PEL.",
+      "parentUuid": "c7ee1f02_566690a9",
+      "revId": "39bdab35e963f5613ba2ec03eacc5ce67056689a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17052f60_cb45a449",
         "filename": "vpd-manager/include/manager.hpp",
         "patchSetId": 3
@@ -48,6 +84,24 @@
       "writtenOn": "2026-02-10T15:28:05Z",
       "side": 1,
       "message": "\"Checks whether the **VPD** on the primary and corresponding redundant EEPROMs are identical\" ?",
+      "revId": "39bdab35e963f5613ba2ec03eacc5ce67056689a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a7a6d8b_37857644",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-11T06:35:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17052f60_cb45a449",
       "revId": "39bdab35e963f5613ba2ec03eacc5ce67056689a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
