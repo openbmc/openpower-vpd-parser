@@ -118,6 +118,22 @@ class Parser
     int updateVpdKeywordOnHardware(
         const types::WriteVpdParams& i_paramsToWriteData);
 
+    /**
+     * @brief Wrapper API that invokes the concrete compareData implementation
+     *        based on the VPD type.
+     *
+     * This API creates a ParserInterface instance and calls compareData API of
+     * respective concrete parser.
+     *
+     * @param[in] i_redundantEepromPath - Redundant EEPROM path.
+     *
+     * @return The comparison result returned by the concrete parser
+     *         implementation.
+     *
+     * @throw std::runtime_error.
+     */
+    bool compareData(const std::string& i_redundantEepromPath);
+
   private:
     /**
      * @brief Update keyword value on redundant path.

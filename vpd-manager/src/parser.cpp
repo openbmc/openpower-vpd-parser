@@ -1,6 +1,8 @@
 #include "parser.hpp"
 
 #include "constants.hpp"
+#include "ipz_parser.hpp"
+#include "keyword_vpd_parser.hpp"
 
 #include <utility/dbus_utility.hpp>
 #include <utility/event_logger_utility.hpp>
@@ -416,6 +418,30 @@ int Parser::updateVpdKeywordOnHardware(
     }
 
     return l_bytesUpdatedOnHardware;
+}
+
+bool Parser::compareData(const std::string& i_redundantEepromPath)
+{
+    if (i_redundantEepromPath.empty())
+    {
+        throw std::runtime_error("Empty redundant path received");
+    }
+
+    std::shared_ptr<vpd::ParserInterface> l_primaryParser =
+        this->getVpdParserInstance();
+
+    Parser l_parserForRedundant(i_redundantEepromPath, m_parsedJson,
+                                m_vpdCollectionMode);
+
+    std::shared_ptr<vpd::ParserInterface> l_redundantParser =
+        l_parserForRedundant.getVpdParserInstance();
+
+    if (typeid(*l_primaryParser.get()) == typeid(IpzVpdParser))
+    {
+        return l_primaryParser->compareData(l_redundantParser);
+    }
+    //@todo handle for other VPD types
+    return false;
 }
 
 } // namespace vpd
