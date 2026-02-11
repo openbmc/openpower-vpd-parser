@@ -876,4 +876,30 @@ bool IpzVpdParser::processInvalidRecords(
     }
     return l_rc;
 }
+
+bool IpzVpdParser::compareData(
+    const std::shared_ptr<vpd::ParserInterface>& i_redundantParser) noexcept
+{
+    try
+    {
+        if (!i_redundantParser)
+        {
+            throw std::runtime_error(
+                "Invalid redundant parser instance received.");
+        }
+        types::VPDMapVariant l_primaryParsedVpd = this->parse();
+
+        types::VPDMapVariant l_redundantParsedVpd =
+            i_redundantParser.get()->parse();
+
+        // @todo compare l_primaryParsedVpd and l_redundantParsedVpd VPDs,
+        // return value based on the compare.
+    }
+    catch (const std::exception& l_ex)
+    {
+        // @todo log a informational PEL
+    }
+
+    return false;
+}
 } // namespace vpd
