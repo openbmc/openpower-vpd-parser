@@ -52,6 +52,23 @@
       "parentUuid": "42627df2_59fd8ccb",
       "revId": "5e32c6cb7cabe88580a63bc56d7512942622910b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f9a5815_7d62928c",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-11T14:59:56Z",
+      "side": 1,
+      "message": "Though a nit pick but in case the retries are failing for different reason in each retry, then in this case code will just end up logging the last known reason.",
+      "revId": "5e32c6cb7cabe88580a63bc56d7512942622910b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
