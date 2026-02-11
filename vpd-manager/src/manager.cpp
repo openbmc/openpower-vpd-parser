@@ -829,8 +829,43 @@ bool Manager::validateRedundantEeprom(
                     commonUtility::getErrCodeMsg(l_errCode));
             }
 
-            // @todo add l_mismatchedVpd/l_missingRecords/l_missingKeywords
-            // information to PEL.
+            if (!l_missingRecords.empty() || !l_missingKeywords.empty())
+            {
+                std::string l_error{"Failed to compare VPD due to: "};
+                l_error +=
+                    (!l_missingRecords.empty()
+                         ? ("Missing Record(s): [" + l_missingRecords + "] ")
+                         : "");
+                l_error +=
+                    (!l_missingKeywords.empty()
+                         ? (" Missing Keyword(s): [" + l_missingKeywords + "] ")
+                         : "");
+
+                throw std::runtime_error(l_error);
+            }
+
+            if (std::holds_alternative<types::RecordKeywordsMap>(
+                    l_mismatchedVpd))
+            {
+                std::string l_mismatchedRecordKws{
+                    "Mismatched record and keyword details: ["};
+                for (const auto& l_recordKw :
+                     std::get<types::RecordKeywordsMap>(l_mismatchedVpd))
+                {
+                    const auto l_keywords =
+                        l_recordKw.second |
+                        std::views::join_with(std::string(", "));
+
+                    l_mismatchedRecordKws +=
+                        "{" + l_recordKw.first + ":[" +
+                        std::string(l_keywords.begin(), l_keywords.end()) +
+                        "]}, ";
+                }
+
+                l_mismatchedRecordKws += "]";
+                throw std::runtime_error(l_mismatchedRecordKws);
+            }
+            // @todo handle mismatched information for other VPD types.
         }
     }
     catch (const std::exception& l_ex)

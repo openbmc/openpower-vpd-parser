@@ -1580,25 +1580,74 @@ inline void resetObjTreeVpd(const std::string& i_vpdPath,
  *
  * @return true if both VPD maps are identical, false otherwise.
  */
-inline bool compareVpdMaps(
-    [[maybe_unused]] const types::VPDMapVariant& i_primaryParsedVpd,
-    [[maybe_unused]] const types::VPDMapVariant& i_redundantParsedVpd,
-    [[maybe_unused]] types::MismatchedVpdVariant& o_mismatchedVpd,
-    [[maybe_unused]] std::string& o_missingRecords,
-    [[maybe_unused]] std::string& o_missingKeywords, uint16_t& o_errCode)
+inline bool compareVpdMaps(const types::VPDMapVariant& i_primaryParsedVpd,
+                           const types::VPDMapVariant& i_redundantParsedVpd,
+                           types::MismatchedVpdVariant& o_mismatchedVpd,
+                           std::string& o_missingRecords,
+                           std::string& o_missingKeywords, uint16_t& o_errCode)
 {
     bool l_rc{true};
-    o_errCode = 0;
 
-    /**
-     * @todo Implement validation to ensure that the primary EEPROM and its
-     *       redundant copy contain identical VPD.
-     *
-     * Steps to implement:
-     * 1. Compare the provided VPD maps.
-     * 2. If any mismatches are found, record the details.
-     */
+    if (std::holds_alternative<types::IPZVpdMap>(i_primaryParsedVpd) &&
+        std::holds_alternative<types::IPZVpdMap>(i_redundantParsedVpd))
+    {
+        std::string l_missingRecords;
+        std::string l_missingKeywords;
+        types::RecordKeywordsMap l_mismatchedRecordKwMap;
 
+        const auto l_primaryIpzVpdMap =
+            std::get<types::IPZVpdMap>(i_primaryParsedVpd);
+        const auto l_redundantIpzVpdMap =
+            std::get<types::IPZVpdMap>(i_redundantParsedVpd);
+
+        for (const auto& l_aRecordEntry : l_primaryIpzVpdMap)
+        {
+            const std::string l_recordName = l_aRecordEntry.first;
+
+            auto l_itrToRedundantRecord =
+                l_redundantIpzVpdMap.find(l_recordName);
+
+            if (l_itrToRedundantRecord == l_redundantIpzVpdMap.end())
+            {
+                l_rc = false;
+                o_missingRecords += l_recordName + ", ";
+                continue;
+            }
+
+            for (const auto& l_aKeywordEntry : l_aRecordEntry.second)
+            {
+                const std::string& l_keywordName = l_aKeywordEntry.first;
+                const std::string& l_keywordValue = l_aKeywordEntry.second;
+
+                uint16_t l_errCode;
+                const auto l_redundantKwdValue = getKwVal(
+                    l_itrToRedundantRecord->second, l_keywordName, l_errCode);
+
+                if (l_errCode == error_code::KEYWORD_NOT_FOUND)
+                {
+                    l_rc = false;
+                    o_missingKeywords += l_keywordName + ", ";
+                }
+                else if (l_redundantKwdValue != l_keywordValue)
+                {
+                    l_rc = false;
+                    l_mismatchedRecordKwMap[l_recordName].push_back(
+                        l_keywordName);
+                }
+            }
+        }
+
+        if (!l_mismatchedRecordKwMap.empty())
+        {
+            o_mismatchedVpd = l_mismatchedRecordKwMap;
+        }
+    }
+    else
+    {
+        l_rc = false;
+        o_errCode = error_code::UNSUPPORTED_VPD_TYPE;
+        //@todo add implementation for other VPD types
+    }
     return l_rc;
 }
 } // namespace vpdSpecificUtility
