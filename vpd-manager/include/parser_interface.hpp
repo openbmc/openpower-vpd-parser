@@ -62,6 +62,27 @@ class ParserInterface
     }
 
     /**
+     * @brief Compares the parsed VPD data in this instance with that of
+     *        the provided redundant VPD parser.
+     *
+     * This virtual method is created to achieve runtime polymorphism for
+     * comparing VPDs of different types. This virtual method can be
+     * redefined at derived classess to implement VPD comparion according to the
+     * type of VPD.
+     *
+     * @param[in] i_redundantParser - Shared pointer to redundant parser
+     * instance.
+     *
+     * @return true if all corresponding VPD fields match; false otherwise.
+     */
+    virtual bool compareData(
+        [[maybe_unused]] const std::shared_ptr<vpd::ParserInterface>&
+            i_redundantParser) noexcept
+    {
+        return false;
+    }
+
+    /**
      * @brief Virtual destructor.
      */
     virtual ~ParserInterface() {}
