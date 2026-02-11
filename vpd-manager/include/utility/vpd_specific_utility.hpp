@@ -785,41 +785,48 @@ inline bool isPass1Planar(uint16_t& o_errCode) noexcept
         constants::viniInf, constants::kwdHW);
 
     auto l_hwVer = std::get_if<types::BinaryVector>(&l_retVal);
+    if (l_hwVer == nullptr)
+    {
+        o_errCode = error_code::INVALID_VALUE_READ_FROM_DBUS;
+        return l_rc;
+    }
 
     l_retVal = dbusUtility::readDbusProperty(
-        constants::pimServiceName, constants::systemInvPath, constants::vsbpInf,
-        constants::kwdIM);
+        constants::pimServiceName, constants::systemVpdInvPath,
+        constants::vsbpInf, constants::kwdIM);
 
     auto l_imValue = std::get_if<types::BinaryVector>(&l_retVal);
-
-    if (l_hwVer && l_imValue)
+    if (l_imValue == nullptr)
     {
-        if (l_hwVer->size() != constants::VALUE_2)
-        {
-            o_errCode = error_code::INVALID_KEYWORD_LENGTH;
-            return l_rc;
-        }
+        o_errCode = error_code::INVALID_VALUE_READ_FROM_DBUS;
+        return l_rc;
+    }
 
-        if (l_imValue->size() != constants::VALUE_4)
-        {
-            o_errCode = error_code::INVALID_KEYWORD_LENGTH;
-            return l_rc;
-        }
+    if (l_hwVer->size() != constants::VALUE_2)
+    {
+        o_errCode = error_code::INVALID_KEYWORD_LENGTH;
+        return l_rc;
+    }
 
-        const types::BinaryVector l_everest{80, 00, 48, 00};
-        const types::BinaryVector l_fuji{96, 00, 32, 00};
+    if (l_imValue->size() != constants::VALUE_4)
+    {
+        o_errCode = error_code::INVALID_KEYWORD_LENGTH;
+        return l_rc;
+    }
 
-        if (((*l_imValue) == l_everest) || ((*l_imValue) == l_fuji))
-        {
-            if ((*l_hwVer).at(1) < constants::VALUE_21)
-            {
-                l_rc = true;
-            }
-        }
-        else if ((*l_hwVer).at(1) < constants::VALUE_2)
+    const types::BinaryVector l_everest{80, 00, 48, 00};
+    const types::BinaryVector l_fuji{96, 00, 32, 00};
+
+    if (((*l_imValue) == l_everest) || ((*l_imValue) == l_fuji))
+    {
+        if ((*l_hwVer).at(1) < constants::VALUE_21)
         {
             l_rc = true;
         }
+    }
+    else if ((*l_hwVer).at(1) < constants::VALUE_2)
+    {
+        l_rc = true;
     }
 
     return l_rc;
