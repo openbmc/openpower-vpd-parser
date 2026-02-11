@@ -820,24 +820,68 @@ bool Manager::collectAllFruVpd() const noexcept
     return false;
 }
 
-bool Manager::validateRedundantEeprom(
-    [[maybe_unused]] const types::Path& i_fruPath) const
+bool Manager::validateRedundantEeprom(const types::Path& i_fruPath) const
 {
     bool l_rc{false};
+
+    auto l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+
+    uint16_t l_errCode;
+    std::string l_redundantEeprom = jsonUtility::getRedundantEepromPathFromJson(
+        l_sysCfgJsonObj, i_fruPath, l_errCode);
+
+    if (l_redundantEeprom.empty())
+    {
+        /* @todo Add support for cases where the input path refers to a
+         * redundant EEPROM directly.*/
+
+        phosphor::logging::elog<types::DbusInvalidArgument>(
+            types::InvalidArgument::ARGUMENT_NAME("PATH"),
+            types::InvalidArgument::ARGUMENT_VALUE(i_fruPath.c_str()));
+    }
+
     try
     {
-        /**
-         * @todo Implement validation to ensure the primary EEPROM and its
-         *       redundant EEPROM contain identical VPD.
-         *
-         * 1. Retrieve the redundant EEPROM.
-         * 2. Parse the VPD from both the primary and redundant EEPROMs.
-         * 3. Compare the parsed VPD to verify they match.
-         */
+        Parser l_parserForPrimary(i_fruPath, l_sysCfgJsonObj,
+                                  m_vpdCollectionMode);
+        types::VPDMapVariant l_primaryParsedVpd = l_parserForPrimary.parse();
+
+        Parser l_parserForRedundant(l_redundantEeprom, l_sysCfgJsonObj,
+                                    m_vpdCollectionMode);
+        types::VPDMapVariant l_redundantParsedVpd =
+            l_parserForRedundant.parse();
+
+        types::MismatchedVpdVariant l_mismatchedVpd;
+        std::string l_missingRecords;
+        std::string l_missingKeywords;
+
+        l_rc = vpdSpecificUtility::compareVpdMaps(
+            l_primaryParsedVpd, l_redundantParsedVpd, l_mismatchedVpd,
+            l_missingRecords, l_missingKeywords, l_errCode);
+
+        if (!l_rc)
+        {
+            if (l_errCode)
+            {
+                throw std::runtime_error(
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+
+            // @todo add l_mismatchedVpd/l_missingRecords/l_missingKeywords
+            // information to PEL.
+        }
     }
     catch (const std::exception& l_ex)
     {
-        // @todo log a informational PEL.
+        m_logger->logMessage(
+            "Failed to validate VPD of [" + i_fruPath +
+                "] and its redundant EEPROM [" + l_redundantEeprom +
+                "] are identical",
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::InternalFailure,
+                                types::SeverityType::Informational, 0,
+                                l_ex.what(), std::nullopt, std::nullopt,
+                                std::nullopt});
     }
     return l_rc;
 }
