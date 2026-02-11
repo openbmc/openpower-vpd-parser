@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7ee1f02_566690a9",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2026-02-11T04:16:04Z",
+      "side": 1,
+      "message": "Have a confusion as to what this exactly does.\nDoes it validate each one and then do the check if both are same \nwhy do you use a bool as return as the return gets overloaded\n- what if the file is not on the system \n- what if the VPD is corrupted on either one \n- what if the VPD is corrupted on both and they match",
+      "revId": "39bdab35e963f5613ba2ec03eacc5ce67056689a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17052f60_cb45a449",
         "filename": "vpd-manager/include/manager.hpp",
         "patchSetId": 3
