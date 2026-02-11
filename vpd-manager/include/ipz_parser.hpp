@@ -106,6 +106,18 @@ class IpzVpdParser : public ParserInterface
      */
     int writeKeywordOnHardware(const types::WriteVpdParams i_paramsToWriteData);
 
+    /**
+     * @brief Compares the parsed VPD data in this instance with that of
+     *        the provided redundant VPD parser.
+     *
+     * @param[in] i_redundantParser - Shared pointer to redundant parser
+     * instance.
+     *
+     * @return true if all corresponding VPD fields match; false otherwise.
+     */
+    virtual bool compareData(const std::shared_ptr<vpd::ParserInterface>&
+                                 i_redundantParser) noexcept override;
+
   private:
     /**
      * @brief Check ECC of VPD header.
