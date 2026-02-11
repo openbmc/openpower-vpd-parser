@@ -118,6 +118,18 @@ class Parser
     int updateVpdKeywordOnHardware(
         const types::WriteVpdParams& i_paramsToWriteData);
 
+    /**
+     * @brief Compares the parsed VPD data in this instance with that of
+     *        the provided redundant EEPROM path.
+     *
+     * @param[in] i_redundantEepromPath - Redundant EEPROM path.
+     *
+     * @return true if all corresponding VPD fields match; false otherwise.
+     *
+     * @throw std::exception.
+     */
+    bool compareData(const std::string& i_redundantEepromPath);
+
   private:
     /**
      * @brief Update keyword value on redundant path.
