@@ -69,6 +69,24 @@
       "message": "Though a nit pick but in case the retries are failing for different reason in each retry, then in this case code will just end up logging the last known reason.",
       "revId": "5e32c6cb7cabe88580a63bc56d7512942622910b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7fb3a46_f0cfed76",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-11T15:05:39Z",
+      "side": 1,
+      "message": "That\u0027s correct, but from debugging perspective, the last known reason will be most relevant right? What will we do with let\u0027s say second last known reason?\n\nIn any case, the `restartService` API executes a single shell command, and sets a single error code.",
+      "parentUuid": "6f9a5815_7d62928c",
+      "revId": "5e32c6cb7cabe88580a63bc56d7512942622910b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
