@@ -1560,5 +1560,46 @@ inline void resetObjTreeVpd(const std::string& i_vpdPath,
         o_errCode = error_code::STANDARD_EXCEPTION;
     }
 }
+
+/**
+ * @brief Compare primary and redundant VPD maps.
+ *
+ * This API compares the VPD contents of the primary and redundant EEPROMs
+ * using their parsed VPD map variants. It checks each record and keyword
+ * in both maps and identifies any mismatches in keyword values.
+ *
+ * Note: Appends details of missing record(s) and keyword(s) from the redundant
+ * VPD to the respective output string.
+ *
+ * @param[in] i_primaryParsedVpd - Primary VPD.
+ * @param[in] i_redundantParsedVpd - Redundant VPD.
+ * @param[out] o_mismatchedVpd - Variant containing mismatched VPD.
+ * @param[out] o_missingRecords - Missing records information.
+ * @param[out] o_missingKeywords - Missing keywords information.
+ * @param[out] o_errCode - To set error code in case of error.
+ *
+ * @return true if both VPD maps are identical, false otherwise.
+ */
+inline bool compareVpdMaps(
+    [[maybe_unused]] const types::VPDMapVariant& i_primaryParsedVpd,
+    [[maybe_unused]] const types::VPDMapVariant& i_redundantParsedVpd,
+    [[maybe_unused]] types::MismatchedVpdVariant& o_mismatchedVpd,
+    [[maybe_unused]] std::string& o_missingRecords,
+    [[maybe_unused]] std::string& o_missingKeywords, uint16_t& o_errCode)
+{
+    bool l_rc{true};
+    o_errCode = 0;
+
+    /**
+     * @todo Implement validation to ensure that the primary EEPROM and its
+     *       redundant copy contain identical VPD.
+     *
+     * Steps to implement:
+     * 1. Compare the provided VPD maps.
+     * 2. If any mismatches are found, record the details.
+     */
+
+    return l_rc;
+}
 } // namespace vpdSpecificUtility
 } // namespace vpd
