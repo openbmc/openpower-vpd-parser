@@ -247,5 +247,10 @@ using BinaryStringKwValuePair = std::tuple<types::BinaryVector, std::string>;
 using SrcDstRecordDetails = std::tuple<std::string&, std::string&, std::string&, std::string&,
                    types::BinaryVector&>;
 
+/* Maps a VPD record name to a list of its keyword names. */
+using RecordKeywordsMap = std::unordered_map<types::Record, std::vector<types::Keyword>>;
+
+/* A variant type that holds details of VPD mismatches between the primary EEPROM and its redundant counterpart. */
+using MismatchedVpdVariant = std::variant<std::monostate, RecordKeywordsMap>;
 } // namespace types
 } // namespace vpd
