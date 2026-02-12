@@ -234,6 +234,7 @@ bool PrimeInventory::primeInventory(
 
     processFunctionalProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
     processEnabledProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
+    processAvailableProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
 
     // Emplace the default state of FRU VPD collection
     vpd::types::PropertyMap l_fruCollectionProperty = {
@@ -537,4 +538,49 @@ void PrimeInventory::processEnabledProperty(
     // if chassis is power on. Enabled property should be there on D-Bus.
     // Don't process.
     return;
+}
+
+void PrimeInventory::processAvailableProperty(
+    const std::string& i_inventoryObjPath,
+    vpd::types::InterfaceMap& io_interfaces) const noexcept
+{
+    if (!vpd::dbusUtility::isChassisPowerOn())
+    {
+        std::vector<std::string> l_availbleInf = {
+            vpd::constants::availabilityInf};
+
+        auto mapperObjectMap =
+            vpd::dbusUtility::getObjectMap(i_inventoryObjPath, l_availbleInf);
+
+        // Read this as: "If any service in the map is PIM, then exit."
+        if (std::any_of(mapperObjectMap.begin(), mapperObjectMap.end(),
+                        [](const auto& item) {
+                            return item.first == vpd::constants::pimServiceName;
+                        }))
+        {
+            // The object is already under PIM. No need to process
+            // again. Retain the old value.
+            return;
+        }
+
+        // Implies value is not there in D-Bus. Populate it with default
+        // value "false".
+        uint16_t l_errCode = 0;
+        vpd::types::PropertyMap l_availableProp;
+        l_availableProp.emplace(vpd::constants::availableProperty, false);
+
+        if ((vpd::vpdSpecificUtility::insertOrMerge(
+                 io_interfaces, vpd::constants::availabilityInf,
+                 std::move(l_availableProp), l_errCode) ==
+             vpd::constants::FAILURE) ||
+            l_errCode)
+        {
+            m_logger->logMessage(
+                "Failed to insert or merge interface. Return code: -1, Error: " +
+                vpd::commonUtility::getErrCodeMsg(l_errCode));
+        }
+    }
+
+    // if chassis is power on. Available property should be there on D-Bus.
+    // Don't process.
 }
