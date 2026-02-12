@@ -130,6 +130,20 @@ class PrimeInventory
         const std::string& i_inventoryObjPath,
         vpd::types::InterfaceMap& io_interfaces) const noexcept;
 
+    /**
+     * @brief API to update "Available" property.
+     *
+     * The API initializes the "Available" property with a default value,
+     * as it is not present on D-Bus during priming.
+     *
+     * @param[in] i_inventoryObjPath - Inventory path as read from config JSON.
+     * @param[in,out] io_interfaces - Map to hold all the interfaces for the
+     * FRU.
+     */
+    void processAvailableProperty(
+        const std::string& i_inventoryObjPath,
+        vpd::types::InterfaceMap& io_interfaces) const noexcept;
+
     // Parsed JSON file.
     nlohmann::json m_sysCfgJsonObj{};
 
