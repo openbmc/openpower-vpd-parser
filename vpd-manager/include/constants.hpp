@@ -152,6 +152,8 @@ constexpr auto xyzLocationCodeInf =
 constexpr auto operationalStatusInf =
     "xyz.openbmc_project.State.Decorator.OperationalStatus";
 constexpr auto enableInf = "xyz.openbmc_project.Object.Enable";
+constexpr auto availabilityInf =
+    "xyz.openbmc_project.State.Decorator.Availability";
 constexpr auto assetInf = "xyz.openbmc_project.Inventory.Decorator.Asset";
 constexpr auto inventoryItemInf = "xyz.openbmc_project.Inventory.Item";
 constexpr auto pldmServiceName = "xyz.openbmc_project.PLDM";
@@ -189,6 +191,7 @@ constexpr auto badVpdDir = "/var/lib/vpd/dumps/";
 constexpr auto bmcPositionFile = "/run/openbmc/bmc_position";
 constexpr auto functionalProperty = "Functional";
 constexpr auto enabledProperty = "Enabled";
+constexpr auto availableProperty = "Available";
 
 static constexpr auto BD_YEAR_END = 4;
 static constexpr auto BD_MONTH_END = 7;
