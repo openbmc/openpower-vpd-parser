@@ -234,6 +234,7 @@ bool PrimeInventory::primeInventory(
 
     processFunctionalProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
     processEnabledProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
+    processAvailableProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
 
     // Emplace the default state of FRU VPD collection
     vpd::types::PropertyMap l_fruCollectionProperty = {
@@ -535,6 +536,53 @@ void PrimeInventory::processEnabledProperty(
     }
 
     // if chassis is power on. Enabled property should be there on D-Bus.
+    // Don't process.
+    return;
+}
+
+void PrimeInventory::processAvailableProperty(
+    const std::string& i_inventoryObjPath,
+    vpd::types::InterfaceMap& io_interfaces) const noexcept
+{
+    if (!vpd::dbusUtility::isChassisPowerOn())
+    {
+        std::vector<std::string> l_availbleInf = {
+            vpd::constants::availabilityInf};
+        auto mapperObjectMap =
+            vpd::dbusUtility::getObjectMap(i_inventoryObjPath, l_availbleInf);
+
+        // If the object has been found. Check if it is under PIM.
+        if (mapperObjectMap.size() != 0)
+        {
+            for (const auto& [l_serviceName, l_interfaceLsit] : mapperObjectMap)
+            {
+                if (l_serviceName == vpd::constants::pimServiceName)
+                {
+                    // The object is already under PIM. No need to process
+                    // again. Retain the old value.
+                    return;
+                }
+            }
+        }
+
+        // Implies value is not there in D-Bus. Populate it with default
+        // value "false".
+        uint16_t l_errCode = 0;
+        vpd::types::PropertyMap l_availableProp;
+        l_availableProp.emplace("Available", false);
+        vpd::vpdSpecificUtility::insertOrMerge(
+            io_interfaces, vpd::constants::availabilityInf,
+            move(l_availableProp), l_errCode);
+
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Failed to insert interface into map, error : " +
+                vpd::commonUtility::getErrCodeMsg(l_errCode));
+        }
+    }
+
+    // if chassis is power on. Available property should be there on D-Bus.
     // Don't process.
     return;
 }
