@@ -24,6 +24,7 @@ enum error_code
     REDUNDANT_PATH_NOT_FOUND,
     ERROR_GETTING_REDUNDANT_PATH,
     NO_EEPROM_PATH,
+    INVALID_LOCATION_CODE_FORMAT,
 
     // Generic errors.
     INVALID_INPUT_PARAMETER,
@@ -72,6 +73,7 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::ERROR_GETTING_REDUNDANT_PATH,
      "Error while trying to get redundant path for the FRU"},
     {error_code::NO_EEPROM_PATH, "EEPROM path not found."},
+    {error_code::INVALID_LOCATION_CODE_FORMAT, "Malformed location code format found."},
     {error_code::DEVICE_NOT_PRESENT,
      "Presence pin read successfully but device was absent."},
     {error_code::DEVICE_PRESENCE_UNKNOWN, "Exception on presence line GPIO."},
