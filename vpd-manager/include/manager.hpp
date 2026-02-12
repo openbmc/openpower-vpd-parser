@@ -239,6 +239,14 @@ class Manager
     bool collectAllFruVpd() const noexcept;
 
     /**
+     * @brief API to delete all FRU VPD.
+     *
+     * This API deletes all FRU VPD other than system VPD from PIM persisted
+     * path and restarts PIM service.
+     */
+    void deleteAllFRUVPD() const noexcept;
+
+    /**
      * @brief Get the Worker object .
      *
      * @return A const reference to the shared pointer holding the Worker
