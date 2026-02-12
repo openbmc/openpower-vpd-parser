@@ -53,7 +53,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Board.Motherboard": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0"
+                        "LocationCode": "Ufcs-ND0-P0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "System backplane"
@@ -110,7 +110,7 @@
                     },
                     "xyz.openbmc_project.Inventory.Item.Global": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs"
+                        "LocationCode": "Ufcs-ND0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Chassis"
@@ -128,7 +128,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C1"
+                        "LocationCode": "Ufcs-ND0-P0-C1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe4 x8 adapter"
@@ -146,7 +146,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C2"
+                        "LocationCode": "Ufcs-ND0-P0-C2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
@@ -164,7 +164,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C3"
+                        "LocationCode": "Ufcs-ND0-P0-C3"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
@@ -182,7 +182,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C4"
+                        "LocationCode": "Ufcs-ND0-P0-C4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
@@ -200,7 +200,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C5"
+                        "LocationCode": "Ufcs-ND0-P0-C5"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
@@ -218,7 +218,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C6"
+                        "LocationCode": "Ufcs-ND0-P0-C6"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe4 x8 adapter"
@@ -236,7 +236,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C7"
+                        "LocationCode": "Ufcs-ND0-P0-C7"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe5 x8 adapter"
@@ -254,7 +254,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C8"
+                        "LocationCode": "Ufcs-ND0-P0-C8"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
@@ -272,7 +272,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C9"
+                        "LocationCode": "Ufcs-ND0-P0-C9"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe4 x8 adapter"
@@ -290,7 +290,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C10"
+                        "LocationCode": "Ufcs-ND0-P0-C10"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe5 x8 adapter"
@@ -308,7 +308,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.FullLength"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C11"
+                        "LocationCode": "Ufcs-ND0-P0-C11"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "PCIe4 x16 or PCIe5 x8 adapter"
@@ -325,7 +325,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.OEM"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-T1"
+                        "LocationCode": "Ufcs-ND0-P1-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "USB 3.0 port 2 (front)"
@@ -339,7 +339,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-T1"
+                        "LocationCode": "Ufcs-ND0-P1-T1"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.Slot": {
                         "SlotNumber": 12
@@ -357,7 +357,7 @@
                 "synthesized": true,
                 "extraInterfaces": {
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-E0"
+                        "LocationCode": "Ufcs-ND0-E0"
                     }
                 }
             },
@@ -369,7 +369,7 @@
                 "synthesized": true,
                 "extraInterfaces": {
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-E1"
+                        "LocationCode": "Ufcs-ND0-E1"
                     }
                 }
             },
@@ -381,7 +381,7 @@
                 "synthesized": true,
                 "extraInterfaces": {
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-E2"
+                        "LocationCode": "Ufcs-ND0-E2"
                     }
                 }
             },
@@ -393,7 +393,7 @@
                 "synthesized": true,
                 "extraInterfaces": {
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-E3"
+                        "LocationCode": "Ufcs-ND0-E3"
                     }
                 }
             },
@@ -404,7 +404,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-T0"
+                        "LocationCode": "Ufcs-ND0-P0-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Open CAPI Conn 0"
@@ -418,7 +418,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-T1"
+                        "LocationCode": "Ufcs-ND0-P0-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Open CAPI Conn 1"
@@ -432,7 +432,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-T2"
+                        "LocationCode": "Ufcs-ND0-P0-T2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Open CAPI Conn 2"
@@ -446,7 +446,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-T3"
+                        "LocationCode": "Ufcs-ND0-P0-T3"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Open CAPI Conn 3"
@@ -460,7 +460,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-T4"
+                        "LocationCode": "Ufcs-ND0-P0-T4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Open CAPI Conn 4"
@@ -474,7 +474,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-T5"
+                        "LocationCode": "Ufcs-ND0-P0-T5"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Open CAPI Conn 5"
@@ -489,7 +489,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Bmc": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C0"
+                        "LocationCode": "Ufcs-ND0-P0-C0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "eBMC card assembly"
@@ -505,7 +505,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Item.Ethernet": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C0-T2"
+                        "LocationCode": "Ufcs-ND0-P0-C0-T2"
                     },
                     "xyz.openbmc_project.Inventory.Item.NetworkInterface": {
                         "MACAddress": {
@@ -528,7 +528,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Item.Ethernet": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C0-T3"
+                        "LocationCode": "Ufcs-ND0-P0-C0-T3"
                     },
                     "xyz.openbmc_project.Inventory.Item.NetworkInterface": {
                         "MACAddress": {
@@ -548,7 +548,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C0-T0"
+                        "LocationCode": "Ufcs-ND0-P0-C0-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "USB 3.0 port 1 (rear)"
@@ -561,7 +561,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C0-T1"
+                        "LocationCode": "Ufcs-ND0-P0-C0-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "USB 3.0 port 2 (rear)"
@@ -574,7 +574,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C0-T4"
+                        "LocationCode": "Ufcs-ND0-P0-C0-T4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "USB 2.0 port 1 (rear)"
@@ -587,7 +587,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C0-T5"
+                        "LocationCode": "Ufcs-ND0-P0-C0-T5"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "USB 2.0 port 2 (rear)"
@@ -600,7 +600,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Battery": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C0-E0"
+                        "LocationCode": "Ufcs-ND0-P0-C0-E0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Time-of-day battery"
@@ -624,7 +624,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C54"
+                        "LocationCode": "Ufcs-ND0-P0-C54"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Miscellaneous voltage regulator module for system processor module 3"
@@ -648,7 +648,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C55"
+                        "LocationCode": "Ufcs-ND0-P0-C55"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Processor voltage regulator module for system processor module 3"
@@ -672,7 +672,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C57"
+                        "LocationCode": "Ufcs-ND0-P0-C57"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Processor voltage regulator module for system processor module 3"
@@ -696,7 +696,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C58"
+                        "LocationCode": "Ufcs-ND0-P0-C58"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Shared voltage regulator module"
@@ -720,7 +720,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C12"
+                        "LocationCode": "Ufcs-ND0-P0-C12"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Miscellaneous voltage regulator module for system processor module 1"
@@ -744,7 +744,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C13"
+                        "LocationCode": "Ufcs-ND0-P0-C13"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Processor voltage regulator module for system processor module 1"
@@ -768,7 +768,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C15"
+                        "LocationCode": "Ufcs-ND0-P0-C15"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Processor voltage regulator module for system processor module 1"
@@ -792,7 +792,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C16"
+                        "LocationCode": "Ufcs-ND0-P0-C16"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Shared voltage regulator module"
@@ -816,7 +816,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C59"
+                        "LocationCode": "Ufcs-ND0-P0-C59"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "I/O and standby voltage regulator module"
@@ -840,7 +840,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C60"
+                        "LocationCode": "Ufcs-ND0-P0-C60"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Processor voltage regulator module for system processor module 0"
@@ -864,7 +864,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C62"
+                        "LocationCode": "Ufcs-ND0-P0-C62"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Processor voltage regulator module for system processor module 0"
@@ -888,7 +888,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C63"
+                        "LocationCode": "Ufcs-ND0-P0-C63"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Miscellaneous voltage regulator module for system processor module 0"
@@ -912,7 +912,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C17"
+                        "LocationCode": "Ufcs-ND0-P0-C17"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "I/O and standby voltage regulator module"
@@ -936,7 +936,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C18"
+                        "LocationCode": "Ufcs-ND0-P0-C18"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Processor voltage regulator module for system processor module 2"
@@ -960,7 +960,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C20"
+                        "LocationCode": "Ufcs-ND0-P0-C20"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Processor voltage regulator module for system processor module 2"
@@ -984,7 +984,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Vrm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C21"
+                        "LocationCode": "Ufcs-ND0-P0-C21"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Miscellaneous voltage regulator module for system processor module 2"
@@ -1007,7 +1007,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Tpm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C96"
+                        "LocationCode": "Ufcs-ND0-P0-C96"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Trusted platform module card"
@@ -1033,7 +1033,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Cpu": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C61"
+                        "LocationCode": "Ufcs-ND0-P0-C61"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "System processor module 0"
@@ -1209,7 +1209,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Cpu": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C61"
+                        "LocationCode": "Ufcs-ND0-P0-C61"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "System processor module 0"
@@ -1386,7 +1386,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Cpu": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C14"
+                        "LocationCode": "Ufcs-ND0-P0-C14"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "System processor module 1"
@@ -1562,7 +1562,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Cpu": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C14"
+                        "LocationCode": "Ufcs-ND0-P0-C14"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "System processor module 1"
@@ -1738,7 +1738,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Cpu": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C19"
+                        "LocationCode": "Ufcs-ND0-P0-C19"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "System processor module 2"
@@ -1914,7 +1914,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Cpu": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C19"
+                        "LocationCode": "Ufcs-ND0-P0-C19"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "System processor module 2"
@@ -2090,7 +2090,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Cpu": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C56"
+                        "LocationCode": "Ufcs-ND0-P0-C56"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "System processor module 3"
@@ -2266,7 +2266,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Cpu": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C56"
+                        "LocationCode": "Ufcs-ND0-P0-C56"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "System processor module 3"
@@ -2439,7 +2439,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.DiskBackplane": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1"
+                        "LocationCode": "Ufcs-ND0-P1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Drive backplane"
@@ -2457,7 +2457,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C0"
+                        "LocationCode": "Ufcs-ND0-P1-C0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 0"
@@ -2473,7 +2473,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C0"
+                        "LocationCode": "Ufcs-ND0-P1-C0"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.Slot": {
                         "SlotNumber": 1
@@ -2494,7 +2494,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C1"
+                        "LocationCode": "Ufcs-ND0-P1-C1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 1"
@@ -2510,7 +2510,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C1"
+                        "LocationCode": "Ufcs-ND0-P1-C1"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.Slot": {
                         "SlotNumber": 2
@@ -2531,7 +2531,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C2"
+                        "LocationCode": "Ufcs-ND0-P1-C2"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 2"
@@ -2547,7 +2547,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C2"
+                        "LocationCode": "Ufcs-ND0-P1-C2"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.Slot": {
                         "SlotNumber": 3
@@ -2568,7 +2568,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C3"
+                        "LocationCode": "Ufcs-ND0-P1-C3"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 3"
@@ -2584,7 +2584,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C3"
+                        "LocationCode": "Ufcs-ND0-P1-C3"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.Slot": {
                         "SlotNumber": 4
@@ -2605,7 +2605,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C4"
+                        "LocationCode": "Ufcs-ND0-P1-C4"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 4"
@@ -2621,7 +2621,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C4"
+                        "LocationCode": "Ufcs-ND0-P1-C4"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.Slot": {
                         "SlotNumber": 5
@@ -2642,7 +2642,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C5"
+                        "LocationCode": "Ufcs-ND0-P1-C5"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 5"
@@ -2658,7 +2658,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C5"
+                        "LocationCode": "Ufcs-ND0-P1-C5"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.Slot": {
                         "SlotNumber": 6
@@ -2679,7 +2679,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C6"
+                        "LocationCode": "Ufcs-ND0-P1-C6"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 6"
@@ -2695,7 +2695,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C6"
+                        "LocationCode": "Ufcs-ND0-P1-C6"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.Slot": {
                         "SlotNumber": 7
@@ -2716,7 +2716,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C7"
+                        "LocationCode": "Ufcs-ND0-P1-C7"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 7"
@@ -2732,7 +2732,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C7"
+                        "LocationCode": "Ufcs-ND0-P1-C7"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.Slot": {
                         "SlotNumber": 8
@@ -2753,7 +2753,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C8"
+                        "LocationCode": "Ufcs-ND0-P1-C8"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 8"
@@ -2769,7 +2769,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C8"
+                        "LocationCode": "Ufcs-ND0-P1-C8"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.Slot": {
                         "SlotNumber": 9
@@ -2790,7 +2790,7 @@
                         "SlotType": "xyz.openbmc_project.Inventory.Item.PCIeSlot.SlotTypes.U_2"
                     },
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C9"
+                        "LocationCode": "Ufcs-ND0-P1-C9"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "NVMe U.2 drive 9"
@@ -2806,7 +2806,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-C9"
+                        "LocationCode": "Ufcs-ND0-P1-C9"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.Slot": {
                         "SlotNumber": 10
@@ -2823,7 +2823,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-T0"
+                        "LocationCode": "Ufcs-ND0-P1-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "USB 3.0 port 1 (front)"
@@ -2837,7 +2837,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P1-T1"
+                        "LocationCode": "Ufcs-ND0-P1-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "USB 3.0 port 2 (front)"
@@ -2862,7 +2862,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Panel": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-D1"
+                        "LocationCode": "Ufcs-ND0-D1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Control panel display"
@@ -2887,7 +2887,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Panel": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-D0"
+                        "LocationCode": "Ufcs-ND0-D0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Control panel"
@@ -2917,7 +2917,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Fan": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-A0"
+                        "LocationCode": "Ufcs-ND0-A0"
                     }
                 }
             }
@@ -2944,7 +2944,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Fan": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-A1"
+                        "LocationCode": "Ufcs-ND0-A1"
                     }
                 }
             }
@@ -2971,7 +2971,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Fan": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-A2"
+                        "LocationCode": "Ufcs-ND0-A2"
                     }
                 }
             }
@@ -2998,7 +2998,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Fan": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-A3"
+                        "LocationCode": "Ufcs-ND0-A3"
                     }
                 }
             }
@@ -3064,7 +3064,7 @@
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "xyz.openbmc_project.Inventory.Item.FabricAdapter": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C1"
+                        "LocationCode": "Ufcs-ND0-P0-C1"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.I2CDevice": {
                         "Bus": 16,
@@ -3087,7 +3087,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C1-T0"
+                        "LocationCode": "Ufcs-ND0-P0-C1-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -3103,7 +3103,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C1-T1"
+                        "LocationCode": "Ufcs-ND0-P0-C1-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -3172,7 +3172,7 @@
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "xyz.openbmc_project.Inventory.Item.FabricAdapter": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C2"
+                        "LocationCode": "Ufcs-ND0-P0-C2"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.I2CDevice": {
                         "Bus": 17,
@@ -3196,7 +3196,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C2-T0"
+                        "LocationCode": "Ufcs-ND0-P0-C2-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -3213,7 +3213,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C2-T1"
+                        "LocationCode": "Ufcs-ND0-P0-C2-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -3282,7 +3282,7 @@
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "xyz.openbmc_project.Inventory.Item.FabricAdapter": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C3"
+                        "LocationCode": "Ufcs-ND0-P0-C3"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.I2CDevice": {
                         "Bus": 18,
@@ -3306,7 +3306,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C3-T0"
+                        "LocationCode": "Ufcs-ND0-P0-C3-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -3323,7 +3323,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C3-T1"
+                        "LocationCode": "Ufcs-ND0-P0-C3-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -3392,7 +3392,7 @@
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "xyz.openbmc_project.Inventory.Item.FabricAdapter": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C4"
+                        "LocationCode": "Ufcs-ND0-P0-C4"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.I2CDevice": {
                         "Bus": 19,
@@ -3416,7 +3416,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C4-T0"
+                        "LocationCode": "Ufcs-ND0-P0-C4-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -3433,7 +3433,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C4-T1"
+                        "LocationCode": "Ufcs-ND0-P0-C4-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -3502,7 +3502,7 @@
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "xyz.openbmc_project.Inventory.Item.FabricAdapter": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C5"
+                        "LocationCode": "Ufcs-ND0-P0-C5"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.I2CDevice": {
                         "Bus": 20,
@@ -3526,7 +3526,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C5-T0"
+                        "LocationCode": "Ufcs-ND0-P0-C5-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -3543,7 +3543,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C5-T1"
+                        "LocationCode": "Ufcs-ND0-P0-C5-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -3600,7 +3600,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C6"
+                        "LocationCode": "Ufcs-ND0-P0-C6"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.I2CDevice": {
                         "Bus": 21,
@@ -3676,7 +3676,7 @@
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "xyz.openbmc_project.Inventory.Item.FabricAdapter": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C7"
+                        "LocationCode": "Ufcs-ND0-P0-C7"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.I2CDevice": {
                         "Bus": 22,
@@ -3700,7 +3700,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C7-T0"
+                        "LocationCode": "Ufcs-ND0-P0-C7-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -3717,7 +3717,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C7-T1"
+                        "LocationCode": "Ufcs-ND0-P0-C7-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -3786,7 +3786,7 @@
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "xyz.openbmc_project.Inventory.Item.FabricAdapter": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C8"
+                        "LocationCode": "Ufcs-ND0-P0-C8"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.I2CDevice": {
                         "Bus": 23,
@@ -3810,7 +3810,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C8-T0"
+                        "LocationCode": "Ufcs-ND0-P0-C8-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -3827,7 +3827,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C8-T1"
+                        "LocationCode": "Ufcs-ND0-P0-C8-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -3884,7 +3884,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C9"
+                        "LocationCode": "Ufcs-ND0-P0-C9"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.I2CDevice": {
                         "Bus": 24,
@@ -3960,7 +3960,7 @@
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "xyz.openbmc_project.Inventory.Item.FabricAdapter": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C10"
+                        "LocationCode": "Ufcs-ND0-P0-C10"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.I2CDevice": {
                         "Bus": 25,
@@ -3984,7 +3984,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C10-T0"
+                        "LocationCode": "Ufcs-ND0-P0-C10-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -4001,7 +4001,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C10-T1"
+                        "LocationCode": "Ufcs-ND0-P0-C10-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -4070,7 +4070,7 @@
                     "xyz.openbmc_project.Inventory.Item.PCIeDevice": null,
                     "xyz.openbmc_project.Inventory.Item.FabricAdapter": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C11"
+                        "LocationCode": "Ufcs-ND0-P0-C11"
                     },
                     "xyz.openbmc_project.Inventory.Decorator.I2CDevice": {
                         "Bus": 26,
@@ -4094,7 +4094,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C11-T0"
+                        "LocationCode": "Ufcs-ND0-P0-C11-T0"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -4111,7 +4111,7 @@
                     "xyz.openbmc_project.Inventory.Item.Connector": null,
                     "xyz.openbmc_project.Inventory.Connector.Port": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C11-T1"
+                        "LocationCode": "Ufcs-ND0-P0-C11-T1"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "CXP Port"
@@ -4138,7 +4138,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C22"
+                        "LocationCode": "Ufcs-ND0-P0-C22"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 0"
@@ -4208,7 +4208,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C23"
+                        "LocationCode": "Ufcs-ND0-P0-C23"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 1"
@@ -4278,7 +4278,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C24"
+                        "LocationCode": "Ufcs-ND0-P0-C24"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 2"
@@ -4348,7 +4348,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C25"
+                        "LocationCode": "Ufcs-ND0-P0-C25"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 3"
@@ -4418,7 +4418,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C26"
+                        "LocationCode": "Ufcs-ND0-P0-C26"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 4"
@@ -4488,7 +4488,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C27"
+                        "LocationCode": "Ufcs-ND0-P0-C27"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 5"
@@ -4558,7 +4558,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C28"
+                        "LocationCode": "Ufcs-ND0-P0-C28"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 6"
@@ -4628,7 +4628,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C29"
+                        "LocationCode": "Ufcs-ND0-P0-C29"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 7"
@@ -4698,7 +4698,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C30"
+                        "LocationCode": "Ufcs-ND0-P0-C30"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 8"
@@ -4768,7 +4768,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C31"
+                        "LocationCode": "Ufcs-ND0-P0-C31"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 9"
@@ -4838,7 +4838,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C32"
+                        "LocationCode": "Ufcs-ND0-P0-C32"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 10"
@@ -4908,7 +4908,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C33"
+                        "LocationCode": "Ufcs-ND0-P0-C33"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 11"
@@ -4978,7 +4978,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C34"
+                        "LocationCode": "Ufcs-ND0-P0-C34"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 12"
@@ -5048,7 +5048,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C35"
+                        "LocationCode": "Ufcs-ND0-P0-C35"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 13"
@@ -5118,7 +5118,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C36"
+                        "LocationCode": "Ufcs-ND0-P0-C36"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 14"
@@ -5188,7 +5188,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C37"
+                        "LocationCode": "Ufcs-ND0-P0-C37"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 15"
@@ -5258,7 +5258,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C38"
+                        "LocationCode": "Ufcs-ND0-P0-C38"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 16"
@@ -5328,7 +5328,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C39"
+                        "LocationCode": "Ufcs-ND0-P0-C39"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 17"
@@ -5398,7 +5398,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C40"
+                        "LocationCode": "Ufcs-ND0-P0-C40"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 18"
@@ -5468,7 +5468,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C41"
+                        "LocationCode": "Ufcs-ND0-P0-C41"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 19"
@@ -5538,7 +5538,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C42"
+                        "LocationCode": "Ufcs-ND0-P0-C42"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 20"
@@ -5608,7 +5608,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C43"
+                        "LocationCode": "Ufcs-ND0-P0-C43"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 21"
@@ -5678,7 +5678,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C44"
+                        "LocationCode": "Ufcs-ND0-P0-C44"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 22"
@@ -5748,7 +5748,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C45"
+                        "LocationCode": "Ufcs-ND0-P0-C45"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 23"
@@ -5818,7 +5818,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C46"
+                        "LocationCode": "Ufcs-ND0-P0-C46"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 24"
@@ -5888,7 +5888,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C47"
+                        "LocationCode": "Ufcs-ND0-P0-C47"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 25"
@@ -5958,7 +5958,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C48"
+                        "LocationCode": "Ufcs-ND0-P0-C48"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 26"
@@ -6028,7 +6028,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C49"
+                        "LocationCode": "Ufcs-ND0-P0-C49"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 27"
@@ -6098,7 +6098,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C50"
+                        "LocationCode": "Ufcs-ND0-P0-C50"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 28"
@@ -6168,7 +6168,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C51"
+                        "LocationCode": "Ufcs-ND0-P0-C51"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 29"
@@ -6238,7 +6238,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C52"
+                        "LocationCode": "Ufcs-ND0-P0-C52"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 30"
@@ -6308,7 +6308,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C53"
+                        "LocationCode": "Ufcs-ND0-P0-C53"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 31"
@@ -6378,7 +6378,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C64"
+                        "LocationCode": "Ufcs-ND0-P0-C64"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 32"
@@ -6448,7 +6448,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C65"
+                        "LocationCode": "Ufcs-ND0-P0-C65"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 33"
@@ -6518,7 +6518,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C66"
+                        "LocationCode": "Ufcs-ND0-P0-C66"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 34"
@@ -6588,7 +6588,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C67"
+                        "LocationCode": "Ufcs-ND0-P0-C67"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 35"
@@ -6658,7 +6658,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C68"
+                        "LocationCode": "Ufcs-ND0-P0-C68"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 36"
@@ -6728,7 +6728,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C69"
+                        "LocationCode": "Ufcs-ND0-P0-C69"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 37"
@@ -6798,7 +6798,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C70"
+                        "LocationCode": "Ufcs-ND0-P0-C70"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 38"
@@ -6868,7 +6868,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C71"
+                        "LocationCode": "Ufcs-ND0-P0-C71"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 39"
@@ -6938,7 +6938,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C72"
+                        "LocationCode": "Ufcs-ND0-P0-C72"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 40"
@@ -7008,7 +7008,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C73"
+                        "LocationCode": "Ufcs-ND0-P0-C73"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 41"
@@ -7078,7 +7078,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C74"
+                        "LocationCode": "Ufcs-ND0-P0-C74"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 42"
@@ -7148,7 +7148,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C75"
+                        "LocationCode": "Ufcs-ND0-P0-C75"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 43"
@@ -7218,7 +7218,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C76"
+                        "LocationCode": "Ufcs-ND0-P0-C76"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 44"
@@ -7288,7 +7288,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C77"
+                        "LocationCode": "Ufcs-ND0-P0-C77"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 45"
@@ -7358,7 +7358,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C78"
+                        "LocationCode": "Ufcs-ND0-P0-C78"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 46"
@@ -7428,7 +7428,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C79"
+                        "LocationCode": "Ufcs-ND0-P0-C79"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 47"
@@ -7498,7 +7498,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C80"
+                        "LocationCode": "Ufcs-ND0-P0-C80"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 48"
@@ -7568,7 +7568,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C81"
+                        "LocationCode": "Ufcs-ND0-P0-C81"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 49"
@@ -7638,7 +7638,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C82"
+                        "LocationCode": "Ufcs-ND0-P0-C82"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 50"
@@ -7708,7 +7708,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C83"
+                        "LocationCode": "Ufcs-ND0-P0-C83"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 51"
@@ -7778,7 +7778,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C84"
+                        "LocationCode": "Ufcs-ND0-P0-C84"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 52"
@@ -7848,7 +7848,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C85"
+                        "LocationCode": "Ufcs-ND0-P0-C85"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 53"
@@ -7918,7 +7918,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C86"
+                        "LocationCode": "Ufcs-ND0-P0-C86"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 54"
@@ -7988,7 +7988,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C87"
+                        "LocationCode": "Ufcs-ND0-P0-C87"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 55"
@@ -8058,7 +8058,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C88"
+                        "LocationCode": "Ufcs-ND0-P0-C88"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 56"
@@ -8128,7 +8128,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C89"
+                        "LocationCode": "Ufcs-ND0-P0-C89"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 57"
@@ -8198,7 +8198,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C90"
+                        "LocationCode": "Ufcs-ND0-P0-C90"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 58"
@@ -8268,7 +8268,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C91"
+                        "LocationCode": "Ufcs-ND0-P0-C91"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 59"
@@ -8338,7 +8338,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C92"
+                        "LocationCode": "Ufcs-ND0-P0-C92"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 60"
@@ -8408,7 +8408,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C93"
+                        "LocationCode": "Ufcs-ND0-P0-C93"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 61"
@@ -8478,7 +8478,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C94"
+                        "LocationCode": "Ufcs-ND0-P0-C94"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 62"
@@ -8548,7 +8548,7 @@
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Dimm": null,
                     "com.ibm.ipzvpd.Location": {
-                        "LocationCode": "Ufcs-P0-C95"
+                        "LocationCode": "Ufcs-ND0-P0-C95"
                     },
                     "xyz.openbmc_project.Inventory.Item": {
                         "PrettyName": "Memory module 63"
