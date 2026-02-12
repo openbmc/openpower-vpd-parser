@@ -126,6 +126,10 @@ Manager::Manager(
             return this->collectAllFruVpd();
         });
 
+        iFace->register_method("DeleteAllFRUVPD", [this]() {
+            this->deleteAllFRUVPD();
+        });
+
         iFace->register_method(
             "ValidateRedundantEEPROM",
             [this](const types::Path& i_fruPath) -> bool {
@@ -840,5 +844,62 @@ bool Manager::validateRedundantEeprom(
         // @todo log a informational PEL.
     }
     return l_rc;
+}
+
+void Manager::deleteAllFRUVPD() const noexcept
+{
+    if (m_vpdCollectionStatus == constants::vpdCollectionInProgress)
+    {
+        m_logger->logMessage(
+            "FRU VPD collection is in progress. Cannot perform delete all FRU VPD.");
+        return;
+    }
+
+    try
+    {
+        m_logger->logMessage(
+            std::string("Delete all FRUs VPD is requested."), PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
+
+        const auto l_inventoryBackupPath{
+            constants::pimPrimaryPath /
+            std::filesystem::path(constants::systemInvPath).relative_path()};
+
+        if (!std::filesystem::exists(l_inventoryBackupPath))
+        {
+            throw std::runtime_error("PIM persist path does not exist.");
+        }
+
+        for (const auto& l_entry :
+             std::filesystem::directory_iterator(l_inventoryBackupPath))
+        {
+            if (std::filesystem::is_directory(l_entry))
+            {
+                std::filesystem::remove_all(l_entry);
+            }
+        }
+
+        uint16_t l_errCode = 0;
+        if (!commonUtility::restartService(constants::pimServiceName,
+                                           l_errCode))
+        {
+            throw std::runtime_error("Failed to restart PIM service, error : " +
+                                     commonUtility::getErrCodeMsg(l_errCode));
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            "Failed to clear inventory backup data from path [" +
+                std::string(constants::pimPrimaryPath) +
+                "]. Error: " + std::string(l_ex.what()),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                types::SeverityType::Warning, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
+    }
 }
 } // namespace vpd
