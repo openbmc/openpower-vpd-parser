@@ -401,6 +401,21 @@ class Worker
                                 types::InterfaceMap& io_interfaces);
 
     /**
+     * @brief API to update "available" property.
+     *
+     * The API sets the default value for "available" property once if the
+     * property is not yet populated over DBus. On subsequent boot/reboot
+     * if it is found already populated, the functions skips re-populating
+     * the property so that already existing value can be retained.
+     *
+     * @param[in] i_inventoryObjPath - Inventory path as read from config JSON.
+     * @param[in,out] io_interfaces - Map to hold all the interfaces for the
+     * FRU.
+     */
+    void processAvailableProperty(const std::string& i_inventoryObjPath,
+                                  types::InterfaceMap& io_interfaces);
+
+    /**
      * @brief API to set present property.
      *
      * This API updates the present property of the given FRU with the given
