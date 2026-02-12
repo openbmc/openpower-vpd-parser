@@ -234,6 +234,7 @@ bool PrimeInventory::primeInventory(
 
     processFunctionalProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
     processEnabledProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
+    processAvailableProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
 
     // Emplace the default state of FRU VPD collection
     vpd::types::PropertyMap l_fruCollectionProperty = {
@@ -537,4 +538,27 @@ void PrimeInventory::processEnabledProperty(
     // if chassis is power on. Enabled property should be there on D-Bus.
     // Don't process.
     return;
+}
+
+void PrimeInventory::processAvailableProperty(
+    const std::string& i_inventoryObjPath,
+    vpd::types::InterfaceMap& io_interfaces) const noexcept
+{
+    // This is during priming flow so , Populate Dbus with default
+    // value "false".
+    uint16_t l_errCode = 0;
+    vpd::types::PropertyMap l_availableProp;
+    l_availableProp.emplace(vpd::constants::availableProperty, false);
+
+    vpd::vpdSpecificUtility::insertOrMerge(
+        io_interfaces, vpd::constants::availabilityInf,
+        std::move(l_availableProp), l_errCode);
+
+    if (l_errCode)
+    {
+        m_logger->logMessage(
+            "Failed to insert or merge Availability interface of " +
+            std::string(i_inventoryObjPath) +
+            "Error: " + vpd::commonUtility::getErrCodeMsg(l_errCode));
+    }
 }
