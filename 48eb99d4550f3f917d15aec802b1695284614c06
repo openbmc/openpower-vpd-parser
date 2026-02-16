@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cb68ed5_be533466",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-16T09:44:25Z",
+      "side": 1,
+      "message": "nit : \"Persist\" should be in lower case",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cee8715a_57a2c758",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-16T09:44:25Z",
+      "side": 1,
+      "message": "Do we need to create corresponding PDI changes? https://github.com/openbmc/phosphor-dbus-interfaces/tree/master",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "436a36ba_da465f22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-16T09:44:25Z",
+      "side": 1,
+      "message": "\u003eBMC boots and reboots\n\nWhat is the difference between \"boots\" and \"reboots\"?",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ee7da80_9ea6ca35",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-16T09:44:25Z",
+      "side": 1,
+      "message": "I feel this part can be re-phrased to be easier to understand. Maybe something like:\n\n\"This commit implements populating \"Available\" property during the inventory priming stage. Handling \"Available\" property during FRUs VPD collection will be handled in future commit(s)\".",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aad26140_38bea85c",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-16T09:44:25Z",
+      "side": 1,
+      "message": "Errant new line",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc316a3a_2e68db1c",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-16T09:44:25Z",
+      "side": 1,
+      "message": "Suggestion : Blank line above and below this line",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c459816b_0bb61c44",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-16T09:44:25Z",
+      "side": 1,
+      "message": "Can we do this search operation in-line?\n\n`for (const auto\u0026 [l_serviceName, l_interfaceLsit] :vpd::dbusUtility::getObjectMap(i_inventoryObjPath, l_availbleInf))\n            {\n                if (l_serviceName \u003d\u003d vpd::constants::pimServiceName)\n                {\n                    // The object is already under PIM. No need to process\n                    // again. Retain the old value.\n                    return;\n                }\n            }`\n            \n  If `getObjectMap` returns empty, the `for` loop will not execute.",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b08e0b32_7516ca99",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-16T09:44:25Z",
+      "side": 1,
+      "message": "nit : Use `vpd::constants::VALUE_0` for better readability",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61bdf0fa_d0806158",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-16T09:44:25Z",
+      "side": 1,
+      "message": "We can create an entry in `constants.hpp` for \"Enabled\".",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3f9fdce_0058dd96",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-16T09:44:25Z",
+      "side": 1,
+      "message": "Return value of this API is not being checked.",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41f6b852_86a35ef6",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-16T09:44:25Z",
+      "side": 1,
+      "message": "Do we need this `return;` statement?",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
