@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeeb6412_6f8fd547",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-16T19:06:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea6dadb2_14e65df6",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "436a36ba_da465f22",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Changed the commit message .",
       "parentUuid": "436a36ba_da465f22",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e95e855_409995d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-16T19:06:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b99fdb0_7b9b611c",
       "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -259,6 +295,24 @@
       "writtenOn": "2026-02-16T09:44:25Z",
       "side": 1,
       "message": "nit : Use `vpd::constants::VALUE_0` for better readability",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fc8e03e_7d931516",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-16T19:06:31Z",
+      "side": 1,
+      "message": "Not needed now. As there is change in the way code is updated now in latest patchset.",
+      "parentUuid": "b08e0b32_7516ca99",
       "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
