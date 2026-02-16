@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5843234_32a0b419",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-16T19:05:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cb68ed5_be533466",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cee8715a_57a2c758",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-02-16T09:44:25Z",
       "side": 1,
       "message": "Do we need to create corresponding PDI changes? https://github.com/openbmc/phosphor-dbus-interfaces/tree/master",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea6dadb2_14e65df6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-16T19:05:27Z",
+      "side": 1,
+      "message": "I have to check and raise separate PR for this. Thanks",
+      "parentUuid": "cee8715a_57a2c758",
       "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b99fdb0_7b9b611c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-16T19:05:27Z",
+      "side": 1,
+      "message": "Changed the commit message .",
+      "parentUuid": "436a36ba_da465f22",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ee7da80_9ea6ca35",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -65,6 +119,24 @@
       "writtenOn": "2026-02-16T09:44:25Z",
       "side": 1,
       "message": "I feel this part can be re-phrased to be easier to understand. Maybe something like:\n\n\"This commit implements populating \"Available\" property during the inventory priming stage. Handling \"Available\" property during FRUs VPD collection will be handled in future commit(s)\".",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d8b8ac8_df10abbc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-16T19:05:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ee7da80_9ea6ca35",
       "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -82,6 +154,24 @@
       "writtenOn": "2026-02-16T09:44:25Z",
       "side": 1,
       "message": "Errant new line",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1917902_2ef4ea32",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-16T19:05:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aad26140_38bea85c",
       "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +210,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b7ff426_14b489f8",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-16T19:05:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c459816b_0bb61c44",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9e9e359_ac604c1d",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-16T19:05:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc316a3a_2e68db1c",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b08e0b32_7516ca99",
@@ -154,6 +280,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5773f4e_19a4e8d1",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-16T19:05:27Z",
+      "side": 1,
+      "message": "You mean \"Available\" ?",
+      "parentUuid": "61bdf0fa_d0806158",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3f9fdce_0058dd96",
@@ -171,6 +315,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcf9bffd_aad23502",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-16T19:05:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3f9fdce_0058dd96",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41f6b852_86a35ef6",
@@ -184,6 +346,24 @@
       "writtenOn": "2026-02-16T09:44:25Z",
       "side": 1,
       "message": "Do we need this `return;` statement?",
+      "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8149765d_d93d205b",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-16T19:05:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41f6b852_86a35ef6",
       "revId": "48eb99d4550f3f917d15aec802b1695284614c06",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
