@@ -67,7 +67,7 @@ bool PrimeInventory::isPrimingRequired() const noexcept
             for (const auto& l_Fru : l_itemFRUS.value())
             {
                 if (l_Fru.contains("ccin") || (l_Fru.contains("noprime") &&
-                                               l_Fru.value("noprime", false)))
+                                               l_Fru.value("noprime", false)) || l_Fru.contains("isRedundant"))
                 {
                     continue;
                 }
@@ -107,8 +107,20 @@ void PrimeInventory::primeSystemBlueprint() const noexcept
         {
             const std::string& l_vpdFilePath = l_itemFRUS.key();
 
+            // For system VPD path, only populate Available property
             if (l_vpdFilePath == SYSTEM_VPD_FILE_PATH)
             {
+                for (const auto& l_Fru : m_sysCfgJsonObj["frus"][l_vpdFilePath])
+                {
+                    if (l_Fru.contains("inventoryPath"))
+                    {
+                        vpd::types::InterfaceMap l_interfaces;
+                        processAvailableProperty(l_Fru["inventoryPath"],
+                                                 l_interfaces);
+                        l_objectInterfaceMap.emplace(l_Fru["inventoryPath"],
+                                                     std::move(l_interfaces));
+                    }
+                }
                 continue;
             }
 
@@ -127,6 +139,7 @@ void PrimeInventory::primeSystemBlueprint() const noexcept
                         "Priming of inventory failed for FRU " +
                         std::string(l_Fru["inventoryPath"]));
                 }
+
             }
         }
 
