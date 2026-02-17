@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d72d0575_da4b5e96",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-17T08:35:03Z",
+      "side": 1,
+      "message": "Can the name of the pin be improved? Suggestion: `rbmcPrototypeSysPositionGpio`",
+      "revId": "71fb2797a9795da1304711b14d272a84a54c904f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d41c5de_5eeafa7c",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-17T08:35:03Z",
+      "side": 1,
+      "message": "nit: Blank line above will make this more readable.",
+      "revId": "71fb2797a9795da1304711b14d272a84a54c904f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
