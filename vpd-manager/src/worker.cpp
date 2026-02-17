@@ -663,6 +663,7 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
 
             processFunctionalProperty(inventoryPath, interfaces);
             processEnabledProperty(inventoryPath, interfaces);
+            processAvailableProperty(inventoryPath, interfaces);
 
             objectInterfaceMap.emplace(std::move(fruObjectPath),
                                        std::move(interfaces));
@@ -1656,6 +1657,47 @@ void Worker::checkAndExecutePostFailAction(
             i_flowFlag == "collection" ? PlaceHolder::COLLECTION
                                        : PlaceHolder::DEFAULT);
     }
+}
+
+void Worker::processAvailableProperty(const std::string& i_inventoryObjPath,
+                                      types::InterfaceMap& io_interfaces)
+{
+    if (dbusUtility::isChassisPowerOn())
+    {
+        return;
+    }
+    std::vector<std::string> l_availbleInf = {constants::availabilityInf};
+    auto mapperObjectMap =
+        dbusUtility::getObjectMap(i_inventoryObjPath, l_availbleInf);
+
+    // Read this as: "If any service in the map is PIM, then exit."
+    if (std::any_of(mapperObjectMap.begin(), mapperObjectMap.end(),
+                    [](const auto& item) {
+                        return item.first == vpd::constants::pimServiceName;
+                    }))
+    {
+        // The object is already under PIM. No need to process
+        // again. Retain the old value.
+        return;
+    }
+
+    // Implies value is not there in D-Bus. Populate it with default
+    // value "false".
+    uint16_t l_errCode = 0;
+    types::PropertyMap l_availableProp;
+    l_availableProp.emplace(constants::availableProperty, false);
+    vpdSpecificUtility::insertOrMerge(io_interfaces, constants::availabilityInf,
+                                      move(l_availableProp), l_errCode);
+
+    if (l_errCode)
+    {
+        m_logger->logMessage("Failed to insert interface into map, error : " +
+                             commonUtility::getErrCodeMsg(l_errCode));
+    }
+
+    // if chassis is power on. Available property should be there on D-Bus.
+    // Don't process.
+    return;
 }
 
 } // namespace vpd
