@@ -663,6 +663,7 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
 
             processFunctionalProperty(inventoryPath, interfaces);
             processEnabledProperty(inventoryPath, interfaces);
+            processAvailableProperty(inventoryPath, interfaces);
 
             objectInterfaceMap.emplace(std::move(fruObjectPath),
                                        std::move(interfaces));
@@ -1655,6 +1656,48 @@ void Worker::checkAndExecutePostFailAction(
                 std::string(l_ex.what()),
             i_flowFlag == "collection" ? PlaceHolder::COLLECTION
                                        : PlaceHolder::DEFAULT);
+    }
+}
+
+void Worker::processAvailableProperty(const std::string& i_inventoryObjPath,
+                                      types::InterfaceMap& io_interfaces)
+{
+    // if chassis is power on. Available property should be there on D-Bus.
+    // Don't proceed further .
+    if (dbusUtility::isChassisPowerOn())
+    {
+        return;
+    }
+
+    std::vector<std::string> l_availbleInf = {constants::availabilityInf};
+    auto l_mapperObjectMap =
+        dbusUtility::getObjectMap(i_inventoryObjPath, l_availbleInf);
+
+    // Read this as: "If any service in the map is PIM, then exit."
+    if (std::any_of(l_mapperObjectMap.begin(), l_mapperObjectMap.end(),
+                    [](const auto& item) {
+                        return item.first == vpd::constants::pimServiceName;
+                    }))
+    {
+        // The object is already under PIM. No need to process
+        // again. Retain the old value.
+        return;
+    }
+
+    // Implies value is not there in D-Bus. Populate it with default
+    // value "false".
+    uint16_t l_errCode = 0;
+    types::PropertyMap l_availableProp;
+    l_availableProp.emplace(constants::availableProperty, false);
+    vpdSpecificUtility::insertOrMerge(io_interfaces, constants::availabilityInf,
+                                      move(l_availableProp), l_errCode);
+
+    if (l_errCode)
+    {
+        m_logger->logMessage(
+            "Failed to insert or merge Availability interface of " +
+            std::string(i_inventoryObjPath) +
+            "Error: " + vpd::commonUtility::getErrCodeMsg(l_errCode));
     }
 }
 
