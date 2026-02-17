@@ -275,6 +275,18 @@ class IbmHandler
      */
     void updateExpandedLocationCode();
 
+    /**
+     * @brief API to add or restore the availability property for inventory
+     * objects.
+     *
+     * This API iterates through all inventory paths in the object map and
+     * checks if the availability property already exists under PIM. If not,
+     * it populates the property with default value "false".
+     *
+     * @param[in,out] io_objectInterfaceMap - Object interface map to update.
+     */
+    void addOrRestoreAvailableProperty(types::ObjectMap& io_objectInterfaceMap);
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
