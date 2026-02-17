@@ -1291,12 +1291,13 @@ void IbmHandler::checkAndUpdateBmcPosition(size_t& o_bmcPosition) const noexcept
         l_positionGpio.request({"Read the position line",
                                 gpiod::line_request::DIRECTION_INPUT, 0});
 
-        if (l_positionGpio.get_value() == constants::VALUE_0)
-        {
-            o_bmcPosition = constants::VALUE_1;
-            return;
-        }
-        o_bmcPosition = constants::VALUE_0;
+        const int l_value = l_positionGpio.get_value();
+
+        // explicitly releasing.
+        l_positionGpio.release();
+
+        o_bmcPosition = (l_value == constants::VALUE_0) ? constants::VALUE_1
+                                                        : constants::VALUE_0;
     }
     catch (const std::exception& l_ex)
     {
