@@ -28,7 +28,6 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
                types::VpdCollectionMode i_vpdCollectionMode) :
     m_configJsonPath(pathToConfigJson), m_semaphore(i_maxThreadCount),
     m_vpdCollectionMode(i_vpdCollectionMode),
-    m_logger(Logger::getLoggerInstance())
 {
     // Implies the processing is based on some config JSON
     if (!m_configJsonPath.empty())
@@ -983,6 +982,8 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                 "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
+        setAvailableProperty(i_vpdFilePath, true);
+
         m_semaphore.release();
         return std::make_tuple(true, i_vpdFilePath);
     }
@@ -1655,6 +1656,97 @@ void Worker::checkAndExecutePostFailAction(
                 std::string(l_ex.what()),
             i_flowFlag == "collection" ? PlaceHolder::COLLECTION
                                        : PlaceHolder::DEFAULT);
+    }
+}
+
+void Worker::setAvailableProperty(const std::string& i_vpdPath,
+                                  const bool& i_value)
+{
+    try
+    {
+        if (i_vpdPath.empty())
+        {
+            throw std::runtime_error(
+                "Path is empty. Can't set available property");
+        }
+
+        types::ObjectMap l_objectInterfaceMap;
+
+        // If the given path is EEPROM path.
+        if (m_parsedJson["frus"].contains(i_vpdPath))
+        {
+            for (const auto& l_Fru : m_parsedJson["frus"][i_vpdPath])
+            {
+                sdbusplus::message::object_path l_fruObjectPath(
+                    l_Fru["inventoryPath"]);
+
+                types::PropertyMap l_propertyValueMap;
+                l_propertyValueMap.emplace(constants::availableProperty,
+                                           i_value);
+
+                uint16_t l_errCode = 0;
+                types::InterfaceMap l_interfaces;
+                vpdSpecificUtility::insertOrMerge(
+                    l_interfaces, constants::availabilityInf,
+                    move(l_propertyValueMap), l_errCode);
+
+                if (l_errCode)
+                {
+                    logging::logMessage(
+                        "Failed to insert value into map, error : " +
+                        commonUtility::getErrCodeMsg(l_errCode));
+                }
+
+                l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
+                                             std::move(l_interfaces));
+            }
+        }
+        else
+        {
+            // consider it as an inventory path.
+            if (i_vpdPath.find(constants::pimPath) != constants::VALUE_0)
+            {
+                throw std::runtime_error(
+                    "Invalid inventory path: " + i_vpdPath);
+            }
+
+            types::PropertyMap l_propertyValueMap;
+            l_propertyValueMap.emplace(constants::availableProperty, i_value);
+
+            uint16_t l_errCode = 0;
+            types::InterfaceMap l_interfaces;
+            vpdSpecificUtility::insertOrMerge(
+                l_interfaces, constants::availabilityInf,
+                move(l_propertyValueMap), l_errCode);
+
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to insert value into map, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+
+            l_objectInterfaceMap.emplace(i_vpdPath, std::move(l_interfaces));
+        }
+
+        // Call dbus method to update on dbus
+        if (!dbusUtility::publishVpdOnDBus(move(l_objectInterfaceMap)))
+        {
+            throw DbusException(
+                std::string(__FUNCTION__) +
+                "Call to PIM failed while setting available property for path " +
+                i_vpdPath);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::string("Exception while setting the available property.") +
+                EventLogger::getErrorMsg(l_ex),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Warning, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
     }
 }
 
