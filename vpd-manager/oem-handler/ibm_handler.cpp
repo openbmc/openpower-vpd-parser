@@ -1124,6 +1124,10 @@ void IbmHandler::performInitialSetup()
                 "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
+        //Set available property as true once the system vpd
+        //collection is completed.
+        m_worker->setAvailableProperty(SYSTEM_VPD_FILE_PATH,true);
+
         // Set appropriate position of BMC.
         setBmcPosition();
 
