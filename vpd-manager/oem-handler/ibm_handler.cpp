@@ -835,18 +835,19 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
     {
         m_worker->populateDbus(i_parsedVpdMap, l_objectInterfaceMap,
                                SYSTEM_VPD_FILE_PATH);
+        auto l_itrToSystemPath = l_objectInterfaceMap.find(
+            sdbusplus::object_path(constants::systemInvPath));
+
         try
         {
             if (m_isFactoryResetDone)
             {
-                const auto& l_assetTag = createAssetTagString(i_parsedVpdMap);
-                auto l_itrToSystemPath = l_objectInterfaceMap.find(
-                    sdbusplus::object_path(constants::systemInvPath));
                 if (l_itrToSystemPath == l_objectInterfaceMap.end())
                 {
                     throw std::runtime_error(
                         "Asset tag update failed. System Path not found in object map.");
                 }
+                const auto& l_assetTag = createAssetTagString(i_parsedVpdMap);
                 types::PropertyMap l_assetTagProperty;
                 l_assetTagProperty.emplace("AssetTag", l_assetTag);
                 (l_itrToSystemPath->second)
@@ -859,6 +860,51 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
             m_logger->logMessage(
                 std::format(
                     "Exception caught while updating Asset Tag. Error {}",
+                    EventLogger::getErrorMsg(l_ex)),
+                PlaceHolder::ASYNC_PEL,
+                types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                    types::SeverityType::Warning, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt, std::nullopt});
+        }
+
+        // Handle Available property for all inventory paths - retain old value if already exists
+        // Set to false only during initial system VPD population
+        try
+        {
+            std::vector<std::string> l_availabilityInf = {
+                constants::availabilityInf};
+
+            // Iterate through all inventory paths in the object map
+            for (auto& [l_inventoryPath, l_interfaceMap] : l_objectInterfaceMap)
+            {
+                // Check if the property already exists under PIM
+                auto l_mapperObjectMap = dbusUtility::getObjectMap(
+                    l_inventoryPath.str, l_availabilityInf);
+
+                // If property exists under PIM, skip this inventory path
+                auto it = std::find_if(l_mapperObjectMap.begin(), l_mapperObjectMap.end(),
+                    [](const auto& pair) { return pair.first == constants::pimServiceName; });
+                if (it != l_mapperObjectMap.end())
+                {
+                    // The object is already under PIM. No need to process
+                    // again. Retain the old value by not adding to map.
+                    std::cout<<"I am here"<<std::endl;
+                    continue;
+                }
+
+                // Property doesn't exist on D-Bus. Populate it with default value "false".
+                types::PropertyMap l_availableProperty;
+                l_availableProperty.emplace(constants::availableProperty, false);
+                l_interfaceMap.emplace(constants::availabilityInf,
+                                      std::move(l_availableProperty));
+            }
+        }
+        catch (const std::exception& l_ex)
+        {
+            m_logger->logMessage(
+                std::format(
+                    "Exception caught while updating Available property. Error {}",
                     EventLogger::getErrorMsg(l_ex)),
                 PlaceHolder::ASYNC_PEL,
                 types::PelInfoTuple{EventLogger::getErrorType(l_ex),
