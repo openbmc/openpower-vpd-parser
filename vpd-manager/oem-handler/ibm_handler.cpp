@@ -867,6 +867,8 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
                                     std::nullopt, std::nullopt});
         }
 
+        updateAvailabilityProperty(l_objectInterfaceMap);
+
         // Call method to update the dbus
         if (!dbusUtility::publishVpdOnDBus(move(l_objectInterfaceMap)))
         {
@@ -1289,6 +1291,53 @@ void IbmHandler::updateVpdCollectionStatus(
         "Status",
         types::CommonProgress::convertOperationStatusToString(i_status));
     m_progressInterface->signal_property("Status");
+}
+void IbmHandler::updateAvailabilityProperty(
+    types::ObjectMap& io_objectInterfaceMap)
+{
+    try
+    {
+        std::vector<std::string> l_availabilityInf = {
+            constants::availabilityInf};
+
+        for (auto& [l_inventoryPath, l_interfaceMap] : io_objectInterfaceMap)
+        {
+            auto l_mapperObjectMap = dbusUtility::getObjectMap(
+                l_inventoryPath.str, l_availabilityInf);
+
+            // If property exists under PIM, skip this inventory path
+            auto it =
+                std::find_if(l_mapperObjectMap.begin(), l_mapperObjectMap.end(),
+                             [](const auto& pair) {
+                                 return pair.first == constants::pimServiceName;
+                             });
+            if (it != l_mapperObjectMap.end())
+            {
+                // The object is already under PIM. No need to process
+                // again. Retain the old value
+                continue;
+            }
+
+            // Property doesn't exist on D-Bus. Populate it with default
+            // value "false".
+            types::PropertyMap l_availableProperty;
+            l_availableProperty.emplace(constants::availableProperty, false);
+            l_interfaceMap.emplace(constants::availabilityInf,
+                                   std::move(l_availableProperty));
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format(
+                "Exception caught while updating Available property. Error {}",
+                EventLogger::getErrorMsg(l_ex)),
+            PlaceHolder::ASYNC_PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Warning, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
+    }
 }
 
 /**Temp Code */
