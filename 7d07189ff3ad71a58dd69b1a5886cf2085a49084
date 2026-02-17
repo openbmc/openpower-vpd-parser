@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1d5f88a_bd1e0aab",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1599,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-17T13:21:40Z",
+      "side": 1,
+      "message": "Why not use `std::get_if\u003c\u003e` instead of using a combination of `std::holds_alternative\u003c\u003e` and `std::get\u003c\u003e`?\n\n`std::get_if\u003c\u003e` is `noexcept` as well, which is better use for this API as there is no local `catch()` block here.",
+      "revId": "7d07189ff3ad71a58dd69b1a5886cf2085a49084",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47200e3d_883ade4c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-17T13:21:40Z",
+      "side": 1,
+      "message": "`l_errCode` should be initialized with value 0",
+      "revId": "7d07189ff3ad71a58dd69b1a5886cf2085a49084",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26080612_177623ec",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-17T13:21:40Z",
+      "side": 1,
+      "message": "Not related to this patch, but \"are identical\" log is misleading.",
+      "revId": "7d07189ff3ad71a58dd69b1a5886cf2085a49084",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
