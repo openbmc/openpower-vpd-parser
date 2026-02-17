@@ -179,6 +179,17 @@ class Worker
      */
     void performVpdRecollection();
 
+    /**
+     * @brief  Set "Available" property for an inventory items
+     * This API identifies the inventory object(s) associated with the given
+     * path and updates their "Available" property.
+     *
+     * @param[in] i_vpdPath - EEPROM or inventory path.
+     * @param[in] i_value - value to set for the property.
+     */
+    void setAvailableProperty(const std::string& i_vpdPath,
+                              const bool& i_value);
+
   private:
     /**
      * @brief An API to parse and publish a FRU VPD over D-Bus.
