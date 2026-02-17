@@ -200,8 +200,9 @@ class IbmHandler
     /**
      * @brief Checks and updates BMC position.
      *
-     * This API updates BMC position for the RBMC prototype
-     * system based on whether the motherboard EEPROM is accessible.
+     * This API reads the position gpio pin and updates the bmc position. In
+     * case of any error, default value of bmc position passed as parameter is
+     * retained.
      *
      * @param[out] o_bmcPosition - BMC position.
      */
