@@ -251,5 +251,6 @@ static constexpr auto fileModeDirectoryPath = "/var/lib/vpd/file";
 static constexpr auto pimBackupPath =
     "/var/lib/phosphor-data-sync/bmc_data_bkp/var/lib/phosphor-inventory-manager";
 static constexpr auto pimPrimaryPath = "/var/lib/phosphor-inventory-manager";
+static constexpr auto rbmcPrototypeSysBmcPosGpio = "USB_TARGET_MODE_N";
 } // namespace constants
 } // namespace vpd

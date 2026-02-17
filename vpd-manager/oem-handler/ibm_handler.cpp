@@ -7,6 +7,7 @@
 #include "logger.hpp"
 #include "parser.hpp"
 
+#include <gpiod.hpp>
 #include <utility/common_utility.hpp>
 #include <utility/dbus_utility.hpp>
 #include <utility/json_utility.hpp>
@@ -1273,36 +1274,36 @@ bool IbmHandler::isRbmcPrototypeSystem(uint16_t& o_errCode) const noexcept
 
 void IbmHandler::checkAndUpdateBmcPosition(size_t& o_bmcPosition) const noexcept
 {
-    if (m_sysCfgJsonObj.empty())
+    try
+    {
+        gpiod::line l_positionGpio =
+            gpiod::find_line(constants::rbmcPrototypeSysBmcPosGpio);
+
+        if (!l_positionGpio)
+        {
+            m_logger->logMessage(
+                "Could not find gpio line " +
+                std::string(constants::rbmcPrototypeSysBmcPosGpio) +
+                " for position detection");
+            return;
+        }
+
+        l_positionGpio.request({"Read the position line",
+                                gpiod::line_request::DIRECTION_INPUT, 0});
+
+        if (l_positionGpio.get_value() == constants::VALUE_0)
+        {
+            o_bmcPosition = constants::VALUE_1;
+            return;
+        }
+        o_bmcPosition = constants::VALUE_0;
+    }
+    catch (const std::exception& l_ex)
     {
         m_logger->logMessage(
-            "System config JSON is empty, unable to find BMC position");
-        return;
-    }
-
-    uint16_t l_errCode = 0;
-    std::string l_motherboardEepromPath = jsonUtility::getFruPathFromJson(
-        m_sysCfgJsonObj, constants::rainierPlanarInvPath, l_errCode);
-
-    if (!l_motherboardEepromPath.empty())
-    {
-        o_bmcPosition = constants::VALUE_1;
-        std::error_code l_ec;
-        if (std::filesystem::exists(l_motherboardEepromPath, l_ec))
-        {
-            o_bmcPosition = constants::VALUE_0;
-        }
-    }
-    else if (l_errCode)
-    {
-        m_logger->logMessage("Unable to determine BMC position, reason: " +
-                             commonUtility::getErrCodeMsg(l_errCode));
-    }
-    else
-    {
-        m_logger->logMessage("Unable to determine BMC position, as FRU path[" +
-                             std::string(constants::systemVpdInvPath) +
-                             "], not found in the system config JSON.");
+            "Exception while processing gpio " +
+            std::string(constants::rbmcPrototypeSysBmcPosGpio) +
+            " for position. Reason: " + l_ex.what());
     }
 }
 } // namespace vpd
