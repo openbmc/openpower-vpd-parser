@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50fb07df_aabd3a9c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1599,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-18T04:18:56Z",
+      "side": 1,
+      "message": "for IPZ type VPD extraction is different from other VPD types.\n So once that\u0027s confirmed, am extracting IPZVpdMap using std::get diretly.\nthis way helping avoiding of creating of types::IPZVpdMap type variable outside the if condition at line 1591.",
+      "parentUuid": "b1d5f88a_bd1e0aab",
+      "revId": "7d07189ff3ad71a58dd69b1a5886cf2085a49084",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47200e3d_883ade4c",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69845bbb_5cd3bb81",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-18T04:18:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47200e3d_883ade4c",
+      "revId": "7d07189ff3ad71a58dd69b1a5886cf2085a49084",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26080612_177623ec",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-02-17T13:21:40Z",
       "side": 1,
       "message": "Not related to this patch, but \"are identical\" log is misleading.",
+      "revId": "7d07189ff3ad71a58dd69b1a5886cf2085a49084",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20afa7e7_defc7dae",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-18T04:18:56Z",
+      "side": 1,
+      "message": "the error message starts with \u0027Failed to \u0027",
+      "parentUuid": "26080612_177623ec",
       "revId": "7d07189ff3ad71a58dd69b1a5886cf2085a49084",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
