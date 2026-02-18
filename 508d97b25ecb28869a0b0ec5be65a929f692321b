@@ -16,6 +16,24 @@
       "message": "nit: use vpd::constants::FAILURE instead of -1",
       "revId": "508d97b25ecb28869a0b0ec5be65a929f692321b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e72a80c_af7b6078",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-18T06:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57347a1e_ca49c9f7",
+      "revId": "508d97b25ecb28869a0b0ec5be65a929f692321b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
