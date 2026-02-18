@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ec19891_ee02b048",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1725,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-18T13:24:24Z",
+      "side": 1,
+      "message": "Instead of a utility method why not overload the comparison operator in respective parser class?\nIt will make the manager code also efficient and clean, where all the handling will be with respective class.",
+      "revId": "ac3b409d3dd432afc549e03b2bc0b5e8bdb89d25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
