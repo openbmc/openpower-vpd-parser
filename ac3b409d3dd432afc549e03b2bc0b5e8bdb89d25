@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a47c479e_c10205a7",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1725,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-18T13:40:42Z",
+      "side": 1,
+      "message": "Looks like an over kill,\nIt will implement the whole logic of comparing a type and that too for each type of VPD supported,",
+      "parentUuid": "7ec19891_ee02b048",
+      "revId": "ac3b409d3dd432afc549e03b2bc0b5e8bdb89d25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56e9ef23_7af67ba2",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 5
