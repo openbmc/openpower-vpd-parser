@@ -104,6 +104,24 @@
       "parentUuid": "26080612_177623ec",
       "revId": "7d07189ff3ad71a58dd69b1a5886cf2085a49084",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7d106f0_53a8abb4",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-18T06:11:07Z",
+      "side": 1,
+      "message": "Ok, it should be \"Failed to validate if VPD of...\"",
+      "parentUuid": "20afa7e7_defc7dae",
+      "revId": "7d07189ff3ad71a58dd69b1a5886cf2085a49084",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
