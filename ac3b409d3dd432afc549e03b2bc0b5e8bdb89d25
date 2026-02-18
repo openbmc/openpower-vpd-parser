@@ -16,6 +16,23 @@
       "message": "Instead of a utility method why not overload the comparison operator in respective parser class?\nIt will make the manager code also efficient and clean, where all the handling will be with respective class.",
       "revId": "ac3b409d3dd432afc549e03b2bc0b5e8bdb89d25",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56e9ef23_7af67ba2",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-18T13:39:39Z",
+      "side": 1,
+      "message": "Instead of instantiating multiple instances and pushing everything on utility which looks like an overkill, why not wrap the logic of comparison in the respective class?\n\nSuggestion: Expose a public API from the class, say compare,\nWhich takes one path as parameter (primary once will be already there at the time of instantiating the object) returns true/false to manager. What ever logic executes remains encapsulated in the class?",
+      "revId": "ac3b409d3dd432afc549e03b2bc0b5e8bdb89d25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
