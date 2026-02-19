@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ef8e3fe_0cbc58c3",
+        "filename": "wait-vpd-parser/include/prime_inventory.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-19T09:08:37Z",
+      "side": 1,
+      "message": "nit : \"available\" should start with uppercase",
+      "revId": "d74817c31ca032a84d00b60daf72c83fa9c543b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c195c903_a3c63652",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-19T09:08:37Z",
+      "side": 1,
+      "message": "nit: we can check for chassis power on and return from here. This will eliminate indentation of the code block below.",
+      "revId": "d74817c31ca032a84d00b60daf72c83fa9c543b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76e1a9a9_82f0288d",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-19T09:08:37Z",
+      "side": 1,
+      "message": "This boolean OR check suggests there can be a scenario where `insertOrMerge()` return successful (`true`) but `l_errCode` is set, which is ideally not possible.\n\nWe can check `if(insertOrMerge() \u003d\u003d constants::FAILURE)` and then log.",
+      "revId": "d74817c31ca032a84d00b60daf72c83fa9c543b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "922060e9_754c52ed",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-19T09:08:37Z",
+      "side": 1,
+      "message": "What is \"Return code: -1\"?",
+      "revId": "d74817c31ca032a84d00b60daf72c83fa9c543b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
