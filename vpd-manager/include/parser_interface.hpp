@@ -62,6 +62,21 @@ class ParserInterface
     }
 
     /**
+     * @brief Compares the parsed VPD data in this instance with that of
+     *        the provided redundant VPD parser.
+     *
+     * @param[in] i_redundantParser - Shared pointer to parser instance.
+     *
+     * @return true if all corresponding VPD fields match; false otherwise.
+     */
+    virtual bool compare(
+        [[maybe_unused]] const std::shared_ptr<vpd::ParserInterface>&
+            i_redundantParser) noexcept
+    {
+        return false;
+    }
+
+    /**
      * @brief Virtual destructor.
      */
     virtual ~ParserInterface() {}
