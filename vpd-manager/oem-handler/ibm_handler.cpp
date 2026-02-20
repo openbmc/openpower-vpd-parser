@@ -751,13 +751,14 @@ void IbmHandler::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
     }
     catch (const std::exception& l_ex)
     {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
-            __FILE__, __FUNCTION__, 0,
+        m_logger->logMessage(
             std::string(
                 "Exception caught while backup and restore VPD keyword's.") +
                 EventLogger::getErrorMsg(l_ex),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Warning, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
     }
 }
 
@@ -837,10 +838,12 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
         }
         catch (const std::exception& l_ex)
         {
-            EventLogger::createSyncPel(
-                EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
-                __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            m_logger->logMessage(
+                EventLogger::getErrorMsg(l_ex), PlaceHolder::PEL,
+                types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                    types::SeverityType::Warning, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt});
         }
 
         // Call method to update the dbus
@@ -1022,12 +1025,13 @@ void IbmHandler::setDeviceTreeAndJson(
 
         if (l_devTreeFromJson.empty())
         {
-            EventLogger::createSyncPel(
-                types::ErrorType::JsonFailure, types::SeverityType::Error,
-                __FILE__, __FUNCTION__, 0,
+            m_logger->logMessage(
                 "Mandatory value for device tree missing from JSON[" +
                     l_systemJson + "]",
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+                PlaceHolder::PEL,
+                types::PelInfoTuple{types::ErrorType::JsonFailure,
+                                    types::SeverityType::Error, 0, std::nullopt,
+                                    std::nullopt, std::nullopt, std::nullopt});
         }
     }
 

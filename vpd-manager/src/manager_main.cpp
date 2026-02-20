@@ -58,11 +58,12 @@ int main(int, char**)
     {
         vpd::Logger::getLoggerInstance()->logMessage(
             "VPD-Manager service failed to start.");
-        vpd::EventLogger::createSyncPel(
-            vpd::EventLogger::getErrorType(l_ex),
-            vpd::types::SeverityType::Critical, __FILE__, __FUNCTION__, 0,
-            vpd::EventLogger::getErrorMsg(l_ex), std::nullopt, std::nullopt,
-            std::nullopt, std::nullopt);
+        vpd::Logger::getLoggerInstance()->logMessage(
+            vpd::EventLogger::getErrorMsg(l_ex), vpd::PlaceHolder::PEL,
+            vpd::types::PelInfoTuple{vpd::EventLogger::getErrorType(l_ex),
+                                     vpd::types::SeverityType::Critical, 0,
+                                     std::nullopt, std::nullopt, std::nullopt,
+                                     std::nullopt});
     }
     exit(EXIT_FAILURE);
 }

@@ -78,13 +78,15 @@ class SingleFab
         }
         catch (const std::exception& l_ex)
         {
-            EventLogger::createSyncPel(
-                types::ErrorType::InternalFailure,
-                types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+            Logger::getLoggerInstance()->logMessage(
                 std::string(
                     "Failed to check if system is of P10 series. Error : ") +
                     l_ex.what(),
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+                PlaceHolder::PEL,
+                types::PelInfoTuple{types::ErrorType::InternalFailure,
+                                    types::SeverityType::Informational, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt});
             return false;
         }
     }
@@ -105,13 +107,15 @@ class SingleFab
         }
         catch (const std::exception& l_ex)
         {
-            EventLogger::createSyncPel(
-                types::ErrorType::InternalFailure,
-                types::SeverityType::Informational, __FILE__, __FUNCTION__, 0,
+            Logger::getLoggerInstance()->logMessage(
                 std::string(
                     "Failed to check if system is of P11 series. Error : ") +
                     l_ex.what(),
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+                PlaceHolder::PEL,
+                types::PelInfoTuple{types::ErrorType::InternalFailure,
+                                    types::SeverityType::Informational, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt});
             return false;
         }
     }
