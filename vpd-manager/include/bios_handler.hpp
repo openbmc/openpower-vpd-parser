@@ -293,10 +293,12 @@ class BiosHandler
             // required in this case.
             std::string l_errMsg = "Instantiation of BIOS Handler failed. { ";
             l_errMsg += l_ex.what() + std::string(" }");
-            EventLogger::createSyncPel(
-                types::ErrorType::FirmwareError, types::SeverityType::Warning,
-                __FILE__, __FUNCTION__, 0, l_errMsg, std::nullopt, std::nullopt,
-                std::nullopt, std::nullopt);
+            Logger::getLoggerInstance()->logMessage(
+                l_errMsg, PlaceHolder::PEL,
+                types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                    types::SeverityType::Warning, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt});
         }
     }
 
