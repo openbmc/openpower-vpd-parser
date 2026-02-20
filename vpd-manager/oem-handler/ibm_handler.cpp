@@ -43,9 +43,15 @@ IbmHandler::IbmHandler(
         // Instantiate Listener objects
         initEventListeners();
 
-        // Instantiate GpioMonitor class
+        /*
+        This is required for hot plugging of OP_PANEL .
+        TODO : Additional handling needs to be done . Commenting this code
+        for now.
+        */
+
+        /* Instantiate GpioMonitor class
         m_gpioMonitor = std::make_shared<GpioMonitor>(m_sysCfgJsonObj, m_worker,
-                                                      m_ioContext);
+                                                      m_ioContext);*/
     }
     catch (const std::exception& l_ec)
     {
