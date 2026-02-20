@@ -334,7 +334,13 @@ inline int writeKeyword(const std::string& i_vpdPath,
         constants::vpdManagerInfName, "UpdateKeyword");
 
     l_method.append(i_vpdPath, i_paramsToWriteData);
-    auto l_result = l_bus.call(l_method);
+
+    // When there is a request to write more than 10K bytes, there occurs a
+    // delay in dbus call which leads to dbus timeout exception. To avoid such
+    // exceptions increase the timeout period from default 25 seconds to 180
+    // seconds.
+    auto l_timeOutInMicroSecs = 180000000L;
+    auto l_result = l_bus.call(l_method, l_timeOutInMicroSecs);
 
     l_result.read(l_rc);
     return l_rc;
@@ -373,7 +379,13 @@ inline int writeKeywordOnHardware(
         constants::vpdManagerInfName, "WriteKeywordOnHardware");
 
     l_method.append(i_eepromPath, i_paramsToWriteData);
-    auto l_result = l_bus.call(l_method);
+
+    // When there is a request to write more than 10K bytes, there occurs a
+    // delay in dbus call which leads to dbus timeout exception. To avoid such
+    // exceptions increase the timeout period from default 25 seconds to 180
+    // seconds.
+    auto l_timeOutInMicroSecs = 180000000L;
+    auto l_result = l_bus.call(l_method, l_timeOutInMicroSecs);
 
     l_result.read(l_rc);
 
