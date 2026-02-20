@@ -8,6 +8,7 @@
 #include "utility/dbus_utility.hpp"
 
 #include <CLI/CLI.hpp>
+#include <sdbusplus/asio/connection.hpp>
 
 #include <chrono>
 #include <thread>
@@ -88,11 +89,49 @@ inline bool collectAllFruVpd() noexcept
     bool l_rc{true};
     try
     {
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method =
-            l_bus.new_method_call(BUSNAME, OBJPATH, IFACE, "CollectAllFRUVPD");
+        // setup connection to dbus
+        boost::asio::io_context l_ioContext;
+        auto l_connection =
+            std::make_shared<sdbusplus::asio::connection>(l_ioContext);
 
-        l_bus.call_noreply(l_method);
+        auto l_message = l_connection->new_method_call(BUSNAME, OBJPATH, IFACE,
+                                                       "CollectAllFRUVPD");
+
+        constexpr uint64_t l_collectionStatusTimeOutUs{
+            1 * 60 * 1000000}; // 1 min
+                               // timeout
+
+        l_connection->async_send(
+            l_message,
+            [](boost::system::error_code l_ec, sdbusplus::message_t& l_ret) {
+                auto l_logger = vpd::Logger::getLoggerInstance();
+                l_logger->logMessage("_SR async_send callback");
+
+                if (l_ec == boost::system::errc::timed_out)
+                {
+                    l_logger->logMessage(
+                        "wait-vpd-parsers timed out trying to call \"CollectAllFRUVPD\"");
+                    exit(EXIT_FAILURE);
+                }
+                else if (l_ec || l_ret.is_method_error())
+                {
+                    l_logger->logMessage(
+                        "Error with \"CollectAllFRUVPD\" async_send" +
+                        l_ec.message());
+                    return;
+                }
+
+                bool l_retVal{false};
+                l_ret.read(l_retVal);
+                l_logger->logMessage(
+                    "CollectAllFRUVPD " +
+                    std::string(l_retVal ? "successful" : "failed"));
+            },
+            l_collectionStatusTimeOutUs);
+
+        // setup a D-bus listener on "CollectionStatus" property
+
+        l_ioContext.run();
     }
     catch (const std::exception& l_ex)
     {
@@ -175,6 +214,24 @@ bool checkAndHandleInventoryBackup()
                 "Failed to restart inventory manager service after restoring backup inventory data. Failing this service");
         }
     }
+    return l_rc;
+}
+
+/**
+ * @brief API to trigger FRU VPD collection and check it's status
+ *
+ * This API triggers VPD collection for all FRUs by calling D-Bus API
+ * "CollectAllFRUVPD" exposed by vpd-manager. After triggering the collection it
+ * checks for the collection status.
+ */
+bool triggerFruVpdCollectionAndCheckStatus() noexcept
+{
+    bool l_rc{false};
+    try
+    {}
+    catch (const std::exception& l_ex)
+    {}
+
     return l_rc;
 }
 
