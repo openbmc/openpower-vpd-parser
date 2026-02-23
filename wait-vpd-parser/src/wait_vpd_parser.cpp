@@ -94,7 +94,7 @@ int main(int argc, char** argv)
         CLI::App l_app{"Wait VPD parser app"};
 
         // default retry limit and sleep duration values
-        unsigned l_retryLimit{100};
+        unsigned l_retryLimit{200};
         unsigned l_sleepDurationInSeconds{2};
 
         l_app.add_option("--retryLimit, -r", l_retryLimit, "Retry limit");
