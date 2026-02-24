@@ -19,7 +19,7 @@ class ParserInterface
      * @brief Pure virtual function for parsing VPD file.
      *
      * The API needs to be overridden by all the classes deriving from parser
-     * inerface class to implement respective VPD parsing logic.
+     * interface class to implement respective VPD parsing logic.
      *
      * @return parsed format for VPD data, depending upon the
      * parsing logic.
@@ -44,7 +44,7 @@ class ParserInterface
      *
      * This virtual method is created to achieve runtime polymorphism for
      * hardware writes on VPD of different types. This virtual method can be
-     * redefined at derived classess to implement write according to the type of
+     * redefined at derived classes to implement write according to the type of
      * VPD.
      *
      * @param[in] i_paramsToWriteData - Data required to perform write.

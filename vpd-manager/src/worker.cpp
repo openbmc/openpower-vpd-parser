@@ -692,10 +692,10 @@ bool Worker::processPreAction(const std::string& i_vpdFilePath,
         // re-created in the flow of priming the inventory. This needs to be
         // done either here or in the exception section of "parseAndPublishVPD"
         // API. Any failure in the process of collecting FRU will land up in the
-        // excpetion of "parseAndPublishVPD".
+        // exception of "parseAndPublishVPD".
 
         // If the FRU is not there, clear the VINI/CCIN data.
-        // Enity manager probes for this keyword to look for this
+        // Entity manager probes for this keyword to look for this
         // FRU, now if the data is persistent on BMC and FRU is
         // removed this can lead to ambiguity. Hence clearing this
         // Keyword if FRU is absent.
@@ -950,8 +950,8 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         else
         {
             // Stale data from the previous boot can be present on the system.
-            // so clearing of data incase of empty map received.
-            // As empty parsedVpdMap recieved for some reason, but still
+            // so clearing of data in case of empty map received.
+            // As empty parsedVpdMap received for some reason, but still
             // considered VPD collection is completed. Hence FRU collection
             // Status will be set as completed.
 
@@ -966,7 +966,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                     "], error : " + commonUtility::getErrCodeMsg(l_errCode));
             }
 
-            m_logger->logMessage("Empty parsedVpdMap recieved for path [" +
+            m_logger->logMessage("Empty parsedVpdMap received for path [" +
                                      i_vpdFilePath + "]. Check PEL for reason.",
                                  PlaceHolder::COLLECTION);
         }
@@ -1537,7 +1537,7 @@ void Worker::collectSingleFruVpd(
         // If l_parsedVpd is pointing to std::monostate
         if (l_parsedVpd.index() == 0)
         {
-            // As empty parsedVpdMap recieved for some reason, but still
+            // As empty parsedVpdMap received for some reason, but still
             // considered VPD collection is completed. Hence FRU collection
             // Status will be set as completed.
             m_logger->logMessage("Empty parsed VPD map received for " +

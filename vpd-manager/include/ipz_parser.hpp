@@ -52,7 +52,7 @@ class IpzVpdParser : public ParserInterface
     }
 
     /**
-     * @brief Defaul destructor.
+     * @brief Default destructor.
      */
     ~IpzVpdParser() = default;
 
@@ -128,7 +128,7 @@ class IpzVpdParser : public ParserInterface
      * required.
      *
      * @param[in] iterator - Iterator to the record.
-     * @return success/failre
+     * @return success/failure
      */
     bool recordEccCheck(types::BinaryVector::const_iterator iterator);
 
@@ -140,7 +140,7 @@ class IpzVpdParser : public ParserInterface
      * Note: Throws exception in case of any error. Caller need to handle as
      * required.
      *
-     * @param[in] itrToVPD - Iterator to begining of VPD data.
+     * @param[in] itrToVPD - Iterator to beginning of VPD data.
      * @return Length of PT keyword.
      */
     auto readTOC(types::BinaryVector::const_iterator& itrToVPD);

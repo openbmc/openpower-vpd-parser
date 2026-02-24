@@ -200,7 +200,7 @@ static constexpr auto INVALID_NODE_NUMBER = -1;
 
 static constexpr auto CMD_BUFFER_LENGTH = 256;
 
-// To be explicitly used for string comparision.
+// To be explicitly used for string comparison.
 static constexpr auto STR_CMP_SUCCESS = 0;
 
 // Just a random value. Can be adjusted as required.

@@ -21,7 +21,7 @@ option(
     'ipz_ecc_check',
     type: 'feature',
     value: 'disabled',
-    description: 'enable when ECC check used in IPZ parsering, used for Gtest cases.',
+    description: 'enable when ECC check used in IPZ parsing, used for Gtest cases.',
 )
 option(
     'INVENTORY_JSON_DEFAULT',

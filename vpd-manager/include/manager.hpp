@@ -144,7 +144,7 @@ class Manager
      *
      * @param[in] i_unexpandedLocationCode - Unexpanded location code.
      * @param[in] i_nodeNumber - Denotes the node in case of a multi-node
-     * configuration, defaulted to zero incase of single node system.
+     * configuration, defaulted to zero in case of single node system.
      *
      * @throw xyz.openbmc_project.Common.Error.InvalidArgument for
      * invalid argument.
@@ -179,7 +179,7 @@ class Manager
      *
      * @param[in] i_unexpandedLocationCode - Unexpanded location code.
      * @param[in] i_nodeNumber - Denotes the node in case of a multi-node
-     * configuration, defaulted to zero incase of single node system.
+     * configuration, defaulted to zero in case of single node system.
      *
      * @throw xyz.openbmc_project.Common.Error.InvalidArgument for
      * invalid argument.

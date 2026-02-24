@@ -279,7 +279,7 @@ inline void createAsyncPelWithInventoryCallout(
         if (i_callouts.empty())
         {
             logging::logMessage("Callout information is missing to create PEL");
-            // TODO: Revisit this instead of simpley returning.
+            // TODO: Revisit this instead of simply returning.
             return;
         }
 
@@ -544,7 +544,7 @@ inline void createSyncPel(
 }
 
 /**
- * @brief An API to create a synchronus PEL with inventory path callout.
+ * @brief An API to create a synchronous PEL with inventory path callout.
  *
  * This API calls phosphor-logging method to create PEL, and also handles
  * inventory path callout. In case called with EEPROM path, will look for

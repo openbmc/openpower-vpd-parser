@@ -21,7 +21,7 @@
  * B) The utility should be a leaf node and should not be dependent on any other
  * utility.
  *                  *******************
- *                  | Commmon Utility | - - - - - - -
+ *                  | Common Utility | - - - - - - -
  *                  *******************              |
  *                          /\                       |
  *                         /  \                      |
@@ -182,7 +182,7 @@ inline std::string convertByteVectorToHex(
 /**
  * @brief An API to convert binary value into ascii/hex representation.
  *
- * If given data contains printable characters, ASCII formated string value of
+ * If given data contains printable characters, ASCII formatted string value of
  * the input data will be returned. Otherwise if the data has any non-printable
  * value, returns the hex represented value of the given data in string format.
  *

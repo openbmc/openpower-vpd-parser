@@ -1379,7 +1379,7 @@ int VpdTool::resetVpdOnDbus()
             !std::filesystem::remove(INVENTORY_JSON_SYM_LINK, l_ec))
         {
             std::cerr
-                << "Error occured while removing the system inventory JSON sym link ["
+                << "Error occurred while removing the system inventory JSON sym link ["
                 << INVENTORY_JSON_SYM_LINK << "]." << std::endl;
 
             if (l_ec)
@@ -1408,7 +1408,7 @@ int VpdTool::resetVpdOnDbus()
             std::filesystem::remove_all(constants::pimPersistPath, l_ec))
         {
             std::cerr
-                << "Error occured while removing the persisted VPD under path ["
+                << "Error occurred while removing the persisted VPD under path ["
                 << constants::pimPersistPath << "]." << std::endl;
 
             if (l_ec)

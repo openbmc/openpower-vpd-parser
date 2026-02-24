@@ -14,7 +14,7 @@
 /**
  * @brief This file implements a generic parser APP.
  *
- * It recieves path of the VPD file(mandatory) and path to a config
+ * It receives path of the VPD file(mandatory) and path to a config
  * file(optional) as arguments. It will parse the data and return parsed data in
  * a required format.
  *
@@ -47,7 +47,7 @@ int main(int argc, char** argv)
 
         CLI11_PARSE(app, argc, argv);
 
-        vpd::logging::logMessage("VPD file path recieved" + vpdFilePath);
+        vpd::logging::logMessage("VPD file path received" + vpdFilePath);
 
         // VPD file path is a mandatory parameter to execute any parser.
         if (vpdFilePath.empty())

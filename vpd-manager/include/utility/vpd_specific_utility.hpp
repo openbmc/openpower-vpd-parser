@@ -296,7 +296,7 @@ inline std::string encodeKeyword(const std::string& i_keyword,
  *
  * This method checks in an interface if the given interface exists. If the
  * interface key already exists, property map is inserted corresponding to it.
- * If the key does'nt exist then given interface and property map pair is newly
+ * If the key doesn't exist then given interface and property map pair is newly
  * created. If the property present in propertymap already exist in the
  * InterfaceMap, then the new property value is ignored.
  *

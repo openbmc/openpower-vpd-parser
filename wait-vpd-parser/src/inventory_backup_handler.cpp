@@ -126,7 +126,7 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             // We have logged a PEL for the paths(chassis) which we have failed
             // to move. Consider restoration is successful even if have failed
             // to move some of the paths (chassis) under /system, so that
-            // inventory manager exposes atleast some of the chassis.
+            // inventory manager exposes at least some of the chassis.
             l_rc = true;
         }
         else

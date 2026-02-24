@@ -27,7 +27,7 @@ extern "C"
 /* this function creates the ECC */
 /*                                                                            */
 /* @param     pData           In-Buffer containing the raw VPD data */
-/*                                            (wont't be changed) */
+/*                                            (won't be changed) */
 /*                                                                            */
 /* @param     vDataLength     In        should contain the length of the
  * Data */

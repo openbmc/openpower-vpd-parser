@@ -25,7 +25,7 @@ class DdimmVpdParser : public ParserInterface
     DdimmVpdParser& operator=(DdimmVpdParser&&) = delete;
 
     /**
-     * @brief Defaul destructor.
+     * @brief Default destructor.
      */
     ~DdimmVpdParser() = default;
 

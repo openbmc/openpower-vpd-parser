@@ -172,8 +172,8 @@ class IbmHandler
     /**
      * @brief API to perform initial setup before manager claims Bus name.
      *
-     * Before BUS name for VPD-Manager is claimed, fitconfig whould be set for
-     * corret device tree, inventory JSON w.r.t system should be linked and
+     * Before BUS name for VPD-Manager is claimed, fitconfig would be set for
+     * correct device tree, inventory JSON w.r.t system should be linked and
      * system VPD should be on DBus.
      */
     void performInitialSetup();
