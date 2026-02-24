@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d97aafe8_368c12bb",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-24T14:59:43Z",
+      "side": 1,
+      "message": "This check is not required while priming. Priming flow already takes care if the paths are published or not?\n\nI can see that we have that check for rest of the functionality as well. That also does needs to be fixed.",
+      "range": {
+        "startLine": 552,
+        "startChar": 4,
+        "endLine": 566,
+        "endChar": 5
+      },
+      "revId": "0020ef8c478fc4bcbcc37b8c088b8dbe6e64fef9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
