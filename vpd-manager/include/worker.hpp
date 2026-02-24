@@ -189,7 +189,7 @@ class Worker
      * return status of parsing and publishing of VPD over D-Bus.
      *
      * @param[in] i_vpdFilePath - Path of file containing VPD.
-     * @return Tuple of status and file path. Status, true if successfull else
+     * @return Tuple of status and file path. Status, true if successful else
      * false.
      */
     std::tuple<bool, std::string> parseAndPublishVPD(
@@ -470,7 +470,7 @@ class Worker
     size_t m_activeCollectionThreadCount = 0;
 
     // Holds status, if VPD collection has been done or not.
-    // Note: This variable does not give information about successfull or failed
+    // Note: This variable does not give information about successful or failed
     // collection. It just states, if the VPD collection process is over or not.
     bool m_isAllFruCollected = false;
 

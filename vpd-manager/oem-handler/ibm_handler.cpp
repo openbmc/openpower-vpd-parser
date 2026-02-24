@@ -142,7 +142,7 @@ void IbmHandler::initBackupAndRestore() noexcept
         uint16_t l_errCode = 0;
 
         // If the object is already there, implies back up and restore took
-        // place in inital set up flow.
+        // place in initial set up flow.
         if ((m_backupAndRestoreObj == nullptr))
         {
             if (m_sysCfgJsonObj.empty())
@@ -313,7 +313,7 @@ void IbmHandler::checkAndUpdatePowerVsVpd(
             l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
         }
 
-        // The utility method will handle emty JSON case. No explicit
+        // The utility method will handle empty JSON case. No explicit
         // handling required here.
         uint16_t l_errCode = 0;
         auto l_inventoryPath = jsonUtility::getInventoryObjPathFromJson(
@@ -714,7 +714,7 @@ bool IbmHandler::isBackupOnCache()
         }
 
         // check if either of "source" or "destination" has inventory path.
-        // this indicates that this sytem has System VPD on hardware
+        // this indicates that this system has System VPD on hardware
         // and other copy on D-Bus (BMC cache).
         if (!l_backupAndRestoreCfgJsonObj.empty() &&
             ((l_backupAndRestoreCfgJsonObj.contains("source") &&
@@ -809,7 +809,7 @@ std::string IbmHandler::createAssetTagString(
     else
     {
         throw std::runtime_error(
-            "Invalid VPD type recieved to create Asset tag.");
+            "Invalid VPD type received to create Asset tag.");
     }
     return l_assetTag;
 }
@@ -942,7 +942,7 @@ void IbmHandler::setJsonSymbolicLink(const std::string& i_systemJson)
 void IbmHandler::setDeviceTreeAndJson(
     types::VPDMapVariant& o_parsedSystemVpdMap)
 {
-    // JSON is madatory for processing of this API.
+    // JSON is mandatory for processing of this API.
     if (m_sysCfgJsonObj.empty())
     {
         throw JsonException("System config JSON is empty", m_sysCfgJsonObj);
@@ -1157,8 +1157,8 @@ void IbmHandler::performInitialSetup()
                 "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        // Any issue in system's inital set up is handled in this catch. Error
-        // will not propogate to manager.
+        // Any issue in system's initial set up is handled in this catch. Error
+        // will not propagate to manager.
 
         m_logger->logMessage(
             std::string("Exception while performing initial set up. ") +

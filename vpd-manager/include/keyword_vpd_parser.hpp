@@ -77,7 +77,7 @@ class KeywordVpdParser : public ParserInterface
     /**
      * @brief Check for given number of bytes validity
      *
-     * Check if number of elements from (begining of the vector) to (iterator +
+     * Check if number of elements from (beginning of the vector) to (iterator +
      * numberOfBytes) is lesser than or equal to the total no.of elements in
      * the vector. This check is performed before advancement of the iterator.
      *

@@ -310,11 +310,11 @@ void IbmBiosHandler::processFieldCoreOverride(
 
                 return;
             }
-            m_logger->logMessage("Invalid type recieved for FCO from BIOS.");
+            m_logger->logMessage("Invalid type received for FCO from BIOS.");
         }
         return;
     }
-    m_logger->logMessage("Invalid type recieved for FCO from VPD.");
+    m_logger->logMessage("Invalid type received for FCO from VPD.");
 }
 
 void IbmBiosHandler::saveFcoToVpd(int64_t i_fcoInBios,
@@ -547,7 +547,7 @@ void IbmBiosHandler::processActiveMemoryMirror(
                 return;
             }
             m_logger->logMessage(
-                "Invalid type recieved for auto memory mirror mode from BIOS.");
+                "Invalid type received for auto memory mirror mode from BIOS.");
             return;
         }
         else
@@ -557,11 +557,11 @@ void IbmBiosHandler::processActiveMemoryMirror(
         return;
     }
     m_logger->logMessage(
-        "Invalid type recieved for auto memory mirror mode from VPD.");
+        "Invalid type received for auto memory mirror mode from VPD.");
 
     m_logger->logMessage(
         std::string(
-            "Invalid type recieved for auto memory mirror mode from VPD."),
+            "Invalid type received for auto memory mirror mode from VPD."),
         PlaceHolder::PEL,
         types::PelInfoTuple{types::ErrorType::FirmwareError,
                             types::SeverityType::Informational, 0, std::nullopt,
@@ -641,7 +641,7 @@ void IbmBiosHandler::saveCreateDefaultLparToVpd(
         return;
     }
     m_logger->logMessage(
-        "Invalid type recieved for create default Lpar from VPD.");
+        "Invalid type received for create default Lpar from VPD.");
 }
 
 void IbmBiosHandler::saveCreateDefaultLparToBios(
@@ -712,7 +712,7 @@ void IbmBiosHandler::processCreateDefaultLpar(
         return;
     }
     m_logger->logMessage(
-        "Invalid type recieved for create default Lpar from VPD.");
+        "Invalid type received for create default Lpar from VPD.");
 }
 
 void IbmBiosHandler::saveClearNvramToVpd(const std::string& i_clearNvramVal,
@@ -786,7 +786,7 @@ void IbmBiosHandler::saveClearNvramToVpd(const std::string& i_clearNvramVal,
 
         return;
     }
-    m_logger->logMessage("Invalid type recieved for clear NVRAM from VPD.");
+    m_logger->logMessage("Invalid type received for clear NVRAM from VPD.");
 }
 
 void IbmBiosHandler::saveClearNvramToBios(const std::string& i_clearNvramVal)
@@ -854,7 +854,7 @@ void IbmBiosHandler::processClearNvram(const nlohmann::json& i_attributeData)
         saveClearNvramToBios(std::to_string(l_pVal->at(0)));
         return;
     }
-    m_logger->logMessage("Invalid type recieved for clear NVRAM from VPD.");
+    m_logger->logMessage("Invalid type received for clear NVRAM from VPD.");
 }
 
 void IbmBiosHandler::saveKeepAndClearToVpd(
@@ -927,7 +927,7 @@ void IbmBiosHandler::saveKeepAndClearToVpd(
 
         return;
     }
-    m_logger->logMessage("Invalid type recieved for keep and clear from VPD.");
+    m_logger->logMessage("Invalid type received for keep and clear from VPD.");
 }
 
 void IbmBiosHandler::saveKeepAndClearToBios(
@@ -995,6 +995,6 @@ void IbmBiosHandler::processKeepAndClear(const nlohmann::json& i_attributeData)
         saveKeepAndClearToBios(std::to_string(l_pVal->at(0)));
         return;
     }
-    m_logger->logMessage("Invalid type recieved for keep and clear from VPD.");
+    m_logger->logMessage("Invalid type received for keep and clear from VPD.");
 }
 } // namespace vpd

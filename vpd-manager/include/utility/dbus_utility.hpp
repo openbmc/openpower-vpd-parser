@@ -10,7 +10,7 @@
 namespace vpd
 {
 /**
- * @brief The namespace defines utlity methods for generic D-Bus operations.
+ * @brief The namespace defines utility methods for generic D-Bus operations.
  */
 namespace dbusUtility
 {
@@ -20,7 +20,7 @@ namespace dbusUtility
  *
  * The API returns a Map of service name and interfaces for a given pair of
  * object path and interface list. It can be used to determine service name
- * which implemets a particular object path and interface.
+ * which implements a particular object path and interface.
  *
  * Note: It will be caller's responsibility to check for empty map returned and
  * generate appropriate error.
@@ -162,7 +162,7 @@ inline types::MapperGetSubTree getObjectSubTree(
  * @brief An API to read property from Dbus.
  *
  * The caller of the API needs to validate the validatity and correctness of the
- * type and value of data returned. The API will just fetch and retun the data
+ * type and value of data returned. The API will just fetch and return the data
  * without any data validation.
  *
  * Note: It will be caller's responsibility to check for empty value returned
@@ -354,7 +354,7 @@ inline bool isServiceRunning(const std::string& i_serviceName)
 }
 
 /**
- * @brief API to call "GetAttribute" method uner BIOS manager.
+ * @brief API to call "GetAttribute" method under BIOS manager.
  *
  * The API reads the given attribuute from BIOS and returns a tuple of both
  * current as well as pending value for that attribute.

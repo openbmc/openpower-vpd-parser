@@ -143,7 +143,7 @@ inline void printJson(const nlohmann::json& i_jsonData)
 /**
  * @brief An API to convert binary value into ascii/hex representation.
  *
- * If given data contains printable characters, ASCII formated string value of
+ * If given data contains printable characters, ASCII formatted string value of
  * the input data will be returned. Otherwise if the data has any non-printable
  * value, returns the hex represented value of the given data in string format.
  *
@@ -278,7 +278,7 @@ inline bool saveToFile(const std::string& i_filePath,
         // ToDo: log only when verbose is enabled
         std::cerr
             << "Failed to write to file: " << i_filePath
-            << ", either base folder path doesn't exist or internal error occured, error: "
+            << ", either base folder path doesn't exist or internal error occurred, error: "
             << l_ex.what() << '\n';
     }
 

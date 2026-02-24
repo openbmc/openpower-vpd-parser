@@ -42,7 +42,7 @@ class BiosHandlerInterface
 };
 
 /**
- * @brief IBM specifc BIOS handler class.
+ * @brief IBM specific BIOS handler class.
  */
 class IbmBiosHandler : public BiosHandlerInterface
 {
@@ -289,7 +289,7 @@ class BiosHandler
         {
             // catch any exception here itself and don't pass it to main as it
             // will mark the service failed. Since VPD-Manager is a critical
-            // service, failing it can push BMC to quiesced state whic is not
+            // service, failing it can push BMC to quiesced state which is not
             // required in this case.
             std::string l_errMsg = "Instantiation of BIOS Handler failed. { ";
             l_errMsg += l_ex.what() + std::string(" }");

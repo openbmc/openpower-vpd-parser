@@ -59,7 +59,7 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::INVALID_JSON,
      "Either JSON is missing FRU tag or invalid JSON object."},
     {error_code::MISSING_FLAG,
-     "JSON is missing the flag to procees for the FRU."},
+     "JSON is missing the flag to process for the FRU."},
     {error_code::MISSING_ACTION_TAG,
      "JSON is missing the action tag to be performed for the FRU."},
     {error_code::FRU_PATH_NOT_FOUND, "The FRU path is not found in the JSON."},

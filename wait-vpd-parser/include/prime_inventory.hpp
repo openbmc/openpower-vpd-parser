@@ -26,7 +26,7 @@ class PrimeInventory
     PrimeInventory(PrimeInventory&&) = delete;
 
     /**
-     * Contructor
+     * Constructor
      *
      * @throw std::exception
      */

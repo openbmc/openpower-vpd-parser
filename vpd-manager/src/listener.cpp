@@ -96,7 +96,7 @@ void Listener::hostStateChangeCallBack(
         else
         {
             throw std::runtime_error(
-                "Invalid type recieved in variant for host state.");
+                "Invalid type received in variant for host state.");
         }
     }
     catch (const std::exception& l_ex)
@@ -268,7 +268,7 @@ void Listener::presentPropertyChangeCallback(
         else
         {
             throw DbusException(
-                "Invalid type recieved in variant for present property");
+                "Invalid type received in variant for present property");
         }
     }
     catch (const std::exception& l_ex)

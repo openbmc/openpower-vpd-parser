@@ -44,7 +44,7 @@ Manager::Manager(
 
     try
     {
-        // For backward compatibility. Should be depricated.
+        // For backward compatibility. Should be deprecated.
         iFace->register_method(
             "WriteKeyword",
             [this](const sdbusplus::message::object_path i_path,
@@ -623,7 +623,7 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
 std::string Manager::getHwPath(
     const sdbusplus::message::object_path& i_dbusObjPath)
 {
-    // Dummy code to supress unused variable warning. To be removed.
+    // Dummy code to suppress unused variable warning. To be removed.
     logging::logMessage(std::string(i_dbusObjPath));
 
     return std::string{};
