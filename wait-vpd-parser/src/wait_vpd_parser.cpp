@@ -81,26 +81,83 @@ int checkVpdCollectionStatus(const unsigned i_retryLimit,
  * This API triggers VPD collection for all FRUs by calling Dbus API
  * "CollectAllFRUVPD" exposed by vpd-manager
  *
- * @return - On success returns true, otherwise returns false
+ * @param[in] i_retryLimit - Maximum number of retries
+ * @param[in] i_sleepDurationInSeconds - Sleep time in seconds between each
+ * retry
+ *
+ * @return - On success returns 0, otherwise returns 1
  */
-inline bool collectAllFruVpd() noexcept
+inline int collectAllFruVpd(const unsigned i_retryLimit,
+                            const unsigned i_sleepDurationInSeconds) noexcept
 {
-    bool l_rc{true};
+    auto l_logger = vpd::Logger::getLoggerInstance();
+
+    int l_rc{vpd::constants::VALUE_1};
     try
     {
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method =
-            l_bus.new_method_call(BUSNAME, OBJPATH, IFACE, "CollectAllFRUVPD");
+        // boost asio context
+        boost::asio::io_context l_ioContext;
 
-        l_bus.call_noreply(l_method);
+        // setup connection to D-Bus
+        auto l_connection =
+            std::make_shared<sdbusplus::asio::connection>(l_ioContext);
+
+        auto l_message = l_connection->new_method_call(BUSNAME, OBJPATH, IFACE,
+                                                       "CollectAllFRUVPD");
+
+        constexpr uint64_t l_collectionStatusTimeOutUs{
+            1 * 60 * 1000000}; // 1 min
+                               // timeout
+
+        l_connection->async_send(
+            l_message,
+            [&l_logger, &l_ioContext, &l_rc, &i_retryLimit,
+             &i_sleepDurationInSeconds](boost::system::error_code l_ec,
+                                        sdbusplus::message_t& l_ret) {
+                if (l_ec == boost::system::errc::timed_out)
+                {
+                    l_logger->logMessage(
+                        "wait-vpd-parsers timed out trying to call \"CollectAllFRUVPD\"");
+                }
+                else if (l_ec || l_ret.is_method_error())
+                {
+                    l_logger->logMessage(
+                        "Error with \"CollectAllFRUVPD\" async_send" +
+                        l_ec.message());
+                }
+                else
+                {
+                    bool l_collectFruVpdCallStatus{false};
+
+                    // D-Bus call has returned
+                    l_ret.read(l_collectFruVpdCallStatus);
+
+                    l_logger->logMessage(
+                        "CollectAllFRUVPD " +
+                        std::string(l_collectFruVpdCallStatus ? "successful"
+                                                              : "failed"));
+
+                    if (l_collectFruVpdCallStatus)
+                    {
+                        // start loop to check for CollectionStatus property
+                        l_rc = checkVpdCollectionStatus(
+                            i_retryLimit, i_sleepDurationInSeconds);
+                    }
+                }
+
+                // stop the event loop
+                l_ioContext.stop();
+            },
+            l_collectionStatusTimeOutUs);
+
+        // start the event loop
+        l_ioContext.run();
     }
     catch (const std::exception& l_ex)
     {
-        auto l_logger = vpd::Logger::getLoggerInstance();
         l_logger->logMessage(
             "Failed to trigger all FRU VPD collection. Error: " +
             std::string(l_ex.what()));
-        l_rc = false;
     }
     return l_rc;
 }
@@ -207,10 +264,7 @@ int main(int argc, char** argv)
         PrimeInventory l_primeObj;
         l_primeObj.primeSystemBlueprint();
 
-        return collectAllFruVpd()
-                   ? checkVpdCollectionStatus(l_retryLimit,
-                                              l_sleepDurationInSeconds)
-                   : vpd::constants::VALUE_1;
+        return collectAllFruVpd(l_retryLimit, l_sleepDurationInSeconds);
     }
     catch (const std::exception& l_ex)
     {
