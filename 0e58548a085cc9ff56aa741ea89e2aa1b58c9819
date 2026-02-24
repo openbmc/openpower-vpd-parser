@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "191f29f5_dc76531b",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-24T09:30:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f751b5c_dee3fa52",
+      "revId": "0e58548a085cc9ff56aa741ea89e2aa1b58c9819",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "748e59a0_855e4538",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-02-24T07:08:34Z",
       "side": 1,
       "message": "Any specific reason it is not part of populate DBus?",
+      "revId": "0e58548a085cc9ff56aa741ea89e2aa1b58c9819",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8145b003_453ca872",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-24T09:30:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "748e59a0_855e4538",
       "revId": "0e58548a085cc9ff56aa741ea89e2aa1b58c9819",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
