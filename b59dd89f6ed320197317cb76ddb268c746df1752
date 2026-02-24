@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c35fa728_73fd6099",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-24T15:48:27Z",
+      "side": 1,
+      "message": "Commit heading does not matches the code changes in the commit. The changes are more than adding stub.\nIf required please break into commits.",
+      "revId": "b59dd89f6ed320197317cb76ddb268c746df1752",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f53c4306_e36c9105",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-24T15:48:27Z",
+      "side": 1,
+      "message": "parser class?",
+      "range": {
+        "startLine": 11,
+        "startChar": 50,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "b59dd89f6ed320197317cb76ddb268c746df1752",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "641013e0_5586dfeb",
+        "filename": "vpd-manager/include/parser.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-24T15:48:27Z",
+      "side": 1,
+      "message": "How concrete class and parser class has the same explanation? Are they doing the same thing?\n\nThis API is creating a parser instance and calling compareData API of respective concrete parser.\n\nI don\u0027t see it comparing the data anywhere.",
+      "revId": "b59dd89f6ed320197317cb76ddb268c746df1752",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acba60bb_6f729c8f",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-24T15:48:27Z",
+      "side": 1,
+      "message": "Not required, we are already logging at the base call. Let the exception go through.",
+      "revId": "b59dd89f6ed320197317cb76ddb268c746df1752",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3997566_1bfcfec9",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-24T15:48:27Z",
+      "side": 1,
+      "message": "What is the point of having a try/catch if the purpose if just to re-throw the exception?",
+      "revId": "b59dd89f6ed320197317cb76ddb268c746df1752",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
