@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e0b7327_4616b47b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-24T07:44:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f012d83a_3a2a7807",
+      "revId": "ac6909bdd1e7433e267d2a351210d2af2a5a9f2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c81f36f_0f873934",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-02-23T11:55:18Z",
       "side": 1,
       "message": "Same here.",
+      "revId": "ac6909bdd1e7433e267d2a351210d2af2a5a9f2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d094fed0_d3bec724",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-24T07:44:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c81f36f_0f873934",
       "revId": "ac6909bdd1e7433e267d2a351210d2af2a5a9f2a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c0a9fb_408a9bc6",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-24T07:44:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6d0cf79_70b61301",
+      "revId": "ac6909bdd1e7433e267d2a351210d2af2a5a9f2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bce92a3_3d78dad4",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-02-23T11:55:18Z",
       "side": 1,
       "message": "This should co in the compare function of parser class.",
+      "revId": "ac6909bdd1e7433e267d2a351210d2af2a5a9f2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f65e5c3f_f1b92aec",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-24T07:44:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bce92a3_3d78dad4",
       "revId": "ac6909bdd1e7433e267d2a351210d2af2a5a9f2a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35bf1d32_285c8c99",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-24T07:44:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc48e670_46fe13e5",
+      "revId": "ac6909bdd1e7433e267d2a351210d2af2a5a9f2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ad8fa02_2894602a",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-02-23T11:59:47Z",
       "side": 1,
       "message": "lets name the function as compareData so that it is clear that it is not a complete object compare.",
+      "revId": "ac6909bdd1e7433e267d2a351210d2af2a5a9f2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7f456fb_013a5e56",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-24T07:44:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ad8fa02_2894602a",
       "revId": "ac6909bdd1e7433e267d2a351210d2af2a5a9f2a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
