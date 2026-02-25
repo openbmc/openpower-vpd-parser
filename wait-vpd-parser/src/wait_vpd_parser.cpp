@@ -102,15 +102,11 @@ inline int collectAllFruVpd(const unsigned i_retryLimit,
         auto l_connection =
             std::make_shared<sdbusplus::asio::connection>(l_ioContext);
 
-        auto l_message = l_connection->new_method_call(BUSNAME, OBJPATH, IFACE,
-                                                       "CollectAllFRUVPD");
-
         constexpr uint64_t l_collectionStatusTimeOutUs{
             1 * 60 * 1000000}; // 1 min
                                // timeout
 
-        l_connection->async_send(
-            l_message,
+        l_connection->async_method_call_timed(
             [&l_logger, &l_ioContext, &l_rc, &i_retryLimit,
              &i_sleepDurationInSeconds](boost::system::error_code l_ec,
                                         sdbusplus::message_t& l_ret) {
@@ -148,6 +144,7 @@ inline int collectAllFruVpd(const unsigned i_retryLimit,
                 // stop the event loop
                 l_ioContext.stop();
             },
+            BUSNAME, OBJPATH, IFACE, "CollectAllFRUVPD",
             l_collectionStatusTimeOutUs);
 
         // start the event loop
