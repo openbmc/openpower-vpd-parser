@@ -11,6 +11,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include <ranges>
 #include <typeindex>
 
 namespace vpd
@@ -877,9 +878,22 @@ bool IpzVpdParser::processInvalidRecords(
     return l_rc;
 }
 
+std::vector<std::string> IpzVpdParser::getMissingDataFromMap(
+    [[maybe_unused]] const types::IpzVpdMapVariant& i_mapToCompareWith,
+    [[maybe_unused]] const types::IpzVpdMapVariant& i_mapToCompare) const
+{
+    std::vector<std::string> l_missingData;
+
+    /** @todo Append keys that exist in i_mapToCompareWith but are absent in
+     *       i_mapToCompare to l_missingData.*/
+    return l_missingData;
+}
+
 bool IpzVpdParser::compareData(
     const std::shared_ptr<vpd::ParserInterface>& i_redundantParser) noexcept
 {
+    bool l_areEqual{true};
+
     try
     {
         if (!i_redundantParser)
@@ -893,15 +907,125 @@ bool IpzVpdParser::compareData(
         types::VPDMapVariant l_redundantParsedVpd =
             i_redundantParser.get()->parse();
 
-        // @todo compare l_primaryParsedVpd and l_redundantParsedVpd VPDs,
-        // return value based on the comparison and log an informational PEL
-        //       containing details if any VPD mismatches are found.
+        const auto l_primaryIpzVpdMap =
+            std::get<types::IPZVpdMap>(l_primaryParsedVpd);
+        const auto l_redundantIpzVpdMap =
+            std::get<types::IPZVpdMap>(l_redundantParsedVpd);
+
+        std::vector<std::string> l_missingRecordsInRedundant;
+        types::RecordKeywordsMap l_missingKeywordsInRedundant;
+        types::RecordKeywordsMap l_missingKeywordsInPrimary;
+        types::RecordKeywordsMap l_mismatchedVpd;
+
+        std::vector<std::string> l_missingRecordsInPrimary =
+            getMissingDataFromMap(l_redundantIpzVpdMap, l_primaryIpzVpdMap);
+
+        if (!l_missingRecordsInPrimary.empty())
+        {
+            l_areEqual = false;
+        }
+
+        for (const auto& [l_recordName, l_keywordValueMap] : l_primaryIpzVpdMap)
+        {
+            auto l_itrToRedundantRecord =
+                l_redundantIpzVpdMap.find(l_recordName);
+
+            if (l_itrToRedundantRecord == l_redundantIpzVpdMap.end())
+            {
+                l_areEqual = false;
+                l_missingRecordsInRedundant.push_back(l_recordName);
+                continue;
+            }
+
+            const auto l_missingKeywords = getMissingDataFromMap(
+                l_itrToRedundantRecord->second, l_keywordValueMap);
+
+            if (!l_missingKeywords.empty())
+            {
+                l_areEqual = false;
+                l_missingKeywordsInPrimary[l_recordName] = l_missingKeywords;
+            }
+
+            for (const auto& [l_keywordName, l_keywordValue] :
+                 l_keywordValueMap)
+            {
+                uint16_t l_errCode = 0;
+                const auto l_redundantKwdValue = vpdSpecificUtility::getKwVal(
+                    l_itrToRedundantRecord->second, l_keywordName, l_errCode);
+
+                if (l_errCode == error_code::KEYWORD_NOT_FOUND)
+                {
+                    l_areEqual = false;
+                    l_missingKeywordsInRedundant[l_recordName].push_back(
+                        l_keywordName);
+                }
+                else if (l_redundantKwdValue != l_keywordValue)
+                {
+                    l_areEqual = false;
+                    l_mismatchedVpd[l_recordName].push_back(l_keywordName);
+                }
+            }
+        }
+
+        if (!l_areEqual)
+        {
+            std::string l_error;
+            if (!l_missingRecordsInPrimary.empty())
+            {
+                const auto l_joined = l_missingRecordsInPrimary |
+                                      std::views::join_with(std::string(", "));
+                l_error = "Missing Record(s) on primary VPD: [" +
+                          std::string(l_joined.begin(), l_joined.end()) + "]. ";
+            }
+
+            if (!l_missingKeywordsInPrimary.empty())
+            {
+                l_error += " Missing Keyword(s) on primary VPD: " +
+                           vpdSpecificUtility::getInStringFormat(
+                               l_missingKeywordsInPrimary);
+            }
+
+            if (!l_missingRecordsInRedundant.empty())
+            {
+                const auto l_joined = l_missingRecordsInRedundant |
+                                      std::views::join_with(std::string(", "));
+                l_error += " Missing Record(s) on redundant VPD: [" +
+                           std::string(l_joined.begin(), l_joined.end()) +
+                           "]. ";
+            }
+
+            if (!l_missingKeywordsInRedundant.empty())
+            {
+                l_error += " Missing Keyword(s) on redundant VPD: " +
+                           vpdSpecificUtility::getInStringFormat(
+                               l_missingKeywordsInRedundant);
+            }
+
+            if (!l_mismatchedVpd.empty())
+            {
+                l_error +=
+                    " Mismatched record and keyword details: " +
+                    vpdSpecificUtility::getInStringFormat(l_mismatchedVpd);
+            }
+
+            throw std::runtime_error(l_error);
+        }
     }
     catch (const std::exception& l_ex)
     {
-        // @todo log a informational PEL
+        //@todo get redundant VPD path from i_redundantParser instance to update
+        // error log.
+
+        Logger::getLoggerInstance()->logMessage(
+            "Failed to validate the VPD at [" + m_vpdFilePath +
+                "] against its redundant counterpart.",
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::InternalFailure,
+                                types::SeverityType::Informational, 0,
+                                l_ex.what(), std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 
-    return false;
+    return l_areEqual;
 }
 } // namespace vpd
