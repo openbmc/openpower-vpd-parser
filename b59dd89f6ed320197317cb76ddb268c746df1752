@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97cc7135_bb31be23",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-25T06:02:31Z",
+      "side": 1,
+      "message": "Updated the commit message.",
+      "parentUuid": "c35fa728_73fd6099",
+      "revId": "b59dd89f6ed320197317cb76ddb268c746df1752",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f53c4306_e36c9105",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -31,6 +49,30 @@
       "writtenOn": "2026-02-24T15:48:27Z",
       "side": 1,
       "message": "parser class?",
+      "range": {
+        "startLine": 11,
+        "startChar": 50,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "b59dd89f6ed320197317cb76ddb268c746df1752",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d2591ac_882c2080",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-25T06:02:31Z",
+      "side": 1,
+      "message": "updated.",
+      "parentUuid": "f53c4306_e36c9105",
       "range": {
         "startLine": 11,
         "startChar": 50,
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a54096c_65076161",
+        "filename": "vpd-manager/include/parser.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-25T06:02:31Z",
+      "side": 1,
+      "message": "updated the doxygen.",
+      "parentUuid": "641013e0_5586dfeb",
+      "revId": "b59dd89f6ed320197317cb76ddb268c746df1752",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "acba60bb_6f729c8f",
         "filename": "vpd-manager/src/ipz_parser.cpp",
         "patchSetId": 8
@@ -71,6 +131,24 @@
       "writtenOn": "2026-02-24T15:48:27Z",
       "side": 1,
       "message": "Not required, we are already logging at the base call. Let the exception go through.",
+      "revId": "b59dd89f6ed320197317cb76ddb268c746df1752",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "799af815_718f0471",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-25T06:02:31Z",
+      "side": 1,
+      "message": "as discussed a info PEL will be logged in case of any mismatch or error in the concrete class.",
+      "parentUuid": "acba60bb_6f729c8f",
       "revId": "b59dd89f6ed320197317cb76ddb268c746df1752",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +166,24 @@
       "writtenOn": "2026-02-24T15:48:27Z",
       "side": 1,
       "message": "What is the point of having a try/catch if the purpose if just to re-throw the exception?",
+      "revId": "b59dd89f6ed320197317cb76ddb268c746df1752",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "612de837_2094be7e",
+        "filename": "vpd-manager/src/parser.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-25T06:02:31Z",
+      "side": 1,
+      "message": "Acknowledged, updated.",
+      "parentUuid": "d3997566_1bfcfec9",
       "revId": "b59dd89f6ed320197317cb76ddb268c746df1752",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
