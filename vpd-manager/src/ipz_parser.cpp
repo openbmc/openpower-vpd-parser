@@ -11,6 +11,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include <ranges>
 #include <typeindex>
 
 namespace vpd
@@ -880,6 +881,8 @@ bool IpzVpdParser::processInvalidRecords(
 bool IpzVpdParser::compareData(
     const std::shared_ptr<vpd::ParserInterface>& i_redundantParser) noexcept
 {
+    bool l_rc{true};
+
     try
     {
         if (!i_redundantParser)
@@ -893,15 +896,100 @@ bool IpzVpdParser::compareData(
         types::VPDMapVariant l_redundantParsedVpd =
             i_redundantParser.get()->parse();
 
-        // @todo compare l_primaryParsedVpd and l_redundantParsedVpd VPDs,
-        // return value based on the comparison and log an informational PEL
-        //       containing details if any VPD mismatches are found.
+        const auto l_primaryIpzVpdMap =
+            std::get<types::IPZVpdMap>(l_primaryParsedVpd);
+        const auto l_redundantIpzVpdMap =
+            std::get<types::IPZVpdMap>(l_redundantParsedVpd);
+
+        std::string l_missingRecords;
+        std::string l_missingKeywords;
+        types::RecordKeywordsMap l_mismatchedVpd;
+
+        for (const auto& l_aRecordEntry : l_primaryIpzVpdMap)
+        {
+            const std::string l_recordName = l_aRecordEntry.first;
+
+            auto l_itrToRedundantRecord =
+                l_redundantIpzVpdMap.find(l_recordName);
+
+            if (l_itrToRedundantRecord == l_redundantIpzVpdMap.end())
+            {
+                l_rc = false;
+                l_missingRecords += l_recordName + ", ";
+                continue;
+            }
+
+            for (const auto& l_aKeywordEntry : l_aRecordEntry.second)
+            {
+                uint16_t l_errCode = 0;
+                const auto l_redundantKwdValue = vpdSpecificUtility::getKwVal(
+                    l_itrToRedundantRecord->second, l_aKeywordEntry.first,
+                    l_errCode);
+
+                if (l_errCode == error_code::KEYWORD_NOT_FOUND)
+                {
+                    l_rc = false;
+                    l_missingKeywords += l_aKeywordEntry.first + ", ";
+                }
+                else if (l_redundantKwdValue != l_aKeywordEntry.second)
+                {
+                    l_rc = false;
+                    l_mismatchedVpd[l_recordName].push_back(
+                        l_aKeywordEntry.first);
+                }
+            }
+        }
+
+        std::string l_error;
+        if (!l_missingRecords.empty())
+        {
+            l_error = "Missing Record(s) on redundant VPD: [" +
+                      l_missingRecords + "]. ";
+        }
+
+        if (!l_missingKeywords.empty())
+        {
+            l_error += "Missing Keyword(s) on redundant VPD: [" +
+                       l_missingKeywords + "]. ";
+        }
+
+        if (!l_mismatchedVpd.empty())
+        {
+            l_error += "Mismatched record and keyword details: [";
+            for (const auto& l_recordKws : l_mismatchedVpd)
+            {
+                const auto l_keywords =
+                    l_recordKws.second |
+                    std::views::join_with(std::string(", "));
+
+                l_error += "{" + l_recordKws.first + ":[" +
+                           std::string(l_keywords.begin(), l_keywords.end()) +
+                           "]}, ";
+            }
+
+            l_error += "].";
+        }
+
+        if (!l_error.empty())
+        {
+            throw std::runtime_error(l_error);
+        }
     }
     catch (const std::exception& l_ex)
     {
-        // @todo log a informational PEL
+        //@todo get redundant VPD path from i_redundantParser instance to update
+        // error log.
+
+        Logger::getLoggerInstance()->logMessage(
+            "Failed to validate the VPD at [" + m_vpdFilePath +
+                "] against its redundant counterpart.",
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::InternalFailure,
+                                types::SeverityType::Informational, 0,
+                                l_ex.what(), std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 
-    return false;
+    return l_rc;
 }
 } // namespace vpd

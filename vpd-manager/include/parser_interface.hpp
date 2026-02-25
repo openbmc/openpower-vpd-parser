@@ -79,8 +79,7 @@ class ParserInterface
         [[maybe_unused]] const std::shared_ptr<vpd::ParserInterface>&
             i_redundantParser) noexcept
     {
-        // @todo IpzVpdParser implements this API. Add implementations for all
-        //       remaining concrete parser classes.
+        // @todo Add the appropriate implementation for KeywordVpdParser class.
         return false;
     }
 
