@@ -282,6 +282,30 @@ class IpzVpdParser : public ParserInterface
     bool processInvalidRecords(
         const types::InvalidRecordList& i_invalidRecordList) const noexcept;
 
+    /**
+     * @brief Get the list of missing keywords from one VPD map compared to
+     * another.
+     *
+     * This function compares the keys present in i_mapToCompare against those
+     * present in i_mapToCompareWith. Any keys that exist in i_mapToCompareWith
+     * but are absent in i_mapToCompare are collected and returned as a list of
+     * missing keyword strings.
+     *
+     * @param[in] i_mapToCompareWith - VPD map whose keys are considered
+     * mandatory.
+     * @param[in] i_mapToCompare - VPD map that will be checked for missing
+     * keys.
+     *
+     * @return A vector of keyword strings that are present in
+     * i_mapToCompareWith but missing from i_mapToCompare. Returns an empty
+     * vector if none are missing.
+     *
+     * @throw std::bad_variant_access
+     */
+    std::vector<std::string> getMissingDataFromMap(
+        const types::IpzVpdMapVariant& i_mapToCompareWith,
+        const types::IpzVpdMapVariant& i_mapToCompare) const;
+
     // Holds VPD data.
     const types::BinaryVector& m_vpdVector;
 
