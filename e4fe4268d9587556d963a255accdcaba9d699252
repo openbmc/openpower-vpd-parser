@@ -126,6 +126,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f92a8416_4c3f59b8",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2026-02-25T13:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5a20639_b763f81b",
+      "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24074495_c38512ee",
@@ -193,6 +211,24 @@
       "side": 1,
       "message": "why do we even need to get the system json here, I do not see any flow which can come here directly. am I missing something",
       "parentUuid": "15bfc536_a01dfc62",
+      "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9222906_2441fca4",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2026-02-25T13:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fba8fa48_979f7ecd",
       "revId": "e4fe4268d9587556d963a255accdcaba9d699252",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
