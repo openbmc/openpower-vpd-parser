@@ -118,9 +118,7 @@ int main(int argc, char** argv)
 
         // trigger FRU VPD collection and check for status
         FruVpdCollectionManager l_fruVpdCollectionManager{
-            BUSNAME,      OBJPATH,
-            IFACE,        "CollectAllFRUVPD",
-            l_retryLimit, l_sleepDurationInSeconds};
+            BUSNAME, OBJPATH, IFACE, "CollectAllFRUVPD"};
 
         return l_fruVpdCollectionManager
             .triggerFruVpdCollectionAndCheckStatus();
