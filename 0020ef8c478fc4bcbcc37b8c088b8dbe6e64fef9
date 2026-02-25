@@ -46,6 +46,30 @@
       },
       "revId": "0020ef8c478fc4bcbcc37b8c088b8dbe6e64fef9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59b86b90_e61b93a4",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-02-25T11:19:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d26bc67c_96313ac2",
+      "range": {
+        "startLine": 552,
+        "startChar": 4,
+        "endLine": 566,
+        "endChar": 5
+      },
+      "revId": "0020ef8c478fc4bcbcc37b8c088b8dbe6e64fef9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
