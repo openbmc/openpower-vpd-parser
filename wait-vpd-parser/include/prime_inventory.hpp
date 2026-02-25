@@ -99,11 +99,8 @@ class PrimeInventory
     /**
      * @brief API to update "Functional" property.
      *
-     * The API sets the default value for "Functional" property once if the
-     * property is not yet populated over DBus. As the property value is not
-     * controlled by the VPD-Collection process, if it is found already
-     * populated, the functions skips re-populating the property so that already
-     * existing value can be retained.
+     * The API initializes the "Functional" property with a default value,
+     * as it is not present on D-Bus during priming.
      *
      * @param[in] i_inventoryObjPath - Inventory path as read from config JSON.
      * @param[in,out] io_interfaces - Map to hold all the interfaces for the
@@ -114,13 +111,10 @@ class PrimeInventory
         vpd::types::InterfaceMap& io_interfaces) const noexcept;
 
     /**
-     * @brief API to update "enabled" property.
+     * @brief API to update "Enabled" property.
      *
-     * The API sets the default value for "enabled" property once if the
-     * property is not yet populated over DBus. As the property value is not
-     * controlled by the VPD-Collection process, if it is found already
-     * populated, the functions skips re-populating the property so that already
-     * existing value can be retained.
+     * The API initializes the "Enabled" property with a default value,
+     * as it is not present on D-Bus during priming.
      *
      * @param[in] i_inventoryObjPath - Inventory path as read from config JSON.
      * @param[in,out] io_interfaces - Map to hold all the interfaces for the
