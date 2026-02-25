@@ -14,6 +14,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <ranges>
 #include <regex>
 #include <typeindex>
 
@@ -1701,6 +1702,54 @@ inline void resetObjTreeVpd(const std::string& i_vpdPath,
 
         o_errCode = error_code::STANDARD_EXCEPTION;
     }
+}
+
+/**
+ * @brief Converts a record-to-keywords map into a human-readable string.
+ *
+ * This API formats the contents of the provided RecordKeywordsMap
+ * into a printable string representation. Each record and its associated
+ * keywords are appended in a structured format.
+ *
+ * @param[in] i_recordKeywordMap  Map of record names to their keyword list.
+ *
+ * @return A formatted string containing the map contents, or an empty
+ *         string if the input map is empty.
+ *
+ * @note The output string is generated in the following format:
+ *       [{record1:[kw1, kw2]}, {record2:[kw3, kw4]}, ...]
+ *       Example:  [{VSYS:[BR, J0]}]
+ */
+inline std::string getInStringFormat(
+    const types::RecordKeywordsMap& i_recordKeywordMap) noexcept
+{
+    if (i_recordKeywordMap.empty())
+    {
+        return "";
+    }
+
+    std::ostringstream l_message;
+    l_message << "[";
+    bool l_firstHandled = false;
+
+    for (const auto& l_recordKws : i_recordKeywordMap)
+    {
+        if (l_firstHandled)
+        {
+            l_message << ", ";
+        }
+
+        const auto l_keywords =
+            l_recordKws.second | std::views::join_with(std::string(", "));
+
+        l_message << "{" + l_recordKws.first + ":[" +
+                         std::string(l_keywords.begin(), l_keywords.end()) +
+                         "]}";
+        l_firstHandled = true;
+    }
+
+    l_message << "]. ";
+    return l_message.str();
 }
 } // namespace vpdSpecificUtility
 } // namespace vpd
