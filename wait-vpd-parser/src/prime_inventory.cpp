@@ -93,7 +93,7 @@ void PrimeInventory::primeSystemBlueprint() const noexcept
 {
     try
     {
-        if (m_sysCfgJsonObj.empty() || !isPrimingRequired())
+        if (m_sysCfgJsonObj.empty() || !isPrimingRequired() || vpd::dbusUtility::isChassisPowerOn() )
         {
             return;
         }
@@ -449,95 +449,43 @@ void PrimeInventory::processFunctionalProperty(
     const std::string& i_inventoryObjPath,
     vpd::types::InterfaceMap& io_interfaces) const noexcept
 {
-    if (!vpd::dbusUtility::isChassisPowerOn())
+    // Implies value is not there in D-Bus. Populate it with default
+    // value "true" .
+    uint16_t l_errCode = 0;
+    vpd::types::PropertyMap l_functionalProp;
+    l_functionalProp.emplace(vpd::constants::functionalProperty, true);
+    vpd::vpdSpecificUtility::insertOrMerge(
+        io_interfaces, vpd::constants::operationalStatusInf,
+        move(l_functionalProp), l_errCode);
+
+    if (l_errCode)
     {
-        std::vector<std::string> l_operationalStatusInf{
-            vpd::constants::operationalStatusInf};
-
-        auto l_mapperObjectMap = vpd::dbusUtility::getObjectMap(
-            i_inventoryObjPath, l_operationalStatusInf);
-
-        // If the object has been found. Check if it is under PIM.
-        if (l_mapperObjectMap.size() != 0)
-        {
-            for (const auto& [l_serviceName, l_interfaceLsit] :
-                 l_mapperObjectMap)
-            {
-                if (l_serviceName == vpd::constants::pimServiceName)
-                {
-                    // The object is already under PIM. No need to process
-                    // again. Retain the old value.
-                    return;
-                }
-            }
-        }
-
-        // Implies value is not there in D-Bus. Populate it with default
-        // value "true".
-        uint16_t l_errCode = 0;
-        vpd::types::PropertyMap l_functionalProp;
-        l_functionalProp.emplace("Functional", true);
-        vpd::vpdSpecificUtility::insertOrMerge(
-            io_interfaces, vpd::constants::operationalStatusInf,
-            move(l_functionalProp), l_errCode);
-
-        if (l_errCode)
-        {
-            m_logger->logMessage("Failed to insert value into map, error : " +
-                                 vpd::commonUtility::getErrCodeMsg(l_errCode));
-        }
+        m_logger->logMessage(
+            "Failed to insert or merge Functional interface of " +
+            std::string(i_inventoryObjPath) +
+            "Error: " + vpd::commonUtility::getErrCodeMsg(l_errCode));
     }
-
-    // if chassis is power on. Functional property should be there on D-Bus.
-    // Don't process.
-    return;
 }
 
 void PrimeInventory::processEnabledProperty(
     const std::string& i_inventoryObjPath,
     vpd::types::InterfaceMap& io_interfaces) const noexcept
 {
-    if (!vpd::dbusUtility::isChassisPowerOn())
+    // This is during priming flow so , Populate Dbus with default
+    // value "true" .
+    uint16_t l_errCode = 0;
+    vpd::types::PropertyMap l_enabledProp;
+    l_enabledProp.emplace(vpd::constants::enabledProperty, true);
+    vpd::vpdSpecificUtility::insertOrMerge(
+        io_interfaces, vpd::constants::enableInf, move(l_enabledProp),
+        l_errCode);
+
+    if (l_errCode)
     {
-        std::vector<std::string> l_enableInf{vpd::constants::enableInf};
-
-        auto l_mapperObjectMap =
-            vpd::dbusUtility::getObjectMap(i_inventoryObjPath, l_enableInf);
-
-        // If the object has been found. Check if it is under PIM.
-        if (l_mapperObjectMap.size() != 0)
-        {
-            for (const auto& [l_serviceName, l_interfaceLsit] :
-                 l_mapperObjectMap)
-            {
-                if (l_serviceName == vpd::constants::pimServiceName)
-                {
-                    // The object is already under PIM. No need to process
-                    // again. Retain the old value.
-                    return;
-                }
-            }
-        }
-
-        // Implies value is not there in D-Bus. Populate it with default
-        // value "true".
-        uint16_t l_errCode = 0;
-        vpd::types::PropertyMap l_enabledProp;
-        l_enabledProp.emplace("Enabled", true);
-        vpd::vpdSpecificUtility::insertOrMerge(
-            io_interfaces, vpd::constants::enableInf, move(l_enabledProp),
-            l_errCode);
-
-        if (l_errCode)
-        {
-            m_logger->logMessage("Failed to insert value into map, error : " +
-                                 vpd::commonUtility::getErrCodeMsg(l_errCode));
-        }
+        m_logger->logMessage("Failed to insert or merge Enabled interface of " +
+                             std::string(i_inventoryObjPath) + "Error: " +
+                             vpd::commonUtility::getErrCodeMsg(l_errCode));
     }
-
-    // if chassis is power on. Enabled property should be there on D-Bus.
-    // Don't process.
-    return;
 }
 
 void PrimeInventory::processAvailableProperty(
