@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a569aa13_19fbbcf7",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1670,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-25T06:13:23Z",
+      "side": 1,
+      "message": "local variable name should start with l_*",
+      "revId": "ab1157ed103b047599635977774ecfb5bf7bb0a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b17f770f_0142981c",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1694,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-25T06:13:23Z",
+      "side": 1,
+      "message": "failed to update Available proprty + i_inventoryObjPath \nwill help in dbug",
+      "revId": "ab1157ed103b047599635977774ecfb5bf7bb0a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa3318fe_7a7eb909",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-02-25T06:13:23Z",
+      "side": 1,
+      "message": "this comment should go to the top",
+      "revId": "ab1157ed103b047599635977774ecfb5bf7bb0a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
