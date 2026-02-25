@@ -34,6 +34,24 @@
       "parentUuid": "10a42869_fd87a9c4",
       "revId": "cd828d48209b7c2b4aef9b099099141d88e08f48",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b938e9cf_fa868e19",
+        "filename": "vpd-manager/include/single_fab.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000348
+      },
+      "writtenOn": "2026-02-25T13:32:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a9ad623a_e85fc5e2",
+      "revId": "cd828d48209b7c2b4aef9b099099141d88e08f48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
