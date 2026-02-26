@@ -107,6 +107,9 @@ class CollectionOrchestrator final
     /**
      * @brief API to read the VPD collection status property from D-Bus
      *
+     * This API reads VPD collection status property from D-Bus. If collection
+     * status is read as done, it updates the collection done flag
+     *
      * @throw std::runtime_error
      */
     void readCollectionStatusProperty();
@@ -140,7 +143,7 @@ class CollectionOrchestrator final
     std::once_flag m_stopOnceFlag;
 
     // match object required by Collection Status listener
-    std::unique_ptr<sdbusplus::bus::match_t> m_collectionStatusMatch;
+    std::unique_ptr<sdbusplus::bus::match_t> m_collectionStatusMatch{nullptr};
 
     // logger instance
     std::shared_ptr<vpd::Logger> m_logger{nullptr};
