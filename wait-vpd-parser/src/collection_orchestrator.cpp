@@ -2,47 +2,76 @@
 
 #include "collection_orchestrator.hpp"
 
+#include "exceptions.hpp"
+
 #include <format>
 
 void CollectionOrchestrator::triggerFruVpdCollectionAndCheckStatus()
 {
     try
     {
-        /*TODO:
-            - Do timed async D-Bus call with callback to trigger FRU VPD
-           collection
-            - Run I/O context loop with a timeout (blocking call)
-            - After I/O context loop exits, check if collection status is
-           completed
-                - if yes, return
-            - Incase of error encountered, timer expiry, etc, throw exception so
-           that service fails
-        */
+        m_asioConn->async_method_call(
+            [this](boost::system::error_code l_ec,
+                   sdbusplus::message::message& l_msg) {
+                this->collectAllFruVpdCallback(l_ec, l_msg);
+            },
+            m_collectionServiceName, m_objectPath, m_interface,
+            m_collectionMethodName);
+
+        // start the event loop with a timeout
+        m_ioContext.run_for(m_timeout);
+
+        // event loop returned
+        if (m_collectionDone)
+        {
+            m_logger->logMessage("VPD collection is done");
+        }
+        else
+        {
+            throw std::runtime_error(
+                "Timed out waiting for VPD collection status");
+        }
     }
     catch (const std::exception& l_ex)
     {
         m_ioContext.stop();
 
-        m_logger->logMessage(std::format(
+        throw std::runtime_error(std::format(
             "CollectionOrchestrator failed. Error: {}", l_ex.what()));
-
-        throw;
     }
 }
 
 void CollectionOrchestrator::collectAllFruVpdCallback(
-    [[maybe_unused]] boost::system::error_code i_ec,
-    [[maybe_unused]] sdbusplus::message_t& i_msg)
+    boost::system::error_code i_ec, sdbusplus::message_t& i_msg)
 {
     try
     {
-        /* TODO:
-            - Check for timeout or error
-            - If no error or timeout
-                - if message indicates collection was triggered successfully
-                    -  start a timer based listener on collection status
-           property
-        */
+        if (i_ec == boost::system::errc::timed_out)
+        {
+            throw vpd::DbusException("CollectAllFruVpd timed out");
+        }
+        else if (i_ec || i_msg.is_method_error())
+        {
+            throw vpd::DbusException(std::format(
+                "CollectAllFruVpd failed. Error : {}", i_ec.message()));
+        }
+
+        bool l_collectionTriggered{false};
+
+        // D-Bus call has returned, read the return value
+        i_msg.read(l_collectionTriggered);
+
+        if (!l_collectionTriggered)
+        {
+            throw std::runtime_error("CollectAllFruVpd returned false");
+        }
+
+        m_logger->logMessage("CollectAllFRUVPD successful");
+
+        // triggering FRU VPD collection is successful, now
+        // start a Listener on the Collection Status
+        // property
+        registerVpdCollectionStatusListener();
     }
     catch (const std::exception& l_ex)
     {
@@ -56,9 +85,14 @@ void CollectionOrchestrator::registerVpdCollectionStatusListener()
 {
     try
     {
-        /* TODO:
-         - Register a listener on collection status property
-        */
+        static std::shared_ptr<sdbusplus::bus::match_t>
+            l_collectionStatusMatch = std::make_shared<sdbusplus::bus::match_t>(
+                *m_asioConn,
+                sdbusplus::bus::match::rules::propertiesChanged(
+                    OBJPATH, vpd::constants::vpdCollectionInterface),
+                [this](sdbusplus::message_t& l_msg) {
+                    vpdCollectionStatusCallback(l_msg);
+                });
     }
     catch (const std::exception& l_ex)
     {
@@ -69,16 +103,43 @@ void CollectionOrchestrator::registerVpdCollectionStatusListener()
 }
 
 void CollectionOrchestrator::vpdCollectionStatusCallback(
-    [[maybe_unused]] sdbusplus::message_t& i_msg)
+    sdbusplus::message_t& i_msg)
 {
     try
     {
-        /* TODO:
-            - Process the message to check if collection status is complete
-            - If yes,
-             - Update collection done flag to true
-             - Stop I/O context
-        */
+        if (i_msg.is_method_error())
+        {
+            throw vpd::DbusException(
+                "Error in reading VPD collection status signal. ");
+        }
+
+        std::string l_objectPath;
+        vpd::types::PropertyMap l_propMap;
+        i_msg.read(l_objectPath, l_propMap);
+
+        const auto l_itr = l_propMap.find("Status");
+
+        if (l_itr == l_propMap.end())
+        {
+            // "Status" is not found in the callback message
+            return;
+        }
+
+        if (auto l_collectionStatus = std::get_if<std::string>(&l_itr->second))
+        {
+            if (*l_collectionStatus == vpd::constants::vpdCollectionCompleted)
+            {
+                // stop the event loop
+                m_ioContext.stop();
+
+                // set the collection flag
+                m_collectionDone = true;
+            }
+            else
+            {
+                m_logger->logMessage("VPD collection not yet complete");
+            }
+        }
     }
     catch (const std::exception& l_ex)
     {
