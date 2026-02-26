@@ -107,6 +107,9 @@ class CollectionOrchestrator final
     /**
      * @brief API to read the VPD collection status property from D-Bus
      *
+     * This API reads VPD collection status property from D-Bus. If collection
+     * status is read as done, it updates the collection done flag
+     *
      * @throw std::runtime_error
      */
     void readCollectionStatusProperty();
