@@ -44,8 +44,7 @@ class CollectionOrchestrator final
         unsigned i_collectionStatusTimeout = 360) :
         m_collectionServiceName{i_collectionServiceName},
         m_objectPath{i_objectPath}, m_interface{i_interface},
-        m_collectionMethodName{i_method},
-        m_collectionStatusTimeout{i_collectionStatusTimeout},
+        m_collectionMethodName{i_method}, m_timeout{i_collectionStatusTimeout},
         m_logger{vpd::Logger::getLoggerInstance()}
     {
         m_asioConn = std::make_shared<sdbusplus::asio::connection>(m_ioContext);
@@ -78,7 +77,7 @@ class CollectionOrchestrator final
      *
      * @throw std::runtime_error
      */
-    int triggerFruVpdCollectionAndCheckStatus();
+    void triggerFruVpdCollectionAndCheckStatus();
 
   private:
     /**
@@ -127,7 +126,10 @@ class CollectionOrchestrator final
     std::shared_ptr<sdbusplus::asio::connection> m_asioConn;
 
     // collection status timeout
-    std::chrono::seconds m_collectionStatusTimeout{360};
+    std::chrono::seconds m_timeout{360};
+
+    // flag which indicates whether collection status has been read as complete
+    bool m_collectionDone{false};
 
     // logger instance
     std::shared_ptr<vpd::Logger> m_logger{nullptr};
