@@ -895,13 +895,31 @@ void Manager::deleteAllFRUVPD() const noexcept
             return;
         }
 
+        bool l_directoryRemoved = false;
+
         for (const auto& l_entry :
              std::filesystem::directory_iterator(l_inventoryBackupPath))
         {
             if (std::filesystem::is_directory(l_entry))
             {
-                std::filesystem::remove_all(l_entry);
+                std::error_code l_ec;
+                std::filesystem::remove_all(l_entry, l_ec);
+
+                if (l_ec)
+                {
+                    m_logger->logMessage("Failed to delete directory : " +
+                                         l_entry.path().string() + " error : " +
+                                         std::string(l_ec.message()));
+                }
+
+                l_directoryRemoved = true;
             }
+        }
+
+        if (!l_directoryRemoved)
+        {
+            // Since no directories were removed, skip restarting of service.
+            return;
         }
 
         uint16_t l_errCode = 0;
