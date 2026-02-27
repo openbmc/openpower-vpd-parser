@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d97df29f_7618a2f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-27T10:00:07Z",
+      "side": 1,
+      "message": "I think commit message can be more descriptive, and explain how the comparison is done(based on Records and Keywords).",
+      "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a7e3bc1_d7a7f8b6",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-02-27T10:00:07Z",
+      "side": 1,
+      "message": "This block of code is converting the `types::RecordKeywordsMap` to a string.\nCan we have this as a utility API? That way this logic can be re-used wherever necessary and the caller side looks clean.",
+      "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
