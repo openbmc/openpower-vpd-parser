@@ -895,18 +895,50 @@ void Manager::deleteAllFRUVPD() const noexcept
             return;
         }
 
+        bool l_directoryRemoved = false;
+
         for (const auto& l_entry :
              std::filesystem::directory_iterator(l_inventoryBackupPath))
         {
             if (std::filesystem::is_directory(l_entry))
             {
-                std::filesystem::remove_all(l_entry);
+                std::error_code l_ec;
+                std::filesystem::remove_all(l_entry, l_ec);
+
+                if (l_ec)
+                {
+                    m_logger->logMessage("Failed to delete directory : " +
+                                         l_entry.path().string() + " error : " +
+                                         std::string(l_ec.message()));
+
+                    continue;
+                }
+
+                l_directoryRemoved = true;
             }
         }
 
+        if (!l_directoryRemoved)
+        {
+            // Since no directories were removed, skip restarting of service.
+            return;
+        }
+
         uint16_t l_errCode = 0;
-        if (!commonUtility::restartService(constants::pimServiceName,
-                                           l_errCode))
+
+        constexpr auto l_numRetries{3};
+
+        for (unsigned l_attempt = 0; l_attempt < l_numRetries; ++l_attempt)
+        {
+            if (commonUtility::restartService(constants::pimServiceName,
+                                              l_errCode))
+            {
+                // restarting inventory manager service is successful, return
+                return;
+            }
+        }
+
+        if (l_errCode)
         {
             throw std::runtime_error("Failed to restart PIM service, error : " +
                                      commonUtility::getErrCodeMsg(l_errCode));
