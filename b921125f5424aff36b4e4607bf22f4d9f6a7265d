@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bba7a5b4_9ef27587",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-27T14:41:53Z",
+      "side": 1,
+      "message": "One potential corner case that I can see here.\n\n\nIf \"std::filesystem::remove_all(l_entry, l_ec);\" fails\n\neven in that case code is setting l_directoryRemoved as true which will cause PIM to restart.\n\nSo if  it has only one directory and it fails to remove that or it fails for all the sub directories, in both the cases PIM will restart which is actually not required.",
+      "revId": "b921125f5424aff36b4e4607bf22f4d9f6a7265d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
