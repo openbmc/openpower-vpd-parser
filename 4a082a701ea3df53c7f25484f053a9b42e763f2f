@@ -20,6 +20,80 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59f8ee73_bd04cecb",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-27T14:29:00Z",
+      "side": 1,
+      "message": "This code only compares what is missing in redundant, does not check what is missing in primary.",
+      "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11721429_0e8f65fb",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-27T14:29:00Z",
+      "side": 1,
+      "message": "You need 4 strings?\nrecords missing in primary/secondary\nkwd missing in primary/secondary",
+      "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3944ee7_8a4a7d0f",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-27T14:29:00Z",
+      "side": 1,
+      "message": "Code can be optimized. You don\u0027t have to extract record name separately. The loop gives you the option to extract it here itself.",
+      "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13a6d4b7_b8c61697",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-02-27T14:29:00Z",
+      "side": 1,
+      "message": "with above approach this line will not be required.\n\n\nALso to deal with primary record\u0027s name, use l_primaryRecordName as you are using redundant in other case. This will keep the code consistent.",
+      "range": {
+        "startLine": 910,
+        "startChar": 12,
+        "endLine": 910,
+        "endChar": 66
+      },
+      "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a740d39d_0843c7c1",
         "filename": "vpd-manager/src/ipz_parser.cpp",
         "patchSetId": 2
