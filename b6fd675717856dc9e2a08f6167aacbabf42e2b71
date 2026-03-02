@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0481aeff_ea281024",
+        "filename": "wait-vpd-parser/include/collection_orchestrator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-02T15:22:01Z",
+      "side": 1,
+      "message": "Should we import all required headers string, chrono, sdbusplus, string_view etc ?",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88e55750_1c32553c",
         "filename": "wait-vpd-parser/include/collection_orchestrator.hpp",
         "patchSetId": 7
@@ -65,6 +82,23 @@
       "writtenOn": "2026-03-02T15:12:27Z",
       "side": 1,
       "message": "should this be const ?",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c2cd824_5cd8e068",
+        "filename": "wait-vpd-parser/src/collection_orchestrator.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-02T15:22:01Z",
+      "side": 1,
+      "message": "Should we say \"Trigger Fru Vpd Collection\"",
       "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
