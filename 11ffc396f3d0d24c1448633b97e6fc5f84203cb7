@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0290230c_7c393c37",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-02T08:56:57Z",
+      "side": 1,
+      "message": "Why it implements that and an overview about what the method does would help.",
+      "revId": "11ffc396f3d0d24c1448633b97e6fc5f84203cb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "856d15b1_933f1cd9",
+        "filename": "wait-vpd-parser/src/collection_orchestrator.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-02T08:56:57Z",
+      "side": 1,
+      "message": "Post registering for the callback, should we also explicitly read the value of collection status? Just to cover the case where we might have missed any change that took place pre or during the callback registration?",
+      "revId": "11ffc396f3d0d24c1448633b97e6fc5f84203cb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
