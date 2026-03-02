@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88e55750_1c32553c",
+        "filename": "wait-vpd-parser/include/collection_orchestrator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-02T15:12:27Z",
+      "side": 1,
+      "message": "is this line relevant to this param ?",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa277b52_38125349",
+        "filename": "wait-vpd-parser/include/collection_orchestrator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-02T15:12:27Z",
+      "side": 1,
+      "message": "the method name can change, instead we can use m_collectionMethodName ?\nsame for service name.",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9adb1fb_d686fb3e",
+        "filename": "wait-vpd-parser/include/collection_orchestrator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-02T15:12:27Z",
+      "side": 1,
+      "message": "should variable can be declared as const ?",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2233f5bc_04a8a53b",
+        "filename": "wait-vpd-parser/include/collection_orchestrator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-02T15:12:27Z",
+      "side": 1,
+      "message": "should this be const ?",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
