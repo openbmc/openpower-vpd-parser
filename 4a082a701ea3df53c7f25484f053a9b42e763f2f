@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d63c1438_f2dda060",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-02T15:32:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d97df29f_7618a2f9",
+      "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59f8ee73_bd04cecb",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-02-27T14:29:00Z",
       "side": 1,
       "message": "This code only compares what is missing in redundant, does not check what is missing in primary.",
+      "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a70eef15_4d4f81d1",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-02T15:32:39Z",
+      "side": 1,
+      "message": "Acknowledged, updated the code",
+      "parentUuid": "59f8ee73_bd04cecb",
       "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dc3236d_78e5d951",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-02T15:32:39Z",
+      "side": 1,
+      "message": "Acknowledged, updated the collect the info.",
+      "parentUuid": "11721429_0e8f65fb",
+      "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3944ee7_8a4a7d0f",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc53ecf3_93f61a56",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-02T15:32:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3944ee7_8a4a7d0f",
+      "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13a6d4b7_b8c61697",
@@ -82,6 +154,30 @@
       "writtenOn": "2026-02-27T14:29:00Z",
       "side": 1,
       "message": "with above approach this line will not be required.\n\n\nALso to deal with primary record\u0027s name, use l_primaryRecordName as you are using redundant in other case. This will keep the code consistent.",
+      "range": {
+        "startLine": 910,
+        "startChar": 12,
+        "endLine": 910,
+        "endChar": 66
+      },
+      "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53a77bc2_bfbcd31d",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-02T15:32:39Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "13a6d4b7_b8c61697",
       "range": {
         "startLine": 910,
         "startChar": 12,
@@ -111,6 +207,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7bdea74_3b893ecb",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-02T15:32:39Z",
+      "side": 1,
+      "message": "as this part is checking and collecting what is missing and what is different between two maps in particular format. I don\u0027t see any advantage by moving as another api,",
+      "parentUuid": "a740d39d_0843c7c1",
+      "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4a7e3bc1_d7a7f8b6",
         "filename": "vpd-manager/src/ipz_parser.cpp",
         "patchSetId": 2
@@ -122,6 +236,24 @@
       "writtenOn": "2026-02-27T10:00:07Z",
       "side": 1,
       "message": "This block of code is converting the `types::RecordKeywordsMap` to a string.\nCan we have this as a utility API? That way this logic can be re-used wherever necessary and the caller side looks clean.",
+      "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7d63b86_9c31343c",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-02T15:32:39Z",
+      "side": 1,
+      "message": "the information is used for logging PEL, I don\u0027t see anywhere this info is getting generated using this map and wants to convert the information into string format.\n\ncurrently keeping as lambda function, if there any future use case we can move this as utility that time.",
+      "parentUuid": "4a7e3bc1_d7a7f8b6",
       "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
