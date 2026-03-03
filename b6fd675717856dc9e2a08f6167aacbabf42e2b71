@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "caae2514_9725067b",
+        "filename": "wait-vpd-parser/include/collection_orchestrator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-03T09:26:32Z",
+      "side": 1,
+      "message": "Why? They are not required for this patch. If required, they will be imported in future patches.",
+      "parentUuid": "0481aeff_ea281024",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88e55750_1c32553c",
         "filename": "wait-vpd-parser/include/collection_orchestrator.hpp",
         "patchSetId": 7
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-02T15:12:27Z",
       "side": 1,
       "message": "is this line relevant to this param ?",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2d8bed1_8c27a96d",
+        "filename": "wait-vpd-parser/include/collection_orchestrator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-03T09:26:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88e55750_1c32553c",
       "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4b197ac_ea5a517c",
+        "filename": "wait-vpd-parser/include/collection_orchestrator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-03T09:26:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa277b52_38125349",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9adb1fb_d686fb3e",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-03-02T15:12:27Z",
       "side": 1,
       "message": "should variable can be declared as const ?",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4caa783c_5c345fce",
+        "filename": "wait-vpd-parser/include/collection_orchestrator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-03T09:26:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9adb1fb_d686fb3e",
       "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +160,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed529c99_d12fb9de",
+        "filename": "wait-vpd-parser/include/collection_orchestrator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-03T09:26:32Z",
+      "side": 1,
+      "message": "No. sdbusplus restriction: https://grok.openbmc.org/xref/openbmc/sdbusplus/include/sdbusplus/bus/match.hpp?r\u003df2594aa5e2deb804085692d268027cadc4df929a#41\n\nhttps://grok.openbmc.org/xref/openbmc/sdbusplus/include/sdbusplus/message.hpp?r\u003d6269157344064457b7e1241d4efe59c6c51c7a59#154\n\n`message.read()` is not a `const` method",
+      "parentUuid": "2233f5bc_04a8a53b",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c2cd824_5cd8e068",
         "filename": "wait-vpd-parser/src/collection_orchestrator.cpp",
         "patchSetId": 7
@@ -99,6 +189,24 @@
       "writtenOn": "2026-03-02T15:22:01Z",
       "side": 1,
       "message": "Should we say \"Trigger Fru Vpd Collection\"",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0edfdda4_1468d172",
+        "filename": "wait-vpd-parser/src/collection_orchestrator.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-03T09:26:32Z",
+      "side": 1,
+      "message": "No, this `catch` block can be hit for multiple errors, not only \"trigger VPD collection failure\". Error type is specified by the `l_ex.what()`",
+      "parentUuid": "0c2cd824_5cd8e068",
       "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
