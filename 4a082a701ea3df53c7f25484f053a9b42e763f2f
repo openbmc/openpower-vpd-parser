@@ -256,6 +256,24 @@
       "parentUuid": "4a7e3bc1_d7a7f8b6",
       "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9999f566_0a1e27da",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-03T11:23:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7d63b86_9c31343c",
+      "revId": "4a082a701ea3df53c7f25484f053a9b42e763f2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
