@@ -3,6 +3,7 @@
 #include "collection_orchestrator.hpp"
 
 #include "exceptions.hpp"
+#include "types.hpp"
 #include "utility/dbus_utility.hpp"
 
 #include <format>
@@ -104,7 +105,7 @@ void CollectionOrchestrator::registerVpdCollectionStatusListener()
         m_collectionStatusMatch = std::make_unique<sdbusplus::bus::match_t>(
             *m_asioConn,
             sdbusplus::bus::match::rules::propertiesChanged(
-                OBJPATH, vpd::constants::vpdCollectionInterface),
+                OBJPATH, vpd::types::CommonProgress::Progress::interface),
             [this](sdbusplus::message_t& l_msg) {
                 vpdCollectionStatusCallback(l_msg);
             });
@@ -142,7 +143,9 @@ void CollectionOrchestrator::vpdCollectionStatusCallback(
 
         if (auto l_collectionStatus = std::get_if<std::string>(&l_itr->second))
         {
-            if (*l_collectionStatus == vpd::constants::vpdCollectionCompleted)
+            if (vpd::types::CommonProgress::convertOperationStatusFromString(
+                    *l_collectionStatus) ==
+                vpd::types::VpdCollectionStatus::Completed)
             {
                 // stop the event loop
                 m_ioContext.stop();
@@ -169,11 +172,14 @@ void CollectionOrchestrator::readCollectionStatusProperty()
     try
     {
         auto l_retVal = vpd::dbusUtility::readDbusProperty(
-            BUSNAME, OBJPATH, vpd::constants::vpdCollectionInterface, "Status");
+            BUSNAME, OBJPATH, vpd::types::CommonProgress::Progress::interface,
+            "Status");
         if (auto l_collectionStatusProp = std::get_if<std::string>(&l_retVal))
         {
-            m_collectionDone = (*l_collectionStatusProp ==
-                                vpd::constants::vpdCollectionCompleted);
+            m_collectionDone =
+                (vpd::types::CommonProgress::convertOperationStatusFromString(
+                     *l_collectionStatusProp) ==
+                 vpd::types::VpdCollectionStatus::Completed);
         }
     }
     catch (const std::exception& l_ex)
