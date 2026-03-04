@@ -176,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87b5b994_97f73b98",
+        "filename": "wait-vpd-parser/include/collection_orchestrator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-04T05:50:20Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ed529c99_d12fb9de",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c2cd824_5cd8e068",
@@ -207,6 +225,24 @@
       "side": 1,
       "message": "No, this `catch` block can be hit for multiple errors, not only \"trigger VPD collection failure\". Error type is specified by the `l_ex.what()`",
       "parentUuid": "0c2cd824_5cd8e068",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7057d52e_419ee977",
+        "filename": "wait-vpd-parser/src/collection_orchestrator.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-04T05:50:20Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0edfdda4_1468d172",
       "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
