@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6d963d4_5cef374a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-04T17:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0290230c_7c393c37",
+      "revId": "11ffc396f3d0d24c1448633b97e6fc5f84203cb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "856d15b1_933f1cd9",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-02T08:56:57Z",
       "side": 1,
       "message": "Post registering for the callback, should we also explicitly read the value of collection status? Just to cover the case where we might have missed any change that took place pre or during the callback registration?",
+      "revId": "11ffc396f3d0d24c1448633b97e6fc5f84203cb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "044e2932_524c9bd7",
+        "filename": "wait-vpd-parser/src/collection_orchestrator.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-04T17:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "856d15b1_933f1cd9",
       "revId": "11ffc396f3d0d24c1448633b97e6fc5f84203cb7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
