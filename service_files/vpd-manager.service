@@ -6,6 +6,7 @@ After=mapper-wait@-xyz-openbmc_project-inventory.service
 #After=set-spi-mux.service
 Before=phosphor-discover-system-state@0.service
 Before=xyz.openbmc_project.State.BMC.Redundancy.service
+Before=obmc-console@ttyVUART0.service obmc-console@ttyVUART1.service
 
 [Service]
 BusName=com.ibm.VPD.Manager
