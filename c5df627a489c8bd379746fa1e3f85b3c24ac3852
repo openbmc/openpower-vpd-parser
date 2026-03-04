@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42b61060_6100e138",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-04T16:07:00Z",
+      "side": 1,
+      "message": "FRU\u0027s VPD",
+      "revId": "c5df627a489c8bd379746fa1e3f85b3c24ac3852",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b9760cc_c20ae23c",
+        "filename": "service_files/active-to-passive.service",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-04T16:07:00Z",
+      "side": 1,
+      "message": "Requires says this service cannot start unless obmc-bmc-passive.target is already active. \nand WantedBy says run this service once obmc-bmc-passive.target is reached.\nis this is redundant ?",
+      "revId": "c5df627a489c8bd379746fa1e3f85b3c24ac3852",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "438bcc9e_d0623150",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-04T16:07:00Z",
+      "side": 1,
+      "message": "should we take these as input, so caller can decide and send ?",
+      "revId": "c5df627a489c8bd379746fa1e3f85b3c24ac3852",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d19534d_2330e18d",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-04T16:07:00Z",
+      "side": 1,
+      "message": "BMC is considered as active.",
+      "revId": "c5df627a489c8bd379746fa1e3f85b3c24ac3852",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a223af76_319b2386",
+        "filename": "wait-vpd-parser/src/wait_vpd_parser.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-04T16:07:00Z",
+      "side": 1,
+      "message": "can we keep these value as static constexpr at beginning of the file ?",
+      "revId": "c5df627a489c8bd379746fa1e3f85b3c24ac3852",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
