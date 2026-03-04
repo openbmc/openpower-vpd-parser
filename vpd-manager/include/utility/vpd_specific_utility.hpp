@@ -1721,13 +1721,36 @@ inline void resetObjTreeVpd(const std::string& i_vpdPath,
  *       Example:  [{VSYS:[BR, J0]}]
  */
 inline std::string getInStringFormat(
-    [[maybe_unused]] const types::RecordKeywordsMap&
-        i_recordKeywordMap) noexcept
+    const types::RecordKeywordsMap& i_recordKeywordMap) noexcept
 {
-    /* @todo Convert the given RecordKeywordsMap into a printable string format.
-     */
+    if (i_recordKeywordMap.empty())
+    {
+        return "";
+    }
 
-    return "";
+    std::ostringstream l_message;
+    l_message << "[";
+    bool l_firstHandled = false;
+
+    for (const auto& l_recordKws : i_recordKeywordMap)
+    {
+        if (l_firstHandled)
+        {
+            l_message << ", ";
+        }
+
+        const auto l_keywords =
+            l_recordKws.second | std::views::join_with(std::string(", "));
+
+        l_message << "{" + l_recordKws.first + ":[" +
+                         std::string(l_keywords.begin(), l_keywords.end()) +
+                         "]}";
+        l_firstHandled = true;
+    }
+
+    l_message << "]. ";
+    return l_message.str();
 }
+
 } // namespace vpdSpecificUtility
 } // namespace vpd
