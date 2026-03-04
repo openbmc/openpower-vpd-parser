@@ -879,13 +879,34 @@ bool IpzVpdParser::processInvalidRecords(
 }
 
 std::vector<std::string> IpzVpdParser::getMissingDataFromMap(
-    [[maybe_unused]] const types::IpzVpdMapVariant& i_mapToCompareWith,
-    [[maybe_unused]] const types::IpzVpdMapVariant& i_mapToCompare) const
+    const types::IpzVpdMapVariant& i_mapToCompareWith,
+    const types::IpzVpdMapVariant& i_mapToCompare) const
 {
     std::vector<std::string> l_missingData;
 
-    /** @todo Append keys that exist in i_mapToCompareWith but are absent in
-     *       i_mapToCompare to l_missingData.*/
+    std::visit(
+        [&l_missingData](const auto& l_mapToCompareWith,
+                         const auto& l_mapToCompare) {
+            using T1 = std::decay_t<decltype(l_mapToCompareWith)>;
+            using T2 = std::decay_t<decltype(l_mapToCompare)>;
+
+            if constexpr (!(std::is_same_v<T1, std::monostate> ||
+                            std::is_same_v<T2, std::monostate>) &&
+                          std::is_same_v<T1, T2>)
+            {
+                std::ranges::for_each(
+                    l_mapToCompareWith | std::views::keys |
+                        std::views::filter(
+                            [&l_mapToCompare](const auto& l_key) {
+                                return !l_mapToCompare.contains(l_key);
+                            }),
+                    [&l_missingData](const auto& l_key) {
+                        l_missingData.push_back(l_key);
+                    });
+            }
+        },
+        i_mapToCompareWith, i_mapToCompare);
+
     return l_missingData;
 }
 
