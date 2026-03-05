@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c4ca526_ab2617fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-05T09:18:50Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "0724c1cf_4cc4181f",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27742ce1_7ac3d390",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-05T08:22:53Z",
       "side": 1,
       "message": "\u003eIpzVpdMapVariant\n\nI think commit message should be generic and should not contain too many implementation details",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6b8acb6_5b525d0c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-05T09:18:50Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "27742ce1_7ac3d390",
       "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d64374fa_02bb4aa9",
+        "filename": "vpd-manager/include/ipz_parser.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-05T09:18:50Z",
+      "side": 1,
+      "message": "the keys can be record or keyword, so mentioned it as keys here with respect to map.",
+      "parentUuid": "540a8c8e_be53c660",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea9be53c_85d2930c",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-03-05T08:22:53Z",
       "side": 1,
       "message": "Exception behavior is not documented",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6000586_2ac3cc3f",
+        "filename": "vpd-manager/include/ipz_parser.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-05T09:18:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea9be53c_85d2930c",
       "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16a25a6b_1e6d81f7",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-05T09:18:50Z",
+      "side": 1,
+      "message": "needed for below implementation\nhttps://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/87874/9/vpd-manager/src/ipz_parser.cpp#922\n\nhttps://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/87874/9/vpd-manager/src/ipz_parser.cpp#941",
+      "parentUuid": "944105dc_2afab29a",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59b423a6_999d547d",
@@ -103,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb39b392_5b5e5905",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-05T09:18:50Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "59b423a6_999d547d",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67a1c385_4fba0203",
@@ -116,6 +224,24 @@
       "writtenOn": "2026-03-05T08:22:53Z",
       "side": 1,
       "message": "I feel this method implementation is too big. It can be broken down into multiple private methods for better readability and maintainability.",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2e5715b_01369dd7",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-05T09:18:50Z",
+      "side": 1,
+      "message": "I don\u0027t see advantage in breaking into smaller apis for inner loop.\nthe API has more line as we collecting multiple data, checking and logging those data as well.",
+      "parentUuid": "67a1c385_4fba0203",
       "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
