@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "274d30ac_74c39de6",
+        "filename": "wait-vpd-parser/include/collection_orchestrator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-05T13:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caae2514_9725067b",
+      "revId": "b6fd675717856dc9e2a08f6167aacbabf42e2b71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88e55750_1c32553c",
