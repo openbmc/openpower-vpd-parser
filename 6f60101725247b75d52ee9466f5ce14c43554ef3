@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0645b1c_895a3a5b",
+        "filename": "vpd-manager/include/parser_interface.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-05T13:02:59Z",
+      "side": 1,
+      "message": "We need to add a log here so that it is visible on journal why the comparison failed.",
+      "revId": "6f60101725247b75d52ee9466f5ce14c43554ef3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40e0399c_0a826019",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-05T13:02:59Z",
+      "side": 1,
+      "message": "Why not use the existing type - \"VPDMapVariant\"? As one is IPZ type map and another is keyword type map.",
+      "revId": "6f60101725247b75d52ee9466f5ce14c43554ef3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e6b0d5a_76a85199",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-05T13:02:59Z",
+      "side": 1,
+      "message": "Why is this variable required and how is it helping?",
+      "revId": "6f60101725247b75d52ee9466f5ce14c43554ef3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

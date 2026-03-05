@@ -244,6 +244,24 @@
       "parentUuid": "67a1c385_4fba0203",
       "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb95d001_e2e676ee",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-05T13:02:59Z",
+      "side": 1,
+      "message": "+1, API is more that 100+ lines. \n\n\n\u003e  API has more line as we collecting multiple data, checking and logging those data as well.\n\nCorrect, but can we wrap functionalities into smaller functions where each function can do a specific job and return the result to parent API?",
+      "parentUuid": "f2e5715b_01369dd7",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
