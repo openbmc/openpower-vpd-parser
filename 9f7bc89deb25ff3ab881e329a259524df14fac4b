@@ -16,6 +16,24 @@
       "message": "Could you please add the value as well in the log so that it can be known for what value we got the callback?",
       "revId": "9f7bc89deb25ff3ab881e329a259524df14fac4b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b9c369a_8130a8ef",
+        "filename": "wait-vpd-parser/src/collection_orchestrator.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-05T13:00:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58af6222_fbf40581",
+      "revId": "9f7bc89deb25ff3ab881e329a259524df14fac4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
