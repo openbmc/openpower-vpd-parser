@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0724c1cf_4cc4181f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-05T08:22:53Z",
+      "side": 1,
+      "message": "\u003eprimary and\nredundant VPD maps.\n\nWhat is primary and redundant VPD maps?",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27742ce1_7ac3d390",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-05T08:22:53Z",
+      "side": 1,
+      "message": "\u003eIpzVpdMapVariant\n\nI think commit message should be generic and should not contain too many implementation details",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "540a8c8e_be53c660",
+        "filename": "vpd-manager/include/ipz_parser.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-05T08:22:53Z",
+      "side": 1,
+      "message": "\u003eAny keys that exist\n\nDo you mean `keywords`?",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea9be53c_85d2930c",
+        "filename": "vpd-manager/include/ipz_parser.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-05T08:22:53Z",
+      "side": 1,
+      "message": "Exception behavior is not documented",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "944105dc_2afab29a",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-05T08:22:53Z",
+      "side": 1,
+      "message": "What is the requirement for above variant?\n\n`IPZVpdMap` is `std::unordered_map\u003cstd::string, IPZKwdValueMap\u003e`",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59b423a6_999d547d",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-05T08:22:53Z",
+      "side": 1,
+      "message": "```suggestion\n        std::vector\u003cstd::string\u003e l_missingRecordsInPrimary{getMissingDataFromMap(l_redundantIpzVpdMap, l_primaryIpzVpdMap)};\n```",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67a1c385_4fba0203",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-05T08:22:53Z",
+      "side": 1,
+      "message": "I feel this method implementation is too big. It can be broken down into multiple private methods for better readability and maintainability.",
+      "revId": "d27166f402a112d3cb54cd2405285a97f315d993",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
