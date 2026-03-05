@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58af6222_fbf40581",
+        "filename": "wait-vpd-parser/src/collection_orchestrator.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-05T12:32:07Z",
+      "side": 1,
+      "message": "Could you please add the value as well in the log so that it can be known for what value we got the callback?",
+      "revId": "9f7bc89deb25ff3ab881e329a259524df14fac4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
