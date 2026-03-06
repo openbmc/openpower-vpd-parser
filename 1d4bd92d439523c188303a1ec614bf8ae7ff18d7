@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f784473c_038c945d",
+        "filename": "docs/backup-restore-config-json.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-06T05:27:15Z",
+      "side": 1,
+      "message": "The document is written w.r.t system VPD where as this feature is supposed to be genric and wor all kinds of VPD based on the JSON.",
+      "revId": "1d4bd92d439523c188303a1ec614bf8ae7ff18d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
