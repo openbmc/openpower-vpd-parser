@@ -14,7 +14,7 @@ void CollectionOrchestrator::triggerFruVpdCollectionAndCheckStatus()
     {
         m_asioConn->async_method_call(
             [this](boost::system::error_code l_ec,
-                   sdbusplus::message::message& l_msg) {
+                   sdbusplus::message_t& l_msg) {
                 this->collectAllFruVpdCallback(l_ec, l_msg);
             },
             m_collectionServiceName, m_objectPath, m_interface,
