@@ -135,8 +135,8 @@ std::shared_ptr<ParserInterface> ParserFactory::getParser(
         }
 
         default:
-            throw DataException(
-                std::string(__FUNCTION__) + "Unable to determine VPD format");
+            throw DataException(std::string(__FUNCTION__) +
+                                " : Unable to determine VPD format");
     }
 }
 } // namespace vpd
