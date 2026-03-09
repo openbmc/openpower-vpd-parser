@@ -16,6 +16,24 @@
       "message": "as async_method_call_timed is used, we can call io_context run here.",
       "revId": "970988317d196aaf681bd1d695286cf3ef7d192a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6779a923_b7a77c0d",
+        "filename": "wait-vpd-parser/src/collection_orchestrator.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-09T09:34:26Z",
+      "side": 1,
+      "message": "No. Consider the scenario where `CollectAllFruVpd` returned success in about ~30 seconds, after which we start a listener on `CollectionStatus` property. \n\nIf we use `m_ioContext.run()` here, `wait-vpd-parser` will block here until Collection Status \u003d Completed, which may take more than 6 minutes. So `wait-vpd-parsers` fails to check if collection is completed before 6 minutes.\nConsider another scenario where `vpd-manager` fails to update CollectionStatus \u003d Complete for some reason. Then, `wait-vpd-parser` gets blocked here infinitely.",
+      "parentUuid": "b17115e3_c906e6cc",
+      "revId": "970988317d196aaf681bd1d695286cf3ef7d192a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
