@@ -12,13 +12,15 @@ void CollectionOrchestrator::triggerFruVpdCollectionAndCheckStatus()
 {
     try
     {
-        m_asioConn->async_method_call(
+        m_asioConn->async_method_call_timed(
             [this](boost::system::error_code l_ec,
                    sdbusplus::message_t& l_msg) {
                 this->collectAllFruVpdCallback(l_ec, l_msg);
             },
             m_collectionServiceName, m_objectPath, m_interface,
-            m_collectionMethodName);
+            m_collectionMethodName,
+            std::chrono::duration_cast<std::chrono::microseconds>(m_timeout)
+                .count());
 
         // start the event loop with a timeout
         m_ioContext.run_for(m_timeout);
@@ -30,8 +32,9 @@ void CollectionOrchestrator::triggerFruVpdCollectionAndCheckStatus()
         }
         else
         {
-            throw std::runtime_error(
-                "Timed out waiting for VPD collection status");
+            throw std::runtime_error(std::format(
+                "Timed out after {} secs, waiting for VPD collection status",
+                m_timeout));
         }
     }
     catch (const std::exception& l_ex)
@@ -50,7 +53,8 @@ void CollectionOrchestrator::collectAllFruVpdCallback(
     {
         if (i_ec == boost::system::errc::timed_out)
         {
-            throw vpd::DbusException("CollectAllFruVpd timed out");
+            throw vpd::DbusException(std::format(
+                "CollectAllFruVpd timed out after {} seconds", m_timeout));
         }
         else if (i_ec || i_msg.is_method_error())
         {
