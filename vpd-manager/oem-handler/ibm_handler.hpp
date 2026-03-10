@@ -277,6 +277,14 @@ class IbmHandler
      */
     void writeBmcPositionToFile(const size_t i_bmcPosition);
 
+    /**
+     * @brief API to update VPD collection status property
+     *
+     * @param[in] i_status - VPD collection status value
+     */
+    void updateVpdCollectionStatus(
+        const types::VpdCollectionStatus i_status) const noexcept;
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 

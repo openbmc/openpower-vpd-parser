@@ -140,11 +140,7 @@ Manager::Manager(
         progressiFace->register_property_rw<std::string>(
             "Status", sdbusplus::vtable::property_::emits_change,
             [this](const std::string& l_currStatus, const auto&) {
-                if (m_vpdCollectionStatus != l_currStatus)
-                {
-                    m_vpdCollectionStatus = l_currStatus;
-                    m_progressInterface->signal_property("Status");
-                }
+                m_vpdCollectionStatus = l_currStatus;
                 return true;
             },
             [this](const auto&) { return m_vpdCollectionStatus; });

@@ -247,8 +247,7 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
 
             m_logger->logMessage("m_worker->isSystemVPDOnDBus() completed");
 
-            m_progressInterface->set_property(
-                "Status", std::string(constants::vpdCollectionCompleted));
+            updateVpdCollectionStatus(types::VpdCollectionStatus::Completed);
 
             if (m_backupAndRestoreObj)
             {
@@ -1255,8 +1254,8 @@ void IbmHandler::writeBmcPositionToFile(const size_t i_bmcPosition)
 void IbmHandler::collectAllFruVpd()
 {
     // Setting status to "InProgress", before trigeering VPD collection.
-    m_progressInterface->set_property(
-        "Status", std::string(constants::vpdCollectionInProgress));
+    updateVpdCollectionStatus(types::VpdCollectionStatus::InProgress);
+
     m_worker->collectFrusFromJson();
     SetTimerToDetectVpdCollectionStatus();
 }
@@ -1312,5 +1311,14 @@ void IbmHandler::checkAndUpdateBmcPosition(size_t& o_bmcPosition) const noexcept
             std::string(constants::rbmcPrototypeSysBmcPosGpio) +
             " for position. Reason: " + l_ex.what());
     }
+}
+
+void IbmHandler::updateVpdCollectionStatus(
+    const types::VpdCollectionStatus i_status) const noexcept
+{
+    m_progressInterface->set_property(
+        "Status",
+        types::CommonProgress::convertOperationStatusToString(i_status));
+    m_progressInterface->signal_property("Status");
 }
 } // namespace vpd
