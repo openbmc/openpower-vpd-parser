@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57c2468a_d224b5b8",
+        "filename": "vpd-manager/include/ipz_parser.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-10T08:15:47Z",
+      "side": 1,
+      "message": "Acknowledged. moved this API to different commit, will address in that PR\u003e",
+      "parentUuid": "49aaaf2e_bc561f47",
+      "revId": "22b1b523c67e392c679a64350f673f033a190c11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1562749d_4873949f",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4aec612_14f7532c",
+        "filename": "vpd-manager/include/ipz_parser.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-10T08:15:47Z",
+      "side": 1,
+      "message": "Acknowledged. moved this API to different commit, will address in that PR.",
+      "parentUuid": "1562749d_4873949f",
+      "revId": "22b1b523c67e392c679a64350f673f033a190c11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "572d8d26_37ce752b",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-03-10T07:00:52Z",
       "side": 1,
       "message": "Why all the parameters are passed by copy?",
+      "revId": "22b1b523c67e392c679a64350f673f033a190c11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aad0b630_31602949",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-10T08:15:47Z",
+      "side": 1,
+      "message": "Acknowledged, moved this API to different commit, will address in that PR.",
+      "parentUuid": "572d8d26_37ce752b",
       "revId": "22b1b523c67e392c679a64350f673f033a190c11",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
