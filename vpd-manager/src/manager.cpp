@@ -143,7 +143,6 @@ Manager::Manager(
                 if (m_vpdCollectionStatus != l_currStatus)
                 {
                     m_vpdCollectionStatus = l_currStatus;
-                    m_progressInterface->signal_property("Status");
                 }
                 return true;
             },
