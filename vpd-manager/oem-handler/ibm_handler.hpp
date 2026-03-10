@@ -4,11 +4,13 @@
 #include "gpio_monitor.hpp"
 #include "listener.hpp"
 #include "logger.hpp"
+#include "types.hpp"
 #include "worker.hpp"
 
 #include <sdbusplus/asio/object_server.hpp>
 
 #include <memory>
+#include <mutex>
 
 namespace vpd
 {
@@ -64,6 +66,15 @@ class IbmHandler
      * @throw JsonException, runtime_error
      */
     void collectAllFruVpd();
+
+    /**
+     * @brief API to get VPD collection status
+     */
+    types::VpdCollectionStatus getVpdCollectionStatus() noexcept
+    {
+        std::lock_guard<std::mutex> l_lock{m_vpdCollectionStatusMutex};
+        return m_vpdCollectionStatus;
+    }
 
   private:
     /**
@@ -277,6 +288,17 @@ class IbmHandler
      */
     void writeBmcPositionToFile(const size_t i_bmcPosition);
 
+    /**
+     * @brief API to update VPD collection status
+     */
+    void updateVpdCollectionStatus(
+        const types::VpdCollectionStatus& i_status) noexcept
+    {
+        std::lock_guard<std::mutex> l_lock{m_vpdCollectionStatusMutex};
+        m_vpdCollectionStatus = i_status;
+        m_progressInterface->signal_property("Status");
+    }
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
@@ -310,6 +332,10 @@ class IbmHandler
     // vpd collection mode
     const types::VpdCollectionMode m_vpdCollectionMode;
 
+    // VPD collection status
+    types::VpdCollectionStatus m_vpdCollectionStatus{
+        types::VpdCollectionStatus::NotStarted};
+
     // Holds if sysmlink to config JSON is present or not.
     bool m_isSymlinkPresent = false;
 
@@ -318,5 +344,8 @@ class IbmHandler
 
     // To distinguish the factory reset path.
     bool m_isFactoryResetDone = false;
+
+    // mutex to protect VPD collection status
+    std::mutex m_vpdCollectionStatusMutex;
 };
 } // namespace vpd

@@ -299,6 +299,19 @@ class Manager
      */
     void readVpdCollectionMode() noexcept;
 
+    /**
+     * @brief API to get VPD collection status
+     */
+    types::VpdCollectionStatus getVpdCollectionStatus() const noexcept
+    {
+#ifdef IBM_SYSTEM
+        return m_ibmHandler ? m_ibmHandler->getVpdCollectionStatus()
+                            : types::VpdCollectionStatus::NotStarted;
+#else
+        return m_vpdCollectionStatus;
+#endif
+    }
+
     // Shared pointer to asio context object.
     const std::shared_ptr<boost::asio::io_context>& m_ioContext;
 
@@ -317,14 +330,17 @@ class Manager
     // Shared pointer to GpioMonitor class
     std::shared_ptr<GpioMonitor> m_gpioMonitor;
 
+#ifndef IBM_SYSTEM
     // Variable to hold current collection status
-    std::string m_vpdCollectionStatus{constants::vpdCollectionNotStarted};
+    types::VpdCollectionStatus m_vpdCollectionStatus{
+        types::CommonProgress::NotStarted};
+#endif
 
     // Shared pointer to backup and restore class
     std::shared_ptr<BackupAndRestore> m_backupAndRestoreObj;
 
     // Shared pointer to oem specific class.
-    std::shared_ptr<IbmHandler> m_ibmHandler;
+    std::shared_ptr<IbmHandler> m_ibmHandler{nullptr};
 
     // VPD collection mode. Default is hardware mode.
     types::VpdCollectionMode m_vpdCollectionMode =
