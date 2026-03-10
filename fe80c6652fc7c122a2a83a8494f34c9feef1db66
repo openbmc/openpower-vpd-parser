@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d539d5ad_d3e5110b",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1728,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-10T09:44:39Z",
+      "side": 1,
+      "message": "Please avoid C-style in C++ code unless we don\u0027t have any option.",
+      "revId": "fe80c6652fc7c122a2a83a8494f34c9feef1db66",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
