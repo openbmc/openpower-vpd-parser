@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49aaaf2e_bc561f47",
+        "filename": "vpd-manager/include/ipz_parser.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-10T07:00:52Z",
+      "side": 1,
+      "message": "nit: Indentation wrapped early?",
+      "revId": "22b1b523c67e392c679a64350f673f033a190c11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1562749d_4873949f",
+        "filename": "vpd-manager/include/ipz_parser.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-10T07:00:52Z",
+      "side": 1,
+      "message": "Any specific reason parameters are not const reference?",
+      "revId": "22b1b523c67e392c679a64350f673f033a190c11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "572d8d26_37ce752b",
+        "filename": "vpd-manager/src/ipz_parser.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-10T07:00:52Z",
+      "side": 1,
+      "message": "Why all the parameters are passed by copy?",
+      "revId": "22b1b523c67e392c679a64350f673f033a190c11",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
