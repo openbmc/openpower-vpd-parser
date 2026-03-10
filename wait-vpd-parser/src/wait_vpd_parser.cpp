@@ -13,9 +13,6 @@
 #include <chrono>
 #include <thread>
 
-constexpr auto active = "active";
-constexpr auto passive = "passive";
-
 /**
  * @brief API to handle inventory backup data
  *
@@ -89,35 +86,6 @@ bool checkAndHandleInventoryBackup()
     return l_rc;
 }
 
-/**
- * @brief API to delete VPD for all FRUs.
- *
- * This API deletes VPD for all FRUs by calling Dbus API
- * "DeleteAllFRUVPD" exposed by vpd-manager
- *
- * @return - On success returns true, otherwise returns false
- */
-inline int deleteAllFruVpd() noexcept
-{
-    bool l_rc{true};
-    try
-    {
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method =
-            l_bus.new_method_call(BUSNAME, OBJPATH, IFACE, "DeleteAllFRUVPD");
-
-        l_bus.call_noreply(l_method);
-    }
-    catch (const std::exception& l_ex)
-    {
-        auto l_logger = vpd::Logger::getLoggerInstance();
-        l_logger->logMessage("Failed to trigger delete all FRU VPD. Error: " +
-                             std::string(l_ex.what()));
-        l_rc = false;
-    }
-    return l_rc;
-}
-
 int main(int argc, char** argv)
 {
     try
@@ -127,29 +95,11 @@ int main(int argc, char** argv)
         // default collection status timeout in seconds
         unsigned l_collectionStatusTimeoutSecs{360};
 
-        // The BMC role can be either active or passive. By default the BMC is
-        // considered as active.
-        std::string l_role{active};
-
         l_app.add_option("--collectionStatusTimeout, -s",
                          l_collectionStatusTimeoutSecs,
                          "VPD collection status timeout");
-        l_app.add_option("--role, -b", l_role, "BMC role");
 
         CLI11_PARSE(l_app, argc, argv);
-
-        if (l_role == passive)
-        {
-            return deleteAllFruVpd()
-                       ? !(vpd::dbusUtility::writeDbusProperty(
-                             BUSNAME, OBJPATH,
-                             vpd::constants::vpdCollectionInterface, "Status",
-                             vpd::constants::vpdCollectionCompleted))
-                       : !(vpd::dbusUtility::writeDbusProperty(
-                             BUSNAME, OBJPATH,
-                             vpd::constants::vpdCollectionInterface, "Status",
-                             vpd::constants::vpdCollectionFailed));
-        }
 
         // check and see if there is any inventory backup data. If it's there
         // restore the data.
