@@ -136,19 +136,6 @@ Manager::Manager(
                 return this->validateRedundantEeprom(i_fruPath);
             });
 
-        // Indicates FRU VPD collection for the system has not started.
-        progressiFace->register_property_rw<std::string>(
-            "Status", sdbusplus::vtable::property_::emits_change,
-            [this](const std::string& l_currStatus, const auto&) {
-                if (m_vpdCollectionStatus != l_currStatus)
-                {
-                    m_vpdCollectionStatus = l_currStatus;
-                    m_progressInterface->signal_property("Status");
-                }
-                return true;
-            },
-            [this](const auto&) { return m_vpdCollectionStatus; });
-
         // If required, instantiate OEM specific handler here.
 #ifdef IBM_SYSTEM
         readVpdCollectionMode();
@@ -156,10 +143,26 @@ Manager::Manager(
         m_ibmHandler = std::make_shared<IbmHandler>(
             m_worker, m_backupAndRestoreObj, m_interface, m_progressInterface,
             m_ioContext, m_asioConnection, m_vpdCollectionMode);
+
+        m_progressInterface->register_property_r<std::string>(
+            "Status", sdbusplus::vtable::property_::emits_change,
+            [this](const auto&) {
+                return types::CommonProgress::convertOperationStatusToString(
+                    m_ibmHandler->getVpdCollectionStatus());
+            });
 #else
         m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT);
-        m_progressInterface->set_property(
-            "Status", std::string(constants::vpdCollectionCompleted));
+
+        m_progressInterface->register_property_r<std::string>(
+            "Status", sdbusplus::vtable::property_::emits_change,
+            [this](const auto&) {
+                return types::CommonProgress::convertOperationStatusToString(
+                    m_vpdCollectionStatus);
+            });
+
+        m_vpdCollectionStatus = types::VpdCollectionStatus::Completed;
+
+        m_progressInterface->signal_property("Status");
 #endif
     }
     catch (const std::exception& l_ex)
@@ -447,7 +450,7 @@ types::DbusVariantType Manager::readKeyword(
 void Manager::collectSingleFruVpd(
     const sdbusplus::message::object_path& i_dbusObjPath)
 {
-    if (m_vpdCollectionStatus != constants::vpdCollectionCompleted)
+    if (getVpdCollectionStatus() != types::VpdCollectionStatus::Completed)
     {
         logging::logMessage(
             "Currently VPD CollectionStatus is not completed. Cannot perform single FRU VPD collection for " +
@@ -775,19 +778,22 @@ bool Manager::collectAllFruVpd() const noexcept
     try
     {
         types::SeverityType l_severityType;
-        if (m_vpdCollectionStatus == constants::vpdCollectionNotStarted)
+        if (getVpdCollectionStatus() == types::VpdCollectionStatus::NotStarted)
         {
             l_severityType = types::SeverityType::Informational;
         }
-        else if (m_vpdCollectionStatus == constants::vpdCollectionCompleted ||
-                 m_vpdCollectionStatus == constants::vpdCollectionFailed)
+        else if (getVpdCollectionStatus() ==
+                     types::VpdCollectionStatus::Completed ||
+                 getVpdCollectionStatus() == types::VpdCollectionStatus::Failed)
         {
             l_severityType = types::SeverityType::Warning;
         }
         else
         {
             throw std::runtime_error(
-                "Invalid collection status " + m_vpdCollectionStatus +
+                "Invalid collection status " +
+                types::CommonProgress::convertOperationStatusToString(
+                    getVpdCollectionStatus()) +
                 ". Aborting all FRUs VPD collection.");
         }
 
@@ -868,7 +874,7 @@ bool Manager::validateRedundantEeprom(const types::Path& i_fruPath) const
 
 void Manager::deleteAllFRUVPD() const noexcept
 {
-    if (m_vpdCollectionStatus == constants::vpdCollectionInProgress)
+    if (getVpdCollectionStatus() == types::VpdCollectionStatus::InProgress)
     {
         m_logger->logMessage(
             "FRU VPD collection is in progress. Cannot perform delete all FRU VPD.");

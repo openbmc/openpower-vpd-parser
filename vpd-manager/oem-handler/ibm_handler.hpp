@@ -4,6 +4,7 @@
 #include "gpio_monitor.hpp"
 #include "listener.hpp"
 #include "logger.hpp"
+#include "types.hpp"
 #include "worker.hpp"
 
 #include <sdbusplus/asio/object_server.hpp>
@@ -64,6 +65,14 @@ class IbmHandler
      * @throw JsonException, runtime_error
      */
     void collectAllFruVpd();
+
+    /**
+     * @brief API to get VPD collection status
+     */
+    types::VpdCollectionStatus getVpdCollectionStatus() const noexcept
+    {
+        return m_vpdCollectionStatus;
+    }
 
   private:
     /**
@@ -277,6 +286,16 @@ class IbmHandler
      */
     void writeBmcPositionToFile(const size_t i_bmcPosition);
 
+    /**
+     * @brief API to update VPD collection status
+     */
+    void updateVpdCollectionStatus(
+        const types::VpdCollectionStatus& i_status) noexcept
+    {
+        m_vpdCollectionStatus = i_status;
+        m_progressInterface->signal_property("Status");
+    }
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
@@ -309,6 +328,10 @@ class IbmHandler
 
     // vpd collection mode
     const types::VpdCollectionMode m_vpdCollectionMode;
+
+    // VPD collection status
+    types::VpdCollectionStatus m_vpdCollectionStatus{
+        types::VpdCollectionStatus::NotStarted};
 
     // Holds if sysmlink to config JSON is present or not.
     bool m_isSymlinkPresent = false;
