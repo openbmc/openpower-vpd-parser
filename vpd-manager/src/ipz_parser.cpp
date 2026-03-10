@@ -972,8 +972,14 @@ bool IpzVpdParser::compareData(
             }
         }
 
-        /* @todo Check if there are any missing records/keywords or mismatched
-         * VPD and throw an exception. */
+        if (const auto& l_message = getDataInPrintableFormat(
+                l_missingRecordsInPrimary, l_missingRecordsInRedundant,
+                l_missingKeywordsInPrimary, l_missingKeywordsInRedundant,
+                l_mismatchedVpd);
+            !l_message.empty())
+        {
+            throw std::runtime_error(l_message);
+        }
 
         return true;
     }
@@ -989,5 +995,52 @@ bool IpzVpdParser::compareData(
                                 std::nullopt});
         return false;
     }
+}
+
+std::string IpzVpdParser::getDataInPrintableFormat(
+    const std::vector<std::string>& i_missingRecordsInPrimary,
+    const std::vector<std::string>& i_missingRecordsInRedundant,
+    const types::RecordKeywordsMap& i_missingKeywordsInPrimary,
+    const types::RecordKeywordsMap& i_missingKeywordsInRedundant,
+    const types::RecordKeywordsMap& i_mismatchedVpd) const noexcept
+{
+    std::string l_message;
+    if (!i_missingRecordsInPrimary.empty())
+    {
+        const auto l_joined = i_missingRecordsInPrimary |
+                              std::views::join_with(std::string(", "));
+        l_message = "Missing Record(s) on primary VPD: [" +
+                    std::string(l_joined.begin(), l_joined.end()) + "]. ";
+    }
+
+    if (!i_missingKeywordsInPrimary.empty())
+    {
+        l_message +=
+            " Missing Keyword(s) on primary VPD: " +
+            vpdSpecificUtility::getInStringFormat(i_missingKeywordsInPrimary);
+    }
+
+    if (!i_missingRecordsInRedundant.empty())
+    {
+        const auto l_joined = i_missingRecordsInRedundant |
+                              std::views::join_with(std::string(", "));
+        l_message += " Missing Record(s) on redundant VPD: [" +
+                     std::string(l_joined.begin(), l_joined.end()) + "]. ";
+    }
+
+    if (!i_missingKeywordsInRedundant.empty())
+    {
+        l_message +=
+            " Missing Keyword(s) on redundant VPD: " +
+            vpdSpecificUtility::getInStringFormat(i_missingKeywordsInRedundant);
+    }
+
+    if (!i_mismatchedVpd.empty())
+    {
+        l_message += " Mismatched record and keyword details: " +
+                     vpdSpecificUtility::getInStringFormat(i_mismatchedVpd);
+    }
+
+    return l_message;
 }
 } // namespace vpd
