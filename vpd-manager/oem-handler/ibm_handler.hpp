@@ -9,6 +9,7 @@
 #include <sdbusplus/asio/object_server.hpp>
 
 #include <memory>
+#include <mutex>
 
 namespace vpd
 {
@@ -277,6 +278,21 @@ class IbmHandler
      */
     void writeBmcPositionToFile(const size_t i_bmcPosition);
 
+    /**
+     * @brief API to update VPD collection status property
+     *
+     * @param[in] i_status - VPD collection status value
+     */
+    void updateVpdCollectionStatus(
+        const types::VpdCollectionStatus i_status) const noexcept
+    {
+        std::lock_guard<std::mutex> l_lock{m_vpdCollectionStatusMutex};
+        m_progressInterface->set_property(
+            "Status",
+            types::CommonProgress::convertOperationStatusToString(i_status));
+        m_progressInterface->signal_property("Status");
+    }
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
@@ -318,5 +334,8 @@ class IbmHandler
 
     // To distinguish the factory reset path.
     bool m_isFactoryResetDone = false;
+
+    // mutex to protect VPD collection status
+    mutable std::mutex m_vpdCollectionStatusMutex;
 };
 } // namespace vpd
