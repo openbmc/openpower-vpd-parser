@@ -306,6 +306,35 @@ class IpzVpdParser : public ParserInterface
         const types::IpzVpdMapVariant& i_mapToCompareWith,
         const types::IpzVpdMapVariant& i_mapToCompare) const;
 
+    /**
+     * @brief Generate a formatted string representing VPD comparison
+     * differences.
+     *
+     * This API constructs a human-readable string containing details of
+     * missing records, missing keywords, and mismatched keyword values
+     * identified during VPD comparison.
+     *
+     * @param[in] i_missingRecordsInPrimary   -  List of records missing in the
+     * primary VPD.
+     * @param[in] i_missingRecordsInRedundant  - List of records missing in the
+     * redundant VPD.
+     * @param[in] i_missingKeywordsInPrimary  -  Map of records and their
+     * corresponding keywords missing in the primary VPD.
+     * @param[in] i_missingKeywordsInRedundant - Map of records and their
+     * corresponding keywords missing in the redundant VPD.
+     * @param[in] i_mismatchedVpd            -   Map of records and keywords
+     * whose values differ between the primary and redundant VPD.
+     *
+     * @return A formatted string describing all detected VPD differences.
+     * Returns an empty string if no differences are present.
+     */
+    std::string getDataInPrintableFormat(
+        const std::vector<std::string>& i_missingRecordsInPrimary,
+        const std::vector<std::string>& i_missingRecordsInRedundant,
+        const types::RecordKeywordsMap& i_missingKeywordsInPrimary,
+        const types::RecordKeywordsMap& i_missingKeywordsInRedundant,
+        const types::RecordKeywordsMap& i_mismatchedVpd) const noexcept;
+
     // Holds VPD data.
     const types::BinaryVector& m_vpdVector;
 
