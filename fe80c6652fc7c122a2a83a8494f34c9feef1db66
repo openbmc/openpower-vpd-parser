@@ -16,6 +16,24 @@
       "message": "Please avoid C-style in C++ code unless we don\u0027t have any option.",
       "revId": "fe80c6652fc7c122a2a83a8494f34c9feef1db66",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95b19472_5270bc20",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1728,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-10T09:46:58Z",
+      "side": 1,
+      "message": "This also adds an overheadThis takes a const char* (a pointer to a null-terminated C string) and constructs a std::string from it. The std::string constructor has toReceive the pointerCall strlen (or equivalent) to find the length — which is 0Construct an empty string",
+      "parentUuid": "d539d5ad_d3e5110b",
+      "revId": "fe80c6652fc7c122a2a83a8494f34c9feef1db66",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
