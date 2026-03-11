@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4366e615_57ebeabf",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-11T07:11:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d92fad15_57918e20",
+      "revId": "a01eb8085a096d68c1bd8a9ea4c99e78f059d2d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "896fcc50_e32f700e",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-11T04:14:38Z",
       "side": 1,
       "message": "Why mutex is required?",
+      "revId": "a01eb8085a096d68c1bd8a9ea4c99e78f059d2d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e023ac28_ba7c7848",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-11T07:11:07Z",
+      "side": 1,
+      "message": "As discussed, mutex is not required. Removed it.",
+      "parentUuid": "896fcc50_e32f700e",
       "revId": "a01eb8085a096d68c1bd8a9ea4c99e78f059d2d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
