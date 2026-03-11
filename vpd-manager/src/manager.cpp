@@ -787,11 +787,17 @@ bool Manager::collectAllFruVpd() const noexcept
                 ". Aborting all FRUs VPD collection.");
         }
 
+// TODO : re-enable this when async PEL implementation is done
+#ifdef DISABLE_COLLECTION_PEL
         m_logger->logMessage(
             std::string("Collect all FRUs VPD is requested."), PlaceHolder::PEL,
             types::PelInfoTuple{types::ErrorType::FirmwareError, l_severityType,
                                 0, std::nullopt, std::nullopt, std::nullopt,
                                 std::nullopt});
+#else
+        (void)l_severityType; // suppress unused variable warning
+        m_logger->logMessage("Collect all FRUs VPD is requested.");
+#endif
 
 // ToDo: Handle with OEM interface
 #ifdef IBM_SYSTEM
