@@ -1,5 +1,6 @@
 #pragma once
 
+#include "config_manager.hpp"
 #include "constants.hpp"
 #include "logger.hpp"
 #include "types.hpp"
@@ -487,5 +488,8 @@ class Worker
 
     // Shared pointer to Logger object
     std::shared_ptr<Logger> m_logger;
+
+    // unique pointer to Config Manager object
+    std::unique_ptr<ConfigManager> m_configManager{nullptr};
 };
 } // namespace vpd

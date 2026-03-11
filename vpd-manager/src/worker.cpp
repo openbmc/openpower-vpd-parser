@@ -16,6 +16,7 @@
 #include <utility/vpd_specific_utility.hpp>
 
 #include <filesystem>
+#include <format>
 #include <fstream>
 #include <future>
 #include <typeindex>
@@ -48,6 +49,21 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
         {
             throw JsonException("Mandatory tag(s) missing from JSON",
                                 m_configJsonPath);
+        }
+
+        try
+        {
+            // TODO: revisit to see if ConfigManager can be initialized after
+            // System VPD collection create ConfigManager instance
+            ConfigManager::WorkerPassKey l_configMgrKey;
+            m_configManager =
+                std::make_unique<ConfigManager>(l_configMgrKey, m_parsedJson);
+        }
+        catch (const std::exception& l_ex)
+        {
+            // TODO: revisit to see if this should be a PEL
+            m_logger->logMessage(std::format(
+                "Failed to initialize ConfigManager. Error: {}", l_ex.what()));
         }
     }
     else
