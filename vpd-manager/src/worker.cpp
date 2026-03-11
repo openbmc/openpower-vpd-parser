@@ -49,6 +49,11 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
             throw JsonException("Mandatory tag(s) missing from JSON",
                                 m_configJsonPath);
         }
+
+        // create ConfigManager instance
+        ConfigManager::ConstructorKey l_configMgrKey;
+        m_configManager =
+            std::make_unique<ConfigManager>(l_configMgrKey, m_parsedJson);
     }
     else
     {
