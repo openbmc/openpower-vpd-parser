@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce8908c9_709d202e",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-11T15:06:31Z",
+      "side": 1,
+      "message": "configuration specific JSON",
+      "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27d59046_d0cbc014",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-11T15:06:31Z",
+      "side": 1,
+      "message": "can we say WorkerPassKey or PassKey as we only allowing worker to create the object ?",
+      "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f033e5e_f0bb3fc3",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-11T15:06:31Z",
+      "side": 1,
+      "message": "can we just list all these under just \"deleted functions\" comment to avoid too many lines and we can avoid description of these functions.",
+      "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e79d3f4e_8f85d94a",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-11T15:06:31Z",
+      "side": 1,
+      "message": "m_chassisInfoMap\u0027s key is chassis id, why the value type also needs to hold the chassisId again ?",
+      "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e241b861_9381c1b8",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-11T15:06:31Z",
+      "side": 1,
+      "message": "a chassiId can have multiple inventory paths, how we can hold single inventory path here ?",
+      "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f2ea447_445ed565",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-11T15:06:31Z",
+      "side": 1,
+      "message": "is chassisId to JSON mapping is enough for the requirement of getting chassis based json ?",
+      "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
