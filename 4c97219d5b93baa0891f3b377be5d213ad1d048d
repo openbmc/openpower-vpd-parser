@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79e159e5_a78230a6",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T04:45:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce8908c9_709d202e",
+      "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27d59046_d0cbc014",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-11T15:06:31Z",
       "side": 1,
       "message": "can we say WorkerPassKey or PassKey as we only allowing worker to create the object ?",
+      "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77a3894a_59870cd9",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T04:45:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27d59046_d0cbc014",
       "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0207dfb_1a7ebfad",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T04:45:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f033e5e_f0bb3fc3",
+      "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e79d3f4e_8f85d94a",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-03-11T15:06:31Z",
       "side": 1,
       "message": "m_chassisInfoMap\u0027s key is chassis id, why the value type also needs to hold the chassisId again ?",
+      "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1ddccf6_5fd33616",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T04:45:40Z",
+      "side": 1,
+      "message": "Agreed. Removed.",
+      "parentUuid": "e79d3f4e_8f85d94a",
       "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd56c86f_affd56ef",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T04:45:40Z",
+      "side": 1,
+      "message": "Agreed. Removed.",
+      "parentUuid": "e241b861_9381c1b8",
+      "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f2ea447_445ed565",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-03-11T15:06:31Z",
       "side": 1,
       "message": "is chassisId to JSON mapping is enough for the requirement of getting chassis based json ?",
+      "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd7e5726_fd6aaa65",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T04:45:40Z",
+      "side": 1,
+      "message": "Agreed. Addressed.",
+      "parentUuid": "2f2ea447_445ed565",
       "revId": "4c97219d5b93baa0891f3b377be5d213ad1d048d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
