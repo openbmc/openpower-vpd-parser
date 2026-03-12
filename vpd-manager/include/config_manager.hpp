@@ -1,11 +1,13 @@
 #pragma once
-
+#include "error_codes.hpp"
 #include "logger.hpp"
 
 #include <nlohmann/json.hpp>
 
+#include <expected>
 #include <map>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 
 namespace vpd
@@ -104,18 +106,24 @@ class ConfigManager final
      *
      * @throw std::runtime_error
      */
-    void buildChassisToFruMap()
-    {
-        /* TODO:
-          1. Iterate through "frus" under system config JSON
-            1.i. For each FRU, iterate through the sub FRUS
-                  1.i.i. For each FRU, extract Chassis ID using Object path at
-          index 0, and build EEPROM to Chassis ID Map. 1.i.ii. For each sub FRU,
-          use the object path to get the chassis ID, and add the sub JSON to the
-          Chassis ID to Chassis JSON Map.
+    void buildChassisToFruMap();
 
-        */
-    }
+    /**
+     * @brief API to build EEPROM to chassis ID map and chassis ID to JSON map
+     * for a single FRU
+     *
+     * This API builds maps for a single FRU in the system
+     * config JSON.
+     *
+     * @param[in] i_fruJsonObj - FRU JSON object
+     * @param[in] i_commonJsonObj - JSON object which is common to all chassis
+     *
+     * @return On success, returns true, otherwise sets error code
+     */
+    std::expected<bool, error_code> buildMapsForFru(
+        const auto& i_fruJsonObj,
+        const std::optional<nlohmann::json> i_commonJsonObj =
+            std::nullopt) noexcept;
 
     /**
      * @brief Extract chassis ID from given i_inventoryObjPath.
