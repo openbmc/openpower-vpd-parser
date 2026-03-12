@@ -1,9 +1,13 @@
 #pragma once
+#include "error_codes.hpp"
+#include "logger.hpp"
 
 #include <nlohmann/json.hpp>
 
+#include <expected>
 #include <map>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 
 namespace vpd
@@ -55,7 +59,8 @@ class ConfigManager final
      */
     explicit ConfigManager([[maybe_unused]] const WorkerPassKey& i_key,
                            const nlohmann::json& i_systemConfigJson) :
-        m_systemConfigJson{i_systemConfigJson}
+        m_systemConfigJson{i_systemConfigJson},
+        m_logger{Logger::getLoggerInstance()}
     {
         buildChassisToFruMap();
     }
@@ -85,18 +90,23 @@ class ConfigManager final
      *
      * @throw std::runtime_error
      */
-    void buildChassisToFruMap()
-    {
-        /* TODO:
-          1. Iterate through "frus" under system config JSON
-            1.i. For each FRU, iterate through the sub FRUS
-                  1.i.i. For each FRU, extract Chassis ID using Object path at
-          index 0, and build EEPROM to Chassis ID Map. 1.i.ii. For each sub FRU,
-          use the object path to get the chassis ID, and add the sub JSON to the
-          Chassis ID to Chassis JSON Map.
+    void buildChassisToFruMap();
 
-        */
-    }
+    /**
+     * @brief API to build EEPROM to chassis ID map and chassis ID to JSON map
+     * for a single FRU
+     *
+     * This API builds maps for a single FRU in the system
+     * config JSON.
+     *
+     * @param[in] i_eepromPath - EEPROM path
+     * @param[in] i_fruJson - FRU JSON object
+     *
+     * @return On success, returns true, otherwise sets error code
+     */
+    std::expected<bool, error_code> buildMapsForFru(
+        const std::string& i_eepromPath,
+        const nlohmann::json& i_fruJson) noexcept;
 
     // System config JSON
     const nlohmann::json& m_systemConfigJson;
@@ -107,6 +117,9 @@ class ConfigManager final
 
     // EEPROM path to chassis ID - O(1) lookup
     std::unordered_map<std::string, std::string> m_eepromToChassisIdMap;
+
+    // Shared pointer to Logger object
+    std::shared_ptr<Logger> m_logger;
 };
 
 } // namespace vpd
