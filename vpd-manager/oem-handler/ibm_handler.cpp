@@ -120,6 +120,7 @@ void IbmHandler::initWorker()
         // Critical PEL logged as collection can't progress without worker
         // object.
 
+        // TODO - should change to Asnc?
         m_logger->logMessage(
             std::string("Exception while creating worker object") +
                 EventLogger::getErrorMsg(l_ex),
@@ -753,16 +754,20 @@ void IbmHandler::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
         {
             io_srcVpdMap = std::move(l_srcVpdVariant);
         }
+
+	//Added for testing, Remove line
+	//throw std::runtime_error("DBG: ALpana's Test patch");
     }
     catch (const std::exception& l_ex)
     {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
-            __FILE__, __FUNCTION__, 0,
+        m_logger->logMessage(
             std::string(
                 "Exception caught while backup and restore VPD keyword's.") +
                 EventLogger::getErrorMsg(l_ex),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            PlaceHolder::ASYNC_PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Warning, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
     }
 }
 
@@ -838,14 +843,20 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
                 (l_itrToSystemPath->second)
                     .emplace(constants::assetTagInf,
                              std::move(l_assetTagProperty));
-            }
+                    //Added for testing, Remove line
+        //throw std::runtime_error("DBG: ALpana's Test patch");
+	    }
         }
         catch (const std::exception& l_ex)
         {
-            EventLogger::createSyncPel(
-                EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
-                __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            m_logger->logMessage(
+                std::string("Exception caught while updating Asset Tag.") +
+                    EventLogger::getErrorMsg(l_ex),
+                PlaceHolder::ASYNC_PEL,
+                types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                    types::SeverityType::Warning, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt});
         }
 
         // Call method to update the dbus
@@ -1025,20 +1036,23 @@ void IbmHandler::setDeviceTreeAndJson(
     {
         l_devTreeFromJson = m_sysCfgJsonObj["devTree"];
 
+	//Added for testing, TODO: Remove "!" and dummy message
         if (l_devTreeFromJson.empty())
         {
-            EventLogger::createSyncPel(
-                types::ErrorType::JsonFailure, types::SeverityType::Error,
-                __FILE__, __FUNCTION__, 0,
-                "Mandatory value for device tree missing from JSON[" +
-                    l_systemJson + "]",
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            m_logger->logMessage(
+                std::string(
+                    "DBG: ALpana's Test patch. Mandatory value for device tree missing from JSON[" +
+                    l_systemJson + "]"),
+                PlaceHolder::ASYNC_PEL,
+                types::PelInfoTuple{types::ErrorType::JsonFailure,
+                                    types::SeverityType::Error, 0, std::nullopt,
+                                    std::nullopt, std::nullopt, std::nullopt});
         }
     }
 
     auto l_fitConfigVal = readFitConfigValue();
 
-    if (l_devTreeFromJson.empty() ||
+    if ( l_devTreeFromJson.empty() ||
         l_fitConfigVal.find(l_devTreeFromJson) != std::string::npos)
     { // Skipping setting device tree as either devtree info is missing from
         // Json or it is rightly set.
@@ -1141,6 +1155,9 @@ void IbmHandler::performInitialSetup()
 
         // Nothing needs to be done. Service restarted or BMC re-booted for
         // some reason at system power on.
+	
+	//Added for testing, Remove line
+	//throw std::runtime_error("DBG: ALpana's Test patch");
     }
     catch (const std::exception& l_ex)
     {
@@ -1159,11 +1176,10 @@ void IbmHandler::performInitialSetup()
 
         // Any issue in system's inital set up is handled in this catch. Error
         // will not propogate to manager.
-
         m_logger->logMessage(
             std::string("Exception while performing initial set up. ") +
                 EventLogger::getErrorMsg(l_ex),
-            PlaceHolder::PEL,
+            PlaceHolder::ASYNC_PEL,
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Critical, 0, std::nullopt,
                                 std::nullopt, std::nullopt, std::nullopt});

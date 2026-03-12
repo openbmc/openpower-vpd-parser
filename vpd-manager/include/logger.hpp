@@ -26,7 +26,8 @@ enum class PlaceHolder
     DEFAULT,    /* logs to the journal */
     PEL,        /* Creates a PEL */
     COLLECTION, /* Logs collection messages */
-    VPD_WRITE   /* Logs VPD write details */
+    VPD_WRITE,  /* Logs VPD write details */
+    ASYNC_PEL   /* Create Async PEL */
 };
 
 /**
