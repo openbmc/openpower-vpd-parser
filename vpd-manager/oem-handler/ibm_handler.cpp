@@ -121,9 +121,9 @@ void IbmHandler::initWorker()
         // object.
 
         m_logger->logMessage(
-            std::string("Exception while creating worker object") +
-                EventLogger::getErrorMsg(l_ex),
-            PlaceHolder::PEL,
+            std::format("Exception while creating worker object. Error: {}",
+                        EventLogger::getErrorMsg(l_ex)),
+            PlaceHolder::ASYNC_PEL,
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Critical, 0, std::nullopt,
                                 std::nullopt, std::nullopt, std::nullopt});
@@ -756,13 +756,14 @@ void IbmHandler::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
     }
     catch (const std::exception& l_ex)
     {
-        EventLogger::createSyncPel(
-            EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
-            __FILE__, __FUNCTION__, 0,
-            std::string(
-                "Exception caught while backup and restore VPD keyword's.") +
-                EventLogger::getErrorMsg(l_ex),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+        m_logger->logMessage(
+            std::format(
+                "Exception caught while backup and restore VPD keywords. Reason: {}",
+                EventLogger::getErrorMsg(l_ex)),
+            PlaceHolder::ASYNC_PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Warning, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
     }
 }
 
@@ -842,10 +843,15 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
         }
         catch (const std::exception& l_ex)
         {
-            EventLogger::createSyncPel(
-                EventLogger::getErrorType(l_ex), types::SeverityType::Warning,
-                __FILE__, __FUNCTION__, 0, EventLogger::getErrorMsg(l_ex),
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            m_logger->logMessage(
+                std::format(
+                    "Exception caught while updating Asset Tag. Error {}",
+                    EventLogger::getErrorMsg(l_ex)),
+                PlaceHolder::ASYNC_PEL,
+                types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                    types::SeverityType::Warning, 0,
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt});
         }
 
         // Call method to update the dbus
@@ -1027,12 +1033,14 @@ void IbmHandler::setDeviceTreeAndJson(
 
         if (l_devTreeFromJson.empty())
         {
-            EventLogger::createSyncPel(
-                types::ErrorType::JsonFailure, types::SeverityType::Error,
-                __FILE__, __FUNCTION__, 0,
-                "Mandatory value for device tree missing from JSON[" +
-                    l_systemJson + "]",
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+            m_logger->logMessage(
+                std::format(
+                    "Mandatory value for device tree missing from JSON[{}]",
+                    l_systemJson),
+                PlaceHolder::ASYNC_PEL,
+                types::PelInfoTuple{types::ErrorType::JsonFailure,
+                                    types::SeverityType::Error, 0, std::nullopt,
+                                    std::nullopt, std::nullopt, std::nullopt});
         }
     }
 
@@ -1161,9 +1169,9 @@ void IbmHandler::performInitialSetup()
         // will not propagate to manager.
 
         m_logger->logMessage(
-            std::string("Exception while performing initial set up. ") +
-                EventLogger::getErrorMsg(l_ex),
-            PlaceHolder::PEL,
+            std::format("Exception while performing initial set up. Error: {}",
+                        EventLogger::getErrorMsg(l_ex)),
+            PlaceHolder::ASYNC_PEL,
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Critical, 0, std::nullopt,
                                 std::nullopt, std::nullopt, std::nullopt});

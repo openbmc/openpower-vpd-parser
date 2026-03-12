@@ -2,6 +2,7 @@
 
 #include <utility/event_logger_utility.hpp>
 
+#include <print>
 #include <regex>
 #include <sstream>
 
@@ -75,6 +76,29 @@ void Logger::logMessage(std::string_view i_message,
                     new SyncFileLogger("/var/lib/vpd/vpdWrite.log", 128));
             }
             m_vpdWriteLogger->logMessage(l_log.str());
+        }
+        else if (i_placeHolder == PlaceHolder::ASYNC_PEL)
+        {
+            if (i_pelTuple.has_value())
+            {
+                // By default set severity to informational
+                const types::SeverityType l_severity =
+                    std::get<1>(*i_pelTuple).has_value()
+                        ? std::get<1>(*i_pelTuple).value()
+                        : types::SeverityType::Informational;
+
+                EventLogger::createAsyncPel(
+                    m_connection, std::get<0>(*i_pelTuple), l_severity,
+                    i_location.file_name(), i_location.function_name(),
+                    std::get<2>(*i_pelTuple), std::string(i_message),
+                    std::get<3>(*i_pelTuple), std::get<4>(*i_pelTuple),
+                    std::get<5>(*i_pelTuple), std::get<6>(*i_pelTuple));
+                return;
+            }
+
+            std::println(
+                "Pel info tuple required to log async PEL for message {}",
+                l_log.str());
         }
         else
         {
