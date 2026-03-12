@@ -25,8 +25,11 @@ Manager::Manager(
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressiFace,
     const std::shared_ptr<sdbusplus::asio::connection>& asioConnection) :
     m_ioContext(ioCon), m_interface(iFace), m_progressInterface(progressiFace),
-    m_asioConnection(asioConnection), m_logger(Logger::getLoggerInstance())
-{
+    m_asioConnection(asioConnection),
+    m_logger(Logger::getLoggerInstance())
+{       
+   Logger::setConn(m_asioConnection);
+
 #ifdef IBM_SYSTEM_SINGLE_FAB
     if (!dbusUtility::isChassisPowerOn())
     {
