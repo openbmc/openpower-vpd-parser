@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c6408dd2_44288933",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T12:52:38Z",
+      "side": 1,
+      "message": "Can you clarify? It\u0027s meant to manage multi-chassis systems, plural.",
+      "parentUuid": "1b190f97_227bb6db",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7843b58_b72057cd",
         "filename": "vpd-manager/include/config_manager.hpp",
         "patchSetId": 3
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6e068a7_efb7a4c0",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T12:52:38Z",
+      "side": 1,
+      "message": "Since `WorkerPassKey` is embedded inside `ConfigManager`, I think its understood.",
+      "parentUuid": "d7843b58_b72057cd",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b70edc2_a84ae319",
         "filename": "vpd-manager/include/config_manager.hpp",
         "patchSetId": 3
@@ -48,6 +84,24 @@
       "writtenOn": "2026-03-12T07:21:13Z",
       "side": 1,
       "message": "This is a nested class with private members, so it can only be constructed by Worker.",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46674023_61d67f31",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T12:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b70edc2_a84ae319",
       "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ba3dfbc_7648d4dc",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T12:52:38Z",
+      "side": 1,
+      "message": "Since WorkerPassKey is embedded inside ConfigManager, I think its understood that this is meant for `ConfigManager` instance creation",
+      "parentUuid": "19518043_9838afa0",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4cf80cc_2ad04806",
         "filename": "vpd-manager/include/config_manager.hpp",
         "patchSetId": 3
@@ -82,6 +154,24 @@
       "writtenOn": "2026-03-12T07:21:13Z",
       "side": 1,
       "message": "only Worker can create this\nmentioned at the top, no need to mention again.",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d070d5c3_47c36c4a",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T12:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4cf80cc_2ad04806",
       "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -99,6 +189,24 @@
       "writtenOn": "2026-03-12T07:21:13Z",
       "side": 1,
       "message": "chassis ID to Json map",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f25baabc_4b44b4af",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T12:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "071b0930_948625a0",
       "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -122,6 +230,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa8a1dde_0ed1d068",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T12:52:38Z",
+      "side": 1,
+      "message": "Having more detailed doxygen causes no harm",
+      "parentUuid": "373f3023_9ef8b5b6",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cbcfb55e_bb72912a",
         "filename": "vpd-manager/include/config_manager.hpp",
         "patchSetId": 3
@@ -133,6 +259,24 @@
       "writtenOn": "2026-03-12T07:21:13Z",
       "side": 1,
       "message": "use EEPROM\u0027s sub JSON to update m_chassisInfoMap. should be enough ?",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1764f3c5_b9e8f95f",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T12:52:38Z",
+      "side": 1,
+      "message": "This is a TODO comment. As long as the idea is clear, I don\u0027t think the phrasing matters.",
+      "parentUuid": "cbcfb55e_bb72912a",
       "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -154,6 +298,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e37b868_131acec7",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T12:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8a68328_008c1a07",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44d583d1_630428a2",
@@ -167,6 +329,24 @@
       "writtenOn": "2026-03-12T07:21:13Z",
       "side": 1,
       "message": "can we have todo to find the better place to initiate ConfigManager ?\nso it can be instantiated after system VPD collection, in case map creation takes more time.",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf47bd18_68539cbd",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-12T12:52:38Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "44d583d1_630428a2",
       "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
