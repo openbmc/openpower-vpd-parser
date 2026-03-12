@@ -24,9 +24,10 @@ namespace vpd
 enum class PlaceHolder
 {
     DEFAULT,    /* logs to the journal */
-    PEL,        /* Creates a PEL */
+    PEL,        /* Creates sync PEL */
     COLLECTION, /* Logs collection messages */
-    VPD_WRITE   /* Logs VPD write details */
+    VPD_WRITE,  /* Logs VPD write details */
+    ASYNC_PEL   /* Creates async PEL*/
 };
 
 /**
@@ -309,6 +310,17 @@ class Logger
         const std::source_location& i_location =
             std::source_location::current()) noexcept;
 
+    /*
+     * @brief API to set the dbus connection for Logger class.
+     *
+     * @param[in] i_asioConnection - Dbus connection.
+     */
+    void setConn(
+        const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection)
+    {
+        m_connection = i_asioConnection;
+    }
+
 #ifdef ENABLE_FILE_LOGGING
     /**
      * @brief API to terminate VPD collection logging.
@@ -348,6 +360,9 @@ class Logger
     std::unique_ptr<ILogFileHandler> m_collectionLogger;
 
 #endif
+
+    // Dbus connection
+    static inline std::shared_ptr<sdbusplus::asio::connection> m_connection;
 
     // Instance to the logger class.
     static std::shared_ptr<Logger> m_loggerInstance;
