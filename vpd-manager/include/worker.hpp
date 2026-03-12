@@ -14,6 +14,7 @@
 
 namespace vpd
 {
+class ConfigManager;
 /**
  * @brief A class to process and publish VPD data.
  *
@@ -115,14 +116,15 @@ class Worker
     }
 
     /**
-     * @brief API to get system config JSON object
+     * @brief API to get config JSON object
      *
-     * @return System config JSON object.
+     * i_vpdPath[in] - EEPROM path or inventory object path.
+     *
+     * @return Chassis-based config JSON object corresponding to i_vpdPath. If
+     * i_vpdPath is empty, the system configuration JSON is returned.
      */
-    inline nlohmann::json getSysCfgJsonObj() const
-    {
-        return m_parsedJson;
-    }
+    nlohmann::json getSysCfgJsonObj(
+        const std::string& i_vpdPath = std::string{}) const;
 
     /**
      * @brief API to get active thread count.
