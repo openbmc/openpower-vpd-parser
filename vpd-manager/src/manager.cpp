@@ -790,7 +790,8 @@ bool Manager::collectAllFruVpd() const noexcept
 // TODO : re-enable this when async PEL implementation is done
 #ifdef ENABLE_COLLECTION_TRIGGERED_PEL
         m_logger->logMessage(
-            std::string("Collect all FRUs VPD is requested."), PlaceHolder::PEL,
+            std::string("Collect all FRUs VPD is requested."),
+            PlaceHolder::ASYNC_PEL,
             types::PelInfoTuple{types::ErrorType::FirmwareError, l_severityType,
                                 0, std::nullopt, std::nullopt, std::nullopt,
                                 std::nullopt});
