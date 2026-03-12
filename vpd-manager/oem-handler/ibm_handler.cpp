@@ -120,6 +120,7 @@ void IbmHandler::initWorker()
         // Critical PEL logged as collection can't progress without worker
         // object.
 
+        // TODO - should change to Async?
         m_logger->logMessage(
             std::string("Exception while creating worker object") +
                 EventLogger::getErrorMsg(l_ex),

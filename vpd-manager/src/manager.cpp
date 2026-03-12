@@ -27,6 +27,8 @@ Manager::Manager(
     m_ioContext(ioCon), m_interface(iFace), m_progressInterface(progressiFace),
     m_asioConnection(asioConnection), m_logger(Logger::getLoggerInstance())
 {
+    Logger::setConn(m_asioConnection);
+
 #ifdef IBM_SYSTEM_SINGLE_FAB
     if (!dbusUtility::isChassisPowerOn())
     {

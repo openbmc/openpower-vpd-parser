@@ -309,6 +309,15 @@ class Logger
         const std::source_location& i_location =
             std::source_location::current()) noexcept;
 
+    /*
+     * @brief API to set and start d bus connection
+     */
+    static void setConn(
+        const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection)
+    {
+        m_connection = i_asioConnection;
+    }
+
 #ifdef ENABLE_FILE_LOGGING
     /**
      * @brief API to terminate VPD collection logging.
@@ -324,7 +333,9 @@ class Logger
 
   private:
     /**
-     * @brief Constructor
+     * @brief Constructor.
+     *
+     * @param[in] i_asioConnection - Dbus Connection.
      */
     Logger() : m_vpdWriteLogger(nullptr)
     {
@@ -348,6 +359,9 @@ class Logger
     std::unique_ptr<ILogFileHandler> m_collectionLogger;
 
 #endif
+
+    // Dbus connection
+    static inline std::shared_ptr<sdbusplus::asio::connection> m_connection;
 
     // Instance to the logger class.
     static std::shared_ptr<Logger> m_loggerInstance;
