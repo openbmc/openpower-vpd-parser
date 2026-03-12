@@ -115,14 +115,15 @@ class Worker
     }
 
     /**
-     * @brief API to get system config JSON object
+     * @brief API to get chassis based config JSON.
      *
-     * @return System config JSON object.
+     * i_vpdPath[in] - EEPROM path or inventory object path.
+     *
+     * @return Chassis-based config JSON object corresponding to i_vpdPath. If
+     * i_vpdPath is std::nullopt, the system configuration JSON is returned.
      */
-    inline nlohmann::json getSysCfgJsonObj() const
-    {
-        return m_parsedJson;
-    }
+    nlohmann::json getSysCfgJsonObj(
+        const std::optional<std::string>& i_vpdPath = std::nullopt) const;
 
     /**
      * @brief API to get active thread count.

@@ -70,6 +70,22 @@ class ConfigManager final
      */
     ~ConfigManager() = default;
 
+    /**
+     * @brief API to get chassis based config JSON.
+     *
+     * This method returns JSON object depends on the i_vpdPath:
+     * - If `std::nullopt`, the complete system configuration JSON is returned.
+     * - If an EEPROM or inventory object path is provided, the corresponding
+     *   chassis-specific configuration JSON is returned.
+     *
+     * i_vpdPath[in] i_vpdPath - Optional EEPROM or inventory object path.
+     *
+     * @return Reference to the selected configuration JSON object.
+     */
+    const nlohmann::json& getJsonObj(
+        const std::optional<std::string>& i_vpdPath =
+            std::nullopt) const noexcept;
+
   private:
     /**
      * @brief API to build EEPROM to chassis mapping

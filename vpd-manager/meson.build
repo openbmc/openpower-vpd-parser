@@ -15,6 +15,7 @@ common_SOURCES = [
     'src/backup_restore.cpp',
     'src/gpio_monitor.cpp',
     'src/listener.cpp',
+    'src/config_manager.cpp',
 ]
 
 vpd_manager_SOURCES = [
