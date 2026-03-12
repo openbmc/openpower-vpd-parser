@@ -246,6 +246,7 @@ inline std::string getErrorTypeString(
  * @todo: Symbolic FRU and procedure callout needs to be handled in this
  * API.
  *
+ * @param[in] i_asioConnection - Dbus Connection.
  * @param[in] i_errorType - Enum to map with event message name.
  * @param[in] i_severity - Severity of the event.
  * @param[in] i_callouts - Callout information, list of tuple having
@@ -262,6 +263,7 @@ inline std::string getErrorTypeString(
  * @throw exception in case of error.
  */
 inline void createAsyncPelWithInventoryCallout(
+    const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
     const types::ErrorType& i_errorType, const types::SeverityType& i_severity,
     const std::vector<types::InventoryCalloutData>& i_callouts,
     const std::string& i_fileName, const std::string& i_funcName,
@@ -316,28 +318,36 @@ inline void createAsyncPelWithInventoryCallout(
                  ? priorityMap.at(l_priorityEnum)
                  : priorityMap.at(types::CalloutPriority::Low));
 
-        sd_bus* l_sdBus = nullptr;
-        sd_bus_default(&l_sdBus);
-
-        const uint8_t l_additionalDataCount = 8;
-        auto l_rc = sd_bus_call_method_async(
-            l_sdBus, NULL, constants::eventLoggingServiceName,
-            constants::eventLoggingObjectPath, constants::eventLoggingInterface,
-            "Create", NULL, NULL, "ssa{ss}", l_message.c_str(),
-            l_severity.c_str(), l_additionalDataCount, "FileName",
-            i_fileName.c_str(), "FunctionName", i_funcName.c_str(),
-            "InternalRc", std::to_string(i_internalRc).c_str(), "DESCRIPTION",
-            l_description.c_str(), "UserData1", l_userData1.c_str(),
-            "UserData2", l_userData2.c_str(), "CALLOUT_INVENTORY_PATH",
-            get<0>(l_invCallout).c_str(), "CALLOUT_PRIORITY",
-            l_priority.c_str());
-
-        if (l_rc < 0)
+        if (i_asioConnection == nullptr)
         {
-            logging::logMessage(
-                "Error calling sd_bus_call_method_async, Message = " +
-                std::string(strerror(-l_rc)));
+            logging::logMessage(std::format(
+                "Error: Dbus Connection is empty, can't log async PEL. Error that couldn't log :{}",
+                l_description));
+            return;
         }
+
+        const std::map<std::string, std::string> l_additionalData{
+            {"FileName", i_fileName},
+            {"FunctionName", i_funcName},
+            {"DESCRIPTION", l_description},
+            {"CALLOUT_INVENTORY_PATH", get<0>(l_invCallout)},
+            {"CALLOUT_PRIORITY", l_priority},
+            {"InteranlRc", std::to_string(i_internalRc)},
+            {"UserData1", l_userData1.c_str()},
+            {"UserData2", l_userData2.c_str()}};
+
+        i_asioConnection->async_method_call(
+            [](boost::system::error_code ec) {
+                if (ec)
+                {
+                    logging::logMessage(std::format(
+                        "Async PEL with Inventory Callout failed. Reason : {}",
+                        ec.message()));
+                }
+            },
+            constants::eventLoggingServiceName,
+            constants::eventLoggingObjectPath, constants::eventLoggingInterface,
+            "Create", l_message, l_severity, l_additionalData);
     }
     catch (const std::exception& l_ex)
     {
@@ -391,6 +401,7 @@ inline void createAsyncPelWithI2cBusCallout(
 /**
  * @brief An API to create a PEL.
  *
+ * @param[in] i_asioConnection - Dbus Connection.
  * @param[in] i_errorType - Enum to map with event message name.
  * @param[in] i_severity - Severity of the event.
  * @param[in] i_fileName - File name.
@@ -406,6 +417,7 @@ inline void createAsyncPelWithI2cBusCallout(
  * API.
  */
 inline void createAsyncPel(
+    const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
     const types::ErrorType& i_errorType, const types::SeverityType& i_severity,
     const std::string& i_fileName, const std::string& i_funcName,
     const uint8_t i_internalRc, const std::string& i_description,
@@ -438,28 +450,33 @@ inline void createAsyncPel(
 
         const std::string l_userData2 = ((i_userData2) ? (*i_userData2) : "");
 
-        sd_bus* l_sdBus = nullptr;
-        sd_bus_default(&l_sdBus);
-
-        // VALUE_6 represents the additional data pair count passing to create
-        // PEL. If there any change in additional data, we need to pass the
-        // correct number.
-        auto l_rc = sd_bus_call_method_async(
-            l_sdBus, NULL, constants::eventLoggingServiceName,
-            constants::eventLoggingObjectPath, constants::eventLoggingInterface,
-            "Create", NULL, NULL, "ssa{ss}", l_message.c_str(),
-            l_severity.c_str(), constants::VALUE_6, "FileName",
-            i_fileName.c_str(), "FunctionName", i_funcName.c_str(),
-            "InternalRc", std::to_string(i_internalRc).c_str(), "DESCRIPTION",
-            l_description.c_str(), "UserData1", l_userData1.c_str(),
-            "UserData2", l_userData2.c_str());
-
-        if (l_rc < 0)
+        if (i_asioConnection == nullptr)
         {
-            logging::logMessage(
-                "Error calling sd_bus_call_method_async, Message = " +
-                std::string(strerror(-l_rc)));
+            logging::logMessage(std::format(
+                "Error: Dbus Connection is empty, can't log async PEL. Error that couldn't log :{}",
+                l_description));
+            return;
         }
+
+        const std::map<std::string, std::string> l_additionalData{
+            {"FileName", i_fileName},
+            {"FunctionName", i_funcName},
+            {"DESCRIPTION", l_description},
+            {"InteranlRc", std::to_string(i_internalRc)},
+            {"UserData1", l_userData1.c_str()},
+            {"UserData2", l_userData2.c_str()}};
+
+        i_asioConnection->async_method_call(
+            [](boost::system::error_code ec) {
+                if (ec)
+                {
+                    logging::logMessage(std::format(
+                        "Async PEL failed. Reason : {}", ec.message()));
+                }
+            },
+            constants::eventLoggingServiceName,
+            constants::eventLoggingObjectPath, constants::eventLoggingInterface,
+            "Create", l_message, l_severity, l_additionalData);
     }
     catch (const sdbusplus::exception::SdBusError& l_ex)
     {
