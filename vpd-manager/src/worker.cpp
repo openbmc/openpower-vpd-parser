@@ -1674,4 +1674,14 @@ void Worker::checkAndExecutePostFailAction(
     }
 }
 
+nlohmann::json Worker::getSysCfgJsonObj(
+    const std::optional<std::string>& i_vpdPath) const
+{
+    if (m_configManager)
+    {
+        return m_configManager->getJsonObj(i_vpdPath);
+    }
+
+    return m_parsedJson;
+}
 } // namespace vpd
