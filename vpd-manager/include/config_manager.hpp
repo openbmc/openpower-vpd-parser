@@ -1,5 +1,7 @@
 #pragma once
 
+#include "logger.hpp"
+
 #include <nlohmann/json.hpp>
 
 #include <string>
@@ -54,7 +56,8 @@ class ConfigManager final
      */
     explicit ConfigManager([[maybe_unused]] const WorkerPassKey& i_key,
                            const nlohmann::json& i_systemConfigJson) :
-        m_systemConfigJson{i_systemConfigJson}
+        m_systemConfigJson{i_systemConfigJson},
+        m_logger{Logger::getLoggerInstance()}
     {
         buildChassisToFruMap();
     }
@@ -84,18 +87,7 @@ class ConfigManager final
      *
      * @throw std::runtime_error
      */
-    void buildChassisToFruMap()
-    {
-        /* TODO:
-          1. Iterate through "frus" under system config JSON
-            1.i. For each FRU, iterate through the sub FRUS
-                  1.i.i. For each FRU, extract Chassis ID using Object path at
-          index 0, and build EEPROM to Chassis ID Map. 1.i.ii. For each sub FRU,
-          use the object path to get the chassis ID, and add the sub JSON to the
-          Chassis ID to Chassis Info Map.
-
-        */
-    }
+    void buildChassisToFruMap();
 
     // System config JSON
     const nlohmann::json& m_systemConfigJson;
@@ -104,7 +96,10 @@ class ConfigManager final
     std::unordered_map<std::string, nlohmann::json> m_chassisIdToJsonMap;
 
     // EEPROM path to chassis ID - O(1) lookup
-    std::unordered_map<std::string, std::string> m_eepromToChassisIdMap;
+    nlohmann::json m_eepromToChassisIdJson;
+
+    // shared pointer to logger instance
+    std::shared_ptr<Logger> m_logger;
 };
 
 } // namespace vpd
