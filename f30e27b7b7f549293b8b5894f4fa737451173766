@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "927b584b_14e94b8c",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-13T07:54:48Z",
+      "side": 1,
+      "message": "Will not work for single chassis systems?",
+      "revId": "f30e27b7b7f549293b8b5894f4fa737451173766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "440b30c8_019d6eb6",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-13T07:54:48Z",
+      "side": 1,
+      "message": "If it is referring to move constructor then is is not correct, though it is a deleted API but we should still adhere to correct format.",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 54
+      },
+      "revId": "f30e27b7b7f549293b8b5894f4fa737451173766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd74b31b_cdb8ed2b",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-13T07:54:48Z",
+      "side": 1,
+      "message": "Keeping in mind that maximum chassis what we can be dealing with will be below 50, unordered_map will be in-efficient and will add more overhead of look up and hashing cost?",
+      "revId": "f30e27b7b7f549293b8b5894f4fa737451173766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbdf7f67_c35ff640",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-13T07:54:48Z",
+      "side": 1,
+      "message": "Here unordered_map makes sense as number if EEPROMs can go beyond 100.",
+      "revId": "f30e27b7b7f549293b8b5894f4fa737451173766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
