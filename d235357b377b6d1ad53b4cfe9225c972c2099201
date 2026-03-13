@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f5223e3_538ffe45",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-13T05:19:13Z",
+      "side": 1,
+      "message": "I meant, here managing a system made of multiple chassis.\nAgreed, will keep.",
+      "parentUuid": "c6408dd2_44288933",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7843b58_b72057cd",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Since `WorkerPassKey` is embedded inside `ConfigManager`, I think its understood.",
       "parentUuid": "d7843b58_b72057cd",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "158d27ba_7d38d9c6",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-13T05:19:13Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "d6e068a7_efb7a4c0",
       "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -137,6 +173,24 @@
       "side": 1,
       "message": "Since WorkerPassKey is embedded inside ConfigManager, I think its understood that this is meant for `ConfigManager` instance creation",
       "parentUuid": "19518043_9838afa0",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0647df7f_35f902b2",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-13T05:19:13Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "1ba3dfbc_7648d4dc",
       "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -246,6 +300,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "def8515f_ba4aac38",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-13T05:19:13Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "aa8a1dde_0ed1d068",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbcfb55e_bb72912a",
@@ -277,6 +349,24 @@
       "side": 1,
       "message": "This is a TODO comment. As long as the idea is clear, I don\u0027t think the phrasing matters.",
       "parentUuid": "cbcfb55e_bb72912a",
+      "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "840ddbf6_ea737c49",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-13T05:19:13Z",
+      "side": 1,
+      "message": "I meant there is no Chassis Info Map, map name got changed.",
+      "parentUuid": "1764f3c5_b9e8f95f",
       "revId": "d235357b377b6d1ad53b4cfe9225c972c2099201",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
