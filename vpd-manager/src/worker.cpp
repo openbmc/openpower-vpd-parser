@@ -462,13 +462,22 @@ void Worker::processCopyRecordFlag(const nlohmann::json& singleFru,
     }
 }
 
-void Worker::processInheritFlag(const types::VPDMapVariant& parsedVpdMap,
+void Worker::processInheritFlag(const nlohmann::json& singleFru,
+                                const types::VPDMapVariant& parsedVpdMap,
                                 types::InterfaceMap& interfaces)
 {
     if (auto ipzVpdMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap))
     {
         for (const auto& [recordName, kwdValueMap] : *ipzVpdMap)
         {
+            // Apply the skip logic here
+            if (isRecordSkipped(singleFru, recordName))
+            {
+                // Logic: Skip this record; it will not be added to the
+                // InterfaceMap
+                continue;
+            }
+            // If not skipped, populate the record normally
             populateIPZVPDpropertyMap(interfaces, kwdValueMap,
                                       constants::ipzVpdInf + recordName);
         }
@@ -654,7 +663,7 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
 
             if (aFru.value("inherit", true))
             {
-                processInheritFlag(parsedVpdMap, interfaces);
+                processInheritFlag(aFru, parsedVpdMap, interfaces);
             }
 
             // If specific record needs to be copied.
@@ -1684,4 +1693,20 @@ nlohmann::json Worker::getSysCfgJsonObj(
 
     return m_parsedJson;
 }
+
+bool Worker::isRecordSkipped(const nlohmann::json& i_fruJson,
+                             const std::string& i_recordName) const noexcept
+{
+    // Fetch the array from JSON. Use an empty array as default if key is
+    // missing.
+    const auto& l_skipList =
+        i_fruJson.value("deleteRecords", nlohmann::json::array());
+
+    // Check if the current record name exists in the blacklist
+    return std::any_of(l_skipList.begin(), l_skipList.end(),
+                       [&i_recordName](const std::string& entry) {
+                           return entry == i_recordName;
+                       });
+}
+
 } // namespace vpd

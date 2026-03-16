@@ -229,15 +229,19 @@ class Worker
                             const types::VPDMapVariant& parsedVpdMap);
 
     /**
-     * @brief API to process json's inherit flag.
+     * @brief API to process json's inherit flag with record exclusion.
      *
      * Inherit flag denotes that some property in the child FRU needs to be
-     * inherited from parent FRU.
+     * inherited from parent FRU.This API processes those records and filters
+     * out any specified in the 'deleteRecords' array within the JSON
+     * configuration.
      *
+     * @param[in] singleFru - FRU being processed.
      * @param[in] parsedVpdMap - Parsed VPD as a map.
      * @param[out] interfaces - Map to hold interface along with its properties.
      */
-    void processInheritFlag(const types::VPDMapVariant& parsedVpdMap,
+    void processInheritFlag(const nlohmann::json& singleFru,
+                            const types::VPDMapVariant& parsedVpdMap,
                             types::InterfaceMap& interfaces);
 
     /**
@@ -459,6 +463,20 @@ class Worker
     void checkAndExecutePostFailAction(
         const std::string& i_vpdFilePath,
         const std::string& i_flowFlag) const noexcept;
+
+    /**
+     * @brief API to check if a record needs to be skipped during inheritance.
+     *
+     * This API parses the "deleteRecords" array in the JSON to determine if a
+     * specific record should be blocked from being inherited by the child FRU.
+     *
+     * @param[in] i_fruJson - The JSON configuration for the current FRU.
+     * @param[in] i_recordName - The name of the record to check (e.g., "VSYS").
+     *
+     * @return true if the record is in the skip list, false otherwise.
+     */
+    bool isRecordSkipped(const nlohmann::json& i_fruJson,
+                         const std::string& i_recordName) const noexcept;
 
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
