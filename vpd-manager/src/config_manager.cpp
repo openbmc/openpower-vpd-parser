@@ -1,21 +1,54 @@
 #include "config_manager.hpp"
 
+#include "constants.hpp"
+
 namespace vpd
 {
 const nlohmann::json& ConfigManager::getJsonObj(
-    [[maybe_unused]] const std::optional<std::string>& i_vpdPath) const noexcept
+    const std::optional<std::string>& i_vpdPath) const noexcept
 {
+    if (i_vpdPath && i_vpdPath.value().starts_with(constants::pimPath))
+    {
+        [[maybe_unused]] const auto l_chassisId =
+            getChassisId(i_vpdPath.value());
+    }
+
     /**
      * @todo Implement the following logic:
      *  - If @p i_vpdPath is an EEPROM path, obtain the chassisId from
      * m_eepromToChassisIdMap.
-     * - If @p i_vpdPath is an inventory path, extract the chassisId from the
-     * path.
      *  - Return the chassis-specific JSON configuration from m_chassisInfoMap
      * using the resolved chassisId.
      *  - If @p i_vpdPath is std::nullopt, return m_systemConfigJson.
      */
 
     return m_systemConfigJson;
+}
+
+std::string ConfigManager::getChassisId(
+    const std::string& i_inventoryObjPath) const noexcept
+{
+    try
+    {
+        auto l_startPos = i_inventoryObjPath.find("/chassis");
+        if (std::string::npos == l_startPos)
+        {
+            return std::string{};
+        }
+
+        ++l_startPos;
+        const auto l_endPos = i_inventoryObjPath.find('/', l_startPos);
+        const auto l_chassisId =
+            i_inventoryObjPath.substr(l_startPos, l_endPos - l_startPos);
+
+        return l_chassisId;
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to extract chassis ID from given path {}, error: {}",
+            i_inventoryObjPath, l_ex.what()));
+        return std::string{};
+    }
 }
 } // namespace vpd
