@@ -113,6 +113,15 @@ class ConfigManager final
         */
     }
 
+    /**
+     * @brief Extract chassis ID from given i_inventoryPath.
+     *
+     * @param[in] i_inventoryPath - Inventory object path.
+     *
+     * @return Chassis ID on successful extraction, empty string otherwise.
+     */
+    std::string getChassisId(const std::string& i_inventoryPath) const noexcept;
+
     // System config JSON
     const nlohmann::json& m_systemConfigJson;
 
