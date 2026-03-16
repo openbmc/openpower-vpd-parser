@@ -34,15 +34,47 @@ void ConfigManager::buildChassisToFruMap()
 
 std::expected<std::string_view, error_code>
     ConfigManager::getChassisIdFromObjectPath(
-        [[maybe_unused]] const std::string_view i_objPath) const noexcept
+        const std::string_view i_objPath) const noexcept
 {
     try
     {
-        std::string_view l_chassisId;
+        if (i_objPath.empty())
+        {
+            return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+        }
 
-        /* TODO
-            - extract chassis ID string from the object path
-        */
+        // Find system inventory path in the object path
+        const auto l_systemInvPathPos =
+            i_objPath.find(constants::systemInvPath);
+        if (l_systemInvPathPos == std::string_view::npos)
+        {
+            return std::unexpected(error_code::INVALID_INVENTORY_PATH);
+        }
+
+        // Extract portion after system inventory path
+        const auto l_afterSystemPath = i_objPath.substr(
+            l_systemInvPathPos +
+            std::string_view(constants::systemInvPath).length());
+
+        if (l_afterSystemPath.empty() || l_afterSystemPath[0] != '/')
+        {
+            return std::unexpected(error_code::INVALID_INVENTORY_PATH);
+        }
+
+        // Skip leading '/' and find next '/' to extract chassis ID
+        const auto l_pathAfterSlash = l_afterSystemPath.substr(1);
+        const auto l_nextSlashPos = l_pathAfterSlash.find('/');
+
+        std::string_view l_chassisId =
+            (l_nextSlashPos != std::string_view::npos)
+                ? l_pathAfterSlash.substr(0, l_nextSlashPos)
+                : l_pathAfterSlash;
+
+        if (l_chassisId.empty())
+        {
+            return std::unexpected(error_code::INVALID_INVENTORY_PATH);
+        }
+
         return l_chassisId;
     }
     catch (const std::exception& l_ex)
