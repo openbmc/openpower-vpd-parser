@@ -235,7 +235,8 @@ class Worker
      * inherited from parent FRU.
      *
      * @param[in] parsedVpdMap - Parsed VPD as a map.
-     * @param[out] interfaces - Map to hold interface along with its properties.
+     * @param[out] interfaces - Map to hold interface along with its
+     * properties.
      */
     void processInheritFlag(const types::VPDMapVariant& parsedVpdMap,
                             types::InterfaceMap& interfaces);
@@ -459,6 +460,23 @@ class Worker
     void checkAndExecutePostFailAction(
         const std::string& i_vpdFilePath,
         const std::string& i_flowFlag) const noexcept;
+
+    /**
+     * @brief API to process json's "skipRecords" flag.
+     *
+     * This API iterates through the parsed VPD map and copies all records of
+     * given FRU to the target except those explicitly defined in the
+     * 'skipRecords' array for that FRU, within the JSON configuration.
+     *
+     * @param[in] i_fruJson - FRU json object
+     * @param[in] i_parsedVpdMap - Parsed VPD as a map.
+     * @param[out] o_interfaces - The map to be populated with non-skipped
+     * records.
+     *
+     */
+    void processSkipRecordsFlag(const nlohmann::json& i_fruJson,
+                                const types::VPDMapVariant& i_parsedVpdMap,
+                                types::InterfaceMap& o_interfaces);
 
     // Parsed JSON file.
     nlohmann::json m_parsedJson{};
