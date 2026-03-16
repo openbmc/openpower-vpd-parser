@@ -159,4 +159,76 @@ std::expected<bool, error_code> ConfigManager::buildMapsForFru(
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
 }
+
+std::expected<std::reference_wrapper<const nlohmann::json>, error_code>
+    ConfigManager::getChassisConfig(
+        const std::string& i_chassisId) const noexcept
+{
+    try
+    {
+        const auto l_result = m_chassisIdToJsonMap.find(i_chassisId);
+        if (l_result != m_chassisIdToJsonMap.end())
+        {
+            return std::ref(l_result->second);
+        }
+        else
+        {
+            return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format("Failed to get JSON obj for chassis ID {}. Error: {}",
+                        i_chassisId, l_ex.what()));
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
+    }
+}
+
+std::expected<std::reference_wrapper<const nlohmann::json>, error_code>
+    ConfigManager::getJsonObj(
+        const std::optional<std::string> i_vpdPath) const noexcept
+{
+    try
+    {
+        if (i_vpdPath == std::nullopt)
+        {
+            return m_systemConfigJson;
+        }
+        else if (i_vpdPath.value().empty())
+        {
+            return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+        }
+        else
+        {
+            std::string l_baseInventoryPath{};
+
+            // check if its EEPROM path or inventory object path
+            if (m_systemConfigJson["frus"].contains(i_vpdPath.value()))
+            {
+                // get the base FRU inventory path
+                l_baseInventoryPath =
+                    m_systemConfigJson["frus"][i_vpdPath.value()].at(0).value(
+                        "inventoryPath", "");
+            }
+
+            // assume its inventory path
+            // get corresponding chassis ID
+            const auto l_chassisId =
+                getChassisIdFromObjectPath(l_baseInventoryPath);
+            if (!l_chassisId.has_value())
+            {
+                return std::unexpected(l_chassisId.error());
+            }
+            return getChassisConfig(std::string(l_chassisId.value()));
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to get JSON obj for path {}. Error: {}",
+            i_vpdPath.has_value() ? i_vpdPath.value() : "", l_ex.what()));
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
+    }
+}
 } // namespace vpd

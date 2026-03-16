@@ -5,6 +5,7 @@
 #include <nlohmann/json.hpp>
 
 #include <expected>
+#include <functional>
 #include <map>
 #include <string>
 #include <string_view>
@@ -64,6 +65,23 @@ class ConfigManager final
         buildChassisToFruMap();
     }
 
+    /**
+     * @brief API to get configuration JSON
+     *
+     * @param[in] i_vpdPath - EEPROM path or inventory object path
+     *
+     * @return On success,
+     *        - If input parameter is std::nullopt, then returns reference to
+     * main system config JSON
+     *        - If input parameter is EEPROM path, returns reference to Chassis
+     * specific JSON
+     *        - If input parameter is Object path, returns reference to Chassis
+     * specific JSON On error, sets error code
+     */
+    std::expected<std::reference_wrapper<const nlohmann::json>, error_code>
+        getJsonObj(const std::optional<std::string> i_vpdPath = std::nullopt)
+            const noexcept;
+
     // deleted methods
     ConfigManager(const ConfigManager&) = delete;
     ConfigManager& operator=(const ConfigManager&) = delete;
@@ -122,6 +140,17 @@ class ConfigManager final
     std::expected<bool, error_code> buildMapsForFru(
         const std::string& i_eepromPath,
         const nlohmann::json& i_fruJson) noexcept;
+
+    /**
+     * @brief Get chassis-specific JSON config for given chassis ID
+     *
+     * @param[in] i_chassisId - Chassis identifier
+     * @param[out] o_errCode - Error code if lookup fails
+     *
+     * @return Chassis-specific JSON object
+     */
+    std::expected<std::reference_wrapper<const nlohmann::json>, error_code>
+        getChassisConfig(const std::string& i_chassisId) const noexcept;
 
     // System config JSON
     const nlohmann::json& m_systemConfigJson;
