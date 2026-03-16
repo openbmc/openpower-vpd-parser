@@ -66,10 +66,30 @@ void ConfigManager::buildChassisToFruMap()
     const nlohmann::json& l_listOfFrus =
         m_systemConfigJson["frus"].get_ref<const nlohmann::json::object_t&>();
 
+    // build JSON object which is common across all chassis JSONs
+    //  Check if commonInterfaces exists in system config JSON and add to the
+    //  entry if yes
+    nlohmann::json l_commonJsonObj;
+    if (!m_systemConfigJson.contains("commonInterfaces"))
+    {
+        m_logger->logMessage(
+            "commonInterfaces not found in system config JSON");
+    }
+    else
+    {
+        // if the chassis JSON doesn't have "commonInterfaces", append it
+        l_commonJsonObj["commonInterfaces"] =
+            m_systemConfigJson["commonInterfaces"];
+    }
+
     // Build maps for each FRU sequentially
     for (const auto& l_fruJsonObj : l_listOfFrus.items())
     {
-        const auto l_mapBuildResult = buildMapsForFru(l_fruJsonObj);
+        const auto l_mapBuildResult =
+            l_commonJsonObj.empty()
+                ? buildMapsForFru(l_fruJsonObj)
+                : buildMapsForFru(l_fruJsonObj, l_commonJsonObj);
+
         if (!l_mapBuildResult.has_value())
         {
             // Log the error but continue processing other FRUs
@@ -82,21 +102,61 @@ void ConfigManager::buildChassisToFruMap()
 }
 
 std::expected<bool, error_code> ConfigManager::buildMapsForFru(
-    [[maybe_unused]] const auto& i_fruJsonObj,
-    [[maybe_unused]] std::optional<nlohmann::json> i_commonJsonObj) noexcept
+    const auto& i_fruJsonObj,
+    std::optional<nlohmann::json> i_commonJsonObj) noexcept
 {
     try
     {
         bool l_rc{true};
-        /*  TODO:
-            - extract chassis ID from inventory path of base FRU at index 0
-            - create entry in EEPROM to chassis ID map
-            - create entry in chassis ID to JSON map
-            - get commonInterfaces JSON object from system config JSON and add
-           in the entry
-            - iterate through all sub FRU JSON objects and append to chassis
-           specific entry in chassis ID to JSON map
-        */
+
+        const auto& l_eepromPath = i_fruJsonObj.key();
+        const auto& l_subFruJsonArray = i_fruJsonObj.value();
+
+        // Validate FRU JSON is an array with at least one element
+        if (!l_subFruJsonArray.is_array() || l_subFruJsonArray.empty())
+        {
+            return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+        }
+
+        // Extract chassis ID from inventory path of base FRU at index 0
+        const auto l_baseInvObjPath =
+            l_subFruJsonArray.at(0).value("inventoryPath", "");
+        if (l_baseInvObjPath.empty())
+        {
+            return std::unexpected(error_code::INVALID_JSON);
+        }
+
+        const auto& l_chassisId = getChassisId(l_baseInvObjPath);
+        if (l_chassisId.empty())
+        {
+            return std::unexpected(error_code::INVALID_INVENTORY_PATH);
+        }
+
+        // Create entry in EEPROM to chassis ID map
+        m_eepromToChassisIdMap.emplace(l_eepromPath, std::string(l_chassisId));
+
+        // Get or create chassis JSON object
+        auto& l_chassisJson = m_chassisIdToJsonMap[std::string(l_chassisId)];
+        if (l_chassisJson.is_null())
+        {
+            l_chassisJson = nlohmann::json::object_t();
+        }
+
+        // check if chassis JSON has a "frus" section, if not create
+        if (!l_chassisJson.contains("frus"))
+        {
+            l_chassisJson["frus"] = nlohmann::json::object();
+        }
+
+        // append the sub FRUs
+        l_chassisJson["frus"][l_eepromPath] = l_subFruJsonArray;
+
+        // check if there is any common JSON object to be appended to the
+        // chassis JSON
+        if (i_commonJsonObj)
+        {
+            l_chassisJson.update(i_commonJsonObj.value());
+        }
 
         return l_rc;
     }
