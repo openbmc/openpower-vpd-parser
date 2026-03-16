@@ -112,19 +112,57 @@ void ConfigManager::buildChassisToFruMap()
 }
 
 std::expected<bool, error_code> ConfigManager::buildMapsForFru(
-    [[maybe_unused]] const auto& i_fruJsonObj,
-    [[maybe_unused]] std::optional<nlohmann::json> i_commonJsonObj) noexcept
+    const auto& i_fruJsonObj,
+    std::optional<nlohmann::json> i_commonJsonObj) noexcept
 {
     try
     {
         bool l_rc{true};
-        /*  TODO:
-            - extract chassis ID from inventory path of base FRU at index 0
-            - create entry in EEPROM to chassis ID map
-            - create entry in chassis ID to JSON map
-            - append sub FRU array to chassis JSON map
-            - append common JSON object if any to chassis JSON object
-        */
+
+        const auto& l_eepromPath = i_fruJsonObj.key();
+        const auto& l_subFruJsonArray = i_fruJsonObj.value();
+
+        // Validate FRU JSON is an array with at least one element
+        if (!l_subFruJsonArray.is_array() || l_subFruJsonArray.empty())
+        {
+            return std::unexpected(error_code::INVALID_JSON);
+        }
+
+        // Extract chassis ID from inventory path of base FRU at index 0
+        const auto l_baseInvObjPath =
+            l_subFruJsonArray.at(0).value("inventoryPath", "");
+        if (l_baseInvObjPath.empty())
+        {
+            return std::unexpected(error_code::INVALID_JSON);
+        }
+
+        const auto& l_chassisId = getChassisId(l_baseInvObjPath);
+        if (l_chassisId.empty())
+        {
+            return std::unexpected(error_code::INVALID_INVENTORY_PATH);
+        }
+
+        // Create entry in EEPROM to config ID map
+        m_eepromToChassisIdMap.emplace(l_eepromPath, l_chassisId);
+
+        // Get or create chassis JSON object
+        auto& l_chassisJson = m_chassisIdToJsonMap[l_chassisId];
+
+        // check if chassis JSON has a "frus" section, if not create
+        if (!l_chassisJson.contains("frus"))
+        {
+            l_chassisJson["frus"] = nlohmann::json::object();
+        }
+
+        // append the sub FRUs
+        l_chassisJson["frus"][l_eepromPath] = l_subFruJsonArray;
+
+        // check if there is any common JSON object to be appended to the
+        // chassis JSON
+        if (i_commonJsonObj)
+        {
+            l_chassisJson.update(i_commonJsonObj.value());
+        }
 
         return l_rc;
     }
