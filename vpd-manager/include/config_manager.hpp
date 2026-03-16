@@ -122,7 +122,7 @@ class ConfigManager final
      */
     std::expected<bool, error_code> buildMapsForFru(
         const auto& i_fruJsonObj,
-        const std::optional<nlohmann::json> i_commonJsonObj =
+        const std::optional<nlohmann::json>& i_commonJsonObj =
             std::nullopt) noexcept;
 
     /**
