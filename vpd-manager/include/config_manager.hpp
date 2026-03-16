@@ -1,5 +1,7 @@
 #pragma once
 
+#include "logger.hpp"
+
 #include <nlohmann/json.hpp>
 
 #include <map>
@@ -55,7 +57,8 @@ class ConfigManager final
      */
     explicit ConfigManager([[maybe_unused]] const WorkerPassKey& i_key,
                            const nlohmann::json& i_systemConfigJson) :
-        m_systemConfigJson{i_systemConfigJson}
+        m_systemConfigJson{i_systemConfigJson},
+        m_logger{Logger::getLoggerInstance()}
     {
         buildChassisToFruMap();
     }
@@ -114,6 +117,16 @@ class ConfigManager final
         */
     }
 
+    /**
+     * @brief Extract chassis ID from given inventory object path.
+     *
+     * @param[in] i_inventoryObjPath - Inventory object path.
+     *
+     * @return Chassis ID on successful extraction, empty string otherwise.
+     */
+    std::string getChassisId(
+        const std::string& i_inventoryObjPath) const noexcept;
+
     // System config JSON
     const nlohmann::json& m_systemConfigJson;
 
@@ -123,6 +136,9 @@ class ConfigManager final
 
     // EEPROM path to chassis ID - O(1) lookup
     std::unordered_map<std::string, std::string> m_eepromToChassisIdMap;
+
+    // Shared pointer to Logger object
+    std::shared_ptr<Logger> m_logger;
 };
 
 } // namespace vpd
