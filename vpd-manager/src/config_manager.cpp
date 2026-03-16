@@ -85,22 +85,59 @@ std::expected<std::string_view, error_code>
 
 std::expected<bool, error_code> ConfigManager::buildMapsForFru(
     const std::string& i_eepromPath,
-    [[maybe_unused]] const nlohmann::json& i_fruJson) noexcept
+    const nlohmann::json& i_fruJson) noexcept
 {
     try
     {
-        bool l_rc{true};
-        /*  TODO:
-            - extract chassis ID from inventory path of base FRU at index 0
-            - create entry in EEPROM to chassis ID map
-            - create entry in chassis ID to JSON map
-            - get commonInterfaces JSON object from system config JSON and add
-           in the entry
-            - iterate through all sub FRU JSON objects and append to chassis
-           specific entry in chassis ID to JSON map
-        */
+        // Validate FRU JSON is an array with at least one element
+        if (!i_fruJson.is_array() || i_fruJson.empty())
+        {
+            m_logger->logMessage(std::format(
+                "FRU {} has no sub-FRUs or invalid format", i_eepromPath));
+            return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+        }
 
-        return l_rc;
+        // Extract chassis ID from inventory path of base FRU at index 0
+        const auto l_baseInvObjPath = i_fruJson.at(0).value("inventoryPath", "");
+        if (l_baseInvObjPath.empty())
+        {
+            m_logger->logMessage(std::format(
+                "Base object path is empty for FRU {}", i_eepromPath));
+            return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+        }
+
+        const auto l_chassisIdRes = getChassisIdFromObjectPath(l_baseInvObjPath);
+        if (!l_chassisIdRes.has_value())
+        {
+            return std::unexpected(l_chassisIdRes.error());
+        }
+
+        const auto& l_chassisId = l_chassisIdRes.value();
+
+        // Create entry in EEPROM to chassis ID map
+        m_eepromToChassisIdMap.emplace(i_eepromPath, std::string(l_chassisId));
+
+        // Get or create chassis JSON array
+        auto& l_chassisJson = m_chassisIdToJsonMap[std::string(l_chassisId)];
+        if (l_chassisJson.is_null())
+        {
+            l_chassisJson = nlohmann::json::array();
+        }
+
+        // Check if commonInterfaces exists in system config JSON and add to the entry if yes
+        if(! m_systemConfigJson.contains("commonInterfaces"))
+        {
+            m_logger->logMessage("commonInterfaces not found in system config JSON");
+        }
+        else
+        {
+            l_chassisJson.push_back(m_systemConfigJson["commonInterfaces"]);
+        }
+
+        // Iterate through all sub FRU JSON objects and append to chassis specific entry
+        std::for_each(i_fruJson.items().begin(), i_fruJson.items().end(),[](auto& l_subFruJson){ l_chassisJson.push_back(std::move(l_subFruJson));});
+
+        return true;
     }
     catch (const std::exception& l_ex)
     {
