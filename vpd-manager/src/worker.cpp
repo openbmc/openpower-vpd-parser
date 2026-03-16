@@ -663,6 +663,12 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
                 processCopyRecordFlag(aFru, parsedVpdMap, interfaces);
             }
 
+            // If specific record needs to be skipped and copy rest records.
+            if (aFru.contains("skipRecords"))
+            {
+                processSkipRecordsFlag(aFru, parsedVpdMap, interfaces);
+            }
+
             if (aFru.contains("extraInterfaces"))
             {
                 // Process extra interfaces w.r.t a FRU.
@@ -1684,4 +1690,36 @@ nlohmann::json Worker::getSysCfgJsonObj(
 
     return m_parsedJson;
 }
+
+void Worker::processSkipRecordsFlag(const nlohmann::json& i_fruJson,
+                                    const types::VPDMapVariant& i_parsedVpdMap,
+                                    types::InterfaceMap& o_interfaces)
+{
+    if (const auto l_ipzVpdMap = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap))
+    {
+        if (!i_fruJson["skipRecords"].is_array())
+        {
+            m_logger->logMessage(
+                "skipRecords: Invalid format , returning from here for path: " +
+                i_fruJson["inventoryPath"]);
+            return;
+        }
+
+        const auto& l_skipList = i_fruJson["skipRecords"];
+
+        for (const auto& [l_recordName, l_keywordMap] : *l_ipzVpdMap)
+        {
+            if (std::find(l_skipList.begin(), l_skipList.end(), l_recordName) !=
+                l_skipList.end())
+            {
+                continue;
+            }
+
+            // If NOT skipped, populate the interface map
+            populateIPZVPDpropertyMap(o_interfaces, l_keywordMap,
+                                      constants::ipzVpdInf + l_recordName);
+        }
+    }
+}
+
 } // namespace vpd
