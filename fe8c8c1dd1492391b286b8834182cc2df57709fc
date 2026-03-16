@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3ad2358_7599acfb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-16T08:51:07Z",
+      "side": 1,
+      "message": "Can you explain some use cases based on which this is required?",
+      "revId": "fe8c8c1dd1492391b286b8834182cc2df57709fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18999b92_73f6750b",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-16T08:51:07Z",
+      "side": 1,
+      "message": "Why do we need a forward declaration?",
+      "revId": "fe8c8c1dd1492391b286b8834182cc2df57709fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae93f1bc_0c6560c8",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-16T08:51:07Z",
+      "side": 1,
+      "message": "Based on something?",
+      "revId": "fe8c8c1dd1492391b286b8834182cc2df57709fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
