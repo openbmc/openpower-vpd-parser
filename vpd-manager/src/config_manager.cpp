@@ -124,13 +124,33 @@ std::expected<bool, error_code> ConfigManager::buildMapsForFru(
         // Create entry in EEPROM to chassis ID map
         m_eepromToChassisIdMap.emplace(i_eepromPath, std::string(l_chassisId));
 
-        /*  TODO:
-            - create entry in chassis ID to JSON map
-            - get commonInterfaces JSON object from system config JSON and add
-           in the entry
-            - iterate through all sub FRU JSON objects and append to chassis
-           specific entry in chassis ID to JSON map
-        */
+        // Get or create chassis JSON array
+        auto& l_chassisJson = m_chassisIdToJsonMap[std::string(l_chassisId)];
+        if (l_chassisJson.is_null())
+        {
+            l_chassisJson = nlohmann::json::array();
+        }
+
+        // Check if commonInterfaces exists in system config JSON and add to the
+        // entry if yes
+        if (!m_systemConfigJson.contains("commonInterfaces"))
+        {
+            m_logger->logMessage(
+                "commonInterfaces not found in system config JSON");
+        }
+        else
+        {
+            l_chassisJson.push_back(m_systemConfigJson["commonInterfaces"]);
+        }
+
+        // Iterate through all sub FRU JSON objects and append to chassis
+        // specific entry
+        std::for_each(i_fruJson.items().begin(), i_fruJson.items().end(),
+                      [&l_chassisJson](const auto& l_subFruJson) {
+                          (void)l_subFruJson;
+                          //   //
+                          //   l_chassisJson.push_back(std::move(l_subFruJson));
+                      });
 
         return l_rc;
     }
