@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e172d86f_3bbb4820",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-16T05:31:22Z",
+      "side": 1,
+      "message": "This class is not needed for single chassis systems, so I think we can disable this for single chassis systems at compile time.",
+      "parentUuid": "927b584b_14e94b8c",
+      "revId": "f30e27b7b7f549293b8b5894f4fa737451173766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "440b30c8_019d6eb6",
         "filename": "vpd-manager/include/config_manager.hpp",
         "patchSetId": 4
@@ -31,6 +49,30 @@
       "writtenOn": "2026-03-13T07:54:48Z",
       "side": 1,
       "message": "If it is referring to move constructor then is is not correct, though it is a deleted API but we should still adhere to correct format.",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 54
+      },
+      "revId": "f30e27b7b7f549293b8b5894f4fa737451173766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce1b9bd5_33b1911c",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-16T05:31:22Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "440b30c8_019d6eb6",
       "range": {
         "startLine": 36,
         "startChar": 8,
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa6397ed_02afafdb",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-16T05:31:22Z",
+      "side": 1,
+      "message": "How do we know that the maximum chassis will be below 50?\n\nAssuming number of chassis will be less than 50, and assuming all chassis numbers are continuous, I think we can use a compile time fixed size array: \n\n`constexpr auto l_maxNumChassis{50};`\n`std::array\u003cnlohmann::json, l_maxNumChassis \u003e m_chassisJsonArray`\n\n\n\nWe can then use the chassis suffix number from the chassis ID string \"chassisN\", and use N as an index to the respective JSON entry in the array.\n\nAdvantage:\n1. Fixed memory allocated at compile time, no compile time memory allocation operations.\n2. O(1) modification of chassis JSON entry\n3. O(1) look up of chassis JSON entry.",
+      "parentUuid": "fd74b31b_cdb8ed2b",
+      "revId": "f30e27b7b7f549293b8b5894f4fa737451173766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dbdf7f67_c35ff640",
         "filename": "vpd-manager/include/config_manager.hpp",
         "patchSetId": 4
@@ -71,6 +131,24 @@
       "writtenOn": "2026-03-13T07:54:48Z",
       "side": 1,
       "message": "Here unordered_map makes sense as number if EEPROMs can go beyond 100.",
+      "revId": "f30e27b7b7f549293b8b5894f4fa737451173766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c357f4b7_35036929",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-16T05:31:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbdf7f67_c35ff640",
       "revId": "f30e27b7b7f549293b8b5894f4fa737451173766",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
