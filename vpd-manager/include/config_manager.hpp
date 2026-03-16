@@ -5,8 +5,7 @@
 #include <nlohmann/json.hpp>
 
 #include <expected>
-#include <future>
-#include <mutex>
+#include <map>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -113,30 +112,27 @@ class ConfigManager final
      * @brief API to build EEPROM to chassis map and chassis info map for a
      * single FRU
      *
-     * This is a multi-thread safe API which builds maps for a single FRU(EEPROM
-     * path) in the system config JSON.
+     * This API builds maps for a single FRU (EEPROM path) in the system
+     * config JSON.
      *
      * @param[in] i_fruJson - FRU JSON object
      *
      * @return On success, returns true, otherwise sets error code
      */
     std::expected<bool, error_code> buildMapForFru(
-        const nlohmann::json::iterator& i_fruJson) const noexcept;
+        const nlohmann::json::iterator& i_fruJson) noexcept;
 
     // System config JSON
     const nlohmann::json& m_systemConfigJson;
 
-    // Chassis ID to chassis specific JSON map - O(1) lookup
-    std::unordered_map<std::string, nlohmann::json> m_chassisIdToJsonMap;
+    // Chassis ID to chassis specific JSON map - O(log N) lookup, optimized for small N
+    std::map<std::string, nlohmann::json> m_chassisIdToJsonMap;
 
     // EEPROM path to chassis ID - O(1) lookup
     std::unordered_map<std::string, std::string> m_eepromToChassisIdMap;
 
     // Shared pointer to Logger object
     std::shared_ptr<Logger> m_logger;
-
-    // mutex to protect access to maps
-    mutable std::mutex m_mapsMutex;
 };
 
 } // namespace vpd
