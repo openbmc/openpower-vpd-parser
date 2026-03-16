@@ -465,9 +465,9 @@ void Worker::processCopyRecordFlag(const nlohmann::json& singleFru,
 void Worker::processInheritFlag(const types::VPDMapVariant& parsedVpdMap,
                                 types::InterfaceMap& interfaces)
 {
-    if (auto ipzVpdMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap))
+    if (auto l_ipzVpdMap = std::get_if<types::IPZVpdMap>(&parsedVpdMap))
     {
-        for (const auto& [recordName, kwdValueMap] : *ipzVpdMap)
+        for (const auto& [recordName, kwdValueMap] : *l_ipzVpdMap)
         {
             populateIPZVPDpropertyMap(interfaces, kwdValueMap,
                                       constants::ipzVpdInf + recordName);
@@ -661,6 +661,12 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
             if (aFru.contains("copyRecords"))
             {
                 processCopyRecordFlag(aFru, parsedVpdMap, interfaces);
+            }
+
+            // If specific record needs to be skipped and copy rest records.
+            if (aFru.contains("skipRecords"))
+            {
+                processSkipRecordsFlag(aFru, parsedVpdMap, interfaces);
             }
 
             if (aFru.contains("extraInterfaces"))
@@ -1684,4 +1690,30 @@ nlohmann::json Worker::getSysCfgJsonObj(
 
     return m_parsedJson;
 }
+
+void Worker::processSkipRecordsFlag(const nlohmann::json& i_fruJson,
+                                    const types::VPDMapVariant& i_parsedVpdMap,
+                                    types::InterfaceMap& o_interfaces)
+{
+    if (auto l_ipzVpdMap = std::get_if<types::IPZVpdMap>(&i_parsedVpdMap))
+    {
+        const auto& l_skipList = i_fruJson["skipRecords"];
+        bool l_isValidArray = l_skipList.is_array();
+
+        for (const auto& [l_recordName, l_keywordMap] : *l_ipzVpdMap)
+        {
+            if (l_isValidArray &&
+                std::find(l_skipList.begin(), l_skipList.end(), l_recordName) !=
+                    l_skipList.end())
+            {
+                continue;
+            }
+
+            // If NOT skipped, populate the interface map
+            populateIPZVPDpropertyMap(o_interfaces, l_keywordMap,
+                                      constants::ipzVpdInf + l_recordName);
+        }
+    }
+}
+
 } // namespace vpd
