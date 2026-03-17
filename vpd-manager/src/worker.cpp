@@ -53,11 +53,23 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
 
         try
         {
+            const auto l_buildChassisMapsStartTime =
+                std::chrono::steady_clock::now();
+
             // TODO: revisit to see if ConfigManager can be initialized after
             // System VPD collection create ConfigManager instance
             ConfigManager::WorkerPassKey l_configMgrKey;
             m_configManager =
                 std::make_unique<ConfigManager>(l_configMgrKey, m_parsedJson);
+
+            m_logger->logMessage(
+                "Time taken to build chassis maps: " +
+                std::to_string(
+                    std::chrono::duration_cast<std::chrono::milliseconds>(
+                        std::chrono::steady_clock::now() -
+                        l_buildChassisMapsStartTime)
+                        .count()) +
+                "ms");
         }
         catch (const std::exception& l_ex)
         {
