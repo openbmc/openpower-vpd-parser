@@ -16,6 +16,24 @@
       "message": "Should this method be placed in utility?\nIn that case it can be used where ever chassis id needs to be extracted from any given path to get the corresponding JSON?",
       "revId": "f38393a8f7b8955b82506e9e34b18c28de6943ea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "906ff661_a147e4f6",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-17T10:53:08Z",
+      "side": 1,
+      "message": "We are not exposing chassis ID concept outside `ConfigManager` class. What\u0027s the use case of having this as an utility API?\n\n\u003eit can be used where ever chassis id needs to be extracted from any given path to get the corresponding JSON?\n\nAs per our design, consumers will always use object path/EEPROM path to get chassis specific JSON from `ConfigManager`",
+      "parentUuid": "669a0692_e165e8b5",
+      "revId": "f38393a8f7b8955b82506e9e34b18c28de6943ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
