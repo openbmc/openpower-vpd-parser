@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "669a0692_e165e8b5",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-17T10:28:28Z",
+      "side": 1,
+      "message": "Should this method be placed in utility?\nIn that case it can be used where ever chassis id needs to be extracted from any given path to get the corresponding JSON?",
+      "revId": "f38393a8f7b8955b82506e9e34b18c28de6943ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
