@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2af9e49a_de45825c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-17T07:27:16Z",
+      "side": 1,
+      "message": "Can you explain more about the class and its responsibilities so that it can be clear why this is being introduced in the repository.",
+      "revId": "2a2b7782f243407633d39924a2ab8dffffb77870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07d20d5f_1dde3ac8",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-17T07:27:16Z",
+      "side": 1,
+      "message": "Could you please rephrase, this looks repeated from brief.",
+      "range": {
+        "startLine": 14,
+        "startChar": 3,
+        "endLine": 14,
+        "endChar": 65
+      },
+      "revId": "2a2b7782f243407633d39924a2ab8dffffb77870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "319d26e1_e6a38767",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-17T07:27:16Z",
+      "side": 1,
+      "message": "Did not get this part. WHat Do you mean by configuration specific JSON?",
+      "range": {
+        "startLine": 16,
+        "startChar": 3,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "2a2b7782f243407633d39924a2ab8dffffb77870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
