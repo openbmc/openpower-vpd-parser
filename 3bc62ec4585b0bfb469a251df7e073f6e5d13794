@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9499680_a4e3550c",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-17T08:39:43Z",
+      "side": 1,
+      "message": "What if this `.find()` fails?",
+      "revId": "3bc62ec4585b0bfb469a251df7e073f6e5d13794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70c6e75b_47201863",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-17T08:39:43Z",
+      "side": 1,
+      "message": "`std::string.substr()` can throw exception. This is not handled.",
+      "revId": "3bc62ec4585b0bfb469a251df7e073f6e5d13794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
