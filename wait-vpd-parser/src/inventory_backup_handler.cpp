@@ -83,23 +83,26 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             using FailedPathList = std::vector<std::filesystem::path>;
             FailedPathList l_failedPaths;
 
-            std::for_each(std::filesystem::begin(l_backupDirIt),
-                          std::filesystem::end(l_backupDirIt),
-                          [this,
-                           l_systemInventoryPrimaryPath =
-                               std::as_const(l_systemInventoryPrimaryPath),
-                           &l_failedPaths](const auto& l_entry) {
-                              if (l_entry.is_directory())
-                              {
-                                  if (!moveFiles(l_entry.path(),
-                                                 l_systemInventoryPrimaryPath /
-                                                     l_entry.path().filename()))
-                                  {
-                                      l_failedPaths.emplace_back(
-                                          l_entry.path().filename());
-                                  }
-                              }
-                          });
+            std::for_each(
+                std::filesystem::begin(l_backupDirIt),
+                std::filesystem::end(l_backupDirIt),
+                [this,
+                 l_systemInventoryPrimaryPath =
+                     std::as_const(l_systemInventoryPrimaryPath),
+                 &l_failedPaths](const auto& l_entry) {
+                    if (l_entry.is_directory() &&
+                        l_entry.path().filename().compare("logical_bmc") !=
+                            vpd::constants::STR_CMP_SUCCESS)
+                    {
+                        if (!moveFiles(l_entry.path(),
+                                       l_systemInventoryPrimaryPath /
+                                           l_entry.path().filename()))
+                        {
+                            l_failedPaths.emplace_back(
+                                l_entry.path().filename());
+                        }
+                    }
+                });
 
             // check if there are any paths for which restoration failed, if yes
             // log a PEL
