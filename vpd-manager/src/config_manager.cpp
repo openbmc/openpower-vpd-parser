@@ -31,6 +31,24 @@ void ConfigManager::buildChassisToFruMap()
                 commonUtility::getErrCodeMsg(l_mapBuildResult.error())));
         }
     }
+
+    // debug
+    std::ofstream l_fileStream{"/tmp/eepromToChassisId.json"};
+    for (const auto& [l_eepromPath, l_chassisId] : m_eepromToChassisIdMap)
+    {
+        l_fileStream << std::format("EEPROM: {} ChassisId: {}", l_eepromPath,
+                                    l_chassisId)
+                     << std::endl;
+    }
+    l_fileStream.close();
+
+    for (const auto& [l_chassisId, l_chassisJson] : m_chassisIdToJsonMap)
+    {
+        std::string l_fileName{"/tmp/" + l_chassisId + ".json"};
+        std::ofstream l_fileStream{l_fileName};
+        l_fileStream << l_chassisJson.dump(4) << std::endl;
+        l_fileStream.close();
+    }
 }
 
 std::expected<bool, error_code> ConfigManager::buildMapsForFru(
