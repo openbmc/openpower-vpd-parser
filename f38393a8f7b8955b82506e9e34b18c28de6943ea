@@ -34,6 +34,24 @@
       "parentUuid": "669a0692_e165e8b5",
       "revId": "f38393a8f7b8955b82506e9e34b18c28de6943ea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fa943c5_f2b730ad",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-17T16:00:33Z",
+      "side": 1,
+      "message": "I agree with Souvik, as extracting the chassis-id requirement lies within ConfigManager.",
+      "parentUuid": "906ff661_a147e4f6",
+      "revId": "f38393a8f7b8955b82506e9e34b18c28de6943ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

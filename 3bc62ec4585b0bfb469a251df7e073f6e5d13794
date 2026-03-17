@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88028c6e_425aba02",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-17T16:00:33Z",
+      "side": 1,
+      "message": "find will give std::string::npos which is of size_t max value.\nso (max_value - startPos) which doesn\u0027t exists, substr will extract till end of the string. \nwhich is the case for \"/xyz/openbmc_project/inventory/system/chassis0\" so it extract till end.\n\nA value of string::npos indicates all characters until the end of the string.\nref link: https://cplusplus.com/reference/string/string/npos/\nhttps://cplusplus.com/reference/string/string/substr/",
+      "parentUuid": "b9499680_a4e3550c",
+      "revId": "3bc62ec4585b0bfb469a251df7e073f6e5d13794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70c6e75b_47201863",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-17T08:39:43Z",
       "side": 1,
       "message": "`std::string.substr()` can throw exception. This is not handled.",
+      "revId": "3bc62ec4585b0bfb469a251df7e073f6e5d13794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5de528d7_6afe4350",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-17T16:00:33Z",
+      "side": 1,
+      "message": "start position is valid, so\nsubstr can only fails here if storage allocation fails, addressed it.",
+      "parentUuid": "70c6e75b_47201863",
       "revId": "3bc62ec4585b0bfb469a251df7e073f6e5d13794",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
