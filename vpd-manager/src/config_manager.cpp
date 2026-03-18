@@ -7,20 +7,32 @@ namespace vpd
 const nlohmann::json& ConfigManager::getJsonObj(
     const std::optional<std::string>& i_vpdPath) const noexcept
 {
-    if (i_vpdPath && i_vpdPath.value().starts_with(constants::pimPath))
+    if (!i_vpdPath)
     {
-        [[maybe_unused]] const auto l_chassisId =
-            getChassisId(i_vpdPath.value());
+        return m_systemConfigJson;
     }
 
-    /**
-     * @todo Implement the following logic:
-     *  - If @p i_vpdPath is an EEPROM path, obtain the chassisId from
-     * m_eepromToChassisIdMap.
-     *  - Return the chassis-specific JSON configuration from m_chassisInfoMap
-     * using the resolved chassisId.
-     *  - If @p i_vpdPath is std::nullopt, return m_systemConfigJson.
-     */
+    const auto& l_vpdPath = i_vpdPath.value();
+    std::string l_chassisId{};
+
+    if (l_vpdPath.starts_with(constants::pimPath))
+    {
+        l_chassisId = getChassisId(l_vpdPath);
+    }
+    else if (m_eepromToChassisIdMap.find(l_vpdPath) !=
+             m_eepromToChassisIdMap.end())
+    {
+        l_chassisId = m_eepromToChassisIdMap.at(l_vpdPath);
+    }
+    else
+    {
+        return m_systemConfigJson;
+    }
+
+    if (m_chassisIdToJsonMap.find(l_chassisId) != m_chassisIdToJsonMap.end())
+    {
+        return m_chassisIdToJsonMap.at(l_chassisId);
+    }
 
     return m_systemConfigJson;
 }
