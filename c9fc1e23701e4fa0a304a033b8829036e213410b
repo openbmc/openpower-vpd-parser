@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61b82888_e9f2d869",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-18T16:42:32Z",
+      "side": 1,
+      "message": "Json object",
+      "revId": "c9fc1e23701e4fa0a304a033b8829036e213410b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eff8367b_b616109f",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-18T16:42:32Z",
+      "side": 1,
+      "message": "coding guideline is not followed",
+      "revId": "c9fc1e23701e4fa0a304a033b8829036e213410b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd8dd56f_4c8b5ded",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-18T16:42:32Z",
+      "side": 1,
+      "message": "i_aFruJsonObj or i_fruJsonObj?",
+      "revId": "c9fc1e23701e4fa0a304a033b8829036e213410b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a81052fd_01086a0f",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-18T16:42:32Z",
+      "side": 1,
+      "message": "can we say skipThisRecord skipRecord",
+      "revId": "c9fc1e23701e4fa0a304a033b8829036e213410b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68c0b3e3_f00cee6d",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-18T16:42:32Z",
+      "side": 1,
+      "message": "variable maming convention not followed",
+      "revId": "c9fc1e23701e4fa0a304a033b8829036e213410b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7faf3ba2_ba47aa00",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-18T16:42:32Z",
+      "side": 1,
+      "message": "this comment is not required, which is already commented above",
+      "revId": "c9fc1e23701e4fa0a304a033b8829036e213410b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9e27a8b_e3a7f698",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1700,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-18T16:42:32Z",
+      "side": 1,
+      "message": "input validation is not there, no need to continue if inputs are empty ?",
+      "revId": "c9fc1e23701e4fa0a304a033b8829036e213410b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6d86260_dfbd94a2",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1703,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-18T16:42:32Z",
+      "side": 1,
+      "message": "is tag name used is correct ?",
+      "revId": "c9fc1e23701e4fa0a304a033b8829036e213410b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dea1ac7e_91c75711",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1706,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-18T16:42:32Z",
+      "side": 1,
+      "message": "std::any_of can throw exception",
+      "revId": "c9fc1e23701e4fa0a304a033b8829036e213410b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
