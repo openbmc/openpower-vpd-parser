@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b06bf72e_27c18cd1",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-20T10:26:59Z",
+      "side": 1,
+      "message": "maybe_unused is not removed",
+      "revId": "7d86663c571eec2eb876722c846fe020e39434d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d97fbd11_210fb9eb",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-20T10:26:59Z",
+      "side": 1,
+      "message": "can this if-else(commonInterfaces) part can be constructed outside the for loop and use inside the loop, as this part is not going to change ?",
+      "revId": "7d86663c571eec2eb876722c846fe020e39434d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f3ec77f_d5536f8a",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-20T10:26:59Z",
+      "side": 1,
+      "message": "if we recive i_fruJson as eeprom:[inventor list], we can directly append to map and we can avoid this loop ?",
+      "revId": "7d86663c571eec2eb876722c846fe020e39434d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
