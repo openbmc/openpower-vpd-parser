@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0be3a992_74086e0f",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-24T17:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b06bf72e_27c18cd1",
+      "revId": "7d86663c571eec2eb876722c846fe020e39434d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d97fbd11_210fb9eb",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-20T10:26:59Z",
       "side": 1,
       "message": "can this if-else(commonInterfaces) part can be constructed outside the for loop and use inside the loop, as this part is not going to change ?",
+      "revId": "7d86663c571eec2eb876722c846fe020e39434d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "245fb1ee_f36bf359",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-24T17:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d97fbd11_210fb9eb",
       "revId": "7d86663c571eec2eb876722c846fe020e39434d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -66,6 +102,24 @@
       "side": 1,
       "message": "or we can directly update l_chassisJson[\"frus\"][i_eepromPath] with i_fruJson",
       "parentUuid": "8f3ec77f_d5536f8a",
+      "revId": "7d86663c571eec2eb876722c846fe020e39434d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33a7b879_fd35d1fb",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-24T17:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8915b1f9_4961d1a2",
       "revId": "7d86663c571eec2eb876722c846fe020e39434d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
