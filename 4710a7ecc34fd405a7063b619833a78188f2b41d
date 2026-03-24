@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70710340_cc726873",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-24T06:26:01Z",
+      "side": 1,
+      "message": "Not sure what are we trying to achieve here?\nOne variable is string_view and then we convert it to std::string and send over. Could you please explain.",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 40
+      },
+      "revId": "4710a7ecc34fd405a7063b619833a78188f2b41d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
