@@ -22,6 +22,30 @@
       },
       "revId": "4710a7ecc34fd405a7063b619833a78188f2b41d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1438d5ae_f6fb060b",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-24T07:46:09Z",
+      "side": 1,
+      "message": "The use of std::string_view here is not required, updated the code.",
+      "parentUuid": "70710340_cc726873",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 40
+      },
+      "revId": "4710a7ecc34fd405a7063b619833a78188f2b41d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
