@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b0ecce02_013d3409",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-24T16:30:52Z",
+      "side": 1,
+      "message": "nit: `@brief` should be in plain English? \"Extract chassis ID from given inventory object path\"",
+      "revId": "4413396af275b54f85c44288998752a95c82cfac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86436a8b_ca3cc24a",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 8
