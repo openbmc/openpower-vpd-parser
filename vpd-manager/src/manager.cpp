@@ -902,7 +902,11 @@ void Manager::deleteAllFRUVPD() const noexcept
         for (const auto& l_entry :
              std::filesystem::directory_iterator(l_inventoryBackupPath))
         {
-            if (std::filesystem::is_directory(l_entry))
+            // ToDo -- Remove the logical BMC check when path is moved
+            // to power-he-platform daemon.
+            if (std::filesystem::is_directory(l_entry) &&
+                l_entry.path().filename().compare("logical_bmc") !=
+                    vpd::constants::STR_CMP_SUCCESS)
             {
                 std::error_code l_ec;
                 std::filesystem::remove_all(l_entry, l_ec);
