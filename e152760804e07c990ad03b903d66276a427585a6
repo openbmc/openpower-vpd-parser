@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f9d2146_2a71d149",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-25T08:26:51Z",
+      "side": 1,
+      "message": "I think this line can be more descriptive. \"Move system VPD path PELs to async\"?",
+      "revId": "e152760804e07c990ad03b903d66276a427585a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28f76da3_8c4b057b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-25T08:26:51Z",
+      "side": 1,
+      "message": "I did not understand this test case. `CollectAllFruVpd` is not in System VPD path.",
+      "revId": "e152760804e07c990ad03b903d66276a427585a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a87d9752_52816720",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-25T08:26:51Z",
+      "side": 1,
+      "message": "nit: typo, \"Async\"",
+      "revId": "e152760804e07c990ad03b903d66276a427585a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e15f879_d4009fd3",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-25T08:26:51Z",
+      "side": 1,
+      "message": "nit: A blank line above would declutter this block.",
+      "revId": "e152760804e07c990ad03b903d66276a427585a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
