@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56e92e2f_bc8a238a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-03-25T17:02:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3f9d2146_2a71d149",
+      "revId": "e152760804e07c990ad03b903d66276a427585a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28f76da3_8c4b057b",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-25T08:26:51Z",
       "side": 1,
       "message": "I did not understand this test case. `CollectAllFruVpd` is not in System VPD path.",
+      "revId": "e152760804e07c990ad03b903d66276a427585a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "618ce434_02b509bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-03-25T17:02:03Z",
+      "side": 1,
+      "message": "Addition to system vpd collection, Added Async PEL to this too- CollectAllFruVpd\nAnd this is straight pen logging, no error case, so need to force any error, unlike other places. so I shared this trace.",
+      "parentUuid": "28f76da3_8c4b057b",
       "revId": "e152760804e07c990ad03b903d66276a427585a6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff0fb4f0_79af2a07",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-03-25T17:02:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a87d9752_52816720",
+      "revId": "e152760804e07c990ad03b903d66276a427585a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e15f879_d4009fd3",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-03-25T08:26:51Z",
       "side": 1,
       "message": "nit: A blank line above would declutter this block.",
+      "revId": "e152760804e07c990ad03b903d66276a427585a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03faf436_1a32b2c5",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-03-25T17:02:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5e15f879_d4009fd3",
       "revId": "e152760804e07c990ad03b903d66276a427585a6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
