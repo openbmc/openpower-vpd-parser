@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b77ba1ac_ae62bfbf",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-26T09:08:32Z",
+      "side": 1,
+      "message": "as you mentioned commonInterfaces in not mandatory, we should had log when it become mandatory field. which ever system doesn\u0027t have commonInterface will have unnecessary log for that system now.",
+      "parentUuid": "1dd11355_d40d17f7",
+      "revId": "69a211136ba86c7f9e4206f0d3d3aa135aadd129",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2dfb08b4_2a5f307b",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 16

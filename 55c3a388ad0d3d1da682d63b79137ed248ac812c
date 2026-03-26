@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5678a535_d8e952ec",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-26T09:08:32Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ad316d1f_caa1a0ab",
+      "revId": "55c3a388ad0d3d1da682d63b79137ed248ac812c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d928f27_42b62706",
@@ -172,6 +190,24 @@
       "side": 1,
       "message": "How will a PEL help here? In failure case, a FRU\u0027s entry won\u0027t be there in the maps. `getJsonObj()` should handle the scenario where for a given FRU, chassis specific JSON entry is not found in the map.",
       "parentUuid": "210f842b_629945e2",
+      "revId": "55c3a388ad0d3d1da682d63b79137ed248ac812c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff240b2e_fdd6b92b",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-26T09:08:32Z",
+      "side": 1,
+      "message": "getJsonObj() return main JSON if entry not in EEPROM to JSON map.\nbut while building config JSON map had any exception that will exclude adding entry to the map, hence need to use main JSON which will take more time in case of search.\n\nSo here while building chassis specific JSON, we could have logged a PEL which helps in debugging later.\n\nanyway we can check logging PEL required later, if such instances occur frequently.",
+      "parentUuid": "38ff70ba_0f11b265",
       "revId": "55c3a388ad0d3d1da682d63b79137ed248ac812c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
