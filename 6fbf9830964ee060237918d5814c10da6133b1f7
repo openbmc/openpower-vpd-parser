@@ -58,6 +58,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7805c6a_e216ad5a",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-26T07:01:18Z",
+      "side": 1,
+      "message": "Getting called from constructor, ignore the comment.",
+      "parentUuid": "b613ed33_3b594b7d",
+      "revId": "6fbf9830964ee060237918d5814c10da6133b1f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec72813b_bf186ead",
@@ -71,6 +89,24 @@
       "writtenOn": "2026-03-26T06:36:24Z",
       "side": 1,
       "message": "Why a private API checking validity of a member variable?",
+      "revId": "6fbf9830964ee060237918d5814c10da6133b1f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd3e8c74_997d65ed",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-26T07:01:18Z",
+      "side": 1,
+      "message": "Since it is called directly from constructor, as as exception we can have it checked here. Ignore the comment.",
+      "parentUuid": "ec72813b_bf186ead",
       "revId": "6fbf9830964ee060237918d5814c10da6133b1f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
