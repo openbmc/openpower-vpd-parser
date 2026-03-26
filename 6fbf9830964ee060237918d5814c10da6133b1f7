@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b30ec7ae_a2e8cd8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-26T07:33:53Z",
+      "side": 1,
+      "message": "\u003e. This commit implements buildChassisToFruMap API\n\nBut I don\u0027t see anything related to this in header, the header only says about stub implementation.",
+      "parentUuid": "4314b2f6_e7ef1a62",
+      "range": {
+        "startLine": 7,
+        "startChar": 21,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "6fbf9830964ee060237918d5814c10da6133b1f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f07817a2_3f2fa269",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 17
@@ -191,6 +215,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43d5863c_10b194fa",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-26T07:33:53Z",
+      "side": 1,
+      "message": "\u003e  Member variable can be modified by any other API\n\nYes, but private members are not exposed and are not called by external world and that is why the responsibility of these kind of validation lies with the called public method which gave the execution passage to the private API.\nCall to private methods are through a controlled passage and hence from a good design perspective that passage should filter the call if it is invalid.\n\nWhereas, public methods are exposed to the external world and can be called by anyone, the coder does not have control on that, hence these checks are required there.\n\nHaving said that, since this is a direct call from constructor, its ok to have it here.",
+      "parentUuid": "b112153f_5ed2cd1b",
+      "revId": "6fbf9830964ee060237918d5814c10da6133b1f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d091146_a6ede099",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 17
@@ -220,6 +262,24 @@
       "side": 1,
       "message": "We had decided to add it as per our design discussion, in order to keep the chassis specific JSON structure as close as possible to the actual system configuration JSON.",
       "parentUuid": "6d091146_a6ede099",
+      "revId": "6fbf9830964ee060237918d5814c10da6133b1f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ddad6fe_03900e06",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-03-26T07:33:53Z",
+      "side": 1,
+      "message": "Ok, but thinking about it now, I am not able to see a use case, do you have any in mind? If not we can always comeback and add this when required, why to carry the baggage from now?",
+      "parentUuid": "8d9492b7_d05b1c88",
       "revId": "6fbf9830964ee060237918d5814c10da6133b1f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
