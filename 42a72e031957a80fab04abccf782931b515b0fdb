@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d35325fe_a880e093",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-26T10:00:31Z",
+      "side": 1,
+      "message": "updated.",
+      "parentUuid": "9c48892d_14af4a40",
+      "range": {
+        "startLine": 10,
+        "startChar": 64,
+        "endLine": 10,
+        "endChar": 69
+      },
+      "revId": "42a72e031957a80fab04abccf782931b515b0fdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49f7810e_4ffd84bb",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-03-26T07:33:05Z",
       "side": 1,
       "message": "Why is this required?",
+      "revId": "42a72e031957a80fab04abccf782931b515b0fdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27dca5f4_71017b30",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-26T10:00:31Z",
+      "side": 1,
+      "message": "updated.",
+      "parentUuid": "49f7810e_4ffd84bb",
       "revId": "42a72e031957a80fab04abccf782931b515b0fdb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae991869_f28c2850",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-26T10:00:31Z",
+      "side": 1,
+      "message": "using string_view to have noexcept for starts_with",
+      "parentUuid": "d08644a5_49a148f1",
+      "revId": "42a72e031957a80fab04abccf782931b515b0fdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "adeaebf6_3393e611",
@@ -71,6 +131,24 @@
       "writtenOn": "2026-03-26T07:27:40Z",
       "side": 1,
       "message": "What\u0027s the use case of creating variable `l_pimPath`?\nWe can directly use `std::string_view(constants::pimPath)` here?",
+      "revId": "42a72e031957a80fab04abccf782931b515b0fdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99afd7e5_df621b67",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-26T10:00:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "adeaebf6_3393e611",
       "revId": "42a72e031957a80fab04abccf782931b515b0fdb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -92,6 +170,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ae742db_f88a6a4d",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-26T10:00:31Z",
+      "side": 1,
+      "message": "as we are searching in m_eepromToChassisIdMap, which is eeprom to chassisID map. understanding is implicit.",
+      "parentUuid": "023593d7_d6312cf0",
+      "revId": "42a72e031957a80fab04abccf782931b515b0fdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59774e03_bc4ccabb",
@@ -105,6 +201,24 @@
       "writtenOn": "2026-03-26T07:27:40Z",
       "side": 1,
       "message": "1. If `l_chassisId` is an empty string at this point, we can early return from here instead of performing an unnecessary `map.find()` operation.\n\n2. We are returning silently if no chassis config is found for given `i_vpdPath`. I think we should have a log.",
+      "revId": "42a72e031957a80fab04abccf782931b515b0fdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "247fd849_64850049",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-26T10:00:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59774e03_bc4ccabb",
       "revId": "42a72e031957a80fab04abccf782931b515b0fdb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
