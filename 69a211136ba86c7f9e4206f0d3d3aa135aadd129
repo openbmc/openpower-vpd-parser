@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1dd11355_d40d17f7",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-26T07:15:03Z",
+      "side": 1,
+      "message": "As of today, `commonInterfaces` is not mandatory for building the chassis specific maps, but we should still log it if it is not found in the main system config JSON, as it indicates the system config JSON may have missing data.",
+      "parentUuid": "b5a966ed_756372e5",
+      "revId": "69a211136ba86c7f9e4206f0d3d3aa135aadd129",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2dfb08b4_2a5f307b",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 16
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-26T04:19:32Z",
       "side": 1,
       "message": "instead, can we declare l_commonJsonObj as std::optional\u003cnlohmann::json\u003e with std::nullopt and update the variable if there is commonInterfaces. And we can avoid this ternary operator here in the for loop.",
+      "revId": "69a211136ba86c7f9e4206f0d3d3aa135aadd129",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09285dd4_46e466ba",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-26T07:15:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dfb08b4_2a5f307b",
       "revId": "69a211136ba86c7f9e4206f0d3d3aa135aadd129",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
