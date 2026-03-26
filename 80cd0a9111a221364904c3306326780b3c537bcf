@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89a9b43f_c4fb9400",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-26T04:20:00Z",
+      "side": 1,
+      "message": "should is be INVALID_JSON ?",
+      "revId": "80cd0a9111a221364904c3306326780b3c537bcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07e4acd7_3305d8d9",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-26T04:20:00Z",
+      "side": 1,
+      "message": "l_chassisId is itself string type.\nsame for below as well",
+      "revId": "80cd0a9111a221364904c3306326780b3c537bcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1db00473_aaa86a3d",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-03-26T04:20:00Z",
+      "side": 1,
+      "message": "do we need this check, as [] inserts empty value if key not found ?",
+      "revId": "80cd0a9111a221364904c3306326780b3c537bcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
