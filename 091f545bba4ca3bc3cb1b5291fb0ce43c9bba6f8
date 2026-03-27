@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53412bf2_c880adc6",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-03-27T18:20:51Z",
+      "side": 1,
+      "message": "ok , removed these changes .",
+      "parentUuid": "8435e8bb_429ed81f",
+      "revId": "091f545bba4ca3bc3cb1b5291fb0ce43c9bba6f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81e6606d_11b590f8",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "669d85a8_16b8c8aa",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-03-27T18:20:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81e6606d_11b590f8",
+      "revId": "091f545bba4ca3bc3cb1b5291fb0ce43c9bba6f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9cddbad_70d517de",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-03-27T13:13:16Z",
       "side": 1,
       "message": "This check is only required if the type used above is auto.\n\na) Either we can strongly type the \"l_skipList\" and save this check here or,\nb) If we are assuming that data can be in wrong format then better log the reason here itself and return? Why to loop around?",
+      "revId": "091f545bba4ca3bc3cb1b5291fb0ce43c9bba6f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "177f5ec5_9ea31057",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1701,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-03-27T18:20:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9cddbad_70d517de",
       "revId": "091f545bba4ca3bc3cb1b5291fb0ce43c9bba6f8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
