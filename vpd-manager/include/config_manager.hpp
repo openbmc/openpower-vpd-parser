@@ -135,6 +135,20 @@ class ConfigManager final
     std::string getChassisId(
         const std::string& i_inventoryObjPath) const noexcept;
 
+    /**
+     * @brief Generate config identifier from given inventory object path.
+     *
+     * This API generates the config identifier string from given inventory
+     * object path. This config identifier is intended to be used by map builder
+     * APIs and for specific config lookup APIs.
+     *
+     * @param[in] i_inventoryObjPath - Inventory object path.
+     *
+     * @return map identfier on successful extraction, error code otherwise.
+     */
+    std::expected<std::string, error_code> generateConfigId(
+        const std::string& i_inventoryObjPath) const noexcept;
+
     // System config JSON
     const nlohmann::json& m_systemConfigJson;
 
