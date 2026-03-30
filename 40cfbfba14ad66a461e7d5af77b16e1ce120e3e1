@@ -34,6 +34,24 @@
       "parentUuid": "469f4f66_efc02535",
       "revId": "40cfbfba14ad66a461e7d5af77b16e1ce120e3e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78b70681_6aee4b39",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-03-30T10:16:57Z",
+      "side": 1,
+      "message": "Addressed handling of system inventory path and cables in https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/88782/1",
+      "parentUuid": "b3b3b70b_ec0d170b",
+      "revId": "40cfbfba14ad66a461e7d5af77b16e1ce120e3e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
