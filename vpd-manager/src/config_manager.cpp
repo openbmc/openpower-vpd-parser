@@ -20,7 +20,17 @@ const nlohmann::json& ConfigManager::getJsonObj(
 
     if ((*i_vpdPath).starts_with(std::string_view(constants::pimPath)))
     {
-        l_chassisId = getChassisId(*i_vpdPath);
+        const auto& l_configIdResult = generateConfigId(*i_vpdPath);
+        if (l_configIdResult.has_value())
+        {
+            l_chassisId = l_configIdResult.value();
+        }
+        else
+        {
+            m_logger->logMessage(std::format(
+                "Failed to get config ID for {}. Error: {}", *i_vpdPath,
+                commonUtility::getErrCodeMsg(l_configIdResult.error())));
+        }
     }
     else if (const auto l_itr = m_eepromToChassisIdMap.find(*i_vpdPath);
              l_itr != m_eepromToChassisIdMap.end())
@@ -133,6 +143,47 @@ std::expected<bool, error_code> ConfigManager::buildMapsForFru(
         m_logger->logMessage(
             std::format("Failed to build maps for FRU {}. Error: {}",
                         i_fruJsonObj.key(), l_ex.what()));
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
+    }
+}
+
+std::expected<std::string, error_code> ConfigManager::generateConfigId(
+    const std::string& i_inventoryObjPath) const noexcept
+{
+    try
+    {
+        if (i_inventoryObjPath.empty())
+        {
+            return std::unexpected(error_code::INVALID_INVENTORY_PATH);
+        }
+
+        std::string l_configId{};
+
+        // check if this inventory path is system inventory path or any cables
+        // inventory path
+        if (constants::systemInvPath == i_inventoryObjPath)
+        {
+            l_configId = "system";
+        }
+        else if (i_inventoryObjPath.find("cable") != std::string::npos)
+        {
+            // @todo: handle cable inventory path when they are added to system
+            // config JSON
+            l_configId = "cable";
+        }
+        else
+        {
+            // this is probably a chassis inventory path, so return the chassis
+            // ID as the map identifier
+            l_configId = getChassisId(i_inventoryObjPath);
+        }
+        return l_configId;
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to generate map identifier for FRU {}. Error: {}",
+            i_inventoryObjPath, l_ex.what()));
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
 }
