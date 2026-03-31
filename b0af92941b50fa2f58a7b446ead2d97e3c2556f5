@@ -16,6 +16,24 @@
       "message": "Found invalid format for skipRecords in json, for inventory path :",
       "revId": "b0af92941b50fa2f58a7b446ead2d97e3c2556f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b54a56ee_b8237377",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1703,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-03-31T08:11:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2f6811a_f2ee503b",
+      "revId": "b0af92941b50fa2f58a7b446ead2d97e3c2556f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
