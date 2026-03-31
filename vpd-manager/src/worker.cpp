@@ -656,17 +656,25 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
             {
                 processInheritFlag(parsedVpdMap, interfaces);
             }
-
-            // If specific record needs to be copied.
-            if (aFru.contains("copyRecords"))
+            else if (aFru.contains("copyRecords"))
             {
+                // specific record needs to be copied.
                 processCopyRecordFlag(aFru, parsedVpdMap, interfaces);
             }
-
-            // If specific record needs to be skipped and copy rest records.
-            if (aFru.contains("skipRecords"))
+            else if (aFru.contains("skipRecords"))
             {
+                // specific record needs to be skipped and copy rest records.
                 processSkipRecordsFlag(aFru, parsedVpdMap, interfaces);
+            }
+
+            // Process commonInterfaces for FRUs where inheritCi=true but
+            // inherit=false
+            if (!aFru.value("inherit", true) &&
+                aFru.value("inheritCi", false) &&
+                m_parsedJson.contains("commonInterfaces"))
+            {
+                populateInterfaces(m_parsedJson["commonInterfaces"], interfaces,
+                                   parsedVpdMap);
             }
 
             if (aFru.contains("extraInterfaces"))
