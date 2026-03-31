@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb93d82e_56e3995a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-03-31T07:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22e97437_415754df",
+      "revId": "bde8501c43e8c36348c64d4c386b86f8a7ab81c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea38eb6c_13d49be2",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-30T12:20:42Z",
       "side": 1,
       "message": "can we say \u0027list of records needs to be skipped for that FRU\u0027 ?",
+      "revId": "bde8501c43e8c36348c64d4c386b86f8a7ab81c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9e53ae2_82f08dd0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-03-31T07:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea38eb6c_13d49be2",
       "revId": "bde8501c43e8c36348c64d4c386b86f8a7ab81c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "242ef2e8_f0e2b798",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-03-31T07:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c882e18_69ed33eb",
+      "revId": "bde8501c43e8c36348c64d4c386b86f8a7ab81c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e17c19e_d85af076",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-03-30T12:20:42Z",
       "side": 1,
       "message": "can we say, copies all records to given fru ?",
+      "revId": "bde8501c43e8c36348c64d4c386b86f8a7ab81c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "872b60cc_f46a0cdc",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-03-31T07:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e17c19e_d85af076",
       "revId": "bde8501c43e8c36348c64d4c386b86f8a7ab81c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2457a947_efacce60",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-03-31T07:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d3a2b7d_a20f2a65",
+      "revId": "bde8501c43e8c36348c64d4c386b86f8a7ab81c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22ce8f4f_a688e1f5",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-03-30T12:20:42Z",
       "side": 1,
       "message": "Fru json object",
+      "revId": "bde8501c43e8c36348c64d4c386b86f8a7ab81c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b87af5d8_ca02b9d8",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-03-31T07:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22ce8f4f_a688e1f5",
       "revId": "bde8501c43e8c36348c64d4c386b86f8a7ab81c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +228,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01dd6696_14819054",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-03-31T07:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "984c8a8e_a2f30a0e",
+      "revId": "bde8501c43e8c36348c64d4c386b86f8a7ab81c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebe92198_de4559e2",
@@ -133,6 +259,24 @@
       "writtenOn": "2026-03-30T12:20:42Z",
       "side": 1,
       "message": "can we append inventory path for logging ?",
+      "revId": "bde8501c43e8c36348c64d4c386b86f8a7ab81c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05629b70_69a571b0",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1703,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-03-31T07:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebe92198_de4559e2",
       "revId": "bde8501c43e8c36348c64d4c386b86f8a7ab81c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
