@@ -669,6 +669,16 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
                 processSkipRecordsFlag(aFru, parsedVpdMap, interfaces);
             }
 
+            // Process commonInterfaces for FRUs where inheritCi=true but
+            // inherit=false
+            if (!aFru.value("inherit", true) &&
+                aFru.value("inheritCi", false) &&
+                m_parsedJson.contains("commonInterfaces"))
+            {
+                populateInterfaces(m_parsedJson["commonInterfaces"], interfaces,
+                                   parsedVpdMap);
+            }
+
             if (aFru.contains("extraInterfaces"))
             {
                 // Process extra interfaces w.r.t a FRU.
