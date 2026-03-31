@@ -875,7 +875,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             {
                 throw std::runtime_error(
                     std::string(__FUNCTION__) + " Could not find file path " +
-                    i_vpdFilePath + "Skipping parser trigger for the EEPROM");
+                    i_vpdFilePath + ". Skipping parser trigger for the EEPROM");
             }
             return types::VPDMapVariant{};
         }
@@ -1086,7 +1086,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         m_logger->logMessage(
             std::string("ParseAndPublish VPD failed for [reason] ") +
                 EventLogger::getErrorMsg(l_ex),
-            PlaceHolder::PEL,
+            PlaceHolder::ASYNC_PEL,
             types::PelInfoTuple{
                 EventLogger::getErrorType(l_ex),
                 (typeid(l_ex) == typeid(DataException)) ||
