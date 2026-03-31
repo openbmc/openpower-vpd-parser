@@ -999,7 +999,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                 "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        m_semaphore.release();
+	m_semaphore.release();
         return std::make_tuple(true, i_vpdFilePath);
     }
     catch (const std::exception& l_ex)
@@ -1072,7 +1072,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         m_logger->logMessage(
             std::string("ParseAndPublish VPD failed for [reason] ") +
                 EventLogger::getErrorMsg(l_ex),
-            PlaceHolder::PEL,
+            PlaceHolder::ASYNC_PEL,
             types::PelInfoTuple{
                 EventLogger::getErrorType(l_ex),
                 (typeid(l_ex) == typeid(DataException)) ||
