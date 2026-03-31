@@ -1072,7 +1072,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         m_logger->logMessage(
             std::string("ParseAndPublish VPD failed for [reason] ") +
                 EventLogger::getErrorMsg(l_ex),
-            PlaceHolder::PEL,
+            PlaceHolder::ASYNC_PEL,
             types::PelInfoTuple{
                 EventLogger::getErrorType(l_ex),
                 (typeid(l_ex) == typeid(DataException)) ||
