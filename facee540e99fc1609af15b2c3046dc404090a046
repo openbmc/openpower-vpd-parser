@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "214bad5c_671bb7ba",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-03-31T09:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "406d4de3_ffd39d3c",
+      "revId": "facee540e99fc1609af15b2c3046dc404090a046",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da3181bf_94c40f7a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-31T06:42:11Z",
       "side": 1,
       "message": "Should we have a reference here?",
+      "revId": "facee540e99fc1609af15b2c3046dc404090a046",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "274ded5f_aa0a839d",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-03-31T09:04:59Z",
+      "side": 1,
+      "message": "no, If I make it reference, I need to init it immediately,It can\u0027t be NULL.\nhere, It will be set by manager class one bus connection is created.",
+      "parentUuid": "da3181bf_94c40f7a",
       "revId": "facee540e99fc1609af15b2c3046dc404090a046",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8a17a18_f24ed62a",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-03-31T09:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "186e8fa9_a2272879",
+      "revId": "facee540e99fc1609af15b2c3046dc404090a046",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf5e7a0d_fdb17ab0",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-03-31T06:42:11Z",
       "side": 1,
       "message": "Same here, we don\u0027t need to log success case.",
+      "revId": "facee540e99fc1609af15b2c3046dc404090a046",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68a69cf6_bd135c76",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-03-31T09:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf5e7a0d_fdb17ab0",
       "revId": "facee540e99fc1609af15b2c3046dc404090a046",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
