@@ -226,7 +226,8 @@ bool PrimeInventory::primeInventory(
                              vpd::commonUtility::getErrCodeMsg(l_errCode));
     }
 
-    if (i_fruJsonObj.value("inherit", true) &&
+    if ((i_fruJsonObj.value("inherit", true) ||
+         i_fruJsonObj.value("inheritCI", false)) &&
         m_sysCfgJsonObj.contains("commonInterfaces"))
     {
         populateInterfaces(m_sysCfgJsonObj["commonInterfaces"], l_interfaces,
