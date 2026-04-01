@@ -226,13 +226,6 @@ bool PrimeInventory::primeInventory(
                              vpd::commonUtility::getErrCodeMsg(l_errCode));
     }
 
-    if (i_fruJsonObj.value("inherit", true) &&
-        m_sysCfgJsonObj.contains("commonInterfaces"))
-    {
-        populateInterfaces(m_sysCfgJsonObj["commonInterfaces"], l_interfaces,
-                           std::monostate{});
-    }
-
     processFunctionalProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
     processEnabledProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
     processAvailableProperty(i_fruJsonObj["inventoryPath"], l_interfaces);
