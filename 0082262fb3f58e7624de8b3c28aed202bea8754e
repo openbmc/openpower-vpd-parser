@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f288e78_fdd9ce35",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-01T07:57:42Z",
+      "side": 1,
+      "message": "CI is an abbreviation here, both the letters should be in capitals to convey that clearly.\n\"inheritCI\"?",
+      "range": {
+        "startLine": 673,
+        "startChar": 28,
+        "endLine": 673,
+        "endChar": 37
+      },
+      "revId": "0082262fb3f58e7624de8b3c28aed202bea8754e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
