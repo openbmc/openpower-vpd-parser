@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee6f179e_2f63da52",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-01T13:56:37Z",
+      "side": 1,
+      "message": "No specific reason. Was an oversight.",
+      "parentUuid": "05db902e_fde72dce",
+      "revId": "d7ddad2e7ba5079d58544a3bf4694da750312ddf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8b721a2_633e4654",
@@ -48,6 +66,30 @@
       "writtenOn": "2026-04-01T13:42:02Z",
       "side": 1,
       "message": "chassis ID it should be?",
+      "range": {
+        "startLine": 147,
+        "startChar": 37,
+        "endLine": 147,
+        "endChar": 46
+      },
+      "revId": "d7ddad2e7ba5079d58544a3bf4694da750312ddf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bd44b99_bf8706f3",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-01T13:56:37Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "68e02043_f3f7a59b",
       "range": {
         "startLine": 147,
         "startChar": 37,
