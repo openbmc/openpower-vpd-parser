@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e1f9e60_d8b18907",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-01T14:16:27Z",
+      "side": 1,
+      "message": "should we declare as const variable ?",
+      "revId": "472315a039f6c8c85f5f34a2c6ead9da6bbe0de3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
