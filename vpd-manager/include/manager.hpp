@@ -299,6 +299,21 @@ class Manager
      */
     void readVpdCollectionMode() noexcept;
 
+    /**
+     * @brief API to check if a directory deletion should be skipped.
+     *
+     * This API checks if a given directory entry should be excluded from
+     * deletion.
+     *
+     * Note: Currently it skips deletion of system and logical paths as these
+     * paths contain critical data.
+     *
+     * @param[in] i_entry - Directory entry to check.
+     *
+     * @return true if the directory must be skipped, false otherwise.
+     */
+    bool skipDeletion(const std::filesystem::directory_entry& i_entry) const;
+
     // Shared pointer to asio context object.
     const std::shared_ptr<boost::asio::io_context>& m_ioContext;
 

@@ -868,6 +868,30 @@ bool Manager::validateRedundantEeprom(const types::Path& i_fruPath) const
     return l_rc;
 }
 
+bool Manager::skipDeletion(
+    const std::filesystem::directory_entry& i_entry) const
+{
+    if (!std::filesystem::is_directory(i_entry))
+    {
+        return true;
+    }
+
+    const auto l_leafNode = i_entry.path().filename().string();
+    const auto l_parentDirName =
+        i_entry.path().parent_path().filename().string();
+
+    // If parent directory is "system", exclude "logical_bmc" (contains MAC
+    // Address)
+    if (l_parentDirName == "system")
+    {
+        return (l_leafNode.compare("logical_bmc") ==
+                vpd::constants::STR_CMP_SUCCESS);
+    }
+
+    // For top-level directories, exclude "system"
+    return (l_leafNode.compare("system") == vpd::constants::STR_CMP_SUCCESS);
+}
+
 void Manager::deleteAllFRUVPD() const noexcept
 {
     if (m_vpdCollectionStatus == constants::vpdCollectionInProgress)
@@ -888,7 +912,7 @@ void Manager::deleteAllFRUVPD() const noexcept
 
         const auto l_inventoryBackupPath{
             constants::pimPrimaryPath /
-            std::filesystem::path(constants::systemInvPath).relative_path()};
+            std::filesystem::path(constants::pimPath).relative_path()};
 
         if (!std::filesystem::exists(l_inventoryBackupPath))
         {
@@ -899,14 +923,11 @@ void Manager::deleteAllFRUVPD() const noexcept
 
         bool l_directoryRemoved = false;
 
+        // Delete all directories except system
         for (const auto& l_entry :
              std::filesystem::directory_iterator(l_inventoryBackupPath))
         {
-            // ToDo -- Remove the logical BMC check when path is moved
-            // to power-he-platform daemon.
-            if (std::filesystem::is_directory(l_entry) &&
-                l_entry.path().filename().compare("logical_bmc") !=
-                    vpd::constants::STR_CMP_SUCCESS)
+            if (!skipDeletion(l_entry))
             {
                 std::error_code l_ec;
                 std::filesystem::remove_all(l_entry, l_ec);
@@ -924,6 +945,33 @@ void Manager::deleteAllFRUVPD() const noexcept
             }
         }
 
+        // delete subdirectories under system except logical_bmc
+        const auto l_systemPath = l_inventoryBackupPath / "system";
+        if (std::filesystem::exists(l_systemPath))
+        {
+            for (const auto& l_entry :
+                 std::filesystem::directory_iterator(l_systemPath))
+            {
+                if (!skipDeletion(l_entry))
+                {
+                    std::error_code l_ec;
+                    std::filesystem::remove_all(l_entry, l_ec);
+
+                    if (l_ec)
+                    {
+                        m_logger->logMessage(
+                            "Failed to delete directory : " +
+                            l_entry.path().string() +
+                            " error : " + std::string(l_ec.message()));
+
+                        continue;
+                    }
+
+                    l_directoryRemoved = true;
+                }
+            }
+        }
+
         if (!l_directoryRemoved)
         {
             // Since no directories were removed, skip restarting of service.
@@ -932,7 +980,7 @@ void Manager::deleteAllFRUVPD() const noexcept
 
         uint16_t l_errCode = 0;
 
-        constexpr auto l_numRetries{3};
+        constexpr auto l_numRetries{constants::VALUE_3};
 
         for (unsigned l_attempt = 0; l_attempt < l_numRetries; ++l_attempt)
         {
