@@ -10,6 +10,8 @@
 #include <chrono>
 #include <cstdio>
 #include <cstdlib>
+#include <format>
+#include <unordered_set>
 #include <vector>
 
 /**
@@ -481,5 +483,105 @@ inline bool restartService(const std::string& i_serviceName,
     return l_rc;
 }
 
+/**
+ * @brief API to check if a directory should be skipped during processing
+ *
+ * This API checks if a given directory entry should be excluded during
+ * processing.
+ *
+ * @param[in] i_entry - Directory entry to check.
+ *
+ * @return true if the directory must be skipped, false otherwise.
+ *
+ * @throw std::filesystem::filesystem_error, std::bad_alloc exceptions.
+ */
+inline bool skipDirectory(const std::filesystem::directory_entry& i_entry)
+{
+    static const std::unordered_set<std::string> l_skipDirectoryList{
+        "system", "logical_bmc", "ethernet0", "ethernet1"};
+
+    auto l_leaf = i_entry.path().filename().string();
+
+    // Convert to lowercase for case-insensitive comparison
+    commonUtility::toLower(l_leaf);
+
+    // Return true if the leaf node is in the skipDirs list
+    return l_skipDirectoryList.find(l_leaf) != l_skipDirectoryList.end();
+}
+
+/**
+ * @brief API to recursively process and delete directories.
+ *
+ * This API recursively traverses the given directory path and deletes
+ * subdirectories that are not in the skip list.
+ *
+ * @param[in] i_path - Directory path to process.
+ * @param[out] o_directoryRemoved - Flag indicating if any directory was
+ *                                  successfully removed.
+ * @param[out] o_errCode - Error code to set incase of exceptions.
+ */
+inline void deleteDirectory(const std::filesystem::path& i_path,
+                            bool& o_directoryRemoved,
+                            uint16_t& o_errCode) noexcept
+{
+    o_errCode = 0;
+    try
+    {
+        std::error_code l_errorCode;
+        if (!std::filesystem::is_directory(i_path, l_errorCode))
+        {
+            if (l_errorCode)
+            {
+                Logger::getLoggerInstance()->logMessage(std::format(
+                    "Failed to check if path {} is a directory, error : ",
+                    i_path.string(), l_errorCode.message()));
+            }
+
+            return;
+        }
+
+        const auto l_directoryIterator =
+            std::filesystem::directory_iterator(i_path);
+
+        for (const auto& l_entry : l_directoryIterator)
+        {
+            std::error_code l_ec;
+            if (!std::filesystem::is_directory(l_entry, l_ec))
+            {
+                if (l_ec)
+                {
+                    Logger::getLoggerInstance()->logMessage(std::format(
+                        "Failed to check if path {} is a directory, error : ",
+                        l_entry.path().string(), l_ec.message()));
+                }
+                continue;
+            }
+
+            if (skipDirectory(l_entry))
+            {
+                deleteDirectory(l_entry.path(), o_directoryRemoved, o_errCode);
+                continue;
+            }
+            std::filesystem::remove_all(l_entry, l_ec);
+
+            if (l_ec)
+            {
+                Logger::getLoggerInstance()->logMessage(
+                    "Failed to delete directory : " + l_entry.path().string() +
+                    " error : " + std::string(l_ec.message()));
+
+                continue;
+            }
+            o_directoryRemoved = true;
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        o_errCode = error_code::STANDARD_EXCEPTION;
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Exception occured while traversing directory {}, error : {}",
+            i_path.string(), std::string(l_ex.what())));
+    }
+}
 } // namespace commonUtility
 } // namespace vpd
