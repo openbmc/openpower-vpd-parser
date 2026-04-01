@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f9b1c9c_1030345b",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-01T15:57:41Z",
+      "side": 1,
+      "message": "can we update the comment as this refers to sync PEL ?\n\"Creates sync PEL\"",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7a96f57_a4af2575",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-01T15:57:41Z",
+      "side": 1,
+      "message": "does it starts the dbus connection ?",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "276d603d_ffda0926",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-01T15:57:41Z",
+      "side": 1,
+      "message": "nit: \u0027i_asioConnection - Dbus connection\u0027",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2206a0dd_95a2aa9e",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-01T15:57:41Z",
+      "side": 1,
+      "message": "can we append error message ?",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
