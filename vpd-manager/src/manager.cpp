@@ -17,6 +17,9 @@
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message.hpp>
 
+#include <algorithm>
+#include <unordered_set>
+
 namespace vpd
 {
 Manager::Manager(
@@ -865,6 +868,65 @@ bool Manager::validateRedundantEeprom(const types::Path& i_fruPath) const
     return l_rc;
 }
 
+bool Manager::skipDeletion(
+    const std::filesystem::directory_entry& i_entry) const
+{
+    static const std::unordered_set<std::string> l_skipDirectoryList{
+        "system", "logical_bmc", "ethernet0", "ethernet1"};
+
+    std::string l_leaf = i_entry.path().filename().string();
+    commonUtility::toLower(l_leaf);
+
+    // Return true if the leaf node is in the skipDirs list
+    return l_skipDirectoryList.find(l_leaf) != l_skipDirectoryList.end();
+}
+
+void Manager::processDirectory(const std::filesystem::path& i_path,
+                               bool& o_directoryRemoved) const
+{
+    if (!std::filesystem::is_directory(i_path))
+    {
+        return;
+    }
+
+    for (const auto& l_child : std::filesystem::directory_iterator(i_path))
+    {
+        try
+        {
+            if (std::filesystem::is_directory(l_child))
+            {
+                if (skipDeletion(l_child))
+                {
+                    processDirectory(l_child.path(), o_directoryRemoved);
+                }
+                else
+                {
+                    std::error_code l_ec;
+                    std::filesystem::remove_all(l_child, l_ec);
+
+                    if (l_ec)
+                    {
+                        m_logger->logMessage(
+                            "Failed to delete directory : " +
+                            l_child.path().string() +
+                            " error : " + std::string(l_ec.message()));
+
+                        continue;
+                    }
+
+                    o_directoryRemoved = true;
+                }
+            }
+        }
+        catch (const std::exception& l_ex)
+        {
+            m_logger->logMessage(
+                "Error processing path : " + l_child.path().string() +
+                " error : " + l_ex.what());
+        }
+    }
+}
+
 void Manager::deleteAllFRUVPD() const noexcept
 {
     if (m_vpdCollectionStatus == constants::vpdCollectionInProgress)
@@ -885,7 +947,7 @@ void Manager::deleteAllFRUVPD() const noexcept
 
         const auto l_inventoryBackupPath{
             constants::pimPrimaryPath /
-            std::filesystem::path(constants::systemInvPath).relative_path()};
+            std::filesystem::path(constants::pimPath).relative_path()};
 
         if (!std::filesystem::exists(l_inventoryBackupPath))
         {
@@ -896,30 +958,7 @@ void Manager::deleteAllFRUVPD() const noexcept
 
         bool l_directoryRemoved = false;
 
-        for (const auto& l_entry :
-             std::filesystem::directory_iterator(l_inventoryBackupPath))
-        {
-            // ToDo -- Remove the logical BMC check when path is moved
-            // to power-he-platform daemon.
-            if (std::filesystem::is_directory(l_entry) &&
-                l_entry.path().filename().compare("logical_bmc") !=
-                    vpd::constants::STR_CMP_SUCCESS)
-            {
-                std::error_code l_ec;
-                std::filesystem::remove_all(l_entry, l_ec);
-
-                if (l_ec)
-                {
-                    m_logger->logMessage("Failed to delete directory : " +
-                                         l_entry.path().string() + " error : " +
-                                         std::string(l_ec.message()));
-
-                    continue;
-                }
-
-                l_directoryRemoved = true;
-            }
-        }
+        processDirectory(l_inventoryBackupPath, l_directoryRemoved);
 
         if (!l_directoryRemoved)
         {
@@ -929,7 +968,7 @@ void Manager::deleteAllFRUVPD() const noexcept
 
         uint16_t l_errCode = 0;
 
-        constexpr auto l_numRetries{3};
+        constexpr auto l_numRetries{constants::VALUE_3};
 
         for (unsigned l_attempt = 0; l_attempt < l_numRetries; ++l_attempt)
         {

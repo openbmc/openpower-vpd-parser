@@ -299,6 +299,39 @@ class Manager
      */
     void readVpdCollectionMode() noexcept;
 
+    /**
+     * @brief API to check if a directory deletion should be skipped.
+     *
+     * This API checks if a given directory entry should be excluded from
+     * deletion.
+     *
+     * Note: Currently it skips deletion of system and logical paths as these
+     * paths contain critical data.
+     *
+     * @param[in] i_entry - Directory entry to check.
+     *
+     * @return true if the directory must be skipped from deletion, false
+     * otherwise.
+     *
+     * @throw std::filesystem::filesystem_error, std::bad_alloc exceptions.
+     */
+    bool skipDeletion(const std::filesystem::directory_entry& i_entry) const;
+
+    /**
+     * @brief API to recursively process and delete directories.
+     *
+     * This API recursively traverses the given directory path and deletes
+     * subdirectories that are not in the skip list.
+     *
+     * @param[in] i_path - Directory path to process.
+     * @param[out] o_directoryRemoved - Flag indicating if any directory was
+     *                                  successfully removed.
+     *
+     * @throw std::filesystem::filesystem_error, std::bad_alloc exceptions.
+     */
+    void processDirectory(const std::filesystem::path& i_path,
+                          bool& o_directoryRemoved) const;
+
     // Shared pointer to asio context object.
     const std::shared_ptr<boost::asio::io_context>& m_ioContext;
 
