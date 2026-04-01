@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e568c73_c67b1dc7",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-01T14:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8b721a2_633e4654",
+      "revId": "d7ddad2e7ba5079d58544a3bf4694da750312ddf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68e02043_f3f7a59b",
@@ -113,6 +131,24 @@
       "writtenOn": "2026-04-01T13:56:30Z",
       "side": 1,
       "message": "can we optimise this by moving under if condition \"!l_chassisJson.contains(\"frus\")\"\nhas it needs to be inserted only once for each chassis json ?",
+      "revId": "d7ddad2e7ba5079d58544a3bf4694da750312ddf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e50ba8d9_2e65d771",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-01T14:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79d45b31_3093a953",
       "revId": "d7ddad2e7ba5079d58544a3bf4694da750312ddf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
