@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "705d1025_b11d98f4",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-01T16:48:08Z",
+      "side": 1,
+      "message": "Agree with Anupama.",
+      "parentUuid": "0f9b1c9c_1030345b",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7a96f57_a4af2575",
         "filename": "vpd-manager/include/logger.hpp",
         "patchSetId": 13
@@ -54,6 +72,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65fafd69_19352625",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-01T16:48:08Z",
+      "side": 1,
+      "message": "We should do a `nullptr` check on `i_asioConnection` before attempting to use it.",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85b1e2a4_8d84a920",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-01T16:48:08Z",
+      "side": 1,
+      "message": "We are capturing all local variables in the lambda but not using any of the variables?",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2206a0dd_95a2aa9e",
         "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
         "patchSetId": 13
@@ -65,6 +117,92 @@
       "writtenOn": "2026-04-01T15:57:41Z",
       "side": 1,
       "message": "can we append error message ?",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ab33d1f_a0b9c08e",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-01T16:48:08Z",
+      "side": 1,
+      "message": "Agree with Anupama.",
+      "parentUuid": "2206a0dd_95a2aa9e",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "885c37ed_a57c111f",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-01T16:48:08Z",
+      "side": 1,
+      "message": "We should do a `nullptr` check on `i_asioConnection` before attempting to use it.",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ede34f0_feb80ee6",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-01T16:48:08Z",
+      "side": 1,
+      "message": "We are capturing all local variables by value in the lambda but not using any of the variables?",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62c8663e_bca770c5",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-01T16:48:08Z",
+      "side": 1,
+      "message": "Can we use `std::format()` to form this string? This avoids creation of two `std::string` objects and a `+` operation.",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "745d0e87_f7e3d48c",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1036,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-01T16:48:08Z",
+      "side": 1,
+      "message": "Can we use `std::format()` to form this string? This avoids creation of two `std::string` objects and a + operation.",
       "revId": "adb714126f56853f81db7c582680199104dca608",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
