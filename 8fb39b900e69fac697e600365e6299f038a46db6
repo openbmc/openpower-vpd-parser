@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cb962d8_6970a0db",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-02T09:52:26Z",
+      "side": 1,
+      "message": "This map should be `const`",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bcaea6f_2bb40af0",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-02T09:52:26Z",
+      "side": 1,
+      "message": "This check can be made before creating the `std::map`. If we return from the check, the `std::map` creation is useless.",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6ad503b_82aabda9",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-02T09:52:26Z",
+      "side": 1,
+      "message": "Can we add the description here so that the log message doesn\u0027t get lost?",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6da6159a_188995be",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-02T09:52:26Z",
+      "side": 1,
+      "message": "Can we add the description here so that the log message doesn\u0027t get lost?",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "020fc312_0c0051bd",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-02T09:52:26Z",
+      "side": 1,
+      "message": "This map should be `const`",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ad07dcb_95ab5ca6",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-02T09:52:26Z",
+      "side": 1,
+      "message": "This check can be made before creating the `std::map`. If we return from the check, the `std::map` creation is useless.",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c2c4e08_48dfaa27",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-02T09:52:26Z",
+      "side": 1,
+      "message": "Can we add the description here so that the log message doesn\u0027t get lost?",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1eb88e3_38cef3b5",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-02T09:52:26Z",
+      "side": 1,
+      "message": "Can we add the description here so that the log message doesn\u0027t get lost?",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
