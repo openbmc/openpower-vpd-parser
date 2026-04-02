@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a021a32_bac4b69e",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T09:28:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "705d1025_b11d98f4",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7a96f57_a4af2575",
@@ -49,6 +67,24 @@
       "writtenOn": "2026-04-01T15:57:41Z",
       "side": 1,
       "message": "does it starts the dbus connection ?",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3adbf97f_967d5bde",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T09:28:31Z",
+      "side": 1,
+      "message": "no, it does store the connection sent by manager. I will update.",
+      "parentUuid": "d7a96f57_a4af2575",
       "revId": "adb714126f56853f81db7c582680199104dca608",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -70,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "933edc2d_5ae94723",
+        "filename": "vpd-manager/include/logger.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T09:28:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "276d603d_ffda0926",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65fafd69_19352625",
@@ -87,6 +141,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90110232_9a0520c9",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T09:28:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "65fafd69_19352625",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85b1e2a4_8d84a920",
@@ -100,6 +172,24 @@
       "writtenOn": "2026-04-01T16:48:08Z",
       "side": 1,
       "message": "We are capturing all local variables in the lambda but not using any of the variables?",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffd3c9dc_120f1758",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T09:28:31Z",
+      "side": 1,
+      "message": "yes, I removed that code , previously I was using them.\nI will correct it.",
+      "parentUuid": "85b1e2a4_8d84a920",
       "revId": "adb714126f56853f81db7c582680199104dca608",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -139,6 +229,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "922dd665_fb87b7c3",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T09:28:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5ab33d1f_a0b9c08e",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "885c37ed_a57c111f",
@@ -152,6 +260,24 @@
       "writtenOn": "2026-04-01T16:48:08Z",
       "side": 1,
       "message": "We should do a `nullptr` check on `i_asioConnection` before attempting to use it.",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c4e70e2_df9e2bd5",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T09:28:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "885c37ed_a57c111f",
       "revId": "adb714126f56853f81db7c582680199104dca608",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -173,6 +299,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e363f97_64b0237c",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T09:28:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1ede34f0_feb80ee6",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62c8663e_bca770c5",
@@ -190,6 +334,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c67fd575_387fb9f4",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T09:28:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "62c8663e_bca770c5",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "745d0e87_f7e3d48c",
@@ -203,6 +365,24 @@
       "writtenOn": "2026-04-01T16:48:08Z",
       "side": 1,
       "message": "Can we use `std::format()` to form this string? This avoids creation of two `std::string` objects and a + operation.",
+      "revId": "adb714126f56853f81db7c582680199104dca608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b44b6e6_514771f4",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1036,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T09:28:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "745d0e87_f7e3d48c",
       "revId": "adb714126f56853f81db7c582680199104dca608",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
