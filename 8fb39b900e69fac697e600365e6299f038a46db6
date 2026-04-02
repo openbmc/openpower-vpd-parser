@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39ff8639_d0de8cc9",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T10:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cb962d8_6970a0db",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bcaea6f_2bb40af0",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-02T09:52:26Z",
       "side": 1,
       "message": "This check can be made before creating the `std::map`. If we return from the check, the `std::map` creation is useless.",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cd64830_f2c54a16",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T10:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bcaea6f_2bb40af0",
       "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dfea22a_f9e5660e",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T10:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6ad503b_82aabda9",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6da6159a_188995be",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-02T09:52:26Z",
       "side": 1,
       "message": "Can we add the description here so that the log message doesn\u0027t get lost?",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b688bef_94b80956",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T10:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6da6159a_188995be",
       "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd255acc_fe748913",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T10:05:11Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "020fc312_0c0051bd",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ad07dcb_95ab5ca6",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-04-02T09:52:26Z",
       "side": 1,
       "message": "This check can be made before creating the `std::map`. If we return from the check, the `std::map` creation is useless.",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15f35cf3_329d372c",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T10:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ad07dcb_95ab5ca6",
       "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +228,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e47004e_00a5229f",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T10:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c2c4e08_48dfaa27",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1eb88e3_38cef3b5",
@@ -133,6 +259,24 @@
       "writtenOn": "2026-04-02T09:52:26Z",
       "side": 1,
       "message": "Can we add the description here so that the log message doesn\u0027t get lost?",
+      "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "847e0f39_5fb71a6b",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-02T10:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1eb88e3_38cef3b5",
       "revId": "8fb39b900e69fac697e600365e6299f038a46db6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
