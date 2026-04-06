@@ -16,6 +16,24 @@
       "message": "What are the downside of not publishing CI during priming? Anyways all the values will be empty.",
       "revId": "3445f2ae68fa93a1f9b97a3ea508781442011135",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70c30bfa_79270ad3",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-06T07:04:39Z",
+      "side": 1,
+      "message": "Removing common interfaces has no impact as these common interfaces properties are published with empty value on dbus while priming inventory.",
+      "parentUuid": "4e54289b_872c0486",
+      "revId": "3445f2ae68fa93a1f9b97a3ea508781442011135",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
