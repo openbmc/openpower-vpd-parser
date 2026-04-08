@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8e4cd73_37794aad",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-08T07:36:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a73a8fb1_4f0b3aa5",
+      "revId": "2ac939a506be661fe4f425cde1470d6dc05fffab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c84a1091_a8fc99c0",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "(conditionTRUE ? sendonTrue : SendOnFalse)",
       "parentUuid": "c84a1091_a8fc99c0",
+      "revId": "2ac939a506be661fe4f425cde1470d6dc05fffab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de74464b_0b9a9f95",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-08T07:36:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f41573d4_c0633a65",
       "revId": "2ac939a506be661fe4f425cde1470d6dc05fffab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +156,24 @@
       "side": 1,
       "message": "This is declared as const-\nstd::optional\u003cconst types::PelInfoTuple\u003e i_pelTuple",
       "parentUuid": "922104aa_8d26ac13",
+      "revId": "2ac939a506be661fe4f425cde1470d6dc05fffab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a49f3a0_46c7957e",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-08T07:36:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd5d18ba_284d5c58",
       "revId": "2ac939a506be661fe4f425cde1470d6dc05fffab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
