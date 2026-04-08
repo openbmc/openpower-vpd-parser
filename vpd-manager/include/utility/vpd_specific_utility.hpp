@@ -1752,5 +1752,30 @@ inline std::string getInStringFormat(
     return l_message.str();
 }
 
+/**
+ * @brief API to check if given string is a valid unexpanded location code
+ *
+ * @return true if given string is a valid unexpanded location code, false
+ * otherwise
+ */
+inline bool isValidUnexpandedLocationCode(
+    const std::string& i_unexpandedLocationCode)
+{
+    if ((i_unexpandedLocationCode.length() <
+         constants::UNEXP_LOCATION_CODE_MIN_LENGTH) ||
+        ((i_unexpandedLocationCode.compare(0, 4, "Ufcs") !=
+          constants::STR_CMP_SUCCESS) &&
+         (i_unexpandedLocationCode.compare(0, 4, "Umts") !=
+          constants::STR_CMP_SUCCESS)) ||
+        ((i_unexpandedLocationCode.length() >
+          constants::UNEXP_LOCATION_CODE_MIN_LENGTH) &&
+         (i_unexpandedLocationCode.find("-") != 4)))
+    {
+        return false;
+    }
+
+    return true;
+}
+
 } // namespace vpdSpecificUtility
 } // namespace vpd
