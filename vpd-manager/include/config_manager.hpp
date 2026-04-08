@@ -1,6 +1,7 @@
 #pragma once
 #include "error_codes.hpp"
 #include "logger.hpp"
+#include "types.hpp"
 
 #include <nlohmann/json.hpp>
 
@@ -152,6 +153,12 @@ class ConfigManager final
 
     // EEPROM path to chassis ID - O(1) lookup
     std::unordered_map<std::string, std::string> m_eepromToChassisIdMap;
+
+    // Unexpanded location code to inventory paths map - O(1) lookup
+    // since same location code can be mapped to multiple
+    // inventory paths, use a vector of paths as the value
+    std::unordered_map<std::string, types::ListOfPaths>
+        m_unexpandedLocCodeToInvPathMap;
 
     // Shared pointer to Logger object
     std::shared_ptr<Logger> m_logger;

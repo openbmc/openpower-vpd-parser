@@ -3,6 +3,7 @@
 #include "constants.hpp"
 #include "exceptions.hpp"
 #include "utility/common_utility.hpp"
+#include "utility/json_utility.hpp"
 
 #include <format>
 
@@ -164,13 +165,39 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
         // append the sub FRUs
         l_chassisJson["frus"][l_eepromPath] = l_subFruJsonArray;
 
-        /* @todo: build unexpanded location code to inventory path map
-            -   iterate through sub FRUs in l_subFruJsonArray
-            -   for each sub FRU, get inventory path and unexpanded location
-           code
-            -   create entry in unexpanded location code to inventory path(s)
-           map
-        */
+        // build unexpanded location code to inventory path map
+        for (const auto& l_subFruJson : l_subFruJsonArray)
+        {
+            // get the inventory path
+            if (l_subFruJson.contains("inventoryPath"))
+            {
+                const auto& l_inventoryPath = l_subFruJson["inventoryPath"];
+
+                // get the unexpanded location code
+                const auto l_locationCodeRes =
+                    jsonUtility::getUnexpandedLocationCodeForFru(l_subFruJson);
+                if (l_locationCodeRes.has_value())
+                {
+                    // first search to see if we have an entry for this location
+                    // code
+                    if (auto l_it = m_unexpandedLocCodeToInvPathMap.find(
+                            l_locationCodeRes.value());
+                        l_it != m_unexpandedLocCodeToInvPathMap.end())
+                    {
+                        // entry already exists, add this inventory path to the
+                        // vector
+                        l_it->second.emplace_back(l_inventoryPath);
+                    }
+                    else
+                    {
+                        // create a new entry in the map
+                        m_unexpandedLocCodeToInvPathMap.emplace(std::make_pair(
+                            l_locationCodeRes.value(),
+                            types::ListOfPaths{l_inventoryPath}));
+                    }
+                }
+            }
+        }
 
         return true;
     }
