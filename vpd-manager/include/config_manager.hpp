@@ -62,7 +62,7 @@ class ConfigManager final
         m_systemConfigJson{i_systemConfigJson},
         m_logger{Logger::getLoggerInstance()}
     {
-        buildChassisToFruMap();
+        buildConfigMaps();
     }
 
     // deleted methods
@@ -94,23 +94,31 @@ class ConfigManager final
 
   private:
     /**
-     * @brief API to build EEPROM to chassis mapping
+     * @brief API to build configuration maps
      *
      * This method iterates through the system config JSON and builds
-     * the two maps:
+     * the following maps:
      * 1. Chassis ID to Chassis specific JSON map : This map allows consumers to
      * get chassis configuration for a given object path.
      * 2. EEPROM path to Chassis ID map : This map allows consumers to get
      * chassis configuration for a given EEPROM path. Both these maps enable
      * O(1) chassis configuration lookup during runtime.
+     * 3. Unexpanded location code to inventory path map : This map allows
+     * consumers to get list of inventory paths for a given unexpanded location
+     * code
+     *
      *
      * @throw std::runtime_error
      */
-    void buildChassisToFruMap();
+    void buildConfigMaps();
 
     /**
-     * @brief API to build EEPROM to chassis ID map and chassis ID to JSON map
-     * for a single FRU
+     * @brief API to build config maps for given FRU
+     *
+     * This API builds following configuration maps for a given FRU :
+     * - EEPROM to chassis ID map
+     * - Chassis ID to JSON map
+     * - Unexpanded location code to inventory path(s) map
      *
      * This API builds maps for a single FRU in the system
      * config JSON.
@@ -120,7 +128,7 @@ class ConfigManager final
      *
      * @return On success, returns true, otherwise sets error code
      */
-    std::expected<bool, error_code> buildMapsForFru(
+    std::expected<bool, error_code> buildConfigMapsForFru(
         const auto& i_fruJsonObj,
         const std::optional<nlohmann::json>& i_commonJsonObj =
             std::nullopt) noexcept;
