@@ -4,6 +4,7 @@
 #include "exceptions.hpp"
 #include "utility/common_utility.hpp"
 #include "utility/json_utility.hpp"
+#include "utility/vpd_specific_utility.hpp"
 
 #include <format>
 
@@ -27,6 +28,18 @@ const nlohmann::json& ConfigManager::getJsonObj(
              l_itr != m_eepromToChassisIdMap.end())
     {
         l_chassisId = l_itr->second;
+    }
+    else if (vpdSpecificUtility::isValidUnexpandedLocationCode(*i_vpdPath))
+    {
+        /* @todo:
+            - get inventory path corresponding to location code from unexpanded
+           location code to inventory path map - O(1)
+            - get chassis ID string from inventory path - O(1)
+            - use the chassis ID string as key to get chassis specific JSON from
+           chassis ID to chassis specific JSON map - O(logN)
+        */
+
+        return m_systemConfigJson;
     }
     else
     {
