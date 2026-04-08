@@ -9,6 +9,7 @@
 #include <nlohmann/json.hpp>
 #include <utility/common_utility.hpp>
 
+#include <expected>
 #include <fstream>
 #include <type_traits>
 #include <unordered_map>
@@ -1313,6 +1314,49 @@ inline bool isFruPresenceHandled(const nlohmann::json& i_sysCfgJsonObj,
 
     return i_sysCfgJsonObj["frus"][i_vpdFruPath].at(0).value(
         "handlePresence", true);
+}
+
+/**
+ * @brief API to get unexpanded location code for given FRU JSON object
+ *
+ * @param[in] i_fruJsonObj - sub JSON object which represents a single FRU in
+ * the system config JSON
+ *
+ * @return On success, returns unexpanded location code, otherwise returns an
+ * error code
+ */
+inline std::expected<std::string, error_code> getUnexpandedLocationCodeForFru(
+    const nlohmann::json& i_fruJsonObj) noexcept
+{
+    try
+    {
+        if (!i_fruJsonObj.contains("extraInterfaces"))
+        {
+            return std::unexpected(error_code::MISSING_FLAG);
+        }
+
+        // look for extraInterfaces object
+        const auto& l_extraInterfacesObj = i_fruJsonObj["extraInterfaces"];
+
+        if (!l_extraInterfacesObj.contains(constants::locationCodeInf))
+        {
+            return std::unexpected(error_code::MISSING_FLAG);
+        }
+
+        const auto& l_locationCodeInfEntry =
+            l_extraInterfacesObj[constants::locationCodeInf];
+
+        if (!l_locationCodeInfEntry.contains("LocationCode"))
+        {
+            return std::unexpected(error_code::MISSING_FLAG);
+        }
+
+        return l_locationCodeInfEntry["LocationCode"];
+    }
+    catch (const std::exception& l_ex)
+    {
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
+    }
 }
 } // namespace jsonUtility
 } // namespace vpd
