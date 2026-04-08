@@ -34,6 +34,24 @@
       "parentUuid": "4e54289b_872c0486",
       "revId": "3445f2ae68fa93a1f9b97a3ea508781442011135",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb10640b_548b5c76",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-08T04:26:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "70c30bfa_79270ad3",
+      "revId": "3445f2ae68fa93a1f9b97a3ea508781442011135",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
