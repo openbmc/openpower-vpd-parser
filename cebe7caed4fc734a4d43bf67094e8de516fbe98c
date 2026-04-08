@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01bc1da7_b820d479",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-08T06:12:42Z",
+      "side": 1,
+      "message": "ok, in that case I will put this check at 1st, so that if we are not going to log the PEL, this log message will print the description of Error, so at least we will know what happened if it is doesn\u0027t log.",
+      "parentUuid": "17cee213_21abae6d",
+      "revId": "cebe7caed4fc734a4d43bf67094e8de516fbe98c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf2b697b_e40fc75b",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-07T15:36:20Z",
       "side": 1,
       "message": "With respect to my comment above, I think we can return early here as well.",
+      "revId": "cebe7caed4fc734a4d43bf67094e8de516fbe98c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b09750b_d303ebc3",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-08T06:12:42Z",
+      "side": 1,
+      "message": "ok, in that case I will put this check at 1st, so that if we are not going to log the PEL, this log message will print the description of Error, so at least we will know what happened if it is doesn\u0027t log.",
+      "parentUuid": "bf2b697b_e40fc75b",
       "revId": "cebe7caed4fc734a4d43bf67094e8de516fbe98c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
