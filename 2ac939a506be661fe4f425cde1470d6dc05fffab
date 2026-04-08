@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c215dd3_bce56d85",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-08T06:26:06Z",
+      "side": 1,
+      "message": "why to use not(!) we alter the return value itself ?",
+      "revId": "2ac939a506be661fe4f425cde1470d6dc05fffab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c84a1091_a8fc99c0",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-08T06:26:06Z",
+      "side": 1,
+      "message": "why to use not(!) we alter the return value itself ?",
+      "revId": "2ac939a506be661fe4f425cde1470d6dc05fffab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cf8d29b_303cac8f",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-08T06:26:06Z",
+      "side": 1,
+      "message": "can declared as const .",
+      "revId": "2ac939a506be661fe4f425cde1470d6dc05fffab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
