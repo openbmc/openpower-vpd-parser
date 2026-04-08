@@ -493,30 +493,12 @@ void Manager::deleteSingleFruVpd(
     }
 }
 
-bool Manager::isValidUnexpandedLocationCode(
-    const std::string& i_unexpandedLocationCode)
-{
-    if ((i_unexpandedLocationCode.length() <
-         constants::UNEXP_LOCATION_CODE_MIN_LENGTH) ||
-        ((i_unexpandedLocationCode.compare(0, 4, "Ufcs") !=
-          constants::STR_CMP_SUCCESS) &&
-         (i_unexpandedLocationCode.compare(0, 4, "Umts") !=
-          constants::STR_CMP_SUCCESS)) ||
-        ((i_unexpandedLocationCode.length() >
-          constants::UNEXP_LOCATION_CODE_MIN_LENGTH) &&
-         (i_unexpandedLocationCode.find("-") != 4)))
-    {
-        return false;
-    }
-
-    return true;
-}
-
 std::string Manager::getExpandedLocationCode(
     const std::string& i_unexpandedLocationCode,
     [[maybe_unused]] const uint16_t i_nodeNumber)
 {
-    if (!isValidUnexpandedLocationCode(i_unexpandedLocationCode))
+    if (!vpdSpecificUtility::isValidUnexpandedLocationCode(
+            i_unexpandedLocationCode))
     {
         phosphor::logging::elog<types::DbusInvalidArgument>(
             types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
@@ -578,7 +560,8 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
 {
     types::ListOfPaths l_inventoryPaths;
 
-    if (!isValidUnexpandedLocationCode(i_unexpandedLocationCode))
+    if (!vpdSpecificUtility::isValidUnexpandedLocationCode(
+            i_unexpandedLocationCode))
     {
         phosphor::logging::elog<types::DbusInvalidArgument>(
             types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
