@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a73a8fb1_4f0b3aa5",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-08T06:32:55Z",
+      "side": 1,
+      "message": "(conditionTRUE ? sendonTrue : SendOnFalse)",
+      "parentUuid": "6c215dd3_bce56d85",
+      "revId": "2ac939a506be661fe4f425cde1470d6dc05fffab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c84a1091_a8fc99c0",
         "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
         "patchSetId": 16
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f41573d4_c0633a65",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-08T06:32:55Z",
+      "side": 1,
+      "message": "(conditionTRUE ? sendonTrue : SendOnFalse)",
+      "parentUuid": "c84a1091_a8fc99c0",
+      "revId": "2ac939a506be661fe4f425cde1470d6dc05fffab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8cf8d29b_303cac8f",
         "filename": "vpd-manager/src/logger.cpp",
         "patchSetId": 16
@@ -48,6 +84,24 @@
       "writtenOn": "2026-04-08T06:26:06Z",
       "side": 1,
       "message": "can declared as const .",
+      "revId": "2ac939a506be661fe4f425cde1470d6dc05fffab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "922104aa_8d26ac13",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-04-08T06:32:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cf8d29b_303cac8f",
       "revId": "2ac939a506be661fe4f425cde1470d6dc05fffab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
