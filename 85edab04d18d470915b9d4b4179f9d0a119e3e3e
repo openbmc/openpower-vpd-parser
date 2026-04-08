@@ -67,6 +67,40 @@
       "message": "Instead of multiple loops, I would suggest to go for a recursive solution so that this logic can be applied in case going forward multiple such exception is required.\n\nA directory can have mix of file or other directory inside it.\nThe implementation should be such that, if the directory is marked to skip then preserve all the files under that directory and check for other directories under it.\nIf they are marked for skip, don\u0027t delete the and then this logic should recursively apply on all the sub directories. \n\nSkipDeletion should maintain a list which can be used to match if the directory is marked for deletion or not.",
       "revId": "85edab04d18d470915b9d4b4179f9d0a119e3e3e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2046be26_64642d10",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-08T13:34:11Z",
+      "side": 1,
+      "message": "should we have log in case system path doesn\u0027t exists ?",
+      "revId": "85edab04d18d470915b9d4b4179f9d0a119e3e3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e49b46e_9d7cefc5",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-08T13:34:11Z",
+      "side": 1,
+      "message": "this part of the code is same as above, can we define lambda function for this ?",
+      "revId": "85edab04d18d470915b9d4b4179f9d0a119e3e3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
