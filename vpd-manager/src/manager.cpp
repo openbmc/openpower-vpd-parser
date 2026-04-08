@@ -567,7 +567,8 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
         return l_inventoryPaths;
     }
 
-    const nlohmann::json& l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+    const nlohmann::json& l_sysCfgJsonObj =
+        m_worker->getSysCfgJsonObj(i_unexpandedLocationCode);
     if (!l_sysCfgJsonObj.contains("frus"))
     {
         logging::logMessage("Missing frus tag in system config JSON");
