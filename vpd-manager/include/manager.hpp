@@ -283,15 +283,6 @@ class Manager
 
   private:
     /**
-     * @brief An api to check validity of unexpanded location code.
-     *
-     * @param[in] i_locationCode - Unexpanded location code.
-     *
-     * @return True/False based on validity check.
-     */
-    bool isValidUnexpandedLocationCode(const std::string& i_locationCode);
-
-    /**
      * @brief API to read VPD collection mode.
      *
      * Collection mode denotes if the VPD needs to be read from file or actual
