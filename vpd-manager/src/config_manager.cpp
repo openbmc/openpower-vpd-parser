@@ -11,41 +11,39 @@
 namespace vpd
 {
 const nlohmann::json& ConfigManager::getJsonObj(
-    const std::optional<std::string>& i_vpdPath) const noexcept
+    const std::optional<std::string>& i_fruIdentifier) const noexcept
 {
-    if (!i_vpdPath)
+    if (!i_fruIdentifier)
     {
         return m_systemConfigJson;
     }
 
     std::string l_chassisId{};
 
-    if ((*i_vpdPath).starts_with(std::string_view(constants::pimPath)))
+    if ((*i_fruIdentifier).starts_with(std::string_view(constants::pimPath)))
     {
-        l_chassisId = getChassisId(*i_vpdPath);
+        l_chassisId = getChassisId(*i_fruIdentifier);
     }
-    else if (const auto l_itr = m_eepromToChassisIdMap.find(*i_vpdPath);
+    else if (const auto l_itr = m_eepromToChassisIdMap.find(*i_fruIdentifier);
              l_itr != m_eepromToChassisIdMap.end())
     {
         l_chassisId = l_itr->second;
     }
-    else if (vpdSpecificUtility::isValidUnexpandedLocationCode(*i_vpdPath))
+    else if (vpdSpecificUtility::isValidUnexpandedLocationCode(
+                 *i_fruIdentifier))
     {
-        /* @todo:
-            - get inventory path corresponding to location code from unexpanded
-           location code to inventory path map - O(1)
-            - get chassis ID string from inventory path - O(1)
-            - use the chassis ID string as key to get chassis specific JSON from
-           chassis ID to chassis specific JSON map - O(logN)
-        */
-
-        return m_systemConfigJson;
+        const auto l_inventoryPathRes =
+            m_unexpandedLocationCodeToInventoryPathMap.find(*i_fruIdentifier);
+        return l_inventoryPathRes ==
+                       m_unexpandedLocationCodeToInventoryPathMap.end()
+                   ? m_systemConfigJson
+                   : getJsonObj(l_inventoryPathRes->second);
     }
     else
     {
         m_logger->logMessage(std::format(
             "Invalid input path {}, received to get chasiss specific JSON object.",
-            *i_vpdPath));
+            *i_fruIdentifier));
         return m_systemConfigJson;
     }
 
