@@ -71,7 +71,7 @@ std::string ConfigManager::getChassisId(
     }
 }
 
-void ConfigManager::buildChassisToFruMap()
+void ConfigManager::buildConfigMaps()
 {
     if (!m_systemConfigJson.contains("frus"))
     {
@@ -98,7 +98,7 @@ void ConfigManager::buildChassisToFruMap()
     for (const auto& l_fruJsonObj : l_listOfFrus.items())
     {
         const auto l_mapBuildResult =
-            buildMapsForFru(l_fruJsonObj, l_commonJsonObj);
+            buildConfigMapsForFru(l_fruJsonObj, l_commonJsonObj);
 
         if (!l_mapBuildResult.has_value())
         {
@@ -111,7 +111,7 @@ void ConfigManager::buildChassisToFruMap()
     }
 }
 
-std::expected<bool, error_code> ConfigManager::buildMapsForFru(
+std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
     const auto& i_fruJsonObj,
     const std::optional<nlohmann::json>& i_commonJsonObj) noexcept
 {
@@ -163,6 +163,14 @@ std::expected<bool, error_code> ConfigManager::buildMapsForFru(
 
         // append the sub FRUs
         l_chassisJson["frus"][l_eepromPath] = l_subFruJsonArray;
+
+        /* @todo: build unexpanded location code to inventory path map
+            -   iterate through sub FRUs in l_subFruJsonArray
+            -   for each sub FRU, get inventory path and unexpanded location
+           code
+            -   create entry in unexpanded location code to inventory path(s)
+           map
+        */
 
         return true;
     }
