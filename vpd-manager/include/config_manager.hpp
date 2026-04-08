@@ -152,6 +152,12 @@ class ConfigManager final
     // EEPROM path to chassis ID - O(1) lookup
     std::unordered_map<std::string, std::string> m_eepromToChassisIdMap;
 
+    // Unexpanded location code to inventory path map - O(1) lookup
+    // use a multimap since same location code can be mapped to multiple
+    // inventory paths
+    std::unordered_multimap<std::string, std::string>
+        m_unexpandedLocationCodeToInventoryPathMap;
+
     // Shared pointer to Logger object
     std::shared_ptr<Logger> m_logger;
 };
