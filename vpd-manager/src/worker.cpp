@@ -1689,11 +1689,11 @@ void Worker::checkAndExecutePostFailAction(
 }
 
 nlohmann::json Worker::getSysCfgJsonObj(
-    const std::optional<std::string>& i_vpdPath) const
+    const std::optional<std::string>& i_fruIdentifier) const
 {
     if (m_configManager)
     {
-        return m_configManager->getJsonObj(i_vpdPath);
+        return m_configManager->getJsonObj(i_fruIdentifier);
     }
 
     return m_parsedJson;

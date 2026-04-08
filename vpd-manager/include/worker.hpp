@@ -117,13 +117,15 @@ class Worker
     /**
      * @brief API to get chassis based config JSON.
      *
-     * i_vpdPath[in] - EEPROM path or inventory object path.
+     * i_fruIdentifier[in] - EEPROM path or inventory object path or unexpanded
+     * location code.
      *
-     * @return Chassis-based config JSON object corresponding to i_vpdPath. If
-     * i_vpdPath is std::nullopt, the system configuration JSON is returned.
+     * @return Chassis-based config JSON object corresponding to
+     * i_fruIdentifier. If i_fruIdentifier is std::nullopt, the system
+     * configuration JSON is returned.
      */
     nlohmann::json getSysCfgJsonObj(
-        const std::optional<std::string>& i_vpdPath = std::nullopt) const;
+        const std::optional<std::string>& i_fruIdentifier = std::nullopt) const;
 
     /**
      * @brief API to get active thread count.
@@ -410,7 +412,7 @@ class Worker
      * value. Note: It is the responsibility of the caller to determine whether
      * the present property for the FRU should be updated or not.
      *
-     * @param[in] i_vpdPath - EEPROM or inventory path.
+     * @param[in] i_fruIdentifier - EEPROM or inventory path.
      * @param[in] i_value - value to be set.
      */
     void setPresentProperty(const std::string& i_fruPath, const bool& i_value);
