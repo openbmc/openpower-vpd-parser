@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e454fc0f_2cdc9d60",
+        "filename": "vpd-manager/include/utility/event_logger_utility.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-08T08:07:25Z",
+      "side": 1,
+      "message": "`l_description` can be `const`",
+      "revId": "2d465e4dfd6f64ff2db214a92c23a6f2da653dc2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d74f394_5a589822",
+        "filename": "vpd-manager/src/logger.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-08T08:07:25Z",
+      "side": 1,
+      "message": "Suggestion: We can use `std::println()` for a modern and more efficient way to print formatted strings to journal.",
+      "revId": "2d465e4dfd6f64ff2db214a92c23a6f2da653dc2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
