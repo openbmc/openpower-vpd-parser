@@ -3,6 +3,7 @@
 #include "constants.hpp"
 #include "exceptions.hpp"
 #include "utility/common_utility.hpp"
+#include "utility/json_utility.hpp"
 
 #include <format>
 
@@ -164,21 +165,55 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
         // append the sub FRUs
         l_chassisJson["frus"][l_eepromPath] = l_subFruJsonArray;
 
-        /* @todo: build unexpanded location code to inventory path map
-            -   iterate through sub FRUs in l_subFruJsonArray
-            -   for each sub FRU, get inventory path and unexpanded location
-           code
-            -   create entry in unexpanded location code to inventory path(s)
-           map
-        */
-
-        return true;
+        // build unexpanded location code to inventory path map
+        return buildLocCodeToInvPathsMap(l_subFruJsonArray);
     }
     catch (const std::exception& l_ex)
     {
         m_logger->logMessage(
             std::format("Failed to build maps for FRU {}. Error: {}",
                         i_fruJsonObj.key(), l_ex.what()));
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
+    }
+}
+
+std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathsMap(
+    const auto& i_subFruJsonArray) noexcept
+{
+    try
+    {
+        for (const auto& l_subFruJson : i_subFruJsonArray)
+        {
+            // get the inventory path
+            if (l_subFruJson.contains("inventoryPath"))
+            {
+                const auto& l_inventoryPath = l_subFruJson["inventoryPath"];
+
+                // get the unexpanded location code
+                const auto l_locationCode =
+                    jsonUtility::getUnexpandedLocationCodeForFru(l_subFruJson);
+                if (l_locationCode.has_value())
+                {
+                    m_unexpandedLocCodeToInvPathsMap[l_locationCode.value()]
+                        .emplace_back(l_inventoryPath);
+                }
+                else
+                {
+                    m_logger->logMessage(std::format(
+                        "Failed to get unexpanded location code for {}. Error: {}",
+                        std::string{l_inventoryPath},
+                        commonUtility::getErrCodeMsg(l_locationCode.error())));
+                }
+            }
+        }
+        return true;
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to build location code to inventory path(s) map for FRU {}. Error: {}",
+            i_subFruJsonArray[0].value("inventoryPath", ""), l_ex.what()));
+
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
 }

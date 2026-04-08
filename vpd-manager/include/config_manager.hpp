@@ -1,6 +1,7 @@
 #pragma once
 #include "error_codes.hpp"
 #include "logger.hpp"
+#include "types.hpp"
 
 #include <nlohmann/json.hpp>
 
@@ -134,6 +135,19 @@ class ConfigManager final
             std::nullopt) noexcept;
 
     /**
+     * @brief API to build location code to inventory path(s) map for a FRU
+     *
+     * This API builds following configuration maps for a given FRU :
+     * - Unexpanded location code to inventory path(s) map
+     *
+     * @param[in] i_subFruJsonArray - Sub FRU JSON array
+     *
+     * @return On success, returns true, otherwise sets error code
+     */
+    std::expected<bool, error_code> buildLocCodeToInvPathsMap(
+        const auto& i_subFruJsonArray) noexcept;
+
+    /**
      * @brief Extract chassis ID from given inventory object path.
      *
      * @param[in] i_inventoryObjPath - Inventory object path.
@@ -152,6 +166,12 @@ class ConfigManager final
 
     // EEPROM path to chassis ID - O(1) lookup
     std::unordered_map<std::string, std::string> m_eepromToChassisIdMap;
+
+    // Unexpanded location code to inventory paths map - O(1) lookup
+    // since same location code can be mapped to multiple
+    // inventory paths, use a vector of paths as the value
+    std::unordered_map<std::string, types::ListOfPaths>
+        m_unexpandedLocCodeToInvPathsMap;
 
     // Shared pointer to Logger object
     std::shared_ptr<Logger> m_logger;
