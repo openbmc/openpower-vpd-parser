@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "469d0b68_dac84e9e",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-08T10:14:07Z",
+      "side": 1,
+      "message": "skipped for deletion ?",
+      "revId": "85edab04d18d470915b9d4b4179f9d0a119e3e3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "887bfc49_6c82fbf9",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-08T10:14:07Z",
+      "side": 1,
+      "message": "handling exception is not specified.",
+      "revId": "85edab04d18d470915b9d4b4179f9d0a119e3e3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
