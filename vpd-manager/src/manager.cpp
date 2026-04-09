@@ -532,11 +532,11 @@ std::string Manager::getExpandedLocationCode(
     }
 
     [[maybe_unused]] const auto& l_configManager = m_worker->getConfigManager();
+    [[maybe_unused]] const auto l_inventoryPaths =
+        l_configManager->getInventoryPaths(i_unexpandedLocationCode);
 
     /*
         @todo:
-        - use Config Manager to get inventory path(s) corresponding to
-       unexpanded location code
         - select one inventory path
         - use selected inventory path to get expanded location code from D-Bus
     */
