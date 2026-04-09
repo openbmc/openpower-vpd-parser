@@ -533,6 +533,16 @@ std::string Manager::getExpandedLocationCode(
         return std::string{};
     }
 
+    [[maybe_unused]] const auto& l_configManager = m_worker->getConfigManager();
+
+    /*
+        @todo:
+        - use Config Manager to get inventory path(s) corresponding to
+       unexpanded location code
+        - select one inventory path
+        - use selected inventory path to get expanded location code from D-Bus
+    */
+
     const nlohmann::json& l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
     if (!l_sysCfgJsonObj.contains("frus"))
     {
