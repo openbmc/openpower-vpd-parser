@@ -1355,7 +1355,7 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
                     l_Fru["inventoryPath"]);
 
                 l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
-                                             std::move(l_interfaces));
+                                             l_interfaces);
             }
         }
         else
