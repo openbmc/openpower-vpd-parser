@@ -217,4 +217,29 @@ std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathsMap(
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
 }
+
+std::expected<types::ListOfPaths, error_code> ConfigManager::getInventoryPaths(
+    [[maybe_unused]] const std::string& i_unexpandedLocationCode) const noexcept
+{
+    try
+    {
+        /*
+            @todo:
+            - use std::unordered_map.find() to search for entry in the map
+            - if found,
+                - return the vector of inventory paths
+            - else
+                - return error code
+        */
+        return types::ListOfPaths{};
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to get inventory paths for unexpanded location code {}. Error: {}",
+            i_unexpandedLocationCode, l_ex.what()));
+
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
+    }
+}
 } // namespace vpd
