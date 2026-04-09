@@ -828,7 +828,7 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
             {
                 const auto& l_assetTag = createAssetTagString(i_parsedVpdMap);
                 auto l_itrToSystemPath = l_objectInterfaceMap.find(
-                    sdbusplus::message::object_path(constants::systemInvPath));
+                    sdbusplus::object_path(constants::systemInvPath));
                 if (l_itrToSystemPath == l_objectInterfaceMap.end())
                 {
                     throw std::runtime_error(
@@ -1205,7 +1205,7 @@ void IbmHandler::setBmcPosition()
 
     // Call method to update the dbus
     if (!dbusUtility::publishVpdOnDBus(types::ObjectMap{
-            {sdbusplus::message::object_path(constants::systemInvPath),
+            {sdbusplus::object_path(constants::systemInvPath),
              {{constants::rbmcPositionInterface,
                {{"Position", l_bmcPosition}}}}}}))
     {

@@ -1181,7 +1181,7 @@ inline void updateKwdOnInheritedFrus(
                 if (l_Fru.value("inherit", true))
                 {
                     l_objectInterfaceMap.emplace(
-                        sdbusplus::message::object_path{l_Fru["inventoryPath"]},
+                        sdbusplus::object_path{l_Fru["inventoryPath"]},
                         types::InterfaceMap{
                             {std::string{constants::ipzVpdInf +
                                          std::get<0>(*l_ipzData)},
@@ -1390,7 +1390,7 @@ inline void updateCiPropertyOfInheritedFrus(
                     l_Fru.contains("inventoryPath"))
                 {
                     l_objectInterfaceMap.emplace(
-                        sdbusplus::message::object_path{l_Fru["inventoryPath"]},
+                        sdbusplus::object_path{l_Fru["inventoryPath"]},
                         l_interfaceMap);
                 }
             };
@@ -1631,7 +1631,7 @@ inline void setCollectionStatusProperty(
 
     for (const auto& l_Fru : i_sysCfgJsonObj["frus"][l_eepromPath])
     {
-        sdbusplus::message::object_path l_fruObjectPath(l_Fru["inventoryPath"]);
+        sdbusplus::object_path l_fruObjectPath(l_Fru["inventoryPath"]);
 
         types::PropertyMap l_propertyValueMap;
         l_propertyValueMap.emplace(

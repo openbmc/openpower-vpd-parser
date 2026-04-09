@@ -156,8 +156,7 @@ bool PrimeInventory::primeInventory(
     }
 
     vpd::types::InterfaceMap l_interfaces;
-    sdbusplus::message::object_path l_fruObjectPath(
-        i_fruJsonObj["inventoryPath"]);
+    sdbusplus::object_path l_fruObjectPath(i_fruJsonObj["inventoryPath"]);
 
     if (i_fruJsonObj.contains("ccin"))
     {
