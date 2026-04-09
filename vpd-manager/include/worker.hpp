@@ -181,6 +181,16 @@ class Worker
      */
     void performVpdRecollection();
 
+    /**
+     * @brief API to get reference to ConfigManager
+     *
+     * @return Reference to unique pointer to Config Manager object
+     */
+    const std::unique_ptr<ConfigManager>& getConfigManager() const noexcept
+    {
+        return m_configManager;
+    }
+
   private:
     /**
      * @brief An API to parse and publish a FRU VPD over D-Bus.
