@@ -195,4 +195,25 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
 }
+
+std::expected<types::ListOfPaths, error_code> ConfigManager::getInventoryPaths(
+    [[maybe_unused]] const std::string& i_unexpandedLocationCode) const noexcept
+{
+    try
+    {
+        types::ListOfPaths l_inventoryPaths;
+        /*
+            @todo:
+            - use std::unordered_multimap<>::equal_range to get range of all
+           elements with key equal to unexpanded location code
+            - extract the inventory paths and populate the vector
+            - return the vector of inventory paths
+        */
+        return l_inventoryPaths;
+    }
+    catch (const std::exception& l_ex)
+    {
+        return std::unexpected(error_code::STANDARD_EXCEPTION);
+    }
+}
 } // namespace vpd
