@@ -410,8 +410,45 @@ inline std::string getExpandedLocationCode(
         // Fallback to DBus if map is empty or doesn't have record
         if (useDBus)
         {
-            auto mapperRetValue = dbusUtility::getObjectMap(
-                std::string(constants::systemVpdInvPath), {kwdInterface});
+            // TODO Start later to remove once main code is in
+            std::string dbusPath = std::string(constants::systemVpdInvPath);
+            if (recordName == constants::recVCEN)
+            {
+                // Extract chassis instance from location code (e.g., "07" from
+                // "Ufcs-N07-BD00-PM00")
+                size_t pos = unexpandedLocationCode.find("Ufcs-N");
+                if (pos != std::string::npos)
+                {
+                    // Extract 2 digits after "Ufcs-N"
+                    size_t digitPos = pos + 6; // Length of "Ufcs-N" is 6
+                    if (digitPos + 2 <= unexpandedLocationCode.length())
+                    {
+                        std::string chassisInstance =
+                            unexpandedLocationCode.substr(digitPos, 2);
+                        dbusPath += "/chassis" + chassisInstance;
+                    }
+                }
+                else
+                {
+                    // Extract chassis instance from location code (e.g., "0"
+                    // from "Ufcs-SC0-BD00")
+                    size_t pos = unexpandedLocationCode.find("Ufcs-SC");
+                    if (pos != std::string::npos)
+                    {
+                        // Extract 1 digit after "Ufcs-SC"
+                        size_t digitPos = pos + 7; // Length of "Ufcs-SC" is 7
+                        if (digitPos + 1 <= unexpandedLocationCode.length())
+                        {
+                            std::string chassisInstance =
+                                unexpandedLocationCode.substr(digitPos, 1);
+                            dbusPath += "/chassis" + chassisInstance;
+                        }
+                    }
+                }
+            }
+            // TODO End
+            auto mapperRetValue =
+                dbusUtility::getObjectMap(dbusPath, {kwdInterface});
             if (mapperRetValue.empty())
             {
                 o_errCode = error_code::DBUS_FAILURE;
@@ -445,15 +482,18 @@ inline std::string getExpandedLocationCode(
         {
             // FCS: Must have -NDx, -NDxx, -SCx, or -SCxx pattern
             std::string suffix = unexpandedLocationCode.substr(pos + 3);
-            std::regex ndScPattern(R"(^-((ND|SC)\d{1,2})(-.*)?)");
+            std::regex nScPattern(R"(^-((N|SC)\d{1,2})(-.*)?)");
             std::smatch match;
-            if (!std::regex_search(suffix, match, ndScPattern))
+            if (!std::regex_search(suffix, match, nScPattern))
             {
                 o_errCode = error_code::INVALID_LOCATION_CODE_FORMAT;
                 return unexpandedLocationCode;
             }
-            // Build: FC[0:4].NDx.SE or FC[0:4].SCxx.SE (+ optional suffix)
-            expanded.replace(pos, 3 + suffix.length(),
+            // Build: FC[0:4].Nxx.SE or FC[0:4].SCx.SE (+ optional suffix)
+            // Calculate replacement length: 3 (for "Ufc") + 1 (for "s") + 1
+            // (for "-")
+            // + match length
+            expanded.replace(pos, 4 + suffix.length(),
                              firstKwdValue.substr(0, 4) + "." + match[1].str() +
                                  "." + secondKwdValue + match[3].str());
         }
