@@ -93,6 +93,20 @@ class ConfigManager final
         const std::optional<std::string>& i_vpdPath =
             std::nullopt) const noexcept;
 
+    /**
+     * @brief API to get inventory path(s) for given unexpanded location code
+     *
+     * This API returns inventory path(s) for given unexpanded location code. An
+     * unexpanded location code can map to single or multiple inventory paths,
+     * this API returns a single or a list of matching inventory paths.
+     *
+     * @param[in] i_unexpandedLocationCode - Unexpanded location code
+     *
+     * @return Vector containing matching inventory paths, error code otherwise.
+     */
+    std::expected<types::ListOfPaths, error_code> getInventoryPaths(
+        const std::string& i_unexpandedLocationCode) const noexcept;
+
   private:
     /**
      * @brief API to build configuration maps
