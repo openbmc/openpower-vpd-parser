@@ -216,7 +216,7 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
 
     if (m_worker.get() != nullptr)
     {
-        l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+        l_sysCfgJsonObj = m_worker->getSysCfgJsonObj(i_vpdPath);
 
         // Get the EEPROM path
         if (!l_sysCfgJsonObj.empty())
@@ -369,7 +369,7 @@ int Manager::updateKeywordOnHardware(
 
         if (m_worker.get() != nullptr)
         {
-            l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+            l_sysCfgJsonObj = m_worker->getSysCfgJsonObj(i_fruPath);
         }
 
         std::shared_ptr<Parser> l_parserObj = std::make_shared<Parser>(
