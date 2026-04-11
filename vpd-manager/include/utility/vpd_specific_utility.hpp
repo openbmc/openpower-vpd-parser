@@ -356,6 +356,10 @@ inline std::string getExpandedLocationCode(
     const types::VPDMapVariant& parsedVpdMap, uint16_t& o_errCode)
 {
     o_errCode = 0;
+    (void)unexpandedLocationCode;
+    (void)parsedVpdMap;
+
+#if 0
     if (unexpandedLocationCode.empty())
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
@@ -517,6 +521,8 @@ inline std::string getExpandedLocationCode(
         o_errCode = error_code::STANDARD_EXCEPTION;
         return unexpandedLocationCode;
     }
+#endif
+    return unexpandedLocationCode;
 }
 
 #if 0
@@ -854,7 +860,7 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
         const types::MapperGetObject& l_getObjectMap =
             dbusUtility::getObjectMap(i_objectPath, l_interfaces);
 
-        const std::vector<std::string>& l_vpdRelatedInterfaces{
+        static const std::vector<std::string> l_vpdRelatedInterfaces{
             constants::operationalStatusInf, constants::inventoryItemInf,
             constants::assetInf, constants::vpdCollectionInterface};
 
@@ -1797,6 +1803,237 @@ inline std::string getInStringFormat(
 
     l_message << "]. ";
     return l_message.str();
+}
+
+inline std::string getChassisId(const std::string& i_inventoryObjPath) noexcept
+{
+    try
+    {
+        auto l_startPos = i_inventoryObjPath.find("/chassis");
+        if (std::string::npos == l_startPos)
+        {
+            return std::string{};
+        }
+
+        ++l_startPos;
+        const auto l_endPos = i_inventoryObjPath.find('/', l_startPos);
+        const auto l_chassisId =
+            i_inventoryObjPath.substr(l_startPos, l_endPos - l_startPos);
+
+        return l_chassisId;
+    }
+    catch (const std::exception& l_ex)
+    {
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Failed to extract chassis ID from given path {}, error: {}",
+            i_inventoryObjPath, l_ex.what()));
+        return std::string{};
+    }
+}
+
+// Temporary code. Replace once actual implementation gets in to process
+// chassis.
+/**
+ * @brief Expands an unexpanded location code to its full form.
+ *
+ * Detects whether the location code is FCS or MTS type and
+ * dispatches to the appropriate expansion function.
+ *
+ * @param[in] i_inventoryPath - Inventory path of a FRU.
+ * @param[in] i_unexpandedLocCode - The unexpanded location code.
+ * @param[out] o_errCode - Error code, 0 on success.
+ * @return Expanded location code string.
+ */
+/*inline std::string getExpandedLocationCode(const std::string&
+i_chassisObjPath, const std::string& i_inventoryPath, const std::string&
+i_unexpandedLocCode, uint16_t& o_errCode)
+{
+    o_errCode = 0;
+
+    if (i_unexpandedLocCode.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return i_unexpandedLocCode;
+    }
+
+    try
+    {
+        size_t l_pos = i_unexpandedLocCode.find("fcs");
+        if (l_pos != std::string::npos)
+        {
+            return expandFcsLocationCode(i_chassisObjPath, i_inventoryPath,
+i_unexpandedLocCode, l_pos, o_errCode);
+        }
+
+        l_pos = i_unexpandedLocCode.find("mts");
+        if (l_pos != std::string::npos)
+        {
+            return expandMtsLocationCode(i_inventoryPath, i_unexpandedLocCode,
+                                         l_pos, o_errCode);
+        }
+
+        o_errCode = error_code::FAILED_TO_DETECT_LOCATION_CODE_TYPE;
+        return i_unexpandedLocCode;
+    }
+    catch (const std::exception& ex)
+    {
+        o_errCode = error_code::STANDARD_EXCEPTION;
+        return i_unexpandedLocCode;
+    }
+}
+*/
+/**
+ * @brief Expands an FCS (Feature Card/Serial) location code.
+ *
+ * Replaces the "fcs" placeholder with FC keyword (first 4 chars),
+ * chassis/node identifier, and serial number from VCEN record.
+ *
+ * @param[in] i_chassisObjPath - Obj path of chassis which holds the inventory.
+ * @param[in] i_inventoryPath - Inventory path of a FRU.
+ * @param[out] o_errCode - Error code, 0 on success.
+ * @return Expanded location code string.
+ */
+inline std::string expandFcsLocationCode(const std::string& i_chassisObjPath,
+                                         const std::string& i_inventoryPath,
+                                         uint16_t& o_errCode) noexcept
+{
+    o_errCode = 0;
+
+    const auto& l_retValue = dbusUtility::readDbusProperty(
+        constants::pimServiceName, i_inventoryPath,
+        constants::xyzLocationCodeInf, "LocationCode");
+
+    auto l_locCode = std::get_if<std::string>(&l_retValue);
+    if (l_locCode == nullptr)
+    {
+        /**If failed, return empty string. So the caller will not update Dbus
+         * and Dbus will continue to have what it already has.*/
+        o_errCode = error_code::DBUS_FAILURE;
+        return std::string{};
+    }
+
+    size_t l_pos = l_locCode->find("fcs");
+    if (l_pos == std::string::npos)
+    {
+        // Implies location code is already expanded.
+        return *l_locCode;
+    }
+
+    auto readKwdValue = [&](const std::string& kwd) -> std::string {
+        auto retVal = dbusUtility::readDbusProperty(
+            constants::pimServiceName, i_chassisObjPath, constants::vcenInf,
+            kwd);
+        if (auto kwdVal = std::get_if<types::BinaryVector>(&retVal))
+        {
+            return std::string(reinterpret_cast<const char*>(kwdVal->data()),
+                               kwdVal->size());
+        }
+        o_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
+        return std::string{};
+    };
+
+    std::string l_fcKwdValue = readKwdValue(constants::kwdFC);
+    if (o_errCode == error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
+    {
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Failed to read kwd {} for system VPD path.", constants::kwdTM));
+        return std::string{};
+    }
+
+    std::string l_seKwdValue = readKwdValue(constants::kwdSE);
+    if (o_errCode == error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
+    {
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Failed to read kwd {} for system VPD path.", constants::kwdTM));
+        return std::string{};
+    }
+
+    // Build expanded FCS location code
+    std::string l_suffix = l_locCode->substr(l_pos + 3);
+    std::regex l_nScPattern(R"(^-((N|SC)\d{1,2})(-.*)?)");
+
+    std::smatch l_match;
+    if (!std::regex_search(l_suffix, l_match, l_nScPattern))
+    {
+        o_errCode = error_code::INVALID_LOCATION_CODE_FORMAT;
+        return std::string{};
+    }
+
+    std::string l_expanded = *l_locCode;
+    return l_expanded.replace(
+        l_pos, 4 + l_suffix.length(),
+        l_fcKwdValue.substr(0, 4) + "." + l_match[1].str() + "." +
+            l_seKwdValue + l_match[3].str());
+}
+
+/**
+ * @brief Expands an MTS (Machine Type/Serial) location code.
+ *
+ * Replaces the "mts" placeholder with TM keyword (dashes replaced by dots)
+ * and serial number from VSYS record.
+ * This is limited to system VPD path.
+ *
+ * @param[out] o_errCode - Error code, 0 on success.
+ * @return Expanded location code string. Empty string on error.
+ */
+inline std::string expandMtsLocationCode(uint16_t& o_errCode)
+{
+    o_errCode = 0;
+
+    const auto& l_retValue = dbusUtility::readDbusProperty(
+        constants::pimServiceName, constants::systemInvPath,
+        constants::xyzLocationCodeInf, "LocationCode");
+
+    auto l_locCode = std::get_if<std::string>(&l_retValue);
+    if (l_locCode == nullptr)
+    {
+        /**If failed, return empty string. So the caller will not update Dbus
+         * and Dbus will continue to have what it already has.*/
+        o_errCode = error_code::DBUS_FAILURE;
+        return std::string{};
+    }
+
+    size_t l_pos = l_locCode->find("mts");
+    if (l_pos == std::string::npos)
+    {
+        // Implies location code is already expanded.
+        return *l_locCode;
+    }
+
+    auto readKwdValue = [&](const std::string& kwd) -> std::string {
+        auto retVal = dbusUtility::readDbusProperty(
+            constants::pimServiceName, constants::systemVpdInvPath,
+            constants::vsysInf, kwd);
+        if (auto kwdVal = std::get_if<types::BinaryVector>(&retVal))
+        {
+            return std::string(reinterpret_cast<const char*>(kwdVal->data()),
+                               kwdVal->size());
+        }
+        o_errCode = error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS;
+        return std::string{};
+    };
+
+    std::string l_tmKwdValue = readKwdValue(constants::kwdTM);
+    if (o_errCode == error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
+    {
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Failed to read kwd {} for system VPD path.", constants::kwdTM));
+        return std::string{};
+    }
+
+    std::string l_seKwdValue = readKwdValue(constants::kwdSE);
+    if (o_errCode == error_code::RECEIVED_INVALID_KWD_TYPE_FROM_DBUS)
+    {
+        Logger::getLoggerInstance()->logMessage(std::format(
+            "Failed to read kwd {} for system VPD path.", constants::kwdSE));
+        return std::string{};
+    }
+
+    // Build expanded MTS location code
+    std::replace(l_tmKwdValue.begin(), l_tmKwdValue.end(), '-', '.');
+
+    std::string l_expanded = *l_locCode;
+    return l_expanded.replace(l_pos, 3, l_tmKwdValue + "." + l_seKwdValue);
 }
 
 } // namespace vpdSpecificUtility
