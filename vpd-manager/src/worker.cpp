@@ -195,6 +195,7 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
                 if (property.compare("LocationCode") == 0 &&
                     interface.compare("com.ibm.ipzvpd.Location") == 0)
                 {
+                    /* SKip for now. Will be handled at last.
                     std::string value =
                         vpdSpecificUtility::getExpandedLocationCode(
                             propValuePair.value().get<std::string>(),
@@ -222,7 +223,7 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
                         logging::logMessage(
                             "Failed to insert value into map, error : " +
                             commonUtility::getErrCodeMsg(l_errCode));
-                    }
+                    }*/
                 }
                 else
                 {
