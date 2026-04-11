@@ -289,6 +289,14 @@ class IbmHandler
     void updateVpdCollectionStatus(
         const types::VpdCollectionStatus i_status) const noexcept;
 
+    /**
+     * @brief API to update expanded location on DBus for all FRU.
+     *
+     * The API updates expanded location code for all FRU on Dbus by replacing
+     * the required keyword with their VPD value.
+     */
+    void updateExpandedLocationCode();
+
     // Parsed system config json object.
     nlohmann::json m_sysCfgJsonObj{};
 
