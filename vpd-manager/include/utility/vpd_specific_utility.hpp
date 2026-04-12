@@ -425,6 +425,13 @@ inline std::string getExpandedLocationCode(
                     {
                         std::string chassisInstance =
                             unexpandedLocationCode.substr(digitPos, 2);
+                        // Convert "00"-"09" to "0"-"9", 
+                        // and keep "10"-"99" as is
+                        if (chassisInstance[0] == '0')
+                        {
+                            // Remove leading zero
+                            chassisInstance = chassisInstance.substr(1); 
+                        }
                         dbusPath += "/chassis" + chassisInstance;
                     }
                 }
