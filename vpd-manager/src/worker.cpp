@@ -905,7 +905,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                     types::PelInfoTuple{types::ErrorType::InternalFailure,
                                         types::SeverityType::Warning, 0,
                                         std::nullopt, std::nullopt,
-                                        std::nullopt, std::nullopt});
+                                        std::nullopt, std::nullopt, std::nullopt});
             }
         }
         else if (l_errCode)
@@ -1093,7 +1093,8 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                         (typeid(l_ex) == typeid(EccException))
                     ? types::SeverityType::Warning
                     : types::SeverityType::Informational,
-                0, std::nullopt, std::nullopt, std::nullopt, std::nullopt});
+                0, std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+		types::InventoryCalloutData{i_vpdFilePath,types::CalloutPriority::High}});
 
         // TODO: Figure out a way to clear data in case of any failure at
         // runtime.
@@ -1386,7 +1387,7 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
             PlaceHolder::PEL,
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Warning, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt});
+                                std::nullopt, std::nullopt, std::nullopt, std::nullopt});
     }
 }
 

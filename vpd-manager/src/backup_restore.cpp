@@ -528,7 +528,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(types::IPZVpdMap& io_srcVpdMap,
                     types::PelInfoTuple{types::ErrorType::VpdMismatch,
                                         types::SeverityType::Warning, 0,
                                         std::nullopt, std::nullopt,
-                                        std::nullopt, std::nullopt});
+                                        std::nullopt, std::nullopt, std::nullopt});
             }
         }
         else if (l_srcBinaryValue == l_defaultBinaryValue &&
@@ -542,7 +542,7 @@ void BackupAndRestore::backupAndRestoreIpzVpd(types::IPZVpdMap& io_srcVpdMap,
                 l_errorMsg, PlaceHolder::PEL,
                 types::PelInfoTuple{
                     types::ErrorType::VpdMismatch, types::SeverityType::Warning,
-                    0, std::nullopt, std::nullopt, std::nullopt, std::nullopt});
+                    0, std::nullopt, std::nullopt, std::nullopt, std::nullopt, std::nullopt});
         }
     }
 }
