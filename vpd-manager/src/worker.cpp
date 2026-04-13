@@ -905,7 +905,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                     types::PelInfoTuple{types::ErrorType::InternalFailure,
                                         types::SeverityType::Warning, 0,
                                         std::nullopt, std::nullopt,
-                                        std::nullopt, std::nullopt});
+                                        std::nullopt, std::nullopt,
+                                        std::nullopt});
             }
         }
         else if (l_errCode)
@@ -1386,7 +1387,8 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
             PlaceHolder::PEL,
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Warning, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt});
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
