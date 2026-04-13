@@ -643,7 +643,7 @@ void Worker::populateDbus(const types::VPDMapVariant& parsedVpdMap,
         for (const auto& aFru : m_parsedJson["frus"][vpdFilePath])
         {
             const auto& inventoryPath = aFru["inventoryPath"];
-            sdbusplus::message::object_path fruObjectPath(inventoryPath);
+            sdbusplus::object_path fruObjectPath(inventoryPath);
             if (aFru.contains("ccin"))
             {
                 if (!processFruWithCCIN(aFru, parsedVpdMap))
@@ -1065,7 +1065,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                 }
 
                 const std::string& l_invPathLeafValue =
-                    sdbusplus::message::object_path(l_invPath).filename();
+                    sdbusplus::object_path(l_invPath).filename();
 
                 if ((l_invPathLeafValue.find("pcie_card", 0) !=
                      std::string::npos))
@@ -1161,7 +1161,7 @@ bool Worker::skipPathForCollection(const std::string& i_vpdFilePath)
         }
 
         const std::string& l_invPathLeafValue =
-            sdbusplus::message::object_path(l_invPath).filename();
+            sdbusplus::object_path(l_invPath).filename();
 
         if ((l_invPathLeafValue.find("pcie_card", 0) != std::string::npos))
         {
@@ -1351,8 +1351,7 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
         {
             for (const auto& l_Fru : m_parsedJson["frus"][i_vpdPath])
             {
-                sdbusplus::message::object_path l_fruObjectPath(
-                    l_Fru["inventoryPath"]);
+                sdbusplus::object_path l_fruObjectPath(l_Fru["inventoryPath"]);
 
                 l_objectInterfaceMap.emplace(std::move(l_fruObjectPath),
                                              l_interfaces);
@@ -1432,8 +1431,7 @@ void Worker::performVpdRecollection()
     }
 }
 
-void Worker::collectSingleFruVpd(
-    const sdbusplus::message::object_path& i_dbusObjPath)
+void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
 {
     std::string l_fruPath{};
     uint16_t l_errCode = 0;

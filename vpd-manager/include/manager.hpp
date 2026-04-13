@@ -125,8 +125,7 @@ class Manager
      *
      * @param[in] i_dbusObjPath - D-bus object path
      */
-    void collectSingleFruVpd(
-        const sdbusplus::message::object_path& i_dbusObjPath);
+    void collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath);
 
     /**
      * @brief Delete single FRU VPD
@@ -134,8 +133,7 @@ class Manager
      *
      * @param[in] i_dbusObjPath - D-bus object path
      */
-    void deleteSingleFruVpd(
-        const sdbusplus::message::object_path& i_dbusObjPath);
+    void deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath);
 
     /**
      * @brief Get expanded location code.
@@ -198,7 +196,7 @@ class Manager
      *
      * @return Corresponding EEPROM path.
      */
-    std::string getHwPath(const sdbusplus::message::object_path& i_dbusObjPath);
+    std::string getHwPath(const sdbusplus::object_path& i_dbusObjPath);
 
     /**
      * @brief  Perform VPD recollection
