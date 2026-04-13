@@ -171,7 +171,8 @@ Manager::Manager(
             PlaceHolder::PEL,
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Error, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt});
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -348,7 +349,8 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
             PlaceHolder::PEL,
             types::PelInfoTuple{EventLogger::getErrorType(l_exception),
                                 types::SeverityType::Error, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt});
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
 
         return -1;
     }
@@ -385,7 +387,7 @@ int Manager::updateKeywordOnHardware(
             types::PelInfoTuple{types::ErrorType::InvalidEeprom,
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
 
         return constants::FAILURE;
     }
@@ -436,7 +438,7 @@ types::DbusVariantType Manager::readKeyword(
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
 
         throw types::DeviceError::ReadFailure();
     }
@@ -491,7 +493,7 @@ void Manager::deleteSingleFruVpd(
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
@@ -804,7 +806,7 @@ bool Manager::collectAllFruVpd() const noexcept
             PlaceHolder::ASYNC_PEL,
             types::PelInfoTuple{types::ErrorType::FirmwareError, l_severityType,
                                 0, std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
 
 // ToDo: Handle with OEM interface
 #ifdef IBM_SYSTEM
@@ -828,7 +830,8 @@ bool Manager::collectAllFruVpd() const noexcept
             PlaceHolder::PEL,
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Warning, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt});
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
     return false;
 }
@@ -870,7 +873,7 @@ bool Manager::validateRedundantEeprom(const types::Path& i_fruPath) const
             types::PelInfoTuple{types::ErrorType::InternalFailure,
                                 types::SeverityType::Informational, 0,
                                 l_ex.what(), std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
     return l_rc;
 }
@@ -891,7 +894,7 @@ void Manager::deleteAllFRUVPD() const noexcept
             types::PelInfoTuple{types::ErrorType::FirmwareError,
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
 
         const auto l_inventoryBackupPath{
             constants::pimPrimaryPath /
@@ -966,7 +969,8 @@ void Manager::deleteAllFRUVPD() const noexcept
             PlaceHolder::PEL,
             types::PelInfoTuple{types::ErrorType::FirmwareError,
                                 types::SeverityType::Warning, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt});
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 } // namespace vpd
