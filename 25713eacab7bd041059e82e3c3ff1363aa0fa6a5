@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bbfe134_37e52242",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1901,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:15:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "006ad9b4_cc61c5b8",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24fb2f96_04c0a7dc",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-13T11:41:47Z",
       "side": 1,
       "message": "Does this assumption always hold true? For eg. if D-Bus has \"LocationCode\" as an empty string, then also this `if` condition will execute.",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22800ee5_51c49d92",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1918,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:15:43Z",
+      "side": 1,
+      "message": "So we return the same thing back and don\u0027t expand it, as we can\u0027t expand it unless it has \"fcs\".",
+      "parentUuid": "24fb2f96_04c0a7dc",
       "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c45fbd93_fe9cae6e",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1928,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:15:43Z",
+      "side": 1,
+      "message": "This is a standard reinterpret cast. More efficient for this case. That will add extra complexity and checks which is not required here as location code can\u0027t be mix of printable and non printable characters.",
+      "parentUuid": "97e180b2_5ef3c336",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d281bef_5ef92116",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-13T11:41:47Z",
       "side": 1,
       "message": "nit: can be `const`",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1f8a951_0689353a",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1935,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:15:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5d281bef_5ef92116",
       "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e303f8c_989ccf7c",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1943,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:15:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5e119feb_56847d17",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10d3b75d_5d345e92",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-04-13T11:41:47Z",
       "side": 1,
       "message": "Comment explaining this regex pattern would be helpful.",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d29bb519_63515aca",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1953,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:15:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "10d3b75d_5d345e92",
       "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +228,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e11b872_ea7160f1",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1343,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:15:43Z",
+      "side": 1,
+      "message": "Fixed for code under for loop and nothing apart from the code inside loop can throw.",
+      "parentUuid": "f95c139d_2920787e",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3890297d_0647b48d",
@@ -133,6 +259,24 @@
       "writtenOn": "2026-04-13T11:41:47Z",
       "side": 1,
       "message": "Can we comment out this block using `#if 0` to make it more apparent?",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85700c28_c82b2be5",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:15:43Z",
+      "side": 1,
+      "message": "How does that help or add extra value?",
+      "parentUuid": "3890297d_0647b48d",
       "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
