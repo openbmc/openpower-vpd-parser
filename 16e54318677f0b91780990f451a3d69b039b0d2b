@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b78cb8d_755bc627",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1370,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:45:02Z",
+      "side": 1,
+      "message": "No that will already be there on Dbus.",
+      "parentUuid": "9630160f_8646bf56",
+      "revId": "16e54318677f0b91780990f451a3d69b039b0d2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26e7a59d_4bd64b29",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 7
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-13T12:41:52Z",
       "side": 1,
       "message": "if failed to get expandFcsLocationCode, should we publish unexpanded location code on dbus ?",
+      "revId": "16e54318677f0b91780990f451a3d69b039b0d2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8517383_9e8ae9d2",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1409,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:45:02Z",
+      "side": 1,
+      "message": "No that will already be there on Dbus.",
+      "parentUuid": "26e7a59d_4bd64b29",
       "revId": "16e54318677f0b91780990f451a3d69b039b0d2b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
