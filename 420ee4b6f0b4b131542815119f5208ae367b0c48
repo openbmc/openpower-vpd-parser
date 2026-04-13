@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4820cdd_44864070",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1842,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T13:10:33Z",
+      "side": 1,
+      "message": "As discussed, resolved.",
+      "parentUuid": "8666b5d0_293b8914",
+      "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56c4f567_a3bc49ad",
@@ -120,6 +138,24 @@
       "side": 1,
       "message": "vpd-manager is exposing updateKeywordOnHardware, if some one changes keyword using this path, on next bmc reboot location code should be updated ?",
       "parentUuid": "4f8be17f_51251deb",
+      "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c24c6a9b_e578a862",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1915,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T13:10:33Z",
+      "side": 1,
+      "message": "As discussed will be addressed later.",
+      "parentUuid": "029826d0_9c60f30b",
       "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -243,6 +279,24 @@
       "side": 1,
       "message": "vpd-manager is exposing updateKeywordOnHardware, if some one changes keyword using this path, on next bmc reboot location code should be updated ?",
       "parentUuid": "31596525_286c802e",
+      "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3741fb5f_9f8423a6",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1997,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T13:10:33Z",
+      "side": 1,
+      "message": "As discussed will be addressed later.",
+      "parentUuid": "9e1ae181_dc923fad",
       "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
