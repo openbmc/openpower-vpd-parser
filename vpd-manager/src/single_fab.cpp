@@ -155,7 +155,7 @@ void SingleFab::updateSystemImValueInVpdToP11Series(
             types::PelInfoTuple{types::ErrorType::InternalFailure,
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
@@ -188,7 +188,7 @@ int SingleFab::singleFabImOverride() const noexcept
             PlaceHolder::PEL,
             types::PelInfoTuple{types::ErrorType::InvalidSystem,
                                 types::SeverityType::Error, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt});
+                                std::nullopt, std::nullopt, std::nullopt, std::nullopt});
 
         return constants::SUCCESS;
     }
@@ -210,7 +210,7 @@ int SingleFab::singleFabImOverride() const noexcept
                         types::PelInfoTuple{
                             types::ErrorType::SystemTypeMismatch,
                             types::SeverityType::Warning, 0, std::nullopt,
-                            std::nullopt, std::nullopt, std::nullopt});
+                            std::nullopt, std::nullopt, std::nullopt, std::nullopt});
 
                     return constants::FAILURE;
                 }
@@ -228,7 +228,7 @@ int SingleFab::singleFabImOverride() const noexcept
                         types::PelInfoTuple{
                             types::ErrorType::SystemTypeMismatch,
                             types::SeverityType::Warning, 0, std::nullopt,
-                            std::nullopt, std::nullopt, std::nullopt});
+                            std::nullopt, std::nullopt, std::nullopt, std::nullopt});
 
                     return constants::FAILURE;
                 }
@@ -247,7 +247,7 @@ int SingleFab::singleFabImOverride() const noexcept
                     types::PelInfoTuple{types::ErrorType::SystemTypeMismatch,
                                         types::SeverityType::Warning, 0,
                                         std::nullopt, std::nullopt,
-                                        std::nullopt, std::nullopt});
+                                        std::nullopt, std::nullopt, std::nullopt});
 
                 return constants::FAILURE;
             }
@@ -273,7 +273,7 @@ int SingleFab::singleFabImOverride() const noexcept
                 types::PelInfoTuple{types::ErrorType::SystemTypeMismatch,
                                     types::SeverityType::Warning, 0,
                                     std::nullopt, std::nullopt, std::nullopt,
-                                    std::nullopt});
+                                    std::nullopt, std::nullopt});
 
             return constants::FAILURE;
         }
@@ -290,7 +290,7 @@ int SingleFab::singleFabImOverride() const noexcept
                     types::PelInfoTuple{types::ErrorType::UnknownSystemSettings,
                                         types::SeverityType::Warning, 0,
                                         std::nullopt, std::nullopt,
-                                        std::nullopt, std::nullopt});
+                                        std::nullopt, std::nullopt, std::nullopt});
             }
             else
             {

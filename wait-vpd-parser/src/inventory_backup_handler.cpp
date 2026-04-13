@@ -126,7 +126,7 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
                         vpd::types::ErrorType::FirmwareError,
                         vpd::types::SeverityType::Warning, 0,
                         l_formattedFailedPaths, std::nullopt, std::nullopt,
-                        std::nullopt});
+                        std::nullopt, std::nullopt});
             }
             // We have logged a PEL for the paths(chassis) which we have failed
             // to move. Consider restoration is successful even if have failed
@@ -150,7 +150,7 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             vpd::types::PelInfoTuple{vpd::types::ErrorType::FirmwareError,
                                      vpd::types::SeverityType::Warning, 0,
                                      std::nullopt, std::nullopt, std::nullopt,
-                                     std::nullopt});
+                                     std::nullopt, std::nullopt});
 
         o_errCode = vpd::error_code::STANDARD_EXCEPTION;
     }
@@ -183,7 +183,7 @@ bool InventoryBackupHandler::clearInventoryBackupData(
             vpd::types::PelInfoTuple{vpd::types::ErrorType::FirmwareError,
                                      vpd::types::SeverityType::Warning, 0,
                                      std::nullopt, std::nullopt, std::nullopt,
-                                     std::nullopt});
+                                     std::nullopt, std::nullopt});
 
         o_errCode = vpd::error_code::STANDARD_EXCEPTION;
     }

@@ -100,6 +100,37 @@ void Logger::logMessage(std::string_view i_message,
                 "Pel info tuple required to log async PEL for message {}",
                 l_log.str());
         }
+        else if (i_placeHolder == PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT)
+        {
+            if (i_pelTuple.has_value())
+            {
+                // By default set severity to informational
+                const types::SeverityType l_severity =
+                    std::get<1>(*i_pelTuple).has_value()
+                        ? std::get<1>(*i_pelTuple).value()
+                        : types::SeverityType::Informational;
+                
+		std::vector<types::InventoryCalloutData> l_callouts;
+                if (std::get<7>(*i_pelTuple).has_value())
+                {
+                    l_callouts.push_back(std::get<7>(*i_pelTuple).value());
+                }
+
+		EventLogger::createAsyncPelWithInventoryCallout(
+                    m_connection, std::get<0>(*i_pelTuple), l_severity,
+		    l_callouts,
+                    i_location.file_name(), i_location.function_name(),
+                    std::get<2>(*i_pelTuple), std::string(i_message),
+                    std::get<3>(*i_pelTuple), std::get<4>(*i_pelTuple),
+                    std::get<5>(*i_pelTuple), std::get<6>(*i_pelTuple));
+
+		return;
+            }
+
+            std::println(
+                "Pel info tuple required to log async PEL with inventory callouts for message {}",
+                l_log.str());
+        }
         else
         {
             // Default case, let it go to journal.

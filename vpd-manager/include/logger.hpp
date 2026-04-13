@@ -28,6 +28,7 @@ enum class PlaceHolder
     COLLECTION, /* Logs collection messages */
     VPD_WRITE,  /* Logs VPD write details */
     ASYNC_PEL   /* Creates async PEL*/
+    ASYNC_PEL_WITH_INV_CALLOUT   /* Creates async PEL with inventory callouts*/
 };
 
 /**

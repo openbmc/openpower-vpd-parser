@@ -216,7 +216,7 @@ void IbmBiosHandler::biosAttributesCallback(sdbusplus::message_t& i_msg)
                 types::PelInfoTuple{types::ErrorType::FirmwareError,
                                     types::SeverityType::Warning, 0,
                                     std::nullopt, std::nullopt, std::nullopt,
-                                    std::nullopt});
+                                    std::nullopt, std::nullopt});
 
             break;
         }
@@ -409,7 +409,7 @@ void IbmBiosHandler::saveFcoToBios(const types::BinaryVector& i_fcoVal)
             types::PelInfoTuple{types::ErrorType::FirmwareError,
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
@@ -477,7 +477,7 @@ void IbmBiosHandler::saveAmmToVpd(const std::string& i_memoryMirrorMode,
             types::PelInfoTuple{types::ErrorType::FirmwareError,
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
@@ -508,7 +508,7 @@ void IbmBiosHandler::saveAmmToBios(const uint8_t& i_ammVal)
             types::PelInfoTuple{types::ErrorType::FirmwareError,
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
@@ -565,7 +565,7 @@ void IbmBiosHandler::processActiveMemoryMirror(
         PlaceHolder::PEL,
         types::PelInfoTuple{types::ErrorType::FirmwareError,
                             types::SeverityType::Informational, 0, std::nullopt,
-                            std::nullopt, std::nullopt, std::nullopt});
+                            std::nullopt, std::nullopt, std::nullopt, std::nullopt});
 }
 
 void IbmBiosHandler::saveCreateDefaultLparToVpd(
@@ -680,7 +680,7 @@ void IbmBiosHandler::saveCreateDefaultLparToBios(
             types::PelInfoTuple{types::ErrorType::FirmwareError,
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 
     return;
@@ -826,7 +826,7 @@ void IbmBiosHandler::saveClearNvramToBios(const std::string& i_clearNvramVal)
             types::PelInfoTuple{types::ErrorType::FirmwareError,
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
@@ -967,7 +967,7 @@ void IbmBiosHandler::saveKeepAndClearToBios(
             types::PelInfoTuple{types::ErrorType::FirmwareError,
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
