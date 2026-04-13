@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9630160f_8646bf56",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1370,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-13T12:41:52Z",
+      "side": 1,
+      "message": "if failed to get expandMtsLocationCode, should we publish unexpanded location code on dbus ?",
+      "revId": "16e54318677f0b91780990f451a3d69b039b0d2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26e7a59d_4bd64b29",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1409,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-13T12:41:52Z",
+      "side": 1,
+      "message": "if failed to get expandFcsLocationCode, should we publish unexpanded location code on dbus ?",
+      "revId": "16e54318677f0b91780990f451a3d69b039b0d2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
