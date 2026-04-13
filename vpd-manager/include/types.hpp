@@ -229,7 +229,7 @@ using MatchObjectMap = std::map<std::string,MatchObjectInterfaceMap>;
 using PelInfoTuple =
     std::tuple<types::ErrorType, std::optional<types::SeverityType>, uint8_t, std::optional<std::string>,
                std::optional<std::string>, std::optional<std::string>,
-               std::optional<std::string>>;
+               std::optional<std::string>, std::optional<types::InventoryCalloutData>>;
 /* A tuple of Dbus object path, interface and property*/
 using DbusPropertyEntry = std::tuple<std::string, std::string, std::string>;
 /* A list of Dbus property entries */

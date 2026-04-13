@@ -88,7 +88,7 @@ void IbmHandler::isSymlinkPresent() noexcept
                 types::PelInfoTuple{types::ErrorType::FirmwareError,
                                     types::SeverityType::Warning, 0,
                                     std::nullopt, std::nullopt, std::nullopt,
-                                    std::nullopt});
+                                    std::nullopt, std::nullopt});
         }
         return;
     }
@@ -128,7 +128,8 @@ void IbmHandler::initWorker()
             PlaceHolder::ASYNC_PEL,
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Critical, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt});
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
 
         // Throwing error back to avoid any further processing.
         throw std::runtime_error(
@@ -189,7 +190,8 @@ void IbmHandler::initBackupAndRestore() noexcept
             PlaceHolder::PEL,
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Warning, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt});
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -774,7 +776,8 @@ void IbmHandler::performBackupAndRestore(types::VPDMapVariant& io_srcVpdMap)
             PlaceHolder::ASYNC_PEL,
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Warning, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt});
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 
@@ -862,7 +865,7 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
                 types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                     types::SeverityType::Warning, 0,
                                     std::nullopt, std::nullopt, std::nullopt,
-                                    std::nullopt});
+                                    std::nullopt, std::nullopt});
         }
 
         // Call method to update the dbus
@@ -1051,7 +1054,8 @@ void IbmHandler::setDeviceTreeAndJson(
                 PlaceHolder::ASYNC_PEL,
                 types::PelInfoTuple{types::ErrorType::JsonFailure,
                                     types::SeverityType::Error, 0, std::nullopt,
-                                    std::nullopt, std::nullopt, std::nullopt});
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt});
         }
     }
 
@@ -1185,7 +1189,8 @@ void IbmHandler::performInitialSetup()
             PlaceHolder::ASYNC_PEL,
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Critical, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt});
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 }
 

@@ -46,7 +46,7 @@ void Listener::registerHostStateChangeCallback() const noexcept
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
@@ -108,7 +108,7 @@ void Listener::hostStateChangeCallBack(
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
@@ -134,7 +134,7 @@ void Listener::registerAssetTagChangeCallback() const noexcept
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
@@ -187,7 +187,7 @@ void Listener::assetTagChangeCallback(
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
@@ -232,7 +232,7 @@ void Listener::registerPresenceChangeCallback() noexcept
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
@@ -280,7 +280,7 @@ void Listener::presentPropertyChangeCallback(
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
@@ -334,7 +334,7 @@ void Listener::registerCorrPropCallBack(
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
@@ -442,7 +442,7 @@ void Listener::correlatedPropChangedCallBack(
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 }
 
@@ -602,7 +602,7 @@ bool Listener::updateCorrelatedProperty(
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
     return false;
 }
