@@ -326,7 +326,8 @@ size_t DdimmVpdParser::getDdr4BasedDdimmSize(
             PlaceHolder::PEL,
             types::PelInfoTuple{types::ErrorType::InternalFailure,
                                 types::SeverityType::Warning, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt});
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
     return l_dimmSize;
 }

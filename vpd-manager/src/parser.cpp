@@ -125,7 +125,7 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                 types::PelInfoTuple{types::ErrorType::DbusFailure,
                                     types::SeverityType::Informational, 0,
                                     std::nullopt, std::nullopt, std::nullopt,
-                                    std::nullopt});
+                                    std::nullopt, std::nullopt});
 
             return constants::FAILURE;
         }
@@ -150,7 +150,8 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                 l_errMsg, PlaceHolder::PEL,
                 types::PelInfoTuple{types::ErrorType::InternalFailure,
                                     types::SeverityType::Error, 0, std::nullopt,
-                                    std::nullopt, std::nullopt, std::nullopt});
+                                    std::nullopt, std::nullopt, std::nullopt,
+                                    std::nullopt});
 
             throw std::runtime_error(l_errMsg);
         }
@@ -213,7 +214,8 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
                         types::PelInfoTuple{types::ErrorType::InternalFailure,
                                             types::SeverityType::Error, 0,
                                             std::nullopt, std::nullopt,
-                                            std::nullopt, std::nullopt});
+                                            std::nullopt, std::nullopt,
+                                            std::nullopt});
 
                     throw std::runtime_error(l_errMsg);
                 }
@@ -297,7 +299,8 @@ int Parser::updateVpdKeyword(const types::WriteVpdParams& i_paramsToWriteData,
             PlaceHolder::PEL,
             types::PelInfoTuple{types::ErrorType::DbusFailure,
                                 types::SeverityType::Critical, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt});
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 
     return l_bytesUpdatedOnHardware;
@@ -332,7 +335,7 @@ int Parser::updateVpdKeywordOnRedundantPath(
             types::PelInfoTuple{types::ErrorType::InvalidVpdMessage,
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
 
         return -1;
     }
@@ -373,7 +376,7 @@ int Parser::updateVpdKeywordOnHardware(
                 types::PelInfoTuple{types::ErrorType::DbusFailure,
                                     types::SeverityType::Informational, 0,
                                     std::nullopt, std::nullopt, std::nullopt,
-                                    std::nullopt});
+                                    std::nullopt, std::nullopt});
 
             return constants::FAILURE;
         }
@@ -402,7 +405,7 @@ int Parser::updateVpdKeywordOnHardware(
             PlaceHolder::PEL,
             types::PelInfoTuple{l_errorType, types::SeverityType::Informational,
                                 0, std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
 
     // Disable Reboot Guard
@@ -414,7 +417,8 @@ int Parser::updateVpdKeywordOnHardware(
             PlaceHolder::PEL,
             types::PelInfoTuple{types::ErrorType::DbusFailure,
                                 types::SeverityType::Critical, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt});
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
 
     return l_bytesUpdatedOnHardware;
