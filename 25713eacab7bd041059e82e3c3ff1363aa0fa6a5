@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "006ad9b4_cc61c5b8",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1901,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-13T11:41:47Z",
+      "side": 1,
+      "message": "nit: Missing input validation(emptry string check).",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24fb2f96_04c0a7dc",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1918,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-13T11:41:47Z",
+      "side": 1,
+      "message": "Does this assumption always hold true? For eg. if D-Bus has \"LocationCode\" as an empty string, then also this `if` condition will execute.",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97e180b2_5ef3c336",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1928,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-13T11:41:47Z",
+      "side": 1,
+      "message": "Suggestion: Can we use existing `commonUtility::getPrintableValue()` API to do this conversion from `BinaryVector` to `std::string`, as the utility API has error handling and is tested code?",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d281bef_5ef92116",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1935,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-13T11:41:47Z",
+      "side": 1,
+      "message": "nit: can be `const`",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e119feb_56847d17",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1943,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-13T11:41:47Z",
+      "side": 1,
+      "message": "nit: can be `const`",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10d3b75d_5d345e92",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1953,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-13T11:41:47Z",
+      "side": 1,
+      "message": "Comment explaining this regex pattern would be helpful.",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f95c139d_2920787e",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1343,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-13T11:41:47Z",
+      "side": 1,
+      "message": "Should we wrap this method in `try catch` to handle any exceptions locally, instead of letting it propagate up?",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3890297d_0647b48d",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-13T11:41:47Z",
+      "side": 1,
+      "message": "Can we comment out this block using `#if 0` to make it more apparent?",
+      "revId": "25713eacab7bd041059e82e3c3ff1363aa0fa6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
