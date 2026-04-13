@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0eec6bd_020d6eb4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:44:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7ce94b00_64369a46",
+      "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96e140f3_6200df38",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-13T12:35:58Z",
       "side": 1,
       "message": "i_chassisObjPath is missing in doxygen",
+      "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8666b5d0_293b8914",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1842,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:44:09Z",
+      "side": 1,
+      "message": "Where?",
+      "parentUuid": "96e140f3_6200df38",
       "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f8be17f_51251deb",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1915,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:44:09Z",
+      "side": 1,
+      "message": "Ideally these values are not changed but if changing then it should be taken care in the that flow where it is getting updated.",
+      "parentUuid": "56c4f567_a3bc49ad",
+      "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b2695a2_c86b311c",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-13T12:35:58Z",
       "side": 1,
       "message": "kwdFC should be used\nfor chassis VPD path ?",
+      "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33070b03_94e1b317",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1939,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:44:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1b2695a2_c86b311c",
       "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d1a3c78_faf916f4",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1947,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:44:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e7880a3a_358fe104",
+      "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e142fa4c_b410c09d",
@@ -103,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31596525_286c802e",
+        "filename": "vpd-manager/include/utility/vpd_specific_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1997,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:44:09Z",
+      "side": 1,
+      "message": "Ideally these values are not changed but if changing then it should be taken care in the that flow where it is getting updated.",
+      "parentUuid": "e142fa4c_b410c09d",
+      "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed5594a3_1d9753fe",
@@ -116,6 +224,24 @@
       "writtenOn": "2026-04-13T12:35:58Z",
       "side": 1,
       "message": "for all FRUs ?\n\nsame for below as well .",
+      "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "166e70b0_d254fd3e",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-13T12:44:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ed5594a3_1d9753fe",
       "revId": "420ee4b6f0b4b131542815119f5208ae367b0c48",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
