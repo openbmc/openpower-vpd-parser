@@ -80,7 +80,7 @@ bool IpzVpdParser::vhdrEccCheck()
             types::PelInfoTuple{types::ErrorType::EccCheckFailed,
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
     else if (l_status != VPD_ECC_OK)
     {
@@ -128,7 +128,7 @@ bool IpzVpdParser::vtocEccCheck()
             types::PelInfoTuple{types::ErrorType::EccCheckFailed,
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
     else if (l_status != VPD_ECC_OK)
     {
@@ -177,7 +177,7 @@ bool IpzVpdParser::recordEccCheck(types::BinaryVector::const_iterator iterator)
             types::PelInfoTuple{types::ErrorType::EccCheckFailed,
                                 types::SeverityType::Informational, 0,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
     }
     else if (l_status != VPD_ECC_OK)
     {
@@ -992,7 +992,7 @@ bool IpzVpdParser::compareData(
             types::PelInfoTuple{types::ErrorType::InternalFailure,
                                 types::SeverityType::Informational, 0,
                                 l_ex.what(), std::nullopt, std::nullopt,
-                                std::nullopt});
+                                std::nullopt, std::nullopt});
         return false;
     }
 }
