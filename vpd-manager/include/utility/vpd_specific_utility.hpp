@@ -358,7 +358,6 @@ inline std::string getExpandedLocationCode(
     o_errCode = 0;
     (void)unexpandedLocationCode;
     (void)parsedVpdMap;
-
 #if 0
     if (unexpandedLocationCode.empty())
     {
