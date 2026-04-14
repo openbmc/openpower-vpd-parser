@@ -1,9 +1,11 @@
 #pragma once
 
 #include "backup_restore.hpp"
+#include "config_manager.hpp"
 #include "constants.hpp"
 #include "gpio_monitor.hpp"
 #include "logger.hpp"
+#include "thread_manager.hpp"
 #include "types.hpp"
 #include "worker.hpp"
 
@@ -332,6 +334,12 @@ class Manager
 
     // Shared pointer to logger class.
     std::shared_ptr<Logger> m_logger;
+
+    // unique pointer to Thread Manager object
+    std::unique_ptr<ThreadManager> m_threadManager{nullptr};
+
+    // shared pointer to Config Manager object
+    std::shared_ptr<ConfigManager> m_configManager{nullptr};
 };
 
 } // namespace vpd

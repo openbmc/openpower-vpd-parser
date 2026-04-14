@@ -161,6 +161,9 @@ Manager::Manager(
         m_progressInterface->set_property(
             "Status", std::string(constants::vpdCollectionCompleted));
 #endif
+#if 0 // here thread manager should be initialized
+        m_threadManager = std::make_unique<ThreadManager>(m_worker,m_configManager);
+#endif
     }
     catch (const std::exception& l_ex)
     {
