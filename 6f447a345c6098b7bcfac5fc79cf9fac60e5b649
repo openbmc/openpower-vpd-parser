@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34c99f2e_402fffd5",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-14T10:24:15Z",
+      "side": 1,
+      "message": "Agreed. I have addressed this.",
+      "parentUuid": "5d4698d8_f12fe58f",
+      "revId": "6f447a345c6098b7bcfac5fc79cf9fac60e5b649",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "567192d6_55017ad6",
         "filename": "vpd-manager/include/utility/json_utility.hpp",
         "patchSetId": 10
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-14T10:06:14Z",
       "side": 1,
       "message": "do we need try catch block here, as each tag is checked before accessing. ?",
+      "revId": "6f447a345c6098b7bcfac5fc79cf9fac60e5b649",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45bc792d_d2001970",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1330,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-14T10:24:15Z",
+      "side": 1,
+      "message": "As of today, `try catch` may not be needed here, but this is a safe programming approach we use in all our utility APIs so that they never throw exception.",
+      "parentUuid": "567192d6_55017ad6",
       "revId": "6f447a345c6098b7bcfac5fc79cf9fac60e5b649",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
