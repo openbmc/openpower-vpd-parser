@@ -144,6 +144,8 @@ using DbusInvalidArgument =
 using DbusNotAllowed = sdbusplus::xyz::openbmc_project::Common::Error::NotAllowed;
 
 using InvalidArgument = phosphor::logging::xyz::openbmc_project::Common::InvalidArgument;
+using DbusInternalFailure = phosphor::logging::xyz::openbmc_project::Common::InternalFailure;
+
 
 namespace DeviceError = sdbusplus::xyz::openbmc_project::Common::Device::Error;
 
