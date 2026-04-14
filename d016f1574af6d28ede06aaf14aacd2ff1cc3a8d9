@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff7bd84a_aa797bf8",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1332,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-14T10:06:14Z",
+      "side": 1,
+      "message": "do we need inventoryPath check here ?",
+      "revId": "d016f1574af6d28ede06aaf14aacd2ff1cc3a8d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

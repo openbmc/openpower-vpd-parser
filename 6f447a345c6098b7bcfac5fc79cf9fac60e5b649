@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d4698d8_f12fe58f",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-14T10:06:14Z",
+      "side": 1,
+      "message": "should we use unordered_map\u003cstring, vector\u003cstring\u003e\u003e once the keys are build up, search will be more efficient and constant time ?",
+      "revId": "6f447a345c6098b7bcfac5fc79cf9fac60e5b649",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "567192d6_55017ad6",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1330,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-14T10:06:14Z",
+      "side": 1,
+      "message": "do we need try catch block here, as each tag is checked before accessing. ?",
+      "revId": "6f447a345c6098b7bcfac5fc79cf9fac60e5b649",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
