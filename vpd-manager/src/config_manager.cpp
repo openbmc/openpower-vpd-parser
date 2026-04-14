@@ -197,18 +197,25 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
 }
 
 std::expected<types::ListOfPaths, error_code> ConfigManager::getInventoryPaths(
-    [[maybe_unused]] const std::string& i_unexpandedLocationCode) const noexcept
+    const std::string& i_unexpandedLocationCode) const noexcept
 {
     try
     {
         types::ListOfPaths l_inventoryPaths;
         /*
-            @todo:
-            - use std::unordered_multimap<>::equal_range to get range of all
-           elements with key equal to unexpanded location code
-            - extract the inventory paths and populate the vector
+            - extract the matching inventory paths and populate the vector of
+           inventory paths
             - return the vector of inventory paths
         */
+        const auto l_rangeElements =
+            m_unexpandedLocationCodeToInventoryPathMap.equal_range(
+                i_unexpandedLocationCode);
+
+        for (auto l_it = l_rangeElements.first; l_it != l_rangeElements.second;
+             ++l_it)
+        {
+            l_inventoryPaths.emplace_back(l_it->second);
+        }
         return l_inventoryPaths;
     }
     catch (const std::exception& l_ex)
