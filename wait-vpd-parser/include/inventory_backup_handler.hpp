@@ -96,6 +96,19 @@ class InventoryBackupHandler
     bool moveFiles(const std::filesystem::path& l_src,
                    const std::filesystem::path& l_dest) const noexcept;
 
+    /**
+     * @brief API to move directory from source to destination path
+     *
+     * This API recursively traverses the given directory path and deletes
+     * subdirectories that are not in the skip list.
+     * @param[in] i_srcPath - Source path
+     * @param[in] i_dstPath - Destination path
+     * @param[out] o_failedPaths - vector to hold list of failed paths
+     */
+    void moveDirectory(const std::filesystem::path& i_srcPath,
+                       const std::filesystem::path& i_dstPath,
+                       std::vector<std::filesystem::path>& o_failedPaths) const;
+
     /* Members */
     // inventory manager service name
     std::string m_inventoryManagerServiceName;
