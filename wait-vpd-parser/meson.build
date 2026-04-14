@@ -15,6 +15,11 @@ libgpiodcxx = dependency(
 
 dependency_list = [CLI_dep, sdbusplus, libgpiodcxx]
 
+parser_build_arguments = []
+if get_option('ibm_system').allowed()
+    parser_build_arguments += ['-DIBM_SYSTEM']
+endif
+
 sources = [
     'src/wait_vpd_parser.cpp',
     '../vpd-manager/src/logger.cpp',
@@ -29,4 +34,5 @@ wait_vpd_parser_exe = executable(
     include_directories: ['include/', '../', '../vpd-manager/include'],
     dependencies: dependency_list,
     install: true,
+    cpp_args: parser_build_arguments,
 )
