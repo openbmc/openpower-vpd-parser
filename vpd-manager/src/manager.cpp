@@ -509,7 +509,17 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
 
     if (m_worker.get() != nullptr)
     {
-        m_worker->collectSingleFruVpd(i_dbusObjPath);
+        if (m_configManager.get() == nullptr)
+        {
+            throw std::runtime_error(std::format(
+                "Config manager object not found, can't perform FRU VPD collection for: {}",
+                std::string(i_dbusObjPath)));
+        }
+
+        auto l_configJsonObj =
+            m_configManager->getJsonObj(std::string(i_dbusObjPath));
+
+        m_worker->collectSingleFruVpd(l_configJsonObj, i_dbusObjPath);
     }
 }
 

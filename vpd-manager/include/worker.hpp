@@ -184,9 +184,11 @@ class Worker
      * current state of the system matches with the state at which the FRU is
      * allowed for VPD recollection.
      *
+     * @param[in] i_chassisBasedJson - chassis based json object
      * @param[in] i_dbusObjPath - D-bus object path
      */
-    void collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath);
+    void collectSingleFruVpd(const nlohmann::json i_chassisBasedJson,
+                             const sdbusplus::object_path& i_dbusObjPath);
 
     /**
      * @brief  Perform VPD recollection
