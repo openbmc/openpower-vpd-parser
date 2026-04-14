@@ -1362,11 +1362,13 @@ void IbmHandler::updateExpandedLocationCode()
                     vpdSpecificUtility::expandMtsLocationCode(l_errCode);
                 if (l_expandedLocCode.empty())
                 {
-                    if (l_errCode == error_code::DBUS_FAILURE)
+                    if (l_errCode == error_code::DBUS_FAILURE ||
+                        l_errCode == error_code::INVALID_LOCATION_CODE_FORMAT)
                     {
                         m_logger->logMessage(std::format(
-                            "Failed to fetch location code for Inventory: {}. Skipping",
-                            l_inventoryPath));
+                            "Failed to update location code for Inventory: {}. Reason {}. Skipping",
+                            l_inventoryPath,
+                            commonUtility::getErrCodeMsg(l_errCode)));
                     }
                     continue;
                 }
@@ -1401,11 +1403,13 @@ void IbmHandler::updateExpandedLocationCode()
                     l_chassisPathForFru, l_inventoryPath, l_errCode);
                 if (l_expandedLocCode.empty())
                 {
-                    if (l_errCode == error_code::DBUS_FAILURE)
+                    if (l_errCode == error_code::DBUS_FAILURE ||
+                        l_errCode == error_code::INVALID_LOCATION_CODE_FORMAT)
                     {
                         m_logger->logMessage(std::format(
-                            "Failed to fetch location code for Inventory: {}. Skipping",
-                            l_inventoryPath));
+                            "Failed to update location code for Inventory: {}. Reason {}. Skipping",
+                            l_inventoryPath,
+                            commonUtility::getErrCodeMsg(l_errCode)));
                     }
                     continue;
                 }
