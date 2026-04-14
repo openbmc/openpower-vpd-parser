@@ -6,6 +6,7 @@
 #include "logger.hpp"
 #include "types.hpp"
 #include "worker.hpp"
+#include "thread_manager.hpp"
 
 #include <oem-handler/ibm_handler.hpp>
 #include <sdbusplus/asio/object_server.hpp>
@@ -332,6 +333,9 @@ class Manager
 
     // Shared pointer to logger class.
     std::shared_ptr<Logger> m_logger;
+
+    // unique pointer to Thread Manager object
+    std::unique_ptr<ThreadManager> m_threadManager{nullptr};
 };
 
 } // namespace vpd
