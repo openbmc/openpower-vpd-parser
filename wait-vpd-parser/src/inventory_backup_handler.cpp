@@ -4,6 +4,9 @@
 #include "utility/common_utility.hpp"
 #include "utility/dbus_utility.hpp"
 
+#include "format"
+#include "unordered_set"
+
 bool InventoryBackupHandler::checkInventoryBackupPath(
     uint16_t& o_errCode) const noexcept
 {
@@ -61,50 +64,57 @@ bool InventoryBackupHandler::restoreInventoryBackupData(
             return l_rc;
         }
 
-        const auto l_systemInventoryPrimaryPath{
+        const auto l_inventoryPrimaryPath{
             m_inventoryPrimaryPath /
-            std::filesystem::path(vpd::constants::systemVpdInvPath)
-                .relative_path()};
+            std::filesystem::path(vpd::constants::pimPath).relative_path()};
 
-        if (std::filesystem::is_directory(l_systemInventoryPrimaryPath))
+        if (std::filesystem::is_directory(l_inventoryPrimaryPath))
         {
-            const auto l_systemInventoryBackupPath{
+            const auto l_inventoryBackupPath{
                 m_inventoryBackupPath /
-                std::filesystem::path(vpd::constants::systemVpdInvPath)
-                    .relative_path()};
+                std::filesystem::path(vpd::constants::pimPath).relative_path()};
 
-            // copy all sub directories under /system from backup path to
-            // primary path
-            auto l_backupDirIt = std::filesystem::directory_iterator{
-                l_systemInventoryBackupPath};
-
-            // vector to hold a list of sub directories under /system for which
-            // restoration failed
+            // vector to hold a list of sub directories under /inventory for
+            // which restoration failed
             using FailedPathList = std::vector<std::filesystem::path>;
             FailedPathList l_failedPaths;
 
-            std::for_each(
-                std::filesystem::begin(l_backupDirIt),
-                std::filesystem::end(l_backupDirIt),
-                [this,
-                 l_systemInventoryPrimaryPath =
-                     std::as_const(l_systemInventoryPrimaryPath),
-                 &l_failedPaths](const auto& l_entry) {
-                    // ToDo -- Remove the logical BMC check when path is moved
-                    // to power-he-platform daemon.
-                    if (l_entry.is_directory() &&
-                        l_entry.path().filename().compare("logical_bmc") !=
-                            vpd::constants::STR_CMP_SUCCESS)
+            auto copyDirectory =
+                [this, &l_failedPaths](
+                    auto&& self, const std::filesystem::path& l_srcPath,
+                    const std::filesystem::path& l_dstPath) -> void {
+                for (const auto& l_entry :
+                     std::filesystem::directory_iterator(l_srcPath))
+                {
+                    std::error_code l_ec;
+                    if (!std::filesystem::is_directory(l_entry.path(), l_ec))
                     {
-                        if (!moveFiles(l_entry.path(),
-                                       l_systemInventoryPrimaryPath /
-                                           l_entry.path().filename()))
+                        if (l_ec)
                         {
-                            l_failedPaths.emplace_back(
-                                l_entry.path().filename());
+                            m_logger->logMessage(std::format(
+                                "Failed to check if directory entry {}, is directory. Error : {}.",
+                                l_entry.path().string(), l_ec.message()));
                         }
+                        continue;
                     }
-                });
+
+                    if (vpd::commonUtility::skipDirectory(l_entry))
+                    {
+                        self(self, l_entry.path(),
+                             l_dstPath / l_entry.path().filename());
+                        continue;
+                    }
+
+                    if (!moveFiles(l_entry.path(),
+                                   l_dstPath / l_entry.path().filename()))
+                    {
+                        l_failedPaths.emplace_back(l_entry.path().filename());
+                    }
+                }
+            };
+
+            copyDirectory(copyDirectory, l_inventoryBackupPath,
+                          l_inventoryPrimaryPath);
 
             // check if there are any paths for which restoration failed, if yes
             // log a PEL
@@ -164,12 +174,11 @@ bool InventoryBackupHandler::clearInventoryBackupData(
     o_errCode = 0;
     try
     {
-        const auto l_systemInventoryBackupPath{
+        const auto l_inventoryBackupPath{
             m_inventoryBackupPath /
-            std::filesystem::path(vpd::constants::systemVpdInvPath)
-                .relative_path()};
+            std::filesystem::path(vpd::constants::pimPath).relative_path()};
 
-        std::filesystem::remove_all(l_systemInventoryBackupPath);
+        std::filesystem::remove_all(l_inventoryBackupPath);
 
         l_rc = true;
     }
