@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b4e23ab_773dcaeb",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-14T06:48:56Z",
+      "side": 1,
+      "message": "We don\u0027t need to limit it to these paths. Else every addition in list will make us update the doxygen..",
+      "revId": "105dfb5944f8ea07a52c69a8a87d13fd1be6f9be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b565681_cc7060f2",
         "filename": "vpd-manager/include/manager.hpp",
         "patchSetId": 7
@@ -14,6 +31,74 @@
       "writtenOn": "2026-04-14T06:46:06Z",
       "side": 1,
       "message": "should we improve API name, it should suggest what the api is doing.",
+      "revId": "105dfb5944f8ea07a52c69a8a87d13fd1be6f9be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bfcbcbb_be737b25",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-14T06:48:56Z",
+      "side": 1,
+      "message": "This API is performing selective removal of directory. Can we rename the API to be close to what it is performing.\neg: pruneDirectoryTree",
+      "revId": "105dfb5944f8ea07a52c69a8a87d13fd1be6f9be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a443723d_e03a4d75",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-14T06:48:56Z",
+      "side": 1,
+      "message": "Can we move both the APIs to utility?",
+      "revId": "105dfb5944f8ea07a52c69a8a87d13fd1be6f9be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7393a35_ddd89dd9",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 896,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-14T06:48:56Z",
+      "side": 1,
+      "message": "We can reduce the indentation here by checking this condition under with \"!\" and continuing from here itself?",
+      "revId": "105dfb5944f8ea07a52c69a8a87d13fd1be6f9be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "885cbb4b_8835588a",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-14T06:48:56Z",
+      "side": 1,
+      "message": "We can continue from here and reduce the indentation below as else will not be required?",
       "revId": "105dfb5944f8ea07a52c69a8a87d13fd1be6f9be",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
