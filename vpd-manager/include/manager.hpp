@@ -4,6 +4,7 @@
 #include "constants.hpp"
 #include "gpio_monitor.hpp"
 #include "logger.hpp"
+#include "thread_manager.hpp"
 #include "types.hpp"
 #include "worker.hpp"
 
@@ -332,6 +333,9 @@ class Manager
 
     // Shared pointer to logger class.
     std::shared_ptr<Logger> m_logger;
+
+    // unique pointer to Thread Manager object
+    std::unique_ptr<ThreadManager> m_threadManager{nullptr};
 };
 
 } // namespace vpd

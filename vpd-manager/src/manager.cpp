@@ -159,6 +159,8 @@ Manager::Manager(
         m_progressInterface->set_property(
             "Status", std::string(constants::vpdCollectionCompleted));
 #endif
+
+        m_threadManager = std::make_unique<ThreadManager>(m_worker);
     }
     catch (const std::exception& l_ex)
     {
