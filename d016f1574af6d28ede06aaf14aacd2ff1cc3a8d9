@@ -34,6 +34,24 @@
       "parentUuid": "ff7bd84a_aa797bf8",
       "revId": "d016f1574af6d28ede06aaf14aacd2ff1cc3a8d9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "886ec5c9_fc3d07e9",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1332,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-14T13:29:17Z",
+      "side": 1,
+      "message": "Agree with @anupama.b.r1@ibm.com\nWhy do we need an inventory check here? This is a utility methods to get \"getUnexpandedLocationCodeForFru\". If that field is there, it should return the location code else give error.",
+      "parentUuid": "6b4c66fe_af35bc90",
+      "revId": "d016f1574af6d28ede06aaf14aacd2ff1cc3a8d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

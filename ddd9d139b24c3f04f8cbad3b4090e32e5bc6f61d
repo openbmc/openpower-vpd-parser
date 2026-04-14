@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea44b849_196228c9",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-14T13:29:17Z",
+      "side": 1,
+      "message": "The description is not clear. What do you mean by \"JSON object for a single FRU\"?\nIt should clearly state that you are expecting a sub JSON which reflect a single JSON in system config JSON?",
+      "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e10ea94b_47c6c632",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-14T13:29:17Z",
+      "side": 1,
+      "message": "This can be pulled as an independent function? Let\u0027s not keep on extending the base API. It is already almost 100 lines of code.",
+      "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad64ed4d_4ab18b02",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-14T13:29:17Z",
+      "side": 1,
+      "message": "How are we dealing with the error code here?",
+      "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1a27b0f_b1c87109",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-14T13:29:17Z",
+      "side": 1,
+      "message": "Can be optimized?\nm_unexpandedLocCodeToInvPathMap[l_locationCodeRes.value()].emplace_back(l_inventoryPath);",
+      "range": {
+        "startLine": 183,
+        "startChar": 21,
+        "endLine": 197,
+        "endChar": 21
+      },
+      "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
