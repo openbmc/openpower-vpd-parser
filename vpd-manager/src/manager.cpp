@@ -524,58 +524,59 @@ std::string Manager::getExpandedLocationCode(
 {
     if (!isValidUnexpandedLocationCode(i_unexpandedLocationCode))
     {
-        phosphor::logging::elog<types::DbusInvalidArgument>(
-            types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
-            types::InvalidArgument::ARGUMENT_VALUE(
-                i_unexpandedLocationCode.c_str()));
+        //@todo: a PEL used to be logged here using deprecated
+        // phosphor::logging::elog API. Should we still log a PEL here?
+        m_logger->logMessage("Invalid unexpanded location code");
+
+        throw types::DbusInvalidArgument();
     }
 
     if (m_worker == nullptr)
     {
         m_logger->logMessage(
             "Cannot get expanded location code as Worker instance is not initialized.");
-        return std::string{};
+        throw types::DbusInvalidArgument();
     }
 
-    [[maybe_unused]] const auto& l_configManager = m_worker->getConfigManager();
-    [[maybe_unused]] const auto l_inventoryPaths =
+    const auto& l_configManager = m_worker->getConfigManager();
+    const auto l_inventoryPathsResult =
         l_configManager->getInventoryPaths(i_unexpandedLocationCode);
 
+    if (!l_inventoryPathsResult.has_value())
+    {
+        m_logger->logMessage(std::format(
+            "Failed to get inventory path corresponding to location code {}. Error: {}",
+            i_unexpandedLocationCode,
+            commonUtility::getErrCodeMsg(l_inventoryPathsResult.error())));
+
+        throw types::DbusInvalidArgument();
+    }
+
     /*
-        @todo:
         - select one inventory path
         - use selected inventory path to get expanded location code from D-Bus
     */
 
-    const nlohmann::json& l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
-    if (!l_sysCfgJsonObj.contains("frus"))
+    auto l_dbusReadRes = dbusUtility::readDbusProperty(
+        constants::pimServiceName, l_inventoryPathsResult.value().at(0),
+        constants::locationCodeInf, "LocationCode");
+
+    const auto l_expandedLocationCodeRes =
+        std::get_if<std::string>(&l_dbusReadRes);
+
+    if (l_expandedLocationCodeRes)
     {
-        logging::logMessage("Missing frus tag in system config JSON");
-        return {};
+        return *l_expandedLocationCodeRes;
     }
 
-    const nlohmann::json& l_listOfFrus =
-        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
+    // failed to read expanded location code from D-Bus
+    //@todo: a PEL used to be logged here using deprecated
+    // phosphor::logging::elog API. Should we still log a PEL here?
+    m_logger->logMessage(std::format(
+        "Invalid unexpanded location code data type read from D-Bus for {}",
+        i_unexpandedLocationCode));
 
-    for (const auto& l_frus : l_listOfFrus.items())
-    {
-        for (const auto& l_aFru : l_frus.value())
-        {
-            if (l_aFru["extraInterfaces"].contains(
-                    constants::locationCodeInf) &&
-                l_aFru["extraInterfaces"][constants::locationCodeInf].value(
-                    "LocationCode", "") == i_unexpandedLocationCode)
-            {
-                return std::get<std::string>(dbusUtility::readDbusProperty(
-                    l_aFru["serviceName"], l_aFru["inventoryPath"],
-                    constants::locationCodeInf, "LocationCode"));
-            }
-        }
-    }
-    phosphor::logging::elog<types::DbusInvalidArgument>(
-        types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
-        types::InvalidArgument::ARGUMENT_VALUE(
-            i_unexpandedLocationCode.c_str()));
+    throw types::DbusInvalidArgument();
 }
 
 types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
