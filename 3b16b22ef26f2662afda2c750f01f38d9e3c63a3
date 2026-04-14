@@ -1,4 +1,39 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ca15d0b_93594999",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1365,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-14T12:57:01Z",
+      "side": 1,
+      "message": "do we need this check, should we log irrespective of any error code ?",
+      "revId": "3b16b22ef26f2662afda2c750f01f38d9e3c63a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8330e4d5_32ce5edb",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-14T12:57:01Z",
+      "side": 1,
+      "message": "do we need this check, should we log irrespective of any error code ?",
+      "revId": "3b16b22ef26f2662afda2c750f01f38d9e3c63a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
