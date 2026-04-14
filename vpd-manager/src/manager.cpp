@@ -400,7 +400,7 @@ types::DbusVariantType Manager::readKeyword(
 
         if (m_worker.get() != nullptr)
         {
-            l_jsonObj = m_worker->getSysCfgJsonObj();
+            l_jsonObj = m_worker->getSysCfgJsonObj(i_fruPath);
         }
 
         std::error_code ec;
