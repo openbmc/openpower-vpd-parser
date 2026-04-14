@@ -1925,7 +1925,7 @@ inline std::string expandFcsLocationCode(const std::string& i_chassisObjPath,
     // Regex to match chassis/node identifier patterns in FCS location codes:
     // -Nx, -Nxx (node), -SCx, -SCxx, optionally followed by
     // additional segments
-    std::regex l_nScPattern(R"(^-((N|SC)\d{1,2})(-.*)?)");
+    std::regex l_nScPattern(R"(^-((ND?|SC)\d{1,2})(-.*)?)");
 
     std::smatch l_match;
     if (!std::regex_search(l_suffix, l_match, l_nScPattern))
