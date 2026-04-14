@@ -216,19 +216,17 @@ std::expected<bool, error_code> ConfigManager::buildLocCodeToInvPathMapForFru(
 }
 
 std::expected<types::ListOfPaths, error_code> ConfigManager::getInventoryPaths(
-    [[maybe_unused]] const std::string& i_unexpandedLocationCode) const noexcept
+    const std::string& i_unexpandedLocationCode) const noexcept
 {
     try
     {
-        /*
-            @todo:
-            - use std::unordered_map.find() to search for entry in the map
-            - if found,
-                - return the vector of inventory paths
-            - else
-                - return error code
-        */
-        return types::ListOfPaths{};
+        if (auto l_it =
+                m_unexpandedLocCodeToInvPathMap.find(i_unexpandedLocationCode);
+            l_it != m_unexpandedLocCodeToInvPathMap.end())
+        {
+            return l_it->second;
+        }
+        return std::unexpected(error_code::FRU_PATH_NOT_FOUND);
     }
     catch (const std::exception& l_ex)
     {
