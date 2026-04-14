@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfd4cdad_acc78554",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-14T19:19:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea44b849_196228c9",
+      "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e10ea94b_47c6c632",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-14T13:29:17Z",
       "side": 1,
       "message": "This can be pulled as an independent function? Let\u0027s not keep on extending the base API. It is already almost 100 lines of code.",
+      "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3941adc0_82c52499",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-14T19:19:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e10ea94b_47c6c632",
       "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f821cfc_5570155c",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-14T19:19:27Z",
+      "side": 1,
+      "message": "Do you mean \"what is Res?\" \"Res \u003d result\"",
+      "parentUuid": "0570b234_80a1ea9e",
+      "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad64ed4d_4ab18b02",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 11
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-14T13:29:17Z",
       "side": 1,
       "message": "How are we dealing with the error code here?",
+      "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e15d791_85960447",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-14T19:19:27Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "ad64ed4d_4ab18b02",
       "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -82,6 +154,30 @@
       "writtenOn": "2026-04-14T13:29:17Z",
       "side": 1,
       "message": "Can be optimized?\nm_unexpandedLocCodeToInvPathMap[l_locationCodeRes.value()].emplace_back(l_inventoryPath);",
+      "range": {
+        "startLine": 183,
+        "startChar": 21,
+        "endLine": 197,
+        "endChar": 21
+      },
+      "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dececdd_9850f1aa",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-14T19:19:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1a27b0f_b1c87109",
       "range": {
         "startLine": 183,
         "startChar": 21,

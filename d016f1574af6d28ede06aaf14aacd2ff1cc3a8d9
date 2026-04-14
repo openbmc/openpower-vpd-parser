@@ -52,6 +52,24 @@
       "parentUuid": "6b4c66fe_af35bc90",
       "revId": "d016f1574af6d28ede06aaf14aacd2ff1cc3a8d9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "879d51e4_f0a47170",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1332,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-14T19:19:27Z",
+      "side": 1,
+      "message": "Ok. Addressed.",
+      "parentUuid": "886ec5c9_fc3d07e9",
+      "revId": "d016f1574af6d28ede06aaf14aacd2ff1cc3a8d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
