@@ -71,10 +71,15 @@ void Listener::hostStateChangeCallBack(
 
                 Worker l_worker;
 
+                nlohmann::json l_chassisBasedJson{};
+                if (m_configManager)
+                {
+                    l_chassisBasedJson =
+                        m_configManager->getJsonObj(l_objectPath);
+                }
+
                 // Perform recollection.
-                // performVpdRecollection needs m_parsedJson to process.
-                // API needs to receive configJson from caller.
-                l_worker.performVpdRecollection();
+                l_worker.performVpdRecollection(l_chassisBasedJson);
             }
         }
         else
@@ -262,7 +267,7 @@ void Listener::presentPropertyChangeCallback(
             }
 
             *l_present
-                ? l_worker.collectSingleFruVpd(l_objectPath)
+                ? l_worker.collectSingleFruVpd(l_chassisBasedJson, l_objectPath)
                 : l_worker.deleteFruVpd(l_chassisBasedJson, l_objectPath);
         }
         else
