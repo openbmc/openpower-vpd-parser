@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0570b234_80a1ea9e",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-14T14:16:39Z",
+      "side": 1,
+      "message": "why is Res from variable l_locationCodeRes ?",
+      "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad64ed4d_4ab18b02",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 11
