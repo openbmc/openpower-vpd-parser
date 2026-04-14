@@ -96,6 +96,24 @@ class InventoryBackupHandler
     bool moveFiles(const std::filesystem::path& l_src,
                    const std::filesystem::path& l_dest) const noexcept;
 
+    /**
+     * @brief API to check if a directory should be skipped.
+     *
+     * This API checks if a given directory entry should be excluded from
+     * processing.
+     *
+     * Note: Currently it skips processing of system and logical paths as these
+     * paths contain critical data.
+     *
+     * @param[in] i_entry - Directory entry to check.
+     *
+     * @return true if the directory must be skipped from deletion, false
+     * otherwise.
+     *
+     * @throw std::filesystem::filesystem_error, std::bad_alloc exceptions.
+     */
+    bool skipDirectory(const std::filesystem::directory_entry& i_entry) const;
+
     /* Members */
     // inventory manager service name
     std::string m_inventoryManagerServiceName;
