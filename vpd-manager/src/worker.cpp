@@ -1487,7 +1487,8 @@ void Worker::performVpdRecollection()
             // ToDo: Add some logic/trace to know the flow to
             // collectSingleFruVpd has been directed via
             // performVpdRecollection.
-            collectSingleFruVpd(l_fruInventoryPath);
+
+            collectSingleFruVpd(m_parsedJson, l_fruInventoryPath);
         }
         return;
     }
@@ -1500,41 +1501,40 @@ void Worker::performVpdRecollection()
     }
 }
 
-void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
+void Worker::collectSingleFruVpd(const nlohmann::json i_chassisBasedJson,
+                                 const sdbusplus::object_path& i_dbusObjPath)
 {
+    if (i_chassisBasedJson.empty())
+    {
+        m_logger->logMessage(std::format(
+            "Config JSON object is empty. Single FRU VPD collection is not performed for {}",
+            std::string(i_dbusObjPath)));
+        return;
+    }
+
     std::string l_fruPath{};
     uint16_t l_errCode = 0;
 
     try
     {
-        // Check if system config JSON is present
-        if (m_parsedJson.empty())
-        {
-            logging::logMessage(
-                "System config JSON object not present. Single FRU VPD collection is not performed for " +
-                std::string(i_dbusObjPath));
-            return;
-        }
-
         // Get FRU path for the given D-bus object path from JSON
-        l_fruPath = jsonUtility::getFruPathFromJson(m_parsedJson, i_dbusObjPath,
-                                                    l_errCode);
+        l_fruPath = jsonUtility::getFruPathFromJson(i_chassisBasedJson,
+                                                    i_dbusObjPath, l_errCode);
 
         if (l_fruPath.empty())
         {
             if (l_errCode)
             {
-                logging::logMessage(
-                    "Failed to get FRU path for [" +
-                    std::string(i_dbusObjPath) +
-                    "], error : " + commonUtility::getErrCodeMsg(l_errCode) +
-                    " Aborting single FRU VPD collection.");
+                m_logger->logMessage(std::format(
+                    "Failed to get FRU path for [{}]. Error: {}. Aborting single FRU VPD collection.",
+                    std::string(i_dbusObjPath),
+                    commonUtility::getErrCodeMsg(l_errCode)));
                 return;
             }
 
-            logging::logMessage(
-                "D-bus object path not present in JSON. Single FRU VPD collection is not performed for " +
-                std::string(i_dbusObjPath));
+            m_logger->logMessage(std::format(
+                "D-bus object path not present in JSON. Single FRU VPD collection is not performed for : {}",
+                std::string(i_dbusObjPath)));
             return;
         }
 
@@ -1543,8 +1543,8 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
         {
             uint16_t l_errCode = 0;
             bool isFruReplaceableAtRuntime =
-                jsonUtility::isFruReplaceableAtRuntime(m_parsedJson, l_fruPath,
-                                                       l_errCode);
+                jsonUtility::isFruReplaceableAtRuntime(i_chassisBasedJson,
+                                                       l_fruPath, l_errCode);
 
             if (l_errCode)
             {
@@ -1567,8 +1567,8 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
         {
             uint16_t l_errCode = 0;
             bool isFruReplaceableAtStandby =
-                jsonUtility::isFruReplaceableAtStandby(m_parsedJson, l_fruPath,
-                                                       l_errCode);
+                jsonUtility::isFruReplaceableAtStandby(i_chassisBasedJson,
+                                                       l_fruPath, l_errCode);
 
             if (l_errCode)
             {
@@ -1579,8 +1579,8 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
             }
 
             bool isFruReplaceableAtRuntime =
-                jsonUtility::isFruReplaceableAtRuntime(m_parsedJson, l_fruPath,
-                                                       l_errCode);
+                jsonUtility::isFruReplaceableAtRuntime(i_chassisBasedJson,
+                                                       l_fruPath, l_errCode);
 
             if (l_errCode)
             {
@@ -1600,79 +1600,25 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
             }
         }
 
-        vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, types::VpdCollectionStatus::InProgress, m_parsedJson,
-            l_errCode);
-        if (l_errCode)
+        m_parsedJson = i_chassisBasedJson;
+        const auto& [l_status, l_vpdFilePath] = parseAndPublishVPD(l_fruPath);
+
+        if (!l_status)
         {
-            m_logger->logMessage(
-                "Failed to set collection status for path " + l_fruPath +
-                "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
+            m_logger->logMessage(std::format(
+                "VPD collection for EEPROM [{}] failed.", l_vpdFilePath));
         }
 
-        // Parse VPD
-        types::VPDMapVariant l_parsedVpd = parseVpdFile(l_fruPath);
-
-        // If l_parsedVpd is pointing to std::monostate
-        if (l_parsedVpd.index() == 0)
-        {
-            // As empty parsedVpdMap received for some reason, but still
-            // considered VPD collection is completed. Hence FRU collection
-            // Status will be set as completed.
-            m_logger->logMessage("Empty parsed VPD map received for " +
-                                 std::string(i_dbusObjPath));
-
-            // Stale data from the previous boot can be present on the
-            // system. so clearing of data.
-            vpdSpecificUtility::resetObjTreeVpd(std::string(i_dbusObjPath),
-                                                m_parsedJson, l_errCode);
-
-            if (l_errCode)
-            {
-                m_logger->logMessage(
-                    "Failed to reset data under PIM for path [" +
-                    std::string(i_dbusObjPath) +
-                    "] error : " + commonUtility::getErrCodeMsg(l_errCode));
-            }
-        }
-        else
-        {
-            types::ObjectMap l_dbusObjectMap;
-            // Get D-bus object map from worker class
-            populateDbus(l_parsedVpd, l_dbusObjectMap, l_fruPath);
-
-            if (l_dbusObjectMap.empty())
-            {
-                throw std::runtime_error(
-                    "Failed to create D-bus object map. Single FRU VPD collection failed for " +
-                    std::string(i_dbusObjPath));
-            }
-
-            // Call method to update the dbus
-            if (!dbusUtility::publishVpdOnDBus(move(l_dbusObjectMap)))
-            {
-                throw std::runtime_error(
-                    "publishVpdOnDBus failed. Single FRU VPD collection failed for " +
-                    std::string(i_dbusObjPath));
-            }
-        }
-
-        vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, types::VpdCollectionStatus::Completed, m_parsedJson,
-            l_errCode);
-        if (l_errCode)
-        {
-            m_logger->logMessage(
-                "Failed to set collection status as completed for path " +
-                l_fruPath +
-                "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
-        }
+        // Decrement the thread count.
+        m_mutex.lock();
+        m_activeCollectionThreadCount--;
+        m_mutex.unlock();
     }
     catch (const std::exception& l_error)
     {
         std::string l_errMsg;
         vpdSpecificUtility::resetObjTreeVpd(std::string(i_dbusObjPath),
-                                            m_parsedJson, l_errCode);
+                                            i_chassisBasedJson, l_errCode);
 
         if (l_errCode)
         {
@@ -1682,7 +1628,7 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
         }
 
         vpdSpecificUtility::setCollectionStatusProperty(
-            l_fruPath, types::VpdCollectionStatus::Failed, m_parsedJson,
+            l_fruPath, types::VpdCollectionStatus::Failed, i_chassisBasedJson,
             l_errCode);
         if (l_errCode)
         {

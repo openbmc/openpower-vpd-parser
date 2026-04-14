@@ -79,8 +79,7 @@ void Listener::hostStateChangeCallBack(
                 Worker l_worker;
 
                 // Perform recollection.
-                // performVpdRecollection needs m_parsedJson to process.
-                // API needs to receive configJson from caller.
+                // TODO: API needs to receive configJson from the caller.
                 l_worker.performVpdRecollection();
             }
         }
@@ -266,7 +265,7 @@ void Listener::presentPropertyChangeCallback(
             if (m_configManager.get() == nullptr)
             {
                 throw std::runtime_error(std::format(
-                    "PresentPropChanged: Config manager object not found, can't perform FRU VPD deletion for: {}",
+                    "PresentPropChanged: Config manager object not found, can't perform FRU VPD collection/deletion for: {}",
                     l_objectPath));
             }
 
@@ -275,7 +274,7 @@ void Listener::presentPropertyChangeCallback(
             Worker l_worker;
 
             *l_present
-                ? l_worker.collectSingleFruVpd(l_objectPath)
+                ? l_worker.collectSingleFruVpd(l_chassisBasedJson, l_objectPath)
                 : l_worker.deleteFruVpd(l_chassisBasedJson, l_objectPath);
         }
         else
