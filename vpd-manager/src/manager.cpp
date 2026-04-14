@@ -509,7 +509,14 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
 
     if (m_worker.get() != nullptr)
     {
-        m_worker->collectSingleFruVpd(i_dbusObjPath);
+        nlohmann::json l_configJsonObj{};
+        if (m_configManager)
+        {
+            l_configJsonObj =
+                m_configManager->getJsonObj(std::string(i_dbusObjPath));
+        }
+
+        m_worker->collectSingleFruVpd(l_configJsonObj, i_dbusObjPath);
     }
 }
 
@@ -886,7 +893,14 @@ void Manager::performVpdRecollection()
 {
     if (m_worker.get() != nullptr)
     {
-        m_worker->performVpdRecollection();
+        nlohmann::json l_configJsonObj{};
+
+        if (m_configManager)
+        {
+            l_configJsonObj = m_configManager->getJsonObj();
+        }
+
+        m_worker->performVpdRecollection(l_configJsonObj);
     }
 }
 

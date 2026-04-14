@@ -184,16 +184,20 @@ class Worker
      * current state of the system matches with the state at which the FRU is
      * allowed for VPD recollection.
      *
+     * @param[in] i_parsedJson - chassis based json object
      * @param[in] i_dbusObjPath - D-bus object path
      */
-    void collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath);
+    void collectSingleFruVpd(const nlohmann::json i_chassisBasedJson,
+                             const sdbusplus::object_path& i_dbusObjPath);
 
     /**
      * @brief  Perform VPD recollection
      * This api will trigger parser to perform VPD recollection for FRUs that
-     * can be replaced at standby.
+     * can be replaced at standby.i
+     *
+     * @param[in] i_parsedJson - chassis based json object
      */
-    void performVpdRecollection();
+    void performVpdRecollection(const nlohmann::json i_chassisBasedJson);
 
     /**
      * @brief API to process FRU collection
