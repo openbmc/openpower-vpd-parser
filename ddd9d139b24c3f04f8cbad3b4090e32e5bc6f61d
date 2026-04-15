@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6edeb654_47888a3a",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-15T13:48:06Z",
+      "side": 1,
+      "message": "\"Res\" just signifies that the variable doesn\u0027t directly contain the location code, but may also alternatively hold an error value.",
+      "parentUuid": "28e904a5_1a176320",
+      "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad64ed4d_4ab18b02",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 11
