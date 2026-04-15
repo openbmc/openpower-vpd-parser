@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eba13d99_7e94f12f",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T09:59:19Z",
+      "side": 1,
+      "message": "Would like to have some more details here.",
+      "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e208ca21_e7ea563b",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T09:59:19Z",
+      "side": 1,
+      "message": "Have a config Manager shared pointer as well as that is not going to be via worker going forward.",
+      "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "150f4731_a9c21ac9",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T09:59:19Z",
+      "side": 1,
+      "message": "What is the use case of this API?",
+      "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dc4745f_1bcb50a7",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T09:59:19Z",
+      "side": 1,
+      "message": "Doxygen does not have parameter details.",
+      "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9839bf80_421a14b5",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T09:59:19Z",
+      "side": 1,
+      "message": "We will need a member to hold worker object as well.",
+      "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cad3fe3a_904822e0",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T09:59:19Z",
+      "side": 1,
+      "message": "This can be checked in place, don;t need an API for this.",
+      "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
