@@ -161,7 +161,7 @@ void Listener::assetTagChangeCallback(
             {
                 // Call Notify to persist the AssetTag
                 types::ObjectMap l_objectMap = {
-                    {sdbusplus::message::object_path(constants::systemInvPath),
+                    {sdbusplus::object_path(constants::systemInvPath),
                      {{constants::assetTagInf, {{"AssetTag", *l_assetTag}}}}}};
 
                 // Call method to update the dbus

@@ -820,8 +820,7 @@ inline std::string getServiceNameFromConnectionId(
         l_method.append(l_pid);
         l_result = l_bus.call(l_method);
 
-        auto l_unitObjectPath =
-            l_result.unpack<sdbusplus::message::object_path>();
+        auto l_unitObjectPath = l_result.unpack<sdbusplus::object_path>();
 
         // use unit object path to get service name
         l_method = l_bus.new_method_call(
