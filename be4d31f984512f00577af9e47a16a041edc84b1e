@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0002f787_9dcc09d4",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T13:35:01Z",
+      "side": 1,
+      "message": "\"ForFru\" at the end is confusing me.\nIt is a map of Location code to inventory path(s) period. Any additional information is diluting the purpose here.\n\nWith For Fru comes to my mind questions like\n-\u003e Which Fru?\n-\u003e All Fru\u003e\n-\u003e Sub Fru?\n-\u003e Parent Fru .... etc.\n\nLets keep it crisp and simple, close to it s purpose.... \nsome thing like buildLocCodeToInvPathMap?",
+      "parentUuid": "7dcb32db_c4579bc3",
+      "revId": "be4d31f984512f00577af9e47a16a041edc84b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f096574_acf59fb5",
         "filename": "vpd-manager/include/config_manager.hpp",
         "patchSetId": 12
@@ -85,6 +103,23 @@
       "side": 1,
       "message": "What\u0027s the benefit of the extra \u0027s\u0027? The documentation makes it clear there can be multiple inventory paths for a given location code.",
       "parentUuid": "2f096574_acf59fb5",
+      "revId": "be4d31f984512f00577af9e47a16a041edc84b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6bee977_ff836440",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T13:35:01Z",
+      "side": 1,
+      "message": "Your comment is perfect, so should be the function name.",
       "revId": "be4d31f984512f00577af9e47a16a041edc84b1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

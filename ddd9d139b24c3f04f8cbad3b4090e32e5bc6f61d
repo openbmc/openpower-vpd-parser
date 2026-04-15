@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "28e904a5_1a176320",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T13:35:01Z",
+      "side": 1,
+      "message": "+1 I did not get the objective of res in the name. \n\nIf I read it somewhere below the code, the name in any way does not tell that it holds un-expanded location code.\nIt holds some location code result... what is that result?",
+      "parentUuid": "5f821cfc_5570155c",
+      "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad64ed4d_4ab18b02",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 11
