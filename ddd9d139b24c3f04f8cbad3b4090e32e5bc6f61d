@@ -142,6 +142,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b62858e_bdd0c5e6",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-15T16:00:50Z",
+      "side": 1,
+      "message": "Addressing this to make things simple.",
+      "parentUuid": "6edeb654_47888a3a",
+      "revId": "ddd9d139b24c3f04f8cbad3b4090e32e5bc6f61d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad64ed4d_4ab18b02",

@@ -108,6 +108,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f43595_7b79c185",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-15T16:00:50Z",
+      "side": 1,
+      "message": "The documentation makes that clear though. But I agree, some developers may forget to look at documentation, so updating the name with an extra `s` here.\n\nAlso, removing the \"forFru\" part to keep things simple.",
+      "parentUuid": "16cd4c9e_0dd023fd",
+      "revId": "be4d31f984512f00577af9e47a16a041edc84b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f096574_acf59fb5",
@@ -143,6 +161,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38890648_c36492f6",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-15T16:00:50Z",
+      "side": 1,
+      "message": "I agree, some developers may forget to look at documentation, so updating the name with an extra s here.",
+      "parentUuid": "e25b1364_fddd8e8f",
+      "revId": "be4d31f984512f00577af9e47a16a041edc84b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6bee977_ff836440",
@@ -156,6 +192,24 @@
       "writtenOn": "2026-04-15T13:35:01Z",
       "side": 1,
       "message": "Your comment is perfect, so should be the function name.",
+      "revId": "be4d31f984512f00577af9e47a16a041edc84b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2145d953_d3b5d5c5",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-15T16:00:50Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "d6bee977_ff836440",
       "revId": "be4d31f984512f00577af9e47a16a041edc84b1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -209,6 +263,24 @@
       "side": 1,
       "message": "we referring json object as *JsonObj irrespective of its type in the other parts for the code and Array should be used with plural naming convention, which sounds clearer ?",
       "parentUuid": "3e157347_1136c124",
+      "revId": "be4d31f984512f00577af9e47a16a041edc84b1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d32c594_907b9045",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-15T16:00:50Z",
+      "side": 1,
+      "message": "An array by definition means a collection of homogeneous variables. So plurality is inbuilt in the definition. Also, we have used `l_subFruJsonArray` in line 122 of config_manager.cpp earlier.",
+      "parentUuid": "e7dd1a13_a4ca2d0a",
       "revId": "be4d31f984512f00577af9e47a16a041edc84b1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
