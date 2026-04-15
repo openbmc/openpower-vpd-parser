@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2bc62717_45f717df",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T13:20:08Z",
+      "side": 1,
+      "message": "Why do you think so @anupama.b.r1@ibm.com? Could you please put down, what are the pros and cons of the change requested?",
+      "parentUuid": "65e24787_131cdfc6",
+      "revId": "61f741545f8efd8d729bffdb480198a9a18f37ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b410545c_3aa2eb40",
         "filename": "vpd-manager/include/utility/common_utility.hpp",
         "patchSetId": 10
@@ -37,6 +55,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dd0b065e_97aeb250",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T13:20:08Z",
+      "side": 1,
+      "message": "No, That should not be required as we don\u0027t want error to propagate to the parent call. We can handle error code after each recursive call return as suggested below.\n\nThis way we will preserve the format in which we want utility methods to be.",
+      "parentUuid": "b410545c_3aa2eb40",
+      "revId": "61f741545f8efd8d729bffdb480198a9a18f37ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88307c00_134bbf0e",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T13:20:08Z",
+      "side": 1,
+      "message": "Instead of logging here, just return the error code from here.",
+      "revId": "61f741545f8efd8d729bffdb480198a9a18f37ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c051b37_ced67fcb",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T13:20:08Z",
+      "side": 1,
+      "message": "Th error code defined after try can be re-used? Just need to clear here for every iteration?",
+      "revId": "61f741545f8efd8d729bffdb480198a9a18f37ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94a1dcc4_d8ce63b3",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T13:20:08Z",
+      "side": 1,
+      "message": "Check for error code here and log the message here.\nSomething like:\n\ndeleteDirectory(l_entry.path(), o_directoryRemoved, o_errCode);\nif (o_errCode)\n{\n    Logger::getLoggerInstance()-\u003elogMessage(std::format(\n            \"Error while processing directory: {}\",\n             l_entry.path().string()));\n             o_errCode \u003d 0;\n\n}\n\nresetting the error code is important as we don\u0027t want it to propagate to parent call.",
+      "revId": "61f741545f8efd8d729bffdb480198a9a18f37ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b97fa6a_3ac0d821",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 10
@@ -48,6 +135,24 @@
       "writtenOn": "2026-04-15T11:06:42Z",
       "side": 1,
       "message": "as this api skips certain directories, doesn\u0027t remove given directory entirely, should this be part of IbmHandler ?",
+      "revId": "61f741545f8efd8d729bffdb480198a9a18f37ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8b7f014_e90f84c2",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-15T13:20:08Z",
+      "side": 1,
+      "message": "This is a generic functionality, can be used outside OEM code. At max we can wrap the list defined in utility under OEM tag.",
+      "parentUuid": "5b97fa6a_3ac0d821",
       "revId": "61f741545f8efd8d729bffdb480198a9a18f37ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
