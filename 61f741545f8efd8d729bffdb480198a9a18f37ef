@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65e24787_131cdfc6",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-15T11:06:42Z",
+      "side": 1,
+      "message": "should we use o_directoryRemoved as return type instead ?",
+      "revId": "61f741545f8efd8d729bffdb480198a9a18f37ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b410545c_3aa2eb40",
+        "filename": "vpd-manager/include/utility/common_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-15T11:06:42Z",
+      "side": 1,
+      "message": "as its recursive api, this should not be reset every time, otherwise will loose the prev error code ?\nand also latest error code will replace old error code.\nshould we avoid o_errCode, and just relay on the \"o_directoryRemoved\" in the caller ?",
+      "revId": "61f741545f8efd8d729bffdb480198a9a18f37ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b97fa6a_3ac0d821",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-15T11:06:42Z",
+      "side": 1,
+      "message": "as this api skips certain directories, doesn\u0027t remove given directory entirely, should this be part of IbmHandler ?",
+      "revId": "61f741545f8efd8d729bffdb480198a9a18f37ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
