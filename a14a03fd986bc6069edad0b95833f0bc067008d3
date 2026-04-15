@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39d859a7_5bece8dc",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-04-15T15:17:42Z",
+      "side": 1,
+      "message": "Ok , I have added few more lines explaining the details of this class .",
+      "parentUuid": "eba13d99_7e94f12f",
+      "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e208ca21_e7ea563b",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-15T09:59:19Z",
       "side": 1,
       "message": "Have a config Manager shared pointer as well as that is not going to be via worker going forward.",
+      "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b952e4ef_74938539",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-04-15T15:17:42Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "e208ca21_e7ea563b",
       "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a504d19d_2995e2ae",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-04-15T15:17:42Z",
+      "side": 1,
+      "message": "Removed the api.",
+      "parentUuid": "150f4731_a9c21ac9",
+      "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dc4745f_1bcb50a7",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-15T09:59:19Z",
       "side": 1,
       "message": "Doxygen does not have parameter details.",
+      "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c08fff4_0180d2ce",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-04-15T15:17:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dc4745f_1bcb50a7",
       "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36b52ba2_669e0203",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-04-15T15:17:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9839bf80_421a14b5",
+      "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cad3fe3a_904822e0",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-04-15T09:59:19Z",
       "side": 1,
       "message": "This can be checked in place, don;t need an API for this.",
+      "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efbc21f8_8331bc34",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-04-15T15:17:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cad3fe3a_904822e0",
       "revId": "a14a03fd986bc6069edad0b95833f0bc067008d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
