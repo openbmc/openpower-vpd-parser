@@ -578,58 +578,34 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
     const std::string& i_unexpandedLocationCode,
     [[maybe_unused]] const uint16_t i_nodeNumber)
 {
-    types::ListOfPaths l_inventoryPaths;
-
     if (!isValidUnexpandedLocationCode(i_unexpandedLocationCode))
     {
-        phosphor::logging::elog<types::DbusInvalidArgument>(
-            types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
-            types::InvalidArgument::ARGUMENT_VALUE(
-                i_unexpandedLocationCode.c_str()));
+        //@todo: should we log PEL here?
+        m_logger->logMessage("Invalid unexpanded location code");
+        return types::ListOfPaths{};
     }
 
     if (m_worker == nullptr)
     {
         m_logger->logMessage(
             "Cannot get FRUs by unexpanded location code as Worker instance is not initialized");
-        return l_inventoryPaths;
+        return types::ListOfPaths{};
     }
 
-    const nlohmann::json& l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
-    if (!l_sysCfgJsonObj.contains("frus"))
+    const auto& l_configManager = m_worker->getConfigManager();
+    const auto l_inventoryPathsResult =
+        l_configManager->getInventoryPaths(i_unexpandedLocationCode);
+
+    if (!l_inventoryPathsResult.has_value())
     {
-        logging::logMessage("Missing frus tag in system config JSON");
-        return l_inventoryPaths;
+        //@todo: should we log PEL here?
     }
-
-    const nlohmann::json& l_listOfFrus =
-        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
-
-    for (const auto& l_frus : l_listOfFrus.items())
+    else
     {
-        for (const auto& l_aFru : l_frus.value())
-        {
-            if (l_aFru["extraInterfaces"].contains(
-                    constants::locationCodeInf) &&
-                l_aFru["extraInterfaces"][constants::locationCodeInf].value(
-                    "LocationCode", "") == i_unexpandedLocationCode)
-            {
-                l_inventoryPaths.push_back(
-                    l_aFru.at("inventoryPath")
-                        .get_ref<const nlohmann::json::string_t&>());
-            }
-        }
+        return l_inventoryPathsResult.value();
     }
 
-    if (l_inventoryPaths.empty())
-    {
-        phosphor::logging::elog<types::DbusInvalidArgument>(
-            types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
-            types::InvalidArgument::ARGUMENT_VALUE(
-                i_unexpandedLocationCode.c_str()));
-    }
-
-    return l_inventoryPaths;
+    return types::ListOfPaths{};
 }
 
 std::string Manager::getHwPath(
