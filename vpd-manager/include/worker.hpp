@@ -171,8 +171,7 @@ class Worker
      *
      * @param[in] i_dbusObjPath - D-bus object path
      */
-    void collectSingleFruVpd(
-        const sdbusplus::message::object_path& i_dbusObjPath);
+    void collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath);
 
     /**
      * @brief  Perform VPD recollection

@@ -54,12 +54,12 @@ using DbusVariantType = std::variant<
     BinaryVector,
     std::vector<uint32_t>,
     std::vector<uint16_t>,
-    sdbusplus::message::object_path,
+    sdbusplus::object_path,
     std::tuple<uint64_t, std::vector<std::tuple<std::string, std::string, double, uint64_t>>>,
     std::vector<std::tuple<std::string, std::string>>,
     std::vector<std::tuple<uint32_t, std::vector<uint32_t>>>,
     std::vector<std::tuple<uint32_t, size_t>>,
-    std::vector<std::tuple<sdbusplus::message::object_path, std::string,
+    std::vector<std::tuple<sdbusplus::object_path, std::string,
                            std::string, std::string>>,
     PendingBIOSAttrs
  >;
@@ -101,7 +101,7 @@ using VPDKWdValueMap = std::variant<IPZKwdValueMap, KeywordVpdMap>;
 using PropertyMap = std::map<std::string, DbusVariantType>;
 /* Map<Interface<Property, Value>>*/
 using InterfaceMap = std::map<std::string, PropertyMap>;
-using ObjectMap = std::map<sdbusplus::message::object_path, InterfaceMap>;
+using ObjectMap = std::map<sdbusplus::object_path, InterfaceMap>;
 
 using KwSize = uint8_t;
 using RecordId = uint8_t;
@@ -136,7 +136,7 @@ using IpzType = std::tuple<Record, Keyword>;
 using ReadVpdParams = std::variant<IpzType, Keyword>;
 using WriteVpdParams = std::variant<IpzData, KwData>;
 
-using ListOfPaths = std::vector<sdbusplus::message::object_path>;
+using ListOfPaths = std::vector<sdbusplus::object_path>;
 using RecordData = std::tuple<RecordOffset, RecordLength, ECCOffset, ECCLength>;
 
 using DbusInvalidArgument =
