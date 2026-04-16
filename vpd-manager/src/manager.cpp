@@ -585,58 +585,43 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
     const std::string& i_unexpandedLocationCode,
     [[maybe_unused]] const uint16_t i_nodeNumber)
 {
-    types::ListOfPaths l_inventoryPaths;
-
     if (!isValidUnexpandedLocationCode(i_unexpandedLocationCode))
     {
-        phosphor::logging::elog<types::DbusInvalidArgument>(
-            types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
-            types::InvalidArgument::ARGUMENT_VALUE(
-                i_unexpandedLocationCode.c_str()));
+        //@todo: a PEL used to be logged here using deprecated
+        // phosphor::logging::elog API. Should we still log a PEL here?
+        m_logger->logMessage(std::format("Invalid unexpanded location code: {}",
+                                         i_unexpandedLocationCode));
+
+        throw types::DbusInvalidArgument();
     }
 
     if (m_worker == nullptr)
     {
-        m_logger->logMessage(
-            "Cannot get FRUs by unexpanded location code as Worker instance is not initialized");
-        return l_inventoryPaths;
+        m_logger->logMessage(std::format(
+            "Cannot get FRUs by unexpanded location code for {} as Worker instance is not initialized",
+            i_unexpandedLocationCode));
+        throw types::DbusInvalidArgument();
     }
 
-    const nlohmann::json& l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
-    if (!l_sysCfgJsonObj.contains("frus"))
+    const auto& l_configManager = m_worker->getConfigManager();
+    const auto l_inventoryPathsResult =
+        l_configManager->getInventoryPaths(i_unexpandedLocationCode);
+
+    if (!l_inventoryPathsResult.has_value())
     {
-        logging::logMessage("Missing frus tag in system config JSON");
-        return l_inventoryPaths;
+        //@todo: a PEL used to be logged here using deprecated
+        // phosphor::logging::elog API. Should we still log a PEL here?
+        m_logger->logMessage(std::format(
+            "Failed to get inventory paths for unexpanded location code: {}. Error: {}",
+            i_unexpandedLocationCode,
+            commonUtility::getErrCodeMsg(l_inventoryPathsResult.error())));
+
+        throw types::DbusInvalidArgument();
     }
-
-    const nlohmann::json& l_listOfFrus =
-        l_sysCfgJsonObj["frus"].get_ref<const nlohmann::json::object_t&>();
-
-    for (const auto& l_frus : l_listOfFrus.items())
+    else
     {
-        for (const auto& l_aFru : l_frus.value())
-        {
-            if (l_aFru["extraInterfaces"].contains(
-                    constants::locationCodeInf) &&
-                l_aFru["extraInterfaces"][constants::locationCodeInf].value(
-                    "LocationCode", "") == i_unexpandedLocationCode)
-            {
-                l_inventoryPaths.push_back(
-                    l_aFru.at("inventoryPath")
-                        .get_ref<const nlohmann::json::string_t&>());
-            }
-        }
+        return l_inventoryPathsResult.value();
     }
-
-    if (l_inventoryPaths.empty())
-    {
-        phosphor::logging::elog<types::DbusInvalidArgument>(
-            types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
-            types::InvalidArgument::ARGUMENT_VALUE(
-                i_unexpandedLocationCode.c_str()));
-    }
-
-    return l_inventoryPaths;
 }
 
 std::string Manager::getHwPath(const sdbusplus::object_path& i_dbusObjPath)
