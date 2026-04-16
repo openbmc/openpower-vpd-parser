@@ -22,6 +22,30 @@
       },
       "revId": "497c8c128d837975b59dfdee102a021af5e46307",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16555fd1_7ff99383",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-04-16T11:05:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0467b7f_6b02ad48",
+      "range": {
+        "startLine": 43,
+        "startChar": 18,
+        "endLine": 43,
+        "endChar": 41
+      },
+      "revId": "497c8c128d837975b59dfdee102a021af5e46307",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
