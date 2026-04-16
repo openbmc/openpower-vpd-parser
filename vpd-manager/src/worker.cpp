@@ -822,23 +822,26 @@ bool Worker::processPostAction(
 
 types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
 {
+    uint16_t l_errCode = 0;
+    const std::string& l_primaryFruPath =
+        jsonUtility::getFruPathFromJson(m_parsedJson, i_vpdFilePath, l_errCode);
+
+    if (l_errCode)
+    {
+        logging::logMessage(std::format(
+            "Failed to get FRU path for path [{}], error: {}. Aborting VPD parsing.",
+            i_vpdFilePath, commonUtility::getErrCodeMsg(l_errCode)));
+        return types::VPDMapVariant{};
+    }
+
     try
     {
-        uint16_t l_errCode = 0;
-
-        if (i_vpdFilePath.empty())
-        {
-            throw std::runtime_error(
-                std::string(__FUNCTION__) +
-                " Empty VPD file path passed. Abort processing");
-        }
-
         bool isPreActionRequired = false;
-        if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
+        if (jsonUtility::isActionRequired(m_parsedJson, l_primaryFruPath,
                                           "preAction", "collection", l_errCode))
         {
             isPreActionRequired = true;
-            if (!processPreAction(i_vpdFilePath, "collection", l_errCode))
+            if (!processPreAction(l_primaryFruPath, "collection", l_errCode))
             {
                 if (l_errCode == error_code::DEVICE_NOT_PRESENT)
                 {
@@ -848,7 +851,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
 
                     // since pre action is reporting device not present, execute
                     // post fail action
-                    checkAndExecutePostFailAction(i_vpdFilePath, "collection");
+                    checkAndExecutePostFailAction(l_primaryFruPath,
+                                                  "collection");
 
                     // Presence pin has been read successfully and has been read
                     // as false, so this is not a failure case, hence returning
@@ -889,11 +893,11 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
         // any post action in the flow of collection.
         // Note: Don't change the order, post action needs to be processed only
         // after collection for FRU is successfully done.
-        if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
+        if (jsonUtility::isActionRequired(m_parsedJson, l_primaryFruPath,
                                           "postAction", "collection",
                                           l_errCode))
         {
-            if (!processPostAction(i_vpdFilePath, "collection", l_parsedVpd))
+            if (!processPostAction(l_primaryFruPath, "collection", l_parsedVpd))
             {
                 // Post action was required but failed while executing.
                 // Behaviour can be undefined.
@@ -925,7 +929,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
             i_vpdFilePath + " due to error: " + l_ex.what()};
 
         // If post fail action is required, execute it.
-        checkAndExecutePostFailAction(i_vpdFilePath, "collection");
+        checkAndExecutePostFailAction(l_primaryFruPath, "collection");
 
         if (typeid(l_ex) == typeid(DataException))
         {
@@ -963,11 +967,29 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                 "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        const types::VPDMapVariant& parsedVpdMap = parseVpdFile(i_vpdFilePath);
-        if (!std::holds_alternative<std::monostate>(parsedVpdMap))
+        types::VPDMapVariant l_parsedVpdMap = parseVpdFile(i_vpdFilePath);
+
+        l_errCode = 0;
+        const std::string l_redundantEepromPath =
+            jsonUtility::getRedundantEepromPathFromJson(
+                m_parsedJson, i_vpdFilePath, l_errCode);
+
+        if (std::holds_alternative<std::monostate>(l_parsedVpdMap) &&
+            !l_redundantEepromPath.empty())
+        {
+            m_logger->logMessage(
+                std::format(
+                    "Triggerring vpd collection from redundant path [ {} ]",
+                    l_redundantEepromPath),
+                PlaceHolder::COLLECTION);
+
+            l_parsedVpdMap = parseVpdFile(l_redundantEepromPath);
+        }
+
+        if (!std::holds_alternative<std::monostate>(l_parsedVpdMap))
         {
             types::ObjectMap objectInterfaceMap;
-            populateDbus(parsedVpdMap, objectInterfaceMap, i_vpdFilePath);
+            populateDbus(l_parsedVpdMap, objectInterfaceMap, i_vpdFilePath);
 
             // Call dbus method to update on dbus
             if (!dbusUtility::publishVpdOnDBus(move(objectInterfaceMap)))
