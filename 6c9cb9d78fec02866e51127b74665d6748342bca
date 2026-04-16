@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66a3ba79_c5c09386",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-16T15:32:23Z",
+      "side": 1,
+      "message": "why now ?",
+      "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2541c519_7eaaa883",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-16T15:32:23Z",
+      "side": 1,
+      "message": "what is the purpose of thread manager class is missing ?",
+      "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4222922e_8580aa9e",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-16T15:32:23Z",
+      "side": 1,
+      "message": "for VPD collection ?",
+      "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcb8cc8e_a7cbee68",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-16T15:32:23Z",
+      "side": 1,
+      "message": "publishing VPD collection status ?",
+      "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffbe313f_01f5c3ac",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-16T15:32:23Z",
+      "side": 1,
+      "message": "should we declare these variables as const ?",
+      "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fff6480_6dfd40e2",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-16T15:32:23Z",
+      "side": 1,
+      "message": "should we add new compile time flag instead, so it will be easy to enable for testing ?",
+      "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
