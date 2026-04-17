@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd44eccf_cceed9d7",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-17T05:32:09Z",
+      "side": 1,
+      "message": "Also instead of returning empty string, lets return the input parameter in case of any error. That is also what doxygen says.",
+      "revId": "3e7bc3bb2b29549ba888095c72686da622bde7b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3d95e21_941e64da",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-17T05:32:09Z",
+      "side": 1,
+      "message": "Why are we returning unexpanded location code from an API that expects expanded location code to be returned?",
+      "revId": "3e7bc3bb2b29549ba888095c72686da622bde7b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48760647_39e8a016",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-17T05:32:09Z",
+      "side": 1,
+      "message": "How are you sure that at the point when this API is getting called. Location code are expanded or unexpanded?",
+      "revId": "3e7bc3bb2b29549ba888095c72686da622bde7b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
