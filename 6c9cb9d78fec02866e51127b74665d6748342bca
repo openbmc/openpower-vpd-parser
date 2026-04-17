@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c970493_2d671c9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-04-17T05:50:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66a3ba79_c5c09386",
+      "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2541c519_7eaaa883",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-16T15:32:23Z",
       "side": 1,
       "message": "what is the purpose of thread manager class is missing ?",
+      "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeba4615_39d66205",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-04-17T05:50:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2541c519_7eaaa883",
       "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07ddc60a_de570027",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-04-17T05:50:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4222922e_8580aa9e",
+      "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fcb8cc8e_a7cbee68",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-16T15:32:23Z",
       "side": 1,
       "message": "publishing VPD collection status ?",
+      "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54da4558_415aa6b5",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-04-17T05:50:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcb8cc8e_a7cbee68",
       "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe6fd68c_33fe726d",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-04-17T05:50:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffbe313f_01f5c3ac",
+      "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fff6480_6dfd40e2",
@@ -99,6 +189,24 @@
       "writtenOn": "2026-04-16T15:32:23Z",
       "side": 1,
       "message": "should we add new compile time flag instead, so it will be easy to enable for testing ?",
+      "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bd6d8e5_fd986fce",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-04-17T05:50:19Z",
+      "side": 1,
+      "message": "As of now it has been kept as #if 0 to avoid meson changes, we will bring in conditional compilation flag in future phases of implementation.",
+      "parentUuid": "3fff6480_6dfd40e2",
       "revId": "6c9cb9d78fec02866e51127b74665d6748342bca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
