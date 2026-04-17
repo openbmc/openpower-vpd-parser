@@ -51,7 +51,7 @@ Manager::Manager(
         // For backward compatibility. Should be deprecated.
         iFace->register_method(
             "WriteKeyword",
-            [this](const sdbusplus::message::object_path i_path,
+            [this](const sdbusplus::object_path i_path,
                    const std::string i_recordName, const std::string i_keyword,
                    const types::BinaryVector i_value) -> int {
                 return this->updateKeyword(
@@ -84,13 +84,13 @@ Manager::Manager(
 
         iFace->register_method(
             "CollectFRUVPD",
-            [this](const sdbusplus::message::object_path& i_dbusObjPath) {
+            [this](const sdbusplus::object_path& i_dbusObjPath) {
                 this->collectSingleFruVpd(i_dbusObjPath);
             });
 
         iFace->register_method(
             "deleteFRUVPD",
-            [this](const sdbusplus::message::object_path& i_dbusObjPath) {
+            [this](const sdbusplus::object_path& i_dbusObjPath) {
                 this->deleteSingleFruVpd(i_dbusObjPath);
             });
 
@@ -119,8 +119,9 @@ Manager::Manager(
 
         iFace->register_method(
             "GetHardwarePath",
-            [this](const sdbusplus::message::object_path& i_dbusObjPath)
-                -> std::string { return this->getHwPath(i_dbusObjPath); });
+            [this](const sdbusplus::object_path& i_dbusObjPath) -> std::string {
+                return this->getHwPath(i_dbusObjPath);
+            });
 
         iFace->register_method("PerformVPDRecollection", [this]() {
             this->performVpdRecollection();
@@ -444,8 +445,7 @@ types::DbusVariantType Manager::readKeyword(
     }
 }
 
-void Manager::collectSingleFruVpd(
-    const sdbusplus::message::object_path& i_dbusObjPath)
+void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
 {
     if (m_vpdCollectionStatus != constants::vpdCollectionCompleted)
     {
@@ -461,8 +461,7 @@ void Manager::collectSingleFruVpd(
     }
 }
 
-void Manager::deleteSingleFruVpd(
-    const sdbusplus::message::object_path& i_dbusObjPath)
+void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
 {
     try
     {
@@ -634,8 +633,7 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
     return l_inventoryPaths;
 }
 
-std::string Manager::getHwPath(
-    const sdbusplus::message::object_path& i_dbusObjPath)
+std::string Manager::getHwPath(const sdbusplus::object_path& i_dbusObjPath)
 {
     // Dummy code to suppress unused variable warning. To be removed.
     logging::logMessage(std::string(i_dbusObjPath));
