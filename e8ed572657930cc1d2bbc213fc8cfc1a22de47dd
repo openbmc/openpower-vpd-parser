@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d319b36f_0dcfabb2",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-20T15:38:01Z",
+      "side": 1,
+      "message": "I referred the updated document, this should be fine.",
+      "parentUuid": "21d617ef_259ca7f1",
+      "revId": "e8ed572657930cc1d2bbc213fc8cfc1a22de47dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6821b2b7_e6851505",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "177f076e_a2587c3a",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-20T15:38:01Z",
+      "side": 1,
+      "message": "I referred the updated document, this should be fine.",
+      "parentUuid": "6821b2b7_e6851505",
+      "revId": "e8ed572657930cc1d2bbc213fc8cfc1a22de47dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5f4ba9c_f50e930d",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-04-20T15:34:59Z",
       "side": 1,
       "message": "Same here.",
+      "revId": "e8ed572657930cc1d2bbc213fc8cfc1a22de47dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e305753_c000169b",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-20T15:38:01Z",
+      "side": 1,
+      "message": "This I am not sure. Could you please recheck.",
+      "parentUuid": "c5f4ba9c_f50e930d",
       "revId": "e8ed572657930cc1d2bbc213fc8cfc1a22de47dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
