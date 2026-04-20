@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21d617ef_259ca7f1",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-20T15:34:59Z",
+      "side": 1,
+      "message": "The PDI does not say that this API will throw \"DbusInternalFailure\".\nThis violates the agreement.\nIn case of any error lets return what we got in the parameter as input.",
+      "revId": "e8ed572657930cc1d2bbc213fc8cfc1a22de47dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6821b2b7_e6851505",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-20T15:34:59Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "e8ed572657930cc1d2bbc213fc8cfc1a22de47dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5f4ba9c_f50e930d",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-20T15:34:59Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "e8ed572657930cc1d2bbc213fc8cfc1a22de47dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
