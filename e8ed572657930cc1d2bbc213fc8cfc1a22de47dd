@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a474b21c_e88f3384",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-20T15:44:45Z",
+      "side": 1,
+      "message": "Please follow\n\nhttps://github.com/ibm-openbmc/phosphor-dbus-interfaces/blob/1210/yaml/com/ibm/VPD/Manager.interface.yaml#L75C5-L99C1",
+      "parentUuid": "d319b36f_0dcfabb2",
+      "revId": "e8ed572657930cc1d2bbc213fc8cfc1a22de47dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6821b2b7_e6851505",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 16
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "I referred the updated document, this should be fine.",
       "parentUuid": "6821b2b7_e6851505",
+      "revId": "e8ed572657930cc1d2bbc213fc8cfc1a22de47dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b5be297_dd71e4fc",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-20T15:44:45Z",
+      "side": 1,
+      "message": "Please follow\n\nhttps://github.com/ibm-openbmc/phosphor-dbus-interfaces/blob/1210/yaml/com/ibm/VPD/Manager.interface.yaml#L75C5-L99C1",
+      "parentUuid": "177f076e_a2587c3a",
       "revId": "e8ed572657930cc1d2bbc213fc8cfc1a22de47dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
