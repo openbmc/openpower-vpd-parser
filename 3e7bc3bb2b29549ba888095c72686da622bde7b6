@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbcf73ae_10bb5706",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-20T05:41:34Z",
+      "side": 1,
+      "message": "Addressed. Currently, this API throws exception in case of any error. Kept the same behaviour.",
+      "parentUuid": "bd44eccf_cceed9d7",
+      "revId": "3e7bc3bb2b29549ba888095c72686da622bde7b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3d95e21_941e64da",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c3c63db_9bbf275c",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-20T05:41:34Z",
+      "side": 1,
+      "message": "I accidentally gave wrong name to the variable. It\u0027s actually holding the expanded location code read from PIM. Will update the variable name.",
+      "parentUuid": "d3d95e21_941e64da",
+      "revId": "3e7bc3bb2b29549ba888095c72686da622bde7b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48760647_39e8a016",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-04-17T05:32:09Z",
       "side": 1,
       "message": "How are you sure that at the point when this API is getting called. Location code are expanded or unexpanded?",
+      "revId": "3e7bc3bb2b29549ba888095c72686da622bde7b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3dfe0d0_cd1b481f",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-20T05:41:34Z",
+      "side": 1,
+      "message": "We are reading the \"LocationCode\" property from PIM. In ideal scenario, the \"LocationCode\" should be expanded if VPD has been collected for this FRU. \n\nDo you mean we should have additional logic to check if the \"LocationCode\" property on PIM is unexpanded? If so, this logic is not implemented currently, and needs to be added. I think that is out of scope for this patch and needs to be handled as a separate patch.",
+      "parentUuid": "48760647_39e8a016",
       "revId": "3e7bc3bb2b29549ba888095c72686da622bde7b6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
