@@ -154,10 +154,39 @@ Manager::Manager(
 #ifdef IBM_SYSTEM
         readVpdCollectionMode();
 
+        nlohmann::json l_systemConfigJson{};
         m_ibmHandler = std::make_shared<IbmHandler>(
             m_worker, m_backupAndRestoreObj, m_interface, m_progressInterface,
-            m_ioContext, m_asioConnection, m_vpdCollectionMode);
+            m_ioContext, m_asioConnection, m_vpdCollectionMode,
+            l_systemConfigJson);
+
+        // Initialize ConfigManager with system config JSON after system VPD
+        // collection
+        if (!l_systemConfigJson.empty())
+        {
+            initConfigManager(l_systemConfigJson);
+        }
+        else
+        {
+            m_logger->logMessage(
+                "System config JSON is empty after IbmHandler initialization. ConfigManager not initialized.");
+        }
 #else
+        // For non-IBM systems, initialize with default inventory JSON
+        uint16_t l_errCode = 0;
+        nlohmann::json l_defaultJson =
+            jsonUtility::getParsedJson(INVENTORY_JSON_DEFAULT, l_errCode);
+
+        if (!l_errCode && !l_defaultJson.empty())
+        {
+            initConfigManager(l_defaultJson);
+        }
+        else
+        {
+            m_logger->logMessage(
+                "Failed to parse default inventory JSON or JSON is empty. ConfigManager not initialized.");
+        }
+
         m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT);
         m_progressInterface->set_property(
             "Status", std::string(constants::vpdCollectionCompleted));
@@ -178,6 +207,22 @@ Manager::Manager(
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Error, 0, std::nullopt,
                                 std::nullopt, std::nullopt, std::nullopt});
+    }
+}
+
+void Manager::initConfigManager(const nlohmann::json& i_systemConfigJson)
+{
+    try
+    {
+        ConfigManager::ManagerPassKey l_configMgrKey;
+        m_configManager =
+            std::make_shared<ConfigManager>(l_configMgrKey, i_systemConfigJson);
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to initialize ConfigManager. Error: {}", l_ex.what()));
+        throw;
     }
 }
 
@@ -220,9 +265,9 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
     types::Path l_fruPath;
     nlohmann::json l_sysCfgJsonObj{};
 
-    if (m_worker.get() != nullptr)
+    if (m_configManager)
     {
-        l_sysCfgJsonObj = m_worker->getSysCfgJsonObj(i_vpdPath);
+        l_sysCfgJsonObj = m_configManager->getJsonObj(i_vpdPath);
 
         // Get the EEPROM path
         if (!l_sysCfgJsonObj.empty())
@@ -373,9 +418,9 @@ int Manager::updateKeywordOnHardware(
 
         nlohmann::json l_sysCfgJsonObj{};
 
-        if (m_worker.get() != nullptr)
+        if (m_configManager)
         {
-            l_sysCfgJsonObj = m_worker->getSysCfgJsonObj(i_fruPath);
+            l_sysCfgJsonObj = m_configManager->getJsonObj(i_fruPath);
         }
 
         std::shared_ptr<Parser> l_parserObj = std::make_shared<Parser>(
@@ -404,9 +449,9 @@ types::DbusVariantType Manager::readKeyword(
     {
         nlohmann::json l_jsonObj{};
 
-        if (m_worker.get() != nullptr)
+        if (m_configManager)
         {
-            l_jsonObj = m_worker->getSysCfgJsonObj(i_fruPath);
+            l_jsonObj = m_configManager->getJsonObj(i_fruPath);
         }
 
         std::error_code ec;
@@ -532,26 +577,17 @@ std::string Manager::getExpandedLocationCode(
         throw types::DbusInvalidArgument();
     }
 
-    if (m_worker == nullptr)
+    if (!m_configManager)
     {
         m_logger->logMessage(std::format(
             "Cannot get expanded location code for {} as Worker instance is not initialized.",
             i_unexpandedLocationCode));
-        throw types::DbusInvalidArgument();
-    }
 
-    const auto& l_configManager = m_worker->getConfigManager();
-
-    if (l_configManager == nullptr)
-    {
-        m_logger->logMessage(std::format(
-            "Cannot get expanded location code for {} as ConfigManager instance is not initialized.",
-            i_unexpandedLocationCode));
         throw types::DbusInvalidArgument();
     }
 
     const auto l_inventoryPathsResult =
-        l_configManager->getInventoryPaths(i_unexpandedLocationCode);
+        m_configManager->getInventoryPaths(i_unexpandedLocationCode);
 
     if (!l_inventoryPathsResult.has_value())
     {
@@ -604,7 +640,7 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
         throw types::DbusInvalidArgument();
     }
 
-    if (m_worker == nullptr)
+    if (!m_configManager)
     {
         m_logger->logMessage(std::format(
             "Cannot get FRUs by unexpanded location code for {} as Worker instance is not initialized",
@@ -613,19 +649,8 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
         throw types::DbusInvalidArgument();
     }
 
-    const auto& l_configManager = m_worker->getConfigManager();
-
-    if (l_configManager == nullptr)
-    {
-        m_logger->logMessage(std::format(
-            "Cannot get FRUs by unexpanded location code for {} as ConfigManager instance is not initialized",
-            i_unexpandedLocationCode));
-
-        throw types::DbusInvalidArgument();
-    }
-
     const auto l_inventoryPathsResult =
-        l_configManager->getInventoryPaths(i_unexpandedLocationCode);
+        m_configManager->getInventoryPaths(i_unexpandedLocationCode);
 
     if (!l_inventoryPathsResult.has_value())
     {
