@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "557c6624_77a4dcf0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-21T06:31:19Z",
+      "side": 1,
+      "message": "\u003e anyone can query\n\nYes, anyone can query, but in the context of this commit, it means that Manager API can query this as well.",
+      "parentUuid": "3ffd25f3_b3ba60b1",
+      "revId": "33b50acb65c206b406073860f085410a04ca10f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17156d02_e22b7df8",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 12
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-21T04:44:19Z",
       "side": 1,
       "message": "adding i_unexpandedLocationCode to log will be helpful ?",
+      "revId": "33b50acb65c206b406073860f085410a04ca10f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22bedf9f_38083e8e",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-21T06:31:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17156d02_e22b7df8",
       "revId": "33b50acb65c206b406073860f085410a04ca10f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2026-04-21T04:44:19Z",
       "side": 1,
       "message": "adding i_unexpandedLocationCode to log will be helpful ?",
+      "revId": "33b50acb65c206b406073860f085410a04ca10f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2c97c26_e4c0a010",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-21T06:31:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4be89b48_97ae6511",
       "revId": "33b50acb65c206b406073860f085410a04ca10f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
