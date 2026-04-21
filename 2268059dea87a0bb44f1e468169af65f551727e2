@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bf66c43_2d3753bc",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-21T05:54:26Z",
+      "side": 1,
+      "message": "can we add input information for logging ?",
+      "revId": "2268059dea87a0bb44f1e468169af65f551727e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd551eff_dea2f480",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-21T05:54:26Z",
+      "side": 1,
+      "message": "can we add input information for logging ?",
+      "revId": "2268059dea87a0bb44f1e468169af65f551727e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
