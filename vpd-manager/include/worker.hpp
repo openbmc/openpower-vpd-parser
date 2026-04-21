@@ -115,15 +115,18 @@ class Worker
     }
 
     /**
-     * @brief API to get chassis based config JSON.
+     * @brief API to get system config JSON
      *
-     * i_vpdPath[in] - EEPROM path or inventory object path.
+     * This API returns read only reference to parsed  system configuration
+     * JSON. Note: This method is deprecated and will be removed in future. Use
+     * Manager::getConfigManager() instead for chassis-based JSON.
      *
-     * @return Chassis-based config JSON object corresponding to i_vpdPath. If
-     * i_vpdPath is std::nullopt, the system configuration JSON is returned.
+     * @return The parsed config JSON object.
      */
-    nlohmann::json getSysCfgJsonObj(
-        const std::optional<std::string>& i_vpdPath = std::nullopt) const;
+    inline const nlohmann::json& getSysCfgJsonObj() const
+    {
+        return m_parsedJson;
+    }
 
     /**
      * @brief API to get active thread count.
@@ -179,16 +182,6 @@ class Worker
      * can be replaced at standby.
      */
     void performVpdRecollection();
-
-    /**
-     * @brief API to get reference to ConfigManager
-     *
-     * @return Reference to unique pointer to Config Manager object
-     */
-    const std::unique_ptr<ConfigManager>& getConfigManager() const noexcept
-    {
-        return m_configManager;
-    }
 
   private:
     /**
@@ -516,8 +509,5 @@ class Worker
 
     // Shared pointer to Logger object
     std::shared_ptr<Logger> m_logger;
-
-    // unique pointer to Config Manager object
-    std::unique_ptr<ConfigManager> m_configManager{nullptr};
 };
 } // namespace vpd
