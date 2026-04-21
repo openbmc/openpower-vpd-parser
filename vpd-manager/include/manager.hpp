@@ -338,6 +338,30 @@ class Manager
 
     // shared pointer to Config Manager object
     std::shared_ptr<ConfigManager> m_configManager{nullptr};
+
+    /**
+     * @brief API to initialize ConfigManager
+     *
+     * This API initializes the ConfigManager with the system config JSON.
+     * For IBM systems, this should be called after system VPD collection.
+     * For non-IBM systems, this can be called with default inventory JSON.
+     *
+     * @param[in] i_systemConfigJson - System config JSON object
+     *
+     * @throw std::runtime_error if initialization fails
+     */
+    void initConfigManager(const nlohmann::json& i_systemConfigJson);
+
+    /**
+     * @brief API to get reference to ConfigManager
+     *
+     * @return Reference to shared pointer to Config Manager object
+     */
+    inline const std::shared_ptr<ConfigManager>& getConfigManager()
+        const noexcept
+    {
+        return m_configManager;
+    }
 };
 
 } // namespace vpd

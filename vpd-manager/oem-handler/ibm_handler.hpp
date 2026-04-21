@@ -39,6 +39,8 @@ class IbmHandler
      * @param[in] i_ioCon - IO context.
      * @param[in] i_asioConnection - Dbus Connection.
      * @param[in] i_vpdCollectionMode - VPD collection mode.
+     * @param[out] o_systemConfigJson - System config JSON to be populated after
+     * system VPD collection.
      */
     IbmHandler(
         std::shared_ptr<Worker>& o_worker,
@@ -47,7 +49,8 @@ class IbmHandler
         const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_progressiFace,
         const std::shared_ptr<boost::asio::io_context>& i_ioCon,
         const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
-        const types::VpdCollectionMode& i_vpdCollectionMode);
+        const types::VpdCollectionMode& i_vpdCollectionMode,
+        nlohmann::json& o_systemConfigJson);
 
     /**
      * @brief API to collect all FRUs VPD.

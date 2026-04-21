@@ -24,7 +24,8 @@ IbmHandler::IbmHandler(
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& i_progressiFace,
     const std::shared_ptr<boost::asio::io_context>& i_ioCon,
     const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
-    const types::VpdCollectionMode& i_vpdCollectionMode) :
+    const types::VpdCollectionMode& i_vpdCollectionMode,
+    nlohmann::json& o_systemConfigJson) :
     m_worker(o_worker), m_backupAndRestoreObj(o_backupAndRestoreObj),
     m_interface(i_iFace), m_progressInterface(i_progressiFace),
     m_ioContext(i_ioCon), m_asioConnection(i_asioConnection),
@@ -54,6 +55,10 @@ IbmHandler::IbmHandler(
         /* Instantiate GpioMonitor class
         m_gpioMonitor = std::make_shared<GpioMonitor>(m_sysCfgJsonObj, m_worker,
                                                       m_ioContext);*/
+
+        // Populate output parameter with system config JSON for ConfigManager
+        // initialization
+        o_systemConfigJson = m_sysCfgJsonObj;
     }
     catch (const std::exception& l_ec)
     {
@@ -61,6 +66,9 @@ IbmHandler::IbmHandler(
         // log again. Let the service continue to execute.
         m_logger->logMessage("IBM Handler instantiation failed. Reason: " +
                              std::string(l_ec.what()));
+
+        // Ensure output parameter is populated even on failure
+        o_systemConfigJson = m_sysCfgJsonObj;
     }
 }
 
