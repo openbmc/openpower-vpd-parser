@@ -292,6 +292,20 @@ class Manager
     bool isValidUnexpandedLocationCode(const std::string& i_locationCode);
 
     /**
+     * @brief API to initialize ConfigManager
+     *
+     * This API initializes the ConfigManager with the system config JSON.
+     * Note:
+     * - For IBM systems, this should be called after system VPD collection.
+     * - For non-IBM systems, this can be called with default inventory JSON.
+     *
+     * @param[in] i_systemConfigJsonPath - Path to system config JSON
+     *
+     * @throw std::runtime_error if initialization fails
+     */
+    void initConfigManager(const std::string& i_systemConfigJsonPath);
+
+    /**
      * @brief API to read VPD collection mode.
      *
      * Collection mode denotes if the VPD needs to be read from file or actual
