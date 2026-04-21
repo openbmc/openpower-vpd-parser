@@ -50,21 +50,6 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
             throw JsonException("Mandatory tag(s) missing from JSON",
                                 m_configJsonPath);
         }
-
-        try
-        {
-            // TODO: revisit to see if ConfigManager can be initialized after
-            // System VPD collection create ConfigManager instance
-            ConfigManager::WorkerPassKey l_configMgrKey;
-            m_configManager =
-                std::make_unique<ConfigManager>(l_configMgrKey, m_parsedJson);
-        }
-        catch (const std::exception& l_ex)
-        {
-            // TODO: revisit to see if this should be a PEL
-            m_logger->logMessage(std::format(
-                "Failed to initialize ConfigManager. Error: {}", l_ex.what()));
-        }
     }
     else
     {
@@ -1666,17 +1651,6 @@ void Worker::checkAndExecutePostFailAction(
             i_flowFlag == "collection" ? PlaceHolder::COLLECTION
                                        : PlaceHolder::DEFAULT);
     }
-}
-
-nlohmann::json Worker::getSysCfgJsonObj(
-    const std::optional<std::string>& i_vpdPath) const
-{
-    if (m_configManager)
-    {
-        return m_configManager->getJsonObj(i_vpdPath);
-    }
-
-    return m_parsedJson;
 }
 
 void Worker::processSkipRecordsFlag(const nlohmann::json& i_fruJson,
