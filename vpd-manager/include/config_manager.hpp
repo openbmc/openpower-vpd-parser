@@ -29,40 +29,40 @@ class ConfigManager final
 {
   public:
     /**
-     * @brief Passkey class to restrict instantiation to Worker class only
+     * @brief Passkey class to restrict instantiation to Manager class only
      *
-     * This is a nested class that can only be constructed by Worker.
+     * This is a nested class that can only be constructed by Manager.
      * It acts as a "key" that must be passed to ConfigManager's
-     * constructor, ensuring only Worker can create instances.
+     * constructor, ensuring only Manager can create instances.
      */
-    class WorkerPassKey
+    class ManagerPassKey
     {
       private:
-        WorkerPassKey() = default;
-        ~WorkerPassKey() = default;
+        ManagerPassKey() = default;
+        ~ManagerPassKey() = default;
 
         /* deleted methods */
-        WorkerPassKey(const WorkerPassKey&) = delete;
-        WorkerPassKey(WorkerPassKey&&) = delete;
-        WorkerPassKey operator=(const WorkerPassKey&) = delete;
-        WorkerPassKey operator=(WorkerPassKey&&) = delete;
+        ManagerPassKey(const ManagerPassKey&) = delete;
+        ManagerPassKey(ManagerPassKey&&) = delete;
+        ManagerPassKey operator=(const ManagerPassKey&) = delete;
+        ManagerPassKey operator=(ManagerPassKey&&) = delete;
 
-        // Only Worker can construct this key
-        friend class Worker;
+        // Only Manager can construct this key
+        friend class Manager;
     };
 
     /**
-     * @brief Constructor with passkey - can only be called by Worker
+     * @brief Constructor with passkey - can only be called by Manager
      *
-     * This constructor is public but requires a WorkerPassKey that only
-     * Worker can create, effectively restricting instantiation to Worker.
+     * This constructor is public but requires a ManagerPassKey that only
+     * Manager can create, effectively restricting instantiation to Manager.
      *
      * @param[in] i_key - Constructor key
      * @param[in] i_sysConfigJsonPath - Absolute path to system config JSON
      *
      * @throw std::runtime_error
      */
-    explicit ConfigManager([[maybe_unused]] const WorkerPassKey& i_key,
+    explicit ConfigManager([[maybe_unused]] const ManagerPassKey& i_key,
                            const std::string& i_sysConfigJsonPath) :
         m_logger{Logger::getLoggerInstance()}
     {

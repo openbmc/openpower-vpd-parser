@@ -5,9 +5,10 @@
 namespace vpd
 {
 
-ThreadManager::ThreadManager(std::shared_ptr<Worker>& i_worker,
-                             std::shared_ptr<ConfigManager>& i_configManager) :
-    m_configManager(i_worker->getConfigManager()), m_worker(i_worker)
+ThreadManager::ThreadManager(
+    const std::shared_ptr<Worker>& i_worker,
+    const std::shared_ptr<ConfigManager>& i_configManager) :
+    m_configManager(i_configManager), m_worker(i_worker)
 {}
 
 } // namespace vpd
