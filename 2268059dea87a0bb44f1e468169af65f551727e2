@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eec33c36_f7510659",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-21T06:30:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bf66c43_2d3753bc",
+      "revId": "2268059dea87a0bb44f1e468169af65f551727e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd551eff_dea2f480",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-21T05:54:26Z",
       "side": 1,
       "message": "can we add input information for logging ?",
+      "revId": "2268059dea87a0bb44f1e468169af65f551727e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e03f306_984cb37f",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-21T06:30:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd551eff_dea2f480",
       "revId": "2268059dea87a0bb44f1e468169af65f551727e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
