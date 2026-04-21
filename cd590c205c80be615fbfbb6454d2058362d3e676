@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ec324ef_cf45d1ca",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-21T09:42:00Z",
+      "side": 1,
+      "message": "Add a comment why this is required.",
+      "range": {
+        "startLine": 825,
+        "startChar": 4,
+        "endLine": 835,
+        "endChar": 5
+      },
+      "revId": "cd590c205c80be615fbfbb6454d2058362d3e676",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "212b01db_9fbf5353",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-21T09:42:00Z",
+      "side": 1,
+      "message": "What if \"parseVpdFile\" throws exception?",
+      "revId": "cd590c205c80be615fbfbb6454d2058362d3e676",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7ad812a_be576d67",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-21T09:42:00Z",
+      "side": 1,
+      "message": "Don\u0027t need to reset here, utility API will take care of resetting error code.",
+      "revId": "cd590c205c80be615fbfbb6454d2058362d3e676",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
