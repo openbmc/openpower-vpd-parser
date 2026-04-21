@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65a3f267_c59f60ff",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-21T03:59:21Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "21d617ef_259ca7f1",
+      "revId": "e8ed572657930cc1d2bbc213fc8cfc1a22de47dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6821b2b7_e6851505",
@@ -107,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fa70a88_98230365",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-21T03:59:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6821b2b7_e6851505",
+      "revId": "e8ed572657930cc1d2bbc213fc8cfc1a22de47dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5f4ba9c_f50e930d",
@@ -137,6 +173,24 @@
       "writtenOn": "2026-04-20T15:38:01Z",
       "side": 1,
       "message": "This I am not sure. Could you please recheck.",
+      "parentUuid": "c5f4ba9c_f50e930d",
+      "revId": "e8ed572657930cc1d2bbc213fc8cfc1a22de47dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "866d7dec_69d12974",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-21T03:59:21Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "c5f4ba9c_f50e930d",
       "revId": "e8ed572657930cc1d2bbc213fc8cfc1a22de47dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
