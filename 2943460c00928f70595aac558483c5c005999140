@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1a55884_9ba7942b",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-21T08:52:35Z",
+      "side": 1,
+      "message": "why invalid argument, its failure from the application side ?",
+      "revId": "2943460c00928f70595aac558483c5c005999140",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f148705_d3cdac87",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-21T08:52:35Z",
+      "side": 1,
+      "message": "why invalid argument, its failure from the application side ?\n\ninstead throwing back error, should we keep the old code here ?",
+      "revId": "2943460c00928f70595aac558483c5c005999140",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1d88c38_7b53af3d",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-21T08:52:35Z",
+      "side": 1,
+      "message": "why invalid argument, its failure from the application side ?",
+      "revId": "2943460c00928f70595aac558483c5c005999140",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
