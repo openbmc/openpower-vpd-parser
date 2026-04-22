@@ -78,8 +78,12 @@ class Worker
      * @brief API to parse VPD data
      *
      * @param[in] i_vpdFilePath - Path to the VPD file.
+     * @param[in] i_processRedundant - Enables VPD collection for redundant
+     * EEPROM path.
      */
-    types::VPDMapVariant parseVpdFile(const std::string& i_vpdFilePath);
+    types::VPDMapVariant parseVpdFile(
+        const std::string& i_vpdFilePath,
+        const std::optional<bool> i_processRedundant = false);
 
     /**
      * @brief An API to populate DBus interfaces for a FRU.
@@ -192,17 +196,42 @@ class Worker
 
   private:
     /**
+     * @brief Check for redundant EEPROM path and trigger VPD collection.
+     *
+     * Checks whether a redundant EEPROM path is defined in the system
+     * config JSON for the given primary FRU VPD path. If present, invokes
+     * the VPD collection on the redundant EEPROM path.
+     *
+     * @param[in] i_fruPath - Path to the primary FRU VPD file.
+     *
+     * @return std::expected containing:
+     *         - std::tuple<bool, std::string> (on success):
+     *             Result returned by the VPD collection API
+     *             - bool: VPD collection status
+     *             - std::string: path used for VPD collection
+     *         - bool (on error):
+     *             false if no redundant EEPROM path is defined
+     */
+    std::expected<std::tuple<bool, std::string>, bool>
+        checkAndCollectVpdFromRedundantPath(
+            const std::string& i_fruPath) noexcept;
+
+    /**
      * @brief An API to parse and publish a FRU VPD over D-Bus.
      *
      * Note: This API will handle all the exceptions internally and will only
      * return status of parsing and publishing of VPD over D-Bus.
      *
      * @param[in] i_vpdFilePath - Path of file containing VPD.
+     * @param[in] i_processRedundant - Enables VPD collection for redundant
+     * EEPROM path.
+     *
      * @return Tuple of status and file path. Status, true if successful else
      * false.
      */
     std::tuple<bool, std::string> parseAndPublishVPD(
-        const std::string& i_vpdFilePath);
+        const std::string& i_vpdFilePath,
+        const bool& i_processRedundant = false);
 
     /**
      * @brief An API to process extrainterfaces w.r.t a FRU.
