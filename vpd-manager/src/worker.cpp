@@ -957,13 +957,42 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
     {
         m_semaphore.acquire();
 
-        // Thread launched.
-        m_mutex.lock();
-        m_activeCollectionThreadCount++;
-        m_mutex.unlock();
+        // Increment thread count only when `i_processRedundant` is false.
+        // Skip for redundant path processing when it is true, since the count
+        // is already handled during primary path processing.
+        if (!i_processRedundant)
+        {
+            // Thread launched.
+            m_mutex.lock();
+            m_activeCollectionThreadCount++;
+            m_mutex.unlock();
+        }
 
-        // @todo When `i_processRedundant` is false, skip D-Bus updates for
+        // When `i_processRedundant` is false, skip D-Bus updates for
         // redundant FRUs and only perform pre-action, if any.
+        if (jsonUtility::isRedundantEepromPath(
+                i_vpdFilePath, getSysCfgJsonObj(i_vpdFilePath), l_errCode) &&
+            !i_processRedundant)
+        {
+            bool l_status = true;
+            try
+            {
+                const types::VPDMapVariant& parsedVpdMap =
+                    parseVpdFile(i_vpdFilePath, i_processRedundant);
+            }
+            catch (const std::exception& l_ex)
+            {
+                l_status = false;
+                m_logger->logMessage(
+                    std::format(
+                        "ParseAndPublish VPD failed for redundant path [{}], reason [{}] ",
+                        i_vpdFilePath, EventLogger::getErrorMsg(l_ex)),
+                    PlaceHolder::COLLECTION);
+            }
+
+            m_semaphore.release();
+            return std::make_tuple(l_status, i_vpdFilePath);
+        }
 
         vpdSpecificUtility::setCollectionStatusProperty(
             i_vpdFilePath, types::VpdCollectionStatus::InProgress, m_parsedJson,
@@ -1734,13 +1763,31 @@ void Worker::processSkipRecordsFlag(const nlohmann::json& i_fruJson,
 
 std::expected<std::tuple<bool, std::string>, bool>
     Worker::checkAndCollectVpdFromRedundantPath(
-        [[maybe_unused]] const std::string& i_fruPath) noexcept
+        const std::string& i_fruPath) noexcept
 {
-    /** @todo
-     * Get the redundant EEPROM path from config JSON.
-     * If redundant eeprom path exists, call parseAndPublishVPD with redundant
-     * EEPROM path, otherwise return false.
-     */
+    if (i_fruPath.empty())
+    {
+        return std::unexpected(false);
+    }
+
+    uint16_t l_errCode = 0;
+    const auto& l_redundantEepromPath =
+        jsonUtility::getRedundantEepromPathFromJson(getSysCfgJsonObj(i_fruPath),
+                                                    i_fruPath, l_errCode);
+
+    // Collect VPD if the given path is a primary VPD path and a redundant
+    // VPD path is defined in the config JSON.
+    if (i_fruPath != l_redundantEepromPath)
+    {
+        m_logger->logMessage(
+            std::format(
+                "Triggerring vpd collection from redundant VPD path [ {} ]",
+                l_redundantEepromPath),
+            PlaceHolder::COLLECTION);
+
+        return parseAndPublishVPD(l_redundantEepromPath, true);
+    }
+
     return std::unexpected(false);
 }
 
