@@ -122,6 +122,19 @@ class ConfigManager final
     std::expected<types::ListOfPaths, error_code> getInventoryPaths(
         const std::string& i_unexpandedLocationCode) const noexcept;
 
+    /**
+     * @brief API to get map of ChassisID to its associated motherboard EEPROM
+     * path
+     *
+     * @return Map of chassis Id to corresponding chassis motherboard EEPROM
+     * path.
+     */
+    const std::map<std::string, std::string>&
+        getChassisIdToMotherboardEepromMap() const noexcept
+    {
+        return m_chassisIdToMotherboardEepromMap;
+    }
+
   private:
     /**
      * @brief API to build configuration maps
@@ -149,6 +162,7 @@ class ConfigManager final
      * - EEPROM to chassis ID map
      * - Chassis ID to JSON map
      * - Unexpanded location code to inventory path(s) map
+     * - Chassis ID to corresponding motherboard EEPROM path map
      *
      * This API builds maps for a single FRU in the system
      * config JSON.
@@ -204,6 +218,10 @@ class ConfigManager final
 
     // Shared pointer to Logger object
     std::shared_ptr<Logger> m_logger;
+
+    // Chassis Id to corresponding chassis motherboard EEPROM path - O(logN)
+    // lookup, optimized for small N
+    std::map<std::string, std::string> m_chassisIdToMotherboardEepromMap;
 };
 
 } // namespace vpd
