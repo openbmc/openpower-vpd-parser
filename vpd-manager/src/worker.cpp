@@ -962,15 +962,38 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
     uint16_t l_errCode = 0;
     try
     {
+        if (i_vpdFilePath.empty())
+        {
+            m_logger->logMessage(
+                "Empty VPD file path received, aborting parse and publish VPD.",
+                PlaceHolder::COLLECTION);
+            return std::make_tuple(false, i_vpdFilePath);
+        }
+
         m_semaphore.acquire();
 
-        // Thread launched.
-        m_mutex.lock();
-        m_activeCollectionThreadCount++;
-        m_mutex.unlock();
+        // Increment thread count only when `i_processRedundant` is false.
+        // Skip for redundant path processing when it is true, since the count
+        // is already handled during primary path processing.
+        if (!i_processRedundant)
+        {
+            // Thread launched.
+            m_mutex.lock();
+            m_activeCollectionThreadCount++;
+            m_mutex.unlock();
+        }
 
-        // @todo When `i_processRedundant` is false, skip D-Bus updates for
+        // When `i_processRedundant` is false, skip D-Bus updates for
         // redundant FRUs and only perform pre-action, if any.
+        if (m_parsedJson["frus"][i_vpdFilePath].at(0).value("isRedundant",
+                                                            false) &&
+            !i_processRedundant)
+        {
+            const bool l_status = processRedundantPreAction(i_vpdFilePath);
+
+            m_semaphore.release();
+            return std::make_tuple(l_status, i_vpdFilePath);
+        }
 
         vpdSpecificUtility::setCollectionStatusProperty(
             i_vpdFilePath, types::VpdCollectionStatus::InProgress, m_parsedJson,
@@ -1758,6 +1781,26 @@ void Worker::processSkipRecordsFlag(const nlohmann::json& i_fruJson,
                                       constants::ipzVpdInf + l_recordName);
         }
     }
+}
+
+bool Worker::processRedundantPreAction(
+    const std::string& i_eepromFilePath) noexcept
+{
+    try
+    {
+        const types::VPDMapVariant& parsedVpdMap =
+            parseVpdFile(i_eepromFilePath, false);
+        return true;
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format(
+                "Process redundant path failed for EEPROM [{}], reason [{}] ",
+                i_eepromFilePath, EventLogger::getErrorMsg(l_ex)),
+            PlaceHolder::COLLECTION);
+    }
+    return false;
 }
 
 } // namespace vpd
