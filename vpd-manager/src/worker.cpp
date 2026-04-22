@@ -820,7 +820,9 @@ bool Worker::processPostAction(
     return true;
 }
 
-types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
+types::VPDMapVariant Worker::parseVpdFile(
+    const std::string& i_vpdFilePath,
+    const std::optional<bool> i_processRedundant)
 {
     try
     {
@@ -869,7 +871,15 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
                 "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        if (!std::filesystem::exists(i_vpdFilePath))
+        // Skip if VPD collection if VPD path is redundant path and
+        // i_processRedundant is set to false.
+        if (jsonUtility::isRedundantEepromPath(i_vpdFilePath, m_parsedJson,
+                                               l_errCode) &&
+            !i_processRedundant)
+        {
+            return types::VPDMapVariant{};
+        }
+        else if (!std::filesystem::exists(i_vpdFilePath))
         {
             if (isPreActionRequired)
             {
@@ -940,7 +950,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
 }
 
 std::tuple<bool, std::string> Worker::parseAndPublishVPD(
-    const std::string& i_vpdFilePath)
+    const std::string& i_vpdFilePath,
+    [[maybe_unused]] const std::optional<bool> i_processRedundant)
 {
     std::string l_inventoryPath{};
     uint16_t l_errCode = 0;
@@ -948,10 +959,13 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
     {
         m_semaphore.acquire();
 
-        // Thread launched.
-        m_mutex.lock();
-        m_activeCollectionThreadCount++;
-        m_mutex.unlock();
+        if (i_processRedundant)
+        {
+            // Thread launched.
+            m_mutex.lock();
+            m_activeCollectionThreadCount++;
+            m_mutex.unlock();
+        }
 
         vpdSpecificUtility::setCollectionStatusProperty(
             i_vpdFilePath, types::VpdCollectionStatus::InProgress, m_parsedJson,
@@ -1199,6 +1213,14 @@ void Worker::collectFrusFromJson()
         {
             std::thread{[vpdFilePath, this]() {
                 const auto& l_parseResult = parseAndPublishVPD(vpdFilePath);
+
+                // If VPD collection from a primary FRU fails, attempt
+                // collection from its redundant EEPROM path (if configured).
+                if (!std::get<0>(l_parseResult))
+                {
+                    const auto& l_result =
+                        checkAndCollectVpdFromRedundantPath(vpdFilePath);
+                }
 
                 m_mutex.lock();
                 m_activeCollectionThreadCount--;
@@ -1708,6 +1730,18 @@ void Worker::processSkipRecordsFlag(const nlohmann::json& i_fruJson,
                                       constants::ipzVpdInf + l_recordName);
         }
     }
+}
+
+std::expected<std::tuple<bool, std::string>, bool>
+    Worker::checkAndCollectVpdFromRedundantPath(
+        [[maybe_unused]] const std::string& i_fruPath) noexcept
+{
+    /** @todo
+     * Get the redundant EEPROM path from config JSON.
+     * If redundant eeprom path exists, call parseAndPublishVPD with redundant
+     * EEPROM path, otherwise return false.
+     */
+    return std::unexpected(false);
 }
 
 } // namespace vpd
