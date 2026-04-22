@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d68d09a2_980c530f",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-22T14:46:08Z",
+      "side": 1,
+      "message": "Addressed by 89527: Refactor ConfigManager:use path to sys config JSON | https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/89527",
+      "parentUuid": "5f5d6bf7_da9a797f",
+      "revId": "78415e8763f99805956b921f22586d4309203870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9791b3f1_af325de4",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "`ConfigManager` constructor requires the parsed JSON object, so the caller has to parse appropriate JSON and pass the object.",
       "parentUuid": "9791b3f1_af325de4",
+      "revId": "78415e8763f99805956b921f22586d4309203870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac374e80_e48a5afa",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-22T14:46:08Z",
+      "side": 1,
+      "message": "Addressed by 89527: Refactor ConfigManager:use path to sys config JSON | https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/89527",
+      "parentUuid": "4112b288_ab8712b6",
       "revId": "78415e8763f99805956b921f22586d4309203870",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +141,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2283bcc5_1f797a34",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-22T14:46:08Z",
+      "side": 1,
+      "message": "Addressed by 89527: Refactor ConfigManager:use path to sys config JSON | https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/89527",
+      "parentUuid": "01535888_d3f525a8",
+      "revId": "78415e8763f99805956b921f22586d4309203870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08bdc37c_ea661937",
@@ -136,6 +190,24 @@
       "side": 1,
       "message": "`ConfigManager` constructor requires a parsed JSON object, so the caller has to parse and pass the appropriate JSON object.",
       "parentUuid": "08bdc37c_ea661937",
+      "revId": "78415e8763f99805956b921f22586d4309203870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27a983e8_994d42da",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-22T14:46:08Z",
+      "side": 1,
+      "message": "Addressed",
+      "parentUuid": "08b8dd13_f59c206e",
       "revId": "78415e8763f99805956b921f22586d4309203870",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
