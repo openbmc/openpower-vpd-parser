@@ -1760,13 +1760,31 @@ void Worker::processSkipRecordsFlag(const nlohmann::json& i_fruJson,
 
 std::expected<std::tuple<bool, std::string>, bool>
     Worker::checkAndCollectVpdFromRedundantPath(
-        [[maybe_unused]] const std::string& i_fruPath) noexcept
+        const std::string& i_fruPath) noexcept
 {
-    /** @todo
-     * Get the redundant EEPROM path from config JSON.
-     * If redundant eeprom path exists, call parseAndPublishVPD with redundant
-     * EEPROM path, otherwise return false.
-     */
+    if (i_fruPath.empty())
+    {
+        return std::unexpected(false);
+    }
+
+    uint16_t l_errCode = 0;
+    const auto& l_redundantEepromPath =
+        jsonUtility::getRedundantEepromPathFromJson(getSysCfgJsonObj(i_fruPath),
+                                                    i_fruPath, l_errCode);
+
+    // Collect VPD if the given path is a primary VPD path and a redundant
+    // VPD path is defined in the config JSON.
+    if (i_fruPath != l_redundantEepromPath)
+    {
+        m_logger->logMessage(
+            std::format(
+                "Triggerring vpd collection from redundant VPD path [ {} ]",
+                l_redundantEepromPath),
+            PlaceHolder::COLLECTION);
+
+        return parseAndPublishVPD(l_redundantEepromPath, true);
+    }
+
     return std::unexpected(false);
 }
 
