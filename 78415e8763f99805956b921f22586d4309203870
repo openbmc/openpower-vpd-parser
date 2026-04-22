@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f5d6bf7_da9a797f",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-22T12:30:42Z",
+      "side": 1,
+      "message": "1. For IBM systems, `IbmHandler` parses appropriate JSON and returns the object.\n2. For non-IBM systems, we need the parsed default inventory JSON object. \n\nWhat is the benefit of initializing this object with default JSON?",
+      "parentUuid": "23f39d8e_809c08da",
+      "revId": "78415e8763f99805956b921f22586d4309203870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9791b3f1_af325de4",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 7
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-22T10:21:36Z",
       "side": 1,
       "message": "Why this logic should be in Manager\u0027s constructor? Manager should be agnostic of JSON nitty gritty?",
+      "revId": "78415e8763f99805956b921f22586d4309203870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4112b288_ab8712b6",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-22T12:30:42Z",
+      "side": 1,
+      "message": "`ConfigManager` constructor requires the parsed JSON object, so the caller has to parse appropriate JSON and pass the object.",
+      "parentUuid": "9791b3f1_af325de4",
       "revId": "78415e8763f99805956b921f22586d4309203870",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -82,6 +118,24 @@
       "writtenOn": "2026-04-22T10:21:36Z",
       "side": 1,
       "message": "A try catch here should log whether construction was successful or not. Rest all the logic \n\n-\u003e Whether the JSON path is valid or not.\n-\u003e Successful parsing the JSON etc should be internal to config manager construction.",
+      "revId": "78415e8763f99805956b921f22586d4309203870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08b8dd13_f59c206e",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-22T12:30:42Z",
+      "side": 1,
+      "message": "`ConfigManager` constructor requires a parsed JSON object, so the caller has to parse and pass the appropriate JSON object.",
+      "parentUuid": "08bdc37c_ea661937",
       "revId": "78415e8763f99805956b921f22586d4309203870",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
