@@ -78,8 +78,15 @@ class Worker
      * @brief API to parse VPD data
      *
      * @param[in] i_vpdFilePath - Path to the VPD file.
+     * @param[in] i_processRedundant - Enables VPD collection for redundant
+     * EEPROM path.
+     *
+     * @note When processing redundant paths and `i_processRedundant` is false,
+     * only the FRU pre-action is performed and VPD collection, post-action
+     * actions are skipped.
      */
-    types::VPDMapVariant parseVpdFile(const std::string& i_vpdFilePath);
+    types::VPDMapVariant parseVpdFile(const std::string& i_vpdFilePath,
+                                      const bool& i_processRedundant = false);
 
     /**
      * @brief An API to populate DBus interfaces for a FRU.
@@ -198,11 +205,19 @@ class Worker
      * return status of parsing and publishing of VPD over D-Bus.
      *
      * @param[in] i_vpdFilePath - Path of file containing VPD.
+     * @param[in] i_processRedundant - Enables VPD collection for redundant
+     * EEPROM path.
+     *
+     * @note When processing redundant paths and `i_processRedundant` is false,
+     * only the FRU pre-action is performed and VPD collection, post-action
+     * actions are skipped.
+     *
      * @return Tuple of status and file path. Status, true if successful else
      * false.
      */
     std::tuple<bool, std::string> parseAndPublishVPD(
-        const std::string& i_vpdFilePath);
+        const std::string& i_vpdFilePath,
+        const bool& i_processRedundant = false);
 
     /**
      * @brief An API to process extrainterfaces w.r.t a FRU.
