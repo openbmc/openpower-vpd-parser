@@ -1153,9 +1153,6 @@ void IbmHandler::performInitialSetup()
                 "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        // Set appropriate position of BMC.
-        setBmcPosition();
-
         // Enable all mux which are used for connecting to the i2c on the
         // pcie slots for pcie cards. These are not enabled by kernel due to
         // an issue seen with Castello cards, where the i2c line hangs on a
@@ -1194,87 +1191,6 @@ void IbmHandler::performInitialSetup()
     }
 }
 
-void IbmHandler::setBmcPosition()
-{
-    size_t l_bmcPosition = dbusUtility::getBmcPosition();
-
-    // Workaround until getBmcPosition() is filled in and
-    // doesn't just return max().
-    if (l_bmcPosition == std::numeric_limits<size_t>::max())
-    {
-        l_bmcPosition = 0;
-    }
-
-    uint16_t l_errCode = 0;
-    // Special Handling required for RBMC prototype system as Cable Management
-    // Daemon is not there.
-    if (isRbmcPrototypeSystem(l_errCode))
-    {
-        checkAndUpdateBmcPosition(l_bmcPosition);
-    }
-    else if (l_errCode != 0)
-    {
-        m_logger->logMessage(
-            "Unable to determine whether system is RBMC system or not, reason: " +
-            commonUtility::getErrCodeMsg(l_errCode));
-    }
-
-    // Call method to update the dbus
-    if (!dbusUtility::publishVpdOnDBus(types::ObjectMap{
-            {sdbusplus::object_path(constants::systemInvPath),
-             {{constants::rbmcPositionInterface,
-               {{"Position", l_bmcPosition}}}}}}))
-    {
-        m_logger->logMessage(
-            "Updating BMC position failed for path [" +
-            std::string(constants::systemInvPath) +
-            "], bmc position: " + std::to_string(l_bmcPosition));
-
-        // ToDo: Check if PEL required
-    }
-
-    writeBmcPositionToFile(l_bmcPosition);
-}
-
-void IbmHandler::writeBmcPositionToFile(const size_t i_bmcPosition)
-{
-    const std::filesystem::path l_filePath{constants::bmcPositionFile};
-
-    std::error_code l_ec;
-    if (!std::filesystem::exists(l_filePath.parent_path(), l_ec))
-    {
-        std::filesystem::create_directories(l_filePath.parent_path(), l_ec);
-        if (l_ec)
-        {
-            m_logger->logMessage("create_directories() failed on " +
-                                 l_filePath.parent_path().string() +
-                                 ". Error =" + l_ec.message());
-            return;
-        }
-    }
-
-    try
-    {
-        std::ofstream l_outFile;
-        l_outFile.exceptions(std::ofstream::failbit | std::ofstream::badbit);
-        l_outFile.open(l_filePath);
-        if (!l_outFile)
-        {
-            m_logger->logMessage("Failed to open file [" + l_filePath.string() +
-                                 "] for writing");
-            return;
-        }
-
-        l_outFile << i_bmcPosition;
-    }
-    catch (const std::exception& l_ex)
-    {
-        m_logger->logMessage(
-            std::string("Exception while writing BMC position to file: ") +
-            l_ex.what());
-    }
-}
-
 void IbmHandler::collectAllFruVpd()
 {
     // Setting status to "InProgress", before trigeering VPD collection.
@@ -1282,59 +1198,6 @@ void IbmHandler::collectAllFruVpd()
 
     m_worker->collectFrusFromJson();
     SetTimerToDetectVpdCollectionStatus();
-}
-
-bool IbmHandler::isRbmcPrototypeSystem(uint16_t& o_errCode) const noexcept
-{
-    types::BinaryVector l_imValue = dbusUtility::getImFromDbus();
-    if (l_imValue.empty())
-    {
-        o_errCode = error_code::DBUS_FAILURE;
-        return false;
-    }
-
-    if (constants::rbmcPrototypeSystemImValue == l_imValue)
-    {
-        return true;
-    }
-
-    return false;
-}
-
-void IbmHandler::checkAndUpdateBmcPosition(size_t& o_bmcPosition) const noexcept
-{
-    try
-    {
-        gpiod::line l_positionGpio =
-            gpiod::find_line(constants::rbmcPrototypeSysBmcPosGpio);
-
-        if (!l_positionGpio)
-        {
-            m_logger->logMessage(
-                "Could not find gpio line " +
-                std::string(constants::rbmcPrototypeSysBmcPosGpio) +
-                " for position detection");
-            return;
-        }
-
-        l_positionGpio.request({"Read the position line",
-                                gpiod::line_request::DIRECTION_INPUT, 0});
-
-        const int l_value = l_positionGpio.get_value();
-
-        // explicitly releasing.
-        l_positionGpio.release();
-
-        o_bmcPosition = (l_value == constants::VALUE_0) ? constants::VALUE_1
-                                                        : constants::VALUE_0;
-    }
-    catch (const std::exception& l_ex)
-    {
-        m_logger->logMessage(
-            "Exception while processing gpio " +
-            std::string(constants::rbmcPrototypeSysBmcPosGpio) +
-            " for position. Reason: " + l_ex.what());
-    }
 }
 
 void IbmHandler::updateVpdCollectionStatus(
