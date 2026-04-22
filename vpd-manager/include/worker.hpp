@@ -199,6 +199,22 @@ class Worker
 
   private:
     /**
+     * @brief Execute pre-action for a redundant VPD path without parsing VPD.
+     *
+     * Invokes parseVpdFile for the given EEPROM path in a mode where only
+     * pre-action is executed. Actual VPD parsing and post-action actions are
+     * skipped.
+     *
+     * Any exceptions during parsing are caught and logged, and the
+     * function returns the execution status.
+     *
+     * @param[in] i_EepromFilePath    -  Redundant EEPROM file path.
+     *
+     * @return true if pre-action execution succeeds, false otherwise.
+     */
+    bool processRedundantPreAction(const std::string& i_vpdFilePath) noexcept;
+
+    /**
      * @brief An API to parse and publish a FRU VPD over D-Bus.
      *
      * Note: This API will handle all the exceptions internally and will only
