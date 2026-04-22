@@ -1365,5 +1365,30 @@ inline std::expected<std::string, error_code> getUnexpandedLocationCodeForFru(
         return std::unexpected(error_code::STANDARD_EXCEPTION);
     }
 }
+
+/**
+ * @brief Check whether the given FRU is marked as a redundant EEPROM.
+ *
+ * Determines if the given FRU is a redundant FRU (not a primary FRU)
+ * based on the "isRedundant" flag in the system configuration JSON.
+ *
+ * @param[in]  i_fruPath  -   Path to the FRU.
+ * @param[in]  i_cfgJsonObj - JSON object containing system configuration.
+ * @param[out] o_errCode  -  To set error code in case of error.
+ *
+ * @return true if the FRU is marked as redundant, false otherwise.
+ */
+inline bool isRedundantEepromPath(
+    [[maybe_unused]] const std::string& i_fruPath,
+    [[maybe_unused]] const nlohmann::json& i_cfgJsonObj,
+    [[maybe_unused]] uint16_t& o_errCode)
+{
+    /* @todo
+     * Look up i_fruPath in the config JSON.
+     * - If present, read and return the value of the "isRedundant" flag.
+     * - If not present return false and update o_errCode.
+     */
+    return false;
+}
 } // namespace jsonUtility
 } // namespace vpd
