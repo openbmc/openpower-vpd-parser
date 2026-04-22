@@ -1,11 +1,15 @@
 #pragma once
 #include "error_codes.hpp"
+#include "exceptions.hpp"
 #include "logger.hpp"
 #include "types.hpp"
+#include "utility/common_utility.hpp"
+#include "utility/json_utility.hpp"
 
 #include <nlohmann/json.hpp>
 
 #include <expected>
+#include <format>
 #include <map>
 #include <string>
 #include <string_view>
@@ -54,15 +58,24 @@ class ConfigManager final
      * Worker can create, effectively restricting instantiation to Worker.
      *
      * @param[in] i_key - Constructor key
-     * @param[in] i_systemConfigJson - System config JSON object
+     * @param[in] i_sysConfigJsonPath - Absolute path to system config JSON
      *
      * @throw std::runtime_error
      */
     explicit ConfigManager([[maybe_unused]] const WorkerPassKey& i_key,
-                           const nlohmann::json& i_systemConfigJson) :
-        m_systemConfigJson{i_systemConfigJson},
+                           const std::string& i_sysConfigJsonPath) :
         m_logger{Logger::getLoggerInstance()}
     {
+        uint16_t l_errCode{constants::VALUE_0};
+
+        m_systemConfigJson =
+            jsonUtility::getParsedJson(i_sysConfigJsonPath, l_errCode);
+
+        if (l_errCode != constants::VALUE_0)
+        {
+            throw JsonException{std::string("Failed to parse JSON. Error : ") +
+                                commonUtility::getErrCodeMsg(l_errCode)};
+        }
         buildConfigMaps();
     }
 
@@ -172,7 +185,7 @@ class ConfigManager final
         const std::string& i_inventoryObjPath) const noexcept;
 
     // System config JSON
-    const nlohmann::json& m_systemConfigJson;
+    nlohmann::json m_systemConfigJson;
 
     // Chassis ID to chassis specific JSON map - O(logN) lookup, optimized for
     // small N

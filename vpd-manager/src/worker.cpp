@@ -56,8 +56,8 @@ Worker::Worker(std::string pathToConfigJson, uint8_t i_maxThreadCount,
             // TODO: revisit to see if ConfigManager can be initialized after
             // System VPD collection create ConfigManager instance
             ConfigManager::WorkerPassKey l_configMgrKey;
-            m_configManager =
-                std::make_unique<ConfigManager>(l_configMgrKey, m_parsedJson);
+            m_configManager = std::make_unique<ConfigManager>(l_configMgrKey,
+                                                              m_configJsonPath);
         }
         catch (const std::exception& l_ex)
         {
