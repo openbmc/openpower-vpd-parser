@@ -188,7 +188,6 @@ constexpr auto powerVsImagePrefix_MZ = "MZ";
 constexpr auto powerVsImagePrefix_NY = "NY";
 constexpr auto powerVsImagePrefix_NZ = "NZ";
 constexpr auto badVpdDir = "/var/lib/vpd/dumps/";
-constexpr auto bmcPositionFile = "/run/openbmc/bmc_position";
 constexpr auto functionalProperty = "Functional";
 constexpr auto enabledProperty = "Enabled";
 constexpr auto availableProperty = "Available";
@@ -248,14 +247,9 @@ static constexpr auto power_vs_50003_json =
 static constexpr auto power_vs_50001_json =
     "/usr/share/vpd/50001_power_vs.json";
 
-static constexpr auto rbmcPositionInterface =
-    "xyz.openbmc_project.Inventory.Decorator.Position";
-static std::vector<uint8_t> rbmcPrototypeSystemImValue{118, 0, 32, 0};
-
 static constexpr auto fileModeDirectoryPath = "/var/lib/vpd/file";
 static constexpr auto pimBackupPath =
     "/var/lib/phosphor-data-sync/bmc_data_bkp/var/lib/phosphor-inventory-manager";
 static constexpr auto pimPrimaryPath = "/var/lib/phosphor-inventory-manager";
-static constexpr auto rbmcPrototypeSysBmcPosGpio = "USB_TARGET_MODE_N";
 } // namespace constants
 } // namespace vpd

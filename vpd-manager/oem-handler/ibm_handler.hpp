@@ -189,26 +189,6 @@ class IbmHandler
     void enableMuxChips();
 
     /**
-     * @brief Checks whether the system is an RBMC prototype.
-     *
-     * @param[out] o_errCode - To set error code in case of error.
-     *
-     * @return true for RBMC prototype system, false otherwise.
-     */
-    bool isRbmcPrototypeSystem(uint16_t& o_errCode) const noexcept;
-
-    /**
-     * @brief Checks and updates BMC position.
-     *
-     * This API reads the position gpio pin and updates the bmc position. In
-     * case of any error, default value of bmc position passed as parameter is
-     * retained.
-     *
-     * @param[out] o_bmcPosition - BMC position.
-     */
-    void checkAndUpdateBmcPosition(size_t& o_bmcPosition) const noexcept;
-
-    /**
      * @brief API to check sysconfig json symlink.
      */
     void isSymlinkPresent() noexcept;
@@ -258,24 +238,6 @@ class IbmHandler
      * @brief API to register listener objects.
      */
     void initEventListeners() noexcept;
-
-    /**
-     * @brief API to set BMC position.
-     *
-     * The API sets BMC position under system inventory path. In case of any
-     * error, default value will be set as BMC position.
-     */
-    void setBmcPosition();
-
-    /**
-     * @brief API to write the BMC position to a file.
-     *
-     * Writes the BMC position value to /run/openbmc/bmc_position file,
-     * creating the directory if it doesn't exist.
-     *
-     * @param[in] i_bmcPosition - BMC position value to write.
-     */
-    void writeBmcPositionToFile(const size_t i_bmcPosition);
 
     /**
      * @brief API to update VPD collection status property
