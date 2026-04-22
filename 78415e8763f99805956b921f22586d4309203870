@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23f39d8e_809c08da",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-22T10:21:36Z",
+      "side": 1,
+      "message": "This can be defaulted to default JSON path.",
+      "revId": "78415e8763f99805956b921f22586d4309203870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9791b3f1_af325de4",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-22T10:21:36Z",
+      "side": 1,
+      "message": "Why this logic should be in Manager\u0027s constructor? Manager should be agnostic of JSON nitty gritty?",
+      "revId": "78415e8763f99805956b921f22586d4309203870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59e60928_94aa0f37",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-22T10:21:36Z",
+      "side": 1,
+      "message": "Same here why these handling should be in Manager constructor? These are requirements to create config manager and config manager\u0027s construction should handle that?",
+      "revId": "78415e8763f99805956b921f22586d4309203870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01535888_d3f525a8",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-22T10:21:36Z",
+      "side": 1,
+      "message": "I would expect Manager to call this API with the variable \"l_systemConfigJson\", rest should be encapsulated.",
+      "revId": "78415e8763f99805956b921f22586d4309203870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08bdc37c_ea661937",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-22T10:21:36Z",
+      "side": 1,
+      "message": "A try catch here should log whether construction was successful or not. Rest all the logic \n\n-\u003e Whether the JSON path is valid or not.\n-\u003e Successful parsing the JSON etc should be internal to config manager construction.",
+      "revId": "78415e8763f99805956b921f22586d4309203870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
