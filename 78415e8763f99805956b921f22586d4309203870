@@ -124,6 +124,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf209805_c751ee84",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-22T14:47:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59e60928_94aa0f37",
+      "revId": "78415e8763f99805956b921f22586d4309203870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01535888_d3f525a8",
