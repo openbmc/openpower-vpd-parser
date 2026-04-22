@@ -1378,17 +1378,30 @@ inline std::expected<std::string, error_code> getUnexpandedLocationCodeForFru(
  *
  * @return true if the FRU is marked as redundant, false otherwise.
  */
-inline bool isRedundantEepromPath(
-    [[maybe_unused]] const std::string& i_fruPath,
-    [[maybe_unused]] const nlohmann::json& i_cfgJsonObj,
-    [[maybe_unused]] uint16_t& o_errCode)
+inline bool isRedundantEepromPath(const std::string& i_fruPath,
+                                  const nlohmann::json& i_cfgJsonObj,
+                                  uint16_t& o_errCode)
 {
-    /* @todo
-     * Look up i_fruPath in the config JSON.
-     * - If present, read and return the value of the "isRedundant" flag.
-     * - If not present return false and update o_errCode.
-     */
-    return false;
+    o_errCode = 0;
+    if (i_fruPath.empty() || i_cfgJsonObj.empty())
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return false;
+    }
+
+    if (!i_cfgJsonObj.contains("frus"))
+    {
+        o_errCode = error_code::INVALID_JSON;
+        return false;
+    }
+
+    if (!i_cfgJsonObj["frus"].contains(i_fruPath))
+    {
+        o_errCode = error_code::FRU_PATH_NOT_FOUND;
+        return false;
+    }
+
+    return i_cfgJsonObj["frus"][i_fruPath].at(0).value("isRedundant", false);
 }
 } // namespace jsonUtility
 } // namespace vpd
