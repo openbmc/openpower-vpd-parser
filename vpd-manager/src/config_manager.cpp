@@ -146,6 +146,12 @@ std::expected<bool, error_code> ConfigManager::buildConfigMapsForFru(
         // Create entry in EEPROM to chassis ID map
         m_eepromToChassisIdMap.emplace(l_eepromPath, l_chassisId);
 
+        // Create entry in Chassis ID to motherboard EEPROM map
+        if (l_baseInvObjPath.ends_with("motherboard"))
+        {
+            m_chassisIdToMotherboardEepromMap[l_chassisId] = l_eepromPath;
+        }
+
         // Get or create chassis JSON object
         auto& l_chassisJson = m_chassisIdToJsonMap[l_chassisId];
 
