@@ -820,7 +820,8 @@ bool Worker::processPostAction(
     return true;
 }
 
-types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
+types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
+                                          const bool& i_processRedundant)
 {
     try
     {
@@ -834,39 +835,54 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
         }
 
         bool isPreActionRequired = false;
-        if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
-                                          "preAction", "collection", l_errCode))
+        if (!m_parsedJson.empty())
         {
-            isPreActionRequired = true;
-            if (!processPreAction(i_vpdFilePath, "collection", l_errCode))
+            if (jsonUtility::isActionRequired(m_parsedJson, i_vpdFilePath,
+                                              "preAction", "collection",
+                                              l_errCode))
             {
-                if (l_errCode == error_code::DEVICE_NOT_PRESENT)
+                isPreActionRequired = true;
+                if (!processPreAction(i_vpdFilePath, "collection", l_errCode))
                 {
-                    logging::logMessage(
-                        commonUtility::getErrCodeMsg(l_errCode) +
-                        i_vpdFilePath);
+                    if (l_errCode == error_code::DEVICE_NOT_PRESENT)
+                    {
+                        logging::logMessage(
+                            commonUtility::getErrCodeMsg(l_errCode) +
+                            i_vpdFilePath);
 
-                    // since pre action is reporting device not present, execute
-                    // post fail action
-                    checkAndExecutePostFailAction(i_vpdFilePath, "collection");
+                        // since pre action is reporting device not present,
+                        // execute post fail action
+                        checkAndExecutePostFailAction(i_vpdFilePath,
+                                                      "collection");
 
-                    // Presence pin has been read successfully and has been read
-                    // as false, so this is not a failure case, hence returning
-                    // empty variant so that pre action is not marked as failed.
-                    return types::VPDMapVariant{};
+                        // Presence pin has been read successfully and has been
+                        // read as false, so this is not a failure case, hence
+                        // returning empty variant so that pre action is not
+                        // marked as failed.
+                        return types::VPDMapVariant{};
+                    }
+                    throw std::runtime_error(
+                        std::string(__FUNCTION__) +
+                        " Pre-Action failed with error: " +
+                        commonUtility::getErrCodeMsg(l_errCode));
                 }
-                throw std::runtime_error(
-                    std::string(__FUNCTION__) +
-                    " Pre-Action failed with error: " +
-                    commonUtility::getErrCodeMsg(l_errCode));
             }
-        }
-        else if (l_errCode)
-        {
-            logging::logMessage(
-                "Failed to check if pre action required for FRU [" +
-                i_vpdFilePath +
-                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+            else if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to check if pre action required for FRU [" +
+                    i_vpdFilePath +
+                    "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+            }
+
+            // Skip if VPD collection if VPD path is redundant path and
+            // i_processRedundant is set to false.
+            if (m_parsedJson["frus"][i_vpdFilePath].at(0).value("isRedundant",
+                                                                false) &&
+                !i_processRedundant)
+            {
+                return types::VPDMapVariant{};
+            }
         }
 
         if (!std::filesystem::exists(i_vpdFilePath))
@@ -940,7 +956,7 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath)
 }
 
 std::tuple<bool, std::string> Worker::parseAndPublishVPD(
-    const std::string& i_vpdFilePath)
+    const std::string& i_vpdFilePath, const bool& i_processRedundant)
 {
     std::string l_inventoryPath{};
     uint16_t l_errCode = 0;
@@ -953,6 +969,9 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
         m_activeCollectionThreadCount++;
         m_mutex.unlock();
 
+        // @todo When `i_processRedundant` is false, skip D-Bus updates for
+        // redundant FRUs and only perform pre-action, if any.
+
         vpdSpecificUtility::setCollectionStatusProperty(
             i_vpdFilePath, types::VpdCollectionStatus::InProgress, m_parsedJson,
             l_errCode);
@@ -963,7 +982,9 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                 "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        const types::VPDMapVariant& parsedVpdMap = parseVpdFile(i_vpdFilePath);
+        const types::VPDMapVariant& parsedVpdMap =
+            parseVpdFile(i_vpdFilePath, i_processRedundant);
+
         if (!std::holds_alternative<std::monostate>(parsedVpdMap))
         {
             types::ObjectMap objectInterfaceMap;
@@ -1200,6 +1221,28 @@ void Worker::collectFrusFromJson()
             std::thread{[vpdFilePath, this]() {
                 const auto& l_parseResult = parseAndPublishVPD(vpdFilePath);
 
+                // If VPD collection from a primary FRU fails, attempt
+                // collection from its redundant EEPROM path (if
+                // configured).
+                if (!std::get<0>(l_parseResult))
+                {
+                    uint16_t l_errCode = 0;
+
+                    if (const auto& l_redundantEepromPath =
+                            jsonUtility::getRedundantEepromPathFromJson(
+                                m_parsedJson, vpdFilePath, l_errCode);
+                        !l_redundantEepromPath.empty())
+                    {
+                        m_logger->logMessage(
+                            std::format(
+                                "Triggerring vpd collection from redundant VPD path [ {} ]",
+                                l_redundantEepromPath),
+                            PlaceHolder::COLLECTION);
+
+                        const auto& l_parseResult =
+                            parseAndPublishVPD(l_redundantEepromPath, true);
+                    }
+                }
                 m_mutex.lock();
                 m_activeCollectionThreadCount--;
                 m_mutex.unlock();
@@ -1553,8 +1596,8 @@ void Worker::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
             m_logger->logMessage("Empty parsed VPD map received for " +
                                  std::string(i_dbusObjPath));
 
-            // Stale data from the previous boot can be present on the system.
-            // so clearing of data.
+            // Stale data from the previous boot can be present on the
+            // system. so clearing of data.
             vpdSpecificUtility::resetObjTreeVpd(std::string(i_dbusObjPath),
                                                 m_parsedJson, l_errCode);
 
