@@ -34,6 +34,23 @@
       "parentUuid": "6bc14b6b_45811b7a",
       "revId": "35a34600f43c5315aa78aff817247f9cb6ce3193",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73bc7228_f3df1bcc",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-23T09:30:34Z",
+      "side": 1,
+      "message": "Please update the log message as requested in another commit.",
+      "revId": "35a34600f43c5315aa78aff817247f9cb6ce3193",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
