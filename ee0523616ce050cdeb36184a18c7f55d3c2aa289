@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a31d6103_6400daf4",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-23T09:46:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39c433c5_ef856fe1",
+      "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c40be201_334b4093",
@@ -49,6 +67,24 @@
       "writtenOn": "2026-04-23T09:28:51Z",
       "side": 1,
       "message": "when API can be called, can we keep under a note ?",
+      "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a9c373a_f883229d",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-23T09:46:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c40be201_334b4093",
       "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -70,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b668bfd0_896fdb3a",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-23T09:46:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9908289f_b3a7e319",
+      "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5059d7bc_267e655f",
@@ -83,6 +137,24 @@
       "writtenOn": "2026-04-23T09:28:51Z",
       "side": 1,
       "message": "can we move note after new line.",
+      "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78f148e2_bd03080a",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-23T09:46:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5059d7bc_267e655f",
       "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -104,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdb14267_5212c72c",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-23T09:46:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b70ec5c_1bb9967b",
+      "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a10d652f_82017251",
@@ -117,6 +207,24 @@
       "writtenOn": "2026-04-23T09:21:52Z",
       "side": 1,
       "message": "We need not wrap this under try/catch.\nLet any exception in config manager to flow back to manager\u0027s catch as there is no point instantiating thread manager if config manager is not there.",
+      "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f18a0be9_53a482e6",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-23T09:46:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a10d652f_82017251",
       "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
