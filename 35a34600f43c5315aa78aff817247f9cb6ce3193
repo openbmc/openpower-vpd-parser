@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d5d0319_b51004f0",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-23T10:55:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3e70c428_fe3dc02d",
+      "revId": "35a34600f43c5315aa78aff817247f9cb6ce3193",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73bc7228_f3df1bcc",
@@ -49,6 +67,24 @@
       "writtenOn": "2026-04-23T09:30:34Z",
       "side": 1,
       "message": "Please update the log message as requested in another commit.",
+      "revId": "35a34600f43c5315aa78aff817247f9cb6ce3193",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ea34eb4_22c340dc",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-23T10:55:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "73bc7228_f3df1bcc",
       "revId": "35a34600f43c5315aa78aff817247f9cb6ce3193",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
