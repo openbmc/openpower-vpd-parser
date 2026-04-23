@@ -38,6 +38,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c40be201_334b4093",
+        "filename": "vpd-manager/include/manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-23T09:28:51Z",
+      "side": 1,
+      "message": "when API can be called, can we keep under a note ?",
+      "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9908289f_b3a7e319",
         "filename": "vpd-manager/include/manager.hpp",
         "patchSetId": 9
@@ -55,6 +72,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5059d7bc_267e655f",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-23T09:28:51Z",
+      "side": 1,
+      "message": "can we move note after new line.",
+      "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b70ec5c_1bb9967b",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-23T09:28:51Z",
+      "side": 1,
+      "message": "should this std::string type ?",
+      "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a10d652f_82017251",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 9
@@ -66,6 +117,40 @@
       "writtenOn": "2026-04-23T09:21:52Z",
       "side": 1,
       "message": "We need not wrap this under try/catch.\nLet any exception in config manager to flow back to manager\u0027s catch as there is no point instantiating thread manager if config manager is not there.",
+      "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b190965_6efbd5f0",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-23T09:28:51Z",
+      "side": 1,
+      "message": "ConfigManager instance",
+      "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d9fb146_9e2fe7bb",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-23T09:28:51Z",
+      "side": 1,
+      "message": "ConfigManager instance",
       "revId": "ee0523616ce050cdeb36184a18c7f55d3c2aa289",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
