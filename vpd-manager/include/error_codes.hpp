@@ -13,6 +13,10 @@ enum error_code
     EMPTY_FILE,
     FILE_SYSTEM_ERROR,
 
+    /*Presence specific exceptions*/
+    PRESENCE_INVALID_INPUT_PARAMETER,
+    JSON_MISSING_PRESENCE_GPIO_INFO,
+
     // JSON exceptions
     INVALID_JSON,
     MISSING_FLAG,
@@ -100,5 +104,9 @@ const std::unordered_map<int, std::string> errorCodeMap = {
     {error_code::INVALID_HEXADECIMAL_VALUE, "Invalid hexadecimal value."},
     {error_code::INVALID_INVENTORY_PATH, "Invalid inventory path."},
     {error_code::SERVICE_RUNNING, "Service is running"},
-    {error_code::SERVICE_NOT_RUNNING, "Service is not running"}};
+    {error_code::SERVICE_NOT_RUNNING, "Service is not running"},
+    {error_code::PRESENCE_INVALID_INPUT_PARAMETER,
+     "Invaid input parameter detected while reading presence gpio."},
+    {error_code::JSON_MISSING_PRESENCE_GPIO_INFO,
+     "JSON missing presence gpio info."}};
 } // namespace vpd
