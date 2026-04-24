@@ -356,7 +356,7 @@ inline bool processGpioPresenceTag(
         if (i_vpdFilePath.empty() || i_parsedConfigJson.empty() ||
             i_baseAction.empty() || i_flagToProcess.empty())
         {
-            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            o_errCode = error_code::PRESENCE_INVALID_INPUT_PARAMETER;
             return false;
         }
 
@@ -367,7 +367,7 @@ inline bool processGpioPresenceTag(
                     0)[i_baseAction][i_flagToProcess]["gpioPresence"])
                    .contains("value"))))
         {
-            o_errCode = error_code::JSON_MISSING_GPIO_INFO;
+            o_errCode = error_code::JSON_MISSING_PRESENCE_GPIO_INFO;
             return false;
         }
 
@@ -384,7 +384,6 @@ inline bool processGpioPresenceTag(
 
         if (!l_presenceLine)
         {
-            o_errCode = error_code::DEVICE_PRESENCE_UNKNOWN;
             throw GpioException("Couldn't find the GPIO line.");
         }
 
@@ -424,11 +423,13 @@ inline bool processGpioPresenceTag(
          */
 
         logging::logMessage(l_errMsg);
+        o_errCode = error_code::DEVICE_PRESENCE_UNKNOWN;
+        return false; /* Now handled using error codes*/
 
         // Except when GPIO pin value is false, we go and try collecting the
         // FRU VPD as we couldn't able to read GPIO pin value due to some
         // error/exception. So returning true in error scenario.
-        return true;
+        // return true;
     }
 }
 
@@ -530,70 +531,148 @@ inline bool procesSetGpioTag(
  * in this API.
  * Examples of action - preAction, PostAction etc.
  *
+ * Note: There is a special handling in this method for checking FRU physical
+ * presence. If the list of tags to be processed has presence detection tag then
+ * that will be processed always to check for device physical presence.
+ *
  * @param[in] i_parsedConfigJson - config JSON
  * @param[in] i_action - Base action to be performed.
  * @param[in] i_vpdFilePath - EEPROM file path
  * @param[in] i_flagToProcess - To identify which flag(s) needs to be processed
  * under PreAction tag of config JSON.
  * @param[out] o_errCode - To set error code in case of error.
- * @return - success or failure
+ * @return - Structure for data that reflects overall status of processing of
+ * tags along with physical status of the FRU.
  */
-inline bool executeBaseAction(
+inline types::ActionResult executeBaseAction(
     const nlohmann::json& i_parsedConfigJson, const std::string& i_action,
     const std::string& i_vpdFilePath, const std::string& i_flagToProcess,
     uint16_t& o_errCode)
 {
     o_errCode = 0;
+    types::ActionResult l_result{};
+
     if (i_flagToProcess.empty() || i_action.empty() || i_vpdFilePath.empty() ||
         !i_parsedConfigJson.contains("frus"))
     {
         o_errCode = error_code::INVALID_INPUT_PARAMETER;
-        return false;
+        return l_result;
     }
+
     if (!i_parsedConfigJson["frus"].contains(i_vpdFilePath))
     {
         o_errCode = error_code::FILE_NOT_FOUND;
-        return false;
+        return l_result;
     }
+
     if (!i_parsedConfigJson["frus"][i_vpdFilePath].at(0).contains(i_action))
     {
         o_errCode = error_code::MISSING_ACTION_TAG;
-        return false;
+        return l_result;
     }
 
     if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))[i_action].contains(
             i_flagToProcess))
     {
         o_errCode = error_code::MISSING_FLAG;
-        return false;
+        return l_result;
     }
 
     const nlohmann::json& l_tagsJson =
         (i_parsedConfigJson["frus"][i_vpdFilePath].at(
             0))[i_action][i_flagToProcess];
 
+    if (l_tagsJson.contains("gpioPresence"))
+    {
+        // We need to process presence PIN for this FRU in all scenarios.
+        l_result.presenceTagDefined = true;
+    }
+
+    bool l_gpioPresenceExecuted = false;
     for (const auto& l_tag : l_tagsJson.items())
     {
         auto itrToFunction = funcionMap.find(l_tag.key());
-        if (itrToFunction != funcionMap.end())
+        if (itrToFunction == funcionMap.end())
         {
-            if (!itrToFunction->second(i_parsedConfigJson, i_vpdFilePath,
-                                       i_action, i_flagToProcess, o_errCode))
+            continue;
+        }
+
+        if (itrToFunction->second(i_parsedConfigJson, i_vpdFilePath, i_action,
+                                  i_flagToProcess, o_errCode))
+        {
+            // confirms that FRU is physically present
+            if (l_tag.key() == "gpioPresence")
             {
-                // In case any of the tag fails to execute. Mark action
-                // as failed for that flag.
-                if (o_errCode)
-                {
-                    logging::logMessage(
-                        l_tag.key() + " failed for [" + i_vpdFilePath +
-                        "]. Reason " + commonUtility::getErrCodeMsg(o_errCode));
-                }
-                return false;
+                l_gpioPresenceExecuted = true;
+            }
+            l_result.completedTags.push_back(l_tag.key());
+            continue;
+        }
+
+        // In case any of the tag fails to execute.
+        if (o_errCode)
+        {
+            logging::logMessage(
+                l_tag.key() + " failed for [" + i_vpdFilePath + "]. Reason " +
+                commonUtility::getErrCodeMsg(o_errCode));
+        }
+
+        // Action overall failed.
+        l_result.overallresult = false;
+        l_result.errorCode = o_errCode;
+        l_result.failedTag = l_tag.key();
+
+        // If the failed key is the presence pin
+        if (l_tag.key() == "gpioPresence")
+        {
+            // set the same values to presence return values.
+            l_result.presenceErrorCode = o_errCode;
+            l_gpioPresenceExecuted = true;
+
+            // It is confirmed that device is physically not there.
+            // Don't process other tags.
+            if (o_errCode == error_code::DEVICE_NOT_PRESENT)
+            {
+                return l_result;
+            }
+
+            // For other errors try to bind and check. There can be some issue
+            // with presence pin.
+            continue;
+        }
+
+        // Implies some other tag failed. If physical presence has not
+        // been detected so far, do it explicitly and return.
+        if (!l_gpioPresenceExecuted)
+        {
+            // The FRU does not qualify for physical presence detect.
+            if (!l_result.presenceTagDefined)
+            {
+                l_result.presenceErrorCode = constants::VALUE_0;
+                return l_result;
+            }
+
+            /* Execution is here, implies, a tag before gpioPresence
+            failed. gpioPresence is defined but hasn't run yet. Execute
+            it now to determine device presence.*/
+            uint16_t l_presErrCode = 0;
+            if (!processGpioPresenceTag(i_parsedConfigJson, i_vpdFilePath,
+                                        i_action, i_flagToProcess,
+                                        l_presErrCode))
+            {
+                // presence detect failed, set error and return
+                l_result.presenceErrorCode = l_presErrCode;
+                return l_result;
             }
         }
+
+        // presence detect success, return.
+        return l_result;
     }
 
-    return true;
+    // All success path
+    l_result.overallresult = true;
+    return l_result;
 }
 
 /**

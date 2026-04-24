@@ -251,5 +251,15 @@ using SrcDstRecordDetails = std::tuple<std::string&, std::string&, std::string&,
 using RecordKeywordsMap = std::unordered_map<types::Record, std::vector<types::Keyword>>;
 
 using IpzVpdMapVariant = std::variant<std::monostate, IPZVpdMap, IPZKwdValueMap>;
+
+struct ActionResult
+{
+    bool overallresult = false;                                 // overall pass/fail
+    uint16_t errorCode = 0;                                     // error code of the failed tag
+    std::string failedTag;                                      // which tag failed
+    std::optional<bool> presenceTagDefined = std::nullopt;      // is the tag defined in JSON for the FRU
+    uint16_t presenceErrorCode = 0;                             // error code from presence check
+    std::vector<std::string> completedTags;                     // Tags which have been processed successfully.
+};
 } // namespace types
 } // namespace vpd
