@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74385cf6_7acd6e9a",
+        "filename": "wait-vpd-parser/src/inventory_backup_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-24T14:27:42Z",
+      "side": 1,
+      "message": "declaration says failed paths, but appending filename here, should we take full path or directory name is enough ?",
+      "revId": "77197d8a6d997ccb7eb4176342231444cc2dc034",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
