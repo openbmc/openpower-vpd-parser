@@ -13,6 +13,10 @@ enum error_code
     EMPTY_FILE,
     FILE_SYSTEM_ERROR,
 
+    /*New added*/
+    PRESENCE_INVALID_INPUT_PARAMETER,
+    JSON_MISSING_PRESENCE_GPIO_INFO,
+
     // JSON exceptions
     INVALID_JSON,
     MISSING_FLAG,
