@@ -478,7 +478,7 @@ inline void createAsyncPel(
             constants::eventLoggingObjectPath, constants::eventLoggingInterface,
             "Create", l_message, l_severity, l_additionalData);
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         logging::logMessage("Async PEL creation failed with an error: " +
                             std::string(l_ex.what()));
@@ -553,7 +553,7 @@ inline void createSyncPel(
         l_method.append(l_message, l_severity, l_additionalData);
         l_bus.call(l_method);
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         logging::logMessage("Sync PEL creation failed with an error: " +
                             std::string(l_ex.what()));

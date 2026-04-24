@@ -64,7 +64,7 @@ inline types::DbusVariantType readDbusProperty(
         auto result = l_bus.call(l_method);
         result.read(l_propertyValue);
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         // TODO: Enable logging when verbose is enabled.
         // std::cout << std::string(l_ex.what()) << std::endl;
@@ -111,7 +111,7 @@ inline types::PropertyMap getPropertyMap(
         auto l_result = l_bus.call(l_method);
         l_result.read(l_propertyValueMap);
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         // TODO: Enable logging when verbose is enabled.
         // std::cerr << "Failed to get property map for service: [" << i_service
@@ -216,7 +216,7 @@ inline types::DbusVariantType readKeywordFromHardware(
 
         return l_propertyValue;
     }
-    catch (const sdbusplus::exception::SdBusError& l_error)
+    catch (const sdbusplus::exception::internal_exception& l_error)
     {
         throw;
     }
@@ -534,7 +534,7 @@ inline types::MapperGetObject GetServiceInterfacesForObject(
         auto l_result = l_bus.call(l_method);
         l_result.read(l_serviceInfMap);
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         // TODO: log only when verbose is enabled
         std::cerr << std::string(l_ex.what()) << std::endl;
@@ -576,7 +576,7 @@ inline std::vector<std::string> GetSubTreePaths(
         auto l_result = l_bus.call(l_method);
         l_result.read(l_objectPaths);
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         // TODO: log only when verbose is enabled
         std::cerr << std::string(l_ex.what()) << std::endl;
@@ -894,7 +894,7 @@ inline bool isServiceRunning(const std::string& i_serviceName) noexcept
 
         l_bus.call(l_method).read(l_retVal);
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         std::cout << "Call to check service status failed with exception: " +
                          std::string(l_ex.what())
@@ -934,7 +934,7 @@ inline types::BiosAttributeCurrentValue biosGetAttributeMethodCall(
         l_result.read(std::get<0>(l_attributeVal), std::get<1>(l_attributeVal),
                       std::get<2>(l_attributeVal));
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         // TODO : enable logging when verbose is implemented
         std::cerr << "Failed to read BIOS Attribute: " + i_attributeName +

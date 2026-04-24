@@ -54,7 +54,7 @@ inline types::MapperGetObject getObjectMap(
         auto result = bus.call(method);
         result.read(getObjectMap);
     }
-    catch (const sdbusplus::exception::SdBusError& e)
+    catch (const sdbusplus::exception::internal_exception& e)
     {
         // logging::logMessage(e.what());
         return getObjectMap;
@@ -100,7 +100,7 @@ inline types::PropertyMap getPropertyMap(const std::string& i_service,
         auto l_result = l_bus.call(l_method);
         l_result.read(l_propertyValueMap);
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         logging::logMessage(l_ex.what());
     }
@@ -150,7 +150,7 @@ inline types::MapperGetSubTree getObjectSubTree(
         auto l_result = l_bus.call(l_method);
         l_result.read(l_subTreeMap);
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         logging::logMessage(l_ex.what());
     }
@@ -201,7 +201,7 @@ inline types::DbusVariantType readDbusProperty(
         auto result = bus.call(method);
         result.read(propertyValue);
     }
-    catch (const sdbusplus::exception::SdBusError& e)
+    catch (const sdbusplus::exception::internal_exception& e)
     {
         return propertyValue;
     }
@@ -284,7 +284,7 @@ inline bool callPIM(types::ObjectMap&& objectMap)
         pimMsg.append(std::move(objectMap));
         bus.call(pimMsg);
     }
-    catch (const sdbusplus::exception::SdBusError& e)
+    catch (const sdbusplus::exception::internal_exception& e)
     {
         return false;
     }
@@ -343,7 +343,7 @@ inline bool isServiceRunning(const std::string& i_serviceName)
 
         l_bus.call(l_method).read(l_retVal);
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         logging::logMessage(
             "Call to check service status failed with exception: " +
@@ -382,7 +382,7 @@ inline types::BiosAttributeCurrentValue biosGetAttributeMethodCall(
         l_result.read(std::get<0>(l_attributeVal), std::get<1>(l_attributeVal),
                       std::get<2>(l_attributeVal));
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         logging::logMessage(
             "Failed to read BIOS Attribute: " + i_attributeName +
@@ -498,7 +498,7 @@ inline int EnableRebootGuard() noexcept
         l_bus.call_noreply(l_method);
         l_rc = constants::SUCCESS;
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         std::string l_errMsg =
             "D-Bus call to enable BMC reboot guard failed for reason: ";
@@ -535,7 +535,7 @@ inline int DisableRebootGuard() noexcept
             l_bus.call_noreply(l_method);
             l_dBusCallRc = constants::SUCCESS;
         }
-        catch (const sdbusplus::exception::SdBusError& l_ex)
+        catch (const sdbusplus::exception::internal_exception& l_ex)
         {}
         return l_dBusCallRc;
     };
@@ -775,7 +775,7 @@ inline std::vector<std::string> GetSubTreePaths(
         auto l_result = l_bus.call(l_method);
         l_result.read(l_objectPaths);
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         logging::logMessage(
             "Error while getting GetSubTreePaths for path [" + i_objectPath +
@@ -864,7 +864,7 @@ inline size_t getBmcPosition() noexcept
         // TODO: Return value based on data read from the cable management
         // service.
     }
-    catch (const sdbusplus::exception::SdBusError& l_ex)
+    catch (const sdbusplus::exception::internal_exception& l_ex)
     {
         std::string l_errMsg =
             "Failed to query BMC position via DBus. Reason: ";
