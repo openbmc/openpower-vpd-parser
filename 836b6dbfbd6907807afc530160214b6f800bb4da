@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "132afcc4_f4a63c90",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-04-24T15:23:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "648a8338_4f2b9bf4",
+      "revId": "836b6dbfbd6907807afc530160214b6f800bb4da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f5a95b5_065a5750",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-24T06:32:47Z",
       "side": 1,
       "message": "Any specific reason to return the map by value?\n\nConsumers of this map will require read only access, so we can return as `const` reference.",
+      "revId": "836b6dbfbd6907807afc530160214b6f800bb4da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0287cdb_38423e5a",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-04-24T15:23:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f5a95b5_065a5750",
       "revId": "836b6dbfbd6907807afc530160214b6f800bb4da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91309fbd_803db4b6",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-04-24T15:23:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac8066d7_d900e252",
+      "revId": "836b6dbfbd6907807afc530160214b6f800bb4da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b0dbd10_7e30480a",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-04-24T05:28:55Z",
       "side": 1,
       "message": "we can use emplace here, as we insert key \u0026 value first time",
+      "revId": "836b6dbfbd6907807afc530160214b6f800bb4da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5757c42_117c2104",
+        "filename": "vpd-manager/src/config_manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-04-24T15:23:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b0dbd10_7e30480a",
       "revId": "836b6dbfbd6907807afc530160214b6f800bb4da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
