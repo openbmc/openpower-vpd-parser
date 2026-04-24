@@ -20,6 +20,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f5a95b5_065a5750",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-24T06:32:47Z",
+      "side": 1,
+      "message": "Any specific reason to return the map by value?\n\nConsumers of this map will require read only access, so we can return as `const` reference.",
+      "revId": "836b6dbfbd6907807afc530160214b6f800bb4da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac8066d7_d900e252",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-24T06:32:47Z",
+      "side": 1,
+      "message": "I am assuming we are using `std::map` as number of entries is less? In that case, can we have a comment similar to line 192 specifying the reason?",
+      "revId": "836b6dbfbd6907807afc530160214b6f800bb4da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b0dbd10_7e30480a",
         "filename": "vpd-manager/src/config_manager.cpp",
         "patchSetId": 1
