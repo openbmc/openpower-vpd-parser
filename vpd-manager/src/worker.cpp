@@ -696,9 +696,12 @@ bool Worker::processPreAction(const std::string& i_vpdFilePath,
         return false;
     }
 
-    if ((!jsonUtility::executeBaseAction(m_parsedJson, "preAction",
-                                         i_vpdFilePath, i_flagToProcess,
-                                         i_errCode)) &&
+    // ToDo: Rest of the handling will be done in subsequent commits. For now
+    // just fixing the return types.
+    types::ActionResult l_res = jsonUtility::executeBaseAction(
+        m_parsedJson, "preAction", i_vpdFilePath, i_flagToProcess, i_errCode);
+
+    if ((!l_res.overallresult) &&
         (i_flagToProcess.compare("collection") == constants::STR_CMP_SUCCESS))
     {
         // TODO: Need a way to delete inventory object from Dbus and persisted
@@ -789,9 +792,12 @@ bool Worker::processPostAction(
         }
     }
 
-    if (!jsonUtility::executeBaseAction(m_parsedJson, "postAction",
-                                        i_vpdFruPath, i_flagToProcess,
-                                        l_errCode))
+    // ToDo: Rest of the handling will be done in subsequent commits. For now
+    // just fixing the return types.
+    types::ActionResult l_res = jsonUtility::executeBaseAction(
+        m_parsedJson, "postAction", i_vpdFilePath, i_flagToProcess, i_errCode);
+
+    if (!l_res.overallresult)
     {
         logging::logMessage(
             "Execution of post action failed for path: " + i_vpdFruPath +
