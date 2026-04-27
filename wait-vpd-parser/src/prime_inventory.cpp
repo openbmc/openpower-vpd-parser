@@ -115,6 +115,12 @@ void PrimeInventory::primeSystemBlueprint() const noexcept
             // Prime the inventry for FRUs
             for (const auto& l_Fru : m_sysCfgJsonObj["frus"][l_vpdFilePath])
             {
+                // Skip priming of redundant EEPROM
+                if (l_Fru.value("isRedundant", false))
+                {
+                    break;
+                }
+
                 if (!primeInventory(l_objectInterfaceMap, l_Fru))
                 {
                     m_logger->logMessage(
