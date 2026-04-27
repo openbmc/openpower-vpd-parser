@@ -125,7 +125,7 @@ int main(int argc, char** argv)
         CLI::App l_app{"Wait VPD parser app"};
 
         // default collection status timeout in seconds
-        unsigned l_collectionStatusTimeoutSecs{360};
+        unsigned l_collectionStatusTimeoutSecs{1200};
 
         // The BMC role can be either active or passive. By default the BMC is
         // considered as active.
