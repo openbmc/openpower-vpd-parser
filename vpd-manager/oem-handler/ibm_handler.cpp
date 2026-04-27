@@ -212,9 +212,10 @@ void IbmHandler::initEventListeners() noexcept
 
 void IbmHandler::SetTimerToDetectVpdCollectionStatus()
 {
-    // Keeping max retry for 2 minutes. TODO: Make it configurable based on
+    // Keeping max retry for 20 minutes. TODO: Make it configurable based on
     // system type.
-    static constexpr auto MAX_RETRY = 12;
+    // TODO need to keep an optimal value once we near GA.
+    static constexpr auto MAX_RETRY = 120;
 
     static boost::asio::steady_timer l_timer(*m_ioContext);
     static uint8_t l_timerRetry = 0;
@@ -240,6 +241,9 @@ void IbmHandler::SetTimerToDetectVpdCollectionStatus()
 
         if (m_worker->isAllFruCollectionDone())
         {
+            // total time taken to complete
+            logging::logMessage("Total time to complete  = " +
+                                (l_timerRetry * 10) + " seconds");
             // cancel the timer
             l_timer.cancel();
             processFailedEeproms();
