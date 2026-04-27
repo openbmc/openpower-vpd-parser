@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e1c9c12_e94e6dd1",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1375,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-27T13:53:21Z",
+      "side": 1,
+      "message": "\u003ePath to the FRU\n\nWhich path? EEPROM path or Inventory object path?",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42324263_d2f207f9",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-27T13:53:21Z",
+      "side": 1,
+      "message": "Suggestion: Can we use `std::expected\u003cbool, error_code\u003e` as the return type? This way, callers of this API do not need to pass output parameter `o_errCode`",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43e52084_93899e34",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-27T13:53:21Z",
+      "side": 1,
+      "message": "Can we also mention that post-action is also skipped?",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42c34d54_fc6a36ab",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-27T13:53:21Z",
+      "side": 1,
+      "message": "Can you please explain what is the purpose of creating this new API?\n\nThis API is doing two tasks:\n1. \"Checks whether a redundant EEPROM path is defined in the system config JSON\"\n2. \"If present, invokes the VPD collection on the redundant EEPROM path.\"\n\nThis can be handled by below block:\n```\nif(const auto l_redundantEepromPath \u003d jsonUtility::getRedundantEepromPathFromJson() ; !l_redundantEepromPath.empty())\n{\n   parseVpdFile();\n }\n ```",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c6b6d47_bb593f0a",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-27T13:53:21Z",
+      "side": 1,
+      "message": "Why is the thread count update moved under this block? A comment explaining this will be helpful.",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
