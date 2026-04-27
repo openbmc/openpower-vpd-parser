@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "463f9b48_fb8ba8f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-27T13:31:23Z",
+      "side": 1,
+      "message": "\u003eThis commit expands the \"Available\" property implementation to the VPD\ncollection phase\n\nWhat do you mean by \"expands\" here?\n\n\u003eVPD collection phase\n\nWhich VPD collection?",
+      "revId": "a71342a574bb970dc5802a8cf41e92b301c1b693",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c37f2dac_2fb6e82e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-27T13:31:23Z",
+      "side": 1,
+      "message": "\u003eAfter VPD collection is complete\n\nWhich VPD collection? FRU VPD or System VPD?",
+      "revId": "a71342a574bb970dc5802a8cf41e92b301c1b693",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7dc4956_0ebc6f63",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-27T13:31:23Z",
+      "side": 1,
+      "message": "\u003epopulated over DBus\n\nWhat do you mean by \"populated over DBus\"?",
+      "revId": "a71342a574bb970dc5802a8cf41e92b301c1b693",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "546e1fbd_ed1238bf",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-27T13:31:23Z",
+      "side": 1,
+      "message": "\u003eInventory path as read from config JSON\n\nSystem config JSON?",
+      "revId": "a71342a574bb970dc5802a8cf41e92b301c1b693",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b7fbdc2_1c551e18",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-27T13:31:23Z",
+      "side": 1,
+      "message": "Please add `@throw` in the documentation section if this API throws, otherwise add `noexcept` specifier.",
+      "revId": "a71342a574bb970dc5802a8cf41e92b301c1b693",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56d65558_4a80bcc1",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1672,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-27T13:31:23Z",
+      "side": 1,
+      "message": "```suggestion\n    const std::vector\u003cstd::string\u003e l_availbleInf{constants::availabilityInf};\n```",
+      "revId": "a71342a574bb970dc5802a8cf41e92b301c1b693",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a6fcc71_0eb03e26",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1673,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-27T13:31:23Z",
+      "side": 1,
+      "message": "```suggestion\n    const auto l_mapperObjectMap \u003d\n```",
+      "revId": "a71342a574bb970dc5802a8cf41e92b301c1b693",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b04c122_b8ab429f",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1697,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-27T13:31:23Z",
+      "side": 1,
+      "message": "We should use `std::format()` here for more efficiently formatting the string",
+      "revId": "a71342a574bb970dc5802a8cf41e92b301c1b693",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
