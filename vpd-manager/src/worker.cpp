@@ -178,7 +178,8 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
             else if (propValuePair.value().is_string())
             {
                 if (property.compare("LocationCode") == 0 &&
-                    interface.compare("com.ibm.ipzvpd.Location") == 0)
+                    interface.compare(constants::locationCodeInf) ==
+                        0)
                 {
                     std::string value =
                         vpdSpecificUtility::getExpandedLocationCode(
@@ -198,8 +199,7 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
 
                     auto l_locCodeProperty = propertyMap;
                     vpdSpecificUtility::insertOrMerge(
-                        interfaceMap,
-                        std::string(constants::xyzLocationCodeInf),
+                        interfaceMap, std::string(constants::locationCodeInf),
                         move(l_locCodeProperty), l_errCode);
 
                     if (l_errCode)

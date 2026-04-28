@@ -1866,8 +1866,8 @@ inline std::string expandFcsLocationCode(const std::string& i_chassisObjPath,
     }
 
     const auto& l_retValue = dbusUtility::readDbusProperty(
-        constants::pimServiceName, i_inventoryPath,
-        constants::xyzLocationCodeInf, "LocationCode");
+        constants::pimServiceName, i_inventoryPath, constants::locationCodeInf,
+        "LocationCode");
 
     auto l_locCode = std::get_if<std::string>(&l_retValue);
     if (l_locCode == nullptr)
@@ -1957,7 +1957,7 @@ inline std::string expandMtsLocationCode(uint16_t& o_errCode)
 
     const auto& l_retValue = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemInvPath,
-        constants::xyzLocationCodeInf, "LocationCode");
+        constants::locationCodeInf, "LocationCode");
 
     auto l_locCode = std::get_if<std::string>(&l_retValue);
     if (l_locCode == nullptr)
