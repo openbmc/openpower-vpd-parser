@@ -1338,13 +1338,13 @@ inline std::expected<std::string, error_code> getUnexpandedLocationCodeForFru(
         // look for extraInterfaces object
         const auto& l_extraInterfacesObj = i_fruJsonObj["extraInterfaces"];
 
-        if (!l_extraInterfacesObj.contains(constants::locationCodeInf))
+        if (!l_extraInterfacesObj.contains(constants::locationCodeInterface))
         {
             return std::unexpected(error_code::MISSING_FLAG);
         }
 
         const auto& l_locationCodeInfEntry =
-            l_extraInterfacesObj[constants::locationCodeInf];
+            l_extraInterfacesObj[constants::locationCodeInterface];
 
         if (!l_locationCodeInfEntry.contains("LocationCode"))
         {

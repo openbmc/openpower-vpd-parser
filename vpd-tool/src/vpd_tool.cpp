@@ -188,11 +188,11 @@ void VpdTool::populateFruJson(
             continue;
         }
 
-        if (l_interface == constants::xyzLocationCodeInf)
+        if (l_interface == constants::locationCodeInterface)
         {
             const std::vector<std::string> l_properties = {"LocationCode"};
             populateInterfaceJson<std::string>(i_inventoryObjPath,
-                                               constants::xyzLocationCodeInf,
+                                               constants::locationCodeInterface,
                                                l_properties, io_fruJsonObject);
             continue;
         }

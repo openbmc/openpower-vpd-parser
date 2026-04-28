@@ -1342,8 +1342,7 @@ void IbmHandler::updateExpandedLocationCode()
 {
     // Get all the path published under PIM
     auto l_objects = dbusUtility::GetSubTreePaths(
-        constants::pimPath, 0,
-        {constants::xyzLocationCodeInf, constants::locationCodeInf});
+        constants::pimPath, 0, {constants::locationCodeInterface});
 
     // Set to hold absent chassis paths, so that we don't flood journal.
     std::unordered_set<std::string> l_absentChassis;
@@ -1425,9 +1424,7 @@ void IbmHandler::updateExpandedLocationCode()
 
         types::ObjectMap l_objectMap = {
             {sdbusplus::object_path(l_inventoryPath),
-             {{constants::xyzLocationCodeInf,
-               {{"LocationCode", l_expandedLocCode}}},
-              {constants::locationCodeInf,
+             {{constants::locationCodeInterface,
                {{"LocationCode", l_expandedLocCode}}}}}};
 
         // Call dbus method to update on dbus
