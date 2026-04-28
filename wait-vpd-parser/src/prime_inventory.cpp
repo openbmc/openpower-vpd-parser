@@ -277,7 +277,7 @@ void PrimeInventory::populateInterfaces(
             else if (l_propValuePair.value().is_string())
             {
                 if (l_property.compare("LocationCode") == 0 &&
-                    l_interface.compare("com.ibm.ipzvpd.Location") == 0)
+                    l_interface.compare(vpd::constants::locationCodeInf) == 0)
                 {
                     std::string l_value =
                         vpd::vpdSpecificUtility::getExpandedLocationCode(
@@ -298,7 +298,7 @@ void PrimeInventory::populateInterfaces(
                     auto l_locCodeProperty = l_propertyMap;
                     vpd::vpdSpecificUtility::insertOrMerge(
                         io_interfaceMap,
-                        std::string(vpd::constants::xyzLocationCodeInf),
+                        std::string(vpd::constants::locationCodeInf),
                         move(l_locCodeProperty), l_errCode);
 
                     if (l_errCode)
