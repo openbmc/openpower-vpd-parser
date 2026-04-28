@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5869bce_b9cf5315",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-28T11:35:49Z",
+      "side": 1,
+      "message": "@anupama.b.r1@ibm.com Some fundamental issue. When API is setting error codes why it needs to return a boolean? Error code itself can give info that it was not found or failed.\nAlso, that is what your statements tells in the Todo \"return false and update o_errCode\".\n\n@souvikroyofficial10@gmail.com What are we benefiting from moving to std::Expected here?\n\n* We still need to create a variable to hold the value returned in std::expected?\n\nIMO std::expected is best suited when the return values are exclusive not when they mean same thing.",
+      "parentUuid": "42fd19be_588fb877",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43e52084_93899e34",
         "filename": "vpd-manager/include/worker.hpp",
         "patchSetId": 5
