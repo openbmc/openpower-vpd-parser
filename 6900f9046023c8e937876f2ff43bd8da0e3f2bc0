@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f46ebb3_d259ac1b",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-28T16:47:28Z",
+      "side": 1,
+      "message": "1. I’m following the existing pattern used by other utility APIs in this codebase—i.e., no exceptions, returning bool for success/failure and using an output parameter for detailed error information.\n\n\n2. Regarding std::expected\u003c\u003e, callers would still need to store the returned object and explicitly check both the success and error paths. In this case, it doesn’t significantly reduce handling effort compared to the current approach.\n\n\n3. The bool return serves as a lightweight and convenient success check for common use cases (e.g., direct use in conditionals). The error code is only needed when the caller wants more context about the failure.\n\n\n4. Error code means, if there any error occurred while processing something. we are not using error codes to represent flag is present with different values.\n\n\n5. I’ve updated the TODO accordingly—on failure, the API returns false and sets o_errCode.",
+      "parentUuid": "a5869bce_b9cf5315",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43e52084_93899e34",
         "filename": "vpd-manager/include/worker.hpp",
         "patchSetId": 5
