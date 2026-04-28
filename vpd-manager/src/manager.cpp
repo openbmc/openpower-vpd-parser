@@ -531,6 +531,7 @@ bool Manager::isValidUnexpandedLocationCode(
           constants::UNEXP_LOCATION_CODE_MIN_LENGTH) &&
          (i_unexpandedLocationCode.find("-") != 4)))
     {
+        logging::logMessage("DBG: Validation of UnexpandedLocationCode failed");
         return false;
     }
 
@@ -547,12 +548,17 @@ std::string Manager::getExpandedLocationCode(
         // phosphor::logging::elog API. Should we still log a PEL here?
         m_logger->logMessage(std::format("Invalid unexpanded location code: {}",
                                          i_unexpandedLocationCode));
+        logging::logMessage("DBG:Invalid unexpanded location code");
 
         throw types::DbusInvalidArgument();
     }
 
     if (!m_configManager)
     {
+        logging::logMessage(
+            "DBG: Cannot get expanded location code for {} as ConfigManager instance is not initialized.");
+        logging::logMessage("DBG: throwing DbusInvalidArgument");
+
         m_logger->logMessage(std::format(
             "Cannot get expanded location code for {} as ConfigManager instance is not initialized.",
             i_unexpandedLocationCode));
@@ -565,6 +571,8 @@ std::string Manager::getExpandedLocationCode(
 
     if (!l_inventoryPathsResult.has_value())
     {
+        logging::logMessage(
+            "DBG:Failed to get inventory path corresponding to location code ,throwing DbusInvalidArgument");
         m_logger->logMessage(std::format(
             "Failed to get inventory path corresponding to location code {}. Error: {}",
             i_unexpandedLocationCode,
@@ -580,7 +588,7 @@ std::string Manager::getExpandedLocationCode(
 
     auto l_dbusReadRes = dbusUtility::readDbusProperty(
         constants::pimServiceName, l_inventoryPathsResult.value().at(0),
-        constants::locationCodeInf, "LocationCode");
+        constants::locationCodeInterface, "LocationCode");
 
     const auto l_expandedLocationCodeRes =
         std::get_if<std::string>(&l_dbusReadRes);
@@ -596,7 +604,8 @@ std::string Manager::getExpandedLocationCode(
     m_logger->logMessage(std::format(
         "Invalid unexpanded location code data type read from D-Bus for {}",
         i_unexpandedLocationCode));
-
+    logging::logMessage(
+        "DBG: Invalid unexpanded location code data type read from D-Bus. Throwing DbusInvalidArgument");
     throw types::DbusInvalidArgument();
 }
 
@@ -604,8 +613,11 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
     const std::string& i_unexpandedLocationCode,
     [[maybe_unused]] const uint16_t i_nodeNumber)
 {
+    logging::logMessage("DBG: Entered getFrusByUnexpandedLocationCode ");
     if (!isValidUnexpandedLocationCode(i_unexpandedLocationCode))
     {
+        logging::logMessage(std::format("Invalid unexpanded location code: {}",
+                                        i_unexpandedLocationCode));
         //@todo: a PEL used to be logged here using deprecated
         // phosphor::logging::elog API. Should we still log a PEL here?
         m_logger->logMessage(std::format("Invalid unexpanded location code: {}",
@@ -654,6 +666,7 @@ std::string Manager::getHwPath(const sdbusplus::object_path& i_dbusObjPath)
 std::tuple<std::string, uint16_t> Manager::getUnexpandedLocationCode(
     const std::string& i_expandedLocationCode)
 {
+    logging::logMessage("DBG: Entered getUnexpandedLocationCode");
     /**
      * Location code should always start with U and fulfil minimum length
      * criteria.
@@ -666,19 +679,25 @@ std::tuple<std::string, uint16_t> Manager::getUnexpandedLocationCode(
             types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
             types::InvalidArgument::ARGUMENT_VALUE(
                 i_expandedLocationCode.c_str()));
+
+        logging::logMessage(
+            "DBG: Provided expandedLocationCode Basic checks didnt pass");
     }
 
     std::string l_fcKwd;
 
     auto l_fcKwdValue = dbusUtility::readDbusProperty(
         "xyz.openbmc_project.Inventory.Manager",
-        "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+        "/xyz/openbmc_project/inventory/system/chassis0/motherboard",
         "com.ibm.ipzvpd.VCEN", "FC");
 
     if (auto l_kwdValue = std::get_if<types::BinaryVector>(&l_fcKwdValue))
     {
         l_fcKwd.assign(l_kwdValue->begin(), l_kwdValue->end());
     }
+    logging::logMessage(std::format(
+        "DBG:Read system/chassis0/motherboard com.ibm.ipzvpd.VCEN FC : {}",
+        l_fcKwd));
 
     // Get the first part of expanded location code to check for FC or TM.
     std::string l_firstKwd = i_expandedLocationCode.substr(1, 4);
@@ -689,6 +708,7 @@ std::tuple<std::string, uint16_t> Manager::getUnexpandedLocationCode(
     // Check if this value matches the value of FC keyword.
     if (l_fcKwd.substr(0, 4) == l_firstKwd)
     {
+        logging::logMessage("DBG: value matches the value of FC keyword");
         /**
          * Period(.) should be there in expanded location code to seggregate
          * FC, node number and SE values.
@@ -696,6 +716,7 @@ std::tuple<std::string, uint16_t> Manager::getUnexpandedLocationCode(
         size_t l_nodeStartPos = i_expandedLocationCode.find('.');
         if (l_nodeStartPos == std::string::npos)
         {
+            logging::logMessage("DBG: Node start position not found");
             phosphor::logging::elog<types::DbusInvalidArgument>(
                 types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
                 types::InvalidArgument::ARGUMENT_VALUE(
@@ -706,6 +727,7 @@ std::tuple<std::string, uint16_t> Manager::getUnexpandedLocationCode(
             i_expandedLocationCode.find('.', l_nodeStartPos + 1);
         if (l_nodeEndPos == std::string::npos)
         {
+            logging::logMessage("DBG: Node end position not found");
             phosphor::logging::elog<types::DbusInvalidArgument>(
                 types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
                 types::InvalidArgument::ARGUMENT_VALUE(
@@ -728,11 +750,16 @@ std::tuple<std::string, uint16_t> Manager::getUnexpandedLocationCode(
                 i_expandedLocationCode.substr(
                     l_nodeEndPos + 1 + constants::SE_KWD_LENGTH,
                     std::string::npos);
+            logging::logMessage("DBG: if case");
         }
         else
         {
             l_unexpandedLocationCode = "Ufcs";
+            logging::logMessage("DBG: else case");
         }
+
+        logging::logMessage(std::format("DBG: l_unexpandedLocationCode : {}",
+                                        l_unexpandedLocationCode));
     }
     else
     {
@@ -740,7 +767,7 @@ std::tuple<std::string, uint16_t> Manager::getUnexpandedLocationCode(
         // Read TM keyword value.
         auto l_tmKwdValue = dbusUtility::readDbusProperty(
             "xyz.openbmc_project.Inventory.Manager",
-            "/xyz/openbmc_project/inventory/system/chassis/motherboard",
+            "/xyz/openbmc_project/inventory/system/chassis0/motherboard",
             "com.ibm.ipzvpd.VSYS", "TM");
 
         if (auto l_kwdValue = std::get_if<types::BinaryVector>(&l_tmKwdValue))
@@ -748,9 +775,14 @@ std::tuple<std::string, uint16_t> Manager::getUnexpandedLocationCode(
             l_tmKwd.assign(l_kwdValue->begin(), l_kwdValue->end());
         }
 
+        logging::logMessage(std::format(
+            "DBG:Read system/chassis0/motherboard com.ibm.ipzvpd.VSYS TM : {}",
+            l_tmKwd));
         // Check if the substr matches to TM keyword value.
         if (l_tmKwd.substr(0, 4) == l_firstKwd)
         {
+            logging::logMessage(
+                "DBG: ExpandednLC substr matches to TM keyword value");
             /**
              * System location code will not have node number and any other
              * details.
@@ -760,6 +792,8 @@ std::tuple<std::string, uint16_t> Manager::getUnexpandedLocationCode(
         // The given location code is neither "fcs" or "mts".
         else
         {
+            logging::logMessage(
+                "DBG:The given location code is neither [fcs] nor [mts].");
             phosphor::logging::elog<types::DbusInvalidArgument>(
                 types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
                 types::InvalidArgument::ARGUMENT_VALUE(
@@ -767,12 +801,18 @@ std::tuple<std::string, uint16_t> Manager::getUnexpandedLocationCode(
         }
     }
 
+    logging::logMessage(
+        std::format("DBG: Returning l_unexpandedLocationCode : {}",
+                    l_unexpandedLocationCode));
+    logging::logMessage(
+        std::format("DBG: Returning l_nodeNummber : {}", l_nodeNummber));
     return std::make_tuple(l_unexpandedLocationCode, l_nodeNummber);
 }
 
 types::ListOfPaths Manager::getFrusByExpandedLocationCode(
     const std::string& i_expandedLocationCode)
 {
+    logging::logMessage("DBG: Entered getFrusBy ExpandedLocationCode");
     std::tuple<std::string, uint16_t> l_locationAndNodePair =
         getUnexpandedLocationCode(i_expandedLocationCode);
 
