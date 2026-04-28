@@ -145,6 +145,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "940101b2_86b9ed1d",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-28T18:43:31Z",
+      "side": 1,
+      "message": "@souvikroyofficial10@gmail.com \n\n\u003e. It\u0027s more aligned with modern C++ and at a glance user can see what the API returns on success/failure.\n\nJust being more aligned with modern C++.... Why should this mandate that std::expected should be used? Going by that thought process, all the APIs from C++23 should only use std::expected\u003cgood_Case, bad_Case\u003e as return type and if not why not?\n\n\u003e Caller need not create o_errCode variable\n\nCaller needs to create a variable to receive the return value of std::expected, then how come this is counted as a benefit?\n\n\u003e API implementation need not set o_errCode \u003d 0;\n\nIf you are worried about an initialization here then std::exception also has to do initialization of an internal flag which actually indicates whether it is holding the value or an error. So what is the tradeoff here?\n\nMy whole point is, are we over analyzing things?\n\n@anupama.b.r1@ibm.com\n\u003e I’m following the existing pattern used by other utility APIs in this \ncodebase—i.e., no exceptions, returning bool for success/failure and \n\n\n\nGot it.",
+      "parentUuid": "da0ec61a_ff9c649e",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43e52084_93899e34",
         "filename": "vpd-manager/include/worker.hpp",
         "patchSetId": 5
