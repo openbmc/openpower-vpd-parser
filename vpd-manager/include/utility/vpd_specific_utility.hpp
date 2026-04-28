@@ -875,7 +875,7 @@ inline void resetDataUnderPIM(const std::string& i_objectPath,
             {
                 if ((l_interface.find(constants::ipzVpdInf) !=
                          std::string::npos &&
-                     l_interface != constants::locationCodeInf) ||
+                     l_interface != constants::locationCodeInterface) ||
                     ((std::find(l_vpdRelatedInterfaces.begin(),
                                 l_vpdRelatedInterfaces.end(), l_interface)) !=
                      l_vpdRelatedInterfaces.end()))
@@ -1867,7 +1867,7 @@ inline std::string expandFcsLocationCode(const std::string& i_chassisObjPath,
 
     const auto& l_retValue = dbusUtility::readDbusProperty(
         constants::pimServiceName, i_inventoryPath,
-        constants::xyzLocationCodeInf, "LocationCode");
+        constants::locationCodeInterface, "LocationCode");
 
     auto l_locCode = std::get_if<std::string>(&l_retValue);
     if (l_locCode == nullptr)
@@ -1957,7 +1957,7 @@ inline std::string expandMtsLocationCode(uint16_t& o_errCode)
 
     const auto& l_retValue = dbusUtility::readDbusProperty(
         constants::pimServiceName, constants::systemInvPath,
-        constants::xyzLocationCodeInf, "LocationCode");
+        constants::locationCodeInterface, "LocationCode");
 
     auto l_locCode = std::get_if<std::string>(&l_retValue);
     if (l_locCode == nullptr)

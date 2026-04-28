@@ -32,7 +32,7 @@ constexpr auto vpdManagerObjectPath = "/com/ibm/VPD/Manager";
 constexpr auto vpdManagerInfName = "com.ibm.VPD.Manager";
 constexpr auto inventoryItemInf = "xyz.openbmc_project.Inventory.Item";
 constexpr auto viniInf = "com.ibm.ipzvpd.VINI";
-constexpr auto xyzLocationCodeInf =
+constexpr auto locationCodeInterface =
     "xyz.openbmc_project.Inventory.Decorator.LocationCode";
 constexpr auto assetInf = "xyz.openbmc_project.Inventory.Decorator.Asset";
 constexpr auto objectMapperService = "xyz.openbmc_project.ObjectMapper";
