@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "42fd19be_588fb877",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-28T09:56:17Z",
+      "side": 1,
+      "message": "With `o_errCode`, callers need to:\n1. Create a error code variable\n2. Pass it by reference to this utility API\n3. Check return value of the utility API\n4. Check if any error code has been set\n\nWith `std::expected\u003cbool, errCode\u003e`:\nCallers need to check the returned value from the utility API.\n\nUsing `std::expected\u003c\u003e` is a more modern C++ approach, makes the utility API more readable and reduces burden on the caller.",
+      "parentUuid": "8adeec07_649b8bee",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43e52084_93899e34",
         "filename": "vpd-manager/include/worker.hpp",
         "patchSetId": 5
