@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f2b3779_8054d37c",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1375,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-28T07:04:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e1c9c12_e94e6dd1",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42324263_d2f207f9",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-27T13:53:21Z",
       "side": 1,
       "message": "Suggestion: Can we use `std::expected\u003cbool, error_code\u003e` as the return type? This way, callers of this API do not need to pass output parameter `o_errCode`",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8adeec07_649b8bee",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-28T07:04:42Z",
+      "side": 1,
+      "message": "The API is primarily used to check whether a FRU is redundant (default\nbeing primary unless explicitly marked). Since callers mainly require\na boolean result, returning bool keeps the API simple.",
+      "parentUuid": "42324263_d2f207f9",
       "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afae938f_30bd2286",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-28T07:04:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43e52084_93899e34",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42c34d54_fc6a36ab",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c65f01f6_d4b12b28",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-28T07:04:42Z",
+      "side": 1,
+      "message": "as discussed keeping the API.",
+      "parentUuid": "42c34d54_fc6a36ab",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c6b6d47_bb593f0a",
@@ -82,6 +154,24 @@
       "writtenOn": "2026-04-27T13:53:21Z",
       "side": 1,
       "message": "Why is the thread count update moved under this block? A comment explaining this will be helpful.",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "288ac6e1_497acff6",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-28T07:04:42Z",
+      "side": 1,
+      "message": "the code has been updated, changes are no more relevant.",
+      "parentUuid": "9c6b6d47_bb593f0a",
       "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
