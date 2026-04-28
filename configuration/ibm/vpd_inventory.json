@@ -38,7 +38,7 @@
                 "isSystemVpd": true,
                 "extraInterfaces": {
                     "xyz.openbmc_project.Inventory.Item.Board.Motherboard": null,
-                    "com.ibm.ipzvpd.Location": {
+                    "xyz.openbmc_project.Inventory.Decorator.LocationCode": {
                         "LocationCode": "Ufcs-P0"
                     }
                 }
@@ -64,7 +64,7 @@
                             "keywordName": "BR"
                         }
                     },
-                    "com.ibm.ipzvpd.Location": {
+                    "xyz.openbmc_project.Inventory.Decorator.LocationCode": {
                         "LocationCode": "Umts"
                     }
                 }
@@ -77,7 +77,7 @@
                     "xyz.openbmc_project.Inventory.Item.Chassis": {
                         "Type": "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.RackMount"
                     },
-                    "com.ibm.ipzvpd.Location": {
+                    "xyz.openbmc_project.Inventory.Decorator.LocationCode": {
                         "LocationCode": "Ufcs"
                     }
                 }

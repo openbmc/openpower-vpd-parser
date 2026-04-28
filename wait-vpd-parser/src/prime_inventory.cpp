@@ -282,8 +282,7 @@ void PrimeInventory::populateInterfaces(
             }
             else if (l_propValuePair.value().is_string())
             {
-                if (l_property.compare("LocationCode") == 0 &&
-                    l_interface.compare("com.ibm.ipzvpd.Location") == 0)
+                if (l_property.compare("LocationCode") == 0)
                 {
                     std::string l_value =
                         vpd::vpdSpecificUtility::getExpandedLocationCode(
@@ -300,19 +299,6 @@ void PrimeInventory::populateInterfaces(
                     }
 
                     l_propertyMap.emplace(l_property, l_value);
-
-                    auto l_locCodeProperty = l_propertyMap;
-                    vpd::vpdSpecificUtility::insertOrMerge(
-                        io_interfaceMap,
-                        std::string(vpd::constants::xyzLocationCodeInf),
-                        move(l_locCodeProperty), l_errCode);
-
-                    if (l_errCode)
-                    {
-                        m_logger->logMessage(
-                            "Failed to insert value into map, error : " +
-                            vpd::commonUtility::getErrCodeMsg(l_errCode));
-                    }
                 }
                 else
                 {

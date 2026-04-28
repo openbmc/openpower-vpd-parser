@@ -177,8 +177,7 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
             }
             else if (propValuePair.value().is_string())
             {
-                if (property.compare("LocationCode") == 0 &&
-                    interface.compare("com.ibm.ipzvpd.Location") == 0)
+                if (property.compare("LocationCode") == 0)
                 {
                     std::string value =
                         vpdSpecificUtility::getExpandedLocationCode(
@@ -195,19 +194,6 @@ void Worker::populateInterfaces(const nlohmann::json& interfaceJson,
                     }
 
                     propertyMap.emplace(property, value);
-
-                    auto l_locCodeProperty = propertyMap;
-                    vpdSpecificUtility::insertOrMerge(
-                        interfaceMap,
-                        std::string(constants::xyzLocationCodeInf),
-                        move(l_locCodeProperty), l_errCode);
-
-                    if (l_errCode)
-                    {
-                        logging::logMessage(
-                            "Failed to insert value into map, error : " +
-                            commonUtility::getErrCodeMsg(l_errCode));
-                    }
                 }
                 else
                 {
