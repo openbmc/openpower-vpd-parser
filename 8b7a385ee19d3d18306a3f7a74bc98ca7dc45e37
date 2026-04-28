@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b6714966_b5b49a98",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-28T17:22:44Z",
+      "side": 1,
+      "message": "`jsonUtility::isRedundantEepromPath()` API expects an error code parameter, which means it can set an error code in failure path. If failure happens, how do we know what exactly failed?",
+      "parentUuid": "04e27e1e_eea25b4f",
+      "revId": "8b7a385ee19d3d18306a3f7a74bc98ca7dc45e37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6f527ed_ec46d604",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 6

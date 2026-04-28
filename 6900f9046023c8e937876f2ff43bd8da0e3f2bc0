@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "da0ec61a_ff9c649e",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-28T17:22:44Z",
+      "side": 1,
+      "message": "\u003eWhat are we benefiting from moving to std::Expected here?\n\nBenefit is:\n1. It\u0027s more aligned with modern C++ and at a glance user can see what the API returns on success/failure.\n2. Caller need not create `o_errCode` variable\n3. API implementation need not set `o_errCode \u003d 0;`\n\n\u003eWe still need to create a variable to hold the value returned in std::expected?\nYes, we need a variable.\n\n\u003eIMO std::expected is best suited when the return values are exclusive not when they mean same thing.\n\nThey do not mean same thing. `std::expected\u003cSuccessType, FailureType\u003e` , so on failure it returns `FailureType`.",
+      "parentUuid": "1f46ebb3_d259ac1b",
+      "revId": "6900f9046023c8e937876f2ff43bd8da0e3f2bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43e52084_93899e34",
         "filename": "vpd-manager/include/worker.hpp",
         "patchSetId": 5
