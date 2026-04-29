@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0bb35872_8e2db9c6",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-29T06:02:44Z",
+      "side": 1,
+      "message": "`Worker::getSysCfgJsonObj()` no longer returns chassis specific JSON, so there is no point of using this API here. Please check.",
+      "revId": "44387f1d233887729d15357f7acc7f9f4075f70c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "98d7e43a_5bf25997",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 7
