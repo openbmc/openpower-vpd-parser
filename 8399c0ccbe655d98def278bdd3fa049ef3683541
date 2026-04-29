@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f17a3a0_a6170fbc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-29T04:57:47Z",
+      "side": 1,
+      "message": "The commit message does not explain why this change is needed. Maybe some context would help.",
+      "revId": "8399c0ccbe655d98def278bdd3fa049ef3683541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1ba0bc2_eab0fb5f",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1229,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-04-29T04:57:47Z",
+      "side": 1,
+      "message": "I think this patchset has not been rebased with latest `master`. `Worker::getSysCfgJsonObj()` no longer returns chassis specific JSON.",
+      "revId": "8399c0ccbe655d98def278bdd3fa049ef3683541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
