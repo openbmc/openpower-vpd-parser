@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f8cd801_baaa7d64",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-04-30T08:42:33Z",
+      "side": 1,
+      "message": "We need to log if it failed to get the redundant path.\nOnly when the path is not found which is a good case we skip without logging?\n\nIn case of error code we can log and return from there itself.",
+      "revId": "543c1bad0f9d0edf31ba690ed57cc9d7d6107de4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
