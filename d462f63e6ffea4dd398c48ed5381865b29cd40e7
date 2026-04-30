@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "075f5fd1_2d96359f",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-30T08:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2712f0f_7caab0a5",
+      "revId": "d462f63e6ffea4dd398c48ed5381865b29cd40e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1206dfca_9849155c",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-04-28T18:43:38Z",
       "side": 1,
       "message": "How do you differentiate between this false and false returned from end of the function?",
+      "revId": "d462f63e6ffea4dd398c48ed5381865b29cd40e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4414ba15_d9ce0cd3",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1770,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-30T08:30:57Z",
+      "side": 1,
+      "message": "made changes to handle.",
+      "parentUuid": "1206dfca_9849155c",
       "revId": "d462f63e6ffea4dd398c48ed5381865b29cd40e7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
