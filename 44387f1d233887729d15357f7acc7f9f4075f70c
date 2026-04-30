@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e51ac63_ce968eb8",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-30T04:31:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bb35872_8e2db9c6",
+      "revId": "44387f1d233887729d15357f7acc7f9f4075f70c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98d7e43a_5bf25997",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "I remember, it was for logging but now with this return type overload it will add more complexity.\nWhy not just use this api to check for redundant and log only and call parseAndPublish from the thread section itself?\nOr we can log there itself incase the function does not get complicated or too long because of this change.",
       "parentUuid": "98d7e43a_5bf25997",
+      "revId": "44387f1d233887729d15357f7acc7f9f4075f70c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d07e2af_5c138ad7",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1221,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-30T04:31:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d94118b4_23dbcae5",
       "revId": "44387f1d233887729d15357f7acc7f9f4075f70c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

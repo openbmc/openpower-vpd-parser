@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef903e29_bf7853f4",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-30T04:31:27Z",
+      "side": 1,
+      "message": "the api is removed, implemented changes in place.",
+      "parentUuid": "49c74f5d_8ebac44d",
+      "revId": "8b7a385ee19d3d18306a3f7a74bc98ca7dc45e37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57feb901_b61a52b1",
@@ -107,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85e8bc4d_fd60e363",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-30T04:31:27Z",
+      "side": 1,
+      "message": "in-place check is added instead of API, as discussed.",
+      "parentUuid": "b6714966_b5b49a98",
+      "revId": "8b7a385ee19d3d18306a3f7a74bc98ca7dc45e37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6f527ed_ec46d604",
@@ -156,6 +192,24 @@
       "side": 1,
       "message": "\u003e This is kept consistent with existing utilities like parseAndPublishVPD,\n which also return status even if not always used by all callers.\n \n\n\nI did not understand this statement. With this reason, we can start writing all the APIs with any return type. Isn\u0027t it?",
       "parentUuid": "d5e36981_e969f38c",
+      "revId": "8b7a385ee19d3d18306a3f7a74bc98ca7dc45e37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a3f36a1_ec571574",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1735,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-04-30T04:31:27Z",
+      "side": 1,
+      "message": "As discussed API is removed, in-place implementation is added.",
+      "parentUuid": "cc59fc7b_7012e878",
       "revId": "8b7a385ee19d3d18306a3f7a74bc98ca7dc45e37",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
