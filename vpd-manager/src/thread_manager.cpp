@@ -1,5 +1,7 @@
 #include "thread_manager.hpp"
 
+#include <utility/common_utility.hpp>
+
 #include <format>
 
 namespace vpd

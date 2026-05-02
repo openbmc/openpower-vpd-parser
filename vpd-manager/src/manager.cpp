@@ -173,10 +173,10 @@ Manager::Manager(
 
         initConfigManager(l_systemConfigJsonPath);
 
-#if 0 // here thread manager should be initialized
+// #if 0 
         m_threadManager =
             std::make_unique<ThreadManager>(m_worker, m_configManager);
-#endif
+// #endif
     }
     catch (const std::exception& l_ex)
     {
