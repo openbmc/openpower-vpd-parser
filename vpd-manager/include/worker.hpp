@@ -192,6 +192,22 @@ class Worker
      */
     void performVpdRecollection();
 
+    /**
+     * @brief API to process FRU collection
+     *
+     * This API processes a single FRU's VPD collection based on the provided
+     * JSON configuration.
+     *
+     * @param[in] i_fruPath - Path to the FRU EEPROM file
+     * @param[in] i_cfgJsonObj - Config JSON object
+     * @param[out] o_errCode - To set error code in case of exception
+     *
+     * @return Tuple of presence and collection status of FRU
+     */
+    std::tuple<bool, std::string> collectFruVpd(
+        const std::string& i_fruPath, const nlohmann::json& i_cfgJsonObj,
+        uint16_t& o_errCode) noexcept;
+
   private:
     /**
      * @brief Execute pre-action for a redundant VPD path without parsing VPD.
