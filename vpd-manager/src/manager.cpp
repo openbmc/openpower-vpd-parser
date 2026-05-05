@@ -233,8 +233,7 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
 {
     if (i_vpdPath.empty())
     {
-        logging::logMessage("Given VPD path is empty.");
-        return -1;
+        throw types::DbusInvalidArgument();
     }
 
     uint16_t l_errCode = 0;
@@ -319,6 +318,11 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
 
             l_writeParams =
                 std::make_tuple(std::get<0>(*l_kwData), l_valueToUpdate);
+        }
+        else
+        {
+            // write parameters are invalid
+            throw types::DbusInvalidArgument();
         }
 
         // update keyword in inherited FRUs
