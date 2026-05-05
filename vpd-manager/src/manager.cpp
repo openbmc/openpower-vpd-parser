@@ -177,6 +177,17 @@ Manager::Manager(
         // Initialize thread manager
         m_threadManager =
             std::make_unique<ThreadManager>(m_worker, m_configManager);
+
+        // TODO: Enable this once ThreadManager implementation is completed
+        // Call ThreadManager API to trigger multi-threaded VPD collection
+        // for all FRUs in the system. This api will replace `collectAllFruVpd`
+        // api. This is currently disabled because:
+        // 1. ThreadManager initialization is commented out above
+        // 2. The underlying implementation needs to be completed
+        if(m_threadManager)
+        {
+         m_threadManager->callAllFruVpd();
+        }
 #endif
     }
     catch (const std::exception& l_ex)
