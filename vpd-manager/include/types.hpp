@@ -1,5 +1,6 @@
 #pragma once
 
+#include <com/ibm/VPD/error.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/server.hpp>
@@ -146,6 +147,7 @@ using DbusNotAllowed = sdbusplus::xyz::openbmc_project::Common::Error::NotAllowe
 using InvalidArgument = phosphor::logging::xyz::openbmc_project::Common::InvalidArgument;
 
 namespace DeviceError = sdbusplus::xyz::openbmc_project::Common::Device::Error;
+
 
 /* PEL Severity enum as defined in [xyz.openbmc_project.Logging.Entry.Level]log.hpp from 'phosphor-logging' repo. */
 enum SeverityType
