@@ -90,10 +90,12 @@ class Manager
      *
      * @return On success returns number of bytes written, on failure returns
      * -1.
+     *
+     * @throw xyz.openbmc_project.Common.Error.InvalidArgument
      */
     int updateKeywordOnHardware(
         const types::Path i_fruPath,
-        const types::WriteVpdParams i_paramsToWriteData) noexcept;
+        const types::WriteVpdParams i_paramsToWriteData);
 
     /**
      * @brief Read keyword value.
