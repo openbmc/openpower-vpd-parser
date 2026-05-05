@@ -386,13 +386,13 @@ int Manager::updateKeywordOnHardware(
     const types::Path i_fruPath,
     const types::WriteVpdParams i_paramsToWriteData) noexcept
 {
+    if (i_fruPath.empty())
+    {
+        throw types::DbusInvalidArgument();
+    }
+
     try
     {
-        if (i_fruPath.empty())
-        {
-            throw std::runtime_error("Given FRU path is empty");
-        }
-
         nlohmann::json l_sysCfgJsonObj{};
 
         if (m_configManager)
