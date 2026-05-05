@@ -792,6 +792,14 @@ void Manager::performVpdRecollection()
 
 bool Manager::collectAllFruVpd() const noexcept
 {
+
+#if 0
+// TODO:
+// Enable this once ThreadManager implementation is completed
+// for asynchronous collection of all  FRU VPDs.
+m_threadManager->collectAllChassisVpd();
+#endif
+
     try
     {
         types::SeverityType l_severityType;
