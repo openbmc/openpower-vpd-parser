@@ -60,6 +60,21 @@ class ThreadManager
 
     // shared pointer to worker object
     const std::shared_ptr<Worker>& m_worker{nullptr};
+
+    /**
+     * @brief Trigger multi-threaded VPD collection of all chassis's motherboard
+     *
+     * This API spawns thread for each chassis motherboard
+     * to collect VPD in parallel. Each thread receives:
+     * - EEPROM path of the motherboard
+     * - Chassis-specific JSON configuration
+     *
+     * The method uses the Worker API to perform actual VPD collection for
+     * each motherboard EEPROM.
+     *
+     * @return true if threads were spawned successfully, false otherwise
+     */
+    bool collectAllChassisVpd();
 };
 
 } // namespace vpd
