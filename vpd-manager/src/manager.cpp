@@ -26,7 +26,8 @@ Manager::Manager(
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& iFace,
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressiFace,
     const std::shared_ptr<sdbusplus::asio::connection>& asioConnection) :
-    m_ioContext(ioCon), m_interface(iFace), m_progressInterface(progressiFace),
+    m_ioContext(ioCon),
+    m_interface(iFace), m_progressInterface(progressiFace),
     m_asioConnection(asioConnection), m_logger(Logger::getLoggerInstance())
 {
     m_logger->setConn(m_asioConnection);
@@ -792,6 +793,13 @@ void Manager::performVpdRecollection()
 
 bool Manager::collectAllFruVpd() const noexcept
 {
+#if 0
+// TODO:
+// Enable this once ThreadManager implementation is completed
+// for asynchronous collection of all  FRU VPDs.
+m_threadManager->collectAllChassisMotherboardVpd();
+#endif
+
     try
     {
         types::SeverityType l_severityType;
