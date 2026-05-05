@@ -26,8 +26,9 @@ Manager::Manager(
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& iFace,
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressiFace,
     const std::shared_ptr<sdbusplus::asio::connection>& asioConnection) :
+    m_ioContext(ioCon),
+    m_interface(iFace), m_progressInterface(progressiFace),
     m_ioContext(ioCon), m_interface(iFace), m_progressInterface(progressiFace),
-    m_asioConnection(asioConnection), m_logger(Logger::getLoggerInstance())
 {
     m_logger->setConn(m_asioConnection);
 
@@ -173,9 +174,21 @@ Manager::Manager(
 
         initConfigManager(l_systemConfigJsonPath);
 
-#if 0 // here thread manager should be initialized
+#if 0
+        // Initialize thread manager
         m_threadManager =
             std::make_unique<ThreadManager>(m_worker, m_configManager);
+
+        // TODO: Enable this once ThreadManager implementation is completed
+        // Call ThreadManager API to trigger multi-threaded VPD collection
+        // for all FRUs in the system. This api will replace `collectAllFruVpd`
+        // api. This is currently disabled because:
+        // 1. ThreadManager initialization is commented out above
+        // 2. The underlying implementation needs to be completed
+        if(m_threadManager)
+        {
+         m_threadManager->callAllFruVpd();
+        }
 #endif
     }
     catch (const std::exception& l_ex)
