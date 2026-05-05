@@ -173,7 +173,8 @@ Manager::Manager(
 
         initConfigManager(l_systemConfigJsonPath);
 
-#if 0 // here thread manager should be initialized
+#if 0
+        // Initialize thread manager
         m_threadManager =
             std::make_unique<ThreadManager>(m_worker, m_configManager);
 #endif
@@ -829,6 +830,26 @@ bool Manager::collectAllFruVpd() const noexcept
         {
             throw std::runtime_error(
                 "Not found any OEM handler to collect all FRUs VPD.");
+        }
+#endif
+        // TODO: Enable this once ThreadManager implementation is completed
+        // Call ThreadManager API to trigger multi-threaded VPD collection
+        // for all FRUs in the system. This api will replace `collectAllFruVpd`
+        // api. This is currently disabled because:
+        // 1. ThreadManager initialization is commented out above
+        // 2. The underlying implementation needs to be completed
+
+#if 0
+        if (m_threadManager.get() != nullptr)
+        {
+            m_threadManager->callAllFruVpd();
+            return true;
+        }
+        else
+        {
+            throw std::runtime_error(
+                "thread manager is not instanitated for FRU VPD collection");
+
         }
 #endif
     }

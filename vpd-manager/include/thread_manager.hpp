@@ -54,12 +54,34 @@ class ThreadManager
      */
     ~ThreadManager() = default;
 
+    /**
+     * @brief Trigger multi-threaded VPD collection for all FRUs
+     *
+     * This API spawns threads to collect VPD for all FRUs in the system
+     * in parallel. It orchestrates the collection process across all chassis
+     * and their respective FRUs.
+     */
+    void callAllFruVpd();
+
   private:
     // Shared pointer to ConfigManager object
     const std::shared_ptr<ConfigManager>& m_configManager{nullptr};
 
     // shared pointer to worker object
     const std::shared_ptr<Worker>& m_worker{nullptr};
+
+    /**
+     * @brief Trigger multi-threaded VPD collection of all chassis's motherboard
+     *
+     * This API spawns thread for each chassis motherboard
+     * to collect VPD in parallel. Each thread receives:
+     * - EEPROM path of the motherboard
+     * - Chassis-specific JSON configuration
+     * The method uses the Worker API to perform actual VPD collection for
+     * each motherboard EEPROM.
+     *
+     */
+    void collectAllChassisVpd();
 };
 
 } // namespace vpd
