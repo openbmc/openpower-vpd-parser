@@ -232,8 +232,7 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
 {
     if (i_vpdPath.empty())
     {
-        logging::logMessage("Given VPD path is empty.");
-        return -1;
+        throw types::DbusInvalidArgument();
     }
 
     uint16_t l_errCode = 0;
@@ -259,6 +258,8 @@ int Manager::updateKeyword(const types::Path i_vpdPath,
             logging::logMessage(
                 "Failed to get FRU path from JSON for [" + i_vpdPath +
                 "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+
+            throw types::PathNotFound();
         }
 
         l_fruPath = i_vpdPath;
