@@ -135,6 +135,18 @@ class ConfigManager final
         return m_chassisToMotherboardEepromMap;
     }
 
+    /**
+     * @brief API to get map of Chassis ID to its associated JSON configuration
+     *
+     * @return Map of chassis ID to corresponding chassis-specific JSON
+     * configuration.
+     */
+    const std::map<std::string, nlohmann::json>& getChassisIdToJsonMap()
+        const noexcept
+    {
+        return m_chassisIdToJsonMap;
+    }
+
   private:
     /**
      * @brief API to build configuration maps
