@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12907782_d8146497",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1799,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-05T06:20:44Z",
+      "side": 1,
+      "message": "Remove as this will be added by logMessage.",
+      "range": {
+        "startLine": 1799,
+        "startChar": 24,
+        "endLine": 1799,
+        "endChar": 49
+      },
+      "revId": "091acbabfc60b5591a960a150a518199ef3f7004",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
