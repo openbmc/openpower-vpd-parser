@@ -333,8 +333,8 @@ inline void createAsyncPelWithInventoryCallout(
             {"CALLOUT_INVENTORY_PATH", get<0>(l_invCallout)},
             {"CALLOUT_PRIORITY", l_priority},
             {"InteranlRc", std::to_string(i_internalRc)},
-            {"UserData1", l_userData1.c_str()},
-            {"UserData2", l_userData2.c_str()}};
+            {"UserData1", l_userData1},
+            {"UserData2", l_userData2}};
 
         i_asioConnection->async_method_call(
             [](boost::system::error_code ec) {
@@ -463,8 +463,8 @@ inline void createAsyncPel(
             {"FunctionName", i_funcName},
             {"DESCRIPTION", l_description},
             {"InteranlRc", std::to_string(i_internalRc)},
-            {"UserData1", l_userData1.c_str()},
-            {"UserData2", l_userData2.c_str()}};
+            {"UserData1", l_userData1},
+            {"UserData2", l_userData2}};
 
         i_asioConnection->async_method_call(
             [](boost::system::error_code ec) {
@@ -542,8 +542,8 @@ inline void createSyncPel(
             {"FunctionName", i_funcName},
             {"DESCRIPTION", l_description},
             {"InteranlRc", std::to_string(i_internalRc)},
-            {"UserData1", l_userData1.c_str()},
-            {"UserData2", l_userData2.c_str()}};
+            {"UserData1", l_userData1},
+            {"UserData2", l_userData2}};
 
         auto l_bus = sdbusplus::bus::new_default();
         auto l_method =
@@ -676,8 +676,8 @@ inline void createSyncPelWithInvCallOut(
              (!i_description.empty() ? i_description : "VPD generic error")},
             {"CALLOUT_INVENTORY_PATH", l_calloutInvPath},
             {"InteranlRc", std::to_string(i_internalRc)},
-            {"UserData1", ((i_userData1) ? (*i_userData1) : "").c_str()},
-            {"UserData2", ((i_userData2) ? (*i_userData2) : "").c_str()}};
+            {"UserData1", ((i_userData1) ? (*i_userData1) : "")},
+            {"UserData2", ((i_userData2) ? (*i_userData2) : "")}};
 
         const std::string& l_severity =
             (severityMap.find(i_severity) != severityMap.end()
