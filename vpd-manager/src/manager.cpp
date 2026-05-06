@@ -426,6 +426,11 @@ int Manager::updateKeywordOnHardware(
 types::DbusVariantType Manager::readKeyword(
     const types::Path i_fruPath, const types::ReadVpdParams i_paramsToReadData)
 {
+    if (i_fruPath.empty())
+    {
+        throw types::DbusInvalidArgument();
+    }
+
     try
     {
         nlohmann::json l_jsonObj{};
