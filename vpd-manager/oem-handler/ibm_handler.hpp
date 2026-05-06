@@ -281,9 +281,6 @@ class IbmHandler
     // Shared pointer to backup and restore object.
     std::shared_ptr<BackupAndRestore>& m_backupAndRestoreObj;
 
-    // Shared pointer to GpioMonitor object.
-    std::shared_ptr<GpioMonitor> m_gpioMonitor;
-
     // Shared pointer to Dbus interface class.
     const std::shared_ptr<sdbusplus::asio::dbus_interface>& m_interface;
 
