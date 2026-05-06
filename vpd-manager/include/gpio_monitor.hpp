@@ -1,5 +1,6 @@
 #pragma once
 
+#include "config_manager.hpp"
 #include "utility/event_logger_utility.hpp"
 #include "worker.hpp"
 
@@ -33,22 +34,17 @@ class GpioEventHandler
      * @brief Constructor
      *
      * @param[in] i_fruPath - EEPROM path of the FRU.
-     * @param[in] i_worker - pointer to the worker object.
-     * @param[in] i_ioContext - pointer to the io context object
+     * @param[in] i_configManager - Pointer to Config manager object.
+     * @param[in] i_ioContext - pointer to the io context object.
      *
      * @throw std::runtime_error
      */
     GpioEventHandler(
-        const std::string i_fruPath, const std::shared_ptr<Worker>& i_worker,
+        const std::string i_fruPath,
+        const std::shared_ptr<ConfigManager>& i_configManager,
         const std::shared_ptr<boost::asio::io_context>& i_ioContext) :
-        m_fruPath(i_fruPath), m_worker(i_worker)
+        m_fruPath(i_fruPath), m_configManager(i_configManager)
     {
-        if (m_worker == nullptr)
-        {
-            throw std::runtime_error(
-                "Worker not initialized in GPIO Event Handler");
-        }
-
         setEventHandlerForGpioPresence(i_ioContext);
     }
 
@@ -89,11 +85,13 @@ class GpioEventHandler
         const std::shared_ptr<boost::asio::steady_timer>& i_timerObj);
 
     const std::string m_fruPath;
-
-    const std::shared_ptr<Worker>& m_worker;
+    const std::shared_ptr<ConfigManager>& m_configManager;
 
     // Preserves the GPIO pin value to compare. Default value is false.
     bool m_prevPresencePinValue = false;
+
+    // Chassis based JSON
+    nlohmann::json m_chassisBasedJsonObj;
 };
 
 class GpioMonitor
@@ -109,28 +107,17 @@ class GpioMonitor
     /**
      * @brief constructor
      *
-     * @param[in] i_sysCfgJsonObj - System config JSON Object.
-     * @param[in] i_worker - pointer to the worker object.
+     * @param[in] i_configManager - pointer to Config manager Object.
      * @param[in] i_ioContext - pointer to IO context object.
      *
      */
     GpioMonitor(
-        const nlohmann::json i_sysCfgJsonObj,
-        const std::shared_ptr<Worker>& i_worker,
-        const std::shared_ptr<boost::asio::io_context>& i_ioContext) noexcept :
-        m_sysCfgJsonObj(i_sysCfgJsonObj)
+        const std::shared_ptr<ConfigManager>& i_configManager,
+        const std::shared_ptr<boost::asio::io_context>& i_ioContext) noexcept
     {
         try
         {
-            if (!m_sysCfgJsonObj.empty())
-            {
-                initHandlerForGpio(i_ioContext, i_worker);
-            }
-            else
-            {
-                throw std::runtime_error(
-                    "Gpio Monitoring can't be instantiated with empty config JSON");
-            }
+            initHandlerForGpio(i_ioContext, i_configManager);
         }
         catch (const std::exception& l_ex)
         {
@@ -151,17 +138,15 @@ class GpioMonitor
      * and instantiate event handler for GPIO pins.
      *
      * @param[in] i_ioContext - Pointer to IO context object.
-     * @param[in] i_worker - Pointer to worker class.
+     * @param[in] i_configManager - Pointer to Config manager object.
      *
      * @throw std::runtime_error
      */
     void initHandlerForGpio(
         const std::shared_ptr<boost::asio::io_context>& i_ioContext,
-        const std::shared_ptr<Worker>& i_worker);
+        const std::shared_ptr<ConfigManager>& i_configManager);
 
     // Array of event handlers for all the attachable FRUs.
     std::vector<std::shared_ptr<GpioEventHandler>> m_gpioEventHandlerObjects;
-
-    const nlohmann::json& m_sysCfgJsonObj;
 };
 } // namespace vpd
