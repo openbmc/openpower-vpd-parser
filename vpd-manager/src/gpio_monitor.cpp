@@ -100,6 +100,7 @@ void GpioEventHandler::handleTimerExpiry(
         handleChangeInGpioPin(l_currentPresencePinValue);
     }
 
+    sleep(10);
     i_timerObj->expires_at(std::chrono::steady_clock::now() +
                            std::chrono::seconds(constants::VALUE_5));
     i_timerObj->async_wait(
@@ -136,7 +137,8 @@ void GpioEventHandler::setEventHandlerForGpioPresence(
 
 void GpioMonitor::initHandlerForGpio(
     const std::shared_ptr<boost::asio::io_context>& i_ioContext,
-    const std::shared_ptr<Worker>& i_worker)
+    const std::shared_ptr<Worker>& i_worker,
+    const std::shared_ptr<ConfigManager>& i_configManager)
 {
     if (i_worker == nullptr)
     {
@@ -160,7 +162,7 @@ void GpioMonitor::initHandlerForGpio(
     {
         std::shared_ptr<GpioEventHandler> l_gpioEventHandlerObj =
             std::make_shared<GpioEventHandler>(l_fruPath, i_worker,
-                                               i_ioContext);
+                                               i_configManager, i_ioContext);
 
         m_gpioEventHandlerObjects.push_back(l_gpioEventHandlerObj);
     }

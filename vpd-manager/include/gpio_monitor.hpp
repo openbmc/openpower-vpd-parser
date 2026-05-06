@@ -1,5 +1,6 @@
 #pragma once
 
+#include "config_manager.hpp"
 #include "utility/event_logger_utility.hpp"
 #include "worker.hpp"
 
@@ -7,6 +8,7 @@
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/connection.hpp>
 
+#include <format>
 #include <vector>
 
 namespace vpd
@@ -40,8 +42,10 @@ class GpioEventHandler
      */
     GpioEventHandler(
         const std::string i_fruPath, const std::shared_ptr<Worker>& i_worker,
+        const std::shared_ptr<ConfigManager>& i_configManager,
         const std::shared_ptr<boost::asio::io_context>& i_ioContext) :
-        m_fruPath(i_fruPath), m_worker(i_worker)
+        m_fruPath(i_fruPath), m_worker(i_worker),
+        m_configManager(i_configManager)
     {
         if (m_worker == nullptr)
         {
@@ -92,6 +96,8 @@ class GpioEventHandler
 
     const std::shared_ptr<Worker>& m_worker;
 
+    const std::shared_ptr<ConfigManager>& m_configManager;
+
     // Preserves the GPIO pin value to compare. Default value is false.
     bool m_prevPresencePinValue = false;
 };
@@ -115,16 +121,28 @@ class GpioMonitor
      *
      */
     GpioMonitor(
-        const nlohmann::json i_sysCfgJsonObj,
+        const std::string& i_sysCfgJsonObj,
+        const std::shared_ptr<ConfigManager>& i_configManager,
         const std::shared_ptr<Worker>& i_worker,
-        const std::shared_ptr<boost::asio::io_context>& i_ioContext) noexcept :
-        m_sysCfgJsonObj(i_sysCfgJsonObj)
+        const std::shared_ptr<boost::asio::io_context>& i_ioContext) noexcept
     {
         try
         {
+            uint16_t l_errCode{constants::VALUE_0};
+
+            m_sysCfgJsonObj =
+                jsonUtility::getParsedJson(i_sysCfgJsonObj, l_errCode);
+
+            if (l_errCode != constants::VALUE_0)
+            {
+                throw JsonException{std::format(
+                    "Gpio_monitor initialization failed. Reason: Failed to parse JSON from path {}. Error : {}",
+                    i_sysCfgJsonObj, commonUtility::getErrCodeMsg(l_errCode))};
+            }
+
             if (!m_sysCfgJsonObj.empty())
             {
-                initHandlerForGpio(i_ioContext, i_worker);
+                initHandlerForGpio(i_ioContext, i_worker, i_configManager);
             }
             else
             {
@@ -157,11 +175,12 @@ class GpioMonitor
      */
     void initHandlerForGpio(
         const std::shared_ptr<boost::asio::io_context>& i_ioContext,
-        const std::shared_ptr<Worker>& i_worker);
+        const std::shared_ptr<Worker>& i_worker,
+        const std::shared_ptr<ConfigManager>& i_configManager);
 
     // Array of event handlers for all the attachable FRUs.
     std::vector<std::shared_ptr<GpioEventHandler>> m_gpioEventHandlerObjects;
 
-    const nlohmann::json& m_sysCfgJsonObj;
+    nlohmann::json m_sysCfgJsonObj;
 };
 } // namespace vpd
