@@ -4,6 +4,7 @@
 
 #include "constants.hpp"
 #include "exceptions.hpp"
+#include "gpio_monitor.hpp"
 #include "parser.hpp"
 #include "parser_factory.hpp"
 #include "parser_interface.hpp"
@@ -174,6 +175,10 @@ Manager::Manager(
 #endif
 
         initConfigManager(l_systemConfigJsonPath);
+
+        // Initialize the GpioMonitor
+        m_gpioMonitor =
+            std::make_shared<GpioMonitor>(m_configManager, m_ioContext);
 
 #if 0
         // Initialize thread manager
