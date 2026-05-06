@@ -18,10 +18,18 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
 {
     try
     {
+        nlohmann::json l_sysCfgJsonObj{};
+        if (m_configManager)
+        {
+            l_sysCfgJsonObj = m_configManager->getJsonObj();
+        }
+
+        // Worker l_worker(l_sysCfgJsonObj);
+        Worker l_worker(INVENTORY_JSON_SYM_LINK);
+
         if (i_isFruPresent)
         {
-            types::VPDMapVariant l_parsedVpd =
-                m_worker->parseVpdFile(m_fruPath);
+            types::VPDMapVariant l_parsedVpd = l_worker.parseVpdFile(m_fruPath);
 
             if (std::holds_alternative<std::monostate>(l_parsedVpd))
             {
@@ -30,7 +38,7 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
             }
 
             types::ObjectMap l_dbusObjectMap;
-            m_worker->populateDbus(l_parsedVpd, l_dbusObjectMap, m_fruPath);
+            l_worker.populateDbus(l_parsedVpd, l_dbusObjectMap, m_fruPath);
 
             if (l_dbusObjectMap.empty())
             {
@@ -47,7 +55,7 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
         {
             uint16_t l_errCode = 0;
             std::string l_invPath = jsonUtility::getInventoryObjPathFromJson(
-                m_worker->getSysCfgJsonObj(), m_fruPath, l_errCode);
+                l_sysCfgJsonObj, m_fruPath, l_errCode);
 
             if (l_errCode)
             {
@@ -56,7 +64,7 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
                     commonUtility::getErrCodeMsg(l_errCode));
             }
 
-            m_worker->deleteFruVpd(l_invPath);
+            l_worker.deleteFruVpd(l_invPath);
         }
     }
     catch (std::exception& l_ex)
@@ -83,9 +91,16 @@ void GpioEventHandler::handleTimerExpiry(
     }
 
     uint16_t l_errCode = 0;
+
+    nlohmann::json l_sysCfgJsonObj{};
+    if (m_configManager)
+    {
+        l_sysCfgJsonObj = m_configManager->getJsonObj();
+    }
+
     bool l_currentPresencePinValue = jsonUtility::processGpioPresenceTag(
-        m_worker->getSysCfgJsonObj(), m_fruPath, "pollingRequired",
-        "hotPlugging", l_errCode);
+        l_sysCfgJsonObj, m_fruPath, "pollingRequired", "hotPlugging",
+        l_errCode);
 
     if (l_errCode && l_errCode != error_code::DEVICE_NOT_PRESENT)
     {
@@ -111,9 +126,16 @@ void GpioEventHandler::setEventHandlerForGpioPresence(
     const std::shared_ptr<boost::asio::io_context>& i_ioContext)
 {
     uint16_t l_errCode = 0;
+
+    nlohmann::json l_sysCfgJsonObj{};
+    if (m_configManager)
+    {
+        l_sysCfgJsonObj = m_configManager->getJsonObj();
+    }
+
     m_prevPresencePinValue = jsonUtility::processGpioPresenceTag(
-        m_worker->getSysCfgJsonObj(), m_fruPath, "pollingRequired",
-        "hotPlugging", l_errCode);
+        l_sysCfgJsonObj, m_fruPath, "pollingRequired", "hotPlugging",
+        l_errCode);
 
     if (l_errCode && l_errCode != error_code::DEVICE_NOT_PRESENT)
     {
@@ -136,17 +158,17 @@ void GpioEventHandler::setEventHandlerForGpioPresence(
 
 void GpioMonitor::initHandlerForGpio(
     const std::shared_ptr<boost::asio::io_context>& i_ioContext,
-    const std::shared_ptr<Worker>& i_worker)
+    const std::shared_ptr<ConfigManager>& i_configManager)
 {
-    if (i_worker == nullptr)
+    uint16_t l_errCode = 0;
+    nlohmann::json l_sysCfgJsonObj{};
+    if (i_configManager)
     {
-        throw std::runtime_error(
-            "Cannot initialize GPIO handler as Worker is not initialized.");
+        l_sysCfgJsonObj = i_configManager->getJsonObj();
     }
 
-    uint16_t l_errCode = 0;
     std::vector<std::string> l_gpioPollingRequiredFrusList =
-        jsonUtility::getListOfGpioPollingFrus(m_sysCfgJsonObj, l_errCode);
+        jsonUtility::getListOfGpioPollingFrus(l_sysCfgJsonObj, l_errCode);
 
     if (l_errCode)
     {
@@ -159,7 +181,7 @@ void GpioMonitor::initHandlerForGpio(
     for (const auto& l_fruPath : l_gpioPollingRequiredFrusList)
     {
         std::shared_ptr<GpioEventHandler> l_gpioEventHandlerObj =
-            std::make_shared<GpioEventHandler>(l_fruPath, i_worker,
+            std::make_shared<GpioEventHandler>(l_fruPath, i_configManager,
                                                i_ioContext);
 
         m_gpioEventHandlerObjects.push_back(l_gpioEventHandlerObj);
