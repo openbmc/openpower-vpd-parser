@@ -112,7 +112,8 @@ class Manager
      * @param[in] i_paramsToReadData - Input details.
      *
      * @throw
-     * sdbusplus::xyz::openbmc_project::Common::Device::Error::ReadFailure.
+     * - sdbusplus::xyz::openbmc_project::Common::Device::Error::ReadFailure.
+     * - sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument.
      *
      * @return On success returns the read value in variant of array of bytes.
      * On failure throws exception.
