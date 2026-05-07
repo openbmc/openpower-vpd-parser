@@ -814,9 +814,8 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
 
         if (i_vpdFilePath.empty())
         {
-            throw std::runtime_error(
-                std::string(__FUNCTION__) +
-                " Empty VPD file path passed. Abort processing");
+            throw parseVpdFile(
+                " Empty VPD file path passed. Abort parseVpdFile");
         }
 
         bool isPreActionRequired = false;
@@ -831,9 +830,10 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
                 {
                     if (l_errCode == error_code::DEVICE_NOT_PRESENT)
                     {
-                        logging::logMessage(
+                        m_logger->logMessage(
                             commonUtility::getErrCodeMsg(l_errCode) +
-                            i_vpdFilePath);
+                                i_vpdFilePath,
+                            PlaceHolder::COLLECTION);
 
                         // since pre action is reporting device not present,
                         // execute post fail action
@@ -846,10 +846,11 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
                         // marked as failed.
                         return types::VPDMapVariant{};
                     }
-                    throw std::runtime_error(
-                        std::string(__FUNCTION__) +
-                        " Pre-Action failed with error: " +
-                        commonUtility::getErrCodeMsg(l_errCode));
+
+                    throw FirmwareException(std::format(
+                        " Pre-Action failed with error: {}. Aborting parsing of VPD file {}.",
+                        commonUtility::getErrCodeMsg(l_errCode),
+                        i_vpdFilePath));
                 }
             }
             else if (l_errCode)
@@ -874,9 +875,9 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
         {
             if (isPreActionRequired)
             {
-                throw std::runtime_error(
-                    std::string(__FUNCTION__) + " Could not find file path " +
-                    i_vpdFilePath + ". Skipping parser trigger for the EEPROM");
+                throw FirmwareException(std::format(
+                    " Could not find file path: {} after successful preAction. Abort parsing of VPD file.",
+                    i_vpdFilePath));
             }
             return types::VPDMapVariant{};
         }
@@ -937,7 +938,9 @@ types::VPDMapVariant Worker::parseVpdFile(const std::string& i_vpdFilePath,
         {
             throw EccException(l_exMsg);
         }
-        throw std::runtime_error(l_exMsg);
+
+        // Throw rest of the error as it is.
+        throw;
     }
 }
 
@@ -1002,9 +1005,9 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             // Call dbus method to update on dbus
             if (!dbusUtility::publishVpdOnDBus(move(objectInterfaceMap)))
             {
-                throw std::runtime_error(
-                    std::string(__FUNCTION__) +
-                    "Call to PIM failed while publishing VPD.");
+                throw FirmwareException(std::format(
+                    "Call to publish on VPD on Dbus failed for EEPROM {}.",
+                    i_vpdFilePath));
             }
         }
         else
@@ -1113,17 +1116,25 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             }
         }
 
-        m_logger->logMessage(
-            std::string("ParseAndPublish VPD failed for [reason] ") +
-                EventLogger::getErrorMsg(l_ex),
-            PlaceHolder::ASYNC_PEL,
-            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
-                                (typeid(l_ex) == typeid(DataException)) ||
-                                        (typeid(l_ex) == typeid(EccException))
-                                    ? types::SeverityType::Warning
-                                    : types::SeverityType::Informational,
-                                0, std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt, std::nullopt});
+        if (typeid(l_ex) == std::type_index(typeid(FirmwareException)))
+        {
+            m_logger->logMessage(l_ex.what(), PlaceHolder::COLLECTION);
+        }
+        else
+        {
+            m_logger->logMessage(
+                std::string("ParseAndPublish VPD failed for [reason] ") +
+                    EventLogger::getErrorMsg(l_ex),
+                PlaceHolder::ASYNC_PEL,
+                types::PelInfoTuple{
+                    EventLogger::getErrorType(l_ex),
+                    (typeid(l_ex) == typeid(DataException)) ||
+                            (typeid(l_ex) == typeid(EccException))
+                        ? types::SeverityType::Warning
+                        : types::SeverityType::Informational,
+                    0, std::nullopt, std::nullopt, std::nullopt, std::nullopt,
+                    std::nullopt});
+        }
 
         // TODO: Figure out a way to clear data in case of any failure at
         // runtime.
@@ -1439,13 +1450,10 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
     catch (const std::exception& l_ex)
     {
         m_logger->logMessage(
-            std::string("Exception while setting the present property.") +
-                EventLogger::getErrorMsg(l_ex),
-            PlaceHolder::PEL,
-            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
-                                types::SeverityType::Warning, 0, std::nullopt,
-                                std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+            std::format(
+                "Exception while setting the present property for path {}. Error {}.",
+                i_vpdPath, EventLogger::getErrorMsg(l_ex)),
+            PlaceHolder::Collection);
     }
 }
 
