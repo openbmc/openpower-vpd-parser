@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d1575c5_c5384268",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-07T15:51:11Z",
+      "side": 1,
+      "message": "Wrap line near to 72.",
+      "revId": "aa7f3447a225851474a0fdc80acc59ba1ea21245",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a383fae0_79b5e324",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-07T15:51:11Z",
+      "side": 1,
+      "message": "I don\u0027t see a use case where this API should have a bool return type.",
+      "revId": "aa7f3447a225851474a0fdc80acc59ba1ea21245",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3d0c572_586510ff",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-07T15:51:11Z",
+      "side": 1,
+      "message": "How are you calling a private API in another class?\n\nThis call will be wrapped in thread manager\u0027s public API which will be called by manager to collect all FRU vpd.\nSo this call shouldn\u0027t be here.",
+      "revId": "aa7f3447a225851474a0fdc80acc59ba1ea21245",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95fc6e1b_6e146136",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-07T15:51:11Z",
+      "side": 1,
+      "message": "No use case of return value as of now. Will add if required. For now it should be void.",
+      "revId": "aa7f3447a225851474a0fdc80acc59ba1ea21245",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
