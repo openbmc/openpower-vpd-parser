@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c2dfc5_8f787d22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-07T13:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7806ea5_6760626f",
+      "revId": "0a3460934866cb97b06803203c59a0de19c229aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7de9e143_34bd30fa",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Done.",
       "parentUuid": "7de9e143_34bd30fa",
+      "revId": "0a3460934866cb97b06803203c59a0de19c229aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "888b9f09_2c684cb0",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-07T13:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6d048ca_df60ad04",
       "revId": "0a3460934866cb97b06803203c59a0de19c229aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
