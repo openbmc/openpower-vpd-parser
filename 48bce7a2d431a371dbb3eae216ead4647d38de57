@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "297a70ee_f3e76b8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-07T17:06:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ae7d3e87_f2fda580",
+      "revId": "48bce7a2d431a371dbb3eae216ead4647d38de57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fdba0db5_018a8786",
@@ -102,6 +120,42 @@
       "side": 1,
       "message": "I think, I will remove vpd-tool files in other commit, and re-push once it is verified.",
       "parentUuid": "6fec4aa6_a819074e",
+      "revId": "48bce7a2d431a371dbb3eae216ead4647d38de57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56a6ef26_9932e660",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-07T17:06:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "41a93147_f27b998d",
+      "revId": "48bce7a2d431a371dbb3eae216ead4647d38de57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1daa6388_e91ca177",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-07T17:06:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "99cd268e_d1429b49",
       "revId": "48bce7a2d431a371dbb3eae216ead4647d38de57",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
