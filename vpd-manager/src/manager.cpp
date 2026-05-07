@@ -811,12 +811,14 @@ bool Manager::collectAllFruVpd() const noexcept
                 ". Aborting all FRUs VPD collection.");
         }
 
+        /*
         m_logger->logMessage(
             std::string("Collect all FRUs VPD is requested."),
             PlaceHolder::ASYNC_PEL,
             types::PelInfoTuple{types::ErrorType::FirmwareError, l_severityType,
                                 0, std::nullopt, std::nullopt, std::nullopt,
                                 std::nullopt, std::nullopt});
+        */
 
 // ToDo: Handle with OEM interface
 #ifdef IBM_SYSTEM
