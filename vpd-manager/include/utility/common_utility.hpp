@@ -11,6 +11,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <format>
+#include <mutex>
 #include <unordered_set>
 #include <vector>
 
@@ -97,6 +98,9 @@ inline std::string getCommand(T i_arg1, Types... i_args)
     return l_cmd;
 }
 
+// Mutex to wrap popen in multithreaded scenario.
+static std::mutex popen_mutex;
+
 /**
  * @brief API to create shell command and execute.
  *
@@ -112,7 +116,7 @@ inline std::vector<std::string> executeCmd(T&& i_path, uint16_t& o_errCode,
 {
     o_errCode = 0;
     std::vector<std::string> l_cmdOutput;
-
+    std::lock_guard<std::mutex> lock(popen_mutex);
     try
     {
         std::array<char, constants::CMD_BUFFER_LENGTH> l_buffer;
@@ -126,7 +130,8 @@ inline std::vector<std::string> executeCmd(T&& i_path, uint16_t& o_errCode,
         {
             o_errCode = error_code::POPEN_FAILED;
             Logger::getLoggerInstance()->logMessage(
-                "popen failed with error " + std::string(strerror(errno)));
+                "popen failed with error " +
+                std::error_code(errno, std::generic_category()).message());
             return l_cmdOutput;
         }
 
