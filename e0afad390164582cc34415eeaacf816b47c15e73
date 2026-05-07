@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "725edaa7_d2c51582",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-07T09:08:47Z",
+      "side": 1,
+      "message": "can we say, Trigger multi-threaded VPD collection for all Chassis Motherboard ?",
+      "revId": "e0afad390164582cc34415eeaacf816b47c15e73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92e332b6_1e7b6ab5",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-07T09:08:47Z",
+      "side": 1,
+      "message": "can we use chassis instead, collectAllchassisVpd ?",
+      "revId": "e0afad390164582cc34415eeaacf816b47c15e73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3de0416_d4f73bff",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-07T09:08:47Z",
+      "side": 1,
+      "message": "need some details here.",
+      "revId": "e0afad390164582cc34415eeaacf816b47c15e73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
