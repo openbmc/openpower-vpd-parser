@@ -1113,7 +1113,10 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
             }
         }
 
-        m_logger->logMessage(
+        /**
+         * @todo Enable the PEL call once the memory leak issue is resolved.
+         *
+         m_logger->logMessage(
             std::string("ParseAndPublish VPD failed for [reason] ") +
                 EventLogger::getErrorMsg(l_ex),
             PlaceHolder::ASYNC_PEL,
@@ -1124,6 +1127,7 @@ std::tuple<bool, std::string> Worker::parseAndPublishVPD(
                                     : types::SeverityType::Informational,
                                 0, std::nullopt, std::nullopt, std::nullopt,
                                 std::nullopt, std::nullopt});
+        */
 
         // TODO: Figure out a way to clear data in case of any failure at
         // runtime.
