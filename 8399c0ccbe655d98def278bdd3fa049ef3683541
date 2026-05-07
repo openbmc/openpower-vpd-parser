@@ -69,6 +69,23 @@
       "parentUuid": "e1ba0bc2_eab0fb5f",
       "revId": "8399c0ccbe655d98def278bdd3fa049ef3683541",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb1fa230_e8499794",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1229,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-07T10:58:46Z",
+      "side": 1,
+      "message": "The API will get JSON from the caller.",
+      "revId": "8399c0ccbe655d98def278bdd3fa049ef3683541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
