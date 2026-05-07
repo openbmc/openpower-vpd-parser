@@ -16,6 +16,24 @@
       "message": "Just change constant file appropriately and you will not need change in this file. Similarly, check for others.",
       "revId": "2b354aa8da12f6d751629b78e4498709c8b87743",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36ede1ae_f02abd9a",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-07T08:16:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e3d768ac_adc98bf5",
+      "revId": "2b354aa8da12f6d751629b78e4498709c8b87743",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

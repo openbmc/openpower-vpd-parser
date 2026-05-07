@@ -16,6 +16,24 @@
       "message": "If you just rename \"xyzLocationCodeInf\" to \"locationCodeInf\" will it not reduce the amount of change in this commit?In some of the files the change is only the name fetched from constants.\n\nThose changes could have been avoided.",
       "revId": "ff8cd5586760e8eba557a5dc9ddb1bb4e8cfeb48",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4839b81_56c38367",
+        "filename": "vpd-manager/include/constants.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-07T08:16:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ebf448d6_07648896",
+      "revId": "ff8cd5586760e8eba557a5dc9ddb1bb4e8cfeb48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
