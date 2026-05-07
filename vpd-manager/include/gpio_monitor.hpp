@@ -134,12 +134,13 @@ class GpioMonitor
         }
         catch (const std::exception& l_ex)
         {
+            /* should go via logger class
             EventLogger::createSyncPel(
                 types::ErrorType::InternalFailure, types::SeverityType::Warning,
                 __FILE__, __FUNCTION__, 0,
                 "Gpio Monitoring can't be instantiated. Error: " +
                     std::string(l_ex.what()),
-                std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+                std::nullopt, std::nullopt, std::nullopt, std::nullopt);*/
         }
     }
 

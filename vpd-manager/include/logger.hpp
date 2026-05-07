@@ -44,7 +44,7 @@ class ILogFileHandler
     std::filesystem::path m_filePath{};
 
     // max number of log entries in file
-    size_t m_maxEntries{256};
+    size_t m_maxEntries{2560};
 
     // file stream object to do file operations
     std::fstream m_fileStream;
@@ -320,6 +320,7 @@ class Logger
     void setConn(
         const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection)
     {
+        std::lock_guard<std::mutex> lock(m_pelMutex);
         m_connection = i_asioConnection;
     }
 
@@ -332,6 +333,7 @@ class Logger
      */
     void terminateVpdCollectionLogging() noexcept
     {
+        std::lock_guard<std::mutex> lock(m_fileLogMutex);
         m_collectionLogger.reset();
     }
 #endif
@@ -371,6 +373,12 @@ class Logger
 
     // logger object to handle VPD write logs
     std::unique_ptr<ILogFileHandler> m_vpdWriteLogger;
+
+    // protects m_connection and sync PEL calls
+    mutable std::mutex m_pelMutex;      
+
+    // protects m_collectionLogger and m_vpdWriteLogger
+    mutable std::mutex m_fileLogMutex;  
 };
 
 /**

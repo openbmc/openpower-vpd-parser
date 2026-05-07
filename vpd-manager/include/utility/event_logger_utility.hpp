@@ -505,6 +505,7 @@ inline void createAsyncPel(
  * API.
  */
 inline void createSyncPel(
+    const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
     const types::ErrorType& i_errorType, const types::SeverityType& i_severity,
     const std::string& i_fileName, const std::string& i_funcName,
     const uint8_t i_internalRc, const std::string& i_description,
@@ -517,6 +518,15 @@ inline void createSyncPel(
     (void)i_procedure;
     try
     {
+        if (i_asioConnection == nullptr)
+        {
+            logging::logMessage(std::format(
+                "Error: Dbus Connection is empty, can't log sync PEL. "
+                "Error that couldn't log: {}",
+                i_description));
+            return;
+        }
+
         if (errorMsgMap.find(i_errorType) == errorMsgMap.end())
         {
             throw std::runtime_error("Unsupported error type received");
@@ -545,13 +555,13 @@ inline void createSyncPel(
             {"UserData1", l_userData1},
             {"UserData2", l_userData2}};
 
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method =
-            l_bus.new_method_call(constants::eventLoggingServiceName,
-                                  constants::eventLoggingObjectPath,
-                                  constants::eventLoggingInterface, "Create");
+        auto l_method = i_asioConnection->new_method_call(
+            constants::eventLoggingServiceName,
+            constants::eventLoggingObjectPath,
+            constants::eventLoggingInterface, "Create");
         l_method.append(l_message, l_severity, l_additionalData);
-        l_bus.call(l_method);
+
+        i_asioConnection->call(l_method);
     }
     catch (const sdbusplus::exception::SdBusError& l_ex)
     {
@@ -590,6 +600,7 @@ inline void createSyncPel(
  *
  */
 inline void createSyncPelWithInvCallOut(
+    const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection,
     const types::ErrorType& i_errorType, const types::SeverityType& i_severity,
     const std::string& i_fileName, const std::string& i_funcName,
     const uint8_t i_internalRc, const std::string& i_description,
@@ -603,11 +614,20 @@ inline void createSyncPelWithInvCallOut(
     {
         if (i_callouts.empty())
         {
-            createSyncPel(i_errorType, i_severity, i_fileName, i_funcName,
+            createSyncPel(i_asioConnection, i_errorType, i_severity, i_fileName, i_funcName,
                           i_internalRc, i_description, i_userData1, i_userData2,
                           i_symFru, i_procedure);
             logging::logMessage(
                 "Callout list is empty, creating PEL without call out");
+            return;
+        }
+
+        if (i_asioConnection == nullptr)
+        {
+            logging::logMessage(std::format(
+                "Error: Dbus Connection is empty, can't log sync PEL. "
+                "Error that couldn't log: {}",
+                i_description));
             return;
         }
 
@@ -684,14 +704,13 @@ inline void createSyncPelWithInvCallOut(
                  ? severityMap.at(i_severity)
                  : severityMap.at(types::SeverityType::Informational));
 
-        auto l_bus = sdbusplus::bus::new_default();
-        auto l_method =
-            l_bus.new_method_call(constants::eventLoggingServiceName,
-                                  constants::eventLoggingObjectPath,
-                                  constants::eventLoggingInterface, "Create");
-        l_method.append(errorMsgMap.at(i_errorType), l_severity,
-                        l_additionalData);
-        l_bus.call(l_method);
+        auto l_method = i_asioConnection->new_method_call(
+            constants::eventLoggingServiceName,
+            constants::eventLoggingObjectPath,
+            constants::eventLoggingInterface, "Create");
+        l_method.append(errorMsgMap.at(i_errorType), l_severity, l_additionalData);
+
+        i_asioConnection->call(l_method);
     }
     catch (const std::exception& l_ex)
     {

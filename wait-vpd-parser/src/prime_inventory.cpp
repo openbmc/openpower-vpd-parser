@@ -38,11 +38,13 @@ PrimeInventory::PrimeInventory()
     }
     catch (const std::exception& l_ex)
     {
-        vpd::EventLogger::createSyncPel(
-            vpd::types::ErrorType::JsonFailure,
-            vpd::types::SeverityType::Critical, __FILE__, __FUNCTION__, 0,
-            "Prime inventory failed, reason: " + std::string(l_ex.what()),
-            std::nullopt, std::nullopt, std::nullopt, std::nullopt);
+        vpd::Logger::getLoggerInstance()->logMessage(std::format("Prime inventory failed, reason: {}",
+                vpd::EventLogger::getErrorMsg(l_ex)),
+                vpd::PlaceHolder::PEL,
+                vpd::types::PelInfoTuple{vpd::EventLogger::getErrorType(l_ex),
+                                vpd::types::SeverityType::Critical, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
 
         throw;
     }

@@ -850,7 +850,18 @@ bool IpzVpdParser::processInvalidRecords(
 
         // Log a Predictive PEL, including names and respective error messages
         // of all invalid records
-        EventLogger::createSyncPelWithInvCallOut(
+        Logger::getLoggerInstance()->logMessage(
+    "Check failed for record(s) while parsing VPD. "
+    "Check user data for reason and list of failed record(s). "
+    "Re-program VPD.",
+    PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT,
+    types::PelInfoTuple{types::ErrorType::VpdParseError,
+                        types::SeverityType::Warning, 0,
+                        l_invalidRecordListString, std::nullopt, std::nullopt,
+                        std::nullopt,
+                        std::make_tuple(m_vpdFilePath, types::CalloutPriority::High)});
+
+       /* EventLogger::createSyncPelWithInvCallOut(
             types::ErrorType::VpdParseError, types::SeverityType::Warning,
             __FILE__, __FUNCTION__, constants::VALUE_0,
             std::string(
@@ -858,7 +869,7 @@ bool IpzVpdParser::processInvalidRecords(
             std::vector{
                 std::make_tuple(m_vpdFilePath, types::CalloutPriority::High)},
             l_invalidRecordListString, std::nullopt, std::nullopt,
-            std::nullopt);
+            std::nullopt);*/
 
         uint16_t l_errCode = 0;
 

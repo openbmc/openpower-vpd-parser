@@ -56,7 +56,9 @@ void Logger::logMessage(std::string_view i_message,
                         ? std::get<1>(*i_pelTuple).value()
                         : types::SeverityType::Informational;
 
+                std::lock_guard<std::mutex> lock(m_pelMutex);
                 EventLogger::createSyncPel(
+                    m_connection,
                     std::get<0>(*i_pelTuple), l_severity,
                     i_location.file_name(), i_location.function_name(),
                     std::get<2>(*i_pelTuple), std::string(i_message),
@@ -70,6 +72,7 @@ void Logger::logMessage(std::string_view i_message,
         }
         else if (i_placeHolder == PlaceHolder::VPD_WRITE)
         {
+            std::lock_guard<std::mutex> lock(m_fileLogMutex);
             if (!m_vpdWriteLogger)
             {
                 m_vpdWriteLogger.reset(
@@ -150,6 +153,11 @@ void Logger::initiateVpdCollectionLogging() noexcept
 {
     try
     {
+        // Never use logMessage with PlaceHolder::COLLECTION or
+        // PlaceHolder::VPD_WRITE in this API, as m_fileLogMutex is already
+        // held and it will result in a deadlock.
+        std::lock_guard<std::mutex> lock(m_fileLogMutex);   
+            
         // collection log file directory
         const std::filesystem::path l_collectionLogDirectory{"/var/lib/vpd"};
 

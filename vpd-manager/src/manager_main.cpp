@@ -56,13 +56,18 @@ int main(int, char**)
     }
     catch (const std::exception& l_ex)
     {
-        vpd::Logger::getLoggerInstance()->logMessage(
+        auto l_loggerInstance = vpd::Logger::getLoggerInstance();
+
+        l_loggerInstance->logMessage(
             "VPD-Manager service failed to start.");
-        vpd::EventLogger::createSyncPel(
-            vpd::EventLogger::getErrorType(l_ex),
-            vpd::types::SeverityType::Critical, __FILE__, __FUNCTION__, 0,
-            vpd::EventLogger::getErrorMsg(l_ex), std::nullopt, std::nullopt,
-            std::nullopt, std::nullopt);
+
+        l_loggerInstance->logMessage(std::format("Exception while setting the present property. Reason: {}",
+                vpd::EventLogger::getErrorMsg(l_ex)),
+                vpd::PlaceHolder::PEL,
+                vpd::types::PelInfoTuple{vpd::EventLogger::getErrorType(l_ex),
+                                vpd::types::SeverityType::Critical, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
     }
     exit(EXIT_FAILURE);
 }

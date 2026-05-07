@@ -126,7 +126,7 @@ inline std::vector<std::string> executeCmd(T&& i_path, uint16_t& o_errCode,
         {
             o_errCode = error_code::POPEN_FAILED;
             Logger::getLoggerInstance()->logMessage(
-                "popen failed with error " + std::string(strerror(errno)));
+                "popen failed with error " + std::error_code(errno, std::generic_category()).message());
             return l_cmdOutput;
         }
 
