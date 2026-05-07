@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73777dee_9e451f56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-07T11:57:25Z",
+      "side": 1,
+      "message": "Nit: as per PDI ?",
+      "revId": "0df36a8c93ccf6a9a4c7175d629bec22b3b684a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f66db857_64a7273f",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-07T11:57:25Z",
+      "side": 1,
+      "message": "is it updateKeyword intend work for PATHs not found in the config JSON as well right, and that\u0027s why @line 265 l_fruPath assigned with given input.?\n\nin that case, this change will break for paths not found in the config JSON.",
+      "revId": "0df36a8c93ccf6a9a4c7175d629bec22b3b684a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
