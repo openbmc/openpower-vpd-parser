@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7806ea5_6760626f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-07T07:26:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e335813c_6eae3ab5",
+      "revId": "0a3460934866cb97b06803203c59a0de19c229aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7de9e143_34bd30fa",
         "filename": "vpd-manager/include/config_manager.hpp",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-07T06:33:15Z",
       "side": 1,
       "message": "consumer of this API is missing ?",
+      "revId": "0a3460934866cb97b06803203c59a0de19c229aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6d048ca_df60ad04",
+        "filename": "vpd-manager/include/config_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-07T07:26:43Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "7de9e143_34bd30fa",
       "revId": "0a3460934866cb97b06803203c59a0de19c229aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
