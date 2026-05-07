@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae7d3e87_f2fda580",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-07T16:29:19Z",
+      "side": 1,
+      "message": "my previous commit has that mentioned, that it is IBM specific and we are maintaininng 2 interfaces, 1 IBM one, 2nd industry standard i.e. \"xyz\".\nWe are doing this to get rid of this 2 maintenance.\nDo we need this in commit message?",
+      "parentUuid": "69e72758_7f0b0ce4",
+      "revId": "48bce7a2d431a371dbb3eae216ead4647d38de57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fdba0db5_018a8786",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -48,6 +66,42 @@
       "writtenOn": "2026-05-07T15:52:48Z",
       "side": 1,
       "message": "I see this patch has changes in `vpd-tool`. Have we tested `vpd-tool` options which use location code (like `dumpObject`) are working as expected?",
+      "revId": "48bce7a2d431a371dbb3eae216ead4647d38de57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99cd268e_d1429b49",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-07T16:29:19Z",
+      "side": 1,
+      "message": "a FRU",
+      "parentUuid": "fdba0db5_018a8786",
+      "revId": "48bce7a2d431a371dbb3eae216ead4647d38de57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41a93147_f27b998d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-07T16:29:19Z",
+      "side": 1,
+      "message": "I think, I will remove vpd-tool files in other commit, and re-push once it is verified.",
+      "parentUuid": "6fec4aa6_a819074e",
       "revId": "48bce7a2d431a371dbb3eae216ead4647d38de57",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
