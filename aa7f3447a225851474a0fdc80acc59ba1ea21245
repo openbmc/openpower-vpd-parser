@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "452d49b2_4191e6ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-08T06:44:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f3511e6_101744a1",
+      "revId": "aa7f3447a225851474a0fdc80acc59ba1ea21245",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d1575c5_c5384268",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-07T15:51:11Z",
       "side": 1,
       "message": "Wrap line near to 72.",
+      "revId": "aa7f3447a225851474a0fdc80acc59ba1ea21245",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75efa4a8_04c9f1e8",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-08T06:44:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d1575c5_c5384268",
       "revId": "aa7f3447a225851474a0fdc80acc59ba1ea21245",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -104,6 +140,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e8f5b3a_f896a8c4",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-08T06:44:04Z",
+      "side": 1,
+      "message": "Removed .",
+      "parentUuid": "d3d0c572_586510ff",
+      "revId": "aa7f3447a225851474a0fdc80acc59ba1ea21245",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95fc6e1b_6e146136",
@@ -117,6 +171,24 @@
       "writtenOn": "2026-05-07T15:51:11Z",
       "side": 1,
       "message": "No use case of return value as of now. Will add if required. For now it should be void.",
+      "revId": "aa7f3447a225851474a0fdc80acc59ba1ea21245",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "372ac198_51d7d875",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-08T06:44:04Z",
+      "side": 1,
+      "message": "Ok , removed bool return type.",
+      "parentUuid": "95fc6e1b_6e146136",
       "revId": "aa7f3447a225851474a0fdc80acc59ba1ea21245",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
