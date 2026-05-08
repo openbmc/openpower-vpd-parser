@@ -16,6 +16,24 @@
       "message": "Why is this being called in the constructor just after the creating of thread manager?\nCollection needs to be triggered only when requested. This call will replace the existing flow so should be there?",
       "revId": "6f64df043c2c617839fed74bd789d9584b5f5aa5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0679092_5603c632",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-08T07:50:17Z",
+      "side": 1,
+      "message": "Removed from here , now this call is being triggered in collectallfruvpd api.",
+      "parentUuid": "e671d5ac_fcece895",
+      "revId": "6f64df043c2c617839fed74bd789d9584b5f5aa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
