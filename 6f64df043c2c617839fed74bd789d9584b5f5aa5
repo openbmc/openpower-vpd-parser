@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e671d5ac_fcece895",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-08T07:18:42Z",
+      "side": 1,
+      "message": "Why is this being called in the constructor just after the creating of thread manager?\nCollection needs to be triggered only when requested. This call will replace the existing flow so should be there?",
+      "revId": "6f64df043c2c617839fed74bd789d9584b5f5aa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
