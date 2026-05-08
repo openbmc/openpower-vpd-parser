@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4cfa05c_fcd430f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-08T05:27:45Z",
+      "side": 1,
+      "message": "Spelling mistake. Strange that CI did not catch this.",
+      "range": {
+        "startLine": 17,
+        "startChar": 11,
+        "endLine": 17,
+        "endChar": 23
+      },
+      "revId": "e32935d28559346f51419d3494fd9fe58a5edb48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
