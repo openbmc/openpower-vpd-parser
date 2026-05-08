@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "670d6a9c_e9adb041",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-08T07:28:52Z",
+      "side": 1,
+      "message": "Add a generic statement saying why this is required. Remember this is a public API don\u0027t tie it to just thread manager.",
+      "revId": "4f9a74b1fd1fdd5af96f907eaed3a6edaa8d8fab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a37915c_6b817c15",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1810,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-08T07:28:52Z",
+      "side": 1,
+      "message": "No the thought process is wrong here. The first parameter as of now says if the collection was success full or not. Going forward we will add the presence logic here and then will modify the return type.",
+      "revId": "4f9a74b1fd1fdd5af96f907eaed3a6edaa8d8fab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d92385a_379a1636",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1829,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-08T07:28:52Z",
+      "side": 1,
+      "message": "Worker will have no knowledge of threads.",
+      "revId": "4f9a74b1fd1fdd5af96f907eaed3a6edaa8d8fab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bea9ad35_ce6da87e",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1830,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-08T07:28:52Z",
+      "side": 1,
+      "message": "This variable will go away eventually, no need to handle in this API now.",
+      "revId": "4f9a74b1fd1fdd5af96f907eaed3a6edaa8d8fab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42b3e7ae_a3122e88",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1844,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-08T07:28:52Z",
+      "side": 1,
+      "message": "This logic should not be here. Parse and publish will take care of fetching this info and adding it to its return value.",
+      "range": {
+        "startLine": 1833,
+        "startChar": 8,
+        "endLine": 1844,
+        "endChar": 9
+      },
+      "revId": "4f9a74b1fd1fdd5af96f907eaed3a6edaa8d8fab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
