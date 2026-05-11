@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3f60714_172f605b",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-11T05:08:26Z",
+      "side": 1,
+      "message": "Do we still need this code?",
+      "revId": "5874fc66774abf49ed1b215dea61de2d84119429",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
