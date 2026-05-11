@@ -980,6 +980,17 @@ void IbmHandler::setDeviceTreeAndJson(
             "], reason: " + commonUtility::getErrCodeMsg(l_errCode));
     }
 
+    std::string l_redundantEepromPath{REDUNDANT_SYSTEM_VPD_FILE_PATH};
+    commonUtility::getEffectiveFruPath(m_vpdCollectionMode,
+                                       l_redundantEepromPath, l_errCode);
+    if (l_errCode)
+    {
+        throw std::runtime_error(
+            "Failed to get effective System VPD path, for [" +
+            l_redundantEepromPath +
+            "], reason: " + commonUtility::getErrCodeMsg(l_errCode));
+    }
+
     std::error_code l_ec;
     l_ec.clear();
     if (!std::filesystem::exists(l_systemVpdPath, l_ec))
@@ -990,20 +1001,60 @@ void IbmHandler::setDeviceTreeAndJson(
             l_errMsg += l_ec.message();
         }
 
-        // No point continuing without system VPD file
-        throw std::runtime_error(l_errMsg);
+        // If redundant system VPD path is available, we can continue.
+        // Otherwise, system VPD is mandatory.
+        if (l_redundantEepromPath.empty())
+        {
+            // No point continuing without system VPD file
+            throw std::runtime_error(l_errMsg);
+        }
+        else
+        {
+            m_logger->logMessage(std::format(
+                "System VPD path [{}] doesn't exists, using redundant path [{}] to collect system VPD",
+                l_systemVpdPath, l_redundantEepromPath));
+            l_systemVpdPath = l_redundantEepromPath;
+        }
     }
 
-    // parse system VPD
-    std::shared_ptr<Parser> l_vpdParser =
-        std::make_shared<Parser>(l_systemVpdPath, m_sysCfgJsonObj);
-    o_parsedSystemVpdMap = l_vpdParser->parse();
+    try
+    {
+        // parse system VPD
+        std::shared_ptr<Parser> l_vpdParser =
+            std::make_shared<Parser>(l_systemVpdPath, m_sysCfgJsonObj);
+        o_parsedSystemVpdMap = l_vpdParser->parse();
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format("Failed to parse system VPD, path: [{}], reason: {}",
+                        l_systemVpdPath, l_ex.what()));
+        o_parsedSystemVpdMap = std::monostate{};
+    }
 
     if (std::holds_alternative<std::monostate>(o_parsedSystemVpdMap))
     {
-        throw std::runtime_error(
-            "System VPD parsing failed, from path [" + l_systemVpdPath +
-            "]. Either file doesn't exist or error occurred while parsing the file.");
+        if (!l_redundantEepromPath.empty() &&
+            l_systemVpdPath != l_redundantEepromPath)
+        {
+            // parse system VPD using redundant eeprom path
+            std::shared_ptr<Parser> l_vpdParser = std::make_shared<Parser>(
+                l_redundantEepromPath, m_sysCfgJsonObj);
+            o_parsedSystemVpdMap = l_vpdParser->parse();
+
+            if (std::holds_alternative<std::monostate>(o_parsedSystemVpdMap))
+            {
+                throw std::runtime_error(std::format(
+                    "System VPD parsing failed, from both primary path [{}] and redundant path [{}]. Either file doesn't exist or error occurred while parsing the file.",
+                    l_systemVpdPath, l_redundantEepromPath));
+            }
+        }
+        else
+        {
+            throw std::runtime_error(
+                "System VPD parsing failed, from path [" + l_systemVpdPath +
+                "]. Either file doesn't exist or error occurred while parsing the file.");
+        }
     }
 
     // Implies it is default JSON.
@@ -1085,8 +1136,8 @@ void IbmHandler::setDeviceTreeAndJson(
                                 INVENTORY_JSON_SYM_LINK);
         }
 
-        // TODO: for backward compatibility this should also support motherboard
-        // interface.
+        // TODO: for backward compatibility this should also support
+        // motherboard interface.
         std::vector<std::string> l_interfaceList{
             constants::motherboardInterface};
         const types::MapperGetObject& l_sysVpdObjMap =
@@ -1177,8 +1228,8 @@ void IbmHandler::performInitialSetup()
                 "Reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        // Any issue in system's initial set up is handled in this catch. Error
-        // will not propagate to manager.
+        // Any issue in system's initial set up is handled in this catch.
+        // Error will not propagate to manager.
 
         m_logger->logMessage(
             std::format("Exception while performing initial set up. Error: {}",
@@ -1257,8 +1308,8 @@ void IbmHandler::updateExpandedLocationCode()
                 auto l_chassisPathForFru = std::format(
                     "{}/{}", constants::systemVpdInvPath, l_chassisString);
 
-                // check if the chassis to which FRU belongs is present. If not
-                // skip processing.
+                // check if the chassis to which FRU belongs is present. If
+                // not skip processing.
                 if (!dbusUtility::isInventoryPresent(l_chassisPathForFru))
                 {
                     if (l_absentChassis.insert(l_chassisPathForFru).second)
