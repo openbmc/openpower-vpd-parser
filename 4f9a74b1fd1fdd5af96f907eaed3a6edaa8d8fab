@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ebdf393_724573d6",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1810,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-11T07:45:01Z",
+      "side": 1,
+      "message": "Agreed, we will keep this for the time being, till the thread manager code comes in.",
+      "parentUuid": "5a37915c_6b817c15",
+      "revId": "4f9a74b1fd1fdd5af96f907eaed3a6edaa8d8fab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d92385a_379a1636",
@@ -82,6 +100,30 @@
       "writtenOn": "2026-05-08T07:28:52Z",
       "side": 1,
       "message": "This logic should not be here. Parse and publish will take care of fetching this info and adding it to its return value.",
+      "range": {
+        "startLine": 1833,
+        "startChar": 8,
+        "endLine": 1844,
+        "endChar": 9
+      },
+      "revId": "4f9a74b1fd1fdd5af96f907eaed3a6edaa8d8fab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cd6bafb_c6672c47",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1844,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-11T07:45:01Z",
+      "side": 1,
+      "message": "Same here, we will keep this till the thread manager code comes in.",
+      "parentUuid": "42b3e7ae_a3122e88",
       "range": {
         "startLine": 1833,
         "startChar": 8,
