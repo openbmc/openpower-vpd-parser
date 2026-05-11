@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee831ef0_3c603c36",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-11T06:46:11Z",
+      "side": 1,
+      "message": "No required. Will remove this check.",
+      "range": {
+        "startLine": 181,
+        "startChar": 11,
+        "endLine": 181,
+        "endChar": 71
+      },
+      "revId": "5874fc66774abf49ed1b215dea61de2d84119429",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ace6522_4e6a0f5e",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-11T06:46:11Z",
+      "side": 1,
+      "message": "Not required. Will remove this handling.",
+      "range": {
+        "startLine": 199,
+        "startChar": 1,
+        "endLine": 200,
+        "endChar": 54
+      },
+      "revId": "5874fc66774abf49ed1b215dea61de2d84119429",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a4f7aec_53d30d2b",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-11T06:46:11Z",
+      "side": 1,
+      "message": "I feel, this check is also not required now. removing it.",
+      "range": {
+        "startLine": 286,
+        "startChar": 2,
+        "endLine": 286,
+        "endChar": 78
+      },
+      "revId": "5874fc66774abf49ed1b215dea61de2d84119429",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e3f60714_172f605b",
         "filename": "wait-vpd-parser/src/prime_inventory.cpp",
         "patchSetId": 12
@@ -14,6 +83,24 @@
       "writtenOn": "2026-05-11T05:08:26Z",
       "side": 1,
       "message": "Do we still need this code?",
+      "revId": "5874fc66774abf49ed1b215dea61de2d84119429",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bd6b249_2c369adb",
+        "filename": "wait-vpd-parser/src/prime_inventory.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-11T06:46:11Z",
+      "side": 1,
+      "message": "We don\u0027t need this handling now.",
+      "parentUuid": "e3f60714_172f605b",
       "revId": "5874fc66774abf49ed1b215dea61de2d84119429",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
