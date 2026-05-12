@@ -37,6 +37,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0693e45_ad25050c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-12T18:27:00Z",
+      "side": 1,
+      "message": "I did not check yet .",
+      "parentUuid": "fa0cf5cf_6463a98d",
+      "revId": "e05786cd975905f2e84d424cebbc8e4d6db51484",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7158067_4abf6a60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-12T18:27:00Z",
+      "side": 1,
+      "message": "Yes, I mean complete motherboard VPD collection .",
+      "parentUuid": "f6949202_54b2e698",
+      "revId": "e05786cd975905f2e84d424cebbc8e4d6db51484",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "92177b14_dcacb609",
         "filename": "vpd-manager/include/thread_manager.hpp",
         "patchSetId": 5
@@ -48,6 +84,24 @@
       "writtenOn": "2026-05-12T18:04:32Z",
       "side": 1,
       "message": "Why do we need this data member? `ThreadManager` can access this through `m_configManager-\u003egetChassisIdToJsonMap()` whenever it is required?",
+      "revId": "e05786cd975905f2e84d424cebbc8e4d6db51484",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f2b815d_dd92acb7",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-12T18:27:00Z",
+      "side": 1,
+      "message": "This map \"m_chassisIdToJsonMap\" will be used in different scenario , it will be used during complete vpd collection too in callfruvpd api so I kept it as class member.",
+      "parentUuid": "92177b14_dcacb609",
       "revId": "e05786cd975905f2e84d424cebbc8e4d6db51484",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6265e2d6_4b67323f",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-12T18:27:00Z",
+      "side": 1,
+      "message": "It\u0027s kind of error scenario hence I have put in here and not in collection.log file .",
+      "parentUuid": "7c4bca4e_3f435d1a",
+      "revId": "e05786cd975905f2e84d424cebbc8e4d6db51484",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0257d069_0c9ca2fc",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 5
@@ -82,6 +154,24 @@
       "writtenOn": "2026-05-12T18:04:32Z",
       "side": 1,
       "message": "What\u0027s the use-case of adding the thread ID to the log?",
+      "revId": "e05786cd975905f2e84d424cebbc8e4d6db51484",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff72376f_07e71c9d",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-12T18:27:00Z",
+      "side": 1,
+      "message": "Kept for debugging , will remove it .",
+      "parentUuid": "0257d069_0c9ca2fc",
       "revId": "e05786cd975905f2e84d424cebbc8e4d6db51484",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
