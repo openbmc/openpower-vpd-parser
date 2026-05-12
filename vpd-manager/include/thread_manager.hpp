@@ -38,10 +38,11 @@ class ThreadManager
      *
      * @param[in] i_worker - Shared pointer to the worker class
      * @param[in] i_configManager - Shared pointer to the configmanager class
-     *
+     * @param[in] i_logger - Shared pointer to the logger class
      */
     ThreadManager(const std::shared_ptr<Worker>& i_worker,
-                  const std::shared_ptr<ConfigManager>& i_configManager);
+                  const std::shared_ptr<ConfigManager>& i_configManager,
+                  const std::shared_ptr<Logger>& i_logger);
 
     // deleted methods
     ThreadManager(const ThreadManager&) = delete;
@@ -51,6 +52,7 @@ class ThreadManager
 
     /**
      * @brief Destructor
+     *
      */
     ~ThreadManager() = default;
 
@@ -69,6 +71,9 @@ class ThreadManager
 
     // shared pointer to worker object
     const std::shared_ptr<Worker>& m_worker{nullptr};
+
+    // Shared pointer to Logger object
+    const std::shared_ptr<Logger>& m_logger{nullptr};
 
     /**
      * @brief Trigger multi-threaded VPD collection of all chassis's motherboard
