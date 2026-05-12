@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ce04192_de601f79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-05-12T11:28:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "670d6a9c_e9adb041",
+      "revId": "4f9a74b1fd1fdd5af96f907eaed3a6edaa8d8fab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a37915c_6b817c15",
@@ -72,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1138313c_3d6f5d37",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1829,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-05-12T11:28:54Z",
+      "side": 1,
+      "message": "Commented out the code. This will be removed once the thread manager implementation is done",
+      "parentUuid": "6d92385a_379a1636",
+      "revId": "4f9a74b1fd1fdd5af96f907eaed3a6edaa8d8fab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bea9ad35_ce6da87e",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 3
@@ -83,6 +119,24 @@
       "writtenOn": "2026-05-08T07:28:52Z",
       "side": 1,
       "message": "This variable will go away eventually, no need to handle in this API now.",
+      "revId": "4f9a74b1fd1fdd5af96f907eaed3a6edaa8d8fab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d7f1fcf_cb0ee143",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1830,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-05-12T11:28:54Z",
+      "side": 1,
+      "message": "Commented out the code. This will be removed once the thread manager implementation is done",
+      "parentUuid": "bea9ad35_ce6da87e",
       "revId": "4f9a74b1fd1fdd5af96f907eaed3a6edaa8d8fab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
