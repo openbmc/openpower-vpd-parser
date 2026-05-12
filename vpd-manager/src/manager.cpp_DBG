@@ -1,0 +1,1006 @@
+#include "config.h"
+
+#include "manager.hpp"
+
+#include "constants.hpp"
+#include "exceptions.hpp"
+#include "parser.hpp"
+#include "parser_factory.hpp"
+#include "parser_interface.hpp"
+#include "single_fab.hpp"
+#include "types.hpp"
+#include "utility/dbus_utility.hpp"
+#include "utility/json_utility.hpp"
+#include "utility/vpd_specific_utility.hpp"
+
+#include <boost/asio/steady_timer.hpp>
+#include <sdbusplus/bus/match.hpp>
+#include <sdbusplus/message.hpp>
+
+#include <format>
+
+namespace vpd
+{
+Manager::Manager(
+    const std::shared_ptr<boost::asio::io_context>& ioCon,
+    const std::shared_ptr<sdbusplus::asio::dbus_interface>& iFace,
+    const std::shared_ptr<sdbusplus::asio::dbus_interface>& progressiFace,
+    const std::shared_ptr<sdbusplus::asio::connection>& asioConnection) :
+    m_ioContext(ioCon), m_interface(iFace), m_progressInterface(progressiFace),
+    m_asioConnection(asioConnection), m_logger(Logger::getLoggerInstance())
+{
+    m_logger->setConn(m_asioConnection);
+
+#ifdef IBM_SYSTEM_SINGLE_FAB
+    if (!dbusUtility::isChassisPowerOn())
+    {
+        SingleFab l_singleFab;
+        const int& l_rc = l_singleFab.singleFabImOverride();
+
+        if (l_rc == constants::FAILURE)
+        {
+            throw std::runtime_error(
+                std::string(__FUNCTION__) +
+                " : Found an invalid system configuration. Needs manual intervention. BMC is being quiesced.");
+        }
+    }
+#endif
+
+    try
+    {
+        // For backward compatibility. Should be deprecated.
+        iFace->register_method(
+            "WriteKeyword",
+            [this](const sdbusplus::object_path i_path,
+                   const std::string i_recordName, const std::string i_keyword,
+                   const types::BinaryVector i_value) -> int {
+                return this->updateKeyword(
+                    i_path, std::make_tuple(i_recordName, i_keyword, i_value));
+            });
+
+        // Register methods under com.ibm.VPD.Manager interface
+        iFace->register_method(
+            "UpdateKeyword",
+            [this](const types::Path i_vpdPath,
+                   const types::WriteVpdParams i_paramsToWriteData) -> int {
+                return this->updateKeyword(i_vpdPath, i_paramsToWriteData);
+            });
+
+        iFace->register_method(
+            "WriteKeywordOnHardware",
+            [this](const types::Path i_fruPath,
+                   const types::WriteVpdParams i_paramsToWriteData) -> int {
+                return this->updateKeywordOnHardware(i_fruPath,
+                                                     i_paramsToWriteData);
+            });
+
+        iFace->register_method(
+            "ReadKeyword",
+            [this](const types::Path i_fruPath,
+                   const types::ReadVpdParams i_paramsToReadData)
+                -> types::DbusVariantType {
+                return this->readKeyword(i_fruPath, i_paramsToReadData);
+            });
+
+        iFace->register_method(
+            "CollectFRUVPD",
+            [this](const sdbusplus::object_path& i_dbusObjPath) {
+                this->collectSingleFruVpd(i_dbusObjPath);
+            });
+
+        iFace->register_method(
+            "deleteFRUVPD",
+            [this](const sdbusplus::object_path& i_dbusObjPath) {
+                this->deleteSingleFruVpd(i_dbusObjPath);
+            });
+
+        iFace->register_method(
+            "GetExpandedLocationCode",
+            [this](const std::string& i_unexpandedLocationCode,
+                   uint16_t& i_nodeNumber) -> std::string {
+                return this->getExpandedLocationCode(i_unexpandedLocationCode,
+                                                     i_nodeNumber);
+            });
+
+        iFace->register_method("GetFRUsByExpandedLocationCode",
+                               [this](const std::string& i_expandedLocationCode)
+                                   -> types::ListOfPaths {
+                                   return this->getFrusByExpandedLocationCode(
+                                       i_expandedLocationCode);
+                               });
+
+        iFace->register_method(
+            "GetFRUsByUnexpandedLocationCode",
+            [this](const std::string& i_unexpandedLocationCode,
+                   uint16_t& i_nodeNumber) -> types::ListOfPaths {
+                return this->getFrusByUnexpandedLocationCode(
+                    i_unexpandedLocationCode, i_nodeNumber);
+            });
+
+        iFace->register_method(
+            "GetHardwarePath",
+            [this](const sdbusplus::object_path& i_dbusObjPath) -> std::string {
+                return this->getHwPath(i_dbusObjPath);
+            });
+
+        iFace->register_method("PerformVPDRecollection", [this]() {
+            this->performVpdRecollection();
+        });
+
+        iFace->register_method("CollectAllFRUVPD", [this]() -> bool {
+            return this->collectAllFruVpd();
+        });
+
+        iFace->register_method("DeleteAllFRUVPD", [this]() {
+            this->deleteAllFRUVPD();
+        });
+
+        iFace->register_method(
+            "ValidateRedundantEEPROM",
+            [this](const types::Path& i_fruPath) -> bool {
+                return this->validateRedundantEeprom(i_fruPath);
+            });
+
+        // Indicates FRU VPD collection for the system has not started.
+        progressiFace->register_property_rw<std::string>(
+            "Status", sdbusplus::vtable::property_::emits_change,
+            [this](const std::string& l_currStatus, const auto&) {
+                m_vpdCollectionStatus = l_currStatus;
+                return true;
+            },
+            [this](const auto&) { return m_vpdCollectionStatus; });
+
+        // system config JSON object. For IBM systems, this is populated by OEM
+        // handler, otherwise this is populated by default inventory JSON.
+        std::string l_systemConfigJsonPath{INVENTORY_JSON_DEFAULT};
+
+        // If required, instantiate OEM specific handler here.
+#ifdef IBM_SYSTEM
+        readVpdCollectionMode();
+
+        m_ibmHandler = std::make_shared<IbmHandler>(
+            m_worker, m_backupAndRestoreObj, m_interface, m_progressInterface,
+            m_ioContext, m_asioConnection, m_vpdCollectionMode);
+
+        // Once IBM handler is initialized, the sym link points to correct
+        // system config JSON path
+        l_systemConfigJsonPath = INVENTORY_JSON_SYM_LINK;
+#else
+        m_worker = std::make_shared<Worker>(INVENTORY_JSON_DEFAULT);
+        m_progressInterface->set_property(
+            "Status", std::string(constants::vpdCollectionCompleted));
+#endif
+
+        initConfigManager(l_systemConfigJsonPath);
+
+#if 0 // here thread manager should be initialized
+        m_threadManager =
+            std::make_unique<ThreadManager>(m_worker, m_configManager);
+#endif
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            "Manager class instantiation failed. " + std::string(l_ex.what()));
+
+        m_logger->logMessage(
+            std::string("Manager class instantiation failed. Reason:") +
+                EventLogger::getErrorMsg(l_ex),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Error, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
+    }
+}
+
+void Manager::initConfigManager(const std::string& i_systemConfigJsonPath)
+{
+    ConfigManager::ManagerPassKey l_configMgrKey;
+    m_configManager =
+        std::make_shared<ConfigManager>(l_configMgrKey, i_systemConfigJsonPath);
+}
+
+void Manager::readVpdCollectionMode() noexcept
+{
+    uint16_t l_errCode{0};
+    // check VPD collection mode
+    if (!commonUtility::isFieldModeEnabled(l_errCode))
+    {
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Default mode set. Error while trying to check if field mode is enabled, error : " +
+                commonUtility::getErrCodeMsg(l_errCode));
+
+            return;
+        }
+
+        m_vpdCollectionMode = commonUtility::getVpdCollectionMode(l_errCode);
+
+        if (l_errCode)
+        {
+            m_logger->logMessage(
+                "Default mode set. Error while trying to read VPD collection mode: " +
+                commonUtility::getErrCodeMsg(l_errCode));
+        }
+    }
+}
+
+int Manager::updateKeyword(const types::Path i_vpdPath,
+                           const types::WriteVpdParams i_paramsToWriteData)
+{
+    if (i_vpdPath.empty())
+    {
+        logging::logMessage("Given VPD path is empty.");
+        return -1;
+    }
+
+    uint16_t l_errCode = 0;
+    types::Path l_fruPath;
+    nlohmann::json l_sysCfgJsonObj{};
+
+    if (m_configManager)
+    {
+        l_sysCfgJsonObj = m_configManager->getJsonObj(i_vpdPath);
+
+        // Get the EEPROM path
+        if (!l_sysCfgJsonObj.empty())
+        {
+            l_fruPath = jsonUtility::getFruPathFromJson(l_sysCfgJsonObj,
+                                                        i_vpdPath, l_errCode);
+        }
+    }
+
+    if (l_fruPath.empty())
+    {
+        if (l_errCode)
+        {
+            logging::logMessage(
+                "Failed to get FRU path from JSON for [" + i_vpdPath +
+                "], error : " + commonUtility::getErrCodeMsg(l_errCode));
+        }
+
+        l_fruPath = i_vpdPath;
+    }
+
+    try
+    {
+        std::shared_ptr<Parser> l_parserObj = std::make_shared<Parser>(
+            l_fruPath, l_sysCfgJsonObj, m_vpdCollectionMode);
+
+        types::DbusVariantType l_updatedValue;
+        auto l_rc =
+            l_parserObj->updateVpdKeyword(i_paramsToWriteData, l_updatedValue);
+
+        if (l_rc != constants::FAILURE && m_backupAndRestoreObj)
+        {
+            if (m_backupAndRestoreObj->updateKeywordOnPrimaryOrBackupPath(
+                    l_fruPath, i_paramsToWriteData) < constants::VALUE_0)
+            {
+                logging::logMessage(
+                    "Write success, but backup and restore failed for file[" +
+                    l_fruPath + "]");
+            }
+        }
+
+        types::WriteVpdParams l_writeParams;
+        types::BinaryVector l_valueToUpdate;
+
+        if (const types::IpzData* l_ipzData =
+                std::get_if<types::IpzData>(&i_paramsToWriteData))
+        {
+            if (const types::BinaryVector* l_val =
+                    std::get_if<types::BinaryVector>(&l_updatedValue))
+            {
+                l_valueToUpdate = *l_val;
+            }
+            else
+            {
+                l_valueToUpdate = std::get<2>(*l_ipzData);
+            }
+            l_writeParams =
+                std::make_tuple(std::get<0>(*l_ipzData),
+                                std::get<1>(*l_ipzData), l_valueToUpdate);
+        }
+        else if (const types::KwData* l_kwData =
+                     std::get_if<types::KwData>(&i_paramsToWriteData))
+        {
+            if (const types::BinaryVector* l_val =
+                    std::get_if<types::BinaryVector>(&l_updatedValue))
+            {
+                l_valueToUpdate = *l_val;
+            }
+            else
+            {
+                l_valueToUpdate = std::get<1>(*l_kwData);
+            }
+
+            l_writeParams =
+                std::make_tuple(std::get<0>(*l_kwData), l_valueToUpdate);
+        }
+
+        // update keyword in inherited FRUs
+        if (l_rc != constants::FAILURE)
+        {
+            vpdSpecificUtility::updateKwdOnInheritedFrus(
+                l_fruPath, l_writeParams, l_sysCfgJsonObj, l_errCode);
+
+            if (l_errCode)
+            {
+                logging::logMessage(
+                    "Failed to update keyword on inherited FRUs for FRU [" +
+                    l_fruPath +
+                    "] , error : " + commonUtility::getErrCodeMsg(l_errCode));
+            }
+        }
+
+        // log VPD write success or failure
+        auto l_logger = Logger::getLoggerInstance();
+
+        // update common interface(s) properties
+        if (l_rc != constants::FAILURE)
+        {
+            vpdSpecificUtility::updateCiPropertyOfInheritedFrus(
+                l_fruPath, l_writeParams, l_sysCfgJsonObj, l_errCode);
+
+            if (l_errCode)
+            {
+                l_logger->logMessage(
+                    "Failed to update Ci property of inherited FRUs, error : " +
+                    commonUtility::getErrCodeMsg(l_errCode));
+            }
+        }
+
+        l_logger->logMessage(
+            "VPD write " +
+                std::string(
+                    (l_rc != constants::FAILURE) ? "successful" : "failed") +
+                " on path[" + i_vpdPath + "] : " +
+                vpdSpecificUtility::convertWriteVpdParamsToString(l_writeParams,
+                                                                  l_errCode),
+            PlaceHolder::VPD_WRITE);
+
+        return l_rc;
+    }
+    catch (const std::exception& l_exception)
+    {
+        logging::logMessage("Update keyword failed for file[" + i_vpdPath +
+                            "], reason: " + std::string(l_exception.what()));
+
+        m_logger->logMessage(
+            std::string("Update keyword failed for file[") + i_vpdPath +
+                "], reason:" + std::string(l_exception.what()),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_exception),
+                                types::SeverityType::Error, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
+
+        return -1;
+    }
+}
+
+int Manager::updateKeywordOnHardware(
+    const types::Path i_fruPath,
+    const types::WriteVpdParams i_paramsToWriteData) noexcept
+{
+    try
+    {
+        if (i_fruPath.empty())
+        {
+            throw std::runtime_error("Given FRU path is empty");
+        }
+
+        nlohmann::json l_sysCfgJsonObj{};
+
+        if (m_configManager)
+        {
+            l_sysCfgJsonObj = m_configManager->getJsonObj(i_fruPath);
+        }
+
+        std::shared_ptr<Parser> l_parserObj = std::make_shared<Parser>(
+            i_fruPath, l_sysCfgJsonObj, m_vpdCollectionMode);
+        return l_parserObj->updateVpdKeywordOnHardware(i_paramsToWriteData);
+    }
+    catch (const std::exception& l_exception)
+    {
+        m_logger->logMessage(
+            std::string("Update keyword on hardware failed for file[") +
+                i_fruPath + "], Reason:" + std::string(l_exception.what()),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::InvalidEeprom,
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
+
+        return constants::FAILURE;
+    }
+}
+
+types::DbusVariantType Manager::readKeyword(
+    const types::Path i_fruPath, const types::ReadVpdParams i_paramsToReadData)
+{
+    try
+    {
+        nlohmann::json l_jsonObj{};
+
+        if (m_configManager)
+        {
+            l_jsonObj = m_configManager->getJsonObj(i_fruPath);
+        }
+
+        std::error_code ec;
+
+        // Check if given path is filesystem path
+        if (!std::filesystem::exists(i_fruPath, ec) && (ec))
+        {
+            throw std::runtime_error(
+                "Given file path " + i_fruPath + " not found.");
+        }
+
+        std::shared_ptr<vpd::Parser> l_parserObj =
+            std::make_shared<vpd::Parser>(i_fruPath, l_jsonObj,
+                                          m_vpdCollectionMode);
+
+        std::shared_ptr<vpd::ParserInterface> l_vpdParserInstance =
+            l_parserObj->getVpdParserInstance();
+
+        return (
+            l_vpdParserInstance->readKeywordFromHardware(i_paramsToReadData));
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(
+            l_ex.what() +
+            std::string(". VPD manager read operation failed for ") +
+            i_fruPath);
+
+        m_logger->logMessage(
+            std::string("VPD manager read operation failed for file[") +
+                i_fruPath + "], Reason:" + std::string(l_ex.what()),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
+
+        throw types::DeviceError::ReadFailure();
+    }
+}
+
+void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
+{
+    if (m_vpdCollectionStatus != constants::vpdCollectionCompleted)
+    {
+        logging::logMessage(
+            "Currently VPD CollectionStatus is not completed. Cannot perform single FRU VPD collection for " +
+            std::string(i_dbusObjPath));
+        return;
+    }
+
+    if (m_worker.get() != nullptr)
+    {
+        m_worker->collectSingleFruVpd(i_dbusObjPath);
+    }
+}
+
+void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
+{
+    try
+    {
+        if (std::string(i_dbusObjPath).empty())
+        {
+            throw std::runtime_error(
+                "Given DBus object path is empty. Aborting FRU VPD deletion.");
+        }
+
+        if (m_worker.get() == nullptr)
+        {
+            throw std::runtime_error(
+                "Worker object not found, can't perform FRU VPD deletion for: " +
+                std::string(i_dbusObjPath));
+        }
+
+        m_worker->deleteFruVpd(std::string(i_dbusObjPath));
+    }
+    catch (const std::exception& l_ex)
+    {
+        logging::logMessage(l_ex.what());
+
+        m_logger->logMessage(
+            std::string("VPD manager delete operation failed for object[") +
+                std::string(i_dbusObjPath) +
+                "], Reason:" + std::string(l_ex.what()),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
+    }
+}
+
+bool Manager::isValidUnexpandedLocationCode(
+    const std::string& i_unexpandedLocationCode)
+{
+    if ((i_unexpandedLocationCode.length() <
+         constants::UNEXP_LOCATION_CODE_MIN_LENGTH) ||
+        ((i_unexpandedLocationCode.compare(0, 4, "Ufcs") !=
+          constants::STR_CMP_SUCCESS) &&
+         (i_unexpandedLocationCode.compare(0, 4, "Umts") !=
+          constants::STR_CMP_SUCCESS)) ||
+        ((i_unexpandedLocationCode.length() >
+          constants::UNEXP_LOCATION_CODE_MIN_LENGTH) &&
+         (i_unexpandedLocationCode.find("-") != 4)))
+    {
+        logging::logMessage("DBG: Validation of UnexpandedLocationCode failed");
+        return false;
+    }
+
+    return true;
+}
+
+std::string Manager::getExpandedLocationCode(
+    const std::string& i_unexpandedLocationCode,
+    [[maybe_unused]] const uint16_t i_nodeNumber)
+{
+    if (!isValidUnexpandedLocationCode(i_unexpandedLocationCode))
+    {
+        //@todo: a PEL used to be logged here using deprecated
+        // phosphor::logging::elog API. Should we still log a PEL here?
+        m_logger->logMessage(std::format("Invalid unexpanded location code: {}",
+                                         i_unexpandedLocationCode));
+        logging::logMessage("DBG:Invalid unexpanded location code");
+
+        throw types::DbusInvalidArgument();
+    }
+
+    if (!m_configManager)
+    {
+        logging::logMessage(
+            "DBG: Cannot get expanded location code for {} as ConfigManager instance is not initialized.");
+        logging::logMessage("DBG: throwing DbusInvalidArgument");
+
+        m_logger->logMessage(std::format(
+            "Cannot get expanded location code for {} as ConfigManager instance is not initialized.",
+            i_unexpandedLocationCode));
+
+        throw types::DbusInvalidArgument();
+    }
+
+    const auto l_inventoryPathsResult =
+        m_configManager->getInventoryPaths(i_unexpandedLocationCode);
+
+    if (!l_inventoryPathsResult.has_value())
+    {
+        logging::logMessage(
+            "DBG:Failed to get inventory path corresponding to location code ,throwing DbusInvalidArgument");
+        m_logger->logMessage(std::format(
+            "Failed to get inventory path corresponding to location code {}. Error: {}",
+            i_unexpandedLocationCode,
+            commonUtility::getErrCodeMsg(l_inventoryPathsResult.error())));
+
+        throw types::DbusInvalidArgument();
+    }
+
+    /*
+        - select one inventory path
+        - use selected inventory path to get expanded location code from D-Bus
+    */
+
+    auto l_dbusReadRes = dbusUtility::readDbusProperty(
+        constants::pimServiceName, l_inventoryPathsResult.value().at(0),
+        constants::locationCodeInf, "LocationCode");
+
+    const auto l_expandedLocationCodeRes =
+        std::get_if<std::string>(&l_dbusReadRes);
+
+    if (l_expandedLocationCodeRes)
+    {
+        return *l_expandedLocationCodeRes;
+    }
+
+    // failed to read expanded location code from D-Bus
+    //@todo: a PEL used to be logged here using deprecated
+    // phosphor::logging::elog API. Should we still log a PEL here?
+    m_logger->logMessage(std::format(
+        "Invalid unexpanded location code data type read from D-Bus for {}",
+        i_unexpandedLocationCode));
+    logging::logMessage(
+        "DBG: Invalid unexpanded location code data type read from D-Bus. Throwing DbusInvalidArgument");
+    throw types::DbusInvalidArgument();
+}
+
+types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
+    const std::string& i_unexpandedLocationCode,
+    [[maybe_unused]] const uint16_t i_nodeNumber)
+{
+    logging::logMessage("DBG: Entered getFrusByUnexpandedLocationCode ");
+    if (!isValidUnexpandedLocationCode(i_unexpandedLocationCode))
+    {
+        logging::logMessage(std::format("Invalid unexpanded location code: {}",
+                                        i_unexpandedLocationCode));
+        //@todo: a PEL used to be logged here using deprecated
+        // phosphor::logging::elog API. Should we still log a PEL here?
+        m_logger->logMessage(std::format("Invalid unexpanded location code: {}",
+                                         i_unexpandedLocationCode));
+
+        throw types::DbusInvalidArgument();
+    }
+
+    if (!m_configManager)
+    {
+        m_logger->logMessage(std::format(
+            "Cannot get FRUs by unexpanded location code for {} as ConfigManager instance is not initialized",
+            i_unexpandedLocationCode));
+
+        throw types::DbusInvalidArgument();
+    }
+
+    const auto l_inventoryPathsResult =
+        m_configManager->getInventoryPaths(i_unexpandedLocationCode);
+
+    if (!l_inventoryPathsResult.has_value())
+    {
+        //@todo: a PEL used to be logged here using deprecated
+        // phosphor::logging::elog API. Should we still log a PEL here?
+        m_logger->logMessage(std::format(
+            "Failed to get inventory paths for unexpanded location code: {}. Error: {}",
+            i_unexpandedLocationCode,
+            commonUtility::getErrCodeMsg(l_inventoryPathsResult.error())));
+
+        throw types::DbusInvalidArgument();
+    }
+    else
+    {
+        return l_inventoryPathsResult.value();
+    }
+}
+
+std::string Manager::getHwPath(const sdbusplus::object_path& i_dbusObjPath)
+{
+    // Dummy code to suppress unused variable warning. To be removed.
+    logging::logMessage(std::string(i_dbusObjPath));
+
+    return std::string{};
+}
+
+std::tuple<std::string, uint16_t> Manager::getUnexpandedLocationCode(
+    const std::string& i_expandedLocationCode)
+{
+    logging::logMessage("DBG: Entered getUnexpandedLocationCode");
+    /**
+     * Location code should always start with U and fulfil minimum length
+     * criteria.
+     */
+    if (i_expandedLocationCode[0] != 'U' ||
+        i_expandedLocationCode.length() <
+            constants::EXP_LOCATION_CODE_MIN_LENGTH)
+    {
+        phosphor::logging::elog<types::DbusInvalidArgument>(
+            types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
+            types::InvalidArgument::ARGUMENT_VALUE(
+                i_expandedLocationCode.c_str()));
+
+        logging::logMessage(
+            "DBG: Provided expandedLocationCode Basic checks didnt pass");
+    }
+
+    std::string l_fcKwd;
+
+    auto l_fcKwdValue = dbusUtility::readDbusProperty(
+        "xyz.openbmc_project.Inventory.Manager",
+        "/xyz/openbmc_project/inventory/system/chassis0/motherboard",
+        "com.ibm.ipzvpd.VCEN", "FC");
+
+    if (auto l_kwdValue = std::get_if<types::BinaryVector>(&l_fcKwdValue))
+    {
+        l_fcKwd.assign(l_kwdValue->begin(), l_kwdValue->end());
+    }
+    logging::logMessage(std::format(
+        "DBG:Read system/chassis0/motherboard com.ibm.ipzvpd.VCEN FC : {}",
+        l_fcKwd));
+
+    // Get the first part of expanded location code to check for FC or TM.
+    std::string l_firstKwd = i_expandedLocationCode.substr(1, 4);
+
+    std::string l_unexpandedLocationCode{};
+    uint16_t l_nodeNummber = constants::INVALID_NODE_NUMBER;
+
+    // Check if this value matches the value of FC keyword.
+    if (l_fcKwd.substr(0, 4) == l_firstKwd)
+    {
+        logging::logMessage("DBG: value matches the value of FC keyword");
+        /**
+         * Period(.) should be there in expanded location code to seggregate
+         * FC, node number and SE values.
+         */
+        size_t l_nodeStartPos = i_expandedLocationCode.find('.');
+        if (l_nodeStartPos == std::string::npos)
+        {
+            logging::logMessage("DBG: Node start position not found");
+            phosphor::logging::elog<types::DbusInvalidArgument>(
+                types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
+                types::InvalidArgument::ARGUMENT_VALUE(
+                    i_expandedLocationCode.c_str()));
+        }
+
+        size_t l_nodeEndPos =
+            i_expandedLocationCode.find('.', l_nodeStartPos + 1);
+        if (l_nodeEndPos == std::string::npos)
+        {
+            logging::logMessage("DBG: Node end position not found");
+            phosphor::logging::elog<types::DbusInvalidArgument>(
+                types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
+                types::InvalidArgument::ARGUMENT_VALUE(
+                    i_expandedLocationCode.c_str()));
+        }
+
+        // Skip 3 bytes for '.ND'
+        l_nodeNummber = std::stoi(i_expandedLocationCode.substr(
+            l_nodeStartPos + 3, (l_nodeEndPos - l_nodeStartPos - 3)));
+
+        /**
+         * Confirm if there are other details apart FC, node number and SE
+         * in location code
+         */
+        if (i_expandedLocationCode.length() >
+            constants::EXP_LOCATION_CODE_MIN_LENGTH)
+        {
+            l_unexpandedLocationCode =
+                i_expandedLocationCode[0] + std::string("fcs") +
+                i_expandedLocationCode.substr(
+                    l_nodeEndPos + 1 + constants::SE_KWD_LENGTH,
+                    std::string::npos);
+            logging::logMessage("DBG: if case");
+        }
+        else
+        {
+            l_unexpandedLocationCode = "Ufcs";
+            logging::logMessage("DBG: else case");
+        }
+
+        logging::logMessage(std::format("DBG: l_unexpandedLocationCode : {}",
+                                        l_unexpandedLocationCode));
+    }
+    else
+    {
+        std::string l_tmKwd;
+        // Read TM keyword value.
+        auto l_tmKwdValue = dbusUtility::readDbusProperty(
+            "xyz.openbmc_project.Inventory.Manager",
+            "/xyz/openbmc_project/inventory/system/chassis0/motherboard",
+            "com.ibm.ipzvpd.VSYS", "TM");
+
+        if (auto l_kwdValue = std::get_if<types::BinaryVector>(&l_tmKwdValue))
+        {
+            l_tmKwd.assign(l_kwdValue->begin(), l_kwdValue->end());
+        }
+
+        logging::logMessage(std::format(
+            "DBG:Read system/chassis0/motherboard com.ibm.ipzvpd.VSYS TM : {}",
+            l_tmKwd));
+        // Check if the substr matches to TM keyword value.
+        if (l_tmKwd.substr(0, 4) == l_firstKwd)
+        {
+            logging::logMessage(
+                "DBG: ExpandednLC substr matches to TM keyword value");
+            /**
+             * System location code will not have node number and any other
+             * details.
+             */
+            l_unexpandedLocationCode = "Umts";
+        }
+        // The given location code is neither "fcs" or "mts".
+        else
+        {
+            logging::logMessage(
+                "DBG:The given location code is neither [fcs] nor [mts].");
+            phosphor::logging::elog<types::DbusInvalidArgument>(
+                types::InvalidArgument::ARGUMENT_NAME("LOCATIONCODE"),
+                types::InvalidArgument::ARGUMENT_VALUE(
+                    i_expandedLocationCode.c_str()));
+        }
+    }
+
+    logging::logMessage(
+        std::format("DBG: Returning l_unexpandedLocationCode : {}",
+                    l_unexpandedLocationCode));
+    logging::logMessage(
+        std::format("DBG: Returning l_nodeNummber : {}", l_nodeNummber));
+    return std::make_tuple(l_unexpandedLocationCode, l_nodeNummber);
+}
+
+types::ListOfPaths Manager::getFrusByExpandedLocationCode(
+    const std::string& i_expandedLocationCode)
+{
+    logging::logMessage("DBG: Entered getFrusBy ExpandedLocationCode");
+    std::tuple<std::string, uint16_t> l_locationAndNodePair =
+        getUnexpandedLocationCode(i_expandedLocationCode);
+
+    return getFrusByUnexpandedLocationCode(std::get<0>(l_locationAndNodePair),
+                                           std::get<1>(l_locationAndNodePair));
+}
+
+void Manager::performVpdRecollection()
+{
+    if (m_worker.get() != nullptr)
+    {
+        m_worker->performVpdRecollection();
+    }
+}
+
+bool Manager::collectAllFruVpd() const noexcept
+{
+    try
+    {
+        types::SeverityType l_severityType;
+        if (m_vpdCollectionStatus == constants::vpdCollectionNotStarted)
+        {
+            l_severityType = types::SeverityType::Informational;
+        }
+        else if (m_vpdCollectionStatus == constants::vpdCollectionCompleted ||
+                 m_vpdCollectionStatus == constants::vpdCollectionFailed)
+        {
+            l_severityType = types::SeverityType::Warning;
+        }
+        else
+        {
+            throw std::runtime_error(
+                "Invalid collection status " + m_vpdCollectionStatus +
+                ". Aborting all FRUs VPD collection.");
+        }
+
+        m_logger->logMessage(
+            std::string("Collect all FRUs VPD is requested."),
+            PlaceHolder::ASYNC_PEL,
+            types::PelInfoTuple{types::ErrorType::FirmwareError, l_severityType,
+                                0, std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
+
+// ToDo: Handle with OEM interface
+#ifdef IBM_SYSTEM
+        if (m_ibmHandler.get() != nullptr)
+        {
+            m_ibmHandler->collectAllFruVpd();
+            return true;
+        }
+        else
+        {
+            throw std::runtime_error(
+                "Not found any OEM handler to collect all FRUs VPD.");
+        }
+#endif
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::string("Collect all FRUs VPD failed, reason- ") +
+                std::string(l_ex.what()),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Warning, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
+    }
+    return false;
+}
+
+bool Manager::validateRedundantEeprom(const types::Path& i_fruPath) const
+{
+    bool l_rc{false};
+
+    auto l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+
+    uint16_t l_errCode;
+    std::string l_redundantEeprom = jsonUtility::getRedundantEepromPathFromJson(
+        l_sysCfgJsonObj, i_fruPath, l_errCode);
+
+    if (l_redundantEeprom.empty())
+    {
+        /* @todo Add support for cases where the input path refers to a
+         * redundant EEPROM directly.*/
+
+        phosphor::logging::elog<types::DbusInvalidArgument>(
+            types::InvalidArgument::ARGUMENT_NAME("PATH"),
+            types::InvalidArgument::ARGUMENT_VALUE(i_fruPath.c_str()));
+    }
+
+    try
+    {
+        Parser l_parserForPrimary(i_fruPath, l_sysCfgJsonObj,
+                                  m_vpdCollectionMode);
+
+        return l_parserForPrimary.compareData(l_redundantEeprom);
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            "Failed to validate VPD of [" + i_fruPath +
+                "] and its redundant EEPROM [" + l_redundantEeprom +
+                "] are identical",
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::InternalFailure,
+                                types::SeverityType::Informational, 0,
+                                l_ex.what(), std::nullopt, std::nullopt,
+                                std::nullopt});
+    }
+    return l_rc;
+}
+
+void Manager::deleteAllFRUVPD() const noexcept
+{
+    if (m_vpdCollectionStatus == constants::vpdCollectionInProgress)
+    {
+        m_logger->logMessage(
+            "FRU VPD collection is in progress. Cannot perform delete all FRU VPD.");
+        return;
+    }
+
+    try
+    {
+        m_logger->logMessage(
+            std::string("Delete all FRUs VPD is requested."), PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
+
+        const auto l_inventoryBackupPath{
+            constants::pimPrimaryPath /
+            std::filesystem::path(constants::pimPath).relative_path()};
+
+        if (!std::filesystem::exists(l_inventoryBackupPath))
+        {
+            m_logger->logMessage(
+                "PIM persist path does not exist. Cannot perform delete all FRU VPD.");
+            return;
+        }
+
+        bool l_directoryRemoved = false;
+        uint16_t l_errCode = 0;
+
+        commonUtility::deleteDirectory(l_inventoryBackupPath,
+                                       l_directoryRemoved, l_errCode);
+
+        if (!l_directoryRemoved)
+        {
+            if (l_errCode)
+            {
+                m_logger->logMessage(
+                    std::format("Failed to delete directory {}, error : {}.",
+                                l_inventoryBackupPath.string(),
+                                commonUtility::getErrCodeMsg(l_errCode)));
+            }
+            // Since no directories were removed, skip restarting of service.
+            return;
+        }
+
+        constexpr auto l_numRetries{constants::VALUE_3};
+
+        for (unsigned l_attempt = 0; l_attempt < l_numRetries; ++l_attempt)
+        {
+            if (commonUtility::restartService(constants::pimServiceName,
+                                              l_errCode))
+            {
+                // restarting inventory manager service is successful, return
+                return;
+            }
+        }
+
+        if (l_errCode)
+        {
+            throw std::runtime_error("Failed to restart PIM service, error : " +
+                                     commonUtility::getErrCodeMsg(l_errCode));
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            "Failed to clear inventory backup data from path [" +
+                std::string(constants::pimPrimaryPath) +
+                "]. Error: " + std::string(l_ex.what()),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                types::SeverityType::Warning, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt});
+    }
+}
+} // namespace vpd
