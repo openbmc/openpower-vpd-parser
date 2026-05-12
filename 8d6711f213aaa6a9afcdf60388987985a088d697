@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9371519e_0c5d01f5",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-12T10:10:46Z",
+      "side": 1,
+      "message": "need not pass as a member, instead you can call getInstance directly here.\nThe class is singleton and the method is static so can be called directly here.",
+      "revId": "8d6711f213aaa6a9afcdf60388987985a088d697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a27b5dbf_aed74b9a",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-12T10:10:46Z",
+      "side": 1,
+      "message": "Not sure about \"i_chassisToEepromMap\" but \"i_chassisIdToJsonMap\" looks like can be used for method where we will go from full VPD collection.\nCan you capture it in a class member instead?",
+      "revId": "8d6711f213aaa6a9afcdf60388987985a088d697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab3b0862_117be3b8",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-12T10:10:46Z",
+      "side": 1,
+      "message": "This is an informational log. Ideally we don\u0027t log informational logs. But for collection path we can make an exception.\nHaving said that, please log with placeholder collection so that this does not comes on journal.",
+      "revId": "8d6711f213aaa6a9afcdf60388987985a088d697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "031f32e2_9342d793",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-12T10:10:46Z",
+      "side": 1,
+      "message": "Your code is looking for chassis ID and you are logging for Chassis JSON. Not in sync.",
+      "range": {
+        "startLine": 41,
+        "startChar": 17,
+        "endLine": 41,
+        "endChar": 52
+      },
+      "revId": "8d6711f213aaa6a9afcdf60388987985a088d697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6d1f918_656b523a",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-12T10:10:46Z",
+      "side": 1,
+      "message": "Again informational log. Move it to collection placeholder.",
+      "revId": "8d6711f213aaa6a9afcdf60388987985a088d697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4b91a43_a80213a7",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-12T10:10:46Z",
+      "side": 1,
+      "message": "No need for logging this. You have already logged once at line above",
+      "revId": "8d6711f213aaa6a9afcdf60388987985a088d697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44708595_8ed91dc4",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-12T10:10:46Z",
+      "side": 1,
+      "message": "How is this compiling, I don\u0027t see a default constructor in worker class.",
+      "revId": "8d6711f213aaa6a9afcdf60388987985a088d697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08533080_2b5d20da",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-12T10:10:46Z",
+      "side": 1,
+      "message": "Informational log, move it to placeholder collection.",
+      "revId": "8d6711f213aaa6a9afcdf60388987985a088d697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "233e1137_d076f628",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-12T10:10:46Z",
+      "side": 1,
+      "message": "Add a ToDo here that detach mode is for time being, we need to update the system view post collection.",
+      "revId": "8d6711f213aaa6a9afcdf60388987985a088d697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
