@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "421c431a_b8c76a7e",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1829,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-12T13:14:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1138313c_3d6f5d37",
+      "revId": "4f9a74b1fd1fdd5af96f907eaed3a6edaa8d8fab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bea9ad35_ce6da87e",
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "Commented out the code. This will be removed once the thread manager implementation is done",
       "parentUuid": "bea9ad35_ce6da87e",
+      "revId": "4f9a74b1fd1fdd5af96f907eaed3a6edaa8d8fab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "592f5501_513ddf6b",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1830,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-12T13:14:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2d7f1fcf_cb0ee143",
       "revId": "4f9a74b1fd1fdd5af96f907eaed3a6edaa8d8fab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c059b546_57f829de",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-12T13:14:49Z",
+      "side": 1,
+      "message": "@anupama.b.r1@ibm.com Any line of thought that you have in you mind? Some suggestion would help here.",
+      "parentUuid": "10d7e78d_fae32377",
+      "revId": "3f4c1c49b551f890e79a308a40ca224aeb69eae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8c370a75_bb04c9be",
         "filename": "vpd-manager/include/worker.hpp",
         "patchSetId": 5
@@ -65,6 +83,24 @@
       "writtenOn": "2026-05-12T12:24:32Z",
       "side": 1,
       "message": "consumer of the API is missing .",
+      "revId": "3f4c1c49b551f890e79a308a40ca224aeb69eae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e88f78d_c8ab4a72",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1784,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-12T13:14:49Z",
+      "side": 1,
+      "message": "Information about how an API will be consumed is a valid request.\n\nHaving said that,, in parallel development environment, it is not always possible to capture the full path in the same commit.\n\n@vrekhaaparna@ibm.com Instead of adding the details here, you can always point to the commit which is consuming this API in your commit message. That will help setting the context.",
+      "parentUuid": "221b5a2a_36bfdcd3",
       "revId": "3f4c1c49b551f890e79a308a40ca224aeb69eae0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
