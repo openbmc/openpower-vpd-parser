@@ -1780,4 +1780,61 @@ bool Worker::processRedundantPreAction(
     return false;
 }
 
+std::tuple<bool, std::string> Worker::processFruCollection(
+    const std::string& i_fruPath, const nlohmann::json& i_cfgJsonObj,
+    uint16_t& o_errCode)
+{
+    bool l_presence = false;
+    std::string l_collectionResult{constants::vpdCollectionNotStarted};
+
+    try
+    {
+        if (i_fruPath.empty())
+        {
+            o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            return std::make_tuple(l_presence, l_collectionResult);
+        }
+
+        if (!i_cfgJsonObj.contains("frus"))
+        {
+            o_errCode = error_code::INVALID_JSON;
+            return std::make_tuple(l_presence, l_collectionResult);
+        }
+
+        if (!i_cfgJsonObj["frus"].contains(i_fruPath))
+        {
+            o_errCode = error_code::FRU_PATH_NOT_FOUND;
+            return std::make_tuple(l_presence, l_collectionResult);
+        }
+
+        m_parsedJson = i_cfgJsonObj;
+
+        const auto& l_parseresult = parseAndPublishVPD(i_fruPath);
+
+        m_mutex.lock();
+        m_activeCollectionThreadCount--;
+        m_mutex.unlock();
+
+        l_presence = dbusUtility::isInventoryPresent(
+            i_cfgJsonObj["frus"][i_fruPath].at(0)["inventoryPath"]);
+
+        if (std::get<0>(l_parseresult))
+        {
+            return std::make_tuple(l_presence,
+                                   constants::vpdCollectionCompleted);
+        }
+        else
+        {
+            return std::make_tuple(l_presence, constants::vpdCollectionFailed);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        o_errCode = error_code::STANDARD_EXCEPTION;
+        m_logger->logMessage(std::format(
+            "Failed to process FRU VPD collection, error : {}.", l_ex.what()));
+    }
+
+    return std::make_tuple(l_presence, l_collectionResult);
+}
 } // namespace vpd
