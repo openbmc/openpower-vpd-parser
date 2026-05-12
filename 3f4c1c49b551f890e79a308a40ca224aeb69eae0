@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10d7e78d_fae32377",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-12T12:24:32Z",
+      "side": 1,
+      "message": "should we have better api name, process FRU not giving any hint of what api is for.",
+      "revId": "3f4c1c49b551f890e79a308a40ca224aeb69eae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c370a75_bb04c9be",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-12T12:24:32Z",
+      "side": 1,
+      "message": "i_json is JSON object of what ?",
+      "revId": "3f4c1c49b551f890e79a308a40ca224aeb69eae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "150f7896_8fa56a15",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-12T12:24:32Z",
+      "side": 1,
+      "message": "API is not handling any exception ?",
+      "revId": "3f4c1c49b551f890e79a308a40ca224aeb69eae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "221b5a2a_36bfdcd3",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1784,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-12T12:24:32Z",
+      "side": 1,
+      "message": "consumer of the API is missing .",
+      "revId": "3f4c1c49b551f890e79a308a40ca224aeb69eae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a54e722c_f75522c8",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1811,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-12T12:24:32Z",
+      "side": 1,
+      "message": "is this temporary changes ?\nleaving comment will be help full here .",
+      "revId": "3f4c1c49b551f890e79a308a40ca224aeb69eae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9a86739_667264e9",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1844,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-12T12:24:32Z",
+      "side": 1,
+      "message": "adding FRU path is needed here.",
+      "revId": "3f4c1c49b551f890e79a308a40ca224aeb69eae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c44744f9_e1085468",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1847,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-12T12:24:32Z",
+      "side": 1,
+      "message": "why VPD collection is not started here ?",
+      "revId": "3f4c1c49b551f890e79a308a40ca224aeb69eae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
