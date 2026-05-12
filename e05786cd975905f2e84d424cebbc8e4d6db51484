@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa0cf5cf_6463a98d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-05-12T18:04:32Z",
+      "side": 1,
+      "message": "Have you checked how much time it takes for the collection? I think this would be a helpful data point for future reference.",
+      "revId": "e05786cd975905f2e84d424cebbc8e4d6db51484",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6949202_54b2e698",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-05-12T18:04:32Z",
+      "side": 1,
+      "message": "\u003e total collection\n\nDo you mean \"complete VPD collection\"?",
+      "revId": "e05786cd975905f2e84d424cebbc8e4d6db51484",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92177b14_dcacb609",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-05-12T18:04:32Z",
+      "side": 1,
+      "message": "Why do we need this data member? `ThreadManager` can access this through `m_configManager-\u003egetChassisIdToJsonMap()` whenever it is required?",
+      "revId": "e05786cd975905f2e84d424cebbc8e4d6db51484",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c4bca4e_3f435d1a",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-05-12T18:04:32Z",
+      "side": 1,
+      "message": "Should this log go to collection.log file instead of journal?",
+      "revId": "e05786cd975905f2e84d424cebbc8e4d6db51484",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0257d069_0c9ca2fc",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-05-12T18:04:32Z",
+      "side": 1,
+      "message": "What\u0027s the use-case of adding the thread ID to the log?",
+      "revId": "e05786cd975905f2e84d424cebbc8e4d6db51484",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
