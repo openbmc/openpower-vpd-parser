@@ -176,7 +176,7 @@ Manager::Manager(
 #if 0
         // Initialize thread manager
         m_threadManager =
-            std::make_unique<ThreadManager>(m_worker, m_configManager);
+            std::make_unique<ThreadManager>(m_worker, m_configManager, m_logger);
 #endif
     }
     catch (const std::exception& l_ex)
