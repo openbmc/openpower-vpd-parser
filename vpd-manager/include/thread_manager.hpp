@@ -38,7 +38,6 @@ class ThreadManager
      *
      * @param[in] i_worker - Shared pointer to the worker class
      * @param[in] i_configManager - Shared pointer to the configmanager class
-     *
      */
     ThreadManager(const std::shared_ptr<Worker>& i_worker,
                   const std::shared_ptr<ConfigManager>& i_configManager);
@@ -51,6 +50,7 @@ class ThreadManager
 
     /**
      * @brief Destructor
+     *
      */
     ~ThreadManager() = default;
 
@@ -70,6 +70,12 @@ class ThreadManager
     // shared pointer to worker object
     const std::shared_ptr<Worker>& m_worker{nullptr};
 
+    // Shared pointer to Logger object
+    std::shared_ptr<Logger> m_logger{nullptr};
+
+    using ChassisIdToJsonMap = std::map<std::string, nlohmann::json>;
+    ChassisIdToJsonMap m_chassisIdToJsonMap;
+
     /**
      * @brief Trigger multi-threaded VPD collection of all chassis's motherboard
      *
@@ -82,12 +88,9 @@ class ThreadManager
      *
      * @param[in] i_chassisToEepromMap - Map of chassis ID to motherboard EEPROM
      * path
-     * @param[in] i_chassisIdToJsonMap - Map of chassis ID to chassis-specific
-     * JSON configuration
      */
     void collectAllChassisVpd(
-        const std::map<std::string, std::string>& i_chassisToEepromMap,
-        const std::map<std::string, nlohmann::json>& i_chassisIdToJsonMap);
+        const std::map<std::string, std::string>& i_chassisToEepromMap);
 };
 
 } // namespace vpd
