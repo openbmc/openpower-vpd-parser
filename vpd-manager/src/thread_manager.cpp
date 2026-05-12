@@ -1,42 +1,29 @@
 #include "thread_manager.hpp"
 
+#include "exceptions.hpp"
+#include "logger.hpp"
+#include "worker.hpp"
+
 #include <format>
-#include <iostream>
+#include <thread>
 
 namespace vpd
 {
 
 ThreadManager::ThreadManager(
-    const std::shared_ptr<Worker>& i_worker,
     const std::shared_ptr<ConfigManager>& i_configManager) :
-    m_configManager(i_configManager), m_worker(i_worker)
-{}
-
-void ThreadManager::collectAllChassisVpd(
-    const std::map<std::string, std::string>& i_chassisToEepromMap,
-    const std::map<std::string, nlohmann::json>& i_chassisIdToJsonMap)
-{
-    /*
-     * TODO: Implement multi-threaded VPD collection for all chassis
-     * motherboards
-     *
-     * Implementation plan:
-     * spawn threads which will take care of VPD collection of each chassis
-     * motherboards
-     *
-     */
-}
-
-void ThreadManager::callAllFruVpd()
+    m_configManager(i_configManager),
+    m_logger(Logger::getLoggerInstance())
 {
     if (!m_configManager)
     {
-        std::cout
-            << "ERROR: ConfigManager is null, cannot proceed with VPD collection"
-            << std::endl;
-        return;
+        throw std::invalid_argument(
+            "ConfigManager cannot be null - it is mandatory for ThreadManager instantiation");
     }
+}
 
+void ThreadManager::collectAllChassisVpd()
+{
     // Get the chassis to motherboard EEPROM path map from ConfigManager
     const auto& l_chassisToMotherboardEepromMap =
         m_configManager->getChassisToMotherboardEepromMap();
@@ -44,6 +31,76 @@ void ThreadManager::callAllFruVpd()
     // Get the chassisId to json map for chassis-specific configuration
     const auto& l_chassisIdToJsonMap = m_configManager->getChassisIdToJsonMap();
 
+    if (l_chassisToMotherboardEepromMap.empty() || l_chassisIdToJsonMap.empty())
+    {
+        m_logger->logMessage(
+            "Either chassisToEeprom map or chassisIdToJson map is empty. Nothing to collect.");
+        return;
+        // ToDo: colllection status needs to be updated at this point.
+    }
+
+    m_logger->logMessage(
+        std::format(
+            "Starting multi-threaded motherboard VPD collection for {} chassis",
+            l_chassisToMotherboardEepromMap.size()),
+        PlaceHolder::COLLECTION);
+
+    for (const auto& [l_chassisId, l_eepromPath] :
+         l_chassisToMotherboardEepromMap)
+    {
+        // TODO: Add check to see if the eeprom path is SYSTEM_VPD_FILE_PATH and
+        // handle it accordingly.
+
+        auto l_chassisToJsonItr = l_chassisIdToJsonMap.find(l_chassisId);
+        if (l_chassisToJsonItr == l_chassisIdToJsonMap.end())
+        {
+            m_logger->logMessage(std::format(
+                "{} not found in chassis ID to JSON map. Skipping motherboard VPD collection.",
+                l_chassisId));
+            continue;
+        }
+
+        const nlohmann::json& l_chassisJson = l_chassisToJsonItr->second;
+
+        m_logger->logMessage(
+            std::format(
+                "Spawning thread for chassis [{}] with EEPROM path [{}]",
+                l_chassisId, l_eepromPath),
+            PlaceHolder::COLLECTION);
+
+        try
+        {
+            std::thread{[l_eepromPath, l_chassisJson, this]() {
+                // Create a local Worker instance for this thread
+                Worker l_threadWorker;
+
+                uint16_t l_errCode = 0;
+                auto [l_isPresent, l_collectionStatus] =
+                    l_threadWorker.collectFruVpd(l_eepromPath, l_chassisJson,
+                                                 l_errCode);
+
+                m_logger->logMessage(
+                    std::format("Completed VPD collection for EEPROM [{}]. "
+                                "Present: {}, Status: {}, ErrorCode: {}",
+                                l_eepromPath, l_isPresent, l_collectionStatus,
+                                l_errCode),
+                    PlaceHolder::COLLECTION);
+            }}.detach();
+            // ToDo:- this detach mode is for time being, we need to update the
+            // system view post collection.
+        }
+        catch (const std::exception& l_ex)
+        {
+            m_logger->logMessage(std::format(
+                "Failed to spawn thread for chassis [{}], EEPROM [{}]. "
+                "Error: {}, Type: {}",
+                l_chassisId, l_eepromPath, l_ex.what(), typeid(l_ex).name()));
+        }
+    }
+}
+
+void ThreadManager::callAllFruVpd()
+{
     /*
      * TODO: Implement multi-threaded VPD collection for all FRUs in the system
      *
@@ -57,7 +114,6 @@ void ThreadManager::callAllFruVpd()
      * 3. Handle errors gracefully:
      *
      */
-    collectAllChassisVpd(l_chassisToMotherboardEepromMap, l_chassisIdToJsonMap);
+    collectAllChassisVpd();
 }
-
 } // namespace vpd
