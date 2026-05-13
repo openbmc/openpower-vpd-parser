@@ -960,7 +960,7 @@ void IbmHandler::setJsonSymbolicLink(const std::string& i_systemJson)
 }
 
 void IbmHandler::setDeviceTreeAndJson(
-    types::VPDMapVariant& o_parsedSystemVpdMap)
+    const std::string& i_fruPath, types::VPDMapVariant& o_parsedSystemVpdMap)
 {
     // JSON is mandatory for processing of this API.
     if (m_sysCfgJsonObj.empty())
@@ -968,42 +968,53 @@ void IbmHandler::setDeviceTreeAndJson(
         throw JsonException("System config JSON is empty", m_sysCfgJsonObj);
     }
 
+    std::string l_systemVpdPath{i_fruPath};
     uint16_t l_errCode = 0;
-    std::string l_systemVpdPath{SYSTEM_VPD_FILE_PATH};
-    commonUtility::getEffectiveFruPath(m_vpdCollectionMode, l_systemVpdPath,
-                                       l_errCode);
-
-    if (l_errCode)
+    try
     {
-        throw std::runtime_error(
-            "Failed to get effective System VPD path, for [" + l_systemVpdPath +
-            "], reason: " + commonUtility::getErrCodeMsg(l_errCode));
-    }
+        commonUtility::getEffectiveFruPath(m_vpdCollectionMode, l_systemVpdPath,
+                                           l_errCode);
 
-    std::error_code l_ec;
-    l_ec.clear();
-    if (!std::filesystem::exists(l_systemVpdPath, l_ec))
-    {
-        std::string l_errMsg = "Can't Find System VPD file/eeprom. ";
-        if (l_ec)
+        if (l_errCode)
         {
-            l_errMsg += l_ec.message();
+            throw std::runtime_error(
+                "Failed to get effective System VPD path, for [" +
+                l_systemVpdPath +
+                "], reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        // No point continuing without system VPD file
-        throw std::runtime_error(l_errMsg);
+        // parse system VPD
+        std::shared_ptr<Parser> l_vpdParser =
+            std::make_shared<Parser>(l_systemVpdPath, m_sysCfgJsonObj);
+        o_parsedSystemVpdMap = l_vpdParser->parse();
+
+        if (std::holds_alternative<std::monostate>(o_parsedSystemVpdMap))
+        {
+            throw std::runtime_error("VPD parsing failed");
+        }
     }
-
-    // parse system VPD
-    std::shared_ptr<Parser> l_vpdParser =
-        std::make_shared<Parser>(l_systemVpdPath, m_sysCfgJsonObj);
-    o_parsedSystemVpdMap = l_vpdParser->parse();
-
-    if (std::holds_alternative<std::monostate>(o_parsedSystemVpdMap))
+    catch (const std::exception& l_ex)
     {
-        throw std::runtime_error(
-            "System VPD parsing failed, from path [" + l_systemVpdPath +
-            "]. Either file doesn't exist or error occurred while parsing the file.");
+        m_logger->logMessage(
+            std::format("System VPD collection failed for path[{}], reason: {}",
+                        i_fruPath, l_ex.what()));
+
+        const std::string& l_redundantEepromPath{
+            REDUNDANT_SYSTEM_VPD_FILE_PATH};
+
+        if (!l_redundantEepromPath.empty() &&
+            i_fruPath != l_redundantEepromPath)
+        {
+            m_logger->logMessage(std::format(
+                "Using redundant EEPROM path [{}] to collect system VPD.",
+                l_redundantEepromPath));
+            setDeviceTreeAndJson(l_redundantEepromPath, o_parsedSystemVpdMap);
+        }
+        else
+        {
+            throw std::runtime_error(std::format(
+                "System VPD collection failed, reason: {}", l_ex.what()));
+        }
     }
 
     // Implies it is default JSON.
@@ -1133,7 +1144,7 @@ void IbmHandler::performInitialSetup()
         }
 
         types::VPDMapVariant l_parsedSysVpdMap;
-        setDeviceTreeAndJson(l_parsedSysVpdMap);
+        setDeviceTreeAndJson(SYSTEM_VPD_FILE_PATH, l_parsedSysVpdMap);
 
         // now that correct JSON is selected, initialize worker class.
         initWorker();
