@@ -960,7 +960,7 @@ void IbmHandler::setJsonSymbolicLink(const std::string& i_systemJson)
 }
 
 void IbmHandler::setDeviceTreeAndJson(
-    types::VPDMapVariant& o_parsedSystemVpdMap)
+    const std::string& i_fruPath, types::VPDMapVariant& o_parsedSystemVpdMap)
 {
     // JSON is mandatory for processing of this API.
     if (m_sysCfgJsonObj.empty())
@@ -968,42 +968,75 @@ void IbmHandler::setDeviceTreeAndJson(
         throw JsonException("System config JSON is empty", m_sysCfgJsonObj);
     }
 
+    static std::string l_error;
     uint16_t l_errCode = 0;
-    std::string l_systemVpdPath{SYSTEM_VPD_FILE_PATH};
-    commonUtility::getEffectiveFruPath(m_vpdCollectionMode, l_systemVpdPath,
-                                       l_errCode);
-
-    if (l_errCode)
+    try
     {
-        throw std::runtime_error(
-            "Failed to get effective System VPD path, for [" + l_systemVpdPath +
-            "], reason: " + commonUtility::getErrCodeMsg(l_errCode));
-    }
+        std::string l_systemVpdPath{i_fruPath};
+        commonUtility::getEffectiveFruPath(m_vpdCollectionMode, l_systemVpdPath,
+                                           l_errCode);
 
-    std::error_code l_ec;
-    l_ec.clear();
-    if (!std::filesystem::exists(l_systemVpdPath, l_ec))
-    {
-        std::string l_errMsg = "Can't Find System VPD file/eeprom. ";
-        if (l_ec)
+        if (l_errCode)
         {
-            l_errMsg += l_ec.message();
+            throw std::runtime_error(
+                "Failed to get effective System VPD path, for [" +
+                l_systemVpdPath +
+                "], reason: " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        // No point continuing without system VPD file
-        throw std::runtime_error(l_errMsg);
+        // parse system VPD
+        std::shared_ptr<Parser> l_vpdParser =
+            std::make_shared<Parser>(l_systemVpdPath, m_sysCfgJsonObj);
+        o_parsedSystemVpdMap = l_vpdParser->parse();
+
+        if (std::holds_alternative<std::monostate>(o_parsedSystemVpdMap))
+        {
+            throw std::runtime_error("VPD parsing failed");
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        l_error += std::format(
+            "System VPD collection failed from path [{}], reason: {}. ",
+            i_fruPath, l_ex.what());
+
+        const std::string& l_redundantEepromPath{
+            REDUNDANT_SYSTEM_VPD_FILE_PATH};
+
+        if (l_redundantEepromPath.empty() || l_redundantEepromPath == i_fruPath)
+        {
+            m_logger->logMessage(l_error);
+            throw EepromException(l_error);
+        }
+
+        // Try system VPD collection from redundant path
+        setDeviceTreeAndJson(l_redundantEepromPath, o_parsedSystemVpdMap);
+
+        return;
     }
 
-    // parse system VPD
-    std::shared_ptr<Parser> l_vpdParser =
-        std::make_shared<Parser>(l_systemVpdPath, m_sysCfgJsonObj);
-    o_parsedSystemVpdMap = l_vpdParser->parse();
+    /* TODO: Revisit the code and update the flow will specific error handling
+       so that specific failure type can be reported in the PEL.
 
-    if (std::holds_alternative<std::monostate>(o_parsedSystemVpdMap))
+       Also, as per current flow in case redundant path collection fails post
+       this point, current implementation will end up logging two PELs which is
+       not desired and needs to be handled. Update code to log only one PEL
+       irrespective to any failure in the flow.*/
+    if (i_fruPath != SYSTEM_VPD_FILE_PATH)
     {
-        throw std::runtime_error(
-            "System VPD parsing failed, from path [" + l_systemVpdPath +
-            "]. Either file doesn't exist or error occurred while parsing the file.");
+        // TODO: Replace with an I2C callout once the corresponding API
+        // is implemented.
+        m_logger->logMessage(
+            l_error +
+                std::format(
+                    " Successfully collected VPD from redundant path [{}].",
+                    i_fruPath),
+            PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT,
+            types::PelInfoTuple{types::ErrorType::FirmwareError,
+                                types::SeverityType::Warning, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::make_tuple(SYSTEM_VPD_FILE_PATH,
+                                                types::CalloutPriority::High)});
     }
 
     // Implies it is default JSON.
@@ -1133,7 +1166,7 @@ void IbmHandler::performInitialSetup()
         }
 
         types::VPDMapVariant l_parsedSysVpdMap;
-        setDeviceTreeAndJson(l_parsedSysVpdMap);
+        setDeviceTreeAndJson(SYSTEM_VPD_FILE_PATH, l_parsedSysVpdMap);
 
         // now that correct JSON is selected, initialize worker class.
         initWorker();
@@ -1180,14 +1213,24 @@ void IbmHandler::performInitialSetup()
         // Any issue in system's initial set up is handled in this catch. Error
         // will not propagate to manager.
 
+        std::optional<types::InventoryCalloutData> l_callout = std::nullopt;
+        PlaceHolder l_placeHolder = PlaceHolder::ASYNC_PEL;
+
+        if (typeid(l_ex) == typeid(EepromException))
+        {
+            l_placeHolder = PlaceHolder::ASYNC_PEL_WITH_INV_CALLOUT;
+            l_callout = std::make_tuple(std::string(SYSTEM_VPD_FILE_PATH),
+                                        types::CalloutPriority::High);
+        }
+
         m_logger->logMessage(
             std::format("Exception while performing initial set up. Error: {}",
                         EventLogger::getErrorMsg(l_ex)),
-            PlaceHolder::ASYNC_PEL,
+            l_placeHolder,
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Critical, 0, std::nullopt,
                                 std::nullopt, std::nullopt, std::nullopt,
-                                std::nullopt});
+                                l_callout});
     }
 }
 
