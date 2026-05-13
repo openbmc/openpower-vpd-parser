@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a875a1c0_5917269c",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-05-13T16:59:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a5d58b8_08583696",
+      "revId": "46ff7389f22d0ce14719d597813fd66024d5a5ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16c21ef3_30339a72",
@@ -48,6 +66,42 @@
       "writtenOn": "2026-05-13T13:31:48Z",
       "side": 1,
       "message": "This reflects the status of this flow that took place against the call. So it can be either pass or fail. If the API returns for any error case, it should be failed else it should be successful.\n\neg: A device can be found absent but if there was no exception in the complete process of collection then the collection status should be successful.",
+      "revId": "46ff7389f22d0ce14719d597813fd66024d5a5ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d9cd89a_e8d9e98b",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-05-13T16:59:51Z",
+      "side": 1,
+      "message": "Removed `l_fruCollectionStatus` variable as it was never reassigned and all return paths using status constants directly.",
+      "parentUuid": "16c21ef3_30339a72",
+      "revId": "46ff7389f22d0ce14719d597813fd66024d5a5ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae6aeb95_cc9b3ffb",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-05-13T16:59:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c800108a_05e6cced",
       "revId": "46ff7389f22d0ce14719d597813fd66024d5a5ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -104,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "882dff86_fa1b5f8f",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1826,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-05-13T16:59:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6df983d5_1098a311",
+      "revId": "46ff7389f22d0ce14719d597813fd66024d5a5ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d6509d6_ffb63d54",
@@ -117,6 +189,24 @@
       "writtenOn": "2026-05-13T13:31:48Z",
       "side": 1,
       "message": "We can\u0027t decide this based on the presence. Please refer the comment above.",
+      "revId": "46ff7389f22d0ce14719d597813fd66024d5a5ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b98c5890_4925c2e9",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1840,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-05-13T16:59:51Z",
+      "side": 1,
+      "message": "We are not deciding FRU collection result based on the presence status of the FRU, we are deciding it based on the result of parseAndPublishAPI.\n\nparseAndPublishAPI is returning false only incase of any exception occurred in the flow of collecting and publishing VPD\n\nso the collection status will be failed if parseAndPublish returns false.",
+      "parentUuid": "9d6509d6_ffb63d54",
       "revId": "46ff7389f22d0ce14719d597813fd66024d5a5ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
