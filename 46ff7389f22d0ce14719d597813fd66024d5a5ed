@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c800108a_05e6cced",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-13T13:31:48Z",
+      "side": 1,
+      "message": "This reflects the status of this flow that took place against the call. So it can be either pass or fail. If the API returns for any error case, it should be failed else it should be successful.\n\neg: A device can be found absent but if there was no exception in the complete process of collection then the collection status should be successful.",
+      "revId": "46ff7389f22d0ce14719d597813fd66024d5a5ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "424c20a9_c7de3f4b",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 8
@@ -54,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e29bf6b9_7e376f4c",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1809,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-13T13:31:48Z",
+      "side": 1,
+      "message": "UNKNOWN status will be maintained by internal APIs but ultimately UNKNOWN will map to false as the property on DBus is a bool.\nSo returning UNKNOWN here does not help.",
+      "parentUuid": "424c20a9_c7de3f4b",
+      "revId": "46ff7389f22d0ce14719d597813fd66024d5a5ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6df983d5_1098a311",
         "filename": "vpd-manager/src/worker.cpp",
         "patchSetId": 8
@@ -65,6 +100,23 @@
       "writtenOn": "2026-05-13T11:11:22Z",
       "side": 1,
       "message": "can we had @todo here ?",
+      "revId": "46ff7389f22d0ce14719d597813fd66024d5a5ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d6509d6_ffb63d54",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1840,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-13T13:31:48Z",
+      "side": 1,
+      "message": "We can\u0027t decide this based on the presence. Please refer the comment above.",
       "revId": "46ff7389f22d0ce14719d597813fd66024d5a5ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
