@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18307454_183b3005",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-13T16:38:58Z",
+      "side": 1,
+      "message": "l_chassisIdToJsonMap is not a JSON object.",
+      "revId": "9b9a62abca5ea20c62741379f9f1ce0a11ef89b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f877914_32c31a49",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-13T16:38:58Z",
+      "side": 1,
+      "message": "l_chassisId itself will contains Chassis string, so should we say\n\"{} not found ...\" ?",
+      "revId": "9b9a62abca5ea20c62741379f9f1ce0a11ef89b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aeb4b1a_e1aa3e16",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-13T16:38:58Z",
+      "side": 1,
+      "message": "can we directly use l_jsonItr-\u003esecond where ever needed ?",
+      "revId": "9b9a62abca5ea20c62741379f9f1ce0a11ef89b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04d5dfbd_a1ab662d",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-13T16:38:58Z",
+      "side": 1,
+      "message": "If we are not calling any ThreadManager APIs, should we avoid passing this pointer ?",
+      "revId": "9b9a62abca5ea20c62741379f9f1ce0a11ef89b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
