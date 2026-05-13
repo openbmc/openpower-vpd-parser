@@ -75,9 +75,10 @@ class IbmHandler
      *
      * @throw std::exception
      *
+     * @param[in] i_fruPath - System VPD EEPROM path.
      * @param[out] o_parsedSystemVpdMap - Parsed system VPD map.
      */
-    void setDeviceTreeAndJson(types::VPDMapVariant& o_parsedSystemVpdMap);
+    void setDeviceTreeAndJson(const std::string& i_fruPath, types::VPDMapVariant& o_parsedSystemVpdMap);
 
     /**
      * @brief API to detect if system vpd is backed up in cache.
