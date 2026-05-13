@@ -71,3 +71,9 @@ option(
     value: 'disabled',
     description: 'Flag which specifies if BMC reboot needs to be skipped if a fitconfig change is executed.',
 )
+option(
+    'REDUNDANT_SYSTEM_VPD_FILE_PATH',
+    type: 'string',
+    value: '',
+    description: 'Redundant EEPROM path of system VPD.',
+)
