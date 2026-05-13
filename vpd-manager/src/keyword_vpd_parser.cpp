@@ -65,6 +65,81 @@ types::VPDMapVariant KeywordVpdParser::parse()
     return l_kwValMap;
 }
 
+types::DbusVariantType KeywordVpdParser::readKeywordFromHardware(
+    const types::ReadVpdParams i_paramsToReadData)
+{
+    // Extract keyword from i_paramsToReadData
+    const types::Keyword* l_keyword =
+        std::get_if<types::Keyword>(&i_paramsToReadData);
+
+    if (l_keyword == nullptr)
+    {
+        logging::logMessage(
+            "Input parameter type provided isn't compatible with the given VPD type.");
+        throw types::DbusInvalidArgument();
+    }
+
+    if (m_keywordVpdVector.empty())
+    {
+        throw DataException("Vector for Keyword format VPD is empty");
+    }
+
+    // Read keyword's value from vector
+    m_vpdIterator = m_keywordVpdVector.begin();
+
+    if (*m_vpdIterator != constants::KW_VPD_START_TAG)
+    {
+        throw DataException("Invalid Large resource type Identifier String");
+    }
+
+    checkNextBytesValidity(sizeof(constants::KW_VPD_START_TAG));
+    std::advance(m_vpdIterator, sizeof(constants::KW_VPD_START_TAG));
+
+    // Get large resource string size
+    uint16_t l_dataSize = getKwDataSize();
+
+    checkNextBytesValidity(constants::TWO_BYTES + l_dataSize);
+    std::advance(m_vpdIterator, constants::TWO_BYTES + l_dataSize);
+
+    if (*m_vpdIterator != constants::KW_VPD_PAIR_START_TAG &&
+        *m_vpdIterator != constants::ALT_KW_VPD_PAIR_START_TAG)
+    {
+        throw DataException("Invalid Keyword Vpd Start Tag");
+    }
+
+    checkNextBytesValidity(constants::ONE_BYTE);
+    std::advance(m_vpdIterator, constants::ONE_BYTE);
+
+    // Get total size of keyword-value pairs
+    auto l_totalSize = getKwDataSize();
+
+    checkNextBytesValidity(constants::TWO_BYTES);
+    std::advance(m_vpdIterator, constants::TWO_BYTES);
+
+    while (l_totalSize > 0)
+    {
+        checkNextBytesValidity(l_totalSize);
+        std::string l_keywordName(m_vpdIterator,
+                                  m_vpdIterator + constants::TWO_BYTES);
+        std::advance(m_vpdIterator, constants::TWO_BYTES);
+
+        size_t l_kwSize = *m_vpdIterator;
+        m_vpdIterator++;
+
+        // Get the given keyword's value
+        if (l_keywordName == *l_keyword)
+        {
+            return types::DbusVariantType{
+                types::BinaryVector(m_vpdIterator, m_vpdIterator + l_kwSize)};
+        }
+
+        std::advance(m_vpdIterator, l_kwSize);
+        l_totalSize -= constants::TWO_BYTES + constants::ONE_BYTE + l_kwSize;
+    }
+
+    throw std::runtime_error("Keyword not found in VPD.");
+}
+
 types::KeywordVpdMap KeywordVpdParser::populateVpdMap()
 {
     checkNextBytesValidity(constants::ONE_BYTE);
