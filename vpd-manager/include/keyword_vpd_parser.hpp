@@ -41,6 +41,19 @@ class KeywordVpdParser : public ParserInterface
      */
     types::VPDMapVariant parse();
 
+    /**
+     * @brief Read keyword's value from hardware.
+     *
+     * @param[in] i_paramsToReadData - Data required to perform read.
+     *
+     * @throw sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument
+     * if the input parameter type is incompatible or the keyword is not found.
+     *
+     * @return On success returns the value read. On failure throws exception.
+     */
+    types::DbusVariantType readKeywordFromHardware(
+        const types::ReadVpdParams i_paramsToReadData) override;
+
   private:
     /**
      * @brief Parse the VPD data and emplace them as pair into the Map.
