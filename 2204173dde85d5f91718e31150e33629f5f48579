@@ -16,6 +16,24 @@
       "message": "This is wrong representation of return type from processFruCollection API",
       "revId": "2204173dde85d5f91718e31150e33629f5f48579",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c778488_f72c0dc4",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-13T13:25:41Z",
+      "side": 1,
+      "message": "I have modified the name in latest patchset.",
+      "parentUuid": "892254a2_7e396241",
+      "revId": "2204173dde85d5f91718e31150e33629f5f48579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
