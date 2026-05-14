@@ -4,6 +4,8 @@
 #include "logger.hpp"
 #include "worker.hpp"
 
+#include <utility/json_utility.hpp>
+
 #include <format>
 #include <thread>
 
@@ -69,7 +71,7 @@ void ThreadManager::collectAllChassisVpd()
         {
             const nlohmann::json& l_chassisJson = l_chassisToJsonItr->second;
 
-            std::thread{[l_eepromPath, l_chassisJson, this]() {
+            std::thread{[l_eepromPath, l_chassisJson, l_chassisId, this]() {
                 // Create a local Worker instance for this thread
                 Worker l_threadWorker;
 
@@ -77,6 +79,9 @@ void ThreadManager::collectAllChassisVpd()
                 auto [l_isPresent, l_collectionStatus] =
                     l_threadWorker.collectFruVpd(l_eepromPath, l_chassisJson,
                                                  l_errCode);
+
+                updateSystemView(l_chassisId, l_eepromPath, l_chassisJson,
+                                 l_isPresent);
 
                 m_logger->logMessage(
                     std::format("Completed VPD collection for EEPROM [{}]. "
@@ -114,5 +119,27 @@ void ThreadManager::collectAllFruVpd()
      *
      */
     collectAllChassisVpd();
+}
+
+void ThreadManager::updateSystemView(
+    const std::string& i_chassisId, const std::string& i_eepromPath,
+    const nlohmann::json& i_chassisJson, const bool i_isPresent) noexcept
+{
+    uint16_t l_errCode = 0;
+    const std::string& l_invPath = jsonUtility::getInventoryObjPathFromJson(
+        i_chassisJson, i_eepromPath, l_errCode);
+
+    if (l_errCode || l_invPath.empty())
+    {
+        m_logger->logMessage(
+            std::format("Failed to get inventory path for EEPROM {}, error: {}",
+                        i_eepromPath, commonUtility::getErrCodeMsg(l_errCode)));
+    }
+
+    {
+        std::lock_guard<std::mutex> l_lock(m_mutex);
+        m_chassisStateMap.emplace(i_chassisId,
+                                  std::make_pair(l_invPath, i_isPresent));
+    }
 }
 } // namespace vpd
