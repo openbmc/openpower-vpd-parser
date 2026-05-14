@@ -251,5 +251,8 @@ using SrcDstRecordDetails = std::tuple<std::string&, std::string&, std::string&,
 using RecordKeywordsMap = std::unordered_map<types::Record, std::vector<types::Keyword>>;
 
 using IpzVpdMapVariant = std::variant<std::monostate, IPZVpdMap, IPZKwdValueMap>;
+
+/* A list of EEPROM paths */
+using EepromPathList = std::vector<std::string>;
 } // namespace types
 } // namespace vpd

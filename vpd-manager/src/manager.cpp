@@ -119,7 +119,8 @@ Manager::Manager(
 
         iFace->register_method(
             "GetHardwarePath",
-            [this](const sdbusplus::object_path& i_dbusObjPath) -> std::string {
+            [this](const sdbusplus::object_path& i_dbusObjPath)
+                -> types::EepromPathList {
                 return this->getHwPath(i_dbusObjPath);
             });
 
@@ -659,12 +660,76 @@ types::ListOfPaths Manager::getFrusByUnexpandedLocationCode(
     }
 }
 
-std::string Manager::getHwPath(const sdbusplus::object_path& i_dbusObjPath)
+types::EepromPathList Manager::getHwPath(
+    const sdbusplus::object_path& i_dbusObjPath)
 {
-    // Dummy code to suppress unused variable warning. To be removed.
-    logging::logMessage(std::string(i_dbusObjPath));
+    const std::string l_dbusObjPathStr = std::string{i_dbusObjPath};
 
-    return std::string{};
+    if (l_dbusObjPathStr.empty())
+    {
+        throw types::DbusInvalidArgument();
+    }
+
+    types::EepromPathList l_result;
+
+    try
+    {
+        if (m_configManager)
+        {
+            // get the chassis specific JSON for the object path
+            const auto& l_jsonObj = m_configManager->getJsonObj(i_dbusObjPath);
+
+            uint16_t l_errCode{constants::VALUE_0};
+
+            // get the primary EEPROM path
+            const auto l_primaryEepromPath = jsonUtility::getFruPathFromJson(
+                l_jsonObj, i_dbusObjPath, l_errCode);
+
+            if (l_primaryEepromPath.empty())
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to get primary EEPROM path for {}. Error: {}",
+                    l_dbusObjPathStr, commonUtility::getErrCodeMsg(l_errCode)));
+
+                return l_result;
+            }
+
+            // push the primary path into result vector first
+            l_result.emplace_back(l_primaryEepromPath);
+
+            // check if any redundant EEPROM path is there, if yes add it to the
+            // result
+            const auto l_redundantEepromPath =
+                jsonUtility::getRedundantEepromPathFromJson(
+                    l_jsonObj, i_dbusObjPath, l_errCode);
+
+            if (!l_redundantEepromPath.empty())
+            {
+                l_result.emplace_back(l_redundantEepromPath);
+            }
+            else if (l_errCode)
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to get redundant EEPROM path for {}. Error: {}",
+                    l_dbusObjPathStr, commonUtility::getErrCodeMsg(l_errCode)));
+            }
+        }
+        else
+        {
+            //@todo should we throw exception here?
+            m_logger->logMessage(std::format(
+                "Failed to get hardware path for {}. ConfigManager is not initialized",
+                l_dbusObjPathStr));
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format("Failed to get hardware path for {}. Error: {}",
+                        l_dbusObjPathStr, l_ex.what()));
+    }
+
+    return l_result;
 }
 
 std::tuple<std::string, uint16_t> Manager::getUnexpandedLocationCode(
