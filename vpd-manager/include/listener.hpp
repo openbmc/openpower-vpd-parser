@@ -29,14 +29,19 @@ class Listener
 
     /**
      * @brief Constructor
-     * @param[in] i_worker - Reference to worker class object.
+     * @param[in] i_configManager - Config manager object.
+     * @param[in] i_configJsonPath - System config json path.
      * @param[in] i_asioConnection - Dbus Connection.
      *
      * @throw std::runtime_error
      */
     Listener(
-        const std::shared_ptr<Worker>& i_worker,
-        const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection);
+        const std::shared_ptr<ConfigManager>& i_configManager,
+        const std::string& i_configJsonPath,
+        const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection) :
+        m_configManager(i_configManager), m_configJsonPath(i_configJsonPath),
+        m_asioConnection(i_asioConnection)
+    {}
 
     /**
      * @brief API to register callback for Host state change.
@@ -160,8 +165,11 @@ class Listener
         const types::DbusPropertyEntry& i_corrProperty,
         const types::DbusVariantType& i_value) const noexcept;
 
-    // Shared pointer to worker class
-    const std::shared_ptr<Worker>& m_worker;
+    // shared pointer to Config Manager object
+    const std::shared_ptr<ConfigManager> m_configManager;
+
+    // Path to config JSON
+    std::string m_configJsonPath{};
 
     // Shared pointer to bus connection.
     const std::shared_ptr<sdbusplus::asio::connection>& m_asioConnection;

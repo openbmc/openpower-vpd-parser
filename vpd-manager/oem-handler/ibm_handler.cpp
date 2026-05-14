@@ -41,9 +41,6 @@ IbmHandler::IbmHandler(
 
         // Init back up and restore.
         initBackupAndRestore();
-
-        // Instantiate Listener objects
-        initEventListeners();
     }
     catch (const std::exception& l_ec)
     {
@@ -185,12 +182,13 @@ void IbmHandler::initBackupAndRestore() noexcept
     }
 }
 
-void IbmHandler::initEventListeners() noexcept
+void IbmHandler::initEventListeners(
+    const std::shared_ptr<ConfigManager>& i_configManager) noexcept
 {
     try
     {
-        m_eventListener =
-            std::make_shared<Listener>(m_worker, m_asioConnection);
+        m_eventListener = std::make_shared<Listener>(
+            i_configManager, m_configJsonPath, m_asioConnection);
         m_eventListener->registerAssetTagChangeCallback();
         m_eventListener->registerHostStateChangeCallback();
         m_eventListener->registerPresenceChangeCallback();
