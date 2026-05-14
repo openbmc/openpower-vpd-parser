@@ -89,7 +89,7 @@ Manager::Manager(
             });
 
         iFace->register_method(
-            "deleteFRUVPD",
+            "DeleteFRUVPD",
             [this](const sdbusplus::object_path& i_dbusObjPath) {
                 this->deleteSingleFruVpd(i_dbusObjPath);
             });
@@ -497,14 +497,13 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
 
 void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
 {
+    if (std::string(i_dbusObjPath).empty())
+    {
+        throw types::DbusInvalidArgument();
+    }
+
     try
     {
-        if (std::string(i_dbusObjPath).empty())
-        {
-            throw std::runtime_error(
-                "Given DBus object path is empty. Aborting FRU VPD deletion.");
-        }
-
         if (m_worker.get() == nullptr)
         {
             throw std::runtime_error(
