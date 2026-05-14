@@ -11,18 +11,6 @@
 
 namespace vpd
 {
-Listener::Listener(
-    const std::shared_ptr<Worker>& i_worker,
-    const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection) :
-    m_worker(i_worker), m_asioConnection(i_asioConnection)
-{
-    if (m_worker == nullptr)
-    {
-        throw std::runtime_error(
-            "Cannot instantiate Listener as Worker is not initialized");
-    }
-}
-
 void Listener::registerHostStateChangeCallback() const noexcept
 {
     try
@@ -81,16 +69,12 @@ void Listener::hostStateChangeCallBack(
             {
                 // TODO: check for all the essential FRUs in the system.
 
-                if (m_worker.get() != nullptr)
-                {
-                    // Perform recollection.
-                    m_worker->performVpdRecollection();
-                }
-                else
-                {
-                    logging::logMessage(
-                        "Failed to get worker object, Abort re-collection");
-                }
+                Worker l_worker;
+
+                // Perform recollection.
+                // performVpdRecollection needs m_parsedJson to process.
+                // API needs to receive configJson from caller.
+                l_worker.performVpdRecollection();
             }
         }
         else
@@ -196,9 +180,16 @@ void Listener::registerPresenceChangeCallback() noexcept
     try
     {
         uint16_t l_errCode = 0;
+
+        nlohmann::json l_sysCfgJsonObj{};
+        if (m_configManager)
+        {
+            l_sysCfgJsonObj = m_configManager->getJsonObj();
+        }
+
         // get list of FRUs for which presence monitoring is required
         const auto& l_listOfFrus = jsonUtility::getFrusWithPresenceMonitoring(
-            m_worker->getSysCfgJsonObj(), l_errCode);
+            l_sysCfgJsonObj, l_errCode);
 
         if (l_errCode)
         {
@@ -262,8 +253,10 @@ void Listener::presentPropertyChangeCallback(
 
         if (auto l_present = std::get_if<bool>(&(l_itr->second)))
         {
-            *l_present ? m_worker->collectSingleFruVpd(l_objectPath)
-                       : m_worker->deleteFruVpd(l_objectPath);
+            Worker l_worker;
+
+            *l_present ? l_worker.collectSingleFruVpd(l_objectPath)
+                       : l_worker.deleteFruVpd(l_objectPath);
         }
         else
         {
