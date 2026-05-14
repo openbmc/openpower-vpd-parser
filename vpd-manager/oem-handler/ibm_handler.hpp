@@ -65,6 +65,14 @@ class IbmHandler
      */
     void collectAllFruVpd();
 
+    /**
+     * @brief API to register listener objects.
+     *
+     * @param[in] i_eventListener - shared pointer to Listener object
+     */
+    void initIbmListenerObject(
+        std::shared_ptr<Listener>& i_eventListener) noexcept;
+
   private:
     /**
      * @brief API tocollect system VPD and set appropriate device tree and JSON.
@@ -235,11 +243,6 @@ class IbmHandler
      * @brief API to initialize back up and restore class.
      */
     void initBackupAndRestore() noexcept;
-
-    /**
-     * @brief API to register listener objects.
-     */
-    void initEventListeners() noexcept;
 
     /**
      * @brief Callback API to handle collection status changes.
