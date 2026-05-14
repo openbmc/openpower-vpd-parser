@@ -137,6 +137,8 @@ class Manager
      * API can be used to perform VPD deletion for the given FRU.
      *
      * @param[in] i_dbusObjPath - D-bus object path
+     *
+     * @throw sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument
      */
     void deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath);
 
