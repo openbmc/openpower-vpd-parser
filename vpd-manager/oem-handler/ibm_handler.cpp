@@ -204,6 +204,10 @@ void IbmHandler::initEventListeners() noexcept
         m_eventListener->registerAssetTagChangeCallback();
         m_eventListener->registerHostStateChangeCallback();
         m_eventListener->registerPresenceChangeCallback();
+        m_eventListener->registerCollectionStatusChangeCallback(
+            [this](sdbusplus::message_t& i_msg) {
+                collectionStatusChangeCallback(i_msg);
+            });
     }
     catch (const std::exception& l_ex)
     {
@@ -1198,6 +1202,46 @@ void IbmHandler::collectAllFruVpd()
 
     m_worker->collectFrusFromJson();
     SetTimerToDetectVpdCollectionStatus();
+}
+
+void IbmHandler::collectionStatusChangeCallback(
+    sdbusplus::message_t& i_msg) const noexcept
+{
+    try
+    {
+        if (i_msg.is_method_error())
+        {
+            throw std::runtime_error(
+                "Error reading callback message for collection status");
+        }
+
+        std::string l_interface;
+        types::PropertyMap l_propMap;
+        i_msg.read(l_interface, l_propMap);
+
+        const auto l_itr = l_propMap.find("Status");
+        if (l_itr == l_propMap.end())
+        {
+            m_logger->logMessage("Status property missing in property map. "
+                                 "Returning without processing.");
+            return;
+        }
+
+        const auto l_status = std::get_if<std::string>(&(l_itr->second));
+        if (l_status == nullptr)
+        {
+            throw std::runtime_error(
+                "Invalid type received in variant for collection status");
+        }
+
+        // Action on this change will be a ToDo for now.
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format("Collection status change callback failed, reason: {}",
+                        l_ex.what()));
+    }
 }
 
 void IbmHandler::updateVpdCollectionStatus(
