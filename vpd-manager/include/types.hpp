@@ -251,5 +251,9 @@ using SrcDstRecordDetails = std::tuple<std::string&, std::string&, std::string&,
 using RecordKeywordsMap = std::unordered_map<types::Record, std::vector<types::Keyword>>;
 
 using IpzVpdMapVariant = std::variant<std::monostate, IPZVpdMap, IPZKwdValueMap>;
+
+// Map of ChassisID to {Inventory path, FRU presence}
+using ChassisStateMap =
+    std::map<std::string, std::pair<std::string, bool>>;
 } // namespace types
 } // namespace vpd
