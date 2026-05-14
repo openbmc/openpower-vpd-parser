@@ -203,9 +203,19 @@ class Manager
      *
      * @param[in] i_dbusObjPath - D-bus object path
      *
-     * @return Corresponding EEPROM path.
+     * @throw
+     *  - sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument
+     *  - com.ibm.VPD.Error.PathNotFound
+     *
+     * @return An array containing hardware paths corresponding to given D-Bus
+     * object path. The first entry represents the primary hardware
+     * path. All other entries(if any) represents the redundant
+     * hardware paths. Note: The inventory path must be present in the
+     * system configuration JSON used by vpd-manager.
+     *
      */
-    std::string getHwPath(const sdbusplus::object_path& i_dbusObjPath);
+    types::EepromPathList getHwPath(
+        const sdbusplus::object_path& i_dbusObjPath);
 
     /**
      * @brief  Perform VPD recollection
