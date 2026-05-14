@@ -8,18 +8,25 @@
 #include "utility/event_logger_utility.hpp"
 #include "utility/json_utility.hpp"
 #include "utility/vpd_specific_utility.hpp"
+#include "worker.hpp"
 
 namespace vpd
 {
 Listener::Listener(
-    const std::shared_ptr<Worker>& i_worker,
+    const std::shared_ptr<ConfigManager>& i_configManager,
     const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection) :
-    m_worker(i_worker), m_asioConnection(i_asioConnection)
+    m_configManager(i_configManager), m_asioConnection(i_asioConnection)
 {
-    if (m_worker == nullptr)
+    if (!m_configManager)
     {
-        throw std::runtime_error(
-            "Cannot instantiate Listener as Worker is not initialized");
+        throw std::invalid_argument(
+            "ConfigManager cannot be null. It is mandatory for Listener instantiation");
+    }
+
+    if (!m_asioConnection)
+    {
+        throw std::invalid_argument(
+            "ASIO Connection cannot be null. It is mandatory for Listener instantiation");
     }
 }
 
@@ -81,16 +88,10 @@ void Listener::hostStateChangeCallBack(
             {
                 // TODO: check for all the essential FRUs in the system.
 
-                if (m_worker.get() != nullptr)
-                {
-                    // Perform recollection.
-                    m_worker->performVpdRecollection();
-                }
-                else
-                {
-                    logging::logMessage(
-                        "Failed to get worker object, Abort re-collection");
-                }
+                Worker l_worker;
+
+                // Perform recollection.
+                l_worker.performVpdRecollection();
             }
         }
         else
@@ -196,9 +197,19 @@ void Listener::registerPresenceChangeCallback() noexcept
     try
     {
         uint16_t l_errCode = 0;
+
+        if (!m_configManager)
+        {
+            logging::logMessage(
+                "Error: Config manager is not initialized, can't register PresenceChangeCallback.");
+            return;
+        }
+
+        auto l_sysCfgJsonObj = m_configManager->getJsonObj();
+
         // get list of FRUs for which presence monitoring is required
         const auto& l_listOfFrus = jsonUtility::getFrusWithPresenceMonitoring(
-            m_worker->getSysCfgJsonObj(), l_errCode);
+            l_sysCfgJsonObj, l_errCode);
 
         if (l_errCode)
         {
@@ -262,8 +273,10 @@ void Listener::presentPropertyChangeCallback(
 
         if (auto l_present = std::get_if<bool>(&(l_itr->second)))
         {
-            *l_present ? m_worker->collectSingleFruVpd(l_objectPath)
-                       : m_worker->deleteFruVpd(l_objectPath);
+            Worker l_worker;
+
+            *l_present ? l_worker.collectSingleFruVpd(l_objectPath)
+                       : l_worker.deleteFruVpd(l_objectPath);
         }
         else
         {
