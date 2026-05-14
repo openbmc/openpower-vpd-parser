@@ -65,6 +65,14 @@ class IbmHandler
      */
     void collectAllFruVpd();
 
+    /**
+     * @brief API to register listener objects.
+     *
+     * @param[in] i_configManager - Config manager object.
+     */
+    void initEventListeners(
+        const std::shared_ptr<ConfigManager>& i_configManager) noexcept;
+
   private:
     /**
      * @brief API tocollect system VPD and set appropriate device tree and JSON.
@@ -233,11 +241,6 @@ class IbmHandler
      * @brief API to initialize back up and restore class.
      */
     void initBackupAndRestore() noexcept;
-
-    /**
-     * @brief API to register listener objects.
-     */
-    void initEventListeners() noexcept;
 
     /**
      * @brief API to update VPD collection status property
