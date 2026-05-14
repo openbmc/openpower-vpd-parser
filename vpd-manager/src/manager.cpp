@@ -176,6 +176,10 @@ Manager::Manager(
 
         initConfigManager(l_systemConfigJsonPath);
 
+        // ConfigManager is initialised, now init Listener
+        // Instantiate Listener objects
+        m_ibmHandler->initEventListeners(m_configManager);
+
         // Initialize the GpioMonitor
         m_gpioMonitor =
             std::make_shared<GpioMonitor>(m_configManager, m_ioContext);
