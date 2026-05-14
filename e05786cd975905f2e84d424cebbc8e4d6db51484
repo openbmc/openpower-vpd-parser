@@ -179,6 +179,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2fb7b062_059a4290",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-14T06:14:43Z",
+      "side": 1,
+      "message": "Agree with @chanchaltiwari70021@gmail.com",
+      "parentUuid": "6265e2d6_4b67323f",
+      "revId": "e05786cd975905f2e84d424cebbc8e4d6db51484",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0257d069_0c9ca2fc",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 5

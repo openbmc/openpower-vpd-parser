@@ -3,6 +3,86 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4240d742_b8ba8d7c",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-14T06:14:43Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "9b9a62abca5ea20c62741379f9f1ce0a11ef89b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e001b651_b4296cdf",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-14T06:14:43Z",
+      "side": 1,
+      "message": "We don\u0027t need worker instance at class level.\nAnyways it is being instantiated where it is required.",
+      "range": {
+        "startLine": 15,
+        "startChar": 38,
+        "endLine": 15,
+        "endChar": 46
+      },
+      "revId": "9b9a62abca5ea20c62741379f9f1ce0a11ef89b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea29ae31_87c9864f",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-14T06:14:43Z",
+      "side": 1,
+      "message": "This is mandatory for class instantiation, should be check in constructor itself?",
+      "range": {
+        "startLine": 21,
+        "startChar": 9,
+        "endLine": 21,
+        "endChar": 24
+      },
+      "revId": "9b9a62abca5ea20c62741379f9f1ce0a11ef89b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb6e20b3_e3e34a63",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-14T06:14:43Z",
+      "side": 1,
+      "message": "Add a todo, colllection status needs to be updated at this point.",
+      "revId": "9b9a62abca5ea20c62741379f9f1ce0a11ef89b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18307454_183b3005",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 7
@@ -137,6 +217,23 @@
       "side": 1,
       "message": "ignore this, as we need to save system state info, will be updating thread manager member.",
       "parentUuid": "04d5dfbd_a1ab662d",
+      "revId": "9b9a62abca5ea20c62741379f9f1ce0a11ef89b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb9bbc3a_f7e960e7",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-14T06:14:43Z",
+      "side": 1,
+      "message": "Based on collection status, D-Bus property for the chassis paths needs to be updated?",
       "revId": "9b9a62abca5ea20c62741379f9f1ce0a11ef89b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
