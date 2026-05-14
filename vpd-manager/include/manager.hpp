@@ -129,6 +129,8 @@ class Manager
      * allowed for VPD recollection.
      *
      * @param[in] i_dbusObjPath - D-bus object path
+     *
+     * @throw sdbusplus::xyz::openbmc_project::Common::Error::InvalidArgument
      */
     void collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath);
 
