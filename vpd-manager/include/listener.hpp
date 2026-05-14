@@ -1,8 +1,8 @@
 #pragma once
 
+#include "config_manager.hpp"
 #include "constants.hpp"
 #include "types.hpp"
-#include "worker.hpp"
 
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/object_server.hpp>
@@ -29,13 +29,13 @@ class Listener
 
     /**
      * @brief Constructor
-     * @param[in] i_worker - Reference to worker class object.
+     * @param[in] i_configManager - Pointer to Config manager object.
      * @param[in] i_asioConnection - Dbus Connection.
      *
      * @throw std::runtime_error
      */
     Listener(
-        const std::shared_ptr<Worker>& i_worker,
+        const std::shared_ptr<ConfigManager>& i_configManager,
         const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection);
 
     /**
@@ -170,8 +170,8 @@ class Listener
         const types::DbusPropertyEntry& i_corrProperty,
         const types::DbusVariantType& i_value) const noexcept;
 
-    // Shared pointer to worker class
-    const std::shared_ptr<Worker>& m_worker;
+    // shared pointer to Config Manager object
+    const std::shared_ptr<ConfigManager> m_configManager;
 
     // Shared pointer to bus connection.
     const std::shared_ptr<sdbusplus::asio::connection>& m_asioConnection;
