@@ -1,0 +1,8 @@
+Code-Review+2: SunnySrivastava <sunnsr25@in.ibm.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: SunnySrivastava <sunnsr25@in.ibm.com>
+Submitted-at: Thu, 14 May 2026 17:11:46 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/90133
+Comments-Total: 60
+Project: openbmc/openpower-vpd-parser
+Branch: refs/heads/master
