@@ -330,6 +330,9 @@ class Manager
      */
     void readVpdCollectionMode() noexcept;
 
+    // Shared pointer to Listener object.
+    std::shared_ptr<Listener> m_eventListener;
+
     // Shared pointer to asio context object.
     const std::shared_ptr<boost::asio::io_context>& m_ioContext;
 

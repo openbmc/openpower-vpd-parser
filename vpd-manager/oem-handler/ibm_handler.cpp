@@ -41,9 +41,6 @@ IbmHandler::IbmHandler(
 
         // Init back up and restore.
         initBackupAndRestore();
-
-        // Instantiate Listener objects
-        initEventListeners();
     }
     catch (const std::exception& l_ec)
     {
@@ -185,12 +182,20 @@ void IbmHandler::initBackupAndRestore() noexcept
     }
 }
 
-void IbmHandler::initEventListeners() noexcept
+void IbmHandler::initIbmListenerObject(
+    std::shared_ptr<Listener>& i_eventListener) noexcept
 {
     try
     {
-        m_eventListener =
-            std::make_shared<Listener>(m_worker, m_asioConnection);
+        m_eventListener = i_eventListener;
+
+        if (!m_eventListener)
+        {
+            m_logger->logMessage(
+                "Event listener is not initialized. Cannot register callbacks.");
+            return;
+        }
+
         m_eventListener->registerAssetTagChangeCallback();
         m_eventListener->registerHostStateChangeCallback();
         m_eventListener->registerPresenceChangeCallback();
