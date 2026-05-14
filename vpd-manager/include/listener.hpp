@@ -70,6 +70,16 @@ class Listener
         const std::string& i_correlatedPropJsonFile) noexcept;
 
     /**
+     * @brief API to register callback for VPD collection status change.
+     *
+     * @param[in] i_callBackFunction - Callback function to be invoked on
+     * collection status property changes.
+     */
+    void registerCollectionStatusChangeCallback(
+        std::function<void(sdbusplus::message_t& i_msg)>
+            i_callBackFunction) noexcept;
+
+    /**
      * @brief API to register properties changed callback.
      *
      * This API registers a properties changed callback for a specific interface
