@@ -240,6 +240,18 @@ class IbmHandler
     void initEventListeners() noexcept;
 
     /**
+     * @brief Callback API to handle collection status changes.
+     *
+     * This listener is registered by IBM handler to watch collection status
+     * updates. Action on status completion is a TODO for now and will be
+     * updated once collection completion is handled by Thread Manager.
+     *
+     * @param[in] i_msg - Callback message.
+     */
+    void collectionStatusChangeCallback(
+        sdbusplus::message_t& i_msg) const noexcept;
+
+    /**
      * @brief API to update VPD collection status property
      *
      * This API updates the VPD collection status property on D-Bus and then

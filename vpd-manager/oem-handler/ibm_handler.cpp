@@ -204,6 +204,10 @@ void IbmHandler::initEventListeners() noexcept
         m_eventListener->registerAssetTagChangeCallback();
         m_eventListener->registerHostStateChangeCallback();
         m_eventListener->registerPresenceChangeCallback();
+        m_eventListener->registerCollectionStatusChangeCallback(
+            [this](sdbusplus::message_t& i_msg) {
+                collectionStatusChangeCallback(i_msg);
+            });
     }
     catch (const std::exception& l_ex)
     {
@@ -1191,13 +1195,57 @@ void IbmHandler::performInitialSetup()
     }
 }
 
+
 void IbmHandler::collectAllFruVpd()
 {
-    // Setting status to "InProgress", before trigeering VPD collection.
     updateVpdCollectionStatus(types::VpdCollectionStatus::InProgress);
 
     m_worker->collectFrusFromJson();
     SetTimerToDetectVpdCollectionStatus();
+}
+
+void IbmHandler::collectionStatusChangeCallback(
+    sdbusplus::message_t& i_msg) const noexcept
+{
+    try
+    {
+        if (i_msg.is_method_error())
+        {
+            throw std::runtime_error(
+                "Error reading callback message for collection status");
+        }
+
+        std::string l_interface;
+        types::PropertyMap l_propMap;
+        i_msg.read(l_interface, l_propMap);
+
+        const auto l_itr = l_propMap.find("Status");
+        if (l_itr == l_propMap.end())
+        {
+            return;
+        }
+
+        const auto l_status = std::get_if<std::string>(&(l_itr->second));
+        if (l_status == nullptr)
+        {
+            throw std::runtime_error(
+                "Invalid type received in variant for collection status");
+        }
+
+        // Action on this change will be a ToDo for now.
+    }
+    catch (const std::exception& l_ex)
+    {
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "Collection status change callback failed, reason: ") +
+                std::string(l_ex.what()),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt, std::nullopt});
+    }
 }
 
 void IbmHandler::updateVpdCollectionStatus(

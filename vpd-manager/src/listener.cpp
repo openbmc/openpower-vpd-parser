@@ -338,6 +338,46 @@ void Listener::registerCorrPropCallBack(
     }
 }
 
+void Listener::registerCollectionStatusChangeCallback(
+    std::function<void(sdbusplus::message_t& i_msg)> i_callBackFunction) noexcept
+{
+    try
+    {
+        if (m_asioConnection == nullptr)
+        {
+            throw std::runtime_error(
+                "Cannot register collection status callback on null connection");
+        }
+
+        std::shared_ptr<sdbusplus::bus::match_t> l_matchObj =
+            std::make_shared<sdbusplus::bus::match_t>(
+                static_cast<sdbusplus::bus_t&>(*m_asioConnection),
+                "type='signal',member='PropertiesChanged',"
+                "interface='org.freedesktop.DBus.Properties',"
+                "path='" +
+                    std::string(OBJPATH) + "',"
+                "arg0='" +
+                    std::string(constants::vpdCollectionInterface) + "'",
+                std::move(i_callBackFunction));
+
+        // save the match object in map
+        m_matchObjectMap[std::string(OBJPATH)]
+                        [constants::vpdCollectionInterface] = l_matchObj;
+    }
+    catch (const std::exception& l_ex)
+    {
+        Logger::getLoggerInstance()->logMessage(
+            std::string(
+                "Register collection status change callback failed, reason: ") +
+                std::string(l_ex.what()),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{EventLogger::getErrorType(l_ex),
+                                types::SeverityType::Informational, 0,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt, std::nullopt});
+    }
+}
+
 void Listener::registerPropChangeCallBack(
     const std::string& i_service, const std::string& i_interface,
     std::function<void(sdbusplus::message_t& i_msg)> i_callBackFunction)
