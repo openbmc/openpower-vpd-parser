@@ -16,6 +16,24 @@
       "message": "nit: Scope can be reduced.",
       "revId": "7decbaceb0bff101984461c3d9e960d828662df6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25a0e4e3_b015d228",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-14T15:06:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a4bf693_0a01e4fa",
+      "revId": "7decbaceb0bff101984461c3d9e960d828662df6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
