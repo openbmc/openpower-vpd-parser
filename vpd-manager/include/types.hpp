@@ -252,7 +252,13 @@ using RecordKeywordsMap = std::unordered_map<types::Record, std::vector<types::K
 
 using IpzVpdMapVariant = std::variant<std::monostate, IPZVpdMap, IPZKwdValueMap>;
 
+
 /* A list of EEPROM paths */
 using EepromPathList = std::vector<std::string>;
+
+// Map of ChassisID to {Inventory path, FRU presence}
+using ChassisStateMap =
+    std::map<std::string, std::pair<std::string, bool>>;
+
 } // namespace types
 } // namespace vpd

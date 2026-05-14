@@ -1,9 +1,11 @@
 #pragma once
 
 #include "config_manager.hpp"
+#include "types.hpp"
 #include "worker.hpp"
 
 #include <memory>
+#include <mutex>
 
 namespace vpd
 {
@@ -69,6 +71,12 @@ class ThreadManager
     // Shared pointer to Logger object
     std::shared_ptr<Logger> m_logger{nullptr};
 
+    // Map of ChassisID to {Inventory path, Chassis presence}
+    types::ChassisStateMap m_chassisStateMap;
+
+    // Mutex to guard critical resource
+    std::mutex m_mutex;
+
     /**
      * @brief Trigger multi-threaded VPD collection of all chassis's motherboard
      *
@@ -81,6 +89,28 @@ class ThreadManager
      *
      */
     void collectAllChassisVpd();
+
+    /**
+     * @brief Updates the system view with the given chassis information.
+     *
+     * Retrieves the inventory object path from the chassis JSON and stores
+     * the chassis state information in the system view map.
+     *
+     * The stored information includes:
+     * - Inventory object path
+     * - Presence status of the chassis
+     *
+     * Thread-safe access to the chassis state map is ensured using a mutex.
+     *
+     * @param[in] i_chassisId - Unique identifier of the chassis.
+     * @param[in] i_eepromPath - EEPROM path associated with the chassis.
+     * @param[in] i_chassisJson - Chassis based JSON object.
+     * @param[in] i_isPresent - Indicates whether the chassis is present.
+     */
+    void updateSystemView(const std::string& i_chassisId,
+                          const std::string& i_eepromPath,
+                          const nlohmann::json& i_chassisJson,
+                          const bool i_isPresent) noexcept;
 };
 
 } // namespace vpd
