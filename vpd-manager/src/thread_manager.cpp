@@ -69,7 +69,7 @@ void ThreadManager::collectAllChassisVpd()
         {
             const nlohmann::json& l_chassisJson = l_chassisToJsonItr->second;
 
-            std::thread{[l_eepromPath, l_chassisJson, this]() {
+            std::thread{[l_eepromPath, l_chassisJson, l_chassisId, this]() {
                 // Create a local Worker instance for this thread
                 Worker l_threadWorker;
 
@@ -77,6 +77,13 @@ void ThreadManager::collectAllChassisVpd()
                 auto [l_isPresent, l_collectionStatus] =
                     l_threadWorker.collectFruVpd(l_eepromPath, l_chassisJson,
                                                  l_errCode);
+
+                if (l_isPresent &&
+                    constants::vpdCollectionCompleted == l_collectionStatus)
+                {
+                    std::lock_guard<std::mutex> l_lock(m_chassisConfigMutex);
+                    m_presentChassisIdToConfig[l_chassisId] = l_chassisJson;
+                }
 
                 m_logger->logMessage(
                     std::format("Completed VPD collection for EEPROM [{}]. "
