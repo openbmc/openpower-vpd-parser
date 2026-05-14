@@ -481,6 +481,11 @@ types::DbusVariantType Manager::readKeyword(
 
 void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
 {
+    if (std::string(i_dbusObjPath).empty())
+    {
+        throw types::DbusInvalidArgument();
+    }
+
     if (m_vpdCollectionStatus != constants::vpdCollectionCompleted)
     {
         logging::logMessage(
