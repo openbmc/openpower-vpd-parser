@@ -4,6 +4,7 @@
 #include "worker.hpp"
 
 #include <memory>
+#include <mutex>
 
 namespace vpd
 {
@@ -68,6 +69,12 @@ class ThreadManager
 
     // Shared pointer to Logger object
     std::shared_ptr<Logger> m_logger{nullptr};
+
+    // Chassis IDs currently present in the system
+    std::vector<std::string> m_presentChassisIds;
+
+    // Mutex to guard critical resource
+    std::mutex m_mutex;
 
     /**
      * @brief Trigger multi-threaded VPD collection of all chassis's motherboard

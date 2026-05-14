@@ -19,6 +19,8 @@ ThreadManager::ThreadManager(
         throw std::invalid_argument(
             "ConfigManager cannot be null - it is mandatory for ThreadManager instantiation");
     }
+    m_presentChassisIds.resize(
+        m_configManager->getChassisToMotherboardEepromMap().size());
 }
 
 void ThreadManager::collectAllChassisVpd()
@@ -69,7 +71,7 @@ void ThreadManager::collectAllChassisVpd()
         {
             const nlohmann::json& l_chassisJson = l_chassisToJsonItr->second;
 
-            std::thread{[l_eepromPath, l_chassisJson, this]() {
+            std::thread{[l_eepromPath, l_chassisJson, l_chassisId, this]() {
                 // Create a local Worker instance for this thread
                 Worker l_threadWorker;
 
@@ -77,6 +79,12 @@ void ThreadManager::collectAllChassisVpd()
                 auto [l_isPresent, l_collectionStatus] =
                     l_threadWorker.collectFruVpd(l_eepromPath, l_chassisJson,
                                                  l_errCode);
+
+                if (l_isPresent)
+                {
+                    std::lock_guard<std::mutex> l_lock(m_mutex);
+                    m_presentChassisIds.push_back(l_chassisId);
+                }
 
                 m_logger->logMessage(
                     std::format("Completed VPD collection for EEPROM [{}]. "
