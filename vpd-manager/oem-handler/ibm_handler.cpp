@@ -190,7 +190,7 @@ void IbmHandler::initEventListeners() noexcept
     try
     {
         m_eventListener =
-            std::make_shared<Listener>(m_worker, m_asioConnection);
+            std::make_shared<Listener>(m_sysCfgJsonObj, m_asioConnection);
         m_eventListener->registerAssetTagChangeCallback();
         m_eventListener->registerHostStateChangeCallback();
         m_eventListener->registerPresenceChangeCallback();

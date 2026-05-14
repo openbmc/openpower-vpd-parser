@@ -29,14 +29,24 @@ class Listener
 
     /**
      * @brief Constructor
-     * @param[in] i_worker - Reference to worker class object.
+     * @param[in] i_configManager - Config manager object.
+     * @param[in] i_configJsonPath - System config json path.
      * @param[in] i_asioConnection - Dbus Connection.
      *
      * @throw std::runtime_error
      */
     Listener(
-        const std::shared_ptr<Worker>& i_worker,
-        const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection);
+        const nlohmann::json& i_sysConfigJsonObj,
+        const std::shared_ptr<sdbusplus::asio::connection>& i_asioConnection) :
+        m_sysConfigJsonObj(i_sysConfigJsonObj),
+        m_asioConnection(i_asioConnection)
+    {
+        if (m_sysConfigJsonObj.empty())
+        {
+            throw std::runtime_error(
+                "Listener class can't be initialized as input config json is empty");
+        }
+    }
 
     /**
      * @brief API to register callback for Host state change.
@@ -160,8 +170,8 @@ class Listener
         const types::DbusPropertyEntry& i_corrProperty,
         const types::DbusVariantType& i_value) const noexcept;
 
-    // Shared pointer to worker class
-    const std::shared_ptr<Worker>& m_worker;
+    // Parsed system config json object.
+    nlohmann::json m_sysConfigJsonObj{};
 
     // Shared pointer to bus connection.
     const std::shared_ptr<sdbusplus::asio::connection>& m_asioConnection;
