@@ -3,6 +3,8 @@
 #include "config_manager.hpp"
 #include "worker.hpp"
 
+#include <sdbusplus/asio/object_server.hpp>
+
 #include <memory>
 
 namespace vpd
@@ -36,11 +38,13 @@ class ThreadManager
     /**
      * @brief ThreadManager Constructor
      *
-     * @param[in] i_worker - Shared pointer to the worker class
      * @param[in] i_configManager - Shared pointer to the configmanager class
+     * @param[in] i_progressInterface - Shared pointer to the D-Bus progress
+     * interface for updating VPD collection status
      */
-    ThreadManager(const std::shared_ptr<Worker>& i_worker,
-                  const std::shared_ptr<ConfigManager>& i_configManager);
+    ThreadManager(const std::shared_ptr<ConfigManager>& i_configManager,
+                  const std::shared_ptr<sdbusplus::asio::dbus_interface>&
+                      i_progressInterface);
 
     // deleted methods
     ThreadManager(const ThreadManager&) = delete;
@@ -66,6 +70,10 @@ class ThreadManager
     // Shared pointer to ConfigManager object
     const std::shared_ptr<ConfigManager>& m_configManager{nullptr};
 
+    // Shared pointer to progress interface for D-Bus status updates
+    const std::shared_ptr<sdbusplus::asio::dbus_interface>& m_progressInterface{
+        nullptr};
+
     // Shared pointer to Logger object
     std::shared_ptr<Logger> m_logger{nullptr};
 
@@ -81,6 +89,18 @@ class ThreadManager
      *
      */
     void collectAllChassisVpd();
+
+    /**
+     * @brief Updates overall VPD collection status on D-Bus progress interface
+     *
+     * This API updates the Status property on the D-Bus progress interface
+     * and signals the property change. It encapsulates the D-Bus property
+     * update logic for overall VPD collection status.
+     *
+     * @param[in] i_status - VPD collection status enum value
+     */
+    void updateOverallCollectionStatus(
+        const types::VpdCollectionStatus i_status) const noexcept;
 };
 
 } // namespace vpd
