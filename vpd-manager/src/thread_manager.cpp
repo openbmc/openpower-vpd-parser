@@ -1,7 +1,11 @@
 #include "thread_manager.hpp"
 
+#include "constants.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
+#include "types.hpp"
+#include "utility/event_logger_utility.hpp"
+#include "utility/vpd_specific_utility.hpp"
 #include "worker.hpp"
 
 #include <format>
@@ -11,14 +15,29 @@ namespace vpd
 {
 
 ThreadManager::ThreadManager(
-    const std::shared_ptr<ConfigManager>& i_configManager) :
-    m_configManager(i_configManager), m_logger(Logger::getLoggerInstance())
+    const std::shared_ptr<ConfigManager>& i_configManager,
+    const std::shared_ptr<sdbusplus::asio::dbus_interface>&
+        i_progressInterface) :
+    m_configManager(i_configManager), m_progressInterface(i_progressInterface),
+    m_logger(Logger::getLoggerInstance())
 {
     if (!m_configManager)
     {
         throw std::invalid_argument(
             "ConfigManager cannot be null - it is mandatory for ThreadManager instantiation");
     }
+
+    if (!m_progressInterface)
+    {
+        throw std::invalid_argument(
+            "Progress interface can not be null, it is mandatory for ThreadManager instantiation");
+    }
+}
+
+void ThreadManager::updateVPDCollectionStatus(const std::string& i_status)
+{
+    m_progressInterface->set_property("Status", i_status);
+    m_progressInterface->signal_property("Status");
 }
 
 void ThreadManager::collectAllChassisVpd()
@@ -32,10 +51,10 @@ void ThreadManager::collectAllChassisVpd()
 
     if (l_chassisToMotherboardEepromMap.empty() || l_chassisIdToJsonMap.empty())
     {
-        m_logger->logMessage(
-            "Either chassisToEeprom map or chassisIdToJson map is empty. Nothing to collect.");
-        return;
-        // ToDo: colllection status needs to be updated at this point.
+        std::string l_errorMsg =
+            "chassisToEeprom map or chassisIdToJson map is empty. "
+            "VPD collection cannot proceed due to missing system configuration.";
+        throw JsonException(l_errorMsg);
     }
 
     m_logger->logMessage(
@@ -56,6 +75,19 @@ void ThreadManager::collectAllChassisVpd()
             m_logger->logMessage(std::format(
                 "{} not found in chassis ID to JSON map. Skipping motherboard VPD collection.",
                 l_chassisId));
+
+            // Update per-chassis collection status to Failed
+            uint16_t l_errCode = 0;
+            vpdSpecificUtility::setCollectionStatusProperty(
+                l_eepromPath, types::VpdCollectionStatus::Failed,
+                m_configManager->getJsonObj(), l_errCode);
+
+            if (l_errCode)
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to update collection status for EEPROM [{}], error code: {}",
+                    l_eepromPath, l_errCode));
+            }
             continue;
         }
 
@@ -113,6 +145,31 @@ void ThreadManager::callAllFruVpd()
      * 3. Handle errors gracefully:
      *
      */
-    collectAllChassisVpd();
+
+    /* `updateVPDCollectionStatus` api will be reordered based on the future implementation.*/
+
+    updateVPDCollectionStatus(std::string(constants::vpdCollectionInProgress));
+
+    try
+    {
+        collectAllChassisVpd();
+
+        // TODO: This is temporary - Will be updated once proper
+        // thread pool with completion tracking is implemented.
+        updateVPDCollectionStatus(std::string(constants::vpdCollectionCompleted));
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(
+            std::format("VPD collection failed with exception: {}, Type: {}",
+                        l_ex.what(), typeid(l_ex).name()),
+            PlaceHolder::PEL,
+            types::PelInfoTuple{types::ErrorType::InternalFailure,
+                                types::SeverityType::Critical, 0, std::nullopt,
+                                std::nullopt, std::nullopt, std::nullopt,
+                                std::nullopt});
+
+        updateVPDCollectionStatus(std::string(constants::vpdCollectionFailed));
+    }
 }
 } // namespace vpd
