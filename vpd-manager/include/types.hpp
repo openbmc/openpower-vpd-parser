@@ -250,6 +250,37 @@ using SrcDstRecordDetails = std::tuple<std::string&, std::string&, std::string&,
 /* Maps a VPD record name to a list of its keyword names. */
 using RecordKeywordsMap = std::unordered_map<types::Record, std::vector<types::Keyword>>;
 
+/**
+ * @brief Result structure for base action execution.
+ *
+ * This structure contains detailed information about the execution of base
+ * actions including tag failures and GPIO presence detection results.
+ */
+struct BaseActionResult
+{
+    /**
+     * @brief Enum representing the presence status of a device.
+     */
+    enum class PresenceStatus
+    {
+        NOT_APPLICABLE, // gpioPresence not defined for this FRU
+        PRESENT,        // Device detected as present (pin read successfully)
+        ABSENT,         // Device detected as absent (pin read successfully)
+        UNKNOWN         // Presence check failed due to exception/error
+    };
+
+    // Overall success/failure of action execution
+    bool success = true;
+    // Name of the tag that failed (empty if all succeeded)
+    std::string failedTag; 
+    // Error code from the failed tag (0 if succeeded) 
+    uint16_t failedTagErrorCode = 0;
+    // Status of presence detection  
+    PresenceStatus presenceStatus = PresenceStatus::NOT_APPLICABLE;
+    // Error code from gpioPresence (0 if succeeded or not executed)
+    uint16_t gpioPresenceErrorCode = 0;                                 
+};
+
 using IpzVpdMapVariant = std::variant<std::monostate, IPZVpdMap, IPZKwdValueMap>;
 
 /* A list of EEPROM paths */
