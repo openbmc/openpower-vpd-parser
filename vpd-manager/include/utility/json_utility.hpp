@@ -596,6 +596,247 @@ inline bool executeBaseAction(
     return true;
 }
 
+namespace
+{
+/**
+ * @brief Validate input parameters for base action execution.
+ *
+ * This function is private to this file and used only by executeBaseAction_new.
+ *
+ * @param[in] i_parsedConfigJson - Config JSON object
+ * @param[in] i_action - Base action to be performed
+ * @param[in] i_vpdFilePath - EEPROM file path
+ * @param[in] i_flagToProcess - Flag to identify which tags need processing
+ * @param[out] o_errCode - Error code set in case of validation errors
+ *
+ * @return true if validation passes, false otherwise
+ */
+inline bool validateBaseActionInputs(
+    const nlohmann::json& i_parsedConfigJson, const std::string& i_action,
+    const std::string& i_vpdFilePath, const std::string& i_flagToProcess,
+    uint16_t& o_errCode)
+{
+    o_errCode = 0;
+
+    if (i_flagToProcess.empty() || i_action.empty() || i_vpdFilePath.empty() ||
+        !i_parsedConfigJson.contains("frus"))
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return false;
+    }
+
+    if (!i_parsedConfigJson["frus"].contains(i_vpdFilePath))
+    {
+        o_errCode = error_code::FILE_NOT_FOUND;
+        return false;
+    }
+
+    if (!i_parsedConfigJson["frus"][i_vpdFilePath].at(0).contains(i_action))
+    {
+        o_errCode = error_code::MISSING_ACTION_TAG;
+        return false;
+    }
+
+    if (!(i_parsedConfigJson["frus"][i_vpdFilePath].at(0))[i_action].contains(
+            i_flagToProcess))
+    {
+        o_errCode = error_code::MISSING_FLAG;
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * @brief Handle GPIO presence tag processing.
+ *
+ * @param[in] l_tagPrecessingRes - Whether the tag execution succeeded
+ * @param[in] i_tagErrorCode - Error code from tag execution
+ * @param[in,out] io_result - Result structure to update
+ *
+ * @return true to continue processing, false to stop
+ */
+inline bool handleGpioPresenceTag(bool l_tagPrecessingRes, uint16_t i_tagErrorCode,
+                                   types::BaseActionResult& io_result)
+{
+    io_result.gpioPresenceErrorCode = i_tagErrorCode;
+
+    if (!l_tagPrecessingRes)
+    {
+        if (i_tagErrorCode == error_code::DEVICE_NOT_PRESENT)
+        {
+            //PIN was read successfully and device is found to be absent.
+            // Stop processing other tags
+            io_result.presenceStatus = types::BaseActionResult::PresenceStatus::ABSENT;
+            return false;
+        }
+        else
+        {
+            // PIN read error - continue processing other tags
+            io_result.presenceStatus = types::BaseActionResult::PresenceStatus::UNKNOWN;
+            if (io_result.failedTag.empty())
+            {
+                io_result.success = false;
+                io_result.failedTag = "gpioPresence";
+                io_result.failedTagErrorCode = i_tagErrorCode;
+            }
+        }
+    }
+    else
+    {
+        //PIN was read successfully and device is found to be present.
+        io_result.presenceStatus = types::BaseActionResult::PresenceStatus::PRESENT;
+    }
+
+    return true;
+}
+
+/**
+ * @brief Handle non-GPIO presence tag processing.
+ *
+ * @param[in] i_tagName - Name of the tag being processed
+ * @param[in] i_tagErrorCode - Error code from tag execution
+ * @param[in] i_vpdFilePath - EEPROM file path (for logging)
+ * @param[in,out] io_result - Result structure to update
+ */
+inline void handleNonGpioPresenceTag(
+    const std::string& i_tagName, uint16_t i_tagErrorCode,
+    const std::string& i_vpdFilePath, types::BaseActionResult& io_result)
+{   
+    io_result.success = false;
+    io_result.failedTag = i_tagName;
+    io_result.failedTagErrorCode = i_tagErrorCode;
+
+    if (i_tagErrorCode)
+    {
+        logging::logMessage(
+            i_tagName + " failed for [" + i_vpdFilePath +
+            "]. Reason " + commonUtility::getErrCodeMsg(i_tagErrorCode));
+    }
+}
+} // anonymous namespace
+
+/**
+ * @brief Process any action with enhanced error reporting and presence detection.
+ *
+ * This is an enhanced version of executeBaseAction that provides detailed
+ * information about tag execution failures and GPIO presence detection results.
+ *
+ * If any FRU(s) requires special handling, this base action can be defined for
+ * that FRU in the config JSON. This function processes all tags under the
+ * specified action and flag, with special handling for gpioPresence tag.
+ *
+ * Key behaviors:
+ * 1. If a non-gpioPresence tag fails:
+ *    - Records the failure information
+ *    - Checks if gpioPresence is defined in the same action/flag
+ *    - If defined and not yet processed, executes gpioPresence
+ *    - Returns detailed result with both failures if gpioPresence also fails
+ *
+ * 2. If gpioPresence tag fails:
+ *    - If error is DEVICE_NOT_PRESENT: Sets presenceStatus=ABSENT (success case)
+ *    - If error is PIN read error/exception: Sets presenceStatus=UNKNOWN,
+ *      continues processing other tags
+ *    - Records gpioPresence error information
+ *
+ * 3. If all tags succeed:
+ *    - Returns success with appropriate presence status if gpioPresence was processed
+ *
+ * @param[in] i_parsedConfigJson - Config JSON object
+ * @param[in] i_action - Base action to be performed (e.g., "preAction", "postAction")
+ * @param[in] i_vpdFilePath - EEPROM file path
+ * @param[in] i_flagToProcess - Flag to identify which tags need processing
+ * @param[out] o_errCode - Error code set in case of validation errors
+ *
+ * @return types::BaseActionResult structure containing:
+ *         - success: Overall execution status
+ *         - failedTag: Name of the tag that failed (empty if all succeeded)
+ *         - failedTagErrorCode: Error code from the failed tag
+ *         - presenceStatus: Device presence status (NOT_APPLICABLE/PRESENT/ABSENT/UNKNOWN)
+ *         - gpioPresenceErrorCode: Error code from gpioPresence execution
+ */
+inline types::BaseActionResult executeBaseAction_new(
+    const nlohmann::json& i_parsedConfigJson, const std::string& i_action,
+    const std::string& i_vpdFilePath, const std::string& i_flagToProcess,
+    uint16_t& o_errCode)
+{
+    types::BaseActionResult l_actionRes;
+
+    if (!validateBaseActionInputs(i_parsedConfigJson, i_action, i_vpdFilePath,
+                                   i_flagToProcess, o_errCode))
+    {
+        l_actionRes.success = false;
+        return l_actionRes;
+    }
+
+    const nlohmann::json& l_tagsJson =
+        (i_parsedConfigJson["frus"][i_vpdFilePath].at(
+            0))[i_action][i_flagToProcess];
+
+    //flags to track presence detection in the flow.
+    bool l_gpioPresenceDefined = l_tagsJson.contains("gpioPresence");
+    bool l_gpioPresenceProcessed = false;
+
+    for (const auto& l_tag : l_tagsJson.items())
+    {
+        const std::string& l_tagName = l_tag.key();
+        auto l_itrToFunction = funcionMap.find(l_tagName);
+
+        //If there is no code support for the tag.
+        if (l_itrToFunction == funcionMap.end())
+        {
+            continue;
+        }
+
+        uint16_t l_tagErrorCode = 0;
+        bool l_tagPrecessingRes = l_itrToFunction->second(
+            i_parsedConfigJson, i_vpdFilePath, i_action, i_flagToProcess,
+            l_tagErrorCode);
+
+        bool l_shouldContinue = true;
+
+        if (l_tagName == "gpioPresence")
+        {
+            // Handle gpioPresence tag
+            l_gpioPresenceProcessed = true;
+            l_shouldContinue = handleGpioPresenceTag(
+                l_tagPrecessingRes, l_tagErrorCode, l_actionRes);
+        }
+        else
+        {
+            // Handle non-gpioPresence tags
+            if(l_tagPrecessingRes)
+            {
+                continue;
+            }
+
+            // Tag failed - record the failure
+            handleNonGpioPresenceTag(
+                l_tagName, l_tagErrorCode, i_vpdFilePath, l_actionRes);
+            l_shouldContinue = false;
+
+            // Execute gpioPresence if defined and not yet processed
+            if (l_gpioPresenceDefined && !l_gpioPresenceProcessed)
+            {
+                l_gpioPresenceProcessed = true;
+                uint16_t l_gpioErrorCode = 0;
+                bool l_gpioRes = processGpioPresenceTag(
+                    i_parsedConfigJson, i_vpdFilePath, i_action,
+                    i_flagToProcess, l_gpioErrorCode);
+                
+                handleGpioPresenceTag(
+                    l_gpioRes, l_gpioErrorCode, l_actionRes);
+            }    
+        }
+
+        if (!l_shouldContinue)
+        {
+            break;
+        }
+    }
+    return l_actionRes;
+}
+
 /**
  * @brief Get redundant FRU path from system config JSON
  *
