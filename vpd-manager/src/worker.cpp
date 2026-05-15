@@ -1788,11 +1788,27 @@ std::tuple<bool, std::string> Worker::collectFruVpd(
     o_errCode = 0;
     bool l_fruPresent = false;
 
+    // Helper lambda to set collection status and log errors
+    auto setFailedStatus = [this, &i_fruPath, &i_cfgJsonObj]() {
+        uint16_t l_statusErrCode = 0;
+        vpdSpecificUtility::setCollectionStatusProperty(
+            i_fruPath, types::VpdCollectionStatus::Failed, i_cfgJsonObj,
+            l_statusErrCode);
+        if (l_statusErrCode)
+        {
+            m_logger->logMessage(
+                "Failed to set collection status as failed for path " +
+                i_fruPath +
+                " Reason: " + commonUtility::getErrCodeMsg(l_statusErrCode));
+        }
+    };
+
     try
     {
         if (i_fruPath.empty())
         {
             o_errCode = error_code::INVALID_INPUT_PARAMETER;
+            setFailedStatus();
             return std::make_tuple(l_fruPresent,
                                    constants::vpdCollectionFailed);
         }
@@ -1800,6 +1816,7 @@ std::tuple<bool, std::string> Worker::collectFruVpd(
         if (!i_cfgJsonObj.contains("frus"))
         {
             o_errCode = error_code::INVALID_JSON;
+            setFailedStatus();
             return std::make_tuple(l_fruPresent,
                                    constants::vpdCollectionFailed);
         }
@@ -1807,6 +1824,7 @@ std::tuple<bool, std::string> Worker::collectFruVpd(
         if (!i_cfgJsonObj["frus"].contains(i_fruPath))
         {
             o_errCode = error_code::FRU_PATH_NOT_FOUND;
+            setFailedStatus();
             return std::make_tuple(l_fruPresent,
                                    constants::vpdCollectionFailed);
         }
