@@ -175,11 +175,12 @@ Manager::Manager(
 
         initConfigManager(l_systemConfigJsonPath);
 
-#if 0
+
         // Initialize thread manager
         m_threadManager =
-            std::make_unique<ThreadManager>(m_configManager);
-#endif
+            std::make_unique<ThreadManager>(m_configManager,
+            m_progressInterface);
+
     }
     catch (const std::exception& l_ex)
     {
@@ -899,6 +900,19 @@ bool Manager::collectAllFruVpd() const noexcept
 
 // ToDo: Handle with OEM interface
 #ifdef IBM_SYSTEM
+
+        if (m_threadManager.get() != nullptr)
+        {
+            m_threadManager->callAllFruVpd();
+            return true;
+        }
+        else
+        {
+            throw std::runtime_error(
+                "thread manager is not instanitated for FRU VPD collection");
+
+        }
+
         if (m_ibmHandler.get() != nullptr)
         {
             m_ibmHandler->collectAllFruVpd();
