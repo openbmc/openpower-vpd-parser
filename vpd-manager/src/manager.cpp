@@ -178,7 +178,8 @@ Manager::Manager(
 #if 0
         // Initialize thread manager
         m_threadManager =
-            std::make_unique<ThreadManager>(m_configManager);
+            std::make_unique<ThreadManager>(m_configManager,
+            m_progressInterface);
 #endif
     }
     catch (const std::exception& l_ex)
