@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1c4e383_7ca98b5a",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-15T04:22:16Z",
+      "side": 1,
+      "message": "This flow will log 2 PELs if collection fails for both primary and secondary.\nThe ask is to get this covered using only one PEL. Logging PEL is an expensive operation.",
+      "revId": "7481eab4ee2996531fce88992d03cf048917102a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
