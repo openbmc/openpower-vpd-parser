@@ -16,6 +16,24 @@
       "message": "This flow will log 2 PELs if collection fails for both primary and secondary.\nThe ask is to get this covered using only one PEL. Logging PEL is an expensive operation.",
       "revId": "7481eab4ee2996531fce88992d03cf048917102a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "798a9179_e06bc264",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-15T08:45:12Z",
+      "side": 1,
+      "message": "Acknowledged. made the changes.",
+      "parentUuid": "d1c4e383_7ca98b5a",
+      "revId": "7481eab4ee2996531fce88992d03cf048917102a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
