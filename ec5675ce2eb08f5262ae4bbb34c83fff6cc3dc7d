@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4165a1e2_3388d767",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-05-19T06:11:12Z",
+      "side": 1,
+      "message": "\"Currently\" here means the current implementation is a stub and this commit implements the API.",
+      "parentUuid": "d2d7abcb_02579a9a",
+      "revId": "ec5675ce2eb08f5262ae4bbb34c83fff6cc3dc7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6faaf74b_81ba69cc",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 4
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-19T04:30:44Z",
       "side": 1,
       "message": "instead can we use l_dbusObjPathStr directly here ?",
+      "revId": "ec5675ce2eb08f5262ae4bbb34c83fff6cc3dc7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d956732_2caa4493",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-05-19T06:11:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6faaf74b_81ba69cc",
       "revId": "ec5675ce2eb08f5262ae4bbb34c83fff6cc3dc7d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2026-05-19T04:30:44Z",
       "side": 1,
       "message": "instead can we use l_dbusObjPathStr directly here ?",
+      "revId": "ec5675ce2eb08f5262ae4bbb34c83fff6cc3dc7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef301552_9db99722",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-05-19T06:11:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d9ffb41_d6698cb4",
       "revId": "ec5675ce2eb08f5262ae4bbb34c83fff6cc3dc7d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
