@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56440f22_83b28423",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-20T11:32:46Z",
+      "side": 1,
+      "message": "What does this mean in commit message?\nInstead of variable name, please put the corresponding meaning for the same.",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 30
+      },
+      "revId": "9fd81ba01f2dd71f097b47989d6aa07891fba64d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b4402e6_03d396bd",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-20T11:32:46Z",
+      "side": 1,
+      "message": "Does not convey the meaning underneath.\nWhy the system view need to store the JSON?",
+      "range": {
+        "startLine": 74,
+        "startChar": 42,
+        "endLine": 74,
+        "endChar": 68
+      },
+      "revId": "9fd81ba01f2dd71f097b47989d6aa07891fba64d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fe265c7_742f7501",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-20T11:32:46Z",
+      "side": 1,
+      "message": "Are you planning to use this mutex at other places as well. In that case name should be more generic, if no then why there is a need to carry it at class level?",
+      "range": {
+        "startLine": 77,
+        "startChar": 15,
+        "endLine": 77,
+        "endChar": 35
+      },
+      "revId": "9fd81ba01f2dd71f097b47989d6aa07891fba64d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
