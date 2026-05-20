@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb4776fe_39155fb7",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-05-20T14:03:40Z",
+      "side": 1,
+      "message": "The system view only needs to indicate which chassis are present. Can we use a bitfield or a list indicating which chassis are present? For example, `m_presentChassisList \u003d {\"chassis1\", \"chassis3\", \"chassis4\"};`",
+      "parentUuid": "5b4402e6_03d396bd",
+      "range": {
+        "startLine": 74,
+        "startChar": 42,
+        "endLine": 74,
+        "endChar": 68
+      },
+      "revId": "9fd81ba01f2dd71f097b47989d6aa07891fba64d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7fe265c7_742f7501",
         "filename": "vpd-manager/include/thread_manager.hpp",
         "patchSetId": 4
