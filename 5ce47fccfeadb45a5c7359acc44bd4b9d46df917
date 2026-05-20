@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "766bad59_44a8e703",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-20T07:26:48Z",
+      "side": 1,
+      "message": "Catch block can be more optimized.",
+      "revId": "5ce47fccfeadb45a5c7359acc44bd4b9d46df917",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3165e62_67a9df96",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-20T07:26:48Z",
+      "side": 1,
+      "message": "When both primary and secondary is failing then the flow is logging two PELs in the same flow that should be optimized",
+      "revId": "5ce47fccfeadb45a5c7359acc44bd4b9d46df917",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
