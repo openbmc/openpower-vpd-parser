@@ -53,7 +53,7 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
                     commonUtility::getErrCodeMsg(l_errCode));
             }
 
-            l_worker.deleteFruVpd(l_invPath);
+            l_worker.deleteFruVpd(l_chassisBasedJsonObj, l_invPath);
         }
     }
     catch (std::exception& l_ex)

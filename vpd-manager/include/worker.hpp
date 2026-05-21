@@ -105,11 +105,14 @@ class Worker
     /**
      * @brief An API to delete FRU VPD over DBus.
      *
+     * @param[in] i_parsedJson - Config json to get information of the FRU.
+     *
      * @param[in] i_dbusObjPath - Dbus object path of the FRU.
      *
      * @throw std::runtime_error if given input path is empty.
      */
-    void deleteFruVpd(const std::string& i_dbusObjPath);
+    void deleteFruVpd(const nlohmann::json i_parsedJson,
+                      const std::string& i_dbusObjPath);
 
     /**
      * @brief API to get status of VPD collection process.
