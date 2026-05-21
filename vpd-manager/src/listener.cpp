@@ -198,12 +198,11 @@ void Listener::registerPresenceChangeCallback() noexcept
 
         if (!m_configManager)
         {
-            logging::logMessage(
+            throw std::runtime_error(
                 "Error: Config manager is not initialized, can't register PresenceChangeCallback.");
-            return;
         }
 
-        auto l_sysCfgJsonObj = m_configManager->getJsonObj();
+        const auto& l_sysCfgJsonObj = m_configManager->getJsonObj();
 
         // get list of FRUs for which presence monitoring is required
         const auto& l_listOfFrus = jsonUtility::getFrusWithPresenceMonitoring(
@@ -271,8 +270,18 @@ void Listener::presentPropertyChangeCallback(
 
         if (auto l_present = std::get_if<bool>(&(l_itr->second)))
         {
+            if (!m_configManager)
+            {
+                throw std::runtime_error(std::format(
+                    "Config manager object is null while performing FRU VPD collection/deletion for: {}, Present state : {}",
+                    l_objectPath, *l_present));
+            }
+
+            const auto& l_chassisJson =
+                m_configManager->getJsonObj(l_objectPath);
+
             *l_present ? Worker{}.collectSingleFruVpd(l_objectPath)
-                       : Worker{}.deleteFruVpd(l_objectPath);
+                       : Worker{}.deleteFruVpd(l_chassisJson, l_objectPath);
         }
         else
         {
