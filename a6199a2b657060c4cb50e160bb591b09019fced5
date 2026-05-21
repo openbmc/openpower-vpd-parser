@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aad2ff67_ac0c4ff9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-21T19:39:25Z",
+      "side": 1,
+      "message": "nit: monitoring of?",
+      "revId": "a6199a2b657060c4cb50e160bb591b09019fced5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1d59332_441b0409",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-21T19:39:25Z",
+      "side": 1,
+      "message": "nit: Updates overall VPD collection...\nGives more readability.",
+      "revId": "a6199a2b657060c4cb50e160bb591b09019fced5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "118e9d27_2bd976f8",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-21T19:39:25Z",
+      "side": 1,
+      "message": "for overall VPD...",
+      "range": {
+        "startLine": 98,
+        "startChar": 20,
+        "endLine": 98,
+        "endChar": 27
+      },
+      "revId": "a6199a2b657060c4cb50e160bb591b09019fced5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f140f04_b4c0959a",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-21T19:39:25Z",
+      "side": 1,
+      "message": "Can we make the name more specific then what we have currently so that it is not confused with individual FRU collection status.\nSomething like \"updateOverallCollectionStatus\"",
+      "range": {
+        "startLine": 104,
+        "startChar": 9,
+        "endLine": 104,
+        "endChar": 34
+      },
+      "revId": "a6199a2b657060c4cb50e160bb591b09019fced5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c77d7636_5080ac9b",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-21T19:39:25Z",
+      "side": 1,
+      "message": "What happens if status passed is not one of the valid entries expected?",
+      "revId": "a6199a2b657060c4cb50e160bb591b09019fced5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd80a78b_ee87a62d",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-21T19:39:25Z",
+      "side": 1,
+      "message": "There can be situations where collection will not reach parse and publish API. Your commit should take care of updating collection status in that case as well from worker API \"collectFruVpd\".",
+      "revId": "a6199a2b657060c4cb50e160bb591b09019fced5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
