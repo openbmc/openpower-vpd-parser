@@ -249,8 +249,15 @@ void Listener::presentPropertyChangeCallback(
         {
             Worker l_worker(m_configJsonPath);
 
-            *l_present ? l_worker.collectSingleFruVpd(l_objectPath)
-                       : l_worker.deleteFruVpd(l_objectPath);
+            nlohmann::json l_chassisBasedJson{};
+            if (m_configManager)
+            {
+                l_chassisBasedJson = m_configManager->getJsonObj(l_objectPath);
+            }
+
+            *l_present
+                ? l_worker.collectSingleFruVpd(l_objectPath)
+                : l_worker.deleteFruVpd(l_chassisBasedJson, l_objectPath);
         }
         else
         {

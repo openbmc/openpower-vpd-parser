@@ -24,7 +24,11 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
             l_sysCfgJsonObj = m_configManager->getJsonObj();
         }
 
-        // Worker l_worker(l_sysCfgJsonObj);
+        /*
+            Worker l_worker(l_sysCfgJsonObj);
+        */
+
+        // Worker class needs cofig json Path. It doesn't take object.
         Worker l_worker(INVENTORY_JSON_SYM_LINK);
 
         if (i_isFruPresent)
@@ -64,7 +68,13 @@ void GpioEventHandler::handleChangeInGpioPin(const bool& i_isFruPresent)
                     commonUtility::getErrCodeMsg(l_errCode));
             }
 
-            l_worker.deleteFruVpd(l_invPath);
+            nlohmann::json l_chassisBasedJson{};
+            if (m_configManager)
+            {
+                l_chassisBasedJson = m_configManager->getJsonObj(l_invPath);
+            }
+
+            l_worker.deleteFruVpd(l_chassisBasedJson, l_invPath);
         }
     }
     catch (std::exception& l_ex)

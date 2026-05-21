@@ -525,7 +525,14 @@ void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
                 std::string(i_dbusObjPath));
         }
 
-        m_worker->deleteFruVpd(std::string(i_dbusObjPath));
+        nlohmann::json l_configJsonObj{};
+
+        if (m_configManager)
+        {
+            l_configJsonObj =
+                m_configManager->getJsonObj(std::string(i_dbusObjPath));
+        }
+        m_worker->deleteFruVpd(l_configJsonObj, std::string(i_dbusObjPath));
     }
     catch (const std::exception& l_ex)
     {
