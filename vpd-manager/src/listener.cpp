@@ -273,10 +273,20 @@ void Listener::presentPropertyChangeCallback(
 
         if (auto l_present = std::get_if<bool>(&(l_itr->second)))
         {
+            if (m_configManager.get() == nullptr)
+            {
+                throw std::runtime_error(std::format(
+                    "PresentPropChanged: Config manager object not found, can't perform FRU VPD collection/deletion for: {}",
+                    l_objectPath));
+            }
+
+            auto l_chassisBasedJson = m_configManager->getJsonObj(l_objectPath);
+
             Worker l_worker;
 
-            *l_present ? l_worker.collectSingleFruVpd(l_objectPath)
-                       : l_worker.deleteFruVpd(l_objectPath);
+            *l_present
+                ? l_worker.collectSingleFruVpd(l_chassisBasedJson, l_objectPath)
+                : l_worker.deleteFruVpd(l_chassisBasedJson, l_objectPath);
         }
         else
         {

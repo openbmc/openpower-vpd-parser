@@ -510,10 +510,18 @@ void Manager::collectSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
         return;
     }
 
-    if (m_worker.get() != nullptr)
+    if (m_configManager.get() == nullptr)
     {
-        m_worker->collectSingleFruVpd(i_dbusObjPath);
+        throw std::runtime_error(std::format(
+            "Config manager object not found, can't perform FRU VPD collection for: {}",
+            std::string(i_dbusObjPath)));
     }
+
+    auto l_configJsonObj =
+        m_configManager->getJsonObj(std::string(i_dbusObjPath));
+
+    Worker l_worker;
+    l_worker.collectSingleFruVpd(l_configJsonObj, i_dbusObjPath);
 }
 
 void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
@@ -525,23 +533,27 @@ void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
 
     try
     {
-        if (m_worker.get() == nullptr)
+        if (m_configManager.get() == nullptr)
         {
-            throw std::runtime_error(
-                "Worker object not found, can't perform FRU VPD deletion for: " +
-                std::string(i_dbusObjPath));
+            throw std::runtime_error(std::format(
+                "Config manager object not found, can't perform FRU VPD deletion for: {}",
+                std::string(i_dbusObjPath)));
         }
 
-        m_worker->deleteFruVpd(std::string(i_dbusObjPath));
+        auto l_configJsonObj =
+            m_configManager->getJsonObj(std::string(i_dbusObjPath));
+
+        Worker l_worker;
+        l_worker.deleteFruVpd(l_configJsonObj, std::string(i_dbusObjPath));
     }
     catch (const std::exception& l_ex)
     {
         logging::logMessage(l_ex.what());
 
         m_logger->logMessage(
-            std::string("VPD manager delete operation failed for object[") +
-                std::string(i_dbusObjPath) +
-                "], Reason:" + std::string(l_ex.what()),
+            std::format(
+                "VPD manager delete operation failed for object[{}]. Reason: {}.",
+                std::string(i_dbusObjPath), std::string(l_ex.what())),
             PlaceHolder::PEL,
             types::PelInfoTuple{EventLogger::getErrorType(l_ex),
                                 types::SeverityType::Informational, 0,
