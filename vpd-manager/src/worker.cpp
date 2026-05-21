@@ -1282,16 +1282,22 @@ void Worker::collectFrusFromJson()
     }
 }
 
-void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
+void Worker::deleteFruVpd(const nlohmann::json& i_sysConfigJsonObj,
+                          const std::string& i_dbusObjPath)
 {
+    if (i_sysConfigJsonObj.empty())
+    {
+        throw std::runtime_error("Empty configuration JSON provided");
+    }
+
     if (i_dbusObjPath.empty())
     {
         throw std::runtime_error("Given DBus object path is empty.");
     }
 
     uint16_t l_errCode = 0;
-    const std::string& l_fruPath =
-        jsonUtility::getFruPathFromJson(m_parsedJson, i_dbusObjPath, l_errCode);
+    const std::string& l_fruPath = jsonUtility::getFruPathFromJson(
+        i_sysConfigJsonObj, i_dbusObjPath, l_errCode);
 
     if (l_errCode)
     {
@@ -1304,8 +1310,8 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
 
     try
     {
-        if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath, "preAction",
-                                          "deletion", l_errCode))
+        if (jsonUtility::isActionRequired(i_sysConfigJsonObj, l_fruPath,
+                                          "preAction", "deletion", l_errCode))
         {
             if (!processPreAction(l_fruPath, "deletion", l_errCode))
             {
@@ -1325,7 +1331,8 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
                 "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        vpdSpecificUtility::resetObjTreeVpd(l_fruPath, m_parsedJson, l_errCode);
+        vpdSpecificUtility::resetObjTreeVpd(l_fruPath, i_sysConfigJsonObj,
+                                            l_errCode);
 
         if (l_errCode)
         {
@@ -1334,8 +1341,8 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
                 "], error : " + commonUtility::getErrCodeMsg(l_errCode));
         }
 
-        if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath, "postAction",
-                                          "deletion", l_errCode))
+        if (jsonUtility::isActionRequired(i_sysConfigJsonObj, l_fruPath,
+                                          "postAction", "deletion", l_errCode))
         {
             if (!processPostAction(l_fruPath, "deletion"))
             {
@@ -1360,12 +1367,12 @@ void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
             "Failed to delete VPD for FRU : " + i_dbusObjPath +
             " error: " + std::string(l_ex.what());
 
-        if (jsonUtility::isActionRequired(m_parsedJson, l_fruPath,
+        if (jsonUtility::isActionRequired(i_sysConfigJsonObj, l_fruPath,
                                           "postFailAction", "deletion",
                                           l_errCode))
         {
-            if (!jsonUtility::executePostFailAction(m_parsedJson, l_fruPath,
-                                                    "deletion", l_errCode))
+            if (!jsonUtility::executePostFailAction(
+                    i_sysConfigJsonObj, l_fruPath, "deletion", l_errCode))
             {
                 l_errMsg += ". Post fail action also failed, error : " +
                             commonUtility::getErrCodeMsg(l_errCode);
