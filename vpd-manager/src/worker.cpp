@@ -1282,14 +1282,29 @@ void Worker::collectFrusFromJson()
     }
 }
 
-void Worker::deleteFruVpd(const std::string& i_dbusObjPath)
+void Worker::deleteFruVpd(const nlohmann::json& i_configJsonObj,
+                          const std::string& i_dbusObjPath)
 {
+    if (i_configJsonObj.empty())
+    {
+        throw std::runtime_error("Empty configuration JSON provided");
+    }
+
     if (i_dbusObjPath.empty())
     {
         throw std::runtime_error("Given DBus object path is empty.");
     }
 
     uint16_t l_errCode = 0;
+
+    /**
+     * @TODO Currently required because the worker APIs use m_parsedJson for
+     * JSON-related operations.
+     *
+     * Remove this assignment once the APIs are updated to accept the JSON
+     * object as an input parameter.
+     */
+    m_parsedJson = i_configJsonObj;
     const std::string& l_fruPath =
         jsonUtility::getFruPathFromJson(m_parsedJson, i_dbusObjPath, l_errCode);
 
