@@ -253,8 +253,12 @@ void Listener::presentPropertyChangeCallback(
         {
             Worker l_worker;
 
-            *l_present ? l_worker.collectSingleFruVpd(l_objectPath)
-                       : l_worker.deleteFruVpd(l_objectPath);
+            // m_configManager validated in constructor
+            auto l_chassisBasedJson = m_configManager->getJsonObj(l_objectPath);
+
+            *l_present
+                ? l_worker.collectSingleFruVpd(l_objectPath)
+                : l_worker.deleteFruVpd(l_chassisBasedJson, l_objectPath);
         }
         else
         {

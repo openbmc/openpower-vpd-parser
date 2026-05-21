@@ -529,7 +529,17 @@ void Manager::deleteSingleFruVpd(const sdbusplus::object_path& i_dbusObjPath)
                 std::string(i_dbusObjPath));
         }
 
-        m_worker->deleteFruVpd(std::string(i_dbusObjPath));
+        if (m_configManager.get() == nullptr)
+        {
+            throw std::runtime_error(std::format(
+                "Config manager object not found, can't perform FRU VPD deletion for: {}",
+                std::string(i_dbusObjPath)));
+        }
+
+        auto l_configJsonObj =
+            m_configManager->getJsonObj(std::string(i_dbusObjPath));
+
+        m_worker->deleteFruVpd(l_configJsonObj, std::string(i_dbusObjPath));
     }
     catch (const std::exception& l_ex)
     {
