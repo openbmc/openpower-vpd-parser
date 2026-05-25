@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b23c80e_d49ef076",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-25T07:30:48Z",
+      "side": 1,
+      "message": "Why are we throwing in case there is not redundant eeprom path? Is it mandatory to have that?\nThis will not fail the complete process of performing initial set up?",
+      "revId": "31971a7c01dd54db226dc948eabd90bcf4e24cfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06a85014_d39a6a96",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-25T07:30:48Z",
+      "side": 1,
+      "message": "We can optimize it further, please check.",
+      "revId": "31971a7c01dd54db226dc948eabd90bcf4e24cfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70663c1a_2fb059e8",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1025,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-25T07:30:48Z",
+      "side": 1,
+      "message": "What is the requirement of having nested try/catch?",
+      "revId": "31971a7c01dd54db226dc948eabd90bcf4e24cfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
