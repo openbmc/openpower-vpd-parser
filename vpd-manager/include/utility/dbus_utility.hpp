@@ -1,11 +1,13 @@
 #pragma once
 
 #include "constants.hpp"
+#include "error_codes.hpp"
 #include "exceptions.hpp"
 #include "logger.hpp"
 #include "types.hpp"
 
 #include <chrono>
+#include <expected>
 
 namespace vpd
 {
@@ -156,6 +158,52 @@ inline types::MapperGetSubTree getObjectSubTree(
     }
 
     return l_subTreeMap;
+}
+
+/**
+ * @brief API to get managed objects from D-Bus.
+ *
+ * The API calls GetManagedObjects method on the ObjectManager interface
+ * to retrieve all objects, their interfaces, and properties managed by
+ * a service in a single D-Bus call.
+ *
+ * @param[in] i_serviceName - D-Bus service name.
+ * @param[in] i_objectPath - Object path that implements ObjectManager.
+ *
+ * @return - std::expected containing either:
+ *           - types::ObjectMap on success
+ *           - error_code on failure (INVALID_INPUT_PARAMETER or DBUS_FAILURE)
+ *
+ * ToDo - Revisit in future to think and decide whether the approach can be made
+ * generic , currently the scope is limited for only
+ * pimpath(/xyz/openbmc_project/inventory) .
+ */
+inline std::expected<types::ObjectMap, error_code> getManagedObjects(
+    const std::string& i_serviceName, const std::string& i_objectPath)
+{
+    if (i_serviceName.empty() || i_objectPath.empty())
+    {
+        logging::logMessage("Service name or object path is empty.");
+        return std::unexpected(error_code::INVALID_INPUT_PARAMETER);
+    }
+
+    try
+    {
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method = l_bus.new_method_call(
+            i_serviceName.c_str(), i_objectPath.c_str(),
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+
+        auto l_result = l_bus.call(l_method);
+        types::ObjectMap l_managedObjects;
+        l_result.read(l_managedObjects);
+        return l_managedObjects;
+    }
+    catch (const sdbusplus::exception::internal_exception& l_ex)
+    {
+        logging::logMessage(l_ex.what());
+        return std::unexpected(error_code::DBUS_FAILURE);
+    }
 }
 
 /**
