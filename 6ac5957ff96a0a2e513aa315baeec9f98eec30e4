@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e928cae_a8cea6d5",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1225,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-25T11:09:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99ed310c_b821710f",
+      "revId": "6ac5957ff96a0a2e513aa315baeec9f98eec30e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2670b5dd_37fcf15b",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fa5b4a9_8153fb84",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-25T11:09:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2670b5dd_37fcf15b",
+      "revId": "6ac5957ff96a0a2e513aa315baeec9f98eec30e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f6db05e_ee728aa2",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-05-25T08:53:34Z",
       "side": 1,
       "message": "Don\u0027t add this here. A todo at the place of implementation is enough.",
+      "range": {
+        "startLine": 246,
+        "startChar": 43,
+        "endLine": 247,
+        "endChar": 71
+      },
+      "revId": "6ac5957ff96a0a2e513aa315baeec9f98eec30e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee3d59a3_662047a4",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-25T11:09:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f6db05e_ee728aa2",
       "range": {
         "startLine": 246,
         "startChar": 43,
