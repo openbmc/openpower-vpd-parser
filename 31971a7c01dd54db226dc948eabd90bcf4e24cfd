@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "17a90abf_bbdf15cf",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-25T12:57:19Z",
+      "side": 1,
+      "message": "If no REDUNDANT_SYSTEM_VPD_FILE_PATH is defined, this API throws the exception to the caller, which matches the current behavior.\nSystem VPD collection is mandatory since the IM value cannot be identified without reading the system VPD; hence, further operations cannot be performed and the exception is propagated back to the caller.",
+      "parentUuid": "3b23c80e_d49ef076",
+      "revId": "31971a7c01dd54db226dc948eabd90bcf4e24cfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06a85014_d39a6a96",
         "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
         "patchSetId": 9
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-25T07:30:48Z",
       "side": 1,
       "message": "We can optimize it further, please check.",
+      "revId": "31971a7c01dd54db226dc948eabd90bcf4e24cfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6231c70d_5fcce5d0",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-25T12:57:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06a85014_d39a6a96",
       "revId": "31971a7c01dd54db226dc948eabd90bcf4e24cfd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2026-05-25T07:30:48Z",
       "side": 1,
       "message": "What is the requirement of having nested try/catch?",
+      "revId": "31971a7c01dd54db226dc948eabd90bcf4e24cfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31461f3d_b4609b4f",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1025,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-25T12:57:19Z",
+      "side": 1,
+      "message": "Updated the code.",
+      "parentUuid": "70663c1a_2fb059e8",
       "revId": "31971a7c01dd54db226dc948eabd90bcf4e24cfd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
