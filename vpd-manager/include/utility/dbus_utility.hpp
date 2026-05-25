@@ -159,6 +159,51 @@ inline types::MapperGetSubTree getObjectSubTree(
 }
 
 /**
+ * @brief API to get managed objects from D-Bus.
+ *
+ * The API calls GetManagedObjects method on the ObjectManager interface
+ * to retrieve all objects, their interfaces, and properties managed by
+ * a service in a single D-Bus call.
+ *
+ * Note: It will be caller's responsibility to check for empty map returned
+ * and generate appropriate error.
+ *
+ * @param[in] i_serviceName - D-Bus service name.
+ * @param[in] i_objectPath - Object path that implements ObjectManager.
+ *
+ * @return - A map of object paths to their interfaces and properties, if
+ *           success. If failed, empty map.
+ */
+inline types::ObjectMap getManagedObjects(const std::string& i_serviceName,
+                                          const std::string& i_objectPath)
+{
+    types::ObjectMap l_managedObjects;
+
+    if (i_serviceName.empty() || i_objectPath.empty())
+    {
+        logging::logMessage("Service name or object path is empty.");
+        return l_managedObjects;
+    }
+
+    try
+    {
+        auto l_bus = sdbusplus::bus::new_default();
+        auto l_method = l_bus.new_method_call(
+            i_serviceName.c_str(), i_objectPath.c_str(),
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+
+        auto l_result = l_bus.call(l_method);
+        l_result.read(l_managedObjects);
+    }
+    catch (const sdbusplus::exception::internal_exception& l_ex)
+    {
+        logging::logMessage(l_ex.what());
+    }
+
+    return l_managedObjects;
+}
+
+/**
  * @brief An API to read property from Dbus.
  *
  * The caller of the API needs to validate the validatity and correctness of the

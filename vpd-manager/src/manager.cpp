@@ -854,11 +854,73 @@ std::tuple<std::string, uint16_t> Manager::getUnexpandedLocationCode(
 types::ListOfPaths Manager::getFrusByExpandedLocationCode(
     const std::string& i_expandedLocationCode)
 {
-    std::tuple<std::string, uint16_t> l_locationAndNodePair =
-        getUnexpandedLocationCode(i_expandedLocationCode);
+    /*This part is commented as of now , we will have to revisit in future*/
+    // std::tuple<std::string, uint16_t> l_locationAndNodePair =
+    //     getUnexpandedLocationCode(i_expandedLocationCode);
+    // return
+    // getFrusByUnexpandedLocationCode(std::get<0>(l_locationAndNodePair),
+    //                                       std::get<1>(l_locationAndNodePair));
 
-    return getFrusByUnexpandedLocationCode(std::get<0>(l_locationAndNodePair),
-                                           std::get<1>(l_locationAndNodePair));
+    // Validate that the location code is expanded.
+    if (i_expandedLocationCode.empty() || i_expandedLocationCode[0] != 'U' ||
+        i_expandedLocationCode.length() <
+            constants::EXP_LOCATION_CODE_MIN_LENGTH)
+    {
+        m_logger->logMessage(std::format("Invalid expanded location code: {}",
+                                         i_expandedLocationCode));
+        throw types::DbusInvalidArgument();
+    }
+
+    types::ListOfPaths l_fruPaths;
+
+    try
+    {
+        const auto l_managedObjects = dbusUtility::getManagedObjects(
+            constants::pimServiceName, constants::pimPath);
+
+        for (const auto& [l_objPath, l_interfaceMap] : l_managedObjects)
+        {
+            auto l_locCodeIntfIter =
+                l_interfaceMap.find(constants::locationCodeInf);
+            if (l_locCodeIntfIter == l_interfaceMap.end())
+            {
+                continue;
+            }
+
+            const auto& l_propertyMap = l_locCodeIntfIter->second;
+            auto l_locCodePropIter = l_propertyMap.find("LocationCode");
+            if (l_locCodePropIter == l_propertyMap.end())
+            {
+                continue;
+            }
+
+            // Check if the location code matches
+            if (const auto l_locCode =
+                    std::get_if<std::string>(&l_locCodePropIter->second))
+            {
+                if (*l_locCode == i_expandedLocationCode)
+                {
+                    l_fruPaths.emplace_back(l_objPath);
+                }
+            }
+        }
+
+        if (l_fruPaths.empty())
+        {
+            m_logger->logMessage(
+                std::format("No FRUs found for expanded location code: {}",
+                            i_expandedLocationCode));
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Error while getting FRUs for expanded location code {}: {}",
+            i_expandedLocationCode, l_ex.what()));
+        throw types::DbusInvalidArgument();
+    }
+
+    return l_fruPaths;
 }
 
 void Manager::performVpdRecollection()
