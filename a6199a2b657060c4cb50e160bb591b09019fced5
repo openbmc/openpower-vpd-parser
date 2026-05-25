@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee2ec9bc_d130b2a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-25T06:59:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aad2ff67_ac0c4ff9",
+      "revId": "a6199a2b657060c4cb50e160bb591b09019fced5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1d59332_441b0409",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31bbf16d_7a7af00d",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-25T06:59:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1d59332_441b0409",
+      "revId": "a6199a2b657060c4cb50e160bb591b09019fced5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "118e9d27_2bd976f8",
@@ -48,6 +84,30 @@
       "writtenOn": "2026-05-21T19:39:25Z",
       "side": 1,
       "message": "for overall VPD...",
+      "range": {
+        "startLine": 98,
+        "startChar": 20,
+        "endLine": 98,
+        "endChar": 27
+      },
+      "revId": "a6199a2b657060c4cb50e160bb591b09019fced5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3929bc3_adb6bae3",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-25T06:59:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "118e9d27_2bd976f8",
       "range": {
         "startLine": 98,
         "startChar": 20,
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d814943f_6ef6300c",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-25T06:59:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f140f04_b4c0959a",
+      "range": {
+        "startLine": 104,
+        "startChar": 9,
+        "endLine": 104,
+        "endChar": 34
+      },
+      "revId": "a6199a2b657060c4cb50e160bb591b09019fced5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c77d7636_5080ac9b",
@@ -98,6 +182,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21cab040_95474323",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-25T06:59:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c77d7636_5080ac9b",
+      "revId": "a6199a2b657060c4cb50e160bb591b09019fced5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd80a78b_ee87a62d",
@@ -111,6 +213,24 @@
       "writtenOn": "2026-05-21T19:39:25Z",
       "side": 1,
       "message": "There can be situations where collection will not reach parse and publish API. Your commit should take care of updating collection status in that case as well from worker API \"collectFruVpd\".",
+      "revId": "a6199a2b657060c4cb50e160bb591b09019fced5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba4743e5_8548f3f4",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-25T06:59:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd80a78b_ee87a62d",
       "revId": "a6199a2b657060c4cb50e160bb591b09019fced5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
