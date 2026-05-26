@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ff4403b_3156d6fb",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-05-26T10:17:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7473f0b0_77d0adf3",
+      "revId": "7a7825648b91c2f0eb4ec5d9382153dbf40f2199",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33bccfcc_b860e0b7",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-26T06:07:55Z",
       "side": 1,
       "message": "Can we rephrase the statement in better way, as not its not giving any understanding .",
+      "revId": "7a7825648b91c2f0eb4ec5d9382153dbf40f2199",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0187e86_3a348182",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-05-26T10:17:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33bccfcc_b860e0b7",
       "revId": "7a7825648b91c2f0eb4ec5d9382153dbf40f2199",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09823759_34d5ac88",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-05-26T10:17:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "daf77382_58abc534",
+      "revId": "7a7825648b91c2f0eb4ec5d9382153dbf40f2199",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91eeae83_8cb6ead1",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-05-26T06:07:55Z",
       "side": 1,
       "message": "can we append keyword name as well",
+      "revId": "7a7825648b91c2f0eb4ec5d9382153dbf40f2199",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e33fca82_b5f35c2f",
+        "filename": "vpd-manager/src/keyword_vpd_parser.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-05-26T10:17:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91eeae83_8cb6ead1",
       "revId": "7a7825648b91c2f0eb4ec5d9382153dbf40f2199",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
