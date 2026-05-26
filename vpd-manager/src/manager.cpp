@@ -920,7 +920,7 @@ bool Manager::collectAllFruVpd() const noexcept
 #if 0
         if (m_threadManager.get() != nullptr)
         {
-            m_threadManager->callAllFruVpd();
+            m_threadManager->collectAllFruVpd();
             return true;
         }
         else

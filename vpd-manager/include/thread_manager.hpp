@@ -36,11 +36,9 @@ class ThreadManager
     /**
      * @brief ThreadManager Constructor
      *
-     * @param[in] i_worker - Shared pointer to the worker class
      * @param[in] i_configManager - Shared pointer to the configmanager class
      */
-    ThreadManager(const std::shared_ptr<Worker>& i_worker,
-                  const std::shared_ptr<ConfigManager>& i_configManager);
+    ThreadManager(const std::shared_ptr<ConfigManager>& i_configManager);
 
     // deleted methods
     ThreadManager(const ThreadManager&) = delete;
@@ -60,7 +58,7 @@ class ThreadManager
      * in parallel. It orchestrates the collection process across all chassis
      * and their respective FRUs.
      */
-    void callAllFruVpd();
+    void collectAllFruVpd();
 
   private:
     // Shared pointer to ConfigManager object

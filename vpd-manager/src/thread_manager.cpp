@@ -98,7 +98,7 @@ void ThreadManager::collectAllChassisVpd()
     }
 }
 
-void ThreadManager::callAllFruVpd()
+void ThreadManager::collectAllFruVpd()
 {
     /*
      * TODO: Implement multi-threaded VPD collection for all FRUs in the system
