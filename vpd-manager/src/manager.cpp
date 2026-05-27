@@ -950,11 +950,19 @@ bool Manager::validateRedundantEeprom(const types::Path& i_fruPath) const
 {
     bool l_rc{false};
 
-    auto l_sysCfgJsonObj = m_worker->getSysCfgJsonObj();
+    if (!m_configManager)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to validate redundant Eeprom path for [{}] because ConfigManager is not initialized",
+            i_fruPath));
+        return l_rc;
+    }
+
+    const auto& l_jsonObj = m_configManager->getJsonObj(i_fruPath);
 
     uint16_t l_errCode;
     std::string l_redundantEeprom = jsonUtility::getRedundantEepromPathFromJson(
-        l_sysCfgJsonObj, i_fruPath, l_errCode);
+        l_jsonObj, i_fruPath, l_errCode);
 
     if (l_redundantEeprom.empty())
     {
@@ -968,8 +976,7 @@ bool Manager::validateRedundantEeprom(const types::Path& i_fruPath) const
 
     try
     {
-        Parser l_parserForPrimary(i_fruPath, l_sysCfgJsonObj,
-                                  m_vpdCollectionMode);
+        Parser l_parserForPrimary(i_fruPath, l_jsonObj, m_vpdCollectionMode);
 
         return l_parserForPrimary.compareData(l_redundantEeprom);
     }
