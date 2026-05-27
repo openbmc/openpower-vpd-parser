@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4000c2d2_0191ff06",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1225,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-27T08:22:59Z",
+      "side": 1,
+      "message": "removed.",
+      "parentUuid": "c43febe1_9d84786c",
+      "revId": "f653e3feaddfd37d90ba2ddfd9affd7ba53880ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8625ad1_44c5bc97",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e3a40f7_752dddc2",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-27T08:22:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8625ad1_44c5bc97",
+      "revId": "f653e3feaddfd37d90ba2ddfd9affd7ba53880ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63743b7b_98d82e1b",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-05-25T12:05:46Z",
       "side": 1,
       "message": "Avoid unnecessary std::string construction around l_ex.what() ?",
+      "revId": "f653e3feaddfd37d90ba2ddfd9affd7ba53880ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c829ae91_716b44be",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-27T08:22:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63743b7b_98d82e1b",
       "revId": "f653e3feaddfd37d90ba2ddfd9affd7ba53880ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
