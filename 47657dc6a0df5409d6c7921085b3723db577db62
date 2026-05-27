@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d13e554_6e72a4bc",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-05-27T05:18:39Z",
+      "side": 1,
+      "message": "The commit message mentions \"DeleteFRUVPD\" update. Why is there a `GpioMonitor` change in this patch?",
+      "revId": "47657dc6a0df5409d6c7921085b3723db577db62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
