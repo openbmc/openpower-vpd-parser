@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a071257_8ae447dc",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-27T07:02:52Z",
+      "side": 1,
+      "message": "Why do we need a blank line here?",
+      "revId": "6b36a39d2ba80fecb804f473e6f2e82dfdbf2873",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30ba2536_2f6e25cf",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-27T07:02:52Z",
+      "side": 1,
+      "message": "same here. Why a blank line?",
+      "revId": "6b36a39d2ba80fecb804f473e6f2e82dfdbf2873",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
