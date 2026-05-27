@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "758bd44a_35c83cb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-27T09:00:54Z",
+      "side": 1,
+      "message": "we need to rephrase the statement here, are we making this change just to pass configManager object to GpioMonitor here ?",
+      "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31a58adf_7f73ab4e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-27T09:00:54Z",
+      "side": 1,
+      "message": "this commit itself says, testing section will have changes. No need to mention again.",
+      "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cffec35d_ecae5af6",
+        "filename": "vpd-manager/include/gpio_monitor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-27T09:00:54Z",
+      "side": 1,
+      "message": "should we store as member variable and avoid passing this around for member functions ?",
+      "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
