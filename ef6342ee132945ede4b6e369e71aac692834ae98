@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32609ba2_0b2ab0c3",
+        "filename": "vpd-manager/include/gpio_monitor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-27T04:22:46Z",
+      "side": 1,
+      "message": "true,\nIf we need json object, can fetch it from config manager.\nBut worker class wants json path, that config manager doesn\u0027t provide, in that case I need to pass it from caller.",
+      "parentUuid": "8cbf10f6_918d508d",
+      "revId": "ef6342ee132945ede4b6e369e71aac692834ae98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7633a0c7_d39a8634",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-14T13:19:51Z",
       "side": 1,
       "message": "Need to get rid of worker.",
+      "revId": "ef6342ee132945ede4b6e369e71aac692834ae98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06aa4ba4_d35a75b9",
+        "filename": "vpd-manager/include/gpio_monitor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-27T04:22:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7633a0c7_d39a8634",
       "revId": "ef6342ee132945ede4b6e369e71aac692834ae98",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
