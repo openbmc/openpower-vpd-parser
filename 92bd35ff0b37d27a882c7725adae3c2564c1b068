@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bcba6d8f_b8e5b9e3",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-27T08:54:35Z",
+      "side": 1,
+      "message": "What is the issue with std::move @anupama.b.r1@ibm.com?\nThe callback is owned by this function and I don\u0027t see any further use of it in the API.",
+      "parentUuid": "1e419349_a02745f9",
+      "revId": "92bd35ff0b37d27a882c7725adae3c2564c1b068",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81cee05b_21fb02be",
         "filename": "vpd-manager/src/listener.cpp",
         "patchSetId": 5
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-27T08:43:18Z",
       "side": 1,
       "message": "should we log async PEL here ?",
+      "revId": "92bd35ff0b37d27a882c7725adae3c2564c1b068",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c5daedb_228d5ba4",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-27T08:54:35Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "81cee05b_21fb02be",
       "revId": "92bd35ff0b37d27a882c7725adae3c2564c1b068",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
