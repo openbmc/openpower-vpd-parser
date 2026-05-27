@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d36013d9_8c1954b1",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-27T09:41:56Z",
+      "side": 1,
+      "message": "yes , \u0027i_callBackFunction\u0027 is not used after this point in this api , so no harm in using std::move here .",
+      "parentUuid": "bcba6d8f_b8e5b9e3",
+      "revId": "92bd35ff0b37d27a882c7725adae3c2564c1b068",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81cee05b_21fb02be",
         "filename": "vpd-manager/src/listener.cpp",
         "patchSetId": 5
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "81cee05b_21fb02be",
+      "revId": "92bd35ff0b37d27a882c7725adae3c2564c1b068",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2887b6e6_39e74e4c",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-05-27T09:41:56Z",
+      "side": 1,
+      "message": "Used ASYNC_PEL .",
+      "parentUuid": "2c5daedb_228d5ba4",
       "revId": "92bd35ff0b37d27a882c7725adae3c2564c1b068",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
