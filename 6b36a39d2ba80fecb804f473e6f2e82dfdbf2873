@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fcaa307_8e1d2df0",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-27T07:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a071257_8ae447dc",
+      "revId": "6b36a39d2ba80fecb804f473e6f2e82dfdbf2873",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30ba2536_2f6e25cf",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-27T07:02:52Z",
       "side": 1,
       "message": "same here. Why a blank line?",
+      "revId": "6b36a39d2ba80fecb804f473e6f2e82dfdbf2873",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e29fd863_96d1b40c",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-27T07:14:13Z",
+      "side": 1,
+      "message": "Added as part of clang formatting",
+      "parentUuid": "30ba2536_2f6e25cf",
       "revId": "6b36a39d2ba80fecb804f473e6f2e82dfdbf2873",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
