@@ -50,6 +50,75 @@
       "message": "should we store as member variable and avoid passing this around for member functions ?",
       "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "764ee1bb_984cefef",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-27T14:34:08Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 5
+      },
+      "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f6313eb_322446a7",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-27T14:34:08Z",
+      "side": 1,
+      "message": "The same code is being used at multiple places. \nSince the system config JSON is not supposed to change for a system, lets extract it once, save it and use it where ever required?",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 123,
+        "endChar": 5
+      },
+      "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dee972e3_7208df37",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-05-27T14:34:08Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 157,
+        "endChar": 5
+      },
+      "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
