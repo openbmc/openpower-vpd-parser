@@ -269,6 +269,30 @@
       },
       "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd9cefc7_8e1d15d1",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-29T09:53:10Z",
+      "side": 1,
+      "message": "@sunnsr25@in.ibm.com\nA suggestion :\nHere we have 2 classes - GpioMonitor and GpioEventHandler\nwe can go ahead with 1 class GpioEventHandler.\nAs GpioMonitor is being used just to init the EvenHandler, we can call initEventHandler from Manager itself.",
+      "parentUuid": "d13da4ec_b9094f0a",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 157,
+        "endChar": 5
+      },
+      "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
