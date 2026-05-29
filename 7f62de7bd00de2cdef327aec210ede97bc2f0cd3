@@ -245,6 +245,30 @@
       },
       "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d13da4ec_b9094f0a",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-29T09:37:00Z",
+      "side": 1,
+      "message": "This is GpioMonitor class , and we use it in only 1 function , so we need to extract it here.\nit can be done for GpioEventHandler, as it is using it in 2 methods.",
+      "parentUuid": "070d624d_3366bd9b",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 157,
+        "endChar": 5
+      },
+      "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
