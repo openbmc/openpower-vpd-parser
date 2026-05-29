@@ -259,5 +259,36 @@ using EepromPathList = std::vector<std::string>;
 using ChassisStateMap =
     std::map<std::string, std::pair<std::string, bool>>;
 
+/**
+ * @brief Result structure for base action execution.
+ *
+ * This structure contains detailed information about the execution of base
+ * actions including tag failures and GPIO presence detection results.
+ */
+struct BaseActionResult
+{
+    /**
+     * @brief Enum representing the presence status of a device.
+     */
+    enum class PresenceStatus
+    {
+        NOT_APPLICABLE, // gpioPresence not defined for this FRU
+        PRESENT,        // Device detected as present (pin read successfully)
+        ABSENT,         // Device detected as absent (pin read successfully)
+        UNKNOWN         // Presence check failed due to exception/error
+    };
+
+    // Overall success/failure of action execution
+    bool m_success = true;
+    // Name of the tag that failed (empty if all succeeded)
+    std::string m_failedTag;
+    // Error code from the failed tag (0 if succeeded)
+    uint16_t m_failedTagErrorCode = 0;
+    // Status of presence detection
+    PresenceStatus m_presenceStatus = PresenceStatus::NOT_APPLICABLE;
+    // Error code from gpioPresence (0 if succeeded or not executed)
+    uint16_t m_gpioPresenceErrorCode = 0;
+};
+
 } // namespace types
 } // namespace vpd
