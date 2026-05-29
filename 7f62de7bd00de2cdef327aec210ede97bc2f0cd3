@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e502813b_c7d9c6ee",
+        "filename": "vpd-manager/include/gpio_monitor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-29T09:10:30Z",
+      "side": 1,
+      "message": "In GPIO monitor , this \"i_configManager\" required in only 1 function, that too being Called from the constructor itself. SO we No need to save it to member variable.\n\nThe one you are seeing I am passing is to Other class \u003cGpioEventHandler\u003e constructor, that I m storing as member variable to use it further for internal functions.",
+      "parentUuid": "cffec35d_ecae5af6",
+      "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "764ee1bb_984cefef",
         "filename": "vpd-manager/src/gpio_monitor.cpp",
         "patchSetId": 8
