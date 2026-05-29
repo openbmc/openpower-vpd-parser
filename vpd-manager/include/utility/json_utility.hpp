@@ -523,6 +523,62 @@ inline bool procesSetGpioTag(
 }
 
 /**
+ * @brief Anonymous namespace to abstract helper APIs only required by other
+ * json utility methods.
+ */
+namespace
+{
+/**
+ * @brief Validate input parameters for base action execution.
+ *
+ * This function is private to this file and used only by executeBaseAction_new.
+ *
+ * @param[in] i_parsedConfigJson - Config JSON object
+ * @param[in] i_action - Base action to be performed
+ * @param[in] i_fruPath - EEPROM file path
+ * @param[in] i_flagToProcess - Flag to identify which tags need processing
+ * @param[out] o_errCode - Error code set in case of validation errors
+ *
+ * @return true if validation passes, false otherwise
+ */
+inline bool validateBaseActionInputs(
+    const nlohmann::json& i_parsedConfigJson, const std::string& i_action,
+    const std::string& i_fruPath, const std::string& i_flagToProcess,
+    uint16_t& o_errCode)
+{
+    o_errCode = 0;
+
+    if (i_flagToProcess.empty() || i_action.empty() || i_fruPath.empty() ||
+        !i_parsedConfigJson.contains("frus"))
+    {
+        o_errCode = error_code::INVALID_INPUT_PARAMETER;
+        return false;
+    }
+
+    if (!i_parsedConfigJson["frus"].contains(i_fruPath))
+    {
+        o_errCode = error_code::FRU_PATH_NOT_FOUND;
+        return false;
+    }
+
+    if (!i_parsedConfigJson["frus"][i_fruPath].at(0).contains(i_action))
+    {
+        o_errCode = error_code::MISSING_ACTION_TAG;
+        return false;
+    }
+
+    if (!(i_parsedConfigJson["frus"][i_fruPath].at(0))[i_action].contains(
+            i_flagToProcess))
+    {
+        o_errCode = error_code::MISSING_FLAG;
+        return false;
+    }
+
+    return true;
+}
+} // namespace
+
+/**
  * @brief Process base action with error reporting and presence detection.
  *
  * This is an enhanced version of executeBaseAction that provides detailed
@@ -570,14 +626,15 @@ inline types::BaseActionResult executeBaseAction_new(
     const std::string& i_fruPath, const std::string& i_flagToProcess,
     uint16_t& o_errCode)
 {
-    // To avoid un used variable error.
-    (void)i_parsedConfigJson;
-    (void)i_action;
-    (void)i_fruPath;
-    (void)i_flagToProcess;
-    (void)o_errCode;
-
     types::BaseActionResult l_actionRes;
+
+    if (!validateBaseActionInputs(i_parsedConfigJson, i_action, i_fruPath,
+                                  i_flagToProcess, o_errCode))
+    {
+        l_actionRes.m_success = false;
+        return l_actionRes;
+    }
+
     return l_actionRes;
 
     /*
