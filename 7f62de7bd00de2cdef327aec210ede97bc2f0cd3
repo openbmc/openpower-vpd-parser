@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3eee910_ae7bc7bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-29T09:14:52Z",
+      "side": 1,
+      "message": "At this point, yes. GpioMonitor instantiation was in ibm-handler, so moved to manager.",
+      "parentUuid": "758bd44a_35c83cb9",
+      "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "31a58adf_7f73ab4e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -31,6 +49,24 @@
       "writtenOn": "2026-05-27T09:00:54Z",
       "side": 1,
       "message": "this commit itself says, testing section will have changes. No need to mention again.",
+      "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1770fabc_1ea2c468",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-05-29T09:14:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31a58adf_7f73ab4e",
       "revId": "7f62de7bd00de2cdef327aec210ede97bc2f0cd3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
