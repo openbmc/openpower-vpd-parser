@@ -523,6 +523,72 @@ inline bool procesSetGpioTag(
 }
 
 /**
+ * @brief Process base action with error reporting and presence detection.
+ *
+ * This is an enhanced version of executeBaseAction that provides detailed
+ * information about tag execution failures and GPIO presence detection results.
+ *
+ * If any FRU(s) requires special handling, this base action can be defined for
+ * that FRU in the config JSON. This function processes all tags under the
+ * specified action and flag, with special handling for gpioPresence tag.
+ *
+ * Key behaviors:
+ * 1. If a non-gpioPresence tag fails:
+ *    - Records the failure information
+ *    - Checks if gpioPresence is defined in the same action/flag
+ *    - If defined and not yet processed, executes gpioPresence
+ *    - Returns detailed result with both failures if gpioPresence also fails
+ *
+ * 2. If gpioPresence tag fails:
+ *    - If error is DEVICE_NOT_PRESENT: Sets presenceStatus=ABSENT (success
+ * case)
+ *    - If error is PIN read error/exception: Sets presenceStatus=UNKNOWN,
+ *      continues processing other tags
+ *    - Records gpioPresence error information
+ *
+ * 3. If all tags succeed:
+ *    - Returns success with appropriate presence status if gpioPresence was
+ * processed
+ *
+ * @param[in] i_parsedConfigJson - Config JSON object
+ * @param[in] i_action - Base action to be performed (e.g., "preAction",
+ * "postAction")
+ * @param[in] i_fruPath - EEPROM file path
+ * @param[in] i_flagToProcess - Flag to identify which tags need processing
+ * @param[out] o_errCode - Error code set in case of validation errors
+ *
+ * @return types::BaseActionResult structure containing:
+ *         - success: Overall execution status
+ *         - failedTag: Name of the tag that failed (empty if all succeeded)
+ *         - failedTagErrorCode: Error code from the failed tag
+ *         - presenceStatus: Device presence status
+ * (NOT_APPLICABLE/PRESENT/ABSENT/UNKNOWN)
+ *         - gpioPresenceErrorCode: Error code from gpioPresence execution
+ */
+inline types::BaseActionResult executeBaseAction_new(
+    const nlohmann::json& i_parsedConfigJson, const std::string& i_action,
+    const std::string& i_fruPath, const std::string& i_flagToProcess,
+    uint16_t& o_errCode)
+{
+    // To avoid un used variable error.
+    (void)i_parsedConfigJson;
+    (void)i_action;
+    (void)i_fruPath;
+    (void)i_flagToProcess;
+    (void)o_errCode;
+
+    types::BaseActionResult l_actionRes;
+    return l_actionRes;
+
+    /*
+    ToDo: This API will replace current implementation of "executeBaseAction".
+    This modification is required to enhance error detection in the process of
+    executing base action(s) defined in JSON and always detect presence of a FRU
+    if presence pin is defined for the FRU.
+    */
+}
+
+/**
  * @brief Process any action, if defined in config JSON.
  *
  * If any FRU(s) requires any special handling, then this base action can be
