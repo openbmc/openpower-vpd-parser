@@ -16,6 +16,24 @@
       "message": "Redundant can fail post this point as well. Then we end up logging two PELs again. Can that be fixed?",
       "revId": "7d7d65eedd065144178b6346c7446b1202cbae0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "584ffa33_2ab2420e",
+        "filename": "vpd-manager/oem-handler/ibm_handler.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-05-29T09:34:42Z",
+      "side": 1,
+      "message": "As discussed, added todo to handle this scenario .",
+      "parentUuid": "e311548f_8a443eb5",
+      "revId": "7d7d65eedd065144178b6346c7446b1202cbae0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
