@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa043093_bdb037e2",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-01T04:54:27Z",
+      "side": 1,
+      "message": "Reader has to map which error code number pointes to what message, instead can we append error message related to the error code.\nsame for below as well.",
+      "revId": "5d22dc461253f384c4d38ec94fd1867a0ea047f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
