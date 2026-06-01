@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "323b4fb4_22dfcf3e",
+        "filename": "vpd-manager/include/worker.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-01T13:27:09Z",
+      "side": 1,
+      "message": "i_sysConfigJsonObj, we are following this at most of the places so will help in maintaining the readability.",
+      "revId": "4c714dbf6736957cbb9b4f38c4df093db171c54e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2013354_1ae514c0",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-01T13:27:09Z",
+      "side": 1,
+      "message": "Since we are making this code change to accommodate changes w.r.t worker. Can you remove the code making use of member worker and instantiate at the place of use itself?\nThis will reduce the scope of worker object and also this check won\u0027t be required.",
+      "revId": "4c714dbf6736957cbb9b4f38c4df093db171c54e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbeafd1d_b9db0ad9",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-01T13:27:09Z",
+      "side": 1,
+      "message": "Instantiate worker here and call deleteFruVpd on that.",
+      "revId": "4c714dbf6736957cbb9b4f38c4df093db171c54e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d54b5f3_70cbf040",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1285,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-01T13:27:09Z",
+      "side": 1,
+      "message": "i_configJson or i_sysConfigJson for better readability.",
+      "revId": "4c714dbf6736957cbb9b4f38c4df093db171c54e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
