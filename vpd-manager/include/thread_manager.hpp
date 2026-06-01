@@ -4,8 +4,10 @@
 #include "types.hpp"
 #include "worker.hpp"
 
+#include <atomic>
 #include <memory>
 #include <mutex>
+#include <queue>
 
 namespace vpd
 {
@@ -75,6 +77,13 @@ class ThreadManager
     // Mutex to guard critical resource
     std::mutex m_mutex;
 
+    // Tracks chassis VPD collection results awaiting processing
+    std::queue<types::ChassisCollectionResult> m_chassisTasks;
+
+    // Chassis VPD collection result, whose action based on the result is
+    // pending
+    std::atomic<size_t> m_chassisCount{0};
+
     /**
      * @brief Trigger multi-threaded VPD collection of all chassis's motherboard
      *
@@ -109,6 +118,36 @@ class ThreadManager
                           const std::string& i_eepromPath,
                           const nlohmann::json& i_chassisJson,
                           const bool i_isPresent) noexcept;
+
+    /**
+     * @brief Process collected chassis VPD results asynchronously.
+     *
+     * This API processes motherboard/chassis VPD collection results pushed into
+     * the chassis task queue. For every collected chassis:
+     *
+     * 1. Pop chassis result from the queue.
+     * 2. Verify chassis presence state.
+     * 3. Launch FRU VPD collection thread pool for the chassis.
+     * 4. Update FRU and chassis collection counters.
+     *
+     * Processing continues until all chassis's VPD collection is completed. The
+     * API additionally waits until FRU VPD collection for all present chassis
+     * is completed.
+     */
+    void processChassisResults() noexcept;
+
+    /**
+     * @brief Launch FRU VPD collection threads for a chassis.
+     *
+     * Creates a thread pool for the provided chassis and initiates
+     * parallel VPD collection for all FRUs belonging to that chassis.
+     *
+     * @param[in] i_chassisEeepromPath - EEPROM path of the chassis where its
+     * VPD is present.
+     * @param[in] i_chassisJson - Chassis based JSON object.
+     */
+    void launchFruCollectionPool(const std::string& i_chassisEeepromPath,
+                                 const nlohmann::json& i_chassisJson) noexcept;
 };
 
 } // namespace vpd
