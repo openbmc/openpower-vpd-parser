@@ -876,7 +876,15 @@ void Manager::performVpdRecollection()
 {
     if (m_worker.get() != nullptr)
     {
-        m_worker->performVpdRecollection();
+        if (!m_configManager)
+        {
+            m_logger->logMessage(
+                "Failed to perform VPD recollection. ConfigManager is not initialized.");
+            return;
+        }
+
+        const nlohmann::json& l_sysCfgJsonObj = m_configManager->getJsonObj();
+        m_worker->performVpdRecollection(l_sysCfgJsonObj);
     }
 }
 

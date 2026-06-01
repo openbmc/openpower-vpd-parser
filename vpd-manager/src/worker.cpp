@@ -1451,12 +1451,11 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
     }
 }
 
-void Worker::performVpdRecollection()
+void Worker::performVpdRecollection(const nlohmann::json& i_sysCfgJsonObj)
 {
     try
     {
-        // Check if system config JSON is present
-        if (m_parsedJson.empty())
+        if (i_sysCfgJsonObj.empty())
         {
             throw std::runtime_error(
                 "System config json object is empty, can't process recollection.");
@@ -1464,7 +1463,7 @@ void Worker::performVpdRecollection()
 
         uint16_t l_errCode = 0;
         const auto& l_frusReplaceableAtStandby =
-            jsonUtility::getListOfFrusReplaceableAtStandby(m_parsedJson,
+            jsonUtility::getListOfFrusReplaceableAtStandby(i_sysCfgJsonObj,
                                                            l_errCode);
 
         if (l_errCode)
@@ -1475,12 +1474,30 @@ void Worker::performVpdRecollection()
             return;
         }
 
+        m_parsedJson = i_sysCfgJsonObj;
+
         for (const auto& l_fruInventoryPath : l_frusReplaceableAtStandby)
         {
-            // ToDo: Add some logic/trace to know the flow to
-            // collectSingleFruVpd has been directed via
-            // performVpdRecollection.
-            collectSingleFruVpd(l_fruInventoryPath);
+            const auto l_fruPath = jsonUtility::getFruPathFromJson(
+                m_parsedJson, l_fruInventoryPath, l_errCode);
+
+            if (l_errCode)
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to get EEPROM path for inventory path [{}], error : {}.",
+                    l_fruInventoryPath,
+                    commonUtility::getErrCodeMsg(l_errCode)));
+                continue;
+            }
+
+            parseAndPublishVPD(l_fruPath);
+
+            /**
+             * @todo Remove this code once threadManager implementation is done.
+             */
+            m_mutex.lock();
+            m_activeCollectionThreadCount--;
+            m_mutex.unlock();
         }
         return;
     }
