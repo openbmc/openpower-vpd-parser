@@ -1451,25 +1451,35 @@ void Worker::setPresentProperty(const std::string& i_vpdPath,
     }
 }
 
-void Worker::performVpdRecollection()
+void Worker::performVpdRecollection(
+    const nlohmann::json& i_sysCfgJsonObj) noexcept
 {
     try
     {
-        // Check if system config JSON is present
-        if (m_parsedJson.empty())
+        if (i_sysCfgJsonObj.empty())
         {
             throw std::runtime_error(
                 "System config json object is empty, can't process recollection.");
         }
 
         uint16_t l_errCode = 0;
+
+        /**
+         * @todo Currently required because the worker APIs use m_parsedJson for
+         * JSON-related operations.
+         *
+         * Remove this assignment once the APIs are updated to accept the JSON
+         * object as an input parameter.
+         */
+        m_parsedJson = i_sysCfgJsonObj;
+
         const auto& l_frusReplaceableAtStandby =
             jsonUtility::getListOfFrusReplaceableAtStandby(m_parsedJson,
                                                            l_errCode);
 
         if (l_errCode)
         {
-            logging::logMessage(
+            m_logger->logMessage(
                 "Failed to get list of FRUs replaceable at runtime, error : " +
                 commonUtility::getErrCodeMsg(l_errCode));
             return;
@@ -1477,10 +1487,26 @@ void Worker::performVpdRecollection()
 
         for (const auto& l_fruInventoryPath : l_frusReplaceableAtStandby)
         {
-            // ToDo: Add some logic/trace to know the flow to
-            // collectSingleFruVpd has been directed via
-            // performVpdRecollection.
-            collectSingleFruVpd(l_fruInventoryPath);
+            const auto l_fruPath = jsonUtility::getFruPathFromJson(
+                m_parsedJson, l_fruInventoryPath, l_errCode);
+
+            if (l_errCode)
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to get EEPROM path for inventory path [{}], error : {}.",
+                    l_fruInventoryPath,
+                    commonUtility::getErrCodeMsg(l_errCode)));
+                continue;
+            }
+
+            parseAndPublishVPD(l_fruPath);
+
+            /**
+             * @todo Remove this code once threadManager implementation is done.
+             */
+            m_mutex.lock();
+            m_activeCollectionThreadCount--;
+            m_mutex.unlock();
         }
         return;
     }

@@ -87,9 +87,13 @@ void Listener::hostStateChangeCallBack(
                                 "TransitioningToRunning")
             {
                 // TODO: check for all the essential FRUs in the system.
+                if (!m_configManager)
+                {
+                    throw std::runtime_error(
+                        "Cannot perform VPD recollection as ConfigManager is not initialized");
+                }
 
-                // Perform recollection.
-                Worker{}.performVpdRecollection();
+                Worker{}.performVpdRecollection(m_configManager->getJsonObj());
             }
         }
         else
