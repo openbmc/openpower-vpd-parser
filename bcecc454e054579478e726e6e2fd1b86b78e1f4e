@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0f9c16a_e22b03af",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-01T06:00:26Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9f0ddf5c_3867de20",
+      "revId": "bcecc454e054579478e726e6e2fd1b86b78e1f4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff54be7c_292ff2cf",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-01T05:54:57Z",
       "side": 1,
       "message": "This class is instantiated per fru basis.\nDo we need complete system specific JSON in this class?",
+      "revId": "bcecc454e054579478e726e6e2fd1b86b78e1f4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e22871b0_a55276a6",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-01T06:00:26Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ff54be7c_292ff2cf",
       "revId": "bcecc454e054579478e726e6e2fd1b86b78e1f4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
