@@ -259,5 +259,7 @@ using EepromPathList = std::vector<std::string>;
 using ChassisStateMap =
     std::map<std::string, std::pair<std::string, bool>>;
 
+// Tuple of <Is FRU Present, EEPROM Path, chassis Json object>
+using ChassisCollectionResult = std::tuple<bool, std::string, nlohmann::json>;
 } // namespace types
 } // namespace vpd
