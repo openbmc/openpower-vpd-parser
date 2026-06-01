@@ -187,10 +187,13 @@ class Worker
 
     /**
      * @brief  Perform VPD recollection
+     *
      * This api will trigger parser to perform VPD recollection for FRUs that
      * can be replaced at standby.
+     *
+     * @param[in] i_sysCfgJsonObj - System config JSON object.
      */
-    void performVpdRecollection();
+    void performVpdRecollection(const nlohmann::json& i_sysCfgJsonObj) noexcept;
 
     /**
      * @brief API to process FRU collection

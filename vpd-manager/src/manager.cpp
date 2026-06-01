@@ -878,10 +878,15 @@ types::ListOfPaths Manager::getFrusByExpandedLocationCode(
 
 void Manager::performVpdRecollection()
 {
-    if (m_worker.get() != nullptr)
+    if (!m_configManager)
     {
-        m_worker->performVpdRecollection();
+        m_logger->logMessage(
+            "Failed to perform VPD recollection. ConfigManager is not initialized.");
+        return;
     }
+
+    const nlohmann::json& l_sysCfgJsonObj = m_configManager->getJsonObj();
+    Worker{}.performVpdRecollection(l_sysCfgJsonObj);
 }
 
 bool Manager::collectAllFruVpd() const noexcept
