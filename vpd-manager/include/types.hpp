@@ -290,5 +290,7 @@ struct BaseActionResult
     uint16_t m_gpioPresenceErrorCode = 0;
 };
 
+// Tuple of <Is FRU Present, EEPROM Path, chassis Json object>
+using ChassisCollectionResult = std::tuple<bool, std::string, nlohmann::json>;
 } // namespace types
 } // namespace vpd
