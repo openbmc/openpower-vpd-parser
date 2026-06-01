@@ -40,6 +40,9 @@ void ThreadManager::collectAllChassisVpd()
         // ToDo: colllection status needs to be updated at this point.
     }
 
+    // Update the chassis count
+    m_chassisCount = l_chassisToMotherboardEepromMap.size();
+
     m_logger->logMessage(
         std::format(
             "Starting multi-threaded motherboard VPD collection for {} chassis",
@@ -83,6 +86,12 @@ void ThreadManager::collectAllChassisVpd()
                 updateSystemView(l_chassisId, l_eepromPath, l_chassisJson,
                                  l_isPresent);
 
+                {
+                    std::lock_guard<std::mutex> l_lock(m_mutex);
+                    m_chassisResultQueue.push(std::make_tuple(
+                        l_isPresent, l_eepromPath, l_chassisJson));
+                }
+
                 m_logger->logMessage(
                     std::format("Completed VPD collection for EEPROM [{}]. "
                                 "Present: {}, Status: {}, ErrorCode: {}",
@@ -105,20 +114,16 @@ void ThreadManager::collectAllChassisVpd()
 
 void ThreadManager::collectAllFruVpd()
 {
-    /*
-     * TODO: Implement multi-threaded VPD collection for all FRUs in the system
-     *
-     * This API orchestrates VPD collection for all FRUs across all chassis.
-     *
-     * Implementation plan:
-     *
-     * 1. Create thread pool for parallel VPD collection:
-     * 2. Track progress and publish status to D-Bus:
-     *    a. Update collection status (In Progress, Completed, Failed)
-     * 3. Handle errors gracefully:
-     *
-     */
-    collectAllChassisVpd();
+    std::thread{[this]() {
+        collectAllChassisVpd();
+
+        processChassisResults();
+
+        // ToDo: update collection status as completed
+    }}.detach();
+
+    m_logger->logMessage("All FRUs VPD collection initiated.",
+                         PlaceHolder::COLLECTION);
 }
 
 void ThreadManager::updateSystemView(
@@ -141,5 +146,30 @@ void ThreadManager::updateSystemView(
         m_chassisStateMap.emplace(i_chassisId,
                                   std::make_pair(l_invPath, i_isPresent));
     }
+}
+
+void ThreadManager::processChassisResults() noexcept
+{
+    /**
+     * @todo Complete asynchronous chassis result processing flow:
+     * 1. Wait in a loop until all chassis motherboard VPD and its FRUs VPD
+     * collections are completed.
+     * 2. Launch chassis specific FRU VPD collection thread
+     * pool(launchFruCollectionPool), to collect its FRUs VPD if that chassis is
+     * present.
+     * 3. Update chassis counter and frus counter accordingly.
+     */
+}
+
+void ThreadManager::launchFruCollectionPool(
+    [[maybe_unused]] const std::string& i_chassisEeepromPath,
+    [[maybe_unused]] const nlohmann::json& i_chassisJson) noexcept
+{
+    /**
+     * @todo
+     * 1. create iterator to chassis based json object for i_chassisJson
+     * 2. Launch threads to collect chassis based FRUs VPD using created
+     * iterator, and skip collecting VPD of i_chassisEeepromPath again.
+     */
 }
 } // namespace vpd
