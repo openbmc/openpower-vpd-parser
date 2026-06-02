@@ -33,6 +33,24 @@
       "message": "Suggestion: can we use `std::expected\u003ctypes::BaseActionResult, error_code\u003e` to make it explicitly clear that the API can return either data or error code?\n\nIts a modern, type-safe alternative to the legacy C-style pattern of passing output parameter by reference.",
       "revId": "c0fdf1019e15706f8ed976dc720734400989b022",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb38362d_7ec351f2",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-02T14:16:10Z",
+      "side": 1,
+      "message": "Either is not the expectation here by design.\nMultiple error codes can be returned from the API and Base action result data fields are needed to check other tags and presence even in case of error codes. So the structure has to be returned always.",
+      "parentUuid": "be32faa3_147310f9",
+      "revId": "c0fdf1019e15706f8ed976dc720734400989b022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
