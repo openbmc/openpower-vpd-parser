@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2155c82_21bc195e",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-02T13:37:12Z",
+      "side": 1,
+      "message": "Can we optimize this? We are logging twice in a failure path.Can this be optimized where it logs only once taking care of both the cases?",
+      "revId": "2a2c68c55f5926894d2e6ef662dda3d2e4d70af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
