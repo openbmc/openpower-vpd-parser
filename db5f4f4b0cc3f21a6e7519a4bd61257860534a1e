@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13720a9e_ed113580",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-02T06:39:56Z",
+      "side": 1,
+      "message": "A brief statement explaining why the older approach is being commented out would be helpful.",
+      "revId": "db5f4f4b0cc3f21a6e7519a4bd61257860534a1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba0825fe_78c852e9",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-02T06:39:56Z",
+      "side": 1,
+      "message": "Suggestion: we generally have error codes in utility APIs to let caller know what exactly failed. Based on the type of failure, caller can take decision as needed. \n\nShould we have a return type of `std::expected\u003ctypes::ObjectMap,error_code\u003e` for this API as well?",
+      "revId": "db5f4f4b0cc3f21a6e7519a4bd61257860534a1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eec507bf_4a834b13",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-02T06:39:56Z",
+      "side": 1,
+      "message": "`ConfigManager::getInventoryPaths()` public API returns inventory path(s) for a given unexpanded location code. \n\nWhy can\u0027t we convert the expanded location code to unexpanded location code and use the `ConfigManager` API? This avoids a D-Bus call and looping through a map of managed objects to search for a match.",
+      "revId": "db5f4f4b0cc3f21a6e7519a4bd61257860534a1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
