@@ -223,6 +223,40 @@ inline types::DbusVariantType readKeywordFromHardware(
 }
 
 /**
+ * @brief API to validate redundant EEPROM via D-Bus.
+ *
+ * This API calls the VPD Manager's ValidateRedundantEEPROM method
+ * to check if the given EEPROM matches its redundant copy.
+ *
+ * @param[in] i_fruPath - EEPROM file path.
+ *
+ * @return - true if validation succeeds, false otherwise
+ *
+ * @throw sdbusplus::exception::SdBusError, std::runtime_error
+ */
+inline bool callValidateRedundantEeprom(const std::string& i_fruPath)
+{
+    if (i_fruPath.empty())
+    {
+        throw std::runtime_error("Empty EEPROM path");
+    }
+
+    auto l_bus = sdbusplus::bus::new_default();
+
+    auto l_method = l_bus.new_method_call(
+        constants::vpdManagerService, constants::vpdManagerObjectPath,
+        constants::vpdManagerInfName, constants::validateRedundantEepromMethod);
+
+    l_method.append(i_fruPath);
+    auto l_result = l_bus.call(l_method);
+
+    bool l_isValid = false;
+    l_result.read(l_isValid);
+
+    return l_isValid;
+}
+
+/**
  * @brief API to save keyword's value on file.
  *
  * API writes keyword's value on the given file path. If the data is in hex
