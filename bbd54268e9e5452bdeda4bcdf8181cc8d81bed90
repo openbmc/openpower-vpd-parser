@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79ee4110_a493d311",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-02T08:40:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31d838f1_02439dea",
+      "revId": "bbd54268e9e5452bdeda4bcdf8181cc8d81bed90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8909d05_be3fb207",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-02T06:23:12Z",
       "side": 1,
       "message": "A comment describing this counter will be helpful.",
+      "revId": "bbd54268e9e5452bdeda4bcdf8181cc8d81bed90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36df82b5_abb1f8d2",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-02T08:40:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8909d05_be3fb207",
       "revId": "bbd54268e9e5452bdeda4bcdf8181cc8d81bed90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5d38a42_307ae7b7",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-02T08:40:04Z",
+      "side": 1,
+      "message": "added parenthesis to limit mutex locking period only till pushing task to queue, beyond that lock scope is not needed.",
+      "parentUuid": "721b0e0d_69a5cb14",
+      "revId": "bbd54268e9e5452bdeda4bcdf8181cc8d81bed90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bef81853_2db10d50",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 2
@@ -65,6 +119,24 @@
       "writtenOn": "2026-06-02T06:23:12Z",
       "side": 1,
       "message": "\u003eAdd synchronization for overall VPD collection completion handling.\n\nWhy is synchronization required for overall VPD collection status?\nOnce overall collection is done, the infinite loop in this API should exit and then we can do the post all VPD collection processing.",
+      "revId": "bbd54268e9e5452bdeda4bcdf8181cc8d81bed90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9460984f_bd58c47c",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-02T08:40:04Z",
+      "side": 1,
+      "message": "agree, point-1 enough for exit condition, removed this line. post this api call completion status is handled.",
+      "parentUuid": "bef81853_2db10d50",
       "revId": "bbd54268e9e5452bdeda4bcdf8181cc8d81bed90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
