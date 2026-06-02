@@ -16,6 +16,24 @@
       "message": "Should we rephrase this log? It looks like two independent statements, but the second part is reason for the validation failure.",
       "revId": "d3eaedd7d13994b6edf8e5314601144788dc7c9c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa2c1567_41425fea",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-02T07:04:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a69c53f9_edd5591d",
+      "revId": "d3eaedd7d13994b6edf8e5314601144788dc7c9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
