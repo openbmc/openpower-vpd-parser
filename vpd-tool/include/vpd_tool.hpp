@@ -371,5 +371,18 @@ class VpdTool
      * the directory from the filesystem
      */
     void clearVpdDumpDir() const noexcept;
+
+    /**
+     * @brief Validate redundant EEPROM.
+     *
+     * This API validates whether the given EEPROM's VPD matches that of its
+     * redundant EEPROM by calling the ValidateRedundantEEPROM method exposed
+     * by VPD-Manager.
+     *
+     * @param[in] i_fruPath - EEPROM path of the FRU.
+     *
+     * @return On success returns 0, otherwise returns -1.
+     */
+    int validateRedundantEeprom(const std::string& i_fruPath) const noexcept;
 };
 } // namespace vpd
