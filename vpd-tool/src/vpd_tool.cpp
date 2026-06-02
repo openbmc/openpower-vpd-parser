@@ -8,6 +8,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <print>
 #include <regex>
 #include <tuple>
 namespace vpd
@@ -1609,6 +1610,41 @@ void VpdTool::clearVpdDumpDir() const noexcept
                          std::string(constants::badVpdPath) + "]. Error: "
                   << l_ex.what() << std::endl;
     }
+}
+
+int VpdTool::validateRedundantEeprom(
+    const std::string& i_fruPath) const noexcept
+{
+    int l_rc = constants::FAILURE;
+
+    try
+    {
+        bool l_isValid = utils::validateRedundantEeprom(i_fruPath);
+
+        if (l_isValid)
+        {
+            std::println(
+                "Validation successful: Given EEPROM [{}] and its redundant EEPROM have matching VPD.",
+                i_fruPath);
+            l_rc = constants::SUCCESS;
+        }
+        else
+        {
+            std::println(
+                stderr,
+                "Validation failed: Given EEPROM [{}] and its redundant EEPROM have mismatched VPD. "
+                "Check system logs for detailed mismatch information.",
+                i_fruPath);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        std::println(
+            stderr,
+            "Failed to validate EEPROM [{}] against its redundant EEPROM. Error: {}",
+            i_fruPath, l_ex.what());
+    }
+    return l_rc;
 }
 
 } // namespace vpd
