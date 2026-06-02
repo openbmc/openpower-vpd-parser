@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68895dd6_e97c0947",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-02T18:38:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13720a9e_ed113580",
+      "revId": "db5f4f4b0cc3f21a6e7519a4bd61257860534a1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba0825fe_78c852e9",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee6262d7_28761fc0",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-02T18:38:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba0825fe_78c852e9",
+      "revId": "db5f4f4b0cc3f21a6e7519a4bd61257860534a1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eec507bf_4a834b13",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-06-02T06:39:56Z",
       "side": 1,
       "message": "`ConfigManager::getInventoryPaths()` public API returns inventory path(s) for a given unexpanded location code. \n\nWhy can\u0027t we convert the expanded location code to unexpanded location code and use the `ConfigManager` API? This avoids a D-Bus call and looping through a map of managed objects to search for a match.",
+      "revId": "db5f4f4b0cc3f21a6e7519a4bd61257860534a1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aba78cc8_93833790",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-02T18:38:10Z",
+      "side": 1,
+      "message": "This API retrieves FRUs based on the expanded location code. For unexpanded location codes, a separate API is available. We may revisit and utilize that API in the future if required.",
+      "parentUuid": "eec507bf_4a834b13",
       "revId": "db5f4f4b0cc3f21a6e7519a4bd61257860534a1e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
