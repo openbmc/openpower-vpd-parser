@@ -1611,4 +1611,65 @@ void VpdTool::clearVpdDumpDir() const noexcept
     }
 }
 
+int VpdTool::validateRedundantEeprom(
+    const std::string& i_fruPath) const noexcept
+{
+    int l_rc = constants::FAILURE;
+
+    // Validate EEPROM path exists
+    std::error_code l_ec;
+    if (!std::filesystem::exists(i_fruPath, l_ec))
+    {
+        if (l_ec)
+        {
+            std::cerr << "Failed to check if EEPROM path exists, reason: "
+                      << l_ec.message() << std::endl;
+        }
+        else
+        {
+            std::cerr << "Given EEPROM file path doesn't exist [" << i_fruPath
+                      << "]." << std::endl;
+        }
+        return constants::FAILURE;
+    }
+
+    try
+    {
+        auto l_bus = sdbusplus::bus::new_default();
+
+        auto l_method = l_bus.new_method_call(
+            constants::vpdManagerService, constants::vpdManagerObjectPath,
+            constants::vpdManagerInfName,
+            constants::validateRedundantEepromMethod);
+
+        l_method.append(i_fruPath);
+        auto l_result = l_bus.call(l_method);
+
+        bool l_isValid = false;
+        l_result.read(l_isValid);
+
+        if (l_isValid)
+        {
+            std::cout << "Validation successful: Primary EEPROM [" << i_fruPath
+                      << "] and its redundant EEPROM have matching VPD."
+                      << std::endl;
+            l_rc = constants::SUCCESS;
+        }
+        else
+        {
+            std::cerr << "Validation failed: Primary EEPROM [" << i_fruPath
+                      << "] and its redundant EEPROM have mismatched VPD."
+                      << std::endl;
+            std::cerr << "Check system logs for detailed mismatch information."
+                      << std::endl;
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        std::cerr << "Failed to validate redundant EEPROM for [" << i_fruPath
+                  << "]. Error: " << l_ex.what() << std::endl;
+    }
+    return l_rc;
+}
+
 } // namespace vpd
