@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "307cf692_6149d999",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-02T14:34:44Z",
+      "side": 1,
+      "message": "Better name which tells what is the purpose?\nm_chassisResultQueue? as your comment says it will have chassis result?",
+      "range": {
+        "startLine": 81,
+        "startChar": 47,
+        "endLine": 81,
+        "endChar": 61
+      },
+      "revId": "590755084cb1296f369fc0c2404714760bc1645c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bde5b52_2f3ed3f2",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-02T14:34:44Z",
+      "side": 1,
+      "message": "Having a counter here will work?",
+      "revId": "590755084cb1296f369fc0c2404714760bc1645c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "744f27c1_45c296b2",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-02T14:34:44Z",
+      "side": 1,
+      "message": "Need to update the TODO as implementation is being added here or these are still TODOs after this commit in this API?",
+      "revId": "590755084cb1296f369fc0c2404714760bc1645c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55c0533c_a1339697",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-02T14:34:44Z",
+      "side": 1,
+      "message": "Already have a PEL logged for this info.",
+      "revId": "590755084cb1296f369fc0c2404714760bc1645c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
