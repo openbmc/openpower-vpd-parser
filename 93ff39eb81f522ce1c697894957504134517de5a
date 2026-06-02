@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72cc0d14_f6ad2985",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-02T08:33:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6f5d127b_344ec404",
+      "revId": "93ff39eb81f522ce1c697894957504134517de5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4cda2fc_f6a95a8f",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8970f6e3_54c4c46f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-02T08:33:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e4cda2fc_f6a95a8f",
+      "revId": "93ff39eb81f522ce1c697894957504134517de5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76beace3_12424427",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-06-02T06:12:55Z",
       "side": 1,
       "message": "I see this variable is not being used .",
+      "revId": "93ff39eb81f522ce1c697894957504134517de5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ae39b5a_c2cb148b",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-02T08:33:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "76beace3_12424427",
       "revId": "93ff39eb81f522ce1c697894957504134517de5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aed7497b_b78cb7b8",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-02T08:33:45Z",
+      "side": 1,
+      "message": "It should be validated when need to use it. like -\n  if (m_asioConnection \u003d\u003d nullptr)\n        {           \n            throw std::runtime_error(\n                \"Cannot register collection status callback on null connection\");\n        }",
+      "parentUuid": "28acd6cb_e395b74d",
+      "revId": "93ff39eb81f522ce1c697894957504134517de5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ad53ee8_e5da57c4",
         "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
         "patchSetId": 7
@@ -99,6 +171,24 @@
       "writtenOn": "2026-06-02T06:12:55Z",
       "side": 1,
       "message": "IbmHandler resolves the JSON and stores in m_sysCfgJsonObj member, does IbmHandler needs i_configManager from outside ?",
+      "revId": "93ff39eb81f522ce1c697894957504134517de5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c01e579_a9b190fb",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-02T08:33:45Z",
+      "side": 1,
+      "message": "i_configManager is not passed to ibmHandler.\nIt is passed to initEventListener, which will be used to init the Listener object.\n\nIn next commit, Listener class will use it to get the chassisBased Json and pass it to deleteFRUVPD.",
+      "parentUuid": "0ad53ee8_e5da57c4",
       "revId": "93ff39eb81f522ce1c697894957504134517de5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +210,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a02805eb_4ba8c62c",
+        "filename": "vpd-manager/oem-handler/ibm_handler.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-02T08:33:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f166c406_72954ac2",
+      "revId": "93ff39eb81f522ce1c697894957504134517de5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb903721_ba145971",
@@ -133,6 +241,24 @@
       "writtenOn": "2026-06-02T06:12:55Z",
       "side": 1,
       "message": "\"Instantiate Listener object\" should be enough ?",
+      "revId": "93ff39eb81f522ce1c697894957504134517de5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75f79f08_2122a5bb",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-02T08:33:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cb903721_ba145971",
       "revId": "93ff39eb81f522ce1c697894957504134517de5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
