@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31d838f1_02439dea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-02T06:23:12Z",
+      "side": 1,
+      "message": "The commit message doesn\u0027t explicitly mention why this async changes are needed.",
+      "revId": "bbd54268e9e5452bdeda4bcdf8181cc8d81bed90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8909d05_be3fb207",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-02T06:23:12Z",
+      "side": 1,
+      "message": "A comment describing this counter will be helpful.",
+      "revId": "bbd54268e9e5452bdeda4bcdf8181cc8d81bed90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "721b0e0d_69a5cb14",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-02T06:23:12Z",
+      "side": 1,
+      "message": "Are these parenthesis needed?",
+      "revId": "bbd54268e9e5452bdeda4bcdf8181cc8d81bed90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bef81853_2db10d50",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-02T06:23:12Z",
+      "side": 1,
+      "message": "\u003eAdd synchronization for overall VPD collection completion handling.\n\nWhy is synchronization required for overall VPD collection status?\nOnce overall collection is done, the infinite loop in this API should exit and then we can do the post all VPD collection processing.",
+      "revId": "bbd54268e9e5452bdeda4bcdf8181cc8d81bed90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
