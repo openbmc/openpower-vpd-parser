@@ -16,6 +16,24 @@
       "message": "We don\u0027t have to update status here else it will be duplicate. My comment was to handle it when the call was not reaching parseAndPublish, so the handling should be in worker-\u003ecollectFruVpd where the API returns before calling parse and publish?",
       "revId": "1d5d2559869a6f02cbf2349e53da055f484971f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc38be7c_2abb36da",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-02T09:20:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fc107e7_d2619d55",
+      "revId": "1d5d2559869a6f02cbf2349e53da055f484971f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
