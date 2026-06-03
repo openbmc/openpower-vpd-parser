@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a60003b3_199e0fde",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1811,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-03T03:49:51Z",
+      "side": 1,
+      "message": "as i_fruPath is empty, so no need to call setFailedStatus.",
+      "revId": "8cba78e509074c76dadb6db6b8c7505e6eb29dd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
