@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48fede2a_7daf9250",
+        "filename": "vpd-manager/include/gpio_monitor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-03T06:04:49Z",
+      "side": 1,
+      "message": "checking it in API, before using it.",
+      "parentUuid": "57d8b90e_d3d9dd48",
+      "revId": "986ce04f552a0270670e4225a28cc7eef76dda12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e24c327_78b6127a",
         "filename": "vpd-manager/include/gpio_monitor.hpp",
         "patchSetId": 12
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-03T04:46:26Z",
       "side": 1,
       "message": "variable is saying chassis based json, but comment is saying its system json.",
+      "revId": "986ce04f552a0270670e4225a28cc7eef76dda12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9442b20_0cbe31ab",
+        "filename": "vpd-manager/include/gpio_monitor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-03T06:04:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3e24c327_78b6127a",
       "revId": "986ce04f552a0270670e4225a28cc7eef76dda12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,24 @@
       "writtenOn": "2026-06-02T13:54:25Z",
       "side": 1,
       "message": "Why not use the same variable defined in the else part by increasing its scope?",
+      "revId": "986ce04f552a0270670e4225a28cc7eef76dda12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4f0096c_bf5afb66",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-03T06:04:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "10f98d5c_f79e2ae0",
       "revId": "986ce04f552a0270670e4225a28cc7eef76dda12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7f39ce6_c9d92899",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-03T06:04:49Z",
+      "side": 1,
+      "message": "This commit is independent of any other commit.\nBut yes, deleteFruVpd commit is dependant on this.",
+      "parentUuid": "3732495c_be1f774f",
+      "revId": "986ce04f552a0270670e4225a28cc7eef76dda12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d785621c_b27aefca",
         "filename": "vpd-manager/src/gpio_monitor.cpp",
         "patchSetId": 12
@@ -82,6 +154,24 @@
       "writtenOn": "2026-06-03T04:46:26Z",
       "side": 1,
       "message": "why to call get() instead we can directly compare, or in modern c++ we can also use !m_configManager",
+      "revId": "986ce04f552a0270670e4225a28cc7eef76dda12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "278e4c0f_a5e09367",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-03T06:04:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d785621c_b27aefca",
       "revId": "986ce04f552a0270670e4225a28cc7eef76dda12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +195,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d2a1890_bd7b72c1",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-03T06:04:49Z",
+      "side": 1,
+      "message": "we can do that also.\nBut this API setEventHandlerForGpioPresence is called from constructor only.\nThis is not an API which will be called later on.\nAnd keeping the code here will keep the constructor clean.",
+      "parentUuid": "9eaa2eef_e1a8a689",
+      "revId": "986ce04f552a0270670e4225a28cc7eef76dda12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8997a522_6ceae42b",
         "filename": "vpd-manager/src/gpio_monitor.cpp",
         "patchSetId": 12
@@ -116,6 +224,24 @@
       "writtenOn": "2026-06-03T04:46:26Z",
       "side": 1,
       "message": "why get() call can we compare directly.",
+      "revId": "986ce04f552a0270670e4225a28cc7eef76dda12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a8afbd2_389b3261",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-03T06:04:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8997a522_6ceae42b",
       "revId": "986ce04f552a0270670e4225a28cc7eef76dda12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
