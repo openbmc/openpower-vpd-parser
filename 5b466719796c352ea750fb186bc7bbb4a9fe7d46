@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4897c46e_4d46c320",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-03T13:36:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63abbc5b_745d016a",
+      "revId": "5b466719796c352ea750fb186bc7bbb4a9fe7d46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51c1e814_4f1d3b4c",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-03T12:14:46Z",
       "side": 1,
       "message": "Have you tested this patch, and found any match for this interface?\n\nconstants::locationCodeInf is xyz.openbmc_project.Inventory.Decorator.LocationCode,\nbut I don\u0027t see this interface with any of the bus object in returned data,l_managedObjectsResult.\nBut all the location code is with  \"com.ibm.ipzvpd.Location\"",
+      "revId": "5b466719796c352ea750fb186bc7bbb4a9fe7d46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cba2070_00a1d4b8",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-03T13:36:23Z",
+      "side": 1,
+      "message": "Location code is published under \u003cxyz.openbmc_project.Inventory.Decorator.LocationCode\u003e  interface",
+      "parentUuid": "51c1e814_4f1d3b4c",
       "revId": "5b466719796c352ea750fb186bc7bbb4a9fe7d46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
