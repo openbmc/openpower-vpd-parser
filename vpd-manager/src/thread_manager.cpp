@@ -130,6 +130,7 @@ void ThreadManager::collectAllChassisVpd()
                     std::lock_guard<std::mutex> l_lock(m_mutex);
                     m_chassisResultQueue.push(std::make_tuple(
                         l_isPresent, l_eepromPath, l_chassisJson));
+                    m_completionCv.notify_all();
                 }
 
                 m_logger->logMessage(
@@ -220,26 +221,64 @@ void ThreadManager::updateSystemView(
 
 void ThreadManager::processChassisResults() noexcept
 {
-    /**
-     * @todo Complete asynchronous chassis result processing flow:
-     * 1. Wait in a loop until all chassis motherboard VPD and its FRUs VPD
-     * collections are completed.
-     * 2. Launch chassis specific FRU VPD collection thread
-     * pool(launchFruCollectionPool), to collect its FRUs VPD if that chassis is
-     * present.
-     * 3. Update chassis counter and frus counter accordingly.
-     */
+    while (true)
+    {
+        types::ChassisCollectionResult l_task;
+
+        {
+            std::unique_lock<std::mutex> l_lock(m_mutex);
+
+            // Continue until all pending tasks are over
+            m_completionCv.wait(l_lock, [this]() {
+                return (!m_chassisResultQueue.empty() ||
+                        (!m_chassisCount && !m_frusCount));
+            });
+
+            // Exit when all chassis and FRU VPD collection is complete
+            if (!m_chassisCount && !m_frusCount)
+            {
+                return;
+            }
+
+            l_task = m_chassisResultQueue.front();
+            m_chassisResultQueue.pop();
+        }
+
+        const auto& l_chassisEeepromPath = std::get<1>(l_task);
+        const auto& l_chassisJson = std::get<2>(l_task);
+
+        // Collect FRUs for present chassis
+        if (std::get<0>(l_task))
+        {
+            // ToDo: Update m_frusCount based on the chassis Json.
+
+            const size_t i_maxThreadsPerChassis = std::max<size_t>(
+                1,
+                constants::MAX_THREADS /
+                    m_configManager->getChassisToMotherboardEepromMap().size());
+
+            launchFruCollectionPool(l_chassisEeepromPath, l_chassisJson,
+                                    i_maxThreadsPerChassis);
+        }
+
+        // Decrement chassis count after actions on the chassis result are
+        // complete
+        --m_chassisCount;
+        m_completionCv.notify_all();
+    }
 }
 
 void ThreadManager::launchFruCollectionPool(
     [[maybe_unused]] const std::string& i_chassisEeepromPath,
-    [[maybe_unused]] const nlohmann::json& i_chassisJson) noexcept
+    [[maybe_unused]] const nlohmann::json& i_chassisJson,
+    [[maybe_unused]] const size_t i_maxThreadsPerChassis) noexcept
 {
     /**
      * @todo
      * 1. create iterator to chassis based json object for i_chassisJson
      * 2. Launch threads to collect chassis based FRUs VPD using created
      * iterator, and skip collecting VPD of i_chassisEeepromPath again.
+     * 3. Decrement FRU count on FRU VPD completion.
      */
 }
 } // namespace vpd
