@@ -87,6 +87,24 @@
       "parentUuid": "3cba2070_00a1d4b8",
       "revId": "5b466719796c352ea750fb186bc7bbb4a9fe7d46",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab5ef70d_514983d4",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-03T14:13:15Z",
+      "side": 1,
+      "message": "This call returns either ObjectMap or failure error code , so in success case that ObjectMap contains all objects returned by the service under the requested path, and for each object all interfaces and their properties. and next we are checking whether location code Inf exists or not . If it does not, skip to next iteration .",
+      "parentUuid": "bb32e8bf_16c34a90",
+      "revId": "5b466719796c352ea750fb186bc7bbb4a9fe7d46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
