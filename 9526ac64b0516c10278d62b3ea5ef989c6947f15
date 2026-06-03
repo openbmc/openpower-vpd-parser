@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf855ca7_8a6a751f",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1818,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-03T06:25:54Z",
+      "side": 1,
+      "message": "Its not required to set collection status in this case, if \"frus\" tag is not present in JSON, \"setCollectionStatusProperty\" API will also set the same error code and return.",
+      "revId": "9526ac64b0516c10278d62b3ea5ef989c6947f15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "785d2b8b_3a73c077",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1826,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-03T06:25:54Z",
+      "side": 1,
+      "message": "same here also, if fru path is not present, setCollectionStatusProperty API returns it will not set any status.",
+      "revId": "9526ac64b0516c10278d62b3ea5ef989c6947f15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
