@@ -85,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c2b9643_beb579bb",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-03T04:55:34Z",
+      "side": 1,
+      "message": "\"l_chassisToMotherboardEepromMap.size()\" does not guarantee that thread will be launched for all those chassis and if that happens where there is a mismatch in the number of threads actually launched and the size fetched here then the counter will never reach zero after it is decremented post chassis collection.\n\nThis will lead to a situation where collection status will never reach to a completion state.\nAs per the current flow this won\u0027t work.",
+      "parentUuid": "d0c4c79c_995f20df",
+      "revId": "590755084cb1296f369fc0c2404714760bc1645c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "744f27c1_45c296b2",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 4
@@ -149,6 +167,24 @@
       "side": 1,
       "message": "Added this log to get the over all time taken for this task to complete, logs will be added in the beginning and at the completion of collection process.",
       "parentUuid": "55c0533c_a1339697",
+      "revId": "590755084cb1296f369fc0c2404714760bc1645c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f94943d_7bd82559",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-03T04:55:34Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "9dd60598_0ed076ca",
       "revId": "590755084cb1296f369fc0c2404714760bc1645c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
