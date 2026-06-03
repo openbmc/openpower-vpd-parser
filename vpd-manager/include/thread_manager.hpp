@@ -7,6 +7,7 @@
 #include <sdbusplus/asio/object_server.hpp>
 
 #include <atomic>
+#include <condition_variable>
 #include <memory>
 #include <mutex>
 #include <queue>
@@ -94,6 +95,12 @@ class ThreadManager
     // pending
     std::atomic<size_t> m_chassisCount{0};
 
+    // Number of FRUs pending VPD collection
+    std::atomic<size_t> m_frusCount{0};
+
+    // Condition variable to signal chassis and FRU VPD completion
+    std::condition_variable m_completionCv;
+
     /**
      * @brief Trigger multi-threaded VPD collection of all chassis's motherboard
      *
@@ -167,9 +174,12 @@ class ThreadManager
      * @param[in] i_chassisEeepromPath - EEPROM path of the chassis where its
      * VPD is present.
      * @param[in] i_chassisJson - Chassis based JSON object.
+     * @param[in] i_maxThreadsPerChassis - Maximum threads allowed for
+     * collecting FRUs VPD per chassis.
      */
     void launchFruCollectionPool(const std::string& i_chassisEeepromPath,
-                                 const nlohmann::json& i_chassisJson) noexcept;
+                                 const nlohmann::json& i_chassisJson,
+                                 const size_t i_maxThreadsPerChassis) noexcept;
 };
 
 } // namespace vpd
