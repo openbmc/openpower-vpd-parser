@@ -103,6 +103,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5890933_fc4fcbde",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-03T06:46:37Z",
+      "side": 1,
+      "message": "Acknowledged, addressed the issue.",
+      "parentUuid": "8c2b9643_beb579bb",
+      "revId": "590755084cb1296f369fc0c2404714760bc1645c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "744f27c1_45c296b2",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 4
