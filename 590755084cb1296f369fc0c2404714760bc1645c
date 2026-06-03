@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "728c3373_a4a2278b",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-03T03:49:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "307cf692_6149d999",
+      "range": {
+        "startLine": 81,
+        "startChar": 47,
+        "endLine": 81,
+        "endChar": 61
+      },
+      "revId": "590755084cb1296f369fc0c2404714760bc1645c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9bde5b52_2f3ed3f2",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-06-02T14:34:44Z",
       "side": 1,
       "message": "Having a counter here will work?",
+      "revId": "590755084cb1296f369fc0c2404714760bc1645c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0c4c79c_995f20df",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-03T03:49:33Z",
+      "side": 1,
+      "message": "l_chassisToMotherboardEepromMap is captured and validated in this API every time whenever collectAllFruVpd is called. It is the right place to get the chassis count before launching threads to collect VPD asynchronously.",
+      "parentUuid": "9bde5b52_2f3ed3f2",
       "revId": "590755084cb1296f369fc0c2404714760bc1645c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f10c9403_f9195652",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-03T03:49:33Z",
+      "side": 1,
+      "message": "Acknowledged, removed the log. following changes takes care of implementation part.",
+      "parentUuid": "744f27c1_45c296b2",
+      "revId": "590755084cb1296f369fc0c2404714760bc1645c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55c0533c_a1339697",
@@ -71,6 +131,24 @@
       "writtenOn": "2026-06-02T14:34:44Z",
       "side": 1,
       "message": "Already have a PEL logged for this info.",
+      "revId": "590755084cb1296f369fc0c2404714760bc1645c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dd60598_0ed076ca",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-03T03:49:33Z",
+      "side": 1,
+      "message": "Added this log to get the over all time taken for this task to complete, logs will be added in the beginning and at the completion of collection process.",
+      "parentUuid": "55c0533c_a1339697",
       "revId": "590755084cb1296f369fc0c2404714760bc1645c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
