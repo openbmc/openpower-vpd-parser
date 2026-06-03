@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76ded004_9f925e53",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-03T11:39:44Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f69458ad_f7918f2f",
+      "revId": "53de6bf51378ee06fd062d4cca49b79e736b5c6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68e5b0a9_4d106203",
