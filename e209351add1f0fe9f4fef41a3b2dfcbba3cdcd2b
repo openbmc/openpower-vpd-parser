@@ -178,6 +178,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d9daeb48_73f28ef5",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T09:29:26Z",
+      "side": 1,
+      "message": "I do not see the reference to this change in the commit message?\nAlso, `std::format()` is not being used in many places in this file, for example line 65, 55. I think we should handle the logging changes as separate commit.",
+      "parentUuid": "05e75a65_052295af",
+      "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bef2733f_84f8680c",
         "filename": "vpd-manager/src/gpio_monitor.cpp",
         "patchSetId": 15
