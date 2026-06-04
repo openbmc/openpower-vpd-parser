@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea3ed2bf_9bba49c5",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-04T09:23:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c848e76f_5c7cced5",
+      "revId": "280b01a7639b8adeff140b28b488d6a543de7d9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fefbe0c6_3145fa93",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fcfdef4_970bdff3",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-04T09:23:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fefbe0c6_3145fa93",
+      "revId": "280b01a7639b8adeff140b28b488d6a543de7d9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36ba1c89_7051b918",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-06-04T09:03:07Z",
       "side": 1,
       "message": "should we throw back or should be handled error gracefully here or should we through dbus FirmwareError error ?",
+      "revId": "280b01a7639b8adeff140b28b488d6a543de7d9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e05b9d8f_f424392e",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-04T09:23:38Z",
+      "side": 1,
+      "message": "throwing from here will be suitable as manager class already has catch block and it re-throws the exact original exception object, maintaining:\n\nException type (DbusException, DbusInvalidArgument, etc.) Original error message and details",
+      "parentUuid": "36ba1c89_7051b918",
       "revId": "280b01a7639b8adeff140b28b488d6a543de7d9d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
