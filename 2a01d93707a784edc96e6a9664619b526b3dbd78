@@ -59,6 +59,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b393b87e_5e6e8f8f",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T08:42:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "344e76f4_ebff8f5a",
+      "revId": "2a01d93707a784edc96e6a9664619b526b3dbd78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14788e1a_474a948d",
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "agree, but currently this value coming from collectFruVpd return, this request is out of scope of this commit.\n\nwhen collectFruVpd returns types::PresenceStatus, \"Is FRU Present\" type can be updated. will be taken care in separate commit.",
       "parentUuid": "cdd7988d_bcc417d0",
+      "revId": "2a01d93707a784edc96e6a9664619b526b3dbd78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0e6547d_c59a6011",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T08:42:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8463fcba_1d38962d",
       "revId": "2a01d93707a784edc96e6a9664619b526b3dbd78",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
