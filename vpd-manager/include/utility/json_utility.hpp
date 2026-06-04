@@ -576,6 +576,48 @@ inline bool validateBaseActionInputs(
 
     return true;
 }
+
+/**
+ * @brief Handle non-GPIO presence tag processing.
+ *
+ * @param[in] i_tagName - Name of the tag being processed
+ * @param[in] i_tagErrorCode - Error code from tag execution
+ * @param[in] i_fruPath - EEPROM file path (for logging)
+ * @param[in,out] io_result - Result structure to update
+ */
+inline void updateNonPresenceTagOutput(
+    [[maybe_unused]] const std::string& i_tagName,
+    [[maybe_unused]] uint16_t i_tagErrorCode,
+    [[maybe_unused]] const std::string& i_fruPath,
+    [[maybe_unused]] types::BaseActionResult& io_result)
+{
+    /**
+     * ToDo: This API based on the processing outcome, will fill the result
+     * structure for non presence tag.
+     */
+}
+
+/**
+ * @brief API to update presence tag execution output.
+ *
+ * @param[in] l_tagProcessingRes - Whether the tag execution succeeded
+ * @param[in] i_tagErrorCode - Error code from tag execution
+ * @param[in,out] io_result - Result structure to update
+ *
+ * @return true to continue processing, false to stop
+ */
+inline bool updatePresenceTagOutput(
+    [[maybe_unused]] bool l_tagProcessingRes,
+    [[maybe_unused]] uint16_t i_tagErrorCode,
+    [[maybe_unused]] types::BaseActionResult& io_result)
+{
+    /**
+     * ToDo: This API based on the processing outcome, will fill the result
+     * structure. It will also return bool to indicate if the execution should
+     * continue further or not based on the processing result.
+     */
+    return true;
+}
 } // namespace
 
 /**
@@ -635,14 +677,72 @@ inline types::BaseActionResult executeBaseAction_new(
         return l_actionRes;
     }
 
-    return l_actionRes;
+    const nlohmann::json& l_tagsJson =
+        (i_parsedConfigJson["frus"][i_fruPath].at(
+            0))[i_action][i_flagToProcess];
 
-    /*
-    ToDo: This API will replace current implementation of "executeBaseAction".
-    This modification is required to enhance error detection in the process of
-    executing base action(s) defined in JSON and always detect presence of a FRU
-    if presence pin is defined for the FRU.
-    */
+    // Flag to track if gpio presence has been processed.
+    bool l_gpioPresenceProcessed = false;
+
+    for (const auto& l_tag : l_tagsJson.items())
+    {
+        const std::string& l_tagName = l_tag.key();
+        auto l_itrToFunction = funcionMap.find(l_tagName);
+
+        // If there is no code support for the tag. Do nothing.
+        if (l_itrToFunction == funcionMap.end())
+        {
+            continue;
+        }
+
+        o_errCode = 0;
+        bool l_tagProcessingRes =
+            l_itrToFunction->second(i_parsedConfigJson, i_fruPath, i_action,
+                                    i_flagToProcess, o_errCode);
+
+        bool l_shouldContinue = true;
+
+        if (l_tagName == "gpioPresence")
+        {
+            l_gpioPresenceProcessed = true;
+            l_shouldContinue = updatePresenceTagOutput(l_tagProcessingRes,
+                                                       o_errCode, l_actionRes);
+        }
+        else
+        {
+            // Non-gpioPresence tag processed successfully. Move to another.
+            if (l_tagProcessingRes)
+            {
+                continue;
+            }
+
+            // Tag failed - record the failure
+            updateNonPresenceTagOutput(l_tagName, o_errCode, i_fruPath,
+                                       l_actionRes);
+            l_shouldContinue = false;
+
+            // Execute gpioPresence if defined and not yet processed
+            if (l_tagsJson.contains("gpioPresence") && !l_gpioPresenceProcessed)
+            {
+                l_gpioPresenceProcessed = true;
+                uint16_t l_gpioErrorCode = 0;
+
+                // Process GPIO presence pin explicitly.
+                bool l_gpioRes = processGpioPresenceTag(
+                    i_parsedConfigJson, i_fruPath, i_action, i_flagToProcess,
+                    l_gpioErrorCode);
+
+                updatePresenceTagOutput(l_gpioRes, l_gpioErrorCode,
+                                        l_actionRes);
+            }
+        }
+
+        if (!l_shouldContinue)
+        {
+            break;
+        }
+    }
+    return l_actionRes;
 }
 
 /**
