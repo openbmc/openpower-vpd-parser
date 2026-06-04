@@ -8,9 +8,9 @@
 #include "types.hpp"
 
 #include <nlohmann/json.hpp>
-#include <utility/common_utility.hpp>
-#include <utility/dbus_utility.hpp>
-#include <utility/event_logger_utility.hpp>
+#include <common_utility.hpp>
+#include <dbus_utility.hpp>
+#include <event_logger_utility.hpp>
 
 #include <filesystem>
 #include <fstream>

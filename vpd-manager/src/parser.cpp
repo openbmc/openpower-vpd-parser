@@ -4,10 +4,10 @@
 #include "ipz_parser.hpp"
 #include "keyword_vpd_parser.hpp"
 
-#include <utility/dbus_utility.hpp>
-#include <utility/event_logger_utility.hpp>
-#include <utility/json_utility.hpp>
-#include <utility/vpd_specific_utility.hpp>
+#include <dbus_utility.hpp>
+#include <event_logger_utility.hpp>
+#include <json_utility.hpp>
+#include <vpd_specific_utility.hpp>
 
 #include <fstream>
 #include <string>

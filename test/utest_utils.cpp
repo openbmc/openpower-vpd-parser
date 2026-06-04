@@ -1,6 +1,6 @@
-#include "utility/common_utility.hpp"
+#include "common_utility.hpp"
 
-#include <utility/vpd_specific_utility.hpp>
+#include <vpd_specific_utility.hpp>
 
 #include <cassert>
 #include <string>

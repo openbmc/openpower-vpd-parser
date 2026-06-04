@@ -10,9 +10,9 @@
 #include "parser_interface.hpp"
 #include "single_fab.hpp"
 #include "types.hpp"
-#include "utility/dbus_utility.hpp"
-#include "utility/json_utility.hpp"
-#include "utility/vpd_specific_utility.hpp"
+#include "dbus_utility.hpp"
+#include "json_utility.hpp"
+#include "vpd_specific_utility.hpp"
 
 #include <boost/asio/steady_timer.hpp>
 #include <com/ibm/VPD/error.hpp>

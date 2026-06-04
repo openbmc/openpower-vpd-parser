@@ -1,7 +1,7 @@
 #include "parser.hpp"
 #include "types.hpp"
-#include "utility/json_utility.hpp"
-#include "utility/vpd_specific_utility.hpp"
+#include "json_utility.hpp"
+#include "vpd_specific_utility.hpp"
 
 #include <iostream>
 

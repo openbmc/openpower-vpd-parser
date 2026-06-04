@@ -4,7 +4,7 @@
 
 #include "exceptions.hpp"
 #include "types.hpp"
-#include "utility/dbus_utility.hpp"
+#include "dbus_utility.hpp"
 
 #include <format>
 

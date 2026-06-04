@@ -3,8 +3,8 @@
 #include "exceptions.hpp"
 #include "logger.hpp"
 #include "types.hpp"
-#include "utility/common_utility.hpp"
-#include "utility/json_utility.hpp"
+#include "common_utility.hpp"
+#include "json_utility.hpp"
 
 #include <nlohmann/json.hpp>
 

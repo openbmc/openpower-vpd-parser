@@ -31,7 +31,7 @@ sources = [
 wait_vpd_parser_exe = executable(
     'wait-vpd-parser',
     sources,
-    include_directories: ['include/', '../', '../vpd-manager/include'],
+    include_directories: ['include/', '../', '../vpd-manager/include', '../utility'],
     dependencies: dependency_list,
     install: true,
     cpp_args: parser_build_arguments,

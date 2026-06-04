@@ -6,8 +6,8 @@
 #include "logger.hpp"
 
 #include <sdbusplus/bus/match.hpp>
-#include <utility/common_utility.hpp>
-#include <utility/dbus_utility.hpp>
+#include <common_utility.hpp>
+#include <dbus_utility.hpp>
 
 #include <string>
 

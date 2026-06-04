@@ -4,9 +4,9 @@
 #include "error_codes.hpp"
 #include "logger.hpp"
 #include "types.hpp"
-#include "utility/dbus_utility.hpp"
-#include "utility/json_utility.hpp"
-#include "utility/vpd_specific_utility.hpp"
+#include "dbus_utility.hpp"
+#include "json_utility.hpp"
+#include "vpd_specific_utility.hpp"
 
 #include <boost/asio.hpp>
 #include <boost/bind/bind.hpp>

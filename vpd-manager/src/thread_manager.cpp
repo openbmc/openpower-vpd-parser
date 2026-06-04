@@ -4,11 +4,10 @@
 #include "exceptions.hpp"
 #include "logger.hpp"
 #include "types.hpp"
-#include "utility/event_logger_utility.hpp"
-#include "utility/vpd_specific_utility.hpp"
+#include "event_logger_utility.hpp"
+#include "json_utility.hpp"
+#include "vpd_specific_utility.hpp"
 #include "worker.hpp"
-
-#include <utility/json_utility.hpp>
 
 #include <format>
 #include <thread>
