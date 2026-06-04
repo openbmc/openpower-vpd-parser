@@ -384,7 +384,7 @@ inline bool processGpioPresenceTag(
 
         if (!l_presenceLine)
         {
-            o_errCode = error_code::DEVICE_PRESENCE_UNKNOWN;
+            o_errCode = error_code::GPIO_LINE_EXCEPTION;
             throw GpioException("Couldn't find the GPIO line.");
         }
 
@@ -404,6 +404,12 @@ inline bool processGpioPresenceTag(
     }
     catch (const std::exception& l_ex)
     {
+        // In catch without error code implies some standard exception.
+        if (!o_errCode)
+        {
+            o_errCode = error_code::STANDARD_EXCEPTION;
+        }
+
         std::string l_errMsg = "Exception on GPIO line: ";
         l_errMsg += l_presencePinName;
         l_errMsg += " Reason: ";
@@ -606,16 +612,49 @@ inline void updateNonPresenceTagOutput(
  *
  * @return true to continue processing rest of the tags, false to stop.
  */
-inline bool updatePresenceTagOutput(
-    [[maybe_unused]] bool i_tagProcessingRes,
-    [[maybe_unused]] uint16_t i_tagErrorCode,
-    [[maybe_unused]] types::BaseActionResult& io_result) noexcept
+inline bool updatePresenceTagOutput(bool l_tagProcessingRes,
+                                    uint16_t i_tagErrorCode,
+                                    types::BaseActionResult& io_result) noexcept
 {
-    /**
-     * ToDo: This API based on the processing outcome, will fill the result
-     * structure. It will also return bool to indicate if the execution should
-     * continue further or not based on the processing result.
-     */
+    io_result.m_gpioPresenceErrorCode = i_tagErrorCode;
+
+    if (!l_tagProcessingRes)
+    {
+        if (i_tagErrorCode == error_code::DEVICE_NOT_PRESENT)
+        {
+            // PIN was read successfully and device is found to be absent.
+            //  Stop processing other tags
+            io_result.m_presenceStatus = types::PresenceStatus::ABSENT;
+            return false;
+        }
+
+        // Some other error. Continue processing other tags
+        io_result.m_presenceStatus = types::PresenceStatus::UNKNOWN;
+        if (io_result.m_failedTag.empty())
+        {
+            io_result.m_success = false;
+            io_result.m_failedTag = "gpioPresence";
+            io_result.m_failedTagErrorCode = i_tagErrorCode;
+        }
+    }
+    else
+    {
+        // We also return true from processGpioPresenceTag in case of any
+        // exception. So that we go and process other tags and try for
+        // collection of FRU. If error code returned is returned along wth true
+        // implies some exception. Set presence status as unknown and still
+        // return true for other tag processing. Now presence will be decided
+        // based on collection status.
+        if (i_tagErrorCode != 0)
+        {
+            io_result.m_presenceStatus = types::PresenceStatus::UNKNOWN;
+        }
+        else
+        {
+            // PIN was read successfully and device is found to be present.
+            io_result.m_presenceStatus = types::PresenceStatus::PRESENT;
+        }
+    }
     return true;
 }
 } // namespace
