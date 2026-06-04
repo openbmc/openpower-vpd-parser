@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eed99385_daac2cb0",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-04T06:23:14Z",
+      "side": 1,
+      "message": "this request is not scope of this commit, will take care in separate commit.",
+      "parentUuid": "68a7d9b4_724d4f8e",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 21
+      },
+      "revId": "e4fb95ddb30363574be4c38ee9a36f05eb491ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49dbf62c_fdc39868",
