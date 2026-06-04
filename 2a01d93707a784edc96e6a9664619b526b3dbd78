@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43dfaa36_d960a9de",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-04T08:43:50Z",
+      "side": 1,
+      "message": "formatting is successfully run and CI is passed, otherwise CI will fail if formatting is not correct.",
+      "parentUuid": "3aac2bc7_692b4e14",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 80
+      },
+      "revId": "2a01d93707a784edc96e6a9664619b526b3dbd78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a64a762_768c0d2e",
@@ -190,6 +214,30 @@
       "writtenOn": "2026-06-04T06:32:30Z",
       "side": 1,
       "message": "This can be noexcept, as not throwing any exception from this API",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 38
+      },
+      "revId": "2a01d93707a784edc96e6a9664619b526b3dbd78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23897a9f_3fe92dee",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-04T08:43:50Z",
+      "side": 1,
+      "message": "this is not the scope of this commit",
+      "parentUuid": "4c6ecb1f_15d3ddf5",
       "range": {
         "startLine": 156,
         "startChar": 0,
