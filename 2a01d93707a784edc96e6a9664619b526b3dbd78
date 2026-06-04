@@ -64,6 +64,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c657a47_5def4c33",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-04T06:56:36Z",
+      "side": 1,
+      "message": "ignote my this comment",
+      "parentUuid": "14788e1a_474a948d",
+      "range": {
+        "startLine": 279,
+        "startChar": 1,
+        "endLine": 291,
+        "endChar": 2
+      },
+      "revId": "2a01d93707a784edc96e6a9664619b526b3dbd78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdd7988d_bcc417d0",
