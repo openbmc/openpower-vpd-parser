@@ -1,6 +1,6 @@
 #include "logger.hpp"
 
-#include <utility/event_logger_utility.hpp>
+#include <event_logger_utility.hpp>
 
 #include <print>
 #include <regex>

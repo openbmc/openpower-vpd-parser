@@ -8,10 +8,10 @@
 #include "parser.hpp"
 
 #include <gpiod.hpp>
-#include <utility/common_utility.hpp>
-#include <utility/dbus_utility.hpp>
-#include <utility/json_utility.hpp>
-#include <utility/vpd_specific_utility.hpp>
+#include <common_utility.hpp>
+#include <dbus_utility.hpp>
+#include <json_utility.hpp>
+#include <vpd_specific_utility.hpp>
 
 #include <unordered_set>
 

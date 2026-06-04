@@ -7,7 +7,7 @@
 
 #include <gpiod.hpp>
 #include <nlohmann/json.hpp>
-#include <utility/common_utility.hpp>
+#include <common_utility.hpp>
 
 #include <expected>
 #include <fstream>

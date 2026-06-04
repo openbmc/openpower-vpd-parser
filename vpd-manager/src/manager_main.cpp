@@ -6,7 +6,7 @@
 #include "logger.hpp"
 #include "manager.hpp"
 #include "types.hpp"
-#include "utility/event_logger_utility.hpp"
+#include "../utility/event_logger_utility.hpp"
 
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/asio/object_server.hpp>

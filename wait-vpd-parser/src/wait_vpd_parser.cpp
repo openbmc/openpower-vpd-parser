@@ -5,8 +5,8 @@
 #include "inventory_backup_handler.hpp"
 #include "logger.hpp"
 #include "prime_inventory.hpp"
-#include "utility/common_utility.hpp"
-#include "utility/dbus_utility.hpp"
+#include "../utility/common_utility.hpp"
+#include "../utility/dbus_utility.hpp"
 
 #include <CLI/CLI.hpp>
 

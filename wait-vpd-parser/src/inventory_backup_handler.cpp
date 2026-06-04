@@ -1,8 +1,8 @@
 #include "inventory_backup_handler.hpp"
 
 #include "error_codes.hpp"
-#include "utility/common_utility.hpp"
-#include "utility/dbus_utility.hpp"
+#include "../utility/common_utility.hpp"
+#include "../utility/dbus_utility.hpp"
 
 #include "format"
 #include "unordered_set"
