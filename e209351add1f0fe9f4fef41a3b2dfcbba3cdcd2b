@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6c7e7ba_a878ad55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-04T09:17:54Z",
+      "side": 1,
+      "message": "No need to pass the worker object to GpioMonitor constructor by a caller",
+      "parentUuid": "9d2eb20f_a2e005a6",
+      "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97154d7f_c4438e0e",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-04T06:19:35Z",
       "side": 1,
       "message": "Better name would help. This is chassisBasedJson does not mean anything w.r.t the context.\nThese are system config json.",
+      "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7495d042_6c46437f",
+        "filename": "vpd-manager/include/gpio_monitor.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-04T09:17:54Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "97154d7f_c4438e0e",
       "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c2eac480_9498ca46",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-04T09:17:54Z",
+      "side": 1,
+      "message": "this Is created here so that can be used in if-else both.",
+      "parentUuid": "49674151_59ca05c1",
+      "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e1f18642_0b378e78",
         "filename": "vpd-manager/src/gpio_monitor.cpp",
         "patchSetId": 15
@@ -65,6 +119,24 @@
       "writtenOn": "2026-06-04T06:22:12Z",
       "side": 1,
       "message": "`l_invPath` should be `const`",
+      "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fe40c1a_089704fb",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-04T09:17:54Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e1f18642_0b378e78",
       "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +160,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "05e75a65_052295af",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-04T09:17:54Z",
+      "side": 1,
+      "message": "It is not Required. but as mentioned in commit message Refactoring, I changed it to this format, to align with all codes. All the new code is implementing in this format.",
+      "parentUuid": "a06785fc_81eb37fd",
+      "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bef2733f_84f8680c",
         "filename": "vpd-manager/src/gpio_monitor.cpp",
         "patchSetId": 15
@@ -99,6 +189,24 @@
       "writtenOn": "2026-06-04T06:22:12Z",
       "side": 1,
       "message": "Why are we returning from here instead of throwing exception?\n\nCurrent flow, `initHandlerForGpio` throws an exception if `worker` is `nullptr`. This exception is caught in `GpioMonitor()` `try-catch` and a PEL is logged.\n\nThis same flow should be maintained if `i_configManager` is `nullptr`.",
+      "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c34741c4_1710fded",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-04T09:17:54Z",
+      "side": 1,
+      "message": "If it is about \u003e \"This same flow should be maintained\"\nthen why i_worker is validated here in the API, and not in the constructor itself when it was received at the 1st point. And without validation it was passed to the API.\n\nWhen I tried to follow the existing pattern (Validated the input shared pointer in constructor itself), I was told, no, check it at the place where it is being used.\nWhen I implemented that, again ask is to validate it in constructor as well as the place it is being used.\n\nI hope I will not be asked again, that why multiple validation for same pointer is done.\n\nI\u0027ll throw if any where pointer validation fails.",
+      "parentUuid": "bef2733f_84f8680c",
       "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
