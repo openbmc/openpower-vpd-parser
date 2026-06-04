@@ -124,6 +124,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fae30844_d9ddcfec",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-04T18:10:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "800959c6_0c7e4c9a",
+      "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1f18642_0b378e78",
