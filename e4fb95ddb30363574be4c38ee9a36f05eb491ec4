@@ -47,6 +47,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef6eef63_9d4e85a7",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-04T06:15:41Z",
+      "side": 1,
+      "message": "I don\u0027t see any value add by moving the setCollectionStatusProperty between message create and \"check for the error code and and append the message.\"\n\nand this request is not scope of this commit.",
+      "parentUuid": "49dbf62c_fdc39868",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 41
+      },
+      "revId": "e4fb95ddb30363574be4c38ee9a36f05eb491ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5c673b6_db97907a",
@@ -60,6 +84,30 @@
       "writtenOn": "2026-06-04T06:01:53Z",
       "side": 1,
       "message": "117-141 - when chassisID found and All VPD is collected, \n--m_chassisCount; is Not required?",
+      "range": {
+        "startLine": 115,
+        "startChar": 3,
+        "endLine": 144,
+        "endChar": 9
+      },
+      "revId": "e4fb95ddb30363574be4c38ee9a36f05eb491ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbe0a32b_f43cb52f",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-04T06:15:41Z",
+      "side": 1,
+      "message": "This will be taken care in processChassisResults api, todo is added for the same in the api.",
+      "parentUuid": "b5c673b6_db97907a",
       "range": {
         "startLine": 115,
         "startChar": 3,
