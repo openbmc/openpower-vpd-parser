@@ -16,6 +16,24 @@
       "message": "add this comment as a todo",
       "revId": "94bdf89d861c0e59498bceef82db77b0b2077231",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7f4ed58_c6ade877",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-04T09:32:34Z",
+      "side": 1,
+      "message": "Will remove the comments, In next commit by Rekha it is handled.",
+      "parentUuid": "11d0c7dc_629bc019",
+      "revId": "94bdf89d861c0e59498bceef82db77b0b2077231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
