@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "800959c6_0c7e4c9a",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-04T13:56:11Z",
+      "side": 1,
+      "message": "Yes, I got that. What I am trying to say is that you don\u0027t need the object at the scope of function. You can keep the scope limited to the place of call as you need it only to call that API.",
+      "parentUuid": "c2eac480_9498ca46",
+      "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e1f18642_0b378e78",
         "filename": "vpd-manager/src/gpio_monitor.cpp",
         "patchSetId": 15

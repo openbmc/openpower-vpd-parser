@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2508962_2458dc0e",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-04T13:56:11Z",
+      "side": 1,
+      "message": "Why this has been added?",
+      "revId": "8f50117ef8d345be6c78e3988b082e9b32eab22f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df1911f5_cfb59fb8",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-04T13:56:11Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "8f50117ef8d345be6c78e3988b082e9b32eab22f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "514d3e44_55048a8b",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-04T13:56:11Z",
+      "side": 1,
+      "message": "Any specific reason this has been moved to the start of the function?",
+      "revId": "8f50117ef8d345be6c78e3988b082e9b32eab22f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
