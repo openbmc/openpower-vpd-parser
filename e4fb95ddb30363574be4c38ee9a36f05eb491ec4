@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49dbf62c_fdc39868",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-04T06:01:53Z",
+      "side": 1,
+      "message": "I think sequence should be-\n- create the failed msg\n- call set status\n- check for the error code and and append the message.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 41
+      },
+      "revId": "e4fb95ddb30363574be4c38ee9a36f05eb491ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5c673b6_db97907a",
+        "filename": "vpd-manager/src/thread_manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-04T06:01:53Z",
+      "side": 1,
+      "message": "117-141 - when chassisID found and All VPD is collected, \n--m_chassisCount; is Not required?",
+      "range": {
+        "startLine": 115,
+        "startChar": 3,
+        "endLine": 144,
+        "endChar": 9
+      },
+      "revId": "e4fb95ddb30363574be4c38ee9a36f05eb491ec4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
