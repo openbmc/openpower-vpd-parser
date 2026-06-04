@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "344e76f4_ebff8f5a",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-04T07:00:57Z",
+      "side": 1,
+      "message": "Yes, this API will be called from processChassisResults; it is already mentioned in the TODO comment.\n\nTo keep the main API concise, the logic has been moved to processChassisResults. In case of any failure, launchFruCollectionPool will handle the error appropriately.",
+      "parentUuid": "5a64a762_768c0d2e",
+      "revId": "2a01d93707a784edc96e6a9664619b526b3dbd78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14788e1a_474a948d",
         "filename": "vpd-manager/include/types.hpp",
         "patchSetId": 11
@@ -101,6 +119,24 @@
       "writtenOn": "2026-06-04T06:49:39Z",
       "side": 1,
       "message": "Should \"Is FRU Present\" be a `bool` or `types::PresenceStatus`? \nIn my opinion, `types::PresenceStatus` will give more information to the consumer of this result and allow it to take more fine-tuned decision.",
+      "revId": "2a01d93707a784edc96e6a9664619b526b3dbd78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8463fcba_1d38962d",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-04T07:00:57Z",
+      "side": 1,
+      "message": "agree, but currently this value coming from collectFruVpd return, this request is out of scope of this commit.\n\nwhen collectFruVpd returns types::PresenceStatus, \"Is FRU Present\" type can be updated. will be taken care in separate commit.",
+      "parentUuid": "cdd7988d_bcc417d0",
       "revId": "2a01d93707a784edc96e6a9664619b526b3dbd78",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
