@@ -141,6 +141,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "635ca728_b139268b",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-04T06:04:56Z",
+      "side": 1,
+      "message": "as changes are reverted.",
+      "parentUuid": "7a6753ae_dba7bd84",
+      "revId": "93ff39eb81f522ce1c697894957504134517de5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28acd6cb_e395b74d",
@@ -172,6 +190,24 @@
       "side": 1,
       "message": "It should be validated when need to use it. like -\n  if (m_asioConnection \u003d\u003d nullptr)\n        {           \n            throw std::runtime_error(\n                \"Cannot register collection status callback on null connection\");\n        }",
       "parentUuid": "28acd6cb_e395b74d",
+      "revId": "93ff39eb81f522ce1c697894957504134517de5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c06a52f7_76e3ea5c",
+        "filename": "vpd-manager/include/listener.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-04T06:04:56Z",
+      "side": 1,
+      "message": "keep the checks in the constructor for pointers which are received as input, to avoid constructing the object where these inputs are mandatory .",
+      "parentUuid": "aed7497b_b78cb7b8",
       "revId": "93ff39eb81f522ce1c697894957504134517de5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

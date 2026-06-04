@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11d0c7dc_629bc019",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-04T06:04:56Z",
+      "side": 1,
+      "message": "add this comment as a todo",
+      "revId": "94bdf89d861c0e59498bceef82db77b0b2077231",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
