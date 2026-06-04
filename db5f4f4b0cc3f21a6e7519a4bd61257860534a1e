@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42b01cc3_35beb890",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T08:57:29Z",
+      "side": 1,
+      "message": "As agreed. We will keep this implementation for now and revisit this.",
+      "parentUuid": "aba78cc8_93833790",
+      "revId": "db5f4f4b0cc3f21a6e7519a4bd61257860534a1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c13eb259_c235f5a4",
