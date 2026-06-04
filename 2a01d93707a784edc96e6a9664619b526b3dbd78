@@ -26,6 +26,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a64a762_768c0d2e",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T06:49:39Z",
+      "side": 1,
+      "message": "1. I don\u0027t see this method being called in this patch? Is it supposed to be called by `processChassisResults`? If yes, there should be a placeholder call to this method?\n\n2. Should this method indicate an error in case thread pool creation fails, so that `processChassisResults` can take necessary action if required?",
+      "revId": "2a01d93707a784edc96e6a9664619b526b3dbd78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdd7988d_bcc417d0",
+        "filename": "vpd-manager/include/types.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T06:49:39Z",
+      "side": 1,
+      "message": "Should \"Is FRU Present\" be a `bool` or `types::PresenceStatus`? \nIn my opinion, `types::PresenceStatus` will give more information to the consumer of this result and allow it to take more fine-tuned decision.",
+      "revId": "2a01d93707a784edc96e6a9664619b526b3dbd78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4c6ecb1f_15d3ddf5",
         "filename": "vpd-manager/src/thread_manager.cpp",
         "patchSetId": 11
