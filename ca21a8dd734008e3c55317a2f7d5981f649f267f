@@ -33,6 +33,23 @@
       "message": "Worker{}.performVpdRecollection(l_sysCfgJsonObj);\n\n\nThis will reduce the scope and will keep the intent clean and less line to write?",
       "revId": "ca21a8dd734008e3c55317a2f7d5981f649f267f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d94810e8_2d1a5cb5",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1466,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-04T06:10:36Z",
+      "side": 1,
+      "message": "Leave a todo here, we will move away from this approach. Will pass the JSON to APIs going forward.",
+      "revId": "ca21a8dd734008e3c55317a2f7d5981f649f267f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
