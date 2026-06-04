@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f135bc18_c2df102c",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-04T06:09:08Z",
+      "side": 1,
+      "message": "After config manager you need this?",
+      "revId": "ca21a8dd734008e3c55317a2f7d5981f649f267f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3292c9df_580912f3",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-04T06:09:08Z",
+      "side": 1,
+      "message": "Worker{}.performVpdRecollection(l_sysCfgJsonObj);\n\n\nThis will reduce the scope and will keep the intent clean and less line to write?",
+      "revId": "ca21a8dd734008e3c55317a2f7d5981f649f267f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
