@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8ea09a8_61e8bfbb",
+        "filename": "vpd-manager/include/gpio_monitor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-04T10:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0637ea4e_42d7024f",
+      "revId": "aeca2831bd91957d385db6ba713e1efd3c56fda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8762c77f_03f77329",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-04T09:29:26Z",
       "side": 1,
       "message": "nit: blank line between two blocks is missing.",
+      "revId": "aeca2831bd91957d385db6ba713e1efd3c56fda1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b73d3d06_cd7bf348",
+        "filename": "vpd-manager/include/gpio_monitor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-04T10:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8762c77f_03f77329",
       "revId": "aeca2831bd91957d385db6ba713e1efd3c56fda1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
