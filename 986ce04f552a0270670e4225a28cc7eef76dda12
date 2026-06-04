@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c2b9ca2_0532f1b7",
+        "filename": "vpd-manager/include/gpio_monitor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T06:22:12Z",
+      "side": 1,
+      "message": "`m_configManager` is a critical data member for `GpioEventHandler`. If `m_configManager` is not initialized what is the point of initializing `GpioEventHandler`?",
+      "parentUuid": "48fede2a_7daf9250",
+      "revId": "986ce04f552a0270670e4225a28cc7eef76dda12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e24c327_78b6127a",
         "filename": "vpd-manager/include/gpio_monitor.hpp",
         "patchSetId": 12
@@ -207,6 +225,24 @@
       "side": 1,
       "message": "we can do that also.\nBut this API setEventHandlerForGpioPresence is called from constructor only.\nThis is not an API which will be called later on.\nAnd keeping the code here will keep the constructor clean.",
       "parentUuid": "9eaa2eef_e1a8a689",
+      "revId": "986ce04f552a0270670e4225a28cc7eef76dda12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2f63789_fd254a06",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T06:22:12Z",
+      "side": 1,
+      "message": "What if `setEventHandlerForGpioPresence` is moved out of constructor flow later on?\nIdeally, all data members of a class should be initialized in the constructor. \n\n\u003eAnd keeping the code here will keep the constructor clean.\n\nWhat do you mean by \"clean\"?",
+      "parentUuid": "5d2a1890_bd7b72c1",
       "revId": "986ce04f552a0270670e4225a28cc7eef76dda12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

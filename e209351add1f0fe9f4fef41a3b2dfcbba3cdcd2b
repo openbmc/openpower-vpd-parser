@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d2eb20f_a2e005a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T06:22:12Z",
+      "side": 1,
+      "message": "\u003e Also, worker is not required to pass by from outside\n\nWhat does \"outside\" mean?",
+      "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97154d7f_c4438e0e",
         "filename": "vpd-manager/include/gpio_monitor.hpp",
         "patchSetId": 15
@@ -31,6 +48,57 @@
       "writtenOn": "2026-06-04T06:19:35Z",
       "side": 1,
       "message": "The object can be created in place to keep the scope limited.\neg: Worker{}.collectFruVpd(...);",
+      "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1f18642_0b378e78",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T06:22:12Z",
+      "side": 1,
+      "message": "`l_invPath` should be `const`",
+      "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a06785fc_81eb37fd",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T06:22:12Z",
+      "side": 1,
+      "message": "Is this change required in this patch?",
+      "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bef2733f_84f8680c",
+        "filename": "vpd-manager/src/gpio_monitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T06:22:12Z",
+      "side": 1,
+      "message": "Why are we returning from here instead of throwing exception?\n\nCurrent flow, `initHandlerForGpio` throws an exception if `worker` is `nullptr`. This exception is caught in `GpioMonitor()` `try-catch` and a PEL is logged.\n\nThis same flow should be maintained if `i_configManager` is `nullptr`.",
       "revId": "e209351add1f0fe9f4fef41a3b2dfcbba3cdcd2b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
