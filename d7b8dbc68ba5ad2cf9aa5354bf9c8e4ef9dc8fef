@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a97668bd_9aed1d72",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T17:26:29Z",
+      "side": 1,
+      "message": "Is this API expected to throw any exception? If not, it should be specified as `noexcept`",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21060f5b_0258b5d1",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T17:26:29Z",
+      "side": 1,
+      "message": "I think this statement is a bit vague. Continue processing what?",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e6b8e1b_2b17b923",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T17:26:29Z",
+      "side": 1,
+      "message": "Is this API expected to throw any exception? If not, it should be specified as `noexcept`",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61efa72e_a48b1ba8",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T17:26:29Z",
+      "side": 1,
+      "message": "I think the flow can be simplified by eliminating `l_shouldContinue` variable. Please see below comments.",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36099bd8_81c7aba1",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T17:26:29Z",
+      "side": 1,
+      "message": "If `updatePresenceTagOutput` fails, break out of the loop immediately.",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b240c5e_b517dcd0",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T17:26:29Z",
+      "side": 1,
+      "message": "If non-gpioPresence tag has failed, process `gpioPresence` if its not already present and then break out of the loop.",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e7d1393_2b9db78b",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-04T17:26:29Z",
+      "side": 1,
+      "message": "If a non-presence tag fails, we execute `gpioPresence` action and then break out, thereby ignoring other non-presence tags lower in the flow. Is this intended?",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
