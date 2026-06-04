@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "810cdb95_3cacf6be",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-04T06:51:01Z",
+      "side": 1,
+      "message": "should is FRU_PATH_NOT_FOUND error code ?",
+      "revId": "c9a5a9dbd560e9af80f3a33c1db3dd83b4ccb75c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
