@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba85c5a9_fb949c49",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-05T11:30:34Z",
+      "side": 1,
+      "message": "Use reference instead of copying? You can pass it in place as well?",
+      "revId": "fb181b4652a1df435b663bc38cb8c45eb5cce443",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93bf0345_349e11f5",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-05T11:30:34Z",
+      "side": 1,
+      "message": "Same here, reference or better extract and pass in place.",
+      "revId": "fb181b4652a1df435b663bc38cb8c45eb5cce443",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
