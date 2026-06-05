@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "633a2434_7de17320",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-05T12:19:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97401b8e_83849de4",
+      "range": {
+        "startLine": 10,
+        "startChar": 30,
+        "endLine": 13,
+        "endChar": 33
+      },
+      "revId": "45ec0ec590da02545cb6eb2466303bfe1736bc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ce76cfc_23565b47",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9047004_c93e3a56",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-05T12:19:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ce76cfc_23565b47",
+      "revId": "45ec0ec590da02545cb6eb2466303bfe1736bc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a31170cb_a6beeeda",
@@ -54,6 +96,24 @@
       "writtenOn": "2026-06-05T11:38:06Z",
       "side": 1,
       "message": "Same here.",
+      "revId": "45ec0ec590da02545cb6eb2466303bfe1736bc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cab79c0_601d10c7",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-05T12:19:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a31170cb_a6beeeda",
       "revId": "45ec0ec590da02545cb6eb2466303bfe1736bc8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
