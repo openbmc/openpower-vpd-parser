@@ -16,6 +16,24 @@
       "message": "is this variable should start with i_ as per coding guidelines .",
       "revId": "15ccf3b8c2c3535d02f30a621647a63e58005173",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93408e90_bafa45b4",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-05T09:00:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "23e81014_2b64acbd",
+      "revId": "15ccf3b8c2c3535d02f30a621647a63e58005173",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
