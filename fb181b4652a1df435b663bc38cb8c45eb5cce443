@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09f45863_10419882",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-05T13:08:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba85c5a9_fb949c49",
+      "revId": "fb181b4652a1df435b663bc38cb8c45eb5cce443",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93bf0345_349e11f5",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-05T11:30:34Z",
       "side": 1,
       "message": "Same here, reference or better extract and pass in place.",
+      "revId": "fb181b4652a1df435b663bc38cb8c45eb5cce443",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ed3816a_bd83334e",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-05T13:08:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93bf0345_349e11f5",
       "revId": "fb181b4652a1df435b663bc38cb8c45eb5cce443",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
