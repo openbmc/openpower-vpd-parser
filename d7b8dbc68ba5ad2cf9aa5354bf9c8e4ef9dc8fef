@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ff1c998_549486ae",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-05T05:23:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a97668bd_9aed1d72",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21060f5b_0258b5d1",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-04T17:26:29Z",
       "side": 1,
       "message": "I think this statement is a bit vague. Continue processing what?",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a38133f9_9f9bf2da",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-05T05:23:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "21060f5b_0258b5d1",
       "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d32d8533_ef64704a",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-05T05:23:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7e6b8e1b_2b17b923",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61efa72e_a48b1ba8",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-06-04T17:26:29Z",
       "side": 1,
       "message": "I think the flow can be simplified by eliminating `l_shouldContinue` variable. Please see below comments.",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e05d2df5_68b5d0a0",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-05T05:23:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "61efa72e_a48b1ba8",
       "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1b43440_07c8f51c",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-05T05:23:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "36099bd8_81c7aba1",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b240c5e_b517dcd0",
@@ -103,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4f18b11_49085a3d",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-05T05:23:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0b240c5e_b517dcd0",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e7d1393_2b9db78b",
@@ -116,6 +224,24 @@
       "writtenOn": "2026-06-04T17:26:29Z",
       "side": 1,
       "message": "If a non-presence tag fails, we execute `gpioPresence` action and then break out, thereby ignoring other non-presence tags lower in the flow. Is this intended?",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7acf228e_048570fc",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-05T05:23:00Z",
+      "side": 1,
+      "message": "Yes. In case any of the tag fails, The flow has failed and then only requirement is to get the presence if can be detected by reading the pin.",
+      "parentUuid": "1e7d1393_2b9db78b",
       "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
