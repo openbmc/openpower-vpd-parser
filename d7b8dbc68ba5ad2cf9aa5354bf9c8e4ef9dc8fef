@@ -262,6 +262,24 @@
       "parentUuid": "7acf228e_048570fc",
       "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6d1c577_0c5948d4",
+        "filename": "vpd-manager/include/utility/json_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-05T09:58:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7acf228e_048570fc",
+      "revId": "d7b8dbc68ba5ad2cf9aa5354bf9c8e4ef9dc8fef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
