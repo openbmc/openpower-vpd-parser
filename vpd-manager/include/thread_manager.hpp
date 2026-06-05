@@ -72,6 +72,38 @@ class ThreadManager
     void collectAllFruVpd();
 
   private:
+    /**
+     * @brief Context structure for FRU collection thread pool
+     *
+     * Encapsulates shared state for parallel FRU VPD collection threads.
+     * Multiple threads share a single instance to coordinate work distribution
+     * via a shared iterator over the FRU list.
+     *
+     * @throw exception
+     */
+    struct FruThreadContext
+    {
+        /**
+         * @brief Constructor
+         * @param[in] i_chassisEeepromPath - Chassis EEPROM path
+         * @param[in] i_chassisJson - Chassis JSON containing FRU list
+         */
+        explicit FruThreadContext(const std::string& i_chassisEeepromPath,
+                                  const nlohmann::json& i_chassisJson) :
+            m_chassisEeepromPath(i_chassisEeepromPath),
+            m_chassisJson(i_chassisJson),
+            m_frus(m_chassisJson["frus"]
+                       .get_ref<const nlohmann::json::object_t&>()),
+            m_fruItr(m_frus.begin())
+        {}
+
+        const std::string m_chassisEeepromPath; // Chassis EEPROM
+        const nlohmann::json m_chassisJson;     // Chassis configuration
+        const nlohmann::json::object_t& m_frus; // FRU list reference
+        nlohmann::json::object_t::const_iterator m_fruItr; // Shared iterator
+        std::mutex m_fruItrMutex; // Iterator protection
+    };
+
     // Shared pointer to ConfigManager object
     const std::shared_ptr<ConfigManager>& m_configManager{nullptr};
 
@@ -180,6 +212,26 @@ class ThreadManager
     void launchFruCollectionPool(const std::string& i_chassisEeepromPath,
                                  const nlohmann::json& i_chassisJson,
                                  const size_t i_maxThreadsPerChassis) noexcept;
+
+    /**
+     * @brief Process FRU VPD collection tasks from shared thread context
+     *
+     * Continuously retrieves the next available FRU from the shared
+     * FruThreadContext and performs VPD collection for that FRU. Work is
+     * distributed across multiple worker threads using a shared, thread-safe
+     * iterator. Processing continues until no unprocessed FRUs remain in the
+     * context.
+     *
+     * After each FRU is processed, the pending FRU count is updated and the
+     * waiting thread is notified.
+     *
+     * @note The chassis EEPROM path is excluded from FRU VPD collection.
+     *
+     * @param[in] i_fruThreadContext - Shared context containing FRU
+     * configuration and work-distribution state.
+     */
+    void processFruCollection(
+        const std::shared_ptr<FruThreadContext>& i_fruThreadContext);
 };
 
 } // namespace vpd
