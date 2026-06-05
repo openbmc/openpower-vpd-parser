@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7562157e_97851d27",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-05T11:51:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77426e92_445da741",
+      "revId": "17f916c6026304c3a309a93eb738de88778426bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8c1dcd6_645a140f",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "792c406b_37426223",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-05T11:51:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8c1dcd6_645a140f",
+      "revId": "17f916c6026304c3a309a93eb738de88778426bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b776c018_5d7f4edd",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-06-05T11:22:32Z",
       "side": 1,
       "message": "Same here, we can avoid creating variables if it is being used only once?",
+      "revId": "17f916c6026304c3a309a93eb738de88778426bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7606168_7af1f7d7",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1001845
+      },
+      "writtenOn": "2026-06-05T11:51:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b776c018_5d7f4edd",
       "revId": "17f916c6026304c3a309a93eb738de88778426bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
