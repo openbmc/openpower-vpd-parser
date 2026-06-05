@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d6a23de_4c49f7bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-05T09:37:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb924d4e_32812982",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 44
+      },
+      "revId": "5308e87d154235a172914d69d876a940b7af8e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d07cffe_4d3c50b0",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-06-05T08:57:56Z",
       "side": 1,
       "message": "nit but as it is just required to call the API in place we can instantiate and use it together.",
+      "revId": "5308e87d154235a172914d69d876a940b7af8e38",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38b643df_f593cb28",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000353
+      },
+      "writtenOn": "2026-06-05T09:37:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d07cffe_4d3c50b0",
       "revId": "5308e87d154235a172914d69d876a940b7af8e38",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
