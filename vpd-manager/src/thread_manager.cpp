@@ -250,7 +250,14 @@ void ThreadManager::processChassisResults() noexcept
         // Collect FRUs for present chassis
         if (std::get<0>(l_task))
         {
-            // ToDo: Update m_frusCount based on the chassis Json.
+            //@TodO: need to check is frus size is greated than the 1
+
+            // Increment the FRU counter before launching FRU collection
+            // thread(s) to avoid a race where an FRU thread finishes and
+            // decrements the counter before it is updated.
+
+            // Exclude chassis/motherboard VPD, which was already collected
+            m_frusCount += l_chassisJson["frus"].size() - constants::VALUE_1;
 
             const size_t i_maxThreadsPerChassis = std::max<size_t>(
                 1,
@@ -269,16 +276,124 @@ void ThreadManager::processChassisResults() noexcept
 }
 
 void ThreadManager::launchFruCollectionPool(
-    [[maybe_unused]] const std::string& i_chassisEeepromPath,
-    [[maybe_unused]] const nlohmann::json& i_chassisJson,
-    [[maybe_unused]] const size_t i_maxThreadsPerChassis) noexcept
+    const std::string& i_chassisEeepromPath,
+    const nlohmann::json& i_chassisJson,
+    const size_t i_maxThreadsPerChassis) noexcept
 {
-    /**
-     * @todo
-     * 1. create iterator to chassis based json object for i_chassisJson
-     * 2. Launch threads to collect chassis based FRUs VPD using created
-     * iterator, and skip collecting VPD of i_chassisEeepromPath again.
-     * 3. Decrement FRU count on FRU VPD completion.
-     */
+    bool l_threadLaunched{false};
+
+    try
+    {
+        struct FruThreadContext
+        {
+            explicit FruThreadContext(const nlohmann::json& i_json) :
+                m_chassisJson(i_json),
+                m_frus(m_chassisJson["frus"]
+                           .get_ref<const nlohmann::json::object_t&>()),
+                m_fruItr(m_frus.begin())
+            {}
+
+            nlohmann::json m_chassisJson;
+            nlohmann::json::object_t m_frus;
+            nlohmann::json::object_t::const_iterator m_fruItr;
+            std::mutex m_fruItrMutex;
+        };
+
+        auto l_fruThreadContext =
+            std::make_shared<FruThreadContext>(i_chassisJson);
+
+        const auto l_fruThread =
+            [this](std::string i_chassisEeepromPath,
+                   std::shared_ptr<FruThreadContext> i_fruThreadContext) {
+                uint16_t l_errCode = 0;
+                Worker l_worker;
+
+                while (true)
+                {
+                    std::string l_fruPath;
+
+                    {
+                        std::lock_guard<std::mutex> l_lock(
+                            i_fruThreadContext->m_fruItrMutex);
+
+                        while (i_fruThreadContext->m_fruItr !=
+                               i_fruThreadContext->m_frus.end())
+                        {
+                            l_fruPath = i_fruThreadContext->m_fruItr->first;
+                            ++i_fruThreadContext->m_fruItr;
+
+                            if (l_fruPath == i_chassisEeepromPath)
+                            {
+                                l_fruPath.clear();
+                                continue;
+                            }
+
+                            break;
+                        }
+                    }
+
+                    if (l_fruPath.empty())
+                    {
+                        break;
+                    }
+
+                    auto [l_isPresent, l_collectionStatus] =
+                        l_worker.collectFruVpd(
+                            l_fruPath, i_fruThreadContext->m_chassisJson,
+                            l_errCode);
+
+                    // Update FRU count and notify waiting threads
+                    --m_frusCount;
+                    m_completionCv.notify_all();
+                }
+            };
+
+        for (size_t l_index = 0; l_index < i_maxThreadsPerChassis; ++l_index)
+        {
+            try
+            {
+                std::thread([this, l_fruThread, i_chassisEeepromPath,
+                             l_fruThreadContext]() {
+                    try
+                    {
+                        l_fruThread(i_chassisEeepromPath, l_fruThreadContext);
+                    }
+                    catch (const std::exception& l_ex)
+                    {
+                        m_logger->logMessage(
+                            std::format(
+                                "Exception in FRU collection thread for chassis EEPROM "
+                                "[{}], error: {}",
+                                i_chassisEeepromPath, l_ex.what()),
+                            PlaceHolder::COLLECTION);
+                    }
+                }).detach();
+
+                l_threadLaunched = true;
+            }
+            catch (const std::exception& l_ex)
+            {
+                m_logger->logMessage(
+                    std::format(
+                        "Failed to launch FRU collection thread(s) for chassis EEPROM "
+                        "[{}], error: {}",
+                        i_chassisEeepromPath, l_ex.what()),
+                    PlaceHolder::COLLECTION);
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to launch FRU collection thread(s) for chassis EEPROM "
+            "[{}], error: {}",
+            i_chassisEeepromPath, l_ex.what()));
+    }
+
+    // Decrement the FRU counter as thread is not launched
+    if (!l_threadLaunched)
+    {
+        m_frusCount -= i_chassisJson["frus"].size() - constants::VALUE_1;
+    }
 }
 } // namespace vpd
