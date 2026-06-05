@@ -265,9 +265,10 @@ void ThreadManager::processChassisResults() noexcept
             // Collect FRUs for present chassis
             if (std::get<0>(l_chassisResult))
             {
+                const auto& l_chassisJson = std::get<2>(l_chassisResult);
                 // ToDo: Update m_frusCount based on the chassis Json.
-                launchFruCollectionPool(l_chassisEepromPath,
-                                        std::get<2>(l_chassisResult),
+
+                launchFruCollectionPool(l_chassisEepromPath, l_chassisJson,
                                         l_maxThreadsPerChassis);
             }
             else
@@ -296,16 +297,78 @@ void ThreadManager::processChassisResults() noexcept
 }
 
 void ThreadManager::launchFruCollectionPool(
-    [[maybe_unused]] const std::string& i_chassisEeepromPath,
-    [[maybe_unused]] const nlohmann::json& i_chassisJson,
-    [[maybe_unused]] const size_t i_maxThreadsPerChassis) noexcept
+    const std::string& i_chassisEeepromPath,
+    const nlohmann::json& i_chassisJson,
+    const size_t i_maxThreadsPerChassis) noexcept
+{
+    bool l_anyThreadLaunched{false};
+
+    try
+    {
+        // Create shared context for FRU collection thread pool
+        auto l_fruThreadContext = std::make_shared<FruThreadContext>(
+            i_chassisEeepromPath, i_chassisJson);
+
+        // Launch thread pool for parallel FRU VPD collection
+        for (size_t l_index = 0; l_index < i_maxThreadsPerChassis; ++l_index)
+        {
+            try
+            {
+                std::thread([this, i_chassisEeepromPath, l_fruThreadContext]() {
+                    try
+                    {
+                        processFruCollection(l_fruThreadContext);
+                    }
+                    catch (const std::exception& l_ex)
+                    {
+                        m_logger->logMessage(std::format(
+                            "Exception in FRU collection thread for chassis "
+                            "[{}], error: {}",
+                            i_chassisEeepromPath, l_ex.what()));
+                    }
+                }).detach();
+
+                l_anyThreadLaunched = true;
+            }
+            catch (const std::exception& l_ex)
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to launch FRU collection thread #{} for chassis "
+                    "[{}], error: {}",
+                    l_index + 1, i_chassisEeepromPath, l_ex.what()));
+            }
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Failed to create FRU collection thread pool for chassis "
+            "[{}], error: {}",
+            i_chassisEeepromPath, l_ex.what()));
+    }
+
+    // Decrement the FRU counter if no threads were launched
+    if (!l_anyThreadLaunched)
+    {
+        m_frusCount -= i_chassisJson["frus"].size() - constants::VALUE_1;
+    }
+}
+
+void ThreadManager::processFruCollection(
+    [[maybe_unused]] const std::shared_ptr<FruThreadContext>&
+        i_fruThreadContext)
 {
     /**
-     * @todo
-     * 1. create iterator to chassis based json object for i_chassisJson
-     * 2. Launch threads to collect chassis based FRUs VPD using created
-     * iterator, and skip collecting VPD of i_chassisEeepromPath again.
-     * 3. Decrement FRU count on FRU VPD completion.
+     * @todo:
+     * - Retrieve the next available FRU from the shared context.
+     * - Collect VPD for the retrieved FRU.
+     * - Update the pending FRU count and notify the waiting thread.
+     * - Continue until no unprocessed FRUs remain.
+     *
+     * @note Multiple threads run this function sharing the same FRU list.
+     * @note The chassis EEPROM is excluded from processing since its VPD has
+     * already been collected during chassis VPD collection.
      */
 }
+
 } // namespace vpd
