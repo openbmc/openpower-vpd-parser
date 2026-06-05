@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77426e92_445da741",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-05T11:22:32Z",
+      "side": 1,
+      "message": "There is no validation check or any other validation, although it is a reference but why have a new variable? Why not extract in place?",
+      "revId": "17f916c6026304c3a309a93eb738de88778426bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b776c018_5d7f4edd",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-05T11:22:32Z",
+      "side": 1,
+      "message": "Same here, we can avoid creating variables if it is being used only once?",
+      "revId": "17f916c6026304c3a309a93eb738de88778426bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
