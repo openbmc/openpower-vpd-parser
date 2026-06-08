@@ -1,5 +1,4 @@
-#currently these services are added just for backward compatibility.
-#It will perform no task in the system and will be eventually removed.
+# Service to monitor and wait for VPD collection status.
 
 [Unit]
 Description=Wait for VPD Collection Services to complete
