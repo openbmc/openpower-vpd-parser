@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f934d2d5_e47fecdb",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-08T09:41:35Z",
+      "side": 1,
+      "message": "Yes, the API has been designed generically. However, to avoid any confusion for consumers, I\u0027ve added a TODO comment clarifying that the current implementation is limited to PimPath.",
+      "parentUuid": "404b5fee_70d0fd08",
+      "revId": "507ea98f36bce1932f363504454a7330f8c762ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f2558f72_4036b3fc",
         "filename": "vpd-manager/src/manager.cpp",
         "patchSetId": 12
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-08T09:28:06Z",
       "side": 1,
       "message": "nit: we should tag this comment with a `@todo` here",
+      "revId": "507ea98f36bce1932f363504454a7330f8c762ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdd41d5e_51602742",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-08T09:41:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2558f72_4036b3fc",
       "revId": "507ea98f36bce1932f363504454a7330f8c762ea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
