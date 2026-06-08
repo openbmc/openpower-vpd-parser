@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67ba6af9_b225d70c",
+        "filename": "vpd-manager/src/listener.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-08T08:45:19Z",
+      "side": 1,
+      "message": "As discussed, this check doesn\u0027t add significant execution cost even though its redundant. I am fine with keeping this.",
+      "parentUuid": "5fc5962b_11899f01",
+      "revId": "565dbbd2c976179244e5b965641cc3e15b0b2e98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf0e6863_8c5c75c5",
