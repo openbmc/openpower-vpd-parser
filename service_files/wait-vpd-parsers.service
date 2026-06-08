@@ -1,5 +1,7 @@
-#currently these services are added just for backward compatibility.
-#It will perform no task in the system and will be eventually removed.
+# Triggers VPD collection via VPD-manager and monitors completion
+# status.
+# Waits with timeout.
+# Fails if collection does not complete successfully or times out.
 
 [Unit]
 Description=Wait for VPD Collection Services to complete
