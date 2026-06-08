@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6de807d9_d295296b",
+        "filename": "vpd-manager/src/worker.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1506,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-08T08:48:30Z",
+      "side": 1,
+      "message": "do we need this log ? as parseAndPublishVPD api logging PEL or log in case of failure.",
+      "revId": "e260fa140b0a688da7b3eb2ffdaf95b731a71786",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
