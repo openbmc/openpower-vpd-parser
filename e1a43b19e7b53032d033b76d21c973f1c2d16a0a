@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d0ef66c_b3d36799",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-08T08:40:23Z",
+      "side": 1,
+      "message": "Why this change has been done?",
+      "revId": "e1a43b19e7b53032d033b76d21c973f1c2d16a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
