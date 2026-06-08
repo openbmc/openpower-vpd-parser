@@ -33,6 +33,24 @@
       "message": "Not related to this commit, but I think we should have an utility API to validate if a given location code is a valid expanded location code.",
       "revId": "8756616848e972c9da766e4b9d503c3a03b33ed8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "345124e3_3a57d6ed",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1002186
+      },
+      "writtenOn": "2026-06-08T15:22:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70d01898_1d2952b0",
+      "revId": "8756616848e972c9da766e4b9d503c3a03b33ed8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
