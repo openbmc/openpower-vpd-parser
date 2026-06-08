@@ -104,6 +104,30 @@
       },
       "revId": "314661304517ab4fc21ed4c1e27de2ecf4a028ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1f5917b_93c60195",
+        "filename": "service_files/wait-vpd-parsers.service",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2026-06-08T13:25:56Z",
+      "side": 1,
+      "message": "Would it make sense for this service to fail (non-zero return code) if VPD collection is marked failed?\n\nThen services with a Requires\u003d dependency would not even start, since they need VPD.\n\nI\u0027m not sure if this would break any current behavior. Just a suggestion. That would avoid the need for apps to check the collection status in addition to waiting for this service.",
+      "parentUuid": "c0442623_42467627",
+      "range": {
+        "startLine": 1,
+        "startChar": 40,
+        "endLine": 1,
+        "endChar": 41
+      },
+      "revId": "314661304517ab4fc21ed4c1e27de2ecf4a028ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
