@@ -152,6 +152,30 @@
       },
       "revId": "314661304517ab4fc21ed4c1e27de2ecf4a028ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fd06eb7_43118160",
+        "filename": "service_files/wait-vpd-parsers.service",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-08T14:37:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dacebd4e_c4fe6ddb",
+      "range": {
+        "startLine": 1,
+        "startChar": 40,
+        "endLine": 1,
+        "endChar": 41
+      },
+      "revId": "314661304517ab4fc21ed4c1e27de2ecf4a028ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
