@@ -80,6 +80,30 @@
       },
       "revId": "314661304517ab4fc21ed4c1e27de2ecf4a028ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0442623_42467627",
+        "filename": "service_files/wait-vpd-parsers.service",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2026-06-08T13:22:20Z",
+      "side": 1,
+      "message": "Is your recommendation that apps that wait on this service file then check the VPD collection status to see if it succeeded or failed? If so, what is the best way to get the path and service from the mapper? I\u0027m guessing we shouldn\u0027t hardcode VPD-Manager upstream?\n\nAlso, I didn\u0027t understand this part:\n\u003e So ideally it does not wait until VPD collection is complete.\n\nIf VPD collection completes before the timeout, why would it not wait?",
+      "parentUuid": "7a7f1d24_6fc88d5d",
+      "range": {
+        "startLine": 1,
+        "startChar": 40,
+        "endLine": 1,
+        "endChar": 41
+      },
+      "revId": "314661304517ab4fc21ed4c1e27de2ecf4a028ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
