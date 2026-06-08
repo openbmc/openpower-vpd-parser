@@ -128,6 +128,30 @@
       },
       "revId": "314661304517ab4fc21ed4c1e27de2ecf4a028ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dacebd4e_c4fe6ddb",
+        "filename": "service_files/wait-vpd-parsers.service",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-08T13:53:16Z",
+      "side": 1,
+      "message": "The service will fail if VPD collection is marked as failed so the use case that you are referring to should be covered.\nThe timeout scenario is just so that the service don\u0027t end up waiting infinitely for VPD collection. The timeout will be sufficiently large so that if VPD collection is not done in that time frame it should be understood that there is some major issue with the system and hence mark this service as failed.",
+      "parentUuid": "b1f5917b_93c60195",
+      "range": {
+        "startLine": 1,
+        "startChar": 40,
+        "endLine": 1,
+        "endChar": 41
+      },
+      "revId": "314661304517ab4fc21ed4c1e27de2ecf4a028ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
