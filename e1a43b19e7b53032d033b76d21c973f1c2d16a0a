@@ -16,6 +16,24 @@
       "message": "Why this change has been done?",
       "revId": "e1a43b19e7b53032d033b76d21c973f1c2d16a0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f73e7dac_fe6da681",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-08T08:51:33Z",
+      "side": 1,
+      "message": "It got removed by mistake and I missed it , added it . Thanks for pointing it out.",
+      "parentUuid": "1d0ef66c_b3d36799",
+      "revId": "e1a43b19e7b53032d033b76d21c973f1c2d16a0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
