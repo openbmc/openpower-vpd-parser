@@ -56,6 +56,30 @@
       },
       "revId": "314661304517ab4fc21ed4c1e27de2ecf4a028ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a7f1d24_6fc88d5d",
+        "filename": "service_files/wait-vpd-parsers.service",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-08T13:14:07Z",
+      "side": 1,
+      "message": "I will rephrase for better clarity but the service actually monitors the VPD collection status on DBus hosted by VPD-Manager and has a max timeout limit after which it marks the collection for overall system as failed.\nSo ideally it does not wait until VPD collection is complete.",
+      "parentUuid": "bed2e0f5_354ff753",
+      "range": {
+        "startLine": 1,
+        "startChar": 40,
+        "endLine": 1,
+        "endChar": 41
+      },
+      "revId": "314661304517ab4fc21ed4c1e27de2ecf4a028ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
