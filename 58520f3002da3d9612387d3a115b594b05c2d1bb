@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70732138_2ef0bc3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-09T10:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b3b8831_583a550c",
+      "revId": "58520f3002da3d9612387d3a115b594b05c2d1bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e106fc24_2c5d6890",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8fca7b8d_175f3f14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-09T10:21:36Z",
+      "side": 1,
+      "message": "I rephrased the statement to highlight the key changes introduced in this commit.\nMentioning the condition-variable wait also helps explain the synchronization behavior added by this change.",
+      "parentUuid": "e106fc24_2c5d6890",
+      "revId": "58520f3002da3d9612387d3a115b594b05c2d1bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "045e54dc_53944d90",
         "filename": "vpd-manager/include/thread_manager.hpp",
         "patchSetId": 2
@@ -48,6 +84,24 @@
       "writtenOn": "2026-06-09T09:19:57Z",
       "side": 1,
       "message": "I think its better to have `i_maxThreadsPerChassis` as a member variable of `ThreadManager` class, so that `Manager` can configure `maxThreadsPerChassis` as needed while constructing `ThreadManager` object.\n\nThis can also help to limit number of threads in reset-reload scenario.",
+      "revId": "58520f3002da3d9612387d3a115b594b05c2d1bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74a30230_e4568c73",
+        "filename": "vpd-manager/include/thread_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-09T10:21:36Z",
+      "side": 1,
+      "message": "I think we should avoid deciding i_maxThreadsPerChassis during ThreadManager object creation itself.\n\nCurrently, the value is derived dynamically based on the total maximum threads and the number of chassis present:\n\nMAX_THREADS / chassisCount\n\nSo the per-chassis thread limit may vary depending on the system configuration in the future(based on how many chassis are present). Passing it as a parameter keeps the API flexible and allows the caller to decide the appropriate value based on runtime conditions.",
+      "parentUuid": "045e54dc_53944d90",
       "revId": "58520f3002da3d9612387d3a115b594b05c2d1bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
