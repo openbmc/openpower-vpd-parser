@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f27f8e33_bff85a15",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-09T15:29:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63cd9aad_75cb7d56",
+      "revId": "f2371de5cc5fde7b98552fecede9f16b60ca86fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8ac93c2_fcb8273a",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-09T11:31:44Z",
       "side": 1,
       "message": "As the code needs to log the exception received from Dbus, we need to check here if the error code is corresponding to the Dbu exception and based on that we can just return without logging twice.",
+      "revId": "f2371de5cc5fde7b98552fecede9f16b60ca86fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5448d65_0bb29630",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-09T15:29:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8ac93c2_fcb8273a",
       "revId": "f2371de5cc5fde7b98552fecede9f16b60ca86fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
