@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63cd9aad_75cb7d56",
+        "filename": "vpd-manager/include/utility/dbus_utility.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-09T11:31:44Z",
+      "side": 1,
+      "message": "Please log the exception that was received from Dbus call. Else we might loose the exact reason behind the exception.",
+      "revId": "f2371de5cc5fde7b98552fecede9f16b60ca86fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8ac93c2_fcb8273a",
+        "filename": "vpd-manager/src/manager.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1000522
+      },
+      "writtenOn": "2026-06-09T11:31:44Z",
+      "side": 1,
+      "message": "As the code needs to log the exception received from Dbus, we need to check here if the error code is corresponding to the Dbu exception and based on that we can just return without logging twice.",
+      "revId": "f2371de5cc5fde7b98552fecede9f16b60ca86fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
