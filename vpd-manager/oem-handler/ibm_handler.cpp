@@ -835,6 +835,13 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
     {
         m_worker->populateDbus(i_parsedVpdMap, l_objectInterfaceMap,
                                SYSTEM_VPD_FILE_PATH);
+
+        // In FILE_MODE, restrict publishing to system path only
+        if (m_vpdCollectionMode == types::VpdCollectionMode::FILE_MODE)
+        {
+            filterToSystemPathOnly(l_objectInterfaceMap);
+        }
+
         try
         {
             if (m_isFactoryResetDone)
@@ -1390,4 +1397,38 @@ void IbmHandler::updateExpandedLocationCode()
         }
     }
 }
+
+void IbmHandler::filterToSystemPathOnly(
+    types::ObjectMap& io_objectMap) const noexcept
+{
+    try
+    {
+        // Keep only the system inventory path entry
+        auto l_systemPathItr =
+            io_objectMap.find(sdbusplus::object_path(constants::systemInvPath));
+
+        if (l_systemPathItr != io_objectMap.end())
+        {
+            types::ObjectMap l_filteredMap;
+            l_filteredMap.emplace(l_systemPathItr->first,
+                                  std::move(l_systemPathItr->second));
+
+            // Replace original map with filtered map
+            io_objectMap = std::move(l_filteredMap);
+        }
+        else
+        {
+            //@todo: should this be a PEL?
+            m_logger->logMessage(
+                "FILE_MODE: Warning - System path not found in object map during filtering.");
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Error while filtering system VPD map for system inventory path: {}",
+            l_ex.what()));
+    }
+}
+
 } // namespace vpd
