@@ -3,6 +3,91 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7ec6ecd_54027110",
+        "filename": "vpd-tool/include/vpd_tool.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-09T15:37:21Z",
+      "side": 1,
+      "message": "Nit: given EEPROM",
+      "revId": "80182eaeba24b1f2382761904b6c556e3dd7c605",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "108f7079_4c3c0c37",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1646,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-09T15:37:21Z",
+      "side": 1,
+      "message": "why can\u0027t append the log in the above line itself ?",
+      "revId": "80182eaeba24b1f2382761904b6c556e3dd7c605",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e68c17f_2b207ccf",
+        "filename": "vpd-tool/src/vpd_tool.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1652,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-09T15:37:21Z",
+      "side": 1,
+      "message": "can we say \"Failed to validate primary EEPROM {PATH} against its redundant EEPROM.\" ?",
+      "revId": "80182eaeba24b1f2382761904b6c556e3dd7c605",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c7d0e91_01bca8f9",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-09T15:37:21Z",
+      "side": 1,
+      "message": "Since ValidateRedundantEEPROM takes an EEPROM path as input, should we enforce the -H option as mandatory from the user as well? Just a thought .",
+      "revId": "80182eaeba24b1f2382761904b6c556e3dd7c605",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6fc85cc_3e33336d",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1001932
+      },
+      "writtenOn": "2026-06-09T15:37:21Z",
+      "side": 1,
+      "message": "is it \"Validate primary EEPROM against its redundant EEPROM\" ?",
+      "revId": "80182eaeba24b1f2382761904b6c556e3dd7c605",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2756907c_5f34456d",
         "filename": "vpd-tool/src/vpd_tool_main.cpp",
         "patchSetId": 2
