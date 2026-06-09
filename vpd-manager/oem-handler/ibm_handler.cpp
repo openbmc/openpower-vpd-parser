@@ -835,6 +835,14 @@ void IbmHandler::publishSystemVPD(const types::VPDMapVariant& i_parsedVpdMap)
     {
         m_worker->populateDbus(i_parsedVpdMap, l_objectInterfaceMap,
                                SYSTEM_VPD_FILE_PATH);
+
+        // In split mode system, file mode system VPD has to be enabled.
+        // Update system inventory for split mode
+        if (m_vpdCollectionMode == types::VpdCollectionMode::FILE_MODE)
+        {
+            updateSystemInvSplitMode(l_objectInterfaceMap);
+        }
+
         try
         {
             if (m_isFactoryResetDone)
@@ -1390,4 +1398,47 @@ void IbmHandler::updateExpandedLocationCode()
         }
     }
 }
+
+void IbmHandler::updateSystemInvSplitMode(
+    types::ObjectMap& io_objectMap) const noexcept
+{
+    try
+    {
+        // For all inventory paths other than system inventory path:
+        // 1. Preserve the existing interfaces and properties in the map
+        // 2. Reset the existing properties in the map to default values
+        for (auto& [l_path, l_interfaceMap] : io_objectMap)
+        {
+            // Skip the system inventory path - keep it unchanged
+            if (l_path == sdbusplus::object_path(constants::systemInvPath))
+            {
+                continue;
+            }
+
+            uint16_t l_errCode = 0;
+            types::InterfaceMap l_resetInterfaceMap;
+
+            vpdSpecificUtility::resetDataUnderPIM(
+                l_path.str, l_resetInterfaceMap, true, l_errCode);
+
+            if (l_errCode)
+            {
+                m_logger->logMessage(std::format(
+                    "Failed to reset data for path [{}], error: {}. Skipping.",
+                    l_path.str, commonUtility::getErrCodeMsg(l_errCode)));
+                continue;
+            }
+
+            // Replace the interface map with reset data
+            l_interfaceMap = std::move(l_resetInterfaceMap);
+        }
+    }
+    catch (const std::exception& l_ex)
+    {
+        m_logger->logMessage(std::format(
+            "Error while filtering system VPD map for system inventory path: {}",
+            l_ex.what()));
+    }
+}
+
 } // namespace vpd

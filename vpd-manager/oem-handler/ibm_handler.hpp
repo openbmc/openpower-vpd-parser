@@ -143,6 +143,22 @@ class IbmHandler
         const types::VPDMapVariant& i_parsedVpdMap);
 
     /**
+     * @brief Update system inventory for split mode systems
+     *
+     * This method updates the object map containing system inventory to reset
+     * data under all inventory paths other than system inventory path. On split
+     * mode systems, system VPD is collected from file and all other sub FRUs
+     * modelled under the system VPD EEPROM should be published on D-Bus with
+     * default data.
+     *
+     * @param[in,out] io_objectMap - Object map to be filtered. On success, it
+     * contains the updated map with data under all inventory paths other than
+     * system inventory path reset to default values.
+     */
+    void updateSystemInvSplitMode(
+        types::ObjectMap& io_objectMap) const noexcept;
+
+    /**
      * @brief Set timer to detect and set VPD collection status for the system.
      *
      * Collection of FRU VPD is triggered in a separate thread. Resulting in
