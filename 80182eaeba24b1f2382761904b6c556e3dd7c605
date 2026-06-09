@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6634fbef_ebe33e86",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-09T15:32:37Z",
+      "side": 1,
+      "message": "Acknowledged , Moved the eeprom path validation from main() .",
+      "parentUuid": "2756907c_5f34456d",
+      "revId": "80182eaeba24b1f2382761904b6c556e3dd7c605",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3199d302_7fbdbdc6",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-06-09T11:45:23Z",
       "side": 1,
       "message": "\"Failed to check if EEPROM path exists, reason:\" ?",
+      "revId": "80182eaeba24b1f2382761904b6c556e3dd7c605",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72ebd6bf_e5ead569",
+        "filename": "vpd-tool/src/vpd_tool_main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1002726
+      },
+      "writtenOn": "2026-06-09T15:32:37Z",
+      "side": 1,
+      "message": "Modified .",
+      "parentUuid": "3199d302_7fbdbdc6",
       "revId": "80182eaeba24b1f2382761904b6c556e3dd7c605",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
