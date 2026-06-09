@@ -143,6 +143,21 @@ class IbmHandler
         const types::VPDMapVariant& i_parsedVpdMap);
 
     /**
+     * @brief Filter object map to contain only system inventory path.
+     *
+     * This method filters object paths from given object path map to retain
+     * only the system inventory path. It is used when file mode VPD is enabled
+     * to restrict VPD publishing to only the system inventory path, removing
+     * all other inventory paths from the object map.
+     *
+     * @param[in,out] io_objectMap - Object map to be filtered. On success, it
+     * will contain only the system inventory path entry. On failure, it will
+     * contain the original map
+     */
+    void filterToSystemInvPathOnly(
+        types::ObjectMap& io_objectMap) const noexcept;
+
+    /**
      * @brief Set timer to detect and set VPD collection status for the system.
      *
      * Collection of FRU VPD is triggered in a separate thread. Resulting in
